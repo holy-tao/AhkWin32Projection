@@ -272,9 +272,10 @@ class IGroupPolicyObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-igrouppolicyobject-getpropertysheetpages
      */
     GetPropertySheetPages(hPages, uPageCount) {
+        hPagesMarshal := hPages is VarRef ? "ptr*" : "ptr"
         uPageCountMarshal := uPageCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(20, this, "ptr*", hPages, uPageCountMarshal, uPageCount, "HRESULT")
+        result := ComCall(20, this, hPagesMarshal, hPages, uPageCountMarshal, uPageCount, "HRESULT")
         return result
     }
 }

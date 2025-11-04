@@ -51,7 +51,9 @@ class IAudioFormatEnumerator extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-iaudioformatenumerator-getformat
      */
     GetFormat(index, format) {
-        result := ComCall(4, this, "uint", index, "ptr*", format, "HRESULT")
+        formatMarshal := format is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "uint", index, formatMarshal, format, "HRESULT")
         return result
     }
 }

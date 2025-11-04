@@ -2962,7 +2962,9 @@ class WindowsFilteringPlatform {
      * @since windows6.0.6000
      */
     static FwpmFreeMemory0(p) {
-        DllCall("fwpuclnt.dll\FwpmFreeMemory0", "ptr*", p)
+        pMarshal := p is VarRef ? "ptr*" : "ptr"
+
+        DllCall("fwpuclnt.dll\FwpmFreeMemory0", pMarshal, p)
     }
 
     /**
@@ -3202,7 +3204,9 @@ class WindowsFilteringPlatform {
     static FwpmEngineGetOption0(engineHandle, option, value) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        result := DllCall("fwpuclnt.dll\FwpmEngineGetOption0", "ptr", engineHandle, "int", option, "ptr*", value, "uint")
+        valueMarshal := value is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("fwpuclnt.dll\FwpmEngineGetOption0", "ptr", engineHandle, "int", option, valueMarshal, value, "uint")
         return result
     }
 
@@ -3378,7 +3382,10 @@ class WindowsFilteringPlatform {
     static FwpmEngineGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        result := DllCall("fwpuclnt.dll\FwpmEngineGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr*", dacl, "ptr*", sacl, "ptr", securityDescriptor, "uint")
+        daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
+        saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("fwpuclnt.dll\FwpmEngineGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
         return result
     }
 
@@ -3589,9 +3596,10 @@ class WindowsFilteringPlatform {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
         enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
 
+        entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
         numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmSessionEnum0", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr*", entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmSessionEnum0", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
         return result
     }
 
@@ -4055,7 +4063,9 @@ class WindowsFilteringPlatform {
     static FwpmProviderGetByKey0(engineHandle, key, provider) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        result := DllCall("fwpuclnt.dll\FwpmProviderGetByKey0", "ptr", engineHandle, "ptr", key, "ptr*", provider, "uint")
+        providerMarshal := provider is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("fwpuclnt.dll\FwpmProviderGetByKey0", "ptr", engineHandle, "ptr", key, providerMarshal, provider, "uint")
         return result
     }
 
@@ -4192,9 +4202,10 @@ class WindowsFilteringPlatform {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
         enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
 
+        entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
         numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmProviderEnum0", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr*", entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmProviderEnum0", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
         return result
     }
 
@@ -4337,7 +4348,10 @@ class WindowsFilteringPlatform {
     static FwpmProviderGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        result := DllCall("fwpuclnt.dll\FwpmProviderGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr*", dacl, "ptr*", sacl, "ptr", securityDescriptor, "uint")
+        daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
+        saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("fwpuclnt.dll\FwpmProviderGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
         return result
     }
 
@@ -4615,9 +4629,10 @@ class WindowsFilteringPlatform {
     static FwpmProviderSubscriptionsGet0(engineHandle, entries, numEntries) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
+        entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
         numEntriesMarshal := numEntries is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmProviderSubscriptionsGet0", "ptr", engineHandle, "ptr*", entries, numEntriesMarshal, numEntries, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmProviderSubscriptionsGet0", "ptr", engineHandle, entriesMarshal, entries, numEntriesMarshal, numEntries, "uint")
         return result
     }
 
@@ -5076,7 +5091,9 @@ class WindowsFilteringPlatform {
     static FwpmProviderContextGetById0(engineHandle, id, providerContext) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        result := DllCall("fwpuclnt.dll\FwpmProviderContextGetById0", "ptr", engineHandle, "uint", id, "ptr*", providerContext, "uint")
+        providerContextMarshal := providerContext is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("fwpuclnt.dll\FwpmProviderContextGetById0", "ptr", engineHandle, "uint", id, providerContextMarshal, providerContext, "uint")
         return result
     }
 
@@ -5141,7 +5158,9 @@ class WindowsFilteringPlatform {
     static FwpmProviderContextGetById1(engineHandle, id, providerContext) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        result := DllCall("fwpuclnt.dll\FwpmProviderContextGetById1", "ptr", engineHandle, "uint", id, "ptr*", providerContext, "uint")
+        providerContextMarshal := providerContext is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("fwpuclnt.dll\FwpmProviderContextGetById1", "ptr", engineHandle, "uint", id, providerContextMarshal, providerContext, "uint")
         return result
     }
 
@@ -5206,7 +5225,9 @@ class WindowsFilteringPlatform {
     static FwpmProviderContextGetById2(engineHandle, id, providerContext) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        result := DllCall("fwpuclnt.dll\FwpmProviderContextGetById2", "ptr", engineHandle, "uint", id, "ptr*", providerContext, "uint")
+        providerContextMarshal := providerContext is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("fwpuclnt.dll\FwpmProviderContextGetById2", "ptr", engineHandle, "uint", id, providerContextMarshal, providerContext, "uint")
         return result
     }
 
@@ -5220,7 +5241,9 @@ class WindowsFilteringPlatform {
     static FwpmProviderContextGetById3(engineHandle, id, providerContext) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        result := DllCall("fwpuclnt.dll\FwpmProviderContextGetById3", "ptr", engineHandle, "uint", id, "ptr*", providerContext, "uint")
+        providerContextMarshal := providerContext is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("fwpuclnt.dll\FwpmProviderContextGetById3", "ptr", engineHandle, "uint", id, providerContextMarshal, providerContext, "uint")
         return result
     }
 
@@ -5285,7 +5308,9 @@ class WindowsFilteringPlatform {
     static FwpmProviderContextGetByKey0(engineHandle, key, providerContext) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        result := DllCall("fwpuclnt.dll\FwpmProviderContextGetByKey0", "ptr", engineHandle, "ptr", key, "ptr*", providerContext, "uint")
+        providerContextMarshal := providerContext is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("fwpuclnt.dll\FwpmProviderContextGetByKey0", "ptr", engineHandle, "ptr", key, providerContextMarshal, providerContext, "uint")
         return result
     }
 
@@ -5350,7 +5375,9 @@ class WindowsFilteringPlatform {
     static FwpmProviderContextGetByKey1(engineHandle, key, providerContext) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        result := DllCall("fwpuclnt.dll\FwpmProviderContextGetByKey1", "ptr", engineHandle, "ptr", key, "ptr*", providerContext, "uint")
+        providerContextMarshal := providerContext is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("fwpuclnt.dll\FwpmProviderContextGetByKey1", "ptr", engineHandle, "ptr", key, providerContextMarshal, providerContext, "uint")
         return result
     }
 
@@ -5415,7 +5442,9 @@ class WindowsFilteringPlatform {
     static FwpmProviderContextGetByKey2(engineHandle, key, providerContext) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        result := DllCall("fwpuclnt.dll\FwpmProviderContextGetByKey2", "ptr", engineHandle, "ptr", key, "ptr*", providerContext, "uint")
+        providerContextMarshal := providerContext is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("fwpuclnt.dll\FwpmProviderContextGetByKey2", "ptr", engineHandle, "ptr", key, providerContextMarshal, providerContext, "uint")
         return result
     }
 
@@ -5429,7 +5458,9 @@ class WindowsFilteringPlatform {
     static FwpmProviderContextGetByKey3(engineHandle, key, providerContext) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        result := DllCall("fwpuclnt.dll\FwpmProviderContextGetByKey3", "ptr", engineHandle, "ptr", key, "ptr*", providerContext, "uint")
+        providerContextMarshal := providerContext is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("fwpuclnt.dll\FwpmProviderContextGetByKey3", "ptr", engineHandle, "ptr", key, providerContextMarshal, providerContext, "uint")
         return result
     }
 
@@ -5566,9 +5597,10 @@ class WindowsFilteringPlatform {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
         enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
 
+        entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
         numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmProviderContextEnum0", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr*", entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmProviderContextEnum0", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
         return result
     }
 
@@ -5640,9 +5672,10 @@ class WindowsFilteringPlatform {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
         enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
 
+        entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
         numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmProviderContextEnum1", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr*", entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmProviderContextEnum1", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
         return result
     }
 
@@ -5714,9 +5747,10 @@ class WindowsFilteringPlatform {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
         enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
 
+        entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
         numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmProviderContextEnum2", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr*", entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmProviderContextEnum2", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
         return result
     }
 
@@ -5733,9 +5767,10 @@ class WindowsFilteringPlatform {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
         enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
 
+        entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
         numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmProviderContextEnum3", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr*", entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmProviderContextEnum3", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
         return result
     }
 
@@ -5878,7 +5913,10 @@ class WindowsFilteringPlatform {
     static FwpmProviderContextGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        result := DllCall("fwpuclnt.dll\FwpmProviderContextGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr*", dacl, "ptr*", sacl, "ptr", securityDescriptor, "uint")
+        daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
+        saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("fwpuclnt.dll\FwpmProviderContextGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
         return result
     }
 
@@ -6156,9 +6194,10 @@ class WindowsFilteringPlatform {
     static FwpmProviderContextSubscriptionsGet0(engineHandle, entries, numEntries) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
+        entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
         numEntriesMarshal := numEntries is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmProviderContextSubscriptionsGet0", "ptr", engineHandle, "ptr*", entries, numEntriesMarshal, numEntries, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmProviderContextSubscriptionsGet0", "ptr", engineHandle, entriesMarshal, entries, numEntriesMarshal, numEntries, "uint")
         return result
     }
 
@@ -6351,7 +6390,9 @@ class WindowsFilteringPlatform {
     static FwpmSubLayerGetByKey0(engineHandle, key, subLayer) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        result := DllCall("fwpuclnt.dll\FwpmSubLayerGetByKey0", "ptr", engineHandle, "ptr", key, "ptr*", subLayer, "uint")
+        subLayerMarshal := subLayer is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("fwpuclnt.dll\FwpmSubLayerGetByKey0", "ptr", engineHandle, "ptr", key, subLayerMarshal, subLayer, "uint")
         return result
     }
 
@@ -6488,9 +6529,10 @@ class WindowsFilteringPlatform {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
         enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
 
+        entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
         numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmSubLayerEnum0", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr*", entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmSubLayerEnum0", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
         return result
     }
 
@@ -6633,7 +6675,10 @@ class WindowsFilteringPlatform {
     static FwpmSubLayerGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        result := DllCall("fwpuclnt.dll\FwpmSubLayerGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr*", dacl, "ptr*", sacl, "ptr", securityDescriptor, "uint")
+        daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
+        saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("fwpuclnt.dll\FwpmSubLayerGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
         return result
     }
 
@@ -6911,9 +6956,10 @@ class WindowsFilteringPlatform {
     static FwpmSubLayerSubscriptionsGet0(engineHandle, entries, numEntries) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
+        entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
         numEntriesMarshal := numEntries is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmSubLayerSubscriptionsGet0", "ptr", engineHandle, "ptr*", entries, numEntriesMarshal, numEntries, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmSubLayerSubscriptionsGet0", "ptr", engineHandle, entriesMarshal, entries, numEntriesMarshal, numEntries, "uint")
         return result
     }
 
@@ -6978,7 +7024,9 @@ class WindowsFilteringPlatform {
     static FwpmLayerGetById0(engineHandle, id, layer) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        result := DllCall("fwpuclnt.dll\FwpmLayerGetById0", "ptr", engineHandle, "ushort", id, "ptr*", layer, "uint")
+        layerMarshal := layer is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("fwpuclnt.dll\FwpmLayerGetById0", "ptr", engineHandle, "ushort", id, layerMarshal, layer, "uint")
         return result
     }
 
@@ -7043,7 +7091,9 @@ class WindowsFilteringPlatform {
     static FwpmLayerGetByKey0(engineHandle, key, layer) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        result := DllCall("fwpuclnt.dll\FwpmLayerGetByKey0", "ptr", engineHandle, "ptr", key, "ptr*", layer, "uint")
+        layerMarshal := layer is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("fwpuclnt.dll\FwpmLayerGetByKey0", "ptr", engineHandle, "ptr", key, layerMarshal, layer, "uint")
         return result
     }
 
@@ -7180,9 +7230,10 @@ class WindowsFilteringPlatform {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
         enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
 
+        entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
         numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmLayerEnum0", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr*", entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmLayerEnum0", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
         return result
     }
 
@@ -7325,7 +7376,10 @@ class WindowsFilteringPlatform {
     static FwpmLayerGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        result := DllCall("fwpuclnt.dll\FwpmLayerGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr*", dacl, "ptr*", sacl, "ptr", securityDescriptor, "uint")
+        daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
+        saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("fwpuclnt.dll\FwpmLayerGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
         return result
     }
 
@@ -7675,7 +7729,9 @@ class WindowsFilteringPlatform {
     static FwpmCalloutGetById0(engineHandle, id, callout) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        result := DllCall("fwpuclnt.dll\FwpmCalloutGetById0", "ptr", engineHandle, "uint", id, "ptr*", callout, "uint")
+        calloutMarshal := callout is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("fwpuclnt.dll\FwpmCalloutGetById0", "ptr", engineHandle, "uint", id, calloutMarshal, callout, "uint")
         return result
     }
 
@@ -7740,7 +7796,9 @@ class WindowsFilteringPlatform {
     static FwpmCalloutGetByKey0(engineHandle, key, callout) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        result := DllCall("fwpuclnt.dll\FwpmCalloutGetByKey0", "ptr", engineHandle, "ptr", key, "ptr*", callout, "uint")
+        calloutMarshal := callout is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("fwpuclnt.dll\FwpmCalloutGetByKey0", "ptr", engineHandle, "ptr", key, calloutMarshal, callout, "uint")
         return result
     }
 
@@ -7877,9 +7935,10 @@ class WindowsFilteringPlatform {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
         enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
 
+        entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
         numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmCalloutEnum0", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr*", entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmCalloutEnum0", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
         return result
     }
 
@@ -8022,7 +8081,10 @@ class WindowsFilteringPlatform {
     static FwpmCalloutGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        result := DllCall("fwpuclnt.dll\FwpmCalloutGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr*", dacl, "ptr*", sacl, "ptr", securityDescriptor, "uint")
+        daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
+        saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("fwpuclnt.dll\FwpmCalloutGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
         return result
     }
 
@@ -8300,9 +8362,10 @@ class WindowsFilteringPlatform {
     static FwpmCalloutSubscriptionsGet0(engineHandle, entries, numEntries) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
+        entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
         numEntriesMarshal := numEntries is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmCalloutSubscriptionsGet0", "ptr", engineHandle, "ptr*", entries, numEntriesMarshal, numEntries, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmCalloutSubscriptionsGet0", "ptr", engineHandle, entriesMarshal, entries, numEntriesMarshal, numEntries, "uint")
         return result
     }
 
@@ -8527,7 +8590,9 @@ class WindowsFilteringPlatform {
     static FwpmFilterGetById0(engineHandle, id, filter) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        result := DllCall("fwpuclnt.dll\FwpmFilterGetById0", "ptr", engineHandle, "uint", id, "ptr*", filter, "uint")
+        filterMarshal := filter is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("fwpuclnt.dll\FwpmFilterGetById0", "ptr", engineHandle, "uint", id, filterMarshal, filter, "uint")
         return result
     }
 
@@ -8592,7 +8657,9 @@ class WindowsFilteringPlatform {
     static FwpmFilterGetByKey0(engineHandle, key, filter) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        result := DllCall("fwpuclnt.dll\FwpmFilterGetByKey0", "ptr", engineHandle, "ptr", key, "ptr*", filter, "uint")
+        filterMarshal := filter is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("fwpuclnt.dll\FwpmFilterGetByKey0", "ptr", engineHandle, "ptr", key, filterMarshal, filter, "uint")
         return result
     }
 
@@ -8729,9 +8796,10 @@ class WindowsFilteringPlatform {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
         enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
 
+        entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
         numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmFilterEnum0", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr*", entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmFilterEnum0", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
         return result
     }
 
@@ -8874,7 +8942,10 @@ class WindowsFilteringPlatform {
     static FwpmFilterGetSecurityInfoByKey0(engineHandle, key, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        result := DllCall("fwpuclnt.dll\FwpmFilterGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr*", dacl, "ptr*", sacl, "ptr", securityDescriptor, "uint")
+        daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
+        saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("fwpuclnt.dll\FwpmFilterGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", key, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
         return result
     }
 
@@ -9152,9 +9223,10 @@ class WindowsFilteringPlatform {
     static FwpmFilterSubscriptionsGet0(engineHandle, entries, numEntries) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
+        entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
         numEntriesMarshal := numEntries is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmFilterSubscriptionsGet0", "ptr", engineHandle, "ptr*", entries, numEntriesMarshal, numEntries, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmFilterSubscriptionsGet0", "ptr", engineHandle, entriesMarshal, entries, numEntriesMarshal, numEntries, "uint")
         return result
     }
 
@@ -9216,7 +9288,9 @@ class WindowsFilteringPlatform {
     static FwpmGetAppIdFromFileName0(fileName, appId) {
         fileName := fileName is String ? StrPtr(fileName) : fileName
 
-        result := DllCall("fwpuclnt.dll\FwpmGetAppIdFromFileName0", "ptr", fileName, "ptr*", appId, "uint")
+        appIdMarshal := appId is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("fwpuclnt.dll\FwpmGetAppIdFromFileName0", "ptr", fileName, appIdMarshal, appId, "uint")
         return result
     }
 
@@ -9860,7 +9934,9 @@ class WindowsFilteringPlatform {
     static IPsecSaContextGetById0(engineHandle, id, saContext) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        result := DllCall("fwpuclnt.dll\IPsecSaContextGetById0", "ptr", engineHandle, "uint", id, "ptr*", saContext, "uint")
+        saContextMarshal := saContext is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("fwpuclnt.dll\IPsecSaContextGetById0", "ptr", engineHandle, "uint", id, saContextMarshal, saContext, "uint")
         return result
     }
 
@@ -9925,7 +10001,9 @@ class WindowsFilteringPlatform {
     static IPsecSaContextGetById1(engineHandle, id, saContext) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        result := DllCall("fwpuclnt.dll\IPsecSaContextGetById1", "ptr", engineHandle, "uint", id, "ptr*", saContext, "uint")
+        saContextMarshal := saContext is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("fwpuclnt.dll\IPsecSaContextGetById1", "ptr", engineHandle, "uint", id, saContextMarshal, saContext, "uint")
         return result
     }
 
@@ -10736,9 +10814,10 @@ class WindowsFilteringPlatform {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
         enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
 
+        entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
         numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\IPsecSaContextEnum0", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr*", entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
+        result := DllCall("fwpuclnt.dll\IPsecSaContextEnum0", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
         return result
     }
 
@@ -10810,9 +10889,10 @@ class WindowsFilteringPlatform {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
         enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
 
+        entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
         numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\IPsecSaContextEnum1", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr*", entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
+        result := DllCall("fwpuclnt.dll\IPsecSaContextEnum1", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
         return result
     }
 
@@ -11078,9 +11158,10 @@ class WindowsFilteringPlatform {
     static IPsecSaContextSubscriptionsGet0(engineHandle, entries, numEntries) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
+        entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
         numEntriesMarshal := numEntries is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\IPsecSaContextSubscriptionsGet0", "ptr", engineHandle, "ptr*", entries, numEntriesMarshal, numEntries, "uint")
+        result := DllCall("fwpuclnt.dll\IPsecSaContextSubscriptionsGet0", "ptr", engineHandle, entriesMarshal, entries, numEntriesMarshal, numEntries, "uint")
         return result
     }
 
@@ -11217,9 +11298,10 @@ class WindowsFilteringPlatform {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
         enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
 
+        entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
         numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\IPsecSaEnum0", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr*", entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
+        result := DllCall("fwpuclnt.dll\IPsecSaEnum0", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
         return result
     }
 
@@ -11291,9 +11373,10 @@ class WindowsFilteringPlatform {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
         enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
 
+        entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
         numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\IPsecSaEnum1", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr*", entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
+        result := DllCall("fwpuclnt.dll\IPsecSaEnum1", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
         return result
     }
 
@@ -11433,7 +11516,10 @@ class WindowsFilteringPlatform {
     static IPsecSaDbGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        result := DllCall("fwpuclnt.dll\IPsecSaDbGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr*", dacl, "ptr*", sacl, "ptr", securityDescriptor, "uint")
+        daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
+        saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("fwpuclnt.dll\IPsecSaDbGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
         return result
     }
 
@@ -11706,9 +11792,10 @@ class WindowsFilteringPlatform {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
         enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
 
+        entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
         numEntriesMarshal := numEntries is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\IPsecDospStateEnum0", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr*", entries, numEntriesMarshal, numEntries, "uint")
+        result := DllCall("fwpuclnt.dll\IPsecDospStateEnum0", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesMarshal, numEntries, "uint")
         return result
     }
 
@@ -11848,7 +11935,10 @@ class WindowsFilteringPlatform {
     static IPsecDospGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        result := DllCall("fwpuclnt.dll\IPsecDospGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr*", dacl, "ptr*", sacl, "ptr", securityDescriptor, "uint")
+        daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
+        saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("fwpuclnt.dll\IPsecDospGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
         return result
     }
 
@@ -12154,9 +12244,10 @@ class WindowsFilteringPlatform {
     static IPsecKeyManagersGet0(engineHandle, entries, numEntries) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
+        entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
         numEntriesMarshal := numEntries is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\IPsecKeyManagersGet0", "ptr", engineHandle, "ptr*", entries, numEntriesMarshal, numEntries, "uint")
+        result := DllCall("fwpuclnt.dll\IPsecKeyManagersGet0", "ptr", engineHandle, entriesMarshal, entries, numEntriesMarshal, numEntries, "uint")
         return result
     }
 
@@ -12235,7 +12326,10 @@ class WindowsFilteringPlatform {
 
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        result := DllCall("fwpuclnt.dll\IPsecKeyManagerGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", reserved, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr*", dacl, "ptr*", sacl, "ptr", securityDescriptor, "uint")
+        daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
+        saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("fwpuclnt.dll\IPsecKeyManagerGetSecurityInfoByKey0", "ptr", engineHandle, "ptr", reserved, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
         return result
     }
 
@@ -12562,7 +12656,9 @@ class WindowsFilteringPlatform {
     static IkeextSaGetById0(engineHandle, id, sa) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        result := DllCall("fwpuclnt.dll\IkeextSaGetById0", "ptr", engineHandle, "uint", id, "ptr*", sa, "uint")
+        saMarshal := sa is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("fwpuclnt.dll\IkeextSaGetById0", "ptr", engineHandle, "uint", id, saMarshal, sa, "uint")
         return result
     }
 
@@ -12630,7 +12726,9 @@ class WindowsFilteringPlatform {
     static IkeextSaGetById1(engineHandle, id, saLookupContext, sa) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        result := DllCall("fwpuclnt.dll\IkeextSaGetById1", "ptr", engineHandle, "uint", id, "ptr", saLookupContext, "ptr*", sa, "uint")
+        saMarshal := sa is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("fwpuclnt.dll\IkeextSaGetById1", "ptr", engineHandle, "uint", id, "ptr", saLookupContext, saMarshal, sa, "uint")
         return result
     }
 
@@ -12698,7 +12796,9 @@ class WindowsFilteringPlatform {
     static IkeextSaGetById2(engineHandle, id, saLookupContext, sa) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        result := DllCall("fwpuclnt.dll\IkeextSaGetById2", "ptr", engineHandle, "uint", id, "ptr", saLookupContext, "ptr*", sa, "uint")
+        saMarshal := sa is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("fwpuclnt.dll\IkeextSaGetById2", "ptr", engineHandle, "uint", id, "ptr", saLookupContext, saMarshal, sa, "uint")
         return result
     }
 
@@ -12835,9 +12935,10 @@ class WindowsFilteringPlatform {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
         enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
 
+        entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
         numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\IkeextSaEnum0", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr*", entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
+        result := DllCall("fwpuclnt.dll\IkeextSaEnum0", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
         return result
     }
 
@@ -12909,9 +13010,10 @@ class WindowsFilteringPlatform {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
         enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
 
+        entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
         numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\IkeextSaEnum1", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr*", entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
+        result := DllCall("fwpuclnt.dll\IkeextSaEnum1", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
         return result
     }
 
@@ -12983,9 +13085,10 @@ class WindowsFilteringPlatform {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
         enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
 
+        entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
         numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\IkeextSaEnum2", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr*", entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
+        result := DllCall("fwpuclnt.dll\IkeextSaEnum2", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
         return result
     }
 
@@ -13125,7 +13228,10 @@ class WindowsFilteringPlatform {
     static IkeextSaDbGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        result := DllCall("fwpuclnt.dll\IkeextSaDbGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr*", dacl, "ptr*", sacl, "ptr", securityDescriptor, "uint")
+        daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
+        saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("fwpuclnt.dll\IkeextSaDbGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
         return result
     }
 
@@ -13349,9 +13455,10 @@ class WindowsFilteringPlatform {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
         enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
 
+        entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
         numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmNetEventEnum0", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr*", entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmNetEventEnum0", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
         return result
     }
 
@@ -13436,9 +13543,10 @@ class WindowsFilteringPlatform {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
         enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
 
+        entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
         numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmNetEventEnum1", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr*", entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmNetEventEnum1", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
         return result
     }
 
@@ -13523,9 +13631,10 @@ class WindowsFilteringPlatform {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
         enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
 
+        entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
         numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmNetEventEnum2", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr*", entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmNetEventEnum2", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
         return result
     }
 
@@ -13598,9 +13707,10 @@ class WindowsFilteringPlatform {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
         enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
 
+        entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
         numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmNetEventEnum3", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr*", entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmNetEventEnum3", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
         return result
     }
 
@@ -13617,9 +13727,10 @@ class WindowsFilteringPlatform {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
         enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
 
+        entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
         numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmNetEventEnum4", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr*", entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmNetEventEnum4", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
         return result
     }
 
@@ -13636,9 +13747,10 @@ class WindowsFilteringPlatform {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
         enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
 
+        entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
         numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmNetEventEnum5", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr*", entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmNetEventEnum5", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
         return result
     }
 
@@ -13782,7 +13894,10 @@ class WindowsFilteringPlatform {
     static FwpmNetEventsGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        result := DllCall("fwpuclnt.dll\FwpmNetEventsGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr*", dacl, "ptr*", sacl, "ptr", securityDescriptor, "uint")
+        daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
+        saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("fwpuclnt.dll\FwpmNetEventsGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
         return result
     }
 
@@ -14059,9 +14174,10 @@ class WindowsFilteringPlatform {
     static FwpmNetEventSubscriptionsGet0(engineHandle, entries, numEntries) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
+        entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
         numEntriesMarshal := numEntries is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmNetEventSubscriptionsGet0", "ptr", engineHandle, "ptr*", entries, numEntriesMarshal, numEntries, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmNetEventSubscriptionsGet0", "ptr", engineHandle, entriesMarshal, entries, numEntriesMarshal, numEntries, "uint")
         return result
     }
 
@@ -14322,7 +14438,9 @@ class WindowsFilteringPlatform {
     static FwpmSystemPortsGet0(engineHandle, sysPorts) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        result := DllCall("fwpuclnt.dll\FwpmSystemPortsGet0", "ptr", engineHandle, "ptr*", sysPorts, "uint")
+        sysPortsMarshal := sysPorts is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("fwpuclnt.dll\FwpmSystemPortsGet0", "ptr", engineHandle, sysPortsMarshal, sysPorts, "uint")
         return result
     }
 
@@ -14522,7 +14640,9 @@ class WindowsFilteringPlatform {
     static FwpmConnectionGetById0(engineHandle, id, connection) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        result := DllCall("fwpuclnt.dll\FwpmConnectionGetById0", "ptr", engineHandle, "uint", id, "ptr*", connection, "uint")
+        connectionMarshal := connection is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("fwpuclnt.dll\FwpmConnectionGetById0", "ptr", engineHandle, "uint", id, connectionMarshal, connection, "uint")
         return result
     }
 
@@ -14592,9 +14712,10 @@ class WindowsFilteringPlatform {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
         enumHandle := enumHandle is Win32Handle ? NumGet(enumHandle, "ptr") : enumHandle
 
+        entriesMarshal := entries is VarRef ? "ptr*" : "ptr"
         numEntriesReturnedMarshal := numEntriesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("fwpuclnt.dll\FwpmConnectionEnum0", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, "ptr*", entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
+        result := DllCall("fwpuclnt.dll\FwpmConnectionEnum0", "ptr", engineHandle, "ptr", enumHandle, "uint", numEntriesRequested, entriesMarshal, entries, numEntriesReturnedMarshal, numEntriesReturned, "uint")
         return result
     }
 
@@ -14799,7 +14920,10 @@ class WindowsFilteringPlatform {
     static FwpmConnectionGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        result := DllCall("fwpuclnt.dll\FwpmConnectionGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr*", dacl, "ptr*", sacl, "ptr", securityDescriptor, "uint")
+        daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
+        saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("fwpuclnt.dll\FwpmConnectionGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
         return result
     }
 
@@ -15226,7 +15350,10 @@ class WindowsFilteringPlatform {
     static FwpmvSwitchEventsGetSecurityInfo0(engineHandle, securityInfo, sidOwner, sidGroup, dacl, sacl, securityDescriptor) {
         engineHandle := engineHandle is Win32Handle ? NumGet(engineHandle, "ptr") : engineHandle
 
-        result := DllCall("fwpuclnt.dll\FwpmvSwitchEventsGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, "ptr*", dacl, "ptr*", sacl, "ptr", securityDescriptor, "uint")
+        daclMarshal := dacl is VarRef ? "ptr*" : "ptr"
+        saclMarshal := sacl is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("fwpuclnt.dll\FwpmvSwitchEventsGetSecurityInfo0", "ptr", engineHandle, "uint", securityInfo, "ptr", sidOwner, "ptr", sidGroup, daclMarshal, dacl, saclMarshal, sacl, "ptr", securityDescriptor, "uint")
         return result
     }
 

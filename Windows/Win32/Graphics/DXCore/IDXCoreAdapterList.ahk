@@ -39,7 +39,9 @@ class IDXCoreAdapterList extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapterlist-getadapter
      */
     GetAdapter(index, riid, ppvAdapter) {
-        result := ComCall(3, this, "uint", index, "ptr", riid, "ptr*", ppvAdapter, "HRESULT")
+        ppvAdapterMarshal := ppvAdapter is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "uint", index, "ptr", riid, ppvAdapterMarshal, ppvAdapter, "HRESULT")
         return result
     }
 
@@ -71,7 +73,9 @@ class IDXCoreAdapterList extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapterlist-getfactory
      */
     GetFactory(riid, ppvFactory) {
-        result := ComCall(6, this, "ptr", riid, "ptr*", ppvFactory, "HRESULT")
+        ppvFactoryMarshal := ppvFactory is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "ptr", riid, ppvFactoryMarshal, ppvFactory, "HRESULT")
         return result
     }
 

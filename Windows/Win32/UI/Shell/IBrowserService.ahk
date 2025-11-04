@@ -146,7 +146,9 @@ class IBrowserService extends IUnknown{
     IEParseDisplayName(uiCP, pwszPath, ppidlOut) {
         pwszPath := pwszPath is String ? StrPtr(pwszPath) : pwszPath
 
-        result := ComCall(11, this, "uint", uiCP, "ptr", pwszPath, "ptr*", ppidlOut, "HRESULT")
+        ppidlOutMarshal := ppidlOut is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(11, this, "uint", uiCP, "ptr", pwszPath, ppidlOutMarshal, ppidlOut, "HRESULT")
         return result
     }
 
@@ -429,7 +431,9 @@ class IBrowserService extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-getpidl
      */
     GetPidl(ppidl) {
-        result := ComCall(22, this, "ptr*", ppidl, "HRESULT")
+        ppidlMarshal := ppidl is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(22, this, ppidlMarshal, ppidl, "HRESULT")
         return result
     }
 

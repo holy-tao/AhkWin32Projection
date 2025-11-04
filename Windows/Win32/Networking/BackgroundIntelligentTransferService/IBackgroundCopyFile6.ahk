@@ -67,8 +67,9 @@ class IBackgroundCopyFile6 extends IBackgroundCopyFile5{
      */
     GetFilledFileRanges(rangeCount, ranges) {
         rangeCountMarshal := rangeCount is VarRef ? "uint*" : "ptr"
+        rangesMarshal := ranges is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(17, this, rangeCountMarshal, rangeCount, "ptr*", ranges, "HRESULT")
+        result := ComCall(17, this, rangeCountMarshal, rangeCount, rangesMarshal, ranges, "HRESULT")
         return result
     }
 }

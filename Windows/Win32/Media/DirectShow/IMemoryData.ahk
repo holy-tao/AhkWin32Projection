@@ -55,9 +55,10 @@ class IMemoryData extends IUnknown{
      */
     GetInfo(pdwLength, ppbData, pcbActualData) {
         pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
+        ppbDataMarshal := ppbData is VarRef ? "ptr*" : "ptr"
         pcbActualDataMarshal := pcbActualData is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, pdwLengthMarshal, pdwLength, "ptr*", ppbData, pcbActualDataMarshal, pcbActualData, "HRESULT")
+        result := ComCall(4, this, pdwLengthMarshal, pdwLength, ppbDataMarshal, ppbData, pcbActualDataMarshal, pcbActualData, "HRESULT")
         return result
     }
 

@@ -41,9 +41,10 @@ class ISceSvcAttachmentData extends IUnknown{
      */
     GetData(scesvcHandle, sceType, ppvData, psceEnumHandle) {
         scesvcHandleMarshal := scesvcHandle is VarRef ? "ptr" : "ptr"
+        ppvDataMarshal := ppvData is VarRef ? "ptr*" : "ptr"
         psceEnumHandleMarshal := psceEnumHandle is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, scesvcHandleMarshal, scesvcHandle, "int", sceType, "ptr*", ppvData, psceEnumHandleMarshal, psceEnumHandle, "HRESULT")
+        result := ComCall(3, this, scesvcHandleMarshal, scesvcHandle, "int", sceType, ppvDataMarshal, ppvData, psceEnumHandleMarshal, psceEnumHandle, "HRESULT")
         return result
     }
 
@@ -69,8 +70,9 @@ class ISceSvcAttachmentData extends IUnknown{
     Initialize(lpServiceName, lpTemplateName, lpSceSvcPersistInfo, pscesvcHandle) {
         lpServiceNameMarshal := lpServiceName is VarRef ? "char*" : "ptr"
         lpTemplateNameMarshal := lpTemplateName is VarRef ? "char*" : "ptr"
+        pscesvcHandleMarshal := pscesvcHandle is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, lpServiceNameMarshal, lpServiceName, lpTemplateNameMarshal, lpTemplateName, "ptr", lpSceSvcPersistInfo, "ptr*", pscesvcHandle, "HRESULT")
+        result := ComCall(4, this, lpServiceNameMarshal, lpServiceName, lpTemplateNameMarshal, lpTemplateName, "ptr", lpSceSvcPersistInfo, pscesvcHandleMarshal, pscesvcHandle, "HRESULT")
         return result
     }
 

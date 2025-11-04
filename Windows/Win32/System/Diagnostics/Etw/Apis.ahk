@@ -3958,9 +3958,10 @@ class Etw {
      * @since windows5.0
      */
     static QueryAllTracesW(PropertyArray, PropertyArrayCount, LoggerCount) {
+        PropertyArrayMarshal := PropertyArray is VarRef ? "ptr*" : "ptr"
         LoggerCountMarshal := LoggerCount is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\QueryAllTracesW", "ptr*", PropertyArray, "uint", PropertyArrayCount, LoggerCountMarshal, LoggerCount, "uint")
+        result := DllCall("ADVAPI32.dll\QueryAllTracesW", PropertyArrayMarshal, PropertyArray, "uint", PropertyArrayCount, LoggerCountMarshal, LoggerCount, "uint")
         return result
     }
 
@@ -4022,9 +4023,10 @@ class Etw {
      * @since windows5.0
      */
     static QueryAllTracesA(PropertyArray, PropertyArrayCount, LoggerCount) {
+        PropertyArrayMarshal := PropertyArray is VarRef ? "ptr*" : "ptr"
         LoggerCountMarshal := LoggerCount is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\QueryAllTracesA", "ptr*", PropertyArray, "uint", PropertyArrayCount, LoggerCountMarshal, LoggerCount, "uint")
+        result := DllCall("ADVAPI32.dll\QueryAllTracesA", PropertyArrayMarshal, PropertyArray, "uint", PropertyArrayCount, LoggerCountMarshal, LoggerCount, "uint")
         return result
     }
 
@@ -5293,9 +5295,10 @@ class Etw {
      * @since windows5.1.2600
      */
     static EnumerateTraceGuids(GuidPropertiesArray, PropertyArrayCount, GuidCount) {
+        GuidPropertiesArrayMarshal := GuidPropertiesArray is VarRef ? "ptr*" : "ptr"
         GuidCountMarshal := GuidCount is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\EnumerateTraceGuids", "ptr*", GuidPropertiesArray, "uint", PropertyArrayCount, GuidCountMarshal, GuidCount, "uint")
+        result := DllCall("ADVAPI32.dll\EnumerateTraceGuids", GuidPropertiesArrayMarshal, GuidPropertiesArray, "uint", PropertyArrayCount, GuidCountMarshal, GuidCount, "uint")
         return result
     }
 
@@ -6980,7 +6983,9 @@ class Etw {
      * @since windows8.1
      */
     static TdhCreatePayloadFilter(ProviderGuid, EventDescriptor, EventMatchANY, PayloadPredicateCount, PayloadPredicates, PayloadFilter) {
-        result := DllCall("tdh.dll\TdhCreatePayloadFilter", "ptr", ProviderGuid, "ptr", EventDescriptor, "char", EventMatchANY, "uint", PayloadPredicateCount, "ptr", PayloadPredicates, "ptr*", PayloadFilter, "uint")
+        PayloadFilterMarshal := PayloadFilter is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("tdh.dll\TdhCreatePayloadFilter", "ptr", ProviderGuid, "ptr", EventDescriptor, "char", EventMatchANY, "uint", PayloadPredicateCount, "ptr", PayloadPredicates, PayloadFilterMarshal, PayloadFilter, "uint")
         return result
     }
 
@@ -7010,7 +7015,9 @@ class Etw {
      * @since windows8.1
      */
     static TdhDeletePayloadFilter(PayloadFilter) {
-        result := DllCall("tdh.dll\TdhDeletePayloadFilter", "ptr*", PayloadFilter, "uint")
+        PayloadFilterMarshal := PayloadFilter is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("tdh.dll\TdhDeletePayloadFilter", PayloadFilterMarshal, PayloadFilter, "uint")
         return result
     }
 
@@ -7073,7 +7080,9 @@ class Etw {
      * @since windows8.1
      */
     static TdhAggregatePayloadFilters(PayloadFilterCount, PayloadFilterPtrs, EventMatchALLFlags, EventFilterDescriptor) {
-        result := DllCall("tdh.dll\TdhAggregatePayloadFilters", "uint", PayloadFilterCount, "ptr*", PayloadFilterPtrs, "ptr", EventMatchALLFlags, "ptr", EventFilterDescriptor, "uint")
+        PayloadFilterPtrsMarshal := PayloadFilterPtrs is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("tdh.dll\TdhAggregatePayloadFilters", "uint", PayloadFilterCount, PayloadFilterPtrsMarshal, PayloadFilterPtrs, "ptr", EventMatchALLFlags, "ptr", EventFilterDescriptor, "uint")
         return result
     }
 

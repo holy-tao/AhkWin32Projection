@@ -63,7 +63,9 @@ class IPropertyDescriptionList extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescriptionlist-getat
      */
     GetAt(iElem, riid, ppv) {
-        result := ComCall(4, this, "uint", iElem, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "uint", iElem, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 }

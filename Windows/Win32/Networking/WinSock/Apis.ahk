@@ -23007,10 +23007,12 @@ class WinSock {
      */
     static GetAcceptExSockaddrs(lpOutputBuffer, dwReceiveDataLength, dwLocalAddressLength, dwRemoteAddressLength, LocalSockaddr, LocalSockaddrLength, RemoteSockaddr, RemoteSockaddrLength) {
         lpOutputBufferMarshal := lpOutputBuffer is VarRef ? "ptr" : "ptr"
+        LocalSockaddrMarshal := LocalSockaddr is VarRef ? "ptr*" : "ptr"
         LocalSockaddrLengthMarshal := LocalSockaddrLength is VarRef ? "int*" : "ptr"
+        RemoteSockaddrMarshal := RemoteSockaddr is VarRef ? "ptr*" : "ptr"
         RemoteSockaddrLengthMarshal := RemoteSockaddrLength is VarRef ? "int*" : "ptr"
 
-        DllCall("MSWSOCK.dll\GetAcceptExSockaddrs", lpOutputBufferMarshal, lpOutputBuffer, "uint", dwReceiveDataLength, "uint", dwLocalAddressLength, "uint", dwRemoteAddressLength, "ptr*", LocalSockaddr, LocalSockaddrLengthMarshal, LocalSockaddrLength, "ptr*", RemoteSockaddr, RemoteSockaddrLengthMarshal, RemoteSockaddrLength)
+        DllCall("MSWSOCK.dll\GetAcceptExSockaddrs", lpOutputBufferMarshal, lpOutputBuffer, "uint", dwReceiveDataLength, "uint", dwLocalAddressLength, "uint", dwRemoteAddressLength, LocalSockaddrMarshal, LocalSockaddr, LocalSockaddrLengthMarshal, LocalSockaddrLength, RemoteSockaddrMarshal, RemoteSockaddr, RemoteSockaddrLengthMarshal, RemoteSockaddrLength)
     }
 
     /**
@@ -26076,9 +26078,11 @@ class WinSock {
         pNodeName := pNodeName is String ? StrPtr(pNodeName) : pNodeName
         pServiceName := pServiceName is String ? StrPtr(pServiceName) : pServiceName
 
+        ppResultMarshal := ppResult is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("WS2_32.dll\getaddrinfo", "ptr", pNodeName, "ptr", pServiceName, "ptr", pHints, "ptr*", ppResult, "int")
+        result := DllCall("WS2_32.dll\getaddrinfo", "ptr", pNodeName, "ptr", pServiceName, "ptr", pHints, ppResultMarshal, ppResult, "int")
         if(A_LastError)
             throw OSError()
 
@@ -26289,7 +26293,9 @@ class WinSock {
         pNodeName := pNodeName is String ? StrPtr(pNodeName) : pNodeName
         pServiceName := pServiceName is String ? StrPtr(pServiceName) : pServiceName
 
-        result := DllCall("WS2_32.dll\GetAddrInfoW", "ptr", pNodeName, "ptr", pServiceName, "ptr", pHints, "ptr*", ppResult, "int")
+        ppResultMarshal := ppResult is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WS2_32.dll\GetAddrInfoW", "ptr", pNodeName, "ptr", pServiceName, "ptr", pHints, ppResultMarshal, ppResult, "int")
         return result
     }
 
@@ -26689,7 +26695,9 @@ class WinSock {
         pName := pName is String ? StrPtr(pName) : pName
         pServiceName := pServiceName is String ? StrPtr(pServiceName) : pServiceName
 
-        result := DllCall("WS2_32.dll\GetAddrInfoExA", "ptr", pName, "ptr", pServiceName, "uint", dwNameSpace, "ptr", lpNspId, "ptr", hints, "ptr*", ppResult, "ptr", timeout, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "ptr", lpNameHandle, "int")
+        ppResultMarshal := ppResult is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WS2_32.dll\GetAddrInfoExA", "ptr", pName, "ptr", pServiceName, "uint", dwNameSpace, "ptr", lpNspId, "ptr", hints, ppResultMarshal, ppResult, "ptr", timeout, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "ptr", lpNameHandle, "int")
         return result
     }
 
@@ -27082,7 +27090,9 @@ class WinSock {
         pName := pName is String ? StrPtr(pName) : pName
         pServiceName := pServiceName is String ? StrPtr(pServiceName) : pServiceName
 
-        result := DllCall("WS2_32.dll\GetAddrInfoExW", "ptr", pName, "ptr", pServiceName, "uint", dwNameSpace, "ptr", lpNspId, "ptr", hints, "ptr*", ppResult, "ptr", timeout, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "ptr", lpHandle, "int")
+        ppResultMarshal := ppResult is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WS2_32.dll\GetAddrInfoExW", "ptr", pName, "ptr", pServiceName, "uint", dwNameSpace, "ptr", lpNspId, "ptr", hints, ppResultMarshal, ppResult, "ptr", timeout, "ptr", lpOverlapped, "ptr", lpCompletionRoutine, "ptr", lpHandle, "int")
         return result
     }
 

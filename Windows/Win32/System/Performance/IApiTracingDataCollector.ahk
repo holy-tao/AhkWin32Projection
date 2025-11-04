@@ -153,7 +153,9 @@ class IApiTracingDataCollector extends IDataCollector{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iapitracingdatacollector-get_includemodules
      */
     get_IncludeModules(includemodules) {
-        result := ComCall(40, this, "ptr*", includemodules, "HRESULT")
+        includemodulesMarshal := includemodules is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(40, this, includemodulesMarshal, includemodules, "HRESULT")
         return result
     }
 
@@ -175,7 +177,9 @@ class IApiTracingDataCollector extends IDataCollector{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iapitracingdatacollector-get_includeapis
      */
     get_IncludeApis(includeapis) {
-        result := ComCall(42, this, "ptr*", includeapis, "HRESULT")
+        includeapisMarshal := includeapis is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(42, this, includeapisMarshal, includeapis, "HRESULT")
         return result
     }
 
@@ -197,7 +201,9 @@ class IApiTracingDataCollector extends IDataCollector{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iapitracingdatacollector-get_excludeapis
      */
     get_ExcludeApis(excludeapis) {
-        result := ComCall(44, this, "ptr*", excludeapis, "HRESULT")
+        excludeapisMarshal := excludeapis is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(44, this, excludeapisMarshal, excludeapis, "HRESULT")
         return result
     }
 

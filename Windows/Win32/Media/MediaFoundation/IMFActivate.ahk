@@ -43,7 +43,9 @@ class IMFActivate extends IMFAttributes{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfactivate-activateobject
      */
     ActivateObject(riid, ppv) {
-        result := ComCall(33, this, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(33, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 

@@ -41,9 +41,10 @@ class IMFSSLCertificateManager extends IUnknown{
     GetClientCertificate(pszURL, ppbData, pcbData) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
+        ppbDataMarshal := ppbData is VarRef ? "ptr*" : "ptr"
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pszURL, "ptr*", ppbData, pcbDataMarshal, pcbData, "HRESULT")
+        result := ComCall(3, this, "ptr", pszURL, ppbDataMarshal, ppbData, pcbDataMarshal, pcbData, "HRESULT")
         return result
     }
 
@@ -71,9 +72,10 @@ class IMFSSLCertificateManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsslcertificatemanager-endgetclientcertificate
      */
     EndGetClientCertificate(pResult, ppbData, pcbData) {
+        ppbDataMarshal := ppbData is VarRef ? "ptr*" : "ptr"
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pResult, "ptr*", ppbData, pcbDataMarshal, pcbData, "HRESULT")
+        result := ComCall(5, this, "ptr", pResult, ppbDataMarshal, ppbData, pcbDataMarshal, pcbData, "HRESULT")
         return result
     }
 

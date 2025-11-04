@@ -64,7 +64,9 @@ class IDragProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-idragprovider-get_dropeffects
      */
     get_DropEffects(pRetVal) {
-        result := ComCall(5, this, "ptr*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 
@@ -75,7 +77,9 @@ class IDragProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-idragprovider-getgrabbeditems
      */
     GetGrabbedItems(pRetVal) {
-        result := ComCall(6, this, "ptr*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 }

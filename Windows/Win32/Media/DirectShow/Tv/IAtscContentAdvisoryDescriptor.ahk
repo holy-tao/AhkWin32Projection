@@ -148,8 +148,9 @@ class IAtscContentAdvisoryDescriptor extends IUnknown{
      */
     GetRecordRatingDescriptionText(bIndex, pbLength, ppText) {
         pbLengthMarshal := pbLength is VarRef ? "char*" : "ptr"
+        ppTextMarshal := ppText is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(10, this, "char", bIndex, pbLengthMarshal, pbLength, "ptr*", ppText, "HRESULT")
+        result := ComCall(10, this, "char", bIndex, pbLengthMarshal, pbLength, ppTextMarshal, ppText, "HRESULT")
         return result
     }
 }

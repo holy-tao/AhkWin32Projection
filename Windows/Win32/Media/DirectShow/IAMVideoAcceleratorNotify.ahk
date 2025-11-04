@@ -63,8 +63,9 @@ class IAMVideoAcceleratorNotify extends IUnknown{
      */
     GetCreateVideoAcceleratorData(pGuid, pdwSizeMiscData, ppMiscData) {
         pdwSizeMiscDataMarshal := pdwSizeMiscData is VarRef ? "uint*" : "ptr"
+        ppMiscDataMarshal := ppMiscData is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pGuid, pdwSizeMiscDataMarshal, pdwSizeMiscData, "ptr*", ppMiscData, "HRESULT")
+        result := ComCall(5, this, "ptr", pGuid, pdwSizeMiscDataMarshal, pdwSizeMiscData, ppMiscDataMarshal, ppMiscData, "HRESULT")
         return result
     }
 }

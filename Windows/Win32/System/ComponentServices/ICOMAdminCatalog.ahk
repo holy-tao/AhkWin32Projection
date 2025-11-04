@@ -102,7 +102,9 @@ class ICOMAdminCatalog extends IDispatch{
     GetCollectionByQuery(bstrCollName, ppsaVarQuery, ppCatalogCollection) {
         bstrCollName := bstrCollName is String ? BSTR.Alloc(bstrCollName).Value : bstrCollName
 
-        result := ComCall(11, this, "ptr", bstrCollName, "ptr*", ppsaVarQuery, "ptr*", ppCatalogCollection, "HRESULT")
+        ppsaVarQueryMarshal := ppsaVarQuery is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(11, this, "ptr", bstrCollName, ppsaVarQueryMarshal, ppsaVarQuery, "ptr*", ppCatalogCollection, "HRESULT")
         return result
     }
 
@@ -253,7 +255,10 @@ class ICOMAdminCatalog extends IDispatch{
     InstallMultipleComponents(bstrApplIDOrName, ppsaVarFileNames, ppsaVarCLSIDs) {
         bstrApplIDOrName := bstrApplIDOrName is String ? BSTR.Alloc(bstrApplIDOrName).Value : bstrApplIDOrName
 
-        result := ComCall(22, this, "ptr", bstrApplIDOrName, "ptr*", ppsaVarFileNames, "ptr*", ppsaVarCLSIDs, "HRESULT")
+        ppsaVarFileNamesMarshal := ppsaVarFileNames is VarRef ? "ptr*" : "ptr"
+        ppsaVarCLSIDsMarshal := ppsaVarCLSIDs is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(22, this, "ptr", bstrApplIDOrName, ppsaVarFileNamesMarshal, ppsaVarFileNames, ppsaVarCLSIDsMarshal, ppsaVarCLSIDs, "HRESULT")
         return result
     }
 
@@ -271,7 +276,13 @@ class ICOMAdminCatalog extends IDispatch{
     GetMultipleComponentsInfo(bstrApplIdOrName, ppsaVarFileNames, ppsaVarCLSIDs, ppsaVarClassNames, ppsaVarFileFlags, ppsaVarComponentFlags) {
         bstrApplIdOrName := bstrApplIdOrName is String ? BSTR.Alloc(bstrApplIdOrName).Value : bstrApplIdOrName
 
-        result := ComCall(23, this, "ptr", bstrApplIdOrName, "ptr*", ppsaVarFileNames, "ptr*", ppsaVarCLSIDs, "ptr*", ppsaVarClassNames, "ptr*", ppsaVarFileFlags, "ptr*", ppsaVarComponentFlags, "HRESULT")
+        ppsaVarFileNamesMarshal := ppsaVarFileNames is VarRef ? "ptr*" : "ptr"
+        ppsaVarCLSIDsMarshal := ppsaVarCLSIDs is VarRef ? "ptr*" : "ptr"
+        ppsaVarClassNamesMarshal := ppsaVarClassNames is VarRef ? "ptr*" : "ptr"
+        ppsaVarFileFlagsMarshal := ppsaVarFileFlags is VarRef ? "ptr*" : "ptr"
+        ppsaVarComponentFlagsMarshal := ppsaVarComponentFlags is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(23, this, "ptr", bstrApplIdOrName, ppsaVarFileNamesMarshal, ppsaVarFileNames, ppsaVarCLSIDsMarshal, ppsaVarCLSIDs, ppsaVarClassNamesMarshal, ppsaVarClassNames, ppsaVarFileFlagsMarshal, ppsaVarFileFlags, ppsaVarComponentFlagsMarshal, ppsaVarComponentFlags, "HRESULT")
         return result
     }
 
@@ -325,7 +336,9 @@ class ICOMAdminCatalog extends IDispatch{
     QueryApplicationFile(bstrApplicationFile, pbstrApplicationName, pbstrApplicationDescription, pbHasUsers, pbIsProxy, ppsaVarFileNames) {
         bstrApplicationFile := bstrApplicationFile is String ? BSTR.Alloc(bstrApplicationFile).Value : bstrApplicationFile
 
-        result := ComCall(27, this, "ptr", bstrApplicationFile, "ptr", pbstrApplicationName, "ptr", pbstrApplicationDescription, "ptr", pbHasUsers, "ptr", pbIsProxy, "ptr*", ppsaVarFileNames, "HRESULT")
+        ppsaVarFileNamesMarshal := ppsaVarFileNames is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(27, this, "ptr", bstrApplicationFile, "ptr", pbstrApplicationName, "ptr", pbstrApplicationDescription, "ptr", pbHasUsers, "ptr", pbIsProxy, ppsaVarFileNamesMarshal, ppsaVarFileNames, "HRESULT")
         return result
     }
 
@@ -367,7 +380,10 @@ class ICOMAdminCatalog extends IDispatch{
     InstallMultipleEventClasses(bstrApplIdOrName, ppsaVarFileNames, ppsaVarCLSIDS) {
         bstrApplIdOrName := bstrApplIdOrName is String ? BSTR.Alloc(bstrApplIdOrName).Value : bstrApplIdOrName
 
-        result := ComCall(30, this, "ptr", bstrApplIdOrName, "ptr*", ppsaVarFileNames, "ptr*", ppsaVarCLSIDS, "HRESULT")
+        ppsaVarFileNamesMarshal := ppsaVarFileNames is VarRef ? "ptr*" : "ptr"
+        ppsaVarCLSIDSMarshal := ppsaVarCLSIDS is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(30, this, "ptr", bstrApplIdOrName, ppsaVarFileNamesMarshal, ppsaVarFileNames, ppsaVarCLSIDSMarshal, ppsaVarCLSIDS, "HRESULT")
         return result
     }
 
@@ -402,7 +418,11 @@ class ICOMAdminCatalog extends IDispatch{
     GetEventClassesForIID(bstrIID, ppsaVarCLSIDs, ppsaVarProgIDs, ppsaVarDescriptions) {
         bstrIID := bstrIID is String ? BSTR.Alloc(bstrIID).Value : bstrIID
 
-        result := ComCall(32, this, "ptr", bstrIID, "ptr*", ppsaVarCLSIDs, "ptr*", ppsaVarProgIDs, "ptr*", ppsaVarDescriptions, "HRESULT")
+        ppsaVarCLSIDsMarshal := ppsaVarCLSIDs is VarRef ? "ptr*" : "ptr"
+        ppsaVarProgIDsMarshal := ppsaVarProgIDs is VarRef ? "ptr*" : "ptr"
+        ppsaVarDescriptionsMarshal := ppsaVarDescriptions is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(32, this, "ptr", bstrIID, ppsaVarCLSIDsMarshal, ppsaVarCLSIDs, ppsaVarProgIDsMarshal, ppsaVarProgIDs, ppsaVarDescriptionsMarshal, ppsaVarDescriptions, "HRESULT")
         return result
     }
 }

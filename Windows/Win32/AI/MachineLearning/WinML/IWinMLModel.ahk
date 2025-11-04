@@ -37,7 +37,9 @@ class IWinMLModel extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winml/nf-winml-iwinmlmodel-getdescription
      */
     GetDescription(ppDescription) {
-        result := ComCall(3, this, "ptr*", ppDescription, "HRESULT")
+        ppDescriptionMarshal := ppDescription is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, ppDescriptionMarshal, ppDescription, "HRESULT")
         return result
     }
 
@@ -62,7 +64,9 @@ class IWinMLModel extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winml/nf-winml-iwinmlmodel-enumeratemodelinputs
      */
     EnumerateModelInputs(Index, ppInputDescriptor) {
-        result := ComCall(5, this, "uint", Index, "ptr*", ppInputDescriptor, "HRESULT")
+        ppInputDescriptorMarshal := ppInputDescriptor is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "uint", Index, ppInputDescriptorMarshal, ppInputDescriptor, "HRESULT")
         return result
     }
 
@@ -74,7 +78,9 @@ class IWinMLModel extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winml/nf-winml-iwinmlmodel-enumeratemodeloutputs
      */
     EnumerateModelOutputs(Index, ppOutputDescriptor) {
-        result := ComCall(6, this, "uint", Index, "ptr*", ppOutputDescriptor, "HRESULT")
+        ppOutputDescriptorMarshal := ppOutputDescriptor is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "uint", Index, ppOutputDescriptorMarshal, ppOutputDescriptor, "HRESULT")
         return result
     }
 }

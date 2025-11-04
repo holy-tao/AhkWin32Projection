@@ -84,7 +84,9 @@ class IMbnConnectionProfileManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnectionprofilemanager-getconnectionprofiles
      */
     GetConnectionProfiles(mbnInterface, connectionProfiles) {
-        result := ComCall(3, this, "ptr", mbnInterface, "ptr*", connectionProfiles, "HRESULT")
+        connectionProfilesMarshal := connectionProfiles is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", mbnInterface, connectionProfilesMarshal, connectionProfiles, "HRESULT")
         return result
     }
 

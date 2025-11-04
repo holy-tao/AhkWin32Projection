@@ -719,9 +719,10 @@ class DiagnosticDataQuery {
     static DdqGetDiagnosticRecordTagDistribution(hSession, producerNames, producerNameCount, tagStats, statCount) {
         hSession := hSession is Win32Handle ? NumGet(hSession, "ptr") : hSession
 
+        tagStatsMarshal := tagStats is VarRef ? "ptr*" : "ptr"
         statCountMarshal := statCount is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordTagDistribution", "ptr", hSession, "ptr", producerNames, "uint", producerNameCount, "ptr*", tagStats, statCountMarshal, statCount, "int")
+        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordTagDistribution", "ptr", hSession, "ptr", producerNames, "uint", producerNameCount, tagStatsMarshal, tagStats, statCountMarshal, statCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -750,9 +751,10 @@ class DiagnosticDataQuery {
     static DdqGetDiagnosticRecordBinaryDistribution(hSession, producerNames, producerNameCount, topNBinaries, binaryStats, statCount) {
         hSession := hSession is Win32Handle ? NumGet(hSession, "ptr") : hSession
 
+        binaryStatsMarshal := binaryStats is VarRef ? "ptr*" : "ptr"
         statCountMarshal := statCount is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordBinaryDistribution", "ptr", hSession, "ptr", producerNames, "uint", producerNameCount, "uint", topNBinaries, "ptr*", binaryStats, statCountMarshal, statCount, "int")
+        result := DllCall("DiagnosticDataQuery.dll\DdqGetDiagnosticRecordBinaryDistribution", "ptr", hSession, "ptr", producerNames, "uint", producerNameCount, "uint", topNBinaries, binaryStatsMarshal, binaryStats, statCountMarshal, statCount, "int")
         if(result != 0)
             throw OSError(result)
 

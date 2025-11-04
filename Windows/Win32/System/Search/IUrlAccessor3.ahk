@@ -42,8 +42,9 @@ class IUrlAccessor3 extends IUrlAccessor2{
         pcwszURL := pcwszURL is String ? StrPtr(pcwszURL) : pcwszURL
 
         pcSidCountMarshal := pcSidCount is VarRef ? "uint*" : "ptr"
+        ppSidBlobsMarshal := ppSidBlobs is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(19, this, "ptr", pcwszURL, pcSidCountMarshal, pcSidCount, "ptr*", ppSidBlobs, "HRESULT")
+        result := ComCall(19, this, "ptr", pcwszURL, pcSidCountMarshal, pcSidCount, ppSidBlobsMarshal, ppSidBlobs, "HRESULT")
         return result
     }
 }

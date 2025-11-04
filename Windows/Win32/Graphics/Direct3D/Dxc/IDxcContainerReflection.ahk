@@ -95,7 +95,9 @@ class IDxcContainerReflection extends IUnknown{
      * @returns {HRESULT} 
      */
     GetPartReflection(idx, iid, ppvObject) {
-        result := ComCall(8, this, "uint", idx, "ptr", iid, "ptr*", ppvObject, "HRESULT")
+        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(8, this, "uint", idx, "ptr", iid, ppvObjectMarshal, ppvObject, "HRESULT")
         return result
     }
 }

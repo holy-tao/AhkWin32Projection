@@ -59,7 +59,9 @@ class IUIAutomationDropTargetPattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationdroptargetpattern-get_currentdroptargeteffects
      */
     get_CurrentDropTargetEffects(retVal) {
-        result := ComCall(5, this, "ptr*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class IUIAutomationDropTargetPattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationdroptargetpattern-get_cacheddroptargeteffects
      */
     get_CachedDropTargetEffects(retVal) {
-        result := ComCall(6, this, "ptr*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 }

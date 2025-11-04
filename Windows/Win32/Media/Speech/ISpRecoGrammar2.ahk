@@ -35,9 +35,10 @@ class ISpRecoGrammar2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetRules(ppCoMemRules, puNumRules) {
+        ppCoMemRulesMarshal := ppCoMemRules is VarRef ? "ptr*" : "ptr"
         puNumRulesMarshal := puNumRules is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr*", ppCoMemRules, puNumRulesMarshal, puNumRules, "HRESULT")
+        result := ComCall(3, this, ppCoMemRulesMarshal, ppCoMemRules, puNumRulesMarshal, puNumRules, "HRESULT")
         return result
     }
 

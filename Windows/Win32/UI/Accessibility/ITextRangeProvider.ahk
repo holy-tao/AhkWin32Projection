@@ -135,7 +135,9 @@ class ITextRangeProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextrangeprovider-getboundingrectangles
      */
     GetBoundingRectangles(pRetVal) {
-        result := ComCall(10, this, "ptr*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(10, this, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 
@@ -254,7 +256,9 @@ class ITextRangeProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextrangeprovider-getchildren
      */
     GetChildren(pRetVal) {
-        result := ComCall(20, this, "ptr*", pRetVal, "HRESULT")
+        pRetValMarshal := pRetVal is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(20, this, pRetValMarshal, pRetVal, "HRESULT")
         return result
     }
 }

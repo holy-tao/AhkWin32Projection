@@ -213,7 +213,9 @@ class IFsrmPropertyBag extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_filepropertynames
      */
     get_FilePropertyNames(filePropertyNames) {
-        result := ComCall(21, this, "ptr*", filePropertyNames, "HRESULT")
+        filePropertyNamesMarshal := filePropertyNames is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(21, this, filePropertyNamesMarshal, filePropertyNames, "HRESULT")
         return result
     }
 
@@ -224,7 +226,9 @@ class IFsrmPropertyBag extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_messages
      */
     get_Messages(messages) {
-        result := ComCall(22, this, "ptr*", messages, "HRESULT")
+        messagesMarshal := messages is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(22, this, messagesMarshal, messages, "HRESULT")
         return result
     }
 

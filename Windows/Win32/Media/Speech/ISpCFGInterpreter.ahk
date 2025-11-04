@@ -37,7 +37,9 @@ class ISpCFGInterpreter extends IUnknown{
     InitGrammar(pszGrammarName, pvGrammarData) {
         pszGrammarName := pszGrammarName is String ? StrPtr(pszGrammarName) : pszGrammarName
 
-        result := ComCall(3, this, "ptr", pszGrammarName, "ptr*", pvGrammarData, "HRESULT")
+        pvGrammarDataMarshal := pvGrammarData is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pszGrammarName, pvGrammarDataMarshal, pvGrammarData, "HRESULT")
         return result
     }
 

@@ -39,8 +39,9 @@ class IDirectXVideoDecoderService extends IDirectXVideoAccelerationService{
      */
     GetDecoderDeviceGuids(pCount, pGuids) {
         pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+        pGuidsMarshal := pGuids is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, pCountMarshal, pCount, "ptr*", pGuids, "HRESULT")
+        result := ComCall(4, this, pCountMarshal, pCount, pGuidsMarshal, pGuids, "HRESULT")
         return result
     }
 
@@ -54,8 +55,9 @@ class IDirectXVideoDecoderService extends IDirectXVideoAccelerationService{
      */
     GetDecoderRenderTargets(Guid, pCount, pFormats) {
         pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+        pFormatsMarshal := pFormats is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", Guid, pCountMarshal, pCount, "ptr*", pFormats, "HRESULT")
+        result := ComCall(5, this, "ptr", Guid, pCountMarshal, pCount, pFormatsMarshal, pFormats, "HRESULT")
         return result
     }
 
@@ -72,8 +74,9 @@ class IDirectXVideoDecoderService extends IDirectXVideoAccelerationService{
         static pReserved := 0 ;Reserved parameters must always be NULL
 
         pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+        ppConfigsMarshal := ppConfigs is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "ptr", Guid, "ptr", pVideoDesc, "ptr", pReserved, pCountMarshal, pCount, "ptr*", ppConfigs, "HRESULT")
+        result := ComCall(6, this, "ptr", Guid, "ptr", pVideoDesc, "ptr", pReserved, pCountMarshal, pCount, ppConfigsMarshal, ppConfigs, "HRESULT")
         return result
     }
 

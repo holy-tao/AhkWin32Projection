@@ -62,7 +62,9 @@ class ITypeInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-gettypeattr
      */
     GetTypeAttr(ppTypeAttr) {
-        result := ComCall(3, this, "ptr*", ppTypeAttr, "HRESULT")
+        ppTypeAttrMarshal := ppTypeAttr is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, ppTypeAttrMarshal, ppTypeAttr, "HRESULT")
         return result
     }
 
@@ -85,7 +87,9 @@ class ITypeInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-getfuncdesc
      */
     GetFuncDesc(index, ppFuncDesc) {
-        result := ComCall(5, this, "uint", index, "ptr*", ppFuncDesc, "HRESULT")
+        ppFuncDescMarshal := ppFuncDesc is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "uint", index, ppFuncDescMarshal, ppFuncDesc, "HRESULT")
         return result
     }
 
@@ -97,7 +101,9 @@ class ITypeInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-getvardesc
      */
     GetVarDesc(index, ppVarDesc) {
-        result := ComCall(6, this, "uint", index, "ptr*", ppVarDesc, "HRESULT")
+        ppVarDescMarshal := ppVarDesc is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "uint", index, ppVarDescMarshal, ppVarDesc, "HRESULT")
         return result
     }
 
@@ -235,7 +241,9 @@ class ITypeInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-addressofmember
      */
     AddressOfMember(memid, invKind, ppv) {
-        result := ComCall(15, this, "int", memid, "int", invKind, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(15, this, "int", memid, "int", invKind, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -248,7 +256,9 @@ class ITypeInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-createinstance
      */
     CreateInstance(pUnkOuter, riid, ppvObj) {
-        result := ComCall(16, this, "ptr", pUnkOuter, "ptr", riid, "ptr*", ppvObj, "HRESULT")
+        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(16, this, "ptr", pUnkOuter, "ptr", riid, ppvObjMarshal, ppvObj, "HRESULT")
         return result
     }
 

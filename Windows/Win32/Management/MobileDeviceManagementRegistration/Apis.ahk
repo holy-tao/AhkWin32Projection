@@ -351,7 +351,9 @@ class MobileDeviceManagementRegistration {
      * @since windows8.1
      */
     static GetDeviceRegistrationInfo(DeviceInformationClass, ppDeviceRegistrationInfo) {
-        result := DllCall("MDMRegistration.dll\GetDeviceRegistrationInfo", "int", DeviceInformationClass, "ptr*", ppDeviceRegistrationInfo, "int")
+        ppDeviceRegistrationInfoMarshal := ppDeviceRegistrationInfo is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("MDMRegistration.dll\GetDeviceRegistrationInfo", "int", DeviceInformationClass, ppDeviceRegistrationInfoMarshal, ppDeviceRegistrationInfo, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -457,7 +459,9 @@ class MobileDeviceManagementRegistration {
     static DiscoverManagementService(pszUPN, ppMgmtInfo) {
         pszUPN := pszUPN is String ? StrPtr(pszUPN) : pszUPN
 
-        result := DllCall("MDMRegistration.dll\DiscoverManagementService", "ptr", pszUPN, "ptr*", ppMgmtInfo, "int")
+        ppMgmtInfoMarshal := ppMgmtInfo is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("MDMRegistration.dll\DiscoverManagementService", "ptr", pszUPN, ppMgmtInfoMarshal, ppMgmtInfo, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -658,7 +662,9 @@ class MobileDeviceManagementRegistration {
         pszUPN := pszUPN is String ? StrPtr(pszUPN) : pszUPN
         pszDiscoveryServiceCandidate := pszDiscoveryServiceCandidate is String ? StrPtr(pszDiscoveryServiceCandidate) : pszDiscoveryServiceCandidate
 
-        result := DllCall("MDMRegistration.dll\DiscoverManagementServiceEx", "ptr", pszUPN, "ptr", pszDiscoveryServiceCandidate, "ptr*", ppMgmtInfo, "int")
+        ppMgmtInfoMarshal := ppMgmtInfo is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("MDMRegistration.dll\DiscoverManagementServiceEx", "ptr", pszUPN, "ptr", pszDiscoveryServiceCandidate, ppMgmtInfoMarshal, ppMgmtInfo, "int")
         if(result != 0)
             throw OSError(result)
 

@@ -35,7 +35,9 @@ class IMFFaceDetectionTransform extends IUnknown{
      * @returns {HRESULT} 
      */
     SetDetectionCallback(callback, callbackToken) {
-        result := ComCall(3, this, "ptr", callback, "ptr*", callbackToken, "HRESULT")
+        callbackTokenMarshal := callbackToken is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", callback, callbackTokenMarshal, callbackToken, "HRESULT")
         return result
     }
 

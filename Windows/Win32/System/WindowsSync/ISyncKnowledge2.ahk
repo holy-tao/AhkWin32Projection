@@ -55,7 +55,9 @@ class ISyncKnowledge2 extends ISyncKnowledge{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge2-projectontocolumnset
      */
     ProjectOntoColumnSet(ppColumns, count, ppiKnowledgeOut) {
-        result := ComCall(28, this, "ptr*", ppColumns, "uint", count, "ptr*", ppiKnowledgeOut, "HRESULT")
+        ppColumnsMarshal := ppColumns is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(28, this, ppColumnsMarshal, ppColumns, "uint", count, "ptr*", ppiKnowledgeOut, "HRESULT")
         return result
     }
 
@@ -100,7 +102,9 @@ class ISyncKnowledge2 extends ISyncKnowledge{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge2-getinspector
      */
     GetInspector(riid, ppiInspector) {
-        result := ComCall(31, this, "ptr", riid, "ptr*", ppiInspector, "HRESULT")
+        ppiInspectorMarshal := ppiInspector is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(31, this, "ptr", riid, ppiInspectorMarshal, ppiInspector, "HRESULT")
         return result
     }
 

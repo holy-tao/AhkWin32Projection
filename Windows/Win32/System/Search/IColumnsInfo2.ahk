@@ -41,8 +41,11 @@ class IColumnsInfo2 extends IColumnsInfo{
      */
     GetRestrictedColumnInfo(cColumnIDMasks, rgColumnIDMasks, dwFlags, pcColumns, prgColumnIDs, prgColumnInfo, ppStringsBuffer) {
         pcColumnsMarshal := pcColumns is VarRef ? "ptr*" : "ptr"
+        prgColumnIDsMarshal := prgColumnIDs is VarRef ? "ptr*" : "ptr"
+        prgColumnInfoMarshal := prgColumnInfo is VarRef ? "ptr*" : "ptr"
+        ppStringsBufferMarshal := ppStringsBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", cColumnIDMasks, "ptr", rgColumnIDMasks, "uint", dwFlags, pcColumnsMarshal, pcColumns, "ptr*", prgColumnIDs, "ptr*", prgColumnInfo, "ptr*", ppStringsBuffer, "HRESULT")
+        result := ComCall(5, this, "ptr", cColumnIDMasks, "ptr", rgColumnIDMasks, "uint", dwFlags, pcColumnsMarshal, pcColumns, prgColumnIDsMarshal, prgColumnIDs, prgColumnInfoMarshal, prgColumnInfo, ppStringsBufferMarshal, ppStringsBuffer, "HRESULT")
         return result
     }
 }

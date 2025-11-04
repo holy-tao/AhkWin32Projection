@@ -39,8 +39,9 @@ class INetDiagHelperInfo extends IUnknown{
      */
     GetAttributeInfo(pcelt, pprgAttributeInfos) {
         pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
+        pprgAttributeInfosMarshal := pprgAttributeInfos is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, pceltMarshal, pcelt, "ptr*", pprgAttributeInfos, "HRESULT")
+        result := ComCall(3, this, pceltMarshal, pcelt, pprgAttributeInfosMarshal, pprgAttributeInfos, "HRESULT")
         return result
     }
 }

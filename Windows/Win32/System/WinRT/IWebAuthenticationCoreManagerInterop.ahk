@@ -59,7 +59,9 @@ class IWebAuthenticationCoreManagerInterop extends IInspectable{
     RequestTokenForWindowAsync(appWindow, request, riid, asyncInfo) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
 
-        result := ComCall(6, this, "ptr", appWindow, "ptr", request, "ptr", riid, "ptr*", asyncInfo, "HRESULT")
+        asyncInfoMarshal := asyncInfo is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "ptr", appWindow, "ptr", request, "ptr", riid, asyncInfoMarshal, asyncInfo, "HRESULT")
         return result
     }
 
@@ -76,7 +78,9 @@ class IWebAuthenticationCoreManagerInterop extends IInspectable{
     RequestTokenWithWebAccountForWindowAsync(appWindow, request, webAccount, riid, asyncInfo) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
 
-        result := ComCall(7, this, "ptr", appWindow, "ptr", request, "ptr", webAccount, "ptr", riid, "ptr*", asyncInfo, "HRESULT")
+        asyncInfoMarshal := asyncInfo is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "ptr", appWindow, "ptr", request, "ptr", webAccount, "ptr", riid, asyncInfoMarshal, asyncInfo, "HRESULT")
         return result
     }
 }

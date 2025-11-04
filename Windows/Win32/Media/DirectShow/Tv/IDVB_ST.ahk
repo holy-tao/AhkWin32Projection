@@ -71,7 +71,9 @@ class IDVB_ST extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_st-getdata
      */
     GetData(ppData) {
-        result := ComCall(5, this, "ptr*", ppData, "HRESULT")
+        ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, ppDataMarshal, ppData, "HRESULT")
         return result
     }
 }

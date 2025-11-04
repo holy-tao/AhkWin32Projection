@@ -37,8 +37,10 @@ class IColumnsInfo extends IUnknown{
      */
     GetColumnInfo(pcColumns, prgInfo, ppStringsBuffer) {
         pcColumnsMarshal := pcColumns is VarRef ? "ptr*" : "ptr"
+        prgInfoMarshal := prgInfo is VarRef ? "ptr*" : "ptr"
+        ppStringsBufferMarshal := ppStringsBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, pcColumnsMarshal, pcColumns, "ptr*", prgInfo, "ptr*", ppStringsBuffer, "HRESULT")
+        result := ComCall(3, this, pcColumnsMarshal, pcColumns, prgInfoMarshal, prgInfo, ppStringsBufferMarshal, ppStringsBuffer, "HRESULT")
         return result
     }
 

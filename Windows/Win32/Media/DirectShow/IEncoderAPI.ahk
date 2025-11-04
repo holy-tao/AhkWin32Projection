@@ -140,9 +140,10 @@ class IEncoderAPI extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iencoderapi-getparametervalues
      */
     GetParameterValues(Api, Values, ValuesCount) {
+        ValuesMarshal := Values is VarRef ? "ptr*" : "ptr"
         ValuesCountMarshal := ValuesCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", Api, "ptr*", Values, ValuesCountMarshal, ValuesCount, "HRESULT")
+        result := ComCall(6, this, "ptr", Api, ValuesMarshal, Values, ValuesCountMarshal, ValuesCount, "HRESULT")
         return result
     }
 

@@ -43,7 +43,9 @@ class ID3D12VideoDevice2 extends ID3D12VideoDevice1{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodevice2-createvideodecoder1
      */
     CreateVideoDecoder1(pDesc, pProtectedResourceSession, riid, ppVideoDecoder) {
-        result := ComCall(9, this, "ptr", pDesc, "ptr", pProtectedResourceSession, "ptr", riid, "ptr*", ppVideoDecoder, "HRESULT")
+        ppVideoDecoderMarshal := ppVideoDecoder is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, "ptr", pDesc, "ptr", pProtectedResourceSession, "ptr", riid, ppVideoDecoderMarshal, ppVideoDecoder, "HRESULT")
         return result
     }
 
@@ -57,7 +59,9 @@ class ID3D12VideoDevice2 extends ID3D12VideoDevice1{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodevice2-createvideodecoderheap1
      */
     CreateVideoDecoderHeap1(pVideoDecoderHeapDesc, pProtectedResourceSession, riid, ppVideoDecoderHeap) {
-        result := ComCall(10, this, "ptr", pVideoDecoderHeapDesc, "ptr", pProtectedResourceSession, "ptr", riid, "ptr*", ppVideoDecoderHeap, "HRESULT")
+        ppVideoDecoderHeapMarshal := ppVideoDecoderHeap is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(10, this, "ptr", pVideoDecoderHeapDesc, "ptr", pProtectedResourceSession, "ptr", riid, ppVideoDecoderHeapMarshal, ppVideoDecoderHeap, "HRESULT")
         return result
     }
 
@@ -74,7 +78,9 @@ class ID3D12VideoDevice2 extends ID3D12VideoDevice1{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodevice2-createvideoprocessor1
      */
     CreateVideoProcessor1(NodeMask, pOutputStreamDesc, NumInputStreamDescs, pInputStreamDescs, pProtectedResourceSession, riid, ppVideoProcessor) {
-        result := ComCall(11, this, "uint", NodeMask, "ptr", pOutputStreamDesc, "uint", NumInputStreamDescs, "ptr", pInputStreamDescs, "ptr", pProtectedResourceSession, "ptr", riid, "ptr*", ppVideoProcessor, "HRESULT")
+        ppVideoProcessorMarshal := ppVideoProcessor is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(11, this, "uint", NodeMask, "ptr", pOutputStreamDesc, "uint", NumInputStreamDescs, "ptr", pInputStreamDescs, "ptr", pProtectedResourceSession, "ptr", riid, ppVideoProcessorMarshal, ppVideoProcessor, "HRESULT")
         return result
     }
 
@@ -90,7 +96,9 @@ class ID3D12VideoDevice2 extends ID3D12VideoDevice1{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodevice2-createvideoextensioncommand
      */
     CreateVideoExtensionCommand(pDesc, pCreationParameters, CreationParametersDataSizeInBytes, pProtectedResourceSession, riid, ppVideoExtensionCommand) {
-        result := ComCall(12, this, "ptr", pDesc, "ptr", pCreationParameters, "ptr", CreationParametersDataSizeInBytes, "ptr", pProtectedResourceSession, "ptr", riid, "ptr*", ppVideoExtensionCommand, "HRESULT")
+        ppVideoExtensionCommandMarshal := ppVideoExtensionCommand is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(12, this, "ptr", pDesc, "ptr", pCreationParameters, "ptr", CreationParametersDataSizeInBytes, "ptr", pProtectedResourceSession, "ptr", riid, ppVideoExtensionCommandMarshal, ppVideoExtensionCommand, "HRESULT")
         return result
     }
 

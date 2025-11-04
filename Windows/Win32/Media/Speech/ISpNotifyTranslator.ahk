@@ -58,7 +58,9 @@ class ISpNotifyTranslator extends ISpNotifySink{
      * @returns {HRESULT} 
      */
     InitCallback(pfnCallback, wParam, lParam) {
-        result := ComCall(5, this, "ptr*", pfnCallback, "ptr", wParam, "ptr", lParam, "HRESULT")
+        pfnCallbackMarshal := pfnCallback is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, pfnCallbackMarshal, pfnCallback, "ptr", wParam, "ptr", lParam, "HRESULT")
         return result
     }
 

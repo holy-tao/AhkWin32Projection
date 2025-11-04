@@ -56,7 +56,9 @@ class IAMStreamConfig extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamstreamconfig-getformat
      */
     GetFormat(ppmt) {
-        result := ComCall(4, this, "ptr*", ppmt, "HRESULT")
+        ppmtMarshal := ppmt is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, ppmtMarshal, ppmt, "HRESULT")
         return result
     }
 
@@ -84,9 +86,10 @@ class IAMStreamConfig extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamstreamconfig-getstreamcaps
      */
     GetStreamCaps(iIndex, ppmt, pSCC) {
+        ppmtMarshal := ppmt is VarRef ? "ptr*" : "ptr"
         pSCCMarshal := pSCC is VarRef ? "char*" : "ptr"
 
-        result := ComCall(6, this, "int", iIndex, "ptr*", ppmt, pSCCMarshal, pSCC, "HRESULT")
+        result := ComCall(6, this, "int", iIndex, ppmtMarshal, ppmt, pSCCMarshal, pSCC, "HRESULT")
         return result
     }
 }

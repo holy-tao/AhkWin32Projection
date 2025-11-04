@@ -53,11 +53,13 @@ class IClientSecurity extends IUnknown{
     QueryBlanket(pProxy, pAuthnSvc, pAuthzSvc, pServerPrincName, pAuthnLevel, pImpLevel, pAuthInfo, pCapabilites) {
         pAuthnSvcMarshal := pAuthnSvc is VarRef ? "uint*" : "ptr"
         pAuthzSvcMarshal := pAuthzSvc is VarRef ? "uint*" : "ptr"
+        pServerPrincNameMarshal := pServerPrincName is VarRef ? "ptr*" : "ptr"
         pAuthnLevelMarshal := pAuthnLevel is VarRef ? "uint*" : "ptr"
         pImpLevelMarshal := pImpLevel is VarRef ? "uint*" : "ptr"
+        pAuthInfoMarshal := pAuthInfo is VarRef ? "ptr*" : "ptr"
         pCapabilitesMarshal := pCapabilites is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pProxy, pAuthnSvcMarshal, pAuthnSvc, pAuthzSvcMarshal, pAuthzSvc, "ptr*", pServerPrincName, pAuthnLevelMarshal, pAuthnLevel, pImpLevelMarshal, pImpLevel, "ptr*", pAuthInfo, pCapabilitesMarshal, pCapabilites, "HRESULT")
+        result := ComCall(3, this, "ptr", pProxy, pAuthnSvcMarshal, pAuthnSvc, pAuthzSvcMarshal, pAuthzSvc, pServerPrincNameMarshal, pServerPrincName, pAuthnLevelMarshal, pAuthnLevel, pImpLevelMarshal, pImpLevel, pAuthInfoMarshal, pAuthInfo, pCapabilitesMarshal, pCapabilites, "HRESULT")
         return result
     }
 

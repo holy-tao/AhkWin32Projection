@@ -264,7 +264,9 @@ class IRawCDImageCreator extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagecreator-get_expectedtableofcontents
      */
     get_ExpectedTableOfContents(value) {
-        result := ComCall(25, this, "ptr*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(25, this, valueMarshal, value, "HRESULT")
         return result
     }
 }

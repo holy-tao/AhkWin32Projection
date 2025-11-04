@@ -135,9 +135,10 @@ class IAMVideoAccelerator extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/videoacc/nf-videoacc-iamvideoaccelerator-getbuffer
      */
     GetBuffer(dwTypeIndex, dwBufferIndex, bReadOnly, ppBuffer, lpStride) {
+        ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
         lpStrideMarshal := lpStride is VarRef ? "int*" : "ptr"
 
-        result := ComCall(10, this, "uint", dwTypeIndex, "uint", dwBufferIndex, "int", bReadOnly, "ptr*", ppBuffer, lpStrideMarshal, lpStride, "HRESULT")
+        result := ComCall(10, this, "uint", dwTypeIndex, "uint", dwBufferIndex, "int", bReadOnly, ppBufferMarshal, ppBuffer, lpStrideMarshal, lpStride, "HRESULT")
         return result
     }
 

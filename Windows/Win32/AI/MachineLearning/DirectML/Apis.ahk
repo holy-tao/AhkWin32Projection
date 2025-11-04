@@ -66,7 +66,9 @@ class DirectML {
      * @since windows10.0.10240
      */
     static DMLCreateDevice(d3d12Device, flags, riid, ppv) {
-        result := DllCall("DirectML.dll\DMLCreateDevice", "ptr", d3d12Device, "int", flags, "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("DirectML.dll\DMLCreateDevice", "ptr", d3d12Device, "int", flags, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -108,7 +110,9 @@ class DirectML {
      * @see https://docs.microsoft.com/windows/win32/api//directml/nf-directml-dmlcreatedevice1
      */
     static DMLCreateDevice1(d3d12Device, flags, minimumFeatureLevel, riid, ppv) {
-        result := DllCall("DirectML.dll\DMLCreateDevice1", "ptr", d3d12Device, "int", flags, "int", minimumFeatureLevel, "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("DirectML.dll\DMLCreateDevice1", "ptr", d3d12Device, "int", flags, "int", minimumFeatureLevel, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 

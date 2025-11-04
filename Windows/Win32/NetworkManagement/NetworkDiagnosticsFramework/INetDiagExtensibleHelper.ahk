@@ -38,8 +38,9 @@ class INetDiagExtensibleHelper extends IUnknown{
      */
     ResolveAttributes(celt, rgKeyAttributes, pcelt, prgMatchValues) {
         pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
+        prgMatchValuesMarshal := prgMatchValues is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, "ptr", rgKeyAttributes, pceltMarshal, pcelt, "ptr*", prgMatchValues, "HRESULT")
+        result := ComCall(3, this, "uint", celt, "ptr", rgKeyAttributes, pceltMarshal, pcelt, prgMatchValuesMarshal, prgMatchValues, "HRESULT")
         return result
     }
 }

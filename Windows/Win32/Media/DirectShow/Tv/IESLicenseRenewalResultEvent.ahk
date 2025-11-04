@@ -150,7 +150,9 @@ class IESLicenseRenewalResultEvent extends IESEvent{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ieslicenserenewalresultevent-getentitlementtoken
      */
     GetEntitlementToken(pbData) {
-        result := ComCall(17, this, "ptr*", pbData, "HRESULT")
+        pbDataMarshal := pbData is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(17, this, pbDataMarshal, pbData, "HRESULT")
         return result
     }
 

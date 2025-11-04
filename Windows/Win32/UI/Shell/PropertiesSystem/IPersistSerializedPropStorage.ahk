@@ -145,9 +145,10 @@ class IPersistSerializedPropStorage extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipersistserializedpropstorage-getpropertystorage
      */
     GetPropertyStorage(ppsps, pcb) {
+        ppspsMarshal := ppsps is VarRef ? "ptr*" : "ptr"
         pcbMarshal := pcb is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr*", ppsps, pcbMarshal, pcb, "HRESULT")
+        result := ComCall(5, this, ppspsMarshal, ppsps, pcbMarshal, pcb, "HRESULT")
         return result
     }
 }

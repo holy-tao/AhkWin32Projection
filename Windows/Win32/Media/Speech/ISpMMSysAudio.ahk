@@ -56,7 +56,9 @@ class ISpMMSysAudio extends ISpAudio{
      * @returns {HRESULT} 
      */
     GetMMHandle(pHandle) {
-        result := ComCall(28, this, "ptr*", pHandle, "HRESULT")
+        pHandleMarshal := pHandle is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(28, this, pHandleMarshal, pHandle, "HRESULT")
         return result
     }
 

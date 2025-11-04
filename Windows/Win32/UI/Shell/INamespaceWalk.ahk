@@ -60,8 +60,9 @@ class INamespaceWalk extends IUnknown{
      */
     GetIDArrayResult(pcItems, prgpidl) {
         pcItemsMarshal := pcItems is VarRef ? "uint*" : "ptr"
+        prgpidlMarshal := prgpidl is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, pcItemsMarshal, pcItems, "ptr*", prgpidl, "HRESULT")
+        result := ComCall(4, this, pcItemsMarshal, pcItems, prgpidlMarshal, prgpidl, "HRESULT")
         return result
     }
 }

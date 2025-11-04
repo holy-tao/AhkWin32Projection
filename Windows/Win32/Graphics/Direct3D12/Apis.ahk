@@ -2473,7 +2473,9 @@ class Direct3D12 {
      * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-d3d12createrootsignaturedeserializer
      */
     static D3D12CreateRootSignatureDeserializer(pSrcData, SrcDataSizeInBytes, pRootSignatureDeserializerInterface, ppRootSignatureDeserializer) {
-        result := DllCall("d3d12.dll\D3D12CreateRootSignatureDeserializer", "ptr", pSrcData, "ptr", SrcDataSizeInBytes, "ptr", pRootSignatureDeserializerInterface, "ptr*", ppRootSignatureDeserializer, "int")
+        ppRootSignatureDeserializerMarshal := ppRootSignatureDeserializer is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("d3d12.dll\D3D12CreateRootSignatureDeserializer", "ptr", pSrcData, "ptr", SrcDataSizeInBytes, "ptr", pRootSignatureDeserializerInterface, ppRootSignatureDeserializerMarshal, ppRootSignatureDeserializer, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2524,7 +2526,9 @@ class Direct3D12 {
      * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-d3d12createversionedrootsignaturedeserializer
      */
     static D3D12CreateVersionedRootSignatureDeserializer(pSrcData, SrcDataSizeInBytes, pRootSignatureDeserializerInterface, ppRootSignatureDeserializer) {
-        result := DllCall("d3d12.dll\D3D12CreateVersionedRootSignatureDeserializer", "ptr", pSrcData, "ptr", SrcDataSizeInBytes, "ptr", pRootSignatureDeserializerInterface, "ptr*", ppRootSignatureDeserializer, "int")
+        ppRootSignatureDeserializerMarshal := ppRootSignatureDeserializer is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("d3d12.dll\D3D12CreateVersionedRootSignatureDeserializer", "ptr", pSrcData, "ptr", SrcDataSizeInBytes, "ptr", pRootSignatureDeserializerInterface, ppRootSignatureDeserializerMarshal, ppRootSignatureDeserializer, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2565,7 +2569,9 @@ class Direct3D12 {
      * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-d3d12createdevice
      */
     static D3D12CreateDevice(pAdapter, MinimumFeatureLevel, riid, ppDevice) {
-        result := DllCall("d3d12.dll\D3D12CreateDevice", "ptr", pAdapter, "int", MinimumFeatureLevel, "ptr", riid, "ptr*", ppDevice, "int")
+        ppDeviceMarshal := ppDevice is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("d3d12.dll\D3D12CreateDevice", "ptr", pAdapter, "int", MinimumFeatureLevel, "ptr", riid, ppDeviceMarshal, ppDevice, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2591,7 +2597,9 @@ class Direct3D12 {
      * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-d3d12getdebuginterface
      */
     static D3D12GetDebugInterface(riid, ppvDebug) {
-        result := DllCall("d3d12.dll\D3D12GetDebugInterface", "ptr", riid, "ptr*", ppvDebug, "int")
+        ppvDebugMarshal := ppvDebug is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("d3d12.dll\D3D12GetDebugInterface", "ptr", riid, ppvDebugMarshal, ppvDebug, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2643,7 +2651,9 @@ class Direct3D12 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-d3d12getinterface
      */
     static D3D12GetInterface(rclsid, riid, ppvDebug) {
-        result := DllCall("d3d12.dll\D3D12GetInterface", "ptr", rclsid, "ptr", riid, "ptr*", ppvDebug, "int")
+        ppvDebugMarshal := ppvDebug is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("d3d12.dll\D3D12GetInterface", "ptr", rclsid, "ptr", riid, ppvDebugMarshal, ppvDebug, "int")
         if(result != 0)
             throw OSError(result)
 

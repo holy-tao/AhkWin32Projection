@@ -60,7 +60,9 @@ class ISpResourceManager extends IServiceProvider{
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getobject
      */
     GetObject(guidServiceId, ObjectCLSID, ObjectIID, fReleaseWhenLastExternalRefReleased, ppObject) {
-        result := ComCall(5, this, "ptr", guidServiceId, "ptr", ObjectCLSID, "ptr", ObjectIID, "int", fReleaseWhenLastExternalRefReleased, "ptr*", ppObject, "HRESULT")
+        ppObjectMarshal := ppObject is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ptr", guidServiceId, "ptr", ObjectCLSID, "ptr", ObjectIID, "int", fReleaseWhenLastExternalRefReleased, ppObjectMarshal, ppObject, "HRESULT")
         return result
     }
 }

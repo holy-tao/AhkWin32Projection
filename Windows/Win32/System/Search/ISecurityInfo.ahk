@@ -34,7 +34,9 @@ class ISecurityInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCurrentTrustee(ppTrustee) {
-        result := ComCall(3, this, "ptr*", ppTrustee, "HRESULT")
+        ppTrusteeMarshal := ppTrustee is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, ppTrusteeMarshal, ppTrustee, "HRESULT")
         return result
     }
 
@@ -46,8 +48,9 @@ class ISecurityInfo extends IUnknown{
      */
     GetObjectTypes(cObjectTypes, rgObjectTypes) {
         cObjectTypesMarshal := cObjectTypes is VarRef ? "uint*" : "ptr"
+        rgObjectTypesMarshal := rgObjectTypes is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, cObjectTypesMarshal, cObjectTypes, "ptr*", rgObjectTypes, "HRESULT")
+        result := ComCall(4, this, cObjectTypesMarshal, cObjectTypes, rgObjectTypesMarshal, rgObjectTypes, "HRESULT")
         return result
     }
 

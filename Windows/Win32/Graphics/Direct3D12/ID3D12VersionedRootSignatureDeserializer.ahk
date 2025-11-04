@@ -43,7 +43,9 @@ class ID3D12VersionedRootSignatureDeserializer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12versionedrootsignaturedeserializer-getrootsignaturedescatversion
      */
     GetRootSignatureDescAtVersion(convertToVersion, ppDesc) {
-        result := ComCall(3, this, "int", convertToVersion, "ptr*", ppDesc, "HRESULT")
+        ppDescMarshal := ppDesc is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "int", convertToVersion, ppDescMarshal, ppDesc, "HRESULT")
         return result
     }
 

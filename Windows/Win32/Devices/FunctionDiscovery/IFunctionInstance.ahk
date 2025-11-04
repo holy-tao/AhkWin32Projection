@@ -37,7 +37,9 @@ class IFunctionInstance extends IServiceProvider{
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstance-getid
      */
     GetID(ppszCoMemIdentity) {
-        result := ComCall(4, this, "ptr*", ppszCoMemIdentity, "HRESULT")
+        ppszCoMemIdentityMarshal := ppszCoMemIdentity is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, ppszCoMemIdentityMarshal, ppszCoMemIdentity, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IFunctionInstance extends IServiceProvider{
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstance-getproviderinstanceid
      */
     GetProviderInstanceID(ppszCoMemProviderInstanceIdentity) {
-        result := ComCall(5, this, "ptr*", ppszCoMemProviderInstanceIdentity, "HRESULT")
+        ppszCoMemProviderInstanceIdentityMarshal := ppszCoMemProviderInstanceIdentity is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, ppszCoMemProviderInstanceIdentityMarshal, ppszCoMemProviderInstanceIdentity, "HRESULT")
         return result
     }
 
@@ -72,7 +76,10 @@ class IFunctionInstance extends IServiceProvider{
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstance-getcategory
      */
     GetCategory(ppszCoMemCategory, ppszCoMemSubCategory) {
-        result := ComCall(7, this, "ptr*", ppszCoMemCategory, "ptr*", ppszCoMemSubCategory, "HRESULT")
+        ppszCoMemCategoryMarshal := ppszCoMemCategory is VarRef ? "ptr*" : "ptr"
+        ppszCoMemSubCategoryMarshal := ppszCoMemSubCategory is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, ppszCoMemCategoryMarshal, ppszCoMemCategory, ppszCoMemSubCategoryMarshal, ppszCoMemSubCategory, "HRESULT")
         return result
     }
 }

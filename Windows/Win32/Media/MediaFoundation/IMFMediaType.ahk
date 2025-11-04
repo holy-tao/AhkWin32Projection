@@ -90,7 +90,9 @@ class IMFMediaType extends IMFAttributes{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmediatype-getrepresentation
      */
     GetRepresentation(guidRepresentation, ppvRepresentation) {
-        result := ComCall(36, this, "ptr", guidRepresentation, "ptr*", ppvRepresentation, "HRESULT")
+        ppvRepresentationMarshal := ppvRepresentation is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(36, this, "ptr", guidRepresentation, ppvRepresentationMarshal, ppvRepresentation, "HRESULT")
         return result
     }
 

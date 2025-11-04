@@ -27314,7 +27314,9 @@ class Multimedia {
     static AVISaveVA(szFile, pclsidHandler, lpfnCallback, nStreams, ppavi, plpOptions) {
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
-        result := DllCall("AVIFIL32.dll\AVISaveVA", "ptr", szFile, "ptr", pclsidHandler, "ptr", lpfnCallback, "int", nStreams, "ptr*", ppavi, "ptr*", plpOptions, "int")
+        plpOptionsMarshal := plpOptions is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("AVIFIL32.dll\AVISaveVA", "ptr", szFile, "ptr", pclsidHandler, "ptr", lpfnCallback, "int", nStreams, "ptr*", ppavi, plpOptionsMarshal, plpOptions, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27358,7 +27360,9 @@ class Multimedia {
     static AVISaveVW(szFile, pclsidHandler, lpfnCallback, nStreams, ppavi, plpOptions) {
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
-        result := DllCall("AVIFIL32.dll\AVISaveVW", "ptr", szFile, "ptr", pclsidHandler, "ptr", lpfnCallback, "int", nStreams, "ptr*", ppavi, "ptr*", plpOptions, "int")
+        plpOptionsMarshal := plpOptions is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("AVIFIL32.dll\AVISaveVW", "ptr", szFile, "ptr", pclsidHandler, "ptr", lpfnCallback, "int", nStreams, "ptr*", ppavi, plpOptionsMarshal, plpOptions, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27400,7 +27404,9 @@ class Multimedia {
     static AVISaveOptions(hwnd, uiFlags, nStreams, ppavi, plpOptions) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("AVIFIL32.dll\AVISaveOptions", "ptr", hwnd, "uint", uiFlags, "int", nStreams, "ptr*", ppavi, "ptr*", plpOptions, "ptr")
+        plpOptionsMarshal := plpOptions is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("AVIFIL32.dll\AVISaveOptions", "ptr", hwnd, "uint", uiFlags, "int", nStreams, "ptr*", ppavi, plpOptionsMarshal, plpOptions, "ptr")
         return result
     }
 
@@ -27413,7 +27419,9 @@ class Multimedia {
      * @since windows5.0
      */
     static AVISaveOptionsFree(nStreams, plpOptions) {
-        result := DllCall("AVIFIL32.dll\AVISaveOptionsFree", "int", nStreams, "ptr*", plpOptions, "int")
+        plpOptionsMarshal := plpOptions is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("AVIFIL32.dll\AVISaveOptionsFree", "int", nStreams, plpOptionsMarshal, plpOptions, "int")
         if(result != 0)
             throw OSError(result)
 

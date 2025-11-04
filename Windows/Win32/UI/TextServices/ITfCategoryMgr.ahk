@@ -90,7 +90,9 @@ class ITfCategoryMgr extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcategorymgr-findclosestcategory
      */
     FindClosestCategory(rguid, pcatid, ppcatidList, ulCount) {
-        result := ComCall(7, this, "ptr", rguid, "ptr", pcatid, "ptr*", ppcatidList, "uint", ulCount, "HRESULT")
+        ppcatidListMarshal := ppcatidList is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "ptr", rguid, "ptr", pcatid, ppcatidListMarshal, ppcatidList, "uint", ulCount, "HRESULT")
         return result
     }
 

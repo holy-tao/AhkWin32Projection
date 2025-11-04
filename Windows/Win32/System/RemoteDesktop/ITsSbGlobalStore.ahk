@@ -78,8 +78,9 @@ class ITsSbGlobalStore extends IUnknown{
         ProviderName := ProviderName is String ? BSTR.Alloc(ProviderName).Value : ProviderName
 
         pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+        pValMarshal := pVal is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", ProviderName, pdwCountMarshal, pdwCount, "ptr*", pVal, "HRESULT")
+        result := ComCall(5, this, "ptr", ProviderName, pdwCountMarshal, pdwCount, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -99,8 +100,9 @@ class ITsSbGlobalStore extends IUnknown{
         EnvName := EnvName is String ? BSTR.Alloc(EnvName).Value : EnvName
 
         pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+        pValMarshal := pVal is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "ptr", ProviderName, "ptr", FarmName, "ptr", EnvName, pdwCountMarshal, pdwCount, "ptr*", pVal, "HRESULT")
+        result := ComCall(6, this, "ptr", ProviderName, "ptr", FarmName, "ptr", EnvName, pdwCountMarshal, pdwCount, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -116,8 +118,9 @@ class ITsSbGlobalStore extends IUnknown{
         ProviderName := ProviderName is String ? BSTR.Alloc(ProviderName).Value : ProviderName
 
         pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+        ppValMarshal := ppVal is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "ptr", ProviderName, pdwCountMarshal, pdwCount, "ptr*", ppVal, "HRESULT")
+        result := ComCall(7, this, "ptr", ProviderName, pdwCountMarshal, pdwCount, ppValMarshal, ppVal, "HRESULT")
         return result
     }
 
@@ -145,8 +148,9 @@ class ITsSbGlobalStore extends IUnknown{
 
         pSessionStateMarshal := pSessionState is VarRef ? "int*" : "ptr"
         pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+        ppValMarshal := ppVal is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(8, this, "ptr", ProviderName, "ptr", targetName, "ptr", userName, "ptr", userDomain, "ptr", poolName, "ptr", initialProgram, pSessionStateMarshal, pSessionState, pdwCountMarshal, pdwCount, "ptr*", ppVal, "HRESULT")
+        result := ComCall(8, this, "ptr", ProviderName, "ptr", targetName, "ptr", userName, "ptr", userDomain, "ptr", poolName, "ptr", initialProgram, pSessionStateMarshal, pSessionState, pdwCountMarshal, pdwCount, ppValMarshal, ppVal, "HRESULT")
         return result
     }
 

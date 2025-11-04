@@ -235,7 +235,9 @@ class Dxgi {
      * @see https://docs.microsoft.com/windows/win32/api//dxgi/nf-dxgi-createdxgifactory
      */
     static CreateDXGIFactory(riid, ppFactory) {
-        result := DllCall("dxgi.dll\CreateDXGIFactory", "ptr", riid, "ptr*", ppFactory, "int")
+        ppFactoryMarshal := ppFactory is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("dxgi.dll\CreateDXGIFactory", "ptr", riid, ppFactoryMarshal, ppFactory, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -258,7 +260,9 @@ class Dxgi {
      * @since windows6.1
      */
     static CreateDXGIFactory1(riid, ppFactory) {
-        result := DllCall("dxgi.dll\CreateDXGIFactory1", "ptr", riid, "ptr*", ppFactory, "int")
+        ppFactoryMarshal := ppFactory is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("dxgi.dll\CreateDXGIFactory1", "ptr", riid, ppFactoryMarshal, ppFactory, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -291,7 +295,9 @@ class Dxgi {
      * @since windows8.1
      */
     static CreateDXGIFactory2(Flags, riid, ppFactory) {
-        result := DllCall("dxgi.dll\CreateDXGIFactory2", "uint", Flags, "ptr", riid, "ptr*", ppFactory, "int")
+        ppFactoryMarshal := ppFactory is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("dxgi.dll\CreateDXGIFactory2", "uint", Flags, "ptr", riid, ppFactoryMarshal, ppFactory, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -308,7 +314,9 @@ class Dxgi {
      * @since windows8.1
      */
     static DXGIGetDebugInterface1(Flags, riid, pDebug) {
-        result := DllCall("dxgi.dll\DXGIGetDebugInterface1", "uint", Flags, "ptr", riid, "ptr*", pDebug, "int")
+        pDebugMarshal := pDebug is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("dxgi.dll\DXGIGetDebugInterface1", "uint", Flags, "ptr", riid, pDebugMarshal, pDebug, "int")
         if(result != 0)
             throw OSError(result)
 

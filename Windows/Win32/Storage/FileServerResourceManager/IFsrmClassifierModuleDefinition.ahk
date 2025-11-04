@@ -37,7 +37,9 @@ class IFsrmClassifierModuleDefinition extends IFsrmPipelineModuleDefinition{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassifiermoduledefinition-get_propertiesaffected
      */
     get_PropertiesAffected(propertiesAffected) {
-        result := ComCall(31, this, "ptr*", propertiesAffected, "HRESULT")
+        propertiesAffectedMarshal := propertiesAffected is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(31, this, propertiesAffectedMarshal, propertiesAffected, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class IFsrmClassifierModuleDefinition extends IFsrmPipelineModuleDefinition{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassifiermoduledefinition-get_propertiesused
      */
     get_PropertiesUsed(propertiesUsed) {
-        result := ComCall(33, this, "ptr*", propertiesUsed, "HRESULT")
+        propertiesUsedMarshal := propertiesUsed is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(33, this, propertiesUsedMarshal, propertiesUsed, "HRESULT")
         return result
     }
 

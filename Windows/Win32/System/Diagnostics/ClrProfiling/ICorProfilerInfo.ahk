@@ -63,9 +63,10 @@ class ICorProfilerInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCodeInfo(functionId, pStart, pcSize) {
+        pStartMarshal := pStart is VarRef ? "ptr*" : "ptr"
         pcSizeMarshal := pcSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", functionId, "ptr*", pStart, pcSizeMarshal, pcSize, "HRESULT")
+        result := ComCall(5, this, "ptr", functionId, pStartMarshal, pStart, pcSizeMarshal, pcSize, "HRESULT")
         return result
     }
 
@@ -225,7 +226,11 @@ class ICorProfilerInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     SetEnterLeaveFunctionHooks(pFuncEnter, pFuncLeave, pFuncTailcall) {
-        result := ComCall(17, this, "ptr*", pFuncEnter, "ptr*", pFuncLeave, "ptr*", pFuncTailcall, "HRESULT")
+        pFuncEnterMarshal := pFuncEnter is VarRef ? "ptr*" : "ptr"
+        pFuncLeaveMarshal := pFuncLeave is VarRef ? "ptr*" : "ptr"
+        pFuncTailcallMarshal := pFuncTailcall is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(17, this, pFuncEnterMarshal, pFuncEnter, pFuncLeaveMarshal, pFuncLeave, pFuncTailcallMarshal, pFuncTailcall, "HRESULT")
         return result
     }
 
@@ -235,7 +240,9 @@ class ICorProfilerInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     SetFunctionIDMapper(pFunc) {
-        result := ComCall(18, this, "ptr*", pFunc, "HRESULT")
+        pFuncMarshal := pFunc is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(18, this, pFuncMarshal, pFunc, "HRESULT")
         return result
     }
 
@@ -267,10 +274,11 @@ class ICorProfilerInfo extends IUnknown{
     GetModuleInfo(moduleId, ppBaseLoadAddress, cchName, pcchName, szName, pAssemblyId) {
         szName := szName is String ? StrPtr(szName) : szName
 
+        ppBaseLoadAddressMarshal := ppBaseLoadAddress is VarRef ? "ptr*" : "ptr"
         pcchNameMarshal := pcchName is VarRef ? "uint*" : "ptr"
         pAssemblyIdMarshal := pAssemblyId is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(20, this, "ptr", moduleId, "ptr*", ppBaseLoadAddress, "uint", cchName, pcchNameMarshal, pcchName, "ptr", szName, pAssemblyIdMarshal, pAssemblyId, "HRESULT")
+        result := ComCall(20, this, "ptr", moduleId, ppBaseLoadAddressMarshal, ppBaseLoadAddress, "uint", cchName, pcchNameMarshal, pcchName, "ptr", szName, pAssemblyIdMarshal, pAssemblyId, "HRESULT")
         return result
     }
 
@@ -296,9 +304,10 @@ class ICorProfilerInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     GetILFunctionBody(moduleId, methodId, ppMethodHeader, pcbMethodSize) {
+        ppMethodHeaderMarshal := ppMethodHeader is VarRef ? "ptr*" : "ptr"
         pcbMethodSizeMarshal := pcbMethodSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(22, this, "ptr", moduleId, "uint", methodId, "ptr*", ppMethodHeader, pcbMethodSizeMarshal, pcbMethodSize, "HRESULT")
+        result := ComCall(22, this, "ptr", moduleId, "uint", methodId, ppMethodHeaderMarshal, ppMethodHeader, pcbMethodSizeMarshal, pcbMethodSize, "HRESULT")
         return result
     }
 

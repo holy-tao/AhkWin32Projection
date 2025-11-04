@@ -39,9 +39,10 @@ class IAMCertifiedOutputProtection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamcertifiedoutputprotection-keyexchange
      */
     KeyExchange(pRandom, VarLenCertGH, pdwLengthCertGH) {
+        VarLenCertGHMarshal := VarLenCertGH is VarRef ? "ptr*" : "ptr"
         pdwLengthCertGHMarshal := pdwLengthCertGH is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pRandom, "ptr*", VarLenCertGH, pdwLengthCertGHMarshal, pdwLengthCertGH, "HRESULT")
+        result := ComCall(3, this, "ptr", pRandom, VarLenCertGHMarshal, VarLenCertGH, pdwLengthCertGHMarshal, pdwLengthCertGH, "HRESULT")
         return result
     }
 

@@ -49,7 +49,9 @@ class IDvdGraphBuilder extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdgraphbuilder-getdvdinterface
      */
     GetDvdInterface(riid, ppvIF) {
-        result := ComCall(4, this, "ptr", riid, "ptr*", ppvIF, "HRESULT")
+        ppvIFMarshal := ppvIF is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", riid, ppvIFMarshal, ppvIF, "HRESULT")
         return result
     }
 

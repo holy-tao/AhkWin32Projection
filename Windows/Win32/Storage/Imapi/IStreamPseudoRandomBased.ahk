@@ -81,9 +81,10 @@ class IStreamPseudoRandomBased extends IStream{
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-istreampseudorandombased-get_extendedseed
      */
     get_ExtendedSeed(values, eCount) {
+        valuesMarshal := values is VarRef ? "ptr*" : "ptr"
         eCountMarshal := eCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(17, this, "ptr*", values, eCountMarshal, eCount, "HRESULT")
+        result := ComCall(17, this, valuesMarshal, values, eCountMarshal, eCount, "HRESULT")
         return result
     }
 }

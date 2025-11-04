@@ -158,7 +158,9 @@ class ISpatialAudioClient extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient-activatespatialaudiostream
      */
     ActivateSpatialAudioStream(activationParams, riid, stream) {
-        result := ComCall(10, this, "ptr", activationParams, "ptr", riid, "ptr*", stream, "HRESULT")
+        streamMarshal := stream is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(10, this, "ptr", activationParams, "ptr", riid, streamMarshal, stream, "HRESULT")
         return result
     }
 }

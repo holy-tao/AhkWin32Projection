@@ -79,7 +79,9 @@ class ICLRDebugManager extends IUnknown{
      * @returns {HRESULT} 
      */
     GetDacl(pacl) {
-        result := ComCall(7, this, "ptr*", pacl, "HRESULT")
+        paclMarshal := pacl is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, paclMarshal, pacl, "HRESULT")
         return result
     }
 

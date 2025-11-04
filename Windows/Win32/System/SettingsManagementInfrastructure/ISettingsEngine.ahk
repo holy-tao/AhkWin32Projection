@@ -222,9 +222,10 @@ class ISettingsEngine extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsengine-applysettingscontext
      */
     ApplySettingsContext(SettingsContext, pppwzIdentities, pcIdentities) {
+        pppwzIdentitiesMarshal := pppwzIdentities is VarRef ? "ptr*" : "ptr"
         pcIdentitiesMarshal := pcIdentities is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(17, this, "ptr", SettingsContext, "ptr*", pppwzIdentities, pcIdentitiesMarshal, pcIdentities, "HRESULT")
+        result := ComCall(17, this, "ptr", SettingsContext, pppwzIdentitiesMarshal, pppwzIdentities, pcIdentitiesMarshal, pcIdentities, "HRESULT")
         return result
     }
 

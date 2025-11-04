@@ -73,8 +73,9 @@ class IWICBitmapLock extends IUnknown{
      */
     GetDataPointer(pcbBufferSize, ppbData) {
         pcbBufferSizeMarshal := pcbBufferSize is VarRef ? "uint*" : "ptr"
+        ppbDataMarshal := ppbData is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, pcbBufferSizeMarshal, pcbBufferSize, "ptr*", ppbData, "HRESULT")
+        result := ComCall(5, this, pcbBufferSizeMarshal, pcbBufferSize, ppbDataMarshal, ppbData, "HRESULT")
         return result
     }
 

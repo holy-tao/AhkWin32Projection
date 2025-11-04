@@ -47,7 +47,9 @@ class IOleItemContainer extends IOleContainer{
     GetObject(pszItem, dwSpeedNeeded, pbc, riid, ppvObject) {
         pszItem := pszItem is String ? StrPtr(pszItem) : pszItem
 
-        result := ComCall(6, this, "ptr", pszItem, "uint", dwSpeedNeeded, "ptr", pbc, "ptr", riid, "ptr*", ppvObject, "HRESULT")
+        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pszItem, "uint", dwSpeedNeeded, "ptr", pbc, "ptr", riid, ppvObjectMarshal, ppvObject, "HRESULT")
         return result
     }
 
@@ -63,7 +65,9 @@ class IOleItemContainer extends IOleContainer{
     GetObjectStorage(pszItem, pbc, riid, ppvStorage) {
         pszItem := pszItem is String ? StrPtr(pszItem) : pszItem
 
-        result := ComCall(7, this, "ptr", pszItem, "ptr", pbc, "ptr", riid, "ptr*", ppvStorage, "HRESULT")
+        ppvStorageMarshal := ppvStorage is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pszItem, "ptr", pbc, "ptr", riid, ppvStorageMarshal, ppvStorage, "HRESULT")
         return result
     }
 

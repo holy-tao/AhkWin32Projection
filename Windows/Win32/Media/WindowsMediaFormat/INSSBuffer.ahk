@@ -74,7 +74,9 @@ class INSSBuffer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsbuffer/nf-wmsbuffer-inssbuffer-getbuffer
      */
     GetBuffer(ppdwBuffer) {
-        result := ComCall(6, this, "ptr*", ppdwBuffer, "HRESULT")
+        ppdwBufferMarshal := ppdwBuffer is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, ppdwBufferMarshal, ppdwBuffer, "HRESULT")
         return result
     }
 
@@ -86,9 +88,10 @@ class INSSBuffer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmsbuffer/nf-wmsbuffer-inssbuffer-getbufferandlength
      */
     GetBufferAndLength(ppdwBuffer, pdwLength) {
+        ppdwBufferMarshal := ppdwBuffer is VarRef ? "ptr*" : "ptr"
         pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "ptr*", ppdwBuffer, pdwLengthMarshal, pdwLength, "HRESULT")
+        result := ComCall(7, this, ppdwBufferMarshal, ppdwBuffer, pdwLengthMarshal, pdwLength, "HRESULT")
         return result
     }
 }

@@ -68,8 +68,9 @@ class ITLegacyCallMediaControl extends IDispatch{
         pDeviceClass := pDeviceClass is String ? BSTR.Alloc(pDeviceClass).Value : pDeviceClass
 
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+        ppDeviceIDMarshal := ppDeviceID is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(9, this, "ptr", pDeviceClass, pdwSizeMarshal, pdwSize, "ptr*", ppDeviceID, "HRESULT")
+        result := ComCall(9, this, "ptr", pDeviceClass, pdwSizeMarshal, pdwSize, ppDeviceIDMarshal, ppDeviceID, "HRESULT")
         return result
     }
 

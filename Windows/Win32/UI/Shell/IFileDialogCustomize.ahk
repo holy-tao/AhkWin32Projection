@@ -207,7 +207,9 @@ class IFileDialogCustomize extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-geteditboxtext
      */
     GetEditBoxText(dwIDCtl, ppszText) {
-        result := ComCall(15, this, "uint", dwIDCtl, "ptr*", ppszText, "HRESULT")
+        ppszTextMarshal := ppszText is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(15, this, "uint", dwIDCtl, ppszTextMarshal, ppszText, "HRESULT")
         return result
     }
 

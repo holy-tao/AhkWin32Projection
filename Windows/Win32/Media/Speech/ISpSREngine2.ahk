@@ -40,9 +40,10 @@ class ISpSREngine2 extends ISpSREngine{
     PrivateCallImmediate(pvEngineContext, pInCallFrame, ulInCallFrameSize, ppvCoMemResponse, pulResponseSize) {
         pvEngineContextMarshal := pvEngineContext is VarRef ? "ptr" : "ptr"
         pInCallFrameMarshal := pInCallFrame is VarRef ? "ptr" : "ptr"
+        ppvCoMemResponseMarshal := ppvCoMemResponse is VarRef ? "ptr*" : "ptr"
         pulResponseSizeMarshal := pulResponseSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(32, this, pvEngineContextMarshal, pvEngineContext, pInCallFrameMarshal, pInCallFrame, "uint", ulInCallFrameSize, "ptr*", ppvCoMemResponse, pulResponseSizeMarshal, pulResponseSize, "HRESULT")
+        result := ComCall(32, this, pvEngineContextMarshal, pvEngineContext, pInCallFrameMarshal, pInCallFrame, "uint", ulInCallFrameSize, ppvCoMemResponseMarshal, ppvCoMemResponse, pulResponseSizeMarshal, pulResponseSize, "HRESULT")
         return result
     }
 

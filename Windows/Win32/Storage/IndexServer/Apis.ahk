@@ -826,7 +826,9 @@ class IndexServer {
     static LoadIFilter(pwcsPath, pUnkOuter, ppIUnk) {
         pwcsPath := pwcsPath is String ? StrPtr(pwcsPath) : pwcsPath
 
-        result := DllCall("query.dll\LoadIFilter", "ptr", pwcsPath, "ptr", pUnkOuter, "ptr*", ppIUnk, "int")
+        ppIUnkMarshal := ppIUnk is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("query.dll\LoadIFilter", "ptr", pwcsPath, "ptr", pUnkOuter, ppIUnkMarshal, ppIUnk, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -844,7 +846,9 @@ class IndexServer {
     static LoadIFilterEx(pwcsPath, dwFlags, riid, ppIUnk) {
         pwcsPath := pwcsPath is String ? StrPtr(pwcsPath) : pwcsPath
 
-        result := DllCall("query.dll\LoadIFilterEx", "ptr", pwcsPath, "uint", dwFlags, "ptr", riid, "ptr*", ppIUnk, "int")
+        ppIUnkMarshal := ppIUnk is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("query.dll\LoadIFilterEx", "ptr", pwcsPath, "uint", dwFlags, "ptr", riid, ppIUnkMarshal, ppIUnk, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -934,7 +938,9 @@ class IndexServer {
      * @since windows5.0
      */
     static BindIFilterFromStorage(pStg, pUnkOuter, ppIUnk) {
-        result := DllCall("query.dll\BindIFilterFromStorage", "ptr", pStg, "ptr", pUnkOuter, "ptr*", ppIUnk, "int")
+        ppIUnkMarshal := ppIUnk is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("query.dll\BindIFilterFromStorage", "ptr", pStg, "ptr", pUnkOuter, ppIUnkMarshal, ppIUnk, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1024,7 +1030,9 @@ class IndexServer {
      * @since windows5.0
      */
     static BindIFilterFromStream(pStm, pUnkOuter, ppIUnk) {
-        result := DllCall("query.dll\BindIFilterFromStream", "ptr", pStm, "ptr", pUnkOuter, "ptr*", ppIUnk, "int")
+        ppIUnkMarshal := ppIUnk is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("query.dll\BindIFilterFromStream", "ptr", pStm, "ptr", pUnkOuter, ppIUnkMarshal, ppIUnk, "int")
         if(result != 0)
             throw OSError(result)
 

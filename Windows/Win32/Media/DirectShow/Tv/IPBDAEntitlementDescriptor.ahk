@@ -64,9 +64,10 @@ class IPBDAEntitlementDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbdaentitlementdescriptor-gettoken
      */
     GetToken(ppbTokenBuffer, pdwTokenLength) {
+        ppbTokenBufferMarshal := ppbTokenBuffer is VarRef ? "ptr*" : "ptr"
         pdwTokenLengthMarshal := pdwTokenLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr*", ppbTokenBuffer, pdwTokenLengthMarshal, pdwTokenLength, "HRESULT")
+        result := ComCall(5, this, ppbTokenBufferMarshal, ppbTokenBuffer, pdwTokenLengthMarshal, pdwTokenLength, "HRESULT")
         return result
     }
 }

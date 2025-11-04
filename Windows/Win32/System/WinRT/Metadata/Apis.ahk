@@ -989,7 +989,9 @@ class Metadata {
      * @since windows8.0
      */
     static MetaDataGetDispenser(rclsid, riid, ppv) {
-        result := DllCall("RoMetadata.dll\MetaDataGetDispenser", "ptr", rclsid, "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("RoMetadata.dll\MetaDataGetDispenser", "ptr", rclsid, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1150,8 +1152,9 @@ class Metadata {
         typeName := typeName is Win32Handle ? NumGet(typeName, "ptr") : typeName
 
         partsCountMarshal := partsCount is VarRef ? "uint*" : "ptr"
+        typeNamePartsMarshal := typeNameParts is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("api-ms-win-ro-typeresolution-l1-1-0.dll\RoParseTypeName", "ptr", typeName, partsCountMarshal, partsCount, "ptr*", typeNameParts, "int")
+        result := DllCall("api-ms-win-ro-typeresolution-l1-1-0.dll\RoParseTypeName", "ptr", typeName, partsCountMarshal, partsCount, typeNamePartsMarshal, typeNameParts, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1250,9 +1253,11 @@ class Metadata {
         windowsMetaDataDir := windowsMetaDataDir is Win32Handle ? NumGet(windowsMetaDataDir, "ptr") : windowsMetaDataDir
 
         metaDataFilePathsCountMarshal := metaDataFilePathsCount is VarRef ? "uint*" : "ptr"
+        metaDataFilePathsMarshal := metaDataFilePaths is VarRef ? "ptr*" : "ptr"
         subNamespacesCountMarshal := subNamespacesCount is VarRef ? "uint*" : "ptr"
+        subNamespacesMarshal := subNamespaces is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("api-ms-win-ro-typeresolution-l1-1-0.dll\RoResolveNamespace", "ptr", name, "ptr", windowsMetaDataDir, "uint", packageGraphDirsCount, "ptr", packageGraphDirs, metaDataFilePathsCountMarshal, metaDataFilePathsCount, "ptr*", metaDataFilePaths, subNamespacesCountMarshal, subNamespacesCount, "ptr*", subNamespaces, "int")
+        result := DllCall("api-ms-win-ro-typeresolution-l1-1-0.dll\RoResolveNamespace", "ptr", name, "ptr", windowsMetaDataDir, "uint", packageGraphDirsCount, "ptr", packageGraphDirs, metaDataFilePathsCountMarshal, metaDataFilePathsCount, metaDataFilePathsMarshal, metaDataFilePaths, subNamespacesCountMarshal, subNamespacesCount, subNamespacesMarshal, subNamespaces, "int")
         if(result != 0)
             throw OSError(result)
 

@@ -34,7 +34,9 @@ class IEventTarget2 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetRegisteredEventTypes(ppEventTypeArray) {
-        result := ComCall(3, this, "ptr*", ppEventTypeArray, "HRESULT")
+        ppEventTypeArrayMarshal := ppEventTypeArray is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, ppEventTypeArrayMarshal, ppEventTypeArray, "HRESULT")
         return result
     }
 
@@ -47,7 +49,9 @@ class IEventTarget2 extends IUnknown{
     GetListenersForType(pszEventType, ppEventHandlerArray) {
         pszEventType := pszEventType is String ? StrPtr(pszEventType) : pszEventType
 
-        result := ComCall(4, this, "ptr", pszEventType, "ptr*", ppEventHandlerArray, "HRESULT")
+        ppEventHandlerArrayMarshal := ppEventHandlerArray is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pszEventType, ppEventHandlerArrayMarshal, ppEventHandlerArray, "HRESULT")
         return result
     }
 

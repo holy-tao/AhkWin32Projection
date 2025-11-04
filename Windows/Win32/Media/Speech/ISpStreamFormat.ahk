@@ -35,7 +35,9 @@ class ISpStreamFormat extends IStream{
      * @returns {HRESULT} 
      */
     GetFormat(pguidFormatId, ppCoMemWaveFormatEx) {
-        result := ComCall(14, this, "ptr", pguidFormatId, "ptr*", ppCoMemWaveFormatEx, "HRESULT")
+        ppCoMemWaveFormatExMarshal := ppCoMemWaveFormatEx is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(14, this, "ptr", pguidFormatId, ppCoMemWaveFormatExMarshal, ppCoMemWaveFormatEx, "HRESULT")
         return result
     }
 }

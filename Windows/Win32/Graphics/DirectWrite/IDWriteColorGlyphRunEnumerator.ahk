@@ -48,7 +48,9 @@ class IDWriteColorGlyphRunEnumerator extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritecolorglyphrunenumerator-getcurrentrun
      */
     GetCurrentRun(colorGlyphRun) {
-        result := ComCall(4, this, "ptr*", colorGlyphRun, "HRESULT")
+        colorGlyphRunMarshal := colorGlyphRun is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, colorGlyphRunMarshal, colorGlyphRun, "HRESULT")
         return result
     }
 }

@@ -59,7 +59,9 @@ class IMachineGlobalObjectTable extends IUnknown{
     GetObject(clsid, identifier, riid, ppv) {
         identifier := identifier is String ? StrPtr(identifier) : identifier
 
-        result := ComCall(4, this, "ptr", clsid, "ptr", identifier, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", clsid, "ptr", identifier, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 

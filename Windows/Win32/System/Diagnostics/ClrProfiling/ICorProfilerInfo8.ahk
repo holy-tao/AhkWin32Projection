@@ -70,10 +70,11 @@ class ICorProfilerInfo8 extends ICorProfilerInfo7{
         wszName := wszName is String ? StrPtr(wszName) : wszName
 
         moduleIdMarshal := moduleId is VarRef ? "ptr*" : "ptr"
+        ppvSigMarshal := ppvSig is VarRef ? "ptr*" : "ptr"
         pbSigMarshal := pbSig is VarRef ? "uint*" : "ptr"
         pcchNameMarshal := pcchName is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(89, this, "ptr", functionId, moduleIdMarshal, moduleId, "ptr*", ppvSig, pbSigMarshal, pbSig, "uint", cchName, pcchNameMarshal, pcchName, "ptr", wszName, "HRESULT")
+        result := ComCall(89, this, "ptr", functionId, moduleIdMarshal, moduleId, ppvSigMarshal, ppvSig, pbSigMarshal, pbSig, "uint", cchName, pcchNameMarshal, pcchName, "ptr", wszName, "HRESULT")
         return result
     }
 }

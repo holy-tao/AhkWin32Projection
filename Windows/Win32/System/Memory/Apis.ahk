@@ -1548,10 +1548,11 @@ class Memory {
      */
     static GetWriteWatch(dwFlags, lpBaseAddress, dwRegionSize, lpAddresses, lpdwCount, lpdwGranularity) {
         lpBaseAddressMarshal := lpBaseAddress is VarRef ? "ptr" : "ptr"
+        lpAddressesMarshal := lpAddresses is VarRef ? "ptr*" : "ptr"
         lpdwCountMarshal := lpdwCount is VarRef ? "ptr*" : "ptr"
         lpdwGranularityMarshal := lpdwGranularity is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("KERNEL32.dll\GetWriteWatch", "uint", dwFlags, lpBaseAddressMarshal, lpBaseAddress, "ptr", dwRegionSize, "ptr*", lpAddresses, lpdwCountMarshal, lpdwCount, lpdwGranularityMarshal, lpdwGranularity, "uint")
+        result := DllCall("KERNEL32.dll\GetWriteWatch", "uint", dwFlags, lpBaseAddressMarshal, lpBaseAddress, "ptr", dwRegionSize, lpAddressesMarshal, lpAddresses, lpdwCountMarshal, lpdwCount, lpdwGranularityMarshal, lpdwGranularity, "uint")
         return result
     }
 
@@ -3241,7 +3242,9 @@ class Memory {
      * @returns {BOOL} 
      */
     static GetMemoryNumaPerformanceInformation(NodeNumber, DataType, PerfInfo) {
-        result := DllCall("api-ms-win-core-memory-l1-1-9.dll\GetMemoryNumaPerformanceInformation", "uint", NodeNumber, "char", DataType, "ptr*", PerfInfo, "int")
+        PerfInfoMarshal := PerfInfo is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("api-ms-win-core-memory-l1-1-9.dll\GetMemoryNumaPerformanceInformation", "uint", NodeNumber, "char", DataType, PerfInfoMarshal, PerfInfo, "int")
         return result
     }
 
@@ -4140,11 +4143,12 @@ class Memory {
      * @since windows5.1.2600
      */
     static MapUserPhysicalPagesScatter(VirtualAddresses, NumberOfPages, PageArray) {
+        VirtualAddressesMarshal := VirtualAddresses is VarRef ? "ptr*" : "ptr"
         PageArrayMarshal := PageArray is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\MapUserPhysicalPagesScatter", "ptr*", VirtualAddresses, "ptr", NumberOfPages, PageArrayMarshal, PageArray, "int")
+        result := DllCall("KERNEL32.dll\MapUserPhysicalPagesScatter", VirtualAddressesMarshal, VirtualAddresses, "ptr", NumberOfPages, PageArrayMarshal, PageArray, "int")
         if(A_LastError)
             throw OSError()
 

@@ -35,9 +35,10 @@ class ITensorNative extends IUnknown{
      * @returns {HRESULT} 
      */
     GetBuffer(value, capacity) {
+        valueMarshal := value is VarRef ? "ptr*" : "ptr"
         capacityMarshal := capacity is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr*", value, capacityMarshal, capacity, "HRESULT")
+        result := ComCall(3, this, valueMarshal, value, capacityMarshal, capacity, "HRESULT")
         return result
     }
 

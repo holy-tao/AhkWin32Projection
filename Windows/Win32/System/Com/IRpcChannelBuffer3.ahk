@@ -73,7 +73,9 @@ class IRpcChannelBuffer3 extends IRpcChannelBuffer2{
      * @returns {HRESULT} 
      */
     GetCallContext(pMsg, riid, pInterface) {
-        result := ComCall(12, this, "ptr", pMsg, "ptr", riid, "ptr*", pInterface, "HRESULT")
+        pInterfaceMarshal := pInterface is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(12, this, "ptr", pMsg, "ptr", riid, pInterfaceMarshal, pInterface, "HRESULT")
         return result
     }
 
@@ -86,8 +88,9 @@ class IRpcChannelBuffer3 extends IRpcChannelBuffer2{
      */
     GetDestCtxEx(pMsg, pdwDestContext, ppvDestContext) {
         pdwDestContextMarshal := pdwDestContext is VarRef ? "uint*" : "ptr"
+        ppvDestContextMarshal := ppvDestContext is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(13, this, "ptr", pMsg, pdwDestContextMarshal, pdwDestContext, "ptr*", ppvDestContext, "HRESULT")
+        result := ComCall(13, this, "ptr", pMsg, pdwDestContextMarshal, pdwDestContext, ppvDestContextMarshal, ppvDestContext, "HRESULT")
         return result
     }
 

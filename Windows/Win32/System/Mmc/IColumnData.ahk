@@ -50,7 +50,9 @@ class IColumnData extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icolumndata-getcolumnconfigdata
      */
     GetColumnConfigData(pColID, ppColSetData) {
-        result := ComCall(4, this, "ptr", pColID, "ptr*", ppColSetData, "HRESULT")
+        ppColSetDataMarshal := ppColSetData is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pColID, ppColSetDataMarshal, ppColSetData, "HRESULT")
         return result
     }
 
@@ -74,7 +76,9 @@ class IColumnData extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icolumndata-getcolumnsortdata
      */
     GetColumnSortData(pColID, ppColSortData) {
-        result := ComCall(6, this, "ptr", pColID, "ptr*", ppColSortData, "HRESULT")
+        ppColSortDataMarshal := ppColSortData is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pColID, ppColSortDataMarshal, ppColSortData, "HRESULT")
         return result
     }
 }

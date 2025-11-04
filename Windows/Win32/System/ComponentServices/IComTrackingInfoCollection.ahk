@@ -65,7 +65,9 @@ class IComTrackingInfoCollection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomtrackinginfocollection-item
      */
     Item(ulIndex, riid, ppv) {
-        result := ComCall(5, this, "uint", ulIndex, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "uint", ulIndex, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 }

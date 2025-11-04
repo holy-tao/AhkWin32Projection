@@ -50,9 +50,10 @@ class IVdsDisk3 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsdisk3-queryfreeextents
      */
     QueryFreeExtents(ulAlign, ppFreeExtentArray, plNumberOfFreeExtents) {
+        ppFreeExtentArrayMarshal := ppFreeExtentArray is VarRef ? "ptr*" : "ptr"
         plNumberOfFreeExtentsMarshal := plNumberOfFreeExtents is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "uint", ulAlign, "ptr*", ppFreeExtentArray, plNumberOfFreeExtentsMarshal, plNumberOfFreeExtents, "HRESULT")
+        result := ComCall(4, this, "uint", ulAlign, ppFreeExtentArrayMarshal, ppFreeExtentArray, plNumberOfFreeExtentsMarshal, plNumberOfFreeExtents, "HRESULT")
         return result
     }
 }

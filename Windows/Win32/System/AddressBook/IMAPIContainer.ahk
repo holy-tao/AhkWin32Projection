@@ -90,9 +90,11 @@ class IMAPIContainer extends IMAPIProp{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapicontainer-getsearchcriteria
      */
     GetSearchCriteria(ulFlags, lppRestriction, lppContainerList, lpulSearchState) {
+        lppRestrictionMarshal := lppRestriction is VarRef ? "ptr*" : "ptr"
+        lppContainerListMarshal := lppContainerList is VarRef ? "ptr*" : "ptr"
         lpulSearchStateMarshal := lpulSearchState is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(18, this, "uint", ulFlags, "ptr*", lppRestriction, "ptr*", lppContainerList, lpulSearchStateMarshal, lpulSearchState, "HRESULT")
+        result := ComCall(18, this, "uint", ulFlags, lppRestrictionMarshal, lppRestriction, lppContainerListMarshal, lppContainerList, lpulSearchStateMarshal, lpulSearchState, "HRESULT")
         return result
     }
 }

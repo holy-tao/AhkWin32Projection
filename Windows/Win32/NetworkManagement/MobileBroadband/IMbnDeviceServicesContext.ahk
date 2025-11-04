@@ -42,7 +42,9 @@ class IMbnDeviceServicesContext extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicescontext-enumeratedeviceservices
      */
     EnumerateDeviceServices(deviceServices) {
-        result := ComCall(3, this, "ptr*", deviceServices, "HRESULT")
+        deviceServicesMarshal := deviceServices is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, deviceServicesMarshal, deviceServices, "HRESULT")
         return result
     }
 

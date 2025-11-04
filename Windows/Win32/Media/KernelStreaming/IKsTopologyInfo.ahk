@@ -141,7 +141,9 @@ class IKsTopologyInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ikstopologyinfo-createnodeinstance
      */
     CreateNodeInstance(dwNodeId, iid, ppvObject) {
-        result := ComCall(10, this, "uint", dwNodeId, "ptr", iid, "ptr*", ppvObject, "HRESULT")
+        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(10, this, "uint", dwNodeId, "ptr", iid, ppvObjectMarshal, ppvObject, "HRESULT")
         return result
     }
 }

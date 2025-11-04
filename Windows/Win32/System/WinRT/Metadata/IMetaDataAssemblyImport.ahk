@@ -47,12 +47,13 @@ class IMetaDataAssemblyImport extends IUnknown{
     GetAssemblyProps(mda, ppbPublicKey, pcbPublicKey, pulHashAlgId, szName, cchName, pchName, pMetaData, pdwAssemblyFlags) {
         szName := szName is String ? StrPtr(szName) : szName
 
+        ppbPublicKeyMarshal := ppbPublicKey is VarRef ? "ptr*" : "ptr"
         pcbPublicKeyMarshal := pcbPublicKey is VarRef ? "uint*" : "ptr"
         pulHashAlgIdMarshal := pulHashAlgId is VarRef ? "uint*" : "ptr"
         pchNameMarshal := pchName is VarRef ? "uint*" : "ptr"
         pdwAssemblyFlagsMarshal := pdwAssemblyFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", mda, "ptr*", ppbPublicKey, pcbPublicKeyMarshal, pcbPublicKey, pulHashAlgIdMarshal, pulHashAlgId, "ptr", szName, "uint", cchName, pchNameMarshal, pchName, "ptr", pMetaData, pdwAssemblyFlagsMarshal, pdwAssemblyFlags, "HRESULT")
+        result := ComCall(3, this, "uint", mda, ppbPublicKeyMarshal, ppbPublicKey, pcbPublicKeyMarshal, pcbPublicKey, pulHashAlgIdMarshal, pulHashAlgId, "ptr", szName, "uint", cchName, pchNameMarshal, pchName, "ptr", pMetaData, pdwAssemblyFlagsMarshal, pdwAssemblyFlags, "HRESULT")
         return result
     }
 
@@ -74,12 +75,14 @@ class IMetaDataAssemblyImport extends IUnknown{
     GetAssemblyRefProps(mdar, ppbPublicKeyOrToken, pcbPublicKeyOrToken, szName, cchName, pchName, pMetaData, ppbHashValue, pcbHashValue, pdwAssemblyRefFlags) {
         szName := szName is String ? StrPtr(szName) : szName
 
+        ppbPublicKeyOrTokenMarshal := ppbPublicKeyOrToken is VarRef ? "ptr*" : "ptr"
         pcbPublicKeyOrTokenMarshal := pcbPublicKeyOrToken is VarRef ? "uint*" : "ptr"
         pchNameMarshal := pchName is VarRef ? "uint*" : "ptr"
+        ppbHashValueMarshal := ppbHashValue is VarRef ? "ptr*" : "ptr"
         pcbHashValueMarshal := pcbHashValue is VarRef ? "uint*" : "ptr"
         pdwAssemblyRefFlagsMarshal := pdwAssemblyRefFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", mdar, "ptr*", ppbPublicKeyOrToken, pcbPublicKeyOrTokenMarshal, pcbPublicKeyOrToken, "ptr", szName, "uint", cchName, pchNameMarshal, pchName, "ptr", pMetaData, "ptr*", ppbHashValue, pcbHashValueMarshal, pcbHashValue, pdwAssemblyRefFlagsMarshal, pdwAssemblyRefFlags, "HRESULT")
+        result := ComCall(4, this, "uint", mdar, ppbPublicKeyOrTokenMarshal, ppbPublicKeyOrToken, pcbPublicKeyOrTokenMarshal, pcbPublicKeyOrToken, "ptr", szName, "uint", cchName, pchNameMarshal, pchName, "ptr", pMetaData, ppbHashValueMarshal, ppbHashValue, pcbHashValueMarshal, pcbHashValue, pdwAssemblyRefFlagsMarshal, pdwAssemblyRefFlags, "HRESULT")
         return result
     }
 
@@ -99,10 +102,11 @@ class IMetaDataAssemblyImport extends IUnknown{
         szName := szName is String ? StrPtr(szName) : szName
 
         pchNameMarshal := pchName is VarRef ? "uint*" : "ptr"
+        ppbHashValueMarshal := ppbHashValue is VarRef ? "ptr*" : "ptr"
         pcbHashValueMarshal := pcbHashValue is VarRef ? "uint*" : "ptr"
         pdwFileFlagsMarshal := pdwFileFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", mdf, "ptr", szName, "uint", cchName, pchNameMarshal, pchName, "ptr*", ppbHashValue, pcbHashValueMarshal, pcbHashValue, pdwFileFlagsMarshal, pdwFileFlags, "HRESULT")
+        result := ComCall(5, this, "uint", mdf, "ptr", szName, "uint", cchName, pchNameMarshal, pchName, ppbHashValueMarshal, ppbHashValue, pcbHashValueMarshal, pcbHashValue, pdwFileFlagsMarshal, pdwFileFlags, "HRESULT")
         return result
     }
 
@@ -164,10 +168,11 @@ class IMetaDataAssemblyImport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataassemblyimport-enumassemblyrefs
      */
     EnumAssemblyRefs(phEnum, rAssemblyRefs, cMax, pcTokens) {
+        phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
         rAssemblyRefsMarshal := rAssemblyRefs is VarRef ? "uint*" : "ptr"
         pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "ptr*", phEnum, rAssemblyRefsMarshal, rAssemblyRefs, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
+        result := ComCall(8, this, phEnumMarshal, phEnum, rAssemblyRefsMarshal, rAssemblyRefs, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
         return result
     }
 
@@ -181,10 +186,11 @@ class IMetaDataAssemblyImport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataassemblyimport-enumfiles
      */
     EnumFiles(phEnum, rFiles, cMax, pcTokens) {
+        phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
         rFilesMarshal := rFiles is VarRef ? "uint*" : "ptr"
         pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "ptr*", phEnum, rFilesMarshal, rFiles, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
+        result := ComCall(9, this, phEnumMarshal, phEnum, rFilesMarshal, rFiles, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
         return result
     }
 
@@ -198,10 +204,11 @@ class IMetaDataAssemblyImport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataassemblyimport-enumexportedtypes
      */
     EnumExportedTypes(phEnum, rExportedTypes, cMax, pcTokens) {
+        phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
         rExportedTypesMarshal := rExportedTypes is VarRef ? "uint*" : "ptr"
         pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, "ptr*", phEnum, rExportedTypesMarshal, rExportedTypes, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
+        result := ComCall(10, this, phEnumMarshal, phEnum, rExportedTypesMarshal, rExportedTypes, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
         return result
     }
 
@@ -215,10 +222,11 @@ class IMetaDataAssemblyImport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataassemblyimport-enummanifestresources
      */
     EnumManifestResources(phEnum, rManifestResources, cMax, pcTokens) {
+        phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
         rManifestResourcesMarshal := rManifestResources is VarRef ? "uint*" : "ptr"
         pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "ptr*", phEnum, rManifestResourcesMarshal, rManifestResources, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
+        result := ComCall(11, this, phEnumMarshal, phEnum, rManifestResourcesMarshal, rManifestResources, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
         return result
     }
 

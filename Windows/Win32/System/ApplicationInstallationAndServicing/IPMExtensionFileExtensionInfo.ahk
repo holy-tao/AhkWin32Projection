@@ -105,8 +105,9 @@ class IPMExtensionFileExtensionInfo extends IUnknown{
      */
     get_AllFileTypes(pcbTypes, ppTypes) {
         pcbTypesMarshal := pcbTypes is VarRef ? "uint*" : "ptr"
+        ppTypesMarshal := ppTypes is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(9, this, pcbTypesMarshal, pcbTypes, "ptr*", ppTypes, "HRESULT")
+        result := ComCall(9, this, pcbTypesMarshal, pcbTypes, ppTypesMarshal, ppTypes, "HRESULT")
         return result
     }
 }

@@ -65,9 +65,10 @@ class IVdsAdvancedDisk extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsadvanceddisk-querypartitions
      */
     QueryPartitions(ppPartitionPropArray, plNumberOfPartitions) {
+        ppPartitionPropArrayMarshal := ppPartitionPropArray is VarRef ? "ptr*" : "ptr"
         plNumberOfPartitionsMarshal := plNumberOfPartitions is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr*", ppPartitionPropArray, plNumberOfPartitionsMarshal, plNumberOfPartitions, "HRESULT")
+        result := ComCall(4, this, ppPartitionPropArrayMarshal, ppPartitionPropArray, plNumberOfPartitionsMarshal, plNumberOfPartitions, "HRESULT")
         return result
     }
 

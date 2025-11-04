@@ -38,7 +38,9 @@ class IFunctionDiscoveryProviderQuery extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryproviderquery-isinstancequery
      */
     IsInstanceQuery(pisInstanceQuery, ppszConstraintValue) {
-        result := ComCall(3, this, "ptr", pisInstanceQuery, "ptr*", ppszConstraintValue, "HRESULT")
+        ppszConstraintValueMarshal := ppszConstraintValue is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pisInstanceQuery, ppszConstraintValueMarshal, ppszConstraintValue, "HRESULT")
         return result
     }
 
@@ -50,7 +52,9 @@ class IFunctionDiscoveryProviderQuery extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryproviderquery-issubcategoryquery
      */
     IsSubcategoryQuery(pisSubcategoryQuery, ppszConstraintValue) {
-        result := ComCall(4, this, "ptr", pisSubcategoryQuery, "ptr*", ppszConstraintValue, "HRESULT")
+        ppszConstraintValueMarshal := ppszConstraintValue is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pisSubcategoryQuery, ppszConstraintValueMarshal, ppszConstraintValue, "HRESULT")
         return result
     }
 

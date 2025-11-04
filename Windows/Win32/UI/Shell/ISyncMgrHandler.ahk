@@ -69,7 +69,9 @@ class ISyncMgrHandler extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getobject
      */
     GetObject(rguidObjectID, riid, ppv) {
-        result := ComCall(5, this, "ptr", rguidObjectID, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ptr", rguidObjectID, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 

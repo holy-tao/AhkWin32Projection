@@ -254,8 +254,9 @@ class WindowsFirewall {
      */
     static NetworkIsolationEnumAppContainers(Flags, pdwNumPublicAppCs, ppPublicAppCs) {
         pdwNumPublicAppCsMarshal := pdwNumPublicAppCs is VarRef ? "uint*" : "ptr"
+        ppPublicAppCsMarshal := ppPublicAppCs is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("api-ms-win-net-isolation-l1-1-0.dll\NetworkIsolationEnumAppContainers", "uint", Flags, pdwNumPublicAppCsMarshal, pdwNumPublicAppCs, "ptr*", ppPublicAppCs, "uint")
+        result := DllCall("api-ms-win-net-isolation-l1-1-0.dll\NetworkIsolationEnumAppContainers", "uint", Flags, pdwNumPublicAppCsMarshal, pdwNumPublicAppCs, ppPublicAppCsMarshal, ppPublicAppCs, "uint")
         return result
     }
 
@@ -275,8 +276,9 @@ class WindowsFirewall {
      */
     static NetworkIsolationGetAppContainerConfig(pdwNumPublicAppCs, appContainerSids) {
         pdwNumPublicAppCsMarshal := pdwNumPublicAppCs is VarRef ? "uint*" : "ptr"
+        appContainerSidsMarshal := appContainerSids is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("api-ms-win-net-isolation-l1-1-0.dll\NetworkIsolationGetAppContainerConfig", pdwNumPublicAppCsMarshal, pdwNumPublicAppCs, "ptr*", appContainerSids, "uint")
+        result := DllCall("api-ms-win-net-isolation-l1-1-0.dll\NetworkIsolationGetAppContainerConfig", pdwNumPublicAppCsMarshal, pdwNumPublicAppCs, appContainerSidsMarshal, appContainerSids, "uint")
         return result
     }
 

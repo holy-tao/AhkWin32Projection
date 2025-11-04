@@ -41,7 +41,9 @@ class IShareWindowCommandSourceInterop extends IUnknown{
     GetForWindow(appWindow, riid, shareWindowCommandSource) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
 
-        result := ComCall(3, this, "ptr", appWindow, "ptr", riid, "ptr*", shareWindowCommandSource, "HRESULT")
+        shareWindowCommandSourceMarshal := shareWindowCommandSource is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", appWindow, "ptr", riid, shareWindowCommandSourceMarshal, shareWindowCommandSource, "HRESULT")
         return result
     }
 }

@@ -98,7 +98,9 @@ class IXpsDocumentConsumer extends IUnknown{
     GetNewEmptyPart(uri, riid, ppNewObject, ppWriteStream) {
         uri := uri is String ? StrPtr(uri) : uri
 
-        result := ComCall(9, this, "ptr", uri, "ptr", riid, "ptr*", ppNewObject, "ptr*", ppWriteStream, "HRESULT")
+        ppNewObjectMarshal := ppNewObject is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, "ptr", uri, "ptr", riid, ppNewObjectMarshal, ppNewObject, "ptr*", ppWriteStream, "HRESULT")
         return result
     }
 }

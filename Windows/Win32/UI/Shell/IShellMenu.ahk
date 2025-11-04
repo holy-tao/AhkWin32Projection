@@ -107,8 +107,10 @@ class IShellMenu extends IUnknown{
      */
     GetShellFolder(pdwFlags, ppidl, riid, ppv) {
         pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+        ppidlMarshal := ppidl is VarRef ? "ptr*" : "ptr"
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, pdwFlagsMarshal, pdwFlags, "ptr*", ppidl, "ptr", riid, "ptr*", ppv, "HRESULT")
+        result := ComCall(6, this, pdwFlagsMarshal, pdwFlags, ppidlMarshal, ppidl, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 

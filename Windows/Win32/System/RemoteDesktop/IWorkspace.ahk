@@ -44,7 +44,9 @@ class IWorkspace extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/workspaceruntime/nf-workspaceruntime-iworkspace-getworkspacenames
      */
     GetWorkspaceNames(psaWkspNames) {
-        result := ComCall(3, this, "ptr*", psaWkspNames, "HRESULT")
+        psaWkspNamesMarshal := psaWkspNames is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, psaWkspNamesMarshal, psaWkspNames, "HRESULT")
         return result
     }
 

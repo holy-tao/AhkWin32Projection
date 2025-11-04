@@ -54,7 +54,9 @@ class IQuerySolution extends IConditionFactory{
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-iquerysolution-geterrors
      */
     GetErrors(riid, ppParseErrors) {
-        result := ComCall(8, this, "ptr", riid, "ptr*", ppParseErrors, "HRESULT")
+        ppParseErrorsMarshal := ppParseErrors is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(8, this, "ptr", riid, ppParseErrorsMarshal, ppParseErrors, "HRESULT")
         return result
     }
 

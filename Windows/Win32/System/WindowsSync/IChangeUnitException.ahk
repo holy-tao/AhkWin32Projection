@@ -68,7 +68,9 @@ class IChangeUnitException extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ichangeunitexception-getclockvector
      */
     GetClockVector(riid, ppUnk) {
-        result := ComCall(5, this, "ptr", riid, "ptr*", ppUnk, "HRESULT")
+        ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ptr", riid, ppUnkMarshal, ppUnk, "HRESULT")
         return result
     }
 }

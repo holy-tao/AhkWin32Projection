@@ -38,7 +38,9 @@ class IDXCoreAdapterFactory1 extends IDXCoreAdapterFactory{
      * @returns {HRESULT} 
      */
     CreateAdapterListByWorkload(workload, runtimeFilter, hardwareTypeFilter, riid, ppvAdapterList) {
-        result := ComCall(8, this, "uint", workload, "uint", runtimeFilter, "uint", hardwareTypeFilter, "ptr", riid, "ptr*", ppvAdapterList, "HRESULT")
+        ppvAdapterListMarshal := ppvAdapterList is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(8, this, "uint", workload, "uint", runtimeFilter, "uint", hardwareTypeFilter, "ptr", riid, ppvAdapterListMarshal, ppvAdapterList, "HRESULT")
         return result
     }
 }

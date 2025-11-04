@@ -45,7 +45,9 @@ class IAsyncManager extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCallContext(riid, pInterface) {
-        result := ComCall(4, this, "ptr", riid, "ptr*", pInterface, "HRESULT")
+        pInterfaceMarshal := pInterface is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", riid, pInterfaceMarshal, pInterface, "HRESULT")
         return result
     }
 

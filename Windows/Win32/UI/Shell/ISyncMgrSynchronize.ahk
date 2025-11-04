@@ -74,7 +74,9 @@ class ISyncMgrSynchronize extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrsynchronize-gethandlerinfo
      */
     GetHandlerInfo(ppSyncMgrHandlerInfo) {
-        result := ComCall(4, this, "ptr*", ppSyncMgrHandlerInfo, "HRESULT")
+        ppSyncMgrHandlerInfoMarshal := ppSyncMgrHandlerInfo is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, ppSyncMgrHandlerInfoMarshal, ppSyncMgrHandlerInfo, "HRESULT")
         return result
     }
 
@@ -98,7 +100,9 @@ class ISyncMgrSynchronize extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrsynchronize-getitemobject
      */
     GetItemObject(ItemID, riid, ppv) {
-        result := ComCall(6, this, "ptr", ItemID, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "ptr", ItemID, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 

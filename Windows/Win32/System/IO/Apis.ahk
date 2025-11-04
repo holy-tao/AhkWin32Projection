@@ -94,10 +94,11 @@ class IO {
 
         lpNumberOfBytesTransferredMarshal := lpNumberOfBytesTransferred is VarRef ? "uint*" : "ptr"
         lpCompletionKeyMarshal := lpCompletionKey is VarRef ? "ptr*" : "ptr"
+        lpOverlappedMarshal := lpOverlapped is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetQueuedCompletionStatus", "ptr", CompletionPort, lpNumberOfBytesTransferredMarshal, lpNumberOfBytesTransferred, lpCompletionKeyMarshal, lpCompletionKey, "ptr*", lpOverlapped, "uint", dwMilliseconds, "int")
+        result := DllCall("KERNEL32.dll\GetQueuedCompletionStatus", "ptr", CompletionPort, lpNumberOfBytesTransferredMarshal, lpNumberOfBytesTransferred, lpCompletionKeyMarshal, lpCompletionKey, lpOverlappedMarshal, lpOverlapped, "uint", dwMilliseconds, "int")
         if(A_LastError)
             throw OSError()
 

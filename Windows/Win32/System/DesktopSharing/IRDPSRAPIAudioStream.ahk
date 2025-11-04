@@ -82,10 +82,11 @@ class IRDPSRAPIAudioStream extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiaudiostream-getbuffer
      */
     GetBuffer(ppbData, pcbData, pTimestamp) {
+        ppbDataMarshal := ppbData is VarRef ? "ptr*" : "ptr"
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
         pTimestampMarshal := pTimestamp is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr*", ppbData, pcbDataMarshal, pcbData, pTimestampMarshal, pTimestamp, "HRESULT")
+        result := ComCall(6, this, ppbDataMarshal, ppbData, pcbDataMarshal, pcbData, pTimestampMarshal, pTimestamp, "HRESULT")
         return result
     }
 

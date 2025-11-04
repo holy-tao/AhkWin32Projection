@@ -37,7 +37,9 @@ class IWSDMetadataExchange extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdmetadataexchange-getmetadata
      */
     GetMetadata(MetadataOut) {
-        result := ComCall(3, this, "ptr*", MetadataOut, "HRESULT")
+        MetadataOutMarshal := MetadataOut is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, MetadataOutMarshal, MetadataOut, "HRESULT")
         return result
     }
 }

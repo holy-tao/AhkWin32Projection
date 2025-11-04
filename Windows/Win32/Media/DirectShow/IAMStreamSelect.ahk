@@ -70,11 +70,12 @@ class IAMStreamSelect extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamstreamselect-info
      */
     Info(lIndex, ppmt, pdwFlags, plcid, pdwGroup, ppszName, ppObject, ppUnk) {
+        ppmtMarshal := ppmt is VarRef ? "ptr*" : "ptr"
         pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
         plcidMarshal := plcid is VarRef ? "uint*" : "ptr"
         pdwGroupMarshal := pdwGroup is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "int", lIndex, "ptr*", ppmt, pdwFlagsMarshal, pdwFlags, plcidMarshal, plcid, pdwGroupMarshal, pdwGroup, "ptr", ppszName, "ptr*", ppObject, "ptr*", ppUnk, "HRESULT")
+        result := ComCall(4, this, "int", lIndex, ppmtMarshal, ppmt, pdwFlagsMarshal, pdwFlags, plcidMarshal, plcid, pdwGroupMarshal, pdwGroup, "ptr", ppszName, "ptr*", ppObject, "ptr*", ppUnk, "HRESULT")
         return result
     }
 

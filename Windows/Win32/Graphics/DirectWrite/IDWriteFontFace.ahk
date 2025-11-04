@@ -147,9 +147,11 @@ class IDWriteFontFace extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontface-trygetfonttable
      */
     TryGetFontTable(openTypeTableTag, tableData, tableSize, tableContext, exists) {
+        tableDataMarshal := tableData is VarRef ? "ptr*" : "ptr"
         tableSizeMarshal := tableSize is VarRef ? "uint*" : "ptr"
+        tableContextMarshal := tableContext is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(12, this, "uint", openTypeTableTag, "ptr*", tableData, tableSizeMarshal, tableSize, "ptr*", tableContext, "ptr", exists, "HRESULT")
+        result := ComCall(12, this, "uint", openTypeTableTag, tableDataMarshal, tableData, tableSizeMarshal, tableSize, tableContextMarshal, tableContext, "ptr", exists, "HRESULT")
         return result
     }
 

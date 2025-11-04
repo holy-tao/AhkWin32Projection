@@ -48,8 +48,9 @@ class IDBSchemaCommand extends IUnknown{
      */
     GetSchemas(pcSchemas, prgSchemas) {
         pcSchemasMarshal := pcSchemas is VarRef ? "uint*" : "ptr"
+        prgSchemasMarshal := prgSchemas is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, pcSchemasMarshal, pcSchemas, "ptr*", prgSchemas, "HRESULT")
+        result := ComCall(4, this, pcSchemasMarshal, pcSchemas, prgSchemasMarshal, prgSchemas, "HRESULT")
         return result
     }
 }

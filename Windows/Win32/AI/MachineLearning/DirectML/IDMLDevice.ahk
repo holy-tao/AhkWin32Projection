@@ -54,7 +54,9 @@ class IDMLDevice extends IDMLObject{
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldevice-createoperator
      */
     CreateOperator(desc, riid, ppv) {
-        result := ComCall(8, this, "ptr", desc, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(8, this, "ptr", desc, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -68,7 +70,9 @@ class IDMLDevice extends IDMLObject{
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldevice-compileoperator
      */
     CompileOperator(op, flags, riid, ppv) {
-        result := ComCall(9, this, "ptr", op, "int", flags, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, "ptr", op, "int", flags, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -82,7 +86,9 @@ class IDMLDevice extends IDMLObject{
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldevice-createoperatorinitializer
      */
     CreateOperatorInitializer(operatorCount, operators, riid, ppv) {
-        result := ComCall(10, this, "uint", operatorCount, "ptr*", operators, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(10, this, "uint", operatorCount, "ptr*", operators, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -94,7 +100,9 @@ class IDMLDevice extends IDMLObject{
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldevice-createcommandrecorder
      */
     CreateCommandRecorder(riid, ppv) {
-        result := ComCall(11, this, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(11, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -107,7 +115,9 @@ class IDMLDevice extends IDMLObject{
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldevice-createbindingtable
      */
     CreateBindingTable(desc, riid, ppv) {
-        result := ComCall(12, this, "ptr", desc, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(12, this, "ptr", desc, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -153,7 +163,9 @@ class IDMLDevice extends IDMLObject{
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldevice-getparentdevice
      */
     GetParentDevice(riid, ppv) {
-        result := ComCall(16, this, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(16, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 }

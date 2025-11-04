@@ -63,7 +63,9 @@ class IMediaParamInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/medparam/nf-medparam-imediaparaminfo-getparamtext
      */
     GetParamText(dwParamIndex, ppwchText) {
-        result := ComCall(5, this, "uint", dwParamIndex, "ptr*", ppwchText, "HRESULT")
+        ppwchTextMarshal := ppwchText is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "uint", dwParamIndex, ppwchTextMarshal, ppwchText, "HRESULT")
         return result
     }
 

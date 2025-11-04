@@ -43,9 +43,10 @@ class ID3DInclude extends Win32ComInterface{
         pFileName := pFileName is String ? StrPtr(pFileName) : pFileName
 
         pParentDataMarshal := pParentData is VarRef ? "ptr" : "ptr"
+        ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
         pBytesMarshal := pBytes is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(0, this, "int", IncludeType, "ptr", pFileName, pParentDataMarshal, pParentData, "ptr*", ppData, pBytesMarshal, pBytes, "HRESULT")
+        result := ComCall(0, this, "int", IncludeType, "ptr", pFileName, pParentDataMarshal, pParentData, ppDataMarshal, ppData, pBytesMarshal, pBytes, "HRESULT")
         return result
     }
 

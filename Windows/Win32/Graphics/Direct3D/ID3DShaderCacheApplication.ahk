@@ -34,7 +34,9 @@ class ID3DShaderCacheApplication extends IUnknown{
      * @returns {HRESULT} 
      */
     GetExePath(pExePath) {
-        result := ComCall(3, this, "ptr*", pExePath, "HRESULT")
+        pExePathMarshal := pExePath is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, pExePathMarshal, pExePath, "HRESULT")
         return result
     }
 
@@ -62,7 +64,9 @@ class ID3DShaderCacheApplication extends IUnknown{
         pName := pName is String ? StrPtr(pName) : pName
         pStateObjectDBPath := pStateObjectDBPath is String ? StrPtr(pStateObjectDBPath) : pStateObjectDBPath
 
-        result := ComCall(5, this, "ptr", pName, "ptr", pStateObjectDBPath, "uint", NumPSDB, "ptr", pPSDBs, "ptr", riid, "ptr*", ppvComponent, "HRESULT")
+        ppvComponentMarshal := ppvComponent is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pName, "ptr", pStateObjectDBPath, "uint", NumPSDB, "ptr", pPSDBs, "ptr", riid, ppvComponentMarshal, ppvComponent, "HRESULT")
         return result
     }
 
@@ -93,7 +97,9 @@ class ID3DShaderCacheApplication extends IUnknown{
      * @returns {HRESULT} 
      */
     GetComponent(index, riid, ppvComponent) {
-        result := ComCall(8, this, "uint", index, "ptr", riid, "ptr*", ppvComponent, "HRESULT")
+        ppvComponentMarshal := ppvComponent is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(8, this, "uint", index, "ptr", riid, ppvComponentMarshal, ppvComponent, "HRESULT")
         return result
     }
 
@@ -125,7 +131,9 @@ class ID3DShaderCacheApplication extends IUnknown{
      * @returns {HRESULT} 
      */
     GetInstallerName(pInstallerName) {
-        result := ComCall(11, this, "ptr*", pInstallerName, "HRESULT")
+        pInstallerNameMarshal := pInstallerName is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(11, this, pInstallerNameMarshal, pInstallerName, "HRESULT")
         return result
     }
 }

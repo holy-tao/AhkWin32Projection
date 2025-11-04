@@ -233,9 +233,10 @@ class IMFAttributes extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-getallocatedblob
      */
     GetAllocatedBlob(guidKey, ppBuf, pcbSize) {
+        ppBufMarshal := ppBuf is VarRef ? "ptr*" : "ptr"
         pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, "ptr", guidKey, "ptr*", ppBuf, pcbSizeMarshal, pcbSize, "HRESULT")
+        result := ComCall(16, this, "ptr", guidKey, ppBufMarshal, ppBuf, pcbSizeMarshal, pcbSize, "HRESULT")
         return result
     }
 
@@ -248,7 +249,9 @@ class IMFAttributes extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfattributes-getunknown
      */
     GetUnknown(guidKey, riid, ppv) {
-        result := ComCall(17, this, "ptr", guidKey, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(17, this, "ptr", guidKey, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 

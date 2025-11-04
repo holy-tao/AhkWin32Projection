@@ -19,7 +19,9 @@ class XmlLite {
      * @returns {HRESULT} 
      */
     static CreateXmlReader(riid, ppvObject, pMalloc) {
-        result := DllCall("XmlLite.dll\CreateXmlReader", "ptr", riid, "ptr*", ppvObject, "ptr", pMalloc, "int")
+        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("XmlLite.dll\CreateXmlReader", "ptr", riid, ppvObjectMarshal, ppvObject, "ptr", pMalloc, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -75,7 +77,9 @@ class XmlLite {
      * @returns {HRESULT} 
      */
     static CreateXmlWriter(riid, ppvObject, pMalloc) {
-        result := DllCall("XmlLite.dll\CreateXmlWriter", "ptr", riid, "ptr*", ppvObject, "ptr", pMalloc, "int")
+        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("XmlLite.dll\CreateXmlWriter", "ptr", riid, ppvObjectMarshal, ppvObject, "ptr", pMalloc, "int")
         if(result != 0)
             throw OSError(result)
 

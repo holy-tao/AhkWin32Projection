@@ -39,7 +39,9 @@ class IMLOperatorRegistry extends IUnknown{
      * @returns {HRESULT} 
      */
     RegisterOperatorSetSchema(operatorSetId, baselineVersion, schema, schemaCount, typeInferrer, shapeInferrer) {
-        result := ComCall(3, this, "ptr", operatorSetId, "int", baselineVersion, "ptr*", schema, "uint", schemaCount, "ptr", typeInferrer, "ptr", shapeInferrer, "HRESULT")
+        schemaMarshal := schema is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", operatorSetId, "int", baselineVersion, schemaMarshal, schema, "uint", schemaCount, "ptr", typeInferrer, "ptr", shapeInferrer, "HRESULT")
         return result
     }
 

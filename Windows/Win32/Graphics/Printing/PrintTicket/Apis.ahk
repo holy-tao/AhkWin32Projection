@@ -287,8 +287,9 @@ class PrintTicket {
         hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
 
         pcbDevmodeMarshal := pcbDevmode is VarRef ? "uint*" : "ptr"
+        ppDevmodeMarshal := ppDevmode is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("prntvpt.dll\PTConvertPrintTicketToDevMode", "ptr", hProvider, "ptr", pPrintTicket, "int", baseDevmodeType, "int", scope, pcbDevmodeMarshal, pcbDevmode, "ptr*", ppDevmode, "ptr", pbstrErrorMessage, "int")
+        result := DllCall("prntvpt.dll\PTConvertPrintTicketToDevMode", "ptr", hProvider, "ptr", pPrintTicket, "int", baseDevmodeType, "int", scope, pcbDevmodeMarshal, pcbDevmode, ppDevmodeMarshal, ppDevmode, "ptr", pbstrErrorMessage, "int")
         if(result != 0)
             throw OSError(result)
 

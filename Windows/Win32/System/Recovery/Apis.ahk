@@ -218,10 +218,12 @@ class Recovery {
     static GetApplicationRecoveryCallback(hProcess, pRecoveryCallback, ppvParameter, pdwPingInterval, pdwFlags) {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
 
+        pRecoveryCallbackMarshal := pRecoveryCallback is VarRef ? "ptr*" : "ptr"
+        ppvParameterMarshal := ppvParameter is VarRef ? "ptr*" : "ptr"
         pdwPingIntervalMarshal := pdwPingInterval is VarRef ? "uint*" : "ptr"
         pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("KERNEL32.dll\GetApplicationRecoveryCallback", "ptr", hProcess, "ptr*", pRecoveryCallback, "ptr*", ppvParameter, pdwPingIntervalMarshal, pdwPingInterval, pdwFlagsMarshal, pdwFlags, "int")
+        result := DllCall("KERNEL32.dll\GetApplicationRecoveryCallback", "ptr", hProcess, pRecoveryCallbackMarshal, pRecoveryCallback, ppvParameterMarshal, ppvParameter, pdwPingIntervalMarshal, pdwPingInterval, pdwFlagsMarshal, pdwFlags, "int")
         return result
     }
 

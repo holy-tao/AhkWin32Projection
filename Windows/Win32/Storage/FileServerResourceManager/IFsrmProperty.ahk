@@ -59,7 +59,9 @@ class IFsrmProperty extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmproperty-get_sources
      */
     get_Sources(sources) {
-        result := ComCall(9, this, "ptr*", sources, "HRESULT")
+        sourcesMarshal := sources is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, sourcesMarshal, sources, "HRESULT")
         return result
     }
 

@@ -67,7 +67,9 @@ class IDWriteFontFace4 extends IDWriteFontFace3{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface4-getglyphimagedata
      */
     GetGlyphImageData(glyphId, pixelsPerEm, glyphImageFormat, glyphData, glyphDataContext) {
-        result := ComCall(51, this, "ushort", glyphId, "uint", pixelsPerEm, "int", glyphImageFormat, "ptr", glyphData, "ptr*", glyphDataContext, "HRESULT")
+        glyphDataContextMarshal := glyphDataContext is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(51, this, "ushort", glyphId, "uint", pixelsPerEm, "int", glyphImageFormat, "ptr", glyphData, glyphDataContextMarshal, glyphDataContext, "HRESULT")
         return result
     }
 

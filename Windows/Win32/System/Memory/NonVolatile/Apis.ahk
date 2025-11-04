@@ -19,7 +19,9 @@ class NonVolatile {
      * @returns {Integer} 
      */
     static RtlGetNonVolatileToken(NvBuffer, Size, NvToken) {
-        result := DllCall("ntdll.dll\RtlGetNonVolatileToken", "ptr", NvBuffer, "ptr", Size, "ptr*", NvToken, "uint")
+        NvTokenMarshal := NvToken is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("ntdll.dll\RtlGetNonVolatileToken", "ptr", NvBuffer, "ptr", Size, NvTokenMarshal, NvToken, "uint")
         return result
     }
 

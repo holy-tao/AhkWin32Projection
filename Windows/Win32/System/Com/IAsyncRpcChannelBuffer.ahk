@@ -64,8 +64,9 @@ class IAsyncRpcChannelBuffer extends IRpcChannelBuffer2{
      */
     GetDestCtxEx(pMsg, pdwDestContext, ppvDestContext) {
         pdwDestContextMarshal := pdwDestContext is VarRef ? "uint*" : "ptr"
+        ppvDestContextMarshal := ppvDestContext is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(11, this, "ptr", pMsg, pdwDestContextMarshal, pdwDestContext, "ptr*", ppvDestContext, "HRESULT")
+        result := ComCall(11, this, "ptr", pMsg, pdwDestContextMarshal, pdwDestContext, ppvDestContextMarshal, ppvDestContext, "HRESULT")
         return result
     }
 }

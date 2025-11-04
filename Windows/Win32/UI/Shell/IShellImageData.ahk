@@ -343,7 +343,9 @@ class IShellImageData extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nf-shimgdata-ishellimagedata-getencoderparams
      */
     GetEncoderParams(pguidFmt, ppEncParams) {
-        result := ComCall(29, this, "ptr", pguidFmt, "ptr*", ppEncParams, "HRESULT")
+        ppEncParamsMarshal := ppEncParams is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(29, this, "ptr", pguidFmt, ppEncParamsMarshal, ppEncParams, "HRESULT")
         return result
     }
 
@@ -366,7 +368,9 @@ class IShellImageData extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nf-shimgdata-ishellimagedata-cloneframe
      */
     CloneFrame(ppImg) {
-        result := ComCall(31, this, "ptr*", ppImg, "HRESULT")
+        ppImgMarshal := ppImg is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(31, this, ppImgMarshal, ppImg, "HRESULT")
         return result
     }
 

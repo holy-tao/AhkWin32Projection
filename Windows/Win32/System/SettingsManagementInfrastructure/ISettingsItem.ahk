@@ -97,9 +97,10 @@ class ISettingsItem extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getvalueraw
      */
     GetValueRaw(Data, DataSize) {
+        DataMarshal := Data is VarRef ? "ptr*" : "ptr"
         DataSizeMarshal := DataSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "ptr*", Data, DataSizeMarshal, DataSize, "HRESULT")
+        result := ComCall(8, this, DataMarshal, Data, DataSizeMarshal, DataSize, "HRESULT")
         return result
     }
 

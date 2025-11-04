@@ -35,7 +35,9 @@ class ID3D12Heap1 extends ID3D12Heap{
      * @returns {HRESULT} 
      */
     GetProtectedResourceSession(riid, ppProtectedSession) {
-        result := ComCall(9, this, "ptr", riid, "ptr*", ppProtectedSession, "HRESULT")
+        ppProtectedSessionMarshal := ppProtectedSession is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, "ptr", riid, ppProtectedSessionMarshal, ppProtectedSession, "HRESULT")
         return result
     }
 }

@@ -35,7 +35,9 @@ class ID3D12PipelineState1 extends ID3D12PipelineState{
      * @returns {HRESULT} 
      */
     GetRootSignature(riid, ppvRootSignature) {
-        result := ComCall(9, this, "ptr", riid, "ptr*", ppvRootSignature, "HRESULT")
+        ppvRootSignatureMarshal := ppvRootSignature is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, "ptr", riid, ppvRootSignatureMarshal, ppvRootSignature, "HRESULT")
         return result
     }
 }

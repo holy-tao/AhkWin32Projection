@@ -44,9 +44,10 @@ class IEnumEnhancedStorageACT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienumenhancedstorageact-getacts
      */
     GetACTs(pppIEnhancedStorageACTs, pcEnhancedStorageACTs) {
+        pppIEnhancedStorageACTsMarshal := pppIEnhancedStorageACTs is VarRef ? "ptr*" : "ptr"
         pcEnhancedStorageACTsMarshal := pcEnhancedStorageACTs is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr*", pppIEnhancedStorageACTs, pcEnhancedStorageACTsMarshal, pcEnhancedStorageACTs, "HRESULT")
+        result := ComCall(3, this, pppIEnhancedStorageACTsMarshal, pppIEnhancedStorageACTs, pcEnhancedStorageACTsMarshal, pcEnhancedStorageACTs, "HRESULT")
         return result
     }
 

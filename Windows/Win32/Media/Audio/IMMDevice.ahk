@@ -40,7 +40,9 @@ class IMMDevice extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-immdevice-activate
      */
     Activate(iid, dwClsCtx, pActivationParams, ppInterface) {
-        result := ComCall(3, this, "ptr", iid, "uint", dwClsCtx, "ptr", pActivationParams, "ptr*", ppInterface, "HRESULT")
+        ppInterfaceMarshal := ppInterface is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", iid, "uint", dwClsCtx, "ptr", pActivationParams, ppInterfaceMarshal, ppInterface, "HRESULT")
         return result
     }
 

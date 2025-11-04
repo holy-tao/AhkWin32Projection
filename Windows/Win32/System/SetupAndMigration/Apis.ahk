@@ -37,10 +37,11 @@ class SetupAndMigration {
      */
     static RegisterWaitUntilOOBECompleted(OOBECompletedCallback, CallbackContext, WaitHandle) {
         CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
+        WaitHandleMarshal := WaitHandle is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\RegisterWaitUntilOOBECompleted", "ptr", OOBECompletedCallback, CallbackContextMarshal, CallbackContext, "ptr*", WaitHandle, "int")
+        result := DllCall("KERNEL32.dll\RegisterWaitUntilOOBECompleted", "ptr", OOBECompletedCallback, CallbackContextMarshal, CallbackContext, WaitHandleMarshal, WaitHandle, "int")
         if(A_LastError)
             throw OSError()
 

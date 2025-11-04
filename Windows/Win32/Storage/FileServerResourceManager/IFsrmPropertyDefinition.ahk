@@ -104,7 +104,9 @@ class IFsrmPropertyDefinition extends IFsrmObject{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition-get_possiblevalues
      */
     get_PossibleValues(possibleValues) {
-        result := ComCall(16, this, "ptr*", possibleValues, "HRESULT")
+        possibleValuesMarshal := possibleValues is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(16, this, possibleValuesMarshal, possibleValues, "HRESULT")
         return result
     }
 
@@ -126,7 +128,9 @@ class IFsrmPropertyDefinition extends IFsrmObject{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition-get_valuedescriptions
      */
     get_ValueDescriptions(valueDescriptions) {
-        result := ComCall(18, this, "ptr*", valueDescriptions, "HRESULT")
+        valueDescriptionsMarshal := valueDescriptions is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(18, this, valueDescriptionsMarshal, valueDescriptions, "HRESULT")
         return result
     }
 
@@ -148,7 +152,9 @@ class IFsrmPropertyDefinition extends IFsrmObject{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition-get_parameters
      */
     get_Parameters(parameters) {
-        result := ComCall(20, this, "ptr*", parameters, "HRESULT")
+        parametersMarshal := parameters is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(20, this, parametersMarshal, parameters, "HRESULT")
         return result
     }
 

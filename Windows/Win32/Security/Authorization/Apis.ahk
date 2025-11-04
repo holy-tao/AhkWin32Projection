@@ -2555,7 +2555,9 @@ class Authorization {
      * @since windows5.1.2600
      */
     static SetEntriesInAclA(cCountOfExplicitEntries, pListOfExplicitEntries, OldAcl, NewAcl) {
-        result := DllCall("ADVAPI32.dll\SetEntriesInAclA", "uint", cCountOfExplicitEntries, "ptr", pListOfExplicitEntries, "ptr", OldAcl, "ptr*", NewAcl, "uint")
+        NewAclMarshal := NewAcl is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("ADVAPI32.dll\SetEntriesInAclA", "uint", cCountOfExplicitEntries, "ptr", pListOfExplicitEntries, "ptr", OldAcl, NewAclMarshal, NewAcl, "uint")
         return result
     }
 
@@ -2574,7 +2576,9 @@ class Authorization {
      * @since windows5.1.2600
      */
     static SetEntriesInAclW(cCountOfExplicitEntries, pListOfExplicitEntries, OldAcl, NewAcl) {
-        result := DllCall("ADVAPI32.dll\SetEntriesInAclW", "uint", cCountOfExplicitEntries, "ptr", pListOfExplicitEntries, "ptr", OldAcl, "ptr*", NewAcl, "uint")
+        NewAclMarshal := NewAcl is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("ADVAPI32.dll\SetEntriesInAclW", "uint", cCountOfExplicitEntries, "ptr", pListOfExplicitEntries, "ptr", OldAcl, NewAclMarshal, NewAcl, "uint")
         return result
     }
 
@@ -2594,8 +2598,9 @@ class Authorization {
      */
     static GetExplicitEntriesFromAclA(pacl, pcCountOfExplicitEntries, pListOfExplicitEntries) {
         pcCountOfExplicitEntriesMarshal := pcCountOfExplicitEntries is VarRef ? "uint*" : "ptr"
+        pListOfExplicitEntriesMarshal := pListOfExplicitEntries is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\GetExplicitEntriesFromAclA", "ptr", pacl, pcCountOfExplicitEntriesMarshal, pcCountOfExplicitEntries, "ptr*", pListOfExplicitEntries, "uint")
+        result := DllCall("ADVAPI32.dll\GetExplicitEntriesFromAclA", "ptr", pacl, pcCountOfExplicitEntriesMarshal, pcCountOfExplicitEntries, pListOfExplicitEntriesMarshal, pListOfExplicitEntries, "uint")
         return result
     }
 
@@ -2615,8 +2620,9 @@ class Authorization {
      */
     static GetExplicitEntriesFromAclW(pacl, pcCountOfExplicitEntries, pListOfExplicitEntries) {
         pcCountOfExplicitEntriesMarshal := pcCountOfExplicitEntries is VarRef ? "uint*" : "ptr"
+        pListOfExplicitEntriesMarshal := pListOfExplicitEntries is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\GetExplicitEntriesFromAclW", "ptr", pacl, pcCountOfExplicitEntriesMarshal, pcCountOfExplicitEntries, "ptr*", pListOfExplicitEntries, "uint")
+        result := DllCall("ADVAPI32.dll\GetExplicitEntriesFromAclW", "ptr", pacl, pcCountOfExplicitEntriesMarshal, pcCountOfExplicitEntries, pListOfExplicitEntriesMarshal, pListOfExplicitEntries, "uint")
         return result
     }
 
@@ -2733,7 +2739,10 @@ class Authorization {
     static GetNamedSecurityInfoA(pObjectName, ObjectType, SecurityInfo, ppsidOwner, ppsidGroup, ppDacl, ppSacl, ppSecurityDescriptor) {
         pObjectName := pObjectName is String ? StrPtr(pObjectName) : pObjectName
 
-        result := DllCall("ADVAPI32.dll\GetNamedSecurityInfoA", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "ptr", ppsidOwner, "ptr", ppsidGroup, "ptr*", ppDacl, "ptr*", ppSacl, "ptr", ppSecurityDescriptor, "uint")
+        ppDaclMarshal := ppDacl is VarRef ? "ptr*" : "ptr"
+        ppSaclMarshal := ppSacl is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("ADVAPI32.dll\GetNamedSecurityInfoA", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "ptr", ppsidOwner, "ptr", ppsidGroup, ppDaclMarshal, ppDacl, ppSaclMarshal, ppSacl, "ptr", ppSecurityDescriptor, "uint")
         return result
     }
 
@@ -2762,7 +2771,10 @@ class Authorization {
     static GetNamedSecurityInfoW(pObjectName, ObjectType, SecurityInfo, ppsidOwner, ppsidGroup, ppDacl, ppSacl, ppSecurityDescriptor) {
         pObjectName := pObjectName is String ? StrPtr(pObjectName) : pObjectName
 
-        result := DllCall("ADVAPI32.dll\GetNamedSecurityInfoW", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "ptr", ppsidOwner, "ptr", ppsidGroup, "ptr*", ppDacl, "ptr*", ppSacl, "ptr", ppSecurityDescriptor, "uint")
+        ppDaclMarshal := ppDacl is VarRef ? "ptr*" : "ptr"
+        ppSaclMarshal := ppSacl is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("ADVAPI32.dll\GetNamedSecurityInfoW", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "ptr", ppsidOwner, "ptr", ppsidGroup, ppDaclMarshal, ppDacl, ppSaclMarshal, ppSacl, "ptr", ppSecurityDescriptor, "uint")
         return result
     }
 
@@ -2790,7 +2802,10 @@ class Authorization {
     static GetSecurityInfo(handle, ObjectType, SecurityInfo, ppsidOwner, ppsidGroup, ppDacl, ppSacl, ppSecurityDescriptor) {
         handle := handle is Win32Handle ? NumGet(handle, "ptr") : handle
 
-        result := DllCall("ADVAPI32.dll\GetSecurityInfo", "ptr", handle, "int", ObjectType, "uint", SecurityInfo, "ptr", ppsidOwner, "ptr", ppsidGroup, "ptr*", ppDacl, "ptr*", ppSacl, "ptr", ppSecurityDescriptor, "uint")
+        ppDaclMarshal := ppDacl is VarRef ? "ptr*" : "ptr"
+        ppSaclMarshal := ppSacl is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("ADVAPI32.dll\GetSecurityInfo", "ptr", handle, "int", ObjectType, "uint", SecurityInfo, "ptr", ppsidOwner, "ptr", ppsidGroup, ppDaclMarshal, ppDacl, ppSaclMarshal, ppSacl, "ptr", ppSecurityDescriptor, "uint")
         return result
     }
 
@@ -2906,7 +2921,9 @@ class Authorization {
     static GetInheritanceSourceA(pObjectName, ObjectType, SecurityInfo, Container, pObjectClassGuids, GuidCount, pAcl, pfnArray, pGenericMapping, pInheritArray) {
         pObjectName := pObjectName is String ? StrPtr(pObjectName) : pObjectName
 
-        result := DllCall("ADVAPI32.dll\GetInheritanceSourceA", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "int", Container, "ptr*", pObjectClassGuids, "uint", GuidCount, "ptr", pAcl, "ptr", pfnArray, "ptr", pGenericMapping, "ptr", pInheritArray, "uint")
+        pObjectClassGuidsMarshal := pObjectClassGuids is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("ADVAPI32.dll\GetInheritanceSourceA", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "int", Container, pObjectClassGuidsMarshal, pObjectClassGuids, "uint", GuidCount, "ptr", pAcl, "ptr", pfnArray, "ptr", pGenericMapping, "ptr", pInheritArray, "uint")
         return result
     }
 
@@ -2931,7 +2948,9 @@ class Authorization {
     static GetInheritanceSourceW(pObjectName, ObjectType, SecurityInfo, Container, pObjectClassGuids, GuidCount, pAcl, pfnArray, pGenericMapping, pInheritArray) {
         pObjectName := pObjectName is String ? StrPtr(pObjectName) : pObjectName
 
-        result := DllCall("ADVAPI32.dll\GetInheritanceSourceW", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "int", Container, "ptr*", pObjectClassGuids, "uint", GuidCount, "ptr", pAcl, "ptr", pfnArray, "ptr", pGenericMapping, "ptr", pInheritArray, "uint")
+        pObjectClassGuidsMarshal := pObjectClassGuids is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("ADVAPI32.dll\GetInheritanceSourceW", "ptr", pObjectName, "int", ObjectType, "uint", SecurityInfo, "int", Container, pObjectClassGuidsMarshal, pObjectClassGuids, "uint", GuidCount, "ptr", pAcl, "ptr", pfnArray, "ptr", pGenericMapping, "ptr", pInheritArray, "uint")
         return result
     }
 
@@ -3231,10 +3250,14 @@ class Authorization {
     static LookupSecurityDescriptorPartsA(ppOwner, ppGroup, pcCountOfAccessEntries, ppListOfAccessEntries, pcCountOfAuditEntries, ppListOfAuditEntries, pSD) {
         pSD := pSD is Win32Handle ? NumGet(pSD, "ptr") : pSD
 
+        ppOwnerMarshal := ppOwner is VarRef ? "ptr*" : "ptr"
+        ppGroupMarshal := ppGroup is VarRef ? "ptr*" : "ptr"
         pcCountOfAccessEntriesMarshal := pcCountOfAccessEntries is VarRef ? "uint*" : "ptr"
+        ppListOfAccessEntriesMarshal := ppListOfAccessEntries is VarRef ? "ptr*" : "ptr"
         pcCountOfAuditEntriesMarshal := pcCountOfAuditEntries is VarRef ? "uint*" : "ptr"
+        ppListOfAuditEntriesMarshal := ppListOfAuditEntries is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\LookupSecurityDescriptorPartsA", "ptr*", ppOwner, "ptr*", ppGroup, pcCountOfAccessEntriesMarshal, pcCountOfAccessEntries, "ptr*", ppListOfAccessEntries, pcCountOfAuditEntriesMarshal, pcCountOfAuditEntries, "ptr*", ppListOfAuditEntries, "ptr", pSD, "uint")
+        result := DllCall("ADVAPI32.dll\LookupSecurityDescriptorPartsA", ppOwnerMarshal, ppOwner, ppGroupMarshal, ppGroup, pcCountOfAccessEntriesMarshal, pcCountOfAccessEntries, ppListOfAccessEntriesMarshal, ppListOfAccessEntries, pcCountOfAuditEntriesMarshal, pcCountOfAuditEntries, ppListOfAuditEntriesMarshal, ppListOfAuditEntries, "ptr", pSD, "uint")
         return result
     }
 
@@ -3272,10 +3295,14 @@ class Authorization {
     static LookupSecurityDescriptorPartsW(ppOwner, ppGroup, pcCountOfAccessEntries, ppListOfAccessEntries, pcCountOfAuditEntries, ppListOfAuditEntries, pSD) {
         pSD := pSD is Win32Handle ? NumGet(pSD, "ptr") : pSD
 
+        ppOwnerMarshal := ppOwner is VarRef ? "ptr*" : "ptr"
+        ppGroupMarshal := ppGroup is VarRef ? "ptr*" : "ptr"
         pcCountOfAccessEntriesMarshal := pcCountOfAccessEntries is VarRef ? "uint*" : "ptr"
+        ppListOfAccessEntriesMarshal := ppListOfAccessEntries is VarRef ? "ptr*" : "ptr"
         pcCountOfAuditEntriesMarshal := pcCountOfAuditEntries is VarRef ? "uint*" : "ptr"
+        ppListOfAuditEntriesMarshal := ppListOfAuditEntries is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\LookupSecurityDescriptorPartsW", "ptr*", ppOwner, "ptr*", ppGroup, pcCountOfAccessEntriesMarshal, pcCountOfAccessEntries, "ptr*", ppListOfAccessEntries, pcCountOfAuditEntriesMarshal, pcCountOfAuditEntries, "ptr*", ppListOfAuditEntries, "ptr", pSD, "uint")
+        result := DllCall("ADVAPI32.dll\LookupSecurityDescriptorPartsW", ppOwnerMarshal, ppOwner, ppGroupMarshal, ppGroup, pcCountOfAccessEntriesMarshal, pcCountOfAccessEntries, ppListOfAccessEntriesMarshal, ppListOfAccessEntries, pcCountOfAuditEntriesMarshal, pcCountOfAuditEntries, ppListOfAuditEntriesMarshal, ppListOfAuditEntries, "ptr", pSD, "uint")
         return result
     }
 

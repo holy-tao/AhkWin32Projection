@@ -45,7 +45,9 @@ class ISurfacePresenterFlip extends IUnknown{
      * @returns {HRESULT} 
      */
     GetBuffer(backBufferIndex, riid, ppBuffer) {
-        result := ComCall(4, this, "uint", backBufferIndex, "ptr", riid, "ptr*", ppBuffer, "HRESULT")
+        ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "uint", backBufferIndex, "ptr", riid, ppBufferMarshal, ppBuffer, "HRESULT")
         return result
     }
 }

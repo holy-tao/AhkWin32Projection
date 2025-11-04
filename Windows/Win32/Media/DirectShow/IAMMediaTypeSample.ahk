@@ -51,7 +51,9 @@ class IAMMediaTypeSample extends IStreamSample{
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammediatypesample-getpointer
      */
     GetPointer(ppBuffer) {
-        result := ComCall(9, this, "ptr*", ppBuffer, "HRESULT")
+        ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, ppBufferMarshal, ppBuffer, "HRESULT")
         return result
     }
 
@@ -165,7 +167,9 @@ class IAMMediaTypeSample extends IStreamSample{
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammediatypesample-getmediatype
      */
     GetMediaType(ppMediaType) {
-        result := ComCall(19, this, "ptr*", ppMediaType, "HRESULT")
+        ppMediaTypeMarshal := ppMediaType is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(19, this, ppMediaTypeMarshal, ppMediaType, "HRESULT")
         return result
     }
 

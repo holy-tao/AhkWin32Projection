@@ -38,7 +38,9 @@ class IGetOleObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vbinterf/nf-vbinterf-igetoleobject-getoleobject
      */
     GetOleObject(riid, ppvObj) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", ppvObj, "HRESULT")
+        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", riid, ppvObjMarshal, ppvObj, "HRESULT")
         return result
     }
 }

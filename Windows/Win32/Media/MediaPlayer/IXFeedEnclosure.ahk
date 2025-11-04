@@ -119,7 +119,9 @@ class IXFeedEnclosure extends IUnknown{
      * @returns {HRESULT} 
      */
     Parent(riid, ppv) {
-        result := ComCall(11, this, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(11, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 

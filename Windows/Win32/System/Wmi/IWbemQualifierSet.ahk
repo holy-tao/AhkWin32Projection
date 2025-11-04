@@ -93,7 +93,9 @@ class IWbemQualifierSet extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemqualifierset-getnames
      */
     GetNames(lFlags, pNames) {
-        result := ComCall(6, this, "int", lFlags, "ptr*", pNames, "HRESULT")
+        pNamesMarshal := pNames is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "int", lFlags, pNamesMarshal, pNames, "HRESULT")
         return result
     }
 

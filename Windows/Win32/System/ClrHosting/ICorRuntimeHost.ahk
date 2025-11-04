@@ -70,7 +70,9 @@ class ICorRuntimeHost extends IUnknown{
      * @returns {HRESULT} 
      */
     SwitchOutLogicalThreadState(pFiberCookie) {
-        result := ComCall(6, this, "ptr*", pFiberCookie, "HRESULT")
+        pFiberCookieMarshal := pFiberCookie is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, pFiberCookieMarshal, pFiberCookie, "HRESULT")
         return result
     }
 
@@ -157,7 +159,9 @@ class ICorRuntimeHost extends IUnknown{
      * @returns {HRESULT} 
      */
     EnumDomains(hEnum) {
-        result := ComCall(14, this, "ptr*", hEnum, "HRESULT")
+        hEnumMarshal := hEnum is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(14, this, hEnumMarshal, hEnum, "HRESULT")
         return result
     }
 

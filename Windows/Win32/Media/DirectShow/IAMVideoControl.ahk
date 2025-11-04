@@ -117,8 +117,9 @@ class IAMVideoControl extends IUnknown{
      */
     GetFrameRateList(pPin, iIndex, Dimensions, ListSize, FrameRates) {
         ListSizeMarshal := ListSize is VarRef ? "int*" : "ptr"
+        FrameRatesMarshal := FrameRates is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(8, this, "ptr", pPin, "int", iIndex, "ptr", Dimensions, ListSizeMarshal, ListSize, "ptr*", FrameRates, "HRESULT")
+        result := ComCall(8, this, "ptr", pPin, "int", iIndex, "ptr", Dimensions, ListSizeMarshal, ListSize, FrameRatesMarshal, FrameRates, "HRESULT")
         return result
     }
 }

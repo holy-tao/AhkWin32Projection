@@ -14183,9 +14183,10 @@ class Clustering {
         hkeyClusterKey := hkeyClusterKey is Win32Handle ? NumGet(hkeyClusterKey, "ptr") : hkeyClusterKey
         pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
 
+        ppbOutValueMarshal := ppbOutValue is VarRef ? "ptr*" : "ptr"
         pcbOutValueSizeMarshal := pcbOutValueSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("RESUTILS.dll\ResUtilGetBinaryValue", "ptr", hkeyClusterKey, "ptr", pszValueName, "ptr*", ppbOutValue, pcbOutValueSizeMarshal, pcbOutValueSize, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilGetBinaryValue", "ptr", hkeyClusterKey, "ptr", pszValueName, ppbOutValueMarshal, ppbOutValue, pcbOutValueSizeMarshal, pcbOutValueSize, "uint")
         return result
     }
 
@@ -14543,10 +14544,11 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilGetBinaryProperty(ppbOutValue, pcbOutValueSize, pValueStruct, pbOldValue, cbOldValueSize, ppPropertyList, pcbPropertyListSize) {
+        ppbOutValueMarshal := ppbOutValue is VarRef ? "ptr*" : "ptr"
         pcbOutValueSizeMarshal := pcbOutValueSize is VarRef ? "uint*" : "ptr"
         pcbPropertyListSizeMarshal := pcbPropertyListSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("RESUTILS.dll\ResUtilGetBinaryProperty", "ptr*", ppbOutValue, pcbOutValueSizeMarshal, pcbOutValueSize, "ptr", pValueStruct, "ptr", pbOldValue, "uint", cbOldValueSize, "ptr", ppPropertyList, pcbPropertyListSizeMarshal, pcbPropertyListSize, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilGetBinaryProperty", ppbOutValueMarshal, ppbOutValue, pcbOutValueSizeMarshal, pcbOutValueSize, "ptr", pValueStruct, "ptr", pbOldValue, "uint", cbOldValueSize, "ptr", ppPropertyList, pcbPropertyListSizeMarshal, pcbPropertyListSize, "uint")
         return result
     }
 
@@ -14682,9 +14684,10 @@ class Clustering {
      */
     static ResUtilGetDwordProperty(pdwOutValue, pValueStruct, dwOldValue, dwMinimum, dwMaximum, ppPropertyList, pcbPropertyListSize) {
         pdwOutValueMarshal := pdwOutValue is VarRef ? "uint*" : "ptr"
+        ppPropertyListMarshal := ppPropertyList is VarRef ? "ptr*" : "ptr"
         pcbPropertyListSizeMarshal := pcbPropertyListSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("RESUTILS.dll\ResUtilGetDwordProperty", pdwOutValueMarshal, pdwOutValue, "ptr", pValueStruct, "uint", dwOldValue, "uint", dwMinimum, "uint", dwMaximum, "ptr*", ppPropertyList, pcbPropertyListSizeMarshal, pcbPropertyListSize, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilGetDwordProperty", pdwOutValueMarshal, pdwOutValue, "ptr", pValueStruct, "uint", dwOldValue, "uint", dwMinimum, "uint", dwMaximum, ppPropertyListMarshal, ppPropertyList, pcbPropertyListSizeMarshal, pcbPropertyListSize, "uint")
         return result
     }
 
@@ -14703,9 +14706,10 @@ class Clustering {
      */
     static ResUtilGetLongProperty(plOutValue, pValueStruct, lOldValue, lMinimum, lMaximum, ppPropertyList, pcbPropertyListSize) {
         plOutValueMarshal := plOutValue is VarRef ? "int*" : "ptr"
+        ppPropertyListMarshal := ppPropertyList is VarRef ? "ptr*" : "ptr"
         pcbPropertyListSizeMarshal := pcbPropertyListSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("RESUTILS.dll\ResUtilGetLongProperty", plOutValueMarshal, plOutValue, "ptr", pValueStruct, "int", lOldValue, "int", lMinimum, "int", lMaximum, "ptr*", ppPropertyList, pcbPropertyListSizeMarshal, pcbPropertyListSize, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilGetLongProperty", plOutValueMarshal, plOutValue, "ptr", pValueStruct, "int", lOldValue, "int", lMinimum, "int", lMaximum, ppPropertyListMarshal, ppPropertyList, pcbPropertyListSizeMarshal, pcbPropertyListSize, "uint")
         return result
     }
 
@@ -14723,9 +14727,10 @@ class Clustering {
      * @since windowsserver2008
      */
     static ResUtilGetFileTimeProperty(pftOutValue, pValueStruct, ftOldValue, ftMinimum, ftMaximum, ppPropertyList, pcbPropertyListSize) {
+        ppPropertyListMarshal := ppPropertyList is VarRef ? "ptr*" : "ptr"
         pcbPropertyListSizeMarshal := pcbPropertyListSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("RESUTILS.dll\ResUtilGetFileTimeProperty", "ptr", pftOutValue, "ptr", pValueStruct, "ptr", ftOldValue, "ptr", ftMinimum, "ptr", ftMaximum, "ptr*", ppPropertyList, pcbPropertyListSizeMarshal, pcbPropertyListSize, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilGetFileTimeProperty", "ptr", pftOutValue, "ptr", pValueStruct, "ptr", ftOldValue, "ptr", ftMinimum, "ptr", ftMaximum, ppPropertyListMarshal, ppPropertyList, pcbPropertyListSizeMarshal, pcbPropertyListSize, "uint")
         return result
     }
 
@@ -15134,9 +15139,10 @@ class Clustering {
     static ResUtilFindBinaryProperty(pPropertyList, cbPropertyListSize, pszPropertyName, pbPropertyValue, pcbPropertyValueSize) {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
 
+        pbPropertyValueMarshal := pbPropertyValue is VarRef ? "ptr*" : "ptr"
         pcbPropertyValueSizeMarshal := pcbPropertyValueSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("RESUTILS.dll\ResUtilFindBinaryProperty", "ptr", pPropertyList, "uint", cbPropertyListSize, "ptr", pszPropertyName, "ptr*", pbPropertyValue, pcbPropertyValueSizeMarshal, pcbPropertyValueSize, "uint")
+        result := DllCall("RESUTILS.dll\ResUtilFindBinaryProperty", "ptr", pPropertyList, "uint", cbPropertyListSize, "ptr", pszPropertyName, pbPropertyValueMarshal, pbPropertyValue, pcbPropertyValueSizeMarshal, pcbPropertyValueSize, "uint")
         return result
     }
 
@@ -15462,7 +15468,9 @@ class Clustering {
      * @since windowsserver2016
      */
     static ClusWorkersTerminate(ClusWorkers, ClusWorkersCount, TimeoutInMilliseconds, WaitOnly) {
-        result := DllCall("RESUTILS.dll\ClusWorkersTerminate", "ptr*", ClusWorkers, "ptr", ClusWorkersCount, "uint", TimeoutInMilliseconds, "int", WaitOnly, "uint")
+        ClusWorkersMarshal := ClusWorkers is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("RESUTILS.dll\ClusWorkersTerminate", ClusWorkersMarshal, ClusWorkers, "ptr", ClusWorkersCount, "uint", TimeoutInMilliseconds, "int", WaitOnly, "uint")
         return result
     }
 
@@ -16452,9 +16460,10 @@ class Clustering {
      */
     static ClusterEncrypt(hClusCryptProvider, pData, cbData, ppData, pcbData) {
         pDataMarshal := pData is VarRef ? "char*" : "ptr"
+        ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("RESUTILS.dll\ClusterEncrypt", "ptr", hClusCryptProvider, pDataMarshal, pData, "uint", cbData, "ptr*", ppData, pcbDataMarshal, pcbData, "uint")
+        result := DllCall("RESUTILS.dll\ClusterEncrypt", "ptr", hClusCryptProvider, pDataMarshal, pData, "uint", cbData, ppDataMarshal, ppData, pcbDataMarshal, pcbData, "uint")
         return result
     }
 
@@ -16471,9 +16480,10 @@ class Clustering {
      */
     static ClusterDecrypt(hClusCryptProvider, pCryptInput, cbCryptInput, ppCryptOutput, pcbCryptOutput) {
         pCryptInputMarshal := pCryptInput is VarRef ? "char*" : "ptr"
+        ppCryptOutputMarshal := ppCryptOutput is VarRef ? "ptr*" : "ptr"
         pcbCryptOutputMarshal := pcbCryptOutput is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("RESUTILS.dll\ClusterDecrypt", "ptr", hClusCryptProvider, pCryptInputMarshal, pCryptInput, "uint", cbCryptInput, "ptr*", ppCryptOutput, pcbCryptOutputMarshal, pcbCryptOutput, "uint")
+        result := DllCall("RESUTILS.dll\ClusterDecrypt", "ptr", hClusCryptProvider, pCryptInputMarshal, pCryptInput, "uint", cbCryptInput, ppCryptOutputMarshal, ppCryptOutput, pcbCryptOutputMarshal, pcbCryptOutput, "uint")
         return result
     }
 

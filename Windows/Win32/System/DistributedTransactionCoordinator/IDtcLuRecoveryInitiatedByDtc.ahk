@@ -36,8 +36,9 @@ class IDtcLuRecoveryInitiatedByDtc extends IUnknown{
      */
     GetWork(pWork, ppv) {
         pWorkMarshal := pWork is VarRef ? "int*" : "ptr"
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, pWorkMarshal, pWork, "ptr*", ppv, "HRESULT")
+        result := ComCall(3, this, pWorkMarshal, pWork, ppvMarshal, ppv, "HRESULT")
         return result
     }
 }

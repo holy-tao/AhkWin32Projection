@@ -44,9 +44,10 @@ class IDirectorySchemaMgmt extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-idirectoryschemamgmt
      */
     EnumAttributes(ppszAttrNames, dwNumAttributes, ppAttrDefinition, pdwNumAttributes) {
+        ppAttrDefinitionMarshal := ppAttrDefinition is VarRef ? "ptr*" : "ptr"
         pdwNumAttributesMarshal := pdwNumAttributes is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", ppszAttrNames, "uint", dwNumAttributes, "ptr*", ppAttrDefinition, pdwNumAttributesMarshal, pdwNumAttributes, "HRESULT")
+        result := ComCall(3, this, "ptr", ppszAttrNames, "uint", dwNumAttributes, ppAttrDefinitionMarshal, ppAttrDefinition, pdwNumAttributesMarshal, pdwNumAttributes, "HRESULT")
         return result
     }
 
@@ -101,9 +102,10 @@ class IDirectorySchemaMgmt extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-idirectoryschemamgmt
      */
     EnumClasses(ppszClassNames, dwNumClasses, ppClassDefinition, pdwNumClasses) {
+        ppClassDefinitionMarshal := ppClassDefinition is VarRef ? "ptr*" : "ptr"
         pdwNumClassesMarshal := pdwNumClasses is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "ptr", ppszClassNames, "uint", dwNumClasses, "ptr*", ppClassDefinition, pdwNumClassesMarshal, pdwNumClasses, "HRESULT")
+        result := ComCall(7, this, "ptr", ppszClassNames, "uint", dwNumClasses, ppClassDefinitionMarshal, ppClassDefinition, pdwNumClassesMarshal, pdwNumClasses, "HRESULT")
         return result
     }
 

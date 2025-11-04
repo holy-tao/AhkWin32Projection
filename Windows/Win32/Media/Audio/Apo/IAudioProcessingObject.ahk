@@ -60,7 +60,9 @@ class IAudioProcessingObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobject-getregistrationproperties
      */
     GetRegistrationProperties(ppRegProps) {
-        result := ComCall(5, this, "ptr*", ppRegProps, "HRESULT")
+        ppRegPropsMarshal := ppRegProps is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, ppRegPropsMarshal, ppRegProps, "HRESULT")
         return result
     }
 

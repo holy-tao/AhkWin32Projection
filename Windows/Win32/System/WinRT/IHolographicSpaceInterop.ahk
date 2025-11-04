@@ -41,7 +41,9 @@ class IHolographicSpaceInterop extends IInspectable{
     CreateForWindow(window, riid, holographicSpace) {
         window := window is Win32Handle ? NumGet(window, "ptr") : window
 
-        result := ComCall(6, this, "ptr", window, "ptr", riid, "ptr*", holographicSpace, "HRESULT")
+        holographicSpaceMarshal := holographicSpace is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "ptr", window, "ptr", riid, holographicSpaceMarshal, holographicSpace, "HRESULT")
         return result
     }
 }

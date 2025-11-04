@@ -223,9 +223,10 @@ class IWiaMiniDrv extends IUnknown{
     drvGetCapabilities(__MIDL__IWiaMiniDrv0048, __MIDL__IWiaMiniDrv0049, __MIDL__IWiaMiniDrv0050, __MIDL__IWiaMiniDrv0051, __MIDL__IWiaMiniDrv0052) {
         __MIDL__IWiaMiniDrv0048Marshal := __MIDL__IWiaMiniDrv0048 is VarRef ? "char*" : "ptr"
         __MIDL__IWiaMiniDrv0050Marshal := __MIDL__IWiaMiniDrv0050 is VarRef ? "int*" : "ptr"
+        __MIDL__IWiaMiniDrv0051Marshal := __MIDL__IWiaMiniDrv0051 is VarRef ? "ptr*" : "ptr"
         __MIDL__IWiaMiniDrv0052Marshal := __MIDL__IWiaMiniDrv0052 is VarRef ? "int*" : "ptr"
 
-        result := ComCall(14, this, __MIDL__IWiaMiniDrv0048Marshal, __MIDL__IWiaMiniDrv0048, "int", __MIDL__IWiaMiniDrv0049, __MIDL__IWiaMiniDrv0050Marshal, __MIDL__IWiaMiniDrv0050, "ptr*", __MIDL__IWiaMiniDrv0051, __MIDL__IWiaMiniDrv0052Marshal, __MIDL__IWiaMiniDrv0052, "HRESULT")
+        result := ComCall(14, this, __MIDL__IWiaMiniDrv0048Marshal, __MIDL__IWiaMiniDrv0048, "int", __MIDL__IWiaMiniDrv0049, __MIDL__IWiaMiniDrv0050Marshal, __MIDL__IWiaMiniDrv0050, __MIDL__IWiaMiniDrv0051Marshal, __MIDL__IWiaMiniDrv0051, __MIDL__IWiaMiniDrv0052Marshal, __MIDL__IWiaMiniDrv0052, "HRESULT")
         return result
     }
 
@@ -271,9 +272,10 @@ class IWiaMiniDrv extends IUnknown{
     drvGetWiaFormatInfo(__MIDL__IWiaMiniDrv0059, __MIDL__IWiaMiniDrv0060, __MIDL__IWiaMiniDrv0061, __MIDL__IWiaMiniDrv0062, __MIDL__IWiaMiniDrv0063) {
         __MIDL__IWiaMiniDrv0059Marshal := __MIDL__IWiaMiniDrv0059 is VarRef ? "char*" : "ptr"
         __MIDL__IWiaMiniDrv0061Marshal := __MIDL__IWiaMiniDrv0061 is VarRef ? "int*" : "ptr"
+        __MIDL__IWiaMiniDrv0062Marshal := __MIDL__IWiaMiniDrv0062 is VarRef ? "ptr*" : "ptr"
         __MIDL__IWiaMiniDrv0063Marshal := __MIDL__IWiaMiniDrv0063 is VarRef ? "int*" : "ptr"
 
-        result := ComCall(17, this, __MIDL__IWiaMiniDrv0059Marshal, __MIDL__IWiaMiniDrv0059, "int", __MIDL__IWiaMiniDrv0060, __MIDL__IWiaMiniDrv0061Marshal, __MIDL__IWiaMiniDrv0061, "ptr*", __MIDL__IWiaMiniDrv0062, __MIDL__IWiaMiniDrv0063Marshal, __MIDL__IWiaMiniDrv0063, "HRESULT")
+        result := ComCall(17, this, __MIDL__IWiaMiniDrv0059Marshal, __MIDL__IWiaMiniDrv0059, "int", __MIDL__IWiaMiniDrv0060, __MIDL__IWiaMiniDrv0061Marshal, __MIDL__IWiaMiniDrv0061, __MIDL__IWiaMiniDrv0062Marshal, __MIDL__IWiaMiniDrv0062, __MIDL__IWiaMiniDrv0063Marshal, __MIDL__IWiaMiniDrv0063, "HRESULT")
         return result
     }
 

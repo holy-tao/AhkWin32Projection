@@ -1677,7 +1677,9 @@ class WinTrust {
     static OpenPersonalTrustDBDialogEx(hwndParent, dwFlags, pvReserved) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
-        result := DllCall("WINTRUST.dll\OpenPersonalTrustDBDialogEx", "ptr", hwndParent, "uint", dwFlags, "ptr*", pvReserved, "int")
+        pvReservedMarshal := pvReserved is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WINTRUST.dll\OpenPersonalTrustDBDialogEx", "ptr", hwndParent, "uint", dwFlags, pvReservedMarshal, pvReserved, "int")
         return result
     }
 

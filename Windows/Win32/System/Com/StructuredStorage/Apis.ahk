@@ -591,7 +591,9 @@ class StructuredStorage {
      * @since windows5.0
      */
     static CoGetInterfaceAndReleaseStream(pStm, iid, ppv) {
-        result := DllCall("OLE32.dll\CoGetInterfaceAndReleaseStream", "ptr", pStm, "ptr", iid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("OLE32.dll\CoGetInterfaceAndReleaseStream", "ptr", pStm, "ptr", iid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -720,7 +722,9 @@ class StructuredStorage {
     static StgOpenStorage(pwcsName, pstgPriority, grfMode, snbExclude, reserved, ppstgOpen) {
         pwcsName := pwcsName is String ? StrPtr(pwcsName) : pwcsName
 
-        result := DllCall("OLE32.dll\StgOpenStorage", "ptr", pwcsName, "ptr", pstgPriority, "uint", grfMode, "ptr*", snbExclude, "uint", reserved, "ptr*", ppstgOpen, "int")
+        snbExcludeMarshal := snbExclude is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("OLE32.dll\StgOpenStorage", "ptr", pwcsName, "ptr", pstgPriority, "uint", grfMode, snbExcludeMarshal, snbExclude, "uint", reserved, "ptr*", ppstgOpen, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -749,7 +753,9 @@ class StructuredStorage {
     static StgOpenStorageOnILockBytes(plkbyt, pstgPriority, grfMode, snbExclude, ppstgOpen) {
         static reserved := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("OLE32.dll\StgOpenStorageOnILockBytes", "ptr", plkbyt, "ptr", pstgPriority, "uint", grfMode, "ptr*", snbExclude, "uint", reserved, "ptr*", ppstgOpen, "int")
+        snbExcludeMarshal := snbExclude is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("OLE32.dll\StgOpenStorageOnILockBytes", "ptr", plkbyt, "ptr", pstgPriority, "uint", grfMode, snbExcludeMarshal, snbExclude, "uint", reserved, "ptr*", ppstgOpen, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -875,7 +881,9 @@ class StructuredStorage {
         pwcsName := pwcsName is String ? StrPtr(pwcsName) : pwcsName
         pSecurityDescriptor := pSecurityDescriptor is Win32Handle ? NumGet(pSecurityDescriptor, "ptr") : pSecurityDescriptor
 
-        result := DllCall("OLE32.dll\StgCreateStorageEx", "ptr", pwcsName, "uint", grfMode, "uint", stgfmt, "uint", grfAttrs, "ptr", pStgOptions, "ptr", pSecurityDescriptor, "ptr", riid, "ptr*", ppObjectOpen, "int")
+        ppObjectOpenMarshal := ppObjectOpen is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("OLE32.dll\StgCreateStorageEx", "ptr", pwcsName, "uint", grfMode, "uint", stgfmt, "uint", grfAttrs, "ptr", pStgOptions, "ptr", pSecurityDescriptor, "ptr", riid, ppObjectOpenMarshal, ppObjectOpen, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -915,7 +923,9 @@ class StructuredStorage {
         pwcsName := pwcsName is String ? StrPtr(pwcsName) : pwcsName
         pSecurityDescriptor := pSecurityDescriptor is Win32Handle ? NumGet(pSecurityDescriptor, "ptr") : pSecurityDescriptor
 
-        result := DllCall("OLE32.dll\StgOpenStorageEx", "ptr", pwcsName, "uint", grfMode, "uint", stgfmt, "uint", grfAttrs, "ptr", pStgOptions, "ptr", pSecurityDescriptor, "ptr", riid, "ptr*", ppObjectOpen, "int")
+        ppObjectOpenMarshal := ppObjectOpen is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("OLE32.dll\StgOpenStorageEx", "ptr", pwcsName, "uint", grfMode, "uint", stgfmt, "uint", grfAttrs, "ptr", pStgOptions, "ptr", pSecurityDescriptor, "ptr", riid, ppObjectOpenMarshal, ppObjectOpen, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1358,7 +1368,9 @@ class StructuredStorage {
      * @since windows8.0
      */
     static PropVariantToWinRTPropertyValue(propvar, riid, ppv) {
-        result := DllCall("PROPSYS.dll\PropVariantToWinRTPropertyValue", "ptr", propvar, "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("PROPSYS.dll\PropVariantToWinRTPropertyValue", "ptr", propvar, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3151,9 +3163,10 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToBooleanVectorAlloc(propvar, pprgf, pcElem) {
+        pprgfMarshal := pprgf is VarRef ? "ptr*" : "ptr"
         pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("PROPSYS.dll\PropVariantToBooleanVectorAlloc", "ptr", propvar, "ptr*", pprgf, pcElemMarshal, pcElem, "int")
+        result := DllCall("PROPSYS.dll\PropVariantToBooleanVectorAlloc", "ptr", propvar, pprgfMarshal, pprgf, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3207,9 +3220,10 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToInt16VectorAlloc(propvar, pprgn, pcElem) {
+        pprgnMarshal := pprgn is VarRef ? "ptr*" : "ptr"
         pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("PROPSYS.dll\PropVariantToInt16VectorAlloc", "ptr", propvar, "ptr*", pprgn, pcElemMarshal, pcElem, "int")
+        result := DllCall("PROPSYS.dll\PropVariantToInt16VectorAlloc", "ptr", propvar, pprgnMarshal, pprgn, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3263,9 +3277,10 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToUInt16VectorAlloc(propvar, pprgn, pcElem) {
+        pprgnMarshal := pprgn is VarRef ? "ptr*" : "ptr"
         pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("PROPSYS.dll\PropVariantToUInt16VectorAlloc", "ptr", propvar, "ptr*", pprgn, pcElemMarshal, pcElem, "int")
+        result := DllCall("PROPSYS.dll\PropVariantToUInt16VectorAlloc", "ptr", propvar, pprgnMarshal, pprgn, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3319,9 +3334,10 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToInt32VectorAlloc(propvar, pprgn, pcElem) {
+        pprgnMarshal := pprgn is VarRef ? "ptr*" : "ptr"
         pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("PROPSYS.dll\PropVariantToInt32VectorAlloc", "ptr", propvar, "ptr*", pprgn, pcElemMarshal, pcElem, "int")
+        result := DllCall("PROPSYS.dll\PropVariantToInt32VectorAlloc", "ptr", propvar, pprgnMarshal, pprgn, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3375,9 +3391,10 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToUInt32VectorAlloc(propvar, pprgn, pcElem) {
+        pprgnMarshal := pprgn is VarRef ? "ptr*" : "ptr"
         pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("PROPSYS.dll\PropVariantToUInt32VectorAlloc", "ptr", propvar, "ptr*", pprgn, pcElemMarshal, pcElem, "int")
+        result := DllCall("PROPSYS.dll\PropVariantToUInt32VectorAlloc", "ptr", propvar, pprgnMarshal, pprgn, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3431,9 +3448,10 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToInt64VectorAlloc(propvar, pprgn, pcElem) {
+        pprgnMarshal := pprgn is VarRef ? "ptr*" : "ptr"
         pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("PROPSYS.dll\PropVariantToInt64VectorAlloc", "ptr", propvar, "ptr*", pprgn, pcElemMarshal, pcElem, "int")
+        result := DllCall("PROPSYS.dll\PropVariantToInt64VectorAlloc", "ptr", propvar, pprgnMarshal, pprgn, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3487,9 +3505,10 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToUInt64VectorAlloc(propvar, pprgn, pcElem) {
+        pprgnMarshal := pprgn is VarRef ? "ptr*" : "ptr"
         pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("PROPSYS.dll\PropVariantToUInt64VectorAlloc", "ptr", propvar, "ptr*", pprgn, pcElemMarshal, pcElem, "int")
+        result := DllCall("PROPSYS.dll\PropVariantToUInt64VectorAlloc", "ptr", propvar, pprgnMarshal, pprgn, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3514,9 +3533,10 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToDoubleVectorAlloc(propvar, pprgn, pcElem) {
+        pprgnMarshal := pprgn is VarRef ? "ptr*" : "ptr"
         pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("PROPSYS.dll\PropVariantToDoubleVectorAlloc", "ptr", propvar, "ptr*", pprgn, pcElemMarshal, pcElem, "int")
+        result := DllCall("PROPSYS.dll\PropVariantToDoubleVectorAlloc", "ptr", propvar, pprgnMarshal, pprgn, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3570,9 +3590,10 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToFileTimeVectorAlloc(propvar, pprgft, pcElem) {
+        pprgftMarshal := pprgft is VarRef ? "ptr*" : "ptr"
         pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("PROPSYS.dll\PropVariantToFileTimeVectorAlloc", "ptr", propvar, "ptr*", pprgft, pcElemMarshal, pcElem, "int")
+        result := DllCall("PROPSYS.dll\PropVariantToFileTimeVectorAlloc", "ptr", propvar, pprgftMarshal, pprgft, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3626,9 +3647,10 @@ class StructuredStorage {
      * @since windows5.1.2600
      */
     static PropVariantToStringVectorAlloc(propvar, pprgsz, pcElem) {
+        pprgszMarshal := pprgsz is VarRef ? "ptr*" : "ptr"
         pcElemMarshal := pcElem is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("PROPSYS.dll\PropVariantToStringVectorAlloc", "ptr", propvar, "ptr*", pprgsz, pcElemMarshal, pcElem, "int")
+        result := DllCall("PROPSYS.dll\PropVariantToStringVectorAlloc", "ptr", propvar, pprgszMarshal, pprgsz, pcElemMarshal, pcElem, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4026,9 +4048,10 @@ class StructuredStorage {
      * @since windows5.0
      */
     static StgSerializePropVariant(ppropvar, ppProp, pcb) {
+        ppPropMarshal := ppProp is VarRef ? "ptr*" : "ptr"
         pcbMarshal := pcb is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("PROPSYS.dll\StgSerializePropVariant", "ptr", ppropvar, "ptr*", ppProp, pcbMarshal, pcb, "int")
+        result := DllCall("PROPSYS.dll\StgSerializePropVariant", "ptr", ppropvar, ppPropMarshal, ppProp, pcbMarshal, pcb, "int")
         if(result != 0)
             throw OSError(result)
 

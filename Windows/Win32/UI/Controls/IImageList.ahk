@@ -184,7 +184,9 @@ class IImageList extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-merge
      */
     Merge(i1, punk2, i2, dx, dy, riid, ppv) {
-        result := ComCall(13, this, "int", i1, "ptr", punk2, "int", i2, "int", dx, "int", dy, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(13, this, "int", i1, "ptr", punk2, "int", i2, "int", dx, "int", dy, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -196,7 +198,9 @@ class IImageList extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-clone
      */
     Clone(riid, ppv) {
-        result := ComCall(14, this, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(14, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -388,7 +392,9 @@ class IImageList extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist-getdragimage
      */
     GetDragImage(ppt, pptHotspot, riid, ppv) {
-        result := ComCall(29, this, "ptr", ppt, "ptr", pptHotspot, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(29, this, "ptr", ppt, "ptr", pptHotspot, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 

@@ -42,8 +42,9 @@ class IMDServiceProvider2 extends IMDServiceProvider{
         pwszDevicePath := pwszDevicePath is String ? StrPtr(pwszDevicePath) : pwszDevicePath
 
         pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+        pppDeviceArrayMarshal := pppDeviceArray is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pwszDevicePath, pdwCountMarshal, pdwCount, "ptr*", pppDeviceArray, "HRESULT")
+        result := ComCall(5, this, "ptr", pwszDevicePath, pdwCountMarshal, pdwCount, pppDeviceArrayMarshal, pppDeviceArray, "HRESULT")
         return result
     }
 }

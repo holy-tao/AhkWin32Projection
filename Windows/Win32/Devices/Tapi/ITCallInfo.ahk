@@ -165,8 +165,9 @@ class ITCallInfo extends IDispatch{
      */
     GetCallInfoBuffer(CallInfoBuffer, pdwSize, ppCallInfoBuffer) {
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
+        ppCallInfoBufferMarshal := ppCallInfoBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(17, this, "int", CallInfoBuffer, pdwSizeMarshal, pdwSize, "ptr*", ppCallInfoBuffer, "HRESULT")
+        result := ComCall(17, this, "int", CallInfoBuffer, pdwSizeMarshal, pdwSize, ppCallInfoBufferMarshal, ppCallInfoBuffer, "HRESULT")
         return result
     }
 

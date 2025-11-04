@@ -41,9 +41,10 @@ class IAudioSystemEffects3 extends IAudioSystemEffects2{
     GetControllableSystemEffectsList(effects, numEffects, event) {
         event := event is Win32Handle ? NumGet(event, "ptr") : event
 
+        effectsMarshal := effects is VarRef ? "ptr*" : "ptr"
         numEffectsMarshal := numEffects is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr*", effects, numEffectsMarshal, numEffects, "ptr", event, "HRESULT")
+        result := ComCall(4, this, effectsMarshal, effects, numEffectsMarshal, numEffects, "ptr", event, "HRESULT")
         return result
     }
 

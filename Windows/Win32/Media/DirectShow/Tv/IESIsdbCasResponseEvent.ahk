@@ -80,7 +80,9 @@ class IESIsdbCasResponseEvent extends IESEvent{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesisdbcasresponseevent-getresponsedata
      */
     GetResponseData(pbData) {
-        result := ComCall(11, this, "ptr*", pbData, "HRESULT")
+        pbDataMarshal := pbData is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(11, this, pbDataMarshal, pbData, "HRESULT")
         return result
     }
 }

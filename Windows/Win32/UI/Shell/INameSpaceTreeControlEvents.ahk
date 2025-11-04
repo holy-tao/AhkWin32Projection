@@ -212,7 +212,9 @@ class INameSpaceTreeControlEvents extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolevents-onbeforecontextmenu
      */
     OnBeforeContextMenu(psi, riid, ppv) {
-        result := ComCall(17, this, "ptr", psi, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(17, this, "ptr", psi, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -226,7 +228,9 @@ class INameSpaceTreeControlEvents extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolevents-onaftercontextmenu
      */
     OnAfterContextMenu(psi, pcmIn, riid, ppv) {
-        result := ComCall(18, this, "ptr", psi, "ptr", pcmIn, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(18, this, "ptr", psi, "ptr", pcmIn, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 

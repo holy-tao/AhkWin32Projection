@@ -377,7 +377,9 @@ class Direct2D {
      * @since windows6.1
      */
     static D2D1CreateFactory(factoryType, riid, pFactoryOptions, ppIFactory) {
-        result := DllCall("d2d1.dll\D2D1CreateFactory", "int", factoryType, "ptr", riid, "ptr", pFactoryOptions, "ptr*", ppIFactory, "int")
+        ppIFactoryMarshal := ppIFactory is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("d2d1.dll\D2D1CreateFactory", "int", factoryType, "ptr", riid, "ptr", pFactoryOptions, ppIFactoryMarshal, ppIFactory, "int")
         if(result != 0)
             throw OSError(result)
 

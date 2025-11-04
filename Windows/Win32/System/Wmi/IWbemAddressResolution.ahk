@@ -41,8 +41,9 @@ class IWbemAddressResolution extends IUnknown{
         wszAddressType := wszAddressType is String ? StrPtr(wszAddressType) : wszAddressType
 
         pdwAddressLengthMarshal := pdwAddressLength is VarRef ? "uint*" : "ptr"
+        pabBinaryAddressMarshal := pabBinaryAddress is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", wszNamespacePath, "ptr", wszAddressType, pdwAddressLengthMarshal, pdwAddressLength, "ptr*", pabBinaryAddress, "HRESULT")
+        result := ComCall(3, this, "ptr", wszNamespacePath, "ptr", wszAddressType, pdwAddressLengthMarshal, pdwAddressLength, pabBinaryAddressMarshal, pabBinaryAddress, "HRESULT")
         return result
     }
 }

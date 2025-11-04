@@ -37,7 +37,9 @@ class IWSDiscoveredService extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoveredservice-getendpointreference
      */
     GetEndpointReference(ppEndpointReference) {
-        result := ComCall(3, this, "ptr*", ppEndpointReference, "HRESULT")
+        ppEndpointReferenceMarshal := ppEndpointReference is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, ppEndpointReferenceMarshal, ppEndpointReference, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IWSDiscoveredService extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoveredservice-gettypes
      */
     GetTypes(ppTypesList) {
-        result := ComCall(4, this, "ptr*", ppTypesList, "HRESULT")
+        ppTypesListMarshal := ppTypesList is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, ppTypesListMarshal, ppTypesList, "HRESULT")
         return result
     }
 
@@ -59,7 +63,9 @@ class IWSDiscoveredService extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoveredservice-getscopes
      */
     GetScopes(ppScopesList) {
-        result := ComCall(5, this, "ptr*", ppScopesList, "HRESULT")
+        ppScopesListMarshal := ppScopesList is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, ppScopesListMarshal, ppScopesList, "HRESULT")
         return result
     }
 
@@ -70,7 +76,9 @@ class IWSDiscoveredService extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoveredservice-getxaddrs
      */
     GetXAddrs(ppXAddrsList) {
-        result := ComCall(6, this, "ptr*", ppXAddrsList, "HRESULT")
+        ppXAddrsListMarshal := ppXAddrsList is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, ppXAddrsListMarshal, ppXAddrsList, "HRESULT")
         return result
     }
 
@@ -95,7 +103,10 @@ class IWSDiscoveredService extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoveredservice-getextendeddiscoxml
      */
     GetExtendedDiscoXML(ppHeaderAny, ppBodyAny) {
-        result := ComCall(8, this, "ptr*", ppHeaderAny, "ptr*", ppBodyAny, "HRESULT")
+        ppHeaderAnyMarshal := ppHeaderAny is VarRef ? "ptr*" : "ptr"
+        ppBodyAnyMarshal := ppBodyAny is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(8, this, ppHeaderAnyMarshal, ppHeaderAny, ppBodyAnyMarshal, ppBodyAny, "HRESULT")
         return result
     }
 

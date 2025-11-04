@@ -58,8 +58,9 @@ class IMFProtectedEnvironmentAccess extends IUnknown{
      */
     ReadGRL(outputLength, output) {
         outputLengthMarshal := outputLength is VarRef ? "uint*" : "ptr"
+        outputMarshal := output is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, outputLengthMarshal, outputLength, "ptr*", output, "HRESULT")
+        result := ComCall(4, this, outputLengthMarshal, outputLength, outputMarshal, output, "HRESULT")
         return result
     }
 }

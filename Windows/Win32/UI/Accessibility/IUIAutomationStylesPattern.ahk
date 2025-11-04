@@ -119,9 +119,10 @@ class IUIAutomationStylesPattern extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCurrentExtendedPropertiesAsArray(propertyArray, propertyCount) {
+        propertyArrayMarshal := propertyArray is VarRef ? "ptr*" : "ptr"
         propertyCountMarshal := propertyCount is VarRef ? "int*" : "ptr"
 
-        result := ComCall(10, this, "ptr*", propertyArray, propertyCountMarshal, propertyCount, "HRESULT")
+        result := ComCall(10, this, propertyArrayMarshal, propertyArray, propertyCountMarshal, propertyCount, "HRESULT")
         return result
     }
 
@@ -214,9 +215,10 @@ class IUIAutomationStylesPattern extends IUnknown{
      * @returns {HRESULT} 
      */
     GetCachedExtendedPropertiesAsArray(propertyArray, propertyCount) {
+        propertyArrayMarshal := propertyArray is VarRef ? "ptr*" : "ptr"
         propertyCountMarshal := propertyCount is VarRef ? "int*" : "ptr"
 
-        result := ComCall(18, this, "ptr*", propertyArray, propertyCountMarshal, propertyCount, "HRESULT")
+        result := ComCall(18, this, propertyArrayMarshal, propertyArray, propertyCountMarshal, propertyCount, "HRESULT")
         return result
     }
 }

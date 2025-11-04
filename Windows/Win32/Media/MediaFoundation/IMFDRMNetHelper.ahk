@@ -65,9 +65,10 @@ class IMFDRMNetHelper extends IUnknown{
      */
     ProcessLicenseRequest(pLicenseRequest, cbLicenseRequest, ppLicenseResponse, pcbLicenseResponse, pbstrKID) {
         pLicenseRequestMarshal := pLicenseRequest is VarRef ? "char*" : "ptr"
+        ppLicenseResponseMarshal := ppLicenseResponse is VarRef ? "ptr*" : "ptr"
         pcbLicenseResponseMarshal := pcbLicenseResponse is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pLicenseRequestMarshal, pLicenseRequest, "uint", cbLicenseRequest, "ptr*", ppLicenseResponse, pcbLicenseResponseMarshal, pcbLicenseResponse, "ptr", pbstrKID, "HRESULT")
+        result := ComCall(3, this, pLicenseRequestMarshal, pLicenseRequest, "uint", cbLicenseRequest, ppLicenseResponseMarshal, ppLicenseResponse, pcbLicenseResponseMarshal, pcbLicenseResponse, "ptr", pbstrKID, "HRESULT")
         return result
     }
 
@@ -79,9 +80,10 @@ class IMFDRMNetHelper extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfdrmnethelper-getchainedlicenseresponse
      */
     GetChainedLicenseResponse(ppLicenseResponse, pcbLicenseResponse) {
+        ppLicenseResponseMarshal := ppLicenseResponse is VarRef ? "ptr*" : "ptr"
         pcbLicenseResponseMarshal := pcbLicenseResponse is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr*", ppLicenseResponse, pcbLicenseResponseMarshal, pcbLicenseResponse, "HRESULT")
+        result := ComCall(4, this, ppLicenseResponseMarshal, ppLicenseResponse, pcbLicenseResponseMarshal, pcbLicenseResponse, "HRESULT")
         return result
     }
 }

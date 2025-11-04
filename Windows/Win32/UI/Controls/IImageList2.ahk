@@ -91,7 +91,9 @@ class IImageList2 extends IImageList{
      * @see https://learn.microsoft.com/windows/win32/api/commoncontrols/nf-commoncontrols-iimagelist2-getcallback
      */
     GetCallback(riid, ppv) {
-        result := ComCall(36, this, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(36, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 

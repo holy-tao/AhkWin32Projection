@@ -56,8 +56,10 @@ class IRowsetResynch extends IUnknown{
     ResynchRows(cRows, rghRows, pcRowsResynched, prghRowsResynched, prgRowStatus) {
         rghRowsMarshal := rghRows is VarRef ? "ptr*" : "ptr"
         pcRowsResynchedMarshal := pcRowsResynched is VarRef ? "ptr*" : "ptr"
+        prghRowsResynchedMarshal := prghRowsResynched is VarRef ? "ptr*" : "ptr"
+        prgRowStatusMarshal := prgRowStatus is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", cRows, rghRowsMarshal, rghRows, pcRowsResynchedMarshal, pcRowsResynched, "ptr*", prghRowsResynched, "ptr*", prgRowStatus, "HRESULT")
+        result := ComCall(4, this, "ptr", cRows, rghRowsMarshal, rghRows, pcRowsResynchedMarshal, pcRowsResynched, prghRowsResynchedMarshal, prghRowsResynched, prgRowStatusMarshal, prgRowStatus, "HRESULT")
         return result
     }
 }

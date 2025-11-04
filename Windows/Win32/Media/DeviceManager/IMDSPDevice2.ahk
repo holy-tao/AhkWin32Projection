@@ -57,11 +57,14 @@ class IMDSPDevice2 extends IMDSPDevice{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevice2-getformatsupport2
      */
     GetFormatSupport2(dwFlags, ppAudioFormatEx, pnAudioFormatCount, ppVideoFormatEx, pnVideoFormatCount, ppFileType, pnFileTypeCount) {
+        ppAudioFormatExMarshal := ppAudioFormatEx is VarRef ? "ptr*" : "ptr"
         pnAudioFormatCountMarshal := pnAudioFormatCount is VarRef ? "uint*" : "ptr"
+        ppVideoFormatExMarshal := ppVideoFormatEx is VarRef ? "ptr*" : "ptr"
         pnVideoFormatCountMarshal := pnVideoFormatCount is VarRef ? "uint*" : "ptr"
+        ppFileTypeMarshal := ppFileType is VarRef ? "ptr*" : "ptr"
         pnFileTypeCountMarshal := pnFileTypeCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, "uint", dwFlags, "ptr*", ppAudioFormatEx, pnAudioFormatCountMarshal, pnAudioFormatCount, "ptr*", ppVideoFormatEx, pnVideoFormatCountMarshal, pnVideoFormatCount, "ptr*", ppFileType, pnFileTypeCountMarshal, pnFileTypeCount, "HRESULT")
+        result := ComCall(15, this, "uint", dwFlags, ppAudioFormatExMarshal, ppAudioFormatEx, pnAudioFormatCountMarshal, pnAudioFormatCount, ppVideoFormatExMarshal, ppVideoFormatEx, pnVideoFormatCountMarshal, pnVideoFormatCount, ppFileTypeMarshal, ppFileType, pnFileTypeCountMarshal, pnFileTypeCount, "HRESULT")
         return result
     }
 
@@ -74,9 +77,10 @@ class IMDSPDevice2 extends IMDSPDevice{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevice2-getspecifypropertypages
      */
     GetSpecifyPropertyPages(ppSpecifyPropPages, pppUnknowns, pcUnks) {
+        pppUnknownsMarshal := pppUnknowns is VarRef ? "ptr*" : "ptr"
         pcUnksMarshal := pcUnks is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, "ptr*", ppSpecifyPropPages, "ptr*", pppUnknowns, pcUnksMarshal, pcUnks, "HRESULT")
+        result := ComCall(16, this, "ptr*", ppSpecifyPropPages, pppUnknownsMarshal, pppUnknowns, pcUnksMarshal, pcUnks, "HRESULT")
         return result
     }
 

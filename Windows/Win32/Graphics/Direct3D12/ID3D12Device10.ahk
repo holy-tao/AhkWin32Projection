@@ -47,8 +47,9 @@ class ID3D12Device10 extends ID3D12Device9{
      */
     CreateCommittedResource3(pHeapProperties, HeapFlags, pDesc, InitialLayout, pOptimizedClearValue, pProtectedSession, NumCastableFormats, pCastableFormats, riidResource, ppvResource) {
         pCastableFormatsMarshal := pCastableFormats is VarRef ? "int*" : "ptr"
+        ppvResourceMarshal := ppvResource is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(76, this, "ptr", pHeapProperties, "int", HeapFlags, "ptr", pDesc, "int", InitialLayout, "ptr", pOptimizedClearValue, "ptr", pProtectedSession, "uint", NumCastableFormats, pCastableFormatsMarshal, pCastableFormats, "ptr", riidResource, "ptr*", ppvResource, "HRESULT")
+        result := ComCall(76, this, "ptr", pHeapProperties, "int", HeapFlags, "ptr", pDesc, "int", InitialLayout, "ptr", pOptimizedClearValue, "ptr", pProtectedSession, "uint", NumCastableFormats, pCastableFormatsMarshal, pCastableFormats, "ptr", riidResource, ppvResourceMarshal, ppvResource, "HRESULT")
         return result
     }
 
@@ -68,8 +69,9 @@ class ID3D12Device10 extends ID3D12Device9{
      */
     CreatePlacedResource2(pHeap, HeapOffset, pDesc, InitialLayout, pOptimizedClearValue, NumCastableFormats, pCastableFormats, riid, ppvResource) {
         pCastableFormatsMarshal := pCastableFormats is VarRef ? "int*" : "ptr"
+        ppvResourceMarshal := ppvResource is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(77, this, "ptr", pHeap, "uint", HeapOffset, "ptr", pDesc, "int", InitialLayout, "ptr", pOptimizedClearValue, "uint", NumCastableFormats, pCastableFormatsMarshal, pCastableFormats, "ptr", riid, "ptr*", ppvResource, "HRESULT")
+        result := ComCall(77, this, "ptr", pHeap, "uint", HeapOffset, "ptr", pDesc, "int", InitialLayout, "ptr", pOptimizedClearValue, "uint", NumCastableFormats, pCastableFormatsMarshal, pCastableFormats, "ptr", riid, ppvResourceMarshal, ppvResource, "HRESULT")
         return result
     }
 
@@ -88,8 +90,9 @@ class ID3D12Device10 extends ID3D12Device9{
      */
     CreateReservedResource2(pDesc, InitialLayout, pOptimizedClearValue, pProtectedSession, NumCastableFormats, pCastableFormats, riid, ppvResource) {
         pCastableFormatsMarshal := pCastableFormats is VarRef ? "int*" : "ptr"
+        ppvResourceMarshal := ppvResource is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(78, this, "ptr", pDesc, "int", InitialLayout, "ptr", pOptimizedClearValue, "ptr", pProtectedSession, "uint", NumCastableFormats, pCastableFormatsMarshal, pCastableFormats, "ptr", riid, "ptr*", ppvResource, "HRESULT")
+        result := ComCall(78, this, "ptr", pDesc, "int", InitialLayout, "ptr", pOptimizedClearValue, "ptr", pProtectedSession, "uint", NumCastableFormats, pCastableFormatsMarshal, pCastableFormats, "ptr", riid, ppvResourceMarshal, ppvResource, "HRESULT")
         return result
     }
 }

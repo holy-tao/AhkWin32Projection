@@ -3417,7 +3417,9 @@ class KernelStreaming {
     static KsGetMultiplePinFactoryItems(FilterHandle, PinFactoryId, PropertyId, Items) {
         FilterHandle := FilterHandle is Win32Handle ? NumGet(FilterHandle, "ptr") : FilterHandle
 
-        result := DllCall("ksproxy.ax\KsGetMultiplePinFactoryItems", "ptr", FilterHandle, "uint", PinFactoryId, "uint", PropertyId, "ptr*", Items, "int")
+        ItemsMarshal := Items is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("ksproxy.ax\KsGetMultiplePinFactoryItems", "ptr", FilterHandle, "uint", PinFactoryId, "uint", PropertyId, ItemsMarshal, Items, "int")
         if(result != 0)
             throw OSError(result)
 

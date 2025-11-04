@@ -103,8 +103,9 @@ class IStylusPlugin extends IUnknown{
      */
     StylusDown(piRtsSrc, pStylusInfo, cPropCountPerPkt, pPacket, ppInOutPkt) {
         pPacketMarshal := pPacket is VarRef ? "int*" : "ptr"
+        ppInOutPktMarshal := ppInOutPkt is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "ptr", piRtsSrc, "ptr", pStylusInfo, "uint", cPropCountPerPkt, pPacketMarshal, pPacket, "ptr*", ppInOutPkt, "HRESULT")
+        result := ComCall(7, this, "ptr", piRtsSrc, "ptr", pStylusInfo, "uint", cPropCountPerPkt, pPacketMarshal, pPacket, ppInOutPktMarshal, ppInOutPkt, "HRESULT")
         return result
     }
 
@@ -120,8 +121,9 @@ class IStylusPlugin extends IUnknown{
      */
     StylusUp(piRtsSrc, pStylusInfo, cPropCountPerPkt, pPacket, ppInOutPkt) {
         pPacketMarshal := pPacket is VarRef ? "int*" : "ptr"
+        ppInOutPktMarshal := ppInOutPkt is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(8, this, "ptr", piRtsSrc, "ptr", pStylusInfo, "uint", cPropCountPerPkt, pPacketMarshal, pPacket, "ptr*", ppInOutPkt, "HRESULT")
+        result := ComCall(8, this, "ptr", piRtsSrc, "ptr", pStylusInfo, "uint", cPropCountPerPkt, pPacketMarshal, pPacket, ppInOutPktMarshal, ppInOutPkt, "HRESULT")
         return result
     }
 
@@ -168,8 +170,9 @@ class IStylusPlugin extends IUnknown{
     InAirPackets(piRtsSrc, pStylusInfo, cPktCount, cPktBuffLength, pPackets, pcInOutPkts, ppInOutPkts) {
         pPacketsMarshal := pPackets is VarRef ? "int*" : "ptr"
         pcInOutPktsMarshal := pcInOutPkts is VarRef ? "uint*" : "ptr"
+        ppInOutPktsMarshal := ppInOutPkts is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(11, this, "ptr", piRtsSrc, "ptr", pStylusInfo, "uint", cPktCount, "uint", cPktBuffLength, pPacketsMarshal, pPackets, pcInOutPktsMarshal, pcInOutPkts, "ptr*", ppInOutPkts, "HRESULT")
+        result := ComCall(11, this, "ptr", piRtsSrc, "ptr", pStylusInfo, "uint", cPktCount, "uint", cPktBuffLength, pPacketsMarshal, pPackets, pcInOutPktsMarshal, pcInOutPkts, ppInOutPktsMarshal, ppInOutPkts, "HRESULT")
         return result
     }
 
@@ -188,8 +191,9 @@ class IStylusPlugin extends IUnknown{
     Packets(piRtsSrc, pStylusInfo, cPktCount, cPktBuffLength, pPackets, pcInOutPkts, ppInOutPkts) {
         pPacketsMarshal := pPackets is VarRef ? "int*" : "ptr"
         pcInOutPktsMarshal := pcInOutPkts is VarRef ? "uint*" : "ptr"
+        ppInOutPktsMarshal := ppInOutPkts is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(12, this, "ptr", piRtsSrc, "ptr", pStylusInfo, "uint", cPktCount, "uint", cPktBuffLength, pPacketsMarshal, pPackets, pcInOutPktsMarshal, pcInOutPkts, "ptr*", ppInOutPkts, "HRESULT")
+        result := ComCall(12, this, "ptr", piRtsSrc, "ptr", pStylusInfo, "uint", cPktCount, "uint", cPktBuffLength, pPacketsMarshal, pPackets, pcInOutPktsMarshal, pcInOutPkts, ppInOutPktsMarshal, ppInOutPkts, "HRESULT")
         return result
     }
 

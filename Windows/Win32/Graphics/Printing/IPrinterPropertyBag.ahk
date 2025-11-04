@@ -121,8 +121,9 @@ class IPrinterPropertyBag extends IDispatch{
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
         pcbValueMarshal := pcbValue is VarRef ? "uint*" : "ptr"
+        ppValueMarshal := ppValue is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(13, this, "ptr", bstrName, pcbValueMarshal, pcbValue, "ptr*", ppValue, "HRESULT")
+        result := ComCall(13, this, "ptr", bstrName, pcbValueMarshal, pcbValue, ppValueMarshal, ppValue, "HRESULT")
         return result
     }
 

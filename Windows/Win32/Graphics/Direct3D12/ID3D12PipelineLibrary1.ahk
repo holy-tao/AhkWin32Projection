@@ -42,7 +42,9 @@ class ID3D12PipelineLibrary1 extends ID3D12PipelineLibrary{
     LoadPipeline(pName, pDesc, riid, ppPipelineState) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        result := ComCall(13, this, "ptr", pName, "ptr", pDesc, "ptr", riid, "ptr*", ppPipelineState, "HRESULT")
+        ppPipelineStateMarshal := ppPipelineState is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(13, this, "ptr", pName, "ptr", pDesc, "ptr", riid, ppPipelineStateMarshal, ppPipelineState, "HRESULT")
         return result
     }
 }

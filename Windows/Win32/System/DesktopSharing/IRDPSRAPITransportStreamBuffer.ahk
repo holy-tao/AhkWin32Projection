@@ -36,7 +36,9 @@ class IRDPSRAPITransportStreamBuffer extends IUnknown{
      * @returns {HRESULT} 
      */
     get_Storage(ppbStorage) {
-        result := ComCall(3, this, "ptr*", ppbStorage, "HRESULT")
+        ppbStorageMarshal := ppbStorage is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, ppbStorageMarshal, ppbStorage, "HRESULT")
         return result
     }
 

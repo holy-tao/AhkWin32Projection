@@ -51,7 +51,9 @@ class IObjectContext extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iobjectcontext-createinstance
      */
     CreateInstance(rclsid, riid, ppv) {
-        result := ComCall(3, this, "ptr", rclsid, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", rclsid, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 

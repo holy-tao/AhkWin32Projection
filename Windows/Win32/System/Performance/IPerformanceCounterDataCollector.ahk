@@ -85,7 +85,9 @@ class IPerformanceCounterDataCollector extends IDataCollector{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iperformancecounterdatacollector-get_performancecounters
      */
     get_PerformanceCounters(counters) {
-        result := ComCall(34, this, "ptr*", counters, "HRESULT")
+        countersMarshal := counters is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(34, this, countersMarshal, counters, "HRESULT")
         return result
     }
 

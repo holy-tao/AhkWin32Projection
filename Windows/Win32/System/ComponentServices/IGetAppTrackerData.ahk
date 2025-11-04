@@ -53,8 +53,9 @@ class IGetAppTrackerData extends IUnknown{
      */
     GetApplicationProcesses(PartitionId, ApplicationId, Flags, NumApplicationProcesses, ApplicationProcesses) {
         NumApplicationProcessesMarshal := NumApplicationProcesses is VarRef ? "uint*" : "ptr"
+        ApplicationProcessesMarshal := ApplicationProcesses is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", PartitionId, "ptr", ApplicationId, "uint", Flags, NumApplicationProcessesMarshal, NumApplicationProcesses, "ptr*", ApplicationProcesses, "HRESULT")
+        result := ComCall(3, this, "ptr", PartitionId, "ptr", ApplicationId, "uint", Flags, NumApplicationProcessesMarshal, NumApplicationProcesses, ApplicationProcessesMarshal, ApplicationProcesses, "HRESULT")
         return result
     }
 
@@ -88,8 +89,9 @@ class IGetAppTrackerData extends IUnknown{
      */
     GetApplicationsInProcess(ApplicationInstanceId, ProcessId, PartitionId, Flags, NumApplicationsInProcess, Applications) {
         NumApplicationsInProcessMarshal := NumApplicationsInProcess is VarRef ? "uint*" : "ptr"
+        ApplicationsMarshal := Applications is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", ApplicationInstanceId, "uint", ProcessId, "ptr", PartitionId, "uint", Flags, NumApplicationsInProcessMarshal, NumApplicationsInProcess, "ptr*", Applications, "HRESULT")
+        result := ComCall(5, this, "ptr", ApplicationInstanceId, "uint", ProcessId, "ptr", PartitionId, "uint", Flags, NumApplicationsInProcessMarshal, NumApplicationsInProcess, ApplicationsMarshal, Applications, "HRESULT")
         return result
     }
 
@@ -107,8 +109,9 @@ class IGetAppTrackerData extends IUnknown{
      */
     GetComponentsInProcess(ApplicationInstanceId, ProcessId, PartitionId, ApplicationId, Flags, NumComponentsInProcess, Components) {
         NumComponentsInProcessMarshal := NumComponentsInProcess is VarRef ? "uint*" : "ptr"
+        ComponentsMarshal := Components is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "ptr", ApplicationInstanceId, "uint", ProcessId, "ptr", PartitionId, "ptr", ApplicationId, "uint", Flags, NumComponentsInProcessMarshal, NumComponentsInProcess, "ptr*", Components, "HRESULT")
+        result := ComCall(6, this, "ptr", ApplicationInstanceId, "uint", ProcessId, "ptr", PartitionId, "ptr", ApplicationId, "uint", Flags, NumComponentsInProcessMarshal, NumComponentsInProcess, ComponentsMarshal, Components, "HRESULT")
         return result
     }
 

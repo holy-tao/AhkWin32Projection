@@ -104,7 +104,9 @@ class IShellLinkDataList extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinkdatalist-copydatablock
      */
     CopyDataBlock(dwSig, ppDataBlock) {
-        result := ComCall(4, this, "uint", dwSig, "ptr*", ppDataBlock, "HRESULT")
+        ppDataBlockMarshal := ppDataBlock is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "uint", dwSig, ppDataBlockMarshal, ppDataBlock, "HRESULT")
         return result
     }
 

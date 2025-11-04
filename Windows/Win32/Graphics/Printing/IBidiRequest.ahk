@@ -81,9 +81,10 @@ class IBidiRequest extends IUnknown{
      */
     GetOutputData(dwIndex, ppszSchema, pdwType, ppData, uSize) {
         pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
+        ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
         uSizeMarshal := uSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", dwIndex, "ptr", ppszSchema, pdwTypeMarshal, pdwType, "ptr*", ppData, uSizeMarshal, uSize, "HRESULT")
+        result := ComCall(6, this, "uint", dwIndex, "ptr", ppszSchema, pdwTypeMarshal, pdwType, ppDataMarshal, ppData, uSizeMarshal, uSize, "HRESULT")
         return result
     }
 

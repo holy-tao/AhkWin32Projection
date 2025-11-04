@@ -38,7 +38,9 @@ class IPropertyDescriptionAliasInfo extends IPropertyDescription{
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescriptionaliasinfo-getsortbyalias
      */
     GetSortByAlias(riid, ppv) {
-        result := ComCall(24, this, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(24, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -50,7 +52,9 @@ class IPropertyDescriptionAliasInfo extends IPropertyDescription{
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescriptionaliasinfo-getadditionalsortbyaliases
      */
     GetAdditionalSortByAliases(riid, ppv) {
-        result := ComCall(25, this, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(25, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 }

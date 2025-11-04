@@ -5039,7 +5039,9 @@ class Certificates {
     static CertSrvBackupPrepareW(pwszServerName, grbitJet, dwBackupFlags, phbc) {
         pwszServerName := pwszServerName is String ? StrPtr(pwszServerName) : pwszServerName
 
-        result := DllCall("certadm.dll\CertSrvBackupPrepareW", "ptr", pwszServerName, "uint", grbitJet, "uint", dwBackupFlags, "ptr*", phbc, "int")
+        phbcMarshal := phbc is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("certadm.dll\CertSrvBackupPrepareW", "ptr", pwszServerName, "uint", grbitJet, "uint", dwBackupFlags, phbcMarshal, phbc, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5274,7 +5276,9 @@ class Certificates {
     static CertSrvRestorePrepareW(pwszServerName, dwRestoreFlags, phbc) {
         pwszServerName := pwszServerName is String ? StrPtr(pwszServerName) : pwszServerName
 
-        result := DllCall("certadm.dll\CertSrvRestorePrepareW", "ptr", pwszServerName, "uint", dwRestoreFlags, "ptr*", phbc, "int")
+        phbcMarshal := phbc is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("certadm.dll\CertSrvRestorePrepareW", "ptr", pwszServerName, "uint", dwRestoreFlags, phbcMarshal, phbc, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5412,8 +5416,9 @@ class Certificates {
         pwszServerName := pwszServerName is String ? StrPtr(pwszServerName) : pwszServerName
 
         pcbOutMarshal := pcbOut is VarRef ? "uint*" : "ptr"
+        ppbOutMarshal := ppbOut is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("certadm.dll\CertSrvServerControlW", "ptr", pwszServerName, "uint", dwControlFlags, pcbOutMarshal, pcbOut, "ptr*", ppbOut, "int")
+        result := DllCall("certadm.dll\CertSrvServerControlW", "ptr", pwszServerName, "uint", dwControlFlags, pcbOutMarshal, pcbOut, ppbOutMarshal, ppbOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5433,7 +5438,9 @@ class Certificates {
      * @since windows6.1
      */
     static PstGetTrustAnchors(pTargetName, cCriteria, rgpCriteria, ppTrustedIssuers) {
-        result := DllCall("certpoleng.dll\PstGetTrustAnchors", "ptr", pTargetName, "uint", cCriteria, "ptr", rgpCriteria, "ptr*", ppTrustedIssuers, "int")
+        ppTrustedIssuersMarshal := ppTrustedIssuers is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("certpoleng.dll\PstGetTrustAnchors", "ptr", pTargetName, "uint", cCriteria, "ptr", rgpCriteria, ppTrustedIssuersMarshal, ppTrustedIssuers, "int")
         return result
     }
 
@@ -5447,7 +5454,9 @@ class Certificates {
      * @returns {NTSTATUS} 
      */
     static PstGetTrustAnchorsEx(pTargetName, cCriteria, rgpCriteria, pCertContext, ppTrustedIssuers) {
-        result := DllCall("certpoleng.dll\PstGetTrustAnchorsEx", "ptr", pTargetName, "uint", cCriteria, "ptr", rgpCriteria, "ptr", pCertContext, "ptr*", ppTrustedIssuers, "int")
+        ppTrustedIssuersMarshal := ppTrustedIssuers is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("certpoleng.dll\PstGetTrustAnchorsEx", "ptr", pTargetName, "uint", cCriteria, "ptr", rgpCriteria, "ptr", pCertContext, ppTrustedIssuersMarshal, ppTrustedIssuers, "int")
         return result
     }
 
@@ -5459,7 +5468,9 @@ class Certificates {
      * @returns {NTSTATUS} 
      */
     static PstGetCertificateChain(pCert, pTrustedIssuers, ppCertChainContext) {
-        result := DllCall("certpoleng.dll\PstGetCertificateChain", "ptr", pCert, "ptr", pTrustedIssuers, "ptr*", ppCertChainContext, "int")
+        ppCertChainContextMarshal := ppCertChainContext is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("certpoleng.dll\PstGetCertificateChain", "ptr", pCert, "ptr", pTrustedIssuers, ppCertChainContextMarshal, ppCertChainContext, "int")
         return result
     }
 
@@ -5479,8 +5490,9 @@ class Certificates {
      */
     static PstGetCertificates(pTargetName, cCriteria, rgpCriteria, bIsClient, pdwCertChainContextCount, ppCertChainContexts) {
         pdwCertChainContextCountMarshal := pdwCertChainContextCount is VarRef ? "uint*" : "ptr"
+        ppCertChainContextsMarshal := ppCertChainContexts is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("certpoleng.dll\PstGetCertificates", "ptr", pTargetName, "uint", cCriteria, "ptr", rgpCriteria, "int", bIsClient, pdwCertChainContextCountMarshal, pdwCertChainContextCount, "ptr*", ppCertChainContexts, "int")
+        result := DllCall("certpoleng.dll\PstGetCertificates", "ptr", pTargetName, "uint", cCriteria, "ptr", rgpCriteria, "int", bIsClient, pdwCertChainContextCountMarshal, pdwCertChainContextCount, ppCertChainContextsMarshal, ppCertChainContexts, "int")
         return result
     }
 
@@ -5530,8 +5542,9 @@ class Certificates {
      */
     static PstMapCertificate(pCert, pTokenInformationType, ppTokenInformation) {
         pTokenInformationTypeMarshal := pTokenInformationType is VarRef ? "int*" : "ptr"
+        ppTokenInformationMarshal := ppTokenInformation is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("certpoleng.dll\PstMapCertificate", "ptr", pCert, pTokenInformationTypeMarshal, pTokenInformationType, "ptr*", ppTokenInformation, "int")
+        result := DllCall("certpoleng.dll\PstMapCertificate", "ptr", pCert, pTokenInformationTypeMarshal, pTokenInformationType, ppTokenInformationMarshal, ppTokenInformation, "int")
         return result
     }
 

@@ -45,7 +45,9 @@ class IProtectionPolicyManagerInterop extends IInspectable{
         sourceIdentity := sourceIdentity is Win32Handle ? NumGet(sourceIdentity, "ptr") : sourceIdentity
         targetIdentity := targetIdentity is Win32Handle ? NumGet(targetIdentity, "ptr") : targetIdentity
 
-        result := ComCall(6, this, "ptr", appWindow, "ptr", sourceIdentity, "ptr", targetIdentity, "ptr", riid, "ptr*", asyncOperation, "HRESULT")
+        asyncOperationMarshal := asyncOperation is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "ptr", appWindow, "ptr", sourceIdentity, "ptr", targetIdentity, "ptr", riid, asyncOperationMarshal, asyncOperation, "HRESULT")
         return result
     }
 
@@ -60,7 +62,9 @@ class IProtectionPolicyManagerInterop extends IInspectable{
     GetForWindow(appWindow, riid, result) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
 
-        result := ComCall(7, this, "ptr", appWindow, "ptr", riid, "ptr*", result, "HRESULT")
+        resultMarshal := result is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "ptr", appWindow, "ptr", riid, resultMarshal, result, "HRESULT")
         return result
     }
 }

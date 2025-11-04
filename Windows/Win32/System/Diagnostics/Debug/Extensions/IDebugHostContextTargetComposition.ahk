@@ -34,7 +34,9 @@ class IDebugHostContextTargetComposition extends IUnknown{
      * @returns {HRESULT} 
      */
     GetServiceManager(ppServiceManager) {
-        result := ComCall(3, this, "ptr*", ppServiceManager, "HRESULT")
+        ppServiceManagerMarshal := ppServiceManager is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, ppServiceManagerMarshal, ppServiceManager, "HRESULT")
         return result
     }
 
@@ -44,7 +46,9 @@ class IDebugHostContextTargetComposition extends IUnknown{
      * @returns {HRESULT} 
      */
     GetServiceProcess(ppProcess) {
-        result := ComCall(4, this, "ptr*", ppProcess, "HRESULT")
+        ppProcessMarshal := ppProcess is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, ppProcessMarshal, ppProcess, "HRESULT")
         return result
     }
 
@@ -54,7 +58,9 @@ class IDebugHostContextTargetComposition extends IUnknown{
      * @returns {HRESULT} 
      */
     GetServiceThread(ppThread) {
-        result := ComCall(5, this, "ptr*", ppThread, "HRESULT")
+        ppThreadMarshal := ppThread is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, ppThreadMarshal, ppThread, "HRESULT")
         return result
     }
 }

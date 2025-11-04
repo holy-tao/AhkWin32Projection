@@ -39,7 +39,9 @@ class IGraphicsCaptureItemInterop extends IUnknown{
     CreateForWindow(window, riid, result) {
         window := window is Win32Handle ? NumGet(window, "ptr") : window
 
-        result := ComCall(3, this, "ptr", window, "ptr", riid, "ptr*", result, "HRESULT")
+        resultMarshal := result is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", window, "ptr", riid, resultMarshal, result, "HRESULT")
         return result
     }
 
@@ -54,7 +56,9 @@ class IGraphicsCaptureItemInterop extends IUnknown{
     CreateForMonitor(monitor, riid, result) {
         monitor := monitor is Win32Handle ? NumGet(monitor, "ptr") : monitor
 
-        result := ComCall(4, this, "ptr", monitor, "ptr", riid, "ptr*", result, "HRESULT")
+        resultMarshal := result is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", monitor, "ptr", riid, resultMarshal, result, "HRESULT")
         return result
     }
 }

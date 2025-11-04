@@ -39,7 +39,9 @@ class IDirectManipulationManager3 extends IDirectManipulationManager2{
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationmanager3-getservice
      */
     GetService(clsid, riid, object) {
-        result := ComCall(11, this, "ptr", clsid, "ptr", riid, "ptr*", object, "HRESULT")
+        objectMarshal := object is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(11, this, "ptr", clsid, "ptr", riid, objectMarshal, object, "HRESULT")
         return result
     }
 }

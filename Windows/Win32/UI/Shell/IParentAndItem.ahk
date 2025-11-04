@@ -56,7 +56,10 @@ class IParentAndItem extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iparentanditem-getparentanditem
      */
     GetParentAndItem(ppidlParent, ppsf, ppidlChild) {
-        result := ComCall(4, this, "ptr*", ppidlParent, "ptr*", ppsf, "ptr*", ppidlChild, "HRESULT")
+        ppidlParentMarshal := ppidlParent is VarRef ? "ptr*" : "ptr"
+        ppidlChildMarshal := ppidlChild is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, ppidlParentMarshal, ppidlParent, "ptr*", ppsf, ppidlChildMarshal, ppidlChild, "HRESULT")
         return result
     }
 }

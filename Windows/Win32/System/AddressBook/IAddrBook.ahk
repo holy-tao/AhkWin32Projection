@@ -105,8 +105,9 @@ class IAddrBook extends IMAPIProp{
         lpszAdrTypeMarshal := lpszAdrType is VarRef ? "char*" : "ptr"
         lpszAddressMarshal := lpszAddress is VarRef ? "char*" : "ptr"
         lpcbEntryIDMarshal := lpcbEntryID is VarRef ? "uint*" : "ptr"
+        lppEntryIDMarshal := lppEntryID is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(18, this, lpszNameMarshal, lpszName, lpszAdrTypeMarshal, lpszAdrType, lpszAddressMarshal, lpszAddress, "uint", ulFlags, lpcbEntryIDMarshal, lpcbEntryID, "ptr*", lppEntryID, "HRESULT")
+        result := ComCall(18, this, lpszNameMarshal, lpszName, lpszAdrTypeMarshal, lpszAdrType, lpszAddressMarshal, lpszAddress, "uint", ulFlags, lpcbEntryIDMarshal, lpcbEntryID, lppEntryIDMarshal, lppEntryID, "HRESULT")
         return result
     }
 
@@ -125,8 +126,9 @@ class IAddrBook extends IMAPIProp{
      */
     NewEntry(ulUIParam, ulFlags, cbEIDContainer, lpEIDContainer, cbEIDNewEntryTpl, lpEIDNewEntryTpl, lpcbEIDNewEntry, lppEIDNewEntry) {
         lpcbEIDNewEntryMarshal := lpcbEIDNewEntry is VarRef ? "uint*" : "ptr"
+        lppEIDNewEntryMarshal := lppEIDNewEntry is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(19, this, "uint", ulUIParam, "uint", ulFlags, "uint", cbEIDContainer, "ptr", lpEIDContainer, "uint", cbEIDNewEntryTpl, "ptr", lpEIDNewEntryTpl, lpcbEIDNewEntryMarshal, lpcbEIDNewEntry, "ptr*", lppEIDNewEntry, "HRESULT")
+        result := ComCall(19, this, "uint", ulUIParam, "uint", ulFlags, "uint", cbEIDContainer, "ptr", lpEIDContainer, "uint", cbEIDNewEntryTpl, "ptr", lpEIDNewEntryTpl, lpcbEIDNewEntryMarshal, lpcbEIDNewEntry, lppEIDNewEntryMarshal, lppEIDNewEntry, "HRESULT")
         return result
     }
 
@@ -156,8 +158,9 @@ class IAddrBook extends IMAPIProp{
      */
     Address(lpulUIParam, lpAdrParms, lppAdrList) {
         lpulUIParamMarshal := lpulUIParam is VarRef ? "uint*" : "ptr"
+        lppAdrListMarshal := lppAdrList is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(21, this, lpulUIParamMarshal, lpulUIParam, "ptr", lpAdrParms, "ptr*", lppAdrList, "HRESULT")
+        result := ComCall(21, this, lpulUIParamMarshal, lpulUIParam, "ptr", lpAdrParms, lppAdrListMarshal, lppAdrList, "HRESULT")
         return result
     }
 
@@ -210,8 +213,9 @@ class IAddrBook extends IMAPIProp{
     QueryDefaultRecipOpt(lpszAdrType, ulFlags, lpcValues, lppOptions) {
         lpszAdrTypeMarshal := lpszAdrType is VarRef ? "char*" : "ptr"
         lpcValuesMarshal := lpcValues is VarRef ? "uint*" : "ptr"
+        lppOptionsMarshal := lppOptions is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(24, this, lpszAdrTypeMarshal, lpszAdrType, "uint", ulFlags, lpcValuesMarshal, lpcValues, "ptr*", lppOptions, "HRESULT")
+        result := ComCall(24, this, lpszAdrTypeMarshal, lpszAdrType, "uint", ulFlags, lpcValuesMarshal, lpcValues, lppOptionsMarshal, lppOptions, "HRESULT")
         return result
     }
 
@@ -224,8 +228,9 @@ class IAddrBook extends IMAPIProp{
      */
     GetPAB(lpcbEntryID, lppEntryID) {
         lpcbEntryIDMarshal := lpcbEntryID is VarRef ? "uint*" : "ptr"
+        lppEntryIDMarshal := lppEntryID is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(25, this, lpcbEntryIDMarshal, lpcbEntryID, "ptr*", lppEntryID, "HRESULT")
+        result := ComCall(25, this, lpcbEntryIDMarshal, lpcbEntryID, lppEntryIDMarshal, lppEntryID, "HRESULT")
         return result
     }
 
@@ -250,8 +255,9 @@ class IAddrBook extends IMAPIProp{
      */
     GetDefaultDir(lpcbEntryID, lppEntryID) {
         lpcbEntryIDMarshal := lpcbEntryID is VarRef ? "uint*" : "ptr"
+        lppEntryIDMarshal := lppEntryID is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(27, this, lpcbEntryIDMarshal, lpcbEntryID, "ptr*", lppEntryID, "HRESULT")
+        result := ComCall(27, this, lpcbEntryIDMarshal, lpcbEntryID, lppEntryIDMarshal, lppEntryID, "HRESULT")
         return result
     }
 
@@ -275,7 +281,9 @@ class IAddrBook extends IMAPIProp{
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iaddrbook-getsearchpath
      */
     GetSearchPath(ulFlags, lppSearchPath) {
-        result := ComCall(29, this, "uint", ulFlags, "ptr*", lppSearchPath, "HRESULT")
+        lppSearchPathMarshal := lppSearchPath is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(29, this, "uint", ulFlags, lppSearchPathMarshal, lppSearchPath, "HRESULT")
         return result
     }
 

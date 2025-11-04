@@ -98,7 +98,9 @@ class IDirectManipulationManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationmanager-getupdatemanager
      */
     GetUpdateManager(riid, object) {
-        result := ComCall(7, this, "ptr", riid, "ptr*", object, "HRESULT")
+        objectMarshal := object is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "ptr", riid, objectMarshal, object, "HRESULT")
         return result
     }
 
@@ -114,7 +116,9 @@ class IDirectManipulationManager extends IUnknown{
     CreateViewport(frameInfo, window, riid, object) {
         window := window is Win32Handle ? NumGet(window, "ptr") : window
 
-        result := ComCall(8, this, "ptr", frameInfo, "ptr", window, "ptr", riid, "ptr*", object, "HRESULT")
+        objectMarshal := object is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(8, this, "ptr", frameInfo, "ptr", window, "ptr", riid, objectMarshal, object, "HRESULT")
         return result
     }
 
@@ -128,7 +132,9 @@ class IDirectManipulationManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationmanager-createcontent
      */
     CreateContent(frameInfo, clsid, riid, object) {
-        result := ComCall(9, this, "ptr", frameInfo, "ptr", clsid, "ptr", riid, "ptr*", object, "HRESULT")
+        objectMarshal := object is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, "ptr", frameInfo, "ptr", clsid, "ptr", riid, objectMarshal, object, "HRESULT")
         return result
     }
 }

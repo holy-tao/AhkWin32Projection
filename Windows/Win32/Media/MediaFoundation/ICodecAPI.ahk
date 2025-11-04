@@ -123,9 +123,10 @@ class ICodecAPI extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icodecapi-getparametervalues
      */
     GetParameterValues(Api, Values, ValuesCount) {
+        ValuesMarshal := Values is VarRef ? "ptr*" : "ptr"
         ValuesCountMarshal := ValuesCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", Api, "ptr*", Values, ValuesCountMarshal, ValuesCount, "HRESULT")
+        result := ComCall(6, this, "ptr", Api, ValuesMarshal, Values, ValuesCountMarshal, ValuesCount, "HRESULT")
         return result
     }
 
@@ -208,9 +209,10 @@ class ICodecAPI extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icodecapi-setvaluewithnotify
      */
     SetValueWithNotify(Api, Value, ChangedParam, ChangedParamCount) {
+        ChangedParamMarshal := ChangedParam is VarRef ? "ptr*" : "ptr"
         ChangedParamCountMarshal := ChangedParamCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, "ptr", Api, "ptr", Value, "ptr*", ChangedParam, ChangedParamCountMarshal, ChangedParamCount, "HRESULT")
+        result := ComCall(13, this, "ptr", Api, "ptr", Value, ChangedParamMarshal, ChangedParam, ChangedParamCountMarshal, ChangedParamCount, "HRESULT")
         return result
     }
 
@@ -222,9 +224,10 @@ class ICodecAPI extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icodecapi-setalldefaultswithnotify
      */
     SetAllDefaultsWithNotify(ChangedParam, ChangedParamCount) {
+        ChangedParamMarshal := ChangedParam is VarRef ? "ptr*" : "ptr"
         ChangedParamCountMarshal := ChangedParamCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, "ptr*", ChangedParam, ChangedParamCountMarshal, ChangedParamCount, "HRESULT")
+        result := ComCall(14, this, ChangedParamMarshal, ChangedParam, ChangedParamCountMarshal, ChangedParamCount, "HRESULT")
         return result
     }
 
@@ -259,9 +262,10 @@ class ICodecAPI extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icodecapi-setallsettingswithnotify
      */
     SetAllSettingsWithNotify(__MIDL__ICodecAPI0002, ChangedParam, ChangedParamCount) {
+        ChangedParamMarshal := ChangedParam is VarRef ? "ptr*" : "ptr"
         ChangedParamCountMarshal := ChangedParamCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(17, this, "ptr", __MIDL__ICodecAPI0002, "ptr*", ChangedParam, ChangedParamCountMarshal, ChangedParamCount, "HRESULT")
+        result := ComCall(17, this, "ptr", __MIDL__ICodecAPI0002, ChangedParamMarshal, ChangedParam, ChangedParamCountMarshal, ChangedParamCount, "HRESULT")
         return result
     }
 }

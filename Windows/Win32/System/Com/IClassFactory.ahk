@@ -39,7 +39,9 @@ class IClassFactory extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/unknwn/nf-unknwn-iclassfactory-createinstance
      */
     CreateInstance(pUnkOuter, riid, ppvObject) {
-        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", riid, "ptr*", ppvObject, "HRESULT")
+        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", riid, ppvObjectMarshal, ppvObject, "HRESULT")
         return result
     }
 

@@ -38,7 +38,9 @@ class IPrintClassObjectFactory extends IUnknown{
     GetPrintClassObject(pszPrinterName, riid, ppNewObject) {
         pszPrinterName := pszPrinterName is String ? StrPtr(pszPrinterName) : pszPrinterName
 
-        result := ComCall(3, this, "ptr", pszPrinterName, "ptr", riid, "ptr*", ppNewObject, "HRESULT")
+        ppNewObjectMarshal := ppNewObject is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pszPrinterName, "ptr", riid, ppNewObjectMarshal, ppNewObject, "HRESULT")
         return result
     }
 }

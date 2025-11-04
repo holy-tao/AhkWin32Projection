@@ -126,7 +126,9 @@ class IXFeed extends IUnknown{
      * @returns {HRESULT} 
      */
     Parent(riid, ppv) {
-        result := ComCall(11, this, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(11, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -258,7 +260,9 @@ class IXFeed extends IUnknown{
      * @returns {HRESULT} 
      */
     GetItem(uiId, riid, ppv) {
-        result := ComCall(24, this, "uint", uiId, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(24, this, "uint", uiId, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -472,7 +476,9 @@ class IXFeed extends IUnknown{
      * @returns {HRESULT} 
      */
     GetWatcher(scope, mask, riid, ppv) {
-        result := ComCall(44, this, "int", scope, "int", mask, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(44, this, "int", scope, "int", mask, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 

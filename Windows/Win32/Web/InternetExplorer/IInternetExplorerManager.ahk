@@ -39,7 +39,9 @@ class IInternetExplorerManager extends IUnknown{
     CreateObject(dwConfig, pszURL, riid, ppv) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
-        result := ComCall(3, this, "uint", dwConfig, "ptr", pszURL, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "uint", dwConfig, "ptr", pszURL, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 }

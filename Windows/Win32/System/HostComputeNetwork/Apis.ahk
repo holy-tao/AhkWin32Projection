@@ -41,7 +41,9 @@ class HostComputeNetwork {
     static HcnCreateNetwork(Id, Settings, Network, ErrorRecord) {
         Settings := Settings is String ? StrPtr(Settings) : Settings
 
-        result := DllCall("computenetwork.dll\HcnCreateNetwork", "ptr", Id, "ptr", Settings, "ptr*", Network, "ptr", ErrorRecord, "int")
+        NetworkMarshal := Network is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("computenetwork.dll\HcnCreateNetwork", "ptr", Id, "ptr", Settings, NetworkMarshal, Network, "ptr", ErrorRecord, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -57,7 +59,9 @@ class HostComputeNetwork {
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnOpenNetwork
      */
     static HcnOpenNetwork(Id, Network, ErrorRecord) {
-        result := DllCall("computenetwork.dll\HcnOpenNetwork", "ptr", Id, "ptr*", Network, "ptr", ErrorRecord, "int")
+        NetworkMarshal := Network is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("computenetwork.dll\HcnOpenNetwork", "ptr", Id, NetworkMarshal, Network, "ptr", ErrorRecord, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -166,7 +170,9 @@ class HostComputeNetwork {
     static HcnCreateNamespace(Id, Settings, Namespace, ErrorRecord) {
         Settings := Settings is String ? StrPtr(Settings) : Settings
 
-        result := DllCall("computenetwork.dll\HcnCreateNamespace", "ptr", Id, "ptr", Settings, "ptr*", Namespace, "ptr", ErrorRecord, "int")
+        NamespaceMarshal := Namespace is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("computenetwork.dll\HcnCreateNamespace", "ptr", Id, "ptr", Settings, NamespaceMarshal, Namespace, "ptr", ErrorRecord, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -182,7 +188,9 @@ class HostComputeNetwork {
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnOpenNamespace
      */
     static HcnOpenNamespace(Id, Namespace, ErrorRecord) {
-        result := DllCall("computenetwork.dll\HcnOpenNamespace", "ptr", Id, "ptr*", Namespace, "ptr", ErrorRecord, "int")
+        NamespaceMarshal := Namespace is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("computenetwork.dll\HcnOpenNamespace", "ptr", Id, NamespaceMarshal, Namespace, "ptr", ErrorRecord, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -293,8 +301,9 @@ class HostComputeNetwork {
         Settings := Settings is String ? StrPtr(Settings) : Settings
 
         NetworkMarshal := Network is VarRef ? "ptr" : "ptr"
+        EndpointMarshal := Endpoint is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("computenetwork.dll\HcnCreateEndpoint", NetworkMarshal, Network, "ptr", Id, "ptr", Settings, "ptr*", Endpoint, "ptr", ErrorRecord, "int")
+        result := DllCall("computenetwork.dll\HcnCreateEndpoint", NetworkMarshal, Network, "ptr", Id, "ptr", Settings, EndpointMarshal, Endpoint, "ptr", ErrorRecord, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -310,7 +319,9 @@ class HostComputeNetwork {
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnOpenEndpoint
      */
     static HcnOpenEndpoint(Id, Endpoint, ErrorRecord) {
-        result := DllCall("computenetwork.dll\HcnOpenEndpoint", "ptr", Id, "ptr*", Endpoint, "ptr", ErrorRecord, "int")
+        EndpointMarshal := Endpoint is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("computenetwork.dll\HcnOpenEndpoint", "ptr", Id, EndpointMarshal, Endpoint, "ptr", ErrorRecord, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -419,7 +430,9 @@ class HostComputeNetwork {
     static HcnCreateLoadBalancer(Id, Settings, LoadBalancer, ErrorRecord) {
         Settings := Settings is String ? StrPtr(Settings) : Settings
 
-        result := DllCall("computenetwork.dll\HcnCreateLoadBalancer", "ptr", Id, "ptr", Settings, "ptr*", LoadBalancer, "ptr", ErrorRecord, "int")
+        LoadBalancerMarshal := LoadBalancer is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("computenetwork.dll\HcnCreateLoadBalancer", "ptr", Id, "ptr", Settings, LoadBalancerMarshal, LoadBalancer, "ptr", ErrorRecord, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -435,7 +448,9 @@ class HostComputeNetwork {
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnOpenLoadBalancer
      */
     static HcnOpenLoadBalancer(Id, LoadBalancer, ErrorRecord) {
-        result := DllCall("computenetwork.dll\HcnOpenLoadBalancer", "ptr", Id, "ptr*", LoadBalancer, "ptr", ErrorRecord, "int")
+        LoadBalancerMarshal := LoadBalancer is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("computenetwork.dll\HcnOpenLoadBalancer", "ptr", Id, LoadBalancerMarshal, LoadBalancer, "ptr", ErrorRecord, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -524,8 +539,9 @@ class HostComputeNetwork {
      */
     static HcnRegisterServiceCallback(Callback, Context, CallbackHandle) {
         ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+        CallbackHandleMarshal := CallbackHandle is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("computenetwork.dll\HcnRegisterServiceCallback", "ptr", Callback, ContextMarshal, Context, "ptr*", CallbackHandle, "int")
+        result := DllCall("computenetwork.dll\HcnRegisterServiceCallback", "ptr", Callback, ContextMarshal, Context, CallbackHandleMarshal, CallbackHandle, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -560,8 +576,9 @@ class HostComputeNetwork {
     static HcnRegisterGuestNetworkServiceCallback(GuestNetworkService, Callback, Context, CallbackHandle) {
         GuestNetworkServiceMarshal := GuestNetworkService is VarRef ? "ptr" : "ptr"
         ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+        CallbackHandleMarshal := CallbackHandle is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("computenetwork.dll\HcnRegisterGuestNetworkServiceCallback", GuestNetworkServiceMarshal, GuestNetworkService, "ptr", Callback, ContextMarshal, Context, "ptr*", CallbackHandle, "int")
+        result := DllCall("computenetwork.dll\HcnRegisterGuestNetworkServiceCallback", GuestNetworkServiceMarshal, GuestNetworkService, "ptr", Callback, ContextMarshal, Context, CallbackHandleMarshal, CallbackHandle, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -596,7 +613,9 @@ class HostComputeNetwork {
     static HcnCreateGuestNetworkService(Id, Settings, GuestNetworkService, ErrorRecord) {
         Settings := Settings is String ? StrPtr(Settings) : Settings
 
-        result := DllCall("computenetwork.dll\HcnCreateGuestNetworkService", "ptr", Id, "ptr", Settings, "ptr*", GuestNetworkService, "ptr", ErrorRecord, "int")
+        GuestNetworkServiceMarshal := GuestNetworkService is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("computenetwork.dll\HcnCreateGuestNetworkService", "ptr", Id, "ptr", Settings, GuestNetworkServiceMarshal, GuestNetworkService, "ptr", ErrorRecord, "int")
         if(result != 0)
             throw OSError(result)
 

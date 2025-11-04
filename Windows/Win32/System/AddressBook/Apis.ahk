@@ -1563,7 +1563,9 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/scduppropset
      */
     static ScDupPropset(cValues, lpPropArray, lpAllocateBuffer, lppPropArray) {
-        result := DllCall("MAPI32.dll\ScDupPropset", "int", cValues, "ptr", lpPropArray, "ptr", lpAllocateBuffer, "ptr*", lppPropArray, "int")
+        lppPropArrayMarshal := lppPropArray is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("MAPI32.dll\ScDupPropset", "int", cValues, "ptr", lpPropArray, "ptr", lpAllocateBuffer, lppPropArrayMarshal, lppPropArray, "int")
         return result
     }
 
@@ -1602,7 +1604,9 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/hrgetoneprop
      */
     static HrGetOneProp(lpMapiProp, ulPropTag, lppProp) {
-        result := DllCall("MAPI32.dll\HrGetOneProp", "ptr", lpMapiProp, "uint", ulPropTag, "ptr*", lppProp, "int")
+        lppPropMarshal := lppProp is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("MAPI32.dll\HrGetOneProp", "ptr", lpMapiProp, "uint", ulPropTag, lppPropMarshal, lppProp, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1681,7 +1685,9 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/hrqueryallrows
      */
     static HrQueryAllRows(lpTable, lpPropTags, lpRestriction, lpSortOrderSet, crowsMax, lppRows) {
-        result := DllCall("MAPI32.dll\HrQueryAllRows", "ptr", lpTable, "ptr", lpPropTags, "ptr", lpRestriction, "ptr", lpSortOrderSet, "int", crowsMax, "ptr*", lppRows, "int")
+        lppRowsMarshal := lppRows is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("MAPI32.dll\HrQueryAllRows", "ptr", lpTable, "ptr", lpPropTags, "ptr", lpRestriction, "ptr", lpSortOrderSet, "int", crowsMax, lppRowsMarshal, lppRows, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1847,8 +1853,9 @@ class AddressBook {
     static ScCreateConversationIndex(cbParent, lpbParent, lpcbConvIndex, lppbConvIndex) {
         lpbParentMarshal := lpbParent is VarRef ? "char*" : "ptr"
         lpcbConvIndexMarshal := lpcbConvIndex is VarRef ? "uint*" : "ptr"
+        lppbConvIndexMarshal := lppbConvIndex is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("MAPI32.dll\ScCreateConversationIndex", "uint", cbParent, lpbParentMarshal, lpbParent, lpcbConvIndexMarshal, lpcbConvIndex, "ptr*", lppbConvIndex, "int")
+        result := DllCall("MAPI32.dll\ScCreateConversationIndex", "uint", cbParent, lpbParentMarshal, lpbParent, lpcbConvIndexMarshal, lpcbConvIndex, lppbConvIndexMarshal, lppbConvIndex, "int")
         return result
     }
 

@@ -43,7 +43,9 @@ class ID3D12Device7 extends ID3D12Device6{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device7-addtostateobject
      */
     AddToStateObject(pAddition, pStateObjectToGrowFrom, riid, ppNewStateObject) {
-        result := ComCall(66, this, "ptr", pAddition, "ptr", pStateObjectToGrowFrom, "ptr", riid, "ptr*", ppNewStateObject, "HRESULT")
+        ppNewStateObjectMarshal := ppNewStateObject is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(66, this, "ptr", pAddition, "ptr", pStateObjectToGrowFrom, "ptr", riid, ppNewStateObjectMarshal, ppNewStateObject, "HRESULT")
         return result
     }
 
@@ -56,7 +58,9 @@ class ID3D12Device7 extends ID3D12Device6{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device7-createprotectedresourcesession1
      */
     CreateProtectedResourceSession1(pDesc, riid, ppSession) {
-        result := ComCall(67, this, "ptr", pDesc, "ptr", riid, "ptr*", ppSession, "HRESULT")
+        ppSessionMarshal := ppSession is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(67, this, "ptr", pDesc, "ptr", riid, ppSessionMarshal, ppSession, "HRESULT")
         return result
     }
 }

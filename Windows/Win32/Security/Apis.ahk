@@ -2096,9 +2096,10 @@ class Security {
      * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-getappcontainerace
      */
     static GetAppContainerAce(Acl, StartingAceIndex, AppContainerAce, AppContainerAceIndex) {
+        AppContainerAceMarshal := AppContainerAce is VarRef ? "ptr*" : "ptr"
         AppContainerAceIndexMarshal := AppContainerAceIndex is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("KERNEL32.dll\GetAppContainerAce", "ptr", Acl, "uint", StartingAceIndex, "ptr*", AppContainerAce, AppContainerAceIndexMarshal, AppContainerAceIndex, "int")
+        result := DllCall("KERNEL32.dll\GetAppContainerAce", "ptr", Acl, "uint", StartingAceIndex, AppContainerAceMarshal, AppContainerAce, AppContainerAceIndexMarshal, AppContainerAceIndex, "int")
         return result
     }
 
@@ -2418,9 +2419,11 @@ class Security {
         CreatorDescriptor := CreatorDescriptor is Win32Handle ? NumGet(CreatorDescriptor, "ptr") : CreatorDescriptor
         Token := Token is Win32Handle ? NumGet(Token, "ptr") : Token
 
+        ObjectTypesMarshal := ObjectTypes is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\CreatePrivateObjectSecurityWithMultipleInheritance", "ptr", ParentDescriptor, "ptr", CreatorDescriptor, "ptr", NewDescriptor, "ptr*", ObjectTypes, "uint", GuidCount, "int", IsContainerObject, "uint", AutoInheritFlags, "ptr", Token, "ptr", GenericMapping, "int")
+        result := DllCall("ADVAPI32.dll\CreatePrivateObjectSecurityWithMultipleInheritance", "ptr", ParentDescriptor, "ptr", CreatorDescriptor, "ptr", NewDescriptor, ObjectTypesMarshal, ObjectTypes, "uint", GuidCount, "int", IsContainerObject, "uint", AutoInheritFlags, "ptr", Token, "ptr", GenericMapping, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2707,9 +2710,11 @@ class Security {
      * @since windows5.1.2600
      */
     static FindFirstFreeAce(pAcl, pAce) {
+        pAceMarshal := pAce is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\FindFirstFreeAce", "ptr", pAcl, "ptr*", pAce, "int")
+        result := DllCall("ADVAPI32.dll\FindFirstFreeAce", "ptr", pAcl, pAceMarshal, pAce, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2745,9 +2750,11 @@ class Security {
      * @since windows5.1.2600
      */
     static GetAce(pAcl, dwAceIndex, pAce) {
+        pAceMarshal := pAce is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\GetAce", "ptr", pAcl, "uint", dwAceIndex, "ptr*", pAce, "int")
+        result := DllCall("ADVAPI32.dll\GetAce", "ptr", pAcl, "uint", dwAceIndex, pAceMarshal, pAce, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2945,9 +2952,11 @@ class Security {
     static GetSecurityDescriptorDacl(pSecurityDescriptor, lpbDaclPresent, pDacl, lpbDaclDefaulted) {
         pSecurityDescriptor := pSecurityDescriptor is Win32Handle ? NumGet(pSecurityDescriptor, "ptr") : pSecurityDescriptor
 
+        pDaclMarshal := pDacl is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\GetSecurityDescriptorDacl", "ptr", pSecurityDescriptor, "ptr", lpbDaclPresent, "ptr*", pDacl, "ptr", lpbDaclDefaulted, "int")
+        result := DllCall("ADVAPI32.dll\GetSecurityDescriptorDacl", "ptr", pSecurityDescriptor, "ptr", lpbDaclPresent, pDaclMarshal, pDacl, "ptr", lpbDaclDefaulted, "int")
         if(A_LastError)
             throw OSError()
 
@@ -3090,9 +3099,11 @@ class Security {
     static GetSecurityDescriptorSacl(pSecurityDescriptor, lpbSaclPresent, pSacl, lpbSaclDefaulted) {
         pSecurityDescriptor := pSecurityDescriptor is Win32Handle ? NumGet(pSecurityDescriptor, "ptr") : pSecurityDescriptor
 
+        pSaclMarshal := pSacl is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\GetSecurityDescriptorSacl", "ptr", pSecurityDescriptor, "ptr", lpbSaclPresent, "ptr*", pSacl, "ptr", lpbSaclDefaulted, "int")
+        result := DllCall("ADVAPI32.dll\GetSecurityDescriptorSacl", "ptr", pSecurityDescriptor, "ptr", lpbSaclPresent, pSaclMarshal, pSacl, "ptr", lpbSaclDefaulted, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4197,12 +4208,14 @@ class Security {
     static DeriveCapabilitySidsFromName(CapName, CapabilityGroupSids, CapabilityGroupSidCount, CapabilitySids, CapabilitySidCount) {
         CapName := CapName is String ? StrPtr(CapName) : CapName
 
+        CapabilityGroupSidsMarshal := CapabilityGroupSids is VarRef ? "ptr*" : "ptr"
         CapabilityGroupSidCountMarshal := CapabilityGroupSidCount is VarRef ? "uint*" : "ptr"
+        CapabilitySidsMarshal := CapabilitySids is VarRef ? "ptr*" : "ptr"
         CapabilitySidCountMarshal := CapabilitySidCount is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("api-ms-win-security-base-l1-2-2.dll\DeriveCapabilitySidsFromName", "ptr", CapName, "ptr*", CapabilityGroupSids, CapabilityGroupSidCountMarshal, CapabilityGroupSidCount, "ptr*", CapabilitySids, CapabilitySidCountMarshal, CapabilitySidCount, "int")
+        result := DllCall("api-ms-win-security-base-l1-2-2.dll\DeriveCapabilitySidsFromName", "ptr", CapName, CapabilityGroupSidsMarshal, CapabilityGroupSids, CapabilityGroupSidCountMarshal, CapabilityGroupSidCount, CapabilitySidsMarshal, CapabilitySids, CapabilitySidCountMarshal, CapabilitySidCount, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5243,11 +5256,12 @@ class Security {
         lpszDomain := lpszDomain is String ? StrPtr(lpszDomain) : lpszDomain
         lpszPassword := lpszPassword is String ? StrPtr(lpszPassword) : lpszPassword
 
+        ppProfileBufferMarshal := ppProfileBuffer is VarRef ? "ptr*" : "ptr"
         pdwProfileLengthMarshal := pdwProfileLength is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\LogonUserExA", "ptr", lpszUsername, "ptr", lpszDomain, "ptr", lpszPassword, "uint", dwLogonType, "uint", dwLogonProvider, "ptr", phToken, "ptr", ppLogonSid, "ptr*", ppProfileBuffer, pdwProfileLengthMarshal, pdwProfileLength, "ptr", pQuotaLimits, "int")
+        result := DllCall("ADVAPI32.dll\LogonUserExA", "ptr", lpszUsername, "ptr", lpszDomain, "ptr", lpszPassword, "uint", dwLogonType, "uint", dwLogonProvider, "ptr", phToken, "ptr", ppLogonSid, ppProfileBufferMarshal, ppProfileBuffer, pdwProfileLengthMarshal, pdwProfileLength, "ptr", pQuotaLimits, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5289,11 +5303,12 @@ class Security {
         lpszDomain := lpszDomain is String ? StrPtr(lpszDomain) : lpszDomain
         lpszPassword := lpszPassword is String ? StrPtr(lpszPassword) : lpszPassword
 
+        ppProfileBufferMarshal := ppProfileBuffer is VarRef ? "ptr*" : "ptr"
         pdwProfileLengthMarshal := pdwProfileLength is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\LogonUserExW", "ptr", lpszUsername, "ptr", lpszDomain, "ptr", lpszPassword, "uint", dwLogonType, "uint", dwLogonProvider, "ptr", phToken, "ptr", ppLogonSid, "ptr*", ppProfileBuffer, pdwProfileLengthMarshal, pdwProfileLength, "ptr", pQuotaLimits, "int")
+        result := DllCall("ADVAPI32.dll\LogonUserExW", "ptr", lpszUsername, "ptr", lpszDomain, "ptr", lpszPassword, "uint", dwLogonType, "uint", dwLogonProvider, "ptr", phToken, "ptr", ppLogonSid, ppProfileBufferMarshal, ppProfileBuffer, pdwProfileLengthMarshal, pdwProfileLength, "ptr", pQuotaLimits, "int")
         if(A_LastError)
             throw OSError()
 

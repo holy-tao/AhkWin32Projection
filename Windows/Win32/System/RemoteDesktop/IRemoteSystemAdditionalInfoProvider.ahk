@@ -36,7 +36,9 @@ class IRemoteSystemAdditionalInfoProvider extends IUnknown{
      * @returns {HRESULT} 
      */
     GetAdditionalInfo(deduplicationId, riid, mapView) {
-        result := ComCall(3, this, "ptr", deduplicationId, "ptr", riid, "ptr*", mapView, "HRESULT")
+        mapViewMarshal := mapView is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", deduplicationId, "ptr", riid, mapViewMarshal, mapView, "HRESULT")
         return result
     }
 }

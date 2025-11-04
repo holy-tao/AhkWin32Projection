@@ -70,7 +70,9 @@ class ISearchManager extends IUnknown{
     GetParameter(pszName, ppValue) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := ComCall(5, this, "ptr", pszName, "ptr*", ppValue, "HRESULT")
+        ppValueMarshal := ppValue is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pszName, ppValueMarshal, ppValue, "HRESULT")
         return result
     }
 

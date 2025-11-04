@@ -71,7 +71,9 @@ class IStemmer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nf-indexsrv-istemmer-getlicensetouse
      */
     GetLicenseToUse(ppwcsLicense) {
-        result := ComCall(5, this, "ptr*", ppwcsLicense, "HRESULT")
+        ppwcsLicenseMarshal := ppwcsLicense is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, ppwcsLicenseMarshal, ppwcsLicense, "HRESULT")
         return result
     }
 }

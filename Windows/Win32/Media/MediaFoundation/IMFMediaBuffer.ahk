@@ -101,10 +101,11 @@ class IMFMediaBuffer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmediabuffer-lock
      */
     Lock(ppbBuffer, pcbMaxLength, pcbCurrentLength) {
+        ppbBufferMarshal := ppbBuffer is VarRef ? "ptr*" : "ptr"
         pcbMaxLengthMarshal := pcbMaxLength is VarRef ? "uint*" : "ptr"
         pcbCurrentLengthMarshal := pcbCurrentLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr*", ppbBuffer, pcbMaxLengthMarshal, pcbMaxLength, pcbCurrentLengthMarshal, pcbCurrentLength, "HRESULT")
+        result := ComCall(3, this, ppbBufferMarshal, ppbBuffer, pcbMaxLengthMarshal, pcbMaxLength, pcbCurrentLengthMarshal, pcbCurrentLength, "HRESULT")
         return result
     }
 

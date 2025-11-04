@@ -53,7 +53,9 @@ class IDirect3DSurface9 extends IDirect3DResource9{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dsurface9-getcontainer
      */
     GetContainer(riid, ppContainer) {
-        result := ComCall(11, this, "ptr", riid, "ptr*", ppContainer, "HRESULT")
+        ppContainerMarshal := ppContainer is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(11, this, "ptr", riid, ppContainerMarshal, ppContainer, "HRESULT")
         return result
     }
 

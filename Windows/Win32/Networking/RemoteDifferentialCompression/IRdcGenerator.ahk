@@ -133,9 +133,10 @@ class IRdcGenerator extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-process
      */
     Process(endOfInput, endOfOutput, inputBuffer, depth, outputBuffers, rdc_ErrorCode) {
+        outputBuffersMarshal := outputBuffers is VarRef ? "ptr*" : "ptr"
         rdc_ErrorCodeMarshal := rdc_ErrorCode is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "int", endOfInput, "ptr", endOfOutput, "ptr", inputBuffer, "uint", depth, "ptr*", outputBuffers, rdc_ErrorCodeMarshal, rdc_ErrorCode, "HRESULT")
+        result := ComCall(4, this, "int", endOfInput, "ptr", endOfOutput, "ptr", inputBuffer, "uint", depth, outputBuffersMarshal, outputBuffers, rdc_ErrorCodeMarshal, rdc_ErrorCode, "HRESULT")
         return result
     }
 }

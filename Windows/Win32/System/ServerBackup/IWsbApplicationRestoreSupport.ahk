@@ -77,7 +77,10 @@ class IWsbApplicationRestoreSupport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wsbapp/nf-wsbapp-iwsbapplicationrestoresupport-ordercomponents
      */
     OrderComponents(cComponents, rgComponentName, rgComponentLogicalPaths, prgComponentName, prgComponentLogicalPath) {
-        result := ComCall(5, this, "uint", cComponents, "ptr", rgComponentName, "ptr", rgComponentLogicalPaths, "ptr*", prgComponentName, "ptr*", prgComponentLogicalPath, "HRESULT")
+        prgComponentNameMarshal := prgComponentName is VarRef ? "ptr*" : "ptr"
+        prgComponentLogicalPathMarshal := prgComponentLogicalPath is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "uint", cComponents, "ptr", rgComponentName, "ptr", rgComponentLogicalPaths, prgComponentNameMarshal, prgComponentName, prgComponentLogicalPathMarshal, prgComponentLogicalPath, "HRESULT")
         return result
     }
 

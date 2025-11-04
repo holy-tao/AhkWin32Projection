@@ -41,7 +41,9 @@ class IBandHost extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ibandhost-createband
      */
     CreateBand(rclsidBand, fAvailable, fVisible, riid, ppv) {
-        result := ComCall(3, this, "ptr", rclsidBand, "int", fAvailable, "int", fVisible, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", rclsidBand, "int", fAvailable, "int", fVisible, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 

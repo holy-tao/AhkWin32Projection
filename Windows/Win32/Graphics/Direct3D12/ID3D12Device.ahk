@@ -57,7 +57,9 @@ class ID3D12Device extends ID3D12Object{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommandqueue
      */
     CreateCommandQueue(pDesc, riid, ppCommandQueue) {
-        result := ComCall(8, this, "ptr", pDesc, "ptr", riid, "ptr*", ppCommandQueue, "HRESULT")
+        ppCommandQueueMarshal := ppCommandQueue is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(8, this, "ptr", pDesc, "ptr", riid, ppCommandQueueMarshal, ppCommandQueue, "HRESULT")
         return result
     }
 
@@ -70,7 +72,9 @@ class ID3D12Device extends ID3D12Object{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommandallocator
      */
     CreateCommandAllocator(type, riid, ppCommandAllocator) {
-        result := ComCall(9, this, "int", type, "ptr", riid, "ptr*", ppCommandAllocator, "HRESULT")
+        ppCommandAllocatorMarshal := ppCommandAllocator is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, "int", type, "ptr", riid, ppCommandAllocatorMarshal, ppCommandAllocator, "HRESULT")
         return result
     }
 
@@ -83,7 +87,9 @@ class ID3D12Device extends ID3D12Object{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-creategraphicspipelinestate
      */
     CreateGraphicsPipelineState(pDesc, riid, ppPipelineState) {
-        result := ComCall(10, this, "ptr", pDesc, "ptr", riid, "ptr*", ppPipelineState, "HRESULT")
+        ppPipelineStateMarshal := ppPipelineState is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(10, this, "ptr", pDesc, "ptr", riid, ppPipelineStateMarshal, ppPipelineState, "HRESULT")
         return result
     }
 
@@ -96,7 +102,9 @@ class ID3D12Device extends ID3D12Object{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcomputepipelinestate
      */
     CreateComputePipelineState(pDesc, riid, ppPipelineState) {
-        result := ComCall(11, this, "ptr", pDesc, "ptr", riid, "ptr*", ppPipelineState, "HRESULT")
+        ppPipelineStateMarshal := ppPipelineState is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(11, this, "ptr", pDesc, "ptr", riid, ppPipelineStateMarshal, ppPipelineState, "HRESULT")
         return result
     }
 
@@ -112,7 +120,9 @@ class ID3D12Device extends ID3D12Object{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommandlist
      */
     CreateCommandList(nodeMask, type, pCommandAllocator, pInitialState, riid, ppCommandList) {
-        result := ComCall(12, this, "uint", nodeMask, "int", type, "ptr", pCommandAllocator, "ptr", pInitialState, "ptr", riid, "ptr*", ppCommandList, "HRESULT")
+        ppCommandListMarshal := ppCommandList is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(12, this, "uint", nodeMask, "int", type, "ptr", pCommandAllocator, "ptr", pInitialState, "ptr", riid, ppCommandListMarshal, ppCommandList, "HRESULT")
         return result
     }
 
@@ -138,7 +148,9 @@ class ID3D12Device extends ID3D12Object{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createdescriptorheap
      */
     CreateDescriptorHeap(pDescriptorHeapDesc, riid, ppvHeap) {
-        result := ComCall(14, this, "ptr", pDescriptorHeapDesc, "ptr", riid, "ptr*", ppvHeap, "HRESULT")
+        ppvHeapMarshal := ppvHeap is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(14, this, "ptr", pDescriptorHeapDesc, "ptr", riid, ppvHeapMarshal, ppvHeap, "HRESULT")
         return result
     }
 
@@ -165,8 +177,9 @@ class ID3D12Device extends ID3D12Object{
      */
     CreateRootSignature(nodeMask, pBlobWithRootSignature, blobLengthInBytes, riid, ppvRootSignature) {
         pBlobWithRootSignatureMarshal := pBlobWithRootSignature is VarRef ? "ptr" : "ptr"
+        ppvRootSignatureMarshal := ppvRootSignature is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(16, this, "uint", nodeMask, pBlobWithRootSignatureMarshal, pBlobWithRootSignature, "ptr", blobLengthInBytes, "ptr", riid, "ptr*", ppvRootSignature, "HRESULT")
+        result := ComCall(16, this, "uint", nodeMask, pBlobWithRootSignatureMarshal, pBlobWithRootSignature, "ptr", blobLengthInBytes, "ptr", riid, ppvRootSignatureMarshal, ppvRootSignature, "HRESULT")
         return result
     }
 
@@ -311,7 +324,9 @@ class ID3D12Device extends ID3D12Object{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommittedresource
      */
     CreateCommittedResource(pHeapProperties, HeapFlags, pDesc, InitialResourceState, pOptimizedClearValue, riidResource, ppvResource) {
-        result := ComCall(27, this, "ptr", pHeapProperties, "int", HeapFlags, "ptr", pDesc, "int", InitialResourceState, "ptr", pOptimizedClearValue, "ptr", riidResource, "ptr*", ppvResource, "HRESULT")
+        ppvResourceMarshal := ppvResource is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(27, this, "ptr", pHeapProperties, "int", HeapFlags, "ptr", pDesc, "int", InitialResourceState, "ptr", pOptimizedClearValue, "ptr", riidResource, ppvResourceMarshal, ppvResource, "HRESULT")
         return result
     }
 
@@ -324,7 +339,9 @@ class ID3D12Device extends ID3D12Object{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createheap
      */
     CreateHeap(pDesc, riid, ppvHeap) {
-        result := ComCall(28, this, "ptr", pDesc, "ptr", riid, "ptr*", ppvHeap, "HRESULT")
+        ppvHeapMarshal := ppvHeap is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(28, this, "ptr", pDesc, "ptr", riid, ppvHeapMarshal, ppvHeap, "HRESULT")
         return result
     }
 
@@ -341,7 +358,9 @@ class ID3D12Device extends ID3D12Object{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createplacedresource
      */
     CreatePlacedResource(pHeap, HeapOffset, pDesc, InitialState, pOptimizedClearValue, riid, ppvResource) {
-        result := ComCall(29, this, "ptr", pHeap, "uint", HeapOffset, "ptr", pDesc, "int", InitialState, "ptr", pOptimizedClearValue, "ptr", riid, "ptr*", ppvResource, "HRESULT")
+        ppvResourceMarshal := ppvResource is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(29, this, "ptr", pHeap, "uint", HeapOffset, "ptr", pDesc, "int", InitialState, "ptr", pOptimizedClearValue, "ptr", riid, ppvResourceMarshal, ppvResource, "HRESULT")
         return result
     }
 
@@ -356,7 +375,9 @@ class ID3D12Device extends ID3D12Object{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createreservedresource
      */
     CreateReservedResource(pDesc, InitialState, pOptimizedClearValue, riid, ppvResource) {
-        result := ComCall(30, this, "ptr", pDesc, "int", InitialState, "ptr", pOptimizedClearValue, "ptr", riid, "ptr*", ppvResource, "HRESULT")
+        ppvResourceMarshal := ppvResource is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(30, this, "ptr", pDesc, "int", InitialState, "ptr", pOptimizedClearValue, "ptr", riid, ppvResourceMarshal, ppvResource, "HRESULT")
         return result
     }
 
@@ -388,7 +409,9 @@ class ID3D12Device extends ID3D12Object{
     OpenSharedHandle(NTHandle, riid, ppvObj) {
         NTHandle := NTHandle is Win32Handle ? NumGet(NTHandle, "ptr") : NTHandle
 
-        result := ComCall(32, this, "ptr", NTHandle, "ptr", riid, "ptr*", ppvObj, "HRESULT")
+        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(32, this, "ptr", NTHandle, "ptr", riid, ppvObjMarshal, ppvObj, "HRESULT")
         return result
     }
 
@@ -441,7 +464,9 @@ class ID3D12Device extends ID3D12Object{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createfence
      */
     CreateFence(InitialValue, Flags, riid, ppFence) {
-        result := ComCall(36, this, "uint", InitialValue, "int", Flags, "ptr", riid, "ptr*", ppFence, "HRESULT")
+        ppFenceMarshal := ppFence is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(36, this, "uint", InitialValue, "int", Flags, "ptr", riid, ppFenceMarshal, ppFence, "HRESULT")
         return result
     }
 
@@ -485,7 +510,9 @@ class ID3D12Device extends ID3D12Object{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createqueryheap
      */
     CreateQueryHeap(pDesc, riid, ppvHeap) {
-        result := ComCall(39, this, "ptr", pDesc, "ptr", riid, "ptr*", ppvHeap, "HRESULT")
+        ppvHeapMarshal := ppvHeap is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(39, this, "ptr", pDesc, "ptr", riid, ppvHeapMarshal, ppvHeap, "HRESULT")
         return result
     }
 
@@ -510,7 +537,9 @@ class ID3D12Device extends ID3D12Object{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device-createcommandsignature
      */
     CreateCommandSignature(pDesc, pRootSignature, riid, ppvCommandSignature) {
-        result := ComCall(41, this, "ptr", pDesc, "ptr", pRootSignature, "ptr", riid, "ptr*", ppvCommandSignature, "HRESULT")
+        ppvCommandSignatureMarshal := ppvCommandSignature is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(41, this, "ptr", pDesc, "ptr", pRootSignature, "ptr", riid, ppvCommandSignatureMarshal, ppvCommandSignature, "HRESULT")
         return result
     }
 

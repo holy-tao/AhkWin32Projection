@@ -40,7 +40,9 @@ class ID3D11On12Device2 extends ID3D11On12Device1{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11on12/nf-d3d11on12-id3d11on12device2-unwrapunderlyingresource
      */
     UnwrapUnderlyingResource(pResource11, pCommandQueue, riid, ppvResource12) {
-        result := ComCall(7, this, "ptr", pResource11, "ptr", pCommandQueue, "ptr", riid, "ptr*", ppvResource12, "HRESULT")
+        ppvResource12Marshal := ppvResource12 is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pResource11, "ptr", pCommandQueue, "ptr", riid, ppvResource12Marshal, ppvResource12, "HRESULT")
         return result
     }
 

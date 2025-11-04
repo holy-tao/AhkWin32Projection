@@ -262,7 +262,9 @@ class IEmailAction extends IAction{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iemailaction-get_attachments
      */
     get_Attachments(pAttachements) {
-        result := ComCall(28, this, "ptr*", pAttachements, "HRESULT")
+        pAttachementsMarshal := pAttachements is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(28, this, pAttachementsMarshal, pAttachements, "HRESULT")
         return result
     }
 

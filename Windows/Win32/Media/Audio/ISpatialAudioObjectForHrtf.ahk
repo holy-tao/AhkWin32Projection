@@ -67,7 +67,9 @@ class ISpatialAudioObjectForHrtf extends ISpatialAudioObjectBase{
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiohrtf/nf-spatialaudiohrtf-ispatialaudioobjectforhrtf-setorientation
      */
     SetOrientation(orientation) {
-        result := ComCall(9, this, "ptr*", orientation, "HRESULT")
+        orientationMarshal := orientation is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, orientationMarshal, orientation, "HRESULT")
         return result
     }
 

@@ -43,7 +43,9 @@ class IMFDXGIBuffer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfdxgibuffer-getresource
      */
     GetResource(riid, ppvObject) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", ppvObject, "HRESULT")
+        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", riid, ppvObjectMarshal, ppvObject, "HRESULT")
         return result
     }
 
@@ -69,7 +71,9 @@ class IMFDXGIBuffer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfdxgibuffer-getunknown
      */
     GetUnknown(guid, riid, ppvObject) {
-        result := ComCall(5, this, "ptr", guid, "ptr", riid, "ptr*", ppvObject, "HRESULT")
+        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ptr", guid, "ptr", riid, ppvObjectMarshal, ppvObject, "HRESULT")
         return result
     }
 

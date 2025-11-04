@@ -56,9 +56,10 @@ class IXpsSignature extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignature-getsignaturevalue
      */
     GetSignatureValue(signatureHashValue, count) {
+        signatureHashValueMarshal := signatureHashValue is VarRef ? "ptr*" : "ptr"
         countMarshal := count is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr*", signatureHashValue, countMarshal, count, "HRESULT")
+        result := ComCall(4, this, signatureHashValueMarshal, signatureHashValue, countMarshal, count, "HRESULT")
         return result
     }
 
@@ -165,9 +166,10 @@ class IXpsSignature extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignature-getsignaturexml
      */
     GetSignatureXml(signatureXml, count) {
+        signatureXmlMarshal := signatureXml is VarRef ? "ptr*" : "ptr"
         countMarshal := count is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, "ptr*", signatureXml, countMarshal, count, "HRESULT")
+        result := ComCall(13, this, signatureXmlMarshal, signatureXml, countMarshal, count, "HRESULT")
         return result
     }
 

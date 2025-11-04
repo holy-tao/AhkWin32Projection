@@ -149,7 +149,9 @@ class IDvdInfo2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getallsprms
      */
     GetAllSPRMs(pRegisterArray) {
-        result := ComCall(11, this, "ptr*", pRegisterArray, "HRESULT")
+        pRegisterArrayMarshal := pRegisterArray is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(11, this, pRegisterArrayMarshal, pRegisterArray, "HRESULT")
         return result
     }
 
@@ -160,7 +162,9 @@ class IDvdInfo2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getallgprms
      */
     GetAllGPRMs(pRegisterArray) {
-        result := ComCall(12, this, "ptr*", pRegisterArray, "HRESULT")
+        pRegisterArrayMarshal := pRegisterArray is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(12, this, pRegisterArrayMarshal, pRegisterArray, "HRESULT")
         return result
     }
 

@@ -88,7 +88,9 @@ class ISpAudio extends ISpStreamFormat{
      * @returns {HRESULT} 
      */
     GetDefaultFormat(pFormatId, ppCoMemWaveFormatEx) {
-        result := ComCall(20, this, "ptr", pFormatId, "ptr*", ppCoMemWaveFormatEx, "HRESULT")
+        ppCoMemWaveFormatExMarshal := ppCoMemWaveFormatEx is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(20, this, "ptr", pFormatId, ppCoMemWaveFormatExMarshal, ppCoMemWaveFormatEx, "HRESULT")
         return result
     }
 

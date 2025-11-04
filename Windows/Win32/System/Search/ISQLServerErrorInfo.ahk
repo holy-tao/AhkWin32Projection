@@ -66,7 +66,10 @@ class ISQLServerErrorInfo extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-geterrorinfo
      */
     GetErrorInfo(ppErrorInfo, ppStringsBuffer) {
-        result := ComCall(3, this, "ptr*", ppErrorInfo, "ptr*", ppStringsBuffer, "HRESULT")
+        ppErrorInfoMarshal := ppErrorInfo is VarRef ? "ptr*" : "ptr"
+        ppStringsBufferMarshal := ppStringsBuffer is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, ppErrorInfoMarshal, ppErrorInfo, ppStringsBufferMarshal, ppStringsBuffer, "HRESULT")
         return result
     }
 }

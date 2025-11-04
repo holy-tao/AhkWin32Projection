@@ -60,7 +60,9 @@ class IBrowserService3 extends IBrowserService2{
     IEParseDisplayNameEx(uiCP, pwszPath, dwFlags, ppidlOut) {
         pwszPath := pwszPath is String ? StrPtr(pwszPath) : pwszPath
 
-        result := ComCall(96, this, "uint", uiCP, "ptr", pwszPath, "uint", dwFlags, "ptr*", ppidlOut, "HRESULT")
+        ppidlOutMarshal := ppidlOut is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(96, this, "uint", uiCP, "ptr", pwszPath, "uint", dwFlags, ppidlOutMarshal, ppidlOut, "HRESULT")
         return result
     }
 }

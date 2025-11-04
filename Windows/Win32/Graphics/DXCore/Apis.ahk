@@ -80,7 +80,9 @@ class DXCore {
      * @see https://docs.microsoft.com/windows/win32/api//dxcore/nf-dxcore-dxcorecreateadapterfactory
      */
     static DXCoreCreateAdapterFactory(riid, ppvFactory) {
-        result := DllCall("DXCORE.dll\DXCoreCreateAdapterFactory", "ptr", riid, "ptr*", ppvFactory, "int")
+        ppvFactoryMarshal := ppvFactory is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("DXCORE.dll\DXCoreCreateAdapterFactory", "ptr", riid, ppvFactoryMarshal, ppvFactory, "int")
         if(result != 0)
             throw OSError(result)
 

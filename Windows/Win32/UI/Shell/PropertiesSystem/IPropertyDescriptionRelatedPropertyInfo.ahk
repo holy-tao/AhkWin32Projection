@@ -49,7 +49,9 @@ class IPropertyDescriptionRelatedPropertyInfo extends IPropertyDescription{
     GetRelatedProperty(pszRelationshipName, riid, ppv) {
         pszRelationshipName := pszRelationshipName is String ? StrPtr(pszRelationshipName) : pszRelationshipName
 
-        result := ComCall(24, this, "ptr", pszRelationshipName, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(24, this, "ptr", pszRelationshipName, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 }

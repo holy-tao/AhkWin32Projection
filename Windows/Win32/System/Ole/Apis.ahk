@@ -2442,7 +2442,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-safearrayallocdescriptor
      */
     static SafeArrayAllocDescriptor(cDims, ppsaOut) {
-        result := DllCall("OLEAUT32.dll\SafeArrayAllocDescriptor", "uint", cDims, "ptr*", ppsaOut, "int")
+        ppsaOutMarshal := ppsaOut is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\SafeArrayAllocDescriptor", "uint", cDims, ppsaOutMarshal, ppsaOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2487,7 +2489,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-safearrayallocdescriptorex
      */
     static SafeArrayAllocDescriptorEx(vt, cDims, ppsaOut) {
-        result := DllCall("OLEAUT32.dll\SafeArrayAllocDescriptorEx", "ushort", vt, "uint", cDims, "ptr*", ppsaOut, "int")
+        ppsaOutMarshal := ppsaOut is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\SafeArrayAllocDescriptorEx", "ushort", vt, "uint", cDims, ppsaOutMarshal, ppsaOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2783,7 +2787,9 @@ class Ole {
      * @since windows5.1.2600
      */
     static SafeArrayAddRef(psa, ppDataToRelease) {
-        result := DllCall("OLEAUT32.dll\SafeArrayAddRef", "ptr", psa, "ptr*", ppDataToRelease, "int")
+        ppDataToReleaseMarshal := ppDataToRelease is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\SafeArrayAddRef", "ptr", psa, ppDataToReleaseMarshal, ppDataToRelease, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3204,7 +3210,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-safearrayaccessdata
      */
     static SafeArrayAccessData(psa, ppvData) {
-        result := DllCall("OLEAUT32.dll\SafeArrayAccessData", "ptr", psa, "ptr*", ppvData, "int")
+        ppvDataMarshal := ppvData is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\SafeArrayAccessData", "ptr", psa, ppvDataMarshal, ppvData, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3453,7 +3461,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-safearraycopy
      */
     static SafeArrayCopy(psa, ppsaOut) {
-        result := DllCall("OLEAUT32.dll\SafeArrayCopy", "ptr", psa, "ptr*", ppsaOut, "int")
+        ppsaOutMarshal := ppsaOut is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\SafeArrayCopy", "ptr", psa, ppsaOutMarshal, ppsaOut, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3510,8 +3520,9 @@ class Ole {
      */
     static SafeArrayPtrOfIndex(psa, rgIndices, ppvData) {
         rgIndicesMarshal := rgIndices is VarRef ? "int*" : "ptr"
+        ppvDataMarshal := ppvData is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("OLEAUT32.dll\SafeArrayPtrOfIndex", "ptr", psa, rgIndicesMarshal, rgIndices, "ptr*", ppvData, "int")
+        result := DllCall("OLEAUT32.dll\SafeArrayPtrOfIndex", "ptr", psa, rgIndicesMarshal, rgIndices, ppvDataMarshal, ppvData, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3821,7 +3832,9 @@ class Ole {
     static VectorFromBstr(bstr, ppsa) {
         bstr := bstr is Win32Handle ? NumGet(bstr, "ptr") : bstr
 
-        result := DllCall("OLEAUT32.dll\VectorFromBstr", "ptr", bstr, "ptr*", ppsa, "int")
+        ppsaMarshal := ppsa is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\VectorFromBstr", "ptr", bstr, ppsaMarshal, ppsa, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -26666,7 +26679,9 @@ class Ole {
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-getaltmonthnames
      */
     static GetAltMonthNames(lcid, prgp) {
-        result := DllCall("OLEAUT32.dll\GetAltMonthNames", "uint", lcid, "ptr*", prgp, "int")
+        prgpMarshal := prgp is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\GetAltMonthNames", "uint", lcid, prgpMarshal, prgp, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -29548,8 +29563,9 @@ class Ole {
     static DispCallFunc(pvInstance, oVft, cc, vtReturn, cActuals, prgvt, prgpvarg, pvargResult) {
         pvInstanceMarshal := pvInstance is VarRef ? "ptr" : "ptr"
         prgvtMarshal := prgvt is VarRef ? "ushort*" : "ptr"
+        prgpvargMarshal := prgpvarg is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("OLEAUT32.dll\DispCallFunc", pvInstanceMarshal, pvInstance, "ptr", oVft, "int", cc, "ushort", vtReturn, "uint", cActuals, prgvtMarshal, prgvt, "ptr*", prgpvarg, "ptr", pvargResult, "int")
+        result := DllCall("OLEAUT32.dll\DispCallFunc", pvInstanceMarshal, pvInstance, "ptr", oVft, "int", cc, "ushort", vtReturn, "uint", cActuals, prgvtMarshal, prgvt, prgpvargMarshal, prgpvarg, "ptr", pvargResult, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -30020,7 +30036,9 @@ class Ole {
      * @since windows5.0
      */
     static OleCreate(rclsid, riid, renderopt, pFormatEtc, pClientSite, pStg, ppvObj) {
-        result := DllCall("OLE32.dll\OleCreate", "ptr", rclsid, "ptr", riid, "uint", renderopt, "ptr", pFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr*", ppvObj, "int")
+        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("OLE32.dll\OleCreate", "ptr", rclsid, "ptr", riid, "uint", renderopt, "ptr", pFormatEtc, "ptr", pClientSite, "ptr", pStg, ppvObjMarshal, ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -30066,8 +30084,9 @@ class Ole {
     static OleCreateEx(rclsid, riid, dwFlags, renderopt, cFormats, rgAdvf, rgFormatEtc, lpAdviseSink, rgdwConnection, pClientSite, pStg, ppvObj) {
         rgAdvfMarshal := rgAdvf is VarRef ? "uint*" : "ptr"
         rgdwConnectionMarshal := rgdwConnection is VarRef ? "uint*" : "ptr"
+        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ole32.dll\OleCreateEx", "ptr", rclsid, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, rgAdvfMarshal, rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr*", ppvObj, "int")
+        result := DllCall("ole32.dll\OleCreateEx", "ptr", rclsid, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, rgAdvfMarshal, rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, ppvObjMarshal, ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -30117,7 +30136,9 @@ class Ole {
      * @since windows5.0
      */
     static OleCreateFromData(pSrcDataObj, riid, renderopt, pFormatEtc, pClientSite, pStg, ppvObj) {
-        result := DllCall("OLE32.dll\OleCreateFromData", "ptr", pSrcDataObj, "ptr", riid, "uint", renderopt, "ptr", pFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr*", ppvObj, "int")
+        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("OLE32.dll\OleCreateFromData", "ptr", pSrcDataObj, "ptr", riid, "uint", renderopt, "ptr", pFormatEtc, "ptr", pClientSite, "ptr", pStg, ppvObjMarshal, ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -30174,8 +30195,9 @@ class Ole {
     static OleCreateFromDataEx(pSrcDataObj, riid, dwFlags, renderopt, cFormats, rgAdvf, rgFormatEtc, lpAdviseSink, rgdwConnection, pClientSite, pStg, ppvObj) {
         rgAdvfMarshal := rgAdvf is VarRef ? "uint*" : "ptr"
         rgdwConnectionMarshal := rgdwConnection is VarRef ? "uint*" : "ptr"
+        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ole32.dll\OleCreateFromDataEx", "ptr", pSrcDataObj, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, rgAdvfMarshal, rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr*", ppvObj, "int")
+        result := DllCall("ole32.dll\OleCreateFromDataEx", "ptr", pSrcDataObj, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, rgAdvfMarshal, rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, ppvObjMarshal, ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -30237,7 +30259,9 @@ class Ole {
      * @since windows5.0
      */
     static OleCreateLinkFromData(pSrcDataObj, riid, renderopt, pFormatEtc, pClientSite, pStg, ppvObj) {
-        result := DllCall("OLE32.dll\OleCreateLinkFromData", "ptr", pSrcDataObj, "ptr", riid, "uint", renderopt, "ptr", pFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr*", ppvObj, "int")
+        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("OLE32.dll\OleCreateLinkFromData", "ptr", pSrcDataObj, "ptr", riid, "uint", renderopt, "ptr", pFormatEtc, "ptr", pClientSite, "ptr", pStg, ppvObjMarshal, ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -30294,8 +30318,9 @@ class Ole {
     static OleCreateLinkFromDataEx(pSrcDataObj, riid, dwFlags, renderopt, cFormats, rgAdvf, rgFormatEtc, lpAdviseSink, rgdwConnection, pClientSite, pStg, ppvObj) {
         rgAdvfMarshal := rgAdvf is VarRef ? "uint*" : "ptr"
         rgdwConnectionMarshal := rgdwConnection is VarRef ? "uint*" : "ptr"
+        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ole32.dll\OleCreateLinkFromDataEx", "ptr", pSrcDataObj, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, rgAdvfMarshal, rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr*", ppvObj, "int")
+        result := DllCall("ole32.dll\OleCreateLinkFromDataEx", "ptr", pSrcDataObj, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, rgAdvfMarshal, rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, ppvObjMarshal, ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -30316,7 +30341,9 @@ class Ole {
      * @since windows5.0
      */
     static OleCreateStaticFromData(pSrcDataObj, iid, renderopt, pFormatEtc, pClientSite, pStg, ppvObj) {
-        result := DllCall("OLE32.dll\OleCreateStaticFromData", "ptr", pSrcDataObj, "ptr", iid, "uint", renderopt, "ptr", pFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr*", ppvObj, "int")
+        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("OLE32.dll\OleCreateStaticFromData", "ptr", pSrcDataObj, "ptr", iid, "uint", renderopt, "ptr", pFormatEtc, "ptr", pClientSite, "ptr", pStg, ppvObjMarshal, ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -30355,7 +30382,9 @@ class Ole {
      * @since windows5.0
      */
     static OleCreateLink(pmkLinkSrc, riid, renderopt, lpFormatEtc, pClientSite, pStg, ppvObj) {
-        result := DllCall("ole32.dll\OleCreateLink", "ptr", pmkLinkSrc, "ptr", riid, "uint", renderopt, "ptr", lpFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr*", ppvObj, "int")
+        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("ole32.dll\OleCreateLink", "ptr", pmkLinkSrc, "ptr", riid, "uint", renderopt, "ptr", lpFormatEtc, "ptr", pClientSite, "ptr", pStg, ppvObjMarshal, ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -30412,8 +30441,9 @@ class Ole {
     static OleCreateLinkEx(pmkLinkSrc, riid, dwFlags, renderopt, cFormats, rgAdvf, rgFormatEtc, lpAdviseSink, rgdwConnection, pClientSite, pStg, ppvObj) {
         rgAdvfMarshal := rgAdvf is VarRef ? "uint*" : "ptr"
         rgdwConnectionMarshal := rgdwConnection is VarRef ? "uint*" : "ptr"
+        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ole32.dll\OleCreateLinkEx", "ptr", pmkLinkSrc, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, rgAdvfMarshal, rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr*", ppvObj, "int")
+        result := DllCall("ole32.dll\OleCreateLinkEx", "ptr", pmkLinkSrc, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, rgAdvfMarshal, rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, ppvObjMarshal, ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -30465,7 +30495,9 @@ class Ole {
     static OleCreateLinkToFile(lpszFileName, riid, renderopt, lpFormatEtc, pClientSite, pStg, ppvObj) {
         lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
-        result := DllCall("OLE32.dll\OleCreateLinkToFile", "ptr", lpszFileName, "ptr", riid, "uint", renderopt, "ptr", lpFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr*", ppvObj, "int")
+        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("OLE32.dll\OleCreateLinkToFile", "ptr", lpszFileName, "ptr", riid, "uint", renderopt, "ptr", lpFormatEtc, "ptr", pClientSite, "ptr", pStg, ppvObjMarshal, ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -30524,8 +30556,9 @@ class Ole {
 
         rgAdvfMarshal := rgAdvf is VarRef ? "uint*" : "ptr"
         rgdwConnectionMarshal := rgdwConnection is VarRef ? "uint*" : "ptr"
+        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ole32.dll\OleCreateLinkToFileEx", "ptr", lpszFileName, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, rgAdvfMarshal, rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr*", ppvObj, "int")
+        result := DllCall("ole32.dll\OleCreateLinkToFileEx", "ptr", lpszFileName, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, rgAdvfMarshal, rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, ppvObjMarshal, ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -30622,7 +30655,9 @@ class Ole {
     static OleCreateFromFile(rclsid, lpszFileName, riid, renderopt, lpFormatEtc, pClientSite, pStg, ppvObj) {
         lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
-        result := DllCall("OLE32.dll\OleCreateFromFile", "ptr", rclsid, "ptr", lpszFileName, "ptr", riid, "uint", renderopt, "ptr", lpFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr*", ppvObj, "int")
+        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("OLE32.dll\OleCreateFromFile", "ptr", rclsid, "ptr", lpszFileName, "ptr", riid, "uint", renderopt, "ptr", lpFormatEtc, "ptr", pClientSite, "ptr", pStg, ppvObjMarshal, ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -30682,8 +30717,9 @@ class Ole {
 
         rgAdvfMarshal := rgAdvf is VarRef ? "uint*" : "ptr"
         rgdwConnectionMarshal := rgdwConnection is VarRef ? "uint*" : "ptr"
+        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ole32.dll\OleCreateFromFileEx", "ptr", rclsid, "ptr", lpszFileName, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, rgAdvfMarshal, rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr*", ppvObj, "int")
+        result := DllCall("ole32.dll\OleCreateFromFileEx", "ptr", rclsid, "ptr", lpszFileName, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, rgAdvfMarshal, rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, ppvObjMarshal, ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -30722,7 +30758,9 @@ class Ole {
      * @since windows5.0
      */
     static OleLoad(pStg, riid, pClientSite, ppvObj) {
-        result := DllCall("OLE32.dll\OleLoad", "ptr", pStg, "ptr", riid, "ptr", pClientSite, "ptr*", ppvObj, "int")
+        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("OLE32.dll\OleLoad", "ptr", pStg, "ptr", riid, "ptr", pClientSite, ppvObjMarshal, ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -30808,7 +30846,9 @@ class Ole {
      * @since windows5.0
      */
     static OleLoadFromStream(pStm, iidInterface, ppvObj) {
-        result := DllCall("OLE32.dll\OleLoadFromStream", "ptr", pStm, "ptr", iidInterface, "ptr*", ppvObj, "int")
+        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("OLE32.dll\OleLoadFromStream", "ptr", pStm, "ptr", iidInterface, ppvObjMarshal, ppvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -31819,7 +31859,9 @@ class Ole {
      * @since windows5.0
      */
     static OleCreateDefaultHandler(clsid, pUnkOuter, riid, lplpObj) {
-        result := DllCall("ole32.dll\OleCreateDefaultHandler", "ptr", clsid, "ptr", pUnkOuter, "ptr", riid, "ptr*", lplpObj, "int")
+        lplpObjMarshal := lplpObj is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("ole32.dll\OleCreateDefaultHandler", "ptr", clsid, "ptr", pUnkOuter, "ptr", riid, lplpObjMarshal, lplpObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -31890,7 +31932,9 @@ class Ole {
      * @since windows5.0
      */
     static OleCreateEmbeddingHelper(clsid, pUnkOuter, flags, pCF, riid, lplpObj) {
-        result := DllCall("OLE32.dll\OleCreateEmbeddingHelper", "ptr", clsid, "ptr", pUnkOuter, "uint", flags, "ptr", pCF, "ptr", riid, "ptr*", lplpObj, "int")
+        lplpObjMarshal := lplpObj is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("OLE32.dll\OleCreateEmbeddingHelper", "ptr", clsid, "ptr", pUnkOuter, "uint", flags, "ptr", pCF, "ptr", riid, lplpObjMarshal, lplpObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -32814,7 +32858,9 @@ class Ole {
      * @since windows5.0
      */
     static OleCreateFontIndirect(lpFontDesc, riid, lplpvObj) {
-        result := DllCall("OLEAUT32.dll\OleCreateFontIndirect", "ptr", lpFontDesc, "ptr", riid, "ptr*", lplpvObj, "int")
+        lplpvObjMarshal := lplpvObj is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\OleCreateFontIndirect", "ptr", lpFontDesc, "ptr", riid, lplpvObjMarshal, lplpvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -32862,7 +32908,9 @@ class Ole {
      * @since windows5.0
      */
     static OleCreatePictureIndirect(lpPictDesc, riid, fOwn, lplpvObj) {
-        result := DllCall("OLEAUT32.dll\OleCreatePictureIndirect", "ptr", lpPictDesc, "ptr", riid, "int", fOwn, "ptr*", lplpvObj, "int")
+        lplpvObjMarshal := lplpvObj is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\OleCreatePictureIndirect", "ptr", lpPictDesc, "ptr", riid, "int", fOwn, lplpvObjMarshal, lplpvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -32911,7 +32959,9 @@ class Ole {
      * @since windows5.0
      */
     static OleLoadPicture(lpstream, lSize, fRunmode, riid, lplpvObj) {
-        result := DllCall("OLEAUT32.dll\OleLoadPicture", "ptr", lpstream, "int", lSize, "int", fRunmode, "ptr", riid, "ptr*", lplpvObj, "int")
+        lplpvObjMarshal := lplpvObj is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\OleLoadPicture", "ptr", lpstream, "int", lSize, "int", fRunmode, "ptr", riid, lplpvObjMarshal, lplpvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -32963,7 +33013,9 @@ class Ole {
      * @since windows5.0
      */
     static OleLoadPictureEx(lpstream, lSize, fRunmode, riid, xSizeDesired, ySizeDesired, dwFlags, lplpvObj) {
-        result := DllCall("OLEAUT32.dll\OleLoadPictureEx", "ptr", lpstream, "int", lSize, "int", fRunmode, "ptr", riid, "uint", xSizeDesired, "uint", ySizeDesired, "uint", dwFlags, "ptr*", lplpvObj, "int")
+        lplpvObjMarshal := lplpvObj is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\OleLoadPictureEx", "ptr", lpstream, "int", lSize, "int", fRunmode, "ptr", riid, "uint", xSizeDesired, "uint", ySizeDesired, "uint", dwFlags, lplpvObjMarshal, lplpvObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -33039,7 +33091,9 @@ class Ole {
 
         szURLorPath := szURLorPath is String ? StrPtr(szURLorPath) : szURLorPath
 
-        result := DllCall("OLEAUT32.dll\OleLoadPicturePath", "ptr", szURLorPath, "ptr", punkCaller, "uint", dwReserved, "uint", clrReserved, "ptr", riid, "ptr*", ppvRet, "int")
+        ppvRetMarshal := ppvRet is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("OLEAUT32.dll\OleLoadPicturePath", "ptr", szURLorPath, "ptr", punkCaller, "uint", dwReserved, "uint", clrReserved, "ptr", riid, ppvRetMarshal, ppvRet, "int")
         if(result != 0)
             throw OSError(result)
 

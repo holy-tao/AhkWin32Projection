@@ -45,7 +45,9 @@ class IAssemblyLocator extends IDispatch{
         applicationName := applicationName is String ? BSTR.Alloc(applicationName).Value : applicationName
         assemblyName := assemblyName is String ? BSTR.Alloc(assemblyName).Value : assemblyName
 
-        result := ComCall(7, this, "ptr", applicationDir, "ptr", applicationName, "ptr", assemblyName, "ptr*", pModules, "HRESULT")
+        pModulesMarshal := pModules is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "ptr", applicationDir, "ptr", applicationName, "ptr", assemblyName, pModulesMarshal, pModules, "HRESULT")
         return result
     }
 }

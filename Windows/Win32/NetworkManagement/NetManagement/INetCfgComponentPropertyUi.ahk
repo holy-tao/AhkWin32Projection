@@ -61,9 +61,10 @@ class INetCfgComponentPropertyUi extends IUnknown{
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
         pdwDefPagesMarshal := pdwDefPages is VarRef ? "uint*" : "ptr"
+        pahpspPrivateMarshal := pahpspPrivate is VarRef ? "ptr*" : "ptr"
         pcPagesMarshal := pcPages is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, pdwDefPagesMarshal, pdwDefPages, "ptr*", pahpspPrivate, pcPagesMarshal, pcPages, "ptr", hwndParent, "ptr", pszStartPage, "HRESULT")
+        result := ComCall(5, this, pdwDefPagesMarshal, pdwDefPages, pahpspPrivateMarshal, pahpspPrivate, pcPagesMarshal, pcPages, "ptr", hwndParent, "ptr", pszStartPage, "HRESULT")
         return result
     }
 

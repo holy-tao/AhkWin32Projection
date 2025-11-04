@@ -156,7 +156,9 @@ class IXMLHTTPRequest2 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msxml6/nf-msxml6-ixmlhttprequest2-getallresponseheaders
      */
     GetAllResponseHeaders(ppwszHeaders) {
-        result := ComCall(10, this, "ptr*", ppwszHeaders, "HRESULT")
+        ppwszHeadersMarshal := ppwszHeaders is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(10, this, ppwszHeadersMarshal, ppwszHeaders, "HRESULT")
         return result
     }
 
@@ -175,8 +177,9 @@ class IXMLHTTPRequest2 extends IUnknown{
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
         pcCookiesMarshal := pcCookies is VarRef ? "uint*" : "ptr"
+        ppCookiesMarshal := ppCookies is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(11, this, "ptr", pwszUrl, "ptr", pwszName, "uint", dwFlags, pcCookiesMarshal, pcCookies, "ptr*", ppCookies, "HRESULT")
+        result := ComCall(11, this, "ptr", pwszUrl, "ptr", pwszName, "uint", dwFlags, pcCookiesMarshal, pcCookies, ppCookiesMarshal, ppCookies, "HRESULT")
         return result
     }
 
@@ -190,7 +193,9 @@ class IXMLHTTPRequest2 extends IUnknown{
     GetResponseHeader(pwszHeader, ppwszValue) {
         pwszHeader := pwszHeader is String ? StrPtr(pwszHeader) : pwszHeader
 
-        result := ComCall(12, this, "ptr", pwszHeader, "ptr*", ppwszValue, "HRESULT")
+        ppwszValueMarshal := ppwszValue is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(12, this, "ptr", pwszHeader, ppwszValueMarshal, ppwszValue, "HRESULT")
         return result
     }
 }

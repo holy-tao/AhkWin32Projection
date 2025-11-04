@@ -117,9 +117,10 @@ class IMFContentDecryptionModule extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfcontentdecryptionmodule/nf-mfcontentdecryptionmodule-imfcontentdecryptionmodule-getprotectionsystemids
      */
     GetProtectionSystemIds(systemIds, count) {
+        systemIdsMarshal := systemIds is VarRef ? "ptr*" : "ptr"
         countMarshal := count is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "ptr*", systemIds, countMarshal, count, "HRESULT")
+        result := ComCall(9, this, systemIdsMarshal, systemIds, countMarshal, count, "HRESULT")
         return result
     }
 }

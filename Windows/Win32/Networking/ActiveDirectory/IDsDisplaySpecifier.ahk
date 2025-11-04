@@ -71,7 +71,9 @@ class IDsDisplaySpecifier extends IUnknown{
     GetDisplaySpecifier(pszObjectClass, riid, ppv) {
         pszObjectClass := pszObjectClass is String ? StrPtr(pszObjectClass) : pszObjectClass
 
-        result := ComCall(5, this, "ptr", pszObjectClass, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pszObjectClass, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -171,7 +173,9 @@ class IDsDisplaySpecifier extends IUnknown{
     GetClassCreationInfo(pszObjectClass, ppdscci) {
         pszObjectClass := pszObjectClass is String ? StrPtr(pszObjectClass) : pszObjectClass
 
-        result := ComCall(11, this, "ptr", pszObjectClass, "ptr*", ppdscci, "HRESULT")
+        ppdscciMarshal := ppdscci is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(11, this, "ptr", pszObjectClass, ppdscciMarshal, ppdscci, "HRESULT")
         return result
     }
 

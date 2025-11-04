@@ -36,7 +36,9 @@ class ID3DShaderCacheInstallerFactory extends IUnknown{
      * @returns {HRESULT} 
      */
     CreateInstaller(pClient, riid, ppvInstaller) {
-        result := ComCall(3, this, "ptr", pClient, "ptr", riid, "ptr*", ppvInstaller, "HRESULT")
+        ppvInstallerMarshal := ppvInstaller is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pClient, "ptr", riid, ppvInstallerMarshal, ppvInstaller, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class ID3DShaderCacheInstallerFactory extends IUnknown{
      * @returns {HRESULT} 
      */
     CreateExplorer(pUnknown, riid, ppvExplorer) {
-        result := ComCall(4, this, "ptr", pUnknown, "ptr", riid, "ptr*", ppvExplorer, "HRESULT")
+        ppvExplorerMarshal := ppvExplorer is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pUnknown, "ptr", riid, ppvExplorerMarshal, ppvExplorer, "HRESULT")
         return result
     }
 }

@@ -37,8 +37,9 @@ class INetCfgComponentUpperEdge extends IUnknown{
      */
     GetInterfaceIdsForAdapter(pAdapter, pdwNumInterfaces, ppguidInterfaceIds) {
         pdwNumInterfacesMarshal := pdwNumInterfaces is VarRef ? "uint*" : "ptr"
+        ppguidInterfaceIdsMarshal := ppguidInterfaceIds is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pAdapter, pdwNumInterfacesMarshal, pdwNumInterfaces, "ptr*", ppguidInterfaceIds, "HRESULT")
+        result := ComCall(3, this, "ptr", pAdapter, pdwNumInterfacesMarshal, pdwNumInterfaces, ppguidInterfaceIdsMarshal, ppguidInterfaceIds, "HRESULT")
         return result
     }
 

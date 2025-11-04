@@ -47,7 +47,9 @@ class IVMRSurface extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrsurface-locksurface
      */
     LockSurface(lpSurface) {
-        result := ComCall(4, this, "ptr*", lpSurface, "HRESULT")
+        lpSurfaceMarshal := lpSurface is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, lpSurfaceMarshal, lpSurface, "HRESULT")
         return result
     }
 

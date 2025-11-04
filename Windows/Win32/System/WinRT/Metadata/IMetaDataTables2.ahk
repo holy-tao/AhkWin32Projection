@@ -38,9 +38,10 @@ class IMetaDataTables2 extends IMetaDataTables{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables2-getmetadatastorage
      */
     GetMetaDataStorage(ppvMd, pcbMd) {
+        ppvMdMarshal := ppvMd is VarRef ? "ptr*" : "ptr"
         pcbMdMarshal := pcbMd is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(22, this, "ptr*", ppvMd, pcbMdMarshal, pcbMd, "HRESULT")
+        result := ComCall(22, this, ppvMdMarshal, ppvMd, pcbMdMarshal, pcbMd, "HRESULT")
         return result
     }
 
@@ -54,9 +55,11 @@ class IMetaDataTables2 extends IMetaDataTables{
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables2-getmetadatastreaminfo
      */
     GetMetaDataStreamInfo(ix, ppchName, ppv, pcb) {
+        ppchNameMarshal := ppchName is VarRef ? "ptr*" : "ptr"
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
         pcbMarshal := pcb is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(23, this, "uint", ix, "ptr*", ppchName, "ptr*", ppv, pcbMarshal, pcb, "HRESULT")
+        result := ComCall(23, this, "uint", ix, ppchNameMarshal, ppchName, ppvMarshal, ppv, pcbMarshal, pcb, "HRESULT")
         return result
     }
 }

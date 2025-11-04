@@ -41,7 +41,9 @@ class IVssHardwareSnapshotProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivsshardwaresnapshotprovider-arelunssupported
      */
     AreLunsSupported(lLunCount, lContext, rgwszDevices, pLunInformation, pbIsSupported) {
-        result := ComCall(3, this, "int", lLunCount, "int", lContext, "ptr*", rgwszDevices, "ptr", pLunInformation, "ptr", pbIsSupported, "HRESULT")
+        rgwszDevicesMarshal := rgwszDevices is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "int", lLunCount, "int", lContext, rgwszDevicesMarshal, rgwszDevices, "ptr", pLunInformation, "ptr", pbIsSupported, "HRESULT")
         return result
     }
 
@@ -72,7 +74,9 @@ class IVssHardwareSnapshotProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivsshardwaresnapshotprovider-beginpreparesnapshot
      */
     BeginPrepareSnapshot(SnapshotSetId, SnapshotId, lContext, lLunCount, rgDeviceNames, rgLunInformation) {
-        result := ComCall(5, this, "ptr", SnapshotSetId, "ptr", SnapshotId, "int", lContext, "int", lLunCount, "ptr*", rgDeviceNames, "ptr", rgLunInformation, "HRESULT")
+        rgDeviceNamesMarshal := rgDeviceNames is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ptr", SnapshotSetId, "ptr", SnapshotId, "int", lContext, "int", lLunCount, rgDeviceNamesMarshal, rgDeviceNames, "ptr", rgLunInformation, "HRESULT")
         return result
     }
 
@@ -86,7 +90,9 @@ class IVssHardwareSnapshotProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivsshardwaresnapshotprovider-gettargetluns
      */
     GetTargetLuns(lLunCount, rgDeviceNames, rgSourceLuns, rgDestinationLuns) {
-        result := ComCall(6, this, "int", lLunCount, "ptr*", rgDeviceNames, "ptr", rgSourceLuns, "ptr", rgDestinationLuns, "HRESULT")
+        rgDeviceNamesMarshal := rgDeviceNames is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "int", lLunCount, rgDeviceNamesMarshal, rgDeviceNames, "ptr", rgSourceLuns, "ptr", rgDestinationLuns, "HRESULT")
         return result
     }
 

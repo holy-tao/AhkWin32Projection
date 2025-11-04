@@ -127,8 +127,9 @@ class IWiaItem2 extends IUnknown{
         bstrFilename := bstrFilename is String ? BSTR.Alloc(bstrFilename).Value : bstrFilename
 
         plNumFilesMarshal := plNumFiles is VarRef ? "int*" : "ptr"
+        ppbstrFilePathsMarshal := ppbstrFilePaths is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(9, this, "int", lFlags, "ptr", hwndParent, "ptr", bstrFolderName, "ptr", bstrFilename, plNumFilesMarshal, plNumFiles, "ptr*", ppbstrFilePaths, "ptr*", ppItem, "HRESULT")
+        result := ComCall(9, this, "int", lFlags, "ptr", hwndParent, "ptr", bstrFolderName, "ptr", bstrFilename, plNumFilesMarshal, plNumFiles, ppbstrFilePathsMarshal, ppbstrFilePaths, "ptr*", ppItem, "HRESULT")
         return result
     }
 
@@ -185,7 +186,9 @@ class IWiaItem2 extends IUnknown{
     GetExtension(lFlags, bstrName, riidExtensionInterface, ppOut) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(13, this, "int", lFlags, "ptr", bstrName, "ptr", riidExtensionInterface, "ptr*", ppOut, "HRESULT")
+        ppOutMarshal := ppOut is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(13, this, "int", lFlags, "ptr", bstrName, "ptr", riidExtensionInterface, ppOutMarshal, ppOut, "HRESULT")
         return result
     }
 

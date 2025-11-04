@@ -95,9 +95,10 @@ class IWMSecureChannel extends IWMAuthorizer{
      * @see https://learn.microsoft.com/windows/win32/api/wmsecure/nf-wmsecure-iwmsecurechannel-wmsc_getvalidcertificate
      */
     WMSC_GetValidCertificate(ppbCertificate, pdwSignature) {
+        ppbCertificateMarshal := ppbCertificate is VarRef ? "ptr*" : "ptr"
         pdwSignatureMarshal := pdwSignature is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "ptr*", ppbCertificate, pdwSignatureMarshal, pdwSignature, "HRESULT")
+        result := ComCall(11, this, ppbCertificateMarshal, ppbCertificate, pdwSignatureMarshal, pdwSignature, "HRESULT")
         return result
     }
 

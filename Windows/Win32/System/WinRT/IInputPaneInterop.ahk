@@ -66,7 +66,9 @@ class IInputPaneInterop extends IInspectable{
     GetForWindow(appWindow, riid, inputPane) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
 
-        result := ComCall(6, this, "ptr", appWindow, "ptr", riid, "ptr*", inputPane, "HRESULT")
+        inputPaneMarshal := inputPane is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "ptr", appWindow, "ptr", riid, inputPaneMarshal, inputPane, "HRESULT")
         return result
     }
 }

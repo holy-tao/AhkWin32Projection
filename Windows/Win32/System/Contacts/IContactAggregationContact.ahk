@@ -179,7 +179,9 @@ class IContactAggregationContact extends IUnknown{
      * @returns {HRESULT} 
      */
     get_RemoteObjectId(ppRemoteObjectId) {
-        result := ComCall(17, this, "ptr*", ppRemoteObjectId, "HRESULT")
+        ppRemoteObjectIdMarshal := ppRemoteObjectId is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(17, this, ppRemoteObjectIdMarshal, ppRemoteObjectId, "HRESULT")
         return result
     }
 
@@ -199,7 +201,9 @@ class IContactAggregationContact extends IUnknown{
      * @returns {HRESULT} 
      */
     get_SyncIdentityHash(ppSyncIdentityHash) {
-        result := ComCall(19, this, "ptr*", ppSyncIdentityHash, "HRESULT")
+        ppSyncIdentityHashMarshal := ppSyncIdentityHash is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(19, this, ppSyncIdentityHashMarshal, ppSyncIdentityHash, "HRESULT")
         return result
     }
 

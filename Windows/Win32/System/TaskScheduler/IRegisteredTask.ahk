@@ -251,8 +251,9 @@ class IRegisteredTask extends IDispatch{
      */
     GetRunTimes(pstStart, pstEnd, pCount, pRunTimes) {
         pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+        pRunTimesMarshal := pRunTimes is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(24, this, "ptr", pstStart, "ptr", pstEnd, pCountMarshal, pCount, "ptr*", pRunTimes, "HRESULT")
+        result := ComCall(24, this, "ptr", pstStart, "ptr", pstEnd, pCountMarshal, pCount, pRunTimesMarshal, pRunTimes, "HRESULT")
         return result
     }
 }

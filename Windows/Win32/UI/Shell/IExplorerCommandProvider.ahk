@@ -45,7 +45,9 @@ class IExplorerCommandProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorercommandprovider-getcommands
      */
     GetCommands(punkSite, riid, ppv) {
-        result := ComCall(3, this, "ptr", punkSite, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", punkSite, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -58,7 +60,9 @@ class IExplorerCommandProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorercommandprovider-getcommand
      */
     GetCommand(rguidCommandId, riid, ppv) {
-        result := ComCall(4, this, "ptr", rguidCommandId, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", rguidCommandId, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 }

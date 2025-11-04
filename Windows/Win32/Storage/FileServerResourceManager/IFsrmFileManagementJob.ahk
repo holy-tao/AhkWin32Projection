@@ -94,7 +94,9 @@ class IFsrmFileManagementJob extends IFsrmObject{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_namespaceroots
      */
     get_NamespaceRoots(namespaceRoots) {
-        result := ComCall(14, this, "ptr*", namespaceRoots, "HRESULT")
+        namespaceRootsMarshal := namespaceRoots is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(14, this, namespaceRootsMarshal, namespaceRoots, "HRESULT")
         return result
     }
 
@@ -197,7 +199,9 @@ class IFsrmFileManagementJob extends IFsrmObject{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_notifications
      */
     get_Notifications(notifications) {
-        result := ComCall(23, this, "ptr*", notifications, "HRESULT")
+        notificationsMarshal := notifications is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(23, this, notificationsMarshal, notifications, "HRESULT")
         return result
     }
 
@@ -254,7 +258,9 @@ class IFsrmFileManagementJob extends IFsrmObject{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_formats
      */
     get_Formats(formats) {
-        result := ComCall(28, this, "ptr*", formats, "HRESULT")
+        formatsMarshal := formats is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(28, this, formatsMarshal, formats, "HRESULT")
         return result
     }
 
@@ -431,7 +437,9 @@ class IFsrmFileManagementJob extends IFsrmObject{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_parameters
      */
     get_Parameters(parameters) {
-        result := ComCall(43, this, "ptr*", parameters, "HRESULT")
+        parametersMarshal := parameters is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(43, this, parametersMarshal, parameters, "HRESULT")
         return result
     }
 

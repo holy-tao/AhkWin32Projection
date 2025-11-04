@@ -314,7 +314,9 @@ class ITextHost extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txgetcharformat
      */
     TxGetCharFormat(ppCF) {
-        result := ComCall(26, this, "ptr*", ppCF, "HRESULT")
+        ppCFMarshal := ppCF is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(26, this, ppCFMarshal, ppCF, "HRESULT")
         return result
     }
 
@@ -325,7 +327,9 @@ class ITextHost extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost-txgetparaformat
      */
     TxGetParaFormat(ppPF) {
-        result := ComCall(27, this, "ptr*", ppPF, "HRESULT")
+        ppPFMarshal := ppPF is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(27, this, ppPFMarshal, ppPF, "HRESULT")
         return result
     }
 

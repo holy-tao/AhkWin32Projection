@@ -66,7 +66,9 @@ class IShellLinkA extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinka-getidlist
      */
     GetIDList(ppidl) {
-        result := ComCall(4, this, "ptr*", ppidl, "HRESULT")
+        ppidlMarshal := ppidl is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, ppidlMarshal, ppidl, "HRESULT")
         return result
     }
 

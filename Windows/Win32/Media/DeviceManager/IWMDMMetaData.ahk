@@ -61,9 +61,10 @@ class IWMDMMetaData extends IUnknown{
         pwszTagName := pwszTagName is String ? StrPtr(pwszTagName) : pwszTagName
 
         pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "ptr*" : "ptr"
         pcbLengthMarshal := pcbLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pwszTagName, pTypeMarshal, pType, "ptr*", pValue, pcbLengthMarshal, pcbLength, "HRESULT")
+        result := ComCall(4, this, "ptr", pwszTagName, pTypeMarshal, pType, pValueMarshal, pValue, pcbLengthMarshal, pcbLength, "HRESULT")
         return result
     }
 
@@ -78,10 +79,12 @@ class IWMDMMetaData extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmmetadata-querybyindex
      */
     QueryByIndex(iIndex, ppwszName, pType, ppValue, pcbLength) {
+        ppwszNameMarshal := ppwszName is VarRef ? "ptr*" : "ptr"
         pTypeMarshal := pType is VarRef ? "int*" : "ptr"
+        ppValueMarshal := ppValue is VarRef ? "ptr*" : "ptr"
         pcbLengthMarshal := pcbLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", iIndex, "ptr*", ppwszName, pTypeMarshal, pType, "ptr*", ppValue, pcbLengthMarshal, pcbLength, "HRESULT")
+        result := ComCall(5, this, "uint", iIndex, ppwszNameMarshal, ppwszName, pTypeMarshal, pType, ppValueMarshal, ppValue, pcbLengthMarshal, pcbLength, "HRESULT")
         return result
     }
 

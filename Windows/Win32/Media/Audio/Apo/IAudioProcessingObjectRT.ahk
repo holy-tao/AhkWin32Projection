@@ -40,7 +40,10 @@ class IAudioProcessingObjectRT extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nf-audioenginebaseapo-iaudioprocessingobjectrt-apoprocess
      */
     APOProcess(u32NumInputConnections, ppInputConnections, u32NumOutputConnections, ppOutputConnections) {
-        ComCall(3, this, "uint", u32NumInputConnections, "ptr*", ppInputConnections, "uint", u32NumOutputConnections, "ptr*", ppOutputConnections)
+        ppInputConnectionsMarshal := ppInputConnections is VarRef ? "ptr*" : "ptr"
+        ppOutputConnectionsMarshal := ppOutputConnections is VarRef ? "ptr*" : "ptr"
+
+        ComCall(3, this, "uint", u32NumInputConnections, ppInputConnectionsMarshal, ppInputConnections, "uint", u32NumOutputConnections, ppOutputConnectionsMarshal, ppOutputConnections)
     }
 
     /**

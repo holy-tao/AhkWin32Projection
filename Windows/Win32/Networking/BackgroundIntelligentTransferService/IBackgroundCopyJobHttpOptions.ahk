@@ -84,8 +84,9 @@ class IBackgroundCopyJobHttpOptions extends IUnknown{
      */
     GetClientCertificate(pStoreLocation, pStoreName, ppCertHashBlob, pSubjectName) {
         pStoreLocationMarshal := pStoreLocation is VarRef ? "int*" : "ptr"
+        ppCertHashBlobMarshal := ppCertHashBlob is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, pStoreLocationMarshal, pStoreLocation, "ptr", pStoreName, "ptr*", ppCertHashBlob, "ptr", pSubjectName, "HRESULT")
+        result := ComCall(6, this, pStoreLocationMarshal, pStoreLocation, "ptr", pStoreName, ppCertHashBlobMarshal, ppCertHashBlob, "ptr", pSubjectName, "HRESULT")
         return result
     }
 

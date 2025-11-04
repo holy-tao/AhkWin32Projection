@@ -361,7 +361,9 @@ class ID2D1SvgElement extends ID2D1Resource{
     GetAttributeValue(name, riid, value) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(30, this, "ptr", name, "ptr", riid, "ptr*", value, "HRESULT")
+        valueMarshal := value is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(30, this, "ptr", name, "ptr", riid, valueMarshal, value, "HRESULT")
         return result
     }
 

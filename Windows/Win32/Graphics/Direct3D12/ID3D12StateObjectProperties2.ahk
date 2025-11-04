@@ -38,7 +38,9 @@ class ID3D12StateObjectProperties2 extends ID3D12StateObjectProperties1{
     GetGlobalRootSignatureForProgram(pProgramName, riid, ppvRootSignature) {
         pProgramName := pProgramName is String ? StrPtr(pProgramName) : pProgramName
 
-        result := ComCall(8, this, "ptr", pProgramName, "ptr", riid, "ptr*", ppvRootSignature, "HRESULT")
+        ppvRootSignatureMarshal := ppvRootSignature is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(8, this, "ptr", pProgramName, "ptr", riid, ppvRootSignatureMarshal, ppvRootSignature, "HRESULT")
         return result
     }
 
@@ -52,7 +54,9 @@ class ID3D12StateObjectProperties2 extends ID3D12StateObjectProperties1{
     GetGlobalRootSignatureForShader(pExportName, riid, ppvRootSignature) {
         pExportName := pExportName is String ? StrPtr(pExportName) : pExportName
 
-        result := ComCall(9, this, "ptr", pExportName, "ptr", riid, "ptr*", ppvRootSignature, "HRESULT")
+        ppvRootSignatureMarshal := ppvRootSignature is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, "ptr", pExportName, "ptr", riid, ppvRootSignatureMarshal, ppvRootSignature, "HRESULT")
         return result
     }
 }

@@ -42,8 +42,9 @@ class IScopedOperations extends IBindResource{
      */
     Copy(cRows, rgpwszSourceURLs, rgpwszDestURLs, dwCopyFlags, pAuthenticate, rgdwStatus, rgpwszNewURLs, ppStringsBuffer) {
         rgdwStatusMarshal := rgdwStatus is VarRef ? "uint*" : "ptr"
+        ppStringsBufferMarshal := ppStringsBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", cRows, "ptr", rgpwszSourceURLs, "ptr", rgpwszDestURLs, "uint", dwCopyFlags, "ptr", pAuthenticate, rgdwStatusMarshal, rgdwStatus, "ptr", rgpwszNewURLs, "ptr*", ppStringsBuffer, "HRESULT")
+        result := ComCall(4, this, "ptr", cRows, "ptr", rgpwszSourceURLs, "ptr", rgpwszDestURLs, "uint", dwCopyFlags, "ptr", pAuthenticate, rgdwStatusMarshal, rgdwStatus, "ptr", rgpwszNewURLs, ppStringsBufferMarshal, ppStringsBuffer, "HRESULT")
         return result
     }
 
@@ -61,8 +62,9 @@ class IScopedOperations extends IBindResource{
      */
     Move(cRows, rgpwszSourceURLs, rgpwszDestURLs, dwMoveFlags, pAuthenticate, rgdwStatus, rgpwszNewURLs, ppStringsBuffer) {
         rgdwStatusMarshal := rgdwStatus is VarRef ? "uint*" : "ptr"
+        ppStringsBufferMarshal := ppStringsBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", cRows, "ptr", rgpwszSourceURLs, "ptr", rgpwszDestURLs, "uint", dwMoveFlags, "ptr", pAuthenticate, rgdwStatusMarshal, rgdwStatus, "ptr", rgpwszNewURLs, "ptr*", ppStringsBuffer, "HRESULT")
+        result := ComCall(5, this, "ptr", cRows, "ptr", rgpwszSourceURLs, "ptr", rgpwszDestURLs, "uint", dwMoveFlags, "ptr", pAuthenticate, rgdwStatusMarshal, rgdwStatus, "ptr", rgpwszNewURLs, ppStringsBufferMarshal, ppStringsBuffer, "HRESULT")
         return result
     }
 

@@ -43,9 +43,10 @@ class IMSVidWebDVD2 extends IMSVidWebDVD{
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidwebdvd2-get_bookmark
      */
     get_Bookmark(ppData, pDataLength) {
+        ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
         pDataLengthMarshal := pDataLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(127, this, "ptr*", ppData, pDataLengthMarshal, pDataLength, "HRESULT")
+        result := ComCall(127, this, ppDataMarshal, ppData, pDataLengthMarshal, pDataLength, "HRESULT")
         return result
     }
 

@@ -4636,7 +4636,9 @@ class Extensions {
     static DebugConnect(RemoteOptions, InterfaceId, Interface) {
         RemoteOptions := RemoteOptions is String ? StrPtr(RemoteOptions) : RemoteOptions
 
-        result := DllCall("dbgeng.dll\DebugConnect", "ptr", RemoteOptions, "ptr", InterfaceId, "ptr*", Interface, "int")
+        InterfaceMarshal := Interface is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("dbgeng.dll\DebugConnect", "ptr", RemoteOptions, "ptr", InterfaceId, InterfaceMarshal, Interface, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4653,7 +4655,9 @@ class Extensions {
     static DebugConnectWide(RemoteOptions, InterfaceId, Interface) {
         RemoteOptions := RemoteOptions is String ? StrPtr(RemoteOptions) : RemoteOptions
 
-        result := DllCall("dbgeng.dll\DebugConnectWide", "ptr", RemoteOptions, "ptr", InterfaceId, "ptr*", Interface, "int")
+        InterfaceMarshal := Interface is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("dbgeng.dll\DebugConnectWide", "ptr", RemoteOptions, "ptr", InterfaceId, InterfaceMarshal, Interface, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4667,7 +4671,9 @@ class Extensions {
      * @returns {HRESULT} 
      */
     static DebugCreate(InterfaceId, Interface) {
-        result := DllCall("dbgeng.dll\DebugCreate", "ptr", InterfaceId, "ptr*", Interface, "int")
+        InterfaceMarshal := Interface is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("dbgeng.dll\DebugCreate", "ptr", InterfaceId, InterfaceMarshal, Interface, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4682,7 +4688,9 @@ class Extensions {
      * @returns {HRESULT} 
      */
     static DebugCreateEx(InterfaceId, DbgEngOptions, Interface) {
-        result := DllCall("dbgeng.dll\DebugCreateEx", "ptr", InterfaceId, "uint", DbgEngOptions, "ptr*", Interface, "int")
+        InterfaceMarshal := Interface is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("dbgeng.dll\DebugCreateEx", "ptr", InterfaceId, "uint", DbgEngOptions, InterfaceMarshal, Interface, "int")
         if(result != 0)
             throw OSError(result)
 

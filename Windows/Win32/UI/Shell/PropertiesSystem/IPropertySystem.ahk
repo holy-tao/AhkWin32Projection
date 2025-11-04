@@ -49,7 +49,9 @@ class IPropertySystem extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertysystem-getpropertydescription
      */
     GetPropertyDescription(propkey, riid, ppv) {
-        result := ComCall(3, this, "ptr", propkey, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", propkey, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -64,7 +66,9 @@ class IPropertySystem extends IUnknown{
     GetPropertyDescriptionByName(pszCanonicalName, riid, ppv) {
         pszCanonicalName := pszCanonicalName is String ? StrPtr(pszCanonicalName) : pszCanonicalName
 
-        result := ComCall(4, this, "ptr", pszCanonicalName, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pszCanonicalName, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -79,7 +83,9 @@ class IPropertySystem extends IUnknown{
     GetPropertyDescriptionListFromString(pszPropList, riid, ppv) {
         pszPropList := pszPropList is String ? StrPtr(pszPropList) : pszPropList
 
-        result := ComCall(5, this, "ptr", pszPropList, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pszPropList, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -92,7 +98,9 @@ class IPropertySystem extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertysystem-enumeratepropertydescriptions
      */
     EnumeratePropertyDescriptions(filterOn, riid, ppv) {
-        result := ComCall(6, this, "int", filterOn, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "int", filterOn, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 

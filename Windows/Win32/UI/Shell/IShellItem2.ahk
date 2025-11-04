@@ -39,7 +39,9 @@ class IShellItem2 extends IShellItem{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem2-getpropertystore
      */
     GetPropertyStore(flags, riid, ppv) {
-        result := ComCall(8, this, "int", flags, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(8, this, "int", flags, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -53,7 +55,9 @@ class IShellItem2 extends IShellItem{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem2-getpropertystorewithcreateobject
      */
     GetPropertyStoreWithCreateObject(flags, punkCreateObject, riid, ppv) {
-        result := ComCall(9, this, "int", flags, "ptr", punkCreateObject, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, "int", flags, "ptr", punkCreateObject, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -68,7 +72,9 @@ class IShellItem2 extends IShellItem{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem2-getpropertystoreforkeys
      */
     GetPropertyStoreForKeys(rgKeys, cKeys, flags, riid, ppv) {
-        result := ComCall(10, this, "ptr", rgKeys, "uint", cKeys, "int", flags, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(10, this, "ptr", rgKeys, "uint", cKeys, "int", flags, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -81,7 +87,9 @@ class IShellItem2 extends IShellItem{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem2-getpropertydescriptionlist
      */
     GetPropertyDescriptionList(keyType, riid, ppv) {
-        result := ComCall(11, this, "ptr", keyType, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(11, this, "ptr", keyType, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 

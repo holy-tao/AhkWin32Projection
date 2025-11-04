@@ -44,8 +44,9 @@ class IMFByteStreamCacheControl2 extends IMFByteStreamCacheControl{
      */
     GetByteRanges(pcRanges, ppRanges) {
         pcRangesMarshal := pcRanges is VarRef ? "uint*" : "ptr"
+        ppRangesMarshal := ppRanges is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, pcRangesMarshal, pcRanges, "ptr*", ppRanges, "HRESULT")
+        result := ComCall(4, this, pcRangesMarshal, pcRanges, ppRangesMarshal, ppRanges, "HRESULT")
         return result
     }
 

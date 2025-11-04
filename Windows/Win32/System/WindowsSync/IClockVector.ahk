@@ -43,7 +43,9 @@ class IClockVector extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-iclockvector-getclockvectorelements
      */
     GetClockVectorElements(riid, ppiEnumClockVector) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", ppiEnumClockVector, "HRESULT")
+        ppiEnumClockVectorMarshal := ppiEnumClockVector is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", riid, ppiEnumClockVectorMarshal, ppiEnumClockVector, "HRESULT")
         return result
     }
 

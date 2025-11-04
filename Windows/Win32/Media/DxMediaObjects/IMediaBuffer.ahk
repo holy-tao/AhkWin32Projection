@@ -62,9 +62,10 @@ class IMediaBuffer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediabuffer-getbufferandlength
      */
     GetBufferAndLength(ppBuffer, pcbLength) {
+        ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
         pcbLengthMarshal := pcbLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr*", ppBuffer, pcbLengthMarshal, pcbLength, "HRESULT")
+        result := ComCall(5, this, ppBufferMarshal, ppBuffer, pcbLengthMarshal, pcbLength, "HRESULT")
         return result
     }
 }

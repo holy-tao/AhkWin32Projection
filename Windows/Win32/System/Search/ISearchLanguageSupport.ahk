@@ -66,9 +66,10 @@ class ISearchLanguageSupport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchlanguagesupport-loadwordbreaker
      */
     LoadWordBreaker(lcid, riid, ppWordBreaker, pLcidUsed) {
+        ppWordBreakerMarshal := ppWordBreaker is VarRef ? "ptr*" : "ptr"
         pLcidUsedMarshal := pLcidUsed is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", lcid, "ptr", riid, "ptr*", ppWordBreaker, pLcidUsedMarshal, pLcidUsed, "HRESULT")
+        result := ComCall(5, this, "uint", lcid, "ptr", riid, ppWordBreakerMarshal, ppWordBreaker, pLcidUsedMarshal, pLcidUsed, "HRESULT")
         return result
     }
 
@@ -82,9 +83,10 @@ class ISearchLanguageSupport extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchlanguagesupport-loadstemmer
      */
     LoadStemmer(lcid, riid, ppStemmer, pLcidUsed) {
+        ppStemmerMarshal := ppStemmer is VarRef ? "ptr*" : "ptr"
         pLcidUsedMarshal := pLcidUsed is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "uint", lcid, "ptr", riid, "ptr*", ppStemmer, pLcidUsedMarshal, pLcidUsed, "HRESULT")
+        result := ComCall(6, this, "uint", lcid, "ptr", riid, ppStemmerMarshal, ppStemmer, pLcidUsedMarshal, pLcidUsed, "HRESULT")
         return result
     }
 

@@ -118,8 +118,9 @@ class ITsSbResourcePluginStore extends IUnknown{
      */
     EnumerateFarms(pdwCount, pVal) {
         pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+        pValMarshal := pVal is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(9, this, pdwCountMarshal, pdwCount, "ptr*", pVal, "HRESULT")
+        result := ComCall(9, this, pdwCountMarshal, pdwCount, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -146,8 +147,9 @@ class ITsSbResourcePluginStore extends IUnknown{
      */
     EnumerateEnvironments(pdwCount, pVal) {
         pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+        pValMarshal := pVal is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(11, this, pdwCountMarshal, pdwCount, "ptr*", pVal, "HRESULT")
+        result := ComCall(11, this, pdwCountMarshal, pdwCount, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -263,8 +265,9 @@ class ITsSbResourcePluginStore extends IUnknown{
         sortyByPropName := sortyByPropName is String ? BSTR.Alloc(sortyByPropName).Value : sortyByPropName
 
         pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+        pValMarshal := pVal is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(19, this, "ptr", FarmName, "ptr", EnvName, "int", sortByFieldId, "ptr", sortyByPropName, pdwCountMarshal, pdwCount, "ptr*", pVal, "HRESULT")
+        result := ComCall(19, this, "ptr", FarmName, "ptr", EnvName, "int", sortByFieldId, "ptr", sortyByPropName, pdwCountMarshal, pdwCount, pValMarshal, pVal, "HRESULT")
         return result
     }
 
@@ -290,8 +293,9 @@ class ITsSbResourcePluginStore extends IUnknown{
 
         pSessionStateMarshal := pSessionState is VarRef ? "int*" : "ptr"
         pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
+        ppValMarshal := ppVal is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(20, this, "ptr", targetName, "ptr", userName, "ptr", userDomain, "ptr", poolName, "ptr", initialProgram, pSessionStateMarshal, pSessionState, pdwCountMarshal, pdwCount, "ptr*", ppVal, "HRESULT")
+        result := ComCall(20, this, "ptr", targetName, "ptr", userName, "ptr", userDomain, "ptr", poolName, "ptr", initialProgram, pSessionStateMarshal, pSessionState, pdwCountMarshal, pdwCount, ppValMarshal, ppVal, "HRESULT")
         return result
     }
 

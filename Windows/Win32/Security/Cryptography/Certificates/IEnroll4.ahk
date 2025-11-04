@@ -239,7 +239,9 @@ class IEnroll4 extends IEnroll2{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll4-getcertcontextfromresponseblob
      */
     getCertContextFromResponseBlob(pblobResponse, ppCertContext) {
-        result := ComCall(106, this, "ptr", pblobResponse, "ptr*", ppCertContext, "HRESULT")
+        ppCertContextMarshal := ppCertContext is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(106, this, "ptr", pblobResponse, ppCertContextMarshal, ppCertContext, "HRESULT")
         return result
     }
 
@@ -253,7 +255,9 @@ class IEnroll4 extends IEnroll2{
     getCertContextFromFileResponseWStr(pwszResponseFileName, ppCertContext) {
         pwszResponseFileName := pwszResponseFileName is String ? StrPtr(pwszResponseFileName) : pwszResponseFileName
 
-        result := ComCall(107, this, "ptr", pwszResponseFileName, "ptr*", ppCertContext, "HRESULT")
+        ppCertContextMarshal := ppCertContext is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(107, this, "ptr", pwszResponseFileName, ppCertContextMarshal, ppCertContext, "HRESULT")
         return result
     }
 

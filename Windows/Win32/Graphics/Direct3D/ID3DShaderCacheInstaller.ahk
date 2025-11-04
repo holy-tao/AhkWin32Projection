@@ -81,7 +81,9 @@ class ID3DShaderCacheInstaller extends IUnknown{
     RegisterApplication(pExePath, pApplicationDesc, riid, ppvApp) {
         pExePath := pExePath is String ? StrPtr(pExePath) : pExePath
 
-        result := ComCall(7, this, "ptr", pExePath, "ptr", pApplicationDesc, "ptr", riid, "ptr*", ppvApp, "HRESULT")
+        ppvAppMarshal := ppvApp is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pExePath, "ptr", pApplicationDesc, "ptr", riid, ppvAppMarshal, ppvApp, "HRESULT")
         return result
     }
 
@@ -112,7 +114,9 @@ class ID3DShaderCacheInstaller extends IUnknown{
      * @returns {HRESULT} 
      */
     GetApplication(index, riid, ppvApp) {
-        result := ComCall(10, this, "uint", index, "ptr", riid, "ptr*", ppvApp, "HRESULT")
+        ppvAppMarshal := ppvApp is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(10, this, "uint", index, "ptr", riid, ppvAppMarshal, ppvApp, "HRESULT")
         return result
     }
 

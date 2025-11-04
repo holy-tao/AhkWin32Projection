@@ -83,7 +83,9 @@ class IDXGISwapChain1 extends IDXGISwapChain{
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgiswapchain1-getcorewindow
      */
     GetCoreWindow(refiid, ppUnk) {
-        result := ComCall(21, this, "ptr", refiid, "ptr*", ppUnk, "HRESULT")
+        ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(21, this, "ptr", refiid, ppUnkMarshal, ppUnk, "HRESULT")
         return result
     }
 

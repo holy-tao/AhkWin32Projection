@@ -50,8 +50,10 @@ class IDBInfo extends IUnknown{
     GetLiteralInfo(cLiterals, rgLiterals, pcLiteralInfo, prgLiteralInfo, ppCharBuffer) {
         rgLiteralsMarshal := rgLiterals is VarRef ? "uint*" : "ptr"
         pcLiteralInfoMarshal := pcLiteralInfo is VarRef ? "uint*" : "ptr"
+        prgLiteralInfoMarshal := prgLiteralInfo is VarRef ? "ptr*" : "ptr"
+        ppCharBufferMarshal := ppCharBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", cLiterals, rgLiteralsMarshal, rgLiterals, pcLiteralInfoMarshal, pcLiteralInfo, "ptr*", prgLiteralInfo, "ptr*", ppCharBuffer, "HRESULT")
+        result := ComCall(4, this, "uint", cLiterals, rgLiteralsMarshal, rgLiterals, pcLiteralInfoMarshal, pcLiteralInfo, prgLiteralInfoMarshal, prgLiteralInfo, ppCharBufferMarshal, ppCharBuffer, "HRESULT")
         return result
     }
 }

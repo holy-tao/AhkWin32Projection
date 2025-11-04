@@ -3554,7 +3554,9 @@ class ActiveDirectory {
     static ADsGetObject(lpszPathName, riid, ppObject) {
         lpszPathName := lpszPathName is String ? StrPtr(lpszPathName) : lpszPathName
 
-        result := DllCall("ACTIVEDS.dll\ADsGetObject", "ptr", lpszPathName, "ptr", riid, "ptr*", ppObject, "int")
+        ppObjectMarshal := ppObject is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("ACTIVEDS.dll\ADsGetObject", "ptr", lpszPathName, "ptr", riid, ppObjectMarshal, ppObject, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -3723,7 +3725,9 @@ class ActiveDirectory {
         lpszUserName := lpszUserName is String ? StrPtr(lpszUserName) : lpszUserName
         lpszPassword := lpszPassword is String ? StrPtr(lpszPassword) : lpszPassword
 
-        result := DllCall("ACTIVEDS.dll\ADsOpenObject", "ptr", lpszPathName, "ptr", lpszUserName, "ptr", lpszPassword, "uint", dwReserved, "ptr", riid, "ptr*", ppObject, "int")
+        ppObjectMarshal := ppObject is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("ACTIVEDS.dll\ADsOpenObject", "ptr", lpszPathName, "ptr", lpszUserName, "ptr", lpszPassword, "uint", dwReserved, "ptr", riid, ppObjectMarshal, ppObject, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4009,9 +4013,10 @@ class ActiveDirectory {
     static ADsDecodeBinaryData(szSrcData, ppbDestData, pdwDestLen) {
         szSrcData := szSrcData is String ? StrPtr(szSrcData) : szSrcData
 
+        ppbDestDataMarshal := ppbDestData is VarRef ? "ptr*" : "ptr"
         pdwDestLenMarshal := pdwDestLen is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ACTIVEDS.dll\ADsDecodeBinaryData", "ptr", szSrcData, "ptr*", ppbDestData, pdwDestLenMarshal, pdwDestLen, "int")
+        result := DllCall("ACTIVEDS.dll\ADsDecodeBinaryData", "ptr", szSrcData, ppbDestDataMarshal, ppbDestData, pdwDestLenMarshal, pdwDestLen, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4027,9 +4032,10 @@ class ActiveDirectory {
      * @returns {HRESULT} 
      */
     static PropVariantToAdsType(pVariant, dwNumVariant, ppAdsValues, pdwNumValues) {
+        ppAdsValuesMarshal := ppAdsValues is VarRef ? "ptr*" : "ptr"
         pdwNumValuesMarshal := pdwNumValues is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ACTIVEDS.dll\PropVariantToAdsType", "ptr", pVariant, "uint", dwNumVariant, "ptr*", ppAdsValues, pdwNumValuesMarshal, pdwNumValues, "int")
+        result := DllCall("ACTIVEDS.dll\PropVariantToAdsType", "ptr", pVariant, "uint", dwNumVariant, ppAdsValuesMarshal, ppAdsValues, pdwNumValuesMarshal, pdwNumValues, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5221,7 +5227,9 @@ class ActiveDirectory {
         Domain := Domain is String ? StrPtr(Domain) : Domain
         Password := Password is String ? StrPtr(Password) : Password
 
-        result := DllCall("NTDSAPI.dll\DsMakePasswordCredentialsW", "ptr", User, "ptr", Domain, "ptr", Password, "ptr*", pAuthIdentity, "uint")
+        pAuthIdentityMarshal := pAuthIdentity is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NTDSAPI.dll\DsMakePasswordCredentialsW", "ptr", User, "ptr", Domain, "ptr", Password, pAuthIdentityMarshal, pAuthIdentity, "uint")
         return result
     }
 
@@ -5241,7 +5249,9 @@ class ActiveDirectory {
         Domain := Domain is String ? StrPtr(Domain) : Domain
         Password := Password is String ? StrPtr(Password) : Password
 
-        result := DllCall("NTDSAPI.dll\DsMakePasswordCredentialsA", "ptr", User, "ptr", Domain, "ptr", Password, "ptr*", pAuthIdentity, "uint")
+        pAuthIdentityMarshal := pAuthIdentity is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NTDSAPI.dll\DsMakePasswordCredentialsA", "ptr", User, "ptr", Domain, "ptr", Password, pAuthIdentityMarshal, pAuthIdentity, "uint")
         return result
     }
 
@@ -5286,7 +5296,9 @@ class ActiveDirectory {
     static DsCrackNamesW(hDS, flags, formatOffered, formatDesired, cNames, rpNames, ppResult) {
         hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
 
-        result := DllCall("NTDSAPI.dll\DsCrackNamesW", "ptr", hDS, "int", flags, "int", formatOffered, "int", formatDesired, "uint", cNames, "ptr", rpNames, "ptr*", ppResult, "uint")
+        ppResultMarshal := ppResult is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NTDSAPI.dll\DsCrackNamesW", "ptr", hDS, "int", flags, "int", formatOffered, "int", formatDesired, "uint", cNames, "ptr", rpNames, ppResultMarshal, ppResult, "uint")
         return result
     }
 
@@ -5318,7 +5330,9 @@ class ActiveDirectory {
     static DsCrackNamesA(hDS, flags, formatOffered, formatDesired, cNames, rpNames, ppResult) {
         hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
 
-        result := DllCall("NTDSAPI.dll\DsCrackNamesA", "ptr", hDS, "int", flags, "int", formatOffered, "int", formatDesired, "uint", cNames, "ptr", rpNames, "ptr*", ppResult, "uint")
+        ppResultMarshal := ppResult is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NTDSAPI.dll\DsCrackNamesA", "ptr", hDS, "int", flags, "int", formatOffered, "int", formatDesired, "uint", cNames, "ptr", rpNames, ppResultMarshal, ppResult, "uint")
         return result
     }
 
@@ -5378,8 +5392,9 @@ class ActiveDirectory {
 
         pInstancePortsMarshal := pInstancePorts is VarRef ? "ushort*" : "ptr"
         pcSpnMarshal := pcSpn is VarRef ? "uint*" : "ptr"
+        prpszSpnMarshal := prpszSpn is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("NTDSAPI.dll\DsGetSpnA", "int", ServiceType, "ptr", ServiceClass, "ptr", ServiceName, "ushort", InstancePort, "ushort", cInstanceNames, "ptr", pInstanceNames, pInstancePortsMarshal, pInstancePorts, pcSpnMarshal, pcSpn, "ptr*", prpszSpn, "uint")
+        result := DllCall("NTDSAPI.dll\DsGetSpnA", "int", ServiceType, "ptr", ServiceClass, "ptr", ServiceName, "ushort", InstancePort, "ushort", cInstanceNames, "ptr", pInstanceNames, pInstancePortsMarshal, pInstancePorts, pcSpnMarshal, pcSpn, prpszSpnMarshal, prpszSpn, "uint")
         return result
     }
 
@@ -5407,8 +5422,9 @@ class ActiveDirectory {
 
         pInstancePortsMarshal := pInstancePorts is VarRef ? "ushort*" : "ptr"
         pcSpnMarshal := pcSpn is VarRef ? "uint*" : "ptr"
+        prpszSpnMarshal := prpszSpn is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("NTDSAPI.dll\DsGetSpnW", "int", ServiceType, "ptr", ServiceClass, "ptr", ServiceName, "ushort", InstancePort, "ushort", cInstanceNames, "ptr", pInstanceNames, pInstancePortsMarshal, pInstancePorts, pcSpnMarshal, pcSpn, "ptr*", prpszSpn, "uint")
+        result := DllCall("NTDSAPI.dll\DsGetSpnW", "int", ServiceType, "ptr", ServiceClass, "ptr", ServiceName, "ushort", InstancePort, "ushort", cInstanceNames, "ptr", pInstanceNames, pInstancePortsMarshal, pInstancePorts, pcSpnMarshal, pcSpn, prpszSpnMarshal, prpszSpn, "uint")
         return result
     }
 
@@ -5843,8 +5859,9 @@ class ActiveDirectory {
         pszNameContext := pszNameContext is String ? StrPtr(pszNameContext) : pszNameContext
 
         pCallbackDataMarshal := pCallbackData is VarRef ? "ptr" : "ptr"
+        pErrorsMarshal := pErrors is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("NTDSAPI.dll\DsReplicaSyncAllA", "ptr", hDS, "ptr", pszNameContext, "uint", ulFlags, "ptr", pFnCallBack, pCallbackDataMarshal, pCallbackData, "ptr*", pErrors, "uint")
+        result := DllCall("NTDSAPI.dll\DsReplicaSyncAllA", "ptr", hDS, "ptr", pszNameContext, "uint", ulFlags, "ptr", pFnCallBack, pCallbackDataMarshal, pCallbackData, pErrorsMarshal, pErrors, "uint")
         return result
     }
 
@@ -5870,8 +5887,9 @@ class ActiveDirectory {
         pszNameContext := pszNameContext is String ? StrPtr(pszNameContext) : pszNameContext
 
         pCallbackDataMarshal := pCallbackData is VarRef ? "ptr" : "ptr"
+        pErrorsMarshal := pErrors is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("NTDSAPI.dll\DsReplicaSyncAllW", "ptr", hDS, "ptr", pszNameContext, "uint", ulFlags, "ptr", pFnCallBack, pCallbackDataMarshal, pCallbackData, "ptr*", pErrors, "uint")
+        result := DllCall("NTDSAPI.dll\DsReplicaSyncAllW", "ptr", hDS, "ptr", pszNameContext, "uint", ulFlags, "ptr", pFnCallBack, pCallbackDataMarshal, pCallbackData, pErrorsMarshal, pErrors, "uint")
         return result
     }
 
@@ -5969,7 +5987,9 @@ class ActiveDirectory {
     static DsListSitesA(hDs, ppSites) {
         hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
 
-        result := DllCall("NTDSAPI.dll\DsListSitesA", "ptr", hDs, "ptr*", ppSites, "uint")
+        ppSitesMarshal := ppSites is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NTDSAPI.dll\DsListSitesA", "ptr", hDs, ppSitesMarshal, ppSites, "uint")
         return result
     }
 
@@ -5987,7 +6007,9 @@ class ActiveDirectory {
     static DsListSitesW(hDs, ppSites) {
         hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
 
-        result := DllCall("NTDSAPI.dll\DsListSitesW", "ptr", hDs, "ptr*", ppSites, "uint")
+        ppSitesMarshal := ppSites is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NTDSAPI.dll\DsListSitesW", "ptr", hDs, ppSitesMarshal, ppSites, "uint")
         return result
     }
 
@@ -6008,7 +6030,9 @@ class ActiveDirectory {
         hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
         site := site is String ? StrPtr(site) : site
 
-        result := DllCall("NTDSAPI.dll\DsListServersInSiteA", "ptr", hDs, "ptr", site, "ptr*", ppServers, "uint")
+        ppServersMarshal := ppServers is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NTDSAPI.dll\DsListServersInSiteA", "ptr", hDs, "ptr", site, ppServersMarshal, ppServers, "uint")
         return result
     }
 
@@ -6029,7 +6053,9 @@ class ActiveDirectory {
         hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
         site := site is String ? StrPtr(site) : site
 
-        result := DllCall("NTDSAPI.dll\DsListServersInSiteW", "ptr", hDs, "ptr", site, "ptr*", ppServers, "uint")
+        ppServersMarshal := ppServers is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NTDSAPI.dll\DsListServersInSiteW", "ptr", hDs, "ptr", site, ppServersMarshal, ppServers, "uint")
         return result
     }
 
@@ -6050,7 +6076,9 @@ class ActiveDirectory {
         hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
         site := site is String ? StrPtr(site) : site
 
-        result := DllCall("NTDSAPI.dll\DsListDomainsInSiteA", "ptr", hDs, "ptr", site, "ptr*", ppDomains, "uint")
+        ppDomainsMarshal := ppDomains is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NTDSAPI.dll\DsListDomainsInSiteA", "ptr", hDs, "ptr", site, ppDomainsMarshal, ppDomains, "uint")
         return result
     }
 
@@ -6071,7 +6099,9 @@ class ActiveDirectory {
         hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
         site := site is String ? StrPtr(site) : site
 
-        result := DllCall("NTDSAPI.dll\DsListDomainsInSiteW", "ptr", hDs, "ptr", site, "ptr*", ppDomains, "uint")
+        ppDomainsMarshal := ppDomains is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NTDSAPI.dll\DsListDomainsInSiteW", "ptr", hDs, "ptr", site, ppDomainsMarshal, ppDomains, "uint")
         return result
     }
 
@@ -6094,7 +6124,9 @@ class ActiveDirectory {
         domain := domain is String ? StrPtr(domain) : domain
         site := site is String ? StrPtr(site) : site
 
-        result := DllCall("NTDSAPI.dll\DsListServersForDomainInSiteA", "ptr", hDs, "ptr", domain, "ptr", site, "ptr*", ppServers, "uint")
+        ppServersMarshal := ppServers is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NTDSAPI.dll\DsListServersForDomainInSiteA", "ptr", hDs, "ptr", domain, "ptr", site, ppServersMarshal, ppServers, "uint")
         return result
     }
 
@@ -6117,7 +6149,9 @@ class ActiveDirectory {
         domain := domain is String ? StrPtr(domain) : domain
         site := site is String ? StrPtr(site) : site
 
-        result := DllCall("NTDSAPI.dll\DsListServersForDomainInSiteW", "ptr", hDs, "ptr", domain, "ptr", site, "ptr*", ppServers, "uint")
+        ppServersMarshal := ppServers is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NTDSAPI.dll\DsListServersForDomainInSiteW", "ptr", hDs, "ptr", domain, "ptr", site, ppServersMarshal, ppServers, "uint")
         return result
     }
 
@@ -6142,7 +6176,9 @@ class ActiveDirectory {
         hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
         server := server is String ? StrPtr(server) : server
 
-        result := DllCall("NTDSAPI.dll\DsListInfoForServerA", "ptr", hDs, "ptr", server, "ptr*", ppInfo, "uint")
+        ppInfoMarshal := ppInfo is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NTDSAPI.dll\DsListInfoForServerA", "ptr", hDs, "ptr", server, ppInfoMarshal, ppInfo, "uint")
         return result
     }
 
@@ -6167,7 +6203,9 @@ class ActiveDirectory {
         hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
         server := server is String ? StrPtr(server) : server
 
-        result := DllCall("NTDSAPI.dll\DsListInfoForServerW", "ptr", hDs, "ptr", server, "ptr*", ppInfo, "uint")
+        ppInfoMarshal := ppInfo is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NTDSAPI.dll\DsListInfoForServerW", "ptr", hDs, "ptr", server, ppInfoMarshal, ppInfo, "uint")
         return result
     }
 
@@ -6192,7 +6230,9 @@ class ActiveDirectory {
     static DsListRolesA(hDs, ppRoles) {
         hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
 
-        result := DllCall("NTDSAPI.dll\DsListRolesA", "ptr", hDs, "ptr*", ppRoles, "uint")
+        ppRolesMarshal := ppRoles is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NTDSAPI.dll\DsListRolesA", "ptr", hDs, ppRolesMarshal, ppRoles, "uint")
         return result
     }
 
@@ -6217,7 +6257,9 @@ class ActiveDirectory {
     static DsListRolesW(hDs, ppRoles) {
         hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
 
-        result := DllCall("NTDSAPI.dll\DsListRolesW", "ptr", hDs, "ptr*", ppRoles, "uint")
+        ppRolesMarshal := ppRoles is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NTDSAPI.dll\DsListRolesW", "ptr", hDs, ppRolesMarshal, ppRoles, "uint")
         return result
     }
 
@@ -6241,7 +6283,9 @@ class ActiveDirectory {
         hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
         pwszFromSite := pwszFromSite is String ? StrPtr(pwszFromSite) : pwszFromSite
 
-        result := DllCall("NTDSAPI.dll\DsQuerySitesByCostW", "ptr", hDS, "ptr", pwszFromSite, "ptr", rgwszToSites, "uint", cToSites, "uint", dwFlags, "ptr*", prgSiteInfo, "uint")
+        prgSiteInfoMarshal := prgSiteInfo is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NTDSAPI.dll\DsQuerySitesByCostW", "ptr", hDS, "ptr", pwszFromSite, "ptr", rgwszToSites, "uint", cToSites, "uint", dwFlags, prgSiteInfoMarshal, prgSiteInfo, "uint")
         return result
     }
 
@@ -6265,7 +6309,9 @@ class ActiveDirectory {
         hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
         pszFromSite := pszFromSite is String ? StrPtr(pszFromSite) : pszFromSite
 
-        result := DllCall("NTDSAPI.dll\DsQuerySitesByCostA", "ptr", hDS, "ptr", pszFromSite, "ptr", rgszToSites, "uint", cToSites, "uint", dwFlags, "ptr*", prgSiteInfo, "uint")
+        prgSiteInfoMarshal := prgSiteInfo is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NTDSAPI.dll\DsQuerySitesByCostA", "ptr", hDS, "ptr", pszFromSite, "ptr", rgszToSites, "uint", cToSites, "uint", dwFlags, prgSiteInfoMarshal, prgSiteInfo, "uint")
         return result
     }
 
@@ -6297,7 +6343,9 @@ class ActiveDirectory {
     static DsMapSchemaGuidsA(hDs, cGuids, rGuids, ppGuidMap) {
         hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
 
-        result := DllCall("NTDSAPI.dll\DsMapSchemaGuidsA", "ptr", hDs, "uint", cGuids, "ptr", rGuids, "ptr*", ppGuidMap, "uint")
+        ppGuidMapMarshal := ppGuidMap is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NTDSAPI.dll\DsMapSchemaGuidsA", "ptr", hDs, "uint", cGuids, "ptr", rGuids, ppGuidMapMarshal, ppGuidMap, "uint")
         return result
     }
 
@@ -6329,7 +6377,9 @@ class ActiveDirectory {
     static DsMapSchemaGuidsW(hDs, cGuids, rGuids, ppGuidMap) {
         hDs := hDs is Win32Handle ? NumGet(hDs, "ptr") : hDs
 
-        result := DllCall("NTDSAPI.dll\DsMapSchemaGuidsW", "ptr", hDs, "uint", cGuids, "ptr", rGuids, "ptr*", ppGuidMap, "uint")
+        ppGuidMapMarshal := ppGuidMap is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NTDSAPI.dll\DsMapSchemaGuidsW", "ptr", hDs, "uint", cGuids, "ptr", rGuids, ppGuidMapMarshal, ppGuidMap, "uint")
         return result
     }
 
@@ -6365,8 +6415,9 @@ class ActiveDirectory {
         DomainName := DomainName is String ? StrPtr(DomainName) : DomainName
 
         pcOutMarshal := pcOut is VarRef ? "uint*" : "ptr"
+        ppInfoMarshal := ppInfo is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("NTDSAPI.dll\DsGetDomainControllerInfoA", "ptr", hDs, "ptr", DomainName, "uint", InfoLevel, pcOutMarshal, pcOut, "ptr*", ppInfo, "uint")
+        result := DllCall("NTDSAPI.dll\DsGetDomainControllerInfoA", "ptr", hDs, "ptr", DomainName, "uint", InfoLevel, pcOutMarshal, pcOut, ppInfoMarshal, ppInfo, "uint")
         return result
     }
 
@@ -6391,8 +6442,9 @@ class ActiveDirectory {
         DomainName := DomainName is String ? StrPtr(DomainName) : DomainName
 
         pcOutMarshal := pcOut is VarRef ? "uint*" : "ptr"
+        ppInfoMarshal := ppInfo is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("NTDSAPI.dll\DsGetDomainControllerInfoW", "ptr", hDs, "ptr", DomainName, "uint", InfoLevel, pcOutMarshal, pcOut, "ptr*", ppInfo, "uint")
+        result := DllCall("NTDSAPI.dll\DsGetDomainControllerInfoW", "ptr", hDs, "ptr", DomainName, "uint", InfoLevel, pcOutMarshal, pcOut, ppInfoMarshal, ppInfo, "uint")
         return result
     }
 
@@ -6509,7 +6561,9 @@ class ActiveDirectory {
         hDS := hDS is Win32Handle ? NumGet(hDS, "ptr") : hDS
         pszObject := pszObject is String ? StrPtr(pszObject) : pszObject
 
-        result := DllCall("NTDSAPI.dll\DsReplicaGetInfoW", "ptr", hDS, "int", InfoType, "ptr", pszObject, "ptr", puuidForSourceDsaObjGuid, "ptr*", ppInfo, "uint")
+        ppInfoMarshal := ppInfo is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NTDSAPI.dll\DsReplicaGetInfoW", "ptr", hDS, "int", InfoType, "ptr", pszObject, "ptr", puuidForSourceDsaObjGuid, ppInfoMarshal, ppInfo, "uint")
         return result
     }
 
@@ -6539,7 +6593,9 @@ class ActiveDirectory {
         pszAttributeName := pszAttributeName is String ? StrPtr(pszAttributeName) : pszAttributeName
         pszValue := pszValue is String ? StrPtr(pszValue) : pszValue
 
-        result := DllCall("NTDSAPI.dll\DsReplicaGetInfo2W", "ptr", hDS, "int", InfoType, "ptr", pszObject, "ptr", puuidForSourceDsaObjGuid, "ptr", pszAttributeName, "ptr", pszValue, "uint", dwFlags, "uint", dwEnumerationContext, "ptr*", ppInfo, "uint")
+        ppInfoMarshal := ppInfo is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NTDSAPI.dll\DsReplicaGetInfo2W", "ptr", hDS, "int", InfoType, "ptr", pszObject, "ptr", puuidForSourceDsaObjGuid, "ptr", pszAttributeName, "ptr", pszValue, "uint", dwFlags, "uint", dwEnumerationContext, ppInfoMarshal, ppInfo, "uint")
         return result
     }
 
@@ -6697,7 +6753,9 @@ class ActiveDirectory {
     static DsRoleGetPrimaryDomainInformation(lpServer, InfoLevel, Buffer) {
         lpServer := lpServer is String ? StrPtr(lpServer) : lpServer
 
-        result := DllCall("NETAPI32.dll\DsRoleGetPrimaryDomainInformation", "ptr", lpServer, "int", InfoLevel, "ptr*", Buffer, "uint")
+        BufferMarshal := Buffer is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NETAPI32.dll\DsRoleGetPrimaryDomainInformation", "ptr", lpServer, "int", InfoLevel, BufferMarshal, Buffer, "uint")
         return result
     }
 
@@ -6768,7 +6826,9 @@ class ActiveDirectory {
         DomainName := DomainName is String ? StrPtr(DomainName) : DomainName
         SiteName := SiteName is String ? StrPtr(SiteName) : SiteName
 
-        result := DllCall("NETAPI32.dll\DsGetDcNameA", "ptr", ComputerName, "ptr", DomainName, "ptr", DomainGuid, "ptr", SiteName, "uint", Flags, "ptr*", DomainControllerInfo, "uint")
+        DomainControllerInfoMarshal := DomainControllerInfo is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NETAPI32.dll\DsGetDcNameA", "ptr", ComputerName, "ptr", DomainName, "ptr", DomainGuid, "ptr", SiteName, "uint", Flags, DomainControllerInfoMarshal, DomainControllerInfo, "uint")
         return result
     }
 
@@ -6826,7 +6886,9 @@ class ActiveDirectory {
         DomainName := DomainName is String ? StrPtr(DomainName) : DomainName
         SiteName := SiteName is String ? StrPtr(SiteName) : SiteName
 
-        result := DllCall("NETAPI32.dll\DsGetDcNameW", "ptr", ComputerName, "ptr", DomainName, "ptr", DomainGuid, "ptr", SiteName, "uint", Flags, "ptr*", DomainControllerInfo, "uint")
+        DomainControllerInfoMarshal := DomainControllerInfo is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NETAPI32.dll\DsGetDcNameW", "ptr", ComputerName, "ptr", DomainName, "ptr", DomainGuid, "ptr", SiteName, "uint", Flags, DomainControllerInfoMarshal, DomainControllerInfo, "uint")
         return result
     }
 
@@ -6912,7 +6974,9 @@ class ActiveDirectory {
     static DsAddressToSiteNamesW(ComputerName, EntryCount, SocketAddresses, SiteNames) {
         ComputerName := ComputerName is String ? StrPtr(ComputerName) : ComputerName
 
-        result := DllCall("NETAPI32.dll\DsAddressToSiteNamesW", "ptr", ComputerName, "uint", EntryCount, "ptr", SocketAddresses, "ptr*", SiteNames, "uint")
+        SiteNamesMarshal := SiteNames is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NETAPI32.dll\DsAddressToSiteNamesW", "ptr", ComputerName, "uint", EntryCount, "ptr", SocketAddresses, SiteNamesMarshal, SiteNames, "uint")
         return result
     }
 
@@ -6930,7 +6994,9 @@ class ActiveDirectory {
     static DsAddressToSiteNamesA(ComputerName, EntryCount, SocketAddresses, SiteNames) {
         ComputerName := ComputerName is String ? StrPtr(ComputerName) : ComputerName
 
-        result := DllCall("NETAPI32.dll\DsAddressToSiteNamesA", "ptr", ComputerName, "uint", EntryCount, "ptr", SocketAddresses, "ptr*", SiteNames, "uint")
+        SiteNamesMarshal := SiteNames is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NETAPI32.dll\DsAddressToSiteNamesA", "ptr", ComputerName, "uint", EntryCount, "ptr", SocketAddresses, SiteNamesMarshal, SiteNames, "uint")
         return result
     }
 
@@ -6951,7 +7017,10 @@ class ActiveDirectory {
     static DsAddressToSiteNamesExW(ComputerName, EntryCount, SocketAddresses, SiteNames, SubnetNames) {
         ComputerName := ComputerName is String ? StrPtr(ComputerName) : ComputerName
 
-        result := DllCall("NETAPI32.dll\DsAddressToSiteNamesExW", "ptr", ComputerName, "uint", EntryCount, "ptr", SocketAddresses, "ptr*", SiteNames, "ptr*", SubnetNames, "uint")
+        SiteNamesMarshal := SiteNames is VarRef ? "ptr*" : "ptr"
+        SubnetNamesMarshal := SubnetNames is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NETAPI32.dll\DsAddressToSiteNamesExW", "ptr", ComputerName, "uint", EntryCount, "ptr", SocketAddresses, SiteNamesMarshal, SiteNames, SubnetNamesMarshal, SubnetNames, "uint")
         return result
     }
 
@@ -6972,7 +7041,10 @@ class ActiveDirectory {
     static DsAddressToSiteNamesExA(ComputerName, EntryCount, SocketAddresses, SiteNames, SubnetNames) {
         ComputerName := ComputerName is String ? StrPtr(ComputerName) : ComputerName
 
-        result := DllCall("NETAPI32.dll\DsAddressToSiteNamesExA", "ptr", ComputerName, "uint", EntryCount, "ptr", SocketAddresses, "ptr*", SiteNames, "ptr*", SubnetNames, "uint")
+        SiteNamesMarshal := SiteNames is VarRef ? "ptr*" : "ptr"
+        SubnetNamesMarshal := SubnetNames is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NETAPI32.dll\DsAddressToSiteNamesExA", "ptr", ComputerName, "uint", EntryCount, "ptr", SocketAddresses, SiteNamesMarshal, SiteNames, SubnetNamesMarshal, SubnetNames, "uint")
         return result
     }
 
@@ -6991,9 +7063,10 @@ class ActiveDirectory {
     static DsEnumerateDomainTrustsW(ServerName, Flags, Domains, DomainCount) {
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
 
+        DomainsMarshal := Domains is VarRef ? "ptr*" : "ptr"
         DomainCountMarshal := DomainCount is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\DsEnumerateDomainTrustsW", "ptr", ServerName, "uint", Flags, "ptr*", Domains, DomainCountMarshal, DomainCount, "uint")
+        result := DllCall("NETAPI32.dll\DsEnumerateDomainTrustsW", "ptr", ServerName, "uint", Flags, DomainsMarshal, Domains, DomainCountMarshal, DomainCount, "uint")
         return result
     }
 
@@ -7012,9 +7085,10 @@ class ActiveDirectory {
     static DsEnumerateDomainTrustsA(ServerName, Flags, Domains, DomainCount) {
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
 
+        DomainsMarshal := Domains is VarRef ? "ptr*" : "ptr"
         DomainCountMarshal := DomainCount is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\DsEnumerateDomainTrustsA", "ptr", ServerName, "uint", Flags, "ptr*", Domains, DomainCountMarshal, DomainCount, "uint")
+        result := DllCall("NETAPI32.dll\DsEnumerateDomainTrustsA", "ptr", ServerName, "uint", Flags, DomainsMarshal, Domains, DomainCountMarshal, DomainCount, "uint")
         return result
     }
 
@@ -7042,7 +7116,9 @@ class ActiveDirectory {
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
         TrustedDomainName := TrustedDomainName is String ? StrPtr(TrustedDomainName) : TrustedDomainName
 
-        result := DllCall("NETAPI32.dll\DsGetForestTrustInformationW", "ptr", ServerName, "ptr", TrustedDomainName, "uint", Flags, "ptr*", ForestTrustInfo, "uint")
+        ForestTrustInfoMarshal := ForestTrustInfo is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NETAPI32.dll\DsGetForestTrustInformationW", "ptr", ServerName, "ptr", TrustedDomainName, "uint", Flags, ForestTrustInfoMarshal, ForestTrustInfo, "uint")
         return result
     }
 
@@ -7063,7 +7139,9 @@ class ActiveDirectory {
     static DsMergeForestTrustInformationW(DomainName, NewForestTrustInfo, OldForestTrustInfo, MergedForestTrustInfo) {
         DomainName := DomainName is String ? StrPtr(DomainName) : DomainName
 
-        result := DllCall("NETAPI32.dll\DsMergeForestTrustInformationW", "ptr", DomainName, "ptr", NewForestTrustInfo, "ptr", OldForestTrustInfo, "ptr*", MergedForestTrustInfo, "uint")
+        MergedForestTrustInfoMarshal := MergedForestTrustInfo is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NETAPI32.dll\DsMergeForestTrustInformationW", "ptr", DomainName, "ptr", NewForestTrustInfo, "ptr", OldForestTrustInfo, MergedForestTrustInfoMarshal, MergedForestTrustInfo, "uint")
         return result
     }
 
@@ -7080,8 +7158,9 @@ class ActiveDirectory {
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
 
         EntryCountMarshal := EntryCount is VarRef ? "uint*" : "ptr"
+        SiteNamesMarshal := SiteNames is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\DsGetDcSiteCoverageW", "ptr", ServerName, EntryCountMarshal, EntryCount, "ptr*", SiteNames, "uint")
+        result := DllCall("NETAPI32.dll\DsGetDcSiteCoverageW", "ptr", ServerName, EntryCountMarshal, EntryCount, SiteNamesMarshal, SiteNames, "uint")
         return result
     }
 
@@ -7098,8 +7177,9 @@ class ActiveDirectory {
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
 
         EntryCountMarshal := EntryCount is VarRef ? "uint*" : "ptr"
+        SiteNamesMarshal := SiteNames is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\DsGetDcSiteCoverageA", "ptr", ServerName, EntryCountMarshal, EntryCount, "ptr*", SiteNames, "uint")
+        result := DllCall("NETAPI32.dll\DsGetDcSiteCoverageA", "ptr", ServerName, EntryCountMarshal, EntryCount, SiteNamesMarshal, SiteNames, "uint")
         return result
     }
 
@@ -7215,8 +7295,9 @@ class ActiveDirectory {
         GetDcContextHandle := GetDcContextHandle is Win32Handle ? NumGet(GetDcContextHandle, "ptr") : GetDcContextHandle
 
         SockAddressCountMarshal := SockAddressCount is VarRef ? "uint*" : "ptr"
+        SockAddressesMarshal := SockAddresses is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\DsGetDcNextW", "ptr", GetDcContextHandle, SockAddressCountMarshal, SockAddressCount, "ptr*", SockAddresses, "ptr", DnsHostName, "uint")
+        result := DllCall("NETAPI32.dll\DsGetDcNextW", "ptr", GetDcContextHandle, SockAddressCountMarshal, SockAddressCount, SockAddressesMarshal, SockAddresses, "ptr", DnsHostName, "uint")
         return result
     }
 
@@ -7244,8 +7325,9 @@ class ActiveDirectory {
         GetDcContextHandle := GetDcContextHandle is Win32Handle ? NumGet(GetDcContextHandle, "ptr") : GetDcContextHandle
 
         SockAddressCountMarshal := SockAddressCount is VarRef ? "uint*" : "ptr"
+        SockAddressesMarshal := SockAddresses is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\DsGetDcNextA", "ptr", GetDcContextHandle, SockAddressCountMarshal, SockAddressCount, "ptr*", SockAddresses, "ptr", DnsHostName, "uint")
+        result := DllCall("NETAPI32.dll\DsGetDcNextA", "ptr", GetDcContextHandle, SockAddressCountMarshal, SockAddressCount, SockAddressesMarshal, SockAddresses, "ptr", DnsHostName, "uint")
         return result
     }
 

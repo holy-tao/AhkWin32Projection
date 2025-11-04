@@ -44,7 +44,11 @@ class IImePlugInDictDictionaryList extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msimeapi/nf-msimeapi-iimeplugindictdictionarylist-getdictionariesinuse
      */
     GetDictionariesInUse(prgDictionaryGUID, prgDateCreated, prgfEncrypted) {
-        result := ComCall(3, this, "ptr*", prgDictionaryGUID, "ptr*", prgDateCreated, "ptr*", prgfEncrypted, "HRESULT")
+        prgDictionaryGUIDMarshal := prgDictionaryGUID is VarRef ? "ptr*" : "ptr"
+        prgDateCreatedMarshal := prgDateCreated is VarRef ? "ptr*" : "ptr"
+        prgfEncryptedMarshal := prgfEncrypted is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, prgDictionaryGUIDMarshal, prgDictionaryGUID, prgDateCreatedMarshal, prgDateCreated, prgfEncryptedMarshal, prgfEncrypted, "HRESULT")
         return result
     }
 

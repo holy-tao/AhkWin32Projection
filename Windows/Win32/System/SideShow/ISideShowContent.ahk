@@ -37,8 +37,9 @@ class ISideShowContent extends IUnknown{
      */
     GetContent(in_pICapabilities, out_pdwSize, out_ppbData) {
         out_pdwSizeMarshal := out_pdwSize is VarRef ? "uint*" : "ptr"
+        out_ppbDataMarshal := out_ppbData is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", in_pICapabilities, out_pdwSizeMarshal, out_pdwSize, "ptr*", out_ppbData, "HRESULT")
+        result := ComCall(3, this, "ptr", in_pICapabilities, out_pdwSizeMarshal, out_pdwSize, out_ppbDataMarshal, out_ppbData, "HRESULT")
         return result
     }
 

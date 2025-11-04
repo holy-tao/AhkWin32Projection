@@ -51,7 +51,9 @@ class ISurfaceImageSourceNativeWithD2D extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.media.dxinterop/nf-windows-ui-xaml-media-dxinterop-isurfaceimagesourcenativewithd2d-begindraw
      */
     BeginDraw(updateRect, iid, updateObject, offset) {
-        result := ComCall(4, this, "ptr", updateRect, "ptr", iid, "ptr*", updateObject, "ptr", offset, "HRESULT")
+        updateObjectMarshal := updateObject is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", updateRect, "ptr", iid, updateObjectMarshal, updateObject, "ptr", offset, "HRESULT")
         return result
     }
 

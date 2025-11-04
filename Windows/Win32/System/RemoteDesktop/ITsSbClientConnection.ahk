@@ -189,7 +189,9 @@ class ITsSbClientConnection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-get_usersidstring
      */
     get_UserSidString(pszUserSidString) {
-        result := ComCall(16, this, "ptr*", pszUserSidString, "HRESULT")
+        pszUserSidStringMarshal := pszUserSidString is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(16, this, pszUserSidStringMarshal, pszUserSidString, "HRESULT")
         return result
     }
 

@@ -62,9 +62,10 @@ class IOleUIObjInfoW extends IUnknown{
      */
     GetConvertInfo(dwObject, lpClassID, lpwFormat, lpConvertDefaultClassID, lplpClsidExclude, lpcClsidExclude) {
         lpwFormatMarshal := lpwFormat is VarRef ? "ushort*" : "ptr"
+        lplpClsidExcludeMarshal := lplpClsidExclude is VarRef ? "ptr*" : "ptr"
         lpcClsidExcludeMarshal := lpcClsidExclude is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwObject, "ptr", lpClassID, lpwFormatMarshal, lpwFormat, "ptr", lpConvertDefaultClassID, "ptr*", lplpClsidExclude, lpcClsidExcludeMarshal, lpcClsidExclude, "HRESULT")
+        result := ComCall(4, this, "uint", dwObject, "ptr", lpClassID, lpwFormatMarshal, lpwFormat, "ptr", lpConvertDefaultClassID, lplpClsidExcludeMarshal, lplpClsidExclude, lpcClsidExcludeMarshal, lpcClsidExclude, "HRESULT")
         return result
     }
 

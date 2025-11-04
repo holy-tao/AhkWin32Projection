@@ -44,7 +44,9 @@ class IAccountsSettingsPaneInterop extends IInspectable{
     GetForWindow(appWindow, riid, accountsSettingsPane) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
 
-        result := ComCall(6, this, "ptr", appWindow, "ptr", riid, "ptr*", accountsSettingsPane, "HRESULT")
+        accountsSettingsPaneMarshal := accountsSettingsPane is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "ptr", appWindow, "ptr", riid, accountsSettingsPaneMarshal, accountsSettingsPane, "HRESULT")
         return result
     }
 
@@ -59,7 +61,9 @@ class IAccountsSettingsPaneInterop extends IInspectable{
     ShowManageAccountsForWindowAsync(appWindow, riid, asyncAction) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
 
-        result := ComCall(7, this, "ptr", appWindow, "ptr", riid, "ptr*", asyncAction, "HRESULT")
+        asyncActionMarshal := asyncAction is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "ptr", appWindow, "ptr", riid, asyncActionMarshal, asyncAction, "HRESULT")
         return result
     }
 
@@ -74,7 +78,9 @@ class IAccountsSettingsPaneInterop extends IInspectable{
     ShowAddAccountForWindowAsync(appWindow, riid, asyncAction) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
 
-        result := ComCall(8, this, "ptr", appWindow, "ptr", riid, "ptr*", asyncAction, "HRESULT")
+        asyncActionMarshal := asyncAction is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(8, this, "ptr", appWindow, "ptr", riid, asyncActionMarshal, asyncAction, "HRESULT")
         return result
     }
 }

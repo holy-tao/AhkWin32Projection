@@ -5559,9 +5559,11 @@ class Services {
     static QueryServiceDynamicInformation(hServiceStatus, dwInfoLevel, ppDynamicInfo) {
         hServiceStatus := hServiceStatus is Win32Handle ? NumGet(hServiceStatus, "ptr") : hServiceStatus
 
+        ppDynamicInfoMarshal := ppDynamicInfo is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\QueryServiceDynamicInformation", "ptr", hServiceStatus, "uint", dwInfoLevel, "ptr*", ppDynamicInfo, "int")
+        result := DllCall("ADVAPI32.dll\QueryServiceDynamicInformation", "ptr", hServiceStatus, "uint", dwInfoLevel, ppDynamicInfoMarshal, ppDynamicInfo, "int")
         if(A_LastError)
             throw OSError()
 

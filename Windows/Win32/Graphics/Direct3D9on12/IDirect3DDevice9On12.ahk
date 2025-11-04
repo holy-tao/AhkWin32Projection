@@ -35,7 +35,9 @@ class IDirect3DDevice9On12 extends IUnknown{
      * @returns {HRESULT} 
      */
     GetD3D12Device(riid, ppvDevice) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", ppvDevice, "HRESULT")
+        ppvDeviceMarshal := ppvDevice is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", riid, ppvDeviceMarshal, ppvDevice, "HRESULT")
         return result
     }
 
@@ -48,7 +50,9 @@ class IDirect3DDevice9On12 extends IUnknown{
      * @returns {HRESULT} 
      */
     UnwrapUnderlyingResource(pResource, pCommandQueue, riid, ppvResource12) {
-        result := ComCall(4, this, "ptr", pResource, "ptr", pCommandQueue, "ptr", riid, "ptr*", ppvResource12, "HRESULT")
+        ppvResource12Marshal := ppvResource12 is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pResource, "ptr", pCommandQueue, "ptr", riid, ppvResource12Marshal, ppvResource12, "HRESULT")
         return result
     }
 

@@ -38,8 +38,9 @@ class ID3D12Device13 extends ID3D12Device12{
      */
     OpenExistingHeapFromAddress1(pAddress, size, riid, ppvHeap) {
         pAddressMarshal := pAddress is VarRef ? "ptr" : "ptr"
+        ppvHeapMarshal := ppvHeap is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(81, this, pAddressMarshal, pAddress, "ptr", size, "ptr", riid, "ptr*", ppvHeap, "HRESULT")
+        result := ComCall(81, this, pAddressMarshal, pAddress, "ptr", size, "ptr", riid, ppvHeapMarshal, ppvHeap, "HRESULT")
         return result
     }
 }

@@ -1275,7 +1275,9 @@ class WinRT {
      * @since windows8.0
      */
     static WindowsPreallocateStringBuffer(length, charBuffer, bufferHandle) {
-        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsPreallocateStringBuffer", "uint", length, "ptr*", charBuffer, "ptr", bufferHandle, "int")
+        charBufferMarshal := charBuffer is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("api-ms-win-core-winrt-string-l1-1-0.dll\WindowsPreallocateStringBuffer", "uint", length, charBufferMarshal, charBuffer, "ptr", bufferHandle, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1794,7 +1796,9 @@ class WinRT {
      * @since windows8.0
      */
     static RoRegisterActivationFactories(activatableClassIds, activationFactoryCallbacks, count, cookie) {
-        result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoRegisterActivationFactories", "ptr", activatableClassIds, "ptr*", activationFactoryCallbacks, "uint", count, "ptr", cookie, "int")
+        activationFactoryCallbacksMarshal := activationFactoryCallbacks is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoRegisterActivationFactories", "ptr", activatableClassIds, activationFactoryCallbacksMarshal, activationFactoryCallbacks, "uint", count, "ptr", cookie, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1837,7 +1841,9 @@ class WinRT {
     static RoGetActivationFactory(activatableClassId, iid, factory) {
         activatableClassId := activatableClassId is Win32Handle ? NumGet(activatableClassId, "ptr") : activatableClassId
 
-        result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoGetActivationFactory", "ptr", activatableClassId, "ptr", iid, "ptr*", factory, "int")
+        factoryMarshal := factory is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("api-ms-win-core-winrt-l1-1-0.dll\RoGetActivationFactory", "ptr", activatableClassId, "ptr", iid, factoryMarshal, factory, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2648,9 +2654,10 @@ class WinRT {
     static RoGetServerActivatableClasses(serverName, activatableClassIds, count) {
         serverName := serverName is Win32Handle ? NumGet(serverName, "ptr") : serverName
 
+        activatableClassIdsMarshal := activatableClassIds is VarRef ? "ptr*" : "ptr"
         countMarshal := count is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("api-ms-win-core-winrt-registration-l1-1-0.dll\RoGetServerActivatableClasses", "ptr", serverName, "ptr*", activatableClassIds, countMarshal, count, "int")
+        result := DllCall("api-ms-win-core-winrt-registration-l1-1-0.dll\RoGetServerActivatableClasses", "ptr", serverName, activatableClassIdsMarshal, activatableClassIds, countMarshal, count, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2670,7 +2677,9 @@ class WinRT {
     static CreateRandomAccessStreamOnFile(filePath, accessMode, riid, ppv) {
         filePath := filePath is String ? StrPtr(filePath) : filePath
 
-        result := DllCall("api-ms-win-shcore-stream-winrt-l1-1-0.dll\CreateRandomAccessStreamOnFile", "ptr", filePath, "uint", accessMode, "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("api-ms-win-shcore-stream-winrt-l1-1-0.dll\CreateRandomAccessStreamOnFile", "ptr", filePath, "uint", accessMode, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2688,7 +2697,9 @@ class WinRT {
      * @since windows8.0
      */
     static CreateRandomAccessStreamOverStream(stream, options, riid, ppv) {
-        result := DllCall("api-ms-win-shcore-stream-winrt-l1-1-0.dll\CreateRandomAccessStreamOverStream", "ptr", stream, "int", options, "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("api-ms-win-shcore-stream-winrt-l1-1-0.dll\CreateRandomAccessStreamOverStream", "ptr", stream, "int", options, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2705,7 +2716,9 @@ class WinRT {
      * @since windows8.0
      */
     static CreateStreamOverRandomAccessStream(randomAccessStream, riid, ppv) {
-        result := DllCall("api-ms-win-shcore-stream-winrt-l1-1-0.dll\CreateStreamOverRandomAccessStream", "ptr", randomAccessStream, "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("api-ms-win-shcore-stream-winrt-l1-1-0.dll\CreateStreamOverRandomAccessStream", "ptr", randomAccessStream, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -2720,7 +2733,9 @@ class WinRT {
      * @see https://docs.microsoft.com/windows/win32/api//corewindow/nf-corewindow-createcontrolinput
      */
     static CreateControlInput(riid, ppv) {
-        result := DllCall("Windows.UI.dll\CreateControlInput", "ptr", riid, "ptr*", ppv, "CDecl int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("Windows.UI.dll\CreateControlInput", "ptr", riid, ppvMarshal, ppv, "CDecl int")
         if(result != 0)
             throw OSError(result)
 
@@ -2736,7 +2751,9 @@ class WinRT {
      * @see https://docs.microsoft.com/windows/win32/api//corewindow/nf-corewindow-createcontrolinputex
      */
     static CreateControlInputEx(pCoreWindow, riid, ppv) {
-        result := DllCall("Windows.UI.dll\CreateControlInputEx", "ptr", pCoreWindow, "ptr", riid, "ptr*", ppv, "CDecl int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("Windows.UI.dll\CreateControlInputEx", "ptr", pCoreWindow, "ptr", riid, ppvMarshal, ppv, "CDecl int")
         if(result != 0)
             throw OSError(result)
 

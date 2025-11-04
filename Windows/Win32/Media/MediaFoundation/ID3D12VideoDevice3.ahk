@@ -39,7 +39,9 @@ class ID3D12VideoDevice3 extends ID3D12VideoDevice2{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodevice3-createvideoencoder
      */
     CreateVideoEncoder(pDesc, riid, ppVideoEncoder) {
-        result := ComCall(14, this, "ptr", pDesc, "ptr", riid, "ptr*", ppVideoEncoder, "HRESULT")
+        ppVideoEncoderMarshal := ppVideoEncoder is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(14, this, "ptr", pDesc, "ptr", riid, ppVideoEncoderMarshal, ppVideoEncoder, "HRESULT")
         return result
     }
 
@@ -52,7 +54,9 @@ class ID3D12VideoDevice3 extends ID3D12VideoDevice2{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodevice3-createvideoencoderheap
      */
     CreateVideoEncoderHeap(pDesc, riid, ppVideoEncoderHeap) {
-        result := ComCall(15, this, "ptr", pDesc, "ptr", riid, "ptr*", ppVideoEncoderHeap, "HRESULT")
+        ppVideoEncoderHeapMarshal := ppVideoEncoderHeap is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(15, this, "ptr", pDesc, "ptr", riid, ppVideoEncoderHeapMarshal, ppVideoEncoderHeap, "HRESULT")
         return result
     }
 }

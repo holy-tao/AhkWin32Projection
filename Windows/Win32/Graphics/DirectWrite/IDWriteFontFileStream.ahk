@@ -40,7 +40,10 @@ class IDWriteFontFileStream extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontfilestream-readfilefragment
      */
     ReadFileFragment(fragmentStart, fileOffset, fragmentSize, fragmentContext) {
-        result := ComCall(3, this, "ptr*", fragmentStart, "uint", fileOffset, "uint", fragmentSize, "ptr*", fragmentContext, "HRESULT")
+        fragmentStartMarshal := fragmentStart is VarRef ? "ptr*" : "ptr"
+        fragmentContextMarshal := fragmentContext is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, fragmentStartMarshal, fragmentStart, "uint", fileOffset, "uint", fragmentSize, fragmentContextMarshal, fragmentContext, "HRESULT")
         return result
     }
 

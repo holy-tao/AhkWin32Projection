@@ -35,7 +35,9 @@ class ID3D12CompilerFactoryChild extends IUnknown{
      * @returns {HRESULT} 
      */
     GetFactory(riid, ppCompilerFactory) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", ppCompilerFactory, "HRESULT")
+        ppCompilerFactoryMarshal := ppCompilerFactory is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", riid, ppCompilerFactoryMarshal, ppCompilerFactory, "HRESULT")
         return result
     }
 }

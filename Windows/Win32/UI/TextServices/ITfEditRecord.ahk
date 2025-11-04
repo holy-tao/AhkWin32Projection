@@ -51,7 +51,9 @@ class ITfEditRecord extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfeditrecord-gettextandpropertyupdates
      */
     GetTextAndPropertyUpdates(dwFlags, prgProperties, cProperties, ppEnum) {
-        result := ComCall(4, this, "uint", dwFlags, "ptr*", prgProperties, "uint", cProperties, "ptr*", ppEnum, "HRESULT")
+        prgPropertiesMarshal := prgProperties is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "uint", dwFlags, prgPropertiesMarshal, prgProperties, "uint", cProperties, "ptr*", ppEnum, "HRESULT")
         return result
     }
 }

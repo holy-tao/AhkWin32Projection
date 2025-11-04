@@ -166,7 +166,9 @@ class IMFSinkWriter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsinkwriter-getserviceforstream
      */
     GetServiceForStream(dwStreamIndex, guidService, riid, ppvObject) {
-        result := ComCall(12, this, "uint", dwStreamIndex, "ptr", guidService, "ptr", riid, "ptr*", ppvObject, "HRESULT")
+        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(12, this, "uint", dwStreamIndex, "ptr", guidService, "ptr", riid, ppvObjectMarshal, ppvObject, "HRESULT")
         return result
     }
 

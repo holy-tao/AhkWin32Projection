@@ -850,7 +850,9 @@ class RightsManagement {
     static DRMGetProcAddress(hLibrary, wszProcName, ppfnProcAddress) {
         wszProcName := wszProcName is String ? StrPtr(wszProcName) : wszProcName
 
-        result := DllCall("msdrm.dll\DRMGetProcAddress", "uint", hLibrary, "ptr", wszProcName, "ptr*", ppfnProcAddress, "int")
+        ppfnProcAddressMarshal := ppfnProcAddress is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("msdrm.dll\DRMGetProcAddress", "uint", hLibrary, "ptr", wszProcName, ppfnProcAddressMarshal, ppfnProcAddress, "int")
         if(result != 0)
             throw OSError(result)
 

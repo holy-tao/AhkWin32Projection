@@ -57,7 +57,9 @@ class IDefaultFolderMenuInitialize extends IUnknown{
     Initialize(hwnd, pcmcb, pidlFolder, psf, cidl, apidl, punkAssociation, cKeys, aKeys) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := ComCall(3, this, "ptr", hwnd, "ptr", pcmcb, "ptr", pidlFolder, "ptr", psf, "uint", cidl, "ptr*", apidl, "ptr", punkAssociation, "uint", cKeys, "ptr", aKeys, "HRESULT")
+        apidlMarshal := apidl is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", hwnd, "ptr", pcmcb, "ptr", pidlFolder, "ptr", psf, "uint", cidl, apidlMarshal, apidl, "ptr", punkAssociation, "uint", cKeys, "ptr", aKeys, "HRESULT")
         return result
     }
 

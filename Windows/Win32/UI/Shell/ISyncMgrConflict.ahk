@@ -83,7 +83,9 @@ class ISyncMgrConflict extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflict-getresolutionhandler
      */
     GetResolutionHandler(riid, ppvResolutionHandler) {
-        result := ComCall(7, this, "ptr", riid, "ptr*", ppvResolutionHandler, "HRESULT")
+        ppvResolutionHandlerMarshal := ppvResolutionHandler is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "ptr", riid, ppvResolutionHandlerMarshal, ppvResolutionHandler, "HRESULT")
         return result
     }
 }

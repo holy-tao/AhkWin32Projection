@@ -135,7 +135,9 @@ class IConfigurationDataCollector extends IDataCollector{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iconfigurationdatacollector-get_files
      */
     get_Files(Files) {
-        result := ComCall(38, this, "ptr*", Files, "HRESULT")
+        FilesMarshal := Files is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(38, this, FilesMarshal, Files, "HRESULT")
         return result
     }
 
@@ -157,7 +159,9 @@ class IConfigurationDataCollector extends IDataCollector{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iconfigurationdatacollector-get_managementqueries
      */
     get_ManagementQueries(Queries) {
-        result := ComCall(40, this, "ptr*", Queries, "HRESULT")
+        QueriesMarshal := Queries is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(40, this, QueriesMarshal, Queries, "HRESULT")
         return result
     }
 
@@ -201,7 +205,9 @@ class IConfigurationDataCollector extends IDataCollector{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iconfigurationdatacollector-get_registrykeys
      */
     get_RegistryKeys(query) {
-        result := ComCall(44, this, "ptr*", query, "HRESULT")
+        queryMarshal := query is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(44, this, queryMarshal, query, "HRESULT")
         return result
     }
 

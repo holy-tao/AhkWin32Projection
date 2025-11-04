@@ -70,8 +70,9 @@ class IDCompositionTexture extends IUnknown{
      */
     GetAvailableFence(fenceValue, iid, availableFence) {
         fenceValueMarshal := fenceValue is VarRef ? "uint*" : "ptr"
+        availableFenceMarshal := availableFence is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, fenceValueMarshal, fenceValue, "ptr", iid, "ptr*", availableFence, "HRESULT")
+        result := ComCall(6, this, fenceValueMarshal, fenceValue, "ptr", iid, availableFenceMarshal, availableFence, "HRESULT")
         return result
     }
 }

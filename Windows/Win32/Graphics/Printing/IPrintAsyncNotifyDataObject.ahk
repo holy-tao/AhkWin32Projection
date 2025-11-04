@@ -48,9 +48,11 @@ class IPrintAsyncNotifyDataObject extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/prnasnot/nf-prnasnot-iprintasyncnotifydataobject-acquiredata
      */
     AcquireData(ppNotificationData, pSize, ppSchema) {
+        ppNotificationDataMarshal := ppNotificationData is VarRef ? "ptr*" : "ptr"
         pSizeMarshal := pSize is VarRef ? "uint*" : "ptr"
+        ppSchemaMarshal := ppSchema is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr*", ppNotificationData, pSizeMarshal, pSize, "ptr*", ppSchema, "HRESULT")
+        result := ComCall(3, this, ppNotificationDataMarshal, ppNotificationData, pSizeMarshal, pSize, ppSchemaMarshal, ppSchema, "HRESULT")
         return result
     }
 

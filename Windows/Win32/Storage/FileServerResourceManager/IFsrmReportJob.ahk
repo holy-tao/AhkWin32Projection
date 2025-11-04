@@ -73,7 +73,9 @@ class IFsrmReportJob extends IFsrmObject{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-get_namespaceroots
      */
     get_NamespaceRoots(namespaceRoots) {
-        result := ComCall(14, this, "ptr*", namespaceRoots, "HRESULT")
+        namespaceRootsMarshal := namespaceRoots is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(14, this, namespaceRootsMarshal, namespaceRoots, "HRESULT")
         return result
     }
 
@@ -95,7 +97,9 @@ class IFsrmReportJob extends IFsrmObject{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-get_formats
      */
     get_Formats(formats) {
-        result := ComCall(16, this, "ptr*", formats, "HRESULT")
+        formatsMarshal := formats is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(16, this, formatsMarshal, formats, "HRESULT")
         return result
     }
 

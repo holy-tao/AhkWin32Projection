@@ -61,7 +61,9 @@ class ID3D12PipelineLibrary extends ID3D12DeviceChild{
     LoadGraphicsPipeline(pName, pDesc, riid, ppPipelineState) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        result := ComCall(9, this, "ptr", pName, "ptr", pDesc, "ptr", riid, "ptr*", ppPipelineState, "HRESULT")
+        ppPipelineStateMarshal := ppPipelineState is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, "ptr", pName, "ptr", pDesc, "ptr", riid, ppPipelineStateMarshal, ppPipelineState, "HRESULT")
         return result
     }
 
@@ -77,7 +79,9 @@ class ID3D12PipelineLibrary extends ID3D12DeviceChild{
     LoadComputePipeline(pName, pDesc, riid, ppPipelineState) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        result := ComCall(10, this, "ptr", pName, "ptr", pDesc, "ptr", riid, "ptr*", ppPipelineState, "HRESULT")
+        ppPipelineStateMarshal := ppPipelineState is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(10, this, "ptr", pName, "ptr", pDesc, "ptr", riid, ppPipelineStateMarshal, ppPipelineState, "HRESULT")
         return result
     }
 

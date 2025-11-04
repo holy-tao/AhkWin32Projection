@@ -49,8 +49,9 @@ class IBDA_DRIWMDRMSession extends IUnknown{
     ProcessLicenseChallenge(dwcbLicenseMessage, pbLicenseMessage, pdwcbLicenseResponse, ppbLicenseResponse) {
         pbLicenseMessageMarshal := pbLicenseMessage is VarRef ? "char*" : "ptr"
         pdwcbLicenseResponseMarshal := pdwcbLicenseResponse is VarRef ? "uint*" : "ptr"
+        ppbLicenseResponseMarshal := ppbLicenseResponse is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwcbLicenseMessage, pbLicenseMessageMarshal, pbLicenseMessage, pdwcbLicenseResponseMarshal, pdwcbLicenseResponse, "ptr*", ppbLicenseResponse, "HRESULT")
+        result := ComCall(4, this, "uint", dwcbLicenseMessage, pbLicenseMessageMarshal, pbLicenseMessage, pdwcbLicenseResponseMarshal, pdwcbLicenseResponse, ppbLicenseResponseMarshal, ppbLicenseResponse, "HRESULT")
         return result
     }
 
@@ -65,8 +66,9 @@ class IBDA_DRIWMDRMSession extends IUnknown{
     ProcessRegistrationChallenge(dwcbRegistrationMessage, pbRegistrationMessage, pdwcbRegistrationResponse, ppbRegistrationResponse) {
         pbRegistrationMessageMarshal := pbRegistrationMessage is VarRef ? "char*" : "ptr"
         pdwcbRegistrationResponseMarshal := pdwcbRegistrationResponse is VarRef ? "uint*" : "ptr"
+        ppbRegistrationResponseMarshal := ppbRegistrationResponse is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "uint", dwcbRegistrationMessage, pbRegistrationMessageMarshal, pbRegistrationMessage, pdwcbRegistrationResponseMarshal, pdwcbRegistrationResponse, "ptr*", ppbRegistrationResponse, "HRESULT")
+        result := ComCall(5, this, "uint", dwcbRegistrationMessage, pbRegistrationMessageMarshal, pbRegistrationMessage, pdwcbRegistrationResponseMarshal, pdwcbRegistrationResponse, ppbRegistrationResponseMarshal, ppbRegistrationResponse, "HRESULT")
         return result
     }
 

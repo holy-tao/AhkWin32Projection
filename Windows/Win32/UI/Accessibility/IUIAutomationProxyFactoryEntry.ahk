@@ -177,7 +177,9 @@ class IUIAutomationProxyFactoryEntry extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactoryentry-getwineventsforautomationevent
      */
     GetWinEventsForAutomationEvent(eventId, propertyId, winEvents) {
-        result := ComCall(15, this, "int", eventId, "int", propertyId, "ptr*", winEvents, "HRESULT")
+        winEventsMarshal := winEvents is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(15, this, "int", eventId, "int", propertyId, winEventsMarshal, winEvents, "HRESULT")
         return result
     }
 }

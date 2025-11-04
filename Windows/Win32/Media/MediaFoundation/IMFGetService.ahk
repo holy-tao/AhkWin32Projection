@@ -46,7 +46,9 @@ class IMFGetService extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfgetservice-getservice
      */
     GetService(guidService, riid, ppvObject) {
-        result := ComCall(3, this, "ptr", guidService, "ptr", riid, "ptr*", ppvObject, "HRESULT")
+        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", guidService, "ptr", riid, ppvObjectMarshal, ppvObject, "HRESULT")
         return result
     }
 }

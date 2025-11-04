@@ -46,7 +46,9 @@ class IUserConsentVerifierInterop extends IInspectable{
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
         message := message is Win32Handle ? NumGet(message, "ptr") : message
 
-        result := ComCall(6, this, "ptr", appWindow, "ptr", message, "ptr", riid, "ptr*", asyncOperation, "HRESULT")
+        asyncOperationMarshal := asyncOperation is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "ptr", appWindow, "ptr", message, "ptr", riid, asyncOperationMarshal, asyncOperation, "HRESULT")
         return result
     }
 }

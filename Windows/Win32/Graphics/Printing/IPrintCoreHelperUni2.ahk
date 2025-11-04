@@ -40,9 +40,10 @@ class IPrintCoreHelperUni2 extends IPrintCoreHelperUni{
     GetNamedCommand(pDevmode, cbSize, pszCommandName, ppCommandBytes, pcbCommandSize) {
         pszCommandName := pszCommandName is String ? StrPtr(pszCommandName) : pszCommandName
 
+        ppCommandBytesMarshal := ppCommandBytes is VarRef ? "ptr*" : "ptr"
         pcbCommandSizeMarshal := pcbCommandSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, "ptr", pDevmode, "uint", cbSize, "ptr", pszCommandName, "ptr*", ppCommandBytes, pcbCommandSizeMarshal, pcbCommandSize, "HRESULT")
+        result := ComCall(14, this, "ptr", pDevmode, "uint", cbSize, "ptr", pszCommandName, ppCommandBytesMarshal, ppCommandBytes, pcbCommandSizeMarshal, pcbCommandSize, "HRESULT")
         return result
     }
 }

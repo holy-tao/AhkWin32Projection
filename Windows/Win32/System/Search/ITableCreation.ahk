@@ -42,10 +42,14 @@ class ITableCreation extends ITableDefinition{
      */
     GetTableDefinition(pTableID, pcColumnDescs, prgColumnDescs, pcPropertySets, prgPropertySets, pcConstraintDescs, prgConstraintDescs, ppwszStringBuffer) {
         pcColumnDescsMarshal := pcColumnDescs is VarRef ? "ptr*" : "ptr"
+        prgColumnDescsMarshal := prgColumnDescs is VarRef ? "ptr*" : "ptr"
         pcPropertySetsMarshal := pcPropertySets is VarRef ? "uint*" : "ptr"
+        prgPropertySetsMarshal := prgPropertySets is VarRef ? "ptr*" : "ptr"
         pcConstraintDescsMarshal := pcConstraintDescs is VarRef ? "uint*" : "ptr"
+        prgConstraintDescsMarshal := prgConstraintDescs is VarRef ? "ptr*" : "ptr"
+        ppwszStringBufferMarshal := ppwszStringBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "ptr", pTableID, pcColumnDescsMarshal, pcColumnDescs, "ptr*", prgColumnDescs, pcPropertySetsMarshal, pcPropertySets, "ptr*", prgPropertySets, pcConstraintDescsMarshal, pcConstraintDescs, "ptr*", prgConstraintDescs, "ptr*", ppwszStringBuffer, "HRESULT")
+        result := ComCall(7, this, "ptr", pTableID, pcColumnDescsMarshal, pcColumnDescs, prgColumnDescsMarshal, prgColumnDescs, pcPropertySetsMarshal, pcPropertySets, prgPropertySetsMarshal, prgPropertySets, pcConstraintDescsMarshal, pcConstraintDescs, prgConstraintDescsMarshal, prgConstraintDescs, ppwszStringBufferMarshal, ppwszStringBuffer, "HRESULT")
         return result
     }
 }

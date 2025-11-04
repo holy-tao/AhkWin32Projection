@@ -86,7 +86,9 @@ class IUIAutomationDragPattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationdragpattern-get_currentdropeffects
      */
     get_CurrentDropEffects(retVal) {
-        result := ComCall(7, this, "ptr*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 
@@ -97,7 +99,9 @@ class IUIAutomationDragPattern extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationdragpattern-get_cacheddropeffects
      */
     get_CachedDropEffects(retVal) {
-        result := ComCall(8, this, "ptr*", retVal, "HRESULT")
+        retValMarshal := retVal is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(8, this, retValMarshal, retVal, "HRESULT")
         return result
     }
 

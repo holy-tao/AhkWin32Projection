@@ -37,7 +37,9 @@ class ITFileTrack extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itfiletrack-get_format
      */
     get_Format(ppmt) {
-        result := ComCall(7, this, "ptr*", ppmt, "HRESULT")
+        ppmtMarshal := ppmt is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, ppmtMarshal, ppmt, "HRESULT")
         return result
     }
 

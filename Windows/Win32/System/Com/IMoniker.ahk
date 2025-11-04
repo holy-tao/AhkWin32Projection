@@ -152,7 +152,9 @@ class IMoniker extends IPersistStream{
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imoniker-bindtoobject
      */
     BindToObject(pbc, pmkToLeft, riidResult, ppvResult) {
-        result := ComCall(8, this, "ptr", pbc, "ptr", pmkToLeft, "ptr", riidResult, "ptr*", ppvResult, "HRESULT")
+        ppvResultMarshal := ppvResult is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(8, this, "ptr", pbc, "ptr", pmkToLeft, "ptr", riidResult, ppvResultMarshal, ppvResult, "HRESULT")
         return result
     }
 
@@ -166,7 +168,9 @@ class IMoniker extends IPersistStream{
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imoniker-bindtostorage
      */
     BindToStorage(pbc, pmkToLeft, riid, ppvObj) {
-        result := ComCall(9, this, "ptr", pbc, "ptr", pmkToLeft, "ptr", riid, "ptr*", ppvObj, "HRESULT")
+        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, "ptr", pbc, "ptr", pmkToLeft, "ptr", riid, ppvObjMarshal, ppvObj, "HRESULT")
         return result
     }
 

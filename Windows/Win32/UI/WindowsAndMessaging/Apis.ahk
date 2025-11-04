@@ -26807,7 +26807,9 @@ class WindowsAndMessaging {
         projectRoot := projectRoot is String ? StrPtr(projectRoot) : projectRoot
         extensionDllPath := extensionDllPath is String ? StrPtr(extensionDllPath) : extensionDllPath
 
-        result := DllCall("MrmSupport.dll\CreateResourceIndexer", "ptr", projectRoot, "ptr", extensionDllPath, "ptr*", ppResourceIndexer, "int")
+        ppResourceIndexerMarshal := ppResourceIndexer is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("MrmSupport.dll\CreateResourceIndexer", "ptr", projectRoot, "ptr", extensionDllPath, ppResourceIndexerMarshal, ppResourceIndexer, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -26843,8 +26845,9 @@ class WindowsAndMessaging {
 
         resourceIndexerMarshal := resourceIndexer is VarRef ? "ptr" : "ptr"
         pQualifierCountMarshal := pQualifierCount is VarRef ? "uint*" : "ptr"
+        ppQualifiersMarshal := ppQualifiers is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("MrmSupport.dll\IndexFilePath", resourceIndexerMarshal, resourceIndexer, "ptr", filePath, "ptr", ppResourceUri, pQualifierCountMarshal, pQualifierCount, "ptr*", ppQualifiers, "int")
+        result := DllCall("MrmSupport.dll\IndexFilePath", resourceIndexerMarshal, resourceIndexer, "ptr", filePath, "ptr", ppResourceUri, pQualifierCountMarshal, pQualifierCount, ppQualifiersMarshal, ppQualifiers, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27144,9 +27147,10 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/menurc/mrmcreateresourcefileinmemory
      */
     static MrmCreateResourceFileInMemory(indexer, packagingMode, packagingOptions, outputPriData, outputPriSize) {
+        outputPriDataMarshal := outputPriData is VarRef ? "ptr*" : "ptr"
         outputPriSizeMarshal := outputPriSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("MrmSupport.dll\MrmCreateResourceFileInMemory", "ptr", indexer, "int", packagingMode, "int", packagingOptions, "ptr*", outputPriData, outputPriSizeMarshal, outputPriSize, "int")
+        result := DllCall("MrmSupport.dll\MrmCreateResourceFileInMemory", "ptr", indexer, "int", packagingMode, "int", packagingOptions, outputPriDataMarshal, outputPriData, outputPriSizeMarshal, outputPriSize, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27162,9 +27166,10 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/menurc/mrmpeekresourceindexermessages
      */
     static MrmPeekResourceIndexerMessages(handle, messages, numMsgs) {
+        messagesMarshal := messages is VarRef ? "ptr*" : "ptr"
         numMsgsMarshal := numMsgs is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("MrmSupport.dll\MrmPeekResourceIndexerMessages", "ptr", handle, "ptr*", messages, numMsgsMarshal, numMsgs, "int")
+        result := DllCall("MrmSupport.dll\MrmPeekResourceIndexerMessages", "ptr", handle, messagesMarshal, messages, numMsgsMarshal, numMsgs, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27236,9 +27241,10 @@ class WindowsAndMessaging {
         indexFileName := indexFileName is String ? StrPtr(indexFileName) : indexFileName
         schemaPriFile := schemaPriFile is String ? StrPtr(schemaPriFile) : schemaPriFile
 
+        outputXmlDataMarshal := outputXmlData is VarRef ? "ptr*" : "ptr"
         outputXmlSizeMarshal := outputXmlSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("MrmSupport.dll\MrmDumpPriFileInMemory", "ptr", indexFileName, "ptr", schemaPriFile, "int", dumpType, "ptr*", outputXmlData, outputXmlSizeMarshal, outputXmlSize, "int")
+        result := DllCall("MrmSupport.dll\MrmDumpPriFileInMemory", "ptr", indexFileName, "ptr", schemaPriFile, "int", dumpType, outputXmlDataMarshal, outputXmlData, outputXmlSizeMarshal, outputXmlSize, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27258,9 +27264,10 @@ class WindowsAndMessaging {
      * @see https://learn.microsoft.com/windows/win32/menurc/mrmdumppridatainmemory
      */
     static MrmDumpPriDataInMemory(inputPriData, inputPriSize, schemaPriData, schemaPriSize, dumpType, outputXmlData, outputXmlSize) {
+        outputXmlDataMarshal := outputXmlData is VarRef ? "ptr*" : "ptr"
         outputXmlSizeMarshal := outputXmlSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("MrmSupport.dll\MrmDumpPriDataInMemory", "ptr", inputPriData, "uint", inputPriSize, "ptr", schemaPriData, "uint", schemaPriSize, "int", dumpType, "ptr*", outputXmlData, outputXmlSizeMarshal, outputXmlSize, "int")
+        result := DllCall("MrmSupport.dll\MrmDumpPriDataInMemory", "ptr", inputPriData, "uint", inputPriSize, "ptr", schemaPriData, "uint", schemaPriSize, "int", dumpType, outputXmlDataMarshal, outputXmlData, outputXmlSizeMarshal, outputXmlSize, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27298,9 +27305,10 @@ class WindowsAndMessaging {
     static MrmCreateConfigInMemory(platformVersion, defaultQualifiers, outputXmlData, outputXmlSize) {
         defaultQualifiers := defaultQualifiers is String ? StrPtr(defaultQualifiers) : defaultQualifiers
 
+        outputXmlDataMarshal := outputXmlData is VarRef ? "ptr*" : "ptr"
         outputXmlSizeMarshal := outputXmlSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("MrmSupport.dll\MrmCreateConfigInMemory", "int", platformVersion, "ptr", defaultQualifiers, "ptr*", outputXmlData, outputXmlSizeMarshal, outputXmlSize, "int")
+        result := DllCall("MrmSupport.dll\MrmCreateConfigInMemory", "int", platformVersion, "ptr", defaultQualifiers, outputXmlDataMarshal, outputXmlData, outputXmlSizeMarshal, outputXmlSize, "int")
         if(result != 0)
             throw OSError(result)
 

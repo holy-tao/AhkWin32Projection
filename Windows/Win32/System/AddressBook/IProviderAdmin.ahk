@@ -36,7 +36,9 @@ class IProviderAdmin extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//errhandlingapi/nf-errhandlingapi-getlasterror
      */
     GetLastError(hResult, ulFlags, lppMAPIError) {
-        result := ComCall(3, this, "int", hResult, "uint", ulFlags, "ptr*", lppMAPIError, "HRESULT")
+        lppMAPIErrorMarshal := lppMAPIError is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "int", hResult, "uint", ulFlags, lppMAPIErrorMarshal, lppMAPIError, "HRESULT")
         return result
     }
 

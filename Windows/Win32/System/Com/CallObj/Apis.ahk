@@ -51,7 +51,9 @@ class CallObj {
      * @since windows5.0
      */
     static CoGetInterceptor(iidIntercepted, punkOuter, iid, ppv) {
-        result := DllCall("ole32.dll\CoGetInterceptor", "ptr", iidIntercepted, "ptr", punkOuter, "ptr", iid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("ole32.dll\CoGetInterceptor", "ptr", iidIntercepted, "ptr", punkOuter, "ptr", iid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -68,7 +70,9 @@ class CallObj {
      * @returns {HRESULT} 
      */
     static CoGetInterceptorFromTypeInfo(iidIntercepted, punkOuter, typeInfo, iid, ppv) {
-        result := DllCall("ole32.dll\CoGetInterceptorFromTypeInfo", "ptr", iidIntercepted, "ptr", punkOuter, "ptr", typeInfo, "ptr", iid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("ole32.dll\CoGetInterceptorFromTypeInfo", "ptr", iidIntercepted, "ptr", punkOuter, "ptr", typeInfo, "ptr", iid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 

@@ -47,7 +47,9 @@ class IDxcExtraOutputs extends IUnknown{
      * @returns {HRESULT} 
      */
     GetOutput(uIndex, iid, ppvObject, ppOutputType, ppOutputName) {
-        result := ComCall(4, this, "uint", uIndex, "ptr", iid, "ptr*", ppvObject, "ptr*", ppOutputType, "ptr*", ppOutputName, "HRESULT")
+        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "uint", uIndex, "ptr", iid, ppvObjectMarshal, ppvObject, "ptr*", ppOutputType, "ptr*", ppOutputName, "HRESULT")
         return result
     }
 }

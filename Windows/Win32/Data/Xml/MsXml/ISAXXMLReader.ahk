@@ -166,7 +166,9 @@ class ISAXXMLReader extends IUnknown{
      * @returns {HRESULT} 
      */
     getBaseURL(ppwchBaseUrl) {
-        result := ComCall(15, this, "ptr*", ppwchBaseUrl, "HRESULT")
+        ppwchBaseUrlMarshal := ppwchBaseUrl is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(15, this, ppwchBaseUrlMarshal, ppwchBaseUrl, "HRESULT")
         return result
     }
 
@@ -188,7 +190,9 @@ class ISAXXMLReader extends IUnknown{
      * @returns {HRESULT} 
      */
     getSecureBaseURL(ppwchSecureBaseUrl) {
-        result := ComCall(17, this, "ptr*", ppwchSecureBaseUrl, "HRESULT")
+        ppwchSecureBaseUrlMarshal := ppwchSecureBaseUrl is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(17, this, ppwchSecureBaseUrlMarshal, ppwchSecureBaseUrl, "HRESULT")
         return result
     }
 

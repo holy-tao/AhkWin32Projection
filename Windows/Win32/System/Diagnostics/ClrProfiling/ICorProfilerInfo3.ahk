@@ -55,9 +55,10 @@ class ICorProfilerInfo3 extends ICorProfilerInfo2{
      * @returns {HRESULT} 
      */
     SetFunctionIDMapper2(pFunc, clientData) {
+        pFuncMarshal := pFunc is VarRef ? "ptr*" : "ptr"
         clientDataMarshal := clientData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(59, this, "ptr*", pFunc, clientDataMarshal, clientData, "HRESULT")
+        result := ComCall(59, this, pFuncMarshal, pFunc, clientDataMarshal, clientData, "HRESULT")
         return result
     }
 
@@ -83,7 +84,11 @@ class ICorProfilerInfo3 extends ICorProfilerInfo2{
      * @returns {HRESULT} 
      */
     SetEnterLeaveFunctionHooks3(pFuncEnter3, pFuncLeave3, pFuncTailcall3) {
-        result := ComCall(61, this, "ptr*", pFuncEnter3, "ptr*", pFuncLeave3, "ptr*", pFuncTailcall3, "HRESULT")
+        pFuncEnter3Marshal := pFuncEnter3 is VarRef ? "ptr*" : "ptr"
+        pFuncLeave3Marshal := pFuncLeave3 is VarRef ? "ptr*" : "ptr"
+        pFuncTailcall3Marshal := pFuncTailcall3 is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(61, this, pFuncEnter3Marshal, pFuncEnter3, pFuncLeave3Marshal, pFuncLeave3, pFuncTailcall3Marshal, pFuncTailcall3, "HRESULT")
         return result
     }
 
@@ -95,7 +100,11 @@ class ICorProfilerInfo3 extends ICorProfilerInfo2{
      * @returns {HRESULT} 
      */
     SetEnterLeaveFunctionHooks3WithInfo(pFuncEnter3WithInfo, pFuncLeave3WithInfo, pFuncTailcall3WithInfo) {
-        result := ComCall(62, this, "ptr*", pFuncEnter3WithInfo, "ptr*", pFuncLeave3WithInfo, "ptr*", pFuncTailcall3WithInfo, "HRESULT")
+        pFuncEnter3WithInfoMarshal := pFuncEnter3WithInfo is VarRef ? "ptr*" : "ptr"
+        pFuncLeave3WithInfoMarshal := pFuncLeave3WithInfo is VarRef ? "ptr*" : "ptr"
+        pFuncTailcall3WithInfoMarshal := pFuncTailcall3WithInfo is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(62, this, pFuncEnter3WithInfoMarshal, pFuncEnter3WithInfo, pFuncLeave3WithInfoMarshal, pFuncLeave3WithInfo, pFuncTailcall3WithInfoMarshal, pFuncTailcall3WithInfo, "HRESULT")
         return result
     }
 
@@ -193,7 +202,9 @@ class ICorProfilerInfo3 extends ICorProfilerInfo2{
      * @returns {HRESULT} 
      */
     GetThreadStaticAddress2(classId, fieldToken, appDomainId, threadId, ppAddress) {
-        result := ComCall(68, this, "ptr", classId, "uint", fieldToken, "ptr", appDomainId, "ptr", threadId, "ptr*", ppAddress, "HRESULT")
+        ppAddressMarshal := ppAddress is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(68, this, "ptr", classId, "uint", fieldToken, "ptr", appDomainId, "ptr", threadId, ppAddressMarshal, ppAddress, "HRESULT")
         return result
     }
 
@@ -227,11 +238,12 @@ class ICorProfilerInfo3 extends ICorProfilerInfo2{
     GetModuleInfo2(moduleId, ppBaseLoadAddress, cchName, pcchName, szName, pAssemblyId, pdwModuleFlags) {
         szName := szName is String ? StrPtr(szName) : szName
 
+        ppBaseLoadAddressMarshal := ppBaseLoadAddress is VarRef ? "ptr*" : "ptr"
         pcchNameMarshal := pcchName is VarRef ? "uint*" : "ptr"
         pAssemblyIdMarshal := pAssemblyId is VarRef ? "ptr*" : "ptr"
         pdwModuleFlagsMarshal := pdwModuleFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(70, this, "ptr", moduleId, "ptr*", ppBaseLoadAddress, "uint", cchName, pcchNameMarshal, pcchName, "ptr", szName, pAssemblyIdMarshal, pAssemblyId, pdwModuleFlagsMarshal, pdwModuleFlags, "HRESULT")
+        result := ComCall(70, this, "ptr", moduleId, ppBaseLoadAddressMarshal, ppBaseLoadAddress, "uint", cchName, pcchNameMarshal, pcchName, "ptr", szName, pAssemblyIdMarshal, pAssemblyId, pdwModuleFlagsMarshal, pdwModuleFlags, "HRESULT")
         return result
     }
 }

@@ -65,7 +65,9 @@ class IDirectSoundBuffer8 extends IDirectSoundBuffer{
      * @returns {HRESULT} 
      */
     GetObjectInPath(rguidObject, dwIndex, rguidInterface, ppObject) {
-        result := ComCall(23, this, "ptr", rguidObject, "uint", dwIndex, "ptr", rguidInterface, "ptr*", ppObject, "HRESULT")
+        ppObjectMarshal := ppObject is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(23, this, "ptr", rguidObject, "uint", dwIndex, "ptr", rguidInterface, ppObjectMarshal, ppObject, "HRESULT")
         return result
     }
 }

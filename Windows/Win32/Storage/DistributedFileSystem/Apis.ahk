@@ -432,10 +432,11 @@ class DistributedFileSystem {
     static NetDfsEnum(DfsName, Level, PrefMaxLen, Buffer, EntriesRead, ResumeHandle) {
         DfsName := DfsName is String ? StrPtr(DfsName) : DfsName
 
+        BufferMarshal := Buffer is VarRef ? "ptr*" : "ptr"
         EntriesReadMarshal := EntriesRead is VarRef ? "uint*" : "ptr"
         ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetDfsEnum", "ptr", DfsName, "uint", Level, "uint", PrefMaxLen, "ptr*", Buffer, EntriesReadMarshal, EntriesRead, ResumeHandleMarshal, ResumeHandle, "uint")
+        result := DllCall("NETAPI32.dll\NetDfsEnum", "ptr", DfsName, "uint", Level, "uint", PrefMaxLen, BufferMarshal, Buffer, EntriesReadMarshal, EntriesRead, ResumeHandleMarshal, ResumeHandle, "uint")
         return result
     }
 
@@ -493,7 +494,9 @@ class DistributedFileSystem {
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
         ShareName := ShareName is String ? StrPtr(ShareName) : ShareName
 
-        result := DllCall("NETAPI32.dll\NetDfsGetInfo", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, "uint", Level, "ptr*", Buffer, "uint")
+        BufferMarshal := Buffer is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NETAPI32.dll\NetDfsGetInfo", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, "uint", Level, BufferMarshal, Buffer, "uint")
         return result
     }
 
@@ -599,7 +602,9 @@ class DistributedFileSystem {
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
         ShareName := ShareName is String ? StrPtr(ShareName) : ShareName
 
-        result := DllCall("NETAPI32.dll\NetDfsGetClientInfo", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, "uint", Level, "ptr*", Buffer, "uint")
+        BufferMarshal := Buffer is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NETAPI32.dll\NetDfsGetClientInfo", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, "uint", Level, BufferMarshal, Buffer, "uint")
         return result
     }
 
@@ -949,7 +954,9 @@ class DistributedFileSystem {
     static NetDfsGetSupportedNamespaceVersion(Origin, pName, ppVersionInfo) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        result := DllCall("NETAPI32.dll\NetDfsGetSupportedNamespaceVersion", "int", Origin, "ptr", pName, "ptr*", ppVersionInfo, "uint")
+        ppVersionInfoMarshal := ppVersionInfo is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("NETAPI32.dll\NetDfsGetSupportedNamespaceVersion", "int", Origin, "ptr", pName, ppVersionInfoMarshal, ppVersionInfo, "uint")
         return result
     }
 

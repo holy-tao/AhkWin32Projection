@@ -42,8 +42,10 @@ class IRowsetRefresh extends IUnknown{
     RefreshVisibleData(hChapter, cRows, rghRows, fOverWrite, pcRowsRefreshed, prghRowsRefreshed, prgRowStatus) {
         rghRowsMarshal := rghRows is VarRef ? "ptr*" : "ptr"
         pcRowsRefreshedMarshal := pcRowsRefreshed is VarRef ? "ptr*" : "ptr"
+        prghRowsRefreshedMarshal := prghRowsRefreshed is VarRef ? "ptr*" : "ptr"
+        prgRowStatusMarshal := prgRowStatus is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", hChapter, "ptr", cRows, rghRowsMarshal, rghRows, "int", fOverWrite, pcRowsRefreshedMarshal, pcRowsRefreshed, "ptr*", prghRowsRefreshed, "ptr*", prgRowStatus, "HRESULT")
+        result := ComCall(3, this, "ptr", hChapter, "ptr", cRows, rghRowsMarshal, rghRows, "int", fOverWrite, pcRowsRefreshedMarshal, pcRowsRefreshed, prghRowsRefreshedMarshal, prghRowsRefreshed, prgRowStatusMarshal, prgRowStatus, "HRESULT")
         return result
     }
 

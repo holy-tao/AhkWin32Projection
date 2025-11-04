@@ -43,7 +43,9 @@ class IXAPO extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xapo/nf-xapo-ixapo-getregistrationproperties
      */
     GetRegistrationProperties(ppRegistrationProperties) {
-        result := ComCall(3, this, "ptr*", ppRegistrationProperties, "HRESULT")
+        ppRegistrationPropertiesMarshal := ppRegistrationProperties is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, ppRegistrationPropertiesMarshal, ppRegistrationProperties, "HRESULT")
         return result
     }
 
@@ -56,7 +58,9 @@ class IXAPO extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xapo/nf-xapo-ixapo-isinputformatsupported
      */
     IsInputFormatSupported(pOutputFormat, pRequestedInputFormat, ppSupportedInputFormat) {
-        result := ComCall(4, this, "ptr", pOutputFormat, "ptr", pRequestedInputFormat, "ptr*", ppSupportedInputFormat, "HRESULT")
+        ppSupportedInputFormatMarshal := ppSupportedInputFormat is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pOutputFormat, "ptr", pRequestedInputFormat, ppSupportedInputFormatMarshal, ppSupportedInputFormat, "HRESULT")
         return result
     }
 
@@ -69,7 +73,9 @@ class IXAPO extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xapo/nf-xapo-ixapo-isoutputformatsupported
      */
     IsOutputFormatSupported(pInputFormat, pRequestedOutputFormat, ppSupportedOutputFormat) {
-        result := ComCall(5, this, "ptr", pInputFormat, "ptr", pRequestedOutputFormat, "ptr*", ppSupportedOutputFormat, "HRESULT")
+        ppSupportedOutputFormatMarshal := ppSupportedOutputFormat is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pInputFormat, "ptr", pRequestedOutputFormat, ppSupportedOutputFormatMarshal, ppSupportedOutputFormat, "HRESULT")
         return result
     }
 

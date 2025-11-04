@@ -52,7 +52,9 @@ class IShellItem extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitem-bindtohandler
      */
     BindToHandler(pbc, bhid, riid, ppv) {
-        result := ComCall(3, this, "ptr", pbc, "ptr", bhid, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pbc, "ptr", bhid, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 

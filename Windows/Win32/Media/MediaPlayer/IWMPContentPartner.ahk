@@ -101,8 +101,9 @@ class IWMPContentPartner extends IUnknown{
 
         prgItemIDsMarshal := prgItemIDs is VarRef ? "uint*" : "ptr"
         pcItemIDsMarshal := pcItemIDs is VarRef ? "uint*" : "ptr"
+        pprgItemsMarshal := pprgItems is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "ptr", location, "ptr", pLocationContext, "ptr", itemLocation, "uint", cItemIDs, prgItemIDsMarshal, prgItemIDs, pcItemIDsMarshal, pcItemIDs, "ptr*", pprgItems, "HRESULT")
+        result := ComCall(7, this, "ptr", location, "ptr", pLocationContext, "ptr", itemLocation, "uint", cItemIDs, prgItemIDsMarshal, prgItemIDs, pcItemIDsMarshal, pcItemIDs, pprgItemsMarshal, pprgItems, "HRESULT")
         return result
     }
 

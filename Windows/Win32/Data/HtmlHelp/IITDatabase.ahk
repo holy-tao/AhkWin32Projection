@@ -83,7 +83,9 @@ class IITDatabase extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getobject
      */
     GetObject(dwObjInstance, riid, ppvObj) {
-        result := ComCall(6, this, "uint", dwObjInstance, "ptr", riid, "ptr*", ppvObj, "HRESULT")
+        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "uint", dwObjInstance, "ptr", riid, ppvObjMarshal, ppvObj, "HRESULT")
         return result
     }
 
@@ -98,7 +100,9 @@ class IITDatabase extends IUnknown{
     GetObjectPersistence(lpwszObject, dwObjInstance, ppvPersistence, fStream) {
         lpwszObject := lpwszObject is String ? StrPtr(lpwszObject) : lpwszObject
 
-        result := ComCall(7, this, "ptr", lpwszObject, "uint", dwObjInstance, "ptr*", ppvPersistence, "int", fStream, "HRESULT")
+        ppvPersistenceMarshal := ppvPersistence is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "ptr", lpwszObject, "uint", dwObjInstance, ppvPersistenceMarshal, ppvPersistence, "int", fStream, "HRESULT")
         return result
     }
 }

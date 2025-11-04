@@ -685,9 +685,11 @@ class GroupPolicy {
         lpHostName := lpHostName is String ? StrPtr(lpHostName) : lpHostName
         lpComputerName := lpComputerName is String ? StrPtr(lpComputerName) : lpComputerName
 
+        pGPOListMarshal := pGPOList is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\GetGPOListA", "ptr", hToken, "ptr", lpName, "ptr", lpHostName, "ptr", lpComputerName, "uint", dwFlags, "ptr*", pGPOList, "int")
+        result := DllCall("USERENV.dll\GetGPOListA", "ptr", hToken, "ptr", lpName, "ptr", lpHostName, "ptr", lpComputerName, "uint", dwFlags, pGPOListMarshal, pGPOList, "int")
         if(A_LastError)
             throw OSError()
 
@@ -731,9 +733,11 @@ class GroupPolicy {
         lpHostName := lpHostName is String ? StrPtr(lpHostName) : lpHostName
         lpComputerName := lpComputerName is String ? StrPtr(lpComputerName) : lpComputerName
 
+        pGPOListMarshal := pGPOList is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("USERENV.dll\GetGPOListW", "ptr", hToken, "ptr", lpName, "ptr", lpHostName, "ptr", lpComputerName, "uint", dwFlags, "ptr*", pGPOList, "int")
+        result := DllCall("USERENV.dll\GetGPOListW", "ptr", hToken, "ptr", lpName, "ptr", lpHostName, "ptr", lpComputerName, "uint", dwFlags, pGPOListMarshal, pGPOList, "int")
         if(A_LastError)
             throw OSError()
 
@@ -805,7 +809,9 @@ class GroupPolicy {
     static GetAppliedGPOListA(dwFlags, pMachineName, pSidUser, pGuidExtension, ppGPOList) {
         pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
 
-        result := DllCall("USERENV.dll\GetAppliedGPOListA", "uint", dwFlags, "ptr", pMachineName, "ptr", pSidUser, "ptr", pGuidExtension, "ptr*", ppGPOList, "uint")
+        ppGPOListMarshal := ppGPOList is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("USERENV.dll\GetAppliedGPOListA", "uint", dwFlags, "ptr", pMachineName, "ptr", pSidUser, "ptr", pGuidExtension, ppGPOListMarshal, ppGPOList, "uint")
         return result
     }
 
@@ -828,7 +834,9 @@ class GroupPolicy {
     static GetAppliedGPOListW(dwFlags, pMachineName, pSidUser, pGuidExtension, ppGPOList) {
         pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
 
-        result := DllCall("USERENV.dll\GetAppliedGPOListW", "uint", dwFlags, "ptr", pMachineName, "ptr", pSidUser, "ptr", pGuidExtension, "ptr*", ppGPOList, "uint")
+        ppGPOListMarshal := ppGPOList is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("USERENV.dll\GetAppliedGPOListW", "uint", dwFlags, "ptr", pMachineName, "ptr", pSidUser, "ptr", pGuidExtension, ppGPOListMarshal, ppGPOList, "uint")
         return result
     }
 
@@ -1037,8 +1045,9 @@ class GroupPolicy {
      */
     static GetManagedApplications(pCategory, dwQueryFlags, dwInfoLevel, pdwApps, prgManagedApps) {
         pdwAppsMarshal := pdwApps is VarRef ? "uint*" : "ptr"
+        prgManagedAppsMarshal := prgManagedApps is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\GetManagedApplications", "ptr", pCategory, "uint", dwQueryFlags, "uint", dwInfoLevel, pdwAppsMarshal, pdwApps, "ptr*", prgManagedApps, "uint")
+        result := DllCall("ADVAPI32.dll\GetManagedApplications", "ptr", pCategory, "uint", dwQueryFlags, "uint", dwInfoLevel, pdwAppsMarshal, pdwApps, prgManagedAppsMarshal, prgManagedApps, "uint")
         return result
     }
 
@@ -1054,8 +1063,9 @@ class GroupPolicy {
      */
     static GetLocalManagedApplications(bUserApps, pdwApps, prgLocalApps) {
         pdwAppsMarshal := pdwApps is VarRef ? "uint*" : "ptr"
+        prgLocalAppsMarshal := prgLocalApps is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\GetLocalManagedApplications", "int", bUserApps, pdwAppsMarshal, pdwApps, "ptr*", prgLocalApps, "uint")
+        result := DllCall("ADVAPI32.dll\GetLocalManagedApplications", "int", bUserApps, pdwAppsMarshal, pdwApps, prgLocalAppsMarshal, prgLocalApps, "uint")
         return result
     }
 

@@ -4835,7 +4835,9 @@ class DirectDraw {
      * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-directdrawcreateex
      */
     static DirectDrawCreateEx(lpGuid, lplpDD, iid, pUnkOuter) {
-        result := DllCall("DDRAW.dll\DirectDrawCreateEx", "ptr", lpGuid, "ptr*", lplpDD, "ptr", iid, "ptr", pUnkOuter, "int")
+        lplpDDMarshal := lplpDD is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("DDRAW.dll\DirectDrawCreateEx", "ptr", lpGuid, lplpDDMarshal, lplpDD, "ptr", iid, "ptr", pUnkOuter, "int")
         if(result != 0)
             throw OSError(result)
 

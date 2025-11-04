@@ -119,7 +119,9 @@ class ISyncKnowledge extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-getscopevector
      */
     GetScopeVector(riid, ppUnk) {
-        result := ComCall(8, this, "ptr", riid, "ptr*", ppUnk, "HRESULT")
+        ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(8, this, "ptr", riid, ppUnkMarshal, ppUnk, "HRESULT")
         return result
     }
 
@@ -292,7 +294,9 @@ class ISyncKnowledge extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-getrangeexceptions
      */
     GetRangeExceptions(riid, ppUnk) {
-        result := ComCall(21, this, "ptr", riid, "ptr*", ppUnk, "HRESULT")
+        ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(21, this, "ptr", riid, ppUnkMarshal, ppUnk, "HRESULT")
         return result
     }
 
@@ -304,7 +308,9 @@ class ISyncKnowledge extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-getsingleitemexceptions
      */
     GetSingleItemExceptions(riid, ppUnk) {
-        result := ComCall(22, this, "ptr", riid, "ptr*", ppUnk, "HRESULT")
+        ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(22, this, "ptr", riid, ppUnkMarshal, ppUnk, "HRESULT")
         return result
     }
 
@@ -316,7 +322,9 @@ class ISyncKnowledge extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge-getchangeunitexceptions
      */
     GetChangeUnitExceptions(riid, ppUnk) {
-        result := ComCall(23, this, "ptr", riid, "ptr*", ppUnk, "HRESULT")
+        ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(23, this, "ptr", riid, ppUnkMarshal, ppUnk, "HRESULT")
         return result
     }
 
@@ -330,8 +338,9 @@ class ISyncKnowledge extends IUnknown{
      */
     FindClockVectorForItem(pbItemId, riid, ppUnk) {
         pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
+        ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(24, this, pbItemIdMarshal, pbItemId, "ptr", riid, "ptr*", ppUnk, "HRESULT")
+        result := ComCall(24, this, pbItemIdMarshal, pbItemId, "ptr", riid, ppUnkMarshal, ppUnk, "HRESULT")
         return result
     }
 
@@ -347,8 +356,9 @@ class ISyncKnowledge extends IUnknown{
     FindClockVectorForChangeUnit(pbItemId, pbChangeUnitId, riid, ppUnk) {
         pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
         pbChangeUnitIdMarshal := pbChangeUnitId is VarRef ? "char*" : "ptr"
+        ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(25, this, pbItemIdMarshal, pbItemId, pbChangeUnitIdMarshal, pbChangeUnitId, "ptr", riid, "ptr*", ppUnk, "HRESULT")
+        result := ComCall(25, this, pbItemIdMarshal, pbItemId, pbChangeUnitIdMarshal, pbChangeUnitId, "ptr", riid, ppUnkMarshal, ppUnk, "HRESULT")
         return result
     }
 

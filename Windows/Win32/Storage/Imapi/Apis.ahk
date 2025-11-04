@@ -1487,8 +1487,9 @@ class Imapi {
      */
     static OpenIMsgOnIStg(lpMsgSess, lpAllocateBuffer, lpAllocateMore, lpFreeBuffer, lpMalloc, lpMapiSup, lpStg, lpfMsgCallRelease, ulCallerData, ulFlags, lppMsg) {
         lpMapiSupMarshal := lpMapiSup is VarRef ? "ptr" : "ptr"
+        lpfMsgCallReleaseMarshal := lpfMsgCallRelease is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("MAPI32.dll\OpenIMsgOnIStg", "ptr", lpMsgSess, "ptr", lpAllocateBuffer, "ptr", lpAllocateMore, "ptr", lpFreeBuffer, "ptr", lpMalloc, lpMapiSupMarshal, lpMapiSup, "ptr", lpStg, "ptr*", lpfMsgCallRelease, "uint", ulCallerData, "uint", ulFlags, "ptr*", lppMsg, "int")
+        result := DllCall("MAPI32.dll\OpenIMsgOnIStg", "ptr", lpMsgSess, "ptr", lpAllocateBuffer, "ptr", lpAllocateMore, "ptr", lpFreeBuffer, "ptr", lpMalloc, lpMapiSupMarshal, lpMapiSup, "ptr", lpStg, lpfMsgCallReleaseMarshal, lpfMsgCallRelease, "uint", ulCallerData, "uint", ulFlags, "ptr*", lppMsg, "int")
         return result
     }
 
@@ -1502,8 +1503,9 @@ class Imapi {
      */
     static GetAttribIMsgOnIStg(lpObject, lpPropTagArray, lppPropAttrArray) {
         lpObjectMarshal := lpObject is VarRef ? "ptr" : "ptr"
+        lppPropAttrArrayMarshal := lppPropAttrArray is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("MAPI32.dll\GetAttribIMsgOnIStg", lpObjectMarshal, lpObject, "ptr", lpPropTagArray, "ptr*", lppPropAttrArray, "int")
+        result := DllCall("MAPI32.dll\GetAttribIMsgOnIStg", lpObjectMarshal, lpObject, "ptr", lpPropTagArray, lppPropAttrArrayMarshal, lppPropAttrArray, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1521,8 +1523,9 @@ class Imapi {
      */
     static SetAttribIMsgOnIStg(lpObject, lpPropTags, lpPropAttrs, lppPropProblems) {
         lpObjectMarshal := lpObject is VarRef ? "ptr" : "ptr"
+        lppPropProblemsMarshal := lppPropProblems is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("MAPI32.dll\SetAttribIMsgOnIStg", lpObjectMarshal, lpObject, "ptr", lpPropTags, "ptr", lpPropAttrs, "ptr*", lppPropProblems, "int")
+        result := DllCall("MAPI32.dll\SetAttribIMsgOnIStg", lpObjectMarshal, lpObject, "ptr", lpPropTags, "ptr", lpPropAttrs, lppPropProblemsMarshal, lppPropProblems, "int")
         if(result != 0)
             throw OSError(result)
 

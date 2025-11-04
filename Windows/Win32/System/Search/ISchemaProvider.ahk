@@ -38,7 +38,9 @@ class ISchemaProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-ischemaprovider-entities
      */
     Entities(riid, pEntities) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", pEntities, "HRESULT")
+        pEntitiesMarshal := pEntities is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", riid, pEntitiesMarshal, pEntities, "HRESULT")
         return result
     }
 
@@ -75,7 +77,9 @@ class ISchemaProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-ischemaprovider-metadata
      */
     MetaData(riid, pMetaData) {
-        result := ComCall(6, this, "ptr", riid, "ptr*", pMetaData, "HRESULT")
+        pMetaDataMarshal := pMetaData is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "ptr", riid, pMetaDataMarshal, pMetaData, "HRESULT")
         return result
     }
 

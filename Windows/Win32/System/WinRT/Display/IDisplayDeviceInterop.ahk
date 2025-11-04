@@ -56,7 +56,9 @@ class IDisplayDeviceInterop extends IUnknown{
     OpenSharedHandle(NTHandle, riid, ppvObj) {
         NTHandle := NTHandle is Win32Handle ? NumGet(NTHandle, "ptr") : NTHandle
 
-        result := ComCall(4, this, "ptr", NTHandle, "ptr", riid, "ptr*", ppvObj, "HRESULT")
+        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", NTHandle, "ptr", riid, ppvObjMarshal, ppvObj, "HRESULT")
         return result
     }
 }

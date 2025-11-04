@@ -54,9 +54,10 @@ class _ISpPrivateEngineCall extends IUnknown{
      * @returns {HRESULT} 
      */
     CallEngineEx(pInFrame, ulInFrameSize, ppCoMemOutFrame, pulOutFrameSize) {
+        ppCoMemOutFrameMarshal := ppCoMemOutFrame is VarRef ? "ptr*" : "ptr"
         pulOutFrameSizeMarshal := pulOutFrameSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pInFrame, "uint", ulInFrameSize, "ptr*", ppCoMemOutFrame, pulOutFrameSizeMarshal, pulOutFrameSize, "HRESULT")
+        result := ComCall(4, this, "ptr", pInFrame, "uint", ulInFrameSize, ppCoMemOutFrameMarshal, ppCoMemOutFrame, pulOutFrameSizeMarshal, pulOutFrameSize, "HRESULT")
         return result
     }
 }

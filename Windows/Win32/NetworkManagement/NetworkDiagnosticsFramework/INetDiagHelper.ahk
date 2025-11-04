@@ -59,7 +59,9 @@ class INetDiagHelper extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelper-getdiagnosticsinfo
      */
     GetDiagnosticsInfo(ppInfo) {
-        result := ComCall(4, this, "ptr*", ppInfo, "HRESULT")
+        ppInfoMarshal := ppInfo is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, ppInfoMarshal, ppInfo, "HRESULT")
         return result
     }
 
@@ -72,8 +74,9 @@ class INetDiagHelper extends IUnknown{
      */
     GetKeyAttributes(pcelt, pprgAttributes) {
         pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
+        pprgAttributesMarshal := pprgAttributes is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, pceltMarshal, pcelt, "ptr*", pprgAttributes, "HRESULT")
+        result := ComCall(5, this, pceltMarshal, pcelt, pprgAttributesMarshal, pprgAttributes, "HRESULT")
         return result
     }
 
@@ -124,8 +127,9 @@ class INetDiagHelper extends IUnknown{
      */
     GetLowerHypotheses(pcelt, pprgHypotheses) {
         pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
+        pprgHypothesesMarshal := pprgHypotheses is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(8, this, pceltMarshal, pcelt, "ptr*", pprgHypotheses, "HRESULT")
+        result := ComCall(8, this, pceltMarshal, pcelt, pprgHypothesesMarshal, pprgHypotheses, "HRESULT")
         return result
     }
 
@@ -138,8 +142,9 @@ class INetDiagHelper extends IUnknown{
      */
     GetDownStreamHypotheses(pcelt, pprgHypotheses) {
         pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
+        pprgHypothesesMarshal := pprgHypotheses is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(9, this, pceltMarshal, pcelt, "ptr*", pprgHypotheses, "HRESULT")
+        result := ComCall(9, this, pceltMarshal, pcelt, pprgHypothesesMarshal, pprgHypotheses, "HRESULT")
         return result
     }
 
@@ -152,8 +157,9 @@ class INetDiagHelper extends IUnknown{
      */
     GetHigherHypotheses(pcelt, pprgHypotheses) {
         pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
+        pprgHypothesesMarshal := pprgHypotheses is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(10, this, pceltMarshal, pcelt, "ptr*", pprgHypotheses, "HRESULT")
+        result := ComCall(10, this, pceltMarshal, pcelt, pprgHypothesesMarshal, pprgHypotheses, "HRESULT")
         return result
     }
 
@@ -166,8 +172,9 @@ class INetDiagHelper extends IUnknown{
      */
     GetUpStreamHypotheses(pcelt, pprgHypotheses) {
         pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
+        pprgHypothesesMarshal := pprgHypotheses is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(11, this, pceltMarshal, pcelt, "ptr*", pprgHypotheses, "HRESULT")
+        result := ComCall(11, this, pceltMarshal, pcelt, pprgHypothesesMarshal, pprgHypotheses, "HRESULT")
         return result
     }
 
@@ -213,8 +220,9 @@ class INetDiagHelper extends IUnknown{
      */
     GetRepairInfo(problem, pcelt, ppInfo) {
         pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
+        ppInfoMarshal := ppInfo is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(14, this, "int", problem, pceltMarshal, pcelt, "ptr*", ppInfo, "HRESULT")
+        result := ComCall(14, this, "int", problem, pceltMarshal, pcelt, ppInfoMarshal, ppInfo, "HRESULT")
         return result
     }
 
@@ -260,8 +268,9 @@ class INetDiagHelper extends IUnknown{
      */
     GetAttributes(pcelt, pprgAttributes) {
         pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
+        pprgAttributesMarshal := pprgAttributes is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(18, this, pceltMarshal, pcelt, "ptr*", pprgAttributes, "HRESULT")
+        result := ComCall(18, this, pceltMarshal, pcelt, pprgAttributesMarshal, pprgAttributes, "HRESULT")
         return result
     }
 

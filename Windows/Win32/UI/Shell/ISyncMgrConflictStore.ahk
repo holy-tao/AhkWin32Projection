@@ -65,7 +65,9 @@ class ISyncMgrConflictStore extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictstore-bindtoconflict
      */
     BindToConflict(pConflictIdInfo, riid, ppv) {
-        result := ComCall(4, this, "ptr", pConflictIdInfo, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pConflictIdInfo, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 

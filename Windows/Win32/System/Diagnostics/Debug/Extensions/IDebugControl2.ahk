@@ -1039,7 +1039,9 @@ class IDebugControl2 extends IUnknown{
     GetExtensionFunction(Handle, FuncName, Function) {
         FuncName := FuncName is String ? StrPtr(FuncName) : FuncName
 
-        result := ComCall(78, this, "uint", Handle, "ptr", FuncName, "ptr*", Function, "HRESULT")
+        FunctionMarshal := Function is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(78, this, "uint", Handle, "ptr", FuncName, FunctionMarshal, Function, "HRESULT")
         return result
     }
 

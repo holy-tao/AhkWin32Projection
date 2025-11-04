@@ -72,9 +72,10 @@ class IPrivateDispatch extends IUnknown{
      * @returns {HRESULT} 
      */
     ADSIGetIDsOfNames(riid, rgszNames, cNames, lcid, rgdispid) {
+        rgszNamesMarshal := rgszNames is VarRef ? "ptr*" : "ptr"
         rgdispidMarshal := rgdispid is VarRef ? "int*" : "ptr"
 
-        result := ComCall(6, this, "ptr", riid, "ptr*", rgszNames, "uint", cNames, "uint", lcid, rgdispidMarshal, rgdispid, "HRESULT")
+        result := ComCall(6, this, "ptr", riid, rgszNamesMarshal, rgszNames, "uint", cNames, "uint", lcid, rgdispidMarshal, rgdispid, "HRESULT")
         return result
     }
 

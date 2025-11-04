@@ -47,7 +47,9 @@ class IDxcResult extends IDxcOperationResult{
      * @returns {HRESULT} 
      */
     GetOutput(dxcOutKind, iid, ppvObject, ppOutputName) {
-        result := ComCall(7, this, "int", dxcOutKind, "ptr", iid, "ptr*", ppvObject, "ptr*", ppOutputName, "HRESULT")
+        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "int", dxcOutKind, "ptr", iid, ppvObjectMarshal, ppvObject, "ptr*", ppOutputName, "HRESULT")
         return result
     }
 

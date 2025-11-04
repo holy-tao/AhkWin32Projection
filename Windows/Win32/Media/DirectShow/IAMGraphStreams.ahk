@@ -40,7 +40,9 @@ class IAMGraphStreams extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamgraphstreams-findupstreaminterface
      */
     FindUpstreamInterface(pPin, riid, ppvInterface, dwFlags) {
-        result := ComCall(3, this, "ptr", pPin, "ptr", riid, "ptr*", ppvInterface, "uint", dwFlags, "HRESULT")
+        ppvInterfaceMarshal := ppvInterface is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pPin, "ptr", riid, ppvInterfaceMarshal, ppvInterface, "uint", dwFlags, "HRESULT")
         return result
     }
 

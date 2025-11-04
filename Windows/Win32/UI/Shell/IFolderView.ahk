@@ -62,7 +62,9 @@ class IFolderView extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview-getfolder
      */
     GetFolder(riid, ppv) {
-        result := ComCall(5, this, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -74,7 +76,9 @@ class IFolderView extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview-item
      */
     Item(iItemIndex, ppidl) {
-        result := ComCall(6, this, "int", iItemIndex, "ptr*", ppidl, "HRESULT")
+        ppidlMarshal := ppidl is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "int", iItemIndex, ppidlMarshal, ppidl, "HRESULT")
         return result
     }
 
@@ -101,7 +105,9 @@ class IFolderView extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview-items
      */
     Items(uFlags, riid, ppv) {
-        result := ComCall(8, this, "uint", uFlags, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(8, this, "uint", uFlags, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -197,7 +203,9 @@ class IFolderView extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview-selectandpositionitems
      */
     SelectAndPositionItems(cidl, apidl, apt, dwFlags) {
-        result := ComCall(16, this, "uint", cidl, "ptr*", apidl, "ptr", apt, "uint", dwFlags, "HRESULT")
+        apidlMarshal := apidl is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(16, this, "uint", cidl, apidlMarshal, apidl, "ptr", apt, "uint", dwFlags, "HRESULT")
         return result
     }
 }

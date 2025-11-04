@@ -6803,9 +6803,10 @@ class Jet {
         tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
 
         pcEnumColumnMarshal := pcEnumColumn is VarRef ? "uint*" : "ptr"
+        prgEnumColumnMarshal := prgEnumColumn is VarRef ? "ptr*" : "ptr"
         pvReallocContextMarshal := pvReallocContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("ESENT.dll\JetEnumerateColumns", "ptr", sesid, "ptr", tableid, "uint", cEnumColumnId, "ptr", rgEnumColumnId, pcEnumColumnMarshal, pcEnumColumn, "ptr*", prgEnumColumn, "ptr", pfnRealloc, pvReallocContextMarshal, pvReallocContext, "uint", cbDataMost, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetEnumerateColumns", "ptr", sesid, "ptr", tableid, "uint", cEnumColumnId, "ptr", rgEnumColumnId, pcEnumColumnMarshal, pcEnumColumn, prgEnumColumnMarshal, prgEnumColumn, "ptr", pfnRealloc, pvReallocContextMarshal, pvReallocContext, "uint", cbDataMost, "uint", grbit, "int")
         return result
     }
 
@@ -7255,10 +7256,11 @@ class Jet {
         sesid := sesid is Win32Handle ? NumGet(sesid, "ptr") : sesid
         tableid := tableid is Win32Handle ? NumGet(tableid, "ptr") : tableid
 
+        rgpvKeysMarshal := rgpvKeys is VarRef ? "ptr*" : "ptr"
         rgcbKeysMarshal := rgcbKeys is VarRef ? "uint*" : "ptr"
         pckeysPrereadMarshal := pckeysPreread is VarRef ? "int*" : "ptr"
 
-        result := DllCall("ESENT.dll\JetPrereadKeys", "ptr", sesid, "ptr", tableid, "ptr*", rgpvKeys, rgcbKeysMarshal, rgcbKeys, "int", ckeys, pckeysPrereadMarshal, pckeysPreread, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetPrereadKeys", "ptr", sesid, "ptr", tableid, rgpvKeysMarshal, rgpvKeys, rgcbKeysMarshal, rgcbKeys, "int", ckeys, pckeysPrereadMarshal, pckeysPreread, "uint", grbit, "int")
         return result
     }
 
@@ -8576,8 +8578,9 @@ class Jet {
      */
     static JetGetInstanceInfoA(pcInstanceInfo, paInstanceInfo) {
         pcInstanceInfoMarshal := pcInstanceInfo is VarRef ? "uint*" : "ptr"
+        paInstanceInfoMarshal := paInstanceInfo is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ESENT.dll\JetGetInstanceInfoA", pcInstanceInfoMarshal, pcInstanceInfo, "ptr*", paInstanceInfo, "int")
+        result := DllCall("ESENT.dll\JetGetInstanceInfoA", pcInstanceInfoMarshal, pcInstanceInfo, paInstanceInfoMarshal, paInstanceInfo, "int")
         return result
     }
 
@@ -8590,8 +8593,9 @@ class Jet {
      */
     static JetGetInstanceInfoW(pcInstanceInfo, paInstanceInfo) {
         pcInstanceInfoMarshal := pcInstanceInfo is VarRef ? "uint*" : "ptr"
+        paInstanceInfoMarshal := paInstanceInfo is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ESENT.dll\JetGetInstanceInfoW", pcInstanceInfoMarshal, pcInstanceInfo, "ptr*", paInstanceInfo, "int")
+        result := DllCall("ESENT.dll\JetGetInstanceInfoW", pcInstanceInfoMarshal, pcInstanceInfo, paInstanceInfoMarshal, paInstanceInfo, "int")
         return result
     }
 
@@ -8684,8 +8688,9 @@ class Jet {
         snapId := snapId is Win32Handle ? NumGet(snapId, "ptr") : snapId
 
         pcInstanceInfoMarshal := pcInstanceInfo is VarRef ? "uint*" : "ptr"
+        paInstanceInfoMarshal := paInstanceInfo is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ESENT.dll\JetOSSnapshotFreezeA", "ptr", snapId, pcInstanceInfoMarshal, pcInstanceInfo, "ptr*", paInstanceInfo, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetOSSnapshotFreezeA", "ptr", snapId, pcInstanceInfoMarshal, pcInstanceInfo, paInstanceInfoMarshal, paInstanceInfo, "uint", grbit, "int")
         return result
     }
 
@@ -8702,8 +8707,9 @@ class Jet {
         snapId := snapId is Win32Handle ? NumGet(snapId, "ptr") : snapId
 
         pcInstanceInfoMarshal := pcInstanceInfo is VarRef ? "uint*" : "ptr"
+        paInstanceInfoMarshal := paInstanceInfo is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ESENT.dll\JetOSSnapshotFreezeW", "ptr", snapId, pcInstanceInfoMarshal, pcInstanceInfo, "ptr*", paInstanceInfo, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetOSSnapshotFreezeW", "ptr", snapId, pcInstanceInfoMarshal, pcInstanceInfo, paInstanceInfoMarshal, paInstanceInfo, "uint", grbit, "int")
         return result
     }
 
@@ -8778,8 +8784,9 @@ class Jet {
         snapId := snapId is Win32Handle ? NumGet(snapId, "ptr") : snapId
 
         pcInstanceInfoMarshal := pcInstanceInfo is VarRef ? "uint*" : "ptr"
+        paInstanceInfoMarshal := paInstanceInfo is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ESENT.dll\JetOSSnapshotGetFreezeInfoA", "ptr", snapId, pcInstanceInfoMarshal, pcInstanceInfo, "ptr*", paInstanceInfo, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetOSSnapshotGetFreezeInfoA", "ptr", snapId, pcInstanceInfoMarshal, pcInstanceInfo, paInstanceInfoMarshal, paInstanceInfo, "uint", grbit, "int")
         return result
     }
 
@@ -8796,8 +8803,9 @@ class Jet {
         snapId := snapId is Win32Handle ? NumGet(snapId, "ptr") : snapId
 
         pcInstanceInfoMarshal := pcInstanceInfo is VarRef ? "uint*" : "ptr"
+        paInstanceInfoMarshal := paInstanceInfo is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ESENT.dll\JetOSSnapshotGetFreezeInfoW", "ptr", snapId, pcInstanceInfoMarshal, pcInstanceInfo, "ptr*", paInstanceInfo, "uint", grbit, "int")
+        result := DllCall("ESENT.dll\JetOSSnapshotGetFreezeInfoW", "ptr", snapId, pcInstanceInfoMarshal, pcInstanceInfo, paInstanceInfoMarshal, paInstanceInfo, "uint", grbit, "int")
         return result
     }
 

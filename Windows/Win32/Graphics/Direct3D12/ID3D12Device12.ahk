@@ -40,8 +40,9 @@ class ID3D12Device12 extends ID3D12Device11{
      */
     GetResourceAllocationInfo3(visibleMask, numResourceDescs, pResourceDescs, pNumCastableFormats, ppCastableFormats, pResourceAllocationInfo1) {
         pNumCastableFormatsMarshal := pNumCastableFormats is VarRef ? "uint*" : "ptr"
+        ppCastableFormatsMarshal := ppCastableFormats is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(80, this, "uint", visibleMask, "uint", numResourceDescs, "ptr", pResourceDescs, pNumCastableFormatsMarshal, pNumCastableFormats, "ptr*", ppCastableFormats, "ptr", pResourceAllocationInfo1, "ptr")
+        result := ComCall(80, this, "uint", visibleMask, "uint", numResourceDescs, "ptr", pResourceDescs, pNumCastableFormatsMarshal, pNumCastableFormats, ppCastableFormatsMarshal, ppCastableFormats, "ptr", pResourceAllocationInfo1, "ptr")
         return result
     }
 }

@@ -104,7 +104,9 @@ class IFsrmRule extends IFsrmObject{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmrule-get_namespaceroots
      */
     get_NamespaceRoots(namespaceRoots) {
-        result := ComCall(17, this, "ptr*", namespaceRoots, "HRESULT")
+        namespaceRootsMarshal := namespaceRoots is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(17, this, namespaceRootsMarshal, namespaceRoots, "HRESULT")
         return result
     }
 
@@ -150,7 +152,9 @@ class IFsrmRule extends IFsrmObject{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmrule-get_parameters
      */
     get_Parameters(parameters) {
-        result := ComCall(21, this, "ptr*", parameters, "HRESULT")
+        parametersMarshal := parameters is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(21, this, parametersMarshal, parameters, "HRESULT")
         return result
     }
 

@@ -88,7 +88,9 @@ class ID3D12CompilerFactory extends IUnknown{
      * @returns {HRESULT} 
      */
     CreateCompilerCacheSession(pPaths, NumPaths, pTarget, pApplicationDesc, riid, ppCompilerCacheSession) {
-        result := ComCall(7, this, "ptr", pPaths, "uint", NumPaths, "ptr", pTarget, "ptr", pApplicationDesc, "ptr", riid, "ptr*", ppCompilerCacheSession, "HRESULT")
+        ppCompilerCacheSessionMarshal := ppCompilerCacheSession is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pPaths, "uint", NumPaths, "ptr", pTarget, "ptr", pApplicationDesc, "ptr", riid, ppCompilerCacheSessionMarshal, ppCompilerCacheSession, "HRESULT")
         return result
     }
 
@@ -100,7 +102,9 @@ class ID3D12CompilerFactory extends IUnknown{
      * @returns {HRESULT} 
      */
     CreateCompiler(pCompilerCacheSession, riid, ppCompiler) {
-        result := ComCall(8, this, "ptr", pCompilerCacheSession, "ptr", riid, "ptr*", ppCompiler, "HRESULT")
+        ppCompilerMarshal := ppCompiler is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(8, this, "ptr", pCompilerCacheSession, "ptr", riid, ppCompilerMarshal, ppCompiler, "HRESULT")
         return result
     }
 }

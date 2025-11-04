@@ -38,9 +38,10 @@ class IDWriteFontFile extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontfile-getreferencekey
      */
     GetReferenceKey(fontFileReferenceKey, fontFileReferenceKeySize) {
+        fontFileReferenceKeyMarshal := fontFileReferenceKey is VarRef ? "ptr*" : "ptr"
         fontFileReferenceKeySizeMarshal := fontFileReferenceKeySize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr*", fontFileReferenceKey, fontFileReferenceKeySizeMarshal, fontFileReferenceKeySize, "HRESULT")
+        result := ComCall(3, this, fontFileReferenceKeyMarshal, fontFileReferenceKey, fontFileReferenceKeySizeMarshal, fontFileReferenceKeySize, "HRESULT")
         return result
     }
 

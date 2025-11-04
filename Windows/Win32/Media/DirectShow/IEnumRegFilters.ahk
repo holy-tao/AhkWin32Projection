@@ -39,9 +39,10 @@ class IEnumRegFilters extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ienumregfilters-next
      */
     Next(cFilters, apRegFilter, pcFetched) {
+        apRegFilterMarshal := apRegFilter is VarRef ? "ptr*" : "ptr"
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cFilters, "ptr*", apRegFilter, pcFetchedMarshal, pcFetched, "int")
+        result := ComCall(3, this, "uint", cFilters, apRegFilterMarshal, apRegFilter, pcFetchedMarshal, pcFetched, "int")
         return result
     }
 

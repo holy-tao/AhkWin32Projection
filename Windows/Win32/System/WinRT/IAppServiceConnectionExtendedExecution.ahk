@@ -35,7 +35,9 @@ class IAppServiceConnectionExtendedExecution extends IUnknown{
      * @returns {HRESULT} 
      */
     OpenForExtendedExecutionAsync(riid, operation) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", operation, "HRESULT")
+        operationMarshal := operation is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", riid, operationMarshal, operation, "HRESULT")
         return result
     }
 }

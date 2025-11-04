@@ -78,7 +78,9 @@ class IDsBrowseDomainTree extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dsclient/nf-dsclient-idsbrowsedomaintree-getdomains
      */
     GetDomains(ppDomainTree, dwFlags) {
-        result := ComCall(4, this, "ptr*", ppDomainTree, "uint", dwFlags, "HRESULT")
+        ppDomainTreeMarshal := ppDomainTree is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, ppDomainTreeMarshal, ppDomainTree, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -89,7 +91,9 @@ class IDsBrowseDomainTree extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dsclient/nf-dsclient-idsbrowsedomaintree-freedomains
      */
     FreeDomains(ppDomainTree) {
-        result := ComCall(5, this, "ptr*", ppDomainTree, "HRESULT")
+        ppDomainTreeMarshal := ppDomainTree is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, ppDomainTreeMarshal, ppDomainTree, "HRESULT")
         return result
     }
 

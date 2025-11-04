@@ -48,8 +48,9 @@ class IAppxBlockMapBlock extends IUnknown{
      */
     GetHash(bufferSize, buffer) {
         bufferSizeMarshal := bufferSize is VarRef ? "uint*" : "ptr"
+        bufferMarshal := buffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, bufferSizeMarshal, bufferSize, "ptr*", buffer, "HRESULT")
+        result := ComCall(3, this, bufferSizeMarshal, bufferSize, bufferMarshal, buffer, "HRESULT")
         return result
     }
 

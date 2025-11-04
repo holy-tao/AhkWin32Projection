@@ -44,8 +44,9 @@ class IProofOfPossessionCookieInfoManager4 extends IUnknown{
         uaClientId := uaClientId is String ? StrPtr(uaClientId) : uaClientId
 
         cookieInfoCountMarshal := cookieInfoCount is VarRef ? "uint*" : "ptr"
+        cookieInfoMarshal := cookieInfo is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", uri, "ptr", uaClientId, cookieInfoCountMarshal, cookieInfoCount, "ptr*", cookieInfo, "HRESULT")
+        result := ComCall(3, this, "ptr", uri, "ptr", uaClientId, cookieInfoCountMarshal, cookieInfoCount, cookieInfoMarshal, cookieInfo, "HRESULT")
         return result
     }
 
@@ -64,8 +65,9 @@ class IProofOfPossessionCookieInfoManager4 extends IUnknown{
         uaClientId := uaClientId is String ? StrPtr(uaClientId) : uaClientId
 
         cookieInfoCountMarshal := cookieInfoCount is VarRef ? "uint*" : "ptr"
+        cookieInfoMarshal := cookieInfo is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", webAccount, "ptr", uri, "ptr", uaClientId, cookieInfoCountMarshal, cookieInfoCount, "ptr*", cookieInfo, "HRESULT")
+        result := ComCall(4, this, "ptr", webAccount, "ptr", uri, "ptr", uaClientId, cookieInfoCountMarshal, cookieInfoCount, cookieInfoMarshal, cookieInfo, "HRESULT")
         return result
     }
 }

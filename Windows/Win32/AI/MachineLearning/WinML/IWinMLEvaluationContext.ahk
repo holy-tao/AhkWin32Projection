@@ -51,7 +51,9 @@ class IWinMLEvaluationContext extends IUnknown{
     GetValueByName(Name, pDescriptor) {
         Name := Name is String ? StrPtr(Name) : Name
 
-        result := ComCall(4, this, "ptr", Name, "ptr*", pDescriptor, "HRESULT")
+        pDescriptorMarshal := pDescriptor is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", Name, pDescriptorMarshal, pDescriptor, "HRESULT")
         return result
     }
 

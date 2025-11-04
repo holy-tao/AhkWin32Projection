@@ -40,7 +40,9 @@ class IPSFactoryBuffer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-ipsfactorybuffer-createproxy
      */
     CreateProxy(pUnkOuter, riid, ppProxy, ppv) {
-        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", riid, "ptr*", ppProxy, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", riid, "ptr*", ppProxy, ppvMarshal, ppv, "HRESULT")
         return result
     }
 

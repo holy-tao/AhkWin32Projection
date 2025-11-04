@@ -37,7 +37,9 @@ class IUnknown extends Win32ComInterface{
      * @see https://learn.microsoft.com/windows/win32/api/unknwn/nf-unknwn-iunknown-queryinterface(refiid_void)
      */
     QueryInterface(riid, ppvObject) {
-        result := ComCall(0, this, "ptr", riid, "ptr*", ppvObject, "int")
+        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(0, this, "ptr", riid, ppvObjectMarshal, ppvObject, "int")
         return result
     }
 

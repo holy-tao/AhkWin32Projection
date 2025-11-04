@@ -37,7 +37,9 @@ class IMediaSample extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediasample-getpointer
      */
     GetPointer(ppBuffer) {
-        result := ComCall(3, this, "ptr*", ppBuffer, "HRESULT")
+        ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, ppBufferMarshal, ppBuffer, "HRESULT")
         return result
     }
 
@@ -151,7 +153,9 @@ class IMediaSample extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediasample-getmediatype
      */
     GetMediaType(ppMediaType) {
-        result := ComCall(13, this, "ptr*", ppMediaType, "HRESULT")
+        ppMediaTypeMarshal := ppMediaType is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(13, this, ppMediaTypeMarshal, ppMediaType, "HRESULT")
         return result
     }
 

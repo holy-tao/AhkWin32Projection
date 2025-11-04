@@ -65,7 +65,9 @@ class IMFDXGIDeviceManager extends IUnknown{
     GetVideoService(hDevice, riid, ppService) {
         hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
 
-        result := ComCall(4, this, "ptr", hDevice, "ptr", riid, "ptr*", ppService, "HRESULT")
+        ppServiceMarshal := ppService is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", hDevice, "ptr", riid, ppServiceMarshal, ppService, "HRESULT")
         return result
     }
 
@@ -81,7 +83,9 @@ class IMFDXGIDeviceManager extends IUnknown{
     LockDevice(hDevice, riid, ppUnkDevice, fBlock) {
         hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
 
-        result := ComCall(5, this, "ptr", hDevice, "ptr", riid, "ptr*", ppUnkDevice, "int", fBlock, "HRESULT")
+        ppUnkDeviceMarshal := ppUnkDevice is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ptr", hDevice, "ptr", riid, ppUnkDeviceMarshal, ppUnkDevice, "int", fBlock, "HRESULT")
         return result
     }
 

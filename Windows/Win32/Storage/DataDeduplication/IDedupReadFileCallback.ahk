@@ -68,8 +68,9 @@ class IDedupReadFileCallback extends IUnknown{
      */
     OrderContainersRestore(NumberOfContainers, ContainerPaths, ReadPlanEntries, ReadPlan) {
         ReadPlanEntriesMarshal := ReadPlanEntries is VarRef ? "uint*" : "ptr"
+        ReadPlanMarshal := ReadPlan is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "uint", NumberOfContainers, "ptr", ContainerPaths, ReadPlanEntriesMarshal, ReadPlanEntries, "ptr*", ReadPlan, "HRESULT")
+        result := ComCall(4, this, "uint", NumberOfContainers, "ptr", ContainerPaths, ReadPlanEntriesMarshal, ReadPlanEntries, ReadPlanMarshal, ReadPlan, "HRESULT")
         return result
     }
 

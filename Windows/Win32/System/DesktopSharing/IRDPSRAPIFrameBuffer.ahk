@@ -86,7 +86,9 @@ class IRDPSRAPIFrameBuffer extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiframebuffer-getframebufferbits
      */
     GetFrameBufferBits(x, y, Width, Heigth, ppBits) {
-        result := ComCall(10, this, "int", x, "int", y, "int", Width, "int", Heigth, "ptr*", ppBits, "HRESULT")
+        ppBitsMarshal := ppBits is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(10, this, "int", x, "int", y, "int", Width, "int", Heigth, ppBitsMarshal, ppBits, "HRESULT")
         return result
     }
 }

@@ -56,7 +56,9 @@ class ICreatePropBagOnRegKey extends IUnknown{
         hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
         subkey := subkey is String ? StrPtr(subkey) : subkey
 
-        result := ComCall(3, this, "ptr", hkey, "ptr", subkey, "uint", ulOptions, "uint", samDesired, "ptr", iid, "ptr*", ppBag, "HRESULT")
+        ppBagMarshal := ppBag is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", hkey, "ptr", subkey, "uint", ulOptions, "uint", samDesired, "ptr", iid, ppBagMarshal, ppBag, "HRESULT")
         return result
     }
 }

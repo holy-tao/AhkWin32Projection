@@ -127,7 +127,9 @@ class ComponentServices {
      * @since windows5.1.2600
      */
     static CoGetDefaultContext(aptType, riid, ppv) {
-        result := DllCall("OLE32.dll\CoGetDefaultContext", "int", aptType, "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("OLE32.dll\CoGetDefaultContext", "int", aptType, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -206,7 +208,9 @@ class ComponentServices {
      * @since windows5.1.2600
      */
     static CoCreateActivity(pIUnknown, riid, ppObj) {
-        result := DllCall("comsvcs.dll\CoCreateActivity", "ptr", pIUnknown, "ptr", riid, "ptr*", ppObj, "int")
+        ppObjMarshal := ppObj is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("comsvcs.dll\CoCreateActivity", "ptr", pIUnknown, "ptr", riid, ppObjMarshal, ppObj, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -444,7 +448,9 @@ class ComponentServices {
      * @since windows5.0
      */
     static MTSCreateActivity(riid, ppobj) {
-        result := DllCall("comsvcs.dll\MTSCreateActivity", "ptr", riid, "ptr*", ppobj, "int")
+        ppobjMarshal := ppobj is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("comsvcs.dll\MTSCreateActivity", "ptr", riid, ppobjMarshal, ppobj, "int")
         if(result != 0)
             throw OSError(result)
 

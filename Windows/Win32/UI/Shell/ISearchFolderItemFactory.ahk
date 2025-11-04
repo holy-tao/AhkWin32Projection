@@ -163,7 +163,9 @@ class ISearchFolderItemFactory extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-getshellitem
      */
     GetShellItem(riid, ppv) {
-        result := ComCall(13, this, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(13, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -174,7 +176,9 @@ class ISearchFolderItemFactory extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-isearchfolderitemfactory-getidlist
      */
     GetIDList(ppidl) {
-        result := ComCall(14, this, "ptr*", ppidl, "HRESULT")
+        ppidlMarshal := ppidl is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(14, this, ppidlMarshal, ppidl, "HRESULT")
         return result
     }
 }

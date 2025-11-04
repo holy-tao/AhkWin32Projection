@@ -39,7 +39,9 @@ class ID3D12Resource extends ID3D12Pageable{
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12resource-map
      */
     Map(Subresource, pReadRange, ppData) {
-        result := ComCall(8, this, "uint", Subresource, "ptr", pReadRange, "ptr*", ppData, "HRESULT")
+        ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(8, this, "uint", Subresource, "ptr", pReadRange, ppDataMarshal, ppData, "HRESULT")
         return result
     }
 

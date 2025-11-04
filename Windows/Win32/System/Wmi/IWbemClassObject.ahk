@@ -122,7 +122,9 @@ class IWbemClassObject extends IUnknown{
     GetNames(wszQualifierName, lFlags, pQualifierVal, pNames) {
         wszQualifierName := wszQualifierName is String ? StrPtr(wszQualifierName) : wszQualifierName
 
-        result := ComCall(7, this, "ptr", wszQualifierName, "int", lFlags, "ptr", pQualifierVal, "ptr*", pNames, "HRESULT")
+        pNamesMarshal := pNames is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "ptr", wszQualifierName, "int", lFlags, "ptr", pQualifierVal, pNamesMarshal, pNames, "HRESULT")
         return result
     }
 

@@ -67,7 +67,9 @@ class IESOpenMmiEvent extends IESEvent{
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesopenmmievent-getdialogdata
      */
     GetDialogData(pbData) {
-        result := ComCall(10, this, "ptr*", pbData, "HRESULT")
+        pbDataMarshal := pbData is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(10, this, pbDataMarshal, pbData, "HRESULT")
         return result
     }
 

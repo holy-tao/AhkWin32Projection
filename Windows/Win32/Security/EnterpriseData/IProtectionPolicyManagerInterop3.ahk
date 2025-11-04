@@ -46,7 +46,9 @@ class IProtectionPolicyManagerInterop3 extends IInspectable{
         targetIdentity := targetIdentity is Win32Handle ? NumGet(targetIdentity, "ptr") : targetIdentity
         messageFromApp := messageFromApp is Win32Handle ? NumGet(messageFromApp, "ptr") : messageFromApp
 
-        result := ComCall(6, this, "ptr", appWindow, "ptr", sourceIdentity, "ptr", targetIdentity, "ptr", auditInfoUnk, "ptr", messageFromApp, "uint", behavior, "ptr", riid, "ptr*", asyncOperation, "HRESULT")
+        asyncOperationMarshal := asyncOperation is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "ptr", appWindow, "ptr", sourceIdentity, "ptr", targetIdentity, "ptr", auditInfoUnk, "ptr", messageFromApp, "uint", behavior, "ptr", riid, asyncOperationMarshal, asyncOperation, "HRESULT")
         return result
     }
 
@@ -68,7 +70,9 @@ class IProtectionPolicyManagerInterop3 extends IInspectable{
         appPackageFamilyName := appPackageFamilyName is Win32Handle ? NumGet(appPackageFamilyName, "ptr") : appPackageFamilyName
         messageFromApp := messageFromApp is Win32Handle ? NumGet(messageFromApp, "ptr") : messageFromApp
 
-        result := ComCall(7, this, "ptr", appWindow, "ptr", sourceIdentity, "ptr", appPackageFamilyName, "ptr", auditInfoUnk, "ptr", messageFromApp, "uint", behavior, "ptr", riid, "ptr*", asyncOperation, "HRESULT")
+        asyncOperationMarshal := asyncOperation is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "ptr", appWindow, "ptr", sourceIdentity, "ptr", appPackageFamilyName, "ptr", auditInfoUnk, "ptr", messageFromApp, "uint", behavior, "ptr", riid, asyncOperationMarshal, asyncOperation, "HRESULT")
         return result
     }
 
@@ -86,7 +90,9 @@ class IProtectionPolicyManagerInterop3 extends IInspectable{
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
         appPackageFamilyName := appPackageFamilyName is Win32Handle ? NumGet(appPackageFamilyName, "ptr") : appPackageFamilyName
 
-        result := ComCall(8, this, "ptr", appWindow, "ptr", sourceItemListUnk, "ptr", appPackageFamilyName, "ptr", auditInfoUnk, "ptr", riid, "ptr*", asyncOperation, "HRESULT")
+        asyncOperationMarshal := asyncOperation is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(8, this, "ptr", appWindow, "ptr", sourceItemListUnk, "ptr", appPackageFamilyName, "ptr", auditInfoUnk, "ptr", riid, asyncOperationMarshal, asyncOperation, "HRESULT")
         return result
     }
 
@@ -107,7 +113,9 @@ class IProtectionPolicyManagerInterop3 extends IInspectable{
         appPackageFamilyName := appPackageFamilyName is Win32Handle ? NumGet(appPackageFamilyName, "ptr") : appPackageFamilyName
         messageFromApp := messageFromApp is Win32Handle ? NumGet(messageFromApp, "ptr") : messageFromApp
 
-        result := ComCall(9, this, "ptr", appWindow, "ptr", sourceItemListUnk, "ptr", appPackageFamilyName, "ptr", auditInfoUnk, "ptr", messageFromApp, "uint", behavior, "ptr", riid, "ptr*", asyncOperation, "HRESULT")
+        asyncOperationMarshal := asyncOperation is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, "ptr", appWindow, "ptr", sourceItemListUnk, "ptr", appPackageFamilyName, "ptr", auditInfoUnk, "ptr", messageFromApp, "uint", behavior, "ptr", riid, asyncOperationMarshal, asyncOperation, "HRESULT")
         return result
     }
 
@@ -124,7 +132,9 @@ class IProtectionPolicyManagerInterop3 extends IInspectable{
     RequestAccessToFilesForProcessForWindowAsync(appWindow, sourceItemListUnk, processId, auditInfoUnk, riid, asyncOperation) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
 
-        result := ComCall(10, this, "ptr", appWindow, "ptr", sourceItemListUnk, "uint", processId, "ptr", auditInfoUnk, "ptr", riid, "ptr*", asyncOperation, "HRESULT")
+        asyncOperationMarshal := asyncOperation is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(10, this, "ptr", appWindow, "ptr", sourceItemListUnk, "uint", processId, "ptr", auditInfoUnk, "ptr", riid, asyncOperationMarshal, asyncOperation, "HRESULT")
         return result
     }
 
@@ -144,7 +154,9 @@ class IProtectionPolicyManagerInterop3 extends IInspectable{
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
         messageFromApp := messageFromApp is Win32Handle ? NumGet(messageFromApp, "ptr") : messageFromApp
 
-        result := ComCall(11, this, "ptr", appWindow, "ptr", sourceItemListUnk, "uint", processId, "ptr", auditInfoUnk, "ptr", messageFromApp, "uint", behavior, "ptr", riid, "ptr*", asyncOperation, "HRESULT")
+        asyncOperationMarshal := asyncOperation is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(11, this, "ptr", appWindow, "ptr", sourceItemListUnk, "uint", processId, "ptr", auditInfoUnk, "ptr", messageFromApp, "uint", behavior, "ptr", riid, asyncOperationMarshal, asyncOperation, "HRESULT")
         return result
     }
 }

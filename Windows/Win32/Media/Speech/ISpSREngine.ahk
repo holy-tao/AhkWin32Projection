@@ -47,7 +47,9 @@ class ISpSREngine extends IUnknown{
      * @returns {HRESULT} 
      */
     GetInputAudioFormat(pguidSourceFormatId, pSourceWaveFormatEx, pguidDesiredFormatId, ppCoMemDesiredWaveFormatEx) {
-        result := ComCall(4, this, "ptr", pguidSourceFormatId, "ptr", pSourceWaveFormatEx, "ptr", pguidDesiredFormatId, "ptr*", ppCoMemDesiredWaveFormatEx, "HRESULT")
+        ppCoMemDesiredWaveFormatExMarshal := ppCoMemDesiredWaveFormatEx is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pguidSourceFormatId, "ptr", pSourceWaveFormatEx, "ptr", pguidDesiredFormatId, ppCoMemDesiredWaveFormatExMarshal, ppCoMemDesiredWaveFormatEx, "HRESULT")
         return result
     }
 
@@ -93,8 +95,9 @@ class ISpSREngine extends IUnknown{
         hSAPIGrammar := hSAPIGrammar is Win32Handle ? NumGet(hSAPIGrammar, "ptr") : hSAPIGrammar
 
         pvEngineRecoContextMarshal := pvEngineRecoContext is VarRef ? "ptr" : "ptr"
+        ppvEngineGrammarContextMarshal := ppvEngineGrammarContext is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, pvEngineRecoContextMarshal, pvEngineRecoContext, "ptr", hSAPIGrammar, "ptr*", ppvEngineGrammarContext, "HRESULT")
+        result := ComCall(7, this, pvEngineRecoContextMarshal, pvEngineRecoContext, "ptr", hSAPIGrammar, ppvEngineGrammarContextMarshal, ppvEngineGrammarContext, "HRESULT")
         return result
     }
 
@@ -272,7 +275,9 @@ class ISpSREngine extends IUnknown{
     OnCreateRecoContext(hSAPIRecoContext, ppvEngineContext) {
         hSAPIRecoContext := hSAPIRecoContext is Win32Handle ? NumGet(hSAPIRecoContext, "ptr") : hSAPIRecoContext
 
-        result := ComCall(19, this, "ptr", hSAPIRecoContext, "ptr*", ppvEngineContext, "HRESULT")
+        ppvEngineContextMarshal := ppvEngineContext is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(19, this, "ptr", hSAPIRecoContext, ppvEngineContextMarshal, ppvEngineContext, "HRESULT")
         return result
     }
 
@@ -438,9 +443,10 @@ class ISpSREngine extends IUnknown{
     PrivateCallEx(pvEngineContext, pInCallFrame, ulInCallFrameSize, ppvCoMemResponse, pulResponseSize) {
         pvEngineContextMarshal := pvEngineContext is VarRef ? "ptr" : "ptr"
         pInCallFrameMarshal := pInCallFrame is VarRef ? "ptr" : "ptr"
+        ppvCoMemResponseMarshal := ppvCoMemResponse is VarRef ? "ptr*" : "ptr"
         pulResponseSizeMarshal := pulResponseSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(30, this, pvEngineContextMarshal, pvEngineContext, pInCallFrameMarshal, pInCallFrame, "uint", ulInCallFrameSize, "ptr*", ppvCoMemResponse, pulResponseSizeMarshal, pulResponseSize, "HRESULT")
+        result := ComCall(30, this, pvEngineContextMarshal, pvEngineContext, pInCallFrameMarshal, pInCallFrame, "uint", ulInCallFrameSize, ppvCoMemResponseMarshal, ppvCoMemResponse, pulResponseSizeMarshal, pulResponseSize, "HRESULT")
         return result
     }
 

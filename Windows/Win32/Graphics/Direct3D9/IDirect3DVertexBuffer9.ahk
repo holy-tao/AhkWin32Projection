@@ -61,7 +61,9 @@ class IDirect3DVertexBuffer9 extends IDirect3DResource9{
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvertexbuffer9-lock
      */
     Lock(OffsetToLock, SizeToLock, ppbData, Flags) {
-        result := ComCall(11, this, "uint", OffsetToLock, "uint", SizeToLock, "ptr*", ppbData, "uint", Flags, "HRESULT")
+        ppbDataMarshal := ppbData is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(11, this, "uint", OffsetToLock, "uint", SizeToLock, ppbDataMarshal, ppbData, "uint", Flags, "HRESULT")
         return result
     }
 

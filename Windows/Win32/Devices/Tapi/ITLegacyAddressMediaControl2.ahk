@@ -63,8 +63,9 @@ class ITLegacyAddressMediaControl2 extends ITLegacyAddressMediaControl{
 
         pDeviceConfigInMarshal := pDeviceConfigIn is VarRef ? "char*" : "ptr"
         pdwSizeOutMarshal := pdwSizeOut is VarRef ? "uint*" : "ptr"
+        ppDeviceConfigOutMarshal := ppDeviceConfigOut is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "ptr", hwndOwner, "ptr", pDeviceClass, "uint", dwSizeIn, pDeviceConfigInMarshal, pDeviceConfigIn, pdwSizeOutMarshal, pdwSizeOut, "ptr*", ppDeviceConfigOut, "HRESULT")
+        result := ComCall(7, this, "ptr", hwndOwner, "ptr", pDeviceClass, "uint", dwSizeIn, pDeviceConfigInMarshal, pDeviceConfigIn, pdwSizeOutMarshal, pdwSizeOut, ppDeviceConfigOutMarshal, ppDeviceConfigOut, "HRESULT")
         return result
     }
 }

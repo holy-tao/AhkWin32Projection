@@ -58,9 +58,10 @@ class IAudioClient3 extends IAudioClient2{
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioclient3-getcurrentsharedmodeengineperiod
      */
     GetCurrentSharedModeEnginePeriod(ppFormat, pCurrentPeriodInFrames) {
+        ppFormatMarshal := ppFormat is VarRef ? "ptr*" : "ptr"
         pCurrentPeriodInFramesMarshal := pCurrentPeriodInFrames is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(19, this, "ptr*", ppFormat, pCurrentPeriodInFramesMarshal, pCurrentPeriodInFrames, "HRESULT")
+        result := ComCall(19, this, ppFormatMarshal, ppFormat, pCurrentPeriodInFramesMarshal, pCurrentPeriodInFrames, "HRESULT")
         return result
     }
 

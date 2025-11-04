@@ -54,7 +54,9 @@ class IFsrmFileManagementJobManager extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjobmanager-get_actionvariables
      */
     get_ActionVariables(variables) {
-        result := ComCall(7, this, "ptr*", variables, "HRESULT")
+        variablesMarshal := variables is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, variablesMarshal, variables, "HRESULT")
         return result
     }
 
@@ -65,7 +67,9 @@ class IFsrmFileManagementJobManager extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjobmanager-get_actionvariabledescriptions
      */
     get_ActionVariableDescriptions(descriptions) {
-        result := ComCall(8, this, "ptr*", descriptions, "HRESULT")
+        descriptionsMarshal := descriptions is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(8, this, descriptionsMarshal, descriptions, "HRESULT")
         return result
     }
 

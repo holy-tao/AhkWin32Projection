@@ -46,8 +46,9 @@ class ID3D12Device1 extends ID3D12Device{
      */
     CreatePipelineLibrary(pLibraryBlob, BlobLength, riid, ppPipelineLibrary) {
         pLibraryBlobMarshal := pLibraryBlob is VarRef ? "ptr" : "ptr"
+        ppPipelineLibraryMarshal := ppPipelineLibrary is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(44, this, pLibraryBlobMarshal, pLibraryBlob, "ptr", BlobLength, "ptr", riid, "ptr*", ppPipelineLibrary, "HRESULT")
+        result := ComCall(44, this, pLibraryBlobMarshal, pLibraryBlob, "ptr", BlobLength, "ptr", riid, ppPipelineLibraryMarshal, ppPipelineLibrary, "HRESULT")
         return result
     }
 

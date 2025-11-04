@@ -118,7 +118,9 @@ class ICLRRuntimeInfo extends IUnknown{
     GetProcAddress(pszProcName, ppProc) {
         pszProcName := pszProcName is String ? StrPtr(pszProcName) : pszProcName
 
-        result := ComCall(8, this, "ptr", pszProcName, "ptr*", ppProc, "HRESULT")
+        ppProcMarshal := ppProc is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(8, this, "ptr", pszProcName, ppProcMarshal, ppProc, "HRESULT")
         return result
     }
 
@@ -130,7 +132,9 @@ class ICLRRuntimeInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     GetInterface(rclsid, riid, ppUnk) {
-        result := ComCall(9, this, "ptr", rclsid, "ptr", riid, "ptr*", ppUnk, "HRESULT")
+        ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, "ptr", rclsid, "ptr", riid, ppUnkMarshal, ppUnk, "HRESULT")
         return result
     }
 

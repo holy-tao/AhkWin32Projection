@@ -39,7 +39,9 @@ class ISecurityObjectTypeInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/aclui/nf-aclui-isecurityobjecttypeinfo-getinheritsource
      */
     GetInheritSource(si, pACL, ppInheritArray) {
-        result := ComCall(3, this, "uint", si, "ptr", pACL, "ptr*", ppInheritArray, "HRESULT")
+        ppInheritArrayMarshal := ppInheritArray is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "uint", si, "ptr", pACL, ppInheritArrayMarshal, ppInheritArray, "HRESULT")
         return result
     }
 }

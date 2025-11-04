@@ -8849,8 +8849,9 @@ class Printing {
 
         pdwChangeMarshal := pdwChange is VarRef ? "uint*" : "ptr"
         pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
+        ppPrinterNotifyInfoMarshal := ppPrinterNotifyInfo is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("winspool.drv\FindNextPrinterChangeNotification", "ptr", hChange, pdwChangeMarshal, pdwChange, pvReservedMarshal, pvReserved, "ptr*", ppPrinterNotifyInfo, "int")
+        result := DllCall("winspool.drv\FindNextPrinterChangeNotification", "ptr", hChange, pdwChangeMarshal, pdwChange, pvReservedMarshal, pvReserved, ppPrinterNotifyInfoMarshal, ppPrinterNotifyInfo, "int")
         return result
     }
 
@@ -10173,7 +10174,9 @@ class Printing {
      * @returns {String} Nothing - always returns an empty string
      */
     static FreePrintNamedPropertyArray(cProperties, ppProperties) {
-        DllCall("winspool.drv\FreePrintNamedPropertyArray", "uint", cProperties, "ptr*", ppProperties)
+        ppPropertiesMarshal := ppProperties is VarRef ? "ptr*" : "ptr"
+
+        DllCall("winspool.drv\FreePrintNamedPropertyArray", "uint", cProperties, ppPropertiesMarshal, ppProperties)
     }
 
     /**
@@ -10217,8 +10220,9 @@ class Printing {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
         pcPropertiesMarshal := pcProperties is VarRef ? "uint*" : "ptr"
+        ppPropertiesMarshal := ppProperties is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("winspool.drv\EnumJobNamedProperties", "ptr", hPrinter, "uint", JobId, pcPropertiesMarshal, pcProperties, "ptr*", ppProperties, "uint")
+        result := DllCall("winspool.drv\EnumJobNamedProperties", "ptr", hPrinter, "uint", JobId, pcPropertiesMarshal, pcProperties, ppPropertiesMarshal, ppProperties, "uint")
         return result
     }
 
@@ -10572,7 +10576,9 @@ class Printing {
     static RouterGetPrintClassObject(pPrinter, riid, ppv) {
         pPrinter := pPrinter is String ? StrPtr(pPrinter) : pPrinter
 
-        result := DllCall("SPOOLSS.dll\RouterGetPrintClassObject", "ptr", pPrinter, "ptr", riid, "ptr*", ppv, "int")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SPOOLSS.dll\RouterGetPrintClassObject", "ptr", pPrinter, "ptr", riid, ppvMarshal, ppv, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -10724,7 +10730,10 @@ class Printing {
     static GdiGetDevmodeForPage(SpoolFileHandle, dwPageNumber, pCurrDM, pLastDM) {
         SpoolFileHandle := SpoolFileHandle is Win32Handle ? NumGet(SpoolFileHandle, "ptr") : SpoolFileHandle
 
-        result := DllCall("GDI32.dll\GdiGetDevmodeForPage", "ptr", SpoolFileHandle, "uint", dwPageNumber, "ptr*", pCurrDM, "ptr*", pLastDM, "int")
+        pCurrDMMarshal := pCurrDM is VarRef ? "ptr*" : "ptr"
+        pLastDMMarshal := pLastDM is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("GDI32.dll\GdiGetDevmodeForPage", "ptr", SpoolFileHandle, "uint", dwPageNumber, pCurrDMMarshal, pCurrDM, pLastDMMarshal, pLastDM, "int")
         return result
     }
 
@@ -11060,8 +11069,9 @@ class Printing {
 
         pfdwChangeMarshal := pfdwChange is VarRef ? "uint*" : "ptr"
         pPrinterNotifyOptionsMarshal := pPrinterNotifyOptions is VarRef ? "ptr" : "ptr"
+        ppPrinterNotifyInfoMarshal := ppPrinterNotifyInfo is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("SPOOLSS.dll\SpoolerFindNextPrinterChangeNotification", "ptr", hPrinter, pfdwChangeMarshal, pfdwChange, pPrinterNotifyOptionsMarshal, pPrinterNotifyOptions, "ptr*", ppPrinterNotifyInfo, "int")
+        result := DllCall("SPOOLSS.dll\SpoolerFindNextPrinterChangeNotification", "ptr", hPrinter, pfdwChangeMarshal, pfdwChange, pPrinterNotifyOptionsMarshal, pPrinterNotifyOptions, ppPrinterNotifyInfoMarshal, ppPrinterNotifyInfo, "int")
         return result
     }
 
@@ -11076,7 +11086,9 @@ class Printing {
     static SpoolerRefreshPrinterChangeNotification(hPrinter, dwColor, pOptions, ppInfo) {
         hPrinter := hPrinter is Win32Handle ? NumGet(hPrinter, "ptr") : hPrinter
 
-        result := DllCall("SPOOLSS.dll\SpoolerRefreshPrinterChangeNotification", "ptr", hPrinter, "uint", dwColor, "ptr", pOptions, "ptr*", ppInfo, "int")
+        ppInfoMarshal := ppInfo is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SPOOLSS.dll\SpoolerRefreshPrinterChangeNotification", "ptr", hPrinter, "uint", dwColor, "ptr", pOptions, ppInfoMarshal, ppInfo, "int")
         return result
     }
 

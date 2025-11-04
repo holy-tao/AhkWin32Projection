@@ -38,9 +38,10 @@ class ISpatialAudioObjectBase extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioobjectbase-getbuffer
      */
     GetBuffer(buffer, bufferLength) {
+        bufferMarshal := buffer is VarRef ? "ptr*" : "ptr"
         bufferLengthMarshal := bufferLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr*", buffer, bufferLengthMarshal, bufferLength, "HRESULT")
+        result := ComCall(3, this, bufferMarshal, buffer, bufferLengthMarshal, bufferLength, "HRESULT")
         return result
     }
 

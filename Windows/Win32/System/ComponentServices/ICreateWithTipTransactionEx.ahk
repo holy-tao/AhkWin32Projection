@@ -43,7 +43,9 @@ class ICreateWithTipTransactionEx extends IUnknown{
     CreateInstance(bstrTipUrl, rclsid, riid, pObject) {
         bstrTipUrl := bstrTipUrl is String ? BSTR.Alloc(bstrTipUrl).Value : bstrTipUrl
 
-        result := ComCall(3, this, "ptr", bstrTipUrl, "ptr", rclsid, "ptr", riid, "ptr*", pObject, "HRESULT")
+        pObjectMarshal := pObject is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", bstrTipUrl, "ptr", rclsid, "ptr", riid, pObjectMarshal, pObject, "HRESULT")
         return result
     }
 }

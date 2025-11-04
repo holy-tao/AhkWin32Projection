@@ -70,8 +70,9 @@ class WindowsConnectionManager {
         strProfileName := strProfileName is String ? StrPtr(strProfileName) : strProfileName
 
         pdwDataSizeMarshal := pdwDataSize is VarRef ? "uint*" : "ptr"
+        ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("wcmapi.dll\WcmQueryProperty", "ptr", pInterface, "ptr", strProfileName, "int", Property, "ptr", pReserved, pdwDataSizeMarshal, pdwDataSize, "ptr*", ppData, "uint")
+        result := DllCall("wcmapi.dll\WcmQueryProperty", "ptr", pInterface, "ptr", strProfileName, "int", Property, "ptr", pReserved, pdwDataSizeMarshal, pdwDataSize, ppDataMarshal, ppData, "uint")
         return result
     }
 
@@ -123,7 +124,9 @@ class WindowsConnectionManager {
     static WcmGetProfileList(ppProfileList) {
         static pReserved := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("wcmapi.dll\WcmGetProfileList", "ptr", pReserved, "ptr*", ppProfileList, "uint")
+        ppProfileListMarshal := ppProfileList is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("wcmapi.dll\WcmGetProfileList", "ptr", pReserved, ppProfileListMarshal, ppProfileList, "uint")
         return result
     }
 
@@ -336,7 +339,9 @@ class WindowsConnectionManager {
         HostName := HostName is String ? StrPtr(HostName) : HostName
         ProxyName := ProxyName is String ? StrPtr(ProxyName) : ProxyName
 
-        result := DllCall("OnDemandConnRouteHelper.dll\GetInterfaceContextTableForHostName", "ptr", HostName, "ptr", ProxyName, "uint", Flags, "ptr", ConnectionProfileFilterRawData, "uint", ConnectionProfileFilterRawDataSize, "ptr*", InterfaceContextTable, "int")
+        InterfaceContextTableMarshal := InterfaceContextTable is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("OnDemandConnRouteHelper.dll\GetInterfaceContextTableForHostName", "ptr", HostName, "ptr", ProxyName, "uint", Flags, "ptr", ConnectionProfileFilterRawData, "uint", ConnectionProfileFilterRawDataSize, InterfaceContextTableMarshal, InterfaceContextTable, "int")
         if(result != 0)
             throw OSError(result)
 

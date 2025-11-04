@@ -39,10 +39,11 @@ class ICorProfilerInfo2 extends ICorProfilerInfo{
      * @returns {HRESULT} 
      */
     DoStackSnapshot(thread, callback, infoFlags, clientData, context, contextSize) {
+        callbackMarshal := callback is VarRef ? "ptr*" : "ptr"
         clientDataMarshal := clientData is VarRef ? "ptr" : "ptr"
         contextMarshal := context is VarRef ? "char*" : "ptr"
 
-        result := ComCall(36, this, "ptr", thread, "ptr*", callback, "uint", infoFlags, clientDataMarshal, clientData, contextMarshal, context, "uint", contextSize, "HRESULT")
+        result := ComCall(36, this, "ptr", thread, callbackMarshal, callback, "uint", infoFlags, clientDataMarshal, clientData, contextMarshal, context, "uint", contextSize, "HRESULT")
         return result
     }
 
@@ -54,7 +55,11 @@ class ICorProfilerInfo2 extends ICorProfilerInfo{
      * @returns {HRESULT} 
      */
     SetEnterLeaveFunctionHooks2(pFuncEnter, pFuncLeave, pFuncTailcall) {
-        result := ComCall(37, this, "ptr*", pFuncEnter, "ptr*", pFuncLeave, "ptr*", pFuncTailcall, "HRESULT")
+        pFuncEnterMarshal := pFuncEnter is VarRef ? "ptr*" : "ptr"
+        pFuncLeaveMarshal := pFuncLeave is VarRef ? "ptr*" : "ptr"
+        pFuncTailcallMarshal := pFuncTailcall is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(37, this, pFuncEnterMarshal, pFuncEnter, pFuncLeaveMarshal, pFuncLeave, pFuncTailcallMarshal, pFuncTailcall, "HRESULT")
         return result
     }
 
@@ -209,8 +214,9 @@ class ICorProfilerInfo2 extends ICorProfilerInfo{
     GetArrayObjectInfo(objectId, cDimensions, pDimensionSizes, pDimensionLowerBounds, ppData) {
         pDimensionSizesMarshal := pDimensionSizes is VarRef ? "uint*" : "ptr"
         pDimensionLowerBoundsMarshal := pDimensionLowerBounds is VarRef ? "int*" : "ptr"
+        ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(46, this, "ptr", objectId, "uint", cDimensions, pDimensionSizesMarshal, pDimensionSizes, pDimensionLowerBoundsMarshal, pDimensionLowerBounds, "ptr*", ppData, "HRESULT")
+        result := ComCall(46, this, "ptr", objectId, "uint", cDimensions, pDimensionSizesMarshal, pDimensionSizes, pDimensionLowerBoundsMarshal, pDimensionLowerBounds, ppDataMarshal, ppData, "HRESULT")
         return result
     }
 
@@ -248,7 +254,9 @@ class ICorProfilerInfo2 extends ICorProfilerInfo{
      * @returns {HRESULT} 
      */
     GetRVAStaticAddress(classId, fieldToken, ppAddress) {
-        result := ComCall(49, this, "ptr", classId, "uint", fieldToken, "ptr*", ppAddress, "HRESULT")
+        ppAddressMarshal := ppAddress is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(49, this, "ptr", classId, "uint", fieldToken, ppAddressMarshal, ppAddress, "HRESULT")
         return result
     }
 
@@ -261,7 +269,9 @@ class ICorProfilerInfo2 extends ICorProfilerInfo{
      * @returns {HRESULT} 
      */
     GetAppDomainStaticAddress(classId, fieldToken, appDomainId, ppAddress) {
-        result := ComCall(50, this, "ptr", classId, "uint", fieldToken, "ptr", appDomainId, "ptr*", ppAddress, "HRESULT")
+        ppAddressMarshal := ppAddress is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(50, this, "ptr", classId, "uint", fieldToken, "ptr", appDomainId, ppAddressMarshal, ppAddress, "HRESULT")
         return result
     }
 
@@ -274,7 +284,9 @@ class ICorProfilerInfo2 extends ICorProfilerInfo{
      * @returns {HRESULT} 
      */
     GetThreadStaticAddress(classId, fieldToken, threadId, ppAddress) {
-        result := ComCall(51, this, "ptr", classId, "uint", fieldToken, "ptr", threadId, "ptr*", ppAddress, "HRESULT")
+        ppAddressMarshal := ppAddress is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(51, this, "ptr", classId, "uint", fieldToken, "ptr", threadId, ppAddressMarshal, ppAddress, "HRESULT")
         return result
     }
 
@@ -287,7 +299,9 @@ class ICorProfilerInfo2 extends ICorProfilerInfo{
      * @returns {HRESULT} 
      */
     GetContextStaticAddress(classId, fieldToken, contextId, ppAddress) {
-        result := ComCall(52, this, "ptr", classId, "uint", fieldToken, "ptr", contextId, "ptr*", ppAddress, "HRESULT")
+        ppAddressMarshal := ppAddress is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(52, this, "ptr", classId, "uint", fieldToken, "ptr", contextId, ppAddressMarshal, ppAddress, "HRESULT")
         return result
     }
 

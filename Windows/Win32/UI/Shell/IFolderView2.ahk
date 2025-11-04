@@ -201,7 +201,9 @@ class IFolderView2 extends IFolderView{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-getitem
      */
     GetItem(iItem, riid, ppv) {
-        result := ComCall(29, this, "int", iItem, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(29, this, "int", iItem, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 

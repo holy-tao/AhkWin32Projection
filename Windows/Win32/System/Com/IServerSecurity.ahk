@@ -45,11 +45,13 @@ class IServerSecurity extends IUnknown{
     QueryBlanket(pAuthnSvc, pAuthzSvc, pServerPrincName, pAuthnLevel, pImpLevel, pPrivs, pCapabilities) {
         pAuthnSvcMarshal := pAuthnSvc is VarRef ? "uint*" : "ptr"
         pAuthzSvcMarshal := pAuthzSvc is VarRef ? "uint*" : "ptr"
+        pServerPrincNameMarshal := pServerPrincName is VarRef ? "ptr*" : "ptr"
         pAuthnLevelMarshal := pAuthnLevel is VarRef ? "uint*" : "ptr"
         pImpLevelMarshal := pImpLevel is VarRef ? "uint*" : "ptr"
+        pPrivsMarshal := pPrivs is VarRef ? "ptr*" : "ptr"
         pCapabilitiesMarshal := pCapabilities is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pAuthnSvcMarshal, pAuthnSvc, pAuthzSvcMarshal, pAuthzSvc, "ptr*", pServerPrincName, pAuthnLevelMarshal, pAuthnLevel, pImpLevelMarshal, pImpLevel, "ptr*", pPrivs, pCapabilitiesMarshal, pCapabilities, "HRESULT")
+        result := ComCall(3, this, pAuthnSvcMarshal, pAuthnSvc, pAuthzSvcMarshal, pAuthzSvc, pServerPrincNameMarshal, pServerPrincName, pAuthnLevelMarshal, pAuthnLevel, pImpLevelMarshal, pImpLevel, pPrivsMarshal, pPrivs, pCapabilitiesMarshal, pCapabilities, "HRESULT")
         return result
     }
 

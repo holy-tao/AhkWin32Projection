@@ -52,7 +52,9 @@ class IPropertyEnumTypeList extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertyenumtypelist-getat
      */
     GetAt(itype, riid, ppv) {
-        result := ComCall(4, this, "uint", itype, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "uint", itype, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -65,7 +67,9 @@ class IPropertyEnumTypeList extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertyenumtypelist-getconditionat
      */
     GetConditionAt(nIndex, riid, ppv) {
-        result := ComCall(5, this, "uint", nIndex, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "uint", nIndex, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 

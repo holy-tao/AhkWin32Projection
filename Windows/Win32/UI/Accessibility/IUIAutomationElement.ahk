@@ -51,7 +51,9 @@ class IUIAutomationElement extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getruntimeid
      */
     GetRuntimeId(runtimeId) {
-        result := ComCall(4, this, "ptr*", runtimeId, "HRESULT")
+        runtimeIdMarshal := runtimeId is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, runtimeIdMarshal, runtimeId, "HRESULT")
         return result
     }
 
@@ -180,7 +182,9 @@ class IUIAutomationElement extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcurrentpatternas
      */
     GetCurrentPatternAs(patternId, riid, patternObject) {
-        result := ComCall(14, this, "int", patternId, "ptr", riid, "ptr*", patternObject, "HRESULT")
+        patternObjectMarshal := patternObject is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(14, this, "int", patternId, "ptr", riid, patternObjectMarshal, patternObject, "HRESULT")
         return result
     }
 
@@ -193,7 +197,9 @@ class IUIAutomationElement extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcachedpatternas
      */
     GetCachedPatternAs(patternId, riid, patternObject) {
-        result := ComCall(15, this, "int", patternId, "ptr", riid, "ptr*", patternObject, "HRESULT")
+        patternObjectMarshal := patternObject is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(15, this, "int", patternId, "ptr", riid, patternObjectMarshal, patternObject, "HRESULT")
         return result
     }
 

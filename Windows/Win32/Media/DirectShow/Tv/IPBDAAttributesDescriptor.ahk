@@ -64,9 +64,10 @@ class IPBDAAttributesDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbdaattributesdescriptor-getattributepayload
      */
     GetAttributePayload(ppbAttributeBuffer, pdwAttributeLength) {
+        ppbAttributeBufferMarshal := ppbAttributeBuffer is VarRef ? "ptr*" : "ptr"
         pdwAttributeLengthMarshal := pdwAttributeLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr*", ppbAttributeBuffer, pdwAttributeLengthMarshal, pdwAttributeLength, "HRESULT")
+        result := ComCall(5, this, ppbAttributeBufferMarshal, ppbAttributeBuffer, pdwAttributeLengthMarshal, pdwAttributeLength, "HRESULT")
         return result
     }
 }

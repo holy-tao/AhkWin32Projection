@@ -44,7 +44,9 @@ class IUpdateIDList extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iupdateidlist-update
      */
     Update(pbc, pidlIn, ppidlOut) {
-        result := ComCall(3, this, "ptr", pbc, "ptr", pidlIn, "ptr*", ppidlOut, "HRESULT")
+        ppidlOutMarshal := ppidlOut is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pbc, "ptr", pidlIn, ppidlOutMarshal, ppidlOut, "HRESULT")
         return result
     }
 }

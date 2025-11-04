@@ -187,7 +187,9 @@ class ITraceDataProvider extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedataprovider-get_filterdata
      */
     get_FilterData(ppData) {
-        result := ComCall(19, this, "ptr*", ppData, "HRESULT")
+        ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(19, this, ppDataMarshal, ppData, "HRESULT")
         return result
     }
 

@@ -51,7 +51,9 @@ class ISpatialAudioObjectRenderStreamBase extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioobjectrenderstreambase-getservice
      */
     GetService(riid, service) {
-        result := ComCall(4, this, "ptr", riid, "ptr*", service, "HRESULT")
+        serviceMarshal := service is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", riid, serviceMarshal, service, "HRESULT")
         return result
     }
 

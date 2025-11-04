@@ -42,10 +42,11 @@ class IColumnMapper extends IUnknown{
     GetPropInfoFromName(wcsPropName, ppPropId, pPropType, puiWidth) {
         wcsPropName := wcsPropName is String ? StrPtr(wcsPropName) : wcsPropName
 
+        ppPropIdMarshal := ppPropId is VarRef ? "ptr*" : "ptr"
         pPropTypeMarshal := pPropType is VarRef ? "ushort*" : "ptr"
         puiWidthMarshal := puiWidth is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", wcsPropName, "ptr*", ppPropId, pPropTypeMarshal, pPropType, puiWidthMarshal, puiWidth, "HRESULT")
+        result := ComCall(3, this, "ptr", wcsPropName, ppPropIdMarshal, ppPropId, pPropTypeMarshal, pPropType, puiWidthMarshal, puiWidth, "HRESULT")
         return result
     }
 
@@ -59,10 +60,11 @@ class IColumnMapper extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nf-indexsrv-icolumnmapper-getpropinfofromid
      */
     GetPropInfoFromId(pPropId, pwcsName, pPropType, puiWidth) {
+        pwcsNameMarshal := pwcsName is VarRef ? "ptr*" : "ptr"
         pPropTypeMarshal := pPropType is VarRef ? "ushort*" : "ptr"
         puiWidthMarshal := puiWidth is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pPropId, "ptr*", pwcsName, pPropTypeMarshal, pPropType, puiWidthMarshal, puiWidth, "HRESULT")
+        result := ComCall(4, this, "ptr", pPropId, pwcsNameMarshal, pwcsName, pPropTypeMarshal, pPropType, puiWidthMarshal, puiWidth, "HRESULT")
         return result
     }
 
@@ -77,10 +79,12 @@ class IColumnMapper extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nf-indexsrv-icolumnmapper-enumpropinfo
      */
     EnumPropInfo(iEntry, pwcsName, ppPropId, pPropType, puiWidth) {
+        pwcsNameMarshal := pwcsName is VarRef ? "ptr*" : "ptr"
+        ppPropIdMarshal := ppPropId is VarRef ? "ptr*" : "ptr"
         pPropTypeMarshal := pPropType is VarRef ? "ushort*" : "ptr"
         puiWidthMarshal := puiWidth is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "uint", iEntry, "ptr*", pwcsName, "ptr*", ppPropId, pPropTypeMarshal, pPropType, puiWidthMarshal, puiWidth, "HRESULT")
+        result := ComCall(5, this, "uint", iEntry, pwcsNameMarshal, pwcsName, ppPropIdMarshal, ppPropId, pPropTypeMarshal, pPropType, puiWidthMarshal, puiWidth, "HRESULT")
         return result
     }
 

@@ -63,7 +63,9 @@ class IDvbNetworkNameDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbnetworknamedescriptor-getnetworkname
      */
     GetNetworkName(pszName) {
-        result := ComCall(5, this, "ptr*", pszName, "HRESULT")
+        pszNameMarshal := pszName is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, pszNameMarshal, pszName, "HRESULT")
         return result
     }
 

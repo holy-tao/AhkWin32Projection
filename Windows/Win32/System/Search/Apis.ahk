@@ -18042,8 +18042,9 @@ class Search {
      */
     static SQLAllocConnect(EnvironmentHandle, ConnectionHandle) {
         EnvironmentHandleMarshal := EnvironmentHandle is VarRef ? "ptr" : "ptr"
+        ConnectionHandleMarshal := ConnectionHandle is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ODBC32.dll\SQLAllocConnect", EnvironmentHandleMarshal, EnvironmentHandle, "ptr*", ConnectionHandle, "short")
+        result := DllCall("ODBC32.dll\SQLAllocConnect", EnvironmentHandleMarshal, EnvironmentHandle, ConnectionHandleMarshal, ConnectionHandle, "short")
         return result
     }
 
@@ -18054,7 +18055,9 @@ class Search {
      * @see https://learn.microsoft.com/sql/odbc/reference/syntax/sqlallocenv-function
      */
     static SQLAllocEnv(EnvironmentHandle) {
-        result := DllCall("ODBC32.dll\SQLAllocEnv", "ptr*", EnvironmentHandle, "short")
+        EnvironmentHandleMarshal := EnvironmentHandle is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("ODBC32.dll\SQLAllocEnv", EnvironmentHandleMarshal, EnvironmentHandle, "short")
         return result
     }
 
@@ -18068,8 +18071,9 @@ class Search {
      */
     static SQLAllocHandle(HandleType, InputHandle, OutputHandle) {
         InputHandleMarshal := InputHandle is VarRef ? "ptr" : "ptr"
+        OutputHandleMarshal := OutputHandle is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ODBC32.dll\SQLAllocHandle", "short", HandleType, InputHandleMarshal, InputHandle, "ptr*", OutputHandle, "short")
+        result := DllCall("ODBC32.dll\SQLAllocHandle", "short", HandleType, InputHandleMarshal, InputHandle, OutputHandleMarshal, OutputHandle, "short")
         return result
     }
 
@@ -18082,8 +18086,9 @@ class Search {
      */
     static SQLAllocStmt(ConnectionHandle, StatementHandle) {
         ConnectionHandleMarshal := ConnectionHandle is VarRef ? "ptr" : "ptr"
+        StatementHandleMarshal := StatementHandle is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ODBC32.dll\SQLAllocStmt", ConnectionHandleMarshal, ConnectionHandle, "ptr*", StatementHandle, "short")
+        result := DllCall("ODBC32.dll\SQLAllocStmt", ConnectionHandleMarshal, ConnectionHandle, StatementHandleMarshal, StatementHandle, "short")
         return result
     }
 
@@ -18625,8 +18630,9 @@ class Search {
      */
     static SQLParamData(StatementHandle, Value) {
         StatementHandleMarshal := StatementHandle is VarRef ? "ptr" : "ptr"
+        ValueMarshal := Value is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ODBC32.dll\SQLParamData", StatementHandleMarshal, StatementHandle, "ptr*", Value, "short")
+        result := DllCall("ODBC32.dll\SQLParamData", StatementHandleMarshal, StatementHandle, ValueMarshal, Value, "short")
         return result
     }
 
@@ -19525,8 +19531,9 @@ class Search {
      */
     static SQLAllocHandleStd(fHandleType, hInput, phOutput) {
         hInputMarshal := hInput is VarRef ? "ptr" : "ptr"
+        phOutputMarshal := phOutput is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ODBC32.dll\SQLAllocHandleStd", "short", fHandleType, hInputMarshal, hInput, "ptr*", phOutput, "short")
+        result := DllCall("ODBC32.dll\SQLAllocHandleStd", "short", fHandleType, hInputMarshal, hInput, phOutputMarshal, phOutput, "short")
         return result
     }
 

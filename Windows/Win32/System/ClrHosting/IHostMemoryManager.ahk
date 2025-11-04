@@ -61,8 +61,9 @@ class IHostMemoryManager extends IUnknown{
      */
     VirtualAlloc(pAddress, dwSize, flAllocationType, flProtect, eCriticalLevel, ppMem) {
         pAddressMarshal := pAddress is VarRef ? "ptr" : "ptr"
+        ppMemMarshal := ppMem is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, pAddressMarshal, pAddress, "ptr", dwSize, "uint", flAllocationType, "uint", flProtect, "int", eCriticalLevel, "ptr*", ppMem, "HRESULT")
+        result := ComCall(4, this, pAddressMarshal, pAddress, "ptr", dwSize, "uint", flAllocationType, "uint", flProtect, "int", eCriticalLevel, ppMemMarshal, ppMem, "HRESULT")
         return result
     }
 

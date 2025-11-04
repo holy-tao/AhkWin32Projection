@@ -90,7 +90,9 @@ class IRpcStubBuffer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-irpcstubbuffer-debugserverqueryinterface
      */
     DebugServerQueryInterface(ppv) {
-        result := ComCall(8, this, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(8, this, ppvMarshal, ppv, "HRESULT")
         return result
     }
 

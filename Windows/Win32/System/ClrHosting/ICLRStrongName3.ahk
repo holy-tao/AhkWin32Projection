@@ -39,9 +39,10 @@ class ICLRStrongName3 extends IUnknown{
     StrongNameDigestGenerate(wszFilePath, ppbDigestBlob, pcbDigestBlob, dwFlags) {
         wszFilePath := wszFilePath is String ? StrPtr(wszFilePath) : wszFilePath
 
+        ppbDigestBlobMarshal := ppbDigestBlob is VarRef ? "ptr*" : "ptr"
         pcbDigestBlobMarshal := pcbDigestBlob is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", wszFilePath, "ptr*", ppbDigestBlob, pcbDigestBlobMarshal, pcbDigestBlob, "uint", dwFlags, "HRESULT")
+        result := ComCall(3, this, "ptr", wszFilePath, ppbDigestBlobMarshal, ppbDigestBlob, pcbDigestBlobMarshal, pcbDigestBlob, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -63,9 +64,10 @@ class ICLRStrongName3 extends IUnknown{
 
         pbKeyBlobMarshal := pbKeyBlob is VarRef ? "char*" : "ptr"
         pbDigestBlobMarshal := pbDigestBlob is VarRef ? "char*" : "ptr"
+        ppbSignatureBlobMarshal := ppbSignatureBlob is VarRef ? "ptr*" : "ptr"
         pcbSignatureBlobMarshal := pcbSignatureBlob is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", wszKeyContainer, pbKeyBlobMarshal, pbKeyBlob, "uint", cbKeyBlob, pbDigestBlobMarshal, pbDigestBlob, "uint", cbDigestBlob, "uint", hashAlgId, "ptr*", ppbSignatureBlob, pcbSignatureBlobMarshal, pcbSignatureBlob, "uint", dwFlags, "HRESULT")
+        result := ComCall(4, this, "ptr", wszKeyContainer, pbKeyBlobMarshal, pbKeyBlob, "uint", cbKeyBlob, pbDigestBlobMarshal, pbDigestBlob, "uint", cbDigestBlob, "uint", hashAlgId, ppbSignatureBlobMarshal, ppbSignatureBlob, pcbSignatureBlobMarshal, pcbSignatureBlob, "uint", dwFlags, "HRESULT")
         return result
     }
 

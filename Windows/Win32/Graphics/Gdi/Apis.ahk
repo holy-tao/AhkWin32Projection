@@ -11021,9 +11021,11 @@ class Gdi {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
         hSection := hSection is Win32Handle ? NumGet(hSection, "ptr") : hSection
 
+        ppvBitsMarshal := ppvBits is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("GDI32.dll\CreateDIBSection", "ptr", hdc, "ptr", pbmi, "uint", usage, "ptr*", ppvBits, "ptr", hSection, "uint", offset, "ptr")
+        result := DllCall("GDI32.dll\CreateDIBSection", "ptr", hdc, "ptr", pbmi, "uint", usage, ppvBitsMarshal, ppvBits, "ptr", hSection, "uint", offset, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -12358,12 +12360,13 @@ class Gdi {
      */
     static CreateFontPackage(puchSrcBuffer, ulSrcBufferSize, ppuchFontPackageBuffer, pulFontPackageBufferSize, pulBytesWritten, usFlag, usTTCIndex, usSubsetFormat, usSubsetLanguage, usSubsetPlatform, usSubsetEncoding, pusSubsetKeepList, usSubsetListCount, lpfnAllocate, lpfnReAllocate, lpfnFree, lpvReserved) {
         puchSrcBufferMarshal := puchSrcBuffer is VarRef ? "char*" : "ptr"
+        ppuchFontPackageBufferMarshal := ppuchFontPackageBuffer is VarRef ? "ptr*" : "ptr"
         pulFontPackageBufferSizeMarshal := pulFontPackageBufferSize is VarRef ? "uint*" : "ptr"
         pulBytesWrittenMarshal := pulBytesWritten is VarRef ? "uint*" : "ptr"
         pusSubsetKeepListMarshal := pusSubsetKeepList is VarRef ? "ushort*" : "ptr"
         lpvReservedMarshal := lpvReserved is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("FONTSUB.dll\CreateFontPackage", puchSrcBufferMarshal, puchSrcBuffer, "uint", ulSrcBufferSize, "ptr*", ppuchFontPackageBuffer, pulFontPackageBufferSizeMarshal, pulFontPackageBufferSize, pulBytesWrittenMarshal, pulBytesWritten, "ushort", usFlag, "ushort", usTTCIndex, "ushort", usSubsetFormat, "ushort", usSubsetLanguage, "short", usSubsetPlatform, "short", usSubsetEncoding, pusSubsetKeepListMarshal, pusSubsetKeepList, "ushort", usSubsetListCount, "ptr", lpfnAllocate, "ptr", lpfnReAllocate, "ptr", lpfnFree, lpvReservedMarshal, lpvReserved, "CDecl uint")
+        result := DllCall("FONTSUB.dll\CreateFontPackage", puchSrcBufferMarshal, puchSrcBuffer, "uint", ulSrcBufferSize, ppuchFontPackageBufferMarshal, ppuchFontPackageBuffer, pulFontPackageBufferSizeMarshal, pulFontPackageBufferSize, pulBytesWrittenMarshal, pulBytesWritten, "ushort", usFlag, "ushort", usTTCIndex, "ushort", usSubsetFormat, "ushort", usSubsetLanguage, "short", usSubsetPlatform, "short", usSubsetEncoding, pusSubsetKeepListMarshal, pusSubsetKeepList, "ushort", usSubsetListCount, "ptr", lpfnAllocate, "ptr", lpfnReAllocate, "ptr", lpfnFree, lpvReservedMarshal, lpvReserved, "CDecl uint")
         return result
     }
 
@@ -12433,11 +12436,12 @@ class Gdi {
     static MergeFontPackage(puchMergeFontBuffer, ulMergeFontBufferSize, puchFontPackageBuffer, ulFontPackageBufferSize, ppuchDestBuffer, pulDestBufferSize, pulBytesWritten, usMode, lpfnAllocate, lpfnReAllocate, lpfnFree, lpvReserved) {
         puchMergeFontBufferMarshal := puchMergeFontBuffer is VarRef ? "char*" : "ptr"
         puchFontPackageBufferMarshal := puchFontPackageBuffer is VarRef ? "char*" : "ptr"
+        ppuchDestBufferMarshal := ppuchDestBuffer is VarRef ? "ptr*" : "ptr"
         pulDestBufferSizeMarshal := pulDestBufferSize is VarRef ? "uint*" : "ptr"
         pulBytesWrittenMarshal := pulBytesWritten is VarRef ? "uint*" : "ptr"
         lpvReservedMarshal := lpvReserved is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("FONTSUB.dll\MergeFontPackage", puchMergeFontBufferMarshal, puchMergeFontBuffer, "uint", ulMergeFontBufferSize, puchFontPackageBufferMarshal, puchFontPackageBuffer, "uint", ulFontPackageBufferSize, "ptr*", ppuchDestBuffer, pulDestBufferSizeMarshal, pulDestBufferSize, pulBytesWrittenMarshal, pulBytesWritten, "ushort", usMode, "ptr", lpfnAllocate, "ptr", lpfnReAllocate, "ptr", lpfnFree, lpvReservedMarshal, lpvReserved, "CDecl uint")
+        result := DllCall("FONTSUB.dll\MergeFontPackage", puchMergeFontBufferMarshal, puchMergeFontBuffer, "uint", ulMergeFontBufferSize, puchFontPackageBufferMarshal, puchFontPackageBuffer, "uint", ulFontPackageBufferSize, ppuchDestBufferMarshal, ppuchDestBuffer, pulDestBufferSizeMarshal, pulDestBufferSize, pulBytesWrittenMarshal, pulBytesWritten, "ushort", usMode, "ptr", lpfnAllocate, "ptr", lpfnReAllocate, "ptr", lpfnFree, lpvReservedMarshal, lpvReserved, "CDecl uint")
         return result
     }
 

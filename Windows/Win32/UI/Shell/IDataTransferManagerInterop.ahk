@@ -41,7 +41,9 @@ class IDataTransferManagerInterop extends IUnknown{
     GetForWindow(appWindow, riid, dataTransferManager) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
 
-        result := ComCall(3, this, "ptr", appWindow, "ptr", riid, "ptr*", dataTransferManager, "HRESULT")
+        dataTransferManagerMarshal := dataTransferManager is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", appWindow, "ptr", riid, dataTransferManagerMarshal, dataTransferManager, "HRESULT")
         return result
     }
 

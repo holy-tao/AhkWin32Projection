@@ -40,7 +40,9 @@ class IDMLDevice1 extends IDMLDevice{
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldevice1-compilegraph
      */
     CompileGraph(desc, flags, riid, ppv) {
-        result := ComCall(17, this, "ptr", desc, "int", flags, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(17, this, "ptr", desc, "int", flags, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 }

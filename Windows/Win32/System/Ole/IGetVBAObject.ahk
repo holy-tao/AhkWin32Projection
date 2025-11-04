@@ -43,7 +43,9 @@ class IGetVBAObject extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getobject
      */
     GetObject(riid, ppvObj, dwReserved) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", ppvObj, "uint", dwReserved, "HRESULT")
+        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", riid, ppvObjMarshal, ppvObj, "uint", dwReserved, "HRESULT")
         return result
     }
 }

@@ -165,7 +165,9 @@ class IShellView extends IOleWindow{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellview-getitemobject
      */
     GetItemObject(uItem, riid, ppv) {
-        result := ComCall(15, this, "uint", uItem, "ptr", riid, "ptr*", ppv, "HRESULT")
+        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(15, this, "uint", uItem, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 }

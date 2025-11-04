@@ -45,7 +45,9 @@ class ISearchCrawlScopeManager2 extends ISearchCrawlScopeManager{
      * @see https://docs.microsoft.com/windows/win32/api//sysinfoapi/nf-sysinfoapi-getversion
      */
     GetVersion(plVersion, phFileMapping) {
-        result := ComCall(19, this, "ptr*", plVersion, "ptr", phFileMapping, "HRESULT")
+        plVersionMarshal := plVersion is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(19, this, plVersionMarshal, plVersion, "ptr", phFileMapping, "HRESULT")
         return result
     }
 }

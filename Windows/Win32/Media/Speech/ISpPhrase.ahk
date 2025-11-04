@@ -34,7 +34,9 @@ class ISpPhrase extends IUnknown{
      * @returns {HRESULT} 
      */
     GetPhrase(ppCoMemPhrase) {
-        result := ComCall(3, this, "ptr*", ppCoMemPhrase, "HRESULT")
+        ppCoMemPhraseMarshal := ppCoMemPhrase is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, ppCoMemPhraseMarshal, ppCoMemPhrase, "HRESULT")
         return result
     }
 
@@ -44,7 +46,9 @@ class ISpPhrase extends IUnknown{
      * @returns {HRESULT} 
      */
     GetSerializedPhrase(ppCoMemPhrase) {
-        result := ComCall(4, this, "ptr*", ppCoMemPhrase, "HRESULT")
+        ppCoMemPhraseMarshal := ppCoMemPhrase is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, ppCoMemPhraseMarshal, ppCoMemPhrase, "HRESULT")
         return result
     }
 

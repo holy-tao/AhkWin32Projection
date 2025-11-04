@@ -99,8 +99,9 @@ class IXamlDiagnostics extends IUnknown{
      */
     HitTest(rect, pCount, ppInstanceHandles) {
         pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
+        ppInstanceHandlesMarshal := ppInstanceHandles is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(8, this, "ptr", rect, pCountMarshal, pCount, "ptr*", ppInstanceHandles, "HRESULT")
+        result := ComCall(8, this, "ptr", rect, pCountMarshal, pCount, ppInstanceHandlesMarshal, ppInstanceHandles, "HRESULT")
         return result
     }
 

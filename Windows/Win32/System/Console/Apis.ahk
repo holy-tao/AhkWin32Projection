@@ -2427,8 +2427,10 @@ class Console {
         hErrorhardwareEvent := hErrorhardwareEvent is Win32Handle ? NumGet(hErrorhardwareEvent, "ptr") : hErrorhardwareEvent
 
         lpStateLengthMarshal := lpStateLength is VarRef ? "uint*" : "ptr"
+        lpStateMarshal := lpState is VarRef ? "ptr*" : "ptr"
+        lpVDMBufferMarshal := lpVDMBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("KERNEL32.dll\RegisterConsoleVDM", "uint", dwRegisterFlags, "ptr", hStartHardwareEvent, "ptr", hEndHardwareEvent, "ptr", hErrorhardwareEvent, "uint", Reserved, lpStateLengthMarshal, lpStateLength, "ptr*", lpState, "ptr", VDMBufferSize, "ptr*", lpVDMBuffer, "int")
+        result := DllCall("KERNEL32.dll\RegisterConsoleVDM", "uint", dwRegisterFlags, "ptr", hStartHardwareEvent, "ptr", hEndHardwareEvent, "ptr", hErrorhardwareEvent, "uint", Reserved, lpStateLengthMarshal, lpStateLength, lpStateMarshal, lpState, "ptr", VDMBufferSize, lpVDMBufferMarshal, lpVDMBuffer, "int")
         return result
     }
 

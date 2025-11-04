@@ -158,7 +158,9 @@ class ISpRecognizer extends ISpProperties{
      * @returns {HRESULT} 
      */
     GetFormat(WaveFormatType, pFormatId, ppCoMemWFEX) {
-        result := ComCall(19, this, "int", WaveFormatType, "ptr", pFormatId, "ptr*", ppCoMemWFEX, "HRESULT")
+        ppCoMemWFEXMarshal := ppCoMemWFEX is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(19, this, "int", WaveFormatType, "ptr", pFormatId, ppCoMemWFEXMarshal, ppCoMemWFEX, "HRESULT")
         return result
     }
 

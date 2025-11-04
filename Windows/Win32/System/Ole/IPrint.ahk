@@ -84,10 +84,12 @@ class IPrint extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/docobj/nf-docobj-iprint-print
      */
     Print(grfFlags, pptd, ppPageSet, pstgmOptions, pcallback, nFirstPage, pcPagesPrinted, pnLastPage) {
+        pptdMarshal := pptd is VarRef ? "ptr*" : "ptr"
+        ppPageSetMarshal := ppPageSet is VarRef ? "ptr*" : "ptr"
         pcPagesPrintedMarshal := pcPagesPrinted is VarRef ? "int*" : "ptr"
         pnLastPageMarshal := pnLastPage is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, "uint", grfFlags, "ptr*", pptd, "ptr*", ppPageSet, "ptr", pstgmOptions, "ptr", pcallback, "int", nFirstPage, pcPagesPrintedMarshal, pcPagesPrinted, pnLastPageMarshal, pnLastPage, "HRESULT")
+        result := ComCall(5, this, "uint", grfFlags, pptdMarshal, pptd, ppPageSetMarshal, ppPageSet, "ptr", pstgmOptions, "ptr", pcallback, "int", nFirstPage, pcPagesPrintedMarshal, pcPagesPrinted, pnLastPageMarshal, pnLastPage, "HRESULT")
         return result
     }
 }

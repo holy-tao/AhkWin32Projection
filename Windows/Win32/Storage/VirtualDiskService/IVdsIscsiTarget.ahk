@@ -145,9 +145,10 @@ class IVdsIscsiTarget extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsiscsitarget-getconnectedinitiators
      */
     GetConnectedInitiators(pppwszInitiatorList, plNumberOfInitiators) {
+        pppwszInitiatorListMarshal := pppwszInitiatorList is VarRef ? "ptr*" : "ptr"
         plNumberOfInitiatorsMarshal := plNumberOfInitiators is VarRef ? "int*" : "ptr"
 
-        result := ComCall(12, this, "ptr*", pppwszInitiatorList, plNumberOfInitiatorsMarshal, plNumberOfInitiators, "HRESULT")
+        result := ComCall(12, this, pppwszInitiatorListMarshal, pppwszInitiatorList, plNumberOfInitiatorsMarshal, plNumberOfInitiators, "HRESULT")
         return result
     }
 }

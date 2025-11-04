@@ -156,7 +156,9 @@ class IIsdbDownloadContentDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdownloadcontentdescriptor-getcompatiblitydescriptor
      */
     GetCompatiblityDescriptor(ppbData) {
-        result := ComCall(12, this, "ptr*", ppbData, "HRESULT")
+        ppbDataMarshal := ppbData is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(12, this, ppbDataMarshal, ppbData, "HRESULT")
         return result
     }
 
@@ -223,7 +225,9 @@ class IIsdbDownloadContentDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdownloadcontentdescriptor-getrecordmoduleinfo
      */
     GetRecordModuleInfo(wRecordIndex, ppbData) {
-        result := ComCall(17, this, "ushort", wRecordIndex, "ptr*", ppbData, "HRESULT")
+        ppbDataMarshal := ppbData is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(17, this, "ushort", wRecordIndex, ppbDataMarshal, ppbData, "HRESULT")
         return result
     }
 

@@ -38,7 +38,9 @@ class ICLRMetaHost extends IUnknown{
     GetRuntime(pwzVersion, riid, ppRuntime) {
         pwzVersion := pwzVersion is String ? StrPtr(pwzVersion) : pwzVersion
 
-        result := ComCall(3, this, "ptr", pwzVersion, "ptr", riid, "ptr*", ppRuntime, "HRESULT")
+        ppRuntimeMarshal := ppRuntime is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pwzVersion, "ptr", riid, ppRuntimeMarshal, ppRuntime, "HRESULT")
         return result
     }
 
@@ -99,7 +101,9 @@ class ICLRMetaHost extends IUnknown{
      * @returns {HRESULT} 
      */
     QueryLegacyV2RuntimeBinding(riid, ppUnk) {
-        result := ComCall(8, this, "ptr", riid, "ptr*", ppUnk, "HRESULT")
+        ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(8, this, "ptr", riid, ppUnkMarshal, ppUnk, "HRESULT")
         return result
     }
 

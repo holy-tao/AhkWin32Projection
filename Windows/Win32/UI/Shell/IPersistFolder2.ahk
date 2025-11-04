@@ -44,7 +44,9 @@ class IPersistFolder2 extends IPersistFolder{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipersistfolder2-getcurfolder
      */
     GetCurFolder(ppidl) {
-        result := ComCall(5, this, "ptr*", ppidl, "HRESULT")
+        ppidlMarshal := ppidl is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, ppidlMarshal, ppidl, "HRESULT")
         return result
     }
 }

@@ -71,7 +71,9 @@ class IRelationship extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-irelationship-metadata
      */
     MetaData(riid, pMetaData) {
-        result := ComCall(6, this, "ptr", riid, "ptr*", pMetaData, "HRESULT")
+        pMetaDataMarshal := pMetaData is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "ptr", riid, pMetaDataMarshal, pMetaData, "HRESULT")
         return result
     }
 

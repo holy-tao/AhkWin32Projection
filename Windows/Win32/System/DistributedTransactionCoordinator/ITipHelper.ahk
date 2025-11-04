@@ -61,7 +61,9 @@ class ITipHelper extends IUnknown{
      * @returns {HRESULT} 
      */
     GetLocalTmUrl(o_ppszLocalTmUrl) {
-        result := ComCall(5, this, "ptr*", o_ppszLocalTmUrl, "HRESULT")
+        o_ppszLocalTmUrlMarshal := o_ppszLocalTmUrl is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, o_ppszLocalTmUrlMarshal, o_ppszLocalTmUrl, "HRESULT")
         return result
     }
 }

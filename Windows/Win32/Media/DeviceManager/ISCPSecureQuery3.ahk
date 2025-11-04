@@ -46,9 +46,10 @@ class ISCPSecureQuery3 extends ISCPSecureQuery2{
     GetRightsOnClearChannel(pData, dwSize, pbSPSessionKey, dwSessionKeyLen, pStgGlobals, pProgressCallback, ppRights, pnRightsCount) {
         pDataMarshal := pData is VarRef ? "char*" : "ptr"
         pbSPSessionKeyMarshal := pbSPSessionKey is VarRef ? "char*" : "ptr"
+        ppRightsMarshal := ppRights is VarRef ? "ptr*" : "ptr"
         pnRightsCountMarshal := pnRightsCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, pDataMarshal, pData, "uint", dwSize, pbSPSessionKeyMarshal, pbSPSessionKey, "uint", dwSessionKeyLen, "ptr", pStgGlobals, "ptr", pProgressCallback, "ptr*", ppRights, pnRightsCountMarshal, pnRightsCount, "HRESULT")
+        result := ComCall(8, this, pDataMarshal, pData, "uint", dwSize, pbSPSessionKeyMarshal, pbSPSessionKey, "uint", dwSessionKeyLen, "ptr", pStgGlobals, "ptr", pProgressCallback, ppRightsMarshal, ppRights, pnRightsCountMarshal, pnRightsCount, "HRESULT")
         return result
     }
 

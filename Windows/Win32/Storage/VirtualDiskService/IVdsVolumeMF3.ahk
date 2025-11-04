@@ -38,9 +38,10 @@ class IVdsVolumeMF3 extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolumemf3-queryvolumeguidpathnames
      */
     QueryVolumeGuidPathnames(pwszPathArray, pulNumberOfPaths) {
+        pwszPathArrayMarshal := pwszPathArray is VarRef ? "ptr*" : "ptr"
         pulNumberOfPathsMarshal := pulNumberOfPaths is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr*", pwszPathArray, pulNumberOfPathsMarshal, pulNumberOfPaths, "HRESULT")
+        result := ComCall(3, this, pwszPathArrayMarshal, pwszPathArray, pulNumberOfPathsMarshal, pulNumberOfPaths, "HRESULT")
         return result
     }
 

@@ -120,9 +120,10 @@ class IIsdbEmergencyInformationDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbemergencyinformationdescriptor-getareacode
      */
     GetAreaCode(bRecordIndex, ppwVal, pbNumAreaCodes) {
+        ppwValMarshal := ppwVal is VarRef ? "ptr*" : "ptr"
         pbNumAreaCodesMarshal := pbNumAreaCodes is VarRef ? "char*" : "ptr"
 
-        result := ComCall(9, this, "char", bRecordIndex, "ptr*", ppwVal, pbNumAreaCodesMarshal, pbNumAreaCodes, "HRESULT")
+        result := ComCall(9, this, "char", bRecordIndex, ppwValMarshal, ppwVal, pbNumAreaCodesMarshal, pbNumAreaCodes, "HRESULT")
         return result
     }
 }

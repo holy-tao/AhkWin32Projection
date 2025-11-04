@@ -117,7 +117,9 @@ class IPresentationManager extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationmanager-getpresentretiringfence
      */
     GetPresentRetiringFence(riid, fence) {
-        result := ComCall(10, this, "ptr", riid, "ptr*", fence, "HRESULT")
+        fenceMarshal := fence is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(10, this, "ptr", riid, fenceMarshal, fence, "HRESULT")
         return result
     }
 
