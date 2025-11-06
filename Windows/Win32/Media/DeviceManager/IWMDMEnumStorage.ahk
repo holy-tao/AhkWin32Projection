@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWMDMEnumStorage.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -48,15 +49,12 @@ class IWMDMEnumStorage extends IUnknown{
     /**
      * 
      * @param {Integer} celt 
-     * @param {Pointer<Integer>} pceltFetched 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmenumstorage-skip
      */
-    Skip(celt, pceltFetched) {
-        pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, "uint", celt, pceltFetchedMarshal, pceltFetched, "HRESULT")
-        return result
+    Skip(celt) {
+        result := ComCall(4, this, "uint", celt, "uint*", &pceltFetched := 0, "HRESULT")
+        return pceltFetched
     }
 
     /**
@@ -71,12 +69,11 @@ class IWMDMEnumStorage extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IWMDMEnumStorage>} ppEnumStorage 
-     * @returns {HRESULT} 
+     * @returns {IWMDMEnumStorage} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmenumstorage-clone
      */
-    Clone(ppEnumStorage) {
-        result := ComCall(6, this, "ptr*", ppEnumStorage, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppEnumStorage := 0, "HRESULT")
+        return IWMDMEnumStorage(ppEnumStorage)
     }
 }

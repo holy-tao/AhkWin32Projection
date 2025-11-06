@@ -2,6 +2,17 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ISVGAnimatedLength.ahk
+#Include .\ISVGRect.ahk
+#Include .\ISVGViewSpec.ahk
+#Include .\ISVGPoint.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\ISVGNumber.ahk
+#Include .\ISVGLength.ahk
+#Include .\ISVGAngle.ahk
+#Include .\ISVGMatrix.ahk
+#Include .\ISVGTransform.ahk
+#Include .\IHTMLElement.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -47,12 +58,11 @@ class ISVGSVGElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedLength>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedLength} 
      */
-    get_x(p) {
-        result := ComCall(8, this, "ptr*", p, "HRESULT")
-        return result
+    get_x() {
+        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedLength(p)
     }
 
     /**
@@ -67,12 +77,11 @@ class ISVGSVGElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedLength>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedLength} 
      */
-    get_y(p) {
-        result := ComCall(10, this, "ptr*", p, "HRESULT")
-        return result
+    get_y() {
+        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedLength(p)
     }
 
     /**
@@ -87,12 +96,11 @@ class ISVGSVGElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedLength>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedLength} 
      */
-    get_width(p) {
-        result := ComCall(12, this, "ptr*", p, "HRESULT")
-        return result
+    get_width() {
+        result := ComCall(12, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedLength(p)
     }
 
     /**
@@ -107,12 +115,11 @@ class ISVGSVGElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedLength>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedLength} 
      */
-    get_height(p) {
-        result := ComCall(14, this, "ptr*", p, "HRESULT")
-        return result
+    get_height() {
+        result := ComCall(14, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedLength(p)
     }
 
     /**
@@ -129,12 +136,12 @@ class ISVGSVGElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_contentScriptType(p) {
+    get_contentScriptType() {
+        p := BSTR()
         result := ComCall(16, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -151,12 +158,12 @@ class ISVGSVGElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_contentStyleType(p) {
+    get_contentStyleType() {
+        p := BSTR()
         result := ComCall(18, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -171,12 +178,11 @@ class ISVGSVGElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGRect>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGRect} 
      */
-    get_viewport(p) {
-        result := ComCall(20, this, "ptr*", p, "HRESULT")
-        return result
+    get_viewport() {
+        result := ComCall(20, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGRect(p)
     }
 
     /**
@@ -191,14 +197,11 @@ class ISVGSVGElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_pixelUnitToMillimeterX(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(22, this, pMarshal, p, "HRESULT")
-        return result
+    get_pixelUnitToMillimeterX() {
+        result := ComCall(22, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -213,14 +216,11 @@ class ISVGSVGElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_pixelUnitToMillimeterY(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(24, this, pMarshal, p, "HRESULT")
-        return result
+    get_pixelUnitToMillimeterY() {
+        result := ComCall(24, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -235,14 +235,11 @@ class ISVGSVGElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_screenPixelToMillimeterX(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(26, this, pMarshal, p, "HRESULT")
-        return result
+    get_screenPixelToMillimeterX() {
+        result := ComCall(26, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -257,14 +254,11 @@ class ISVGSVGElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_screenPixelToMillimeterY(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(28, this, pMarshal, p, "HRESULT")
-        return result
+    get_screenPixelToMillimeterY() {
+        result := ComCall(28, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -279,12 +273,11 @@ class ISVGSVGElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_useCurrentView(p) {
-        result := ComCall(30, this, "ptr", p, "HRESULT")
-        return result
+    get_useCurrentView() {
+        result := ComCall(30, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -299,12 +292,11 @@ class ISVGSVGElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGViewSpec>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGViewSpec} 
      */
-    get_currentView(p) {
-        result := ComCall(32, this, "ptr*", p, "HRESULT")
-        return result
+    get_currentView() {
+        result := ComCall(32, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGViewSpec(p)
     }
 
     /**
@@ -319,14 +311,11 @@ class ISVGSVGElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_currentScale(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(34, this, pMarshal, p, "HRESULT")
-        return result
+    get_currentScale() {
+        result := ComCall(34, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -341,25 +330,21 @@ class ISVGSVGElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGPoint>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGPoint} 
      */
-    get_currentTranslate(p) {
-        result := ComCall(36, this, "ptr*", p, "HRESULT")
-        return result
+    get_currentTranslate() {
+        result := ComCall(36, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGPoint(p)
     }
 
     /**
      * 
      * @param {Integer} maxWaitMilliseconds 
-     * @param {Pointer<Integer>} pResult 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    suspendRedraw(maxWaitMilliseconds, pResult) {
-        pResultMarshal := pResult is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(37, this, "uint", maxWaitMilliseconds, pResultMarshal, pResult, "HRESULT")
-        return result
+    suspendRedraw(maxWaitMilliseconds) {
+        result := ComCall(37, this, "uint", maxWaitMilliseconds, "uint*", &pResult := 0, "HRESULT")
+        return pResult
     }
 
     /**
@@ -410,24 +395,20 @@ class ISVGSVGElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pResult 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    animationsPaused(pResult) {
-        result := ComCall(43, this, "ptr", pResult, "HRESULT")
-        return result
+    animationsPaused() {
+        result := ComCall(43, this, "short*", &pResult := 0, "HRESULT")
+        return pResult
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pResult 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    getCurrentTime(pResult) {
-        pResultMarshal := pResult is VarRef ? "float*" : "ptr"
-
-        result := ComCall(44, this, pResultMarshal, pResult, "HRESULT")
-        return result
+    getCurrentTime() {
+        result := ComCall(44, this, "float*", &pResult := 0, "HRESULT")
+        return pResult
     }
 
     /**
@@ -444,48 +425,46 @@ class ISVGSVGElement extends IDispatch{
      * 
      * @param {ISVGRect} rect 
      * @param {ISVGElement} referenceElement 
-     * @param {Pointer<VARIANT>} pResult 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    getIntersectionList(rect, referenceElement, pResult) {
+    getIntersectionList(rect, referenceElement) {
+        pResult := VARIANT()
         result := ComCall(46, this, "ptr", rect, "ptr", referenceElement, "ptr", pResult, "HRESULT")
-        return result
+        return pResult
     }
 
     /**
      * 
      * @param {ISVGRect} rect 
      * @param {ISVGElement} referenceElement 
-     * @param {Pointer<VARIANT>} pResult 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    getEnclosureList(rect, referenceElement, pResult) {
+    getEnclosureList(rect, referenceElement) {
+        pResult := VARIANT()
         result := ComCall(47, this, "ptr", rect, "ptr", referenceElement, "ptr", pResult, "HRESULT")
-        return result
+        return pResult
     }
 
     /**
      * 
      * @param {ISVGElement} element 
      * @param {ISVGRect} rect 
-     * @param {Pointer<VARIANT_BOOL>} pResult 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    checkIntersection(element, rect, pResult) {
-        result := ComCall(48, this, "ptr", element, "ptr", rect, "ptr", pResult, "HRESULT")
-        return result
+    checkIntersection(element, rect) {
+        result := ComCall(48, this, "ptr", element, "ptr", rect, "short*", &pResult := 0, "HRESULT")
+        return pResult
     }
 
     /**
      * 
      * @param {ISVGElement} element 
      * @param {ISVGRect} rect 
-     * @param {Pointer<VARIANT_BOOL>} pResult 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    checkEnclosure(element, rect, pResult) {
-        result := ComCall(49, this, "ptr", element, "ptr", rect, "ptr", pResult, "HRESULT")
-        return result
+    checkEnclosure(element, rect) {
+        result := ComCall(49, this, "ptr", element, "ptr", rect, "short*", &pResult := 0, "HRESULT")
+        return pResult
     }
 
     /**
@@ -499,95 +478,86 @@ class ISVGSVGElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGNumber>} pResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGNumber} 
      */
-    createSVGNumber(pResult) {
-        result := ComCall(51, this, "ptr*", pResult, "HRESULT")
-        return result
+    createSVGNumber() {
+        result := ComCall(51, this, "ptr*", &pResult := 0, "HRESULT")
+        return ISVGNumber(pResult)
     }
 
     /**
      * 
-     * @param {Pointer<ISVGLength>} pResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGLength} 
      */
-    createSVGLength(pResult) {
-        result := ComCall(52, this, "ptr*", pResult, "HRESULT")
-        return result
+    createSVGLength() {
+        result := ComCall(52, this, "ptr*", &pResult := 0, "HRESULT")
+        return ISVGLength(pResult)
     }
 
     /**
      * 
-     * @param {Pointer<ISVGAngle>} pResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGAngle} 
      */
-    createSVGAngle(pResult) {
-        result := ComCall(53, this, "ptr*", pResult, "HRESULT")
-        return result
+    createSVGAngle() {
+        result := ComCall(53, this, "ptr*", &pResult := 0, "HRESULT")
+        return ISVGAngle(pResult)
     }
 
     /**
      * 
-     * @param {Pointer<ISVGPoint>} pResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGPoint} 
      */
-    createSVGPoint(pResult) {
-        result := ComCall(54, this, "ptr*", pResult, "HRESULT")
-        return result
+    createSVGPoint() {
+        result := ComCall(54, this, "ptr*", &pResult := 0, "HRESULT")
+        return ISVGPoint(pResult)
     }
 
     /**
      * 
-     * @param {Pointer<ISVGMatrix>} pResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGMatrix} 
      */
-    createSVGMatrix(pResult) {
-        result := ComCall(55, this, "ptr*", pResult, "HRESULT")
-        return result
+    createSVGMatrix() {
+        result := ComCall(55, this, "ptr*", &pResult := 0, "HRESULT")
+        return ISVGMatrix(pResult)
     }
 
     /**
      * 
-     * @param {Pointer<ISVGRect>} pResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGRect} 
      */
-    createSVGRect(pResult) {
-        result := ComCall(56, this, "ptr*", pResult, "HRESULT")
-        return result
+    createSVGRect() {
+        result := ComCall(56, this, "ptr*", &pResult := 0, "HRESULT")
+        return ISVGRect(pResult)
     }
 
     /**
      * 
-     * @param {Pointer<ISVGTransform>} pResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGTransform} 
      */
-    createSVGTransform(pResult) {
-        result := ComCall(57, this, "ptr*", pResult, "HRESULT")
-        return result
+    createSVGTransform() {
+        result := ComCall(57, this, "ptr*", &pResult := 0, "HRESULT")
+        return ISVGTransform(pResult)
     }
 
     /**
      * 
      * @param {ISVGMatrix} matrix 
-     * @param {Pointer<ISVGTransform>} pResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGTransform} 
      */
-    createSVGTransformFromMatrix(matrix, pResult) {
-        result := ComCall(58, this, "ptr", matrix, "ptr*", pResult, "HRESULT")
-        return result
+    createSVGTransformFromMatrix(matrix) {
+        result := ComCall(58, this, "ptr", matrix, "ptr*", &pResult := 0, "HRESULT")
+        return ISVGTransform(pResult)
     }
 
     /**
      * 
      * @param {BSTR} elementId 
-     * @param {Pointer<IHTMLElement>} pResult 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElement} 
      */
-    getElementById(elementId, pResult) {
+    getElementById(elementId) {
         elementId := elementId is String ? BSTR.Alloc(elementId).Value : elementId
 
-        result := ComCall(59, this, "ptr", elementId, "ptr*", pResult, "HRESULT")
-        return result
+        result := ComCall(59, this, "ptr", elementId, "ptr*", &pResult := 0, "HRESULT")
+        return IHTMLElement(pResult)
     }
 }

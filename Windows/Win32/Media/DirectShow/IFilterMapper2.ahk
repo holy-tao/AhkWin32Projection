@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IEnumMoniker.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -81,7 +82,6 @@ class IFilterMapper2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumMoniker>} ppEnum 
      * @param {Integer} dwFlags 
      * @param {BOOL} bExactMatch 
      * @param {Integer} dwMerit 
@@ -96,11 +96,11 @@ class IFilterMapper2 extends IUnknown{
      * @param {Pointer<Guid>} pOutputTypes 
      * @param {Pointer<REGPINMEDIUM>} pMedOut 
      * @param {Pointer<Guid>} pPinCategoryOut 
-     * @returns {HRESULT} 
+     * @returns {IEnumMoniker} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ifiltermapper2-enummatchingfilters
      */
-    EnumMatchingFilters(ppEnum, dwFlags, bExactMatch, dwMerit, bInputNeeded, cInputTypes, pInputTypes, pMedIn, pPinCategoryIn, bRender, bOutputNeeded, cOutputTypes, pOutputTypes, pMedOut, pPinCategoryOut) {
-        result := ComCall(6, this, "ptr*", ppEnum, "uint", dwFlags, "int", bExactMatch, "uint", dwMerit, "int", bInputNeeded, "uint", cInputTypes, "ptr", pInputTypes, "ptr", pMedIn, "ptr", pPinCategoryIn, "int", bRender, "int", bOutputNeeded, "uint", cOutputTypes, "ptr", pOutputTypes, "ptr", pMedOut, "ptr", pPinCategoryOut, "HRESULT")
-        return result
+    EnumMatchingFilters(dwFlags, bExactMatch, dwMerit, bInputNeeded, cInputTypes, pInputTypes, pMedIn, pPinCategoryIn, bRender, bOutputNeeded, cOutputTypes, pOutputTypes, pMedOut, pPinCategoryOut) {
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "uint", dwFlags, "int", bExactMatch, "uint", dwMerit, "int", bInputNeeded, "uint", cInputTypes, "ptr", pInputTypes, "ptr", pMedIn, "ptr", pPinCategoryIn, "int", bRender, "int", bOutputNeeded, "uint", cOutputTypes, "ptr", pOutputTypes, "ptr", pMedOut, "ptr", pPinCategoryOut, "HRESULT")
+        return IEnumMoniker(ppEnum)
     }
 }

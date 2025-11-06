@@ -32,23 +32,22 @@ class IControlInterface extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppwstrName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-icontrolinterface-getname
      */
-    GetName(ppwstrName) {
-        result := ComCall(3, this, "ptr", ppwstrName, "HRESULT")
-        return result
+    GetName() {
+        result := ComCall(3, this, "ptr*", &ppwstrName := 0, "HRESULT")
+        return ppwstrName
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} pIID 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-icontrolinterface-getiid
      */
-    GetIID(pIID) {
+    GetIID() {
+        pIID := Guid()
         result := ComCall(4, this, "ptr", pIID, "HRESULT")
-        return result
+        return pIID
     }
 }

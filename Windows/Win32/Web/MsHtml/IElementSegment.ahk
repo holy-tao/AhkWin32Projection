@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IHTMLElement.ahk
 #Include .\ISegment.ahk
 
 /**
@@ -30,12 +31,11 @@ class IElementSegment extends ISegment{
 
     /**
      * 
-     * @param {Pointer<IHTMLElement>} ppIElement 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElement} 
      */
-    GetElement(ppIElement) {
-        result := ComCall(4, this, "ptr*", ppIElement, "HRESULT")
-        return result
+    GetElement() {
+        result := ComCall(4, this, "ptr*", &ppIElement := 0, "HRESULT")
+        return IHTMLElement(ppIElement)
     }
 
     /**
@@ -50,11 +50,10 @@ class IElementSegment extends ISegment{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfPrimary 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsPrimary(pfPrimary) {
-        result := ComCall(6, this, "ptr", pfPrimary, "HRESULT")
-        return result
+    IsPrimary() {
+        result := ComCall(6, this, "int*", &pfPrimary := 0, "HRESULT")
+        return pfPrimary
     }
 }

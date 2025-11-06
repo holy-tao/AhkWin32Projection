@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWMRegisteredDevice.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -47,15 +48,14 @@ class IWMDeviceRegistration extends IUnknown{
      * @param {Pointer<Integer>} pbCertificate 
      * @param {Integer} cbCertificate 
      * @param {DRM_VAL16} SerialNumber 
-     * @param {Pointer<IWMRegisteredDevice>} ppDevice 
-     * @returns {HRESULT} 
+     * @returns {IWMRegisteredDevice} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdeviceregistration-registerdevice
      */
-    RegisterDevice(dwRegisterType, pbCertificate, cbCertificate, SerialNumber, ppDevice) {
+    RegisterDevice(dwRegisterType, pbCertificate, cbCertificate, SerialNumber) {
         pbCertificateMarshal := pbCertificate is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "uint", dwRegisterType, pbCertificateMarshal, pbCertificate, "uint", cbCertificate, "ptr", SerialNumber, "ptr*", ppDevice, "HRESULT")
-        return result
+        result := ComCall(3, this, "uint", dwRegisterType, pbCertificateMarshal, pbCertificate, "uint", cbCertificate, "ptr", SerialNumber, "ptr*", &ppDevice := 0, "HRESULT")
+        return IWMRegisteredDevice(ppDevice)
     }
 
     /**
@@ -77,38 +77,33 @@ class IWMDeviceRegistration extends IUnknown{
     /**
      * 
      * @param {Integer} dwRegisterType 
-     * @param {Pointer<Integer>} pcRegisteredDevices 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdeviceregistration-getregistrationstats
      */
-    GetRegistrationStats(dwRegisterType, pcRegisteredDevices) {
-        pcRegisteredDevicesMarshal := pcRegisteredDevices is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, "uint", dwRegisterType, pcRegisteredDevicesMarshal, pcRegisteredDevices, "HRESULT")
-        return result
+    GetRegistrationStats(dwRegisterType) {
+        result := ComCall(5, this, "uint", dwRegisterType, "uint*", &pcRegisteredDevices := 0, "HRESULT")
+        return pcRegisteredDevices
     }
 
     /**
      * 
      * @param {Integer} dwRegisterType 
-     * @param {Pointer<IWMRegisteredDevice>} ppDevice 
-     * @returns {HRESULT} 
+     * @returns {IWMRegisteredDevice} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdeviceregistration-getfirstregistereddevice
      */
-    GetFirstRegisteredDevice(dwRegisterType, ppDevice) {
-        result := ComCall(6, this, "uint", dwRegisterType, "ptr*", ppDevice, "HRESULT")
-        return result
+    GetFirstRegisteredDevice(dwRegisterType) {
+        result := ComCall(6, this, "uint", dwRegisterType, "ptr*", &ppDevice := 0, "HRESULT")
+        return IWMRegisteredDevice(ppDevice)
     }
 
     /**
      * 
-     * @param {Pointer<IWMRegisteredDevice>} ppDevice 
-     * @returns {HRESULT} 
+     * @returns {IWMRegisteredDevice} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdeviceregistration-getnextregistereddevice
      */
-    GetNextRegisteredDevice(ppDevice) {
-        result := ComCall(7, this, "ptr*", ppDevice, "HRESULT")
-        return result
+    GetNextRegisteredDevice() {
+        result := ComCall(7, this, "ptr*", &ppDevice := 0, "HRESULT")
+        return IWMRegisteredDevice(ppDevice)
     }
 
     /**
@@ -117,14 +112,13 @@ class IWMDeviceRegistration extends IUnknown{
      * @param {Pointer<Integer>} pbCertificate 
      * @param {Integer} cbCertificate 
      * @param {DRM_VAL16} SerialNumber 
-     * @param {Pointer<IWMRegisteredDevice>} ppDevice 
-     * @returns {HRESULT} 
+     * @returns {IWMRegisteredDevice} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdeviceregistration-getregistereddevicebyid
      */
-    GetRegisteredDeviceByID(dwRegisterType, pbCertificate, cbCertificate, SerialNumber, ppDevice) {
+    GetRegisteredDeviceByID(dwRegisterType, pbCertificate, cbCertificate, SerialNumber) {
         pbCertificateMarshal := pbCertificate is VarRef ? "char*" : "ptr"
 
-        result := ComCall(8, this, "uint", dwRegisterType, pbCertificateMarshal, pbCertificate, "uint", cbCertificate, "ptr", SerialNumber, "ptr*", ppDevice, "HRESULT")
-        return result
+        result := ComCall(8, this, "uint", dwRegisterType, pbCertificateMarshal, pbCertificate, "uint", cbCertificate, "ptr", SerialNumber, "ptr*", &ppDevice := 0, "HRESULT")
+        return IWMRegisteredDevice(ppDevice)
     }
 }

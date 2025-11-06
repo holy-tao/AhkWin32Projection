@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -43,15 +44,12 @@ class IMSVidStreamBufferRecordingControl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} rtStart 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambufferrecordingcontrol-get_starttime
      */
-    get_StartTime(rtStart) {
-        rtStartMarshal := rtStart is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, rtStartMarshal, rtStart, "HRESULT")
-        return result
+    get_StartTime() {
+        result := ComCall(7, this, "int*", &rtStart := 0, "HRESULT")
+        return rtStart
     }
 
     /**
@@ -67,15 +65,12 @@ class IMSVidStreamBufferRecordingControl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} rtStop 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambufferrecordingcontrol-get_stoptime
      */
-    get_StopTime(rtStop) {
-        rtStopMarshal := rtStop is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, rtStopMarshal, rtStop, "HRESULT")
-        return result
+    get_StopTime() {
+        result := ComCall(9, this, "int*", &rtStop := 0, "HRESULT")
+        return rtStop
     }
 
     /**
@@ -91,47 +86,41 @@ class IMSVidStreamBufferRecordingControl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} phResult 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambufferrecordingcontrol-get_recordingstopped
      */
-    get_RecordingStopped(phResult) {
-        result := ComCall(11, this, "ptr", phResult, "HRESULT")
-        return result
+    get_RecordingStopped() {
+        result := ComCall(11, this, "short*", &phResult := 0, "HRESULT")
+        return phResult
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} phResult 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambufferrecordingcontrol-get_recordingstarted
      */
-    get_RecordingStarted(phResult) {
-        result := ComCall(12, this, "ptr", phResult, "HRESULT")
-        return result
+    get_RecordingStarted() {
+        result := ComCall(12, this, "short*", &phResult := 0, "HRESULT")
+        return phResult
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} dwType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambufferrecordingcontrol-get_recordingtype
      */
-    get_RecordingType(dwType) {
-        dwTypeMarshal := dwType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, dwTypeMarshal, dwType, "HRESULT")
-        return result
+    get_RecordingType() {
+        result := ComCall(13, this, "int*", &dwType := 0, "HRESULT")
+        return dwType
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} pRecordingAttribute 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambufferrecordingcontrol-get_recordingattribute
      */
-    get_RecordingAttribute(pRecordingAttribute) {
-        result := ComCall(14, this, "ptr*", pRecordingAttribute, "HRESULT")
-        return result
+    get_RecordingAttribute() {
+        result := ComCall(14, this, "ptr*", &pRecordingAttribute := 0, "HRESULT")
+        return IUnknown(pRecordingAttribute)
     }
 }

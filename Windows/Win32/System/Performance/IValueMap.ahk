@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IValueMapItem.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -33,49 +36,44 @@ class IValueMap extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ivaluemap-get_count
      */
-    get_Count(retVal) {
-        retValMarshal := retVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
      * @param {VARIANT} index 
-     * @param {Pointer<IValueMapItem>} value 
-     * @returns {HRESULT} 
+     * @returns {IValueMapItem} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ivaluemap-get_item
      */
-    get_Item(index, value) {
-        result := ComCall(8, this, "ptr", index, "ptr*", value, "HRESULT")
-        return result
+    get_Item(index) {
+        result := ComCall(8, this, "ptr", index, "ptr*", &value := 0, "HRESULT")
+        return IValueMapItem(value)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} retVal 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ivaluemap-get__newenum
      */
-    get__NewEnum(retVal) {
-        result := ComCall(9, this, "ptr*", retVal, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(9, this, "ptr*", &retVal := 0, "HRESULT")
+        return IUnknown(retVal)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} description 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ivaluemap-get_description
      */
-    get_Description(description) {
+    get_Description() {
+        description := BSTR()
         result := ComCall(10, this, "ptr", description, "HRESULT")
-        return result
+        return description
     }
 
     /**
@@ -93,13 +91,13 @@ class IValueMap extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} Value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ivaluemap-get_value
      */
-    get_Value(Value) {
+    get_Value() {
+        Value := VARIANT()
         result := ComCall(12, this, "ptr", Value, "HRESULT")
-        return result
+        return Value
     }
 
     /**
@@ -115,15 +113,12 @@ class IValueMap extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} type 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ivaluemap-get_valuemaptype
      */
-    get_ValueMapType(type) {
-        typeMarshal := type is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, typeMarshal, type, "HRESULT")
-        return result
+    get_ValueMapType() {
+        result := ComCall(14, this, "int*", &type := 0, "HRESULT")
+        return type
     }
 
     /**
@@ -182,12 +177,11 @@ class IValueMap extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IValueMapItem>} Item 
-     * @returns {HRESULT} 
+     * @returns {IValueMapItem} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ivaluemap-createvaluemapitem
      */
-    CreateValueMapItem(Item) {
-        result := ComCall(20, this, "ptr*", Item, "HRESULT")
-        return result
+    CreateValueMapItem() {
+        result := ComCall(20, this, "ptr*", &Item := 0, "HRESULT")
+        return IValueMapItem(Item)
     }
 }

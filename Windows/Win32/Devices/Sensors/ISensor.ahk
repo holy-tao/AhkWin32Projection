@@ -1,6 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include ..\PortableDevices\IPortableDeviceValues.ahk
+#Include ..\PortableDevices\IPortableDeviceKeyCollection.ahk
+#Include .\ISensorDataReport.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -38,141 +43,132 @@ class ISensor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pID 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensor-getid
      */
-    GetID(pID) {
+    GetID() {
+        pID := Guid()
         result := ComCall(3, this, "ptr", pID, "HRESULT")
-        return result
+        return pID
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} pSensorCategory 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensor-getcategory
      */
-    GetCategory(pSensorCategory) {
+    GetCategory() {
+        pSensorCategory := Guid()
         result := ComCall(4, this, "ptr", pSensorCategory, "HRESULT")
-        return result
+        return pSensorCategory
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} pSensorType 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensor-gettype
      */
-    GetType(pSensorType) {
+    GetType() {
+        pSensorType := Guid()
         result := ComCall(5, this, "ptr", pSensorType, "HRESULT")
-        return result
+        return pSensorType
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pFriendlyName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensor-getfriendlyname
      */
-    GetFriendlyName(pFriendlyName) {
+    GetFriendlyName() {
+        pFriendlyName := BSTR()
         result := ComCall(6, this, "ptr", pFriendlyName, "HRESULT")
-        return result
+        return pFriendlyName
     }
 
     /**
      * 
      * @param {Pointer<PROPERTYKEY>} key 
-     * @param {Pointer<PROPVARIANT>} pProperty 
-     * @returns {HRESULT} 
+     * @returns {PROPVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensor-getproperty
      */
-    GetProperty(key, pProperty) {
+    GetProperty(key) {
+        pProperty := PROPVARIANT()
         result := ComCall(7, this, "ptr", key, "ptr", pProperty, "HRESULT")
-        return result
+        return pProperty
     }
 
     /**
      * 
      * @param {IPortableDeviceKeyCollection} pKeys 
-     * @param {Pointer<IPortableDeviceValues>} ppProperties 
-     * @returns {HRESULT} 
+     * @returns {IPortableDeviceValues} 
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensor-getproperties
      */
-    GetProperties(pKeys, ppProperties) {
-        result := ComCall(8, this, "ptr", pKeys, "ptr*", ppProperties, "HRESULT")
-        return result
+    GetProperties(pKeys) {
+        result := ComCall(8, this, "ptr", pKeys, "ptr*", &ppProperties := 0, "HRESULT")
+        return IPortableDeviceValues(ppProperties)
     }
 
     /**
      * 
-     * @param {Pointer<IPortableDeviceKeyCollection>} ppDataFields 
-     * @returns {HRESULT} 
+     * @returns {IPortableDeviceKeyCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensor-getsupporteddatafields
      */
-    GetSupportedDataFields(ppDataFields) {
-        result := ComCall(9, this, "ptr*", ppDataFields, "HRESULT")
-        return result
+    GetSupportedDataFields() {
+        result := ComCall(9, this, "ptr*", &ppDataFields := 0, "HRESULT")
+        return IPortableDeviceKeyCollection(ppDataFields)
     }
 
     /**
      * 
      * @param {IPortableDeviceValues} pProperties 
-     * @param {Pointer<IPortableDeviceValues>} ppResults 
-     * @returns {HRESULT} 
+     * @returns {IPortableDeviceValues} 
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensor-setproperties
      */
-    SetProperties(pProperties, ppResults) {
-        result := ComCall(10, this, "ptr", pProperties, "ptr*", ppResults, "HRESULT")
-        return result
+    SetProperties(pProperties) {
+        result := ComCall(10, this, "ptr", pProperties, "ptr*", &ppResults := 0, "HRESULT")
+        return IPortableDeviceValues(ppResults)
     }
 
     /**
      * 
      * @param {Pointer<PROPERTYKEY>} key 
-     * @param {Pointer<VARIANT_BOOL>} pIsSupported 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensor-supportsdatafield
      */
-    SupportsDataField(key, pIsSupported) {
-        result := ComCall(11, this, "ptr", key, "ptr", pIsSupported, "HRESULT")
-        return result
+    SupportsDataField(key) {
+        result := ComCall(11, this, "ptr", key, "short*", &pIsSupported := 0, "HRESULT")
+        return pIsSupported
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensor-getstate
      */
-    GetState(pState) {
-        pStateMarshal := pState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, pStateMarshal, pState, "HRESULT")
-        return result
+    GetState() {
+        result := ComCall(12, this, "int*", &pState := 0, "HRESULT")
+        return pState
     }
 
     /**
      * 
-     * @param {Pointer<ISensorDataReport>} ppDataReport 
-     * @returns {HRESULT} 
+     * @returns {ISensorDataReport} 
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensor-getdata
      */
-    GetData(ppDataReport) {
-        result := ComCall(13, this, "ptr*", ppDataReport, "HRESULT")
-        return result
+    GetData() {
+        result := ComCall(13, this, "ptr*", &ppDataReport := 0, "HRESULT")
+        return ISensorDataReport(ppDataReport)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} eventGuid 
-     * @param {Pointer<VARIANT_BOOL>} pIsSupported 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensor-supportsevent
      */
-    SupportsEvent(eventGuid, pIsSupported) {
-        result := ComCall(14, this, "ptr", eventGuid, "ptr", pIsSupported, "HRESULT")
-        return result
+    SupportsEvent(eventGuid) {
+        result := ComCall(14, this, "ptr", eventGuid, "short*", &pIsSupported := 0, "HRESULT")
+        return pIsSupported
     }
 
     /**

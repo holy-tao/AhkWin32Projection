@@ -36,11 +36,10 @@ class IOpenRowset extends IUnknown{
      * @param {Pointer<Guid>} riid 
      * @param {Integer} cPropertySets 
      * @param {Pointer<DBPROPSET>} rgPropertySets 
-     * @param {Pointer<IUnknown>} ppRowset 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    OpenRowset(pUnkOuter, pTableID, pIndexID, riid, cPropertySets, rgPropertySets, ppRowset) {
-        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", pTableID, "ptr", pIndexID, "ptr", riid, "uint", cPropertySets, "ptr", rgPropertySets, "ptr*", ppRowset, "HRESULT")
-        return result
+    OpenRowset(pUnkOuter, pTableID, pIndexID, riid, cPropertySets, rgPropertySets) {
+        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", pTableID, "ptr", pIndexID, "ptr", riid, "uint", cPropertySets, "ptr", rgPropertySets, "ptr*", &ppRowset := 0, "HRESULT")
+        return IUnknown(ppRowset)
     }
 }

@@ -32,28 +32,26 @@ class IWSDScopeMatchingRule extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszScopeMatchingRule 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdscopematchingrule-getscoperule
      */
-    GetScopeRule(ppszScopeMatchingRule) {
-        result := ComCall(3, this, "ptr", ppszScopeMatchingRule, "HRESULT")
-        return result
+    GetScopeRule() {
+        result := ComCall(3, this, "ptr*", &ppszScopeMatchingRule := 0, "HRESULT")
+        return ppszScopeMatchingRule
     }
 
     /**
      * 
      * @param {PWSTR} pszScope1 
      * @param {PWSTR} pszScope2 
-     * @param {Pointer<BOOL>} pfMatch 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdscopematchingrule-matchscopes
      */
-    MatchScopes(pszScope1, pszScope2, pfMatch) {
+    MatchScopes(pszScope1, pszScope2) {
         pszScope1 := pszScope1 is String ? StrPtr(pszScope1) : pszScope1
         pszScope2 := pszScope2 is String ? StrPtr(pszScope2) : pszScope2
 
-        result := ComCall(4, this, "ptr", pszScope1, "ptr", pszScope2, "ptr", pfMatch, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pszScope1, "ptr", pszScope2, "int*", &pfMatch := 0, "HRESULT")
+        return pfMatch
     }
 }

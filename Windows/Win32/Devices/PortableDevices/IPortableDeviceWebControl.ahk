@@ -46,15 +46,14 @@ class IPortableDeviceWebControl extends IDispatch{
     /**
      * 
      * @param {BSTR} deviceId 
-     * @param {Pointer<IDispatch>} ppDevice 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicewebcontrol-getdevicefromid
      */
-    GetDeviceFromId(deviceId, ppDevice) {
+    GetDeviceFromId(deviceId) {
         deviceId := deviceId is String ? BSTR.Alloc(deviceId).Value : deviceId
 
-        result := ComCall(7, this, "ptr", deviceId, "ptr*", ppDevice, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", deviceId, "ptr*", &ppDevice := 0, "HRESULT")
+        return IDispatch(ppDevice)
     }
 
     /**

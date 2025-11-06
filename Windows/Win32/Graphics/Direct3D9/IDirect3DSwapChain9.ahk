@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDirect3DSurface9.ahk
+#Include .\IDirect3DDevice9.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -85,13 +87,12 @@ class IDirect3DSwapChain9 extends IUnknown{
      * 
      * @param {Integer} iBackBuffer 
      * @param {Integer} Type 
-     * @param {Pointer<IDirect3DSurface9>} ppBackBuffer 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DSurface9} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dswapchain9-getbackbuffer
      */
-    GetBackBuffer(iBackBuffer, Type, ppBackBuffer) {
-        result := ComCall(5, this, "uint", iBackBuffer, "int", Type, "ptr*", ppBackBuffer, "HRESULT")
-        return result
+    GetBackBuffer(iBackBuffer, Type) {
+        result := ComCall(5, this, "uint", iBackBuffer, "int", Type, "ptr*", &ppBackBuffer := 0, "HRESULT")
+        return IDirect3DSurface9(ppBackBuffer)
     }
 
     /**
@@ -118,13 +119,12 @@ class IDirect3DSwapChain9 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDirect3DDevice9>} ppDevice 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DDevice9} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dswapchain9-getdevice
      */
-    GetDevice(ppDevice) {
-        result := ComCall(8, this, "ptr*", ppDevice, "HRESULT")
-        return result
+    GetDevice() {
+        result := ComCall(8, this, "ptr*", &ppDevice := 0, "HRESULT")
+        return IDirect3DDevice9(ppDevice)
     }
 
     /**

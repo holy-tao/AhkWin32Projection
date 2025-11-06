@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -36,11 +37,11 @@ class ILogFileItem extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pstrValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Path(pstrValue) {
+    get_Path() {
+        pstrValue := BSTR()
         result := ComCall(3, this, "ptr", pstrValue, "HRESULT")
-        return result
+        return pstrValue
     }
 }

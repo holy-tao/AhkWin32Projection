@@ -45,11 +45,11 @@ class ICertEncodeLongArray2 extends ICertEncodeLongArray{
     /**
      * 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pstrEncodedData 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    EncodeBlob(Encoding, pstrEncodedData) {
+    EncodeBlob(Encoding) {
+        pstrEncodedData := BSTR()
         result := ComCall(14, this, "int", Encoding, "ptr", pstrEncodedData, "HRESULT")
-        return result
+        return pstrEncodedData
     }
 }

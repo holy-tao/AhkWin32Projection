@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\VDS_ISCSI_PORTALGROUP_PROP.ahk
+#Include .\IVdsIscsiTarget.ahk
+#Include .\IEnumVdsObject.ahk
+#Include .\IVdsAsync.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,69 +36,64 @@ class IVdsIscsiPortalGroup extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VDS_ISCSI_PORTALGROUP_PROP>} pPortalGroupProp 
-     * @returns {HRESULT} 
+     * @returns {VDS_ISCSI_PORTALGROUP_PROP} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsiscsiportalgroup-getproperties
      */
-    GetProperties(pPortalGroupProp) {
+    GetProperties() {
+        pPortalGroupProp := VDS_ISCSI_PORTALGROUP_PROP()
         result := ComCall(3, this, "ptr", pPortalGroupProp, "HRESULT")
-        return result
+        return pPortalGroupProp
     }
 
     /**
      * 
-     * @param {Pointer<IVdsIscsiTarget>} ppTarget 
-     * @returns {HRESULT} 
+     * @returns {IVdsIscsiTarget} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsiscsiportalgroup-gettarget
      */
-    GetTarget(ppTarget) {
-        result := ComCall(4, this, "ptr*", ppTarget, "HRESULT")
-        return result
+    GetTarget() {
+        result := ComCall(4, this, "ptr*", &ppTarget := 0, "HRESULT")
+        return IVdsIscsiTarget(ppTarget)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumVdsObject>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumVdsObject} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsiscsiportalgroup-queryassociatedportals
      */
-    QueryAssociatedPortals(ppEnum) {
-        result := ComCall(5, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    QueryAssociatedPortals() {
+        result := ComCall(5, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumVdsObject(ppEnum)
     }
 
     /**
      * 
      * @param {Guid} portalId 
-     * @param {Pointer<IVdsAsync>} ppAsync 
-     * @returns {HRESULT} 
+     * @returns {IVdsAsync} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsiscsiportalgroup-addportal
      */
-    AddPortal(portalId, ppAsync) {
-        result := ComCall(6, this, "ptr", portalId, "ptr*", ppAsync, "HRESULT")
-        return result
+    AddPortal(portalId) {
+        result := ComCall(6, this, "ptr", portalId, "ptr*", &ppAsync := 0, "HRESULT")
+        return IVdsAsync(ppAsync)
     }
 
     /**
      * 
      * @param {Guid} portalId 
-     * @param {Pointer<IVdsAsync>} ppAsync 
-     * @returns {HRESULT} 
+     * @returns {IVdsAsync} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsiscsiportalgroup-removeportal
      */
-    RemovePortal(portalId, ppAsync) {
-        result := ComCall(7, this, "ptr", portalId, "ptr*", ppAsync, "HRESULT")
-        return result
+    RemovePortal(portalId) {
+        result := ComCall(7, this, "ptr", portalId, "ptr*", &ppAsync := 0, "HRESULT")
+        return IVdsAsync(ppAsync)
     }
 
     /**
      * 
-     * @param {Pointer<IVdsAsync>} ppAsync 
-     * @returns {HRESULT} 
+     * @returns {IVdsAsync} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsiscsiportalgroup-delete
      */
-    Delete(ppAsync) {
-        result := ComCall(8, this, "ptr*", ppAsync, "HRESULT")
-        return result
+    Delete() {
+        result := ComCall(8, this, "ptr*", &ppAsync := 0, "HRESULT")
+        return IVdsAsync(ppAsync)
     }
 }

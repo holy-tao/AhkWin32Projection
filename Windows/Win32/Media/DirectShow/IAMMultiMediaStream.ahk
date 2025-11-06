@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IGraphBuilder.ahk
+#Include .\IMediaStreamFilter.ahk
+#Include .\IMediaStream.ahk
 #Include .\IMultiMediaStream.ahk
 
 /**
@@ -55,24 +58,22 @@ class IAMMultiMediaStream extends IMultiMediaStream{
 
     /**
      * 
-     * @param {Pointer<IGraphBuilder>} ppGraphBuilder 
-     * @returns {HRESULT} 
+     * @returns {IGraphBuilder} 
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammultimediastream-getfiltergraph
      */
-    GetFilterGraph(ppGraphBuilder) {
-        result := ComCall(13, this, "ptr*", ppGraphBuilder, "HRESULT")
-        return result
+    GetFilterGraph() {
+        result := ComCall(13, this, "ptr*", &ppGraphBuilder := 0, "HRESULT")
+        return IGraphBuilder(ppGraphBuilder)
     }
 
     /**
      * 
-     * @param {Pointer<IMediaStreamFilter>} ppFilter 
-     * @returns {HRESULT} 
+     * @returns {IMediaStreamFilter} 
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammultimediastream-getfilter
      */
-    GetFilter(ppFilter) {
-        result := ComCall(14, this, "ptr*", ppFilter, "HRESULT")
-        return result
+    GetFilter() {
+        result := ComCall(14, this, "ptr*", &ppFilter := 0, "HRESULT")
+        return IMediaStreamFilter(ppFilter)
     }
 
     /**
@@ -80,13 +81,12 @@ class IAMMultiMediaStream extends IMultiMediaStream{
      * @param {IUnknown} pStreamObject 
      * @param {Pointer<Guid>} PurposeId 
      * @param {Integer} dwFlags 
-     * @param {Pointer<IMediaStream>} ppNewStream 
-     * @returns {HRESULT} 
+     * @returns {IMediaStream} 
      * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammultimediastream-addmediastream
      */
-    AddMediaStream(pStreamObject, PurposeId, dwFlags, ppNewStream) {
-        result := ComCall(15, this, "ptr", pStreamObject, "ptr", PurposeId, "uint", dwFlags, "ptr*", ppNewStream, "HRESULT")
-        return result
+    AddMediaStream(pStreamObject, PurposeId, dwFlags) {
+        result := ComCall(15, this, "ptr", pStreamObject, "ptr", PurposeId, "uint", dwFlags, "ptr*", &ppNewStream := 0, "HRESULT")
+        return IMediaStream(ppNewStream)
     }
 
     /**

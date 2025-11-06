@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRulesAppliedCollection.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,22 +31,20 @@ class IHTMLElementAppliedStyles extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IRulesAppliedCollection>} ppRulesAppliedCollection 
-     * @returns {HRESULT} 
+     * @returns {IRulesAppliedCollection} 
      */
-    msGetRulesApplied(ppRulesAppliedCollection) {
-        result := ComCall(7, this, "ptr*", ppRulesAppliedCollection, "HRESULT")
-        return result
+    msGetRulesApplied() {
+        result := ComCall(7, this, "ptr*", &ppRulesAppliedCollection := 0, "HRESULT")
+        return IRulesAppliedCollection(ppRulesAppliedCollection)
     }
 
     /**
      * 
      * @param {VARIANT} varContext 
-     * @param {Pointer<IRulesAppliedCollection>} ppRulesAppliedCollection 
-     * @returns {HRESULT} 
+     * @returns {IRulesAppliedCollection} 
      */
-    msGetRulesAppliedWithAncestor(varContext, ppRulesAppliedCollection) {
-        result := ComCall(8, this, "ptr", varContext, "ptr*", ppRulesAppliedCollection, "HRESULT")
-        return result
+    msGetRulesAppliedWithAncestor(varContext) {
+        result := ComCall(8, this, "ptr", varContext, "ptr*", &ppRulesAppliedCollection := 0, "HRESULT")
+        return IRulesAppliedCollection(ppRulesAppliedCollection)
     }
 }

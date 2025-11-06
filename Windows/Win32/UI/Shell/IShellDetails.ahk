@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include Common\SHELLDETAILS.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -38,13 +39,13 @@ class IShellDetails extends IUnknown{
      * 
      * @param {Pointer<ITEMIDLIST>} pidl 
      * @param {Integer} iColumn 
-     * @param {Pointer<SHELLDETAILS>} pDetails 
-     * @returns {HRESULT} 
+     * @returns {SHELLDETAILS} 
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishelldetails-getdetailsof
      */
-    GetDetailsOf(pidl, iColumn, pDetails) {
+    GetDetailsOf(pidl, iColumn) {
+        pDetails := SHELLDETAILS()
         result := ComCall(3, this, "ptr", pidl, "uint", iColumn, "ptr", pDetails, "HRESULT")
-        return result
+        return pDetails
     }
 
     /**

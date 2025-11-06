@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRawElementProviderFragment.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,25 +34,21 @@ class IRawElementProviderWindowlessSite extends IUnknown{
     /**
      * 
      * @param {Integer} direction 
-     * @param {Pointer<IRawElementProviderFragment>} ppParent 
-     * @returns {HRESULT} 
+     * @returns {IRawElementProviderFragment} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementproviderwindowlesssite-getadjacentfragment
      */
-    GetAdjacentFragment(direction, ppParent) {
-        result := ComCall(3, this, "int", direction, "ptr*", ppParent, "HRESULT")
-        return result
+    GetAdjacentFragment(direction) {
+        result := ComCall(3, this, "int", direction, "ptr*", &ppParent := 0, "HRESULT")
+        return IRawElementProviderFragment(ppParent)
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementproviderwindowlesssite-getruntimeidprefix
      */
-    GetRuntimeIdPrefix(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    GetRuntimeIdPrefix() {
+        result := ComCall(4, this, "ptr*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 }

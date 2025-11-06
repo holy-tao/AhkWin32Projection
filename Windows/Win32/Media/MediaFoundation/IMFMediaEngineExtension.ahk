@@ -40,17 +40,14 @@ class IMFMediaEngineExtension extends IUnknown{
      * 
      * @param {BOOL} AudioOnly 
      * @param {BSTR} MimeType 
-     * @param {Pointer<Integer>} pAnswer 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineextension-canplaytype
      */
-    CanPlayType(AudioOnly, MimeType, pAnswer) {
+    CanPlayType(AudioOnly, MimeType) {
         MimeType := MimeType is String ? BSTR.Alloc(MimeType).Value : MimeType
 
-        pAnswerMarshal := pAnswer is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, "int", AudioOnly, "ptr", MimeType, pAnswerMarshal, pAnswer, "HRESULT")
-        return result
+        result := ComCall(3, this, "int", AudioOnly, "ptr", MimeType, "int*", &pAnswer := 0, "HRESULT")
+        return pAnswer
     }
 
     /**
@@ -58,17 +55,16 @@ class IMFMediaEngineExtension extends IUnknown{
      * @param {BSTR} bstrURL 
      * @param {IMFByteStream} pByteStream 
      * @param {Integer} type 
-     * @param {Pointer<IUnknown>} ppIUnknownCancelCookie 
      * @param {IMFAsyncCallback} pCallback 
      * @param {IUnknown} punkState 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineextension-begincreateobject
      */
-    BeginCreateObject(bstrURL, pByteStream, type, ppIUnknownCancelCookie, pCallback, punkState) {
+    BeginCreateObject(bstrURL, pByteStream, type, pCallback, punkState) {
         bstrURL := bstrURL is String ? BSTR.Alloc(bstrURL).Value : bstrURL
 
-        result := ComCall(4, this, "ptr", bstrURL, "ptr", pByteStream, "int", type, "ptr*", ppIUnknownCancelCookie, "ptr", pCallback, "ptr", punkState, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", bstrURL, "ptr", pByteStream, "int", type, "ptr*", &ppIUnknownCancelCookie := 0, "ptr", pCallback, "ptr", punkState, "HRESULT")
+        return IUnknown(ppIUnknownCancelCookie)
     }
 
     /**
@@ -85,12 +81,11 @@ class IMFMediaEngineExtension extends IUnknown{
     /**
      * 
      * @param {IMFAsyncResult} pResult 
-     * @param {Pointer<IUnknown>} ppObject 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineextension-endcreateobject
      */
-    EndCreateObject(pResult, ppObject) {
-        result := ComCall(6, this, "ptr", pResult, "ptr*", ppObject, "HRESULT")
-        return result
+    EndCreateObject(pResult) {
+        result := ComCall(6, this, "ptr", pResult, "ptr*", &ppObject := 0, "HRESULT")
+        return IUnknown(ppObject)
     }
 }

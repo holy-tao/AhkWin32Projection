@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IHTMLCSSRule.ahk
+#Include .\IHTMLStyleSheet.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -37,14 +39,11 @@ class IHTMLCSSRule extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_type(p) {
-        pMarshal := p is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(7, this, pMarshal, p, "HRESULT")
-        return result
+    get_type() {
+        result := ComCall(7, this, "ushort*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -61,31 +60,29 @@ class IHTMLCSSRule extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_cssText(p) {
+    get_cssText() {
+        p := BSTR()
         result := ComCall(9, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLCSSRule>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLCSSRule} 
      */
-    get_parentRule(p) {
-        result := ComCall(10, this, "ptr*", p, "HRESULT")
-        return result
+    get_parentRule() {
+        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLCSSRule(p)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLStyleSheet>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLStyleSheet} 
      */
-    get_parentStyleSheet(p) {
-        result := ComCall(11, this, "ptr*", p, "HRESULT")
-        return result
+    get_parentStyleSheet() {
+        result := ComCall(11, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLStyleSheet(p)
     }
 }

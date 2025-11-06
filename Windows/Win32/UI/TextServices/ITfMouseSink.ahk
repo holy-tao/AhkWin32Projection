@@ -35,12 +35,11 @@ class ITfMouseSink extends IUnknown{
      * @param {Integer} uEdge 
      * @param {Integer} uQuadrant 
      * @param {Integer} dwBtnStatus 
-     * @param {Pointer<BOOL>} pfEaten 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfmousesink-onmouseevent
      */
-    OnMouseEvent(uEdge, uQuadrant, dwBtnStatus, pfEaten) {
-        result := ComCall(3, this, "uint", uEdge, "uint", uQuadrant, "uint", dwBtnStatus, "ptr", pfEaten, "HRESULT")
-        return result
+    OnMouseEvent(uEdge, uQuadrant, dwBtnStatus) {
+        result := ComCall(3, this, "uint", uEdge, "uint", uQuadrant, "uint", dwBtnStatus, "int*", &pfEaten := 0, "HRESULT")
+        return pfEaten
     }
 }

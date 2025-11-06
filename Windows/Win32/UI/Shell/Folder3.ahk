@@ -36,12 +36,11 @@ class Folder3 extends Folder2{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbShowWebViewBarricade 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_ShowWebViewBarricade(pbShowWebViewBarricade) {
-        result := ComCall(22, this, "ptr", pbShowWebViewBarricade, "HRESULT")
-        return result
+    get_ShowWebViewBarricade() {
+        result := ComCall(22, this, "short*", &pbShowWebViewBarricade := 0, "HRESULT")
+        return pbShowWebViewBarricade
     }
 
     /**

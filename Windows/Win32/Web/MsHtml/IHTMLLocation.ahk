@@ -49,12 +49,12 @@ class IHTMLLocation extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_href(p) {
+    get_href() {
+        p := BSTR()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -71,12 +71,12 @@ class IHTMLLocation extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_protocol(p) {
+    get_protocol() {
+        p := BSTR()
         result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -93,12 +93,12 @@ class IHTMLLocation extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_host(p) {
+    get_host() {
+        p := BSTR()
         result := ComCall(12, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -115,12 +115,12 @@ class IHTMLLocation extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_hostname(p) {
+    get_hostname() {
+        p := BSTR()
         result := ComCall(14, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -137,12 +137,12 @@ class IHTMLLocation extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_port(p) {
+    get_port() {
+        p := BSTR()
         result := ComCall(16, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -159,12 +159,12 @@ class IHTMLLocation extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_pathname(p) {
+    get_pathname() {
+        p := BSTR()
         result := ComCall(18, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -181,12 +181,12 @@ class IHTMLLocation extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_search(p) {
+    get_search() {
+        p := BSTR()
         result := ComCall(20, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -203,12 +203,12 @@ class IHTMLLocation extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_hash(p) {
+    get_hash() {
+        p := BSTR()
         result := ComCall(22, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -247,11 +247,11 @@ class IHTMLLocation extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} string 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    toString(string) {
+    toString() {
+        string := BSTR()
         result := ComCall(26, this, "ptr", string, "HRESULT")
-        return result
+        return string
     }
 }

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -30,12 +31,11 @@ class IHTMLSelectionObject extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} range 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    createRange(range) {
-        result := ComCall(7, this, "ptr*", range, "HRESULT")
-        return result
+    createRange() {
+        result := ComCall(7, this, "ptr*", &range := 0, "HRESULT")
+        return IDispatch(range)
     }
 
     /**
@@ -58,11 +58,11 @@ class IHTMLSelectionObject extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_type(p) {
+    get_type() {
+        p := BSTR()
         result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 }

@@ -49,7 +49,9 @@ class IDDrawExclModeVideo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iddrawexclmodevideo-getddrawobject
      */
     GetDDrawObject(ppDDrawObject, pbUsingExternal) {
-        result := ComCall(4, this, "ptr*", ppDDrawObject, "ptr", pbUsingExternal, "HRESULT")
+        pbUsingExternalMarshal := pbUsingExternal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr*", ppDDrawObject, pbUsingExternalMarshal, pbUsingExternal, "HRESULT")
         return result
     }
 
@@ -72,7 +74,9 @@ class IDDrawExclModeVideo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iddrawexclmodevideo-getddrawsurface
      */
     GetDDrawSurface(ppDDrawSurface, pbUsingExternal) {
-        result := ComCall(6, this, "ptr*", ppDDrawSurface, "ptr", pbUsingExternal, "HRESULT")
+        pbUsingExternalMarshal := pbUsingExternal is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, "ptr*", ppDDrawSurface, pbUsingExternalMarshal, pbUsingExternal, "HRESULT")
         return result
     }
 

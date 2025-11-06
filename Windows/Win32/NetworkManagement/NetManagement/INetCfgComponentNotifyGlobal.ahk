@@ -30,14 +30,11 @@ class INetCfgComponentNotifyGlobal extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} dwNotifications 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetSupportedNotifications(dwNotifications) {
-        dwNotificationsMarshal := dwNotifications is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, dwNotificationsMarshal, dwNotifications, "HRESULT")
-        return result
+    GetSupportedNotifications() {
+        result := ComCall(3, this, "uint*", &dwNotifications := 0, "HRESULT")
+        return dwNotifications
     }
 
     /**

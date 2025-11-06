@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ISWbemObject.ahk
+#Include .\ISWbemObjectSet.ahk
+#Include .\ISWbemEventSource.ahk
+#Include .\ISWbemSecurity.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -40,14 +44,13 @@ class ISWbemServices extends IDispatch{
      * @param {BSTR} strObjectPath 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
-     * @param {Pointer<ISWbemObject>} objWbemObject 
-     * @returns {HRESULT} 
+     * @returns {ISWbemObject} 
      */
-    Get(strObjectPath, iFlags, objWbemNamedValueSet, objWbemObject) {
+    Get(strObjectPath, iFlags, objWbemNamedValueSet) {
         strObjectPath := strObjectPath is String ? BSTR.Alloc(strObjectPath).Value : strObjectPath
 
-        result := ComCall(7, this, "ptr", strObjectPath, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", objWbemObject, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", strObjectPath, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemObject := 0, "HRESULT")
+        return ISWbemObject(objWbemObject)
     }
 
     /**
@@ -101,14 +104,13 @@ class ISWbemServices extends IDispatch{
      * @param {BSTR} strClass 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
-     * @param {Pointer<ISWbemObjectSet>} objWbemObjectSet 
-     * @returns {HRESULT} 
+     * @returns {ISWbemObjectSet} 
      */
-    InstancesOf(strClass, iFlags, objWbemNamedValueSet, objWbemObjectSet) {
+    InstancesOf(strClass, iFlags, objWbemNamedValueSet) {
         strClass := strClass is String ? BSTR.Alloc(strClass).Value : strClass
 
-        result := ComCall(11, this, "ptr", strClass, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", objWbemObjectSet, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", strClass, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemObjectSet := 0, "HRESULT")
+        return ISWbemObjectSet(objWbemObjectSet)
     }
 
     /**
@@ -132,14 +134,13 @@ class ISWbemServices extends IDispatch{
      * @param {BSTR} strSuperclass 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
-     * @param {Pointer<ISWbemObjectSet>} objWbemObjectSet 
-     * @returns {HRESULT} 
+     * @returns {ISWbemObjectSet} 
      */
-    SubclassesOf(strSuperclass, iFlags, objWbemNamedValueSet, objWbemObjectSet) {
+    SubclassesOf(strSuperclass, iFlags, objWbemNamedValueSet) {
         strSuperclass := strSuperclass is String ? BSTR.Alloc(strSuperclass).Value : strSuperclass
 
-        result := ComCall(13, this, "ptr", strSuperclass, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", objWbemObjectSet, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", strSuperclass, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemObjectSet := 0, "HRESULT")
+        return ISWbemObjectSet(objWbemObjectSet)
     }
 
     /**
@@ -164,15 +165,14 @@ class ISWbemServices extends IDispatch{
      * @param {BSTR} strQueryLanguage 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
-     * @param {Pointer<ISWbemObjectSet>} objWbemObjectSet 
-     * @returns {HRESULT} 
+     * @returns {ISWbemObjectSet} 
      */
-    ExecQuery(strQuery, strQueryLanguage, iFlags, objWbemNamedValueSet, objWbemObjectSet) {
+    ExecQuery(strQuery, strQueryLanguage, iFlags, objWbemNamedValueSet) {
         strQuery := strQuery is String ? BSTR.Alloc(strQuery).Value : strQuery
         strQueryLanguage := strQueryLanguage is String ? BSTR.Alloc(strQueryLanguage).Value : strQueryLanguage
 
-        result := ComCall(15, this, "ptr", strQuery, "ptr", strQueryLanguage, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", objWbemObjectSet, "HRESULT")
-        return result
+        result := ComCall(15, this, "ptr", strQuery, "ptr", strQueryLanguage, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemObjectSet := 0, "HRESULT")
+        return ISWbemObjectSet(objWbemObjectSet)
     }
 
     /**
@@ -206,10 +206,9 @@ class ISWbemServices extends IDispatch{
      * @param {BSTR} strRequiredQualifier 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
-     * @param {Pointer<ISWbemObjectSet>} objWbemObjectSet 
-     * @returns {HRESULT} 
+     * @returns {ISWbemObjectSet} 
      */
-    AssociatorsOf(strObjectPath, strAssocClass, strResultClass, strResultRole, strRole, bClassesOnly, bSchemaOnly, strRequiredAssocQualifier, strRequiredQualifier, iFlags, objWbemNamedValueSet, objWbemObjectSet) {
+    AssociatorsOf(strObjectPath, strAssocClass, strResultClass, strResultRole, strRole, bClassesOnly, bSchemaOnly, strRequiredAssocQualifier, strRequiredQualifier, iFlags, objWbemNamedValueSet) {
         strObjectPath := strObjectPath is String ? BSTR.Alloc(strObjectPath).Value : strObjectPath
         strAssocClass := strAssocClass is String ? BSTR.Alloc(strAssocClass).Value : strAssocClass
         strResultClass := strResultClass is String ? BSTR.Alloc(strResultClass).Value : strResultClass
@@ -218,8 +217,8 @@ class ISWbemServices extends IDispatch{
         strRequiredAssocQualifier := strRequiredAssocQualifier is String ? BSTR.Alloc(strRequiredAssocQualifier).Value : strRequiredAssocQualifier
         strRequiredQualifier := strRequiredQualifier is String ? BSTR.Alloc(strRequiredQualifier).Value : strRequiredQualifier
 
-        result := ComCall(17, this, "ptr", strObjectPath, "ptr", strAssocClass, "ptr", strResultClass, "ptr", strResultRole, "ptr", strRole, "short", bClassesOnly, "short", bSchemaOnly, "ptr", strRequiredAssocQualifier, "ptr", strRequiredQualifier, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", objWbemObjectSet, "HRESULT")
-        return result
+        result := ComCall(17, this, "ptr", strObjectPath, "ptr", strAssocClass, "ptr", strResultClass, "ptr", strResultRole, "ptr", strRole, "short", bClassesOnly, "short", bSchemaOnly, "ptr", strRequiredAssocQualifier, "ptr", strRequiredQualifier, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemObjectSet := 0, "HRESULT")
+        return ISWbemObjectSet(objWbemObjectSet)
     }
 
     /**
@@ -262,17 +261,16 @@ class ISWbemServices extends IDispatch{
      * @param {BSTR} strRequiredQualifier 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
-     * @param {Pointer<ISWbemObjectSet>} objWbemObjectSet 
-     * @returns {HRESULT} 
+     * @returns {ISWbemObjectSet} 
      */
-    ReferencesTo(strObjectPath, strResultClass, strRole, bClassesOnly, bSchemaOnly, strRequiredQualifier, iFlags, objWbemNamedValueSet, objWbemObjectSet) {
+    ReferencesTo(strObjectPath, strResultClass, strRole, bClassesOnly, bSchemaOnly, strRequiredQualifier, iFlags, objWbemNamedValueSet) {
         strObjectPath := strObjectPath is String ? BSTR.Alloc(strObjectPath).Value : strObjectPath
         strResultClass := strResultClass is String ? BSTR.Alloc(strResultClass).Value : strResultClass
         strRole := strRole is String ? BSTR.Alloc(strRole).Value : strRole
         strRequiredQualifier := strRequiredQualifier is String ? BSTR.Alloc(strRequiredQualifier).Value : strRequiredQualifier
 
-        result := ComCall(19, this, "ptr", strObjectPath, "ptr", strResultClass, "ptr", strRole, "short", bClassesOnly, "short", bSchemaOnly, "ptr", strRequiredQualifier, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", objWbemObjectSet, "HRESULT")
-        return result
+        result := ComCall(19, this, "ptr", strObjectPath, "ptr", strResultClass, "ptr", strRole, "short", bClassesOnly, "short", bSchemaOnly, "ptr", strRequiredQualifier, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemObjectSet := 0, "HRESULT")
+        return ISWbemObjectSet(objWbemObjectSet)
     }
 
     /**
@@ -305,15 +303,14 @@ class ISWbemServices extends IDispatch{
      * @param {BSTR} strQueryLanguage 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
-     * @param {Pointer<ISWbemEventSource>} objWbemEventSource 
-     * @returns {HRESULT} 
+     * @returns {ISWbemEventSource} 
      */
-    ExecNotificationQuery(strQuery, strQueryLanguage, iFlags, objWbemNamedValueSet, objWbemEventSource) {
+    ExecNotificationQuery(strQuery, strQueryLanguage, iFlags, objWbemNamedValueSet) {
         strQuery := strQuery is String ? BSTR.Alloc(strQuery).Value : strQuery
         strQueryLanguage := strQueryLanguage is String ? BSTR.Alloc(strQueryLanguage).Value : strQueryLanguage
 
-        result := ComCall(21, this, "ptr", strQuery, "ptr", strQueryLanguage, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", objWbemEventSource, "HRESULT")
-        return result
+        result := ComCall(21, this, "ptr", strQuery, "ptr", strQueryLanguage, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemEventSource := 0, "HRESULT")
+        return ISWbemEventSource(objWbemEventSource)
     }
 
     /**
@@ -341,15 +338,14 @@ class ISWbemServices extends IDispatch{
      * @param {IDispatch} objWbemInParameters 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
-     * @param {Pointer<ISWbemObject>} objWbemOutParameters 
-     * @returns {HRESULT} 
+     * @returns {ISWbemObject} 
      */
-    ExecMethod(strObjectPath, strMethodName, objWbemInParameters, iFlags, objWbemNamedValueSet, objWbemOutParameters) {
+    ExecMethod(strObjectPath, strMethodName, objWbemInParameters, iFlags, objWbemNamedValueSet) {
         strObjectPath := strObjectPath is String ? BSTR.Alloc(strObjectPath).Value : strObjectPath
         strMethodName := strMethodName is String ? BSTR.Alloc(strMethodName).Value : strMethodName
 
-        result := ComCall(23, this, "ptr", strObjectPath, "ptr", strMethodName, "ptr", objWbemInParameters, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", objWbemOutParameters, "HRESULT")
-        return result
+        result := ComCall(23, this, "ptr", strObjectPath, "ptr", strMethodName, "ptr", objWbemInParameters, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemOutParameters := 0, "HRESULT")
+        return ISWbemObject(objWbemOutParameters)
     }
 
     /**
@@ -373,11 +369,10 @@ class ISWbemServices extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISWbemSecurity>} objWbemSecurity 
-     * @returns {HRESULT} 
+     * @returns {ISWbemSecurity} 
      */
-    get_Security_(objWbemSecurity) {
-        result := ComCall(25, this, "ptr*", objWbemSecurity, "HRESULT")
-        return result
+    get_Security_() {
+        result := ComCall(25, this, "ptr*", &objWbemSecurity := 0, "HRESULT")
+        return ISWbemSecurity(objWbemSecurity)
     }
 }

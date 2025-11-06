@@ -68,16 +68,13 @@ class IContextMenuProvider extends IContextMenuCallback{
      * @param {HWND} hwndParent 
      * @param {Integer} xPos 
      * @param {Integer} yPos 
-     * @param {Pointer<Integer>} plSelected 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icontextmenuprovider-showcontextmenu
      */
-    ShowContextMenu(hwndParent, xPos, yPos, plSelected) {
+    ShowContextMenu(hwndParent, xPos, yPos) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
-        plSelectedMarshal := plSelected is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, "ptr", hwndParent, "int", xPos, "int", yPos, plSelectedMarshal, plSelected, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", hwndParent, "int", xPos, "int", yPos, "int*", &plSelected := 0, "HRESULT")
+        return plSelected
     }
 }

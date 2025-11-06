@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IAppxManifestApplication.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -40,34 +41,31 @@ class IAppxManifestApplicationsEnumerator extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IAppxManifestApplication>} application 
-     * @returns {HRESULT} 
+     * @returns {IAppxManifestApplication} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestapplicationsenumerator-getcurrent
      */
-    GetCurrent(application) {
-        result := ComCall(3, this, "ptr*", application, "HRESULT")
-        return result
+    GetCurrent() {
+        result := ComCall(3, this, "ptr*", &application := 0, "HRESULT")
+        return IAppxManifestApplication(application)
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} hasCurrent 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestapplicationsenumerator-gethascurrent
      */
-    GetHasCurrent(hasCurrent) {
-        result := ComCall(4, this, "ptr", hasCurrent, "HRESULT")
-        return result
+    GetHasCurrent() {
+        result := ComCall(4, this, "int*", &hasCurrent := 0, "HRESULT")
+        return hasCurrent
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} hasNext 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestapplicationsenumerator-movenext
      */
-    MoveNext(hasNext) {
-        result := ComCall(5, this, "ptr", hasNext, "HRESULT")
-        return result
+    MoveNext() {
+        result := ComCall(5, this, "int*", &hasNext := 0, "HRESULT")
+        return hasNext
     }
 }

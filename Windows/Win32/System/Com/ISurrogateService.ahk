@@ -34,13 +34,12 @@ class ISurrogateService extends IUnknown{
      * 
      * @param {Pointer<Guid>} rguidProcessID 
      * @param {IProcessLock} pProcessLock 
-     * @param {Pointer<BOOL>} pfApplicationAware 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-isurrogateservice-init
      */
-    Init(rguidProcessID, pProcessLock, pfApplicationAware) {
-        result := ComCall(3, this, "ptr", rguidProcessID, "ptr", pProcessLock, "ptr", pfApplicationAware, "HRESULT")
-        return result
+    Init(rguidProcessID, pProcessLock) {
+        result := ComCall(3, this, "ptr", rguidProcessID, "ptr", pProcessLock, "int*", &pfApplicationAware := 0, "HRESULT")
+        return pfApplicationAware
     }
 
     /**

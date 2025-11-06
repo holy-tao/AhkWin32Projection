@@ -32,13 +32,12 @@ class IHTMLSelectElement4 extends IDispatch{
     /**
      * 
      * @param {BSTR} name 
-     * @param {Pointer<IDispatch>} pdisp 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    namedItem(name, pdisp) {
+    namedItem(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(7, this, "ptr", name, "ptr*", pdisp, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", name, "ptr*", &pdisp := 0, "HRESULT")
+        return IDispatch(pdisp)
     }
 }

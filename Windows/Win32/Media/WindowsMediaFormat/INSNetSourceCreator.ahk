@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * The INSNetSourceCreator interface creates an administrative network source plug-in.
@@ -73,53 +74,48 @@ class INSNetSourceCreator extends IUnknown{
     /**
      * 
      * @param {PWSTR} pszStreamName 
-     * @param {Pointer<IUnknown>} ppPropertiesNode 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/wmnetsourcecreator/nn-wmnetsourcecreator-insnetsourcecreator
      */
-    GetNetSourceProperties(pszStreamName, ppPropertiesNode) {
+    GetNetSourceProperties(pszStreamName) {
         pszStreamName := pszStreamName is String ? StrPtr(pszStreamName) : pszStreamName
 
-        result := ComCall(5, this, "ptr", pszStreamName, "ptr*", ppPropertiesNode, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", pszStreamName, "ptr*", &ppPropertiesNode := 0, "HRESULT")
+        return IUnknown(ppPropertiesNode)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppSharedNamespace 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/wmnetsourcecreator/nn-wmnetsourcecreator-insnetsourcecreator
      */
-    GetNetSourceSharedNamespace(ppSharedNamespace) {
-        result := ComCall(6, this, "ptr*", ppSharedNamespace, "HRESULT")
-        return result
+    GetNetSourceSharedNamespace() {
+        result := ComCall(6, this, "ptr*", &ppSharedNamespace := 0, "HRESULT")
+        return IUnknown(ppSharedNamespace)
     }
 
     /**
      * 
      * @param {PWSTR} pszStreamName 
-     * @param {Pointer<VARIANT>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/wmnetsourcecreator/nf-wmnetsourcecreator-insnetsourcecreator-getnetsourceadmininterface
      */
-    GetNetSourceAdminInterface(pszStreamName, pVal) {
+    GetNetSourceAdminInterface(pszStreamName) {
         pszStreamName := pszStreamName is String ? StrPtr(pszStreamName) : pszStreamName
 
+        pVal := VARIANT()
         result := ComCall(7, this, "ptr", pszStreamName, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pcProtocols 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmnetsourcecreator/nn-wmnetsourcecreator-insnetsourcecreator
      */
-    GetNumProtocolsSupported(pcProtocols) {
-        pcProtocolsMarshal := pcProtocols is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pcProtocolsMarshal, pcProtocols, "HRESULT")
-        return result
+    GetNumProtocolsSupported() {
+        result := ComCall(8, this, "uint*", &pcProtocols := 0, "HRESULT")
+        return pcProtocols
     }
 
     /**

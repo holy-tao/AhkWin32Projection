@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWiaItem2.ahk
+#Include .\IEnumWiaItem2.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,16 +35,15 @@ class IEnumWiaItem2 extends IUnknown{
     /**
      * 
      * @param {Integer} cElt 
-     * @param {Pointer<IWiaItem2>} ppIWiaItem2 
      * @param {Pointer<Integer>} pcEltFetched 
-     * @returns {HRESULT} 
+     * @returns {IWiaItem2} 
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-ienumwiaitem2-next
      */
-    Next(cElt, ppIWiaItem2, pcEltFetched) {
+    Next(cElt, pcEltFetched) {
         pcEltFetchedMarshal := pcEltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cElt, "ptr*", ppIWiaItem2, pcEltFetchedMarshal, pcEltFetched, "HRESULT")
-        return result
+        result := ComCall(3, this, "uint", cElt, "ptr*", &ppIWiaItem2 := 0, pcEltFetchedMarshal, pcEltFetched, "HRESULT")
+        return IWiaItem2(ppIWiaItem2)
     }
 
     /**
@@ -68,25 +69,21 @@ class IEnumWiaItem2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumWiaItem2>} ppIEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumWiaItem2} 
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-ienumwiaitem2-clone
      */
-    Clone(ppIEnum) {
-        result := ComCall(6, this, "ptr*", ppIEnum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppIEnum := 0, "HRESULT")
+        return IEnumWiaItem2(ppIEnum)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} cElt 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-ienumwiaitem2-getcount
      */
-    GetCount(cElt) {
-        cEltMarshal := cElt is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, cEltMarshal, cElt, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(7, this, "uint*", &cElt := 0, "HRESULT")
+        return cElt
     }
 }

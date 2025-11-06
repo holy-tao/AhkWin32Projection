@@ -40,14 +40,11 @@ class ITransactionTransmitter extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcbToken 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetPropagationTokenSize(pcbToken) {
-        pcbTokenMarshal := pcbToken is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pcbTokenMarshal, pcbToken, "HRESULT")
-        return result
+    GetPropagationTokenSize() {
+        result := ComCall(4, this, "uint*", &pcbToken := 0, "HRESULT")
+        return pcbToken
     }
 
     /**

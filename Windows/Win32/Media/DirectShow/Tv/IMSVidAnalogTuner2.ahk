@@ -37,40 +37,31 @@ class IMSVidAnalogTuner2 extends IMSVidAnalogTuner{
 
     /**
      * 
-     * @param {Pointer<Integer>} Formats 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidanalogtuner2-get_tvformats
      */
-    get_TVFormats(Formats) {
-        FormatsMarshal := Formats is VarRef ? "int*" : "ptr"
-
-        result := ComCall(31, this, FormatsMarshal, Formats, "HRESULT")
-        return result
+    get_TVFormats() {
+        result := ComCall(31, this, "int*", &Formats := 0, "HRESULT")
+        return Formats
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Modes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidanalogtuner2-get_tunermodes
      */
-    get_TunerModes(Modes) {
-        ModesMarshal := Modes is VarRef ? "int*" : "ptr"
-
-        result := ComCall(32, this, ModesMarshal, Modes, "HRESULT")
-        return result
+    get_TunerModes() {
+        result := ComCall(32, this, "int*", &Modes := 0, "HRESULT")
+        return Modes
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Inputs 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidanalogtuner2-get_numauxinputs
      */
-    get_NumAuxInputs(Inputs) {
-        InputsMarshal := Inputs is VarRef ? "int*" : "ptr"
-
-        result := ComCall(33, this, InputsMarshal, Inputs, "HRESULT")
-        return result
+    get_NumAuxInputs() {
+        result := ComCall(33, this, "int*", &Inputs := 0, "HRESULT")
+        return Inputs
     }
 }

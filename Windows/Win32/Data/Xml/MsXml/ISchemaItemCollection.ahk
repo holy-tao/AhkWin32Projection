@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\ISchemaItem.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,61 +34,54 @@ class ISchemaItemCollection extends IDispatch{
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<ISchemaItem>} item 
-     * @returns {HRESULT} 
+     * @returns {ISchemaItem} 
      */
-    get_item(index, item) {
-        result := ComCall(7, this, "int", index, "ptr*", item, "HRESULT")
-        return result
+    get_item(index) {
+        result := ComCall(7, this, "int", index, "ptr*", &item := 0, "HRESULT")
+        return ISchemaItem(item)
     }
 
     /**
      * 
      * @param {BSTR} name 
-     * @param {Pointer<ISchemaItem>} item 
-     * @returns {HRESULT} 
+     * @returns {ISchemaItem} 
      */
-    itemByName(name, item) {
+    itemByName(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(8, this, "ptr", name, "ptr*", item, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", name, "ptr*", &item := 0, "HRESULT")
+        return ISchemaItem(item)
     }
 
     /**
      * 
      * @param {BSTR} name 
      * @param {BSTR} namespaceURI 
-     * @param {Pointer<ISchemaItem>} item 
-     * @returns {HRESULT} 
+     * @returns {ISchemaItem} 
      */
-    itemByQName(name, namespaceURI, item) {
+    itemByQName(name, namespaceURI) {
         name := name is String ? BSTR.Alloc(name).Value : name
         namespaceURI := namespaceURI is String ? BSTR.Alloc(namespaceURI).Value : namespaceURI
 
-        result := ComCall(9, this, "ptr", name, "ptr", namespaceURI, "ptr*", item, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", name, "ptr", namespaceURI, "ptr*", &item := 0, "HRESULT")
+        return ISchemaItem(item)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} length 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_length(length) {
-        lengthMarshal := length is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, lengthMarshal, length, "HRESULT")
-        return result
+    get_length() {
+        result := ComCall(10, this, "int*", &length := 0, "HRESULT")
+        return length
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppunk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__newEnum(ppunk) {
-        result := ComCall(11, this, "ptr*", ppunk, "HRESULT")
-        return result
+    get__newEnum() {
+        result := ComCall(11, this, "ptr*", &ppunk := 0, "HRESULT")
+        return IUnknown(ppunk)
     }
 }

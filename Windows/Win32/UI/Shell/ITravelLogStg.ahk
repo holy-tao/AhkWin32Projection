@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITravelLogEntry.ahk
+#Include .\IEnumTravelLogEntry.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -34,15 +36,14 @@ class ITravelLogStg extends IUnknown{
      * @param {PWSTR} pszTitle 
      * @param {ITravelLogEntry} ptleRelativeTo 
      * @param {BOOL} fPrepend 
-     * @param {Pointer<ITravelLogEntry>} pptle 
-     * @returns {HRESULT} 
+     * @returns {ITravelLogEntry} 
      */
-    CreateEntry(pszUrl, pszTitle, ptleRelativeTo, fPrepend, pptle) {
+    CreateEntry(pszUrl, pszTitle, ptleRelativeTo, fPrepend) {
         pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
         pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
 
-        result := ComCall(3, this, "ptr", pszUrl, "ptr", pszTitle, "ptr", ptleRelativeTo, "int", fPrepend, "ptr*", pptle, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pszUrl, "ptr", pszTitle, "ptr", ptleRelativeTo, "int", fPrepend, "ptr*", &pptle := 0, "HRESULT")
+        return ITravelLogEntry(pptle)
     }
 
     /**
@@ -58,39 +59,34 @@ class ITravelLogStg extends IUnknown{
     /**
      * 
      * @param {Integer} flags 
-     * @param {Pointer<IEnumTravelLogEntry>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IEnumTravelLogEntry} 
      */
-    EnumEntries(flags, ppenum) {
-        result := ComCall(5, this, "int", flags, "ptr*", ppenum, "HRESULT")
-        return result
+    EnumEntries(flags) {
+        result := ComCall(5, this, "int", flags, "ptr*", &ppenum := 0, "HRESULT")
+        return IEnumTravelLogEntry(ppenum)
     }
 
     /**
      * 
      * @param {Integer} flags 
      * @param {PWSTR} pszUrl 
-     * @param {Pointer<IEnumTravelLogEntry>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IEnumTravelLogEntry} 
      */
-    FindEntries(flags, pszUrl, ppenum) {
+    FindEntries(flags, pszUrl) {
         pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
 
-        result := ComCall(6, this, "int", flags, "ptr", pszUrl, "ptr*", ppenum, "HRESULT")
-        return result
+        result := ComCall(6, this, "int", flags, "ptr", pszUrl, "ptr*", &ppenum := 0, "HRESULT")
+        return IEnumTravelLogEntry(ppenum)
     }
 
     /**
      * 
      * @param {Integer} flags 
-     * @param {Pointer<Integer>} pcEntries 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetCount(flags, pcEntries) {
-        pcEntriesMarshal := pcEntries is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, "int", flags, pcEntriesMarshal, pcEntries, "HRESULT")
-        return result
+    GetCount(flags) {
+        result := ComCall(7, this, "int", flags, "uint*", &pcEntries := 0, "HRESULT")
+        return pcEntries
     }
 
     /**
@@ -106,11 +102,10 @@ class ITravelLogStg extends IUnknown{
     /**
      * 
      * @param {Integer} iOffset 
-     * @param {Pointer<ITravelLogEntry>} ptle 
-     * @returns {HRESULT} 
+     * @returns {ITravelLogEntry} 
      */
-    GetRelativeEntry(iOffset, ptle) {
-        result := ComCall(9, this, "int", iOffset, "ptr*", ptle, "HRESULT")
-        return result
+    GetRelativeEntry(iOffset) {
+        result := ComCall(9, this, "int", iOffset, "ptr*", &ptle := 0, "HRESULT")
+        return ITravelLogEntry(ptle)
     }
 }

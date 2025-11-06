@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IHTMLDOMNode.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -49,44 +50,40 @@ class IHTMLDOMTextNode extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_data(p) {
+    get_data() {
+        p := BSTR()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} String 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    toString(String) {
+    toString() {
+        String := BSTR()
         result := ComCall(9, this, "ptr", String, "HRESULT")
-        return result
+        return String
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_length(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, pMarshal, p, "HRESULT")
-        return result
+    get_length() {
+        result := ComCall(10, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
      * @param {Integer} offset 
-     * @param {Pointer<IHTMLDOMNode>} pRetNode 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMNode} 
      */
-    splitText(offset, pRetNode) {
-        result := ComCall(11, this, "int", offset, "ptr*", pRetNode, "HRESULT")
-        return result
+    splitText(offset) {
+        result := ComCall(11, this, "int", offset, "ptr*", &pRetNode := 0, "HRESULT")
+        return IHTMLDOMNode(pRetNode)
     }
 }

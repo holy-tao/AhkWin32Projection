@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IFaxRecipient.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -43,54 +45,48 @@ class IFaxRecipients extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxrecipients-get__newenum
      */
-    get__NewEnum(ppUnk) {
-        result := ComCall(7, this, "ptr*", ppUnk, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(7, this, "ptr*", &ppUnk := 0, "HRESULT")
+        return IUnknown(ppUnk)
     }
 
     /**
      * 
      * @param {Integer} lIndex 
-     * @param {Pointer<IFaxRecipient>} ppFaxRecipient 
-     * @returns {HRESULT} 
+     * @returns {IFaxRecipient} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxrecipients-get_item
      */
-    get_Item(lIndex, ppFaxRecipient) {
-        result := ComCall(8, this, "int", lIndex, "ptr*", ppFaxRecipient, "HRESULT")
-        return result
+    get_Item(lIndex) {
+        result := ComCall(8, this, "int", lIndex, "ptr*", &ppFaxRecipient := 0, "HRESULT")
+        return IFaxRecipient(ppFaxRecipient)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxrecipients-get_count
      */
-    get_Count(plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, plCountMarshal, plCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(9, this, "int*", &plCount := 0, "HRESULT")
+        return plCount
     }
 
     /**
      * 
      * @param {BSTR} bstrFaxNumber 
      * @param {BSTR} bstrRecipientName 
-     * @param {Pointer<IFaxRecipient>} ppFaxRecipient 
-     * @returns {HRESULT} 
+     * @returns {IFaxRecipient} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxrecipients-add
      */
-    Add(bstrFaxNumber, bstrRecipientName, ppFaxRecipient) {
+    Add(bstrFaxNumber, bstrRecipientName) {
         bstrFaxNumber := bstrFaxNumber is String ? BSTR.Alloc(bstrFaxNumber).Value : bstrFaxNumber
         bstrRecipientName := bstrRecipientName is String ? BSTR.Alloc(bstrRecipientName).Value : bstrRecipientName
 
-        result := ComCall(10, this, "ptr", bstrFaxNumber, "ptr", bstrRecipientName, "ptr*", ppFaxRecipient, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", bstrFaxNumber, "ptr", bstrRecipientName, "ptr*", &ppFaxRecipient := 0, "HRESULT")
+        return IFaxRecipient(ppFaxRecipient)
     }
 
     /**

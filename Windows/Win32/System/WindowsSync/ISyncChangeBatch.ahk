@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISyncChangeBuilder.ahk
 #Include .\ISyncChangeBatchBase.ahk
 
 /**
@@ -66,15 +67,14 @@ class ISyncChangeBatch extends ISyncChangeBatchBase{
      * @param {Integer} dwFlags 
      * @param {Integer} dwWorkForChange 
      * @param {ISyncKnowledge} pConflictKnowledge 
-     * @param {Pointer<ISyncChangeBuilder>} ppChangeBuilder 
-     * @returns {HRESULT} 
+     * @returns {ISyncChangeBuilder} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatch-addloggedconflict
      */
-    AddLoggedConflict(pbOwnerReplicaId, pbItemId, pChangeVersion, pCreationVersion, dwFlags, dwWorkForChange, pConflictKnowledge, ppChangeBuilder) {
+    AddLoggedConflict(pbOwnerReplicaId, pbItemId, pChangeVersion, pCreationVersion, dwFlags, dwWorkForChange, pConflictKnowledge) {
         pbOwnerReplicaIdMarshal := pbOwnerReplicaId is VarRef ? "char*" : "ptr"
         pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
 
-        result := ComCall(19, this, pbOwnerReplicaIdMarshal, pbOwnerReplicaId, pbItemIdMarshal, pbItemId, "ptr", pChangeVersion, "ptr", pCreationVersion, "uint", dwFlags, "uint", dwWorkForChange, "ptr", pConflictKnowledge, "ptr*", ppChangeBuilder, "HRESULT")
-        return result
+        result := ComCall(19, this, pbOwnerReplicaIdMarshal, pbOwnerReplicaId, pbItemIdMarshal, pbItemId, "ptr", pChangeVersion, "ptr", pCreationVersion, "uint", dwFlags, "uint", dwWorkForChange, "ptr", pConflictKnowledge, "ptr*", &ppChangeBuilder := 0, "HRESULT")
+        return ISyncChangeBuilder(ppChangeBuilder)
     }
 }

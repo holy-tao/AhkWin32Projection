@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IEventTarget.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -37,12 +38,11 @@ class IDOMFocusEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IEventTarget>} p 
-     * @returns {HRESULT} 
+     * @returns {IEventTarget} 
      */
-    get_relatedTarget(p) {
-        result := ComCall(7, this, "ptr*", p, "HRESULT")
-        return result
+    get_relatedTarget() {
+        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        return IEventTarget(p)
     }
 
     /**

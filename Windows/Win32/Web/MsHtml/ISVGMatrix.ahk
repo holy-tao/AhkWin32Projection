@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISVGMatrix.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -46,14 +47,11 @@ class ISVGMatrix extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_a(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(8, this, pMarshal, p, "HRESULT")
-        return result
+    get_a() {
+        result := ComCall(8, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -68,14 +66,11 @@ class ISVGMatrix extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_b(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(10, this, pMarshal, p, "HRESULT")
-        return result
+    get_b() {
+        result := ComCall(10, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -90,14 +85,11 @@ class ISVGMatrix extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_c(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(12, this, pMarshal, p, "HRESULT")
-        return result
+    get_c() {
+        result := ComCall(12, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -112,14 +104,11 @@ class ISVGMatrix extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_d(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(14, this, pMarshal, p, "HRESULT")
-        return result
+    get_d() {
+        result := ComCall(14, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -134,14 +123,11 @@ class ISVGMatrix extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_e(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(16, this, pMarshal, p, "HRESULT")
-        return result
+    get_e() {
+        result := ComCall(16, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -156,134 +142,120 @@ class ISVGMatrix extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_f(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(18, this, pMarshal, p, "HRESULT")
-        return result
+    get_f() {
+        result := ComCall(18, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
      * @param {ISVGMatrix} secondMatrix 
-     * @param {Pointer<ISVGMatrix>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGMatrix} 
      */
-    multiply(secondMatrix, ppResult) {
-        result := ComCall(19, this, "ptr", secondMatrix, "ptr*", ppResult, "HRESULT")
-        return result
+    multiply(secondMatrix) {
+        result := ComCall(19, this, "ptr", secondMatrix, "ptr*", &ppResult := 0, "HRESULT")
+        return ISVGMatrix(ppResult)
     }
 
     /**
      * 
-     * @param {Pointer<ISVGMatrix>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGMatrix} 
      */
-    inverse(ppResult) {
-        result := ComCall(20, this, "ptr*", ppResult, "HRESULT")
-        return result
+    inverse() {
+        result := ComCall(20, this, "ptr*", &ppResult := 0, "HRESULT")
+        return ISVGMatrix(ppResult)
     }
 
     /**
      * 
      * @param {Float} x 
      * @param {Float} y 
-     * @param {Pointer<ISVGMatrix>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGMatrix} 
      */
-    translate(x, y, ppResult) {
-        result := ComCall(21, this, "float", x, "float", y, "ptr*", ppResult, "HRESULT")
-        return result
+    translate(x, y) {
+        result := ComCall(21, this, "float", x, "float", y, "ptr*", &ppResult := 0, "HRESULT")
+        return ISVGMatrix(ppResult)
     }
 
     /**
      * 
      * @param {Float} scaleFactor 
-     * @param {Pointer<ISVGMatrix>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGMatrix} 
      */
-    scale(scaleFactor, ppResult) {
-        result := ComCall(22, this, "float", scaleFactor, "ptr*", ppResult, "HRESULT")
-        return result
+    scale(scaleFactor) {
+        result := ComCall(22, this, "float", scaleFactor, "ptr*", &ppResult := 0, "HRESULT")
+        return ISVGMatrix(ppResult)
     }
 
     /**
      * 
      * @param {Float} scaleFactorX 
      * @param {Float} scaleFactorY 
-     * @param {Pointer<ISVGMatrix>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGMatrix} 
      */
-    scaleNonUniform(scaleFactorX, scaleFactorY, ppResult) {
-        result := ComCall(23, this, "float", scaleFactorX, "float", scaleFactorY, "ptr*", ppResult, "HRESULT")
-        return result
+    scaleNonUniform(scaleFactorX, scaleFactorY) {
+        result := ComCall(23, this, "float", scaleFactorX, "float", scaleFactorY, "ptr*", &ppResult := 0, "HRESULT")
+        return ISVGMatrix(ppResult)
     }
 
     /**
      * 
      * @param {Float} angle 
-     * @param {Pointer<ISVGMatrix>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGMatrix} 
      */
-    rotate(angle, ppResult) {
-        result := ComCall(24, this, "float", angle, "ptr*", ppResult, "HRESULT")
-        return result
+    rotate(angle) {
+        result := ComCall(24, this, "float", angle, "ptr*", &ppResult := 0, "HRESULT")
+        return ISVGMatrix(ppResult)
     }
 
     /**
      * 
      * @param {Float} x 
      * @param {Float} y 
-     * @param {Pointer<ISVGMatrix>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGMatrix} 
      */
-    rotateFromVector(x, y, ppResult) {
-        result := ComCall(25, this, "float", x, "float", y, "ptr*", ppResult, "HRESULT")
-        return result
+    rotateFromVector(x, y) {
+        result := ComCall(25, this, "float", x, "float", y, "ptr*", &ppResult := 0, "HRESULT")
+        return ISVGMatrix(ppResult)
     }
 
     /**
      * 
-     * @param {Pointer<ISVGMatrix>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGMatrix} 
      */
-    flipX(ppResult) {
-        result := ComCall(26, this, "ptr*", ppResult, "HRESULT")
-        return result
+    flipX() {
+        result := ComCall(26, this, "ptr*", &ppResult := 0, "HRESULT")
+        return ISVGMatrix(ppResult)
     }
 
     /**
      * 
-     * @param {Pointer<ISVGMatrix>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGMatrix} 
      */
-    flipY(ppResult) {
-        result := ComCall(27, this, "ptr*", ppResult, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {Float} angle 
-     * @param {Pointer<ISVGMatrix>} ppResult 
-     * @returns {HRESULT} 
-     */
-    skewX(angle, ppResult) {
-        result := ComCall(28, this, "float", angle, "ptr*", ppResult, "HRESULT")
-        return result
+    flipY() {
+        result := ComCall(27, this, "ptr*", &ppResult := 0, "HRESULT")
+        return ISVGMatrix(ppResult)
     }
 
     /**
      * 
      * @param {Float} angle 
-     * @param {Pointer<ISVGMatrix>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGMatrix} 
      */
-    skewY(angle, ppResult) {
-        result := ComCall(29, this, "float", angle, "ptr*", ppResult, "HRESULT")
-        return result
+    skewX(angle) {
+        result := ComCall(28, this, "float", angle, "ptr*", &ppResult := 0, "HRESULT")
+        return ISVGMatrix(ppResult)
+    }
+
+    /**
+     * 
+     * @param {Float} angle 
+     * @returns {ISVGMatrix} 
+     */
+    skewY(angle) {
+        result := ComCall(29, this, "float", angle, "ptr*", &ppResult := 0, "HRESULT")
+        return ISVGMatrix(ppResult)
     }
 }

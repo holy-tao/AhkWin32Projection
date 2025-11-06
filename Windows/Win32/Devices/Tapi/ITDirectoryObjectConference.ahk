@@ -33,24 +33,24 @@ class ITDirectoryObjectConference extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} ppProtocol 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectoryobjectconference-get_protocol
      */
-    get_Protocol(ppProtocol) {
+    get_Protocol() {
+        ppProtocol := BSTR()
         result := ComCall(7, this, "ptr", ppProtocol, "HRESULT")
-        return result
+        return ppProtocol
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} ppOriginator 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectoryobjectconference-get_originator
      */
-    get_Originator(ppOriginator) {
+    get_Originator() {
+        ppOriginator := BSTR()
         result := ComCall(8, this, "ptr", ppOriginator, "HRESULT")
-        return result
+        return ppOriginator
     }
 
     /**
@@ -68,15 +68,12 @@ class ITDirectoryObjectConference extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pAdvertisingScope 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectoryobjectconference-get_advertisingscope
      */
-    get_AdvertisingScope(pAdvertisingScope) {
-        pAdvertisingScopeMarshal := pAdvertisingScope is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, pAdvertisingScopeMarshal, pAdvertisingScope, "HRESULT")
-        return result
+    get_AdvertisingScope() {
+        result := ComCall(10, this, "int*", &pAdvertisingScope := 0, "HRESULT")
+        return pAdvertisingScope
     }
 
     /**
@@ -92,13 +89,13 @@ class ITDirectoryObjectConference extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} ppUrl 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectoryobjectconference-get_url
      */
-    get_Url(ppUrl) {
+    get_Url() {
+        ppUrl := BSTR()
         result := ComCall(12, this, "ptr", ppUrl, "HRESULT")
-        return result
+        return ppUrl
     }
 
     /**
@@ -116,13 +113,13 @@ class ITDirectoryObjectConference extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} ppDescription 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectoryobjectconference-get_description
      */
-    get_Description(ppDescription) {
+    get_Description() {
+        ppDescription := BSTR()
         result := ComCall(14, this, "ptr", ppDescription, "HRESULT")
-        return result
+        return ppDescription
     }
 
     /**
@@ -140,13 +137,12 @@ class ITDirectoryObjectConference extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pfEncrypted 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectoryobjectconference-get_isencrypted
      */
-    get_IsEncrypted(pfEncrypted) {
-        result := ComCall(16, this, "ptr", pfEncrypted, "HRESULT")
-        return result
+    get_IsEncrypted() {
+        result := ComCall(16, this, "short*", &pfEncrypted := 0, "HRESULT")
+        return pfEncrypted
     }
 
     /**
@@ -162,15 +158,12 @@ class ITDirectoryObjectConference extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} pDate 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectoryobjectconference-get_starttime
      */
-    get_StartTime(pDate) {
-        pDateMarshal := pDate is VarRef ? "double*" : "ptr"
-
-        result := ComCall(18, this, pDateMarshal, pDate, "HRESULT")
-        return result
+    get_StartTime() {
+        result := ComCall(18, this, "double*", &pDate := 0, "HRESULT")
+        return pDate
     }
 
     /**
@@ -186,15 +179,12 @@ class ITDirectoryObjectConference extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} pDate 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectoryobjectconference-get_stoptime
      */
-    get_StopTime(pDate) {
-        pDateMarshal := pDate is VarRef ? "double*" : "ptr"
-
-        result := ComCall(20, this, pDateMarshal, pDate, "HRESULT")
-        return result
+    get_StopTime() {
+        result := ComCall(20, this, "double*", &pDate := 0, "HRESULT")
+        return pDate
     }
 
     /**

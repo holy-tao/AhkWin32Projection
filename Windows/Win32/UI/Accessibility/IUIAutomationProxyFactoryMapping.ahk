@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUIAutomationProxyFactoryEntry.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,40 +33,33 @@ class IUIAutomationProxyFactoryMapping extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactorymapping-get_count
      */
-    get_Count(count) {
-        countMarshal := count is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, countMarshal, count, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(3, this, "uint*", &count := 0, "HRESULT")
+        return count
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} table 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactorymapping-gettable
      */
-    GetTable(table) {
-        tableMarshal := table is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, tableMarshal, table, "HRESULT")
-        return result
+    GetTable() {
+        result := ComCall(4, this, "ptr*", &table := 0, "HRESULT")
+        return table
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<IUIAutomationProxyFactoryEntry>} entry 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationProxyFactoryEntry} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactorymapping-getentry
      */
-    GetEntry(index, entry) {
-        result := ComCall(5, this, "uint", index, "ptr*", entry, "HRESULT")
-        return result
+    GetEntry(index) {
+        result := ComCall(5, this, "uint", index, "ptr*", &entry := 0, "HRESULT")
+        return IUIAutomationProxyFactoryEntry(entry)
     }
 
     /**

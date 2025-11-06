@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\MILMatrixF.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -43,13 +44,13 @@ class IMILBitmapEffectRenderContext extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pFormat 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectrendercontext-getoutputpixelformat
      */
-    GetOutputPixelFormat(pFormat) {
+    GetOutputPixelFormat() {
+        pFormat := Guid()
         result := ComCall(4, this, "ptr", pFormat, "HRESULT")
-        return result
+        return pFormat
     }
 
     /**
@@ -76,13 +77,13 @@ class IMILBitmapEffectRenderContext extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<MILMatrixF>} pMatrix 
-     * @returns {HRESULT} 
+     * @returns {MILMatrixF} 
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectrendercontext-getfinaltransform
      */
-    GetFinalTransform(pMatrix) {
+    GetFinalTransform() {
+        pMatrix := MILMatrixF()
         result := ComCall(7, this, "ptr", pMatrix, "HRESULT")
-        return result
+        return pMatrix
     }
 
     /**

@@ -46,41 +46,35 @@ class ICertEncodeAltName extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pNameCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodealtname-getnamecount
      */
-    GetNameCount(pNameCount) {
-        pNameCountMarshal := pNameCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pNameCountMarshal, pNameCount, "HRESULT")
-        return result
+    GetNameCount() {
+        result := ComCall(8, this, "int*", &pNameCount := 0, "HRESULT")
+        return pNameCount
     }
 
     /**
      * 
      * @param {Integer} NameIndex 
-     * @param {Pointer<Integer>} pNameChoice 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodealtname-getnamechoice
      */
-    GetNameChoice(NameIndex, pNameChoice) {
-        pNameChoiceMarshal := pNameChoice is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, "int", NameIndex, pNameChoiceMarshal, pNameChoice, "HRESULT")
-        return result
+    GetNameChoice(NameIndex) {
+        result := ComCall(9, this, "int", NameIndex, "int*", &pNameChoice := 0, "HRESULT")
+        return pNameChoice
     }
 
     /**
      * 
      * @param {Integer} NameIndex 
-     * @param {Pointer<BSTR>} pstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodealtname-getname
      */
-    GetName(NameIndex, pstrName) {
+    GetName(NameIndex) {
+        pstrName := BSTR()
         result := ComCall(10, this, "int", NameIndex, "ptr", pstrName, "HRESULT")
-        return result
+        return pstrName
     }
 
     /**
@@ -111,12 +105,12 @@ class ICertEncodeAltName extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pstrBinary 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodealtname-encode
      */
-    Encode(pstrBinary) {
+    Encode() {
+        pstrBinary := BSTR()
         result := ComCall(13, this, "ptr", pstrBinary, "HRESULT")
-        return result
+        return pstrBinary
     }
 }

@@ -42,15 +42,12 @@ class INetFwRemoteAdminSettings extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} ipVersion 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwremoteadminsettings-get_ipversion
      */
-    get_IpVersion(ipVersion) {
-        ipVersionMarshal := ipVersion is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, ipVersionMarshal, ipVersion, "HRESULT")
-        return result
+    get_IpVersion() {
+        result := ComCall(7, this, "int*", &ipVersion := 0, "HRESULT")
+        return ipVersion
     }
 
     /**
@@ -66,15 +63,12 @@ class INetFwRemoteAdminSettings extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} scope 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwremoteadminsettings-get_scope
      */
-    get_Scope(scope) {
-        scopeMarshal := scope is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, scopeMarshal, scope, "HRESULT")
-        return result
+    get_Scope() {
+        result := ComCall(9, this, "int*", &scope := 0, "HRESULT")
+        return scope
     }
 
     /**
@@ -90,13 +84,13 @@ class INetFwRemoteAdminSettings extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} remoteAddrs 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwremoteadminsettings-get_remoteaddresses
      */
-    get_RemoteAddresses(remoteAddrs) {
+    get_RemoteAddresses() {
+        remoteAddrs := BSTR()
         result := ComCall(11, this, "ptr", remoteAddrs, "HRESULT")
-        return result
+        return remoteAddrs
     }
 
     /**
@@ -114,13 +108,12 @@ class INetFwRemoteAdminSettings extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} enabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwremoteadminsettings-get_enabled
      */
-    get_Enabled(enabled) {
-        result := ComCall(13, this, "ptr", enabled, "HRESULT")
-        return result
+    get_Enabled() {
+        result := ComCall(13, this, "short*", &enabled := 0, "HRESULT")
+        return enabled
     }
 
     /**

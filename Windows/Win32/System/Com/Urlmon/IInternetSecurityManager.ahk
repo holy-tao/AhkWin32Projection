@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IInternetSecurityMgrSite.ahk
+#Include ..\IEnumString.ahk
 #Include ..\IUnknown.ahk
 
 /**
@@ -40,68 +42,60 @@ class IInternetSecurityManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IInternetSecurityMgrSite>} ppSite 
-     * @returns {HRESULT} 
+     * @returns {IInternetSecurityMgrSite} 
      */
-    GetSecuritySite(ppSite) {
-        result := ComCall(4, this, "ptr*", ppSite, "HRESULT")
-        return result
+    GetSecuritySite() {
+        result := ComCall(4, this, "ptr*", &ppSite := 0, "HRESULT")
+        return IInternetSecurityMgrSite(ppSite)
     }
 
     /**
      * 
      * @param {PWSTR} pwszUrl 
-     * @param {Pointer<Integer>} pdwZone 
      * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    MapUrlToZone(pwszUrl, pdwZone, dwFlags) {
+    MapUrlToZone(pwszUrl, dwFlags) {
         pwszUrl := pwszUrl is String ? StrPtr(pwszUrl) : pwszUrl
 
-        pdwZoneMarshal := pdwZone is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, "ptr", pwszUrl, pdwZoneMarshal, pdwZone, "uint", dwFlags, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", pwszUrl, "uint*", &pdwZone := 0, "uint", dwFlags, "HRESULT")
+        return pdwZone
     }
 
     /**
      * 
      * @param {PWSTR} pwszUrl 
-     * @param {Pointer<Integer>} pbSecurityId 
      * @param {Pointer<Integer>} pcbSecurityId 
      * @param {Pointer} dwReserved 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetSecurityId(pwszUrl, pbSecurityId, pcbSecurityId, dwReserved) {
+    GetSecurityId(pwszUrl, pcbSecurityId, dwReserved) {
         pwszUrl := pwszUrl is String ? StrPtr(pwszUrl) : pwszUrl
 
-        pbSecurityIdMarshal := pbSecurityId is VarRef ? "char*" : "ptr"
         pcbSecurityIdMarshal := pcbSecurityId is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pwszUrl, pbSecurityIdMarshal, pbSecurityId, pcbSecurityIdMarshal, pcbSecurityId, "ptr", dwReserved, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", pwszUrl, "char*", &pbSecurityId := 0, pcbSecurityIdMarshal, pcbSecurityId, "ptr", dwReserved, "HRESULT")
+        return pbSecurityId
     }
 
     /**
      * 
      * @param {PWSTR} pwszUrl 
      * @param {Integer} dwAction 
-     * @param {Pointer<Integer>} pPolicy 
      * @param {Integer} cbPolicy 
      * @param {Pointer<Integer>} pContext 
      * @param {Integer} cbContext 
      * @param {Integer} dwFlags 
      * @param {Integer} dwReserved 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    ProcessUrlAction(pwszUrl, dwAction, pPolicy, cbPolicy, pContext, cbContext, dwFlags, dwReserved) {
+    ProcessUrlAction(pwszUrl, dwAction, cbPolicy, pContext, cbContext, dwFlags, dwReserved) {
         pwszUrl := pwszUrl is String ? StrPtr(pwszUrl) : pwszUrl
 
-        pPolicyMarshal := pPolicy is VarRef ? "char*" : "ptr"
         pContextMarshal := pContext is VarRef ? "char*" : "ptr"
 
-        result := ComCall(7, this, "ptr", pwszUrl, "uint", dwAction, pPolicyMarshal, pPolicy, "uint", cbPolicy, pContextMarshal, pContext, "uint", cbContext, "uint", dwFlags, "uint", dwReserved, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", pwszUrl, "uint", dwAction, "char*", &pPolicy := 0, "uint", cbPolicy, pContextMarshal, pContext, "uint", cbContext, "uint", dwFlags, "uint", dwReserved, "HRESULT")
+        return pPolicy
     }
 
     /**
@@ -143,12 +137,11 @@ class IInternetSecurityManager extends IUnknown{
     /**
      * 
      * @param {Integer} dwZone 
-     * @param {Pointer<IEnumString>} ppenumString 
      * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
+     * @returns {IEnumString} 
      */
-    GetZoneMappings(dwZone, ppenumString, dwFlags) {
-        result := ComCall(10, this, "uint", dwZone, "ptr*", ppenumString, "uint", dwFlags, "HRESULT")
-        return result
+    GetZoneMappings(dwZone, dwFlags) {
+        result := ComCall(10, this, "uint", dwZone, "ptr*", &ppenumString := 0, "uint", dwFlags, "HRESULT")
+        return IEnumString(ppenumString)
     }
 }

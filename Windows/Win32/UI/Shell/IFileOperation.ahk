@@ -127,15 +127,12 @@ class IFileOperation extends IUnknown{
     /**
      * 
      * @param {IFileOperationProgressSink} pfops 
-     * @param {Pointer<Integer>} pdwCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileoperation-advise
      */
-    Advise(pfops, pdwCookie) {
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pfops, pdwCookieMarshal, pdwCookie, "HRESULT")
-        return result
+    Advise(pfops) {
+        result := ComCall(3, this, "ptr", pfops, "uint*", &pdwCookie := 0, "HRESULT")
+        return pdwCookie
     }
 
     /**
@@ -368,12 +365,11 @@ class IFileOperation extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfAnyOperationsAborted 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileoperation-getanyoperationsaborted
      */
-    GetAnyOperationsAborted(pfAnyOperationsAborted) {
-        result := ComCall(22, this, "ptr", pfAnyOperationsAborted, "HRESULT")
-        return result
+    GetAnyOperationsAborted() {
+        result := ComCall(22, this, "int*", &pfAnyOperationsAborted := 0, "HRESULT")
+        return pfAnyOperationsAborted
     }
 }

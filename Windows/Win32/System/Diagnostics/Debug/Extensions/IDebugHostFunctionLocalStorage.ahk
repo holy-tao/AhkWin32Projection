@@ -46,37 +46,28 @@ class IDebugHostFunctionLocalStorage extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} kind 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetStorageKind(kind) {
-        kindMarshal := kind is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, kindMarshal, kind, "HRESULT")
-        return result
+    GetStorageKind() {
+        result := ComCall(4, this, "int*", &kind := 0, "HRESULT")
+        return kind
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} registerId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetRegister(registerId) {
-        registerIdMarshal := registerId is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, registerIdMarshal, registerId, "HRESULT")
-        return result
+    GetRegister() {
+        result := ComCall(5, this, "uint*", &registerId := 0, "HRESULT")
+        return registerId
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} offset 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetOffset(offset) {
-        offsetMarshal := offset is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(6, this, offsetMarshal, offset, "HRESULT")
-        return result
+    GetOffset() {
+        result := ComCall(6, this, "int64*", &offset := 0, "HRESULT")
+        return offset
     }
 }

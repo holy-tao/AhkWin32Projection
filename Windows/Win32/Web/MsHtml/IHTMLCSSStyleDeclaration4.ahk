@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -43,12 +44,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_webkitAppearance(p) {
+    get_webkitAppearance() {
+        p := BSTR()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -65,12 +66,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_webkitUserSelect(p) {
+    get_webkitUserSelect() {
+        p := BSTR()
         result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -87,12 +88,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_webkitBoxAlign(p) {
+    get_webkitBoxAlign() {
+        p := BSTR()
         result := ComCall(12, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -107,12 +108,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_webkitBoxOrdinalGroup(p) {
+    get_webkitBoxOrdinalGroup() {
+        p := VARIANT()
         result := ComCall(14, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -129,12 +130,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_webkitBoxPack(p) {
+    get_webkitBoxPack() {
+        p := BSTR()
         result := ComCall(16, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -149,12 +150,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_webkitBoxFlex(p) {
+    get_webkitBoxFlex() {
+        p := VARIANT()
         result := ComCall(18, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -171,12 +172,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_webkitBoxOrient(p) {
+    get_webkitBoxOrient() {
+        p := BSTR()
         result := ComCall(20, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -193,12 +194,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_webkitBoxDirection(p) {
+    get_webkitBoxDirection() {
+        p := BSTR()
         result := ComCall(22, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -215,12 +216,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_webkitTransform(p) {
+    get_webkitTransform() {
+        p := BSTR()
         result := ComCall(24, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -237,12 +238,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_webkitBackgroundSize(p) {
+    get_webkitBackgroundSize() {
+        p := BSTR()
         result := ComCall(26, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -259,12 +260,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_webkitBackfaceVisibility(p) {
+    get_webkitBackfaceVisibility() {
+        p := BSTR()
         result := ComCall(28, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -281,12 +282,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_webkitAnimation(p) {
+    get_webkitAnimation() {
+        p := BSTR()
         result := ComCall(30, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -303,12 +304,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_webkitTransition(p) {
+    get_webkitTransition() {
+        p := BSTR()
         result := ComCall(32, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -325,12 +326,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_webkitAnimationName(p) {
+    get_webkitAnimationName() {
+        p := BSTR()
         result := ComCall(34, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -347,12 +348,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_webkitAnimationDuration(p) {
+    get_webkitAnimationDuration() {
+        p := BSTR()
         result := ComCall(36, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -369,12 +370,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_webkitAnimationTimingFunction(p) {
+    get_webkitAnimationTimingFunction() {
+        p := BSTR()
         result := ComCall(38, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -391,12 +392,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_webkitAnimationDelay(p) {
+    get_webkitAnimationDelay() {
+        p := BSTR()
         result := ComCall(40, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -413,12 +414,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_webkitAnimationIterationCount(p) {
+    get_webkitAnimationIterationCount() {
+        p := BSTR()
         result := ComCall(42, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -435,12 +436,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_webkitAnimationDirection(p) {
+    get_webkitAnimationDirection() {
+        p := BSTR()
         result := ComCall(44, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -457,12 +458,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_webkitAnimationPlayState(p) {
+    get_webkitAnimationPlayState() {
+        p := BSTR()
         result := ComCall(46, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -479,12 +480,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_webkitTransitionProperty(p) {
+    get_webkitTransitionProperty() {
+        p := BSTR()
         result := ComCall(48, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -501,12 +502,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_webkitTransitionDuration(p) {
+    get_webkitTransitionDuration() {
+        p := BSTR()
         result := ComCall(50, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -523,12 +524,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_webkitTransitionTimingFunction(p) {
+    get_webkitTransitionTimingFunction() {
+        p := BSTR()
         result := ComCall(52, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -545,12 +546,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_webkitTransitionDelay(p) {
+    get_webkitTransitionDelay() {
+        p := BSTR()
         result := ComCall(54, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -567,12 +568,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_webkitBackgroundAttachment(p) {
+    get_webkitBackgroundAttachment() {
+        p := BSTR()
         result := ComCall(56, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -587,12 +588,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_webkitBackgroundColor(p) {
+    get_webkitBackgroundColor() {
+        p := VARIANT()
         result := ComCall(58, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -609,12 +610,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_webkitBackgroundClip(p) {
+    get_webkitBackgroundClip() {
+        p := BSTR()
         result := ComCall(60, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -631,12 +632,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_webkitBackgroundImage(p) {
+    get_webkitBackgroundImage() {
+        p := BSTR()
         result := ComCall(62, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -653,12 +654,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_webkitBackgroundRepeat(p) {
+    get_webkitBackgroundRepeat() {
+        p := BSTR()
         result := ComCall(64, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -675,12 +676,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_webkitBackgroundOrigin(p) {
+    get_webkitBackgroundOrigin() {
+        p := BSTR()
         result := ComCall(66, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -697,12 +698,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_webkitBackgroundPosition(p) {
+    get_webkitBackgroundPosition() {
+        p := BSTR()
         result := ComCall(68, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -717,12 +718,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_webkitBackgroundPositionX(p) {
+    get_webkitBackgroundPositionX() {
+        p := VARIANT()
         result := ComCall(70, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -737,12 +738,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_webkitBackgroundPositionY(p) {
+    get_webkitBackgroundPositionY() {
+        p := VARIANT()
         result := ComCall(72, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -759,12 +760,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_webkitBackground(p) {
+    get_webkitBackground() {
+        p := BSTR()
         result := ComCall(74, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -781,12 +782,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_webkitTransformOrigin(p) {
+    get_webkitTransformOrigin() {
+        p := BSTR()
         result := ComCall(76, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -801,12 +802,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_msTextSizeAdjust(p) {
+    get_msTextSizeAdjust() {
+        p := VARIANT()
         result := ComCall(78, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -821,12 +822,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_webkitTextSizeAdjust(p) {
+    get_webkitTextSizeAdjust() {
+        p := VARIANT()
         result := ComCall(80, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -843,12 +844,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_webkitBorderImage(p) {
+    get_webkitBorderImage() {
+        p := BSTR()
         result := ComCall(82, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -865,12 +866,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_webkitBorderImageSource(p) {
+    get_webkitBorderImageSource() {
+        p := BSTR()
         result := ComCall(84, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -887,12 +888,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_webkitBorderImageSlice(p) {
+    get_webkitBorderImageSlice() {
+        p := BSTR()
         result := ComCall(86, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -909,12 +910,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_webkitBorderImageWidth(p) {
+    get_webkitBorderImageWidth() {
+        p := BSTR()
         result := ComCall(88, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -931,12 +932,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_webkitBorderImageOutset(p) {
+    get_webkitBorderImageOutset() {
+        p := BSTR()
         result := ComCall(90, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -953,12 +954,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_webkitBorderImageRepeat(p) {
+    get_webkitBorderImageRepeat() {
+        p := BSTR()
         result := ComCall(92, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -975,12 +976,12 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_webkitBoxSizing(p) {
+    get_webkitBoxSizing() {
+        p := BSTR()
         result := ComCall(94, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -997,11 +998,11 @@ class IHTMLCSSStyleDeclaration4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_webkitAnimationFillMode(p) {
+    get_webkitAnimationFillMode() {
+        p := BSTR()
         result := ComCall(96, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 }

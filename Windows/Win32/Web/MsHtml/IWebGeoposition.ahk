@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWebGeocoordinates.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -36,23 +37,19 @@ class IWebGeoposition extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IWebGeocoordinates>} p 
-     * @returns {HRESULT} 
+     * @returns {IWebGeocoordinates} 
      */
-    get_coords(p) {
-        result := ComCall(7, this, "ptr*", p, "HRESULT")
-        return result
+    get_coords() {
+        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        return IWebGeocoordinates(p)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_timestamp(p) {
-        pMarshal := p is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pMarshal, p, "HRESULT")
-        return result
+    get_timestamp() {
+        result := ComCall(8, this, "uint*", &p := 0, "HRESULT")
+        return p
     }
 }

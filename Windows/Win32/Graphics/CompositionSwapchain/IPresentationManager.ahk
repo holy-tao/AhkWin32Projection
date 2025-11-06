@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IPresentationBuffer.ahk
+#Include .\IPresentationSurface.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include .\IPresentStatistics.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,26 +37,24 @@ class IPresentationManager extends IUnknown{
     /**
      * 
      * @param {IUnknown} resource 
-     * @param {Pointer<IPresentationBuffer>} presentationBuffer 
-     * @returns {HRESULT} 
+     * @returns {IPresentationBuffer} 
      */
-    AddBufferFromResource(resource, presentationBuffer) {
-        result := ComCall(3, this, "ptr", resource, "ptr*", presentationBuffer, "HRESULT")
-        return result
+    AddBufferFromResource(resource) {
+        result := ComCall(3, this, "ptr", resource, "ptr*", &presentationBuffer := 0, "HRESULT")
+        return IPresentationBuffer(presentationBuffer)
     }
 
     /**
      * 
      * @param {HANDLE} compositionSurfaceHandle 
-     * @param {Pointer<IPresentationSurface>} presentationSurface 
-     * @returns {HRESULT} 
+     * @returns {IPresentationSurface} 
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationmanager-createpresentationsurface
      */
-    CreatePresentationSurface(compositionSurfaceHandle, presentationSurface) {
+    CreatePresentationSurface(compositionSurfaceHandle) {
         compositionSurfaceHandle := compositionSurfaceHandle is Win32Handle ? NumGet(compositionSurfaceHandle, "ptr") : compositionSurfaceHandle
 
-        result := ComCall(4, this, "ptr", compositionSurfaceHandle, "ptr*", presentationSurface, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", compositionSurfaceHandle, "ptr*", &presentationSurface := 0, "HRESULT")
+        return IPresentationSurface(presentationSurface)
     }
 
     /**
@@ -112,15 +114,12 @@ class IPresentationManager extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} fence 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationmanager-getpresentretiringfence
      */
-    GetPresentRetiringFence(riid, fence) {
-        fenceMarshal := fence is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(10, this, "ptr", riid, fenceMarshal, fence, "HRESULT")
-        return result
+    GetPresentRetiringFence(riid) {
+        result := ComCall(10, this, "ptr", riid, "ptr*", &fence := 0, "HRESULT")
+        return fence
     }
 
     /**
@@ -136,24 +135,24 @@ class IPresentationManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HANDLE>} lostEventHandle 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationmanager-getlostevent
      */
-    GetLostEvent(lostEventHandle) {
+    GetLostEvent() {
+        lostEventHandle := HANDLE()
         result := ComCall(12, this, "ptr", lostEventHandle, "HRESULT")
-        return result
+        return lostEventHandle
     }
 
     /**
      * 
-     * @param {Pointer<HANDLE>} presentStatisticsAvailableEventHandle 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationmanager-getpresentstatisticsavailableevent
      */
-    GetPresentStatisticsAvailableEvent(presentStatisticsAvailableEventHandle) {
+    GetPresentStatisticsAvailableEvent() {
+        presentStatisticsAvailableEventHandle := HANDLE()
         result := ComCall(13, this, "ptr", presentStatisticsAvailableEventHandle, "HRESULT")
-        return result
+        return presentStatisticsAvailableEventHandle
     }
 
     /**
@@ -170,12 +169,11 @@ class IPresentationManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IPresentStatistics>} nextPresentStatistics 
-     * @returns {HRESULT} 
+     * @returns {IPresentStatistics} 
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationmanager-getnextpresentstatistics
      */
-    GetNextPresentStatistics(nextPresentStatistics) {
-        result := ComCall(15, this, "ptr*", nextPresentStatistics, "HRESULT")
-        return result
+    GetNextPresentStatistics() {
+        result := ComCall(15, this, "ptr*", &nextPresentStatistics := 0, "HRESULT")
+        return IPresentStatistics(nextPresentStatistics)
     }
 }

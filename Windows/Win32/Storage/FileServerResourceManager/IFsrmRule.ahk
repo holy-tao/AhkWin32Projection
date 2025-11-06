@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IFsrmObject.ahk
 
 /**
@@ -38,13 +39,13 @@ class IFsrmRule extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<BSTR>} name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmrule-get_name
      */
-    get_Name(name) {
+    get_Name() {
+        name := BSTR()
         result := ComCall(12, this, "ptr", name, "HRESULT")
-        return result
+        return name
     }
 
     /**
@@ -62,26 +63,23 @@ class IFsrmRule extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<Integer>} ruleType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmrule-get_ruletype
      */
-    get_RuleType(ruleType) {
-        ruleTypeMarshal := ruleType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, ruleTypeMarshal, ruleType, "HRESULT")
-        return result
+    get_RuleType() {
+        result := ComCall(14, this, "int*", &ruleType := 0, "HRESULT")
+        return ruleType
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} moduleDefinitionName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmrule-get_moduledefinitionname
      */
-    get_ModuleDefinitionName(moduleDefinitionName) {
+    get_ModuleDefinitionName() {
+        moduleDefinitionName := BSTR()
         result := ComCall(15, this, "ptr", moduleDefinitionName, "HRESULT")
-        return result
+        return moduleDefinitionName
     }
 
     /**
@@ -99,15 +97,12 @@ class IFsrmRule extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} namespaceRoots 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmrule-get_namespaceroots
      */
-    get_NamespaceRoots(namespaceRoots) {
-        namespaceRootsMarshal := namespaceRoots is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(17, this, namespaceRootsMarshal, namespaceRoots, "HRESULT")
-        return result
+    get_NamespaceRoots() {
+        result := ComCall(17, this, "ptr*", &namespaceRoots := 0, "HRESULT")
+        return namespaceRoots
     }
 
     /**
@@ -123,15 +118,12 @@ class IFsrmRule extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<Integer>} ruleFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmrule-get_ruleflags
      */
-    get_RuleFlags(ruleFlags) {
-        ruleFlagsMarshal := ruleFlags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(19, this, ruleFlagsMarshal, ruleFlags, "HRESULT")
-        return result
+    get_RuleFlags() {
+        result := ComCall(19, this, "int*", &ruleFlags := 0, "HRESULT")
+        return ruleFlags
     }
 
     /**
@@ -147,15 +139,12 @@ class IFsrmRule extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} parameters 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmrule-get_parameters
      */
-    get_Parameters(parameters) {
-        parametersMarshal := parameters is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(21, this, parametersMarshal, parameters, "HRESULT")
-        return result
+    get_Parameters() {
+        result := ComCall(21, this, "ptr*", &parameters := 0, "HRESULT")
+        return parameters
     }
 
     /**
@@ -171,12 +160,12 @@ class IFsrmRule extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} lastModified 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmrule-get_lastmodified
      */
-    get_LastModified(lastModified) {
+    get_LastModified() {
+        lastModified := VARIANT()
         result := ComCall(23, this, "ptr", lastModified, "HRESULT")
-        return result
+        return lastModified
     }
 }

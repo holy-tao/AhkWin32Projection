@@ -36,29 +36,23 @@ class ISBE2MediaTypeProfile extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-isbe2mediatypeprofile-getstreamcount
      */
-    GetStreamCount(pCount) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    GetStreamCount() {
+        result := ComCall(3, this, "uint*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<Pointer<AM_MEDIA_TYPE>>} ppMediaType 
-     * @returns {HRESULT} 
+     * @returns {Pointer<AM_MEDIA_TYPE>} 
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-isbe2mediatypeprofile-getstream
      */
-    GetStream(Index, ppMediaType) {
-        ppMediaTypeMarshal := ppMediaType is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "uint", Index, ppMediaTypeMarshal, ppMediaType, "HRESULT")
-        return result
+    GetStream(Index) {
+        result := ComCall(4, this, "uint", Index, "ptr*", &ppMediaType := 0, "HRESULT")
+        return ppMediaType
     }
 
     /**

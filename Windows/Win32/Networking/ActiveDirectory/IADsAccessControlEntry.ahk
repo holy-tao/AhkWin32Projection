@@ -33,14 +33,11 @@ class IADsAccessControlEntry extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_AccessMask(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_AccessMask() {
+        result := ComCall(7, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -55,14 +52,11 @@ class IADsAccessControlEntry extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_AceType(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_AceType() {
+        result := ComCall(9, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -77,14 +71,11 @@ class IADsAccessControlEntry extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_AceFlags(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_AceFlags() {
+        result := ComCall(11, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -99,14 +90,11 @@ class IADsAccessControlEntry extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Flags(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_Flags() {
+        result := ComCall(13, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -121,12 +109,12 @@ class IADsAccessControlEntry extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ObjectType(retval) {
+    get_ObjectType() {
+        retval := BSTR()
         result := ComCall(15, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -143,12 +131,12 @@ class IADsAccessControlEntry extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_InheritedObjectType(retval) {
+    get_InheritedObjectType() {
+        retval := BSTR()
         result := ComCall(17, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -165,12 +153,12 @@ class IADsAccessControlEntry extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Trustee(retval) {
+    get_Trustee() {
+        retval := BSTR()
         result := ComCall(19, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**

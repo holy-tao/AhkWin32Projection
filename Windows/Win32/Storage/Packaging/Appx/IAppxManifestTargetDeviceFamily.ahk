@@ -32,38 +32,31 @@ class IAppxManifestTargetDeviceFamily extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} name 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifesttargetdevicefamily-getname
      */
-    GetName(name) {
-        result := ComCall(3, this, "ptr", name, "HRESULT")
-        return result
+    GetName() {
+        result := ComCall(3, this, "ptr*", &name := 0, "HRESULT")
+        return name
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} minVersion 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifesttargetdevicefamily-getminversion
      */
-    GetMinVersion(minVersion) {
-        minVersionMarshal := minVersion is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, minVersionMarshal, minVersion, "HRESULT")
-        return result
+    GetMinVersion() {
+        result := ComCall(4, this, "uint*", &minVersion := 0, "HRESULT")
+        return minVersion
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} maxVersionTested 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifesttargetdevicefamily-getmaxversiontested
      */
-    GetMaxVersionTested(maxVersionTested) {
-        maxVersionTestedMarshal := maxVersionTested is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, maxVersionTestedMarshal, maxVersionTested, "HRESULT")
-        return result
+    GetMaxVersionTested() {
+        result := ComCall(5, this, "uint*", &maxVersionTested := 0, "HRESULT")
+        return maxVersionTested
     }
 }

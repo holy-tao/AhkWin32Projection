@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMILBitmapEffectOutputConnector.ahk
 #Include .\IMILBitmapEffectConnector.ahk
 
 /**
@@ -43,12 +44,11 @@ class IMILBitmapEffectInputConnector extends IMILBitmapEffectConnector{
 
     /**
      * 
-     * @param {Pointer<IMILBitmapEffectOutputConnector>} ppConnector 
-     * @returns {HRESULT} 
+     * @returns {IMILBitmapEffectOutputConnector} 
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectinputconnector-getconnection
      */
-    GetConnection(ppConnector) {
-        result := ComCall(10, this, "ptr*", ppConnector, "HRESULT")
-        return result
+    GetConnection() {
+        result := ComCall(10, this, "ptr*", &ppConnector := 0, "HRESULT")
+        return IMILBitmapEffectOutputConnector(ppConnector)
     }
 }

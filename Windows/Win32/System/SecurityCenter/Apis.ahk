@@ -93,15 +93,14 @@ class SecurityCenter {
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszUri 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    static WscGetAntiMalwareUri(ppszUri) {
-        result := DllCall("WSCAPI.dll\WscGetAntiMalwareUri", "ptr", ppszUri, "int")
+    static WscGetAntiMalwareUri() {
+        result := DllCall("WSCAPI.dll\WscGetAntiMalwareUri", "ptr*", &ppszUri := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppszUri
     }
 
 ;@endregion Methods

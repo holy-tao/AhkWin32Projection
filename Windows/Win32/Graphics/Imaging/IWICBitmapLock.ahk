@@ -53,15 +53,12 @@ class IWICBitmapLock extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcbStride 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmaplock-getstride
      */
-    GetStride(pcbStride) {
-        pcbStrideMarshal := pcbStride is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pcbStrideMarshal, pcbStride, "HRESULT")
-        return result
+    GetStride() {
+        result := ComCall(4, this, "uint*", &pcbStride := 0, "HRESULT")
+        return pcbStride
     }
 
     /**
@@ -81,14 +78,12 @@ class IWICBitmapLock extends IUnknown{
 
     /**
      * The GetPixelFormat function obtains the index of the currently selected pixel format of the specified device context.
-     * @param {Pointer<Guid>} pPixelFormat 
-     * @returns {HRESULT} If the function succeeds, the return value is the currently selected pixel format index of the specified device context. This is a positive, one-based index value.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {Guid} 
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getpixelformat
      */
-    GetPixelFormat(pPixelFormat) {
+    GetPixelFormat() {
+        pPixelFormat := Guid()
         result := ComCall(6, this, "ptr", pPixelFormat, "HRESULT")
-        return result
+        return pPixelFormat
     }
 }

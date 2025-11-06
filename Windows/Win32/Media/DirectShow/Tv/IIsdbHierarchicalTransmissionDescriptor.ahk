@@ -32,79 +32,61 @@ class IIsdbHierarchicalTransmissionDescriptor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbhierarchicaltransmissiondescriptor-gettag
      */
-    GetTag(pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(3, this, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetTag() {
+        result := ComCall(3, this, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbhierarchicaltransmissiondescriptor-getlength
      */
-    GetLength(pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetLength() {
+        result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbhierarchicaltransmissiondescriptor-getfutureuse1
      */
-    GetFutureUse1(pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(5, this, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetFutureUse1() {
+        result := ComCall(5, this, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbhierarchicaltransmissiondescriptor-getqualitylevel
      */
-    GetQualityLevel(pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(6, this, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetQualityLevel() {
+        result := ComCall(6, this, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbhierarchicaltransmissiondescriptor-getfutureuse2
      */
-    GetFutureUse2(pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(7, this, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetFutureUse2() {
+        result := ComCall(7, this, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbhierarchicaltransmissiondescriptor-getreferencepid
      */
-    GetReferencePid(pwVal) {
-        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(8, this, pwValMarshal, pwVal, "HRESULT")
-        return result
+    GetReferencePid() {
+        result := ComCall(8, this, "ushort*", &pwVal := 0, "HRESULT")
+        return pwVal
     }
 }

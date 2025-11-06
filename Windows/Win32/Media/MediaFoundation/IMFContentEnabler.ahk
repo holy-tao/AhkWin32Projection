@@ -32,13 +32,13 @@ class IMFContentEnabler extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pType 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcontentenabler-getenabletype
      */
-    GetEnableType(pType) {
+    GetEnableType() {
+        pType := Guid()
         result := ComCall(3, this, "ptr", pType, "HRESULT")
-        return result
+        return pType
     }
 
     /**
@@ -50,10 +50,11 @@ class IMFContentEnabler extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcontentenabler-getenableurl
      */
     GetEnableURL(ppwszURL, pcchURL, pTrustStatus) {
+        ppwszURLMarshal := ppwszURL is VarRef ? "ptr*" : "ptr"
         pcchURLMarshal := pcchURL is VarRef ? "uint*" : "ptr"
         pTrustStatusMarshal := pTrustStatus is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", ppwszURL, pcchURLMarshal, pcchURL, pTrustStatusMarshal, pTrustStatus, "HRESULT")
+        result := ComCall(4, this, ppwszURLMarshal, ppwszURL, pcchURLMarshal, pcchURL, pTrustStatusMarshal, pTrustStatus, "HRESULT")
         return result
     }
 
@@ -74,13 +75,12 @@ class IMFContentEnabler extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfAutomatic 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcontentenabler-isautomaticsupported
      */
-    IsAutomaticSupported(pfAutomatic) {
-        result := ComCall(6, this, "ptr", pfAutomatic, "HRESULT")
-        return result
+    IsAutomaticSupported() {
+        result := ComCall(6, this, "int*", &pfAutomatic := 0, "HRESULT")
+        return pfAutomatic
     }
 
     /**

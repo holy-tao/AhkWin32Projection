@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRTCProfile2.ahk
 #Include .\IRTCWatcher.ahk
 
 /**
@@ -30,23 +31,19 @@ class IRTCWatcher2 extends IRTCWatcher{
 
     /**
      * 
-     * @param {Pointer<IRTCProfile2>} ppProfile 
-     * @returns {HRESULT} 
+     * @returns {IRTCProfile2} 
      */
-    get_Profile(ppProfile) {
-        result := ComCall(13, this, "ptr*", ppProfile, "HRESULT")
-        return result
+    get_Profile() {
+        result := ComCall(13, this, "ptr*", &ppProfile := 0, "HRESULT")
+        return IRTCProfile2(ppProfile)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} penScope 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Scope(penScope) {
-        penScopeMarshal := penScope is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, penScopeMarshal, penScope, "HRESULT")
-        return result
+    get_Scope() {
+        result := ComCall(14, this, "int*", &penScope := 0, "HRESULT")
+        return penScope
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITextRangeProvider.ahk
 #Include .\ITextProvider.ahk
 
 /**
@@ -37,23 +38,21 @@ class ITextEditProvider extends ITextProvider{
 
     /**
      * 
-     * @param {Pointer<ITextRangeProvider>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {ITextRangeProvider} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itexteditprovider-getactivecomposition
      */
-    GetActiveComposition(pRetVal) {
-        result := ComCall(9, this, "ptr*", pRetVal, "HRESULT")
-        return result
+    GetActiveComposition() {
+        result := ComCall(9, this, "ptr*", &pRetVal := 0, "HRESULT")
+        return ITextRangeProvider(pRetVal)
     }
 
     /**
      * 
-     * @param {Pointer<ITextRangeProvider>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {ITextRangeProvider} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itexteditprovider-getconversiontarget
      */
-    GetConversionTarget(pRetVal) {
-        result := ComCall(10, this, "ptr*", pRetVal, "HRESULT")
-        return result
+    GetConversionTarget() {
+        result := ComCall(10, this, "ptr*", &pRetVal := 0, "HRESULT")
+        return ITextRangeProvider(pRetVal)
     }
 }

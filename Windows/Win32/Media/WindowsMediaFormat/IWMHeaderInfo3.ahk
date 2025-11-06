@@ -38,15 +38,12 @@ class IWMHeaderInfo3 extends IWMHeaderInfo2{
     /**
      * 
      * @param {Integer} wStreamNum 
-     * @param {Pointer<Integer>} pcAttributes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo3-getattributecountex
      */
-    GetAttributeCountEx(wStreamNum, pcAttributes) {
-        pcAttributesMarshal := pcAttributes is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(17, this, "ushort", wStreamNum, pcAttributesMarshal, pcAttributes, "HRESULT")
-        return result
+    GetAttributeCountEx(wStreamNum) {
+        result := ComCall(17, this, "ushort", wStreamNum, "ushort*", &pcAttributes := 0, "HRESULT")
+        return pcAttributes
     }
 
     /**
@@ -54,20 +51,18 @@ class IWMHeaderInfo3 extends IWMHeaderInfo2{
      * @param {Integer} wStreamNum 
      * @param {PWSTR} pwszName 
      * @param {Pointer<Integer>} pwLangIndex 
-     * @param {Pointer<Integer>} pwIndices 
      * @param {Pointer<Integer>} pwCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo3-getattributeindices
      */
-    GetAttributeIndices(wStreamNum, pwszName, pwLangIndex, pwIndices, pwCount) {
+    GetAttributeIndices(wStreamNum, pwszName, pwLangIndex, pwCount) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
         pwLangIndexMarshal := pwLangIndex is VarRef ? "ushort*" : "ptr"
-        pwIndicesMarshal := pwIndices is VarRef ? "ushort*" : "ptr"
         pwCountMarshal := pwCount is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(18, this, "ushort", wStreamNum, "ptr", pwszName, pwLangIndexMarshal, pwLangIndex, pwIndicesMarshal, pwIndices, pwCountMarshal, pwCount, "HRESULT")
-        return result
+        result := ComCall(18, this, "ushort", wStreamNum, "ptr", pwszName, pwLangIndexMarshal, pwLangIndex, "ushort*", &pwIndices := 0, pwCountMarshal, pwCount, "HRESULT")
+        return pwIndices
     }
 
     /**
@@ -118,22 +113,20 @@ class IWMHeaderInfo3 extends IWMHeaderInfo2{
      * 
      * @param {Integer} wStreamNum 
      * @param {PWSTR} pszName 
-     * @param {Pointer<Integer>} pwIndex 
      * @param {Integer} Type 
      * @param {Integer} wLangIndex 
      * @param {Pointer<Integer>} pValue 
      * @param {Integer} dwLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo3-addattribute
      */
-    AddAttribute(wStreamNum, pszName, pwIndex, Type, wLangIndex, pValue, dwLength) {
+    AddAttribute(wStreamNum, pszName, Type, wLangIndex, pValue, dwLength) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        pwIndexMarshal := pwIndex is VarRef ? "ushort*" : "ptr"
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
 
-        result := ComCall(21, this, "ushort", wStreamNum, "ptr", pszName, pwIndexMarshal, pwIndex, "int", Type, "ushort", wLangIndex, pValueMarshal, pValue, "uint", dwLength, "HRESULT")
-        return result
+        result := ComCall(21, this, "ushort", wStreamNum, "ptr", pszName, "ushort*", &pwIndex := 0, "int", Type, "ushort", wLangIndex, pValueMarshal, pValue, "uint", dwLength, "HRESULT")
+        return pwIndex
     }
 
     /**

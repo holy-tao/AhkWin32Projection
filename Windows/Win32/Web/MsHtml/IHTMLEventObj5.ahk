@@ -43,12 +43,12 @@ class IHTMLEventObj5 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_url(p) {
+    get_url() {
+        p := BSTR()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -65,22 +65,21 @@ class IHTMLEventObj5 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_data(p) {
+    get_data() {
+        p := BSTR()
         result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_source(p) {
-        result := ComCall(11, this, "ptr*", p, "HRESULT")
-        return result
+    get_source() {
+        result := ComCall(11, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
@@ -97,12 +96,12 @@ class IHTMLEventObj5 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_origin(p) {
+    get_origin() {
+        p := BSTR()
         result := ComCall(13, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -117,11 +116,10 @@ class IHTMLEventObj5 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_issession(p) {
-        result := ComCall(15, this, "ptr", p, "HRESULT")
-        return result
+    get_issession() {
+        result := ComCall(15, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 }

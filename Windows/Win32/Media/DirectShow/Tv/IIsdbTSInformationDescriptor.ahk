@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,108 +33,87 @@ class IIsdbTSInformationDescriptor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbtsinformationdescriptor-gettag
      */
-    GetTag(pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(3, this, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetTag() {
+        result := ComCall(3, this, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbtsinformationdescriptor-getlength
      */
-    GetLength(pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetLength() {
+        result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbtsinformationdescriptor-getremotecontrolkeyid
      */
-    GetRemoteControlKeyId(pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(5, this, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetRemoteControlKeyId() {
+        result := ComCall(5, this, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
      * @param {Integer} convMode 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbtsinformationdescriptor-gettsnamew
      */
-    GetTSNameW(convMode, pbstrName) {
+    GetTSNameW(convMode) {
+        pbstrName := BSTR()
         result := ComCall(6, this, "int", convMode, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbtsinformationdescriptor-getcountofrecords
      */
-    GetCountOfRecords(pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(7, this, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetCountOfRecords() {
+        result := ComCall(7, this, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
      * @param {Integer} bRecordIndex 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbtsinformationdescriptor-getrecordtransmissiontypeinfo
      */
-    GetRecordTransmissionTypeInfo(bRecordIndex, pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(8, this, "char", bRecordIndex, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetRecordTransmissionTypeInfo(bRecordIndex) {
+        result := ComCall(8, this, "char", bRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
      * @param {Integer} bRecordIndex 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbtsinformationdescriptor-getrecordnumberofservices
      */
-    GetRecordNumberOfServices(bRecordIndex, pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(9, this, "char", bRecordIndex, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetRecordNumberOfServices(bRecordIndex) {
+        result := ComCall(9, this, "char", bRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
      * @param {Integer} bRecordIndex 
      * @param {Integer} bServiceIndex 
-     * @param {Pointer<Integer>} pdwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbtsinformationdescriptor-getrecordserviceidbyindex
      */
-    GetRecordServiceIdByIndex(bRecordIndex, bServiceIndex, pdwVal) {
-        pdwValMarshal := pdwVal is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(10, this, "char", bRecordIndex, "char", bServiceIndex, pdwValMarshal, pdwVal, "HRESULT")
-        return result
+    GetRecordServiceIdByIndex(bRecordIndex, bServiceIndex) {
+        result := ComCall(10, this, "char", bRecordIndex, "char", bServiceIndex, "ushort*", &pdwVal := 0, "HRESULT")
+        return pdwVal
     }
 }

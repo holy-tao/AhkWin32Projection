@@ -1,5 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\ID3D10Device.ahk
+#Include ..\Direct3D\ID3DBlob.ahk
+#Include .\ID3D10ShaderReflection.ahk
+#Include .\ID3D10StateBlock.ahk
+#Include .\ID3D10Effect.ahk
+#Include .\ID3D10EffectPool.ahk
+#Include .\ID3D10Device1.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D10
@@ -1535,22 +1542,19 @@ class Direct3D10 {
      * @param {Integer} SDKVersion Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Bit flag that indicates the version of the SDK. Should always be D3D10_SDK_VERSION.
-     * @param {Pointer<ID3D10Device>} ppDevice Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10device">ID3D10Device</a>**</b>
+     * @returns {ID3D10Device} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10device">ID3D10Device</a>**</b>
      * 
      * Address of a pointer to the device created (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10device">ID3D10Device Interface</a>).
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
-     * 
-     * This method returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
      * @see https://docs.microsoft.com/windows/win32/api//d3d10misc/nf-d3d10misc-d3d10createdevice
      */
-    static D3D10CreateDevice(pAdapter, DriverType, Software, Flags, SDKVersion, ppDevice) {
+    static D3D10CreateDevice(pAdapter, DriverType, Software, Flags, SDKVersion) {
         Software := Software is Win32Handle ? NumGet(Software, "ptr") : Software
 
-        result := DllCall("d3d10.dll\D3D10CreateDevice", "ptr", pAdapter, "int", DriverType, "ptr", Software, "uint", Flags, "uint", SDKVersion, "ptr*", ppDevice, "int")
+        result := DllCall("d3d10.dll\D3D10CreateDevice", "ptr", pAdapter, "int", DriverType, "ptr", Software, "uint", Flags, "uint", SDKVersion, "ptr*", &ppDevice := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ID3D10Device(ppDevice)
     }
 
     /**
@@ -1599,20 +1603,17 @@ class Direct3D10 {
      * @param {Pointer} NumBytes Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
      * 
      * Number of bytes in the blob.
-     * @param {Pointer<ID3DBlob>} ppBuffer Type: <b><a href="https://msdn.microsoft.com/d180fee0-1a69-4250-a0c4-d6e3754f063a">LPD3D10BLOB</a>*</b>
+     * @returns {ID3DBlob} Type: <b><a href="https://msdn.microsoft.com/d180fee0-1a69-4250-a0c4-d6e3754f063a">LPD3D10BLOB</a>*</b>
      * 
      * The address of a pointer to the buffer (see <a href="https://msdn.microsoft.com/d180fee0-1a69-4250-a0c4-d6e3754f063a">ID3D10Blob Interface</a>).
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
-     * 
-     * This method returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
      * @see https://docs.microsoft.com/windows/win32/api//d3d10misc/nf-d3d10misc-d3d10createblob
      */
-    static D3D10CreateBlob(NumBytes, ppBuffer) {
-        result := DllCall("d3d10.dll\D3D10CreateBlob", "ptr", NumBytes, "ptr*", ppBuffer, "int")
+    static D3D10CreateBlob(NumBytes) {
+        result := DllCall("d3d10.dll\D3D10CreateBlob", "ptr", NumBytes, "ptr*", &ppBuffer := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ID3DBlob(ppBuffer)
     }
 
     /**
@@ -1680,22 +1681,19 @@ class Direct3D10 {
      * @param {PSTR} pComments Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * The comment string at the top of the shader that identifies the shader constants and variables.
-     * @param {Pointer<ID3DBlob>} ppDisassembly Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/nn-d3dcommon-id3d10blob">ID3D10Blob</a>**</b>
+     * @returns {ID3DBlob} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/nn-d3dcommon-id3d10blob">ID3D10Blob</a>**</b>
      * 
      * Address of a buffer which contains the disassembled shader.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
-     * 
-     * Return value
      * @see https://docs.microsoft.com/windows/win32/api//d3d10shader/nf-d3d10shader-d3d10disassembleshader
      */
-    static D3D10DisassembleShader(pShader, BytecodeLength, EnableColorCode, pComments, ppDisassembly) {
+    static D3D10DisassembleShader(pShader, BytecodeLength, EnableColorCode, pComments) {
         pComments := pComments is String ? StrPtr(pComments) : pComments
 
-        result := DllCall("d3d10.dll\D3D10DisassembleShader", "ptr", pShader, "ptr", BytecodeLength, "int", EnableColorCode, "ptr", pComments, "ptr*", ppDisassembly, "int")
+        result := DllCall("d3d10.dll\D3D10DisassembleShader", "ptr", pShader, "ptr", BytecodeLength, "int", EnableColorCode, "ptr", pComments, "ptr*", &ppDisassembly := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ID3DBlob(ppDisassembly)
     }
 
     /**
@@ -1709,7 +1707,7 @@ class Direct3D10 {
      * @see https://docs.microsoft.com/windows/win32/api//d3d10shader/nf-d3d10shader-d3d10getpixelshaderprofile
      */
     static D3D10GetPixelShaderProfile(pDevice) {
-        result := DllCall("d3d10.dll\D3D10GetPixelShaderProfile", "ptr", pDevice, "char*")
+        result := DllCall("d3d10.dll\D3D10GetPixelShaderProfile", "ptr", pDevice, "ptr")
         return result
     }
 
@@ -1724,7 +1722,7 @@ class Direct3D10 {
      * @see https://docs.microsoft.com/windows/win32/api//d3d10shader/nf-d3d10shader-d3d10getvertexshaderprofile
      */
     static D3D10GetVertexShaderProfile(pDevice) {
-        result := DllCall("d3d10.dll\D3D10GetVertexShaderProfile", "ptr", pDevice, "char*")
+        result := DllCall("d3d10.dll\D3D10GetVertexShaderProfile", "ptr", pDevice, "ptr")
         return result
     }
 
@@ -1739,7 +1737,7 @@ class Direct3D10 {
      * @see https://docs.microsoft.com/windows/win32/api//d3d10shader/nf-d3d10shader-d3d10getgeometryshaderprofile
      */
     static D3D10GetGeometryShaderProfile(pDevice) {
-        result := DllCall("d3d10.dll\D3D10GetGeometryShaderProfile", "ptr", pDevice, "char*")
+        result := DllCall("d3d10.dll\D3D10GetGeometryShaderProfile", "ptr", pDevice, "ptr")
         return result
     }
 
@@ -1751,20 +1749,17 @@ class Direct3D10 {
      * @param {Pointer} BytecodeLength Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
      * 
      * Length of pShaderBytecode.
-     * @param {Pointer<ID3D10ShaderReflection>} ppReflector Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10shader/nn-d3d10shader-id3d10shaderreflection">ID3D10ShaderReflection</a>**</b>
+     * @returns {ID3D10ShaderReflection} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10shader/nn-d3d10shader-id3d10shaderreflection">ID3D10ShaderReflection</a>**</b>
      * 
      * Address of a reflection interface.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
-     * 
-     * Return value.
      * @see https://docs.microsoft.com/windows/win32/api//d3d10shader/nf-d3d10shader-d3d10reflectshader
      */
-    static D3D10ReflectShader(pShaderBytecode, BytecodeLength, ppReflector) {
-        result := DllCall("d3d10.dll\D3D10ReflectShader", "ptr", pShaderBytecode, "ptr", BytecodeLength, "ptr*", ppReflector, "int")
+    static D3D10ReflectShader(pShaderBytecode, BytecodeLength) {
+        result := DllCall("d3d10.dll\D3D10ReflectShader", "ptr", pShaderBytecode, "ptr", BytecodeLength, "ptr*", &ppReflector := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ID3D10ShaderReflection(ppReflector)
     }
 
     /**
@@ -1815,20 +1810,17 @@ class Direct3D10 {
      * @param {Pointer} BytecodeLength Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
      * 
      * The size of the shader bytecode in bytes.
-     * @param {Pointer<ID3DBlob>} ppSignatureBlob Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/nn-d3dcommon-id3d10blob">ID3D10Blob</a>**</b>
+     * @returns {ID3DBlob} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/nn-d3dcommon-id3d10blob">ID3D10Blob</a>**</b>
      * 
      * The address of a pointer to the buffer (see <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/nn-d3dcommon-id3d10blob">ID3D10Blob Interface</a>).
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
-     * 
-     * This method returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
      * @see https://docs.microsoft.com/windows/win32/api//d3d10shader/nf-d3d10shader-d3d10getinputsignatureblob
      */
-    static D3D10GetInputSignatureBlob(pShaderBytecode, BytecodeLength, ppSignatureBlob) {
-        result := DllCall("d3d10.dll\D3D10GetInputSignatureBlob", "ptr", pShaderBytecode, "ptr", BytecodeLength, "ptr*", ppSignatureBlob, "int")
+    static D3D10GetInputSignatureBlob(pShaderBytecode, BytecodeLength) {
+        result := DllCall("d3d10.dll\D3D10GetInputSignatureBlob", "ptr", pShaderBytecode, "ptr", BytecodeLength, "ptr*", &ppSignatureBlob := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ID3DBlob(ppSignatureBlob)
     }
 
     /**
@@ -1839,20 +1831,17 @@ class Direct3D10 {
      * @param {Pointer} BytecodeLength Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
      * 
      * The size of the shader bytecode in bytes.
-     * @param {Pointer<ID3DBlob>} ppSignatureBlob Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/nn-d3dcommon-id3d10blob">ID3D10Blob</a>**</b>
+     * @returns {ID3DBlob} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/nn-d3dcommon-id3d10blob">ID3D10Blob</a>**</b>
      * 
      * The address of a pointer to the buffer (see <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/nn-d3dcommon-id3d10blob">ID3D10Blob Interface</a>).
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
-     * 
-     * This method returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
      * @see https://docs.microsoft.com/windows/win32/api//d3d10shader/nf-d3d10shader-d3d10getoutputsignatureblob
      */
-    static D3D10GetOutputSignatureBlob(pShaderBytecode, BytecodeLength, ppSignatureBlob) {
-        result := DllCall("d3d10.dll\D3D10GetOutputSignatureBlob", "ptr", pShaderBytecode, "ptr", BytecodeLength, "ptr*", ppSignatureBlob, "int")
+    static D3D10GetOutputSignatureBlob(pShaderBytecode, BytecodeLength) {
+        result := DllCall("d3d10.dll\D3D10GetOutputSignatureBlob", "ptr", pShaderBytecode, "ptr", BytecodeLength, "ptr*", &ppSignatureBlob := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ID3DBlob(ppSignatureBlob)
     }
 
     /**
@@ -1863,20 +1852,17 @@ class Direct3D10 {
      * @param {Pointer} BytecodeLength Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
      * 
      * The size of the shader bytecode in bytes.
-     * @param {Pointer<ID3DBlob>} ppSignatureBlob Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/nn-d3dcommon-id3d10blob">ID3D10Blob</a>**</b>
+     * @returns {ID3DBlob} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/nn-d3dcommon-id3d10blob">ID3D10Blob</a>**</b>
      * 
      * The address of a pointer to the buffer (see <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/nn-d3dcommon-id3d10blob">ID3D10Blob Interface</a>).
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
-     * 
-     * This method returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
      * @see https://docs.microsoft.com/windows/win32/api//d3d10shader/nf-d3d10shader-d3d10getinputandoutputsignatureblob
      */
-    static D3D10GetInputAndOutputSignatureBlob(pShaderBytecode, BytecodeLength, ppSignatureBlob) {
-        result := DllCall("d3d10.dll\D3D10GetInputAndOutputSignatureBlob", "ptr", pShaderBytecode, "ptr", BytecodeLength, "ptr*", ppSignatureBlob, "int")
+    static D3D10GetInputAndOutputSignatureBlob(pShaderBytecode, BytecodeLength) {
+        result := DllCall("d3d10.dll\D3D10GetInputAndOutputSignatureBlob", "ptr", pShaderBytecode, "ptr", BytecodeLength, "ptr*", &ppSignatureBlob := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ID3DBlob(ppSignatureBlob)
     }
 
     /**
@@ -1887,20 +1873,17 @@ class Direct3D10 {
      * @param {Pointer} BytecodeLength Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">SIZE_T</a></b>
      * 
      * Length of the shader bytecode buffer.
-     * @param {Pointer<ID3DBlob>} ppDebugInfo Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/nn-d3dcommon-id3d10blob">ID3D10Blob</a>**</b>
+     * @returns {ID3DBlob} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/nn-d3dcommon-id3d10blob">ID3D10Blob</a>**</b>
      * 
      * Pointer to an <a href="https://docs.microsoft.com/windows/win32/api/d3d10_1shader/ns-d3d10_1shader-d3d10_shader_debug_info">ID3D10Blob Interface</a> used to return debug info.  For information about the layout of this buffer, see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10_1shader/ns-d3d10_1shader-d3d10_shader_debug_info">D3D10_SHADER_DEBUG_INFO</a>.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
-     * 
-     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
      * @see https://docs.microsoft.com/windows/win32/api//d3d10shader/nf-d3d10shader-d3d10getshaderdebuginfo
      */
-    static D3D10GetShaderDebugInfo(pShaderBytecode, BytecodeLength, ppDebugInfo) {
-        result := DllCall("d3d10.dll\D3D10GetShaderDebugInfo", "ptr", pShaderBytecode, "ptr", BytecodeLength, "ptr*", ppDebugInfo, "int")
+    static D3D10GetShaderDebugInfo(pShaderBytecode, BytecodeLength) {
+        result := DllCall("d3d10.dll\D3D10GetShaderDebugInfo", "ptr", pShaderBytecode, "ptr", BytecodeLength, "ptr*", &ppDebugInfo := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ID3DBlob(ppDebugInfo)
     }
 
     /**
@@ -2094,20 +2077,17 @@ class Direct3D10 {
      * @param {Pointer<D3D10_STATE_BLOCK_MASK>} pStateBlockMask Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/ns-d3d10effect-d3d10_state_block_mask">D3D10_STATE_BLOCK_MASK</a>*</b>
      * 
      * Indicates which parts of the device state will be captured when calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/nf-d3d10effect-id3d10stateblock-capture">ID3D10StateBlock::Capture</a> and reapplied when calling <a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/nf-d3d10effect-id3d10stateblock-apply">ID3D10StateBlock::Apply</a>. See remarks.
-     * @param {Pointer<ID3D10StateBlock>} ppStateBlock Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10stateblock">ID3D10StateBlock</a>**</b>
+     * @returns {ID3D10StateBlock} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10stateblock">ID3D10StateBlock</a>**</b>
      * 
      * Address of a pointer to the buffer created (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10stateblock">ID3D10StateBlock Interface</a>).
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
-     * 
-     * This method returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
      * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-d3d10createstateblock
      */
-    static D3D10CreateStateBlock(pDevice, pStateBlockMask, ppStateBlock) {
-        result := DllCall("d3d10.dll\D3D10CreateStateBlock", "ptr", pDevice, "ptr", pStateBlockMask, "ptr*", ppStateBlock, "int")
+    static D3D10CreateStateBlock(pDevice, pStateBlockMask) {
+        result := DllCall("d3d10.dll\D3D10CreateStateBlock", "ptr", pDevice, "ptr", pStateBlockMask, "ptr*", &ppStateBlock := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ID3D10StateBlock(ppStateBlock)
     }
 
     /**
@@ -2171,20 +2151,17 @@ class Direct3D10 {
      * @param {ID3D10EffectPool} pEffectPool Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectpool">ID3D10EffectPool</a>*</b>
      * 
      * Optional. A pointer to an memory space for effect variables that are shared across effects (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectpool">ID3D10EffectPool Interface</a>).
-     * @param {Pointer<ID3D10Effect>} ppEffect Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effect">ID3D10Effect</a>**</b>
+     * @returns {ID3D10Effect} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effect">ID3D10Effect</a>**</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effect">ID3D10Effect Interface</a> which contains the created effect.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
-     * 
-     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
      * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-d3d10createeffectfrommemory
      */
-    static D3D10CreateEffectFromMemory(pData, DataLength, FXFlags, pDevice, pEffectPool, ppEffect) {
-        result := DllCall("d3d10.dll\D3D10CreateEffectFromMemory", "ptr", pData, "ptr", DataLength, "uint", FXFlags, "ptr", pDevice, "ptr", pEffectPool, "ptr*", ppEffect, "int")
+    static D3D10CreateEffectFromMemory(pData, DataLength, FXFlags, pDevice, pEffectPool) {
+        result := DllCall("d3d10.dll\D3D10CreateEffectFromMemory", "ptr", pData, "ptr", DataLength, "uint", FXFlags, "ptr", pDevice, "ptr", pEffectPool, "ptr*", &ppEffect := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ID3D10Effect(ppEffect)
     }
 
     /**
@@ -2201,20 +2178,17 @@ class Direct3D10 {
      * @param {ID3D10Device} pDevice Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10device">ID3D10Device</a>*</b>
      * 
      * A pointer to the device (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10device">ID3D10Device Interface</a>).
-     * @param {Pointer<ID3D10EffectPool>} ppEffectPool Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectpool">ID3D10EffectPool</a>**</b>
+     * @returns {ID3D10EffectPool} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectpool">ID3D10EffectPool</a>**</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectpool">ID3D10EffectPool Interface</a> that contains the effect pool.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
-     * 
-     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
      * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-d3d10createeffectpoolfrommemory
      */
-    static D3D10CreateEffectPoolFromMemory(pData, DataLength, FXFlags, pDevice, ppEffectPool) {
-        result := DllCall("d3d10.dll\D3D10CreateEffectPoolFromMemory", "ptr", pData, "ptr", DataLength, "uint", FXFlags, "ptr", pDevice, "ptr*", ppEffectPool, "int")
+    static D3D10CreateEffectPoolFromMemory(pData, DataLength, FXFlags, pDevice) {
+        result := DllCall("d3d10.dll\D3D10CreateEffectPoolFromMemory", "ptr", pData, "ptr", DataLength, "uint", FXFlags, "ptr", pDevice, "ptr*", &ppEffectPool := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ID3D10EffectPool(ppEffectPool)
     }
 
     /**
@@ -2225,20 +2199,17 @@ class Direct3D10 {
      * @param {BOOL} EnableColorCode Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Include HTML tags in the output to color code the result.
-     * @param {Pointer<ID3DBlob>} ppDisassembly Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/nn-d3dcommon-id3d10blob">ID3D10Blob</a>**</b>
+     * @returns {ID3DBlob} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/nn-d3dcommon-id3d10blob">ID3D10Blob</a>**</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/nn-d3dcommon-id3d10blob">ID3D10Blob Interface</a> which contains the disassembled shader.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
-     * 
-     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
      * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-d3d10disassembleeffect
      */
-    static D3D10DisassembleEffect(pEffect, EnableColorCode, ppDisassembly) {
-        result := DllCall("d3d10.dll\D3D10DisassembleEffect", "ptr", pEffect, "int", EnableColorCode, "ptr*", ppDisassembly, "int")
+    static D3D10DisassembleEffect(pEffect, EnableColorCode) {
+        result := DllCall("d3d10.dll\D3D10DisassembleEffect", "ptr", pEffect, "int", EnableColorCode, "ptr*", &ppDisassembly := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ID3DBlob(ppDisassembly)
     }
 
     /**
@@ -2264,22 +2235,19 @@ class Direct3D10 {
      * @param {Integer} SDKVersion Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Bit flag that indicates the version of the SDK. Should be D3D10_1_SDK_VERSION, defined in D3D10.h.
-     * @param {Pointer<ID3D10Device1>} ppDevice Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10_1/nn-d3d10_1-id3d10device1">ID3D10Device1</a>**</b>
+     * @returns {ID3D10Device1} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10_1/nn-d3d10_1-id3d10device1">ID3D10Device1</a>**</b>
      * 
      * Address of a pointer to the device created (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10_1/nn-d3d10_1-id3d10device1">ID3D10Device1 Interface</a>).
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
-     * 
-     * This method returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
      * @see https://docs.microsoft.com/windows/win32/api//d3d10_1/nf-d3d10_1-d3d10createdevice1
      */
-    static D3D10CreateDevice1(pAdapter, DriverType, Software, Flags, HardwareLevel, SDKVersion, ppDevice) {
+    static D3D10CreateDevice1(pAdapter, DriverType, Software, Flags, HardwareLevel, SDKVersion) {
         Software := Software is Win32Handle ? NumGet(Software, "ptr") : Software
 
-        result := DllCall("d3d10_1.dll\D3D10CreateDevice1", "ptr", pAdapter, "int", DriverType, "ptr", Software, "uint", Flags, "int", HardwareLevel, "uint", SDKVersion, "ptr*", ppDevice, "int")
+        result := DllCall("d3d10_1.dll\D3D10CreateDevice1", "ptr", pAdapter, "int", DriverType, "ptr", Software, "uint", Flags, "int", HardwareLevel, "uint", SDKVersion, "ptr*", &ppDevice := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ID3D10Device1(ppDevice)
     }
 
     /**

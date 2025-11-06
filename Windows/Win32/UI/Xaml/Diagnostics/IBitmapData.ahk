@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\BitmapDescription.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -49,36 +50,33 @@ class IBitmapData extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pStride 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ibitmapdata-getstride
      */
-    GetStride(pStride) {
-        pStrideMarshal := pStride is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pStrideMarshal, pStride, "HRESULT")
-        return result
+    GetStride() {
+        result := ComCall(4, this, "uint*", &pStride := 0, "HRESULT")
+        return pStride
     }
 
     /**
      * 
-     * @param {Pointer<BitmapDescription>} pBitmapDescription 
-     * @returns {HRESULT} 
+     * @returns {BitmapDescription} 
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ibitmapdata-getbitmapdescription
      */
-    GetBitmapDescription(pBitmapDescription) {
+    GetBitmapDescription() {
+        pBitmapDescription := BitmapDescription()
         result := ComCall(5, this, "ptr", pBitmapDescription, "HRESULT")
-        return result
+        return pBitmapDescription
     }
 
     /**
      * 
-     * @param {Pointer<BitmapDescription>} pBitmapDescription 
-     * @returns {HRESULT} 
+     * @returns {BitmapDescription} 
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ibitmapdata-getsourcebitmapdescription
      */
-    GetSourceBitmapDescription(pBitmapDescription) {
+    GetSourceBitmapDescription() {
+        pBitmapDescription := BitmapDescription()
         result := ComCall(6, this, "ptr", pBitmapDescription, "HRESULT")
-        return result
+        return pBitmapDescription
     }
 }

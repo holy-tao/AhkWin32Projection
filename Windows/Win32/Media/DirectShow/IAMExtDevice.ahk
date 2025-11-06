@@ -58,24 +58,22 @@ class IAMExtDevice extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszData 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamextdevice-get_externaldeviceid
      */
-    get_ExternalDeviceID(ppszData) {
-        result := ComCall(4, this, "ptr", ppszData, "HRESULT")
-        return result
+    get_ExternalDeviceID() {
+        result := ComCall(4, this, "ptr*", &ppszData := 0, "HRESULT")
+        return ppszData
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszData 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamextdevice-get_externaldeviceversion
      */
-    get_ExternalDeviceVersion(ppszData) {
-        result := ComCall(5, this, "ptr", ppszData, "HRESULT")
-        return result
+    get_ExternalDeviceVersion() {
+        result := ComCall(5, this, "ptr*", &ppszData := 0, "HRESULT")
+        return ppszData
     }
 
     /**
@@ -91,30 +89,24 @@ class IAMExtDevice extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pPowerMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamextdevice-get_devicepower
      */
-    get_DevicePower(pPowerMode) {
-        pPowerModeMarshal := pPowerMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pPowerModeMarshal, pPowerMode, "HRESULT")
-        return result
+    get_DevicePower() {
+        result := ComCall(7, this, "int*", &pPowerMode := 0, "HRESULT")
+        return pPowerMode
     }
 
     /**
      * 
      * @param {Pointer} hEvent 
      * @param {Integer} Mode 
-     * @param {Pointer<Integer>} pStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamextdevice-calibrate
      */
-    Calibrate(hEvent, Mode, pStatus) {
-        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, "ptr", hEvent, "int", Mode, pStatusMarshal, pStatus, "HRESULT")
-        return result
+    Calibrate(hEvent, Mode) {
+        result := ComCall(8, this, "ptr", hEvent, "int", Mode, "int*", &pStatus := 0, "HRESULT")
+        return pStatus
     }
 
     /**
@@ -130,14 +122,11 @@ class IAMExtDevice extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pDevicePort 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamextdevice-get_deviceport
      */
-    get_DevicePort(pDevicePort) {
-        pDevicePortMarshal := pDevicePort is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, pDevicePortMarshal, pDevicePort, "HRESULT")
-        return result
+    get_DevicePort() {
+        result := ComCall(10, this, "int*", &pDevicePort := 0, "HRESULT")
+        return pDevicePort
     }
 }

@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumPins.ahk
+#Include .\IPin.ahk
+#Include .\FILTER_INFO.ahk
 #Include .\IMediaFilter.ahk
 
 /**
@@ -32,38 +35,36 @@ class IBaseFilter extends IMediaFilter{
 
     /**
      * 
-     * @param {Pointer<IEnumPins>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumPins} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ibasefilter-enumpins
      */
-    EnumPins(ppEnum) {
-        result := ComCall(10, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumPins() {
+        result := ComCall(10, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumPins(ppEnum)
     }
 
     /**
      * 
      * @param {PWSTR} Id 
-     * @param {Pointer<IPin>} ppPin 
-     * @returns {HRESULT} 
+     * @returns {IPin} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ibasefilter-findpin
      */
-    FindPin(Id, ppPin) {
+    FindPin(Id) {
         Id := Id is String ? StrPtr(Id) : Id
 
-        result := ComCall(11, this, "ptr", Id, "ptr*", ppPin, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", Id, "ptr*", &ppPin := 0, "HRESULT")
+        return IPin(ppPin)
     }
 
     /**
      * 
-     * @param {Pointer<FILTER_INFO>} pInfo 
-     * @returns {HRESULT} 
+     * @returns {FILTER_INFO} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ibasefilter-queryfilterinfo
      */
-    QueryFilterInfo(pInfo) {
+    QueryFilterInfo() {
+        pInfo := FILTER_INFO()
         result := ComCall(12, this, "ptr", pInfo, "HRESULT")
-        return result
+        return pInfo
     }
 
     /**
@@ -82,12 +83,11 @@ class IBaseFilter extends IMediaFilter{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pVendorInfo 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ibasefilter-queryvendorinfo
      */
-    QueryVendorInfo(pVendorInfo) {
-        result := ComCall(14, this, "ptr", pVendorInfo, "HRESULT")
-        return result
+    QueryVendorInfo() {
+        result := ComCall(14, this, "ptr*", &pVendorInfo := 0, "HRESULT")
+        return pVendorInfo
     }
 }

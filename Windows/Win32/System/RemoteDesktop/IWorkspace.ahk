@@ -39,15 +39,12 @@ class IWorkspace extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} psaWkspNames 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/workspaceruntime/nf-workspaceruntime-iworkspace-getworkspacenames
      */
-    GetWorkspaceNames(psaWkspNames) {
-        psaWkspNamesMarshal := psaWkspNames is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, psaWkspNamesMarshal, psaWkspNames, "HRESULT")
-        return result
+    GetWorkspaceNames() {
+        result := ComCall(3, this, "ptr*", &psaWkspNames := 0, "HRESULT")
+        return psaWkspNames
     }
 
     /**
@@ -66,17 +63,11 @@ class IWorkspace extends IUnknown{
 
     /**
      * Retrieves the process identifier of the specified process.
-     * @param {Pointer<Integer>} pulProcessId 
-     * @returns {HRESULT} If the function succeeds, the return value is the process identifier.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getprocessid
      */
-    GetProcessId(pulProcessId) {
-        pulProcessIdMarshal := pulProcessId is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pulProcessIdMarshal, pulProcessId, "HRESULT")
-        return result
+    GetProcessId() {
+        result := ComCall(5, this, "uint*", &pulProcessId := 0, "HRESULT")
+        return pulProcessId
     }
 }

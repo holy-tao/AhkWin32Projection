@@ -52,12 +52,11 @@ class IContextMenu3 extends IContextMenu2{
      * @param {Integer} uMsg 
      * @param {WPARAM} wParam 
      * @param {LPARAM} lParam 
-     * @param {Pointer<LRESULT>} plResult 
-     * @returns {HRESULT} 
+     * @returns {LRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icontextmenu3-handlemenumsg2
      */
-    HandleMenuMsg2(uMsg, wParam, lParam, plResult) {
-        result := ComCall(7, this, "uint", uMsg, "ptr", wParam, "ptr", lParam, "ptr", plResult, "HRESULT")
-        return result
+    HandleMenuMsg2(uMsg, wParam, lParam) {
+        result := ComCall(7, this, "uint", uMsg, "ptr", wParam, "ptr", lParam, "ptr*", &plResult := 0, "HRESULT")
+        return plResult
     }
 }

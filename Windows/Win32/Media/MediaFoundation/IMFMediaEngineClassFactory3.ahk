@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IMFMediaKeySystemAccess.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -34,13 +35,12 @@ class IMFMediaEngineClassFactory3 extends IUnknown{
      * @param {BSTR} keySystem 
      * @param {Pointer<IPropertyStore>} ppSupportedConfigurationsArray 
      * @param {Integer} uSize 
-     * @param {Pointer<IMFMediaKeySystemAccess>} ppKeyAccess 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaKeySystemAccess} 
      */
-    CreateMediaKeySystemAccess(keySystem, ppSupportedConfigurationsArray, uSize, ppKeyAccess) {
+    CreateMediaKeySystemAccess(keySystem, ppSupportedConfigurationsArray, uSize) {
         keySystem := keySystem is String ? BSTR.Alloc(keySystem).Value : keySystem
 
-        result := ComCall(3, this, "ptr", keySystem, "ptr*", ppSupportedConfigurationsArray, "uint", uSize, "ptr*", ppKeyAccess, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", keySystem, "ptr*", ppSupportedConfigurationsArray, "uint", uSize, "ptr*", &ppKeyAccess := 0, "HRESULT")
+        return IMFMediaKeySystemAccess(ppKeyAccess)
     }
 }

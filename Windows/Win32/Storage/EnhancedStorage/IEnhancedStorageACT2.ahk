@@ -32,23 +32,21 @@ class IEnhancedStorageACT2 extends IEnhancedStorageACT{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppwszDeviceName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienhancedstorageact2-getdevicename
      */
-    GetDeviceName(ppwszDeviceName) {
-        result := ComCall(9, this, "ptr", ppwszDeviceName, "HRESULT")
-        return result
+    GetDeviceName() {
+        result := ComCall(9, this, "ptr*", &ppwszDeviceName := 0, "HRESULT")
+        return ppwszDeviceName
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pIsDeviceRemovable 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienhancedstorageact2-isdeviceremovable
      */
-    IsDeviceRemovable(pIsDeviceRemovable) {
-        result := ComCall(10, this, "ptr", pIsDeviceRemovable, "HRESULT")
-        return result
+    IsDeviceRemovable() {
+        result := ComCall(10, this, "int*", &pIsDeviceRemovable := 0, "HRESULT")
+        return pIsDeviceRemovable
     }
 }

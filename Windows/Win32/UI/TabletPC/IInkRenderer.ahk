@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IInkRectangle.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -165,26 +166,24 @@ class IInkRenderer extends IDispatch{
     /**
      * 
      * @param {IInkStrokes} Strokes 
-     * @param {Pointer<IInkRectangle>} Rectangle 
-     * @returns {HRESULT} 
+     * @returns {IInkRectangle} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrenderer-measure
      */
-    Measure(Strokes, Rectangle) {
-        result := ComCall(17, this, "ptr", Strokes, "ptr*", Rectangle, "HRESULT")
-        return result
+    Measure(Strokes) {
+        result := ComCall(17, this, "ptr", Strokes, "ptr*", &Rectangle := 0, "HRESULT")
+        return IInkRectangle(Rectangle)
     }
 
     /**
      * 
      * @param {IInkStrokeDisp} Stroke 
      * @param {IInkDrawingAttributes} DrawingAttributes 
-     * @param {Pointer<IInkRectangle>} Rectangle 
-     * @returns {HRESULT} 
+     * @returns {IInkRectangle} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrenderer-measurestroke
      */
-    MeasureStroke(Stroke, DrawingAttributes, Rectangle) {
-        result := ComCall(18, this, "ptr", Stroke, "ptr", DrawingAttributes, "ptr*", Rectangle, "HRESULT")
-        return result
+    MeasureStroke(Stroke, DrawingAttributes) {
+        result := ComCall(18, this, "ptr", Stroke, "ptr", DrawingAttributes, "ptr*", &Rectangle := 0, "HRESULT")
+        return IInkRectangle(Rectangle)
     }
 
     /**

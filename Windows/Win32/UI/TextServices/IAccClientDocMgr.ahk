@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IEnumUnknown.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -38,52 +39,48 @@ class IAccClientDocMgr extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumUnknown>} enumUnknown 
-     * @returns {HRESULT} 
+     * @returns {IEnumUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-iaccclientdocmgr-getdocuments
      */
-    GetDocuments(enumUnknown) {
-        result := ComCall(3, this, "ptr*", enumUnknown, "HRESULT")
-        return result
+    GetDocuments() {
+        result := ComCall(3, this, "ptr*", &enumUnknown := 0, "HRESULT")
+        return IEnumUnknown(enumUnknown)
     }
 
     /**
      * 
      * @param {HWND} hWnd 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppunk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-iaccclientdocmgr-lookupbyhwnd
      */
-    LookupByHWND(hWnd, riid, ppunk) {
+    LookupByHWND(hWnd, riid) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
-        result := ComCall(4, this, "ptr", hWnd, "ptr", riid, "ptr*", ppunk, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", hWnd, "ptr", riid, "ptr*", &ppunk := 0, "HRESULT")
+        return IUnknown(ppunk)
     }
 
     /**
      * 
      * @param {POINT} pt 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppunk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-iaccclientdocmgr-lookupbypoint
      */
-    LookupByPoint(pt, riid, ppunk) {
-        result := ComCall(5, this, "ptr", pt, "ptr", riid, "ptr*", ppunk, "HRESULT")
-        return result
+    LookupByPoint(pt, riid) {
+        result := ComCall(5, this, "ptr", pt, "ptr", riid, "ptr*", &ppunk := 0, "HRESULT")
+        return IUnknown(ppunk)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppunk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-iaccclientdocmgr-getfocused
      */
-    GetFocused(riid, ppunk) {
-        result := ComCall(6, this, "ptr", riid, "ptr*", ppunk, "HRESULT")
-        return result
+    GetFocused(riid) {
+        result := ComCall(6, this, "ptr", riid, "ptr*", &ppunk := 0, "HRESULT")
+        return IUnknown(ppunk)
     }
 }

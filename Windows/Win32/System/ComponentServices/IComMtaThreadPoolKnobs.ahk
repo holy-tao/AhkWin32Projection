@@ -40,14 +40,11 @@ class IComMtaThreadPoolKnobs extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwMaxThreads 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    MTAGetMaxThreadCount(pdwMaxThreads) {
-        pdwMaxThreadsMarshal := pdwMaxThreads is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pdwMaxThreadsMarshal, pdwMaxThreads, "HRESULT")
-        return result
+    MTAGetMaxThreadCount() {
+        result := ComCall(4, this, "uint*", &pdwMaxThreads := 0, "HRESULT")
+        return pdwMaxThreads
     }
 
     /**
@@ -62,13 +59,10 @@ class IComMtaThreadPoolKnobs extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwThrottle 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    MTAGetThrottleValue(pdwThrottle) {
-        pdwThrottleMarshal := pdwThrottle is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pdwThrottleMarshal, pdwThrottle, "HRESULT")
-        return result
+    MTAGetThrottleValue() {
+        result := ComCall(6, this, "uint*", &pdwThrottle := 0, "HRESULT")
+        return pdwThrottle
     }
 }

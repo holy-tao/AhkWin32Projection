@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISyncKnowledge2.ahk
 #Include .\ISyncKnowledge.ahk
+#Include ..\Com\IUnknown.ahk
 
 /**
  * Represents additional information about the knowledge that a replica has about its item store.
@@ -50,15 +52,14 @@ class ISyncKnowledge2 extends ISyncKnowledge{
      * 
      * @param {Pointer<Pointer<Integer>>} ppColumns 
      * @param {Integer} count 
-     * @param {Pointer<ISyncKnowledge2>} ppiKnowledgeOut 
-     * @returns {HRESULT} 
+     * @returns {ISyncKnowledge2} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge2-projectontocolumnset
      */
-    ProjectOntoColumnSet(ppColumns, count, ppiKnowledgeOut) {
+    ProjectOntoColumnSet(ppColumns, count) {
         ppColumnsMarshal := ppColumns is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(28, this, ppColumnsMarshal, ppColumns, "uint", count, "ptr*", ppiKnowledgeOut, "HRESULT")
-        return result
+        result := ComCall(28, this, ppColumnsMarshal, ppColumns, "uint", count, "ptr*", &ppiKnowledgeOut := 0, "HRESULT")
+        return ISyncKnowledge2(ppiKnowledgeOut)
     }
 
     /**
@@ -169,25 +170,23 @@ class ISyncKnowledge2 extends ISyncKnowledge{
      * 
      * @param {ISyncKnowledge} pPrerequisiteKnowledge 
      * @param {ISyncKnowledge} pTemplateKnowledge 
-     * @param {Pointer<ISyncKnowledge>} ppProjectedKnowledge 
-     * @returns {HRESULT} 
+     * @returns {ISyncKnowledge} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge2-projectontoknowledgewithprerequisite
      */
-    ProjectOntoKnowledgeWithPrerequisite(pPrerequisiteKnowledge, pTemplateKnowledge, ppProjectedKnowledge) {
-        result := ComCall(36, this, "ptr", pPrerequisiteKnowledge, "ptr", pTemplateKnowledge, "ptr*", ppProjectedKnowledge, "HRESULT")
-        return result
+    ProjectOntoKnowledgeWithPrerequisite(pPrerequisiteKnowledge, pTemplateKnowledge) {
+        result := ComCall(36, this, "ptr", pPrerequisiteKnowledge, "ptr", pTemplateKnowledge, "ptr*", &ppProjectedKnowledge := 0, "HRESULT")
+        return ISyncKnowledge(ppProjectedKnowledge)
     }
 
     /**
      * 
      * @param {ISyncKnowledge} pSyncKnowledge 
-     * @param {Pointer<ISyncKnowledge>} ppComplementedKnowledge 
-     * @returns {HRESULT} 
+     * @returns {ISyncKnowledge} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge2-complement
      */
-    Complement(pSyncKnowledge, ppComplementedKnowledge) {
-        result := ComCall(37, this, "ptr", pSyncKnowledge, "ptr*", ppComplementedKnowledge, "HRESULT")
-        return result
+    Complement(pSyncKnowledge) {
+        result := ComCall(37, this, "ptr", pSyncKnowledge, "ptr*", &ppComplementedKnowledge := 0, "HRESULT")
+        return ISyncKnowledge(ppComplementedKnowledge)
     }
 
     /**
@@ -203,13 +202,12 @@ class ISyncKnowledge2 extends ISyncKnowledge{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppKnowledgeCookie 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncknowledge2-getknowledgecookie
      */
-    GetKnowledgeCookie(ppKnowledgeCookie) {
-        result := ComCall(39, this, "ptr*", ppKnowledgeCookie, "HRESULT")
-        return result
+    GetKnowledgeCookie() {
+        result := ComCall(39, this, "ptr*", &ppKnowledgeCookie := 0, "HRESULT")
+        return IUnknown(ppKnowledgeCookie)
     }
 
     /**

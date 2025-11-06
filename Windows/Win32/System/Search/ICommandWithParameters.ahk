@@ -48,14 +48,13 @@ class ICommandWithParameters extends IUnknown{
      * 
      * @param {Pointer} cParamNames 
      * @param {Pointer<PWSTR>} rgParamNames 
-     * @param {Pointer<Pointer>} rgParamOrdinals 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    MapParameterNames(cParamNames, rgParamNames, rgParamOrdinals) {
-        rgParamOrdinalsMarshal := rgParamOrdinals is VarRef ? "ptr*" : "ptr"
+    MapParameterNames(cParamNames, rgParamNames) {
+        rgParamNamesMarshal := rgParamNames is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", cParamNames, "ptr", rgParamNames, rgParamOrdinalsMarshal, rgParamOrdinals, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", cParamNames, rgParamNamesMarshal, rgParamNames, "ptr*", &rgParamOrdinals := 0, "HRESULT")
+        return rgParamOrdinals
     }
 
     /**

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\MLOperatorEdgeDescription.ahk
+#Include .\IMLOperatorTensorShapeDescription.ahk
 #Include .\IMLOperatorAttributes.ahk
 
 /**
@@ -69,23 +71,23 @@ class IMLOperatorKernelCreationContext extends IMLOperatorAttributes{
     /**
      * 
      * @param {Integer} inputIndex 
-     * @param {Pointer<MLOperatorEdgeDescription>} edgeDescription 
-     * @returns {HRESULT} 
+     * @returns {MLOperatorEdgeDescription} 
      */
-    GetInputEdgeDescription(inputIndex, edgeDescription) {
+    GetInputEdgeDescription(inputIndex) {
+        edgeDescription := MLOperatorEdgeDescription()
         result := ComCall(11, this, "uint", inputIndex, "ptr", edgeDescription, "HRESULT")
-        return result
+        return edgeDescription
     }
 
     /**
      * 
      * @param {Integer} outputIndex 
-     * @param {Pointer<MLOperatorEdgeDescription>} edgeDescription 
-     * @returns {HRESULT} 
+     * @returns {MLOperatorEdgeDescription} 
      */
-    GetOutputEdgeDescription(outputIndex, edgeDescription) {
+    GetOutputEdgeDescription(outputIndex) {
+        edgeDescription := MLOperatorEdgeDescription()
         result := ComCall(12, this, "uint", outputIndex, "ptr", edgeDescription, "HRESULT")
-        return result
+        return edgeDescription
     }
 
     /**
@@ -99,12 +101,11 @@ class IMLOperatorKernelCreationContext extends IMLOperatorAttributes{
 
     /**
      * 
-     * @param {Pointer<IMLOperatorTensorShapeDescription>} shapeDescription 
-     * @returns {HRESULT} 
+     * @returns {IMLOperatorTensorShapeDescription} 
      */
-    GetTensorShapeDescription(shapeDescription) {
-        result := ComCall(14, this, "ptr*", shapeDescription, "HRESULT")
-        return result
+    GetTensorShapeDescription() {
+        result := ComCall(14, this, "ptr*", &shapeDescription := 0, "HRESULT")
+        return IMLOperatorTensorShapeDescription(shapeDescription)
     }
 
     /**

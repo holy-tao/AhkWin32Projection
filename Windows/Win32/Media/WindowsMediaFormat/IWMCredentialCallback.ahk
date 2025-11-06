@@ -39,19 +39,16 @@ class IWMCredentialCallback extends IUnknown{
      * @param {PWSTR} pwszPassword 
      * @param {Integer} cchPassword 
      * @param {HRESULT} hrStatus 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmcredentialcallback-acquirecredentials
      */
-    AcquireCredentials(pwszRealm, pwszSite, pwszUser, cchUser, pwszPassword, cchPassword, hrStatus, pdwFlags) {
+    AcquireCredentials(pwszRealm, pwszSite, pwszUser, cchUser, pwszPassword, cchPassword, hrStatus) {
         pwszRealm := pwszRealm is String ? StrPtr(pwszRealm) : pwszRealm
         pwszSite := pwszSite is String ? StrPtr(pwszSite) : pwszSite
         pwszUser := pwszUser is String ? StrPtr(pwszUser) : pwszUser
         pwszPassword := pwszPassword is String ? StrPtr(pwszPassword) : pwszPassword
 
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pwszRealm, "ptr", pwszSite, "ptr", pwszUser, "uint", cchUser, "ptr", pwszPassword, "uint", cchPassword, "int", hrStatus, pdwFlagsMarshal, pdwFlags, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pwszRealm, "ptr", pwszSite, "ptr", pwszUser, "uint", cchUser, "ptr", pwszPassword, "uint", cchPassword, "int", hrStatus, "uint*", &pdwFlags := 0, "HRESULT")
+        return pdwFlags
     }
 }

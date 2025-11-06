@@ -52,13 +52,13 @@ class INetFwOpenPort extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-get_name
      */
-    get_Name(name) {
+    get_Name() {
+        name := BSTR()
         result := ComCall(7, this, "ptr", name, "HRESULT")
-        return result
+        return name
     }
 
     /**
@@ -76,15 +76,12 @@ class INetFwOpenPort extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} ipVersion 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-get_ipversion
      */
-    get_IpVersion(ipVersion) {
-        ipVersionMarshal := ipVersion is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, ipVersionMarshal, ipVersion, "HRESULT")
-        return result
+    get_IpVersion() {
+        result := ComCall(9, this, "int*", &ipVersion := 0, "HRESULT")
+        return ipVersion
     }
 
     /**
@@ -100,15 +97,12 @@ class INetFwOpenPort extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} ipProtocol 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-get_protocol
      */
-    get_Protocol(ipProtocol) {
-        ipProtocolMarshal := ipProtocol is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, ipProtocolMarshal, ipProtocol, "HRESULT")
-        return result
+    get_Protocol() {
+        result := ComCall(11, this, "int*", &ipProtocol := 0, "HRESULT")
+        return ipProtocol
     }
 
     /**
@@ -124,15 +118,12 @@ class INetFwOpenPort extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} portNumber 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-get_port
      */
-    get_Port(portNumber) {
-        portNumberMarshal := portNumber is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, portNumberMarshal, portNumber, "HRESULT")
-        return result
+    get_Port() {
+        result := ComCall(13, this, "int*", &portNumber := 0, "HRESULT")
+        return portNumber
     }
 
     /**
@@ -148,15 +139,12 @@ class INetFwOpenPort extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} scope 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-get_scope
      */
-    get_Scope(scope) {
-        scopeMarshal := scope is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, scopeMarshal, scope, "HRESULT")
-        return result
+    get_Scope() {
+        result := ComCall(15, this, "int*", &scope := 0, "HRESULT")
+        return scope
     }
 
     /**
@@ -172,13 +160,13 @@ class INetFwOpenPort extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} remoteAddrs 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-get_remoteaddresses
      */
-    get_RemoteAddresses(remoteAddrs) {
+    get_RemoteAddresses() {
+        remoteAddrs := BSTR()
         result := ComCall(17, this, "ptr", remoteAddrs, "HRESULT")
-        return result
+        return remoteAddrs
     }
 
     /**
@@ -196,13 +184,12 @@ class INetFwOpenPort extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} enabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-get_enabled
      */
-    get_Enabled(enabled) {
-        result := ComCall(19, this, "ptr", enabled, "HRESULT")
-        return result
+    get_Enabled() {
+        result := ComCall(19, this, "short*", &enabled := 0, "HRESULT")
+        return enabled
     }
 
     /**
@@ -218,12 +205,11 @@ class INetFwOpenPort extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} builtIn 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-get_builtin
      */
-    get_BuiltIn(builtIn) {
-        result := ComCall(21, this, "ptr", builtIn, "HRESULT")
-        return result
+    get_BuiltIn() {
+        result := ComCall(21, this, "short*", &builtIn := 0, "HRESULT")
+        return builtIn
     }
 }

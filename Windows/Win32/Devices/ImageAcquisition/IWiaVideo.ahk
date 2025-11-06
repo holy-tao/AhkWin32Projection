@@ -68,13 +68,12 @@ class IWiaVideo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbPreviewVisible 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wiavideo/nf-wiavideo-iwiavideo-get_previewvisible
      */
-    get_PreviewVisible(pbPreviewVisible) {
-        result := ComCall(3, this, "ptr", pbPreviewVisible, "HRESULT")
-        return result
+    get_PreviewVisible() {
+        result := ComCall(3, this, "int*", &pbPreviewVisible := 0, "HRESULT")
+        return pbPreviewVisible
     }
 
     /**
@@ -90,13 +89,13 @@ class IWiaVideo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrImageDirectory 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wiavideo/nf-wiavideo-iwiavideo-get_imagesdirectory
      */
-    get_ImagesDirectory(pbstrImageDirectory) {
+    get_ImagesDirectory() {
+        pbstrImageDirectory := BSTR()
         result := ComCall(5, this, "ptr", pbstrImageDirectory, "HRESULT")
-        return result
+        return pbstrImageDirectory
     }
 
     /**
@@ -194,13 +193,13 @@ class IWiaVideo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrNewImageFilename 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wiavideo/nf-wiavideo-iwiavideo-takepicture
      */
-    TakePicture(pbstrNewImageFilename) {
+    TakePicture() {
+        pbstrNewImageFilename := BSTR()
         result := ComCall(13, this, "ptr", pbstrNewImageFilename, "HRESULT")
-        return result
+        return pbstrNewImageFilename
     }
 
     /**
@@ -216,14 +215,11 @@ class IWiaVideo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wiavideo/nf-wiavideo-iwiavideo-getcurrentstate
      */
-    GetCurrentState(pState) {
-        pStateMarshal := pState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, pStateMarshal, pState, "HRESULT")
-        return result
+    GetCurrentState() {
+        result := ComCall(15, this, "int*", &pState := 0, "HRESULT")
+        return pState
     }
 }

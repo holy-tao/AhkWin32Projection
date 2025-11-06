@@ -42,12 +42,11 @@ class ID2D1ImageSource extends ID2D1Image{
 
     /**
      * 
-     * @param {Pointer<BOOL>} resourcesDiscarded 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1imagesource-tryreclaimresources
      */
-    TryReclaimResources(resourcesDiscarded) {
-        result := ComCall(5, this, "ptr", resourcesDiscarded, "HRESULT")
-        return result
+    TryReclaimResources() {
+        result := ComCall(5, this, "int*", &resourcesDiscarded := 0, "HRESULT")
+        return resourcesDiscarded
     }
 }

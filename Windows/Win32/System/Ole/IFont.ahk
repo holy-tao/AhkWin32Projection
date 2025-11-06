@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\CY.ahk
+#Include ..\..\Graphics\Gdi\HFONT.ahk
+#Include .\IFont.ahk
+#Include ..\..\Graphics\Gdi\TEXTMETRICW.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -162,13 +166,13 @@ class IFont extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-get_name
      */
-    get_Name(pName) {
+    get_Name() {
+        pName := BSTR()
         result := ComCall(3, this, "ptr", pName, "HRESULT")
-        return result
+        return pName
     }
 
     /**
@@ -186,13 +190,13 @@ class IFont extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<CY>} pSize 
-     * @returns {HRESULT} 
+     * @returns {CY} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-get_size
      */
-    get_Size(pSize) {
+    get_Size() {
+        pSize := CY()
         result := ComCall(5, this, "ptr", pSize, "HRESULT")
-        return result
+        return pSize
     }
 
     /**
@@ -208,13 +212,12 @@ class IFont extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pBold 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-get_bold
      */
-    get_Bold(pBold) {
-        result := ComCall(7, this, "ptr", pBold, "HRESULT")
-        return result
+    get_Bold() {
+        result := ComCall(7, this, "int*", &pBold := 0, "HRESULT")
+        return pBold
     }
 
     /**
@@ -230,13 +233,12 @@ class IFont extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pItalic 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-get_italic
      */
-    get_Italic(pItalic) {
-        result := ComCall(9, this, "ptr", pItalic, "HRESULT")
-        return result
+    get_Italic() {
+        result := ComCall(9, this, "int*", &pItalic := 0, "HRESULT")
+        return pItalic
     }
 
     /**
@@ -252,13 +254,12 @@ class IFont extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pUnderline 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-get_underline
      */
-    get_Underline(pUnderline) {
-        result := ComCall(11, this, "ptr", pUnderline, "HRESULT")
-        return result
+    get_Underline() {
+        result := ComCall(11, this, "int*", &pUnderline := 0, "HRESULT")
+        return pUnderline
     }
 
     /**
@@ -274,13 +275,12 @@ class IFont extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pStrikethrough 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-get_strikethrough
      */
-    get_Strikethrough(pStrikethrough) {
-        result := ComCall(13, this, "ptr", pStrikethrough, "HRESULT")
-        return result
+    get_Strikethrough() {
+        result := ComCall(13, this, "int*", &pStrikethrough := 0, "HRESULT")
+        return pStrikethrough
     }
 
     /**
@@ -296,15 +296,12 @@ class IFont extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pWeight 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-get_weight
      */
-    get_Weight(pWeight) {
-        pWeightMarshal := pWeight is VarRef ? "short*" : "ptr"
-
-        result := ComCall(15, this, pWeightMarshal, pWeight, "HRESULT")
-        return result
+    get_Weight() {
+        result := ComCall(15, this, "short*", &pWeight := 0, "HRESULT")
+        return pWeight
     }
 
     /**
@@ -320,15 +317,12 @@ class IFont extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pCharset 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-get_charset
      */
-    get_Charset(pCharset) {
-        pCharsetMarshal := pCharset is VarRef ? "short*" : "ptr"
-
-        result := ComCall(17, this, pCharsetMarshal, pCharset, "HRESULT")
-        return result
+    get_Charset() {
+        result := ComCall(17, this, "short*", &pCharset := 0, "HRESULT")
+        return pCharset
     }
 
     /**
@@ -344,24 +338,23 @@ class IFont extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HFONT>} phFont 
-     * @returns {HRESULT} 
+     * @returns {HFONT} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-get_hfont
      */
-    get_hFont(phFont) {
+    get_hFont() {
+        phFont := HFONT()
         result := ComCall(19, this, "ptr", phFont, "HRESULT")
-        return result
+        return phFont
     }
 
     /**
      * 
-     * @param {Pointer<IFont>} ppFont 
-     * @returns {HRESULT} 
+     * @returns {IFont} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-clone
      */
-    Clone(ppFont) {
-        result := ComCall(20, this, "ptr*", ppFont, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(20, this, "ptr*", &ppFont := 0, "HRESULT")
+        return IFont(ppFont)
     }
 
     /**
@@ -389,13 +382,13 @@ class IFont extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<TEXTMETRICW>} pTM 
-     * @returns {HRESULT} 
+     * @returns {TEXTMETRICW} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ifont-querytextmetrics
      */
-    QueryTextMetrics(pTM) {
+    QueryTextMetrics() {
+        pTM := TEXTMETRICW()
         result := ComCall(23, this, "ptr", pTM, "HRESULT")
-        return result
+        return pTM
     }
 
     /**

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IDxcBlob.ahk
+#Include .\IDxcBlobEncoding.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,31 +32,28 @@ class IDxcOperationResult extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HRESULT>} pStatus 
      * @returns {HRESULT} 
      */
-    GetStatus(pStatus) {
-        result := ComCall(3, this, "ptr", pStatus, "HRESULT")
-        return result
+    GetStatus() {
+        result := ComCall(3, this, "int*", &pStatus := 0, "HRESULT")
+        return pStatus
     }
 
     /**
      * 
-     * @param {Pointer<IDxcBlob>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {IDxcBlob} 
      */
-    GetResult(ppResult) {
-        result := ComCall(4, this, "ptr*", ppResult, "HRESULT")
-        return result
+    GetResult() {
+        result := ComCall(4, this, "ptr*", &ppResult := 0, "HRESULT")
+        return IDxcBlob(ppResult)
     }
 
     /**
      * 
-     * @param {Pointer<IDxcBlobEncoding>} ppErrors 
-     * @returns {HRESULT} 
+     * @returns {IDxcBlobEncoding} 
      */
-    GetErrorBuffer(ppErrors) {
-        result := ComCall(5, this, "ptr*", ppErrors, "HRESULT")
-        return result
+    GetErrorBuffer() {
+        result := ComCall(5, this, "ptr*", &ppErrors := 0, "HRESULT")
+        return IDxcBlobEncoding(ppErrors)
     }
 }

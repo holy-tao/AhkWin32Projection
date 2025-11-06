@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISyncMgrSyncCallback.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -43,14 +44,15 @@ class ISyncMgrSessionCreator extends IUnknown{
      * @param {PWSTR} pszHandlerID 
      * @param {Pointer<PWSTR>} ppszItemIDs 
      * @param {Integer} cItems 
-     * @param {Pointer<ISyncMgrSyncCallback>} ppCallback 
-     * @returns {HRESULT} 
+     * @returns {ISyncMgrSyncCallback} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsessioncreator-createsession
      */
-    CreateSession(pszHandlerID, ppszItemIDs, cItems, ppCallback) {
+    CreateSession(pszHandlerID, ppszItemIDs, cItems) {
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID
 
-        result := ComCall(3, this, "ptr", pszHandlerID, "ptr", ppszItemIDs, "uint", cItems, "ptr*", ppCallback, "HRESULT")
-        return result
+        ppszItemIDsMarshal := ppszItemIDs is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pszHandlerID, ppszItemIDsMarshal, ppszItemIDs, "uint", cItems, "ptr*", &ppCallback := 0, "HRESULT")
+        return ISyncMgrSyncCallback(ppCallback)
     }
 }

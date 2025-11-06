@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IBitsPeer.ahk
+#Include .\IEnumBitsPeers.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,16 +35,15 @@ class IEnumBitsPeers extends IUnknown{
     /**
      * 
      * @param {Integer} celt 
-     * @param {Pointer<IBitsPeer>} rgelt 
      * @param {Pointer<Integer>} pceltFetched 
-     * @returns {HRESULT} 
+     * @returns {IBitsPeer} 
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ienumbitspeers-next
      */
-    Next(celt, rgelt, pceltFetched) {
+    Next(celt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, "ptr*", rgelt, pceltFetchedMarshal, pceltFetched, "HRESULT")
-        return result
+        result := ComCall(3, this, "uint", celt, "ptr*", &rgelt := 0, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        return IBitsPeer(rgelt)
     }
 
     /**
@@ -68,25 +69,21 @@ class IEnumBitsPeers extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumBitsPeers>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IEnumBitsPeers} 
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ienumbitspeers-clone
      */
-    Clone(ppenum) {
-        result := ComCall(6, this, "ptr*", ppenum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")
+        return IEnumBitsPeers(ppenum)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} puCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ienumbitspeers-getcount
      */
-    GetCount(puCount) {
-        puCountMarshal := puCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, puCountMarshal, puCount, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(7, this, "uint*", &puCount := 0, "HRESULT")
+        return puCount
     }
 }

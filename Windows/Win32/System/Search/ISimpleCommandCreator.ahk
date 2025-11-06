@@ -32,14 +32,13 @@ class ISimpleCommandCreator extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppIUnknown 
      * @param {IUnknown} pOuterUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nf-indexsrv-isimplecommandcreator-createicommand
      */
-    CreateICommand(ppIUnknown, pOuterUnk) {
-        result := ComCall(3, this, "ptr*", ppIUnknown, "ptr", pOuterUnk, "HRESULT")
-        return result
+    CreateICommand(pOuterUnk) {
+        result := ComCall(3, this, "ptr*", &ppIUnknown := 0, "ptr", pOuterUnk, "HRESULT")
+        return IUnknown(ppIUnknown)
     }
 
     /**

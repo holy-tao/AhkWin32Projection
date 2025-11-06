@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISyncMgrHandlerInfo.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -36,69 +37,54 @@ class ISyncMgrHandler extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrhandler-getname
      */
-    GetName(ppszName) {
-        result := ComCall(3, this, "ptr", ppszName, "HRESULT")
-        return result
+    GetName() {
+        result := ComCall(3, this, "ptr*", &ppszName := 0, "HRESULT")
+        return ppszName
     }
 
     /**
      * 
-     * @param {Pointer<ISyncMgrHandlerInfo>} ppHandlerInfo 
-     * @returns {HRESULT} 
+     * @returns {ISyncMgrHandlerInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrhandler-gethandlerinfo
      */
-    GetHandlerInfo(ppHandlerInfo) {
-        result := ComCall(4, this, "ptr*", ppHandlerInfo, "HRESULT")
-        return result
+    GetHandlerInfo() {
+        result := ComCall(4, this, "ptr*", &ppHandlerInfo := 0, "HRESULT")
+        return ISyncMgrHandlerInfo(ppHandlerInfo)
     }
 
     /**
      * The GetObject function retrieves information for the specified graphics object.
      * @param {Pointer<Guid>} rguidObjectID 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} If the function succeeds, and <i>lpvObject</i> is a valid pointer, the return value is the number of bytes stored into the buffer.
-     * 
-     * If the function succeeds, and <i>lpvObject</i> is <b>NULL</b>, the return value is the number of bytes required to hold the information the function would store into the buffer.
-     * 
-     * If the function fails, the return value is zero.
+     * @returns {Pointer<Void>} 
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getobject
      */
-    GetObject(rguidObjectID, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, "ptr", rguidObjectID, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetObject(rguidObjectID, riid) {
+        result := ComCall(5, this, "ptr", rguidObjectID, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pmCapabilities 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrhandler-getcapabilities
      */
-    GetCapabilities(pmCapabilities) {
-        pmCapabilitiesMarshal := pmCapabilities is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, pmCapabilitiesMarshal, pmCapabilities, "HRESULT")
-        return result
+    GetCapabilities() {
+        result := ComCall(6, this, "int*", &pmCapabilities := 0, "HRESULT")
+        return pmCapabilities
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pmPolicies 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrhandler-getpolicies
      */
-    GetPolicies(pmPolicies) {
-        pmPoliciesMarshal := pmPolicies is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pmPoliciesMarshal, pmPolicies, "HRESULT")
-        return result
+    GetPolicies() {
+        result := ComCall(7, this, "int*", &pmPolicies := 0, "HRESULT")
+        return pmPolicies
     }
 
     /**
@@ -136,7 +122,9 @@ class ISyncMgrHandler extends IUnknown{
     Synchronize(ppszItemIDs, cItems, hwndOwner, pSessionCreator, punk) {
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
 
-        result := ComCall(10, this, "ptr", ppszItemIDs, "uint", cItems, "ptr", hwndOwner, "ptr", pSessionCreator, "ptr", punk, "HRESULT")
+        ppszItemIDsMarshal := ppszItemIDs is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(10, this, ppszItemIDsMarshal, ppszItemIDs, "uint", cItems, "ptr", hwndOwner, "ptr", pSessionCreator, "ptr", punk, "HRESULT")
         return result
     }
 }

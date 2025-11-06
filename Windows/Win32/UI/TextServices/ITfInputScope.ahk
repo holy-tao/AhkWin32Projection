@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -72,34 +73,34 @@ class ITfInputScope extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrRegExp 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/inputscope/nf-inputscope-itfinputscope-getregularexpression
      */
-    GetRegularExpression(pbstrRegExp) {
+    GetRegularExpression() {
+        pbstrRegExp := BSTR()
         result := ComCall(5, this, "ptr", pbstrRegExp, "HRESULT")
-        return result
+        return pbstrRegExp
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrSRGS 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/inputscope/nf-inputscope-itfinputscope-getsrgs
      */
-    GetSRGS(pbstrSRGS) {
+    GetSRGS() {
+        pbstrSRGS := BSTR()
         result := ComCall(6, this, "ptr", pbstrSRGS, "HRESULT")
-        return result
+        return pbstrSRGS
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrXML 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/inputscope/nf-inputscope-itfinputscope-getxml
      */
-    GetXML(pbstrXML) {
+    GetXML() {
+        pbstrXML := BSTR()
         result := ComCall(7, this, "ptr", pbstrXML, "HRESULT")
-        return result
+        return pbstrXML
     }
 }

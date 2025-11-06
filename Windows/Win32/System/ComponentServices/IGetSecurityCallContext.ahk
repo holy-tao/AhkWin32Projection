@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISecurityCallContext.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -32,12 +33,11 @@ class IGetSecurityCallContext extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISecurityCallContext>} ppObject 
-     * @returns {HRESULT} 
+     * @returns {ISecurityCallContext} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-igetsecuritycallcontext-getsecuritycallcontext
      */
-    GetSecurityCallContext(ppObject) {
-        result := ComCall(7, this, "ptr*", ppObject, "HRESULT")
-        return result
+    GetSecurityCallContext() {
+        result := ComCall(7, this, "ptr*", &ppObject := 0, "HRESULT")
+        return ISecurityCallContext(ppObject)
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWdsTransportSession.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -38,135 +40,116 @@ class IWdsTransportClient extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IWdsTransportSession>} ppWdsTransportSession 
-     * @returns {HRESULT} 
+     * @returns {IWdsTransportSession} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_session
      */
-    get_Session(ppWdsTransportSession) {
-        result := ComCall(7, this, "ptr*", ppWdsTransportSession, "HRESULT")
-        return result
+    get_Session() {
+        result := ComCall(7, this, "ptr*", &ppWdsTransportSession := 0, "HRESULT")
+        return IWdsTransportSession(ppWdsTransportSession)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pulId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_id
      */
-    get_Id(pulId) {
-        pulIdMarshal := pulId is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pulIdMarshal, pulId, "HRESULT")
-        return result
+    get_Id() {
+        result := ComCall(8, this, "uint*", &pulId := 0, "HRESULT")
+        return pulId
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbszName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_name
      */
-    get_Name(pbszName) {
+    get_Name() {
+        pbszName := BSTR()
         result := ComCall(9, this, "ptr", pbszName, "HRESULT")
-        return result
+        return pbszName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbszMacAddress 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_macaddress
      */
-    get_MacAddress(pbszMacAddress) {
+    get_MacAddress() {
+        pbszMacAddress := BSTR()
         result := ComCall(10, this, "ptr", pbszMacAddress, "HRESULT")
-        return result
+        return pbszMacAddress
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbszIpAddress 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_ipaddress
      */
-    get_IpAddress(pbszIpAddress) {
+    get_IpAddress() {
+        pbszIpAddress := BSTR()
         result := ComCall(11, this, "ptr", pbszIpAddress, "HRESULT")
-        return result
+        return pbszIpAddress
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pulPercentCompletion 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_percentcompletion
      */
-    get_PercentCompletion(pulPercentCompletion) {
-        pulPercentCompletionMarshal := pulPercentCompletion is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, pulPercentCompletionMarshal, pulPercentCompletion, "HRESULT")
-        return result
+    get_PercentCompletion() {
+        result := ComCall(12, this, "uint*", &pulPercentCompletion := 0, "HRESULT")
+        return pulPercentCompletion
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pulJoinDuration 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_joinduration
      */
-    get_JoinDuration(pulJoinDuration) {
-        pulJoinDurationMarshal := pulJoinDuration is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(13, this, pulJoinDurationMarshal, pulJoinDuration, "HRESULT")
-        return result
+    get_JoinDuration() {
+        result := ComCall(13, this, "uint*", &pulJoinDuration := 0, "HRESULT")
+        return pulJoinDuration
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pulCpuUtilization 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_cpuutilization
      */
-    get_CpuUtilization(pulCpuUtilization) {
-        pulCpuUtilizationMarshal := pulCpuUtilization is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, pulCpuUtilizationMarshal, pulCpuUtilization, "HRESULT")
-        return result
+    get_CpuUtilization() {
+        result := ComCall(14, this, "uint*", &pulCpuUtilization := 0, "HRESULT")
+        return pulCpuUtilization
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pulMemoryUtilization 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_memoryutilization
      */
-    get_MemoryUtilization(pulMemoryUtilization) {
-        pulMemoryUtilizationMarshal := pulMemoryUtilization is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(15, this, pulMemoryUtilizationMarshal, pulMemoryUtilization, "HRESULT")
-        return result
+    get_MemoryUtilization() {
+        result := ComCall(15, this, "uint*", &pulMemoryUtilization := 0, "HRESULT")
+        return pulMemoryUtilization
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pulNetworkUtilization 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_networkutilization
      */
-    get_NetworkUtilization(pulNetworkUtilization) {
-        pulNetworkUtilizationMarshal := pulNetworkUtilization is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(16, this, pulNetworkUtilizationMarshal, pulNetworkUtilization, "HRESULT")
-        return result
+    get_NetworkUtilization() {
+        result := ComCall(16, this, "uint*", &pulNetworkUtilization := 0, "HRESULT")
+        return pulNetworkUtilization
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbszUserIdentity 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportclient-get_useridentity
      */
-    get_UserIdentity(pbszUserIdentity) {
+    get_UserIdentity() {
+        pbszUserIdentity := BSTR()
         result := ComCall(17, this, "ptr", pbszUserIdentity, "HRESULT")
-        return result
+        return pbszUserIdentity
     }
 
     /**

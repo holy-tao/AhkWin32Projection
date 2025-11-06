@@ -56,12 +56,11 @@ class IConnectedIdentityProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} Connected 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsConnected(Connected) {
-        result := ComCall(5, this, "ptr", Connected, "HRESULT")
-        return result
+    IsConnected() {
+        result := ComCall(5, this, "int*", &Connected := 0, "HRESULT")
+        return Connected
     }
 
     /**
@@ -74,19 +73,18 @@ class IConnectedIdentityProvider extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/identityprovider/nf-identityprovider-iconnectedidentityprovider-geturl
      */
     GetUrl(Identifier, Context, PostData, Url) {
-        result := ComCall(6, this, "int", Identifier, "ptr", Context, "ptr", PostData, "ptr", Url, "HRESULT")
+        UrlMarshal := Url is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "int", Identifier, "ptr", Context, "ptr", PostData, UrlMarshal, Url, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetAccountState(pState) {
-        pStateMarshal := pState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pStateMarshal, pState, "HRESULT")
-        return result
+    GetAccountState() {
+        result := ComCall(7, this, "int*", &pState := 0, "HRESULT")
+        return pState
     }
 }

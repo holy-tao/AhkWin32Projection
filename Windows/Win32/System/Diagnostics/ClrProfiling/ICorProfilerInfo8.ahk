@@ -31,12 +31,11 @@ class ICorProfilerInfo8 extends ICorProfilerInfo7{
     /**
      * 
      * @param {Pointer} functionId 
-     * @param {Pointer<BOOL>} isDynamic 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsFunctionDynamic(functionId, isDynamic) {
-        result := ComCall(87, this, "ptr", functionId, "ptr", isDynamic, "HRESULT")
-        return result
+    IsFunctionDynamic(functionId) {
+        result := ComCall(87, this, "ptr", functionId, "int*", &isDynamic := 0, "HRESULT")
+        return isDynamic
     }
 
     /**

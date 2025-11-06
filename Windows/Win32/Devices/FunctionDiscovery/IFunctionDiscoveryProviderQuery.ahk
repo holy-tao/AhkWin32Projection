@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IProviderQueryConstraintCollection.ahk
+#Include .\IProviderPropertyConstraintCollection.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -38,9 +40,10 @@ class IFunctionDiscoveryProviderQuery extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryproviderquery-isinstancequery
      */
     IsInstanceQuery(pisInstanceQuery, ppszConstraintValue) {
+        pisInstanceQueryMarshal := pisInstanceQuery is VarRef ? "int*" : "ptr"
         ppszConstraintValueMarshal := ppszConstraintValue is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pisInstanceQuery, ppszConstraintValueMarshal, ppszConstraintValue, "HRESULT")
+        result := ComCall(3, this, pisInstanceQueryMarshal, pisInstanceQuery, ppszConstraintValueMarshal, ppszConstraintValue, "HRESULT")
         return result
     }
 
@@ -52,31 +55,30 @@ class IFunctionDiscoveryProviderQuery extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryproviderquery-issubcategoryquery
      */
     IsSubcategoryQuery(pisSubcategoryQuery, ppszConstraintValue) {
+        pisSubcategoryQueryMarshal := pisSubcategoryQuery is VarRef ? "int*" : "ptr"
         ppszConstraintValueMarshal := ppszConstraintValue is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pisSubcategoryQuery, ppszConstraintValueMarshal, ppszConstraintValue, "HRESULT")
+        result := ComCall(4, this, pisSubcategoryQueryMarshal, pisSubcategoryQuery, ppszConstraintValueMarshal, ppszConstraintValue, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<IProviderQueryConstraintCollection>} ppIProviderQueryConstraints 
-     * @returns {HRESULT} 
+     * @returns {IProviderQueryConstraintCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryproviderquery-getqueryconstraints
      */
-    GetQueryConstraints(ppIProviderQueryConstraints) {
-        result := ComCall(5, this, "ptr*", ppIProviderQueryConstraints, "HRESULT")
-        return result
+    GetQueryConstraints() {
+        result := ComCall(5, this, "ptr*", &ppIProviderQueryConstraints := 0, "HRESULT")
+        return IProviderQueryConstraintCollection(ppIProviderQueryConstraints)
     }
 
     /**
      * 
-     * @param {Pointer<IProviderPropertyConstraintCollection>} ppIProviderPropertyConstraints 
-     * @returns {HRESULT} 
+     * @returns {IProviderPropertyConstraintCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryproviderquery-getpropertyconstraints
      */
-    GetPropertyConstraints(ppIProviderPropertyConstraints) {
-        result := ComCall(6, this, "ptr*", ppIProviderPropertyConstraints, "HRESULT")
-        return result
+    GetPropertyConstraints() {
+        result := ComCall(6, this, "ptr*", &ppIProviderPropertyConstraints := 0, "HRESULT")
+        return IProviderPropertyConstraintCollection(ppIProviderPropertyConstraints)
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT.ahk
+#Include .\D3D12_DRED_PAGE_FAULT_OUTPUT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -35,23 +37,23 @@ class ID3D12DeviceRemovedExtendedData extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT>} pOutput 
-     * @returns {HRESULT} 
+     * @returns {D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12deviceremovedextendeddata-getautobreadcrumbsoutput
      */
-    GetAutoBreadcrumbsOutput(pOutput) {
+    GetAutoBreadcrumbsOutput() {
+        pOutput := D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT()
         result := ComCall(3, this, "ptr", pOutput, "HRESULT")
-        return result
+        return pOutput
     }
 
     /**
      * 
-     * @param {Pointer<D3D12_DRED_PAGE_FAULT_OUTPUT>} pOutput 
-     * @returns {HRESULT} 
+     * @returns {D3D12_DRED_PAGE_FAULT_OUTPUT} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12deviceremovedextendeddata-getpagefaultallocationoutput
      */
-    GetPageFaultAllocationOutput(pOutput) {
+    GetPageFaultAllocationOutput() {
+        pOutput := D3D12_DRED_PAGE_FAULT_OUTPUT()
         result := ComCall(4, this, "ptr", pOutput, "HRESULT")
-        return result
+        return pOutput
     }
 }

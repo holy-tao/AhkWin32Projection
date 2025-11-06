@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IAMPlayListItem.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,37 +31,30 @@ class IAMPlayList extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetFlags(pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
-        return result
+    GetFlags() {
+        result := ComCall(3, this, "uint*", &pdwFlags := 0, "HRESULT")
+        return pdwFlags
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwItems 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetItemCount(pdwItems) {
-        pdwItemsMarshal := pdwItems is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pdwItemsMarshal, pdwItems, "HRESULT")
-        return result
+    GetItemCount() {
+        result := ComCall(4, this, "uint*", &pdwItems := 0, "HRESULT")
+        return pdwItems
     }
 
     /**
      * 
      * @param {Integer} dwItemIndex 
-     * @param {Pointer<IAMPlayListItem>} ppItem 
-     * @returns {HRESULT} 
+     * @returns {IAMPlayListItem} 
      */
-    GetItem(dwItemIndex, ppItem) {
-        result := ComCall(5, this, "uint", dwItemIndex, "ptr*", ppItem, "HRESULT")
-        return result
+    GetItem(dwItemIndex) {
+        result := ComCall(5, this, "uint", dwItemIndex, "ptr*", &ppItem := 0, "HRESULT")
+        return IAMPlayListItem(ppItem)
     }
 
     /**

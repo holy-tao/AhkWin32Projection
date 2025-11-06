@@ -34,14 +34,14 @@ class IVdsHwProviderPrivate extends IUnknown{
      * 
      * @param {PWSTR} pwszDevicePath 
      * @param {Pointer<VDS_LUN_INFORMATION>} pVdsLunInformation 
-     * @param {Pointer<Guid>} pLunId 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdshwproviderprivate-queryifcreatedlun
      */
-    QueryIfCreatedLun(pwszDevicePath, pVdsLunInformation, pLunId) {
+    QueryIfCreatedLun(pwszDevicePath, pVdsLunInformation) {
         pwszDevicePath := pwszDevicePath is String ? StrPtr(pwszDevicePath) : pwszDevicePath
 
+        pLunId := Guid()
         result := ComCall(3, this, "ptr", pwszDevicePath, "ptr", pVdsLunInformation, "ptr", pLunId, "HRESULT")
-        return result
+        return pLunId
     }
 }

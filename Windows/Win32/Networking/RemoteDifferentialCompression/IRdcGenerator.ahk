@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRdcGeneratorParameters.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -39,13 +40,12 @@ class IRdcGenerator extends IUnknown{
     /**
      * 
      * @param {Integer} level 
-     * @param {Pointer<IRdcGeneratorParameters>} iGeneratorParameters 
-     * @returns {HRESULT} 
+     * @returns {IRdcGeneratorParameters} 
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcgenerator-getgeneratorparameters
      */
-    GetGeneratorParameters(level, iGeneratorParameters) {
-        result := ComCall(3, this, "uint", level, "ptr*", iGeneratorParameters, "HRESULT")
-        return result
+    GetGeneratorParameters(level) {
+        result := ComCall(3, this, "uint", level, "ptr*", &iGeneratorParameters := 0, "HRESULT")
+        return IRdcGeneratorParameters(iGeneratorParameters)
     }
 
     /**
@@ -133,10 +133,11 @@ class IRdcGenerator extends IUnknown{
      * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-process
      */
     Process(endOfInput, endOfOutput, inputBuffer, depth, outputBuffers, rdc_ErrorCode) {
+        endOfOutputMarshal := endOfOutput is VarRef ? "int*" : "ptr"
         outputBuffersMarshal := outputBuffers is VarRef ? "ptr*" : "ptr"
         rdc_ErrorCodeMarshal := rdc_ErrorCode is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "int", endOfInput, "ptr", endOfOutput, "ptr", inputBuffer, "uint", depth, outputBuffersMarshal, outputBuffers, rdc_ErrorCodeMarshal, rdc_ErrorCode, "HRESULT")
+        result := ComCall(4, this, "int", endOfInput, endOfOutputMarshal, endOfOutput, "ptr", inputBuffer, "uint", depth, outputBuffersMarshal, outputBuffers, rdc_ErrorCodeMarshal, rdc_ErrorCode, "HRESULT")
         return result
     }
 }

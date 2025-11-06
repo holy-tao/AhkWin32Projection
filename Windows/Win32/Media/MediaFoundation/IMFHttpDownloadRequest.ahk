@@ -95,18 +95,15 @@ class IMFHttpDownloadRequest extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pb 
      * @param {Integer} cb 
      * @param {IMFAsyncCallback} pCallback 
      * @param {IUnknown} punkState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadrequest-beginreadpayload
      */
-    BeginReadPayload(pb, cb, pCallback, punkState) {
-        pbMarshal := pb is VarRef ? "char*" : "ptr"
-
-        result := ComCall(8, this, pbMarshal, pb, "uint", cb, "ptr", pCallback, "ptr", punkState, "HRESULT")
-        return result
+    BeginReadPayload(cb, pCallback, punkState) {
+        result := ComCall(8, this, "char*", &pb := 0, "uint", cb, "ptr", pCallback, "ptr", punkState, "HRESULT")
+        return pb
     }
 
     /**
@@ -129,37 +126,34 @@ class IMFHttpDownloadRequest extends IUnknown{
      * 
      * @param {PWSTR} szHeaderName 
      * @param {Integer} dwIndex 
-     * @param {Pointer<PWSTR>} ppszHeaderValue 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadrequest-queryheader
      */
-    QueryHeader(szHeaderName, dwIndex, ppszHeaderValue) {
+    QueryHeader(szHeaderName, dwIndex) {
         szHeaderName := szHeaderName is String ? StrPtr(szHeaderName) : szHeaderName
 
-        result := ComCall(10, this, "ptr", szHeaderName, "uint", dwIndex, "ptr", ppszHeaderValue, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", szHeaderName, "uint", dwIndex, "ptr*", &ppszHeaderValue := 0, "HRESULT")
+        return ppszHeaderValue
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszURL 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadrequest-geturl
      */
-    GetURL(ppszURL) {
-        result := ComCall(11, this, "ptr", ppszURL, "HRESULT")
-        return result
+    GetURL() {
+        result := ComCall(11, this, "ptr*", &ppszURL := 0, "HRESULT")
+        return ppszURL
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfNullSourceOrigin 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadrequest-hasnullsourceorigin
      */
-    HasNullSourceOrigin(pfNullSourceOrigin) {
-        result := ComCall(12, this, "ptr", pfNullSourceOrigin, "HRESULT")
-        return result
+    HasNullSourceOrigin() {
+        result := ComCall(12, this, "int*", &pfNullSourceOrigin := 0, "HRESULT")
+        return pfNullSourceOrigin
     }
 
     /**
@@ -181,52 +175,42 @@ class IMFHttpDownloadRequest extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwHttpStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadrequest-gethttpstatus
      */
-    GetHttpStatus(pdwHttpStatus) {
-        pdwHttpStatusMarshal := pdwHttpStatus is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, pdwHttpStatusMarshal, pdwHttpStatus, "HRESULT")
-        return result
+    GetHttpStatus() {
+        result := ComCall(14, this, "uint*", &pdwHttpStatus := 0, "HRESULT")
+        return pdwHttpStatus
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfAtEndOfPayload 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadrequest-getatendofpayload
      */
-    GetAtEndOfPayload(pfAtEndOfPayload) {
-        result := ComCall(15, this, "ptr", pfAtEndOfPayload, "HRESULT")
-        return result
+    GetAtEndOfPayload() {
+        result := ComCall(15, this, "int*", &pfAtEndOfPayload := 0, "HRESULT")
+        return pfAtEndOfPayload
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pqwTotalLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadrequest-gettotallength
      */
-    GetTotalLength(pqwTotalLength) {
-        pqwTotalLengthMarshal := pqwTotalLength is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(16, this, pqwTotalLengthMarshal, pqwTotalLength, "HRESULT")
-        return result
+    GetTotalLength() {
+        result := ComCall(16, this, "uint*", &pqwTotalLength := 0, "HRESULT")
+        return pqwTotalLength
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pqwRangeEnd 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadrequest-getrangeendoffset
      */
-    GetRangeEndOffset(pqwRangeEnd) {
-        pqwRangeEndMarshal := pqwRangeEnd is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(17, this, pqwRangeEndMarshal, pqwRangeEnd, "HRESULT")
-        return result
+    GetRangeEndOffset() {
+        result := ComCall(17, this, "uint*", &pqwRangeEnd := 0, "HRESULT")
+        return pqwRangeEnd
     }
 
     /**

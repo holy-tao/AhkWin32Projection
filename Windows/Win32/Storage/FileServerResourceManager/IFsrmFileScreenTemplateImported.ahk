@@ -32,13 +32,12 @@ class IFsrmFileScreenTemplateImported extends IFsrmFileScreenTemplate{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} overwrite 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreentemplateimported-get_overwriteoncommit
      */
-    get_OverwriteOnCommit(overwrite) {
-        result := ComCall(22, this, "ptr", overwrite, "HRESULT")
-        return result
+    get_OverwriteOnCommit() {
+        result := ComCall(22, this, "short*", &overwrite := 0, "HRESULT")
+        return overwrite
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITextRangeProvider.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -37,75 +38,63 @@ class ITextProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextprovider-getselection
      */
-    GetSelection(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    GetSelection() {
+        result := ComCall(3, this, "ptr*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextprovider-getvisibleranges
      */
-    GetVisibleRanges(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    GetVisibleRanges() {
+        result := ComCall(4, this, "ptr*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
      * 
      * @param {IRawElementProviderSimple} childElement 
-     * @param {Pointer<ITextRangeProvider>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {ITextRangeProvider} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextprovider-rangefromchild
      */
-    RangeFromChild(childElement, pRetVal) {
-        result := ComCall(5, this, "ptr", childElement, "ptr*", pRetVal, "HRESULT")
-        return result
+    RangeFromChild(childElement) {
+        result := ComCall(5, this, "ptr", childElement, "ptr*", &pRetVal := 0, "HRESULT")
+        return ITextRangeProvider(pRetVal)
     }
 
     /**
      * 
      * @param {UiaPoint} point 
-     * @param {Pointer<ITextRangeProvider>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {ITextRangeProvider} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextprovider-rangefrompoint
      */
-    RangeFromPoint(point, pRetVal) {
-        result := ComCall(6, this, "ptr", point, "ptr*", pRetVal, "HRESULT")
-        return result
+    RangeFromPoint(point) {
+        result := ComCall(6, this, "ptr", point, "ptr*", &pRetVal := 0, "HRESULT")
+        return ITextRangeProvider(pRetVal)
     }
 
     /**
      * 
-     * @param {Pointer<ITextRangeProvider>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {ITextRangeProvider} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextprovider-get_documentrange
      */
-    get_DocumentRange(pRetVal) {
-        result := ComCall(7, this, "ptr*", pRetVal, "HRESULT")
-        return result
+    get_DocumentRange() {
+        result := ComCall(7, this, "ptr*", &pRetVal := 0, "HRESULT")
+        return ITextRangeProvider(pRetVal)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextprovider-get_supportedtextselection
      */
-    get_SupportedTextSelection(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    get_SupportedTextSelection() {
+        result := ComCall(8, this, "int*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 }

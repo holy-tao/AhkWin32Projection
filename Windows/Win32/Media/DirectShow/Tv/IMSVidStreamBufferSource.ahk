@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IMSVidFilePlayback.ahk
 
 /**
@@ -43,26 +44,22 @@ class IMSVidStreamBufferSource extends IMSVidFilePlayback{
 
     /**
      * 
-     * @param {Pointer<Integer>} lStart 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersource-get_start
      */
-    get_Start(lStart) {
-        lStartMarshal := lStart is VarRef ? "int*" : "ptr"
-
-        result := ComCall(34, this, lStartMarshal, lStart, "HRESULT")
-        return result
+    get_Start() {
+        result := ComCall(34, this, "int*", &lStart := 0, "HRESULT")
+        return lStart
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} pRecordingAttribute 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersource-get_recordingattribute
      */
-    get_RecordingAttribute(pRecordingAttribute) {
-        result := ComCall(35, this, "ptr*", pRecordingAttribute, "HRESULT")
-        return result
+    get_RecordingAttribute() {
+        result := ComCall(35, this, "ptr*", &pRecordingAttribute := 0, "HRESULT")
+        return IUnknown(pRecordingAttribute)
     }
 
     /**
@@ -119,12 +116,11 @@ class IMSVidStreamBufferSource extends IMSVidFilePlayback{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} sbeFilter 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersource-get_sbesource
      */
-    get_SBESource(sbeFilter) {
-        result := ComCall(40, this, "ptr*", sbeFilter, "HRESULT")
-        return result
+    get_SBESource() {
+        result := ComCall(40, this, "ptr*", &sbeFilter := 0, "HRESULT")
+        return IUnknown(sbeFilter)
     }
 }

@@ -32,42 +32,33 @@ class IComTrackingInfoCollection extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomtrackinginfocollection-type
      */
-    Type(pType) {
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, pTypeMarshal, pType, "HRESULT")
-        return result
+    Type() {
+        result := ComCall(3, this, "int*", &pType := 0, "HRESULT")
+        return pType
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomtrackinginfocollection-count
      */
-    Count(pCount) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    Count() {
+        result := ComCall(4, this, "uint*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
      * 
      * @param {Integer} ulIndex 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomtrackinginfocollection-item
      */
-    Item(ulIndex, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, "uint", ulIndex, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    Item(ulIndex, riid) {
+        result := ComCall(5, this, "uint", ulIndex, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 }

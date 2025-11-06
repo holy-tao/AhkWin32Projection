@@ -53,14 +53,13 @@ class IHomePageSetting extends IUnknown{
     /**
      * 
      * @param {PWSTR} uri 
-     * @param {Pointer<BOOL>} isDefault 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsHomePage(uri, isDefault) {
+    IsHomePage(uri) {
         uri := uri is String ? StrPtr(uri) : uri
 
-        result := ComCall(4, this, "ptr", uri, "ptr", isDefault, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", uri, "int*", &isDefault := 0, "HRESULT")
+        return isDefault
     }
 
     /**

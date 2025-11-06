@@ -19143,7 +19143,7 @@ class Search {
      * @returns {PSTR} 
      */
     static dbprtypeA(param0) {
-        result := DllCall("odbcbcp.dll\dbprtypeA", "int", param0, "char*")
+        result := DllCall("odbcbcp.dll\dbprtypeA", "int", param0, "ptr")
         return result
     }
 
@@ -19153,7 +19153,7 @@ class Search {
      * @returns {PWSTR} 
      */
     static dbprtypeW(param0) {
-        result := DllCall("odbcbcp.dll\dbprtypeW", "int", param0, "char*")
+        result := DllCall("odbcbcp.dll\dbprtypeW", "int", param0, "ptr")
         return result
     }
 

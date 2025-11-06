@@ -43,11 +43,11 @@ class IHTMLHeadElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_profile(p) {
+    get_profile() {
+        p := BSTR()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 }

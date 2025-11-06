@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUIAutomationElement.ahk
+#Include .\IUIAutomationCondition.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -42,161 +44,148 @@ class IUIAutomationTreeWalker extends IUnknown{
     /**
      * 
      * @param {IUIAutomationElement} element 
-     * @param {Pointer<IUIAutomationElement>} parent 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElement} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtreewalker-getparentelement
      */
-    GetParentElement(element, parent) {
-        result := ComCall(3, this, "ptr", element, "ptr*", parent, "HRESULT")
-        return result
+    GetParentElement(element) {
+        result := ComCall(3, this, "ptr", element, "ptr*", &parent := 0, "HRESULT")
+        return IUIAutomationElement(parent)
     }
 
     /**
      * 
      * @param {IUIAutomationElement} element 
-     * @param {Pointer<IUIAutomationElement>} first 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElement} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtreewalker-getfirstchildelement
      */
-    GetFirstChildElement(element, first) {
-        result := ComCall(4, this, "ptr", element, "ptr*", first, "HRESULT")
-        return result
+    GetFirstChildElement(element) {
+        result := ComCall(4, this, "ptr", element, "ptr*", &first := 0, "HRESULT")
+        return IUIAutomationElement(first)
     }
 
     /**
      * 
      * @param {IUIAutomationElement} element 
-     * @param {Pointer<IUIAutomationElement>} last 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElement} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtreewalker-getlastchildelement
      */
-    GetLastChildElement(element, last) {
-        result := ComCall(5, this, "ptr", element, "ptr*", last, "HRESULT")
-        return result
+    GetLastChildElement(element) {
+        result := ComCall(5, this, "ptr", element, "ptr*", &last := 0, "HRESULT")
+        return IUIAutomationElement(last)
     }
 
     /**
      * 
      * @param {IUIAutomationElement} element 
-     * @param {Pointer<IUIAutomationElement>} next 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElement} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtreewalker-getnextsiblingelement
      */
-    GetNextSiblingElement(element, next) {
-        result := ComCall(6, this, "ptr", element, "ptr*", next, "HRESULT")
-        return result
+    GetNextSiblingElement(element) {
+        result := ComCall(6, this, "ptr", element, "ptr*", &next := 0, "HRESULT")
+        return IUIAutomationElement(next)
     }
 
     /**
      * 
      * @param {IUIAutomationElement} element 
-     * @param {Pointer<IUIAutomationElement>} previous 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElement} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtreewalker-getprevioussiblingelement
      */
-    GetPreviousSiblingElement(element, previous) {
-        result := ComCall(7, this, "ptr", element, "ptr*", previous, "HRESULT")
-        return result
+    GetPreviousSiblingElement(element) {
+        result := ComCall(7, this, "ptr", element, "ptr*", &previous := 0, "HRESULT")
+        return IUIAutomationElement(previous)
     }
 
     /**
      * 
      * @param {IUIAutomationElement} element 
-     * @param {Pointer<IUIAutomationElement>} normalized 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElement} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtreewalker-normalizeelement
      */
-    NormalizeElement(element, normalized) {
-        result := ComCall(8, this, "ptr", element, "ptr*", normalized, "HRESULT")
-        return result
+    NormalizeElement(element) {
+        result := ComCall(8, this, "ptr", element, "ptr*", &normalized := 0, "HRESULT")
+        return IUIAutomationElement(normalized)
     }
 
     /**
      * 
      * @param {IUIAutomationElement} element 
      * @param {IUIAutomationCacheRequest} cacheRequest 
-     * @param {Pointer<IUIAutomationElement>} parent 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElement} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtreewalker-getparentelementbuildcache
      */
-    GetParentElementBuildCache(element, cacheRequest, parent) {
-        result := ComCall(9, this, "ptr", element, "ptr", cacheRequest, "ptr*", parent, "HRESULT")
-        return result
+    GetParentElementBuildCache(element, cacheRequest) {
+        result := ComCall(9, this, "ptr", element, "ptr", cacheRequest, "ptr*", &parent := 0, "HRESULT")
+        return IUIAutomationElement(parent)
     }
 
     /**
      * 
      * @param {IUIAutomationElement} element 
      * @param {IUIAutomationCacheRequest} cacheRequest 
-     * @param {Pointer<IUIAutomationElement>} first 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElement} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtreewalker-getfirstchildelementbuildcache
      */
-    GetFirstChildElementBuildCache(element, cacheRequest, first) {
-        result := ComCall(10, this, "ptr", element, "ptr", cacheRequest, "ptr*", first, "HRESULT")
-        return result
+    GetFirstChildElementBuildCache(element, cacheRequest) {
+        result := ComCall(10, this, "ptr", element, "ptr", cacheRequest, "ptr*", &first := 0, "HRESULT")
+        return IUIAutomationElement(first)
     }
 
     /**
      * 
      * @param {IUIAutomationElement} element 
      * @param {IUIAutomationCacheRequest} cacheRequest 
-     * @param {Pointer<IUIAutomationElement>} last 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElement} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtreewalker-getlastchildelementbuildcache
      */
-    GetLastChildElementBuildCache(element, cacheRequest, last) {
-        result := ComCall(11, this, "ptr", element, "ptr", cacheRequest, "ptr*", last, "HRESULT")
-        return result
+    GetLastChildElementBuildCache(element, cacheRequest) {
+        result := ComCall(11, this, "ptr", element, "ptr", cacheRequest, "ptr*", &last := 0, "HRESULT")
+        return IUIAutomationElement(last)
     }
 
     /**
      * 
      * @param {IUIAutomationElement} element 
      * @param {IUIAutomationCacheRequest} cacheRequest 
-     * @param {Pointer<IUIAutomationElement>} next 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElement} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtreewalker-getnextsiblingelementbuildcache
      */
-    GetNextSiblingElementBuildCache(element, cacheRequest, next) {
-        result := ComCall(12, this, "ptr", element, "ptr", cacheRequest, "ptr*", next, "HRESULT")
-        return result
+    GetNextSiblingElementBuildCache(element, cacheRequest) {
+        result := ComCall(12, this, "ptr", element, "ptr", cacheRequest, "ptr*", &next := 0, "HRESULT")
+        return IUIAutomationElement(next)
     }
 
     /**
      * 
      * @param {IUIAutomationElement} element 
      * @param {IUIAutomationCacheRequest} cacheRequest 
-     * @param {Pointer<IUIAutomationElement>} previous 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElement} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtreewalker-getprevioussiblingelementbuildcache
      */
-    GetPreviousSiblingElementBuildCache(element, cacheRequest, previous) {
-        result := ComCall(13, this, "ptr", element, "ptr", cacheRequest, "ptr*", previous, "HRESULT")
-        return result
+    GetPreviousSiblingElementBuildCache(element, cacheRequest) {
+        result := ComCall(13, this, "ptr", element, "ptr", cacheRequest, "ptr*", &previous := 0, "HRESULT")
+        return IUIAutomationElement(previous)
     }
 
     /**
      * 
      * @param {IUIAutomationElement} element 
      * @param {IUIAutomationCacheRequest} cacheRequest 
-     * @param {Pointer<IUIAutomationElement>} normalized 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElement} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtreewalker-normalizeelementbuildcache
      */
-    NormalizeElementBuildCache(element, cacheRequest, normalized) {
-        result := ComCall(14, this, "ptr", element, "ptr", cacheRequest, "ptr*", normalized, "HRESULT")
-        return result
+    NormalizeElementBuildCache(element, cacheRequest) {
+        result := ComCall(14, this, "ptr", element, "ptr", cacheRequest, "ptr*", &normalized := 0, "HRESULT")
+        return IUIAutomationElement(normalized)
     }
 
     /**
      * 
-     * @param {Pointer<IUIAutomationCondition>} condition 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationCondition} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtreewalker-get_condition
      */
-    get_Condition(condition) {
-        result := ComCall(15, this, "ptr*", condition, "HRESULT")
-        return result
+    get_Condition() {
+        result := ComCall(15, this, "ptr*", &condition := 0, "HRESULT")
+        return IUIAutomationCondition(condition)
     }
 }

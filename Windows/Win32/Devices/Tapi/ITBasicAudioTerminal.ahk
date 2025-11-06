@@ -43,15 +43,12 @@ class ITBasicAudioTerminal extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plVolume 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itbasicaudioterminal-get_volume
      */
-    get_Volume(plVolume) {
-        plVolumeMarshal := plVolume is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, plVolumeMarshal, plVolume, "HRESULT")
-        return result
+    get_Volume() {
+        result := ComCall(8, this, "int*", &plVolume := 0, "HRESULT")
+        return plVolume
     }
 
     /**
@@ -67,14 +64,11 @@ class ITBasicAudioTerminal extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plBalance 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itbasicaudioterminal-get_balance
      */
-    get_Balance(plBalance) {
-        plBalanceMarshal := plBalance is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, plBalanceMarshal, plBalance, "HRESULT")
-        return result
+    get_Balance() {
+        result := ComCall(10, this, "int*", &plBalance := 0, "HRESULT")
+        return plBalance
     }
 }

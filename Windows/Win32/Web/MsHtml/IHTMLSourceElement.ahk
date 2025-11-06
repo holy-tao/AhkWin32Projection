@@ -49,12 +49,12 @@ class IHTMLSourceElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_src(p) {
+    get_src() {
+        p := BSTR()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -71,12 +71,12 @@ class IHTMLSourceElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_type(p) {
+    get_type() {
+        p := BSTR()
         result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -93,11 +93,11 @@ class IHTMLSourceElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_media(p) {
+    get_media() {
+        p := BSTR()
         result := ComCall(12, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 }

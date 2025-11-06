@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsOMPackageWriter.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -44,12 +45,11 @@ class IXpsOMPackageTarget extends IUnknown{
      * @param {IOpcPartUri} documentSequencePartName 
      * @param {IXpsOMPrintTicketResource} documentSequencePrintTicket 
      * @param {IOpcPartUri} discardControlPartName 
-     * @param {Pointer<IXpsOMPackageWriter>} packageWriter 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMPackageWriter} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompackagetarget-createxpsompackagewriter
      */
-    CreateXpsOMPackageWriter(documentSequencePartName, documentSequencePrintTicket, discardControlPartName, packageWriter) {
-        result := ComCall(3, this, "ptr", documentSequencePartName, "ptr", documentSequencePrintTicket, "ptr", discardControlPartName, "ptr*", packageWriter, "HRESULT")
-        return result
+    CreateXpsOMPackageWriter(documentSequencePartName, documentSequencePrintTicket, discardControlPartName) {
+        result := ComCall(3, this, "ptr", documentSequencePartName, "ptr", documentSequencePrintTicket, "ptr", discardControlPartName, "ptr*", &packageWriter := 0, "HRESULT")
+        return IXpsOMPackageWriter(packageWriter)
     }
 }

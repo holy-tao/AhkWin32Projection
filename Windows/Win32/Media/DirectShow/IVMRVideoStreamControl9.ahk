@@ -48,12 +48,11 @@ class IVMRVideoStreamControl9 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} lpfActive 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrvideostreamcontrol9-getstreamactivestate
      */
-    GetStreamActiveState(lpfActive) {
-        result := ComCall(4, this, "ptr", lpfActive, "HRESULT")
-        return result
+    GetStreamActiveState() {
+        result := ComCall(4, this, "int*", &lpfActive := 0, "HRESULT")
+        return lpfActive
     }
 }

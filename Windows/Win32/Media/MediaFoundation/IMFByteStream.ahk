@@ -78,28 +78,22 @@ class IMFByteStream extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwCapabilities 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestream-getcapabilities
      */
-    GetCapabilities(pdwCapabilities) {
-        pdwCapabilitiesMarshal := pdwCapabilities is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pdwCapabilitiesMarshal, pdwCapabilities, "HRESULT")
-        return result
+    GetCapabilities() {
+        result := ComCall(3, this, "uint*", &pdwCapabilities := 0, "HRESULT")
+        return pdwCapabilities
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pqwLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestream-getlength
      */
-    GetLength(pqwLength) {
-        pqwLengthMarshal := pqwLength is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pqwLengthMarshal, pqwLength, "HRESULT")
-        return result
+    GetLength() {
+        result := ComCall(4, this, "uint*", &pqwLength := 0, "HRESULT")
+        return pqwLength
     }
 
     /**
@@ -115,15 +109,12 @@ class IMFByteStream extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pqwPosition 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestream-getcurrentposition
      */
-    GetCurrentPosition(pqwPosition) {
-        pqwPositionMarshal := pqwPosition is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pqwPositionMarshal, pqwPosition, "HRESULT")
-        return result
+    GetCurrentPosition() {
+        result := ComCall(6, this, "uint*", &pqwPosition := 0, "HRESULT")
+        return pqwPosition
     }
 
     /**
@@ -139,13 +130,12 @@ class IMFByteStream extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfEndOfStream 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestream-isendofstream
      */
-    IsEndOfStream(pfEndOfStream) {
-        result := ComCall(8, this, "ptr", pfEndOfStream, "HRESULT")
-        return result
+    IsEndOfStream() {
+        result := ComCall(8, this, "int*", &pfEndOfStream := 0, "HRESULT")
+        return pfEndOfStream
     }
 
     /**
@@ -181,31 +171,26 @@ class IMFByteStream extends IUnknown{
     /**
      * 
      * @param {IMFAsyncResult} pResult 
-     * @param {Pointer<Integer>} pcbRead 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestream-endread
      */
-    EndRead(pResult, pcbRead) {
-        pcbReadMarshal := pcbRead is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, "ptr", pResult, pcbReadMarshal, pcbRead, "HRESULT")
-        return result
+    EndRead(pResult) {
+        result := ComCall(11, this, "ptr", pResult, "uint*", &pcbRead := 0, "HRESULT")
+        return pcbRead
     }
 
     /**
      * 
      * @param {Pointer<Integer>} pb 
      * @param {Integer} cb 
-     * @param {Pointer<Integer>} pcbWritten 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestream-write
      */
-    Write(pb, cb, pcbWritten) {
+    Write(pb, cb) {
         pbMarshal := pb is VarRef ? "char*" : "ptr"
-        pcbWrittenMarshal := pcbWritten is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, pbMarshal, pb, "uint", cb, pcbWrittenMarshal, pcbWritten, "HRESULT")
-        return result
+        result := ComCall(12, this, pbMarshal, pb, "uint", cb, "uint*", &pcbWritten := 0, "HRESULT")
+        return pcbWritten
     }
 
     /**
@@ -225,15 +210,12 @@ class IMFByteStream extends IUnknown{
     /**
      * 
      * @param {IMFAsyncResult} pResult 
-     * @param {Pointer<Integer>} pcbWritten 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestream-endwrite
      */
-    EndWrite(pResult, pcbWritten) {
-        pcbWrittenMarshal := pcbWritten is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, "ptr", pResult, pcbWrittenMarshal, pcbWritten, "HRESULT")
-        return result
+    EndWrite(pResult) {
+        result := ComCall(14, this, "ptr", pResult, "uint*", &pcbWritten := 0, "HRESULT")
+        return pcbWritten
     }
 
     /**
@@ -241,15 +223,12 @@ class IMFByteStream extends IUnknown{
      * @param {Integer} SeekOrigin 
      * @param {Integer} llSeekOffset 
      * @param {Integer} dwSeekFlags 
-     * @param {Pointer<Integer>} pqwCurrentPosition 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestream-seek
      */
-    Seek(SeekOrigin, llSeekOffset, dwSeekFlags, pqwCurrentPosition) {
-        pqwCurrentPositionMarshal := pqwCurrentPosition is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(15, this, "int", SeekOrigin, "int64", llSeekOffset, "uint", dwSeekFlags, pqwCurrentPositionMarshal, pqwCurrentPosition, "HRESULT")
-        return result
+    Seek(SeekOrigin, llSeekOffset, dwSeekFlags) {
+        result := ComCall(15, this, "int", SeekOrigin, "int64", llSeekOffset, "uint", dwSeekFlags, "uint*", &pqwCurrentPosition := 0, "HRESULT")
+        return pqwCurrentPosition
     }
 
     /**

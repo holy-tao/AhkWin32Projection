@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Ole\IEnumVARIANT.ahk
+#Include .\IFsiFileItem2.ahk
+#Include .\IEnumFsiItems.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -49,48 +52,42 @@ class IFsiNamedStreams extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IEnumVARIANT>} NewEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsinamedstreams-get__newenum
      */
-    get__NewEnum(NewEnum) {
-        result := ComCall(7, this, "ptr*", NewEnum, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(7, this, "ptr*", &NewEnum := 0, "HRESULT")
+        return IEnumVARIANT(NewEnum)
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<IFsiFileItem2>} item 
-     * @returns {HRESULT} 
+     * @returns {IFsiFileItem2} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsinamedstreams-get_item
      */
-    get_Item(index, item) {
-        result := ComCall(8, this, "int", index, "ptr*", item, "HRESULT")
-        return result
+    get_Item(index) {
+        result := ComCall(8, this, "int", index, "ptr*", &item := 0, "HRESULT")
+        return IFsiFileItem2(item)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsinamedstreams-get_count
      */
-    get_Count(count) {
-        countMarshal := count is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, countMarshal, count, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(9, this, "int*", &count := 0, "HRESULT")
+        return count
     }
 
     /**
      * 
-     * @param {Pointer<IEnumFsiItems>} NewEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumFsiItems} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsinamedstreams-get_enumnamedstreams
      */
-    get_EnumNamedStreams(NewEnum) {
-        result := ComCall(10, this, "ptr*", NewEnum, "HRESULT")
-        return result
+    get_EnumNamedStreams() {
+        result := ComCall(10, this, "ptr*", &NewEnum := 0, "HRESULT")
+        return IEnumFsiItems(NewEnum)
     }
 }

@@ -62,13 +62,10 @@ class IWindowsDevicesAllJoynBusObjectInterop extends IInspectable{
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Win32Handle(value) {
-        valueMarshal := value is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, valueMarshal, value, "HRESULT")
-        return result
+    get_Win32Handle() {
+        result := ComCall(8, this, "uint*", &value := 0, "HRESULT")
+        return value
     }
 }

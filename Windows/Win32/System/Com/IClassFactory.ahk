@@ -34,15 +34,12 @@ class IClassFactory extends IUnknown{
      * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvObject 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/unknwn/nf-unknwn-iclassfactory-createinstance
      */
-    CreateInstance(pUnkOuter, riid, ppvObject) {
-        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", riid, ppvObjectMarshal, ppvObject, "HRESULT")
-        return result
+    CreateInstance(pUnkOuter, riid) {
+        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
+        return ppvObject
     }
 
     /**

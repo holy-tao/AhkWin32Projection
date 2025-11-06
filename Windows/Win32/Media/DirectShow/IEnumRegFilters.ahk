@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumRegFilters.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,17 +34,15 @@ class IEnumRegFilters extends IUnknown{
     /**
      * 
      * @param {Integer} cFilters 
-     * @param {Pointer<Pointer<REGFILTER>>} apRegFilter 
      * @param {Pointer<Integer>} pcFetched 
-     * @returns {HRESULT} 
+     * @returns {Pointer<REGFILTER>} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ienumregfilters-next
      */
-    Next(cFilters, apRegFilter, pcFetched) {
-        apRegFilterMarshal := apRegFilter is VarRef ? "ptr*" : "ptr"
+    Next(cFilters, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cFilters, apRegFilterMarshal, apRegFilter, pcFetchedMarshal, pcFetched, "int")
-        return result
+        result := ComCall(3, this, "uint", cFilters, "ptr*", &apRegFilter := 0, pcFetchedMarshal, pcFetched, "int")
+        return apRegFilter
     }
 
     /**
@@ -69,12 +68,11 @@ class IEnumRegFilters extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumRegFilters>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumRegFilters} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ienumregfilters-clone
      */
-    Clone(ppEnum) {
-        result := ComCall(6, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumRegFilters(ppEnum)
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -38,45 +39,45 @@ class SecurityProperty extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} bstrUserName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-securityproperty-getdirectcallername
      */
-    GetDirectCallerName(bstrUserName) {
+    GetDirectCallerName() {
+        bstrUserName := BSTR()
         result := ComCall(7, this, "ptr", bstrUserName, "HRESULT")
-        return result
+        return bstrUserName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} bstrUserName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-securityproperty-getdirectcreatorname
      */
-    GetDirectCreatorName(bstrUserName) {
+    GetDirectCreatorName() {
+        bstrUserName := BSTR()
         result := ComCall(8, this, "ptr", bstrUserName, "HRESULT")
-        return result
+        return bstrUserName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} bstrUserName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-securityproperty-getoriginalcallername
      */
-    GetOriginalCallerName(bstrUserName) {
+    GetOriginalCallerName() {
+        bstrUserName := BSTR()
         result := ComCall(9, this, "ptr", bstrUserName, "HRESULT")
-        return result
+        return bstrUserName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} bstrUserName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-securityproperty-getoriginalcreatorname
      */
-    GetOriginalCreatorName(bstrUserName) {
+    GetOriginalCreatorName() {
+        bstrUserName := BSTR()
         result := ComCall(10, this, "ptr", bstrUserName, "HRESULT")
-        return result
+        return bstrUserName
     }
 }

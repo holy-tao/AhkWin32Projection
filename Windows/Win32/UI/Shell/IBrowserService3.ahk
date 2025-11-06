@@ -53,16 +53,13 @@ class IBrowserService3 extends IBrowserService2{
      * @param {Integer} uiCP 
      * @param {PWSTR} pwszPath 
      * @param {Integer} dwFlags 
-     * @param {Pointer<Pointer<ITEMIDLIST>>} ppidlOut 
-     * @returns {HRESULT} 
+     * @returns {Pointer<ITEMIDLIST>} 
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice3-ieparsedisplaynameex
      */
-    IEParseDisplayNameEx(uiCP, pwszPath, dwFlags, ppidlOut) {
+    IEParseDisplayNameEx(uiCP, pwszPath, dwFlags) {
         pwszPath := pwszPath is String ? StrPtr(pwszPath) : pwszPath
 
-        ppidlOutMarshal := ppidlOut is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(96, this, "uint", uiCP, "ptr", pwszPath, "uint", dwFlags, ppidlOutMarshal, ppidlOut, "HRESULT")
-        return result
+        result := ComCall(96, this, "uint", uiCP, "ptr", pwszPath, "uint", dwFlags, "ptr*", &ppidlOut := 0, "HRESULT")
+        return ppidlOut
     }
 }

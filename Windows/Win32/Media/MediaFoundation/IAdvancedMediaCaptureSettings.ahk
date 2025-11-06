@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFDXGIDeviceManager.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,12 +33,11 @@ class IAdvancedMediaCaptureSettings extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IMFDXGIDeviceManager>} value 
-     * @returns {HRESULT} 
+     * @returns {IMFDXGIDeviceManager} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediacapture/nf-mfmediacapture-iadvancedmediacapturesettings-getdirectxdevicemanager
      */
-    GetDirectxDeviceManager(value) {
-        result := ComCall(3, this, "ptr*", value, "HRESULT")
-        return result
+    GetDirectxDeviceManager() {
+        result := ComCall(3, this, "ptr*", &value := 0, "HRESULT")
+        return IMFDXGIDeviceManager(value)
     }
 }

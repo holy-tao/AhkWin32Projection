@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DWRITE_INLINE_OBJECT_METRICS.ahk
+#Include .\DWRITE_OVERHANG_METRICS.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -51,24 +53,24 @@ class IDWriteInlineObject extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<DWRITE_INLINE_OBJECT_METRICS>} metrics 
-     * @returns {HRESULT} 
+     * @returns {DWRITE_INLINE_OBJECT_METRICS} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwriteinlineobject-getmetrics
      */
-    GetMetrics(metrics) {
+    GetMetrics() {
+        metrics := DWRITE_INLINE_OBJECT_METRICS()
         result := ComCall(4, this, "ptr", metrics, "HRESULT")
-        return result
+        return metrics
     }
 
     /**
      * 
-     * @param {Pointer<DWRITE_OVERHANG_METRICS>} overhangs 
-     * @returns {HRESULT} 
+     * @returns {DWRITE_OVERHANG_METRICS} 
      * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwriteinlineobject-getoverhangmetrics
      */
-    GetOverhangMetrics(overhangs) {
+    GetOverhangMetrics() {
+        overhangs := DWRITE_OVERHANG_METRICS()
         result := ComCall(5, this, "ptr", overhangs, "HRESULT")
-        return result
+        return overhangs
     }
 
     /**

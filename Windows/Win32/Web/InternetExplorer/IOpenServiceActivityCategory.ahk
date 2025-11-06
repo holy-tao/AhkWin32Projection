@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IOpenServiceActivity.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IEnumOpenServiceActivity.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,22 +33,20 @@ class IOpenServiceActivityCategory extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfHasDefaultActivity 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    HasDefaultActivity(pfHasDefaultActivity) {
-        result := ComCall(3, this, "ptr", pfHasDefaultActivity, "HRESULT")
-        return result
+    HasDefaultActivity() {
+        result := ComCall(3, this, "int*", &pfHasDefaultActivity := 0, "HRESULT")
+        return pfHasDefaultActivity
     }
 
     /**
      * 
-     * @param {Pointer<IOpenServiceActivity>} ppDefaultActivity 
-     * @returns {HRESULT} 
+     * @returns {IOpenServiceActivity} 
      */
-    GetDefaultActivity(ppDefaultActivity) {
-        result := ComCall(4, this, "ptr*", ppDefaultActivity, "HRESULT")
-        return result
+    GetDefaultActivity() {
+        result := ComCall(4, this, "ptr*", &ppDefaultActivity := 0, "HRESULT")
+        return IOpenServiceActivity(ppDefaultActivity)
     }
 
     /**
@@ -63,23 +64,22 @@ class IOpenServiceActivityCategory extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetName(pbstrName) {
+    GetName() {
+        pbstrName := BSTR()
         result := ComCall(6, this, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 
     /**
      * 
      * @param {IOpenServiceActivityInput} pInput 
      * @param {IOpenServiceActivityOutputContext} pOutput 
-     * @param {Pointer<IEnumOpenServiceActivity>} ppEnumActivity 
-     * @returns {HRESULT} 
+     * @returns {IEnumOpenServiceActivity} 
      */
-    GetActivityEnumerator(pInput, pOutput, ppEnumActivity) {
-        result := ComCall(7, this, "ptr", pInput, "ptr", pOutput, "ptr*", ppEnumActivity, "HRESULT")
-        return result
+    GetActivityEnumerator(pInput, pOutput) {
+        result := ComCall(7, this, "ptr", pInput, "ptr", pOutput, "ptr*", &ppEnumActivity := 0, "HRESULT")
+        return IEnumOpenServiceActivity(ppEnumActivity)
     }
 }

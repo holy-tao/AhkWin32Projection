@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -66,13 +67,12 @@ class IVMRSurfaceAllocator9 extends IUnknown{
      * @param {Pointer} dwUserID 
      * @param {Integer} SurfaceIndex 
      * @param {Integer} SurfaceFlags 
-     * @param {Pointer<IDirect3DSurface9>} lplpSurface 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DSurface9} 
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrsurfaceallocator9-getsurface
      */
-    GetSurface(dwUserID, SurfaceIndex, SurfaceFlags, lplpSurface) {
-        result := ComCall(5, this, "ptr", dwUserID, "uint", SurfaceIndex, "uint", SurfaceFlags, "ptr*", lplpSurface, "HRESULT")
-        return result
+    GetSurface(dwUserID, SurfaceIndex, SurfaceFlags) {
+        result := ComCall(5, this, "ptr", dwUserID, "uint", SurfaceIndex, "uint", SurfaceFlags, "ptr*", &lplpSurface := 0, "HRESULT")
+        return IDirect3DSurface9(lplpSurface)
     }
 
     /**

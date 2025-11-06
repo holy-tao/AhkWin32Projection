@@ -33,24 +33,22 @@ class IMILBitmapEffectPrimitiveImpl extends IUnknown{
     /**
      * 
      * @param {Integer} uiOutputIndex 
-     * @param {Pointer<VARIANT_BOOL>} pfDirty 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectprimitiveimpl-isdirty
      */
-    IsDirty(uiOutputIndex, pfDirty) {
-        result := ComCall(3, this, "uint", uiOutputIndex, "ptr", pfDirty, "int")
-        return result
+    IsDirty(uiOutputIndex) {
+        result := ComCall(3, this, "uint", uiOutputIndex, "short*", &pfDirty := 0, "int")
+        return pfDirty
     }
 
     /**
      * 
      * @param {Integer} uiOutputIndex 
-     * @param {Pointer<VARIANT_BOOL>} pfVolatile 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectprimitiveimpl-isvolatile
      */
-    IsVolatile(uiOutputIndex, pfVolatile) {
-        result := ComCall(4, this, "uint", uiOutputIndex, "ptr", pfVolatile, "HRESULT")
-        return result
+    IsVolatile(uiOutputIndex) {
+        result := ComCall(4, this, "uint", uiOutputIndex, "short*", &pfVolatile := 0, "HRESULT")
+        return pfVolatile
     }
 }

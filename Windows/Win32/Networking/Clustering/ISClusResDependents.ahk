@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\ISClusResource.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -31,24 +33,20 @@ class ISClusResDependents extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Count(plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, plCountMarshal, plCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &plCount := 0, "HRESULT")
+        return plCount
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__NewEnum(retval) {
-        result := ComCall(8, this, "ptr*", retval, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(8, this, "ptr*", &retval := 0, "HRESULT")
+        return IUnknown(retval)
     }
 
     /**
@@ -63,12 +61,11 @@ class ISClusResDependents extends IDispatch{
     /**
      * 
      * @param {VARIANT} varIndex 
-     * @param {Pointer<ISClusResource>} ppClusResource 
-     * @returns {HRESULT} 
+     * @returns {ISClusResource} 
      */
-    get_Item(varIndex, ppClusResource) {
-        result := ComCall(10, this, "ptr", varIndex, "ptr*", ppClusResource, "HRESULT")
-        return result
+    get_Item(varIndex) {
+        result := ComCall(10, this, "ptr", varIndex, "ptr*", &ppClusResource := 0, "HRESULT")
+        return ISClusResource(ppClusResource)
     }
 
     /**
@@ -76,15 +73,14 @@ class ISClusResDependents extends IDispatch{
      * @param {BSTR} bstrResourceName 
      * @param {BSTR} bstrResourceType 
      * @param {Integer} dwFlags 
-     * @param {Pointer<ISClusResource>} ppClusterResource 
-     * @returns {HRESULT} 
+     * @returns {ISClusResource} 
      */
-    CreateItem(bstrResourceName, bstrResourceType, dwFlags, ppClusterResource) {
+    CreateItem(bstrResourceName, bstrResourceType, dwFlags) {
         bstrResourceName := bstrResourceName is String ? BSTR.Alloc(bstrResourceName).Value : bstrResourceName
         bstrResourceType := bstrResourceType is String ? BSTR.Alloc(bstrResourceType).Value : bstrResourceType
 
-        result := ComCall(11, this, "ptr", bstrResourceName, "ptr", bstrResourceType, "int", dwFlags, "ptr*", ppClusterResource, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", bstrResourceName, "ptr", bstrResourceType, "int", dwFlags, "ptr*", &ppClusterResource := 0, "HRESULT")
+        return ISClusResource(ppClusterResource)
     }
 
     /**

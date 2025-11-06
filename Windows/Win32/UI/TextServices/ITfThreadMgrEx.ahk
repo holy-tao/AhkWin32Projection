@@ -32,28 +32,22 @@ class ITfThreadMgrEx extends ITfThreadMgr{
 
     /**
      * 
-     * @param {Pointer<Integer>} ptid 
      * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfthreadmgrex-activateex
      */
-    ActivateEx(ptid, dwFlags) {
-        ptidMarshal := ptid is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, ptidMarshal, ptid, "uint", dwFlags, "HRESULT")
-        return result
+    ActivateEx(dwFlags) {
+        result := ComCall(14, this, "uint*", &ptid := 0, "uint", dwFlags, "HRESULT")
+        return ptid
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} lpdwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfthreadmgrex-getactiveflags
      */
-    GetActiveFlags(lpdwFlags) {
-        lpdwFlagsMarshal := lpdwFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(15, this, lpdwFlagsMarshal, lpdwFlags, "HRESULT")
-        return result
+    GetActiveFlags() {
+        result := ComCall(15, this, "uint*", &lpdwFlags := 0, "HRESULT")
+        return lpdwFlags
     }
 }

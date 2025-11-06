@@ -33,14 +33,11 @@ class IXAudio2MasteringVoice extends IXAudio2Voice{
 
     /**
      * 
-     * @param {Pointer<Integer>} pChannelmask 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2masteringvoice-getchannelmask
      */
-    GetChannelMask(pChannelmask) {
-        pChannelmaskMarshal := pChannelmask is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(19, this, pChannelmaskMarshal, pChannelmask, "HRESULT")
-        return result
+    GetChannelMask() {
+        result := ComCall(19, this, "uint*", &pChannelmask := 0, "HRESULT")
+        return pChannelmask
     }
 }

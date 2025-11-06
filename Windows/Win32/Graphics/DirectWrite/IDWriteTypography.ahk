@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DWRITE_FONT_FEATURE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -54,12 +55,12 @@ class IDWriteTypography extends IUnknown{
     /**
      * 
      * @param {Integer} fontFeatureIndex 
-     * @param {Pointer<DWRITE_FONT_FEATURE>} fontFeature 
-     * @returns {HRESULT} 
+     * @returns {DWRITE_FONT_FEATURE} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetypography-getfontfeature
      */
-    GetFontFeature(fontFeatureIndex, fontFeature) {
+    GetFontFeature(fontFeatureIndex) {
+        fontFeature := DWRITE_FONT_FEATURE()
         result := ComCall(5, this, "uint", fontFeatureIndex, "ptr", fontFeature, "HRESULT")
-        return result
+        return fontFeature
     }
 }

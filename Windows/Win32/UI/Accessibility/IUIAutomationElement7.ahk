@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUIAutomationElement.ahk
+#Include .\IUIAutomationElementArray.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IUIAutomationElement6.ahk
 
 /**
@@ -36,13 +39,12 @@ class IUIAutomationElement7 extends IUIAutomationElement6{
      * @param {IUIAutomationCondition} condition 
      * @param {Integer} traversalOptions 
      * @param {IUIAutomationElement} root 
-     * @param {Pointer<IUIAutomationElement>} found 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElement} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement7-findfirstwithoptions
      */
-    FindFirstWithOptions(scope, condition, traversalOptions, root, found) {
-        result := ComCall(110, this, "int", scope, "ptr", condition, "int", traversalOptions, "ptr", root, "ptr*", found, "HRESULT")
-        return result
+    FindFirstWithOptions(scope, condition, traversalOptions, root) {
+        result := ComCall(110, this, "int", scope, "ptr", condition, "int", traversalOptions, "ptr", root, "ptr*", &found := 0, "HRESULT")
+        return IUIAutomationElement(found)
     }
 
     /**
@@ -51,13 +53,12 @@ class IUIAutomationElement7 extends IUIAutomationElement6{
      * @param {IUIAutomationCondition} condition 
      * @param {Integer} traversalOptions 
      * @param {IUIAutomationElement} root 
-     * @param {Pointer<IUIAutomationElementArray>} found 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElementArray} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement7-findallwithoptions
      */
-    FindAllWithOptions(scope, condition, traversalOptions, root, found) {
-        result := ComCall(111, this, "int", scope, "ptr", condition, "int", traversalOptions, "ptr", root, "ptr*", found, "HRESULT")
-        return result
+    FindAllWithOptions(scope, condition, traversalOptions, root) {
+        result := ComCall(111, this, "int", scope, "ptr", condition, "int", traversalOptions, "ptr", root, "ptr*", &found := 0, "HRESULT")
+        return IUIAutomationElementArray(found)
     }
 
     /**
@@ -67,13 +68,12 @@ class IUIAutomationElement7 extends IUIAutomationElement6{
      * @param {IUIAutomationCacheRequest} cacheRequest 
      * @param {Integer} traversalOptions 
      * @param {IUIAutomationElement} root 
-     * @param {Pointer<IUIAutomationElement>} found 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElement} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement7-findfirstwithoptionsbuildcache
      */
-    FindFirstWithOptionsBuildCache(scope, condition, cacheRequest, traversalOptions, root, found) {
-        result := ComCall(112, this, "int", scope, "ptr", condition, "ptr", cacheRequest, "int", traversalOptions, "ptr", root, "ptr*", found, "HRESULT")
-        return result
+    FindFirstWithOptionsBuildCache(scope, condition, cacheRequest, traversalOptions, root) {
+        result := ComCall(112, this, "int", scope, "ptr", condition, "ptr", cacheRequest, "int", traversalOptions, "ptr", root, "ptr*", &found := 0, "HRESULT")
+        return IUIAutomationElement(found)
     }
 
     /**
@@ -83,25 +83,24 @@ class IUIAutomationElement7 extends IUIAutomationElement6{
      * @param {IUIAutomationCacheRequest} cacheRequest 
      * @param {Integer} traversalOptions 
      * @param {IUIAutomationElement} root 
-     * @param {Pointer<IUIAutomationElementArray>} found 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElementArray} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement7-findallwithoptionsbuildcache
      */
-    FindAllWithOptionsBuildCache(scope, condition, cacheRequest, traversalOptions, root, found) {
-        result := ComCall(113, this, "int", scope, "ptr", condition, "ptr", cacheRequest, "int", traversalOptions, "ptr", root, "ptr*", found, "HRESULT")
-        return result
+    FindAllWithOptionsBuildCache(scope, condition, cacheRequest, traversalOptions, root) {
+        result := ComCall(113, this, "int", scope, "ptr", condition, "ptr", cacheRequest, "int", traversalOptions, "ptr", root, "ptr*", &found := 0, "HRESULT")
+        return IUIAutomationElementArray(found)
     }
 
     /**
      * 
      * @param {Integer} targetId 
      * @param {Integer} metadataId 
-     * @param {Pointer<VARIANT>} returnVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement7-getcurrentmetadatavalue
      */
-    GetCurrentMetadataValue(targetId, metadataId, returnVal) {
+    GetCurrentMetadataValue(targetId, metadataId) {
+        returnVal := VARIANT()
         result := ComCall(114, this, "int", targetId, "int", metadataId, "ptr", returnVal, "HRESULT")
-        return result
+        return returnVal
     }
 }

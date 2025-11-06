@@ -32,15 +32,13 @@ class IAudioStateMonitor extends IUnknown{
      * 
      * @param {Pointer<PAudioStateMonitorCallback>} callback 
      * @param {Pointer<Void>} context 
-     * @param {Pointer<Integer>} registration 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    RegisterCallback(callback, context, registration) {
+    RegisterCallback(callback, context) {
         contextMarshal := context is VarRef ? "ptr" : "ptr"
-        registrationMarshal := registration is VarRef ? "int64*" : "ptr"
 
-        result := ComCall(3, this, "ptr", callback, contextMarshal, context, registrationMarshal, registration, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", callback, contextMarshal, context, "int64*", &registration := 0, "HRESULT")
+        return registration
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFTopology.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -38,13 +39,12 @@ class IMFTopoLoader extends IUnknown{
     /**
      * 
      * @param {IMFTopology} pInputTopo 
-     * @param {Pointer<IMFTopology>} ppOutputTopo 
      * @param {IMFTopology} pCurrentTopo 
-     * @returns {HRESULT} 
+     * @returns {IMFTopology} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftopoloader-load
      */
-    Load(pInputTopo, ppOutputTopo, pCurrentTopo) {
-        result := ComCall(3, this, "ptr", pInputTopo, "ptr*", ppOutputTopo, "ptr", pCurrentTopo, "HRESULT")
-        return result
+    Load(pInputTopo, pCurrentTopo) {
+        result := ComCall(3, this, "ptr", pInputTopo, "ptr*", &ppOutputTopo := 0, "ptr", pCurrentTopo, "HRESULT")
+        return IMFTopology(ppOutputTopo)
     }
 }

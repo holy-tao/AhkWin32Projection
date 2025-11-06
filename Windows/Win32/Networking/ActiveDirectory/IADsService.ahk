@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IADs.ahk
 
 /**
@@ -41,12 +42,12 @@ class IADsService extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_HostComputer(retval) {
+    get_HostComputer() {
+        retval := BSTR()
         result := ComCall(20, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -63,12 +64,12 @@ class IADsService extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_DisplayName(retval) {
+    get_DisplayName() {
+        retval := BSTR()
         result := ComCall(22, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -85,12 +86,12 @@ class IADsService extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Version(retval) {
+    get_Version() {
+        retval := BSTR()
         result := ComCall(24, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -107,14 +108,11 @@ class IADsService extends IADs{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ServiceType(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(26, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_ServiceType() {
+        result := ComCall(26, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -129,14 +127,11 @@ class IADsService extends IADs{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_StartType(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(28, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_StartType() {
+        result := ComCall(28, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -151,12 +146,12 @@ class IADsService extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Path(retval) {
+    get_Path() {
+        retval := BSTR()
         result := ComCall(30, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -173,12 +168,12 @@ class IADsService extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_StartupParameters(retval) {
+    get_StartupParameters() {
+        retval := BSTR()
         result := ComCall(32, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -195,14 +190,11 @@ class IADsService extends IADs{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ErrorControl(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(34, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_ErrorControl() {
+        result := ComCall(34, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -217,12 +209,12 @@ class IADsService extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_LoadOrderGroup(retval) {
+    get_LoadOrderGroup() {
+        retval := BSTR()
         result := ComCall(36, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -239,12 +231,12 @@ class IADsService extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ServiceAccountName(retval) {
+    get_ServiceAccountName() {
+        retval := BSTR()
         result := ComCall(38, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -261,12 +253,12 @@ class IADsService extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ServiceAccountPath(retval) {
+    get_ServiceAccountPath() {
+        retval := BSTR()
         result := ComCall(40, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -283,12 +275,12 @@ class IADsService extends IADs{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_Dependencies(retval) {
+    get_Dependencies() {
+        retval := VARIANT()
         result := ComCall(42, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**

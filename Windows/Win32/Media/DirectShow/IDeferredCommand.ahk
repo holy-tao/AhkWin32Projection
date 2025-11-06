@@ -42,15 +42,12 @@ class IDeferredCommand extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pConfidence 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ideferredcommand-confidence
      */
-    Confidence(pConfidence) {
-        pConfidenceMarshal := pConfidence is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, pConfidenceMarshal, pConfidence, "HRESULT")
-        return result
+    Confidence() {
+        result := ComCall(4, this, "int*", &pConfidence := 0, "HRESULT")
+        return pConfidence
     }
 
     /**
@@ -66,12 +63,11 @@ class IDeferredCommand extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HRESULT>} phrResult 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ideferredcommand-gethresult
      */
-    GetHResult(phrResult) {
-        result := ComCall(6, this, "ptr", phrResult, "HRESULT")
-        return result
+    GetHResult() {
+        result := ComCall(6, this, "int*", &phrResult := 0, "HRESULT")
+        return phrResult
     }
 }

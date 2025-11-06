@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IStream.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\IShellView.ahk
 #Include ..\..\System\Ole\IOleWindow.ahk
 
 /**
@@ -135,25 +138,24 @@ class IShellBrowser extends IOleWindow{
     /**
      * 
      * @param {Integer} grfMode 
-     * @param {Pointer<IStream>} ppStrm 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellbrowser-getviewstatestream
      */
-    GetViewStateStream(grfMode, ppStrm) {
-        result := ComCall(12, this, "uint", grfMode, "ptr*", ppStrm, "HRESULT")
-        return result
+    GetViewStateStream(grfMode) {
+        result := ComCall(12, this, "uint", grfMode, "ptr*", &ppStrm := 0, "HRESULT")
+        return IStream(ppStrm)
     }
 
     /**
      * 
      * @param {Integer} id 
-     * @param {Pointer<HWND>} phwnd 
-     * @returns {HRESULT} 
+     * @returns {HWND} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellbrowser-getcontrolwindow
      */
-    GetControlWindow(id, phwnd) {
+    GetControlWindow(id) {
+        phwnd := HWND()
         result := ComCall(13, this, "uint", id, "ptr", phwnd, "HRESULT")
-        return result
+        return phwnd
     }
 
     /**
@@ -162,24 +164,22 @@ class IShellBrowser extends IOleWindow{
      * @param {Integer} uMsg 
      * @param {WPARAM} wParam 
      * @param {LPARAM} lParam 
-     * @param {Pointer<LRESULT>} pret 
-     * @returns {HRESULT} 
+     * @returns {LRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellbrowser-sendcontrolmsg
      */
-    SendControlMsg(id, uMsg, wParam, lParam, pret) {
-        result := ComCall(14, this, "uint", id, "uint", uMsg, "ptr", wParam, "ptr", lParam, "ptr", pret, "HRESULT")
-        return result
+    SendControlMsg(id, uMsg, wParam, lParam) {
+        result := ComCall(14, this, "uint", id, "uint", uMsg, "ptr", wParam, "ptr", lParam, "ptr*", &pret := 0, "HRESULT")
+        return pret
     }
 
     /**
      * 
-     * @param {Pointer<IShellView>} ppshv 
-     * @returns {HRESULT} 
+     * @returns {IShellView} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellbrowser-queryactiveshellview
      */
-    QueryActiveShellView(ppshv) {
-        result := ComCall(15, this, "ptr*", ppshv, "HRESULT")
-        return result
+    QueryActiveShellView() {
+        result := ComCall(15, this, "ptr*", &ppshv := 0, "HRESULT")
+        return IShellView(ppshv)
     }
 
     /**

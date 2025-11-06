@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISpatialAudioObjectForHrtf.ahk
 #Include .\ISpatialAudioObjectRenderStreamBase.ahk
 
 /**
@@ -39,12 +40,11 @@ class ISpatialAudioObjectRenderStreamForHrtf extends ISpatialAudioObjectRenderSt
     /**
      * 
      * @param {Integer} type 
-     * @param {Pointer<ISpatialAudioObjectForHrtf>} audioObject 
-     * @returns {HRESULT} 
+     * @returns {ISpatialAudioObjectForHrtf} 
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiohrtf/nf-spatialaudiohrtf-ispatialaudioobjectrenderstreamforhrtf-activatespatialaudioobjectforhrtf
      */
-    ActivateSpatialAudioObjectForHrtf(type, audioObject) {
-        result := ComCall(10, this, "int", type, "ptr*", audioObject, "HRESULT")
-        return result
+    ActivateSpatialAudioObjectForHrtf(type) {
+        result := ComCall(10, this, "int", type, "ptr*", &audioObject := 0, "HRESULT")
+        return ISpatialAudioObjectForHrtf(audioObject)
     }
 }

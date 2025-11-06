@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IColumnMapper.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -34,15 +35,14 @@ class IColumnMapperCreator extends IUnknown{
      * 
      * @param {PWSTR} wcsMachineName 
      * @param {PWSTR} wcsCatalogName 
-     * @param {Pointer<IColumnMapper>} ppColumnMapper 
-     * @returns {HRESULT} 
+     * @returns {IColumnMapper} 
      * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nf-indexsrv-icolumnmappercreator-getcolumnmapper
      */
-    GetColumnMapper(wcsMachineName, wcsCatalogName, ppColumnMapper) {
+    GetColumnMapper(wcsMachineName, wcsCatalogName) {
         wcsMachineName := wcsMachineName is String ? StrPtr(wcsMachineName) : wcsMachineName
         wcsCatalogName := wcsCatalogName is String ? StrPtr(wcsCatalogName) : wcsCatalogName
 
-        result := ComCall(3, this, "ptr", wcsMachineName, "ptr", wcsCatalogName, "ptr*", ppColumnMapper, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", wcsMachineName, "ptr", wcsCatalogName, "ptr*", &ppColumnMapper := 0, "HRESULT")
+        return IColumnMapper(ppColumnMapper)
     }
 }

@@ -42,18 +42,16 @@ class IBDA_ConditionalAccessEx extends IUnknown{
      * @param {Integer} RequestType 
      * @param {Integer} ulcbEntitlementTokenLen 
      * @param {Pointer<Integer>} pbEntitlementToken 
-     * @param {Pointer<Integer>} pulDescrambleStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_conditionalaccessex-checkentitlementtoken
      */
-    CheckEntitlementToken(ulDialogRequest, bstrLanguage, RequestType, ulcbEntitlementTokenLen, pbEntitlementToken, pulDescrambleStatus) {
+    CheckEntitlementToken(ulDialogRequest, bstrLanguage, RequestType, ulcbEntitlementTokenLen, pbEntitlementToken) {
         bstrLanguage := bstrLanguage is String ? BSTR.Alloc(bstrLanguage).Value : bstrLanguage
 
         pbEntitlementTokenMarshal := pbEntitlementToken is VarRef ? "char*" : "ptr"
-        pulDescrambleStatusMarshal := pulDescrambleStatus is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", ulDialogRequest, "ptr", bstrLanguage, "int", RequestType, "uint", ulcbEntitlementTokenLen, pbEntitlementTokenMarshal, pbEntitlementToken, pulDescrambleStatusMarshal, pulDescrambleStatus, "HRESULT")
-        return result
+        result := ComCall(3, this, "uint", ulDialogRequest, "ptr", bstrLanguage, "int", RequestType, "uint", ulcbEntitlementTokenLen, pbEntitlementTokenMarshal, pbEntitlementToken, "uint*", &pulDescrambleStatus := 0, "HRESULT")
+        return pulDescrambleStatus
     }
 
     /**
@@ -91,29 +89,23 @@ class IBDA_ConditionalAccessEx extends IUnknown{
      * @param {BSTR} bstrLanguage 
      * @param {Integer} ulDialogNumber 
      * @param {Integer} ReasonCode 
-     * @param {Pointer<Integer>} pulSessionResult 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_conditionalaccessex-closemmidialog
      */
-    CloseMmiDialog(ulDialogRequest, bstrLanguage, ulDialogNumber, ReasonCode, pulSessionResult) {
+    CloseMmiDialog(ulDialogRequest, bstrLanguage, ulDialogNumber, ReasonCode) {
         bstrLanguage := bstrLanguage is String ? BSTR.Alloc(bstrLanguage).Value : bstrLanguage
 
-        pulSessionResultMarshal := pulSessionResult is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, "uint", ulDialogRequest, "ptr", bstrLanguage, "uint", ulDialogNumber, "int", ReasonCode, pulSessionResultMarshal, pulSessionResult, "HRESULT")
-        return result
+        result := ComCall(6, this, "uint", ulDialogRequest, "ptr", bstrLanguage, "uint", ulDialogNumber, "int", ReasonCode, "uint*", &pulSessionResult := 0, "HRESULT")
+        return pulSessionResult
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pulDialogRequestNumber 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_conditionalaccessex-createdialogrequestnumber
      */
-    CreateDialogRequestNumber(pulDialogRequestNumber) {
-        pulDialogRequestNumberMarshal := pulDialogRequestNumber is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pulDialogRequestNumberMarshal, pulDialogRequestNumber, "HRESULT")
-        return result
+    CreateDialogRequestNumber() {
+        result := ComCall(7, this, "uint*", &pulDialogRequestNumber := 0, "HRESULT")
+        return pulDialogRequestNumber
     }
 }

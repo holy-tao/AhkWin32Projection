@@ -40,14 +40,11 @@ class ID3D12SwapChainAssistant extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetSwapChainObject(riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetSwapChainObject(riid) {
+        result := ComCall(4, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**

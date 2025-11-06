@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteFontSetBuilder1.ahk
+#Include .\IDWriteInMemoryFontFileLoader.ahk
+#Include .\IDWriteRemoteFontFileLoader.ahk
+#Include .\IDWriteFontFileStream.ahk
 #Include .\IDWriteFactory4.ahk
 
 /**
@@ -32,40 +36,37 @@ class IDWriteFactory5 extends IDWriteFactory4{
 
     /**
      * 
-     * @param {Pointer<IDWriteFontSetBuilder1>} fontSetBuilder 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontSetBuilder1} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory5-createfontsetbuilder
      */
-    CreateFontSetBuilder(fontSetBuilder) {
-        result := ComCall(43, this, "ptr*", fontSetBuilder, "HRESULT")
-        return result
+    CreateFontSetBuilder() {
+        result := ComCall(43, this, "ptr*", &fontSetBuilder := 0, "HRESULT")
+        return IDWriteFontSetBuilder1(fontSetBuilder)
     }
 
     /**
      * 
-     * @param {Pointer<IDWriteInMemoryFontFileLoader>} newLoader 
-     * @returns {HRESULT} 
+     * @returns {IDWriteInMemoryFontFileLoader} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory5-createinmemoryfontfileloader
      */
-    CreateInMemoryFontFileLoader(newLoader) {
-        result := ComCall(44, this, "ptr*", newLoader, "HRESULT")
-        return result
+    CreateInMemoryFontFileLoader() {
+        result := ComCall(44, this, "ptr*", &newLoader := 0, "HRESULT")
+        return IDWriteInMemoryFontFileLoader(newLoader)
     }
 
     /**
      * 
      * @param {PWSTR} referrerUrl 
      * @param {PWSTR} extraHeaders 
-     * @param {Pointer<IDWriteRemoteFontFileLoader>} newLoader 
-     * @returns {HRESULT} 
+     * @returns {IDWriteRemoteFontFileLoader} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory5-createhttpfontfileloader
      */
-    CreateHttpFontFileLoader(referrerUrl, extraHeaders, newLoader) {
+    CreateHttpFontFileLoader(referrerUrl, extraHeaders) {
         referrerUrl := referrerUrl is String ? StrPtr(referrerUrl) : referrerUrl
         extraHeaders := extraHeaders is String ? StrPtr(extraHeaders) : extraHeaders
 
-        result := ComCall(45, this, "ptr", referrerUrl, "ptr", extraHeaders, "ptr*", newLoader, "HRESULT")
-        return result
+        result := ComCall(45, this, "ptr", referrerUrl, "ptr", extraHeaders, "ptr*", &newLoader := 0, "HRESULT")
+        return IDWriteRemoteFontFileLoader(newLoader)
     }
 
     /**
@@ -85,12 +86,11 @@ class IDWriteFactory5 extends IDWriteFactory4{
      * @param {Integer} containerType 
      * @param {Pointer} fileData 
      * @param {Integer} fileDataSize 
-     * @param {Pointer<IDWriteFontFileStream>} unpackedFontStream 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontFileStream} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory5-unpackfontfile
      */
-    UnpackFontFile(containerType, fileData, fileDataSize, unpackedFontStream) {
-        result := ComCall(47, this, "int", containerType, "ptr", fileData, "uint", fileDataSize, "ptr*", unpackedFontStream, "HRESULT")
-        return result
+    UnpackFontFile(containerType, fileData, fileDataSize) {
+        result := ComCall(47, this, "int", containerType, "ptr", fileData, "uint", fileDataSize, "ptr*", &unpackedFontStream := 0, "HRESULT")
+        return IDWriteFontFileStream(unpackedFontStream)
     }
 }

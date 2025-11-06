@@ -3,6 +3,9 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\Folder.ahk
+#Include .\FolderItems.ahk
+#Include .\FolderItem.ahk
 
 /**
  * 
@@ -39,67 +42,62 @@ class Folder extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbs 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Title(pbs) {
+    get_Title() {
+        pbs := BSTR()
         result := ComCall(7, this, "ptr", pbs, "HRESULT")
-        return result
+        return pbs
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppid 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Application(ppid) {
-        result := ComCall(8, this, "ptr*", ppid, "HRESULT")
-        return result
+    get_Application() {
+        result := ComCall(8, this, "ptr*", &ppid := 0, "HRESULT")
+        return IDispatch(ppid)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppid 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Parent(ppid) {
-        result := ComCall(9, this, "ptr*", ppid, "HRESULT")
-        return result
+    get_Parent() {
+        result := ComCall(9, this, "ptr*", &ppid := 0, "HRESULT")
+        return IDispatch(ppid)
     }
 
     /**
      * 
-     * @param {Pointer<Folder>} ppsf 
-     * @returns {HRESULT} 
+     * @returns {Folder} 
      */
-    get_ParentFolder(ppsf) {
-        result := ComCall(10, this, "ptr*", ppsf, "HRESULT")
-        return result
+    get_ParentFolder() {
+        result := ComCall(10, this, "ptr*", &ppsf := 0, "HRESULT")
+        return Folder(ppsf)
     }
 
     /**
      * 
-     * @param {Pointer<FolderItems>} ppid 
-     * @returns {HRESULT} 
+     * @returns {FolderItems} 
      * @see https://learn.microsoft.com/windows/win32/shell/folder-items
      */
-    Items(ppid) {
-        result := ComCall(11, this, "ptr*", ppid, "HRESULT")
-        return result
+    Items() {
+        result := ComCall(11, this, "ptr*", &ppid := 0, "HRESULT")
+        return FolderItems(ppid)
     }
 
     /**
      * 
      * @param {BSTR} bName 
-     * @param {Pointer<FolderItem>} ppid 
-     * @returns {HRESULT} 
+     * @returns {FolderItem} 
      * @see https://learn.microsoft.com/windows/win32/shell/folder-parsename
      */
-    ParseName(bName, ppid) {
+    ParseName(bName) {
         bName := bName is String ? BSTR.Alloc(bName).Value : bName
 
-        result := ComCall(12, this, "ptr", bName, "ptr*", ppid, "HRESULT")
-        return result
+        result := ComCall(12, this, "ptr", bName, "ptr*", &ppid := 0, "HRESULT")
+        return FolderItem(ppid)
     }
 
     /**
@@ -144,12 +142,12 @@ class Folder extends IDispatch{
      * 
      * @param {VARIANT} vItem 
      * @param {Integer} iColumn 
-     * @param {Pointer<BSTR>} pbs 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/shell/folder-getdetailsof
      */
-    GetDetailsOf(vItem, iColumn, pbs) {
+    GetDetailsOf(vItem, iColumn) {
+        pbs := BSTR()
         result := ComCall(16, this, "ptr", vItem, "int", iColumn, "ptr", pbs, "HRESULT")
-        return result
+        return pbs
     }
 }

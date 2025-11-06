@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IFsrmMutableCollection.ahk
 #Include .\IFsrmObject.ahk
 
 /**
@@ -41,13 +42,13 @@ class IFsrmFileGroup extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<BSTR>} name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilegroup-get_name
      */
-    get_Name(name) {
+    get_Name() {
+        name := BSTR()
         result := ComCall(12, this, "ptr", name, "HRESULT")
-        return result
+        return name
     }
 
     /**
@@ -65,13 +66,12 @@ class IFsrmFileGroup extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<IFsrmMutableCollection>} members 
-     * @returns {HRESULT} 
+     * @returns {IFsrmMutableCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilegroup-get_members
      */
-    get_Members(members) {
-        result := ComCall(14, this, "ptr*", members, "HRESULT")
-        return result
+    get_Members() {
+        result := ComCall(14, this, "ptr*", &members := 0, "HRESULT")
+        return IFsrmMutableCollection(members)
     }
 
     /**
@@ -87,13 +87,12 @@ class IFsrmFileGroup extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<IFsrmMutableCollection>} nonMembers 
-     * @returns {HRESULT} 
+     * @returns {IFsrmMutableCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilegroup-get_nonmembers
      */
-    get_NonMembers(nonMembers) {
-        result := ComCall(16, this, "ptr*", nonMembers, "HRESULT")
-        return result
+    get_NonMembers() {
+        result := ComCall(16, this, "ptr*", &nonMembers := 0, "HRESULT")
+        return IFsrmMutableCollection(nonMembers)
     }
 
     /**

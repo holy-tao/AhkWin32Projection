@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -38,101 +39,83 @@ class IMbnSmsReadMsgTextCdma extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} Index 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsreadmsgtextcdma-get_index
      */
-    get_Index(Index) {
-        IndexMarshal := Index is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, IndexMarshal, Index, "HRESULT")
-        return result
+    get_Index() {
+        result := ComCall(3, this, "uint*", &Index := 0, "HRESULT")
+        return Index
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Status 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsreadmsgtextcdma-get_status
      */
-    get_Status(Status) {
-        StatusMarshal := Status is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, StatusMarshal, Status, "HRESULT")
-        return result
+    get_Status() {
+        result := ComCall(4, this, "int*", &Status := 0, "HRESULT")
+        return Status
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} Address 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsreadmsgtextcdma-get_address
      */
-    get_Address(Address) {
+    get_Address() {
+        Address := BSTR()
         result := ComCall(5, this, "ptr", Address, "HRESULT")
-        return result
+        return Address
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} Timestamp 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsreadmsgtextcdma-get_timestamp
      */
-    get_Timestamp(Timestamp) {
+    get_Timestamp() {
+        Timestamp := BSTR()
         result := ComCall(6, this, "ptr", Timestamp, "HRESULT")
-        return result
+        return Timestamp
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} EncodingID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsreadmsgtextcdma-get_encodingid
      */
-    get_EncodingID(EncodingID) {
-        EncodingIDMarshal := EncodingID is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, EncodingIDMarshal, EncodingID, "HRESULT")
-        return result
+    get_EncodingID() {
+        result := ComCall(7, this, "int*", &EncodingID := 0, "HRESULT")
+        return EncodingID
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} LanguageID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsreadmsgtextcdma-get_languageid
      */
-    get_LanguageID(LanguageID) {
-        LanguageIDMarshal := LanguageID is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, LanguageIDMarshal, LanguageID, "HRESULT")
-        return result
+    get_LanguageID() {
+        result := ComCall(8, this, "int*", &LanguageID := 0, "HRESULT")
+        return LanguageID
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} SizeInCharacters 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsreadmsgtextcdma-get_sizeincharacters
      */
-    get_SizeInCharacters(SizeInCharacters) {
-        SizeInCharactersMarshal := SizeInCharacters is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, SizeInCharactersMarshal, SizeInCharacters, "HRESULT")
-        return result
+    get_SizeInCharacters() {
+        result := ComCall(9, this, "uint*", &SizeInCharacters := 0, "HRESULT")
+        return SizeInCharacters
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} Message 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsmsreadmsgtextcdma-get_message
      */
-    get_Message(Message) {
-        MessageMarshal := Message is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(10, this, MessageMarshal, Message, "HRESULT")
-        return result
+    get_Message() {
+        result := ComCall(10, this, "ptr*", &Message := 0, "HRESULT")
+        return Message
     }
 }

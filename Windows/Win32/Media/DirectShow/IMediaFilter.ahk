@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\IReferenceClock.ahk
 #Include ..\..\System\Com\IPersist.ahk
 
 /**
@@ -64,15 +65,12 @@ class IMediaFilter extends IPersist{
     /**
      * 
      * @param {Integer} dwMilliSecsTimeout 
-     * @param {Pointer<Integer>} State 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediafilter-getstate
      */
-    GetState(dwMilliSecsTimeout, State) {
-        StateMarshal := State is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, "uint", dwMilliSecsTimeout, StateMarshal, State, "HRESULT")
-        return result
+    GetState(dwMilliSecsTimeout) {
+        result := ComCall(7, this, "uint", dwMilliSecsTimeout, "int*", &State := 0, "HRESULT")
+        return State
     }
 
     /**
@@ -88,12 +86,11 @@ class IMediaFilter extends IPersist{
 
     /**
      * 
-     * @param {Pointer<IReferenceClock>} pClock 
-     * @returns {HRESULT} 
+     * @returns {IReferenceClock} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediafilter-getsyncsource
      */
-    GetSyncSource(pClock) {
-        result := ComCall(9, this, "ptr*", pClock, "HRESULT")
-        return result
+    GetSyncSource() {
+        result := ComCall(9, this, "ptr*", &pClock := 0, "HRESULT")
+        return IReferenceClock(pClock)
     }
 }

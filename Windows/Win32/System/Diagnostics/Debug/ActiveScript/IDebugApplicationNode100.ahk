@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\TEXT_DOCUMENT_ARRAY.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -42,12 +43,12 @@ class IDebugApplicationNode100 extends IUnknown{
     /**
      * 
      * @param {Integer} filter 
-     * @param {Pointer<TEXT_DOCUMENT_ARRAY>} pDocuments 
-     * @returns {HRESULT} 
+     * @returns {TEXT_DOCUMENT_ARRAY} 
      */
-    GetExcludedDocuments(filter, pDocuments) {
+    GetExcludedDocuments(filter) {
+        pDocuments := TEXT_DOCUMENT_ARRAY()
         result := ComCall(4, this, "int", filter, "ptr", pDocuments, "HRESULT")
-        return result
+        return pDocuments
     }
 
     /**

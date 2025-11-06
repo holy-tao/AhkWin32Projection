@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IAppxBlockMapBlocksEnumerator.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -41,61 +42,52 @@ class IAppxBlockMapFile extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IAppxBlockMapBlocksEnumerator>} blocks 
-     * @returns {HRESULT} 
+     * @returns {IAppxBlockMapBlocksEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxblockmapfile-getblocks
      */
-    GetBlocks(blocks) {
-        result := ComCall(3, this, "ptr*", blocks, "HRESULT")
-        return result
+    GetBlocks() {
+        result := ComCall(3, this, "ptr*", &blocks := 0, "HRESULT")
+        return IAppxBlockMapBlocksEnumerator(blocks)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} lfhSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxblockmapfile-getlocalfileheadersize
      */
-    GetLocalFileHeaderSize(lfhSize) {
-        lfhSizeMarshal := lfhSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, lfhSizeMarshal, lfhSize, "HRESULT")
-        return result
+    GetLocalFileHeaderSize() {
+        result := ComCall(4, this, "uint*", &lfhSize := 0, "HRESULT")
+        return lfhSize
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} name 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxblockmapfile-getname
      */
-    GetName(name) {
-        result := ComCall(5, this, "ptr", name, "HRESULT")
-        return result
+    GetName() {
+        result := ComCall(5, this, "ptr*", &name := 0, "HRESULT")
+        return name
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} size 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxblockmapfile-getuncompressedsize
      */
-    GetUncompressedSize(size) {
-        sizeMarshal := size is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, sizeMarshal, size, "HRESULT")
-        return result
+    GetUncompressedSize() {
+        result := ComCall(6, this, "uint*", &size := 0, "HRESULT")
+        return size
     }
 
     /**
      * 
      * @param {IStream} fileStream 
-     * @param {Pointer<BOOL>} isValid 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxblockmapfile-validatefilehash
      */
-    ValidateFileHash(fileStream, isValid) {
-        result := ComCall(7, this, "ptr", fileStream, "ptr", isValid, "HRESULT")
-        return result
+    ValidateFileHash(fileStream) {
+        result := ComCall(7, this, "ptr", fileStream, "int*", &isValid := 0, "HRESULT")
+        return isValid
     }
 }

@@ -44,64 +44,52 @@ class IPropertySystem extends IUnknown{
      * 
      * @param {Pointer<PROPERTYKEY>} propkey 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertysystem-getpropertydescription
      */
-    GetPropertyDescription(propkey, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", propkey, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetPropertyDescription(propkey, riid) {
+        result := ComCall(3, this, "ptr", propkey, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * 
      * @param {PWSTR} pszCanonicalName 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertysystem-getpropertydescriptionbyname
      */
-    GetPropertyDescriptionByName(pszCanonicalName, riid, ppv) {
+    GetPropertyDescriptionByName(pszCanonicalName, riid) {
         pszCanonicalName := pszCanonicalName is String ? StrPtr(pszCanonicalName) : pszCanonicalName
 
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "ptr", pszCanonicalName, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pszCanonicalName, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * 
      * @param {PWSTR} pszPropList 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertysystem-getpropertydescriptionlistfromstring
      */
-    GetPropertyDescriptionListFromString(pszPropList, riid, ppv) {
+    GetPropertyDescriptionListFromString(pszPropList, riid) {
         pszPropList := pszPropList is String ? StrPtr(pszPropList) : pszPropList
 
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, "ptr", pszPropList, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", pszPropList, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * 
      * @param {Integer} filterOn 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertysystem-enumeratepropertydescriptions
      */
-    EnumeratePropertyDescriptions(filterOn, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "int", filterOn, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    EnumeratePropertyDescriptions(filterOn, riid) {
+        result := ComCall(6, this, "int", filterOn, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
@@ -126,13 +114,12 @@ class IPropertySystem extends IUnknown{
      * @param {Pointer<PROPERTYKEY>} key 
      * @param {Pointer<PROPVARIANT>} propvar 
      * @param {Integer} pdff 
-     * @param {Pointer<PWSTR>} ppszDisplay 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertysystem-formatfordisplayalloc
      */
-    FormatForDisplayAlloc(key, propvar, pdff, ppszDisplay) {
-        result := ComCall(8, this, "ptr", key, "ptr", propvar, "int", pdff, "ptr", ppszDisplay, "HRESULT")
-        return result
+    FormatForDisplayAlloc(key, propvar, pdff) {
+        result := ComCall(8, this, "ptr", key, "ptr", propvar, "int", pdff, "ptr*", &ppszDisplay := 0, "HRESULT")
+        return ppszDisplay
     }
 
     /**

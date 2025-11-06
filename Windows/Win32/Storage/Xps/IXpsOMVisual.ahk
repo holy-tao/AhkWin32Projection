@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsOMMatrixTransform.ahk
+#Include .\IXpsOMGeometry.ahk
+#Include .\IXpsOMBrush.ahk
+#Include ..\..\System\Com\IUri.ahk
 #Include .\IXpsOMShareable.ahk
 
 /**
@@ -32,24 +36,22 @@ class IXpsOMVisual extends IXpsOMShareable{
 
     /**
      * 
-     * @param {Pointer<IXpsOMMatrixTransform>} matrixTransform 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMMatrixTransform} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-gettransform
      */
-    GetTransform(matrixTransform) {
-        result := ComCall(5, this, "ptr*", matrixTransform, "HRESULT")
-        return result
+    GetTransform() {
+        result := ComCall(5, this, "ptr*", &matrixTransform := 0, "HRESULT")
+        return IXpsOMMatrixTransform(matrixTransform)
     }
 
     /**
      * 
-     * @param {Pointer<IXpsOMMatrixTransform>} matrixTransform 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMMatrixTransform} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-gettransformlocal
      */
-    GetTransformLocal(matrixTransform) {
-        result := ComCall(6, this, "ptr*", matrixTransform, "HRESULT")
-        return result
+    GetTransformLocal() {
+        result := ComCall(6, this, "ptr*", &matrixTransform := 0, "HRESULT")
+        return IXpsOMMatrixTransform(matrixTransform)
     }
 
     /**
@@ -65,13 +67,12 @@ class IXpsOMVisual extends IXpsOMShareable{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} key 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-gettransformlookup
      */
-    GetTransformLookup(key) {
-        result := ComCall(8, this, "ptr", key, "HRESULT")
-        return result
+    GetTransformLookup() {
+        result := ComCall(8, this, "ptr*", &key := 0, "HRESULT")
+        return key
     }
 
     /**
@@ -89,24 +90,22 @@ class IXpsOMVisual extends IXpsOMShareable{
 
     /**
      * 
-     * @param {Pointer<IXpsOMGeometry>} clipGeometry 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMGeometry} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getclipgeometry
      */
-    GetClipGeometry(clipGeometry) {
-        result := ComCall(10, this, "ptr*", clipGeometry, "HRESULT")
-        return result
+    GetClipGeometry() {
+        result := ComCall(10, this, "ptr*", &clipGeometry := 0, "HRESULT")
+        return IXpsOMGeometry(clipGeometry)
     }
 
     /**
      * 
-     * @param {Pointer<IXpsOMGeometry>} clipGeometry 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMGeometry} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getclipgeometrylocal
      */
-    GetClipGeometryLocal(clipGeometry) {
-        result := ComCall(11, this, "ptr*", clipGeometry, "HRESULT")
-        return result
+    GetClipGeometryLocal() {
+        result := ComCall(11, this, "ptr*", &clipGeometry := 0, "HRESULT")
+        return IXpsOMGeometry(clipGeometry)
     }
 
     /**
@@ -122,13 +121,12 @@ class IXpsOMVisual extends IXpsOMShareable{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} key 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getclipgeometrylookup
      */
-    GetClipGeometryLookup(key) {
-        result := ComCall(13, this, "ptr", key, "HRESULT")
-        return result
+    GetClipGeometryLookup() {
+        result := ComCall(13, this, "ptr*", &key := 0, "HRESULT")
+        return key
     }
 
     /**
@@ -146,15 +144,12 @@ class IXpsOMVisual extends IXpsOMShareable{
 
     /**
      * 
-     * @param {Pointer<Float>} opacity 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getopacity
      */
-    GetOpacity(opacity) {
-        opacityMarshal := opacity is VarRef ? "float*" : "ptr"
-
-        result := ComCall(15, this, opacityMarshal, opacity, "HRESULT")
-        return result
+    GetOpacity() {
+        result := ComCall(15, this, "float*", &opacity := 0, "HRESULT")
+        return opacity
     }
 
     /**
@@ -170,24 +165,22 @@ class IXpsOMVisual extends IXpsOMShareable{
 
     /**
      * 
-     * @param {Pointer<IXpsOMBrush>} opacityMaskBrush 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMBrush} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getopacitymaskbrush
      */
-    GetOpacityMaskBrush(opacityMaskBrush) {
-        result := ComCall(17, this, "ptr*", opacityMaskBrush, "HRESULT")
-        return result
+    GetOpacityMaskBrush() {
+        result := ComCall(17, this, "ptr*", &opacityMaskBrush := 0, "HRESULT")
+        return IXpsOMBrush(opacityMaskBrush)
     }
 
     /**
      * 
-     * @param {Pointer<IXpsOMBrush>} opacityMaskBrush 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMBrush} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getopacitymaskbrushlocal
      */
-    GetOpacityMaskBrushLocal(opacityMaskBrush) {
-        result := ComCall(18, this, "ptr*", opacityMaskBrush, "HRESULT")
-        return result
+    GetOpacityMaskBrushLocal() {
+        result := ComCall(18, this, "ptr*", &opacityMaskBrush := 0, "HRESULT")
+        return IXpsOMBrush(opacityMaskBrush)
     }
 
     /**
@@ -203,13 +196,12 @@ class IXpsOMVisual extends IXpsOMShareable{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} key 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getopacitymaskbrushlookup
      */
-    GetOpacityMaskBrushLookup(key) {
-        result := ComCall(20, this, "ptr", key, "HRESULT")
-        return result
+    GetOpacityMaskBrushLookup() {
+        result := ComCall(20, this, "ptr*", &key := 0, "HRESULT")
+        return key
     }
 
     /**
@@ -227,13 +219,12 @@ class IXpsOMVisual extends IXpsOMShareable{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} name 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getname
      */
-    GetName(name) {
-        result := ComCall(22, this, "ptr", name, "HRESULT")
-        return result
+    GetName() {
+        result := ComCall(22, this, "ptr*", &name := 0, "HRESULT")
+        return name
     }
 
     /**
@@ -251,13 +242,12 @@ class IXpsOMVisual extends IXpsOMShareable{
 
     /**
      * 
-     * @param {Pointer<BOOL>} isHyperlink 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getishyperlinktarget
      */
-    GetIsHyperlinkTarget(isHyperlink) {
-        result := ComCall(24, this, "ptr", isHyperlink, "HRESULT")
-        return result
+    GetIsHyperlinkTarget() {
+        result := ComCall(24, this, "int*", &isHyperlink := 0, "HRESULT")
+        return isHyperlink
     }
 
     /**
@@ -273,13 +263,12 @@ class IXpsOMVisual extends IXpsOMShareable{
 
     /**
      * 
-     * @param {Pointer<IUri>} hyperlinkUri 
-     * @returns {HRESULT} 
+     * @returns {IUri} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-gethyperlinknavigateuri
      */
-    GetHyperlinkNavigateUri(hyperlinkUri) {
-        result := ComCall(26, this, "ptr*", hyperlinkUri, "HRESULT")
-        return result
+    GetHyperlinkNavigateUri() {
+        result := ComCall(26, this, "ptr*", &hyperlinkUri := 0, "HRESULT")
+        return IUri(hyperlinkUri)
     }
 
     /**
@@ -295,13 +284,12 @@ class IXpsOMVisual extends IXpsOMShareable{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} language 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisual-getlanguage
      */
-    GetLanguage(language) {
-        result := ComCall(28, this, "ptr", language, "HRESULT")
-        return result
+    GetLanguage() {
+        result := ComCall(28, this, "ptr*", &language := 0, "HRESULT")
+        return language
     }
 
     /**

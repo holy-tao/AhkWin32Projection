@@ -45,13 +45,13 @@ class IFsrmSetting extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} smtpServer 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmsetting-get_smtpserver
      */
-    get_SmtpServer(smtpServer) {
+    get_SmtpServer() {
+        smtpServer := BSTR()
         result := ComCall(7, this, "ptr", smtpServer, "HRESULT")
-        return result
+        return smtpServer
     }
 
     /**
@@ -69,13 +69,13 @@ class IFsrmSetting extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} mailFrom 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmsetting-get_mailfrom
      */
-    get_MailFrom(mailFrom) {
+    get_MailFrom() {
+        mailFrom := BSTR()
         result := ComCall(9, this, "ptr", mailFrom, "HRESULT")
-        return result
+        return mailFrom
     }
 
     /**
@@ -93,13 +93,13 @@ class IFsrmSetting extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} adminEmail 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmsetting-get_adminemail
      */
-    get_AdminEmail(adminEmail) {
+    get_AdminEmail() {
+        adminEmail := BSTR()
         result := ComCall(11, this, "ptr", adminEmail, "HRESULT")
-        return result
+        return adminEmail
     }
 
     /**
@@ -117,13 +117,12 @@ class IFsrmSetting extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} disableCommandLine 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmsetting-get_disablecommandline
      */
-    get_DisableCommandLine(disableCommandLine) {
-        result := ComCall(13, this, "ptr", disableCommandLine, "HRESULT")
-        return result
+    get_DisableCommandLine() {
+        result := ComCall(13, this, "short*", &disableCommandLine := 0, "HRESULT")
+        return disableCommandLine
     }
 
     /**
@@ -139,13 +138,12 @@ class IFsrmSetting extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} enableScreeningAudit 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmsetting-get_enablescreeningaudit
      */
-    get_EnableScreeningAudit(enableScreeningAudit) {
-        result := ComCall(15, this, "ptr", enableScreeningAudit, "HRESULT")
-        return result
+    get_EnableScreeningAudit() {
+        result := ComCall(15, this, "short*", &enableScreeningAudit := 0, "HRESULT")
+        return enableScreeningAudit
     }
 
     /**
@@ -187,14 +185,11 @@ class IFsrmSetting extends IDispatch{
     /**
      * 
      * @param {Integer} actionType 
-     * @param {Pointer<Integer>} delayTimeMinutes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmsetting-getactionrunlimitinterval
      */
-    GetActionRunLimitInterval(actionType, delayTimeMinutes) {
-        delayTimeMinutesMarshal := delayTimeMinutes is VarRef ? "int*" : "ptr"
-
-        result := ComCall(19, this, "int", actionType, delayTimeMinutesMarshal, delayTimeMinutes, "HRESULT")
-        return result
+    GetActionRunLimitInterval(actionType) {
+        result := ComCall(19, this, "int", actionType, "int*", &delayTimeMinutes := 0, "HRESULT")
+        return delayTimeMinutes
     }
 }

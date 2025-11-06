@@ -31,24 +31,20 @@ class IViewChapter extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppRowset 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    GetSpecification(riid, ppRowset) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", ppRowset, "HRESULT")
-        return result
+    GetSpecification(riid) {
+        result := ComCall(3, this, "ptr", riid, "ptr*", &ppRowset := 0, "HRESULT")
+        return IUnknown(ppRowset)
     }
 
     /**
      * 
      * @param {Pointer} hSource 
-     * @param {Pointer<Pointer>} phViewChapter 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    OpenViewChapter(hSource, phViewChapter) {
-        phViewChapterMarshal := phViewChapter is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "ptr", hSource, phViewChapterMarshal, phViewChapter, "HRESULT")
-        return result
+    OpenViewChapter(hSource) {
+        result := ComCall(4, this, "ptr", hSource, "ptr*", &phViewChapter := 0, "HRESULT")
+        return phViewChapter
     }
 }

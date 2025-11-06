@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IStream.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -48,15 +49,14 @@ class IWiaTransferCallback extends IUnknown{
      * @param {Integer} lFlags 
      * @param {BSTR} bstrItemName 
      * @param {BSTR} bstrFullItemName 
-     * @param {Pointer<IStream>} ppDestination 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiatransfercallback-getnextstream
      */
-    GetNextStream(lFlags, bstrItemName, bstrFullItemName, ppDestination) {
+    GetNextStream(lFlags, bstrItemName, bstrFullItemName) {
         bstrItemName := bstrItemName is String ? BSTR.Alloc(bstrItemName).Value : bstrItemName
         bstrFullItemName := bstrFullItemName is String ? BSTR.Alloc(bstrFullItemName).Value : bstrFullItemName
 
-        result := ComCall(4, this, "int", lFlags, "ptr", bstrItemName, "ptr", bstrFullItemName, "ptr*", ppDestination, "HRESULT")
-        return result
+        result := ComCall(4, this, "int", lFlags, "ptr", bstrItemName, "ptr", bstrFullItemName, "ptr*", &ppDestination := 0, "HRESULT")
+        return IStream(ppDestination)
     }
 }

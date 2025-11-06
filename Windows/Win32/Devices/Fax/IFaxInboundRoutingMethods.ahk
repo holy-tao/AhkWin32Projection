@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IFaxInboundRoutingMethod.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -44,37 +46,32 @@ class IFaxInboundRoutingMethods extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingmethods-get__newenum
      */
-    get__NewEnum(ppUnk) {
-        result := ComCall(7, this, "ptr*", ppUnk, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(7, this, "ptr*", &ppUnk := 0, "HRESULT")
+        return IUnknown(ppUnk)
     }
 
     /**
      * 
      * @param {VARIANT} vIndex 
-     * @param {Pointer<IFaxInboundRoutingMethod>} pFaxInboundRoutingMethod 
-     * @returns {HRESULT} 
+     * @returns {IFaxInboundRoutingMethod} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingmethods-get_item
      */
-    get_Item(vIndex, pFaxInboundRoutingMethod) {
-        result := ComCall(8, this, "ptr", vIndex, "ptr*", pFaxInboundRoutingMethod, "HRESULT")
-        return result
+    get_Item(vIndex) {
+        result := ComCall(8, this, "ptr", vIndex, "ptr*", &pFaxInboundRoutingMethod := 0, "HRESULT")
+        return IFaxInboundRoutingMethod(pFaxInboundRoutingMethod)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingmethods-get_count
      */
-    get_Count(plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, plCountMarshal, plCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(9, this, "int*", &plCount := 0, "HRESULT")
+        return plCount
     }
 }

@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include .\ISchemaStringCollection.ahk
+#Include .\ISchemaIdentityConstraint.ahk
 #Include .\ISchemaItem.ahk
 
 /**
@@ -30,31 +33,29 @@ class ISchemaIdentityConstraint extends ISchemaItem{
 
     /**
      * 
-     * @param {Pointer<BSTR>} selector 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_selector(selector) {
+    get_selector() {
+        selector := BSTR()
         result := ComCall(14, this, "ptr", selector, "HRESULT")
-        return result
+        return selector
     }
 
     /**
      * 
-     * @param {Pointer<ISchemaStringCollection>} fields 
-     * @returns {HRESULT} 
+     * @returns {ISchemaStringCollection} 
      */
-    get_fields(fields) {
-        result := ComCall(15, this, "ptr*", fields, "HRESULT")
-        return result
+    get_fields() {
+        result := ComCall(15, this, "ptr*", &fields := 0, "HRESULT")
+        return ISchemaStringCollection(fields)
     }
 
     /**
      * 
-     * @param {Pointer<ISchemaIdentityConstraint>} key 
-     * @returns {HRESULT} 
+     * @returns {ISchemaIdentityConstraint} 
      */
-    get_referencedKey(key) {
-        result := ComCall(16, this, "ptr*", key, "HRESULT")
-        return result
+    get_referencedKey() {
+        result := ComCall(16, this, "ptr*", &key := 0, "HRESULT")
+        return ISchemaIdentityConstraint(key)
     }
 }

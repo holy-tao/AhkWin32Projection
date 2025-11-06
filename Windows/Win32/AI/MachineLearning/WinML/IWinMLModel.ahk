@@ -32,15 +32,12 @@ class IWinMLModel extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<WINML_MODEL_DESC>>} ppDescription 
-     * @returns {HRESULT} 
+     * @returns {Pointer<WINML_MODEL_DESC>} 
      * @see https://learn.microsoft.com/windows/win32/api/winml/nf-winml-iwinmlmodel-getdescription
      */
-    GetDescription(ppDescription) {
-        ppDescriptionMarshal := ppDescription is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, ppDescriptionMarshal, ppDescription, "HRESULT")
-        return result
+    GetDescription() {
+        result := ComCall(3, this, "ptr*", &ppDescription := 0, "HRESULT")
+        return ppDescription
     }
 
     /**
@@ -52,35 +49,32 @@ class IWinMLModel extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winml/nf-winml-iwinmlmodel-enumeratemetadata
      */
     EnumerateMetadata(Index, pKey, pValue) {
-        result := ComCall(4, this, "uint", Index, "ptr", pKey, "ptr", pValue, "HRESULT")
+        pKeyMarshal := pKey is VarRef ? "ptr*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "uint", Index, pKeyMarshal, pKey, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<Pointer<WINML_VARIABLE_DESC>>} ppInputDescriptor 
-     * @returns {HRESULT} 
+     * @returns {Pointer<WINML_VARIABLE_DESC>} 
      * @see https://learn.microsoft.com/windows/win32/api/winml/nf-winml-iwinmlmodel-enumeratemodelinputs
      */
-    EnumerateModelInputs(Index, ppInputDescriptor) {
-        ppInputDescriptorMarshal := ppInputDescriptor is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, "uint", Index, ppInputDescriptorMarshal, ppInputDescriptor, "HRESULT")
-        return result
+    EnumerateModelInputs(Index) {
+        result := ComCall(5, this, "uint", Index, "ptr*", &ppInputDescriptor := 0, "HRESULT")
+        return ppInputDescriptor
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<Pointer<WINML_VARIABLE_DESC>>} ppOutputDescriptor 
-     * @returns {HRESULT} 
+     * @returns {Pointer<WINML_VARIABLE_DESC>} 
      * @see https://learn.microsoft.com/windows/win32/api/winml/nf-winml-iwinmlmodel-enumeratemodeloutputs
      */
-    EnumerateModelOutputs(Index, ppOutputDescriptor) {
-        ppOutputDescriptorMarshal := ppOutputDescriptor is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "uint", Index, ppOutputDescriptorMarshal, ppOutputDescriptor, "HRESULT")
-        return result
+    EnumerateModelOutputs(Index) {
+        result := ComCall(6, this, "uint", Index, "ptr*", &ppOutputDescriptor := 0, "HRESULT")
+        return ppOutputDescriptor
     }
 }

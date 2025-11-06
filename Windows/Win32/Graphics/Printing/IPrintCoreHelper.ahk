@@ -33,14 +33,13 @@ class IPrintCoreHelper extends IUnknown{
      * @param {Pointer} pDevmode 
      * @param {Integer} cbSize 
      * @param {PSTR} pszFeatureRequested 
-     * @param {Pointer<PSTR>} ppszOption 
-     * @returns {HRESULT} 
+     * @returns {PSTR} 
      */
-    GetOption(pDevmode, cbSize, pszFeatureRequested, ppszOption) {
+    GetOption(pDevmode, cbSize, pszFeatureRequested) {
         pszFeatureRequested := pszFeatureRequested is String ? StrPtr(pszFeatureRequested) : pszFeatureRequested
 
-        result := ComCall(3, this, "ptr", pDevmode, "uint", cbSize, "ptr", pszFeatureRequested, "ptr", ppszOption, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pDevmode, "uint", cbSize, "ptr", pszFeatureRequested, "ptr*", &ppszOption := 0, "HRESULT")
+        return ppszOption
     }
 
     /**
@@ -142,7 +141,9 @@ class IPrintCoreHelper extends IUnknown{
     GetFontSubstitution(pszTrueTypeFontName, ppszDevFontName) {
         pszTrueTypeFontName := pszTrueTypeFontName is String ? StrPtr(pszTrueTypeFontName) : pszTrueTypeFontName
 
-        result := ComCall(9, this, "ptr", pszTrueTypeFontName, "ptr", ppszDevFontName, "HRESULT")
+        ppszDevFontNameMarshal := ppszDevFontName is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(9, this, "ptr", pszTrueTypeFontName, ppszDevFontNameMarshal, ppszDevFontName, "HRESULT")
         return result
     }
 

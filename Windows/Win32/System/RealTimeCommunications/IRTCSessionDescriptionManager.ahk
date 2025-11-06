@@ -40,7 +40,9 @@ class IRTCSessionDescriptionManager extends IUnknown{
         bstrContentType := bstrContentType is String ? BSTR.Alloc(bstrContentType).Value : bstrContentType
         bstrSessionDescription := bstrSessionDescription is String ? BSTR.Alloc(bstrSessionDescription).Value : bstrSessionDescription
 
-        result := ComCall(3, this, "ptr", bstrContentType, "ptr", bstrSessionDescription, "ptr", pfApplicationSession, "HRESULT")
+        pfApplicationSessionMarshal := pfApplicationSession is VarRef ? "short*" : "ptr"
+
+        result := ComCall(3, this, "ptr", bstrContentType, "ptr", bstrSessionDescription, pfApplicationSessionMarshal, pfApplicationSession, "HRESULT")
         return result
     }
 }

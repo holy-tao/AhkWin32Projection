@@ -2,6 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IRTCClient.ahk
+#Include .\IRTCProfile.ahk
+#Include .\IRTCCollection.ahk
+#Include .\IRTCParticipant.ahk
+#Include .\IRTCEnumParticipants.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -31,56 +36,47 @@ class IRTCSession extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IRTCClient>} ppClient 
-     * @returns {HRESULT} 
+     * @returns {IRTCClient} 
      */
-    get_Client(ppClient) {
-        result := ComCall(3, this, "ptr*", ppClient, "HRESULT")
-        return result
+    get_Client() {
+        result := ComCall(3, this, "ptr*", &ppClient := 0, "HRESULT")
+        return IRTCClient(ppClient)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} penState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_State(penState) {
-        penStateMarshal := penState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, penStateMarshal, penState, "HRESULT")
-        return result
+    get_State() {
+        result := ComCall(4, this, "int*", &penState := 0, "HRESULT")
+        return penState
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} penType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Type(penType) {
-        penTypeMarshal := penType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, penTypeMarshal, penType, "HRESULT")
-        return result
+    get_Type() {
+        result := ComCall(5, this, "int*", &penType := 0, "HRESULT")
+        return penType
     }
 
     /**
      * 
-     * @param {Pointer<IRTCProfile>} ppProfile 
-     * @returns {HRESULT} 
+     * @returns {IRTCProfile} 
      */
-    get_Profile(ppProfile) {
-        result := ComCall(6, this, "ptr*", ppProfile, "HRESULT")
-        return result
+    get_Profile() {
+        result := ComCall(6, this, "ptr*", &ppProfile := 0, "HRESULT")
+        return IRTCProfile(ppProfile)
     }
 
     /**
      * 
-     * @param {Pointer<IRTCCollection>} ppCollection 
-     * @returns {HRESULT} 
+     * @returns {IRTCCollection} 
      */
-    get_Participants(ppCollection) {
-        result := ComCall(7, this, "ptr*", ppCollection, "HRESULT")
-        return result
+    get_Participants() {
+        result := ComCall(7, this, "ptr*", &ppCollection := 0, "HRESULT")
+        return IRTCCollection(ppCollection)
     }
 
     /**
@@ -121,15 +117,14 @@ class IRTCSession extends IUnknown{
      * 
      * @param {BSTR} bstrAddress 
      * @param {BSTR} bstrName 
-     * @param {Pointer<IRTCParticipant>} ppParticipant 
-     * @returns {HRESULT} 
+     * @returns {IRTCParticipant} 
      */
-    AddParticipant(bstrAddress, bstrName, ppParticipant) {
+    AddParticipant(bstrAddress, bstrName) {
         bstrAddress := bstrAddress is String ? BSTR.Alloc(bstrAddress).Value : bstrAddress
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(11, this, "ptr", bstrAddress, "ptr", bstrName, "ptr*", ppParticipant, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", bstrAddress, "ptr", bstrName, "ptr*", &ppParticipant := 0, "HRESULT")
+        return IRTCParticipant(ppParticipant)
     }
 
     /**
@@ -144,42 +139,40 @@ class IRTCSession extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IRTCEnumParticipants>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IRTCEnumParticipants} 
      */
-    EnumerateParticipants(ppEnum) {
-        result := ComCall(13, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumerateParticipants() {
+        result := ComCall(13, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IRTCEnumParticipants(ppEnum)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pfCanAdd 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_CanAddParticipants(pfCanAdd) {
-        result := ComCall(14, this, "ptr", pfCanAdd, "HRESULT")
-        return result
+    get_CanAddParticipants() {
+        result := ComCall(14, this, "short*", &pfCanAdd := 0, "HRESULT")
+        return pfCanAdd
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrUserURI 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_RedirectedUserURI(pbstrUserURI) {
+    get_RedirectedUserURI() {
+        pbstrUserURI := BSTR()
         result := ComCall(15, this, "ptr", pbstrUserURI, "HRESULT")
-        return result
+        return pbstrUserURI
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrUserName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_RedirectedUserName(pbstrUserName) {
+    get_RedirectedUserName() {
+        pbstrUserName := BSTR()
         result := ComCall(16, this, "ptr", pbstrUserName, "HRESULT")
-        return result
+        return pbstrUserName
     }
 
     /**

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -42,134 +44,115 @@ class IFaxInboundRoutingExtension extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrFriendlyName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingextension-get_friendlyname
      */
-    get_FriendlyName(pbstrFriendlyName) {
+    get_FriendlyName() {
+        pbstrFriendlyName := BSTR()
         result := ComCall(7, this, "ptr", pbstrFriendlyName, "HRESULT")
-        return result
+        return pbstrFriendlyName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrImageName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingextension-get_imagename
      */
-    get_ImageName(pbstrImageName) {
+    get_ImageName() {
+        pbstrImageName := BSTR()
         result := ComCall(8, this, "ptr", pbstrImageName, "HRESULT")
-        return result
+        return pbstrImageName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrUniqueName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingextension-get_uniquename
      */
-    get_UniqueName(pbstrUniqueName) {
+    get_UniqueName() {
+        pbstrUniqueName := BSTR()
         result := ComCall(9, this, "ptr", pbstrUniqueName, "HRESULT")
-        return result
+        return pbstrUniqueName
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plMajorVersion 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingextension-get_majorversion
      */
-    get_MajorVersion(plMajorVersion) {
-        plMajorVersionMarshal := plMajorVersion is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, plMajorVersionMarshal, plMajorVersion, "HRESULT")
-        return result
+    get_MajorVersion() {
+        result := ComCall(10, this, "int*", &plMajorVersion := 0, "HRESULT")
+        return plMajorVersion
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plMinorVersion 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingextension-get_minorversion
      */
-    get_MinorVersion(plMinorVersion) {
-        plMinorVersionMarshal := plMinorVersion is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, plMinorVersionMarshal, plMinorVersion, "HRESULT")
-        return result
+    get_MinorVersion() {
+        result := ComCall(11, this, "int*", &plMinorVersion := 0, "HRESULT")
+        return plMinorVersion
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plMajorBuild 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingextension-get_majorbuild
      */
-    get_MajorBuild(plMajorBuild) {
-        plMajorBuildMarshal := plMajorBuild is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, plMajorBuildMarshal, plMajorBuild, "HRESULT")
-        return result
+    get_MajorBuild() {
+        result := ComCall(12, this, "int*", &plMajorBuild := 0, "HRESULT")
+        return plMajorBuild
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plMinorBuild 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingextension-get_minorbuild
      */
-    get_MinorBuild(plMinorBuild) {
-        plMinorBuildMarshal := plMinorBuild is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, plMinorBuildMarshal, plMinorBuild, "HRESULT")
-        return result
+    get_MinorBuild() {
+        result := ComCall(13, this, "int*", &plMinorBuild := 0, "HRESULT")
+        return plMinorBuild
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbDebug 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingextension-get_debug
      */
-    get_Debug(pbDebug) {
-        result := ComCall(14, this, "ptr", pbDebug, "HRESULT")
-        return result
+    get_Debug() {
+        result := ComCall(14, this, "short*", &pbDebug := 0, "HRESULT")
+        return pbDebug
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingextension-get_status
      */
-    get_Status(pStatus) {
-        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, pStatusMarshal, pStatus, "HRESULT")
-        return result
+    get_Status() {
+        result := ComCall(15, this, "int*", &pStatus := 0, "HRESULT")
+        return pStatus
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plInitErrorCode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingextension-get_initerrorcode
      */
-    get_InitErrorCode(plInitErrorCode) {
-        plInitErrorCodeMarshal := plInitErrorCode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, plInitErrorCodeMarshal, plInitErrorCode, "HRESULT")
-        return result
+    get_InitErrorCode() {
+        result := ComCall(16, this, "int*", &plInitErrorCode := 0, "HRESULT")
+        return plInitErrorCode
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvMethods 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingextension-get_methods
      */
-    get_Methods(pvMethods) {
+    get_Methods() {
+        pvMethods := VARIANT()
         result := ComCall(17, this, "ptr", pvMethods, "HRESULT")
-        return result
+        return pvMethods
     }
 }

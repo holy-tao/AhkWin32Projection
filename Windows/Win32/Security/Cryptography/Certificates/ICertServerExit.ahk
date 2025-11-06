@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -46,72 +47,69 @@ class ICertServerExit extends IDispatch{
      * 
      * @param {BSTR} strPropertyName 
      * @param {Integer} PropertyType 
-     * @param {Pointer<VARIANT>} pvarPropertyValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/certif/nf-certif-icertserverexit-getrequestproperty
      */
-    GetRequestProperty(strPropertyName, PropertyType, pvarPropertyValue) {
+    GetRequestProperty(strPropertyName, PropertyType) {
         strPropertyName := strPropertyName is String ? BSTR.Alloc(strPropertyName).Value : strPropertyName
 
+        pvarPropertyValue := VARIANT()
         result := ComCall(8, this, "ptr", strPropertyName, "int", PropertyType, "ptr", pvarPropertyValue, "HRESULT")
-        return result
+        return pvarPropertyValue
     }
 
     /**
      * 
      * @param {BSTR} strAttributeName 
-     * @param {Pointer<BSTR>} pstrAttributeValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certif/nf-certif-icertserverexit-getrequestattribute
      */
-    GetRequestAttribute(strAttributeName, pstrAttributeValue) {
+    GetRequestAttribute(strAttributeName) {
         strAttributeName := strAttributeName is String ? BSTR.Alloc(strAttributeName).Value : strAttributeName
 
+        pstrAttributeValue := BSTR()
         result := ComCall(9, this, "ptr", strAttributeName, "ptr", pstrAttributeValue, "HRESULT")
-        return result
+        return pstrAttributeValue
     }
 
     /**
      * 
      * @param {BSTR} strPropertyName 
      * @param {Integer} PropertyType 
-     * @param {Pointer<VARIANT>} pvarPropertyValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/certif/nf-certif-icertserverexit-getcertificateproperty
      */
-    GetCertificateProperty(strPropertyName, PropertyType, pvarPropertyValue) {
+    GetCertificateProperty(strPropertyName, PropertyType) {
         strPropertyName := strPropertyName is String ? BSTR.Alloc(strPropertyName).Value : strPropertyName
 
+        pvarPropertyValue := VARIANT()
         result := ComCall(10, this, "ptr", strPropertyName, "int", PropertyType, "ptr", pvarPropertyValue, "HRESULT")
-        return result
+        return pvarPropertyValue
     }
 
     /**
      * 
      * @param {BSTR} strExtensionName 
      * @param {Integer} Type 
-     * @param {Pointer<VARIANT>} pvarValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/certif/nf-certif-icertserverexit-getcertificateextension
      */
-    GetCertificateExtension(strExtensionName, Type, pvarValue) {
+    GetCertificateExtension(strExtensionName, Type) {
         strExtensionName := strExtensionName is String ? BSTR.Alloc(strExtensionName).Value : strExtensionName
 
+        pvarValue := VARIANT()
         result := ComCall(11, this, "ptr", strExtensionName, "int", Type, "ptr", pvarValue, "HRESULT")
-        return result
+        return pvarValue
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pExtFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certif/nf-certif-icertserverexit-getcertificateextensionflags
      */
-    GetCertificateExtensionFlags(pExtFlags) {
-        pExtFlagsMarshal := pExtFlags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, pExtFlagsMarshal, pExtFlags, "HRESULT")
-        return result
+    GetCertificateExtensionFlags() {
+        result := ComCall(12, this, "int*", &pExtFlags := 0, "HRESULT")
+        return pExtFlags
     }
 
     /**
@@ -127,13 +125,13 @@ class ICertServerExit extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pstrExtensionName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certif/nf-certif-icertserverexit-enumerateextensions
      */
-    EnumerateExtensions(pstrExtensionName) {
+    EnumerateExtensions() {
+        pstrExtensionName := BSTR()
         result := ComCall(14, this, "ptr", pstrExtensionName, "HRESULT")
-        return result
+        return pstrExtensionName
     }
 
     /**
@@ -159,13 +157,13 @@ class ICertServerExit extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pstrAttributeName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certif/nf-certif-icertserverexit-enumerateattributes
      */
-    EnumerateAttributes(pstrAttributeName) {
+    EnumerateAttributes() {
+        pstrAttributeName := BSTR()
         result := ComCall(17, this, "ptr", pstrAttributeName, "HRESULT")
-        return result
+        return pstrAttributeName
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITargetFrame.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,11 +31,10 @@ class ITargetEmbedding extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ITargetFrame>} ppTargetFrame 
-     * @returns {HRESULT} 
+     * @returns {ITargetFrame} 
      */
-    GetTargetFrame(ppTargetFrame) {
-        result := ComCall(3, this, "ptr*", ppTargetFrame, "HRESULT")
-        return result
+    GetTargetFrame() {
+        result := ComCall(3, this, "ptr*", &ppTargetFrame := 0, "HRESULT")
+        return ITargetFrame(ppTargetFrame)
     }
 }

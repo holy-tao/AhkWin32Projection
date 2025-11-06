@@ -41,24 +41,21 @@ class IADsFileShare extends IADs{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_CurrentUserCount(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(20, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_CurrentUserCount() {
+        result := ComCall(20, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Description(retval) {
+    get_Description() {
+        retval := BSTR()
         result := ComCall(21, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -75,12 +72,12 @@ class IADsFileShare extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_HostComputer(retval) {
+    get_HostComputer() {
+        retval := BSTR()
         result := ComCall(23, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -97,12 +94,12 @@ class IADsFileShare extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Path(retval) {
+    get_Path() {
+        retval := BSTR()
         result := ComCall(25, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -119,14 +116,11 @@ class IADsFileShare extends IADs{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_MaxUserCount(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(27, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_MaxUserCount() {
+        result := ComCall(27, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**

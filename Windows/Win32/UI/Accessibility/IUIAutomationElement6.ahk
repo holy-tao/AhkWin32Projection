@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\IUIAutomationElement5.ahk
 
 /**
@@ -32,23 +33,23 @@ class IUIAutomationElement6 extends IUIAutomationElement5{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement6-get_currentfulldescription
      */
-    get_CurrentFullDescription(retVal) {
+    get_CurrentFullDescription() {
+        retVal := BSTR()
         result := ComCall(108, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement6-get_cachedfulldescription
      */
-    get_CachedFullDescription(retVal) {
+    get_CachedFullDescription() {
+        retVal := BSTR()
         result := ComCall(109, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 }

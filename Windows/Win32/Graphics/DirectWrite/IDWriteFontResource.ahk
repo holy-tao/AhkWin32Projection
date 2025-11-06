@@ -1,6 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteFontFile.ahk
+#Include .\DWRITE_FONT_AXIS_VALUE.ahk
+#Include .\DWRITE_FONT_AXIS_RANGE.ahk
+#Include .\IDWriteLocalizedStrings.ahk
+#Include .\IDWriteFontFace5.ahk
+#Include .\IDWriteFontFaceReference1.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,13 +38,12 @@ class IDWriteFontResource extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDWriteFontFile>} fontFile 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontFile} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontresource-getfontfile
      */
-    GetFontFile(fontFile) {
-        result := ComCall(3, this, "ptr*", fontFile, "HRESULT")
-        return result
+    GetFontFile() {
+        result := ComCall(3, this, "ptr*", &fontFile := 0, "HRESULT")
+        return IDWriteFontFile(fontFile)
     }
 
     /**
@@ -63,26 +68,26 @@ class IDWriteFontResource extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<DWRITE_FONT_AXIS_VALUE>} fontAxisValues 
      * @param {Integer} fontAxisValueCount 
-     * @returns {HRESULT} 
+     * @returns {DWRITE_FONT_AXIS_VALUE} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontresource-getdefaultfontaxisvalues
      */
-    GetDefaultFontAxisValues(fontAxisValues, fontAxisValueCount) {
+    GetDefaultFontAxisValues(fontAxisValueCount) {
+        fontAxisValues := DWRITE_FONT_AXIS_VALUE()
         result := ComCall(6, this, "ptr", fontAxisValues, "uint", fontAxisValueCount, "HRESULT")
-        return result
+        return fontAxisValues
     }
 
     /**
      * 
-     * @param {Pointer<DWRITE_FONT_AXIS_RANGE>} fontAxisRanges 
      * @param {Integer} fontAxisRangeCount 
-     * @returns {HRESULT} 
+     * @returns {DWRITE_FONT_AXIS_RANGE} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontresource-getfontaxisranges
      */
-    GetFontAxisRanges(fontAxisRanges, fontAxisRangeCount) {
+    GetFontAxisRanges(fontAxisRangeCount) {
+        fontAxisRanges := DWRITE_FONT_AXIS_RANGE()
         result := ComCall(7, this, "ptr", fontAxisRanges, "uint", fontAxisRangeCount, "HRESULT")
-        return result
+        return fontAxisRanges
     }
 
     /**
@@ -99,13 +104,12 @@ class IDWriteFontResource extends IUnknown{
     /**
      * 
      * @param {Integer} axisIndex 
-     * @param {Pointer<IDWriteLocalizedStrings>} names 
-     * @returns {HRESULT} 
+     * @returns {IDWriteLocalizedStrings} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontresource-getaxisnames
      */
-    GetAxisNames(axisIndex, names) {
-        result := ComCall(9, this, "uint", axisIndex, "ptr*", names, "HRESULT")
-        return result
+    GetAxisNames(axisIndex) {
+        result := ComCall(9, this, "uint", axisIndex, "ptr*", &names := 0, "HRESULT")
+        return IDWriteLocalizedStrings(names)
     }
 
     /**
@@ -148,13 +152,12 @@ class IDWriteFontResource extends IUnknown{
      * @param {Integer} fontSimulations 
      * @param {Pointer<DWRITE_FONT_AXIS_VALUE>} fontAxisValues 
      * @param {Integer} fontAxisValueCount 
-     * @param {Pointer<IDWriteFontFace5>} fontFace 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontFace5} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontresource-createfontface
      */
-    CreateFontFace(fontSimulations, fontAxisValues, fontAxisValueCount, fontFace) {
-        result := ComCall(13, this, "int", fontSimulations, "ptr", fontAxisValues, "uint", fontAxisValueCount, "ptr*", fontFace, "HRESULT")
-        return result
+    CreateFontFace(fontSimulations, fontAxisValues, fontAxisValueCount) {
+        result := ComCall(13, this, "int", fontSimulations, "ptr", fontAxisValues, "uint", fontAxisValueCount, "ptr*", &fontFace := 0, "HRESULT")
+        return IDWriteFontFace5(fontFace)
     }
 
     /**
@@ -162,12 +165,11 @@ class IDWriteFontResource extends IUnknown{
      * @param {Integer} fontSimulations 
      * @param {Pointer<DWRITE_FONT_AXIS_VALUE>} fontAxisValues 
      * @param {Integer} fontAxisValueCount 
-     * @param {Pointer<IDWriteFontFaceReference1>} fontFaceReference 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontFaceReference1} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontresource-createfontfacereference
      */
-    CreateFontFaceReference(fontSimulations, fontAxisValues, fontAxisValueCount, fontFaceReference) {
-        result := ComCall(14, this, "int", fontSimulations, "ptr", fontAxisValues, "uint", fontAxisValueCount, "ptr*", fontFaceReference, "HRESULT")
-        return result
+    CreateFontFaceReference(fontSimulations, fontAxisValues, fontAxisValueCount) {
+        result := ComCall(14, this, "int", fontSimulations, "ptr", fontAxisValues, "uint", fontAxisValueCount, "ptr*", &fontFaceReference := 0, "HRESULT")
+        return IDWriteFontFaceReference1(fontFaceReference)
     }
 }

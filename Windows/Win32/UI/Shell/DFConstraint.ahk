@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -36,21 +38,21 @@ class DFConstraint extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbs 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Name(pbs) {
+    get_Name() {
+        pbs := BSTR()
         result := ComCall(7, this, "ptr", pbs, "HRESULT")
-        return result
+        return pbs
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pv 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_Value(pv) {
+    get_Value() {
+        pv := VARIANT()
         result := ComCall(8, this, "ptr", pv, "HRESULT")
-        return result
+        return pv
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IDataObject.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -85,13 +86,12 @@ class IComponent extends IUnknown{
      * 
      * @param {Pointer} cookie 
      * @param {Integer} type 
-     * @param {Pointer<IDataObject>} ppDataObject 
-     * @returns {HRESULT} 
+     * @returns {IDataObject} 
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icomponent-querydataobject
      */
-    QueryDataObject(cookie, type, ppDataObject) {
-        result := ComCall(6, this, "ptr", cookie, "int", type, "ptr*", ppDataObject, "HRESULT")
-        return result
+    QueryDataObject(cookie, type) {
+        result := ComCall(6, this, "ptr", cookie, "int", type, "ptr*", &ppDataObject := 0, "HRESULT")
+        return IDataObject(ppDataObject)
     }
 
     /**
@@ -103,9 +103,10 @@ class IComponent extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icomponent-getresultviewtype
      */
     GetResultViewType(cookie, ppViewType, pViewOptions) {
+        ppViewTypeMarshal := ppViewType is VarRef ? "ptr*" : "ptr"
         pViewOptionsMarshal := pViewOptions is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, "ptr", cookie, "ptr", ppViewType, pViewOptionsMarshal, pViewOptions, "HRESULT")
+        result := ComCall(7, this, "ptr", cookie, ppViewTypeMarshal, ppViewType, pViewOptionsMarshal, pViewOptions, "HRESULT")
         return result
     }
 

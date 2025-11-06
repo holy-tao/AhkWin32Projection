@@ -60,38 +60,32 @@ class IRDPSRAPIVirtualChannel extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapivirtualchannel-get_name
      */
-    get_Name(pbstrName) {
+    get_Name() {
+        pbstrName := BSTR()
         result := ComCall(9, this, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapivirtualchannel-get_flags
      */
-    get_Flags(plFlags) {
-        plFlagsMarshal := plFlags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, plFlagsMarshal, plFlags, "HRESULT")
-        return result
+    get_Flags() {
+        result := ComCall(10, this, "int*", &plFlags := 0, "HRESULT")
+        return plFlags
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pPriority 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapivirtualchannel-get_priority
      */
-    get_Priority(pPriority) {
-        pPriorityMarshal := pPriority is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, pPriorityMarshal, pPriority, "HRESULT")
-        return result
+    get_Priority() {
+        result := ComCall(11, this, "int*", &pPriority := 0, "HRESULT")
+        return pPriority
     }
 }

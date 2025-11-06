@@ -32,34 +32,31 @@ class IBitsPeer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibitspeer-getpeername
      */
-    GetPeerName(pName) {
-        result := ComCall(3, this, "ptr", pName, "HRESULT")
-        return result
+    GetPeerName() {
+        result := ComCall(3, this, "ptr*", &pName := 0, "HRESULT")
+        return pName
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pAuth 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibitspeer-isauthenticated
      */
-    IsAuthenticated(pAuth) {
-        result := ComCall(4, this, "ptr", pAuth, "HRESULT")
-        return result
+    IsAuthenticated() {
+        result := ComCall(4, this, "int*", &pAuth := 0, "HRESULT")
+        return pAuth
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pOnline 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibitspeer-isavailable
      */
-    IsAvailable(pOnline) {
-        result := ComCall(5, this, "ptr", pOnline, "HRESULT")
-        return result
+    IsAvailable() {
+        result := ComCall(5, this, "int*", &pOnline := 0, "HRESULT")
+        return pOnline
     }
 }

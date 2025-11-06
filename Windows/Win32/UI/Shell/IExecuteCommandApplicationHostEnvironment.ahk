@@ -37,14 +37,11 @@ class IExecuteCommandApplicationHostEnvironment extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pahe 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexecutecommandapplicationhostenvironment-getvalue
      */
-    GetValue(pahe) {
-        paheMarshal := pahe is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, paheMarshal, pahe, "HRESULT")
-        return result
+    GetValue() {
+        result := ComCall(3, this, "int*", &pahe := 0, "HRESULT")
+        return pahe
     }
 }

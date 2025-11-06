@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\DECIMAL.ahk
+#Include .\IUpdateDownloadResult.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -32,109 +34,96 @@ class IDownloadProgress extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<DECIMAL>} retval 
-     * @returns {HRESULT} 
+     * @returns {DECIMAL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-idownloadprogress-get_currentupdatebytesdownloaded
      */
-    get_CurrentUpdateBytesDownloaded(retval) {
+    get_CurrentUpdateBytesDownloaded() {
+        retval := DECIMAL()
         result := ComCall(7, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<DECIMAL>} retval 
-     * @returns {HRESULT} 
+     * @returns {DECIMAL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-idownloadprogress-get_currentupdatebytestodownload
      */
-    get_CurrentUpdateBytesToDownload(retval) {
+    get_CurrentUpdateBytesToDownload() {
+        retval := DECIMAL()
         result := ComCall(8, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-idownloadprogress-get_currentupdateindex
      */
-    get_CurrentUpdateIndex(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_CurrentUpdateIndex() {
+        result := ComCall(9, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-idownloadprogress-get_percentcomplete
      */
-    get_PercentComplete(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_PercentComplete() {
+        result := ComCall(10, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<DECIMAL>} retval 
-     * @returns {HRESULT} 
+     * @returns {DECIMAL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-idownloadprogress-get_totalbytesdownloaded
      */
-    get_TotalBytesDownloaded(retval) {
+    get_TotalBytesDownloaded() {
+        retval := DECIMAL()
         result := ComCall(11, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<DECIMAL>} retval 
-     * @returns {HRESULT} 
+     * @returns {DECIMAL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-idownloadprogress-get_totalbytestodownload
      */
-    get_TotalBytesToDownload(retval) {
+    get_TotalBytesToDownload() {
+        retval := DECIMAL()
         result := ComCall(12, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
      * @param {Integer} updateIndex 
-     * @param {Pointer<IUpdateDownloadResult>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUpdateDownloadResult} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-idownloadprogress-getupdateresult
      */
-    GetUpdateResult(updateIndex, retval) {
-        result := ComCall(13, this, "int", updateIndex, "ptr*", retval, "HRESULT")
-        return result
+    GetUpdateResult(updateIndex) {
+        result := ComCall(13, this, "int", updateIndex, "ptr*", &retval := 0, "HRESULT")
+        return IUpdateDownloadResult(retval)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-idownloadprogress-get_currentupdatedownloadphase
      */
-    get_CurrentUpdateDownloadPhase(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_CurrentUpdateDownloadPhase() {
+        result := ComCall(14, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-idownloadprogress-get_currentupdatepercentcomplete
      */
-    get_CurrentUpdatePercentComplete(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_CurrentUpdatePercentComplete() {
+        result := ComCall(15, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 }

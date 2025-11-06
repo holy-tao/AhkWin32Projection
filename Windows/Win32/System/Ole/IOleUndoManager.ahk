@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumOleUndoUnits.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -90,15 +92,12 @@ class IOleUndoManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleundomanager-getopenparentstate
      */
-    GetOpenParentState(pdwState) {
-        pdwStateMarshal := pdwState is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pdwStateMarshal, pdwState, "HRESULT")
-        return result
+    GetOpenParentState() {
+        result := ComCall(6, this, "uint*", &pdwState := 0, "HRESULT")
+        return pdwState
     }
 
     /**
@@ -136,46 +135,44 @@ class IOleUndoManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumOleUndoUnits>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumOleUndoUnits} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleundomanager-enumundoable
      */
-    EnumUndoable(ppEnum) {
-        result := ComCall(10, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumUndoable() {
+        result := ComCall(10, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumOleUndoUnits(ppEnum)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumOleUndoUnits>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumOleUndoUnits} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleundomanager-enumredoable
      */
-    EnumRedoable(ppEnum) {
-        result := ComCall(11, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumRedoable() {
+        result := ComCall(11, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumOleUndoUnits(ppEnum)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pBstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleundomanager-getlastundodescription
      */
-    GetLastUndoDescription(pBstr) {
+    GetLastUndoDescription() {
+        pBstr := BSTR()
         result := ComCall(12, this, "ptr", pBstr, "HRESULT")
-        return result
+        return pBstr
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pBstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleundomanager-getlastredodescription
      */
-    GetLastRedoDescription(pBstr) {
+    GetLastRedoDescription() {
+        pBstr := BSTR()
         result := ComCall(13, this, "ptr", pBstr, "HRESULT")
-        return result
+        return pBstr
     }
 
     /**

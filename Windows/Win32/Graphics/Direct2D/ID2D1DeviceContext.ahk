@@ -1,6 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID2D1Bitmap1.ahk
+#Include .\ID2D1ColorContext.ahk
+#Include .\ID2D1Effect.ahk
+#Include .\ID2D1GradientStopCollection1.ahk
+#Include .\ID2D1ImageBrush.ahk
+#Include .\ID2D1BitmapBrush1.ahk
+#Include .\ID2D1CommandList.ahk
+#Include Common\D2D_RECT_F.ahk
 #Include .\ID2D1RenderTarget.ahk
 
 /**
@@ -41,50 +49,26 @@ class ID2D1DeviceContext extends ID2D1RenderTarget{
      * @param {Pointer<Void>} sourceData 
      * @param {Integer} pitch 
      * @param {Pointer<D2D1_BITMAP_PROPERTIES1>} bitmapProperties 
-     * @param {Pointer<ID2D1Bitmap1>} bitmap 
-     * @returns {HRESULT} If the function succeeds, the return value is a handle to a bitmap.
-     * 
-     * If the function fails, the return value is <b>NULL</b>.
-     * 
-     * This function can return the following value.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INVALID_BITMAP</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The calculated size of the bitmap is less than zero.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {ID2D1Bitmap1} 
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createbitmap
      */
-    CreateBitmap(size, sourceData, pitch, bitmapProperties, bitmap) {
+    CreateBitmap(size, sourceData, pitch, bitmapProperties) {
         sourceDataMarshal := sourceData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(57, this, "ptr", size, sourceDataMarshal, sourceData, "uint", pitch, "ptr", bitmapProperties, "ptr*", bitmap, "HRESULT")
-        return result
+        result := ComCall(57, this, "ptr", size, sourceDataMarshal, sourceData, "uint", pitch, "ptr", bitmapProperties, "ptr*", &bitmap := 0, "HRESULT")
+        return ID2D1Bitmap1(bitmap)
     }
 
     /**
      * 
      * @param {IWICBitmapSource} wicBitmapSource 
      * @param {Pointer<D2D1_BITMAP_PROPERTIES1>} bitmapProperties 
-     * @param {Pointer<ID2D1Bitmap1>} bitmap 
-     * @returns {HRESULT} 
+     * @returns {ID2D1Bitmap1} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-createbitmapfromwicbitmap(iwicbitmapsource_id2d1bitmap1)
      */
-    CreateBitmapFromWicBitmap(wicBitmapSource, bitmapProperties, bitmap) {
-        result := ComCall(58, this, "ptr", wicBitmapSource, "ptr", bitmapProperties, "ptr*", bitmap, "HRESULT")
-        return result
+    CreateBitmapFromWicBitmap(wicBitmapSource, bitmapProperties) {
+        result := ComCall(58, this, "ptr", wicBitmapSource, "ptr", bitmapProperties, "ptr*", &bitmap := 0, "HRESULT")
+        return ID2D1Bitmap1(bitmap)
     }
 
     /**
@@ -92,66 +76,61 @@ class ID2D1DeviceContext extends ID2D1RenderTarget{
      * @param {Integer} space 
      * @param {Pointer<Integer>} profile 
      * @param {Integer} profileSize 
-     * @param {Pointer<ID2D1ColorContext>} colorContext 
-     * @returns {HRESULT} 
+     * @returns {ID2D1ColorContext} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-createcolorcontext
      */
-    CreateColorContext(space, profile, profileSize, colorContext) {
+    CreateColorContext(space, profile, profileSize) {
         profileMarshal := profile is VarRef ? "char*" : "ptr"
 
-        result := ComCall(59, this, "int", space, profileMarshal, profile, "uint", profileSize, "ptr*", colorContext, "HRESULT")
-        return result
+        result := ComCall(59, this, "int", space, profileMarshal, profile, "uint", profileSize, "ptr*", &colorContext := 0, "HRESULT")
+        return ID2D1ColorContext(colorContext)
     }
 
     /**
      * 
      * @param {PWSTR} filename 
-     * @param {Pointer<ID2D1ColorContext>} colorContext 
-     * @returns {HRESULT} 
+     * @returns {ID2D1ColorContext} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-createcolorcontextfromfilename
      */
-    CreateColorContextFromFilename(filename, colorContext) {
+    CreateColorContextFromFilename(filename) {
         filename := filename is String ? StrPtr(filename) : filename
 
-        result := ComCall(60, this, "ptr", filename, "ptr*", colorContext, "HRESULT")
-        return result
+        result := ComCall(60, this, "ptr", filename, "ptr*", &colorContext := 0, "HRESULT")
+        return ID2D1ColorContext(colorContext)
     }
 
     /**
      * 
      * @param {IWICColorContext} wicColorContext 
-     * @param {Pointer<ID2D1ColorContext>} colorContext 
-     * @returns {HRESULT} 
+     * @returns {ID2D1ColorContext} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-createcolorcontextfromwiccolorcontext
      */
-    CreateColorContextFromWicColorContext(wicColorContext, colorContext) {
-        result := ComCall(61, this, "ptr", wicColorContext, "ptr*", colorContext, "HRESULT")
-        return result
+    CreateColorContextFromWicColorContext(wicColorContext) {
+        result := ComCall(61, this, "ptr", wicColorContext, "ptr*", &colorContext := 0, "HRESULT")
+        return ID2D1ColorContext(colorContext)
     }
 
     /**
      * 
      * @param {IDXGISurface} surface 
      * @param {Pointer<D2D1_BITMAP_PROPERTIES1>} bitmapProperties 
-     * @param {Pointer<ID2D1Bitmap1>} bitmap 
-     * @returns {HRESULT} 
+     * @returns {ID2D1Bitmap1} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-createbitmapfromdxgisurface(idxgisurface_constd2d1_bitmap_properties1_id2d1bitmap1)
      */
-    CreateBitmapFromDxgiSurface(surface, bitmapProperties, bitmap) {
-        result := ComCall(62, this, "ptr", surface, "ptr", bitmapProperties, "ptr*", bitmap, "HRESULT")
-        return result
+    CreateBitmapFromDxgiSurface(surface, bitmapProperties) {
+        result := ComCall(62, this, "ptr", surface, "ptr", bitmapProperties, "ptr*", &bitmap := 0, "HRESULT")
+        return ID2D1Bitmap1(bitmap)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} effectId 
-     * @param {Pointer<ID2D1Effect>} effect 
-     * @returns {HRESULT} 
+     * @returns {ID2D1Effect} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-createeffect
      */
-    CreateEffect(effectId, effect) {
-        result := ComCall(63, this, "ptr", effectId, "ptr*", effect, "HRESULT")
-        return result
+    CreateEffect(effectId) {
+        result := ComCall(63, this, "ptr", effectId, "ptr*", &effect := 0, "HRESULT")
+        return ID2D1Effect(effect)
     }
 
     /**
@@ -163,13 +142,12 @@ class ID2D1DeviceContext extends ID2D1RenderTarget{
      * @param {Integer} bufferPrecision 
      * @param {Integer} extendMode 
      * @param {Integer} colorInterpolationMode 
-     * @param {Pointer<ID2D1GradientStopCollection1>} gradientStopCollection1 
-     * @returns {HRESULT} 
+     * @returns {ID2D1GradientStopCollection1} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-creategradientstopcollection
      */
-    CreateGradientStopCollection(straightAlphaGradientStops, straightAlphaGradientStopsCount, preInterpolationSpace, postInterpolationSpace, bufferPrecision, extendMode, colorInterpolationMode, gradientStopCollection1) {
-        result := ComCall(64, this, "ptr", straightAlphaGradientStops, "uint", straightAlphaGradientStopsCount, "int", preInterpolationSpace, "int", postInterpolationSpace, "int", bufferPrecision, "int", extendMode, "int", colorInterpolationMode, "ptr*", gradientStopCollection1, "HRESULT")
-        return result
+    CreateGradientStopCollection(straightAlphaGradientStops, straightAlphaGradientStopsCount, preInterpolationSpace, postInterpolationSpace, bufferPrecision, extendMode, colorInterpolationMode) {
+        result := ComCall(64, this, "ptr", straightAlphaGradientStops, "uint", straightAlphaGradientStopsCount, "int", preInterpolationSpace, "int", postInterpolationSpace, "int", bufferPrecision, "int", extendMode, "int", colorInterpolationMode, "ptr*", &gradientStopCollection1 := 0, "HRESULT")
+        return ID2D1GradientStopCollection1(gradientStopCollection1)
     }
 
     /**
@@ -177,13 +155,12 @@ class ID2D1DeviceContext extends ID2D1RenderTarget{
      * @param {ID2D1Image} image 
      * @param {Pointer<D2D1_IMAGE_BRUSH_PROPERTIES>} imageBrushProperties 
      * @param {Pointer<D2D1_BRUSH_PROPERTIES>} brushProperties 
-     * @param {Pointer<ID2D1ImageBrush>} imageBrush 
-     * @returns {HRESULT} 
+     * @returns {ID2D1ImageBrush} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-createimagebrush(id2d1image_constd2d1_image_brush_properties__id2d1imagebrush)
      */
-    CreateImageBrush(image, imageBrushProperties, brushProperties, imageBrush) {
-        result := ComCall(65, this, "ptr", image, "ptr", imageBrushProperties, "ptr", brushProperties, "ptr*", imageBrush, "HRESULT")
-        return result
+    CreateImageBrush(image, imageBrushProperties, brushProperties) {
+        result := ComCall(65, this, "ptr", image, "ptr", imageBrushProperties, "ptr", brushProperties, "ptr*", &imageBrush := 0, "HRESULT")
+        return ID2D1ImageBrush(imageBrush)
     }
 
     /**
@@ -191,24 +168,22 @@ class ID2D1DeviceContext extends ID2D1RenderTarget{
      * @param {ID2D1Bitmap} bitmap 
      * @param {Pointer<D2D1_BITMAP_BRUSH_PROPERTIES1>} bitmapBrushProperties 
      * @param {Pointer<D2D1_BRUSH_PROPERTIES>} brushProperties 
-     * @param {Pointer<ID2D1BitmapBrush1>} bitmapBrush 
-     * @returns {HRESULT} 
+     * @returns {ID2D1BitmapBrush1} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-createbitmapbrush(id2d1bitmap_constd2d1_bitmap_brush_properties1__constd2d1_brush_properties__id2d1bitmapbrush1)
      */
-    CreateBitmapBrush(bitmap, bitmapBrushProperties, brushProperties, bitmapBrush) {
-        result := ComCall(66, this, "ptr", bitmap, "ptr", bitmapBrushProperties, "ptr", brushProperties, "ptr*", bitmapBrush, "HRESULT")
-        return result
+    CreateBitmapBrush(bitmap, bitmapBrushProperties, brushProperties) {
+        result := ComCall(66, this, "ptr", bitmap, "ptr", bitmapBrushProperties, "ptr", brushProperties, "ptr*", &bitmapBrush := 0, "HRESULT")
+        return ID2D1BitmapBrush1(bitmapBrush)
     }
 
     /**
      * 
-     * @param {Pointer<ID2D1CommandList>} commandList 
-     * @returns {HRESULT} 
+     * @returns {ID2D1CommandList} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-createcommandlist
      */
-    CreateCommandList(commandList) {
-        result := ComCall(67, this, "ptr*", commandList, "HRESULT")
-        return result
+    CreateCommandList() {
+        result := ComCall(67, this, "ptr*", &commandList := 0, "HRESULT")
+        return ID2D1CommandList(commandList)
     }
 
     /**
@@ -236,25 +211,25 @@ class ID2D1DeviceContext extends ID2D1RenderTarget{
     /**
      * 
      * @param {ID2D1Image} image 
-     * @param {Pointer<D2D_RECT_F>} localBounds 
-     * @returns {HRESULT} 
+     * @returns {D2D_RECT_F} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-getimagelocalbounds
      */
-    GetImageLocalBounds(image, localBounds) {
+    GetImageLocalBounds(image) {
+        localBounds := D2D_RECT_F()
         result := ComCall(70, this, "ptr", image, "ptr", localBounds, "HRESULT")
-        return result
+        return localBounds
     }
 
     /**
      * 
      * @param {ID2D1Image} image 
-     * @param {Pointer<D2D_RECT_F>} worldBounds 
-     * @returns {HRESULT} 
+     * @returns {D2D_RECT_F} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-getimageworldbounds
      */
-    GetImageWorldBounds(image, worldBounds) {
+    GetImageWorldBounds(image) {
+        worldBounds := D2D_RECT_F()
         result := ComCall(71, this, "ptr", image, "ptr", worldBounds, "HRESULT")
-        return result
+        return worldBounds
     }
 
     /**
@@ -262,13 +237,13 @@ class ID2D1DeviceContext extends ID2D1RenderTarget{
      * @param {D2D_POINT_2F} baselineOrigin 
      * @param {Pointer<DWRITE_GLYPH_RUN>} glyphRun 
      * @param {Integer} measuringMode 
-     * @param {Pointer<D2D_RECT_F>} bounds 
-     * @returns {HRESULT} 
+     * @returns {D2D_RECT_F} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-getglyphrunworldbounds
      */
-    GetGlyphRunWorldBounds(baselineOrigin, glyphRun, measuringMode, bounds) {
+    GetGlyphRunWorldBounds(baselineOrigin, glyphRun, measuringMode) {
+        bounds := D2D_RECT_F()
         result := ComCall(72, this, "ptr", baselineOrigin, "ptr", glyphRun, "int", measuringMode, "ptr", bounds, "HRESULT")
-        return result
+        return bounds
     }
 
     /**
@@ -442,28 +417,25 @@ class ID2D1DeviceContext extends ID2D1RenderTarget{
     /**
      * 
      * @param {ID2D1Effect} effect 
-     * @param {Pointer<Integer>} rectangleCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-geteffectinvalidrectanglecount
      */
-    GetEffectInvalidRectangleCount(effect, rectangleCount) {
-        rectangleCountMarshal := rectangleCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(88, this, "ptr", effect, rectangleCountMarshal, rectangleCount, "HRESULT")
-        return result
+    GetEffectInvalidRectangleCount(effect) {
+        result := ComCall(88, this, "ptr", effect, "uint*", &rectangleCount := 0, "HRESULT")
+        return rectangleCount
     }
 
     /**
      * 
      * @param {ID2D1Effect} effect 
-     * @param {Pointer<D2D_RECT_F>} rectangles 
      * @param {Integer} rectanglesCount 
-     * @returns {HRESULT} 
+     * @returns {D2D_RECT_F} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-geteffectinvalidrectangles
      */
-    GetEffectInvalidRectangles(effect, rectangles, rectanglesCount) {
+    GetEffectInvalidRectangles(effect, rectanglesCount) {
+        rectangles := D2D_RECT_F()
         result := ComCall(89, this, "ptr", effect, "ptr", rectangles, "uint", rectanglesCount, "HRESULT")
-        return result
+        return rectangles
     }
 
     /**
@@ -471,14 +443,14 @@ class ID2D1DeviceContext extends ID2D1RenderTarget{
      * @param {ID2D1Effect} renderEffect 
      * @param {Pointer<D2D_RECT_F>} renderImageRectangle 
      * @param {Pointer<D2D1_EFFECT_INPUT_DESCRIPTION>} inputDescriptions 
-     * @param {Pointer<D2D_RECT_F>} requiredInputRects 
      * @param {Integer} inputCount 
-     * @returns {HRESULT} 
+     * @returns {D2D_RECT_F} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-geteffectrequiredinputrectangles
      */
-    GetEffectRequiredInputRectangles(renderEffect, renderImageRectangle, inputDescriptions, requiredInputRects, inputCount) {
+    GetEffectRequiredInputRectangles(renderEffect, renderImageRectangle, inputDescriptions, inputCount) {
+        requiredInputRects := D2D_RECT_F()
         result := ComCall(90, this, "ptr", renderEffect, "ptr", renderImageRectangle, "ptr", inputDescriptions, "ptr", requiredInputRects, "uint", inputCount, "HRESULT")
-        return result
+        return requiredInputRects
     }
 
     /**

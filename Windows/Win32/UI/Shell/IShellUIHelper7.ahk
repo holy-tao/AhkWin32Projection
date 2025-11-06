@@ -45,14 +45,13 @@ class IShellUIHelper7 extends IShellUIHelper6{
     /**
      * 
      * @param {BSTR} bstrFlagString 
-     * @param {Pointer<VARIANT_BOOL>} vfFlag 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    GetExperimentalFlag(bstrFlagString, vfFlag) {
+    GetExperimentalFlag(bstrFlagString) {
         bstrFlagString := bstrFlagString is String ? BSTR.Alloc(bstrFlagString).Value : bstrFlagString
 
-        result := ComCall(89, this, "ptr", bstrFlagString, "ptr", vfFlag, "HRESULT")
-        return result
+        result := ComCall(89, this, "ptr", bstrFlagString, "short*", &vfFlag := 0, "HRESULT")
+        return vfFlag
     }
 
     /**
@@ -71,16 +70,13 @@ class IShellUIHelper7 extends IShellUIHelper6{
     /**
      * 
      * @param {BSTR} bstrValueString 
-     * @param {Pointer<Integer>} pdwValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetExperimentalValue(bstrValueString, pdwValue) {
+    GetExperimentalValue(bstrValueString) {
         bstrValueString := bstrValueString is String ? BSTR.Alloc(bstrValueString).Value : bstrValueString
 
-        pdwValueMarshal := pdwValue is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(91, this, "ptr", bstrValueString, pdwValueMarshal, pdwValue, "HRESULT")
-        return result
+        result := ComCall(91, this, "ptr", bstrValueString, "uint*", &pdwValue := 0, "HRESULT")
+        return pdwValue
     }
 
     /**
@@ -95,14 +91,13 @@ class IShellUIHelper7 extends IShellUIHelper6{
     /**
      * 
      * @param {BSTR} bstrUrl 
-     * @param {Pointer<VARIANT_BOOL>} flag 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    GetNeedIEAutoLaunchFlag(bstrUrl, flag) {
+    GetNeedIEAutoLaunchFlag(bstrUrl) {
         bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
 
-        result := ComCall(93, this, "ptr", bstrUrl, "ptr", flag, "HRESULT")
-        return result
+        result := ComCall(93, this, "ptr", bstrUrl, "short*", &flag := 0, "HRESULT")
+        return flag
     }
 
     /**
@@ -121,14 +116,13 @@ class IShellUIHelper7 extends IShellUIHelper6{
     /**
      * 
      * @param {BSTR} bstrUrl 
-     * @param {Pointer<VARIANT_BOOL>} exists 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    HasNeedIEAutoLaunchFlag(bstrUrl, exists) {
+    HasNeedIEAutoLaunchFlag(bstrUrl) {
         bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
 
-        result := ComCall(95, this, "ptr", bstrUrl, "ptr", exists, "HRESULT")
-        return result
+        result := ComCall(95, this, "ptr", bstrUrl, "short*", &exists := 0, "HRESULT")
+        return exists
     }
 
     /**

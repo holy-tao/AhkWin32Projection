@@ -46,12 +46,11 @@ class ISVGAnimatedBoolean extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_baseVal(p) {
-        result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+    get_baseVal() {
+        result := ComCall(8, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -66,11 +65,10 @@ class ISVGAnimatedBoolean extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_animVal(p) {
-        result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+    get_animVal() {
+        result := ComCall(10, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 }

@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWMDMStorageGlobals.ahk
+#Include .\WMDMDATETIME.ahk
+#Include .\IWMDMEnumStorage.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -50,27 +53,23 @@ class IWMDMStorage extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IWMDMStorageGlobals>} ppStorageGlobals 
-     * @returns {HRESULT} 
+     * @returns {IWMDMStorageGlobals} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorage-getstorageglobals
      */
-    GetStorageGlobals(ppStorageGlobals) {
-        result := ComCall(4, this, "ptr*", ppStorageGlobals, "HRESULT")
-        return result
+    GetStorageGlobals() {
+        result := ComCall(4, this, "ptr*", &ppStorageGlobals := 0, "HRESULT")
+        return IWMDMStorageGlobals(ppStorageGlobals)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwAttributes 
      * @param {Pointer<WAVEFORMATEX>} pFormat 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorage-getattributes
      */
-    GetAttributes(pdwAttributes, pFormat) {
-        pdwAttributesMarshal := pdwAttributes is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pdwAttributesMarshal, pdwAttributes, "ptr", pFormat, "HRESULT")
-        return result
+    GetAttributes(pFormat) {
+        result := ComCall(5, this, "uint*", &pdwAttributes := 0, "ptr", pFormat, "HRESULT")
+        return pdwAttributes
     }
 
     /**
@@ -89,13 +88,13 @@ class IWMDMStorage extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<WMDMDATETIME>} pDateTimeUTC 
-     * @returns {HRESULT} 
+     * @returns {WMDMDATETIME} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorage-getdate
      */
-    GetDate(pDateTimeUTC) {
+    GetDate() {
+        pDateTimeUTC := WMDMDATETIME()
         result := ComCall(7, this, "ptr", pDateTimeUTC, "HRESULT")
-        return result
+        return pDateTimeUTC
     }
 
     /**
@@ -132,13 +131,12 @@ class IWMDMStorage extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IWMDMEnumStorage>} pEnumStorage 
-     * @returns {HRESULT} 
+     * @returns {IWMDMEnumStorage} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorage-enumstorage
      */
-    EnumStorage(pEnumStorage) {
-        result := ComCall(10, this, "ptr*", pEnumStorage, "HRESULT")
-        return result
+    EnumStorage() {
+        result := ComCall(10, this, "ptr*", &pEnumStorage := 0, "HRESULT")
+        return IWMDMEnumStorage(pEnumStorage)
     }
 
     /**

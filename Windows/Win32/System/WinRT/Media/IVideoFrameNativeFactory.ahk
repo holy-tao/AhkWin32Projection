@@ -40,13 +40,10 @@ class IVideoFrameNativeFactory extends IInspectable{
      * @param {Pointer<MFVideoArea>} minDisplayAperture 
      * @param {IMFDXGIDeviceManager} device 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    CreateFromMFSample(data, subtype, width, height, forceReadOnly, minDisplayAperture, device, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", data, "ptr", subtype, "uint", width, "uint", height, "int", forceReadOnly, "ptr", minDisplayAperture, "ptr", device, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    CreateFromMFSample(data, subtype, width, height, forceReadOnly, minDisplayAperture, device, riid) {
+        result := ComCall(6, this, "ptr", data, "ptr", subtype, "uint", width, "uint", height, "int", forceReadOnly, "ptr", minDisplayAperture, "ptr", device, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 }

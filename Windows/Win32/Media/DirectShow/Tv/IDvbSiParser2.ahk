@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IDVB_EIT2.ahk
 #Include .\IDvbSiParser.ahk
 
 /**
@@ -48,15 +49,14 @@ class IDvbSiParser2 extends IDvbSiParser{
      * @param {Integer} tableId 
      * @param {Pointer<Integer>} pwServiceId 
      * @param {Pointer<Integer>} pbSegment 
-     * @param {Pointer<IDVB_EIT2>} ppEIT 
-     * @returns {HRESULT} 
+     * @returns {IDVB_EIT2} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsiparser2-geteit2
      */
-    GetEIT2(tableId, pwServiceId, pbSegment, ppEIT) {
+    GetEIT2(tableId, pwServiceId, pbSegment) {
         pwServiceIdMarshal := pwServiceId is VarRef ? "ushort*" : "ptr"
         pbSegmentMarshal := pbSegment is VarRef ? "char*" : "ptr"
 
-        result := ComCall(18, this, "char", tableId, pwServiceIdMarshal, pwServiceId, pbSegmentMarshal, pbSegment, "ptr*", ppEIT, "HRESULT")
-        return result
+        result := ComCall(18, this, "char", tableId, pwServiceIdMarshal, pwServiceId, pbSegmentMarshal, pbSegment, "ptr*", &ppEIT := 0, "HRESULT")
+        return IDVB_EIT2(ppEIT)
     }
 }

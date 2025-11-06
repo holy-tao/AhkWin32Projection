@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IControlInterface.ahk
+#Include .\IPartsList.ahk
+#Include .\IDeviceTopology.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,134 +35,116 @@ class IPart extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppwstrName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-ipart-getname
      */
-    GetName(ppwstrName) {
-        result := ComCall(3, this, "ptr", ppwstrName, "HRESULT")
-        return result
+    GetName() {
+        result := ComCall(3, this, "ptr*", &ppwstrName := 0, "HRESULT")
+        return ppwstrName
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pnId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-ipart-getlocalid
      */
-    GetLocalId(pnId) {
-        pnIdMarshal := pnId is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pnIdMarshal, pnId, "HRESULT")
-        return result
+    GetLocalId() {
+        result := ComCall(4, this, "uint*", &pnId := 0, "HRESULT")
+        return pnId
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppwstrGlobalId 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-ipart-getglobalid
      */
-    GetGlobalId(ppwstrGlobalId) {
-        result := ComCall(5, this, "ptr", ppwstrGlobalId, "HRESULT")
-        return result
+    GetGlobalId() {
+        result := ComCall(5, this, "ptr*", &ppwstrGlobalId := 0, "HRESULT")
+        return ppwstrGlobalId
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pPartType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-ipart-getparttype
      */
-    GetPartType(pPartType) {
-        pPartTypeMarshal := pPartType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, pPartTypeMarshal, pPartType, "HRESULT")
-        return result
+    GetPartType() {
+        result := ComCall(6, this, "int*", &pPartType := 0, "HRESULT")
+        return pPartType
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} pSubType 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-ipart-getsubtype
      */
-    GetSubType(pSubType) {
+    GetSubType() {
+        pSubType := Guid()
         result := ComCall(7, this, "ptr", pSubType, "HRESULT")
-        return result
+        return pSubType
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-ipart-getcontrolinterfacecount
      */
-    GetControlInterfaceCount(pCount) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    GetControlInterfaceCount() {
+        result := ComCall(8, this, "uint*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
      * 
      * @param {Integer} nIndex 
-     * @param {Pointer<IControlInterface>} ppInterfaceDesc 
-     * @returns {HRESULT} 
+     * @returns {IControlInterface} 
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-ipart-getcontrolinterface
      */
-    GetControlInterface(nIndex, ppInterfaceDesc) {
-        result := ComCall(9, this, "uint", nIndex, "ptr*", ppInterfaceDesc, "HRESULT")
-        return result
+    GetControlInterface(nIndex) {
+        result := ComCall(9, this, "uint", nIndex, "ptr*", &ppInterfaceDesc := 0, "HRESULT")
+        return IControlInterface(ppInterfaceDesc)
     }
 
     /**
      * 
-     * @param {Pointer<IPartsList>} ppParts 
-     * @returns {HRESULT} 
+     * @returns {IPartsList} 
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-ipart-enumpartsincoming
      */
-    EnumPartsIncoming(ppParts) {
-        result := ComCall(10, this, "ptr*", ppParts, "HRESULT")
-        return result
+    EnumPartsIncoming() {
+        result := ComCall(10, this, "ptr*", &ppParts := 0, "HRESULT")
+        return IPartsList(ppParts)
     }
 
     /**
      * 
-     * @param {Pointer<IPartsList>} ppParts 
-     * @returns {HRESULT} 
+     * @returns {IPartsList} 
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-ipart-enumpartsoutgoing
      */
-    EnumPartsOutgoing(ppParts) {
-        result := ComCall(11, this, "ptr*", ppParts, "HRESULT")
-        return result
+    EnumPartsOutgoing() {
+        result := ComCall(11, this, "ptr*", &ppParts := 0, "HRESULT")
+        return IPartsList(ppParts)
     }
 
     /**
      * 
-     * @param {Pointer<IDeviceTopology>} ppTopology 
-     * @returns {HRESULT} 
+     * @returns {IDeviceTopology} 
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-ipart-gettopologyobject
      */
-    GetTopologyObject(ppTopology) {
-        result := ComCall(12, this, "ptr*", ppTopology, "HRESULT")
-        return result
+    GetTopologyObject() {
+        result := ComCall(12, this, "ptr*", &ppTopology := 0, "HRESULT")
+        return IDeviceTopology(ppTopology)
     }
 
     /**
      * 
      * @param {Integer} dwClsContext 
      * @param {Pointer<Guid>} refiid 
-     * @param {Pointer<Pointer<Void>>} ppvObject 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-ipart-activate
      */
-    Activate(dwClsContext, refiid, ppvObject) {
-        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(13, this, "uint", dwClsContext, "ptr", refiid, ppvObjectMarshal, ppvObject, "HRESULT")
-        return result
+    Activate(dwClsContext, refiid) {
+        result := ComCall(13, this, "uint", dwClsContext, "ptr", refiid, "ptr*", &ppvObject := 0, "HRESULT")
+        return ppvObject
     }
 
     /**

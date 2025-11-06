@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMemAllocator.ahk
+#Include .\ALLOCATOR_PROPERTIES.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,13 +34,12 @@ class IMemInputPin extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IMemAllocator>} ppAllocator 
-     * @returns {HRESULT} 
+     * @returns {IMemAllocator} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imeminputpin-getallocator
      */
-    GetAllocator(ppAllocator) {
-        result := ComCall(3, this, "ptr*", ppAllocator, "HRESULT")
-        return result
+    GetAllocator() {
+        result := ComCall(3, this, "ptr*", &ppAllocator := 0, "HRESULT")
+        return IMemAllocator(ppAllocator)
     }
 
     /**
@@ -55,13 +56,13 @@ class IMemInputPin extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ALLOCATOR_PROPERTIES>} pProps 
-     * @returns {HRESULT} 
+     * @returns {ALLOCATOR_PROPERTIES} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imeminputpin-getallocatorrequirements
      */
-    GetAllocatorRequirements(pProps) {
+    GetAllocatorRequirements() {
+        pProps := ALLOCATOR_PROPERTIES()
         result := ComCall(5, this, "ptr", pProps, "HRESULT")
-        return result
+        return pProps
     }
 
     /**
@@ -79,15 +80,12 @@ class IMemInputPin extends IUnknown{
      * 
      * @param {Pointer<IMediaSample>} pSamples 
      * @param {Integer} nSamples 
-     * @param {Pointer<Integer>} nSamplesProcessed 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imeminputpin-receivemultiple
      */
-    ReceiveMultiple(pSamples, nSamples, nSamplesProcessed) {
-        nSamplesProcessedMarshal := nSamplesProcessed is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, "ptr*", pSamples, "int", nSamples, nSamplesProcessedMarshal, nSamplesProcessed, "HRESULT")
-        return result
+    ReceiveMultiple(pSamples, nSamples) {
+        result := ComCall(7, this, "ptr*", pSamples, "int", nSamples, "int*", &nSamplesProcessed := 0, "HRESULT")
+        return nSamplesProcessed
     }
 
     /**

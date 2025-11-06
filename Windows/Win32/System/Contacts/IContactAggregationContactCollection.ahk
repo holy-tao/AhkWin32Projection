@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IContactAggregationContact.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -30,22 +31,20 @@ class IContactAggregationContactCollection extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IContactAggregationContact>} ppItem 
-     * @returns {HRESULT} 
+     * @returns {IContactAggregationContact} 
      */
-    FindFirst(ppItem) {
-        result := ComCall(3, this, "ptr*", ppItem, "HRESULT")
-        return result
+    FindFirst() {
+        result := ComCall(3, this, "ptr*", &ppItem := 0, "HRESULT")
+        return IContactAggregationContact(ppItem)
     }
 
     /**
      * 
-     * @param {Pointer<IContactAggregationContact>} ppItem 
-     * @returns {HRESULT} 
+     * @returns {IContactAggregationContact} 
      */
-    FindNext(ppItem) {
-        result := ComCall(4, this, "ptr*", ppItem, "HRESULT")
-        return result
+    FindNext() {
+        result := ComCall(4, this, "ptr*", &ppItem := 0, "HRESULT")
+        return IContactAggregationContact(ppItem)
     }
 
     /**
@@ -53,27 +52,23 @@ class IContactAggregationContactCollection extends IUnknown{
      * @param {PWSTR} pSourceType 
      * @param {PWSTR} pAccountId 
      * @param {Pointer<CONTACT_AGGREGATION_BLOB>} pIdentityHash 
-     * @param {Pointer<IContactAggregationContact>} ppItem 
-     * @returns {HRESULT} 
+     * @returns {IContactAggregationContact} 
      */
-    FindFirstByIdentityHash(pSourceType, pAccountId, pIdentityHash, ppItem) {
+    FindFirstByIdentityHash(pSourceType, pAccountId, pIdentityHash) {
         pSourceType := pSourceType is String ? StrPtr(pSourceType) : pSourceType
         pAccountId := pAccountId is String ? StrPtr(pAccountId) : pAccountId
 
-        result := ComCall(5, this, "ptr", pSourceType, "ptr", pAccountId, "ptr", pIdentityHash, "ptr*", ppItem, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", pSourceType, "ptr", pAccountId, "ptr", pIdentityHash, "ptr*", &ppItem := 0, "HRESULT")
+        return IContactAggregationContact(ppItem)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Count(pCount) {
-        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(6, this, "int*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
@@ -81,14 +76,13 @@ class IContactAggregationContactCollection extends IUnknown{
      * @param {PWSTR} pSourceType 
      * @param {PWSTR} pAccountId 
      * @param {Pointer<CONTACT_AGGREGATION_BLOB>} pRemoteObjectId 
-     * @param {Pointer<IContactAggregationContact>} ppItem 
-     * @returns {HRESULT} 
+     * @returns {IContactAggregationContact} 
      */
-    FindFirstByRemoteId(pSourceType, pAccountId, pRemoteObjectId, ppItem) {
+    FindFirstByRemoteId(pSourceType, pAccountId, pRemoteObjectId) {
         pSourceType := pSourceType is String ? StrPtr(pSourceType) : pSourceType
         pAccountId := pAccountId is String ? StrPtr(pAccountId) : pAccountId
 
-        result := ComCall(7, this, "ptr", pSourceType, "ptr", pAccountId, "ptr", pRemoteObjectId, "ptr*", ppItem, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", pSourceType, "ptr", pAccountId, "ptr", pRemoteObjectId, "ptr*", &ppItem := 0, "HRESULT")
+        return IContactAggregationContact(ppItem)
     }
 }

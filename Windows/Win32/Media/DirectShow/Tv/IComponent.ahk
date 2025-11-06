@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IComponentType.ahk
+#Include .\IComponent.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -44,13 +46,12 @@ class IComponent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IComponentType>} CT 
-     * @returns {HRESULT} 
+     * @returns {IComponentType} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponent-get_type
      */
-    get_Type(CT) {
-        result := ComCall(7, this, "ptr*", CT, "HRESULT")
-        return result
+    get_Type() {
+        result := ComCall(7, this, "ptr*", &CT := 0, "HRESULT")
+        return IComponentType(CT)
     }
 
     /**
@@ -66,15 +67,12 @@ class IComponent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} LangID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponent-get_desclangid
      */
-    get_DescLangID(LangID) {
-        LangIDMarshal := LangID is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, LangIDMarshal, LangID, "HRESULT")
-        return result
+    get_DescLangID() {
+        result := ComCall(9, this, "int*", &LangID := 0, "HRESULT")
+        return LangID
     }
 
     /**
@@ -90,15 +88,12 @@ class IComponent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} Status 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponent-get_status
      */
-    get_Status(Status) {
-        StatusMarshal := Status is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, StatusMarshal, Status, "HRESULT")
-        return result
+    get_Status() {
+        result := ComCall(11, this, "int*", &Status := 0, "HRESULT")
+        return Status
     }
 
     /**
@@ -114,13 +109,13 @@ class IComponent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} Description 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponent-get_description
      */
-    get_Description(Description) {
+    get_Description() {
+        Description := BSTR()
         result := ComCall(13, this, "ptr", Description, "HRESULT")
-        return result
+        return Description
     }
 
     /**
@@ -138,12 +133,11 @@ class IComponent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IComponent>} NewComponent 
-     * @returns {HRESULT} 
+     * @returns {IComponent} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponent-clone
      */
-    Clone(NewComponent) {
-        result := ComCall(15, this, "ptr*", NewComponent, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(15, this, "ptr*", &NewComponent := 0, "HRESULT")
+        return IComponent(NewComponent)
     }
 }

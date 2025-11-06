@@ -48,15 +48,12 @@ class IMFMediaEngineProtectedContent extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pFrameProtectionFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineprotectedcontent-getrequiredprotections
      */
-    GetRequiredProtections(pFrameProtectionFlags) {
-        pFrameProtectionFlagsMarshal := pFrameProtectionFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pFrameProtectionFlagsMarshal, pFrameProtectionFlags, "HRESULT")
-        return result
+    GetRequiredProtections() {
+        result := ComCall(4, this, "uint*", &pFrameProtectionFlags := 0, "HRESULT")
+        return pFrameProtectionFlags
     }
 
     /**
@@ -78,15 +75,12 @@ class IMFMediaEngineProtectedContent extends IUnknown{
      * @param {Pointer<MFVideoNormalizedRect>} pSrc 
      * @param {Pointer<RECT>} pDst 
      * @param {Pointer<MFARGB>} pBorderClr 
-     * @param {Pointer<Integer>} pFrameProtectionFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineprotectedcontent-transfervideoframe
      */
-    TransferVideoFrame(pDstSurf, pSrc, pDst, pBorderClr, pFrameProtectionFlags) {
-        pFrameProtectionFlagsMarshal := pFrameProtectionFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, "ptr", pDstSurf, "ptr", pSrc, "ptr", pDst, "ptr", pBorderClr, pFrameProtectionFlagsMarshal, pFrameProtectionFlags, "HRESULT")
-        return result
+    TransferVideoFrame(pDstSurf, pSrc, pDst, pBorderClr) {
+        result := ComCall(6, this, "ptr", pDstSurf, "ptr", pSrc, "ptr", pDst, "ptr", pBorderClr, "uint*", &pFrameProtectionFlags := 0, "HRESULT")
+        return pFrameProtectionFlags
     }
 
     /**

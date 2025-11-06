@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISpRecoContext.ahk
 #Include .\ISpGrammarBuilder.ahk
 
 /**
@@ -42,12 +43,11 @@ class ISpRecoGrammar extends ISpGrammarBuilder{
 
     /**
      * 
-     * @param {Pointer<ISpRecoContext>} ppRecoCtxt 
-     * @returns {HRESULT} 
+     * @returns {ISpRecoContext} 
      */
-    GetRecoContext(ppRecoCtxt) {
-        result := ComCall(12, this, "ptr*", ppRecoCtxt, "HRESULT")
-        return result
+    GetRecoContext() {
+        result := ComCall(12, this, "ptr*", &ppRecoCtxt := 0, "HRESULT")
+        return ISpRecoContext(ppRecoCtxt)
     }
 
     /**
@@ -235,12 +235,11 @@ class ISpRecoGrammar extends ISpGrammarBuilder{
     /**
      * 
      * @param {IStream} pStream 
-     * @param {Pointer<PWSTR>} ppszCoMemErrorText 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    SaveCmd(pStream, ppszCoMemErrorText) {
-        result := ComCall(27, this, "ptr", pStream, "ptr", ppszCoMemErrorText, "HRESULT")
-        return result
+    SaveCmd(pStream) {
+        result := ComCall(27, this, "ptr", pStream, "ptr*", &ppszCoMemErrorText := 0, "HRESULT")
+        return ppszCoMemErrorText
     }
 
     /**

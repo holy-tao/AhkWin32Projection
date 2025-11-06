@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteFontFileLoader.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -47,13 +48,12 @@ class IDWriteFontFile extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDWriteFontFileLoader>} fontFileLoader 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontFileLoader} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontfile-getloader
      */
-    GetLoader(fontFileLoader) {
-        result := ComCall(4, this, "ptr*", fontFileLoader, "HRESULT")
-        return result
+    GetLoader() {
+        result := ComCall(4, this, "ptr*", &fontFileLoader := 0, "HRESULT")
+        return IDWriteFontFileLoader(fontFileLoader)
     }
 
     /**
@@ -66,11 +66,12 @@ class IDWriteFontFile extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontfile-analyze
      */
     Analyze(isSupportedFontType, fontFileType, fontFaceType, numberOfFaces) {
+        isSupportedFontTypeMarshal := isSupportedFontType is VarRef ? "int*" : "ptr"
         fontFileTypeMarshal := fontFileType is VarRef ? "int*" : "ptr"
         fontFaceTypeMarshal := fontFaceType is VarRef ? "int*" : "ptr"
         numberOfFacesMarshal := numberOfFaces is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", isSupportedFontType, fontFileTypeMarshal, fontFileType, fontFaceTypeMarshal, fontFaceType, numberOfFacesMarshal, numberOfFaces, "HRESULT")
+        result := ComCall(5, this, isSupportedFontTypeMarshal, isSupportedFontType, fontFileTypeMarshal, fontFileType, fontFaceTypeMarshal, fontFaceType, numberOfFacesMarshal, numberOfFaces, "HRESULT")
         return result
     }
 }

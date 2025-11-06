@@ -32,24 +32,22 @@ class IAzAuthorizationStore3 extends IAzAuthorizationStore2{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbIsUpdateNeeded 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore3-isupdateneeded
      */
-    IsUpdateNeeded(pbIsUpdateNeeded) {
-        result := ComCall(60, this, "ptr", pbIsUpdateNeeded, "HRESULT")
-        return result
+    IsUpdateNeeded() {
+        result := ComCall(60, this, "short*", &pbIsUpdateNeeded := 0, "HRESULT")
+        return pbIsUpdateNeeded
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbSupported 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore3-bizrulegroupsupported
      */
-    BizruleGroupSupported(pbSupported) {
-        result := ComCall(61, this, "ptr", pbSupported, "HRESULT")
-        return result
+    BizruleGroupSupported() {
+        result := ComCall(61, this, "short*", &pbSupported := 0, "HRESULT")
+        return pbSupported
     }
 
     /**
@@ -66,13 +64,12 @@ class IAzAuthorizationStore3 extends IAzAuthorizationStore2{
     /**
      * 
      * @param {Integer} lFunctionalLevel 
-     * @param {Pointer<VARIANT_BOOL>} pbSupported 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore3-isfunctionallevelupgradesupported
      */
-    IsFunctionalLevelUpgradeSupported(lFunctionalLevel, pbSupported) {
-        result := ComCall(63, this, "int", lFunctionalLevel, "ptr", pbSupported, "HRESULT")
-        return result
+    IsFunctionalLevelUpgradeSupported(lFunctionalLevel) {
+        result := ComCall(63, this, "int", lFunctionalLevel, "short*", &pbSupported := 0, "HRESULT")
+        return pbSupported
     }
 
     /**

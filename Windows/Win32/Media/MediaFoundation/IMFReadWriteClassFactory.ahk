@@ -64,17 +64,14 @@ class IMFReadWriteClassFactory extends IUnknown{
      * @param {PWSTR} pwszURL 
      * @param {IMFAttributes} pAttributes 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvObject 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfreadwriteclassfactory-createinstancefromurl
      */
-    CreateInstanceFromURL(clsid, pwszURL, pAttributes, riid, ppvObject) {
+    CreateInstanceFromURL(clsid, pwszURL, pAttributes, riid) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
-        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", clsid, "ptr", pwszURL, "ptr", pAttributes, "ptr", riid, ppvObjectMarshal, ppvObject, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", clsid, "ptr", pwszURL, "ptr", pAttributes, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
+        return ppvObject
     }
 
     /**
@@ -83,14 +80,11 @@ class IMFReadWriteClassFactory extends IUnknown{
      * @param {IUnknown} punkObject 
      * @param {IMFAttributes} pAttributes 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvObject 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfreadwriteclassfactory-createinstancefromobject
      */
-    CreateInstanceFromObject(clsid, punkObject, pAttributes, riid, ppvObject) {
-        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "ptr", clsid, "ptr", punkObject, "ptr", pAttributes, "ptr", riid, ppvObjectMarshal, ppvObject, "HRESULT")
-        return result
+    CreateInstanceFromObject(clsid, punkObject, pAttributes, riid) {
+        result := ComCall(4, this, "ptr", clsid, "ptr", punkObject, "ptr", pAttributes, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
+        return ppvObject
     }
 }

@@ -35,13 +35,10 @@ class IAudioFrameNativeFactory extends IInspectable{
      * @param {IMFSample} data 
      * @param {BOOL} forceReadOnly 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    CreateFromMFSample(data, forceReadOnly, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", data, "int", forceReadOnly, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    CreateFromMFSample(data, forceReadOnly, riid) {
+        result := ComCall(6, this, "ptr", data, "int", forceReadOnly, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 }

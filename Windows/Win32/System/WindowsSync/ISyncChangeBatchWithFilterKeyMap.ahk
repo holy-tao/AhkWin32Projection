@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IFilterKeyMap.ahk
+#Include .\ISyncKnowledge.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -30,12 +32,11 @@ class ISyncChangeBatchWithFilterKeyMap extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IFilterKeyMap>} ppIFilterKeyMap 
-     * @returns {HRESULT} 
+     * @returns {IFilterKeyMap} 
      */
-    GetFilterKeyMap(ppIFilterKeyMap) {
-        result := ComCall(3, this, "ptr*", ppIFilterKeyMap, "HRESULT")
-        return result
+    GetFilterKeyMap() {
+        result := ComCall(3, this, "ptr*", &ppIFilterKeyMap := 0, "HRESULT")
+        return IFilterKeyMap(ppIFilterKeyMap)
     }
 
     /**
@@ -63,12 +64,11 @@ class ISyncChangeBatchWithFilterKeyMap extends IUnknown{
      * 
      * @param {ISyncKnowledge} pDestinationKnowledge 
      * @param {IEnumItemIds} pNewMoveins 
-     * @param {Pointer<ISyncKnowledge>} ppLearnedForgottenKnowledge 
-     * @returns {HRESULT} 
+     * @returns {ISyncKnowledge} 
      */
-    GetFilteredReplicaLearnedKnowledge(pDestinationKnowledge, pNewMoveins, ppLearnedForgottenKnowledge) {
-        result := ComCall(6, this, "ptr", pDestinationKnowledge, "ptr", pNewMoveins, "ptr*", ppLearnedForgottenKnowledge, "HRESULT")
-        return result
+    GetFilteredReplicaLearnedKnowledge(pDestinationKnowledge, pNewMoveins) {
+        result := ComCall(6, this, "ptr", pDestinationKnowledge, "ptr", pNewMoveins, "ptr*", &ppLearnedForgottenKnowledge := 0, "HRESULT")
+        return ISyncKnowledge(ppLearnedForgottenKnowledge)
     }
 
     /**
@@ -76,36 +76,33 @@ class ISyncChangeBatchWithFilterKeyMap extends IUnknown{
      * @param {ISyncKnowledge} pDestinationKnowledge 
      * @param {IEnumItemIds} pNewMoveins 
      * @param {Integer} dwFilterKey 
-     * @param {Pointer<ISyncKnowledge>} ppLearnedFilterForgottenKnowledge 
-     * @returns {HRESULT} 
+     * @returns {ISyncKnowledge} 
      */
-    GetLearnedFilterForgottenKnowledge(pDestinationKnowledge, pNewMoveins, dwFilterKey, ppLearnedFilterForgottenKnowledge) {
-        result := ComCall(7, this, "ptr", pDestinationKnowledge, "ptr", pNewMoveins, "uint", dwFilterKey, "ptr*", ppLearnedFilterForgottenKnowledge, "HRESULT")
-        return result
+    GetLearnedFilterForgottenKnowledge(pDestinationKnowledge, pNewMoveins, dwFilterKey) {
+        result := ComCall(7, this, "ptr", pDestinationKnowledge, "ptr", pNewMoveins, "uint", dwFilterKey, "ptr*", &ppLearnedFilterForgottenKnowledge := 0, "HRESULT")
+        return ISyncKnowledge(ppLearnedFilterForgottenKnowledge)
     }
 
     /**
      * 
      * @param {ISyncKnowledge} pDestinationKnowledge 
      * @param {IEnumItemIds} pNewMoveins 
-     * @param {Pointer<ISyncKnowledge>} ppLearnedForgottenKnowledge 
-     * @returns {HRESULT} 
+     * @returns {ISyncKnowledge} 
      */
-    GetFilteredReplicaLearnedForgottenKnowledge(pDestinationKnowledge, pNewMoveins, ppLearnedForgottenKnowledge) {
-        result := ComCall(8, this, "ptr", pDestinationKnowledge, "ptr", pNewMoveins, "ptr*", ppLearnedForgottenKnowledge, "HRESULT")
-        return result
+    GetFilteredReplicaLearnedForgottenKnowledge(pDestinationKnowledge, pNewMoveins) {
+        result := ComCall(8, this, "ptr", pDestinationKnowledge, "ptr", pNewMoveins, "ptr*", &ppLearnedForgottenKnowledge := 0, "HRESULT")
+        return ISyncKnowledge(ppLearnedForgottenKnowledge)
     }
 
     /**
      * 
      * @param {ISyncKnowledge} pDestinationKnowledge 
      * @param {IEnumItemIds} pNewMoveins 
-     * @param {Pointer<ISyncKnowledge>} ppLearnedForgottenKnowledge 
-     * @returns {HRESULT} 
+     * @returns {ISyncKnowledge} 
      */
-    GetFilteredReplicaLearnedForgottenKnowledgeAfterRecoveryComplete(pDestinationKnowledge, pNewMoveins, ppLearnedForgottenKnowledge) {
-        result := ComCall(9, this, "ptr", pDestinationKnowledge, "ptr", pNewMoveins, "ptr*", ppLearnedForgottenKnowledge, "HRESULT")
-        return result
+    GetFilteredReplicaLearnedForgottenKnowledgeAfterRecoveryComplete(pDestinationKnowledge, pNewMoveins) {
+        result := ComCall(9, this, "ptr", pDestinationKnowledge, "ptr", pNewMoveins, "ptr*", &ppLearnedForgottenKnowledge := 0, "HRESULT")
+        return ISyncKnowledge(ppLearnedForgottenKnowledge)
     }
 
     /**
@@ -113,11 +110,10 @@ class ISyncChangeBatchWithFilterKeyMap extends IUnknown{
      * @param {ISyncKnowledge} pDestinationKnowledge 
      * @param {IEnumItemIds} pNewMoveins 
      * @param {Integer} dwFilterKey 
-     * @param {Pointer<ISyncKnowledge>} ppLearnedFilterForgottenKnowledge 
-     * @returns {HRESULT} 
+     * @returns {ISyncKnowledge} 
      */
-    GetLearnedFilterForgottenKnowledgeAfterRecoveryComplete(pDestinationKnowledge, pNewMoveins, dwFilterKey, ppLearnedFilterForgottenKnowledge) {
-        result := ComCall(10, this, "ptr", pDestinationKnowledge, "ptr", pNewMoveins, "uint", dwFilterKey, "ptr*", ppLearnedFilterForgottenKnowledge, "HRESULT")
-        return result
+    GetLearnedFilterForgottenKnowledgeAfterRecoveryComplete(pDestinationKnowledge, pNewMoveins, dwFilterKey) {
+        result := ComCall(10, this, "ptr", pDestinationKnowledge, "ptr", pNewMoveins, "uint", dwFilterKey, "ptr*", &ppLearnedFilterForgottenKnowledge := 0, "HRESULT")
+        return ISyncKnowledge(ppLearnedFilterForgottenKnowledge)
     }
 }

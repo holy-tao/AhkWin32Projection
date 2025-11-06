@@ -32,13 +32,12 @@ class IRealTimeStylus3 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfEnable 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus3-get_multitouchenabled
      */
-    get_MultiTouchEnabled(pfEnable) {
-        result := ComCall(3, this, "ptr", pfEnable, "HRESULT")
-        return result
+    get_MultiTouchEnabled() {
+        result := ComCall(3, this, "int*", &pfEnable := 0, "HRESULT")
+        return pfEnable
     }
 
     /**

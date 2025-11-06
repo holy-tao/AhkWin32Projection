@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITransactionReceiver.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -30,11 +31,10 @@ class ITransactionReceiverFactory extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ITransactionReceiver>} ppReceiver 
-     * @returns {HRESULT} 
+     * @returns {ITransactionReceiver} 
      */
-    Create(ppReceiver) {
-        result := ComCall(3, this, "ptr*", ppReceiver, "HRESULT")
-        return result
+    Create() {
+        result := ComCall(3, this, "ptr*", &ppReceiver := 0, "HRESULT")
+        return ITransactionReceiver(ppReceiver)
     }
 }

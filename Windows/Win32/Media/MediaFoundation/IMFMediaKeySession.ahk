@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -47,24 +48,24 @@ class IMFMediaKeySession extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} keySystem 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediakeysession-get_keysystem
      */
-    get_KeySystem(keySystem) {
+    get_KeySystem() {
+        keySystem := BSTR()
         result := ComCall(4, this, "ptr", keySystem, "HRESULT")
-        return result
+        return keySystem
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} sessionId 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediakeysession-get_sessionid
      */
-    get_SessionId(sessionId) {
+    get_SessionId() {
+        sessionId := BSTR()
         result := ComCall(5, this, "ptr", sessionId, "HRESULT")
-        return result
+        return sessionId
     }
 
     /**

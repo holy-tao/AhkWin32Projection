@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -45,24 +46,23 @@ class IMFMetadata extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppwszRFC1766 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmetadata-getlanguage
      */
-    GetLanguage(ppwszRFC1766) {
-        result := ComCall(4, this, "ptr", ppwszRFC1766, "HRESULT")
-        return result
+    GetLanguage() {
+        result := ComCall(4, this, "ptr*", &ppwszRFC1766 := 0, "HRESULT")
+        return ppwszRFC1766
     }
 
     /**
      * 
-     * @param {Pointer<PROPVARIANT>} ppvLanguages 
-     * @returns {HRESULT} 
+     * @returns {PROPVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmetadata-getalllanguages
      */
-    GetAllLanguages(ppvLanguages) {
+    GetAllLanguages() {
+        ppvLanguages := PROPVARIANT()
         result := ComCall(5, this, "ptr", ppvLanguages, "HRESULT")
-        return result
+        return ppvLanguages
     }
 
     /**
@@ -82,15 +82,15 @@ class IMFMetadata extends IUnknown{
     /**
      * 
      * @param {PWSTR} pwszName 
-     * @param {Pointer<PROPVARIANT>} ppvValue 
-     * @returns {HRESULT} 
+     * @returns {PROPVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmetadata-getproperty
      */
-    GetProperty(pwszName, ppvValue) {
+    GetProperty(pwszName) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
+        ppvValue := PROPVARIANT()
         result := ComCall(7, this, "ptr", pwszName, "ptr", ppvValue, "HRESULT")
-        return result
+        return ppvValue
     }
 
     /**
@@ -108,12 +108,12 @@ class IMFMetadata extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PROPVARIANT>} ppvNames 
-     * @returns {HRESULT} 
+     * @returns {PROPVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmetadata-getallpropertynames
      */
-    GetAllPropertyNames(ppvNames) {
+    GetAllPropertyNames() {
+        ppvNames := PROPVARIANT()
         result := ComCall(9, this, "ptr", ppvNames, "HRESULT")
-        return result
+        return ppvNames
     }
 }

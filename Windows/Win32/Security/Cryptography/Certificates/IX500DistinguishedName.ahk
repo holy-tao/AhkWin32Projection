@@ -62,24 +62,24 @@ class IX500DistinguishedName extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix500distinguishedname-get_name
      */
-    get_Name(pValue) {
+    get_Name() {
+        pValue := BSTR()
         result := ComCall(9, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
      * 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix500distinguishedname-get_encodedname
      */
-    get_EncodedName(Encoding, pValue) {
+    get_EncodedName(Encoding) {
+        pValue := BSTR()
         result := ComCall(10, this, "int", Encoding, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 }

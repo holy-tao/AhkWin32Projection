@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\SIZE.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\ITfLangBarItem.ahk
 
 /**
@@ -73,13 +75,13 @@ class ITfLangBarItemBitmapButton extends ITfLangBarItem{
     /**
      * 
      * @param {Pointer<SIZE>} pszDefault 
-     * @param {Pointer<SIZE>} psz 
-     * @returns {HRESULT} 
+     * @returns {SIZE} 
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritembitmapbutton-getpreferredsize
      */
-    GetPreferredSize(pszDefault, psz) {
+    GetPreferredSize(pszDefault) {
+        psz := SIZE()
         result := ComCall(10, this, "ptr", pszDefault, "ptr", psz, "HRESULT")
-        return result
+        return psz
     }
 
     /**
@@ -99,12 +101,12 @@ class ITfLangBarItemBitmapButton extends ITfLangBarItem{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrText 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritembitmapbutton-gettext
      */
-    GetText(pbstrText) {
+    GetText() {
+        pbstrText := BSTR()
         result := ComCall(12, this, "ptr", pbstrText, "HRESULT")
-        return result
+        return pbstrText
     }
 }

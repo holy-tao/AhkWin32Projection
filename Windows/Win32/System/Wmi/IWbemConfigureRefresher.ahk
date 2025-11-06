@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWbemClassObject.ahk
+#Include .\IWbemHiPerfEnum.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -36,18 +38,17 @@ class IWbemConfigureRefresher extends IUnknown{
      * @param {PWSTR} wszPath 
      * @param {Integer} lFlags 
      * @param {IWbemContext} pContext 
-     * @param {Pointer<IWbemClassObject>} ppRefreshable 
      * @param {Pointer<Integer>} plId 
-     * @returns {HRESULT} 
+     * @returns {IWbemClassObject} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemconfigurerefresher-addobjectbypath
      */
-    AddObjectByPath(pNamespace, wszPath, lFlags, pContext, ppRefreshable, plId) {
+    AddObjectByPath(pNamespace, wszPath, lFlags, pContext, plId) {
         wszPath := wszPath is String ? StrPtr(wszPath) : wszPath
 
         plIdMarshal := plId is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pNamespace, "ptr", wszPath, "int", lFlags, "ptr", pContext, "ptr*", ppRefreshable, plIdMarshal, plId, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pNamespace, "ptr", wszPath, "int", lFlags, "ptr", pContext, "ptr*", &ppRefreshable := 0, plIdMarshal, plId, "HRESULT")
+        return IWbemClassObject(ppRefreshable)
     }
 
     /**
@@ -56,16 +57,15 @@ class IWbemConfigureRefresher extends IUnknown{
      * @param {IWbemClassObject} pTemplate 
      * @param {Integer} lFlags 
      * @param {IWbemContext} pContext 
-     * @param {Pointer<IWbemClassObject>} ppRefreshable 
      * @param {Pointer<Integer>} plId 
-     * @returns {HRESULT} 
+     * @returns {IWbemClassObject} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemconfigurerefresher-addobjectbytemplate
      */
-    AddObjectByTemplate(pNamespace, pTemplate, lFlags, pContext, ppRefreshable, plId) {
+    AddObjectByTemplate(pNamespace, pTemplate, lFlags, pContext, plId) {
         plIdMarshal := plId is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pNamespace, "ptr", pTemplate, "int", lFlags, "ptr", pContext, "ptr*", ppRefreshable, plIdMarshal, plId, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pNamespace, "ptr", pTemplate, "int", lFlags, "ptr", pContext, "ptr*", &ppRefreshable := 0, plIdMarshal, plId, "HRESULT")
+        return IWbemClassObject(ppRefreshable)
     }
 
     /**
@@ -101,17 +101,16 @@ class IWbemConfigureRefresher extends IUnknown{
      * @param {PWSTR} wszClassName 
      * @param {Integer} lFlags 
      * @param {IWbemContext} pContext 
-     * @param {Pointer<IWbemHiPerfEnum>} ppEnum 
      * @param {Pointer<Integer>} plId 
-     * @returns {HRESULT} 
+     * @returns {IWbemHiPerfEnum} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemconfigurerefresher-addenum
      */
-    AddEnum(pNamespace, wszClassName, lFlags, pContext, ppEnum, plId) {
+    AddEnum(pNamespace, wszClassName, lFlags, pContext, plId) {
         wszClassName := wszClassName is String ? StrPtr(wszClassName) : wszClassName
 
         plIdMarshal := plId is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, "ptr", pNamespace, "ptr", wszClassName, "int", lFlags, "ptr", pContext, "ptr*", ppEnum, plIdMarshal, plId, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", pNamespace, "ptr", wszClassName, "int", lFlags, "ptr", pContext, "ptr*", &ppEnum := 0, plIdMarshal, plId, "HRESULT")
+        return IWbemHiPerfEnum(ppEnum)
     }
 }

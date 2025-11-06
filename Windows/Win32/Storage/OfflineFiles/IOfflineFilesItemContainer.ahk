@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumOfflineFilesItems.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,13 +34,12 @@ class IOfflineFilesItemContainer extends IUnknown{
     /**
      * 
      * @param {Integer} dwQueryFlags 
-     * @param {Pointer<IEnumOfflineFilesItems>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IEnumOfflineFilesItems} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesitemcontainer-enumitems
      */
-    EnumItems(dwQueryFlags, ppenum) {
-        result := ComCall(3, this, "uint", dwQueryFlags, "ptr*", ppenum, "HRESULT")
-        return result
+    EnumItems(dwQueryFlags) {
+        result := ComCall(3, this, "uint", dwQueryFlags, "ptr*", &ppenum := 0, "HRESULT")
+        return IEnumOfflineFilesItems(ppenum)
     }
 
     /**
@@ -50,12 +50,11 @@ class IOfflineFilesItemContainer extends IUnknown{
      * @param {IOfflineFilesItemFilter} pExcludeDirFilter 
      * @param {Integer} dwEnumFlags 
      * @param {Integer} dwQueryFlags 
-     * @param {Pointer<IEnumOfflineFilesItems>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IEnumOfflineFilesItems} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesitemcontainer-enumitemsex
      */
-    EnumItemsEx(pIncludeFileFilter, pIncludeDirFilter, pExcludeFileFilter, pExcludeDirFilter, dwEnumFlags, dwQueryFlags, ppenum) {
-        result := ComCall(4, this, "ptr", pIncludeFileFilter, "ptr", pIncludeDirFilter, "ptr", pExcludeFileFilter, "ptr", pExcludeDirFilter, "uint", dwEnumFlags, "uint", dwQueryFlags, "ptr*", ppenum, "HRESULT")
-        return result
+    EnumItemsEx(pIncludeFileFilter, pIncludeDirFilter, pExcludeFileFilter, pExcludeDirFilter, dwEnumFlags, dwQueryFlags) {
+        result := ComCall(4, this, "ptr", pIncludeFileFilter, "ptr", pIncludeDirFilter, "ptr", pExcludeFileFilter, "ptr", pExcludeDirFilter, "uint", dwEnumFlags, "uint", dwQueryFlags, "ptr*", &ppenum := 0, "HRESULT")
+        return IEnumOfflineFilesItems(ppenum)
     }
 }

@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
@@ -31,25 +32,24 @@ class IHTMLPersistDataOM extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_XMLDocument(p) {
-        result := ComCall(7, this, "ptr*", p, "HRESULT")
-        return result
+    get_XMLDocument() {
+        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
      * @param {BSTR} name 
-     * @param {Pointer<VARIANT>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    getAttribute(name, pValue) {
+    getAttribute(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
+        pValue := VARIANT()
         result := ComCall(8, this, "ptr", name, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**

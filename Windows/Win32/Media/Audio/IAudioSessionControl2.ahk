@@ -45,40 +45,32 @@ class IAudioSessionControl2 extends IAudioSessionControl{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessioncontrol2-getsessionidentifier
      */
-    GetSessionIdentifier(pRetVal) {
-        result := ComCall(12, this, "ptr", pRetVal, "HRESULT")
-        return result
+    GetSessionIdentifier() {
+        result := ComCall(12, this, "ptr*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessioncontrol2-getsessioninstanceidentifier
      */
-    GetSessionInstanceIdentifier(pRetVal) {
-        result := ComCall(13, this, "ptr", pRetVal, "HRESULT")
-        return result
+    GetSessionInstanceIdentifier() {
+        result := ComCall(13, this, "ptr*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
      * Retrieves the process identifier of the specified process.
-     * @param {Pointer<Integer>} pRetVal 
-     * @returns {HRESULT} If the function succeeds, the return value is the process identifier.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getprocessid
      */
-    GetProcessId(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    GetProcessId() {
+        result := ComCall(14, this, "uint*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**

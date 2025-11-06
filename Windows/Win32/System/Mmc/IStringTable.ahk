@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IEnumString.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -33,17 +34,14 @@ class IStringTable extends IUnknown{
     /**
      * 
      * @param {PWSTR} pszAdd 
-     * @param {Pointer<Integer>} pStringID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-istringtable-addstring
      */
-    AddString(pszAdd, pStringID) {
+    AddString(pszAdd) {
         pszAdd := pszAdd is String ? StrPtr(pszAdd) : pszAdd
 
-        pStringIDMarshal := pStringID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pszAdd, pStringIDMarshal, pStringID, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pszAdd, "uint*", &pStringID := 0, "HRESULT")
+        return pStringID
     }
 
     /**
@@ -51,31 +49,25 @@ class IStringTable extends IUnknown{
      * @param {Integer} StringID 
      * @param {Integer} cchBuffer 
      * @param {PWSTR} lpBuffer 
-     * @param {Pointer<Integer>} pcchOut 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-istringtable-getstring
      */
-    GetString(StringID, cchBuffer, lpBuffer, pcchOut) {
+    GetString(StringID, cchBuffer, lpBuffer) {
         lpBuffer := lpBuffer is String ? StrPtr(lpBuffer) : lpBuffer
 
-        pcchOutMarshal := pcchOut is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, "uint", StringID, "uint", cchBuffer, "ptr", lpBuffer, pcchOutMarshal, pcchOut, "HRESULT")
-        return result
+        result := ComCall(4, this, "uint", StringID, "uint", cchBuffer, "ptr", lpBuffer, "uint*", &pcchOut := 0, "HRESULT")
+        return pcchOut
     }
 
     /**
      * 
      * @param {Integer} StringID 
-     * @param {Pointer<Integer>} pcchString 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-istringtable-getstringlength
      */
-    GetStringLength(StringID, pcchString) {
-        pcchStringMarshal := pcchString is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, "uint", StringID, pcchStringMarshal, pcchString, "HRESULT")
-        return result
+    GetStringLength(StringID) {
+        result := ComCall(5, this, "uint", StringID, "uint*", &pcchString := 0, "HRESULT")
+        return pcchString
     }
 
     /**
@@ -102,27 +94,23 @@ class IStringTable extends IUnknown{
     /**
      * 
      * @param {PWSTR} pszFind 
-     * @param {Pointer<Integer>} pStringID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-istringtable-findstring
      */
-    FindString(pszFind, pStringID) {
+    FindString(pszFind) {
         pszFind := pszFind is String ? StrPtr(pszFind) : pszFind
 
-        pStringIDMarshal := pStringID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, "ptr", pszFind, pStringIDMarshal, pStringID, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", pszFind, "uint*", &pStringID := 0, "HRESULT")
+        return pStringID
     }
 
     /**
      * 
-     * @param {Pointer<IEnumString>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumString} 
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-istringtable-enumerate
      */
-    Enumerate(ppEnum) {
-        result := ComCall(9, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    Enumerate() {
+        result := ComCall(9, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumString(ppEnum)
     }
 }

@@ -100,15 +100,12 @@ class IXMLHTTPRequest2 extends IUnknown{
     /**
      * 
      * @param {Pointer<XHR_COOKIE>} pCookie 
-     * @param {Pointer<Integer>} pdwCookieState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msxml6/nf-msxml6-ixmlhttprequest2-setcookie
      */
-    SetCookie(pCookie, pdwCookieState) {
-        pdwCookieStateMarshal := pdwCookieState is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, "ptr", pCookie, pdwCookieStateMarshal, pdwCookieState, "HRESULT")
-        return result
+    SetCookie(pCookie) {
+        result := ComCall(6, this, "ptr", pCookie, "uint*", &pdwCookieState := 0, "HRESULT")
+        return pdwCookieState
     }
 
     /**
@@ -151,15 +148,12 @@ class IXMLHTTPRequest2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<Integer>>} ppwszHeaders 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/msxml6/nf-msxml6-ixmlhttprequest2-getallresponseheaders
      */
-    GetAllResponseHeaders(ppwszHeaders) {
-        ppwszHeadersMarshal := ppwszHeaders is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(10, this, ppwszHeadersMarshal, ppwszHeaders, "HRESULT")
-        return result
+    GetAllResponseHeaders() {
+        result := ComCall(10, this, "ptr*", &ppwszHeaders := 0, "HRESULT")
+        return ppwszHeaders
     }
 
     /**
@@ -186,16 +180,13 @@ class IXMLHTTPRequest2 extends IUnknown{
     /**
      * 
      * @param {PWSTR} pwszHeader 
-     * @param {Pointer<Pointer<Integer>>} ppwszValue 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/msxml6/nf-msxml6-ixmlhttprequest2-getresponseheader
      */
-    GetResponseHeader(pwszHeader, ppwszValue) {
+    GetResponseHeader(pwszHeader) {
         pwszHeader := pwszHeader is String ? StrPtr(pwszHeader) : pwszHeader
 
-        ppwszValueMarshal := ppwszValue is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(12, this, "ptr", pwszHeader, ppwszValueMarshal, ppwszValue, "HRESULT")
-        return result
+        result := ComCall(12, this, "ptr", pwszHeader, "ptr*", &ppwszValue := 0, "HRESULT")
+        return ppwszValue
     }
 }

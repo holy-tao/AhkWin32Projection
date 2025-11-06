@@ -43,99 +43,78 @@ class IAtscContentAdvisoryDescriptor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsccontentadvisorydescriptor-gettag
      */
-    GetTag(pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(3, this, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetTag() {
+        result := ComCall(3, this, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsccontentadvisorydescriptor-getlength
      */
-    GetLength(pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetLength() {
+        result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsccontentadvisorydescriptor-getratingregioncount
      */
-    GetRatingRegionCount(pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(5, this, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetRatingRegionCount() {
+        result := ComCall(5, this, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
      * @param {Integer} bIndex 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsccontentadvisorydescriptor-getrecordratingregion
      */
-    GetRecordRatingRegion(bIndex, pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(6, this, "char", bIndex, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetRecordRatingRegion(bIndex) {
+        result := ComCall(6, this, "char", bIndex, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
      * @param {Integer} bIndex 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsccontentadvisorydescriptor-getrecordrateddimensions
      */
-    GetRecordRatedDimensions(bIndex, pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(7, this, "char", bIndex, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetRecordRatedDimensions(bIndex) {
+        result := ComCall(7, this, "char", bIndex, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
      * @param {Integer} bIndexOuter 
      * @param {Integer} bIndexInner 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsccontentadvisorydescriptor-getrecordratingdimension
      */
-    GetRecordRatingDimension(bIndexOuter, bIndexInner, pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(8, this, "char", bIndexOuter, "char", bIndexInner, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetRecordRatingDimension(bIndexOuter, bIndexInner) {
+        result := ComCall(8, this, "char", bIndexOuter, "char", bIndexInner, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
      * @param {Integer} bIndexOuter 
      * @param {Integer} bIndexInner 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsccontentadvisorydescriptor-getrecordratingvalue
      */
-    GetRecordRatingValue(bIndexOuter, bIndexInner, pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(9, this, "char", bIndexOuter, "char", bIndexInner, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetRecordRatingValue(bIndexOuter, bIndexInner) {
+        result := ComCall(9, this, "char", bIndexOuter, "char", bIndexInner, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**

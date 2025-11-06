@@ -45,13 +45,13 @@ class IClassFactory2 extends IClassFactory{
     /**
      * 
      * @param {Integer} dwReserved 
-     * @param {Pointer<BSTR>} pBstrKey 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iclassfactory2-requestlickey
      */
-    RequestLicKey(dwReserved, pBstrKey) {
+    RequestLicKey(dwReserved) {
+        pBstrKey := BSTR()
         result := ComCall(6, this, "uint", dwReserved, "ptr", pBstrKey, "HRESULT")
-        return result
+        return pBstrKey
     }
 
     /**
@@ -59,18 +59,15 @@ class IClassFactory2 extends IClassFactory{
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer<Guid>} riid 
      * @param {BSTR} bstrKey 
-     * @param {Pointer<Pointer<Void>>} ppvObj 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iclassfactory2-createinstancelic
      */
-    CreateInstanceLic(pUnkOuter, riid, bstrKey, ppvObj) {
+    CreateInstanceLic(pUnkOuter, riid, bstrKey) {
         static pUnkReserved := 0 ;Reserved parameters must always be NULL
 
         bstrKey := bstrKey is String ? BSTR.Alloc(bstrKey).Value : bstrKey
 
-        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, "ptr", pUnkOuter, "ptr", pUnkReserved, "ptr", riid, "ptr", bstrKey, ppvObjMarshal, ppvObj, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", pUnkOuter, "ptr", pUnkReserved, "ptr", riid, "ptr", bstrKey, "ptr*", &ppvObj := 0, "HRESULT")
+        return ppvObj
     }
 }

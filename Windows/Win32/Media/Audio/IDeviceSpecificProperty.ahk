@@ -32,30 +32,25 @@ class IDeviceSpecificProperty extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-idevicespecificproperty-gettype
      */
-    GetType(pVType) {
-        pVTypeMarshal := pVType is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(3, this, pVTypeMarshal, pVType, "HRESULT")
-        return result
+    GetType() {
+        result := ComCall(3, this, "ushort*", &pVType := 0, "HRESULT")
+        return pVType
     }
 
     /**
      * 
-     * @param {Pointer<Void>} pvValue 
      * @param {Pointer<Integer>} pcbValue 
-     * @returns {HRESULT} 
+     * @returns {Void} 
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-idevicespecificproperty-getvalue
      */
-    GetValue(pvValue, pcbValue) {
-        pvValueMarshal := pvValue is VarRef ? "ptr" : "ptr"
+    GetValue(pcbValue) {
         pcbValueMarshal := pcbValue is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, pvValueMarshal, pvValue, pcbValueMarshal, pcbValue, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", &pvValue := 0, pcbValueMarshal, pcbValue, "HRESULT")
+        return pvValue
     }
 
     /**

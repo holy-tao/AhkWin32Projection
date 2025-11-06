@@ -32,51 +32,41 @@ class ISpellingError extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nf-spellcheck-ispellingerror-get_startindex
      */
-    get_StartIndex(value) {
-        valueMarshal := value is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, valueMarshal, value, "HRESULT")
-        return result
+    get_StartIndex() {
+        result := ComCall(3, this, "uint*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nf-spellcheck-ispellingerror-get_length
      */
-    get_Length(value) {
-        valueMarshal := value is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, valueMarshal, value, "HRESULT")
-        return result
+    get_Length() {
+        result := ComCall(4, this, "uint*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nf-spellcheck-ispellingerror-get_correctiveaction
      */
-    get_CorrectiveAction(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, valueMarshal, value, "HRESULT")
-        return result
+    get_CorrectiveAction() {
+        result := ComCall(5, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} value 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nf-spellcheck-ispellingerror-get_replacement
      */
-    get_Replacement(value) {
-        result := ComCall(6, this, "ptr", value, "HRESULT")
-        return result
+    get_Replacement() {
+        result := ComCall(6, this, "ptr*", &value := 0, "HRESULT")
+        return value
     }
 }

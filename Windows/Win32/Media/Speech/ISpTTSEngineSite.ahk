@@ -41,39 +41,31 @@ class ISpTTSEngineSite extends ISpEventSink{
      * 
      * @param {Pointer<Void>} pBuff 
      * @param {Integer} cb 
-     * @param {Pointer<Integer>} pcbWritten 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Write(pBuff, cb, pcbWritten) {
+    Write(pBuff, cb) {
         pBuffMarshal := pBuff is VarRef ? "ptr" : "ptr"
-        pcbWrittenMarshal := pcbWritten is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, pBuffMarshal, pBuff, "uint", cb, pcbWrittenMarshal, pcbWritten, "HRESULT")
-        return result
+        result := ComCall(6, this, pBuffMarshal, pBuff, "uint", cb, "uint*", &pcbWritten := 0, "HRESULT")
+        return pcbWritten
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pRateAdjust 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetRate(pRateAdjust) {
-        pRateAdjustMarshal := pRateAdjust is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pRateAdjustMarshal, pRateAdjust, "HRESULT")
-        return result
+    GetRate() {
+        result := ComCall(7, this, "int*", &pRateAdjust := 0, "HRESULT")
+        return pRateAdjust
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pusVolume 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetVolume(pusVolume) {
-        pusVolumeMarshal := pusVolume is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(8, this, pusVolumeMarshal, pusVolume, "HRESULT")
-        return result
+    GetVolume() {
+        result := ComCall(8, this, "ushort*", &pusVolume := 0, "HRESULT")
+        return pusVolume
     }
 
     /**

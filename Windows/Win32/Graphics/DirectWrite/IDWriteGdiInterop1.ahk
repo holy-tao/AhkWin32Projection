@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteFont.ahk
+#Include ..\..\Globalization\FONTSIGNATURE.ahk
+#Include .\IDWriteFontSet.ahk
 #Include .\IDWriteGdiInterop.ahk
 
 /**
@@ -34,49 +37,47 @@ class IDWriteGdiInterop1 extends IDWriteGdiInterop{
      * 
      * @param {Pointer<LOGFONTW>} logFont 
      * @param {IDWriteFontCollection} fontCollection 
-     * @param {Pointer<IDWriteFont>} font 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFont} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritegdiinterop1-createfontfromlogfont
      */
-    CreateFontFromLOGFONT(logFont, fontCollection, font) {
-        result := ComCall(8, this, "ptr", logFont, "ptr", fontCollection, "ptr*", font, "HRESULT")
-        return result
+    CreateFontFromLOGFONT(logFont, fontCollection) {
+        result := ComCall(8, this, "ptr", logFont, "ptr", fontCollection, "ptr*", &font := 0, "HRESULT")
+        return IDWriteFont(font)
     }
 
     /**
      * 
      * @param {IDWriteFontFace} fontFace 
-     * @param {Pointer<FONTSIGNATURE>} fontSignature 
-     * @returns {HRESULT} 
+     * @returns {FONTSIGNATURE} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritegdiinterop1-getfontsignature(idwritefontface_fontsignature)
      */
-    GetFontSignature(fontFace, fontSignature) {
+    GetFontSignature(fontFace) {
+        fontSignature := FONTSIGNATURE()
         result := ComCall(9, this, "ptr", fontFace, "ptr", fontSignature, "HRESULT")
-        return result
+        return fontSignature
     }
 
     /**
      * 
      * @param {IDWriteFont} font 
-     * @param {Pointer<FONTSIGNATURE>} fontSignature 
-     * @returns {HRESULT} 
+     * @returns {FONTSIGNATURE} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritegdiinterop1-getfontsignature(idwritefontface_fontsignature)
      */
-    GetFontSignature1(font, fontSignature) {
+    GetFontSignature1(font) {
+        fontSignature := FONTSIGNATURE()
         result := ComCall(10, this, "ptr", font, "ptr", fontSignature, "HRESULT")
-        return result
+        return fontSignature
     }
 
     /**
      * 
      * @param {Pointer<LOGFONTA>} logFont 
      * @param {IDWriteFontSet} fontSet 
-     * @param {Pointer<IDWriteFontSet>} filteredSet 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontSet} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritegdiinterop1-getmatchingfontsbylogfont
      */
-    GetMatchingFontsByLOGFONT(logFont, fontSet, filteredSet) {
-        result := ComCall(11, this, "ptr", logFont, "ptr", fontSet, "ptr*", filteredSet, "HRESULT")
-        return result
+    GetMatchingFontsByLOGFONT(logFont, fontSet) {
+        result := ComCall(11, this, "ptr", logFont, "ptr", fontSet, "ptr*", &filteredSet := 0, "HRESULT")
+        return IDWriteFontSet(filteredSet)
     }
 }

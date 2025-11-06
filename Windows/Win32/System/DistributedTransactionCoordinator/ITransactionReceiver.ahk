@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITransaction.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -32,26 +33,22 @@ class ITransactionReceiver extends IUnknown{
      * 
      * @param {Integer} cbToken 
      * @param {Pointer<Integer>} rgbToken 
-     * @param {Pointer<ITransaction>} ppTransaction 
-     * @returns {HRESULT} 
+     * @returns {ITransaction} 
      */
-    UnmarshalPropagationToken(cbToken, rgbToken, ppTransaction) {
+    UnmarshalPropagationToken(cbToken, rgbToken) {
         rgbTokenMarshal := rgbToken is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "uint", cbToken, rgbTokenMarshal, rgbToken, "ptr*", ppTransaction, "HRESULT")
-        return result
+        result := ComCall(3, this, "uint", cbToken, rgbTokenMarshal, rgbToken, "ptr*", &ppTransaction := 0, "HRESULT")
+        return ITransaction(ppTransaction)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pcbReturnToken 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetReturnTokenSize(pcbReturnToken) {
-        pcbReturnTokenMarshal := pcbReturnToken is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pcbReturnTokenMarshal, pcbReturnToken, "HRESULT")
-        return result
+    GetReturnTokenSize() {
+        result := ComCall(4, this, "uint*", &pcbReturnToken := 0, "HRESULT")
+        return pcbReturnToken
     }
 
     /**

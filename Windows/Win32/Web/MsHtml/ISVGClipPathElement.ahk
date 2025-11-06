@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISVGAnimatedEnumeration.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -46,11 +47,10 @@ class ISVGClipPathElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedEnumeration>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedEnumeration} 
      */
-    get_clipPathUnits(p) {
-        result := ComCall(8, this, "ptr*", p, "HRESULT")
-        return result
+    get_clipPathUnits() {
+        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedEnumeration(p)
     }
 }

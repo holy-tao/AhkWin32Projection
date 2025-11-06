@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IHTMLChangeLog.ahk
+#Include .\IHTMLElement.ahk
 #Include .\IMarkupContainer.ahk
 
 /**
@@ -31,27 +33,23 @@ class IMarkupContainer2 extends IMarkupContainer{
     /**
      * 
      * @param {IHTMLChangeSink} pChangeSink 
-     * @param {Pointer<IHTMLChangeLog>} ppChangeLog 
      * @param {BOOL} fForward 
      * @param {BOOL} fBackward 
-     * @returns {HRESULT} 
+     * @returns {IHTMLChangeLog} 
      */
-    CreateChangeLog(pChangeSink, ppChangeLog, fForward, fBackward) {
-        result := ComCall(4, this, "ptr", pChangeSink, "ptr*", ppChangeLog, "int", fForward, "int", fBackward, "HRESULT")
-        return result
+    CreateChangeLog(pChangeSink, fForward, fBackward) {
+        result := ComCall(4, this, "ptr", pChangeSink, "ptr*", &ppChangeLog := 0, "int", fForward, "int", fBackward, "HRESULT")
+        return IHTMLChangeLog(ppChangeLog)
     }
 
     /**
      * 
      * @param {IHTMLChangeSink} pChangeSink 
-     * @param {Pointer<Integer>} pdwCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    RegisterForDirtyRange(pChangeSink, pdwCookie) {
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, "ptr", pChangeSink, pdwCookieMarshal, pdwCookie, "HRESULT")
-        return result
+    RegisterForDirtyRange(pChangeSink) {
+        result := ComCall(5, this, "ptr", pChangeSink, "uint*", &pdwCookie := 0, "HRESULT")
+        return pdwCookie
     }
 
     /**
@@ -87,11 +85,10 @@ class IMarkupContainer2 extends IMarkupContainer{
 
     /**
      * 
-     * @param {Pointer<IHTMLElement>} ppElementMaster 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElement} 
      */
-    GetMasterElement(ppElementMaster) {
-        result := ComCall(9, this, "ptr*", ppElementMaster, "HRESULT")
-        return result
+    GetMasterElement() {
+        result := ComCall(9, this, "ptr*", &ppElementMaster := 0, "HRESULT")
+        return IHTMLElement(ppElementMaster)
     }
 }

@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\Guid.ahk
+#Include ..\Graphics\Gdi\HFONT.ahk
+#Include .\UNICODERANGE.ahk
+#Include .\SCRIPTFONTINFO.ahk
 #Include .\IMLangCodePages.ahk
 
 /**
@@ -32,17 +35,14 @@ class IMLangFontLink2 extends IMLangCodePages{
      * 
      * @param {HDC} hDC 
      * @param {HFONT} hFont 
-     * @param {Pointer<Integer>} pdwCodePages 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetFontCodePages(hDC, hFont, pdwCodePages) {
+    GetFontCodePages(hDC, hFont) {
         hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
         hFont := hFont is Win32Handle ? NumGet(hFont, "ptr") : hFont
 
-        pdwCodePagesMarshal := pdwCodePages is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, "ptr", hDC, "ptr", hFont, pdwCodePagesMarshal, pdwCodePages, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", hDC, "ptr", hFont, "uint*", &pdwCodePages := 0, "HRESULT")
+        return pdwCodePages
     }
 
     /**
@@ -71,33 +71,31 @@ class IMLangFontLink2 extends IMLangCodePages{
      * @param {HDC} hDC 
      * @param {Integer} dwCodePages 
      * @param {Integer} chSrc 
-     * @param {Pointer<HFONT>} pFont 
-     * @returns {HRESULT} 
+     * @returns {HFONT} 
      */
-    MapFont(hDC, dwCodePages, chSrc, pFont) {
+    MapFont(hDC, dwCodePages, chSrc) {
         hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
 
+        pFont := HFONT()
         result := ComCall(10, this, "ptr", hDC, "uint", dwCodePages, "char", chSrc, "ptr", pFont, "HRESULT")
-        return result
+        return pFont
     }
 
     /**
      * The GetFontUnicodeRanges function returns information about which Unicode characters are supported by a font. The information is returned as a GLYPHSET structure.
      * @param {HDC} hDC 
      * @param {Pointer<Integer>} puiRanges 
-     * @param {Pointer<UNICODERANGE>} pUranges 
-     * @returns {HRESULT} If the function succeeds, it returns number of bytes written to the GLYPHSET structure or, if the <i>lpgs</i> parameter is <b>NULL</b>, it returns the size of the GLYPHSET structure required to store the information.
-     * 
-     * If the function fails, it returns zero. No extended error information is available.
+     * @returns {UNICODERANGE} 
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getfontunicoderanges
      */
-    GetFontUnicodeRanges(hDC, puiRanges, pUranges) {
+    GetFontUnicodeRanges(hDC, puiRanges) {
         hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
 
         puiRangesMarshal := puiRanges is VarRef ? "uint*" : "ptr"
 
+        pUranges := UNICODERANGE()
         result := ComCall(11, this, "ptr", hDC, puiRangesMarshal, puiRanges, "ptr", pUranges, "HRESULT")
-        return result
+        return pUranges
     }
 
     /**
@@ -105,26 +103,23 @@ class IMLangFontLink2 extends IMLangCodePages{
      * @param {Integer} sid 
      * @param {Integer} dwFlags 
      * @param {Pointer<Integer>} puiFonts 
-     * @param {Pointer<SCRIPTFONTINFO>} pScriptFont 
-     * @returns {HRESULT} 
+     * @returns {SCRIPTFONTINFO} 
      */
-    GetScriptFontInfo(sid, dwFlags, puiFonts, pScriptFont) {
+    GetScriptFontInfo(sid, dwFlags, puiFonts) {
         puiFontsMarshal := puiFonts is VarRef ? "uint*" : "ptr"
 
+        pScriptFont := SCRIPTFONTINFO()
         result := ComCall(12, this, "char", sid, "uint", dwFlags, puiFontsMarshal, puiFonts, "ptr", pScriptFont, "HRESULT")
-        return result
+        return pScriptFont
     }
 
     /**
      * 
      * @param {Integer} uiCodePage 
-     * @param {Pointer<Integer>} pSid 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    CodePageToScriptID(uiCodePage, pSid) {
-        pSidMarshal := pSid is VarRef ? "char*" : "ptr"
-
-        result := ComCall(13, this, "uint", uiCodePage, pSidMarshal, pSid, "HRESULT")
-        return result
+    CodePageToScriptID(uiCodePage) {
+        result := ComCall(13, this, "uint", uiCodePage, "char*", &pSid := 0, "HRESULT")
+        return pSid
     }
 }

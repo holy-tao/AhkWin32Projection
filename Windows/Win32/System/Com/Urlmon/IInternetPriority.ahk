@@ -40,13 +40,10 @@ class IInternetPriority extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pnPriority 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetPriority(pnPriority) {
-        pnPriorityMarshal := pnPriority is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, pnPriorityMarshal, pnPriority, "HRESULT")
-        return result
+    GetPriority() {
+        result := ComCall(4, this, "int*", &pnPriority := 0, "HRESULT")
+        return pnPriority
     }
 }

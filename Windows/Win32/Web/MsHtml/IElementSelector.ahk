@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IHTMLElement.ahk
+#Include .\IHTMLDOMChildrenCollection.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,26 +34,24 @@ class IElementSelector extends IDispatch{
     /**
      * 
      * @param {BSTR} v 
-     * @param {Pointer<IHTMLElement>} pel 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElement} 
      */
-    querySelector(v, pel) {
+    querySelector(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(7, this, "ptr", v, "ptr*", pel, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", v, "ptr*", &pel := 0, "HRESULT")
+        return IHTMLElement(pel)
     }
 
     /**
      * 
      * @param {BSTR} v 
-     * @param {Pointer<IHTMLDOMChildrenCollection>} pel 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMChildrenCollection} 
      */
-    querySelectorAll(v, pel) {
+    querySelectorAll(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(8, this, "ptr", v, "ptr*", pel, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", v, "ptr*", &pel := 0, "HRESULT")
+        return IHTMLDOMChildrenCollection(pel)
     }
 }

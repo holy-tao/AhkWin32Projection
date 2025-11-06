@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IFaxDeviceProvider.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -42,37 +44,32 @@ class IFaxDeviceProviders extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdeviceproviders-get__newenum
      */
-    get__NewEnum(ppUnk) {
-        result := ComCall(7, this, "ptr*", ppUnk, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(7, this, "ptr*", &ppUnk := 0, "HRESULT")
+        return IUnknown(ppUnk)
     }
 
     /**
      * 
      * @param {VARIANT} vIndex 
-     * @param {Pointer<IFaxDeviceProvider>} pFaxDeviceProvider 
-     * @returns {HRESULT} 
+     * @returns {IFaxDeviceProvider} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdeviceproviders-get_item
      */
-    get_Item(vIndex, pFaxDeviceProvider) {
-        result := ComCall(8, this, "ptr", vIndex, "ptr*", pFaxDeviceProvider, "HRESULT")
-        return result
+    get_Item(vIndex) {
+        result := ComCall(8, this, "ptr", vIndex, "ptr*", &pFaxDeviceProvider := 0, "HRESULT")
+        return IFaxDeviceProvider(pFaxDeviceProvider)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdeviceproviders-get_count
      */
-    get_Count(plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, plCountMarshal, plCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(9, this, "int*", &plCount := 0, "HRESULT")
+        return plCount
     }
 }

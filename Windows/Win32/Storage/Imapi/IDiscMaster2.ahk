@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Ole\IEnumVARIANT.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -38,48 +40,43 @@ class IDiscMaster2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IEnumVARIANT>} ppunk 
-     * @returns {HRESULT} 
+     * @returns {IEnumVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscmaster2-get__newenum
      */
-    get__NewEnum(ppunk) {
-        result := ComCall(7, this, "ptr*", ppunk, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(7, this, "ptr*", &ppunk := 0, "HRESULT")
+        return IEnumVARIANT(ppunk)
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<BSTR>} value 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscmaster2-get_item
      */
-    get_Item(index, value) {
+    get_Item(index) {
+        value := BSTR()
         result := ComCall(8, this, "int", index, "ptr", value, "HRESULT")
-        return result
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscmaster2-get_count
      */
-    get_Count(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, valueMarshal, value, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(9, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscmaster2-get_issupportedenvironment
      */
-    get_IsSupportedEnvironment(value) {
-        result := ComCall(10, this, "ptr", value, "HRESULT")
-        return result
+    get_IsSupportedEnvironment() {
+        result := ComCall(10, this, "short*", &value := 0, "HRESULT")
+        return value
     }
 }

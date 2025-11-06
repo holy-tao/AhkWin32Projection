@@ -39,28 +39,22 @@ class IWICProgressiveLevelControl extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcLevels 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicprogressivelevelcontrol-getlevelcount
      */
-    GetLevelCount(pcLevels) {
-        pcLevelsMarshal := pcLevels is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pcLevelsMarshal, pcLevels, "HRESULT")
-        return result
+    GetLevelCount() {
+        result := ComCall(3, this, "uint*", &pcLevels := 0, "HRESULT")
+        return pcLevels
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pnLevel 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicprogressivelevelcontrol-getcurrentlevel
      */
-    GetCurrentLevel(pnLevel) {
-        pnLevelMarshal := pnLevel is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pnLevelMarshal, pnLevel, "HRESULT")
-        return result
+    GetCurrentLevel() {
+        result := ComCall(4, this, "uint*", &pnLevel := 0, "HRESULT")
+        return pnLevel
     }
 
     /**

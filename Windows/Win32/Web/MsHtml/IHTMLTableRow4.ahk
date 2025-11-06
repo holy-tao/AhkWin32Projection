@@ -43,12 +43,12 @@ class IHTMLTableRow4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ch(p) {
+    get_ch() {
+        p := BSTR()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -65,23 +65,22 @@ class IHTMLTableRow4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_chOff(p) {
+    get_chOff() {
+        p := BSTR()
         result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<IDispatch>} row 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    insertCell(index, row) {
-        result := ComCall(11, this, "int", index, "ptr*", row, "HRESULT")
-        return result
+    insertCell(index) {
+        result := ComCall(11, this, "int", index, "ptr*", &row := 0, "HRESULT")
+        return IDispatch(row)
     }
 
     /**

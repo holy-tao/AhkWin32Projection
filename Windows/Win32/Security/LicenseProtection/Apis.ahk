@@ -15,19 +15,16 @@ class LicenseProtection {
      * 
      * @param {PWSTR} licenseKey 
      * @param {Integer} validityInDays 
-     * @param {Pointer<Integer>} status 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    static RegisterLicenseKeyWithExpiration(licenseKey, validityInDays, status) {
+    static RegisterLicenseKeyWithExpiration(licenseKey, validityInDays) {
         licenseKey := licenseKey is String ? StrPtr(licenseKey) : licenseKey
 
-        statusMarshal := status is VarRef ? "int*" : "ptr"
-
-        result := DllCall("licenseprotection.dll\RegisterLicenseKeyWithExpiration", "ptr", licenseKey, "uint", validityInDays, statusMarshal, status, "int")
+        result := DllCall("licenseprotection.dll\RegisterLicenseKeyWithExpiration", "ptr", licenseKey, "uint", validityInDays, "int*", &status := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return status
     }
 
     /**
@@ -35,19 +32,16 @@ class LicenseProtection {
      * @param {PWSTR} licenseKey 
      * @param {Pointer<FILETIME>} notValidBefore 
      * @param {Pointer<FILETIME>} notValidAfter 
-     * @param {Pointer<Integer>} status 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    static ValidateLicenseKeyProtection(licenseKey, notValidBefore, notValidAfter, status) {
+    static ValidateLicenseKeyProtection(licenseKey, notValidBefore, notValidAfter) {
         licenseKey := licenseKey is String ? StrPtr(licenseKey) : licenseKey
 
-        statusMarshal := status is VarRef ? "int*" : "ptr"
-
-        result := DllCall("licenseprotection.dll\ValidateLicenseKeyProtection", "ptr", licenseKey, "ptr", notValidBefore, "ptr", notValidAfter, statusMarshal, status, "int")
+        result := DllCall("licenseprotection.dll\ValidateLicenseKeyProtection", "ptr", licenseKey, "ptr", notValidBefore, "ptr", notValidAfter, "int*", &status := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return status
     }
 
 ;@endregion Methods

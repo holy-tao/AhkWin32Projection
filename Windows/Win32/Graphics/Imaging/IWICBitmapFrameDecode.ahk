@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWICMetadataQueryReader.ahk
 #Include .\IWICBitmapSource.ahk
 
 /**
@@ -32,38 +33,33 @@ class IWICBitmapFrameDecode extends IWICBitmapSource{
 
     /**
      * 
-     * @param {Pointer<IWICMetadataQueryReader>} ppIMetadataQueryReader 
-     * @returns {HRESULT} 
+     * @returns {IWICMetadataQueryReader} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapframedecode-getmetadataqueryreader
      */
-    GetMetadataQueryReader(ppIMetadataQueryReader) {
-        result := ComCall(8, this, "ptr*", ppIMetadataQueryReader, "HRESULT")
-        return result
+    GetMetadataQueryReader() {
+        result := ComCall(8, this, "ptr*", &ppIMetadataQueryReader := 0, "HRESULT")
+        return IWICMetadataQueryReader(ppIMetadataQueryReader)
     }
 
     /**
      * 
      * @param {Integer} cCount 
      * @param {Pointer<IWICColorContext>} ppIColorContexts 
-     * @param {Pointer<Integer>} pcActualCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapframedecode-getcolorcontexts
      */
-    GetColorContexts(cCount, ppIColorContexts, pcActualCount) {
-        pcActualCountMarshal := pcActualCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, "uint", cCount, "ptr*", ppIColorContexts, pcActualCountMarshal, pcActualCount, "HRESULT")
-        return result
+    GetColorContexts(cCount, ppIColorContexts) {
+        result := ComCall(9, this, "uint", cCount, "ptr*", ppIColorContexts, "uint*", &pcActualCount := 0, "HRESULT")
+        return pcActualCount
     }
 
     /**
      * 
-     * @param {Pointer<IWICBitmapSource>} ppIThumbnail 
-     * @returns {HRESULT} 
+     * @returns {IWICBitmapSource} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapframedecode-getthumbnail
      */
-    GetThumbnail(ppIThumbnail) {
-        result := ComCall(10, this, "ptr*", ppIThumbnail, "HRESULT")
-        return result
+    GetThumbnail() {
+        result := ComCall(10, this, "ptr*", &ppIThumbnail := 0, "HRESULT")
+        return IWICBitmapSource(ppIThumbnail)
     }
 }

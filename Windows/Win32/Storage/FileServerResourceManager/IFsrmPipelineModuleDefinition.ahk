@@ -45,13 +45,13 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<BSTR>} moduleClsid 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_moduleclsid
      */
-    get_ModuleClsid(moduleClsid) {
+    get_ModuleClsid() {
+        moduleClsid := BSTR()
         result := ComCall(12, this, "ptr", moduleClsid, "HRESULT")
-        return result
+        return moduleClsid
     }
 
     /**
@@ -69,13 +69,13 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<BSTR>} name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_name
      */
-    get_Name(name) {
+    get_Name() {
+        name := BSTR()
         result := ComCall(14, this, "ptr", name, "HRESULT")
-        return result
+        return name
     }
 
     /**
@@ -93,13 +93,13 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<BSTR>} company 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_company
      */
-    get_Company(company) {
+    get_Company() {
+        company := BSTR()
         result := ComCall(16, this, "ptr", company, "HRESULT")
-        return result
+        return company
     }
 
     /**
@@ -117,13 +117,13 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<BSTR>} version 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_version
      */
-    get_Version(version) {
+    get_Version() {
+        version := BSTR()
         result := ComCall(18, this, "ptr", version, "HRESULT")
-        return result
+        return version
     }
 
     /**
@@ -141,26 +141,22 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<Integer>} moduleType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_moduletype
      */
-    get_ModuleType(moduleType) {
-        moduleTypeMarshal := moduleType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(20, this, moduleTypeMarshal, moduleType, "HRESULT")
-        return result
+    get_ModuleType() {
+        result := ComCall(20, this, "int*", &moduleType := 0, "HRESULT")
+        return moduleType
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} enabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_enabled
      */
-    get_Enabled(enabled) {
-        result := ComCall(21, this, "ptr", enabled, "HRESULT")
-        return result
+    get_Enabled() {
+        result := ComCall(21, this, "short*", &enabled := 0, "HRESULT")
+        return enabled
     }
 
     /**
@@ -176,13 +172,12 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} needsFileContent 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_needsfilecontent
      */
-    get_NeedsFileContent(needsFileContent) {
-        result := ComCall(23, this, "ptr", needsFileContent, "HRESULT")
-        return result
+    get_NeedsFileContent() {
+        result := ComCall(23, this, "short*", &needsFileContent := 0, "HRESULT")
+        return needsFileContent
     }
 
     /**
@@ -198,15 +193,12 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<Integer>} retrievalAccount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_account
      */
-    get_Account(retrievalAccount) {
-        retrievalAccountMarshal := retrievalAccount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(25, this, retrievalAccountMarshal, retrievalAccount, "HRESULT")
-        return result
+    get_Account() {
+        result := ComCall(25, this, "int*", &retrievalAccount := 0, "HRESULT")
+        return retrievalAccount
     }
 
     /**
@@ -222,15 +214,12 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} supportedExtensions 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_supportedextensions
      */
-    get_SupportedExtensions(supportedExtensions) {
-        supportedExtensionsMarshal := supportedExtensions is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(27, this, supportedExtensionsMarshal, supportedExtensions, "HRESULT")
-        return result
+    get_SupportedExtensions() {
+        result := ComCall(27, this, "ptr*", &supportedExtensions := 0, "HRESULT")
+        return supportedExtensions
     }
 
     /**
@@ -246,15 +235,12 @@ class IFsrmPipelineModuleDefinition extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} parameters 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduledefinition-get_parameters
      */
-    get_Parameters(parameters) {
-        parametersMarshal := parameters is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(29, this, parametersMarshal, parameters, "HRESULT")
-        return result
+    get_Parameters() {
+        result := ComCall(29, this, "ptr*", &parameters := 0, "HRESULT")
+        return parameters
     }
 
     /**

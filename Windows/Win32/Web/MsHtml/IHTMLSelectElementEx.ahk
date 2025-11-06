@@ -50,23 +50,19 @@ class IHTMLSelectElementEx extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetSelectExFlags(pFlags) {
-        pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pFlagsMarshal, pFlags, "HRESULT")
-        return result
+    GetSelectExFlags() {
+        result := ComCall(5, this, "uint*", &pFlags := 0, "HRESULT")
+        return pFlags
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfOpen 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    GetDropdownOpen(pfOpen) {
-        result := ComCall(6, this, "ptr", pfOpen, "HRESULT")
-        return result
+    GetDropdownOpen() {
+        result := ComCall(6, this, "int*", &pfOpen := 0, "HRESULT")
+        return pfOpen
     }
 }

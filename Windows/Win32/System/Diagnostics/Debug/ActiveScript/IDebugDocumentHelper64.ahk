@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IDebugApplicationNode.ahk
+#Include .\IDebugDocumentContext.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -114,14 +116,11 @@ class IDebugDocumentHelper64 extends IUnknown{
      * @param {Integer} cChars 
      * @param {IActiveScript} pas 
      * @param {BOOL} fScriptlet 
-     * @param {Pointer<Integer>} pdwSourceContext 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    DefineScriptBlock(ulCharOffset, cChars, pas, fScriptlet, pdwSourceContext) {
-        pdwSourceContextMarshal := pdwSourceContext is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, "uint", ulCharOffset, "uint", cChars, "ptr", pas, "int", fScriptlet, pdwSourceContextMarshal, pdwSourceContext, "HRESULT")
-        return result
+    DefineScriptBlock(ulCharOffset, cChars, pas, fScriptlet) {
+        result := ComCall(10, this, "uint", ulCharOffset, "uint", cChars, "ptr", pas, "int", fScriptlet, "uint*", &pdwSourceContext := 0, "HRESULT")
+        return pdwSourceContext
     }
 
     /**
@@ -184,12 +183,11 @@ class IDebugDocumentHelper64 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDebugApplicationNode>} ppdan 
-     * @returns {HRESULT} 
+     * @returns {IDebugApplicationNode} 
      */
-    GetDebugApplicationNode(ppdan) {
-        result := ComCall(16, this, "ptr*", ppdan, "HRESULT")
-        return result
+    GetDebugApplicationNode() {
+        result := ComCall(16, this, "ptr*", &ppdan := 0, "HRESULT")
+        return IDebugApplicationNode(ppdan)
     }
 
     /**
@@ -212,12 +210,11 @@ class IDebugDocumentHelper64 extends IUnknown{
      * 
      * @param {Integer} iCharPos 
      * @param {Integer} cChars 
-     * @param {Pointer<IDebugDocumentContext>} ppddc 
-     * @returns {HRESULT} 
+     * @returns {IDebugDocumentContext} 
      */
-    CreateDebugDocumentContext(iCharPos, cChars, ppddc) {
-        result := ComCall(18, this, "uint", iCharPos, "uint", cChars, "ptr*", ppddc, "HRESULT")
-        return result
+    CreateDebugDocumentContext(iCharPos, cChars) {
+        result := ComCall(18, this, "uint", iCharPos, "uint", cChars, "ptr*", &ppddc := 0, "HRESULT")
+        return IDebugDocumentContext(ppddc)
     }
 
     /**

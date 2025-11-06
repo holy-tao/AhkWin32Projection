@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IXMLDOMNamedNodeMap.ahk
 #Include .\IXMLDOMNode.ahk
 
 /**
@@ -30,31 +32,29 @@ class IXMLDOMDocumentType extends IXMLDOMNode{
 
     /**
      * 
-     * @param {Pointer<BSTR>} rootName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_name(rootName) {
+    get_name() {
+        rootName := BSTR()
         result := ComCall(43, this, "ptr", rootName, "HRESULT")
-        return result
+        return rootName
     }
 
     /**
      * 
-     * @param {Pointer<IXMLDOMNamedNodeMap>} entityMap 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMNamedNodeMap} 
      */
-    get_entities(entityMap) {
-        result := ComCall(44, this, "ptr*", entityMap, "HRESULT")
-        return result
+    get_entities() {
+        result := ComCall(44, this, "ptr*", &entityMap := 0, "HRESULT")
+        return IXMLDOMNamedNodeMap(entityMap)
     }
 
     /**
      * 
-     * @param {Pointer<IXMLDOMNamedNodeMap>} notationMap 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMNamedNodeMap} 
      */
-    get_notations(notationMap) {
-        result := ComCall(45, this, "ptr*", notationMap, "HRESULT")
-        return result
+    get_notations() {
+        result := ComCall(45, this, "ptr*", &notationMap := 0, "HRESULT")
+        return IXMLDOMNamedNodeMap(notationMap)
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -62,15 +63,15 @@ class IPhotoAcquireOptionsDialog extends IUnknown{
     /**
      * 
      * @param {HWND} hWndParent 
-     * @param {Pointer<HWND>} phWndDialog 
-     * @returns {HRESULT} 
+     * @returns {HWND} 
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireoptionsdialog-create
      */
-    Create(hWndParent, phWndDialog) {
+    Create(hWndParent) {
         hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
 
+        phWndDialog := HWND()
         result := ComCall(4, this, "ptr", hWndParent, "ptr", phWndDialog, "HRESULT")
-        return result
+        return phWndDialog
     }
 
     /**

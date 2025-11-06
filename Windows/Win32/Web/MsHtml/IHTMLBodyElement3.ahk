@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -43,12 +44,12 @@ class IHTMLBodyElement3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_background(p) {
+    get_background() {
+        p := BSTR()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -63,12 +64,12 @@ class IHTMLBodyElement3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_ononline(p) {
+    get_ononline() {
+        p := VARIANT()
         result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -83,12 +84,12 @@ class IHTMLBodyElement3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onoffline(p) {
+    get_onoffline() {
+        p := VARIANT()
         result := ComCall(12, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -103,11 +104,11 @@ class IHTMLBodyElement3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onhashchange(p) {
+    get_onhashchange() {
+        p := VARIANT()
         result := ComCall(14, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 }

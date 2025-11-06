@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMsmError.ahk
+#Include .\IEnumMsmError.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -31,15 +33,14 @@ class IEnumMsmError extends IUnknown{
     /**
      * 
      * @param {Integer} cFetch 
-     * @param {Pointer<IMsmError>} rgmsmErrors 
      * @param {Pointer<Integer>} pcFetched 
-     * @returns {HRESULT} 
+     * @returns {IMsmError} 
      */
-    Next(cFetch, rgmsmErrors, pcFetched) {
+    Next(cFetch, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cFetch, "ptr*", rgmsmErrors, pcFetchedMarshal, pcFetched, "HRESULT")
-        return result
+        result := ComCall(3, this, "uint", cFetch, "ptr*", &rgmsmErrors := 0, pcFetchedMarshal, pcFetched, "HRESULT")
+        return IMsmError(rgmsmErrors)
     }
 
     /**
@@ -63,11 +64,10 @@ class IEnumMsmError extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumMsmError>} pemsmErrors 
-     * @returns {HRESULT} 
+     * @returns {IEnumMsmError} 
      */
-    Clone(pemsmErrors) {
-        result := ComCall(6, this, "ptr*", pemsmErrors, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &pemsmErrors := 0, "HRESULT")
+        return IEnumMsmError(pemsmErrors)
     }
 }

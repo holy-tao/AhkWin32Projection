@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\KSCORRELATED_TIME.ahk
+#Include .\KSRESOLUTION.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,14 +32,11 @@ class IKsClockPropertySet extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} Time 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    KsGetTime(Time) {
-        TimeMarshal := Time is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(3, this, TimeMarshal, Time, "HRESULT")
-        return result
+    KsGetTime() {
+        result := ComCall(3, this, "int64*", &Time := 0, "HRESULT")
+        return Time
     }
 
     /**
@@ -52,14 +51,11 @@ class IKsClockPropertySet extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} Time 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    KsGetPhysicalTime(Time) {
-        TimeMarshal := Time is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(5, this, TimeMarshal, Time, "HRESULT")
-        return result
+    KsGetPhysicalTime() {
+        result := ComCall(5, this, "int64*", &Time := 0, "HRESULT")
+        return Time
     }
 
     /**
@@ -74,12 +70,12 @@ class IKsClockPropertySet extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<KSCORRELATED_TIME>} CorrelatedTime 
-     * @returns {HRESULT} 
+     * @returns {KSCORRELATED_TIME} 
      */
-    KsGetCorrelatedTime(CorrelatedTime) {
+    KsGetCorrelatedTime() {
+        CorrelatedTime := KSCORRELATED_TIME()
         result := ComCall(7, this, "ptr", CorrelatedTime, "HRESULT")
-        return result
+        return CorrelatedTime
     }
 
     /**
@@ -94,12 +90,12 @@ class IKsClockPropertySet extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<KSCORRELATED_TIME>} CorrelatedTime 
-     * @returns {HRESULT} 
+     * @returns {KSCORRELATED_TIME} 
      */
-    KsGetCorrelatedPhysicalTime(CorrelatedTime) {
+    KsGetCorrelatedPhysicalTime() {
+        CorrelatedTime := KSCORRELATED_TIME()
         result := ComCall(9, this, "ptr", CorrelatedTime, "HRESULT")
-        return result
+        return CorrelatedTime
     }
 
     /**
@@ -114,23 +110,20 @@ class IKsClockPropertySet extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<KSRESOLUTION>} Resolution 
-     * @returns {HRESULT} 
+     * @returns {KSRESOLUTION} 
      */
-    KsGetResolution(Resolution) {
+    KsGetResolution() {
+        Resolution := KSRESOLUTION()
         result := ComCall(11, this, "ptr", Resolution, "HRESULT")
-        return result
+        return Resolution
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} State 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    KsGetState(State) {
-        StateMarshal := State is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, StateMarshal, State, "HRESULT")
-        return result
+    KsGetState() {
+        result := ComCall(12, this, "int*", &State := 0, "HRESULT")
+        return State
     }
 }

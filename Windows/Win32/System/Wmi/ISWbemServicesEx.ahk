@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISWbemObjectPath.ahk
 #Include .\ISWbemServices.ahk
 
 /**
@@ -39,12 +40,11 @@ class ISWbemServicesEx extends ISWbemServices{
      * @param {ISWbemObjectEx} objWbemObject 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
-     * @param {Pointer<ISWbemObjectPath>} objWbemObjectPath 
-     * @returns {HRESULT} 
+     * @returns {ISWbemObjectPath} 
      */
-    Put(objWbemObject, iFlags, objWbemNamedValueSet, objWbemObjectPath) {
-        result := ComCall(26, this, "ptr", objWbemObject, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", objWbemObjectPath, "HRESULT")
-        return result
+    Put(objWbemObject, iFlags, objWbemNamedValueSet) {
+        result := ComCall(26, this, "ptr", objWbemObject, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemObjectPath := 0, "HRESULT")
+        return ISWbemObjectPath(objWbemObjectPath)
     }
 
     /**

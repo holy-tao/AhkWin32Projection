@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ICorProfilerObjectEnum.ahk
 #Include .\ICorProfilerInfo13.ahk
 
 /**
@@ -30,12 +31,11 @@ class ICorProfilerInfo14 extends ICorProfilerInfo13{
 
     /**
      * 
-     * @param {Pointer<ICorProfilerObjectEnum>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {ICorProfilerObjectEnum} 
      */
-    EnumerateNonGCObjects(ppEnum) {
-        result := ComCall(111, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumerateNonGCObjects() {
+        result := ComCall(111, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return ICorProfilerObjectEnum(ppEnum)
     }
 
     /**
@@ -56,16 +56,14 @@ class ICorProfilerInfo14 extends ICorProfilerInfo13{
      * 
      * @param {PWSTR} providerName 
      * @param {Pointer<Pointer<EventPipeProviderCallback>>} pCallback 
-     * @param {Pointer<Pointer>} pProvider 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    EventPipeCreateProvider2(providerName, pCallback, pProvider) {
+    EventPipeCreateProvider2(providerName, pCallback) {
         providerName := providerName is String ? StrPtr(providerName) : providerName
 
         pCallbackMarshal := pCallback is VarRef ? "ptr*" : "ptr"
-        pProviderMarshal := pProvider is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(113, this, "ptr", providerName, pCallbackMarshal, pCallback, pProviderMarshal, pProvider, "HRESULT")
-        return result
+        result := ComCall(113, this, "ptr", providerName, pCallbackMarshal, pCallback, "ptr*", &pProvider := 0, "HRESULT")
+        return pProvider
     }
 }

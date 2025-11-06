@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMailUser.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -45,31 +46,26 @@ class IWABObject extends IUnknown{
     /**
      * 
      * @param {Integer} cbSize 
-     * @param {Pointer<Pointer<Void>>} lppBuffer 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/wabapi/nf-wabapi-iwabobject-allocatebuffer
      */
-    AllocateBuffer(cbSize, lppBuffer) {
-        lppBufferMarshal := lppBuffer is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "uint", cbSize, lppBufferMarshal, lppBuffer, "HRESULT")
-        return result
+    AllocateBuffer(cbSize) {
+        result := ComCall(4, this, "uint", cbSize, "ptr*", &lppBuffer := 0, "HRESULT")
+        return lppBuffer
     }
 
     /**
      * 
      * @param {Integer} cbSize 
      * @param {Pointer<Void>} lpObject 
-     * @param {Pointer<Pointer<Void>>} lppBuffer 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/wabapi/nf-wabapi-iwabobject-allocatemore
      */
-    AllocateMore(cbSize, lpObject, lppBuffer) {
+    AllocateMore(cbSize, lpObject) {
         lpObjectMarshal := lpObject is VarRef ? "ptr" : "ptr"
-        lppBufferMarshal := lppBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "uint", cbSize, lpObjectMarshal, lpObject, lppBufferMarshal, lppBuffer, "HRESULT")
-        return result
+        result := ComCall(5, this, "uint", cbSize, lpObjectMarshal, lpObject, "ptr*", &lppBuffer := 0, "HRESULT")
+        return lppBuffer
     }
 
     /**
@@ -147,16 +143,15 @@ class IWABObject extends IUnknown{
      * @param {HWND} hWnd 
      * @param {Integer} ulFlags 
      * @param {PSTR} lpszURL 
-     * @param {Pointer<IMailUser>} lppMailUser 
-     * @returns {HRESULT} 
+     * @returns {IMailUser} 
      * @see https://learn.microsoft.com/windows/win32/api/wabapi/nf-wabapi-iwabobject-ldapurl
      */
-    LDAPUrl(lpIAB, hWnd, ulFlags, lpszURL, lppMailUser) {
+    LDAPUrl(lpIAB, hWnd, ulFlags, lpszURL) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
         lpszURL := lpszURL is String ? StrPtr(lpszURL) : lpszURL
 
-        result := ComCall(11, this, "ptr", lpIAB, "ptr", hWnd, "uint", ulFlags, "ptr", lpszURL, "ptr*", lppMailUser, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", lpIAB, "ptr", hWnd, "uint", ulFlags, "ptr", lpszURL, "ptr*", &lppMailUser := 0, "HRESULT")
+        return IMailUser(lppMailUser)
     }
 
     /**
@@ -180,15 +175,14 @@ class IWABObject extends IUnknown{
      * @param {IAddrBook} lpIAB 
      * @param {Integer} ulFlags 
      * @param {PSTR} lpszVCard 
-     * @param {Pointer<IMailUser>} lppMailUser 
-     * @returns {HRESULT} 
+     * @returns {IMailUser} 
      * @see https://learn.microsoft.com/windows/win32/api/wabapi/nf-wabapi-iwabobject-vcardretrieve
      */
-    VCardRetrieve(lpIAB, ulFlags, lpszVCard, lppMailUser) {
+    VCardRetrieve(lpIAB, ulFlags, lpszVCard) {
         lpszVCard := lpszVCard is String ? StrPtr(lpszVCard) : lpszVCard
 
-        result := ComCall(13, this, "ptr", lpIAB, "uint", ulFlags, "ptr", lpszVCard, "ptr*", lppMailUser, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", lpIAB, "uint", ulFlags, "ptr", lpszVCard, "ptr*", &lppMailUser := 0, "HRESULT")
+        return IMailUser(lppMailUser)
     }
 
     /**

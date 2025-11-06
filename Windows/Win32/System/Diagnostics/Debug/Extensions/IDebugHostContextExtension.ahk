@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IDebugHostContext.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -44,11 +45,10 @@ class IDebugHostContextExtension extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDebugHostContext>} immutableContext 
-     * @returns {HRESULT} 
+     * @returns {IDebugHostContext} 
      */
-    FinalizeContext(immutableContext) {
-        result := ComCall(4, this, "ptr*", immutableContext, "HRESULT")
-        return result
+    FinalizeContext() {
+        result := ComCall(4, this, "ptr*", &immutableContext := 0, "HRESULT")
+        return IDebugHostContext(immutableContext)
     }
 }

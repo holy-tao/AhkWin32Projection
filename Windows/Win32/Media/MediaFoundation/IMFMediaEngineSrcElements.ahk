@@ -57,37 +57,37 @@ class IMFMediaEngineSrcElements extends IUnknown{
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<BSTR>} pURL 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaenginesrcelements-geturl
      */
-    GetURL(index, pURL) {
+    GetURL(index) {
+        pURL := BSTR()
         result := ComCall(4, this, "uint", index, "ptr", pURL, "HRESULT")
-        return result
+        return pURL
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<BSTR>} pType 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaenginesrcelements-gettype
      */
-    GetType(index, pType) {
+    GetType(index) {
+        pType := BSTR()
         result := ComCall(5, this, "uint", index, "ptr", pType, "HRESULT")
-        return result
+        return pType
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<BSTR>} pMedia 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaenginesrcelements-getmedia
      */
-    GetMedia(index, pMedia) {
+    GetMedia(index) {
+        pMedia := BSTR()
         result := ComCall(6, this, "uint", index, "ptr", pMedia, "HRESULT")
-        return result
+        return pMedia
     }
 
     /**

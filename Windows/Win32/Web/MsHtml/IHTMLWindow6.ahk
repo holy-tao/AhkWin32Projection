@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IHTMLStorage.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -41,32 +43,30 @@ class IHTMLWindow6 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_XDomainRequest(p) {
+    get_XDomainRequest() {
+        p := VARIANT()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLStorage>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLStorage} 
      */
-    get_sessionStorage(p) {
-        result := ComCall(9, this, "ptr*", p, "HRESULT")
-        return result
+    get_sessionStorage() {
+        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLStorage(p)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLStorage>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLStorage} 
      */
-    get_localStorage(p) {
-        result := ComCall(10, this, "ptr*", p, "HRESULT")
-        return result
+    get_localStorage() {
+        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLStorage(p)
     }
 
     /**
@@ -81,24 +81,21 @@ class IHTMLWindow6 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onhashchange(p) {
+    get_onhashchange() {
+        p := VARIANT()
         result := ComCall(12, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_maxConnectionsPerServer(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, pMarshal, p, "HRESULT")
-        return result
+    get_maxConnectionsPerServer() {
+        result := ComCall(13, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -117,14 +114,14 @@ class IHTMLWindow6 extends IDispatch{
     /**
      * 
      * @param {BSTR} bstrHTML 
-     * @param {Pointer<BSTR>} pbstrStaticHTML 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    toStaticHTML(bstrHTML, pbstrStaticHTML) {
+    toStaticHTML(bstrHTML) {
         bstrHTML := bstrHTML is String ? BSTR.Alloc(bstrHTML).Value : bstrHTML
 
+        pbstrStaticHTML := BSTR()
         result := ComCall(15, this, "ptr", bstrHTML, "ptr", pbstrStaticHTML, "HRESULT")
-        return result
+        return pbstrStaticHTML
     }
 
     /**
@@ -139,12 +136,12 @@ class IHTMLWindow6 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onmessage(p) {
+    get_onmessage() {
+        p := VARIANT()
         result := ComCall(17, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**

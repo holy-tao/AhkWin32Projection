@@ -32,16 +32,13 @@ class IEnumACString extends IEnumString{
      * 
      * @param {PWSTR} pszUrl 
      * @param {Integer} cchMax 
-     * @param {Pointer<Integer>} pulSortIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    NextItem(pszUrl, cchMax, pulSortIndex) {
+    NextItem(pszUrl, cchMax) {
         pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
 
-        pulSortIndexMarshal := pulSortIndex is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, "ptr", pszUrl, "uint", cchMax, pulSortIndexMarshal, pulSortIndex, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", pszUrl, "uint", cchMax, "uint*", &pulSortIndex := 0, "HRESULT")
+        return pulSortIndex
     }
 
     /**
@@ -56,13 +53,10 @@ class IEnumACString extends IEnumString{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwOptions 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetEnumOptions(pdwOptions) {
-        pdwOptionsMarshal := pdwOptions is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, pdwOptionsMarshal, pdwOptions, "HRESULT")
-        return result
+    GetEnumOptions() {
+        result := ComCall(9, this, "uint*", &pdwOptions := 0, "HRESULT")
+        return pdwOptions
     }
 }

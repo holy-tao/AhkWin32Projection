@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Registry\HKEY.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -90,15 +91,15 @@ class IQueryAssociations extends IUnknown{
      * @param {Integer} flags 
      * @param {Integer} key 
      * @param {PWSTR} pszExtra 
-     * @param {Pointer<HKEY>} phkeyOut 
-     * @returns {HRESULT} 
+     * @returns {HKEY} 
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-iqueryassociations-getkey
      */
-    GetKey(flags, key, pszExtra, phkeyOut) {
+    GetKey(flags, key, pszExtra) {
         pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra
 
+        phkeyOut := HKEY()
         result := ComCall(5, this, "uint", flags, "int", key, "ptr", pszExtra, "ptr", phkeyOut, "HRESULT")
-        return result
+        return phkeyOut
     }
 
     /**
@@ -126,16 +127,13 @@ class IQueryAssociations extends IUnknown{
      * @param {Integer} assocenum 
      * @param {PWSTR} pszExtra 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvOut 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-iqueryassociations-getenum
      */
-    GetEnum(flags, assocenum, pszExtra, riid, ppvOut) {
+    GetEnum(flags, assocenum, pszExtra, riid) {
         pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra
 
-        ppvOutMarshal := ppvOut is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, "uint", flags, "int", assocenum, "ptr", pszExtra, "ptr", riid, ppvOutMarshal, ppvOut, "HRESULT")
-        return result
+        result := ComCall(7, this, "uint", flags, "int", assocenum, "ptr", pszExtra, "ptr", riid, "ptr*", &ppvOut := 0, "HRESULT")
+        return ppvOut
     }
 }

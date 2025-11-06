@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteRemoteFontFileStream.ahk
+#Include .\IDWriteFontFile.ahk
 #Include .\IDWriteFontFileLoader.ahk
 
 /**
@@ -34,28 +36,24 @@ class IDWriteRemoteFontFileLoader extends IDWriteFontFileLoader{
      * 
      * @param {Pointer} fontFileReferenceKey 
      * @param {Integer} fontFileReferenceKeySize 
-     * @param {Pointer<IDWriteRemoteFontFileStream>} fontFileStream 
-     * @returns {HRESULT} 
+     * @returns {IDWriteRemoteFontFileStream} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwriteremotefontfileloader-createremotestreamfromkey
      */
-    CreateRemoteStreamFromKey(fontFileReferenceKey, fontFileReferenceKeySize, fontFileStream) {
-        result := ComCall(4, this, "ptr", fontFileReferenceKey, "uint", fontFileReferenceKeySize, "ptr*", fontFileStream, "HRESULT")
-        return result
+    CreateRemoteStreamFromKey(fontFileReferenceKey, fontFileReferenceKeySize) {
+        result := ComCall(4, this, "ptr", fontFileReferenceKey, "uint", fontFileReferenceKeySize, "ptr*", &fontFileStream := 0, "HRESULT")
+        return IDWriteRemoteFontFileStream(fontFileStream)
     }
 
     /**
      * 
      * @param {Pointer} fontFileReferenceKey 
      * @param {Integer} fontFileReferenceKeySize 
-     * @param {Pointer<Integer>} locality 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwriteremotefontfileloader-getlocalityfromkey
      */
-    GetLocalityFromKey(fontFileReferenceKey, fontFileReferenceKeySize, locality) {
-        localityMarshal := locality is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, "ptr", fontFileReferenceKey, "uint", fontFileReferenceKeySize, localityMarshal, locality, "HRESULT")
-        return result
+    GetLocalityFromKey(fontFileReferenceKey, fontFileReferenceKeySize) {
+        result := ComCall(5, this, "ptr", fontFileReferenceKey, "uint", fontFileReferenceKeySize, "int*", &locality := 0, "HRESULT")
+        return locality
     }
 
     /**
@@ -63,15 +61,14 @@ class IDWriteRemoteFontFileLoader extends IDWriteFontFileLoader{
      * @param {IDWriteFactory} factory 
      * @param {PWSTR} baseUrl 
      * @param {PWSTR} fontFileUrl 
-     * @param {Pointer<IDWriteFontFile>} fontFile 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontFile} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwriteremotefontfileloader-createfontfilereferencefromurl
      */
-    CreateFontFileReferenceFromUrl(factory, baseUrl, fontFileUrl, fontFile) {
+    CreateFontFileReferenceFromUrl(factory, baseUrl, fontFileUrl) {
         baseUrl := baseUrl is String ? StrPtr(baseUrl) : baseUrl
         fontFileUrl := fontFileUrl is String ? StrPtr(fontFileUrl) : fontFileUrl
 
-        result := ComCall(6, this, "ptr", factory, "ptr", baseUrl, "ptr", fontFileUrl, "ptr*", fontFile, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", factory, "ptr", baseUrl, "ptr", fontFileUrl, "ptr*", &fontFile := 0, "HRESULT")
+        return IDWriteFontFile(fontFile)
     }
 }

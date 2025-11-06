@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,28 +33,22 @@ class IIsdbDownloadContentDescriptor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdownloadcontentdescriptor-gettag
      */
-    GetTag(pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(3, this, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetTag() {
+        result := ComCall(3, this, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdownloadcontentdescriptor-getlength
      */
-    GetLength(pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetLength() {
+        result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
@@ -67,192 +62,159 @@ class IIsdbDownloadContentDescriptor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdownloadcontentdescriptor-getflags
      */
     GetFlags(pfReboot, pfAddOn, pfCompatibility, pfModuleInfo, pfTextInfo) {
-        result := ComCall(5, this, "ptr", pfReboot, "ptr", pfAddOn, "ptr", pfCompatibility, "ptr", pfModuleInfo, "ptr", pfTextInfo, "HRESULT")
+        pfRebootMarshal := pfReboot is VarRef ? "int*" : "ptr"
+        pfAddOnMarshal := pfAddOn is VarRef ? "int*" : "ptr"
+        pfCompatibilityMarshal := pfCompatibility is VarRef ? "int*" : "ptr"
+        pfModuleInfoMarshal := pfModuleInfo is VarRef ? "int*" : "ptr"
+        pfTextInfoMarshal := pfTextInfo is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, pfRebootMarshal, pfReboot, pfAddOnMarshal, pfAddOn, pfCompatibilityMarshal, pfCompatibility, pfModuleInfoMarshal, pfModuleInfo, pfTextInfoMarshal, pfTextInfo, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdownloadcontentdescriptor-getcomponentsize
      */
-    GetComponentSize(pdwVal) {
-        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pdwValMarshal, pdwVal, "HRESULT")
-        return result
+    GetComponentSize() {
+        result := ComCall(6, this, "uint*", &pdwVal := 0, "HRESULT")
+        return pdwVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdownloadcontentdescriptor-getdownloadid
      */
-    GetDownloadId(pdwVal) {
-        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pdwValMarshal, pdwVal, "HRESULT")
-        return result
+    GetDownloadId() {
+        result := ComCall(7, this, "uint*", &pdwVal := 0, "HRESULT")
+        return pdwVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdownloadcontentdescriptor-gettimeoutvaluedii
      */
-    GetTimeOutValueDII(pdwVal) {
-        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pdwValMarshal, pdwVal, "HRESULT")
-        return result
+    GetTimeOutValueDII() {
+        result := ComCall(8, this, "uint*", &pdwVal := 0, "HRESULT")
+        return pdwVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdownloadcontentdescriptor-getleakrate
      */
-    GetLeakRate(pdwVal) {
-        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, pdwValMarshal, pdwVal, "HRESULT")
-        return result
+    GetLeakRate() {
+        result := ComCall(9, this, "uint*", &pdwVal := 0, "HRESULT")
+        return pdwVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdownloadcontentdescriptor-getcomponenttag
      */
-    GetComponentTag(pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(10, this, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetComponentTag() {
+        result := ComCall(10, this, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pwLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdownloadcontentdescriptor-getcompatiblitydescriptorlength
      */
-    GetCompatiblityDescriptorLength(pwLength) {
-        pwLengthMarshal := pwLength is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(11, this, pwLengthMarshal, pwLength, "HRESULT")
-        return result
+    GetCompatiblityDescriptorLength() {
+        result := ComCall(11, this, "ushort*", &pwLength := 0, "HRESULT")
+        return pwLength
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Integer>>} ppbData 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdownloadcontentdescriptor-getcompatiblitydescriptor
      */
-    GetCompatiblityDescriptor(ppbData) {
-        ppbDataMarshal := ppbData is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(12, this, ppbDataMarshal, ppbData, "HRESULT")
-        return result
+    GetCompatiblityDescriptor() {
+        result := ComCall(12, this, "ptr*", &ppbData := 0, "HRESULT")
+        return ppbData
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdownloadcontentdescriptor-getcountofrecords
      */
-    GetCountOfRecords(pwVal) {
-        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(13, this, pwValMarshal, pwVal, "HRESULT")
-        return result
+    GetCountOfRecords() {
+        result := ComCall(13, this, "ushort*", &pwVal := 0, "HRESULT")
+        return pwVal
     }
 
     /**
      * 
      * @param {Integer} wRecordIndex 
-     * @param {Pointer<Integer>} pwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdownloadcontentdescriptor-getrecordmoduleid
      */
-    GetRecordModuleId(wRecordIndex, pwVal) {
-        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(14, this, "ushort", wRecordIndex, pwValMarshal, pwVal, "HRESULT")
-        return result
+    GetRecordModuleId(wRecordIndex) {
+        result := ComCall(14, this, "ushort", wRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
+        return pwVal
     }
 
     /**
      * 
      * @param {Integer} wRecordIndex 
-     * @param {Pointer<Integer>} pdwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdownloadcontentdescriptor-getrecordmodulesize
      */
-    GetRecordModuleSize(wRecordIndex, pdwVal) {
-        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(15, this, "ushort", wRecordIndex, pdwValMarshal, pdwVal, "HRESULT")
-        return result
+    GetRecordModuleSize(wRecordIndex) {
+        result := ComCall(15, this, "ushort", wRecordIndex, "uint*", &pdwVal := 0, "HRESULT")
+        return pdwVal
     }
 
     /**
      * 
      * @param {Integer} wRecordIndex 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdownloadcontentdescriptor-getrecordmoduleinfolength
      */
-    GetRecordModuleInfoLength(wRecordIndex, pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(16, this, "ushort", wRecordIndex, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetRecordModuleInfoLength(wRecordIndex) {
+        result := ComCall(16, this, "ushort", wRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
      * @param {Integer} wRecordIndex 
-     * @param {Pointer<Pointer<Integer>>} ppbData 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdownloadcontentdescriptor-getrecordmoduleinfo
      */
-    GetRecordModuleInfo(wRecordIndex, ppbData) {
-        ppbDataMarshal := ppbData is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(17, this, "ushort", wRecordIndex, ppbDataMarshal, ppbData, "HRESULT")
-        return result
+    GetRecordModuleInfo(wRecordIndex) {
+        result := ComCall(17, this, "ushort", wRecordIndex, "ptr*", &ppbData := 0, "HRESULT")
+        return ppbData
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} szCode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdownloadcontentdescriptor-gettextlanguagecode
      */
-    GetTextLanguageCode(szCode) {
-        szCodeMarshal := szCode is VarRef ? "char*" : "ptr"
-
-        result := ComCall(18, this, szCodeMarshal, szCode, "HRESULT")
-        return result
+    GetTextLanguageCode() {
+        result := ComCall(18, this, "char*", &szCode := 0, "HRESULT")
+        return szCode
     }
 
     /**
      * 
      * @param {Integer} convMode 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdownloadcontentdescriptor-gettextw
      */
-    GetTextW(convMode, pbstrName) {
+    GetTextW(convMode) {
+        pbstrName := BSTR()
         result := ComCall(19, this, "int", convMode, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 }

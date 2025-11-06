@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include ..\Com\IUnknown.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -30,34 +32,30 @@ class IRTCCollection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} lCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Count(lCount) {
-        lCountMarshal := lCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, lCountMarshal, lCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &lCount := 0, "HRESULT")
+        return lCount
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<VARIANT>} pVariant 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_Item(Index, pVariant) {
+    get_Item(Index) {
+        pVariant := VARIANT()
         result := ComCall(8, this, "int", Index, "ptr", pVariant, "HRESULT")
-        return result
+        return pVariant
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppNewEnum 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__NewEnum(ppNewEnum) {
-        result := ComCall(9, this, "ptr*", ppNewEnum, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(9, this, "ptr*", &ppNewEnum := 0, "HRESULT")
+        return IUnknown(ppNewEnum)
     }
 }

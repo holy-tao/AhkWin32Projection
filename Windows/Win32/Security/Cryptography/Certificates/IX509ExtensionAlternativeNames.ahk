@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IAlternativeNames.ahk
 #Include .\IX509Extension.ahk
 
 /**
@@ -58,12 +59,11 @@ class IX509ExtensionAlternativeNames extends IX509Extension{
 
     /**
      * 
-     * @param {Pointer<IAlternativeNames>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IAlternativeNames} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509extensionalternativenames-get_alternativenames
      */
-    get_AlternativeNames(ppValue) {
-        result := ComCall(14, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_AlternativeNames() {
+        result := ComCall(14, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IAlternativeNames(ppValue)
     }
 }

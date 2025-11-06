@@ -33,26 +33,20 @@ class IDirectSoundCaptureBuffer8 extends IDirectSoundCaptureBuffer{
      * @param {Pointer<Guid>} rguidObject 
      * @param {Integer} dwIndex 
      * @param {Pointer<Guid>} rguidInterface 
-     * @param {Pointer<Pointer<Void>>} ppObject 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetObjectInPath(rguidObject, dwIndex, rguidInterface, ppObject) {
-        ppObjectMarshal := ppObject is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(12, this, "ptr", rguidObject, "uint", dwIndex, "ptr", rguidInterface, ppObjectMarshal, ppObject, "HRESULT")
-        return result
+    GetObjectInPath(rguidObject, dwIndex, rguidInterface) {
+        result := ComCall(12, this, "ptr", rguidObject, "uint", dwIndex, "ptr", rguidInterface, "ptr*", &ppObject := 0, "HRESULT")
+        return ppObject
     }
 
     /**
      * 
      * @param {Integer} dwEffectsCount 
-     * @param {Pointer<Integer>} pdwFXStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetFXStatus(dwEffectsCount, pdwFXStatus) {
-        pdwFXStatusMarshal := pdwFXStatus is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(13, this, "uint", dwEffectsCount, pdwFXStatusMarshal, pdwFXStatus, "HRESULT")
-        return result
+    GetFXStatus(dwEffectsCount) {
+        result := ComCall(13, this, "uint", dwEffectsCount, "uint*", &pdwFXStatus := 0, "HRESULT")
+        return pdwFXStatus
     }
 }

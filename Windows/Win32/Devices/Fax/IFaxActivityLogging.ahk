@@ -43,13 +43,12 @@ class IFaxActivityLogging extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbLogIncoming 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxactivitylogging-get_logincoming
      */
-    get_LogIncoming(pbLogIncoming) {
-        result := ComCall(7, this, "ptr", pbLogIncoming, "HRESULT")
-        return result
+    get_LogIncoming() {
+        result := ComCall(7, this, "short*", &pbLogIncoming := 0, "HRESULT")
+        return pbLogIncoming
     }
 
     /**
@@ -65,13 +64,12 @@ class IFaxActivityLogging extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbLogOutgoing 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxactivitylogging-get_logoutgoing
      */
-    get_LogOutgoing(pbLogOutgoing) {
-        result := ComCall(9, this, "ptr", pbLogOutgoing, "HRESULT")
-        return result
+    get_LogOutgoing() {
+        result := ComCall(9, this, "short*", &pbLogOutgoing := 0, "HRESULT")
+        return pbLogOutgoing
     }
 
     /**
@@ -87,13 +85,13 @@ class IFaxActivityLogging extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrDatabasePath 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxactivitylogging-get_databasepath
      */
-    get_DatabasePath(pbstrDatabasePath) {
+    get_DatabasePath() {
+        pbstrDatabasePath := BSTR()
         result := ComCall(11, this, "ptr", pbstrDatabasePath, "HRESULT")
-        return result
+        return pbstrDatabasePath
     }
 
     /**

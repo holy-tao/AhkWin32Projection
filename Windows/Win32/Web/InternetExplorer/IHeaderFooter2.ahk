@@ -43,11 +43,11 @@ class IHeaderFooter2 extends IHeaderFooter{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_font(p) {
+    get_font() {
+        p := BSTR()
         result := ComCall(30, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 }

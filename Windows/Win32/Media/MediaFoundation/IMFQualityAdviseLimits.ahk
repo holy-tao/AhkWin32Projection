@@ -32,27 +32,21 @@ class IMFQualityAdviseLimits extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} peDropMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfqualityadviselimits-getmaximumdropmode
      */
-    GetMaximumDropMode(peDropMode) {
-        peDropModeMarshal := peDropMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, peDropModeMarshal, peDropMode, "HRESULT")
-        return result
+    GetMaximumDropMode() {
+        result := ComCall(3, this, "int*", &peDropMode := 0, "HRESULT")
+        return peDropMode
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} peQualityLevel 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfqualityadviselimits-getminimumqualitylevel
      */
-    GetMinimumQualityLevel(peQualityLevel) {
-        peQualityLevelMarshal := peQualityLevel is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, peQualityLevelMarshal, peQualityLevel, "HRESULT")
-        return result
+    GetMinimumQualityLevel() {
+        result := ComCall(4, this, "int*", &peQualityLevel := 0, "HRESULT")
+        return peQualityLevel
     }
 }

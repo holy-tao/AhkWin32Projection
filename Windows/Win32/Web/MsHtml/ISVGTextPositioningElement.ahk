@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISVGAnimatedLengthList.ahk
+#Include .\ISVGAnimatedNumberList.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -46,12 +48,11 @@ class ISVGTextPositioningElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedLengthList>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedLengthList} 
      */
-    get_x(p) {
-        result := ComCall(8, this, "ptr*", p, "HRESULT")
-        return result
+    get_x() {
+        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedLengthList(p)
     }
 
     /**
@@ -66,12 +67,11 @@ class ISVGTextPositioningElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedLengthList>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedLengthList} 
      */
-    get_y(p) {
-        result := ComCall(10, this, "ptr*", p, "HRESULT")
-        return result
+    get_y() {
+        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedLengthList(p)
     }
 
     /**
@@ -86,12 +86,11 @@ class ISVGTextPositioningElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedLengthList>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedLengthList} 
      */
-    get_dx(p) {
-        result := ComCall(12, this, "ptr*", p, "HRESULT")
-        return result
+    get_dx() {
+        result := ComCall(12, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedLengthList(p)
     }
 
     /**
@@ -106,12 +105,11 @@ class ISVGTextPositioningElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedLengthList>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedLengthList} 
      */
-    get_dy(p) {
-        result := ComCall(14, this, "ptr*", p, "HRESULT")
-        return result
+    get_dy() {
+        result := ComCall(14, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedLengthList(p)
     }
 
     /**
@@ -126,11 +124,10 @@ class ISVGTextPositioningElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedNumberList>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedNumberList} 
      */
-    get_rotate(p) {
-        result := ComCall(16, this, "ptr*", p, "HRESULT")
-        return result
+    get_rotate() {
+        result := ComCall(16, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedNumberList(p)
     }
 }

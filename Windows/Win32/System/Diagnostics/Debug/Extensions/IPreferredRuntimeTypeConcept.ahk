@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IModelObject.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -31,11 +32,10 @@ class IPreferredRuntimeTypeConcept extends IUnknown{
     /**
      * 
      * @param {IModelObject} contextObject 
-     * @param {Pointer<IModelObject>} object 
-     * @returns {HRESULT} 
+     * @returns {IModelObject} 
      */
-    CastToPreferredRuntimeType(contextObject, object) {
-        result := ComCall(3, this, "ptr", contextObject, "ptr*", object, "HRESULT")
-        return result
+    CastToPreferredRuntimeType(contextObject) {
+        result := ComCall(3, this, "ptr", contextObject, "ptr*", &object := 0, "HRESULT")
+        return IModelObject(object)
     }
 }

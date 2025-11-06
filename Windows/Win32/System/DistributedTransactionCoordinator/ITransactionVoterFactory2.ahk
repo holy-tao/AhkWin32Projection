@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITransactionVoterBallotAsync2.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -32,11 +33,10 @@ class ITransactionVoterFactory2 extends IUnknown{
      * 
      * @param {ITransaction} pTransaction 
      * @param {ITransactionVoterNotifyAsync2} pVoterNotify 
-     * @param {Pointer<ITransactionVoterBallotAsync2>} ppVoterBallot 
-     * @returns {HRESULT} 
+     * @returns {ITransactionVoterBallotAsync2} 
      */
-    Create(pTransaction, pVoterNotify, ppVoterBallot) {
-        result := ComCall(3, this, "ptr", pTransaction, "ptr", pVoterNotify, "ptr*", ppVoterBallot, "HRESULT")
-        return result
+    Create(pTransaction, pVoterNotify) {
+        result := ComCall(3, this, "ptr", pTransaction, "ptr", pVoterNotify, "ptr*", &ppVoterBallot := 0, "HRESULT")
+        return ITransactionVoterBallotAsync2(ppVoterBallot)
     }
 }

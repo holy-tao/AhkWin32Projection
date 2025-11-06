@@ -30,13 +30,10 @@ class IDebugHostSymbol2 extends IDebugHostSymbol{
 
     /**
      * 
-     * @param {Pointer<Integer>} pKind 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetLanguage(pKind) {
-        pKindMarshal := pKind is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, pKindMarshal, pKind, "HRESULT")
-        return result
+    GetLanguage() {
+        result := ComCall(10, this, "int*", &pKind := 0, "HRESULT")
+        return pKind
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\UI\Controls\HPROPSHEETPAGE.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -42,12 +43,12 @@ class IProvideTaskPage extends IUnknown{
      * 
      * @param {Integer} tpType 
      * @param {BOOL} fPersistChanges 
-     * @param {Pointer<HPROPSHEETPAGE>} phPage 
-     * @returns {HRESULT} 
+     * @returns {HPROPSHEETPAGE} 
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-iprovidetaskpage-getpage
      */
-    GetPage(tpType, fPersistChanges, phPage) {
+    GetPage(tpType, fPersistChanges) {
+        phPage := HPROPSHEETPAGE()
         result := ComCall(3, this, "int", tpType, "int", fPersistChanges, "ptr", phPage, "HRESULT")
-        return result
+        return phPage
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITimer.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -31,23 +32,21 @@ class ITimerService extends IUnknown{
     /**
      * 
      * @param {ITimer} pReferenceTimer 
-     * @param {Pointer<ITimer>} ppNewTimer 
-     * @returns {HRESULT} 
+     * @returns {ITimer} 
      */
-    CreateTimer(pReferenceTimer, ppNewTimer) {
-        result := ComCall(3, this, "ptr", pReferenceTimer, "ptr*", ppNewTimer, "HRESULT")
-        return result
+    CreateTimer(pReferenceTimer) {
+        result := ComCall(3, this, "ptr", pReferenceTimer, "ptr*", &ppNewTimer := 0, "HRESULT")
+        return ITimer(ppNewTimer)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} rguidName 
-     * @param {Pointer<ITimer>} ppTimer 
-     * @returns {HRESULT} 
+     * @returns {ITimer} 
      */
-    GetNamedTimer(rguidName, ppTimer) {
-        result := ComCall(4, this, "ptr", rguidName, "ptr*", ppTimer, "HRESULT")
-        return result
+    GetNamedTimer(rguidName) {
+        result := ComCall(4, this, "ptr", rguidName, "ptr*", &ppTimer := 0, "HRESULT")
+        return ITimer(ppTimer)
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IConnector.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,28 +33,22 @@ class IConnector extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iconnector-gettype
      */
-    GetType(pType) {
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, pTypeMarshal, pType, "HRESULT")
-        return result
+    GetType() {
+        result := ComCall(3, this, "int*", &pType := 0, "HRESULT")
+        return pType
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pFlow 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iconnector-getdataflow
      */
-    GetDataFlow(pFlow) {
-        pFlowMarshal := pFlow is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, pFlowMarshal, pFlow, "HRESULT")
-        return result
+    GetDataFlow() {
+        result := ComCall(4, this, "int*", &pFlow := 0, "HRESULT")
+        return pFlow
     }
 
     /**
@@ -79,45 +74,41 @@ class IConnector extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbConnected 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iconnector-isconnected
      */
-    IsConnected(pbConnected) {
-        result := ComCall(7, this, "ptr", pbConnected, "HRESULT")
-        return result
+    IsConnected() {
+        result := ComCall(7, this, "int*", &pbConnected := 0, "HRESULT")
+        return pbConnected
     }
 
     /**
      * 
-     * @param {Pointer<IConnector>} ppConTo 
-     * @returns {HRESULT} 
+     * @returns {IConnector} 
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iconnector-getconnectedto
      */
-    GetConnectedTo(ppConTo) {
-        result := ComCall(8, this, "ptr*", ppConTo, "HRESULT")
-        return result
+    GetConnectedTo() {
+        result := ComCall(8, this, "ptr*", &ppConTo := 0, "HRESULT")
+        return IConnector(ppConTo)
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppwstrConnectorId 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iconnector-getconnectoridconnectedto
      */
-    GetConnectorIdConnectedTo(ppwstrConnectorId) {
-        result := ComCall(9, this, "ptr", ppwstrConnectorId, "HRESULT")
-        return result
+    GetConnectorIdConnectedTo() {
+        result := ComCall(9, this, "ptr*", &ppwstrConnectorId := 0, "HRESULT")
+        return ppwstrConnectorId
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppwstrDeviceId 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iconnector-getdeviceidconnectedto
      */
-    GetDeviceIdConnectedTo(ppwstrDeviceId) {
-        result := ComCall(10, this, "ptr", ppwstrDeviceId, "HRESULT")
-        return result
+    GetDeviceIdConnectedTo() {
+        result := ComCall(10, this, "ptr*", &ppwstrDeviceId := 0, "HRESULT")
+        return ppwstrDeviceId
     }
 }

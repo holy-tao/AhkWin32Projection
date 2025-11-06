@@ -46,25 +46,23 @@ class IUIAnimationStoryboard2 extends IUnknown{
      * 
      * @param {UI_ANIMATION_KEYFRAME} existingKeyframe 
      * @param {Float} offset 
-     * @param {Pointer<UI_ANIMATION_KEYFRAME>} keyframe 
-     * @returns {HRESULT} 
+     * @returns {UI_ANIMATION_KEYFRAME} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationstoryboard2-addkeyframeatoffset
      */
-    AddKeyframeAtOffset(existingKeyframe, offset, keyframe) {
-        result := ComCall(4, this, "ptr", existingKeyframe, "double", offset, "ptr", keyframe, "HRESULT")
-        return result
+    AddKeyframeAtOffset(existingKeyframe, offset) {
+        result := ComCall(4, this, "ptr", existingKeyframe, "double", offset, "ptr*", &keyframe := 0, "HRESULT")
+        return keyframe
     }
 
     /**
      * 
      * @param {IUIAnimationTransition2} transition 
-     * @param {Pointer<UI_ANIMATION_KEYFRAME>} keyframe 
-     * @returns {HRESULT} 
+     * @returns {UI_ANIMATION_KEYFRAME} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationstoryboard2-addkeyframeaftertransition
      */
-    AddKeyframeAfterTransition(transition, keyframe) {
-        result := ComCall(5, this, "ptr", transition, "ptr", keyframe, "HRESULT")
-        return result
+    AddKeyframeAfterTransition(transition) {
+        result := ComCall(5, this, "ptr", transition, "ptr*", &keyframe := 0, "HRESULT")
+        return keyframe
     }
 
     /**
@@ -147,15 +145,12 @@ class IUIAnimationStoryboard2 extends IUnknown{
     /**
      * 
      * @param {Float} timeNow 
-     * @param {Pointer<Integer>} schedulingResult 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationstoryboard2-schedule
      */
-    Schedule(timeNow, schedulingResult) {
-        schedulingResultMarshal := schedulingResult is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, "double", timeNow, schedulingResultMarshal, schedulingResult, "HRESULT")
-        return result
+    Schedule(timeNow) {
+        result := ComCall(12, this, "double", timeNow, "int*", &schedulingResult := 0, "HRESULT")
+        return schedulingResult
     }
 
     /**
@@ -217,28 +212,22 @@ class IUIAnimationStoryboard2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} status 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationstoryboard2-getstatus
      */
-    GetStatus(status) {
-        statusMarshal := status is VarRef ? "int*" : "ptr"
-
-        result := ComCall(18, this, statusMarshal, status, "HRESULT")
-        return result
+    GetStatus() {
+        result := ComCall(18, this, "int*", &status := 0, "HRESULT")
+        return status
     }
 
     /**
      * 
-     * @param {Pointer<Float>} elapsedTime 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationstoryboard2-getelapsedtime
      */
-    GetElapsedTime(elapsedTime) {
-        elapsedTimeMarshal := elapsedTime is VarRef ? "double*" : "ptr"
-
-        result := ComCall(19, this, elapsedTimeMarshal, elapsedTime, "HRESULT")
-        return result
+    GetElapsedTime() {
+        result := ComCall(19, this, "double*", &elapsedTime := 0, "HRESULT")
+        return elapsedTime
     }
 
     /**

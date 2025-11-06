@@ -223,15 +223,12 @@ class IMFASFSplitter extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfsplitter-getflags
      */
-    GetFlags(pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
-        return result
+    GetFlags() {
+        result := ComCall(5, this, "uint*", &pdwFlags := 0, "HRESULT")
+        return pdwFlags
     }
 
     /**
@@ -250,17 +247,15 @@ class IMFASFSplitter extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pwStreamNumbers 
      * @param {Pointer<Integer>} pwNumStreams 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfsplitter-getselectedstreams
      */
-    GetSelectedStreams(pwStreamNumbers, pwNumStreams) {
-        pwStreamNumbersMarshal := pwStreamNumbers is VarRef ? "ushort*" : "ptr"
+    GetSelectedStreams(pwNumStreams) {
         pwNumStreamsMarshal := pwNumStreams is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(7, this, pwStreamNumbersMarshal, pwStreamNumbers, pwNumStreamsMarshal, pwNumStreams, "HRESULT")
-        return result
+        result := ComCall(7, this, "ushort*", &pwStreamNumbers := 0, pwNumStreamsMarshal, pwNumStreams, "HRESULT")
+        return pwStreamNumbers
     }
 
     /**
@@ -304,14 +299,11 @@ class IMFASFSplitter extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwLastSendTime 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfsplitter-getlastsendtime
      */
-    GetLastSendTime(pdwLastSendTime) {
-        pdwLastSendTimeMarshal := pdwLastSendTime is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, pdwLastSendTimeMarshal, pdwLastSendTime, "HRESULT")
-        return result
+    GetLastSendTime() {
+        result := ComCall(11, this, "uint*", &pdwLastSendTime := 0, "HRESULT")
+        return pdwLastSendTime
     }
 }

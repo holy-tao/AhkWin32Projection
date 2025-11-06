@@ -38,29 +38,29 @@ class Iwfolders extends IDispatch{
     /**
      * 
      * @param {BSTR} bstrUrl 
-     * @param {Pointer<BSTR>} pbstrRetVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    navigate(bstrUrl, pbstrRetVal) {
+    navigate(bstrUrl) {
         bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
 
+        pbstrRetVal := BSTR()
         result := ComCall(7, this, "ptr", bstrUrl, "ptr", pbstrRetVal, "HRESULT")
-        return result
+        return pbstrRetVal
     }
 
     /**
      * 
      * @param {BSTR} bstrUrl 
      * @param {BSTR} bstrTargetFrame 
-     * @param {Pointer<BSTR>} pbstrRetVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    navigateFrame(bstrUrl, bstrTargetFrame, pbstrRetVal) {
+    navigateFrame(bstrUrl, bstrTargetFrame) {
         bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
         bstrTargetFrame := bstrTargetFrame is String ? BSTR.Alloc(bstrTargetFrame).Value : bstrTargetFrame
 
+        pbstrRetVal := BSTR()
         result := ComCall(8, this, "ptr", bstrUrl, "ptr", bstrTargetFrame, "ptr", pbstrRetVal, "HRESULT")
-        return result
+        return pbstrRetVal
     }
 
     /**

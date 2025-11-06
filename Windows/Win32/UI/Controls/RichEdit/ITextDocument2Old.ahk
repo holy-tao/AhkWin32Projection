@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ITextSelection.ahk
+#Include .\ITextFont.ahk
+#Include .\ITextPara.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\ITextDocument.ahk
 
 /**
@@ -52,24 +56,20 @@ class ITextDocument2Old extends ITextDocument{
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<COLORREF>} pcr 
-     * @returns {HRESULT} 
+     * @returns {COLORREF} 
      */
-    GetEffectColor(Index, pcr) {
-        result := ComCall(28, this, "int", Index, "ptr", pcr, "HRESULT")
-        return result
+    GetEffectColor(Index) {
+        result := ComCall(28, this, "int", Index, "uint*", &pcr := 0, "HRESULT")
+        return pcr
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCaretType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetCaretType(pCaretType) {
-        pCaretTypeMarshal := pCaretType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(29, this, pCaretTypeMarshal, pCaretType, "HRESULT")
-        return result
+    GetCaretType() {
+        result := ComCall(29, this, "int*", &pCaretType := 0, "HRESULT")
+        return pCaretType
     }
 
     /**
@@ -84,14 +84,11 @@ class ITextDocument2Old extends ITextDocument{
 
     /**
      * 
-     * @param {Pointer<Integer>} pContext 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetImmContext(pContext) {
-        pContextMarshal := pContext is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(31, this, pContextMarshal, pContext, "HRESULT")
-        return result
+    GetImmContext() {
+        result := ComCall(31, this, "int64*", &pContext := 0, "HRESULT")
+        return pContext
     }
 
     /**
@@ -126,14 +123,11 @@ class ITextDocument2Old extends ITextDocument{
 
     /**
      * 
-     * @param {Pointer<Integer>} pMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetNotificationMode(pMode) {
-        pModeMarshal := pMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(34, this, pModeMarshal, pMode, "HRESULT")
-        return result
+    GetNotificationMode() {
+        result := ComCall(34, this, "int*", &pMode := 0, "HRESULT")
+        return pMode
     }
 
     /**
@@ -172,39 +166,30 @@ class ITextDocument2Old extends ITextDocument{
 
     /**
      * 
-     * @param {Pointer<ITextSelection>} ppSel 
-     * @returns {HRESULT} 
+     * @returns {ITextSelection} 
      */
-    GetSelection2(ppSel) {
-        result := ComCall(37, this, "ptr*", ppSel, "HRESULT")
-        return result
+    GetSelection2() {
+        result := ComCall(37, this, "ptr*", &ppSel := 0, "HRESULT")
+        return ITextSelection(ppSel)
     }
 
     /**
      * Retrieves a handle to a window that has the specified relationship (Z-Order or owner) to the specified window.
-     * @param {Pointer<Integer>} phWnd 
-     * @returns {HRESULT} Type: <b>HWND</b>
-     * 
-     * If the function succeeds, the return value is a window handle. If no window exists with the specified relationship to the specified window, the return value is <b>NULL</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getwindow
      */
-    GetWindow(phWnd) {
-        phWndMarshal := phWnd is VarRef ? "int*" : "ptr"
-
-        result := ComCall(38, this, phWndMarshal, phWnd, "HRESULT")
-        return result
+    GetWindow() {
+        result := ComCall(38, this, "int*", &phWnd := 0, "HRESULT")
+        return phWnd
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetFEFlags(pFlags) {
-        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(39, this, pFlagsMarshal, pFlags, "HRESULT")
-        return result
+    GetFEFlags() {
+        result := ComCall(39, this, "int*", &pFlags := 0, "HRESULT")
+        return pFlags
     }
 
     /**
@@ -273,32 +258,29 @@ class ITextDocument2Old extends ITextDocument{
 
     /**
      * 
-     * @param {Pointer<ITextFont>} ppITextFont 
-     * @returns {HRESULT} 
+     * @returns {ITextFont} 
      */
-    GetDocumentFont(ppITextFont) {
-        result := ComCall(46, this, "ptr*", ppITextFont, "HRESULT")
-        return result
+    GetDocumentFont() {
+        result := ComCall(46, this, "ptr*", &ppITextFont := 0, "HRESULT")
+        return ITextFont(ppITextFont)
     }
 
     /**
      * 
-     * @param {Pointer<ITextPara>} ppITextPara 
-     * @returns {HRESULT} 
+     * @returns {ITextPara} 
      */
-    GetDocumentPara(ppITextPara) {
-        result := ComCall(47, this, "ptr*", ppITextPara, "HRESULT")
-        return result
+    GetDocumentPara() {
+        result := ComCall(47, this, "ptr*", &ppITextPara := 0, "HRESULT")
+        return ITextPara(ppITextPara)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppVoid 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    GetCallManager(ppVoid) {
-        result := ComCall(48, this, "ptr*", ppVoid, "HRESULT")
-        return result
+    GetCallManager() {
+        result := ComCall(48, this, "ptr*", &ppVoid := 0, "HRESULT")
+        return IUnknown(ppVoid)
     }
 
     /**

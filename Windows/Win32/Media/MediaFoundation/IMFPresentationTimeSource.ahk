@@ -43,12 +43,11 @@ class IMFPresentationTimeSource extends IMFClock{
 
     /**
      * 
-     * @param {Pointer<IMFClock>} ppClock 
-     * @returns {HRESULT} 
+     * @returns {IMFClock} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfpresentationtimesource-getunderlyingclock
      */
-    GetUnderlyingClock(ppClock) {
-        result := ComCall(8, this, "ptr*", ppClock, "HRESULT")
-        return result
+    GetUnderlyingClock() {
+        result := ComCall(8, this, "ptr*", &ppClock := 0, "HRESULT")
+        return IMFClock(ppClock)
     }
 }

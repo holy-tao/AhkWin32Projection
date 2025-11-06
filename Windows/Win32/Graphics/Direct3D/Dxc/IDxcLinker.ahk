@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IDxcOperationResult.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -49,14 +50,16 @@ class IDxcLinker extends IUnknown{
      * @param {Integer} libCount 
      * @param {Pointer<PWSTR>} pArguments 
      * @param {Integer} argCount 
-     * @param {Pointer<IDxcOperationResult>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {IDxcOperationResult} 
      */
-    Link(pEntryName, pTargetProfile, pLibNames, libCount, pArguments, argCount, ppResult) {
+    Link(pEntryName, pTargetProfile, pLibNames, libCount, pArguments, argCount) {
         pEntryName := pEntryName is String ? StrPtr(pEntryName) : pEntryName
         pTargetProfile := pTargetProfile is String ? StrPtr(pTargetProfile) : pTargetProfile
 
-        result := ComCall(4, this, "ptr", pEntryName, "ptr", pTargetProfile, "ptr", pLibNames, "uint", libCount, "ptr", pArguments, "uint", argCount, "ptr*", ppResult, "HRESULT")
-        return result
+        pLibNamesMarshal := pLibNames is VarRef ? "ptr*" : "ptr"
+        pArgumentsMarshal := pArguments is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pEntryName, "ptr", pTargetProfile, pLibNamesMarshal, pLibNames, "uint", libCount, pArgumentsMarshal, pArguments, "uint", argCount, "ptr*", &ppResult := 0, "HRESULT")
+        return IDxcOperationResult(ppResult)
     }
 }

@@ -33,17 +33,14 @@ class IDXGIFactory7 extends IDXGIFactory6{
     /**
      * 
      * @param {HANDLE} hEvent 
-     * @param {Pointer<Integer>} pdwCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_6/nf-dxgi1_6-idxgifactory7-registeradapterschangedevent
      */
-    RegisterAdaptersChangedEvent(hEvent, pdwCookie) {
+    RegisterAdaptersChangedEvent(hEvent) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(30, this, "ptr", hEvent, pdwCookieMarshal, pdwCookie, "HRESULT")
-        return result
+        result := ComCall(30, this, "ptr", hEvent, "uint*", &pdwCookie := 0, "HRESULT")
+        return pdwCookie
     }
 
     /**

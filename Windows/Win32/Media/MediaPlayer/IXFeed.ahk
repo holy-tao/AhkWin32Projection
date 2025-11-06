@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IStream.ahk
+#Include ..\..\Foundation\SYSTEMTIME.ahk
+#Include .\IXFeedsEnum.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -35,22 +38,20 @@ class IXFeed extends IUnknown{
      * @param {Integer} sortOrder 
      * @param {Integer} filterFlags 
      * @param {Integer} includeFlags 
-     * @param {Pointer<IStream>} pps 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      */
-    Xml(uiItemCount, sortProperty, sortOrder, filterFlags, includeFlags, pps) {
-        result := ComCall(3, this, "uint", uiItemCount, "int", sortProperty, "int", sortOrder, "int", filterFlags, "int", includeFlags, "ptr*", pps, "HRESULT")
-        return result
+    Xml(uiItemCount, sortProperty, sortOrder, filterFlags, includeFlags) {
+        result := ComCall(3, this, "uint", uiItemCount, "int", sortProperty, "int", sortOrder, "int", filterFlags, "int", includeFlags, "ptr*", &pps := 0, "HRESULT")
+        return IStream(pps)
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    Name(ppszName) {
-        result := ComCall(4, this, "ptr", ppszName, "HRESULT")
-        return result
+    Name() {
+        result := ComCall(4, this, "ptr*", &ppszName := 0, "HRESULT")
+        return ppszName
     }
 
     /**
@@ -67,12 +68,11 @@ class IXFeed extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszUrl 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    Url(ppszUrl) {
-        result := ComCall(6, this, "ptr", ppszUrl, "HRESULT")
-        return result
+    Url() {
+        result := ComCall(6, this, "ptr*", &ppszUrl := 0, "HRESULT")
+        return ppszUrl
     }
 
     /**
@@ -89,22 +89,21 @@ class IXFeed extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pguid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    LocalId(pguid) {
+    LocalId() {
+        pguid := Guid()
         result := ComCall(8, this, "ptr", pguid, "HRESULT")
-        return result
+        return pguid
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszPath 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    Path(ppszPath) {
-        result := ComCall(9, this, "ptr", ppszPath, "HRESULT")
-        return result
+    Path() {
+        result := ComCall(9, this, "ptr*", &ppszPath := 0, "HRESULT")
+        return ppszPath
     }
 
     /**
@@ -122,24 +121,21 @@ class IXFeed extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    Parent(riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(11, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    Parent(riid) {
+        result := ComCall(11, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * 
-     * @param {Pointer<SYSTEMTIME>} pstLastWriteTime 
-     * @returns {HRESULT} 
+     * @returns {SYSTEMTIME} 
      */
-    LastWriteTime(pstLastWriteTime) {
+    LastWriteTime() {
+        pstLastWriteTime := SYSTEMTIME()
         result := ComCall(12, this, "ptr", pstLastWriteTime, "HRESULT")
-        return result
+        return pstLastWriteTime
     }
 
     /**
@@ -180,14 +176,11 @@ class IXFeed extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pfss 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    SyncSetting(pfss) {
-        pfssMarshal := pfss is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, pfssMarshal, pfss, "HRESULT")
-        return result
+    SyncSetting() {
+        result := ComCall(17, this, "int*", &pfss := 0, "HRESULT")
+        return pfss
     }
 
     /**
@@ -202,14 +195,11 @@ class IXFeed extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} puiInterval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Interval(puiInterval) {
-        puiIntervalMarshal := puiInterval is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(19, this, puiIntervalMarshal, puiInterval, "HRESULT")
-        return result
+    Interval() {
+        result := ComCall(19, this, "uint*", &puiInterval := 0, "HRESULT")
+        return puiInterval
     }
 
     /**
@@ -224,46 +214,41 @@ class IXFeed extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<SYSTEMTIME>} pstLastDownloadTime 
-     * @returns {HRESULT} 
+     * @returns {SYSTEMTIME} 
      */
-    LastDownloadTime(pstLastDownloadTime) {
+    LastDownloadTime() {
+        pstLastDownloadTime := SYSTEMTIME()
         result := ComCall(21, this, "ptr", pstLastDownloadTime, "HRESULT")
-        return result
+        return pstLastDownloadTime
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszPath 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    LocalEnclosurePath(ppszPath) {
-        result := ComCall(22, this, "ptr", ppszPath, "HRESULT")
-        return result
+    LocalEnclosurePath() {
+        result := ComCall(22, this, "ptr*", &ppszPath := 0, "HRESULT")
+        return ppszPath
     }
 
     /**
      * 
-     * @param {Pointer<IXFeedsEnum>} ppfe 
-     * @returns {HRESULT} 
+     * @returns {IXFeedsEnum} 
      */
-    Items(ppfe) {
-        result := ComCall(23, this, "ptr*", ppfe, "HRESULT")
-        return result
+    Items() {
+        result := ComCall(23, this, "ptr*", &ppfe := 0, "HRESULT")
+        return IXFeedsEnum(ppfe)
     }
 
     /**
      * 
      * @param {Integer} uiId 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetItem(uiId, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(24, this, "uint", uiId, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetItem(uiId, riid) {
+        result := ComCall(24, this, "uint", uiId, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
@@ -277,14 +262,11 @@ class IXFeed extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} puiMaxItemCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    MaxItemCount(puiMaxItemCount) {
-        puiMaxItemCountMarshal := puiMaxItemCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(26, this, puiMaxItemCountMarshal, puiMaxItemCount, "HRESULT")
-        return result
+    MaxItemCount() {
+        result := ComCall(26, this, "uint*", &puiMaxItemCount := 0, "HRESULT")
+        return puiMaxItemCount
     }
 
     /**
@@ -299,12 +281,11 @@ class IXFeed extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbDownloadEnclosuresAutomatically 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    DownloadEnclosuresAutomatically(pbDownloadEnclosuresAutomatically) {
-        result := ComCall(28, this, "ptr", pbDownloadEnclosuresAutomatically, "HRESULT")
-        return result
+    DownloadEnclosuresAutomatically() {
+        result := ComCall(28, this, "int*", &pbDownloadEnclosuresAutomatically := 0, "HRESULT")
+        return pbDownloadEnclosuresAutomatically
     }
 
     /**
@@ -319,26 +300,20 @@ class IXFeed extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pfds 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    DownloadStatus(pfds) {
-        pfdsMarshal := pfds is VarRef ? "int*" : "ptr"
-
-        result := ComCall(30, this, pfdsMarshal, pfds, "HRESULT")
-        return result
+    DownloadStatus() {
+        result := ComCall(30, this, "int*", &pfds := 0, "HRESULT")
+        return pfds
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pfde 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    LastDownloadError(pfde) {
-        pfdeMarshal := pfde is VarRef ? "int*" : "ptr"
-
-        result := ComCall(31, this, pfdeMarshal, pfde, "HRESULT")
-        return result
+    LastDownloadError() {
+        result := ComCall(31, this, "int*", &pfde := 0, "HRESULT")
+        return pfde
     }
 
     /**
@@ -356,115 +331,104 @@ class IXFeed extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszUrl 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    DownloadUrl(ppszUrl) {
-        result := ComCall(33, this, "ptr", ppszUrl, "HRESULT")
-        return result
+    DownloadUrl() {
+        result := ComCall(33, this, "ptr*", &ppszUrl := 0, "HRESULT")
+        return ppszUrl
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszTitle 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    Title(ppszTitle) {
-        result := ComCall(34, this, "ptr", ppszTitle, "HRESULT")
-        return result
+    Title() {
+        result := ComCall(34, this, "ptr*", &ppszTitle := 0, "HRESULT")
+        return ppszTitle
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszDescription 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    Description(ppszDescription) {
-        result := ComCall(35, this, "ptr", ppszDescription, "HRESULT")
-        return result
+    Description() {
+        result := ComCall(35, this, "ptr*", &ppszDescription := 0, "HRESULT")
+        return ppszDescription
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszHomePage 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    Link(ppszHomePage) {
-        result := ComCall(36, this, "ptr", ppszHomePage, "HRESULT")
-        return result
+    Link() {
+        result := ComCall(36, this, "ptr*", &ppszHomePage := 0, "HRESULT")
+        return ppszHomePage
     }
 
     /**
      * The Image class provides methods for loading and saving raster images (bitmaps) and vector images (metafiles).
-     * @param {Pointer<PWSTR>} ppszImageUrl 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://docs.microsoft.com/windows/win32/api//gdiplusheaders/nl-gdiplusheaders-image
      */
-    Image(ppszImageUrl) {
-        result := ComCall(37, this, "ptr", ppszImageUrl, "HRESULT")
-        return result
+    Image() {
+        result := ComCall(37, this, "ptr*", &ppszImageUrl := 0, "HRESULT")
+        return ppszImageUrl
     }
 
     /**
      * 
-     * @param {Pointer<SYSTEMTIME>} pstLastBuildDate 
-     * @returns {HRESULT} 
+     * @returns {SYSTEMTIME} 
      */
-    LastBuildDate(pstLastBuildDate) {
+    LastBuildDate() {
+        pstLastBuildDate := SYSTEMTIME()
         result := ComCall(38, this, "ptr", pstLastBuildDate, "HRESULT")
-        return result
+        return pstLastBuildDate
     }
 
     /**
      * 
-     * @param {Pointer<SYSTEMTIME>} pstPubDate 
-     * @returns {HRESULT} 
+     * @returns {SYSTEMTIME} 
      */
-    PubDate(pstPubDate) {
+    PubDate() {
+        pstPubDate := SYSTEMTIME()
         result := ComCall(39, this, "ptr", pstPubDate, "HRESULT")
-        return result
+        return pstPubDate
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} puiTtl 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Ttl(puiTtl) {
-        puiTtlMarshal := puiTtl is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(40, this, puiTtlMarshal, puiTtl, "HRESULT")
-        return result
+    Ttl() {
+        result := ComCall(40, this, "uint*", &puiTtl := 0, "HRESULT")
+        return puiTtl
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszLanguage 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    Language(ppszLanguage) {
-        result := ComCall(41, this, "ptr", ppszLanguage, "HRESULT")
-        return result
+    Language() {
+        result := ComCall(41, this, "ptr*", &ppszLanguage := 0, "HRESULT")
+        return ppszLanguage
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszCopyright 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    Copyright(ppszCopyright) {
-        result := ComCall(42, this, "ptr", ppszCopyright, "HRESULT")
-        return result
+    Copyright() {
+        result := ComCall(42, this, "ptr*", &ppszCopyright := 0, "HRESULT")
+        return ppszCopyright
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbIsList 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsList(pbIsList) {
-        result := ComCall(43, this, "ptr", pbIsList, "HRESULT")
-        return result
+    IsList() {
+        result := ComCall(43, this, "int*", &pbIsList := 0, "HRESULT")
+        return pbIsList
     }
 
     /**
@@ -472,37 +436,28 @@ class IXFeed extends IUnknown{
      * @param {Integer} scope 
      * @param {Integer} mask 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetWatcher(scope, mask, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(44, this, "int", scope, "int", mask, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetWatcher(scope, mask, riid) {
+        result := ComCall(44, this, "int", scope, "int", mask, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} puiUnreadItemCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    UnreadItemCount(puiUnreadItemCount) {
-        puiUnreadItemCountMarshal := puiUnreadItemCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(45, this, puiUnreadItemCountMarshal, puiUnreadItemCount, "HRESULT")
-        return result
+    UnreadItemCount() {
+        result := ComCall(45, this, "uint*", &puiUnreadItemCount := 0, "HRESULT")
+        return puiUnreadItemCount
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} puiItemCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    ItemCount(puiItemCount) {
-        puiItemCountMarshal := puiItemCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(46, this, puiItemCountMarshal, puiItemCount, "HRESULT")
-        return result
+    ItemCount() {
+        result := ComCall(46, this, "uint*", &puiItemCount := 0, "HRESULT")
+        return puiItemCount
     }
 }

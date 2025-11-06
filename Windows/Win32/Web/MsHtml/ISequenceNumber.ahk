@@ -31,13 +31,10 @@ class ISequenceNumber extends IUnknown{
     /**
      * 
      * @param {Integer} nCurrent 
-     * @param {Pointer<Integer>} pnNew 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetSequenceNumber(nCurrent, pnNew) {
-        pnNewMarshal := pnNew is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, "int", nCurrent, pnNewMarshal, pnNew, "HRESULT")
-        return result
+    GetSequenceNumber(nCurrent) {
+        result := ComCall(3, this, "int", nCurrent, "int*", &pnNew := 0, "HRESULT")
+        return pnNew
     }
 }

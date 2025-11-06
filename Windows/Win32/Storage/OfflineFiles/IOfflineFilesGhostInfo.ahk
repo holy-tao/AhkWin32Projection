@@ -32,12 +32,11 @@ class IOfflineFilesGhostInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbGhosted 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesghostinfo-isghosted
      */
-    IsGhosted(pbGhosted) {
-        result := ComCall(3, this, "ptr", pbGhosted, "HRESULT")
-        return result
+    IsGhosted() {
+        result := ComCall(3, this, "int*", &pbGhosted := 0, "HRESULT")
+        return pbGhosted
     }
 }

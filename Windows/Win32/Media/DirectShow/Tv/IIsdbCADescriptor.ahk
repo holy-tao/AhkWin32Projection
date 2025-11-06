@@ -32,81 +32,64 @@ class IIsdbCADescriptor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbcadescriptor-gettag
      */
-    GetTag(pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(3, this, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetTag() {
+        result := ComCall(3, this, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbcadescriptor-getlength
      */
-    GetLength(pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetLength() {
+        result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbcadescriptor-getcasystemid
      */
-    GetCASystemId(pwVal) {
-        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(5, this, pwValMarshal, pwVal, "HRESULT")
-        return result
+    GetCASystemId() {
+        result := ComCall(5, this, "ushort*", &pwVal := 0, "HRESULT")
+        return pwVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbcadescriptor-getreservedbits
      */
-    GetReservedBits(pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(6, this, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetReservedBits() {
+        result := ComCall(6, this, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbcadescriptor-getcapid
      */
-    GetCAPID(pwVal) {
-        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(7, this, pwValMarshal, pwVal, "HRESULT")
-        return result
+    GetCAPID() {
+        result := ComCall(7, this, "ushort*", &pwVal := 0, "HRESULT")
+        return pwVal
     }
 
     /**
      * 
      * @param {Pointer<Integer>} pbBufferLength 
-     * @param {Pointer<Integer>} pbBuffer 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbcadescriptor-getprivatedatabytes
      */
-    GetPrivateDataBytes(pbBufferLength, pbBuffer) {
+    GetPrivateDataBytes(pbBufferLength) {
         pbBufferLengthMarshal := pbBufferLength is VarRef ? "char*" : "ptr"
-        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(8, this, pbBufferLengthMarshal, pbBufferLength, pbBufferMarshal, pbBuffer, "HRESULT")
-        return result
+        result := ComCall(8, this, pbBufferLengthMarshal, pbBufferLength, "char*", &pbBuffer := 0, "HRESULT")
+        return pbBuffer
     }
 }

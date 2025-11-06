@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\BG_FILE_PROGRESS.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,34 +33,32 @@ class IBackgroundCopyFile extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopyfile-getremotename
      */
-    GetRemoteName(pVal) {
-        result := ComCall(3, this, "ptr", pVal, "HRESULT")
-        return result
+    GetRemoteName() {
+        result := ComCall(3, this, "ptr*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopyfile-getlocalname
      */
-    GetLocalName(pVal) {
-        result := ComCall(4, this, "ptr", pVal, "HRESULT")
-        return result
+    GetLocalName() {
+        result := ComCall(4, this, "ptr*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<BG_FILE_PROGRESS>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BG_FILE_PROGRESS} 
      * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopyfile-getprogress
      */
-    GetProgress(pVal) {
+    GetProgress() {
+        pVal := BG_FILE_PROGRESS()
         result := ComCall(5, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 }

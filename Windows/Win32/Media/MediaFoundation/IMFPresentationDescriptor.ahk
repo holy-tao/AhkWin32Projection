@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFPresentationDescriptor.ahk
 #Include .\IMFAttributes.ahk
 
 /**
@@ -44,15 +45,12 @@ class IMFPresentationDescriptor extends IMFAttributes{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwDescriptorCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfpresentationdescriptor-getstreamdescriptorcount
      */
-    GetStreamDescriptorCount(pdwDescriptorCount) {
-        pdwDescriptorCountMarshal := pdwDescriptorCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(33, this, pdwDescriptorCountMarshal, pdwDescriptorCount, "HRESULT")
-        return result
+    GetStreamDescriptorCount() {
+        result := ComCall(33, this, "uint*", &pdwDescriptorCount := 0, "HRESULT")
+        return pdwDescriptorCount
     }
 
     /**
@@ -64,7 +62,9 @@ class IMFPresentationDescriptor extends IMFAttributes{
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfpresentationdescriptor-getstreamdescriptorbyindex
      */
     GetStreamDescriptorByIndex(dwIndex, pfSelected, ppDescriptor) {
-        result := ComCall(34, this, "uint", dwIndex, "ptr", pfSelected, "ptr*", ppDescriptor, "HRESULT")
+        pfSelectedMarshal := pfSelected is VarRef ? "int*" : "ptr"
+
+        result := ComCall(34, this, "uint", dwIndex, pfSelectedMarshal, pfSelected, "ptr*", ppDescriptor, "HRESULT")
         return result
     }
 
@@ -92,12 +92,11 @@ class IMFPresentationDescriptor extends IMFAttributes{
 
     /**
      * 
-     * @param {Pointer<IMFPresentationDescriptor>} ppPresentationDescriptor 
-     * @returns {HRESULT} 
+     * @returns {IMFPresentationDescriptor} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfpresentationdescriptor-clone
      */
-    Clone(ppPresentationDescriptor) {
-        result := ComCall(37, this, "ptr*", ppPresentationDescriptor, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(37, this, "ptr*", &ppPresentationDescriptor := 0, "HRESULT")
+        return IMFPresentationDescriptor(ppPresentationDescriptor)
     }
 }

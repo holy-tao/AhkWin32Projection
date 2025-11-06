@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\SUBSCRIPTIONITEMINFO.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include .\IEnumItemProperties.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -30,22 +33,22 @@ class ISubscriptionItem extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pCookie 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    GetCookie(pCookie) {
+    GetCookie() {
+        pCookie := Guid()
         result := ComCall(3, this, "ptr", pCookie, "HRESULT")
-        return result
+        return pCookie
     }
 
     /**
      * 
-     * @param {Pointer<SUBSCRIPTIONITEMINFO>} pSubscriptionItemInfo 
-     * @returns {HRESULT} 
+     * @returns {SUBSCRIPTIONITEMINFO} 
      */
-    GetSubscriptionItemInfo(pSubscriptionItemInfo) {
+    GetSubscriptionItemInfo() {
+        pSubscriptionItemInfo := SUBSCRIPTIONITEMINFO()
         result := ComCall(4, this, "ptr", pSubscriptionItemInfo, "HRESULT")
-        return result
+        return pSubscriptionItemInfo
     }
 
     /**
@@ -62,12 +65,14 @@ class ISubscriptionItem extends IUnknown{
      * 
      * @param {Integer} nCount 
      * @param {Pointer<PWSTR>} rgwszName 
-     * @param {Pointer<VARIANT>} rgValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    ReadProperties(nCount, rgwszName, rgValue) {
-        result := ComCall(6, this, "uint", nCount, "ptr", rgwszName, "ptr", rgValue, "HRESULT")
-        return result
+    ReadProperties(nCount, rgwszName) {
+        rgwszNameMarshal := rgwszName is VarRef ? "ptr*" : "ptr"
+
+        rgValue := VARIANT()
+        result := ComCall(6, this, "uint", nCount, rgwszNameMarshal, rgwszName, "ptr", rgValue, "HRESULT")
+        return rgValue
     }
 
     /**
@@ -78,18 +83,19 @@ class ISubscriptionItem extends IUnknown{
      * @returns {HRESULT} 
      */
     WriteProperties(nCount, rgwszName, rgValue) {
-        result := ComCall(7, this, "uint", nCount, "ptr", rgwszName, "ptr", rgValue, "HRESULT")
+        rgwszNameMarshal := rgwszName is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "uint", nCount, rgwszNameMarshal, rgwszName, "ptr", rgValue, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<IEnumItemProperties>} ppEnumItemProperties 
-     * @returns {HRESULT} 
+     * @returns {IEnumItemProperties} 
      */
-    EnumProperties(ppEnumItemProperties) {
-        result := ComCall(8, this, "ptr*", ppEnumItemProperties, "HRESULT")
-        return result
+    EnumProperties() {
+        result := ComCall(8, this, "ptr*", &ppEnumItemProperties := 0, "HRESULT")
+        return IEnumItemProperties(ppEnumItemProperties)
     }
 
     /**

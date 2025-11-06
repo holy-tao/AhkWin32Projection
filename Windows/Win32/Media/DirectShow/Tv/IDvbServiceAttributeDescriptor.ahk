@@ -30,72 +30,58 @@ class IDvbServiceAttributeDescriptor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetTag(pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(3, this, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetTag() {
+        result := ComCall(3, this, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetLength(pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetLength() {
+        result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetCountOfRecords(pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(5, this, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetCountOfRecords() {
+        result := ComCall(5, this, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
      * @param {Integer} bRecordIndex 
-     * @param {Pointer<Integer>} pwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetRecordServiceId(bRecordIndex, pwVal) {
-        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(6, this, "char", bRecordIndex, pwValMarshal, pwVal, "HRESULT")
-        return result
+    GetRecordServiceId(bRecordIndex) {
+        result := ComCall(6, this, "char", bRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
+        return pwVal
     }
 
     /**
      * 
      * @param {Integer} bRecordIndex 
-     * @param {Pointer<BOOL>} pfVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    GetRecordNumericSelectionFlag(bRecordIndex, pfVal) {
-        result := ComCall(7, this, "char", bRecordIndex, "ptr", pfVal, "HRESULT")
-        return result
+    GetRecordNumericSelectionFlag(bRecordIndex) {
+        result := ComCall(7, this, "char", bRecordIndex, "int*", &pfVal := 0, "HRESULT")
+        return pfVal
     }
 
     /**
      * 
      * @param {Integer} bRecordIndex 
-     * @param {Pointer<BOOL>} pfVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    GetRecordVisibleServiceFlag(bRecordIndex, pfVal) {
-        result := ComCall(8, this, "char", bRecordIndex, "ptr", pfVal, "HRESULT")
-        return result
+    GetRecordVisibleServiceFlag(bRecordIndex) {
+        result := ComCall(8, this, "char", bRecordIndex, "int*", &pfVal := 0, "HRESULT")
+        return pfVal
     }
 }

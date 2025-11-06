@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IStream.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -45,12 +46,11 @@ class IImageRecompress extends IUnknown{
      * @param {Integer} cy 
      * @param {Integer} iQuality 
      * @param {IStorage} pstg 
-     * @param {Pointer<IStream>} ppstrmOut 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iimagerecompress-recompressimage
      */
-    RecompressImage(psi, cx, cy, iQuality, pstg, ppstrmOut) {
-        result := ComCall(3, this, "ptr", psi, "int", cx, "int", cy, "int", iQuality, "ptr", pstg, "ptr*", ppstrmOut, "HRESULT")
-        return result
+    RecompressImage(psi, cx, cy, iQuality, pstg) {
+        result := ComCall(3, this, "ptr", psi, "int", cx, "int", cy, "int", iQuality, "ptr", pstg, "ptr*", &ppstrmOut := 0, "HRESULT")
+        return IStream(ppstrmOut)
     }
 }

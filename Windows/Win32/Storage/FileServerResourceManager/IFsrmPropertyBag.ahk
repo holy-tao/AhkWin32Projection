@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IFsrmProperty.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -50,213 +52,197 @@ class IFsrmPropertyBag extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_name
      */
-    get_Name(name) {
+    get_Name() {
+        name := BSTR()
         result := ComCall(7, this, "ptr", name, "HRESULT")
-        return result
+        return name
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} path 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_relativepath
      */
-    get_RelativePath(path) {
+    get_RelativePath() {
+        path := BSTR()
         result := ComCall(8, this, "ptr", path, "HRESULT")
-        return result
+        return path
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} volumeName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_volumename
      */
-    get_VolumeName(volumeName) {
+    get_VolumeName() {
+        volumeName := BSTR()
         result := ComCall(9, this, "ptr", volumeName, "HRESULT")
-        return result
+        return volumeName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} relativeNamespaceRoot 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_relativenamespaceroot
      */
-    get_RelativeNamespaceRoot(relativeNamespaceRoot) {
+    get_RelativeNamespaceRoot() {
+        relativeNamespaceRoot := BSTR()
         result := ComCall(10, this, "ptr", relativeNamespaceRoot, "HRESULT")
-        return result
+        return relativeNamespaceRoot
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} volumeId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_volumeindex
      */
-    get_VolumeIndex(volumeId) {
-        volumeIdMarshal := volumeId is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, volumeIdMarshal, volumeId, "HRESULT")
-        return result
+    get_VolumeIndex() {
+        result := ComCall(11, this, "uint*", &volumeId := 0, "HRESULT")
+        return volumeId
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} fileId 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_fileid
      */
-    get_FileId(fileId) {
+    get_FileId() {
+        fileId := VARIANT()
         result := ComCall(12, this, "ptr", fileId, "HRESULT")
-        return result
+        return fileId
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} parentDirectoryId 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_parentdirectoryid
      */
-    get_ParentDirectoryId(parentDirectoryId) {
+    get_ParentDirectoryId() {
+        parentDirectoryId := VARIANT()
         result := ComCall(13, this, "ptr", parentDirectoryId, "HRESULT")
-        return result
+        return parentDirectoryId
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} size 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_size
      */
-    get_Size(size) {
+    get_Size() {
+        size := VARIANT()
         result := ComCall(14, this, "ptr", size, "HRESULT")
-        return result
+        return size
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} sizeAllocated 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_sizeallocated
      */
-    get_SizeAllocated(sizeAllocated) {
+    get_SizeAllocated() {
+        sizeAllocated := VARIANT()
         result := ComCall(15, this, "ptr", sizeAllocated, "HRESULT")
-        return result
+        return sizeAllocated
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} creationTime 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_creationtime
      */
-    get_CreationTime(creationTime) {
+    get_CreationTime() {
+        creationTime := VARIANT()
         result := ComCall(16, this, "ptr", creationTime, "HRESULT")
-        return result
+        return creationTime
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} lastAccessTime 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_lastaccesstime
      */
-    get_LastAccessTime(lastAccessTime) {
+    get_LastAccessTime() {
+        lastAccessTime := VARIANT()
         result := ComCall(17, this, "ptr", lastAccessTime, "HRESULT")
-        return result
+        return lastAccessTime
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} lastModificationTime 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_lastmodificationtime
      */
-    get_LastModificationTime(lastModificationTime) {
+    get_LastModificationTime() {
+        lastModificationTime := VARIANT()
         result := ComCall(18, this, "ptr", lastModificationTime, "HRESULT")
-        return result
+        return lastModificationTime
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} attributes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_attributes
      */
-    get_Attributes(attributes) {
-        attributesMarshal := attributes is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(19, this, attributesMarshal, attributes, "HRESULT")
-        return result
+    get_Attributes() {
+        result := ComCall(19, this, "uint*", &attributes := 0, "HRESULT")
+        return attributes
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} ownerSid 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_ownersid
      */
-    get_OwnerSid(ownerSid) {
+    get_OwnerSid() {
+        ownerSid := BSTR()
         result := ComCall(20, this, "ptr", ownerSid, "HRESULT")
-        return result
+        return ownerSid
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} filePropertyNames 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_filepropertynames
      */
-    get_FilePropertyNames(filePropertyNames) {
-        filePropertyNamesMarshal := filePropertyNames is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(21, this, filePropertyNamesMarshal, filePropertyNames, "HRESULT")
-        return result
+    get_FilePropertyNames() {
+        result := ComCall(21, this, "ptr*", &filePropertyNames := 0, "HRESULT")
+        return filePropertyNames
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} messages 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_messages
      */
-    get_Messages(messages) {
-        messagesMarshal := messages is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(22, this, messagesMarshal, messages, "HRESULT")
-        return result
+    get_Messages() {
+        result := ComCall(22, this, "ptr*", &messages := 0, "HRESULT")
+        return messages
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} flags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_propertybagflags
      */
-    get_PropertyBagFlags(flags) {
-        flagsMarshal := flags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(23, this, flagsMarshal, flags, "HRESULT")
-        return result
+    get_PropertyBagFlags() {
+        result := ComCall(23, this, "uint*", &flags := 0, "HRESULT")
+        return flags
     }
 
     /**
      * 
      * @param {BSTR} name 
-     * @param {Pointer<IFsrmProperty>} fileProperty 
-     * @returns {HRESULT} 
+     * @returns {IFsrmProperty} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-getfileproperty
      */
-    GetFileProperty(name, fileProperty) {
+    GetFileProperty(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(24, this, "ptr", name, "ptr*", fileProperty, "HRESULT")
-        return result
+        result := ComCall(24, this, "ptr", name, "ptr*", &fileProperty := 0, "HRESULT")
+        return IFsrmProperty(fileProperty)
     }
 
     /**
@@ -291,12 +277,12 @@ class IFsrmPropertyBag extends IDispatch{
      * 
      * @param {Integer} accessMode 
      * @param {Integer} interfaceType 
-     * @param {Pointer<VARIANT>} pStreamInterface 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-getfilestreaminterface
      */
-    GetFileStreamInterface(accessMode, interfaceType, pStreamInterface) {
+    GetFileStreamInterface(accessMode, interfaceType) {
+        pStreamInterface := VARIANT()
         result := ComCall(27, this, "int", accessMode, "int", interfaceType, "ptr", pStreamInterface, "HRESULT")
-        return result
+        return pStreamInterface
     }
 }

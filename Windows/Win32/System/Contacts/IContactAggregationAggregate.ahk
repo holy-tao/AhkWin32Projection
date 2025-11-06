@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IContactAggregationContactCollection.ahk
+#Include .\IContactAggregationGroupCollection.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -39,12 +41,11 @@ class IContactAggregationAggregate extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IContactAggregationContactCollection>} pComponentItems 
-     * @returns {HRESULT} 
+     * @returns {IContactAggregationContactCollection} 
      */
-    GetComponentItems(pComponentItems) {
-        result := ComCall(4, this, "ptr*", pComponentItems, "HRESULT")
-        return result
+    GetComponentItems() {
+        result := ComCall(4, this, "ptr*", &pComponentItems := 0, "HRESULT")
+        return IContactAggregationContactCollection(pComponentItems)
     }
 
     /**
@@ -62,22 +63,20 @@ class IContactAggregationAggregate extends IUnknown{
     /**
      * 
      * @param {Integer} options 
-     * @param {Pointer<IContactAggregationGroupCollection>} ppGroups 
-     * @returns {HRESULT} 
+     * @returns {IContactAggregationGroupCollection} 
      */
-    get_Groups(options, ppGroups) {
-        result := ComCall(6, this, "int", options, "ptr*", ppGroups, "HRESULT")
-        return result
+    get_Groups(options) {
+        result := ComCall(6, this, "int", options, "ptr*", &ppGroups := 0, "HRESULT")
+        return IContactAggregationGroupCollection(ppGroups)
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppAntiLink 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    get_AntiLink(ppAntiLink) {
-        result := ComCall(7, this, "ptr", ppAntiLink, "HRESULT")
-        return result
+    get_AntiLink() {
+        result := ComCall(7, this, "ptr*", &ppAntiLink := 0, "HRESULT")
+        return ppAntiLink
     }
 
     /**
@@ -94,14 +93,11 @@ class IContactAggregationAggregate extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pFavoriteOrder 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_FavoriteOrder(pFavoriteOrder) {
-        pFavoriteOrderMarshal := pFavoriteOrder is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, pFavoriteOrderMarshal, pFavoriteOrder, "HRESULT")
-        return result
+    get_FavoriteOrder() {
+        result := ComCall(9, this, "uint*", &pFavoriteOrder := 0, "HRESULT")
+        return pFavoriteOrder
     }
 
     /**
@@ -116,11 +112,10 @@ class IContactAggregationAggregate extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppItemId 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    get_Id(ppItemId) {
-        result := ComCall(11, this, "ptr", ppItemId, "HRESULT")
-        return result
+    get_Id() {
+        result := ComCall(11, this, "ptr*", &ppItemId := 0, "HRESULT")
+        return ppItemId
     }
 }

@@ -59,13 +59,12 @@ class IHomePage extends IDispatch{
     /**
      * 
      * @param {BSTR} bstrURL 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    isHomePage(bstrURL, p) {
+    isHomePage(bstrURL) {
         bstrURL := bstrURL is String ? BSTR.Alloc(bstrURL).Value : bstrURL
 
-        result := ComCall(9, this, "ptr", bstrURL, "ptr", p, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", bstrURL, "short*", &p := 0, "HRESULT")
+        return p
     }
 }

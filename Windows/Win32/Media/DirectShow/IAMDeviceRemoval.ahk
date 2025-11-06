@@ -38,7 +38,9 @@ class IAMDeviceRemoval extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamdeviceremoval-deviceinfo
      */
     DeviceInfo(pclsidInterfaceClass, pwszSymbolicLink) {
-        result := ComCall(3, this, "ptr", pclsidInterfaceClass, "ptr", pwszSymbolicLink, "HRESULT")
+        pwszSymbolicLinkMarshal := pwszSymbolicLink is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pclsidInterfaceClass, pwszSymbolicLinkMarshal, pwszSymbolicLink, "HRESULT")
         return result
     }
 

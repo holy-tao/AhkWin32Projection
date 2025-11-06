@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -33,13 +34,13 @@ class IAzApplicationGroup extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-get_name
      */
-    get_Name(pbstrName) {
+    get_Name() {
+        pbstrName := BSTR()
         result := ComCall(7, this, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 
     /**
@@ -57,15 +58,12 @@ class IAzApplicationGroup extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plProp 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-get_type
      */
-    get_Type(plProp) {
-        plPropMarshal := plProp is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, plPropMarshal, plProp, "HRESULT")
-        return result
+    get_Type() {
+        result := ComCall(9, this, "int*", &plProp := 0, "HRESULT")
+        return plProp
     }
 
     /**
@@ -81,13 +79,13 @@ class IAzApplicationGroup extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrProp 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-get_ldapquery
      */
-    get_LdapQuery(pbstrProp) {
+    get_LdapQuery() {
+        pbstrProp := BSTR()
         result := ComCall(11, this, "ptr", pbstrProp, "HRESULT")
-        return result
+        return pbstrProp
     }
 
     /**
@@ -105,57 +103,57 @@ class IAzApplicationGroup extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarProp 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-get_appmembers
      */
-    get_AppMembers(pvarProp) {
+    get_AppMembers() {
+        pvarProp := VARIANT()
         result := ComCall(13, this, "ptr", pvarProp, "HRESULT")
-        return result
+        return pvarProp
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarProp 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-get_appnonmembers
      */
-    get_AppNonMembers(pvarProp) {
+    get_AppNonMembers() {
+        pvarProp := VARIANT()
         result := ComCall(14, this, "ptr", pvarProp, "HRESULT")
-        return result
+        return pvarProp
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarProp 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-get_members
      */
-    get_Members(pvarProp) {
+    get_Members() {
+        pvarProp := VARIANT()
         result := ComCall(15, this, "ptr", pvarProp, "HRESULT")
-        return result
+        return pvarProp
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarProp 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-get_nonmembers
      */
-    get_NonMembers(pvarProp) {
+    get_NonMembers() {
+        pvarProp := VARIANT()
         result := ComCall(16, this, "ptr", pvarProp, "HRESULT")
-        return result
+        return pvarProp
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrDescription 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-get_description
      */
-    get_Description(pbstrDescription) {
+    get_Description() {
+        pbstrDescription := BSTR()
         result := ComCall(17, this, "ptr", pbstrDescription, "HRESULT")
-        return result
+        return pbstrDescription
     }
 
     /**
@@ -285,26 +283,25 @@ class IAzApplicationGroup extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfProp 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-get_writable
      */
-    get_Writable(pfProp) {
-        result := ComCall(27, this, "ptr", pfProp, "HRESULT")
-        return result
+    get_Writable() {
+        result := ComCall(27, this, "int*", &pfProp := 0, "HRESULT")
+        return pfProp
     }
 
     /**
      * 
      * @param {Integer} lPropId 
      * @param {VARIANT} varReserved 
-     * @param {Pointer<VARIANT>} pvarProp 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-getproperty
      */
-    GetProperty(lPropId, varReserved, pvarProp) {
+    GetProperty(lPropId, varReserved) {
+        pvarProp := VARIANT()
         result := ComCall(28, this, "int", lPropId, "ptr", varReserved, "ptr", pvarProp, "HRESULT")
-        return result
+        return pvarProp
     }
 
     /**
@@ -416,23 +413,23 @@ class IAzApplicationGroup extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarProp 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-get_membersname
      */
-    get_MembersName(pvarProp) {
+    get_MembersName() {
+        pvarProp := VARIANT()
         result := ComCall(37, this, "ptr", pvarProp, "HRESULT")
-        return result
+        return pvarProp
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarProp 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplicationgroup-get_nonmembersname
      */
-    get_NonMembersName(pvarProp) {
+    get_NonMembersName() {
+        pvarProp := VARIANT()
         result := ComCall(38, this, "ptr", pvarProp, "HRESULT")
-        return result
+        return pvarProp
     }
 }

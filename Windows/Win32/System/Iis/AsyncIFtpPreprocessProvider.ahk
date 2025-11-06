@@ -46,13 +46,10 @@ class AsyncIFtpPreprocessProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pFtpProcessStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Finish_HandlePreprocess(pFtpProcessStatus) {
-        pFtpProcessStatusMarshal := pFtpProcessStatus is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, pFtpProcessStatusMarshal, pFtpProcessStatus, "HRESULT")
-        return result
+    Finish_HandlePreprocess() {
+        result := ComCall(4, this, "int*", &pFtpProcessStatus := 0, "HRESULT")
+        return pFtpProcessStatus
     }
 }

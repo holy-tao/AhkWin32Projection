@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\MFARGB.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,35 +31,29 @@ class IMFTimedTextBouten extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetBoutenType(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, valueMarshal, value, "HRESULT")
-        return result
+    GetBoutenType() {
+        result := ComCall(3, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<MFARGB>} value 
-     * @returns {HRESULT} 
+     * @returns {MFARGB} 
      */
-    GetBoutenColor(value) {
+    GetBoutenColor() {
+        value := MFARGB()
         result := ComCall(4, this, "ptr", value, "HRESULT")
-        return result
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetBoutenPosition(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, valueMarshal, value, "HRESULT")
-        return result
+    GetBoutenPosition() {
+        result := ComCall(5, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 }

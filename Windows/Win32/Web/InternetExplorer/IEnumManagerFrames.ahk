@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumManagerFrames.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -45,14 +46,11 @@ class IEnumManagerFrames extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcelt 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Count(pcelt) {
-        pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pceltMarshal, pcelt, "HRESULT")
-        return result
+    Count() {
+        result := ComCall(4, this, "uint*", &pcelt := 0, "HRESULT")
+        return pcelt
     }
 
     /**
@@ -76,11 +74,10 @@ class IEnumManagerFrames extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumManagerFrames>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumManagerFrames} 
      */
-    Clone(ppEnum) {
-        result := ComCall(7, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(7, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumManagerFrames(ppEnum)
     }
 }

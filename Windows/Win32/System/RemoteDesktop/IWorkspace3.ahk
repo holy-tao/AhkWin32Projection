@@ -38,16 +38,16 @@ class IWorkspace3 extends IWorkspace2{
      * @param {Integer} claimCookie 
      * @param {Integer} hwndCredUiParent 
      * @param {RECT} rectCredUiParent 
-     * @param {Pointer<BSTR>} pbstrAccessToken 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/workspaceruntime/nf-workspaceruntime-iworkspace3-getclaimstoken2
      */
-    GetClaimsToken2(bstrClaimsHint, bstrUserHint, claimCookie, hwndCredUiParent, rectCredUiParent, pbstrAccessToken) {
+    GetClaimsToken2(bstrClaimsHint, bstrUserHint, claimCookie, hwndCredUiParent, rectCredUiParent) {
         bstrClaimsHint := bstrClaimsHint is String ? BSTR.Alloc(bstrClaimsHint).Value : bstrClaimsHint
         bstrUserHint := bstrUserHint is String ? BSTR.Alloc(bstrUserHint).Value : bstrUserHint
 
+        pbstrAccessToken := BSTR()
         result := ComCall(7, this, "ptr", bstrClaimsHint, "ptr", bstrUserHint, "uint", claimCookie, "uint", hwndCredUiParent, "ptr", rectCredUiParent, "ptr", pbstrAccessToken, "HRESULT")
-        return result
+        return pbstrAccessToken
     }
 
     /**

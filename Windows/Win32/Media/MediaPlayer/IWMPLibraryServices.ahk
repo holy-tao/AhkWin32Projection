@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWMPLibrary.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -48,12 +49,11 @@ class IWMPLibraryServices extends IUnknown{
      * 
      * @param {Integer} wmplt 
      * @param {Integer} lIndex 
-     * @param {Pointer<IWMPLibrary>} ppIWMPLibrary 
-     * @returns {HRESULT} 
+     * @returns {IWMPLibrary} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmplibraryservices-getlibrarybytype
      */
-    getLibraryByType(wmplt, lIndex, ppIWMPLibrary) {
-        result := ComCall(4, this, "int", wmplt, "int", lIndex, "ptr*", ppIWMPLibrary, "HRESULT")
-        return result
+    getLibraryByType(wmplt, lIndex) {
+        result := ComCall(4, this, "int", wmplt, "int", lIndex, "ptr*", &ppIWMPLibrary := 0, "HRESULT")
+        return IWMPLibrary(ppIWMPLibrary)
     }
 }

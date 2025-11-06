@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IPAT.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -54,83 +55,65 @@ class IPAT extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipat-gettransportstreamid
      */
-    GetTransportStreamId(pwVal) {
-        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(4, this, pwValMarshal, pwVal, "HRESULT")
-        return result
+    GetTransportStreamId() {
+        result := ComCall(4, this, "ushort*", &pwVal := 0, "HRESULT")
+        return pwVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipat-getversionnumber
      */
-    GetVersionNumber(pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(5, this, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetVersionNumber() {
+        result := ComCall(5, this, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipat-getcountofrecords
      */
-    GetCountOfRecords(pdwVal) {
-        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pdwValMarshal, pdwVal, "HRESULT")
-        return result
+    GetCountOfRecords() {
+        result := ComCall(6, this, "uint*", &pdwVal := 0, "HRESULT")
+        return pdwVal
     }
 
     /**
      * 
      * @param {Integer} dwIndex 
-     * @param {Pointer<Integer>} pwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipat-getrecordprogramnumber
      */
-    GetRecordProgramNumber(dwIndex, pwVal) {
-        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(7, this, "uint", dwIndex, pwValMarshal, pwVal, "HRESULT")
-        return result
+    GetRecordProgramNumber(dwIndex) {
+        result := ComCall(7, this, "uint", dwIndex, "ushort*", &pwVal := 0, "HRESULT")
+        return pwVal
     }
 
     /**
      * 
      * @param {Integer} dwIndex 
-     * @param {Pointer<Integer>} pwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipat-getrecordprogrammappid
      */
-    GetRecordProgramMapPid(dwIndex, pwVal) {
-        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(8, this, "uint", dwIndex, pwValMarshal, pwVal, "HRESULT")
-        return result
+    GetRecordProgramMapPid(dwIndex) {
+        result := ComCall(8, this, "uint", dwIndex, "ushort*", &pwVal := 0, "HRESULT")
+        return pwVal
     }
 
     /**
      * 
      * @param {Integer} wProgramNumber 
-     * @param {Pointer<Integer>} pwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipat-findrecordprogrammappid
      */
-    FindRecordProgramMapPid(wProgramNumber, pwVal) {
-        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(9, this, "ushort", wProgramNumber, pwValMarshal, pwVal, "HRESULT")
-        return result
+    FindRecordProgramMapPid(wProgramNumber) {
+        result := ComCall(9, this, "ushort", wProgramNumber, "ushort*", &pwVal := 0, "HRESULT")
+        return pwVal
     }
 
     /**
@@ -148,13 +131,12 @@ class IPAT extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IPAT>} ppPAT 
-     * @returns {HRESULT} 
+     * @returns {IPAT} 
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipat-getnexttable
      */
-    GetNextTable(ppPAT) {
-        result := ComCall(11, this, "ptr*", ppPAT, "HRESULT")
-        return result
+    GetNextTable() {
+        result := ComCall(11, this, "ptr*", &ppPAT := 0, "HRESULT")
+        return IPAT(ppPAT)
     }
 
     /**

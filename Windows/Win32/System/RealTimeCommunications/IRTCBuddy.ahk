@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\IRTCPresenceContact.ahk
 
 /**
@@ -30,23 +31,20 @@ class IRTCBuddy extends IRTCPresenceContact{
 
     /**
      * 
-     * @param {Pointer<Integer>} penStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Status(penStatus) {
-        penStatusMarshal := penStatus is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, penStatusMarshal, penStatus, "HRESULT")
-        return result
+    get_Status() {
+        result := ComCall(11, this, "int*", &penStatus := 0, "HRESULT")
+        return penStatus
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrNotes 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Notes(pbstrNotes) {
+    get_Notes() {
+        pbstrNotes := BSTR()
         result := ComCall(12, this, "ptr", pbstrNotes, "HRESULT")
-        return result
+        return pbstrNotes
     }
 }

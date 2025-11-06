@@ -38,43 +38,34 @@ class IMFDXGIBuffer extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvObject 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfdxgibuffer-getresource
      */
-    GetResource(riid, ppvObject) {
-        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", riid, ppvObjectMarshal, ppvObject, "HRESULT")
-        return result
+    GetResource(riid) {
+        result := ComCall(3, this, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
+        return ppvObject
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} puSubresource 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfdxgibuffer-getsubresourceindex
      */
-    GetSubresourceIndex(puSubresource) {
-        puSubresourceMarshal := puSubresource is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, puSubresourceMarshal, puSubresource, "HRESULT")
-        return result
+    GetSubresourceIndex() {
+        result := ComCall(4, this, "uint*", &puSubresource := 0, "HRESULT")
+        return puSubresource
     }
 
     /**
      * 
      * @param {Pointer<Guid>} guid 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvObject 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfdxgibuffer-getunknown
      */
-    GetUnknown(guid, riid, ppvObject) {
-        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, "ptr", guid, "ptr", riid, ppvObjectMarshal, ppvObject, "HRESULT")
-        return result
+    GetUnknown(guid, riid) {
+        result := ComCall(5, this, "ptr", guid, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
+        return ppvObject
     }
 
     /**

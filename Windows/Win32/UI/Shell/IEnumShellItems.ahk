@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumShellItems.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -68,12 +69,11 @@ class IEnumShellItems extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumShellItems>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IEnumShellItems} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ienumshellitems-clone
      */
-    Clone(ppenum) {
-        result := ComCall(6, this, "ptr*", ppenum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")
+        return IEnumShellItems(ppenum)
     }
 }

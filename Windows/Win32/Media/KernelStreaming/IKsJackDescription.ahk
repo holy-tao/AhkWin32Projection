@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\KSJACK_DESCRIPTION.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -63,26 +64,23 @@ class IKsJackDescription extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcJacks 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iksjackdescription-getjackcount
      */
-    GetJackCount(pcJacks) {
-        pcJacksMarshal := pcJacks is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pcJacksMarshal, pcJacks, "HRESULT")
-        return result
+    GetJackCount() {
+        result := ComCall(3, this, "uint*", &pcJacks := 0, "HRESULT")
+        return pcJacks
     }
 
     /**
      * 
      * @param {Integer} nJack 
-     * @param {Pointer<KSJACK_DESCRIPTION>} pDescription 
-     * @returns {HRESULT} 
+     * @returns {KSJACK_DESCRIPTION} 
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iksjackdescription-getjackdescription
      */
-    GetJackDescription(nJack, pDescription) {
+    GetJackDescription(nJack) {
+        pDescription := KSJACK_DESCRIPTION()
         result := ComCall(4, this, "uint", nJack, "ptr", pDescription, "HRESULT")
-        return result
+        return pDescription
     }
 }

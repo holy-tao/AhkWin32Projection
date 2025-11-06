@@ -50,13 +50,13 @@ class IRegisteredSyncProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pguidInstanceId 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-iregisteredsyncprovider-getinstanceid
      */
-    GetInstanceId(pguidInstanceId) {
+    GetInstanceId() {
+        pguidInstanceId := Guid()
         result := ComCall(4, this, "ptr", pguidInstanceId, "HRESULT")
-        return result
+        return pguidInstanceId
     }
 
     /**

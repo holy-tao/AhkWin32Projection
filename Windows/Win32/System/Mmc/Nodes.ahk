@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\Node.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -36,34 +38,29 @@ class Nodes extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__NewEnum(retval) {
-        result := ComCall(7, this, "ptr*", retval, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(7, this, "ptr*", &retval := 0, "HRESULT")
+        return IUnknown(retval)
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<Node>} Node 
-     * @returns {HRESULT} 
+     * @returns {Node} 
      */
-    Item(Index, Node) {
-        result := ComCall(8, this, "int", Index, "ptr*", Node, "HRESULT")
-        return result
+    Item(Index) {
+        result := ComCall(8, this, "int", Index, "ptr*", &Node := 0, "HRESULT")
+        return Node(Node)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Count(Count) {
-        CountMarshal := Count is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, CountMarshal, Count, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(9, this, "int*", &Count := 0, "HRESULT")
+        return Count
     }
 }

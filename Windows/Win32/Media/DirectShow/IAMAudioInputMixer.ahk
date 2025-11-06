@@ -43,13 +43,12 @@ class IAMAudioInputMixer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfEnable 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamaudioinputmixer-get_enable
      */
-    get_Enable(pfEnable) {
-        result := ComCall(4, this, "ptr", pfEnable, "HRESULT")
-        return result
+    get_Enable() {
+        result := ComCall(4, this, "int*", &pfEnable := 0, "HRESULT")
+        return pfEnable
     }
 
     /**
@@ -65,13 +64,12 @@ class IAMAudioInputMixer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfMono 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamaudioinputmixer-get_mono
      */
-    get_Mono(pfMono) {
-        result := ComCall(6, this, "ptr", pfMono, "HRESULT")
-        return result
+    get_Mono() {
+        result := ComCall(6, this, "int*", &pfMono := 0, "HRESULT")
+        return pfMono
     }
 
     /**
@@ -87,15 +85,12 @@ class IAMAudioInputMixer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} pLevel 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamaudioinputmixer-get_mixlevel
      */
-    get_MixLevel(pLevel) {
-        pLevelMarshal := pLevel is VarRef ? "double*" : "ptr"
-
-        result := ComCall(8, this, pLevelMarshal, pLevel, "HRESULT")
-        return result
+    get_MixLevel() {
+        result := ComCall(8, this, "double*", &pLevel := 0, "HRESULT")
+        return pLevel
     }
 
     /**
@@ -111,15 +106,12 @@ class IAMAudioInputMixer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} pPan 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamaudioinputmixer-get_pan
      */
-    get_Pan(pPan) {
-        pPanMarshal := pPan is VarRef ? "double*" : "ptr"
-
-        result := ComCall(10, this, pPanMarshal, pPan, "HRESULT")
-        return result
+    get_Pan() {
+        result := ComCall(10, this, "double*", &pPan := 0, "HRESULT")
+        return pPan
     }
 
     /**
@@ -135,13 +127,12 @@ class IAMAudioInputMixer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfLoudness 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamaudioinputmixer-get_loudness
      */
-    get_Loudness(pfLoudness) {
-        result := ComCall(12, this, "ptr", pfLoudness, "HRESULT")
-        return result
+    get_Loudness() {
+        result := ComCall(12, this, "int*", &pfLoudness := 0, "HRESULT")
+        return pfLoudness
     }
 
     /**
@@ -157,28 +148,22 @@ class IAMAudioInputMixer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} pTreble 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamaudioinputmixer-get_treble
      */
-    get_Treble(pTreble) {
-        pTrebleMarshal := pTreble is VarRef ? "double*" : "ptr"
-
-        result := ComCall(14, this, pTrebleMarshal, pTreble, "HRESULT")
-        return result
+    get_Treble() {
+        result := ComCall(14, this, "double*", &pTreble := 0, "HRESULT")
+        return pTreble
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pRange 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamaudioinputmixer-get_treblerange
      */
-    get_TrebleRange(pRange) {
-        pRangeMarshal := pRange is VarRef ? "double*" : "ptr"
-
-        result := ComCall(15, this, pRangeMarshal, pRange, "HRESULT")
-        return result
+    get_TrebleRange() {
+        result := ComCall(15, this, "double*", &pRange := 0, "HRESULT")
+        return pRange
     }
 
     /**
@@ -194,27 +179,21 @@ class IAMAudioInputMixer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} pBass 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamaudioinputmixer-get_bass
      */
-    get_Bass(pBass) {
-        pBassMarshal := pBass is VarRef ? "double*" : "ptr"
-
-        result := ComCall(17, this, pBassMarshal, pBass, "HRESULT")
-        return result
+    get_Bass() {
+        result := ComCall(17, this, "double*", &pBass := 0, "HRESULT")
+        return pBass
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pRange 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamaudioinputmixer-get_bassrange
      */
-    get_BassRange(pRange) {
-        pRangeMarshal := pRange is VarRef ? "double*" : "ptr"
-
-        result := ComCall(18, this, pRangeMarshal, pRange, "HRESULT")
-        return result
+    get_BassRange() {
+        result := ComCall(18, this, "double*", &pRange := 0, "HRESULT")
+        return pRange
     }
 }

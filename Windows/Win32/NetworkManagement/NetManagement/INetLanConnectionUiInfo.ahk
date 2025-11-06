@@ -30,11 +30,11 @@ class INetLanConnectionUiInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pguid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    GetDeviceGuid(pguid) {
+    GetDeviceGuid() {
+        pguid := Guid()
         result := ComCall(3, this, "ptr", pguid, "HRESULT")
-        return result
+        return pguid
     }
 }

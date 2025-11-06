@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteFontList2.ahk
+#Include .\IDWriteFontSet1.ahk
 #Include .\IDWriteFontFamily1.ahk
 
 /**
@@ -34,23 +36,21 @@ class IDWriteFontFamily2 extends IDWriteFontFamily1{
      * 
      * @param {Pointer<DWRITE_FONT_AXIS_VALUE>} fontAxisValues 
      * @param {Integer} fontAxisValueCount 
-     * @param {Pointer<IDWriteFontList2>} matchingFonts 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontList2} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontfamily2-getmatchingfonts
      */
-    GetMatchingFonts(fontAxisValues, fontAxisValueCount, matchingFonts) {
-        result := ComCall(12, this, "ptr", fontAxisValues, "uint", fontAxisValueCount, "ptr*", matchingFonts, "HRESULT")
-        return result
+    GetMatchingFonts(fontAxisValues, fontAxisValueCount) {
+        result := ComCall(12, this, "ptr", fontAxisValues, "uint", fontAxisValueCount, "ptr*", &matchingFonts := 0, "HRESULT")
+        return IDWriteFontList2(matchingFonts)
     }
 
     /**
      * 
-     * @param {Pointer<IDWriteFontSet1>} fontSet 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontSet1} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontfamily2-getfontset
      */
-    GetFontSet(fontSet) {
-        result := ComCall(13, this, "ptr*", fontSet, "HRESULT")
-        return result
+    GetFontSet() {
+        result := ComCall(13, this, "ptr*", &fontSet := 0, "HRESULT")
+        return IDWriteFontSet1(fontSet)
     }
 }

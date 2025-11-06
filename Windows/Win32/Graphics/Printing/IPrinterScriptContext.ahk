@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IPrinterScriptablePropertyBag.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,31 +31,28 @@ class IPrinterScriptContext extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IPrinterScriptablePropertyBag>} ppPropertyBag 
-     * @returns {HRESULT} 
+     * @returns {IPrinterScriptablePropertyBag} 
      */
-    get_DriverProperties(ppPropertyBag) {
-        result := ComCall(7, this, "ptr*", ppPropertyBag, "HRESULT")
-        return result
+    get_DriverProperties() {
+        result := ComCall(7, this, "ptr*", &ppPropertyBag := 0, "HRESULT")
+        return IPrinterScriptablePropertyBag(ppPropertyBag)
     }
 
     /**
      * 
-     * @param {Pointer<IPrinterScriptablePropertyBag>} ppPropertyBag 
-     * @returns {HRESULT} 
+     * @returns {IPrinterScriptablePropertyBag} 
      */
-    get_QueueProperties(ppPropertyBag) {
-        result := ComCall(8, this, "ptr*", ppPropertyBag, "HRESULT")
-        return result
+    get_QueueProperties() {
+        result := ComCall(8, this, "ptr*", &ppPropertyBag := 0, "HRESULT")
+        return IPrinterScriptablePropertyBag(ppPropertyBag)
     }
 
     /**
      * 
-     * @param {Pointer<IPrinterScriptablePropertyBag>} ppPropertyBag 
-     * @returns {HRESULT} 
+     * @returns {IPrinterScriptablePropertyBag} 
      */
-    get_UserProperties(ppPropertyBag) {
-        result := ComCall(9, this, "ptr*", ppPropertyBag, "HRESULT")
-        return result
+    get_UserProperties() {
+        result := ComCall(9, this, "ptr*", &ppPropertyBag := 0, "HRESULT")
+        return IPrinterScriptablePropertyBag(ppPropertyBag)
     }
 }

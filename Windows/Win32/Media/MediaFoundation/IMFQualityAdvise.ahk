@@ -59,28 +59,22 @@ class IMFQualityAdvise extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} peDropMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfqualityadvise-getdropmode
      */
-    GetDropMode(peDropMode) {
-        peDropModeMarshal := peDropMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, peDropModeMarshal, peDropMode, "HRESULT")
-        return result
+    GetDropMode() {
+        result := ComCall(5, this, "int*", &peDropMode := 0, "HRESULT")
+        return peDropMode
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} peQualityLevel 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfqualityadvise-getqualitylevel
      */
-    GetQualityLevel(peQualityLevel) {
-        peQualityLevelMarshal := peQualityLevel is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, peQualityLevelMarshal, peQualityLevel, "HRESULT")
-        return result
+    GetQualityLevel() {
+        result := ComCall(6, this, "int*", &peQualityLevel := 0, "HRESULT")
+        return peQualityLevel
     }
 
     /**

@@ -40,38 +40,29 @@ class IHTMLMediaElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_currentTimeDouble(p) {
-        pMarshal := p is VarRef ? "double*" : "ptr"
-
-        result := ComCall(8, this, pMarshal, p, "HRESULT")
-        return result
+    get_currentTimeDouble() {
+        result := ComCall(8, this, "double*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_initialTimeDouble(p) {
-        pMarshal := p is VarRef ? "double*" : "ptr"
-
-        result := ComCall(9, this, pMarshal, p, "HRESULT")
-        return result
+    get_initialTimeDouble() {
+        result := ComCall(9, this, "double*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_durationDouble(p) {
-        pMarshal := p is VarRef ? "double*" : "ptr"
-
-        result := ComCall(10, this, pMarshal, p, "HRESULT")
-        return result
+    get_durationDouble() {
+        result := ComCall(10, this, "double*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -86,14 +77,11 @@ class IHTMLMediaElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_defaultPlaybackRateDouble(p) {
-        pMarshal := p is VarRef ? "double*" : "ptr"
-
-        result := ComCall(12, this, pMarshal, p, "HRESULT")
-        return result
+    get_defaultPlaybackRateDouble() {
+        result := ComCall(12, this, "double*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -108,14 +96,11 @@ class IHTMLMediaElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_playbackRateDouble(p) {
-        pMarshal := p is VarRef ? "double*" : "ptr"
-
-        result := ComCall(14, this, pMarshal, p, "HRESULT")
-        return result
+    get_playbackRateDouble() {
+        result := ComCall(14, this, "double*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -130,13 +115,10 @@ class IHTMLMediaElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_volumeDouble(p) {
-        pMarshal := p is VarRef ? "double*" : "ptr"
-
-        result := ComCall(16, this, pMarshal, p, "HRESULT")
-        return result
+    get_volumeDouble() {
+        result := ComCall(16, this, "double*", &p := 0, "HRESULT")
+        return p
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITypeInfo.ahk
 #Include .\IUnknown.ahk
 
 /**
@@ -32,28 +33,24 @@ class IDispatch extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pctinfo 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-idispatch-gettypeinfocount
      */
-    GetTypeInfoCount(pctinfo) {
-        pctinfoMarshal := pctinfo is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pctinfoMarshal, pctinfo, "HRESULT")
-        return result
+    GetTypeInfoCount() {
+        result := ComCall(3, this, "uint*", &pctinfo := 0, "HRESULT")
+        return pctinfo
     }
 
     /**
      * 
      * @param {Integer} iTInfo 
      * @param {Integer} lcid 
-     * @param {Pointer<ITypeInfo>} ppTInfo 
-     * @returns {HRESULT} 
+     * @returns {ITypeInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-idispatch-gettypeinfo
      */
-    GetTypeInfo(iTInfo, lcid, ppTInfo) {
-        result := ComCall(4, this, "uint", iTInfo, "uint", lcid, "ptr*", ppTInfo, "HRESULT")
-        return result
+    GetTypeInfo(iTInfo, lcid) {
+        result := ComCall(4, this, "uint", iTInfo, "uint", lcid, "ptr*", &ppTInfo := 0, "HRESULT")
+        return ITypeInfo(ppTInfo)
     }
 
     /**
@@ -62,15 +59,14 @@ class IDispatch extends IUnknown{
      * @param {Pointer<PWSTR>} rgszNames 
      * @param {Integer} cNames 
      * @param {Integer} lcid 
-     * @param {Pointer<Integer>} rgDispId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-idispatch-getidsofnames
      */
-    GetIDsOfNames(riid, rgszNames, cNames, lcid, rgDispId) {
-        rgDispIdMarshal := rgDispId is VarRef ? "int*" : "ptr"
+    GetIDsOfNames(riid, rgszNames, cNames, lcid) {
+        rgszNamesMarshal := rgszNames is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", riid, "ptr", rgszNames, "uint", cNames, "uint", lcid, rgDispIdMarshal, rgDispId, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", riid, rgszNamesMarshal, rgszNames, "uint", cNames, "uint", lcid, "int*", &rgDispId := 0, "HRESULT")
+        return rgDispId
     }
 
     /**

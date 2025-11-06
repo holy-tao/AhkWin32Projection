@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISpeechAudioStatus.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,65 +33,58 @@ class ISpeechRecognizerStatus extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISpeechAudioStatus>} AudioStatus 
-     * @returns {HRESULT} 
+     * @returns {ISpeechAudioStatus} 
      */
-    get_AudioStatus(AudioStatus) {
-        result := ComCall(7, this, "ptr*", AudioStatus, "HRESULT")
-        return result
+    get_AudioStatus() {
+        result := ComCall(7, this, "ptr*", &AudioStatus := 0, "HRESULT")
+        return ISpeechAudioStatus(AudioStatus)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pCurrentStreamPos 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_CurrentStreamPosition(pCurrentStreamPos) {
+    get_CurrentStreamPosition() {
+        pCurrentStreamPos := VARIANT()
         result := ComCall(8, this, "ptr", pCurrentStreamPos, "HRESULT")
-        return result
+        return pCurrentStreamPos
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} StreamNumber 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_CurrentStreamNumber(StreamNumber) {
-        StreamNumberMarshal := StreamNumber is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, StreamNumberMarshal, StreamNumber, "HRESULT")
-        return result
+    get_CurrentStreamNumber() {
+        result := ComCall(9, this, "int*", &StreamNumber := 0, "HRESULT")
+        return StreamNumber
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} NumberOfActiveRules 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_NumberOfActiveRules(NumberOfActiveRules) {
-        NumberOfActiveRulesMarshal := NumberOfActiveRules is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, NumberOfActiveRulesMarshal, NumberOfActiveRules, "HRESULT")
-        return result
+    get_NumberOfActiveRules() {
+        result := ComCall(10, this, "int*", &NumberOfActiveRules := 0, "HRESULT")
+        return NumberOfActiveRules
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} ClsidEngine 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ClsidEngine(ClsidEngine) {
+    get_ClsidEngine() {
+        ClsidEngine := BSTR()
         result := ComCall(11, this, "ptr", ClsidEngine, "HRESULT")
-        return result
+        return ClsidEngine
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} SupportedLanguages 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_SupportedLanguages(SupportedLanguages) {
+    get_SupportedLanguages() {
+        SupportedLanguages := VARIANT()
         result := ComCall(12, this, "ptr", SupportedLanguages, "HRESULT")
-        return result
+        return SupportedLanguages
     }
 }

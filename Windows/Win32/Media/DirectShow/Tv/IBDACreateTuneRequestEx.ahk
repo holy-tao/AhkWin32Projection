@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ITuneRequest.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -37,12 +38,11 @@ class IBDACreateTuneRequestEx extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} TuneRequestIID 
-     * @param {Pointer<ITuneRequest>} TuneRequest 
-     * @returns {HRESULT} 
+     * @returns {ITuneRequest} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ibdacreatetunerequestex-createtunerequestex
      */
-    CreateTuneRequestEx(TuneRequestIID, TuneRequest) {
-        result := ComCall(3, this, "ptr", TuneRequestIID, "ptr*", TuneRequest, "HRESULT")
-        return result
+    CreateTuneRequestEx(TuneRequestIID) {
+        result := ComCall(3, this, "ptr", TuneRequestIID, "ptr*", &TuneRequest := 0, "HRESULT")
+        return ITuneRequest(TuneRequest)
     }
 }

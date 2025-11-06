@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDot11AdHocSecuritySettings.ahk
+#Include .\IDot11AdHocInterface.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -45,13 +47,12 @@ class IDot11AdHocNetwork extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszwSSID 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocnetwork-getssid
      */
-    GetSSID(ppszwSSID) {
-        result := ComCall(4, this, "ptr", ppszwSSID, "HRESULT")
-        return result
+    GetSSID() {
+        result := ComCall(4, this, "ptr*", &ppszwSSID := 0, "HRESULT")
+        return ppszwSSID
     }
 
     /**
@@ -69,13 +70,12 @@ class IDot11AdHocNetwork extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszwProfileName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocnetwork-getprofilename
      */
-    GetProfileName(ppszwProfileName) {
-        result := ComCall(6, this, "ptr", ppszwProfileName, "HRESULT")
-        return result
+    GetProfileName() {
+        result := ComCall(6, this, "ptr*", &ppszwProfileName := 0, "HRESULT")
+        return ppszwProfileName
     }
 
     /**
@@ -105,13 +105,12 @@ class IDot11AdHocNetwork extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDot11AdHocSecuritySettings>} pAdHocSecuritySetting 
-     * @returns {HRESULT} 
+     * @returns {IDot11AdHocSecuritySettings} 
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocnetwork-getsecuritysetting
      */
-    GetSecuritySetting(pAdHocSecuritySetting) {
-        result := ComCall(9, this, "ptr*", pAdHocSecuritySetting, "HRESULT")
-        return result
+    GetSecuritySetting() {
+        result := ComCall(9, this, "ptr*", &pAdHocSecuritySetting := 0, "HRESULT")
+        return IDot11AdHocSecuritySettings(pAdHocSecuritySetting)
     }
 
     /**
@@ -138,13 +137,12 @@ class IDot11AdHocNetwork extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDot11AdHocInterface>} pAdHocInterface 
-     * @returns {HRESULT} 
+     * @returns {IDot11AdHocInterface} 
      * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocnetwork-getinterface
      */
-    GetInterface(pAdHocInterface) {
-        result := ComCall(12, this, "ptr*", pAdHocInterface, "HRESULT")
-        return result
+    GetInterface() {
+        result := ComCall(12, this, "ptr*", &pAdHocInterface := 0, "HRESULT")
+        return IDot11AdHocInterface(pAdHocInterface)
     }
 
     /**

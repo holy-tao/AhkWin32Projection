@@ -97,7 +97,9 @@ class IWMPSyncDevice extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncdevice-get_connected
      */
     get_connected(pvbConnected) {
-        result := ComCall(8, this, "ptr", pvbConnected, "HRESULT")
+        pvbConnectedMarshal := pvbConnected is VarRef ? "short*" : "ptr"
+
+        result := ComCall(8, this, pvbConnectedMarshal, pvbConnected, "HRESULT")
         return result
     }
 
@@ -213,7 +215,9 @@ class IWMPSyncDevice extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncdevice-isidentical
      */
     isIdentical(pDevice, pvbool) {
-        result := ComCall(18, this, "ptr", pDevice, "ptr", pvbool, "HRESULT")
+        pvboolMarshal := pvbool is VarRef ? "short*" : "ptr"
+
+        result := ComCall(18, this, "ptr", pDevice, pvboolMarshal, pvbool, "HRESULT")
         return result
     }
 }

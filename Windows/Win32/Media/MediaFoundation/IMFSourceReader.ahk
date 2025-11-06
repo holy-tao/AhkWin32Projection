@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFMediaType.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -55,13 +57,12 @@ class IMFSourceReader extends IUnknown{
     /**
      * 
      * @param {Integer} dwStreamIndex 
-     * @param {Pointer<BOOL>} pfSelected 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereader-getstreamselection
      */
-    GetStreamSelection(dwStreamIndex, pfSelected) {
-        result := ComCall(3, this, "uint", dwStreamIndex, "ptr", pfSelected, "HRESULT")
-        return result
+    GetStreamSelection(dwStreamIndex) {
+        result := ComCall(3, this, "uint", dwStreamIndex, "int*", &pfSelected := 0, "HRESULT")
+        return pfSelected
     }
 
     /**
@@ -80,25 +81,23 @@ class IMFSourceReader extends IUnknown{
      * 
      * @param {Integer} dwStreamIndex 
      * @param {Integer} dwMediaTypeIndex 
-     * @param {Pointer<IMFMediaType>} ppMediaType 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaType} 
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereader-getnativemediatype
      */
-    GetNativeMediaType(dwStreamIndex, dwMediaTypeIndex, ppMediaType) {
-        result := ComCall(5, this, "uint", dwStreamIndex, "uint", dwMediaTypeIndex, "ptr*", ppMediaType, "HRESULT")
-        return result
+    GetNativeMediaType(dwStreamIndex, dwMediaTypeIndex) {
+        result := ComCall(5, this, "uint", dwStreamIndex, "uint", dwMediaTypeIndex, "ptr*", &ppMediaType := 0, "HRESULT")
+        return IMFMediaType(ppMediaType)
     }
 
     /**
      * 
      * @param {Integer} dwStreamIndex 
-     * @param {Pointer<IMFMediaType>} ppMediaType 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaType} 
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereader-getcurrentmediatype
      */
-    GetCurrentMediaType(dwStreamIndex, ppMediaType) {
-        result := ComCall(6, this, "uint", dwStreamIndex, "ptr*", ppMediaType, "HRESULT")
-        return result
+    GetCurrentMediaType(dwStreamIndex) {
+        result := ComCall(6, this, "uint", dwStreamIndex, "ptr*", &ppMediaType := 0, "HRESULT")
+        return IMFMediaType(ppMediaType)
     }
 
     /**
@@ -163,27 +162,24 @@ class IMFSourceReader extends IUnknown{
      * @param {Integer} dwStreamIndex 
      * @param {Pointer<Guid>} guidService 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvObject 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereader-getserviceforstream
      */
-    GetServiceForStream(dwStreamIndex, guidService, riid, ppvObject) {
-        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(11, this, "uint", dwStreamIndex, "ptr", guidService, "ptr", riid, ppvObjectMarshal, ppvObject, "HRESULT")
-        return result
+    GetServiceForStream(dwStreamIndex, guidService, riid) {
+        result := ComCall(11, this, "uint", dwStreamIndex, "ptr", guidService, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
+        return ppvObject
     }
 
     /**
      * 
      * @param {Integer} dwStreamIndex 
      * @param {Pointer<Guid>} guidAttribute 
-     * @param {Pointer<PROPVARIANT>} pvarAttribute 
-     * @returns {HRESULT} 
+     * @returns {PROPVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereader-getpresentationattribute
      */
-    GetPresentationAttribute(dwStreamIndex, guidAttribute, pvarAttribute) {
+    GetPresentationAttribute(dwStreamIndex, guidAttribute) {
+        pvarAttribute := PROPVARIANT()
         result := ComCall(12, this, "uint", dwStreamIndex, "ptr", guidAttribute, "ptr", pvarAttribute, "HRESULT")
-        return result
+        return pvarAttribute
     }
 }

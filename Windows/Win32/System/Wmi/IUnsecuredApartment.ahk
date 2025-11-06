@@ -44,12 +44,11 @@ class IUnsecuredApartment extends IUnknown{
     /**
      * 
      * @param {IUnknown} pObject 
-     * @param {Pointer<IUnknown>} ppStub 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iunsecuredapartment-createobjectstub
      */
-    CreateObjectStub(pObject, ppStub) {
-        result := ComCall(3, this, "ptr", pObject, "ptr*", ppStub, "HRESULT")
-        return result
+    CreateObjectStub(pObject) {
+        result := ComCall(3, this, "ptr", pObject, "ptr*", &ppStub := 0, "HRESULT")
+        return IUnknown(ppStub)
     }
 }

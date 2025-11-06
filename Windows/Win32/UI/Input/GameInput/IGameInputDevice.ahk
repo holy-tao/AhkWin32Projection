@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IGameInputForceFeedbackEffect.ahk
+#Include .\IGameInputRawDeviceReport.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -59,12 +61,11 @@ class IGameInputDevice extends IUnknown{
      * 
      * @param {Integer} motorIndex 
      * @param {Pointer<GameInputForceFeedbackParams>} params 
-     * @param {Pointer<IGameInputForceFeedbackEffect>} effect 
-     * @returns {HRESULT} 
+     * @returns {IGameInputForceFeedbackEffect} 
      */
-    CreateForceFeedbackEffect(motorIndex, params, effect) {
-        result := ComCall(6, this, "uint", motorIndex, "ptr", params, "ptr*", effect, "HRESULT")
-        return result
+    CreateForceFeedbackEffect(motorIndex, params) {
+        result := ComCall(6, this, "uint", motorIndex, "ptr", params, "ptr*", &effect := 0, "HRESULT")
+        return IGameInputForceFeedbackEffect(effect)
     }
 
     /**
@@ -136,23 +137,21 @@ class IGameInputDevice extends IUnknown{
      * 
      * @param {Integer} reportId 
      * @param {Integer} reportKind 
-     * @param {Pointer<IGameInputRawDeviceReport>} report 
-     * @returns {HRESULT} 
+     * @returns {IGameInputRawDeviceReport} 
      */
-    CreateRawDeviceReport(reportId, reportKind, report) {
-        result := ComCall(14, this, "uint", reportId, "int", reportKind, "ptr*", report, "HRESULT")
-        return result
+    CreateRawDeviceReport(reportId, reportKind) {
+        result := ComCall(14, this, "uint", reportId, "int", reportKind, "ptr*", &report := 0, "HRESULT")
+        return IGameInputRawDeviceReport(report)
     }
 
     /**
      * 
      * @param {Integer} reportId 
-     * @param {Pointer<IGameInputRawDeviceReport>} report 
-     * @returns {HRESULT} 
+     * @returns {IGameInputRawDeviceReport} 
      */
-    GetRawDeviceFeature(reportId, report) {
-        result := ComCall(15, this, "uint", reportId, "ptr*", report, "HRESULT")
-        return result
+    GetRawDeviceFeature(reportId) {
+        result := ComCall(15, this, "uint", reportId, "ptr*", &report := 0, "HRESULT")
+        return IGameInputRawDeviceReport(report)
     }
 
     /**
@@ -178,12 +177,11 @@ class IGameInputDevice extends IUnknown{
     /**
      * 
      * @param {IGameInputRawDeviceReport} requestReport 
-     * @param {Pointer<IGameInputRawDeviceReport>} responseReport 
-     * @returns {HRESULT} 
+     * @returns {IGameInputRawDeviceReport} 
      */
-    SendRawDeviceOutputWithResponse(requestReport, responseReport) {
-        result := ComCall(18, this, "ptr", requestReport, "ptr*", responseReport, "HRESULT")
-        return result
+    SendRawDeviceOutputWithResponse(requestReport) {
+        result := ComCall(18, this, "ptr", requestReport, "ptr*", &responseReport := 0, "HRESULT")
+        return IGameInputRawDeviceReport(responseReport)
     }
 
     /**
@@ -193,14 +191,11 @@ class IGameInputDevice extends IUnknown{
      * @param {Pointer} inputBuffer 
      * @param {Pointer} outputBufferSize 
      * @param {Pointer} outputBuffer 
-     * @param {Pointer<Pointer>} outputSize 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    ExecuteRawDeviceIoControl(controlCode, inputBufferSize, inputBuffer, outputBufferSize, outputBuffer, outputSize) {
-        outputSizeMarshal := outputSize is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(19, this, "uint", controlCode, "ptr", inputBufferSize, "ptr", inputBuffer, "ptr", outputBufferSize, "ptr", outputBuffer, outputSizeMarshal, outputSize, "HRESULT")
-        return result
+    ExecuteRawDeviceIoControl(controlCode, inputBufferSize, inputBuffer, outputBufferSize, outputBuffer) {
+        result := ComCall(19, this, "uint", controlCode, "ptr", inputBufferSize, "ptr", inputBuffer, "ptr", outputBufferSize, "ptr", outputBuffer, "ptr*", &outputSize := 0, "HRESULT")
+        return outputSize
     }
 
     /**

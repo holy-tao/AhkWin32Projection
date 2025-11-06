@@ -34,29 +34,23 @@ class ISequentialStream extends IUnknown{
      * 
      * @param {Pointer} pv 
      * @param {Integer} cb 
-     * @param {Pointer<Integer>} pcbRead 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-isequentialstream-read
      */
-    Read(pv, cb, pcbRead) {
-        pcbReadMarshal := pcbRead is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pv, "uint", cb, pcbReadMarshal, pcbRead, "int")
-        return result
+    Read(pv, cb) {
+        result := ComCall(3, this, "ptr", pv, "uint", cb, "uint*", &pcbRead := 0, "int")
+        return pcbRead
     }
 
     /**
      * 
      * @param {Pointer} pv 
      * @param {Integer} cb 
-     * @param {Pointer<Integer>} pcbWritten 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-isequentialstream-write
      */
-    Write(pv, cb, pcbWritten) {
-        pcbWrittenMarshal := pcbWritten is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, "ptr", pv, "uint", cb, pcbWrittenMarshal, pcbWritten, "int")
-        return result
+    Write(pv, cb) {
+        result := ComCall(4, this, "ptr", pv, "uint", cb, "uint*", &pcbWritten := 0, "int")
+        return pcbWritten
     }
 }

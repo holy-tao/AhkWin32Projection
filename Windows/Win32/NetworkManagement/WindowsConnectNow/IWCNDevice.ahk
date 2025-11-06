@@ -76,15 +76,12 @@ class IWCNDevice extends IUnknown{
     /**
      * 
      * @param {Integer} AttributeType 
-     * @param {Pointer<Integer>} puInteger 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wcndevice/nf-wcndevice-iwcndevice-getintegerattribute
      */
-    GetIntegerAttribute(AttributeType, puInteger) {
-        puIntegerMarshal := puInteger is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, "int", AttributeType, puIntegerMarshal, puInteger, "HRESULT")
-        return result
+    GetIntegerAttribute(AttributeType) {
+        result := ComCall(6, this, "int", AttributeType, "uint*", &puInteger := 0, "HRESULT")
+        return puInteger
     }
 
     /**

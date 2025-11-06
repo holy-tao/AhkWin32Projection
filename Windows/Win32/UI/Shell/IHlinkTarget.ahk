@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IHlinkBrowseContext.ahk
+#Include ..\..\System\Com\IMoniker.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -40,12 +42,11 @@ class IHlinkTarget extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IHlinkBrowseContext>} ppihlbc 
-     * @returns {HRESULT} 
+     * @returns {IHlinkBrowseContext} 
      */
-    GetBrowseContext(ppihlbc) {
-        result := ComCall(4, this, "ptr*", ppihlbc, "HRESULT")
-        return result
+    GetBrowseContext() {
+        result := ComCall(4, this, "ptr*", &ppihlbc := 0, "HRESULT")
+        return IHlinkBrowseContext(ppihlbc)
     }
 
     /**
@@ -65,26 +66,24 @@ class IHlinkTarget extends IUnknown{
      * 
      * @param {PWSTR} pwzLocation 
      * @param {Integer} dwAssign 
-     * @param {Pointer<IMoniker>} ppimkLocation 
-     * @returns {HRESULT} 
+     * @returns {IMoniker} 
      */
-    GetMoniker(pwzLocation, dwAssign, ppimkLocation) {
+    GetMoniker(pwzLocation, dwAssign) {
         pwzLocation := pwzLocation is String ? StrPtr(pwzLocation) : pwzLocation
 
-        result := ComCall(6, this, "ptr", pwzLocation, "uint", dwAssign, "ptr*", ppimkLocation, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", pwzLocation, "uint", dwAssign, "ptr*", &ppimkLocation := 0, "HRESULT")
+        return IMoniker(ppimkLocation)
     }
 
     /**
      * 
      * @param {PWSTR} pwzLocation 
-     * @param {Pointer<PWSTR>} ppwzFriendlyName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetFriendlyName(pwzLocation, ppwzFriendlyName) {
+    GetFriendlyName(pwzLocation) {
         pwzLocation := pwzLocation is String ? StrPtr(pwzLocation) : pwzLocation
 
-        result := ComCall(7, this, "ptr", pwzLocation, "ptr", ppwzFriendlyName, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", pwzLocation, "ptr*", &ppwzFriendlyName := 0, "HRESULT")
+        return ppwzFriendlyName
     }
 }

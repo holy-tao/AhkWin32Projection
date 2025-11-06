@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\IUnknown.ahk
 #Include ..\IDispatch.ahk
 
 /**
@@ -36,18 +37,17 @@ class IEventSystem extends IDispatch{
      * @param {BSTR} progID 
      * @param {BSTR} queryCriteria 
      * @param {Pointer<Integer>} errorIndex 
-     * @param {Pointer<IUnknown>} ppInterface 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsystem-query
      */
-    Query(progID, queryCriteria, errorIndex, ppInterface) {
+    Query(progID, queryCriteria, errorIndex) {
         progID := progID is String ? BSTR.Alloc(progID).Value : progID
         queryCriteria := queryCriteria is String ? BSTR.Alloc(queryCriteria).Value : queryCriteria
 
         errorIndexMarshal := errorIndex is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, "ptr", progID, "ptr", queryCriteria, errorIndexMarshal, errorIndex, "ptr*", ppInterface, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", progID, "ptr", queryCriteria, errorIndexMarshal, errorIndex, "ptr*", &ppInterface := 0, "HRESULT")
+        return IUnknown(ppInterface)
     }
 
     /**
@@ -68,45 +68,41 @@ class IEventSystem extends IDispatch{
      * 
      * @param {BSTR} progID 
      * @param {BSTR} queryCriteria 
-     * @param {Pointer<Integer>} errorIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsystem-remove
      */
-    Remove(progID, queryCriteria, errorIndex) {
+    Remove(progID, queryCriteria) {
         progID := progID is String ? BSTR.Alloc(progID).Value : progID
         queryCriteria := queryCriteria is String ? BSTR.Alloc(queryCriteria).Value : queryCriteria
 
-        errorIndexMarshal := errorIndex is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, "ptr", progID, "ptr", queryCriteria, errorIndexMarshal, errorIndex, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", progID, "ptr", queryCriteria, "int*", &errorIndex := 0, "HRESULT")
+        return errorIndex
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrEventClassID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsystem-get_eventobjectchangeeventclassid
      */
-    get_EventObjectChangeEventClassID(pbstrEventClassID) {
+    get_EventObjectChangeEventClassID() {
+        pbstrEventClassID := BSTR()
         result := ComCall(10, this, "ptr", pbstrEventClassID, "HRESULT")
-        return result
+        return pbstrEventClassID
     }
 
     /**
      * 
      * @param {BSTR} progID 
      * @param {BSTR} queryCriteria 
-     * @param {Pointer<IUnknown>} ppInterface 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsystem-querys
      */
-    QueryS(progID, queryCriteria, ppInterface) {
+    QueryS(progID, queryCriteria) {
         progID := progID is String ? BSTR.Alloc(progID).Value : progID
         queryCriteria := queryCriteria is String ? BSTR.Alloc(queryCriteria).Value : queryCriteria
 
-        result := ComCall(11, this, "ptr", progID, "ptr", queryCriteria, "ptr*", ppInterface, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", progID, "ptr", queryCriteria, "ptr*", &ppInterface := 0, "HRESULT")
+        return IUnknown(ppInterface)
     }
 
     /**

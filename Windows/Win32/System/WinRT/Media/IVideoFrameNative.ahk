@@ -33,28 +33,22 @@ class IVideoFrameNative extends IInspectable{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/WinRT/ivideoframenative-getdata
      */
-    GetData(riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetData(riid) {
+        result := ComCall(6, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/WinRT/ivideoframenative-getdevice
      */
-    GetDevice(riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetDevice(riid) {
+        result := ComCall(7, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 }

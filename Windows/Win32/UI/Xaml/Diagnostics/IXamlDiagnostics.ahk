@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\WinRT\IInspectable.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,61 +34,54 @@ class IXamlDiagnostics extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IInspectable>} ppDispatcher 
-     * @returns {HRESULT} 
+     * @returns {IInspectable} 
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ixamldiagnostics-getdispatcher
      */
-    GetDispatcher(ppDispatcher) {
-        result := ComCall(3, this, "ptr*", ppDispatcher, "HRESULT")
-        return result
+    GetDispatcher() {
+        result := ComCall(3, this, "ptr*", &ppDispatcher := 0, "HRESULT")
+        return IInspectable(ppDispatcher)
     }
 
     /**
      * 
-     * @param {Pointer<IInspectable>} ppLayer 
-     * @returns {HRESULT} 
+     * @returns {IInspectable} 
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ixamldiagnostics-getuilayer
      */
-    GetUiLayer(ppLayer) {
-        result := ComCall(4, this, "ptr*", ppLayer, "HRESULT")
-        return result
+    GetUiLayer() {
+        result := ComCall(4, this, "ptr*", &ppLayer := 0, "HRESULT")
+        return IInspectable(ppLayer)
     }
 
     /**
      * 
-     * @param {Pointer<IInspectable>} ppApplication 
-     * @returns {HRESULT} 
+     * @returns {IInspectable} 
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ixamldiagnostics-getapplication
      */
-    GetApplication(ppApplication) {
-        result := ComCall(5, this, "ptr*", ppApplication, "HRESULT")
-        return result
+    GetApplication() {
+        result := ComCall(5, this, "ptr*", &ppApplication := 0, "HRESULT")
+        return IInspectable(ppApplication)
     }
 
     /**
      * 
      * @param {Integer} instanceHandle 
-     * @param {Pointer<IInspectable>} ppInstance 
-     * @returns {HRESULT} 
+     * @returns {IInspectable} 
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ixamldiagnostics-getiinspectablefromhandle
      */
-    GetIInspectableFromHandle(instanceHandle, ppInstance) {
-        result := ComCall(6, this, "uint", instanceHandle, "ptr*", ppInstance, "HRESULT")
-        return result
+    GetIInspectableFromHandle(instanceHandle) {
+        result := ComCall(6, this, "uint", instanceHandle, "ptr*", &ppInstance := 0, "HRESULT")
+        return IInspectable(ppInstance)
     }
 
     /**
      * 
      * @param {IInspectable} pInstance 
-     * @param {Pointer<Integer>} pHandle 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ixamldiagnostics-gethandlefromiinspectable
      */
-    GetHandleFromIInspectable(pInstance, pHandle) {
-        pHandleMarshal := pHandle is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, "ptr", pInstance, pHandleMarshal, pHandle, "HRESULT")
-        return result
+    GetHandleFromIInspectable(pInstance) {
+        result := ComCall(7, this, "ptr", pInstance, "uint*", &pHandle := 0, "HRESULT")
+        return pHandle
     }
 
     /**
@@ -108,25 +103,22 @@ class IXamlDiagnostics extends IUnknown{
     /**
      * 
      * @param {IInspectable} pInstance 
-     * @param {Pointer<Integer>} pInstanceHandle 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ixamldiagnostics-registerinstance
      */
-    RegisterInstance(pInstance, pInstanceHandle) {
-        pInstanceHandleMarshal := pInstanceHandle is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, "ptr", pInstance, pInstanceHandleMarshal, pInstanceHandle, "HRESULT")
-        return result
+    RegisterInstance(pInstance) {
+        result := ComCall(9, this, "ptr", pInstance, "uint*", &pInstanceHandle := 0, "HRESULT")
+        return pInstanceHandle
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pInitializationData 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ixamldiagnostics-getinitializationdata
      */
-    GetInitializationData(pInitializationData) {
+    GetInitializationData() {
+        pInitializationData := BSTR()
         result := ComCall(10, this, "ptr", pInitializationData, "HRESULT")
-        return result
+        return pInitializationData
     }
 }

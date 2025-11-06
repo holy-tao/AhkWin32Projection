@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDirectDrawSurface4.ahk
+#Include .\IDirectDrawClipper.ahk
+#Include .\IDirectDrawPalette.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -140,12 +143,11 @@ class IDirectDrawSurface4 extends IUnknown{
     /**
      * 
      * @param {Pointer<DDSCAPS2>} param0 
-     * @param {Pointer<IDirectDrawSurface4>} param1 
-     * @returns {HRESULT} 
+     * @returns {IDirectDrawSurface4} 
      */
-    GetAttachedSurface(param0, param1) {
-        result := ComCall(12, this, "ptr", param0, "ptr*", param1, "HRESULT")
-        return result
+    GetAttachedSurface(param0) {
+        result := ComCall(12, this, "ptr", param0, "ptr*", &param1 := 0, "HRESULT")
+        return IDirectDrawSurface4(param1)
     }
 
     /**
@@ -170,12 +172,11 @@ class IDirectDrawSurface4 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDirectDrawClipper>} param0 
-     * @returns {HRESULT} 
+     * @returns {IDirectDrawClipper} 
      */
-    GetClipper(param0) {
-        result := ComCall(15, this, "ptr*", param0, "HRESULT")
-        return result
+    GetClipper() {
+        result := ComCall(15, this, "ptr*", &param0 := 0, "HRESULT")
+        return IDirectDrawClipper(param0)
     }
 
     /**
@@ -228,12 +229,11 @@ class IDirectDrawSurface4 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDirectDrawPalette>} param0 
-     * @returns {HRESULT} 
+     * @returns {IDirectDrawPalette} 
      */
-    GetPalette(param0) {
-        result := ComCall(20, this, "ptr*", param0, "HRESULT")
-        return result
+    GetPalette() {
+        result := ComCall(20, this, "ptr*", &param0 := 0, "HRESULT")
+        return IDirectDrawPalette(param0)
     }
 
     /**

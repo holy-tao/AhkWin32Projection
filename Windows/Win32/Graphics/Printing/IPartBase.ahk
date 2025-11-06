@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IPrintReadStream.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,34 +32,30 @@ class IPartBase extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} uri 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetUri(uri) {
+    GetUri() {
+        uri := BSTR()
         result := ComCall(3, this, "ptr", uri, "HRESULT")
-        return result
+        return uri
     }
 
     /**
      * 
-     * @param {Pointer<IPrintReadStream>} ppStream 
-     * @returns {HRESULT} 
+     * @returns {IPrintReadStream} 
      */
-    GetStream(ppStream) {
-        result := ComCall(4, this, "ptr*", ppStream, "HRESULT")
-        return result
+    GetStream() {
+        result := ComCall(4, this, "ptr*", &ppStream := 0, "HRESULT")
+        return IPrintReadStream(ppStream)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCompression 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetPartCompression(pCompression) {
-        pCompressionMarshal := pCompression is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, pCompressionMarshal, pCompression, "HRESULT")
-        return result
+    GetPartCompression() {
+        result := ComCall(5, this, "int*", &pCompression := 0, "HRESULT")
+        return pCompression
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWMMediaProps.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -59,25 +60,23 @@ class IWMWriterPostView extends IUnknown{
     /**
      * 
      * @param {Integer} wStreamNum 
-     * @param {Pointer<BOOL>} pfReceivePostViewSamples 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterpostview-getreceivepostviewsamples
      */
-    GetReceivePostViewSamples(wStreamNum, pfReceivePostViewSamples) {
-        result := ComCall(5, this, "ushort", wStreamNum, "ptr", pfReceivePostViewSamples, "HRESULT")
-        return result
+    GetReceivePostViewSamples(wStreamNum) {
+        result := ComCall(5, this, "ushort", wStreamNum, "int*", &pfReceivePostViewSamples := 0, "HRESULT")
+        return pfReceivePostViewSamples
     }
 
     /**
      * 
      * @param {Integer} wStreamNumber 
-     * @param {Pointer<IWMMediaProps>} ppOutput 
-     * @returns {HRESULT} 
+     * @returns {IWMMediaProps} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterpostview-getpostviewprops
      */
-    GetPostViewProps(wStreamNumber, ppOutput) {
-        result := ComCall(6, this, "ushort", wStreamNumber, "ptr*", ppOutput, "HRESULT")
-        return result
+    GetPostViewProps(wStreamNumber) {
+        result := ComCall(6, this, "ushort", wStreamNumber, "ptr*", &ppOutput := 0, "HRESULT")
+        return IWMMediaProps(ppOutput)
     }
 
     /**
@@ -95,28 +94,24 @@ class IWMWriterPostView extends IUnknown{
     /**
      * 
      * @param {Integer} wStreamNumber 
-     * @param {Pointer<Integer>} pcFormats 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterpostview-getpostviewformatcount
      */
-    GetPostViewFormatCount(wStreamNumber, pcFormats) {
-        pcFormatsMarshal := pcFormats is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, "ushort", wStreamNumber, pcFormatsMarshal, pcFormats, "HRESULT")
-        return result
+    GetPostViewFormatCount(wStreamNumber) {
+        result := ComCall(8, this, "ushort", wStreamNumber, "uint*", &pcFormats := 0, "HRESULT")
+        return pcFormats
     }
 
     /**
      * 
      * @param {Integer} wStreamNumber 
      * @param {Integer} dwFormatNumber 
-     * @param {Pointer<IWMMediaProps>} ppProps 
-     * @returns {HRESULT} 
+     * @returns {IWMMediaProps} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterpostview-getpostviewformat
      */
-    GetPostViewFormat(wStreamNumber, dwFormatNumber, ppProps) {
-        result := ComCall(9, this, "ushort", wStreamNumber, "uint", dwFormatNumber, "ptr*", ppProps, "HRESULT")
-        return result
+    GetPostViewFormat(wStreamNumber, dwFormatNumber) {
+        result := ComCall(9, this, "ushort", wStreamNumber, "uint", dwFormatNumber, "ptr*", &ppProps := 0, "HRESULT")
+        return IWMMediaProps(ppProps)
     }
 
     /**
@@ -134,12 +129,11 @@ class IWMWriterPostView extends IUnknown{
     /**
      * 
      * @param {Integer} wStreamNumber 
-     * @param {Pointer<BOOL>} pfAllocate 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterpostview-getallocateforpostview
      */
-    GetAllocateForPostView(wStreamNumber, pfAllocate) {
-        result := ComCall(11, this, "ushort", wStreamNumber, "ptr", pfAllocate, "HRESULT")
-        return result
+    GetAllocateForPostView(wStreamNumber) {
+        result := ComCall(11, this, "ushort", wStreamNumber, "int*", &pfAllocate := 0, "HRESULT")
+        return pfAllocate
     }
 }

@@ -42,15 +42,12 @@ class ID3D10Texture1D extends ID3D10Resource{
      * @param {Integer} Subresource 
      * @param {Integer} MapType 
      * @param {Integer} MapFlags 
-     * @param {Pointer<Pointer<Void>>} ppData 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10texture1d-map
      */
-    Map(Subresource, MapType, MapFlags, ppData) {
-        ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(10, this, "uint", Subresource, "int", MapType, "uint", MapFlags, ppDataMarshal, ppData, "HRESULT")
-        return result
+    Map(Subresource, MapType, MapFlags) {
+        result := ComCall(10, this, "uint", Subresource, "int", MapType, "uint", MapFlags, "ptr*", &ppData := 0, "HRESULT")
+        return ppData
     }
 
     /**

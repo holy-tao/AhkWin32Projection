@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ISearchJob.ahk
+#Include .\ISearchResult.ahk
+#Include .\IUpdateHistoryEntryCollection.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -43,13 +46,12 @@ class IUpdateSearcher extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-get_canautomaticallyupgradeservice
      */
-    get_CanAutomaticallyUpgradeService(retval) {
-        result := ComCall(7, this, "ptr", retval, "HRESULT")
-        return result
+    get_CanAutomaticallyUpgradeService() {
+        result := ComCall(7, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -65,13 +67,13 @@ class IUpdateSearcher extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-get_clientapplicationid
      */
-    get_ClientApplicationID(retval) {
+    get_ClientApplicationID() {
+        retval := BSTR()
         result := ComCall(9, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -89,13 +91,12 @@ class IUpdateSearcher extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-get_includepotentiallysupersededupdates
      */
-    get_IncludePotentiallySupersededUpdates(retval) {
-        result := ComCall(11, this, "ptr", retval, "HRESULT")
-        return result
+    get_IncludePotentiallySupersededUpdates() {
+        result := ComCall(11, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -111,15 +112,12 @@ class IUpdateSearcher extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-get_serverselection
      */
-    get_ServerSelection(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_ServerSelection() {
+        result := ComCall(13, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -138,79 +136,74 @@ class IUpdateSearcher extends IDispatch{
      * @param {BSTR} criteria 
      * @param {IUnknown} onCompleted 
      * @param {VARIANT} state 
-     * @param {Pointer<ISearchJob>} retval 
-     * @returns {HRESULT} 
+     * @returns {ISearchJob} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-beginsearch
      */
-    BeginSearch(criteria, onCompleted, state, retval) {
+    BeginSearch(criteria, onCompleted, state) {
         criteria := criteria is String ? BSTR.Alloc(criteria).Value : criteria
 
-        result := ComCall(15, this, "ptr", criteria, "ptr", onCompleted, "ptr", state, "ptr*", retval, "HRESULT")
-        return result
+        result := ComCall(15, this, "ptr", criteria, "ptr", onCompleted, "ptr", state, "ptr*", &retval := 0, "HRESULT")
+        return ISearchJob(retval)
     }
 
     /**
      * 
      * @param {ISearchJob} searchJob 
-     * @param {Pointer<ISearchResult>} retval 
-     * @returns {HRESULT} 
+     * @returns {ISearchResult} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-endsearch
      */
-    EndSearch(searchJob, retval) {
-        result := ComCall(16, this, "ptr", searchJob, "ptr*", retval, "HRESULT")
-        return result
+    EndSearch(searchJob) {
+        result := ComCall(16, this, "ptr", searchJob, "ptr*", &retval := 0, "HRESULT")
+        return ISearchResult(retval)
     }
 
     /**
      * 
      * @param {BSTR} unescaped 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-escapestring
      */
-    EscapeString(unescaped, retval) {
+    EscapeString(unescaped) {
         unescaped := unescaped is String ? BSTR.Alloc(unescaped).Value : unescaped
 
+        retval := BSTR()
         result := ComCall(17, this, "ptr", unescaped, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
      * @param {Integer} startIndex 
      * @param {Integer} count 
-     * @param {Pointer<IUpdateHistoryEntryCollection>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUpdateHistoryEntryCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-queryhistory
      */
-    QueryHistory(startIndex, count, retval) {
-        result := ComCall(18, this, "int", startIndex, "int", count, "ptr*", retval, "HRESULT")
-        return result
+    QueryHistory(startIndex, count) {
+        result := ComCall(18, this, "int", startIndex, "int", count, "ptr*", &retval := 0, "HRESULT")
+        return IUpdateHistoryEntryCollection(retval)
     }
 
     /**
      * 
      * @param {BSTR} criteria 
-     * @param {Pointer<ISearchResult>} retval 
-     * @returns {HRESULT} 
+     * @returns {ISearchResult} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-search
      */
-    Search(criteria, retval) {
+    Search(criteria) {
         criteria := criteria is String ? BSTR.Alloc(criteria).Value : criteria
 
-        result := ComCall(19, this, "ptr", criteria, "ptr*", retval, "HRESULT")
-        return result
+        result := ComCall(19, this, "ptr", criteria, "ptr*", &retval := 0, "HRESULT")
+        return ISearchResult(retval)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-get_online
      */
-    get_Online(retval) {
-        result := ComCall(20, this, "ptr", retval, "HRESULT")
-        return result
+    get_Online() {
+        result := ComCall(20, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -226,26 +219,23 @@ class IUpdateSearcher extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-gettotalhistorycount
      */
-    GetTotalHistoryCount(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(22, this, retvalMarshal, retval, "HRESULT")
-        return result
+    GetTotalHistoryCount() {
+        result := ComCall(22, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher-get_serviceid
      */
-    get_ServiceID(retval) {
+    get_ServiceID() {
+        retval := BSTR()
         result := ComCall(23, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**

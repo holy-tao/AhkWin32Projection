@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IFsrmFileScreen.ahk
+#Include .\IFsrmCommittableCollection.ahk
+#Include .\IFsrmFileScreenException.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -60,124 +63,111 @@ class IFsrmFileScreenManager extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} variables 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreenmanager-get_actionvariables
      */
-    get_ActionVariables(variables) {
-        variablesMarshal := variables is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, variablesMarshal, variables, "HRESULT")
-        return result
+    get_ActionVariables() {
+        result := ComCall(7, this, "ptr*", &variables := 0, "HRESULT")
+        return variables
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} descriptions 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreenmanager-get_actionvariabledescriptions
      */
-    get_ActionVariableDescriptions(descriptions) {
-        descriptionsMarshal := descriptions is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(8, this, descriptionsMarshal, descriptions, "HRESULT")
-        return result
+    get_ActionVariableDescriptions() {
+        result := ComCall(8, this, "ptr*", &descriptions := 0, "HRESULT")
+        return descriptions
     }
 
     /**
      * 
      * @param {BSTR} path 
-     * @param {Pointer<IFsrmFileScreen>} fileScreen 
-     * @returns {HRESULT} 
+     * @returns {IFsrmFileScreen} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreenmanager-createfilescreen
      */
-    CreateFileScreen(path, fileScreen) {
+    CreateFileScreen(path) {
         path := path is String ? BSTR.Alloc(path).Value : path
 
-        result := ComCall(9, this, "ptr", path, "ptr*", fileScreen, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", path, "ptr*", &fileScreen := 0, "HRESULT")
+        return IFsrmFileScreen(fileScreen)
     }
 
     /**
      * 
      * @param {BSTR} path 
-     * @param {Pointer<IFsrmFileScreen>} fileScreen 
-     * @returns {HRESULT} 
+     * @returns {IFsrmFileScreen} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreenmanager-getfilescreen
      */
-    GetFileScreen(path, fileScreen) {
+    GetFileScreen(path) {
         path := path is String ? BSTR.Alloc(path).Value : path
 
-        result := ComCall(10, this, "ptr", path, "ptr*", fileScreen, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", path, "ptr*", &fileScreen := 0, "HRESULT")
+        return IFsrmFileScreen(fileScreen)
     }
 
     /**
      * 
      * @param {BSTR} path 
      * @param {Integer} options 
-     * @param {Pointer<IFsrmCommittableCollection>} fileScreens 
-     * @returns {HRESULT} 
+     * @returns {IFsrmCommittableCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreenmanager-enumfilescreens
      */
-    EnumFileScreens(path, options, fileScreens) {
+    EnumFileScreens(path, options) {
         path := path is String ? BSTR.Alloc(path).Value : path
 
-        result := ComCall(11, this, "ptr", path, "int", options, "ptr*", fileScreens, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", path, "int", options, "ptr*", &fileScreens := 0, "HRESULT")
+        return IFsrmCommittableCollection(fileScreens)
     }
 
     /**
      * 
      * @param {BSTR} path 
-     * @param {Pointer<IFsrmFileScreenException>} fileScreenException 
-     * @returns {HRESULT} 
+     * @returns {IFsrmFileScreenException} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreenmanager-createfilescreenexception
      */
-    CreateFileScreenException(path, fileScreenException) {
+    CreateFileScreenException(path) {
         path := path is String ? BSTR.Alloc(path).Value : path
 
-        result := ComCall(12, this, "ptr", path, "ptr*", fileScreenException, "HRESULT")
-        return result
+        result := ComCall(12, this, "ptr", path, "ptr*", &fileScreenException := 0, "HRESULT")
+        return IFsrmFileScreenException(fileScreenException)
     }
 
     /**
      * 
      * @param {BSTR} path 
-     * @param {Pointer<IFsrmFileScreenException>} fileScreenException 
-     * @returns {HRESULT} 
+     * @returns {IFsrmFileScreenException} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreenmanager-getfilescreenexception
      */
-    GetFileScreenException(path, fileScreenException) {
+    GetFileScreenException(path) {
         path := path is String ? BSTR.Alloc(path).Value : path
 
-        result := ComCall(13, this, "ptr", path, "ptr*", fileScreenException, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", path, "ptr*", &fileScreenException := 0, "HRESULT")
+        return IFsrmFileScreenException(fileScreenException)
     }
 
     /**
      * 
      * @param {BSTR} path 
      * @param {Integer} options 
-     * @param {Pointer<IFsrmCommittableCollection>} fileScreenExceptions 
-     * @returns {HRESULT} 
+     * @returns {IFsrmCommittableCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreenmanager-enumfilescreenexceptions
      */
-    EnumFileScreenExceptions(path, options, fileScreenExceptions) {
+    EnumFileScreenExceptions(path, options) {
         path := path is String ? BSTR.Alloc(path).Value : path
 
-        result := ComCall(14, this, "ptr", path, "int", options, "ptr*", fileScreenExceptions, "HRESULT")
-        return result
+        result := ComCall(14, this, "ptr", path, "int", options, "ptr*", &fileScreenExceptions := 0, "HRESULT")
+        return IFsrmCommittableCollection(fileScreenExceptions)
     }
 
     /**
      * 
-     * @param {Pointer<IFsrmCommittableCollection>} collection 
-     * @returns {HRESULT} 
+     * @returns {IFsrmCommittableCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreenmanager-createfilescreencollection
      */
-    CreateFileScreenCollection(collection) {
-        result := ComCall(15, this, "ptr*", collection, "HRESULT")
-        return result
+    CreateFileScreenCollection() {
+        result := ComCall(15, this, "ptr*", &collection := 0, "HRESULT")
+        return IFsrmCommittableCollection(collection)
     }
 }

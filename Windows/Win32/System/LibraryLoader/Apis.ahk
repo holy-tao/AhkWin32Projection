@@ -460,7 +460,6 @@ class LibraryLoader {
         static hFile := 0 ;Reserved parameters must always be NULL
 
         lpLibFileName := lpLibFileName is String ? StrPtr(lpLibFileName) : lpLibFileName
-        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
 
         A_LastError := 0
 
@@ -515,7 +514,6 @@ class LibraryLoader {
         static hFile := 0 ;Reserved parameters must always be NULL
 
         lpLibFileName := lpLibFileName is String ? StrPtr(lpLibFileName) : lpLibFileName
-        hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
 
         A_LastError := 0
 

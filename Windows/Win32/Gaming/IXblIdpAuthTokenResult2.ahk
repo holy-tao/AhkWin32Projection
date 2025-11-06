@@ -30,31 +30,28 @@ class IXblIdpAuthTokenResult2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} value 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetModernGamertag(value) {
-        result := ComCall(3, this, "ptr", value, "HRESULT")
-        return result
+    GetModernGamertag() {
+        result := ComCall(3, this, "ptr*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} value 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetModernGamertagSuffix(value) {
-        result := ComCall(4, this, "ptr", value, "HRESULT")
-        return result
+    GetModernGamertagSuffix() {
+        result := ComCall(4, this, "ptr*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} value 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetUniqueModernGamertag(value) {
-        result := ComCall(5, this, "ptr", value, "HRESULT")
-        return result
+    GetUniqueModernGamertag() {
+        result := ComCall(5, this, "ptr*", &value := 0, "HRESULT")
+        return value
     }
 }

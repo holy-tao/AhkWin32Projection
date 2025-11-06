@@ -54,13 +54,10 @@ class AsyncIFtpAuthorizationProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pFtpAccess 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Finish_GetUserAccessPermission(pFtpAccess) {
-        pFtpAccessMarshal := pFtpAccess is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, pFtpAccessMarshal, pFtpAccess, "HRESULT")
-        return result
+    Finish_GetUserAccessPermission() {
+        result := ComCall(4, this, "int*", &pFtpAccess := 0, "HRESULT")
+        return pFtpAccess
     }
 }

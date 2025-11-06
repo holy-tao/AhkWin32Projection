@@ -41,17 +41,16 @@ class IMFByteStreamHandler extends IUnknown{
      * @param {PWSTR} pwszURL 
      * @param {Integer} dwFlags 
      * @param {IPropertyStore} pProps 
-     * @param {Pointer<IUnknown>} ppIUnknownCancelCookie 
      * @param {IMFAsyncCallback} pCallback 
      * @param {IUnknown} punkState 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfbytestreamhandler-begincreateobject
      */
-    BeginCreateObject(pByteStream, pwszURL, dwFlags, pProps, ppIUnknownCancelCookie, pCallback, punkState) {
+    BeginCreateObject(pByteStream, pwszURL, dwFlags, pProps, pCallback, punkState) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
-        result := ComCall(3, this, "ptr", pByteStream, "ptr", pwszURL, "uint", dwFlags, "ptr", pProps, "ptr*", ppIUnknownCancelCookie, "ptr", pCallback, "ptr", punkState, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pByteStream, "ptr", pwszURL, "uint", dwFlags, "ptr", pProps, "ptr*", &ppIUnknownCancelCookie := 0, "ptr", pCallback, "ptr", punkState, "HRESULT")
+        return IUnknown(ppIUnknownCancelCookie)
     }
 
     /**
@@ -82,14 +81,11 @@ class IMFByteStreamHandler extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pqwBytes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfbytestreamhandler-getmaxnumberofbytesrequiredforresolution
      */
-    GetMaxNumberOfBytesRequiredForResolution(pqwBytes) {
-        pqwBytesMarshal := pqwBytes is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pqwBytesMarshal, pqwBytes, "HRESULT")
-        return result
+    GetMaxNumberOfBytesRequiredForResolution() {
+        result := ComCall(6, this, "uint*", &pqwBytes := 0, "HRESULT")
+        return pqwBytes
     }
 }

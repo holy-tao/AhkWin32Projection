@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D_SHADER_CACHE_PSDB_PROPERTIES.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,26 +31,20 @@ class ID3DShaderCacheComponent extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<Integer>>} pName 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Integer>} 
      */
-    GetComponentName(pName) {
-        pNameMarshal := pName is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, pNameMarshal, pName, "HRESULT")
-        return result
+    GetComponentName() {
+        result := ComCall(3, this, "ptr*", &pName := 0, "HRESULT")
+        return pName
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Integer>>} pPath 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Integer>} 
      */
-    GetStateObjectDatabasePath(pPath) {
-        pPathMarshal := pPath is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, pPathMarshal, pPath, "HRESULT")
-        return result
+    GetStateObjectDatabasePath() {
+        result := ComCall(4, this, "ptr*", &pPath := 0, "HRESULT")
+        return pPath
     }
 
     /**
@@ -79,11 +74,11 @@ class ID3DShaderCacheComponent extends IUnknown{
     /**
      * 
      * @param {Integer} ArraySize 
-     * @param {Pointer<D3D_SHADER_CACHE_PSDB_PROPERTIES>} pPSDBs 
-     * @returns {HRESULT} 
+     * @returns {D3D_SHADER_CACHE_PSDB_PROPERTIES} 
      */
-    GetPrecompiledShaderDatabases(ArraySize, pPSDBs) {
+    GetPrecompiledShaderDatabases(ArraySize) {
+        pPSDBs := D3D_SHADER_CACHE_PSDB_PROPERTIES()
         result := ComCall(7, this, "uint", ArraySize, "ptr", pPSDBs, "HRESULT")
-        return result
+        return pPSDBs
     }
 }

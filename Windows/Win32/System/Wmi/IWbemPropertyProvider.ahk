@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -38,18 +39,18 @@ class IWbemPropertyProvider extends IUnknown{
      * @param {BSTR} strClassMapping 
      * @param {BSTR} strInstMapping 
      * @param {BSTR} strPropMapping 
-     * @param {Pointer<VARIANT>} pvValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbempropertyprovider-getproperty
      */
-    GetProperty(lFlags, strLocale, strClassMapping, strInstMapping, strPropMapping, pvValue) {
+    GetProperty(lFlags, strLocale, strClassMapping, strInstMapping, strPropMapping) {
         strLocale := strLocale is String ? BSTR.Alloc(strLocale).Value : strLocale
         strClassMapping := strClassMapping is String ? BSTR.Alloc(strClassMapping).Value : strClassMapping
         strInstMapping := strInstMapping is String ? BSTR.Alloc(strInstMapping).Value : strInstMapping
         strPropMapping := strPropMapping is String ? BSTR.Alloc(strPropMapping).Value : strPropMapping
 
+        pvValue := VARIANT()
         result := ComCall(3, this, "int", lFlags, "ptr", strLocale, "ptr", strClassMapping, "ptr", strInstMapping, "ptr", strPropMapping, "ptr", pvValue, "HRESULT")
-        return result
+        return pvValue
     }
 
     /**

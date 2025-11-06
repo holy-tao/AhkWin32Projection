@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -33,35 +34,35 @@ class IOCSPCAConfiguration extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_identifier
      */
-    get_Identifier(pVal) {
+    get_Identifier() {
+        pVal := BSTR()
         result := ComCall(7, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_cacertificate
      */
-    get_CACertificate(pVal) {
+    get_CACertificate() {
+        pVal := VARIANT()
         result := ComCall(8, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_hashalgorithm
      */
-    get_HashAlgorithm(pVal) {
+    get_HashAlgorithm() {
+        pVal := BSTR()
         result := ComCall(9, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
@@ -79,15 +80,12 @@ class IOCSPCAConfiguration extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_signingflags
      */
-    get_SigningFlags(pVal) {
-        pValMarshal := pVal is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_SigningFlags() {
+        result := ComCall(11, this, "uint*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -103,13 +101,13 @@ class IOCSPCAConfiguration extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_signingcertificate
      */
-    get_SigningCertificate(pVal) {
+    get_SigningCertificate() {
+        pVal := VARIANT()
         result := ComCall(13, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
@@ -125,15 +123,12 @@ class IOCSPCAConfiguration extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_reminderduration
      */
-    get_ReminderDuration(pVal) {
-        pValMarshal := pVal is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(15, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_ReminderDuration() {
+        result := ComCall(15, this, "uint*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -149,50 +144,44 @@ class IOCSPCAConfiguration extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_errorcode
      */
-    get_ErrorCode(pVal) {
-        pValMarshal := pVal is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(17, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_ErrorCode() {
+        result := ComCall(17, this, "uint*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_cspname
      */
-    get_CSPName(pVal) {
+    get_CSPName() {
+        pVal := BSTR()
         result := ComCall(18, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_keyspec
      */
-    get_KeySpec(pVal) {
-        pValMarshal := pVal is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(19, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_KeySpec() {
+        result := ComCall(19, this, "uint*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_providerclsid
      */
-    get_ProviderCLSID(pVal) {
+    get_ProviderCLSID() {
+        pVal := BSTR()
         result := ComCall(20, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
@@ -210,13 +199,13 @@ class IOCSPCAConfiguration extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_providerproperties
      */
-    get_ProviderProperties(pVal) {
+    get_ProviderProperties() {
+        pVal := VARIANT()
         result := ComCall(22, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
@@ -232,24 +221,23 @@ class IOCSPCAConfiguration extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_modified
      */
-    get_Modified(pVal) {
-        result := ComCall(24, this, "ptr", pVal, "HRESULT")
-        return result
+    get_Modified() {
+        result := ComCall(24, this, "short*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_localrevocationinformation
      */
-    get_LocalRevocationInformation(pVal) {
+    get_LocalRevocationInformation() {
+        pVal := VARIANT()
         result := ComCall(25, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
@@ -265,13 +253,13 @@ class IOCSPCAConfiguration extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_signingcertificatetemplate
      */
-    get_SigningCertificateTemplate(pVal) {
+    get_SigningCertificateTemplate() {
+        pVal := BSTR()
         result := ComCall(27, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
@@ -289,13 +277,13 @@ class IOCSPCAConfiguration extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_caconfig
      */
-    get_CAConfig(pVal) {
+    get_CAConfig() {
+        pVal := BSTR()
         result := ComCall(29, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**

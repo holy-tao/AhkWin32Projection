@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITfPropertyStore.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -40,13 +41,12 @@ class ITfCreatePropertyStore extends IUnknown{
      * @param {Pointer<Guid>} guidProp 
      * @param {ITfRange} pRange 
      * @param {ITfPropertyStore} pPropStore 
-     * @param {Pointer<BOOL>} pfSerializable 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcreatepropertystore-isstoreserializable
      */
-    IsStoreSerializable(guidProp, pRange, pPropStore, pfSerializable) {
-        result := ComCall(3, this, "ptr", guidProp, "ptr", pRange, "ptr", pPropStore, "ptr", pfSerializable, "HRESULT")
-        return result
+    IsStoreSerializable(guidProp, pRange, pPropStore) {
+        result := ComCall(3, this, "ptr", guidProp, "ptr", pRange, "ptr", pPropStore, "int*", &pfSerializable := 0, "HRESULT")
+        return pfSerializable
     }
 
     /**
@@ -55,12 +55,11 @@ class ITfCreatePropertyStore extends IUnknown{
      * @param {ITfRange} pRange 
      * @param {Integer} cb 
      * @param {IStream} pStream 
-     * @param {Pointer<ITfPropertyStore>} ppStore Receives a pointer to the <b>IPropertyStore</b> interface. The caller must release the interface.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @returns {ITfPropertyStore} Receives a pointer to the <b>IPropertyStore</b> interface. The caller must release the interface.
      * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-createpropertystore
      */
-    CreatePropertyStore(guidProp, pRange, cb, pStream, ppStore) {
-        result := ComCall(4, this, "ptr", guidProp, "ptr", pRange, "uint", cb, "ptr", pStream, "ptr*", ppStore, "HRESULT")
-        return result
+    CreatePropertyStore(guidProp, pRange, cb, pStream) {
+        result := ComCall(4, this, "ptr", guidProp, "ptr", pRange, "uint", cb, "ptr", pStream, "ptr*", &ppStore := 0, "HRESULT")
+        return ITfPropertyStore(ppStore)
     }
 }

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Com\IUnknown.ahk
+#Include .\IDebugHostContext.ahk
+#Include .\IKeyStore.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -30,31 +32,28 @@ class IDebugHost extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} hostUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    GetHostDefinedInterface(hostUnk) {
-        result := ComCall(3, this, "ptr*", hostUnk, "HRESULT")
-        return result
+    GetHostDefinedInterface() {
+        result := ComCall(3, this, "ptr*", &hostUnk := 0, "HRESULT")
+        return IUnknown(hostUnk)
     }
 
     /**
      * 
-     * @param {Pointer<IDebugHostContext>} context 
-     * @returns {HRESULT} 
+     * @returns {IDebugHostContext} 
      */
-    GetCurrentContext(context) {
-        result := ComCall(4, this, "ptr*", context, "HRESULT")
-        return result
+    GetCurrentContext() {
+        result := ComCall(4, this, "ptr*", &context := 0, "HRESULT")
+        return IDebugHostContext(context)
     }
 
     /**
      * 
-     * @param {Pointer<IKeyStore>} defaultMetadataStore 
-     * @returns {HRESULT} 
+     * @returns {IKeyStore} 
      */
-    GetDefaultMetadata(defaultMetadataStore) {
-        result := ComCall(5, this, "ptr*", defaultMetadataStore, "HRESULT")
-        return result
+    GetDefaultMetadata() {
+        result := ComCall(5, this, "ptr*", &defaultMetadataStore := 0, "HRESULT")
+        return IKeyStore(defaultMetadataStore)
     }
 }

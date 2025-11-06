@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUpdateInstallationResult.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -32,50 +33,42 @@ class IInstallationResult extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinstallationresult-get_hresult
      */
-    get_HResult(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_HResult() {
+        result := ComCall(7, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinstallationresult-get_rebootrequired
      */
-    get_RebootRequired(retval) {
-        result := ComCall(8, this, "ptr", retval, "HRESULT")
-        return result
+    get_RebootRequired() {
+        result := ComCall(8, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinstallationresult-get_resultcode
      */
-    get_ResultCode(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_ResultCode() {
+        result := ComCall(9, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
      * @param {Integer} updateIndex 
-     * @param {Pointer<IUpdateInstallationResult>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUpdateInstallationResult} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinstallationresult-getupdateresult
      */
-    GetUpdateResult(updateIndex, retval) {
-        result := ComCall(10, this, "int", updateIndex, "ptr*", retval, "HRESULT")
-        return result
+    GetUpdateResult(updateIndex) {
+        result := ComCall(10, this, "int", updateIndex, "ptr*", &retval := 0, "HRESULT")
+        return IUpdateInstallationResult(retval)
     }
 }

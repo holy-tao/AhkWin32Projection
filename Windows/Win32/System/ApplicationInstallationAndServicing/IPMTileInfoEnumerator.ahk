@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IPMTileInfo.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -30,11 +31,10 @@ class IPMTileInfoEnumerator extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IPMTileInfo>} ppTileInfo 
-     * @returns {HRESULT} 
+     * @returns {IPMTileInfo} 
      */
-    get_Next(ppTileInfo) {
-        result := ComCall(3, this, "ptr*", ppTileInfo, "HRESULT")
-        return result
+    get_Next() {
+        result := ComCall(3, this, "ptr*", &ppTileInfo := 0, "HRESULT")
+        return IPMTileInfo(ppTileInfo)
     }
 }

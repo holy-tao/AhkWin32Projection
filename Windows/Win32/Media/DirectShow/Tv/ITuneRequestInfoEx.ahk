@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\ITuneRequestInfo.ahk
 
 /**
@@ -31,11 +32,10 @@ class ITuneRequestInfoEx extends ITuneRequestInfo{
     /**
      * 
      * @param {ITuneRequest} CurrentRequest 
-     * @param {Pointer<IUnknown>} ppCurPMT 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    CreateComponentListEx(CurrentRequest, ppCurPMT) {
-        result := ComCall(10, this, "ptr", CurrentRequest, "ptr*", ppCurPMT, "HRESULT")
-        return result
+    CreateComponentListEx(CurrentRequest) {
+        result := ComCall(10, this, "ptr", CurrentRequest, "ptr*", &ppCurPMT := 0, "HRESULT")
+        return IUnknown(ppCurPMT)
     }
 }

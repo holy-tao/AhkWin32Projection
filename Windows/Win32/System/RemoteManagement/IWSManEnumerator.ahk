@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -41,34 +42,33 @@ class IWSManEnumerator extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} resource 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanenumerator-readitem
      */
-    ReadItem(resource) {
+    ReadItem() {
+        resource := BSTR()
         result := ComCall(7, this, "ptr", resource, "HRESULT")
-        return result
+        return resource
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} eos 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanenumerator-get_atendofstream
      */
-    get_AtEndOfStream(eos) {
-        result := ComCall(8, this, "ptr", eos, "HRESULT")
-        return result
+    get_AtEndOfStream() {
+        result := ComCall(8, this, "short*", &eos := 0, "HRESULT")
+        return eos
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} value 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanenumerator-get_error
      */
-    get_Error(value) {
+    get_Error() {
+        value := BSTR()
         result := ComCall(9, this, "ptr", value, "HRESULT")
-        return result
+        return value
     }
 }

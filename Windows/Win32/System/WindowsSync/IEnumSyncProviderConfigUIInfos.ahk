@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumSyncProviderConfigUIInfos.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -73,12 +74,11 @@ class IEnumSyncProviderConfigUIInfos extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumSyncProviderConfigUIInfos>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumSyncProviderConfigUIInfos} 
      * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-ienumsyncproviderconfiguiinfos-clone
      */
-    Clone(ppEnum) {
-        result := ComCall(6, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumSyncProviderConfigUIInfos(ppEnum)
     }
 }

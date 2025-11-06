@@ -32,24 +32,22 @@ class IEVRTrustedVideoPlugin extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pYes 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-ievrtrustedvideoplugin-isintrustedvideomode
      */
-    IsInTrustedVideoMode(pYes) {
-        result := ComCall(3, this, "ptr", pYes, "HRESULT")
-        return result
+    IsInTrustedVideoMode() {
+        result := ComCall(3, this, "int*", &pYes := 0, "HRESULT")
+        return pYes
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pYes 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-ievrtrustedvideoplugin-canconstrict
      */
-    CanConstrict(pYes) {
-        result := ComCall(4, this, "ptr", pYes, "HRESULT")
-        return result
+    CanConstrict() {
+        result := ComCall(4, this, "int*", &pYes := 0, "HRESULT")
+        return pYes
     }
 
     /**

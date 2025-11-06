@@ -31,12 +31,12 @@ class IGPMGPO3 extends IGPMGPO2{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_InfrastructureDC(pVal) {
+    get_InfrastructureDC() {
+        pVal := BSTR()
         result := ComCall(38, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**

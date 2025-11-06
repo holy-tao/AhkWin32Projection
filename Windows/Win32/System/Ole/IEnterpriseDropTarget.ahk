@@ -45,12 +45,11 @@ class IEnterpriseDropTarget extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} value 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ienterprisedroptarget-isevaluatingedppolicy
      */
-    IsEvaluatingEdpPolicy(value) {
-        result := ComCall(4, this, "ptr", value, "HRESULT")
-        return result
+    IsEvaluatingEdpPolicy() {
+        result := ComCall(4, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 }

@@ -39,9 +39,10 @@ class IInternetSecurityManagerEx2 extends IInternetSecurityManagerEx{
      */
     MapUrlToZoneEx2(pUri, pdwZone, dwFlags, ppwszMappedUrl, pdwOutFlags) {
         pdwZoneMarshal := pdwZone is VarRef ? "uint*" : "ptr"
+        ppwszMappedUrlMarshal := ppwszMappedUrl is VarRef ? "ptr*" : "ptr"
         pdwOutFlagsMarshal := pdwOutFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "ptr", pUri, pdwZoneMarshal, pdwZone, "uint", dwFlags, "ptr", ppwszMappedUrl, pdwOutFlagsMarshal, pdwOutFlags, "HRESULT")
+        result := ComCall(12, this, "ptr", pUri, pdwZoneMarshal, pdwZone, "uint", dwFlags, ppwszMappedUrlMarshal, ppwszMappedUrl, pdwOutFlagsMarshal, pdwOutFlags, "HRESULT")
         return result
     }
 
@@ -70,17 +71,15 @@ class IInternetSecurityManagerEx2 extends IInternetSecurityManagerEx{
     /**
      * 
      * @param {IUri} pUri 
-     * @param {Pointer<Integer>} pbSecurityId 
      * @param {Pointer<Integer>} pcbSecurityId 
      * @param {Pointer} dwReserved 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetSecurityIdEx2(pUri, pbSecurityId, pcbSecurityId, dwReserved) {
-        pbSecurityIdMarshal := pbSecurityId is VarRef ? "char*" : "ptr"
+    GetSecurityIdEx2(pUri, pcbSecurityId, dwReserved) {
         pcbSecurityIdMarshal := pcbSecurityId is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, "ptr", pUri, pbSecurityIdMarshal, pbSecurityId, pcbSecurityIdMarshal, pcbSecurityId, "ptr", dwReserved, "HRESULT")
-        return result
+        result := ComCall(14, this, "ptr", pUri, "char*", &pbSecurityId := 0, pcbSecurityIdMarshal, pcbSecurityId, "ptr", dwReserved, "HRESULT")
+        return pbSecurityId
     }
 
     /**

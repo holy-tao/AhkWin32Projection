@@ -37,19 +37,16 @@ class IProtectionPolicyManagerInterop3 extends IInspectable{
      * @param {HSTRING} messageFromApp 
      * @param {Integer} behavior 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} asyncOperation 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    RequestAccessWithBehaviorForWindowAsync(appWindow, sourceIdentity, targetIdentity, auditInfoUnk, messageFromApp, behavior, riid, asyncOperation) {
+    RequestAccessWithBehaviorForWindowAsync(appWindow, sourceIdentity, targetIdentity, auditInfoUnk, messageFromApp, behavior, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
         sourceIdentity := sourceIdentity is Win32Handle ? NumGet(sourceIdentity, "ptr") : sourceIdentity
         targetIdentity := targetIdentity is Win32Handle ? NumGet(targetIdentity, "ptr") : targetIdentity
         messageFromApp := messageFromApp is Win32Handle ? NumGet(messageFromApp, "ptr") : messageFromApp
 
-        asyncOperationMarshal := asyncOperation is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", appWindow, "ptr", sourceIdentity, "ptr", targetIdentity, "ptr", auditInfoUnk, "ptr", messageFromApp, "uint", behavior, "ptr", riid, asyncOperationMarshal, asyncOperation, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", appWindow, "ptr", sourceIdentity, "ptr", targetIdentity, "ptr", auditInfoUnk, "ptr", messageFromApp, "uint", behavior, "ptr", riid, "ptr*", &asyncOperation := 0, "HRESULT")
+        return asyncOperation
     }
 
     /**
@@ -61,19 +58,16 @@ class IProtectionPolicyManagerInterop3 extends IInspectable{
      * @param {HSTRING} messageFromApp 
      * @param {Integer} behavior 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} asyncOperation 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    RequestAccessForAppWithBehaviorForWindowAsync(appWindow, sourceIdentity, appPackageFamilyName, auditInfoUnk, messageFromApp, behavior, riid, asyncOperation) {
+    RequestAccessForAppWithBehaviorForWindowAsync(appWindow, sourceIdentity, appPackageFamilyName, auditInfoUnk, messageFromApp, behavior, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
         sourceIdentity := sourceIdentity is Win32Handle ? NumGet(sourceIdentity, "ptr") : sourceIdentity
         appPackageFamilyName := appPackageFamilyName is Win32Handle ? NumGet(appPackageFamilyName, "ptr") : appPackageFamilyName
         messageFromApp := messageFromApp is Win32Handle ? NumGet(messageFromApp, "ptr") : messageFromApp
 
-        asyncOperationMarshal := asyncOperation is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, "ptr", appWindow, "ptr", sourceIdentity, "ptr", appPackageFamilyName, "ptr", auditInfoUnk, "ptr", messageFromApp, "uint", behavior, "ptr", riid, asyncOperationMarshal, asyncOperation, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", appWindow, "ptr", sourceIdentity, "ptr", appPackageFamilyName, "ptr", auditInfoUnk, "ptr", messageFromApp, "uint", behavior, "ptr", riid, "ptr*", &asyncOperation := 0, "HRESULT")
+        return asyncOperation
     }
 
     /**
@@ -83,17 +77,14 @@ class IProtectionPolicyManagerInterop3 extends IInspectable{
      * @param {HSTRING} appPackageFamilyName 
      * @param {IUnknown} auditInfoUnk 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} asyncOperation 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    RequestAccessToFilesForAppForWindowAsync(appWindow, sourceItemListUnk, appPackageFamilyName, auditInfoUnk, riid, asyncOperation) {
+    RequestAccessToFilesForAppForWindowAsync(appWindow, sourceItemListUnk, appPackageFamilyName, auditInfoUnk, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
         appPackageFamilyName := appPackageFamilyName is Win32Handle ? NumGet(appPackageFamilyName, "ptr") : appPackageFamilyName
 
-        asyncOperationMarshal := asyncOperation is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(8, this, "ptr", appWindow, "ptr", sourceItemListUnk, "ptr", appPackageFamilyName, "ptr", auditInfoUnk, "ptr", riid, asyncOperationMarshal, asyncOperation, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", appWindow, "ptr", sourceItemListUnk, "ptr", appPackageFamilyName, "ptr", auditInfoUnk, "ptr", riid, "ptr*", &asyncOperation := 0, "HRESULT")
+        return asyncOperation
     }
 
     /**
@@ -105,18 +96,15 @@ class IProtectionPolicyManagerInterop3 extends IInspectable{
      * @param {HSTRING} messageFromApp 
      * @param {Integer} behavior 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} asyncOperation 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    RequestAccessToFilesForAppWithMessageAndBehaviorForWindowAsync(appWindow, sourceItemListUnk, appPackageFamilyName, auditInfoUnk, messageFromApp, behavior, riid, asyncOperation) {
+    RequestAccessToFilesForAppWithMessageAndBehaviorForWindowAsync(appWindow, sourceItemListUnk, appPackageFamilyName, auditInfoUnk, messageFromApp, behavior, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
         appPackageFamilyName := appPackageFamilyName is Win32Handle ? NumGet(appPackageFamilyName, "ptr") : appPackageFamilyName
         messageFromApp := messageFromApp is Win32Handle ? NumGet(messageFromApp, "ptr") : messageFromApp
 
-        asyncOperationMarshal := asyncOperation is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(9, this, "ptr", appWindow, "ptr", sourceItemListUnk, "ptr", appPackageFamilyName, "ptr", auditInfoUnk, "ptr", messageFromApp, "uint", behavior, "ptr", riid, asyncOperationMarshal, asyncOperation, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", appWindow, "ptr", sourceItemListUnk, "ptr", appPackageFamilyName, "ptr", auditInfoUnk, "ptr", messageFromApp, "uint", behavior, "ptr", riid, "ptr*", &asyncOperation := 0, "HRESULT")
+        return asyncOperation
     }
 
     /**
@@ -126,16 +114,13 @@ class IProtectionPolicyManagerInterop3 extends IInspectable{
      * @param {Integer} processId 
      * @param {IUnknown} auditInfoUnk 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} asyncOperation 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    RequestAccessToFilesForProcessForWindowAsync(appWindow, sourceItemListUnk, processId, auditInfoUnk, riid, asyncOperation) {
+    RequestAccessToFilesForProcessForWindowAsync(appWindow, sourceItemListUnk, processId, auditInfoUnk, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
 
-        asyncOperationMarshal := asyncOperation is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(10, this, "ptr", appWindow, "ptr", sourceItemListUnk, "uint", processId, "ptr", auditInfoUnk, "ptr", riid, asyncOperationMarshal, asyncOperation, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", appWindow, "ptr", sourceItemListUnk, "uint", processId, "ptr", auditInfoUnk, "ptr", riid, "ptr*", &asyncOperation := 0, "HRESULT")
+        return asyncOperation
     }
 
     /**
@@ -147,16 +132,13 @@ class IProtectionPolicyManagerInterop3 extends IInspectable{
      * @param {HSTRING} messageFromApp 
      * @param {Integer} behavior 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} asyncOperation 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    RequestAccessToFilesForProcessWithMessageAndBehaviorForWindowAsync(appWindow, sourceItemListUnk, processId, auditInfoUnk, messageFromApp, behavior, riid, asyncOperation) {
+    RequestAccessToFilesForProcessWithMessageAndBehaviorForWindowAsync(appWindow, sourceItemListUnk, processId, auditInfoUnk, messageFromApp, behavior, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
         messageFromApp := messageFromApp is Win32Handle ? NumGet(messageFromApp, "ptr") : messageFromApp
 
-        asyncOperationMarshal := asyncOperation is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(11, this, "ptr", appWindow, "ptr", sourceItemListUnk, "uint", processId, "ptr", auditInfoUnk, "ptr", messageFromApp, "uint", behavior, "ptr", riid, asyncOperationMarshal, asyncOperation, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", appWindow, "ptr", sourceItemListUnk, "uint", processId, "ptr", auditInfoUnk, "ptr", messageFromApp, "uint", behavior, "ptr", riid, "ptr*", &asyncOperation := 0, "HRESULT")
+        return asyncOperation
     }
 }

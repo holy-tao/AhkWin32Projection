@@ -42,8 +42,9 @@ class IAccPropServer extends IUnknown{
      */
     GetPropValue(pIDString, dwIDStringLen, idProp, pvarValue, pfHasProp) {
         pIDStringMarshal := pIDString is VarRef ? "char*" : "ptr"
+        pfHasPropMarshal := pfHasProp is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, pIDStringMarshal, pIDString, "uint", dwIDStringLen, "ptr", idProp, "ptr", pvarValue, "ptr", pfHasProp, "HRESULT")
+        result := ComCall(3, this, pIDStringMarshal, pIDString, "uint", dwIDStringLen, "ptr", idProp, "ptr", pvarValue, pfHasPropMarshal, pfHasProp, "HRESULT")
         return result
     }
 }

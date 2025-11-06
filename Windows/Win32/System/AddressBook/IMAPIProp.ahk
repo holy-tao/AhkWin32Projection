@@ -90,13 +90,12 @@ class IMAPIProp extends IUnknown{
      * @param {Pointer<Guid>} lpiid 
      * @param {Integer} ulInterfaceOptions 
      * @param {Integer} ulFlags 
-     * @param {Pointer<IUnknown>} lppUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapiprop-openproperty
      */
-    OpenProperty(ulPropTag, lpiid, ulInterfaceOptions, ulFlags, lppUnk) {
-        result := ComCall(7, this, "uint", ulPropTag, "ptr", lpiid, "uint", ulInterfaceOptions, "uint", ulFlags, "ptr*", lppUnk, "HRESULT")
-        return result
+    OpenProperty(ulPropTag, lpiid, ulInterfaceOptions, ulFlags) {
+        result := ComCall(7, this, "uint", ulPropTag, "ptr", lpiid, "uint", ulInterfaceOptions, "uint", ulFlags, "ptr*", &lppUnk := 0, "HRESULT")
+        return IUnknown(lppUnk)
     }
 
     /**

@@ -3216,7 +3216,9 @@ class TabletPC {
     static Process(hrc, pbPartialProcessing) {
         hrc := hrc is Win32Handle ? NumGet(hrc, "ptr") : hrc
 
-        result := DllCall("inkobjcore.dll\Process", "ptr", hrc, "ptr", pbPartialProcessing, "int")
+        pbPartialProcessingMarshal := pbPartialProcessing is VarRef ? "int*" : "ptr"
+
+        result := DllCall("inkobjcore.dll\Process", "ptr", hrc, pbPartialProcessingMarshal, pbPartialProcessing, "int")
         if(result != 0)
             throw OSError(result)
 

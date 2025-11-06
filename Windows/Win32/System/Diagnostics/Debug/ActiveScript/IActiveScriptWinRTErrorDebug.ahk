@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Foundation\BSTR.ahk
 #Include .\IActiveScriptError.ahk
 
 /**
@@ -30,31 +31,31 @@ class IActiveScriptWinRTErrorDebug extends IActiveScriptError{
 
     /**
      * 
-     * @param {Pointer<BSTR>} errorString 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetRestrictedErrorString(errorString) {
+    GetRestrictedErrorString() {
+        errorString := BSTR()
         result := ComCall(6, this, "ptr", errorString, "HRESULT")
-        return result
+        return errorString
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} referenceString 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetRestrictedErrorReference(referenceString) {
+    GetRestrictedErrorReference() {
+        referenceString := BSTR()
         result := ComCall(7, this, "ptr", referenceString, "HRESULT")
-        return result
+        return referenceString
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} capabilitySid 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetCapabilitySid(capabilitySid) {
+    GetCapabilitySid() {
+        capabilitySid := BSTR()
         result := ComCall(8, this, "ptr", capabilitySid, "HRESULT")
-        return result
+        return capabilitySid
     }
 }

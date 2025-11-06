@@ -33,15 +33,14 @@ class IMDSPStorage2 extends IMDSPStorage{
     /**
      * 
      * @param {PWSTR} pszStorageName 
-     * @param {Pointer<IMDSPStorage>} ppStorage 
-     * @returns {HRESULT} 
+     * @returns {IMDSPStorage} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorage2-getstorage
      */
-    GetStorage(pszStorageName, ppStorage) {
+    GetStorage(pszStorageName) {
         pszStorageName := pszStorageName is String ? StrPtr(pszStorageName) : pszStorageName
 
-        result := ComCall(13, this, "ptr", pszStorageName, "ptr*", ppStorage, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", pszStorageName, "ptr*", &ppStorage := 0, "HRESULT")
+        return IMDSPStorage(ppStorage)
     }
 
     /**
@@ -52,15 +51,14 @@ class IMDSPStorage2 extends IMDSPStorage{
      * @param {Pointer<VIDEOINFOHEADER>} pVideoFormat 
      * @param {PWSTR} pwszName 
      * @param {Integer} qwFileSize 
-     * @param {Pointer<IMDSPStorage>} ppNewStorage 
-     * @returns {HRESULT} 
+     * @returns {IMDSPStorage} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorage2-createstorage2
      */
-    CreateStorage2(dwAttributes, dwAttributesEx, pAudioFormat, pVideoFormat, pwszName, qwFileSize, ppNewStorage) {
+    CreateStorage2(dwAttributes, dwAttributesEx, pAudioFormat, pVideoFormat, pwszName, qwFileSize) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(14, this, "uint", dwAttributes, "uint", dwAttributesEx, "ptr", pAudioFormat, "ptr", pVideoFormat, "ptr", pwszName, "uint", qwFileSize, "ptr*", ppNewStorage, "HRESULT")
-        return result
+        result := ComCall(14, this, "uint", dwAttributes, "uint", dwAttributesEx, "ptr", pAudioFormat, "ptr", pVideoFormat, "ptr", pwszName, "uint", qwFileSize, "ptr*", &ppNewStorage := 0, "HRESULT")
+        return IMDSPStorage(ppNewStorage)
     }
 
     /**

@@ -33,14 +33,13 @@ class IHTMLOpsProfile extends IDispatch{
      * 
      * @param {BSTR} name 
      * @param {VARIANT} reserved 
-     * @param {Pointer<VARIANT_BOOL>} success 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    addRequest(name, reserved, success) {
+    addRequest(name, reserved) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(7, this, "ptr", name, "ptr", reserved, "ptr", success, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", name, "ptr", reserved, "short*", &success := 0, "HRESULT")
+        return success
     }
 
     /**
@@ -70,14 +69,14 @@ class IHTMLOpsProfile extends IDispatch{
     /**
      * 
      * @param {BSTR} name 
-     * @param {Pointer<BSTR>} value 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    getAttribute(name, value) {
+    getAttribute(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
+        value := BSTR()
         result := ComCall(10, this, "ptr", name, "ptr", value, "HRESULT")
-        return result
+        return value
     }
 
     /**
@@ -85,39 +84,36 @@ class IHTMLOpsProfile extends IDispatch{
      * @param {BSTR} name 
      * @param {BSTR} value 
      * @param {VARIANT} prefs 
-     * @param {Pointer<VARIANT_BOOL>} success 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    setAttribute(name, value, prefs, success) {
+    setAttribute(name, value, prefs) {
         name := name is String ? BSTR.Alloc(name).Value : name
         value := value is String ? BSTR.Alloc(value).Value : value
 
-        result := ComCall(11, this, "ptr", name, "ptr", value, "ptr", prefs, "ptr", success, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", name, "ptr", value, "ptr", prefs, "short*", &success := 0, "HRESULT")
+        return success
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} success 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    commitChanges(success) {
-        result := ComCall(12, this, "ptr", success, "HRESULT")
-        return result
+    commitChanges() {
+        result := ComCall(12, this, "short*", &success := 0, "HRESULT")
+        return success
     }
 
     /**
      * 
      * @param {BSTR} name 
      * @param {VARIANT} reserved 
-     * @param {Pointer<VARIANT_BOOL>} success 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    addReadRequest(name, reserved, success) {
+    addReadRequest(name, reserved) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(13, this, "ptr", name, "ptr", reserved, "ptr", success, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", name, "ptr", reserved, "short*", &success := 0, "HRESULT")
+        return success
     }
 
     /**
@@ -137,11 +133,10 @@ class IHTMLOpsProfile extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} success 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    doWriteRequest(success) {
-        result := ComCall(15, this, "ptr", success, "HRESULT")
-        return result
+    doWriteRequest() {
+        result := ComCall(15, this, "short*", &success := 0, "HRESULT")
+        return success
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IEnumCERTVIEWCOLUMN.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -139,12 +140,11 @@ class IEnumCERTVIEWCOLUMN extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IEnumCERTVIEWCOLUMN>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IEnumCERTVIEWCOLUMN} 
      * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-ienumcertviewcolumn-clone
      */
-    Clone(ppenum) {
-        result := ComCall(16, this, "ptr*", ppenum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(16, this, "ptr*", &ppenum := 0, "HRESULT")
+        return IEnumCERTVIEWCOLUMN(ppenum)
     }
 }

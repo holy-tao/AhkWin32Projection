@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -32,59 +33,56 @@ class IRunningTask extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-irunningtask-get_name
      */
-    get_Name(pName) {
+    get_Name() {
+        pName := BSTR()
         result := ComCall(7, this, "ptr", pName, "HRESULT")
-        return result
+        return pName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pGuid 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-irunningtask-get_instanceguid
      */
-    get_InstanceGuid(pGuid) {
+    get_InstanceGuid() {
+        pGuid := BSTR()
         result := ComCall(8, this, "ptr", pGuid, "HRESULT")
-        return result
+        return pGuid
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pPath 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-irunningtask-get_path
      */
-    get_Path(pPath) {
+    get_Path() {
+        pPath := BSTR()
         result := ComCall(9, this, "ptr", pPath, "HRESULT")
-        return result
+        return pPath
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-irunningtask-get_state
      */
-    get_State(pState) {
-        pStateMarshal := pState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, pStateMarshal, pState, "HRESULT")
-        return result
+    get_State() {
+        result := ComCall(10, this, "int*", &pState := 0, "HRESULT")
+        return pState
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-irunningtask-get_currentaction
      */
-    get_CurrentAction(pName) {
+    get_CurrentAction() {
+        pName := BSTR()
         result := ComCall(11, this, "ptr", pName, "HRESULT")
-        return result
+        return pName
     }
 
     /**
@@ -109,14 +107,11 @@ class IRunningTask extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pPID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-irunningtask-get_enginepid
      */
-    get_EnginePID(pPID) {
-        pPIDMarshal := pPID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, pPIDMarshal, pPID, "HRESULT")
-        return result
+    get_EnginePID() {
+        result := ComCall(14, this, "uint*", &pPID := 0, "HRESULT")
+        return pPID
     }
 }

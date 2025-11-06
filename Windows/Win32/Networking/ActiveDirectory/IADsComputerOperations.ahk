@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IADs.ahk
 
 /**
@@ -38,13 +39,12 @@ class IADsComputerOperations extends IADs{
      * 				<b>GetLastStatus</b> method of that object, you can determine whether the constructor succeeded or failed. In such cases, 
      * 				<b>GetLastStatus</b> might return <b><b>OutOfMemory</b></b> even though there was plenty of memory available to create the object. Several GDI+ constructors set the status to <b><b>OutOfMemory</b></b> when they fail regardless of the reason for failure.
      * 
-     * @param {Pointer<IDispatch>} ppObject 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://docs.microsoft.com/windows/win32/api//gdiplustypes/ne-gdiplustypes-status
      */
-    Status(ppObject) {
-        result := ComCall(20, this, "ptr*", ppObject, "HRESULT")
-        return result
+    Status() {
+        result := ComCall(20, this, "ptr*", &ppObject := 0, "HRESULT")
+        return IDispatch(ppObject)
     }
 
     /**

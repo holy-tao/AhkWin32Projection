@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IGPMGPOLink.ahk
+#Include .\IGPMGPOLinksCollection.ahk
+#Include .\IGPMSecurityInfo.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -38,12 +42,11 @@ class IGPMSOM extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_GPOInheritanceBlocked(pVal) {
-        result := ComCall(7, this, "ptr", pVal, "HRESULT")
-        return result
+    get_GPOInheritanceBlocked() {
+        result := ComCall(7, this, "short*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -58,86 +61,73 @@ class IGPMSOM extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Name(pVal) {
+    get_Name() {
+        pVal := BSTR()
         result := ComCall(9, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Path(pVal) {
+    get_Path() {
+        pVal := BSTR()
         result := ComCall(10, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * The CreateGPOLink function creates a link between the specified GPO and the specified site, domain, or organizational unit.
      * @param {Integer} lLinkPos 
      * @param {IGPMGPO} pGPO 
-     * @param {Pointer<IGPMGPOLink>} ppNewGPOLink 
-     * @returns {HRESULT} If the function succeeds, the return value is <b>S_OK</b>. Otherwise, the function returns 
-     *        one of the COM error codes defined in the header file WinError.h. Be aware that you should test explicitly for 
-     *        the return value <b>S_OK</b>. Do not use the <b>SUCCEEDED</b> or 
-     *        <b>FAILED</b> macro on the returned <b>HRESULT</b> to determine success or failure of the 
-     *        function.
+     * @returns {IGPMGPOLink} 
      * @see https://docs.microsoft.com/windows/win32/api//gpedit/nf-gpedit-creategpolink
      */
-    CreateGPOLink(lLinkPos, pGPO, ppNewGPOLink) {
-        result := ComCall(11, this, "int", lLinkPos, "ptr", pGPO, "ptr*", ppNewGPOLink, "HRESULT")
-        return result
+    CreateGPOLink(lLinkPos, pGPO) {
+        result := ComCall(11, this, "int", lLinkPos, "ptr", pGPO, "ptr*", &ppNewGPOLink := 0, "HRESULT")
+        return IGPMGPOLink(ppNewGPOLink)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Type(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_Type() {
+        result := ComCall(12, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<IGPMGPOLinksCollection>} ppGPOLinks 
-     * @returns {HRESULT} 
+     * @returns {IGPMGPOLinksCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmsom-getgpolinks
      */
-    GetGPOLinks(ppGPOLinks) {
-        result := ComCall(13, this, "ptr*", ppGPOLinks, "HRESULT")
-        return result
+    GetGPOLinks() {
+        result := ComCall(13, this, "ptr*", &ppGPOLinks := 0, "HRESULT")
+        return IGPMGPOLinksCollection(ppGPOLinks)
     }
 
     /**
      * 
-     * @param {Pointer<IGPMGPOLinksCollection>} ppGPOLinks 
-     * @returns {HRESULT} 
+     * @returns {IGPMGPOLinksCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmsom-getinheritedgpolinks
      */
-    GetInheritedGPOLinks(ppGPOLinks) {
-        result := ComCall(14, this, "ptr*", ppGPOLinks, "HRESULT")
-        return result
+    GetInheritedGPOLinks() {
+        result := ComCall(14, this, "ptr*", &ppGPOLinks := 0, "HRESULT")
+        return IGPMGPOLinksCollection(ppGPOLinks)
     }
 
     /**
      * Retrieves a copy of the security descriptor for an object specified by a handle.
-     * @param {Pointer<IGPMSecurityInfo>} ppSecurityInfo 
-     * @returns {HRESULT} If the function succeeds, the return value is ERROR_SUCCESS.
-     * 
-     * If the function fails, the return value is a nonzero error code defined in WinError.h.
+     * @returns {IGPMSecurityInfo} 
      * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-getsecurityinfo
      */
-    GetSecurityInfo(ppSecurityInfo) {
-        result := ComCall(15, this, "ptr*", ppSecurityInfo, "HRESULT")
-        return result
+    GetSecurityInfo() {
+        result := ComCall(15, this, "ptr*", &ppSecurityInfo := 0, "HRESULT")
+        return IGPMSecurityInfo(ppSecurityInfo)
     }
 
     /**

@@ -56,28 +56,22 @@ class IPBDA_Services extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbda_services-getcountofrecords
      */
-    GetCountOfRecords(pdwVal) {
-        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pdwValMarshal, pdwVal, "HRESULT")
-        return result
+    GetCountOfRecords() {
+        result := ComCall(4, this, "uint*", &pdwVal := 0, "HRESULT")
+        return pdwVal
     }
 
     /**
      * 
      * @param {Integer} dwRecordIndex 
-     * @param {Pointer<Integer>} pul64ServiceIdx 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbda_services-getrecordbyindex
      */
-    GetRecordByIndex(dwRecordIndex, pul64ServiceIdx) {
-        pul64ServiceIdxMarshal := pul64ServiceIdx is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, "uint", dwRecordIndex, pul64ServiceIdxMarshal, pul64ServiceIdx, "HRESULT")
-        return result
+    GetRecordByIndex(dwRecordIndex) {
+        result := ComCall(5, this, "uint", dwRecordIndex, "uint*", &pul64ServiceIdx := 0, "HRESULT")
+        return pul64ServiceIdx
     }
 }

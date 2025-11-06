@@ -34,14 +34,11 @@ class IDirectManipulationManager2 extends IDirectManipulationManager{
      * 
      * @param {Pointer<Guid>} clsid 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} object 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationmanager2-createbehavior
      */
-    CreateBehavior(clsid, riid, object) {
-        objectMarshal := object is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(10, this, "ptr", clsid, "ptr", riid, objectMarshal, object, "HRESULT")
-        return result
+    CreateBehavior(clsid, riid) {
+        result := ComCall(10, this, "ptr", clsid, "ptr", riid, "ptr*", &object := 0, "HRESULT")
+        return object
     }
 }

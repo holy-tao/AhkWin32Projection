@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWMPMediaCollection.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -56,13 +57,12 @@ class IWMPLibrary extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IWMPMediaCollection>} ppIWMPMediaCollection 
-     * @returns {HRESULT} 
+     * @returns {IWMPMediaCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmplibrary-get_mediacollection
      */
-    get_mediaCollection(ppIWMPMediaCollection) {
-        result := ComCall(5, this, "ptr*", ppIWMPMediaCollection, "HRESULT")
-        return result
+    get_mediaCollection() {
+        result := ComCall(5, this, "ptr*", &ppIWMPMediaCollection := 0, "HRESULT")
+        return IWMPMediaCollection(ppIWMPMediaCollection)
     }
 
     /**
@@ -73,7 +73,9 @@ class IWMPLibrary extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmplibrary-isidentical
      */
     isIdentical(pIWMPLibrary, pvbool) {
-        result := ComCall(6, this, "ptr", pIWMPLibrary, "ptr", pvbool, "HRESULT")
+        pvboolMarshal := pvbool is VarRef ? "short*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pIWMPLibrary, pvboolMarshal, pvbool, "HRESULT")
         return result
     }
 }

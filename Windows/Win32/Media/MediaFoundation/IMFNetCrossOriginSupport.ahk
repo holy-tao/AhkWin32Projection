@@ -36,38 +36,33 @@ class IMFNetCrossOriginSupport extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pPolicy 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfnetcrossoriginsupport-getcrossoriginpolicy
      */
-    GetCrossOriginPolicy(pPolicy) {
-        pPolicyMarshal := pPolicy is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, pPolicyMarshal, pPolicy, "HRESULT")
-        return result
+    GetCrossOriginPolicy() {
+        result := ComCall(3, this, "int*", &pPolicy := 0, "HRESULT")
+        return pPolicy
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} wszSourceOrigin 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfnetcrossoriginsupport-getsourceorigin
      */
-    GetSourceOrigin(wszSourceOrigin) {
-        result := ComCall(4, this, "ptr", wszSourceOrigin, "HRESULT")
-        return result
+    GetSourceOrigin() {
+        result := ComCall(4, this, "ptr*", &wszSourceOrigin := 0, "HRESULT")
+        return wszSourceOrigin
     }
 
     /**
      * 
      * @param {PWSTR} wszURL 
-     * @param {Pointer<BOOL>} pfIsSameOrigin 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsSameOrigin(wszURL, pfIsSameOrigin) {
+    IsSameOrigin(wszURL) {
         wszURL := wszURL is String ? StrPtr(wszURL) : wszURL
 
-        result := ComCall(5, this, "ptr", wszURL, "ptr", pfIsSameOrigin, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", wszURL, "int*", &pfIsSameOrigin := 0, "HRESULT")
+        return pfIsSameOrigin
     }
 }

@@ -41,14 +41,11 @@ class IXmlReader extends IUnknown{
     /**
      * 
      * @param {Integer} nProperty 
-     * @param {Pointer<Pointer>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    GetProperty(nProperty, ppValue) {
-        ppValueMarshal := ppValue is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "uint", nProperty, ppValueMarshal, ppValue, "HRESULT")
-        return result
+    GetProperty(nProperty) {
+        result := ComCall(4, this, "uint", nProperty, "ptr*", &ppValue := 0, "HRESULT")
+        return ppValue
     }
 
     /**
@@ -64,26 +61,20 @@ class IXmlReader extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pNodeType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Read(pNodeType) {
-        pNodeTypeMarshal := pNodeType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, pNodeTypeMarshal, pNodeType, "int")
-        return result
+    Read() {
+        result := ComCall(6, this, "int*", &pNodeType := 0, "int")
+        return pNodeType
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pNodeType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetNodeType(pNodeType) {
-        pNodeTypeMarshal := pNodeType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pNodeTypeMarshal, pNodeType, "HRESULT")
-        return result
+    GetNodeType() {
+        result := ComCall(7, this, "int*", &pNodeType := 0, "HRESULT")
+        return pNodeType
     }
 
     /**
@@ -134,9 +125,10 @@ class IXmlReader extends IUnknown{
      * @returns {HRESULT} 
      */
     GetQualifiedName(ppwszQualifiedName, pcwchQualifiedName) {
+        ppwszQualifiedNameMarshal := ppwszQualifiedName is VarRef ? "ptr*" : "ptr"
         pcwchQualifiedNameMarshal := pcwchQualifiedName is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "ptr", ppwszQualifiedName, pcwchQualifiedNameMarshal, pcwchQualifiedName, "HRESULT")
+        result := ComCall(12, this, ppwszQualifiedNameMarshal, ppwszQualifiedName, pcwchQualifiedNameMarshal, pcwchQualifiedName, "HRESULT")
         return result
     }
 
@@ -147,9 +139,10 @@ class IXmlReader extends IUnknown{
      * @returns {HRESULT} 
      */
     GetNamespaceUri(ppwszNamespaceUri, pcwchNamespaceUri) {
+        ppwszNamespaceUriMarshal := ppwszNamespaceUri is VarRef ? "ptr*" : "ptr"
         pcwchNamespaceUriMarshal := pcwchNamespaceUri is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, "ptr", ppwszNamespaceUri, pcwchNamespaceUriMarshal, pcwchNamespaceUri, "HRESULT")
+        result := ComCall(13, this, ppwszNamespaceUriMarshal, ppwszNamespaceUri, pcwchNamespaceUriMarshal, pcwchNamespaceUri, "HRESULT")
         return result
     }
 
@@ -160,9 +153,10 @@ class IXmlReader extends IUnknown{
      * @returns {HRESULT} 
      */
     GetLocalName(ppwszLocalName, pcwchLocalName) {
+        ppwszLocalNameMarshal := ppwszLocalName is VarRef ? "ptr*" : "ptr"
         pcwchLocalNameMarshal := pcwchLocalName is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, "ptr", ppwszLocalName, pcwchLocalNameMarshal, pcwchLocalName, "HRESULT")
+        result := ComCall(14, this, ppwszLocalNameMarshal, ppwszLocalName, pcwchLocalNameMarshal, pcwchLocalName, "HRESULT")
         return result
     }
 
@@ -173,9 +167,10 @@ class IXmlReader extends IUnknown{
      * @returns {HRESULT} 
      */
     GetPrefix(ppwszPrefix, pcwchPrefix) {
+        ppwszPrefixMarshal := ppwszPrefix is VarRef ? "ptr*" : "ptr"
         pcwchPrefixMarshal := pcwchPrefix is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, "ptr", ppwszPrefix, pcwchPrefixMarshal, pcwchPrefix, "HRESULT")
+        result := ComCall(15, this, ppwszPrefixMarshal, ppwszPrefix, pcwchPrefixMarshal, pcwchPrefix, "HRESULT")
         return result
     }
 
@@ -186,9 +181,10 @@ class IXmlReader extends IUnknown{
      * @returns {HRESULT} 
      */
     GetValue(ppwszValue, pcwchValue) {
+        ppwszValueMarshal := ppwszValue is VarRef ? "ptr*" : "ptr"
         pcwchValueMarshal := pcwchValue is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, "ptr", ppwszValue, pcwchValueMarshal, pcwchValue, "HRESULT")
+        result := ComCall(16, this, ppwszValueMarshal, ppwszValue, pcwchValueMarshal, pcwchValue, "HRESULT")
         return result
     }
 
@@ -215,9 +211,10 @@ class IXmlReader extends IUnknown{
      * @returns {HRESULT} 
      */
     GetBaseUri(ppwszBaseUri, pcwchBaseUri) {
+        ppwszBaseUriMarshal := ppwszBaseUri is VarRef ? "ptr*" : "ptr"
         pcwchBaseUriMarshal := pcwchBaseUri is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(18, this, "ptr", ppwszBaseUri, pcwchBaseUriMarshal, pcwchBaseUri, "HRESULT")
+        result := ComCall(18, this, ppwszBaseUriMarshal, ppwszBaseUri, pcwchBaseUriMarshal, pcwchBaseUri, "HRESULT")
         return result
     }
 
@@ -241,50 +238,38 @@ class IXmlReader extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pnLineNumber 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetLineNumber(pnLineNumber) {
-        pnLineNumberMarshal := pnLineNumber is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(21, this, pnLineNumberMarshal, pnLineNumber, "HRESULT")
-        return result
+    GetLineNumber() {
+        result := ComCall(21, this, "uint*", &pnLineNumber := 0, "HRESULT")
+        return pnLineNumber
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pnLinePosition 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetLinePosition(pnLinePosition) {
-        pnLinePositionMarshal := pnLinePosition is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(22, this, pnLinePositionMarshal, pnLinePosition, "HRESULT")
-        return result
+    GetLinePosition() {
+        result := ComCall(22, this, "uint*", &pnLinePosition := 0, "HRESULT")
+        return pnLinePosition
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pnAttributeCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetAttributeCount(pnAttributeCount) {
-        pnAttributeCountMarshal := pnAttributeCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(23, this, pnAttributeCountMarshal, pnAttributeCount, "HRESULT")
-        return result
+    GetAttributeCount() {
+        result := ComCall(23, this, "uint*", &pnAttributeCount := 0, "HRESULT")
+        return pnAttributeCount
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pnDepth 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetDepth(pnDepth) {
-        pnDepthMarshal := pnDepth is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(24, this, pnDepthMarshal, pnDepth, "HRESULT")
-        return result
+    GetDepth() {
+        result := ComCall(24, this, "uint*", &pnDepth := 0, "HRESULT")
+        return pnDepth
     }
 
     /**

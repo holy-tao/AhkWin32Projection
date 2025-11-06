@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,38 +33,32 @@ class ISpreadsheetItemProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ispreadsheetitemprovider-get_formula
      */
-    get_Formula(pRetVal) {
+    get_Formula() {
+        pRetVal := BSTR()
         result := ComCall(3, this, "ptr", pRetVal, "HRESULT")
-        return result
+        return pRetVal
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ispreadsheetitemprovider-getannotationobjects
      */
-    GetAnnotationObjects(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    GetAnnotationObjects() {
+        result := ComCall(4, this, "ptr*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-ispreadsheetitemprovider-getannotationtypes
      */
-    GetAnnotationTypes(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    GetAnnotationTypes() {
+        result := ComCall(5, this, "ptr*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 }

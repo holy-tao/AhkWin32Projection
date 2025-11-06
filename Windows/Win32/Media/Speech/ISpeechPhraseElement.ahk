@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,151 +32,121 @@ class ISpeechPhraseElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} AudioTimeOffset 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_AudioTimeOffset(AudioTimeOffset) {
-        AudioTimeOffsetMarshal := AudioTimeOffset is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, AudioTimeOffsetMarshal, AudioTimeOffset, "HRESULT")
-        return result
+    get_AudioTimeOffset() {
+        result := ComCall(7, this, "int*", &AudioTimeOffset := 0, "HRESULT")
+        return AudioTimeOffset
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} AudioSizeTime 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_AudioSizeTime(AudioSizeTime) {
-        AudioSizeTimeMarshal := AudioSizeTime is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, AudioSizeTimeMarshal, AudioSizeTime, "HRESULT")
-        return result
+    get_AudioSizeTime() {
+        result := ComCall(8, this, "int*", &AudioSizeTime := 0, "HRESULT")
+        return AudioSizeTime
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} AudioStreamOffset 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_AudioStreamOffset(AudioStreamOffset) {
-        AudioStreamOffsetMarshal := AudioStreamOffset is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, AudioStreamOffsetMarshal, AudioStreamOffset, "HRESULT")
-        return result
+    get_AudioStreamOffset() {
+        result := ComCall(9, this, "int*", &AudioStreamOffset := 0, "HRESULT")
+        return AudioStreamOffset
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} AudioSizeBytes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_AudioSizeBytes(AudioSizeBytes) {
-        AudioSizeBytesMarshal := AudioSizeBytes is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, AudioSizeBytesMarshal, AudioSizeBytes, "HRESULT")
-        return result
+    get_AudioSizeBytes() {
+        result := ComCall(10, this, "int*", &AudioSizeBytes := 0, "HRESULT")
+        return AudioSizeBytes
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} RetainedStreamOffset 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_RetainedStreamOffset(RetainedStreamOffset) {
-        RetainedStreamOffsetMarshal := RetainedStreamOffset is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, RetainedStreamOffsetMarshal, RetainedStreamOffset, "HRESULT")
-        return result
+    get_RetainedStreamOffset() {
+        result := ComCall(11, this, "int*", &RetainedStreamOffset := 0, "HRESULT")
+        return RetainedStreamOffset
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} RetainedSizeBytes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_RetainedSizeBytes(RetainedSizeBytes) {
-        RetainedSizeBytesMarshal := RetainedSizeBytes is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, RetainedSizeBytesMarshal, RetainedSizeBytes, "HRESULT")
-        return result
+    get_RetainedSizeBytes() {
+        result := ComCall(12, this, "int*", &RetainedSizeBytes := 0, "HRESULT")
+        return RetainedSizeBytes
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} DisplayText 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_DisplayText(DisplayText) {
+    get_DisplayText() {
+        DisplayText := BSTR()
         result := ComCall(13, this, "ptr", DisplayText, "HRESULT")
-        return result
+        return DisplayText
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} LexicalForm 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_LexicalForm(LexicalForm) {
+    get_LexicalForm() {
+        LexicalForm := BSTR()
         result := ComCall(14, this, "ptr", LexicalForm, "HRESULT")
-        return result
+        return LexicalForm
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} Pronunciation 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_Pronunciation(Pronunciation) {
+    get_Pronunciation() {
+        Pronunciation := VARIANT()
         result := ComCall(15, this, "ptr", Pronunciation, "HRESULT")
-        return result
+        return Pronunciation
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} DisplayAttributes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_DisplayAttributes(DisplayAttributes) {
-        DisplayAttributesMarshal := DisplayAttributes is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, DisplayAttributesMarshal, DisplayAttributes, "HRESULT")
-        return result
+    get_DisplayAttributes() {
+        result := ComCall(16, this, "int*", &DisplayAttributes := 0, "HRESULT")
+        return DisplayAttributes
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} RequiredConfidence 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_RequiredConfidence(RequiredConfidence) {
-        RequiredConfidenceMarshal := RequiredConfidence is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, RequiredConfidenceMarshal, RequiredConfidence, "HRESULT")
-        return result
+    get_RequiredConfidence() {
+        result := ComCall(17, this, "int*", &RequiredConfidence := 0, "HRESULT")
+        return RequiredConfidence
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} ActualConfidence 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ActualConfidence(ActualConfidence) {
-        ActualConfidenceMarshal := ActualConfidence is VarRef ? "int*" : "ptr"
-
-        result := ComCall(18, this, ActualConfidenceMarshal, ActualConfidence, "HRESULT")
-        return result
+    get_ActualConfidence() {
+        result := ComCall(18, this, "int*", &ActualConfidence := 0, "HRESULT")
+        return ActualConfidence
     }
 
     /**
      * 
-     * @param {Pointer<Float>} EngineConfidence 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_EngineConfidence(EngineConfidence) {
-        EngineConfidenceMarshal := EngineConfidence is VarRef ? "float*" : "ptr"
-
-        result := ComCall(19, this, EngineConfidenceMarshal, EngineConfidence, "HRESULT")
-        return result
+    get_EngineConfidence() {
+        result := ComCall(19, this, "float*", &EngineConfidence := 0, "HRESULT")
+        return EngineConfidence
     }
 }

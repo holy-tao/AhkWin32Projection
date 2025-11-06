@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DXGI_OUTPUT_DESC1.ahk
 #Include .\IDXGIOutput5.ahk
 
 /**
@@ -32,25 +33,22 @@ class IDXGIOutput6 extends IDXGIOutput5{
 
     /**
      * 
-     * @param {Pointer<DXGI_OUTPUT_DESC1>} pDesc 
-     * @returns {HRESULT} 
+     * @returns {DXGI_OUTPUT_DESC1} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_6/nf-dxgi1_6-idxgioutput6-getdesc1
      */
-    GetDesc1(pDesc) {
+    GetDesc1() {
+        pDesc := DXGI_OUTPUT_DESC1()
         result := ComCall(27, this, "ptr", pDesc, "HRESULT")
-        return result
+        return pDesc
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_6/nf-dxgi1_6-idxgioutput6-checkhardwarecompositionsupport
      */
-    CheckHardwareCompositionSupport(pFlags) {
-        pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(28, this, pFlagsMarshal, pFlags, "HRESULT")
-        return result
+    CheckHardwareCompositionSupport() {
+        result := ComCall(28, this, "uint*", &pFlags := 0, "HRESULT")
+        return pFlags
     }
 }

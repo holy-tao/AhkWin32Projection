@@ -46,14 +46,11 @@ class AsyncIUnknown extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} ppvObject 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    Finish_QueryInterface(ppvObject) {
-        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, ppvObjectMarshal, ppvObject, "HRESULT")
-        return result
+    Finish_QueryInterface() {
+        result := ComCall(4, this, "ptr*", &ppvObject := 0, "HRESULT")
+        return ppvObject
     }
 
     /**

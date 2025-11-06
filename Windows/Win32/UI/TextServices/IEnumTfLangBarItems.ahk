@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumTfLangBarItems.ahk
+#Include .\ITfLangBarItem.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,28 +34,26 @@ class IEnumTfLangBarItems extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumTfLangBarItems>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumTfLangBarItems} 
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-ienumtflangbaritems-clone
      */
-    Clone(ppEnum) {
-        result := ComCall(3, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(3, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumTfLangBarItems(ppEnum)
     }
 
     /**
      * 
      * @param {Integer} ulCount 
-     * @param {Pointer<ITfLangBarItem>} ppItem 
      * @param {Pointer<Integer>} pcFetched 
-     * @returns {HRESULT} 
+     * @returns {ITfLangBarItem} 
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-ienumtflangbaritems-next
      */
-    Next(ulCount, ppItem, pcFetched) {
+    Next(ulCount, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", ulCount, "ptr*", ppItem, pcFetchedMarshal, pcFetched, "HRESULT")
-        return result
+        result := ComCall(4, this, "uint", ulCount, "ptr*", &ppItem := 0, pcFetchedMarshal, pcFetched, "HRESULT")
+        return ITfLangBarItem(ppItem)
     }
 
     /**

@@ -33,17 +33,14 @@ class ID3D11Device4 extends ID3D11Device3{
     /**
      * 
      * @param {HANDLE} hEvent 
-     * @param {Pointer<Integer>} pdwCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_4/nf-d3d11_4-id3d11device4-registerdeviceremovedevent
      */
-    RegisterDeviceRemovedEvent(hEvent, pdwCookie) {
+    RegisterDeviceRemovedEvent(hEvent) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(65, this, "ptr", hEvent, pdwCookieMarshal, pdwCookie, "HRESULT")
-        return result
+        result := ComCall(65, this, "ptr", hEvent, "uint*", &pdwCookie := 0, "HRESULT")
+        return pdwCookie
     }
 
     /**

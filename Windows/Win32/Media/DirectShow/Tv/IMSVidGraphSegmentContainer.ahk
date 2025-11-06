@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\IGraphBuilder.ahk
+#Include .\IMSVidGraphSegment.ahk
+#Include .\IEnumMSVidGraphSegment.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -39,83 +42,75 @@ class IMSVidGraphSegmentContainer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IGraphBuilder>} ppGraph 
-     * @returns {HRESULT} 
+     * @returns {IGraphBuilder} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidgraphsegmentcontainer-get_graph
      */
-    get_Graph(ppGraph) {
-        result := ComCall(3, this, "ptr*", ppGraph, "HRESULT")
-        return result
+    get_Graph() {
+        result := ComCall(3, this, "ptr*", &ppGraph := 0, "HRESULT")
+        return IGraphBuilder(ppGraph)
     }
 
     /**
      * 
-     * @param {Pointer<IMSVidGraphSegment>} ppInput 
-     * @returns {HRESULT} 
+     * @returns {IMSVidGraphSegment} 
      */
-    get_Input(ppInput) {
-        result := ComCall(4, this, "ptr*", ppInput, "HRESULT")
-        return result
+    get_Input() {
+        result := ComCall(4, this, "ptr*", &ppInput := 0, "HRESULT")
+        return IMSVidGraphSegment(ppInput)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumMSVidGraphSegment>} ppOutputs 
-     * @returns {HRESULT} 
+     * @returns {IEnumMSVidGraphSegment} 
      */
-    get_Outputs(ppOutputs) {
-        result := ComCall(5, this, "ptr*", ppOutputs, "HRESULT")
-        return result
+    get_Outputs() {
+        result := ComCall(5, this, "ptr*", &ppOutputs := 0, "HRESULT")
+        return IEnumMSVidGraphSegment(ppOutputs)
     }
 
     /**
      * 
-     * @param {Pointer<IMSVidGraphSegment>} ppVR 
-     * @returns {HRESULT} 
+     * @returns {IMSVidGraphSegment} 
      */
-    get_VideoRenderer(ppVR) {
-        result := ComCall(6, this, "ptr*", ppVR, "HRESULT")
-        return result
+    get_VideoRenderer() {
+        result := ComCall(6, this, "ptr*", &ppVR := 0, "HRESULT")
+        return IMSVidGraphSegment(ppVR)
     }
 
     /**
      * 
-     * @param {Pointer<IMSVidGraphSegment>} ppAR 
-     * @returns {HRESULT} 
+     * @returns {IMSVidGraphSegment} 
      */
-    get_AudioRenderer(ppAR) {
-        result := ComCall(7, this, "ptr*", ppAR, "HRESULT")
-        return result
+    get_AudioRenderer() {
+        result := ComCall(7, this, "ptr*", &ppAR := 0, "HRESULT")
+        return IMSVidGraphSegment(ppAR)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumMSVidGraphSegment>} ppFeatures 
-     * @returns {HRESULT} 
+     * @returns {IEnumMSVidGraphSegment} 
      */
-    get_Features(ppFeatures) {
-        result := ComCall(8, this, "ptr*", ppFeatures, "HRESULT")
-        return result
+    get_Features() {
+        result := ComCall(8, this, "ptr*", &ppFeatures := 0, "HRESULT")
+        return IEnumMSVidGraphSegment(ppFeatures)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumMSVidGraphSegment>} ppComposites 
-     * @returns {HRESULT} 
+     * @returns {IEnumMSVidGraphSegment} 
      */
-    get_Composites(ppComposites) {
-        result := ComCall(9, this, "ptr*", ppComposites, "HRESULT")
-        return result
+    get_Composites() {
+        result := ComCall(9, this, "ptr*", &ppComposites := 0, "HRESULT")
+        return IEnumMSVidGraphSegment(ppComposites)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppContainer 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get_ParentContainer(ppContainer) {
-        result := ComCall(10, this, "ptr*", ppContainer, "HRESULT")
-        return result
+    get_ParentContainer() {
+        result := ComCall(10, this, "ptr*", &ppContainer := 0, "HRESULT")
+        return IUnknown(ppContainer)
     }
 
     /**

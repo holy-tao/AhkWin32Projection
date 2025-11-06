@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumBitsPeerCacheRecords.ahk
+#Include .\IBitsPeerCacheRecord.ahk
+#Include .\IEnumBitsPeers.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -39,15 +42,12 @@ class IBitsPeerCacheAdministration extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pBytes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibitspeercacheadministration-getmaximumcachesize
      */
-    GetMaximumCacheSize(pBytes) {
-        pBytesMarshal := pBytes is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pBytesMarshal, pBytes, "HRESULT")
-        return result
+    GetMaximumCacheSize() {
+        result := ComCall(3, this, "uint*", &pBytes := 0, "HRESULT")
+        return pBytes
     }
 
     /**
@@ -63,15 +63,12 @@ class IBitsPeerCacheAdministration extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pSeconds 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibitspeercacheadministration-getmaximumcontentage
      */
-    GetMaximumContentAge(pSeconds) {
-        pSecondsMarshal := pSeconds is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pSecondsMarshal, pSeconds, "HRESULT")
-        return result
+    GetMaximumContentAge() {
+        result := ComCall(5, this, "uint*", &pSeconds := 0, "HRESULT")
+        return pSeconds
     }
 
     /**
@@ -87,15 +84,12 @@ class IBitsPeerCacheAdministration extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibitspeercacheadministration-getconfigurationflags
      */
-    GetConfigurationFlags(pFlags) {
-        pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pFlagsMarshal, pFlags, "HRESULT")
-        return result
+    GetConfigurationFlags() {
+        result := ComCall(7, this, "uint*", &pFlags := 0, "HRESULT")
+        return pFlags
     }
 
     /**
@@ -111,25 +105,23 @@ class IBitsPeerCacheAdministration extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumBitsPeerCacheRecords>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumBitsPeerCacheRecords} 
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibitspeercacheadministration-enumrecords
      */
-    EnumRecords(ppEnum) {
-        result := ComCall(9, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumRecords() {
+        result := ComCall(9, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumBitsPeerCacheRecords(ppEnum)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} id 
-     * @param {Pointer<IBitsPeerCacheRecord>} ppRecord 
-     * @returns {HRESULT} 
+     * @returns {IBitsPeerCacheRecord} 
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibitspeercacheadministration-getrecord
      */
-    GetRecord(id, ppRecord) {
-        result := ComCall(10, this, "ptr", id, "ptr*", ppRecord, "HRESULT")
-        return result
+    GetRecord(id) {
+        result := ComCall(10, this, "ptr", id, "ptr*", &ppRecord := 0, "HRESULT")
+        return IBitsPeerCacheRecord(ppRecord)
     }
 
     /**
@@ -168,13 +160,12 @@ class IBitsPeerCacheAdministration extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumBitsPeers>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumBitsPeers} 
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibitspeercacheadministration-enumpeers
      */
-    EnumPeers(ppEnum) {
-        result := ComCall(14, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumPeers() {
+        result := ComCall(14, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumBitsPeers(ppEnum)
     }
 
     /**

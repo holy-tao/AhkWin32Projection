@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -60,15 +61,15 @@ class IAzBizRuleParameters extends IDispatch{
     /**
      * 
      * @param {BSTR} bstrParameterName 
-     * @param {Pointer<VARIANT>} pvarParameterValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazbizruleparameters-getparametervalue
      */
-    GetParameterValue(bstrParameterName, pvarParameterValue) {
+    GetParameterValue(bstrParameterName) {
         bstrParameterName := bstrParameterName is String ? BSTR.Alloc(bstrParameterName).Value : bstrParameterName
 
+        pvarParameterValue := VARIANT()
         result := ComCall(9, this, "ptr", bstrParameterName, "ptr", pvarParameterValue, "HRESULT")
-        return result
+        return pvarParameterValue
     }
 
     /**
@@ -96,14 +97,11 @@ class IAzBizRuleParameters extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazbizruleparameters-get_count
      */
-    get_Count(plCount) {
-        plCountMarshal := plCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, plCountMarshal, plCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(12, this, "uint*", &plCount := 0, "HRESULT")
+        return plCount
     }
 }

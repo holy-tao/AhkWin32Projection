@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Ole\IDropTarget.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -46,7 +47,9 @@ class ITextServices extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itextservices-txsendmessage
      */
     TxSendMessage(msg, wparam, lparam, plresult) {
-        result := ComCall(3, this, "uint", msg, "ptr", wparam, "ptr", lparam, "ptr", plresult, "HRESULT")
+        plresultMarshal := plresult is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "uint", msg, "ptr", wparam, "ptr", lparam, plresultMarshal, plresult, "HRESULT")
         return result
     }
 
@@ -92,8 +95,9 @@ class ITextServices extends IUnknown{
         plMaxMarshal := plMax is VarRef ? "int*" : "ptr"
         plPosMarshal := plPos is VarRef ? "int*" : "ptr"
         plPageMarshal := plPage is VarRef ? "int*" : "ptr"
+        pfEnabledMarshal := pfEnabled is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, plMinMarshal, plMin, plMaxMarshal, plMax, plPosMarshal, plPos, plPageMarshal, plPage, "ptr", pfEnabled, "HRESULT")
+        result := ComCall(5, this, plMinMarshal, plMin, plMaxMarshal, plMax, plPosMarshal, plPos, plPageMarshal, plPage, pfEnabledMarshal, pfEnabled, "HRESULT")
         return result
     }
 
@@ -112,8 +116,9 @@ class ITextServices extends IUnknown{
         plMaxMarshal := plMax is VarRef ? "int*" : "ptr"
         plPosMarshal := plPos is VarRef ? "int*" : "ptr"
         plPageMarshal := plPage is VarRef ? "int*" : "ptr"
+        pfEnabledMarshal := pfEnabled is VarRef ? "int*" : "ptr"
 
-        result := ComCall(6, this, plMinMarshal, plMin, plMaxMarshal, plMax, plPosMarshal, plPos, plPageMarshal, plPage, "ptr", pfEnabled, "HRESULT")
+        result := ComCall(6, this, plMinMarshal, plMin, plMaxMarshal, plMax, plPosMarshal, plPos, plPageMarshal, plPage, pfEnabledMarshal, pfEnabled, "HRESULT")
         return result
     }
 
@@ -284,13 +289,12 @@ class ITextServices extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDropTarget>} ppDropTarget 
-     * @returns {HRESULT} 
+     * @returns {IDropTarget} 
      * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itextservices-txgetdroptarget
      */
-    TxGetDropTarget(ppDropTarget) {
-        result := ComCall(18, this, "ptr*", ppDropTarget, "HRESULT")
-        return result
+    TxGetDropTarget() {
+        result := ComCall(18, this, "ptr*", &ppDropTarget := 0, "HRESULT")
+        return IDropTarget(ppDropTarget)
     }
 
     /**

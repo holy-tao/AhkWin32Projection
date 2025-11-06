@@ -37,7 +37,9 @@ class IWMPPlayer3 extends IWMPCore2{
      * @returns {HRESULT} 
      */
     get_enabled(pbEnabled) {
-        result := ComCall(29, this, "ptr", pbEnabled, "HRESULT")
+        pbEnabledMarshal := pbEnabled is VarRef ? "short*" : "ptr"
+
+        result := ComCall(29, this, pbEnabledMarshal, pbEnabled, "HRESULT")
         return result
     }
 
@@ -57,7 +59,9 @@ class IWMPPlayer3 extends IWMPCore2{
      * @returns {HRESULT} 
      */
     get_fullScreen(pbFullScreen) {
-        result := ComCall(31, this, "ptr", pbFullScreen, "HRESULT")
+        pbFullScreenMarshal := pbFullScreen is VarRef ? "short*" : "ptr"
+
+        result := ComCall(31, this, pbFullScreenMarshal, pbFullScreen, "HRESULT")
         return result
     }
 
@@ -77,7 +81,9 @@ class IWMPPlayer3 extends IWMPCore2{
      * @returns {HRESULT} 
      */
     get_enableContextMenu(pbEnableContextMenu) {
-        result := ComCall(33, this, "ptr", pbEnableContextMenu, "HRESULT")
+        pbEnableContextMenuMarshal := pbEnableContextMenu is VarRef ? "short*" : "ptr"
+
+        result := ComCall(33, this, pbEnableContextMenuMarshal, pbEnableContextMenu, "HRESULT")
         return result
     }
 
@@ -119,7 +125,9 @@ class IWMPPlayer3 extends IWMPCore2{
      * @returns {HRESULT} 
      */
     get_stretchToFit(pbEnabled) {
-        result := ComCall(37, this, "ptr", pbEnabled, "HRESULT")
+        pbEnabledMarshal := pbEnabled is VarRef ? "short*" : "ptr"
+
+        result := ComCall(37, this, pbEnabledMarshal, pbEnabled, "HRESULT")
         return result
     }
 
@@ -139,7 +147,9 @@ class IWMPPlayer3 extends IWMPCore2{
      * @returns {HRESULT} 
      */
     get_windowlessVideo(pbEnabled) {
-        result := ComCall(39, this, "ptr", pbEnabled, "HRESULT")
+        pbEnabledMarshal := pbEnabled is VarRef ? "short*" : "ptr"
+
+        result := ComCall(39, this, pbEnabledMarshal, pbEnabled, "HRESULT")
         return result
     }
 

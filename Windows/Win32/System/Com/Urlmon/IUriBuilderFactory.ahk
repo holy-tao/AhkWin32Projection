@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\IUriBuilder.ahk
 #Include ..\IUnknown.ahk
 
 /**
@@ -32,23 +33,21 @@ class IUriBuilderFactory extends IUnknown{
      * 
      * @param {Integer} dwFlags 
      * @param {Pointer} dwReserved 
-     * @param {Pointer<IUriBuilder>} ppIUriBuilder 
-     * @returns {HRESULT} 
+     * @returns {IUriBuilder} 
      */
-    CreateIUriBuilder(dwFlags, dwReserved, ppIUriBuilder) {
-        result := ComCall(3, this, "uint", dwFlags, "ptr", dwReserved, "ptr*", ppIUriBuilder, "HRESULT")
-        return result
+    CreateIUriBuilder(dwFlags, dwReserved) {
+        result := ComCall(3, this, "uint", dwFlags, "ptr", dwReserved, "ptr*", &ppIUriBuilder := 0, "HRESULT")
+        return IUriBuilder(ppIUriBuilder)
     }
 
     /**
      * 
      * @param {Integer} dwFlags 
      * @param {Pointer} dwReserved 
-     * @param {Pointer<IUriBuilder>} ppIUriBuilder 
-     * @returns {HRESULT} 
+     * @returns {IUriBuilder} 
      */
-    CreateInitializedIUriBuilder(dwFlags, dwReserved, ppIUriBuilder) {
-        result := ComCall(4, this, "uint", dwFlags, "ptr", dwReserved, "ptr*", ppIUriBuilder, "HRESULT")
-        return result
+    CreateInitializedIUriBuilder(dwFlags, dwReserved) {
+        result := ComCall(4, this, "uint", dwFlags, "ptr", dwReserved, "ptr*", &ppIUriBuilder := 0, "HRESULT")
+        return IUriBuilder(ppIUriBuilder)
     }
 }

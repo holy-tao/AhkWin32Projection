@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEntity.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -33,54 +34,46 @@ class ISchemaProvider extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} pEntities 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-ischemaprovider-entities
      */
-    Entities(riid, pEntities) {
-        pEntitiesMarshal := pEntities is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", riid, pEntitiesMarshal, pEntities, "HRESULT")
-        return result
+    Entities(riid) {
+        result := ComCall(3, this, "ptr", riid, "ptr*", &pEntities := 0, "HRESULT")
+        return pEntities
     }
 
     /**
      * 
-     * @param {Pointer<IEntity>} pRootEntity 
-     * @returns {HRESULT} 
+     * @returns {IEntity} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-ischemaprovider-rootentity
      */
-    RootEntity(pRootEntity) {
-        result := ComCall(4, this, "ptr*", pRootEntity, "HRESULT")
-        return result
+    RootEntity() {
+        result := ComCall(4, this, "ptr*", &pRootEntity := 0, "HRESULT")
+        return IEntity(pRootEntity)
     }
 
     /**
      * 
      * @param {PWSTR} pszEntityName 
-     * @param {Pointer<IEntity>} pEntity 
-     * @returns {HRESULT} 
+     * @returns {IEntity} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-ischemaprovider-getentity
      */
-    GetEntity(pszEntityName, pEntity) {
+    GetEntity(pszEntityName) {
         pszEntityName := pszEntityName is String ? StrPtr(pszEntityName) : pszEntityName
 
-        result := ComCall(5, this, "ptr", pszEntityName, "ptr*", pEntity, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", pszEntityName, "ptr*", &pEntity := 0, "HRESULT")
+        return IEntity(pEntity)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} pMetaData 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-ischemaprovider-metadata
      */
-    MetaData(riid, pMetaData) {
-        pMetaDataMarshal := pMetaData is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", riid, pMetaDataMarshal, pMetaData, "HRESULT")
-        return result
+    MetaData(riid) {
+        result := ComCall(6, this, "ptr", riid, "ptr*", &pMetaData := 0, "HRESULT")
+        return pMetaData
     }
 
     /**
@@ -123,8 +116,9 @@ class ISchemaProvider extends IUnknown{
         pszInputString := pszInputString is String ? StrPtr(pszInputString) : pszInputString
 
         pcTokensLengthMarshal := pcTokensLength is VarRef ? "uint*" : "ptr"
+        ppszValueMarshal := ppszValue is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(9, this, "ptr", pEntity, "ptr", pszInputString, "ptr", pTokenCollection, "uint", cTokensBegin, pcTokensLengthMarshal, pcTokensLength, "ptr", ppszValue, "HRESULT")
+        result := ComCall(9, this, "ptr", pEntity, "ptr", pszInputString, "ptr", pTokenCollection, "uint", cTokensBegin, pcTokensLengthMarshal, pcTokensLength, ppszValueMarshal, ppszValue, "HRESULT")
         return result
     }
 }

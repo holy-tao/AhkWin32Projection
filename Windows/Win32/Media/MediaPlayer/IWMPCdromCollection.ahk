@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IWMPCdrom.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -47,26 +48,24 @@ class IWMPCdromCollection extends IDispatch{
     /**
      * 
      * @param {Integer} lIndex 
-     * @param {Pointer<IWMPCdrom>} ppItem 
-     * @returns {HRESULT} 
+     * @returns {IWMPCdrom} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcdromcollection-item
      */
-    item(lIndex, ppItem) {
-        result := ComCall(8, this, "int", lIndex, "ptr*", ppItem, "HRESULT")
-        return result
+    item(lIndex) {
+        result := ComCall(8, this, "int", lIndex, "ptr*", &ppItem := 0, "HRESULT")
+        return IWMPCdrom(ppItem)
     }
 
     /**
      * 
      * @param {BSTR} bstrDriveSpecifier 
-     * @param {Pointer<IWMPCdrom>} ppCdrom 
-     * @returns {HRESULT} 
+     * @returns {IWMPCdrom} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcdromcollection-getbydrivespecifier
      */
-    getByDriveSpecifier(bstrDriveSpecifier, ppCdrom) {
+    getByDriveSpecifier(bstrDriveSpecifier) {
         bstrDriveSpecifier := bstrDriveSpecifier is String ? BSTR.Alloc(bstrDriveSpecifier).Value : bstrDriveSpecifier
 
-        result := ComCall(9, this, "ptr", bstrDriveSpecifier, "ptr*", ppCdrom, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", bstrDriveSpecifier, "ptr*", &ppCdrom := 0, "HRESULT")
+        return IWMPCdrom(ppCdrom)
     }
 }

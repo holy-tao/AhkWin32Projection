@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\IEnumDMO.ahk
 
 /**
  * @namespace Windows.Win32.Media.DxMediaObjects
@@ -196,56 +197,15 @@ class DxMediaObjects {
      * @param {Pointer<DMO_PARTIAL_MEDIATYPE>} pInTypes Pointer to an array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dmoreg/ns-dmoreg-dmo_partial_mediatype">DMO_PARTIAL_MEDIATYPE</a> structures that contain the input media types. Specify the size of the array in the cInTypes parameter.
      * @param {Integer} cOutTypes Number of output media types to use in the search criteria. Use zero to match any output type.
      * @param {Pointer<DMO_PARTIAL_MEDIATYPE>} pOutTypes Pointer to an array of DMO_PARTIAL_MEDIATYPE structures that contain the output media types. Specify the size of the array in the cOutTypes parameter.
-     * @param {Pointer<IEnumDMO>} ppEnum Address of a variable to receive the <a href="https://docs.microsoft.com/windows/desktop/api/mediaobj/nn-mediaobj-ienumdmo">IEnumDMO</a> interface of the enumerator.
-     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_FAIL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Failure
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {IEnumDMO} Address of a variable to receive the <a href="https://docs.microsoft.com/windows/desktop/api/mediaobj/nn-mediaobj-ienumdmo">IEnumDMO</a> interface of the enumerator.
      * @see https://docs.microsoft.com/windows/win32/api//dmoreg/nf-dmoreg-dmoenum
      */
-    static DMOEnum(guidCategory, dwFlags, cInTypes, pInTypes, cOutTypes, pOutTypes, ppEnum) {
-        result := DllCall("msdmo.dll\DMOEnum", "ptr", guidCategory, "uint", dwFlags, "uint", cInTypes, "ptr", pInTypes, "uint", cOutTypes, "ptr", pOutTypes, "ptr*", ppEnum, "int")
+    static DMOEnum(guidCategory, dwFlags, cInTypes, pInTypes, cOutTypes, pOutTypes) {
+        result := DllCall("msdmo.dll\DMOEnum", "ptr", guidCategory, "uint", dwFlags, "uint", cInTypes, "ptr", pInTypes, "uint", cOutTypes, "ptr", pOutTypes, "ptr*", &ppEnum := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IEnumDMO(ppEnum)
     }
 
     /**

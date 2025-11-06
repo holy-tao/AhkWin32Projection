@@ -45,25 +45,21 @@ class IElementBehaviorRender extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} plRenderInfo 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetRenderInfo(plRenderInfo) {
-        plRenderInfoMarshal := plRenderInfo is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, plRenderInfoMarshal, plRenderInfo, "HRESULT")
-        return result
+    GetRenderInfo() {
+        result := ComCall(4, this, "int*", &plRenderInfo := 0, "HRESULT")
+        return plRenderInfo
     }
 
     /**
      * 
      * @param {Pointer<POINT>} pPoint 
      * @param {IUnknown} pReserved 
-     * @param {Pointer<BOOL>} pbHit 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    HitTestPoint(pPoint, pReserved, pbHit) {
-        result := ComCall(5, this, "ptr", pPoint, "ptr", pReserved, "ptr", pbHit, "HRESULT")
-        return result
+    HitTestPoint(pPoint, pReserved) {
+        result := ComCall(5, this, "ptr", pPoint, "ptr", pReserved, "int*", &pbHit := 0, "HRESULT")
+        return pbHit
     }
 }

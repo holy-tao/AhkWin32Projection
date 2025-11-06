@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -37,87 +38,78 @@ class IDOMKeyboardEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_key(p) {
+    get_key() {
+        p := BSTR()
         result := ComCall(7, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_location(p) {
-        pMarshal := p is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pMarshal, p, "HRESULT")
-        return result
+    get_location() {
+        result := ComCall(8, this, "uint*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_ctrlKey(p) {
-        result := ComCall(9, this, "ptr", p, "HRESULT")
-        return result
+    get_ctrlKey() {
+        result := ComCall(9, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_shiftKey(p) {
-        result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+    get_shiftKey() {
+        result := ComCall(10, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_altKey(p) {
-        result := ComCall(11, this, "ptr", p, "HRESULT")
-        return result
+    get_altKey() {
+        result := ComCall(11, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_metaKey(p) {
-        result := ComCall(12, this, "ptr", p, "HRESULT")
-        return result
+    get_metaKey() {
+        result := ComCall(12, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_repeat(p) {
-        result := ComCall(13, this, "ptr", p, "HRESULT")
-        return result
+    get_repeat() {
+        result := ComCall(13, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
      * @param {BSTR} keyArg 
-     * @param {Pointer<VARIANT_BOOL>} state 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    getModifierState(keyArg, state) {
+    getModifierState(keyArg) {
         keyArg := keyArg is String ? BSTR.Alloc(keyArg).Value : keyArg
 
-        result := ComCall(14, this, "ptr", keyArg, "ptr", state, "HRESULT")
-        return result
+        result := ComCall(14, this, "ptr", keyArg, "short*", &state := 0, "HRESULT")
+        return state
     }
 
     /**
@@ -145,57 +137,48 @@ class IDOMKeyboardEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_keyCode(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, pMarshal, p, "HRESULT")
-        return result
+    get_keyCode() {
+        result := ComCall(16, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_charCode(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, pMarshal, p, "HRESULT")
-        return result
+    get_charCode() {
+        result := ComCall(17, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_which(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(18, this, pMarshal, p, "HRESULT")
-        return result
+    get_which() {
+        result := ComCall(18, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_ie9_char(p) {
+    get_ie9_char() {
+        p := VARIANT()
         result := ComCall(19, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_locale(p) {
+    get_locale() {
+        p := BSTR()
         result := ComCall(20, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 }

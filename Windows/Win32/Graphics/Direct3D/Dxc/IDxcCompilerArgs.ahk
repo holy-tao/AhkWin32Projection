@@ -33,7 +33,7 @@ class IDxcCompilerArgs extends IUnknown{
      * @returns {Pointer<PWSTR>} 
      */
     GetArguments() {
-        result := ComCall(3, this, "ptr")
+        result := ComCall(3, this, "ptr*")
         return result
     }
 
@@ -53,7 +53,9 @@ class IDxcCompilerArgs extends IUnknown{
      * @returns {HRESULT} 
      */
     AddArguments(pArguments, argCount) {
-        result := ComCall(5, this, "ptr", pArguments, "uint", argCount, "HRESULT")
+        pArgumentsMarshal := pArguments is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, pArgumentsMarshal, pArguments, "uint", argCount, "HRESULT")
         return result
     }
 
@@ -64,7 +66,9 @@ class IDxcCompilerArgs extends IUnknown{
      * @returns {HRESULT} 
      */
     AddArgumentsUTF8(pArguments, argCount) {
-        result := ComCall(6, this, "ptr", pArguments, "uint", argCount, "HRESULT")
+        pArgumentsMarshal := pArguments is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, pArgumentsMarshal, pArguments, "uint", argCount, "HRESULT")
         return result
     }
 

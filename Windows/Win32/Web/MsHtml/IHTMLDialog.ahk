@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -46,12 +48,12 @@ class IHTMLDialog extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_dialogTop(p) {
+    get_dialogTop() {
+        p := VARIANT()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -66,12 +68,12 @@ class IHTMLDialog extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_dialogLeft(p) {
+    get_dialogLeft() {
+        p := VARIANT()
         result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -86,12 +88,12 @@ class IHTMLDialog extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_dialogWidth(p) {
+    get_dialogWidth() {
+        p := VARIANT()
         result := ComCall(12, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -106,32 +108,32 @@ class IHTMLDialog extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_dialogHeight(p) {
+    get_dialogHeight() {
+        p := VARIANT()
         result := ComCall(14, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_dialogArguments(p) {
+    get_dialogArguments() {
+        p := VARIANT()
         result := ComCall(15, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_menuArguments(p) {
+    get_menuArguments() {
+        p := VARIANT()
         result := ComCall(16, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -146,12 +148,12 @@ class IHTMLDialog extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_returnValue(p) {
+    get_returnValue() {
+        p := VARIANT()
         result := ComCall(18, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -165,11 +167,11 @@ class IHTMLDialog extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} String 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    toString(String) {
+    toString() {
+        String := BSTR()
         result := ComCall(20, this, "ptr", String, "HRESULT")
-        return result
+        return String
     }
 }

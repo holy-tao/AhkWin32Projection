@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IGenericDescriptor.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -54,166 +55,132 @@ class IISDB_NBIT extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_nbit-getversionnumber
      */
-    GetVersionNumber(pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetVersionNumber() {
+        result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_nbit-getoriginalnetworkid
      */
-    GetOriginalNetworkId(pwVal) {
-        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(5, this, pwValMarshal, pwVal, "HRESULT")
-        return result
+    GetOriginalNetworkId() {
+        result := ComCall(5, this, "ushort*", &pwVal := 0, "HRESULT")
+        return pwVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_nbit-getcountofrecords
      */
-    GetCountOfRecords(pdwVal) {
-        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pdwValMarshal, pdwVal, "HRESULT")
-        return result
+    GetCountOfRecords() {
+        result := ComCall(6, this, "uint*", &pdwVal := 0, "HRESULT")
+        return pdwVal
     }
 
     /**
      * 
      * @param {Integer} dwRecordIndex 
-     * @param {Pointer<Integer>} pwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_nbit-getrecordinformationid
      */
-    GetRecordInformationId(dwRecordIndex, pwVal) {
-        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(7, this, "uint", dwRecordIndex, pwValMarshal, pwVal, "HRESULT")
-        return result
+    GetRecordInformationId(dwRecordIndex) {
+        result := ComCall(7, this, "uint", dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
+        return pwVal
     }
 
     /**
      * 
      * @param {Integer} dwRecordIndex 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_nbit-getrecordinformationtype
      */
-    GetRecordInformationType(dwRecordIndex, pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(8, this, "uint", dwRecordIndex, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetRecordInformationType(dwRecordIndex) {
+        result := ComCall(8, this, "uint", dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
      * @param {Integer} dwRecordIndex 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_nbit-getrecorddescriptionbodylocation
      */
-    GetRecordDescriptionBodyLocation(dwRecordIndex, pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(9, this, "uint", dwRecordIndex, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetRecordDescriptionBodyLocation(dwRecordIndex) {
+        result := ComCall(9, this, "uint", dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
      * @param {Integer} dwRecordIndex 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_nbit-getrecordmessagesectionnumber
      */
-    GetRecordMessageSectionNumber(dwRecordIndex, pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(10, this, "uint", dwRecordIndex, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetRecordMessageSectionNumber(dwRecordIndex) {
+        result := ComCall(10, this, "uint", dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
      * @param {Integer} dwRecordIndex 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_nbit-getrecorduserdefined
      */
-    GetRecordUserDefined(dwRecordIndex, pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(11, this, "uint", dwRecordIndex, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetRecordUserDefined(dwRecordIndex) {
+        result := ComCall(11, this, "uint", dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
      * @param {Integer} dwRecordIndex 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_nbit-getrecordnumberofkeys
      */
-    GetRecordNumberOfKeys(dwRecordIndex, pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(12, this, "uint", dwRecordIndex, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetRecordNumberOfKeys(dwRecordIndex) {
+        result := ComCall(12, this, "uint", dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
      * @param {Integer} dwRecordIndex 
-     * @param {Pointer<Pointer<Integer>>} pbKeys 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_nbit-getrecordkeys
      */
-    GetRecordKeys(dwRecordIndex, pbKeys) {
-        pbKeysMarshal := pbKeys is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(13, this, "uint", dwRecordIndex, pbKeysMarshal, pbKeys, "HRESULT")
-        return result
+    GetRecordKeys(dwRecordIndex) {
+        result := ComCall(13, this, "uint", dwRecordIndex, "ptr*", &pbKeys := 0, "HRESULT")
+        return pbKeys
     }
 
     /**
      * 
      * @param {Integer} dwRecordIndex 
-     * @param {Pointer<Integer>} pdwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_nbit-getrecordcountofdescriptors
      */
-    GetRecordCountOfDescriptors(dwRecordIndex, pdwVal) {
-        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, "uint", dwRecordIndex, pdwValMarshal, pdwVal, "HRESULT")
-        return result
+    GetRecordCountOfDescriptors(dwRecordIndex) {
+        result := ComCall(14, this, "uint", dwRecordIndex, "uint*", &pdwVal := 0, "HRESULT")
+        return pdwVal
     }
 
     /**
      * 
      * @param {Integer} dwRecordIndex 
      * @param {Integer} dwIndex 
-     * @param {Pointer<IGenericDescriptor>} ppDescriptor 
-     * @returns {HRESULT} 
+     * @returns {IGenericDescriptor} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_nbit-getrecorddescriptorbyindex
      */
-    GetRecordDescriptorByIndex(dwRecordIndex, dwIndex, ppDescriptor) {
-        result := ComCall(15, this, "uint", dwRecordIndex, "uint", dwIndex, "ptr*", ppDescriptor, "HRESULT")
-        return result
+    GetRecordDescriptorByIndex(dwRecordIndex, dwIndex) {
+        result := ComCall(15, this, "uint", dwRecordIndex, "uint", dwIndex, "ptr*", &ppDescriptor := 0, "HRESULT")
+        return IGenericDescriptor(ppDescriptor)
     }
 
     /**
@@ -221,27 +188,23 @@ class IISDB_NBIT extends IUnknown{
      * @param {Integer} dwRecordIndex 
      * @param {Integer} bTag 
      * @param {Pointer<Integer>} pdwCookie 
-     * @param {Pointer<IGenericDescriptor>} ppDescriptor 
-     * @returns {HRESULT} 
+     * @returns {IGenericDescriptor} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_nbit-getrecorddescriptorbytag
      */
-    GetRecordDescriptorByTag(dwRecordIndex, bTag, pdwCookie, ppDescriptor) {
+    GetRecordDescriptorByTag(dwRecordIndex, bTag, pdwCookie) {
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, "uint", dwRecordIndex, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", ppDescriptor, "HRESULT")
-        return result
+        result := ComCall(16, this, "uint", dwRecordIndex, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
+        return IGenericDescriptor(ppDescriptor)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwVersionHash 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_nbit-getversionhash
      */
-    GetVersionHash(pdwVersionHash) {
-        pdwVersionHashMarshal := pdwVersionHash is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(17, this, pdwVersionHashMarshal, pdwVersionHash, "HRESULT")
-        return result
+    GetVersionHash() {
+        result := ComCall(17, this, "uint*", &pdwVersionHash := 0, "HRESULT")
+        return pdwVersionHash
     }
 }

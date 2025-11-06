@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ICreateDevEnum.ahk
 #Include .\IFilterMapper2.ahk
 
 /**
@@ -32,12 +33,11 @@ class IFilterMapper3 extends IFilterMapper2{
 
     /**
      * 
-     * @param {Pointer<ICreateDevEnum>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {ICreateDevEnum} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ifiltermapper3-geticreatedevenum
      */
-    GetICreateDevEnum(ppEnum) {
-        result := ComCall(7, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    GetICreateDevEnum() {
+        result := ComCall(7, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return ICreateDevEnum(ppEnum)
     }
 }

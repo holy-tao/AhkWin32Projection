@@ -49,7 +49,9 @@ class ICorProfilerInfo10 extends ICorProfilerInfo9{
      * @returns {HRESULT} 
      */
     IsFrozenObject(objectId, pbFrozen) {
-        result := ComCall(94, this, "ptr", objectId, "ptr", pbFrozen, "HRESULT")
+        pbFrozenMarshal := pbFrozen is VarRef ? "int*" : "ptr"
+
+        result := ComCall(94, this, "ptr", objectId, pbFrozenMarshal, pbFrozen, "HRESULT")
         return result
     }
 

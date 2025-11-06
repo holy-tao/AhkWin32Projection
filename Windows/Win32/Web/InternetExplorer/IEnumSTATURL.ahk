@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumSTATURL.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -63,12 +64,11 @@ class IEnumSTATURL extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumSTATURL>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IEnumSTATURL} 
      */
-    Clone(ppenum) {
-        result := ComCall(6, this, "ptr*", ppenum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")
+        return IEnumSTATURL(ppenum)
     }
 
     /**

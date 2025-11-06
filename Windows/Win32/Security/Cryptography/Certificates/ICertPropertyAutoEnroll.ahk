@@ -56,12 +56,12 @@ class ICertPropertyAutoEnroll extends ICertProperty{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyautoenroll-get_templatename
      */
-    get_TemplateName(pValue) {
+    get_TemplateName() {
+        pValue := BSTR()
         result := ComCall(15, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 }

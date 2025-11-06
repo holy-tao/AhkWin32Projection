@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID3D10BlendState.ahk
 #Include .\ID3D10EffectVariable.ahk
 
 /**
@@ -41,13 +42,12 @@ class ID3D10EffectBlendVariable extends ID3D10EffectVariable{
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<ID3D10BlendState>} ppBlendState 
-     * @returns {HRESULT} 
+     * @returns {ID3D10BlendState} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectblendvariable-getblendstate
      */
-    GetBlendState(Index, ppBlendState) {
-        result := ComCall(25, this, "uint", Index, "ptr*", ppBlendState, "HRESULT")
-        return result
+    GetBlendState(Index) {
+        result := ComCall(25, this, "uint", Index, "ptr*", &ppBlendState := 0, "HRESULT")
+        return ID3D10BlendState(ppBlendState)
     }
 
     /**

@@ -40,15 +40,12 @@ class IPropertyStoreFactory extends IUnknown{
      * @param {Integer} flags 
      * @param {IUnknown} pUnkFactory 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertystorefactory-getpropertystore
      */
-    GetPropertyStore(flags, pUnkFactory, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "int", flags, "ptr", pUnkFactory, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetPropertyStore(flags, pUnkFactory, riid) {
+        result := ComCall(3, this, "int", flags, "ptr", pUnkFactory, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
@@ -57,14 +54,11 @@ class IPropertyStoreFactory extends IUnknown{
      * @param {Integer} cKeys 
      * @param {Integer} flags 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertystorefactory-getpropertystoreforkeys
      */
-    GetPropertyStoreForKeys(rgKeys, cKeys, flags, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "ptr", rgKeys, "uint", cKeys, "int", flags, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetPropertyStoreForKeys(rgKeys, cKeys, flags, riid) {
+        result := ComCall(4, this, "ptr", rgKeys, "uint", cKeys, "int", flags, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 }

@@ -33,14 +33,11 @@ class IADsServiceOperations extends IADs{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Status(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(20, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_Status() {
+        result := ComCall(20, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**

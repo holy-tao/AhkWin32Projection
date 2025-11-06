@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISVGAnimatedLength.ahk
+#Include .\ISVGAnimatedEnumeration.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -46,12 +48,11 @@ class ISVGTextPathElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedLength>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedLength} 
      */
-    get_startOffset(p) {
-        result := ComCall(8, this, "ptr*", p, "HRESULT")
-        return result
+    get_startOffset() {
+        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedLength(p)
     }
 
     /**
@@ -66,12 +67,11 @@ class ISVGTextPathElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedEnumeration>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedEnumeration} 
      */
-    get_method(p) {
-        result := ComCall(10, this, "ptr*", p, "HRESULT")
-        return result
+    get_method() {
+        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedEnumeration(p)
     }
 
     /**
@@ -86,11 +86,10 @@ class ISVGTextPathElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedEnumeration>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedEnumeration} 
      */
-    get_spacing(p) {
-        result := ComCall(12, this, "ptr*", p, "HRESULT")
-        return result
+    get_spacing() {
+        result := ComCall(12, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedEnumeration(p)
     }
 }

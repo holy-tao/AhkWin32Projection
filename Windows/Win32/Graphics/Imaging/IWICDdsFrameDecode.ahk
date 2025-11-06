@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\WICDdsFormatInfo.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -51,13 +52,13 @@ class IWICDdsFrameDecode extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<WICDdsFormatInfo>} pFormatInfo 
-     * @returns {HRESULT} 
+     * @returns {WICDdsFormatInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicddsframedecode-getformatinfo
      */
-    GetFormatInfo(pFormatInfo) {
+    GetFormatInfo() {
+        pFormatInfo := WICDdsFormatInfo()
         result := ComCall(4, this, "ptr", pFormatInfo, "HRESULT")
-        return result
+        return pFormatInfo
     }
 
     /**
@@ -65,14 +66,11 @@ class IWICDdsFrameDecode extends IUnknown{
      * @param {Pointer<WICRect>} prcBoundsInBlocks 
      * @param {Integer} cbStride 
      * @param {Integer} cbBufferSize 
-     * @param {Pointer<Integer>} pbBuffer 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicddsframedecode-copyblocks
      */
-    CopyBlocks(prcBoundsInBlocks, cbStride, cbBufferSize, pbBuffer) {
-        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
-
-        result := ComCall(5, this, "ptr", prcBoundsInBlocks, "uint", cbStride, "uint", cbBufferSize, pbBufferMarshal, pbBuffer, "HRESULT")
-        return result
+    CopyBlocks(prcBoundsInBlocks, cbStride, cbBufferSize) {
+        result := ComCall(5, this, "ptr", prcBoundsInBlocks, "uint", cbStride, "uint", cbBufferSize, "char*", &pbBuffer := 0, "HRESULT")
+        return pbBuffer
     }
 }

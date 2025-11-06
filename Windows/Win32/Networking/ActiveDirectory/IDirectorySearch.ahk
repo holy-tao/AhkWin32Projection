@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ADS_SEARCH_HANDLE.ahk
+#Include .\ADS_SEARCH_COLUMN.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -47,15 +49,17 @@ class IDirectorySearch extends IUnknown{
      * @param {PWSTR} pszSearchFilter 
      * @param {Pointer<PWSTR>} pAttributeNames 
      * @param {Integer} dwNumberAttributes 
-     * @param {Pointer<ADS_SEARCH_HANDLE>} phSearchResult 
-     * @returns {HRESULT} 
+     * @returns {ADS_SEARCH_HANDLE} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-idirectorysearch-executesearch
      */
-    ExecuteSearch(pszSearchFilter, pAttributeNames, dwNumberAttributes, phSearchResult) {
+    ExecuteSearch(pszSearchFilter, pAttributeNames, dwNumberAttributes) {
         pszSearchFilter := pszSearchFilter is String ? StrPtr(pszSearchFilter) : pszSearchFilter
 
-        result := ComCall(4, this, "ptr", pszSearchFilter, "ptr", pAttributeNames, "uint", dwNumberAttributes, "ptr", phSearchResult, "HRESULT")
-        return result
+        pAttributeNamesMarshal := pAttributeNames is VarRef ? "ptr*" : "ptr"
+
+        phSearchResult := ADS_SEARCH_HANDLE()
+        result := ComCall(4, this, "ptr", pszSearchFilter, pAttributeNamesMarshal, pAttributeNames, "uint", dwNumberAttributes, "ptr", phSearchResult, "HRESULT")
+        return phSearchResult
     }
 
     /**
@@ -113,31 +117,30 @@ class IDirectorySearch extends IUnknown{
     /**
      * 
      * @param {ADS_SEARCH_HANDLE} hSearchHandle 
-     * @param {Pointer<PWSTR>} ppszColumnName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-idirectorysearch-getnextcolumnname
      */
-    GetNextColumnName(hSearchHandle, ppszColumnName) {
+    GetNextColumnName(hSearchHandle) {
         hSearchHandle := hSearchHandle is Win32Handle ? NumGet(hSearchHandle, "ptr") : hSearchHandle
 
-        result := ComCall(9, this, "ptr", hSearchHandle, "ptr", ppszColumnName, "int")
-        return result
+        result := ComCall(9, this, "ptr", hSearchHandle, "ptr*", &ppszColumnName := 0, "int")
+        return ppszColumnName
     }
 
     /**
      * 
      * @param {ADS_SEARCH_HANDLE} hSearchResult 
      * @param {PWSTR} szColumnName 
-     * @param {Pointer<ADS_SEARCH_COLUMN>} pSearchColumn 
-     * @returns {HRESULT} 
+     * @returns {ADS_SEARCH_COLUMN} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-idirectorysearch-getcolumn
      */
-    GetColumn(hSearchResult, szColumnName, pSearchColumn) {
+    GetColumn(hSearchResult, szColumnName) {
         hSearchResult := hSearchResult is Win32Handle ? NumGet(hSearchResult, "ptr") : hSearchResult
         szColumnName := szColumnName is String ? StrPtr(szColumnName) : szColumnName
 
+        pSearchColumn := ADS_SEARCH_COLUMN()
         result := ComCall(10, this, "ptr", hSearchResult, "ptr", szColumnName, "ptr", pSearchColumn, "HRESULT")
-        return result
+        return pSearchColumn
     }
 
     /**

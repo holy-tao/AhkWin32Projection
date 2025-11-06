@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\MP_PARAMINFO.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,66 +33,57 @@ class IMediaParamInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwParams 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/medparam/nf-medparam-imediaparaminfo-getparamcount
      */
-    GetParamCount(pdwParams) {
-        pdwParamsMarshal := pdwParams is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pdwParamsMarshal, pdwParams, "HRESULT")
-        return result
+    GetParamCount() {
+        result := ComCall(3, this, "uint*", &pdwParams := 0, "HRESULT")
+        return pdwParams
     }
 
     /**
      * 
      * @param {Integer} dwParamIndex 
-     * @param {Pointer<MP_PARAMINFO>} pInfo 
-     * @returns {HRESULT} 
+     * @returns {MP_PARAMINFO} 
      * @see https://learn.microsoft.com/windows/win32/api/medparam/nf-medparam-imediaparaminfo-getparaminfo
      */
-    GetParamInfo(dwParamIndex, pInfo) {
+    GetParamInfo(dwParamIndex) {
+        pInfo := MP_PARAMINFO()
         result := ComCall(4, this, "uint", dwParamIndex, "ptr", pInfo, "HRESULT")
-        return result
+        return pInfo
     }
 
     /**
      * 
      * @param {Integer} dwParamIndex 
-     * @param {Pointer<Pointer<Integer>>} ppwchText 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/medparam/nf-medparam-imediaparaminfo-getparamtext
      */
-    GetParamText(dwParamIndex, ppwchText) {
-        ppwchTextMarshal := ppwchText is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, "uint", dwParamIndex, ppwchTextMarshal, ppwchText, "HRESULT")
-        return result
+    GetParamText(dwParamIndex) {
+        result := ComCall(5, this, "uint", dwParamIndex, "ptr*", &ppwchText := 0, "HRESULT")
+        return ppwchText
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwNumTimeFormats 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/medparam/nf-medparam-imediaparaminfo-getnumtimeformats
      */
-    GetNumTimeFormats(pdwNumTimeFormats) {
-        pdwNumTimeFormatsMarshal := pdwNumTimeFormats is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pdwNumTimeFormatsMarshal, pdwNumTimeFormats, "HRESULT")
-        return result
+    GetNumTimeFormats() {
+        result := ComCall(6, this, "uint*", &pdwNumTimeFormats := 0, "HRESULT")
+        return pdwNumTimeFormats
     }
 
     /**
      * 
      * @param {Integer} dwFormatIndex 
-     * @param {Pointer<Guid>} pguidTimeFormat 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/medparam/nf-medparam-imediaparaminfo-getsupportedtimeformat
      */
-    GetSupportedTimeFormat(dwFormatIndex, pguidTimeFormat) {
+    GetSupportedTimeFormat(dwFormatIndex) {
+        pguidTimeFormat := Guid()
         result := ComCall(7, this, "uint", dwFormatIndex, "ptr", pguidTimeFormat, "HRESULT")
-        return result
+        return pguidTimeFormat
     }
 
     /**

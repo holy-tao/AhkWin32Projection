@@ -41,14 +41,11 @@ class IXmlWriter extends IUnknown{
     /**
      * 
      * @param {Integer} nProperty 
-     * @param {Pointer<Pointer>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    GetProperty(nProperty, ppValue) {
-        ppValueMarshal := ppValue is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "uint", nProperty, ppValueMarshal, ppValue, "HRESULT")
-        return result
+    GetProperty(nProperty) {
+        result := ComCall(4, this, "uint", nProperty, "ptr*", &ppValue := 0, "HRESULT")
+        return ppValue
     }
 
     /**

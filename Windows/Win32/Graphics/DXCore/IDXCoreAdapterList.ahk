@@ -34,15 +34,12 @@ class IDXCoreAdapterList extends IUnknown{
      * 
      * @param {Integer} index 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvAdapter 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapterlist-getadapter
      */
-    GetAdapter(index, riid, ppvAdapter) {
-        ppvAdapterMarshal := ppvAdapter is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "uint", index, "ptr", riid, ppvAdapterMarshal, ppvAdapter, "HRESULT")
-        return result
+    GetAdapter(index, riid) {
+        result := ComCall(3, this, "uint", index, "ptr", riid, "ptr*", &ppvAdapter := 0, "HRESULT")
+        return ppvAdapter
     }
 
     /**
@@ -68,15 +65,12 @@ class IDXCoreAdapterList extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvFactory 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapterlist-getfactory
      */
-    GetFactory(riid, ppvFactory) {
-        ppvFactoryMarshal := ppvFactory is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", riid, ppvFactoryMarshal, ppvFactory, "HRESULT")
-        return result
+    GetFactory(riid) {
+        result := ComCall(6, this, "ptr", riid, "ptr*", &ppvFactory := 0, "HRESULT")
+        return ppvFactory
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumStreamIdMap.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -60,12 +61,11 @@ class IMPEG2StreamIdMap extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumStreamIdMap>} ppIEnumStreamIdMap 
-     * @returns {HRESULT} 
+     * @returns {IEnumStreamIdMap} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-impeg2streamidmap-enumstreamidmap
      */
-    EnumStreamIdMap(ppIEnumStreamIdMap) {
-        result := ComCall(5, this, "ptr*", ppIEnumStreamIdMap, "HRESULT")
-        return result
+    EnumStreamIdMap() {
+        result := ComCall(5, this, "ptr*", &ppIEnumStreamIdMap := 0, "HRESULT")
+        return IEnumStreamIdMap(ppIEnumStreamIdMap)
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -46,12 +47,12 @@ class ITfSystemLangBarItemText extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrText 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itfsystemlangbaritemtext-getitemtext
      */
-    GetItemText(pbstrText) {
+    GetItemText() {
+        pbstrText := BSTR()
         result := ComCall(4, this, "ptr", pbstrText, "HRESULT")
-        return result
+        return pbstrText
     }
 }

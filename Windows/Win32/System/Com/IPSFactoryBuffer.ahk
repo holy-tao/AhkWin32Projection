@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRpcStubBuffer.ahk
 #Include .\IUnknown.ahk
 
 /**
@@ -50,12 +51,11 @@ class IPSFactoryBuffer extends IUnknown{
      * 
      * @param {Pointer<Guid>} riid 
      * @param {IUnknown} pUnkServer 
-     * @param {Pointer<IRpcStubBuffer>} ppStub 
-     * @returns {HRESULT} 
+     * @returns {IRpcStubBuffer} 
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-ipsfactorybuffer-createstub
      */
-    CreateStub(riid, pUnkServer, ppStub) {
-        result := ComCall(4, this, "ptr", riid, "ptr", pUnkServer, "ptr*", ppStub, "HRESULT")
-        return result
+    CreateStub(riid, pUnkServer) {
+        result := ComCall(4, this, "ptr", riid, "ptr", pUnkServer, "ptr*", &ppStub := 0, "HRESULT")
+        return IRpcStubBuffer(ppStub)
     }
 }

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -30,36 +31,29 @@ class IHTMLTextContainer extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} range 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    createControlRange(range) {
-        result := ComCall(7, this, "ptr*", range, "HRESULT")
-        return result
+    createControlRange() {
+        result := ComCall(7, this, "ptr*", &range := 0, "HRESULT")
+        return IDispatch(range)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_scrollHeight(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pMarshal, p, "HRESULT")
-        return result
+    get_scrollHeight() {
+        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_scrollWidth(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pMarshal, p, "HRESULT")
-        return result
+    get_scrollWidth() {
+        result := ComCall(9, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -74,14 +68,11 @@ class IHTMLTextContainer extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_scrollTop(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, pMarshal, p, "HRESULT")
-        return result
+    get_scrollTop() {
+        result := ComCall(11, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -96,14 +87,11 @@ class IHTMLTextContainer extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_scrollLeft(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, pMarshal, p, "HRESULT")
-        return result
+    get_scrollLeft() {
+        result := ComCall(13, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -118,11 +106,11 @@ class IHTMLTextContainer extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onscroll(p) {
+    get_onscroll() {
+        p := VARIANT()
         result := ComCall(15, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 }

@@ -43,57 +43,56 @@ class IFsrmFileScreen extends IFsrmFileScreenBase{
 
     /**
      * 
-     * @param {Pointer<BSTR>} path 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreen-get_path
      */
-    get_Path(path) {
+    get_Path() {
+        path := BSTR()
         result := ComCall(18, this, "ptr", path, "HRESULT")
-        return result
+        return path
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} fileScreenTemplateName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreen-get_sourcetemplatename
      */
-    get_SourceTemplateName(fileScreenTemplateName) {
+    get_SourceTemplateName() {
+        fileScreenTemplateName := BSTR()
         result := ComCall(19, this, "ptr", fileScreenTemplateName, "HRESULT")
-        return result
+        return fileScreenTemplateName
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} matches 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreen-get_matchessourcetemplate
      */
-    get_MatchesSourceTemplate(matches) {
-        result := ComCall(20, this, "ptr", matches, "HRESULT")
-        return result
+    get_MatchesSourceTemplate() {
+        result := ComCall(20, this, "short*", &matches := 0, "HRESULT")
+        return matches
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} userSid 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreen-get_usersid
      */
-    get_UserSid(userSid) {
+    get_UserSid() {
+        userSid := BSTR()
         result := ComCall(21, this, "ptr", userSid, "HRESULT")
-        return result
+        return userSid
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} userAccount 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreen-get_useraccount
      */
-    get_UserAccount(userAccount) {
+    get_UserAccount() {
+        userAccount := BSTR()
         result := ComCall(22, this, "ptr", userAccount, "HRESULT")
-        return result
+        return userAccount
     }
 
     /**

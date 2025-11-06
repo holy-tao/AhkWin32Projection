@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\System\Ole\IOleWindow.ahk
 
 /**
@@ -61,11 +62,11 @@ class IDeskBarClient extends IOleWindow{
     /**
      * 
      * @param {Integer} dwWhich 
-     * @param {Pointer<RECT>} prc 
-     * @returns {HRESULT} 
+     * @returns {RECT} 
      */
-    GetSize(dwWhich, prc) {
+    GetSize(dwWhich) {
+        prc := RECT()
         result := ComCall(8, this, "uint", dwWhich, "ptr", prc, "HRESULT")
-        return result
+        return prc
     }
 }

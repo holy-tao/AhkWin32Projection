@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IRawElementProviderSimple2.ahk
 
 /**
@@ -57,12 +58,12 @@ class IRawElementProviderSimple3 extends IRawElementProviderSimple2{
      * 
      * @param {Integer} targetId 
      * @param {Integer} metadataId 
-     * @param {Pointer<VARIANT>} returnVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementprovidersimple3-getmetadatavalue
      */
-    GetMetadataValue(targetId, metadataId, returnVal) {
+    GetMetadataValue(targetId, metadataId) {
+        returnVal := VARIANT()
         result := ComCall(8, this, "int", targetId, "int", metadataId, "ptr", returnVal, "HRESULT")
-        return result
+        return returnVal
     }
 }

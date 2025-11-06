@@ -39,28 +39,22 @@ class IInkGesture extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} Confidence 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkgesture-get_confidence
      */
-    get_Confidence(Confidence) {
-        ConfidenceMarshal := Confidence is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, ConfidenceMarshal, Confidence, "HRESULT")
-        return result
+    get_Confidence() {
+        result := ComCall(7, this, "int*", &Confidence := 0, "HRESULT")
+        return Confidence
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Id 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkgesture-get_id
      */
-    get_Id(Id) {
-        IdMarshal := Id is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, IdMarshal, Id, "HRESULT")
-        return result
+    get_Id() {
+        result := ComCall(8, this, "int*", &Id := 0, "HRESULT")
+        return Id
     }
 
     /**

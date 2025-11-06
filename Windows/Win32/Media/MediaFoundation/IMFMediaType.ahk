@@ -48,52 +48,45 @@ class IMFMediaType extends IMFAttributes{
 
     /**
      * 
-     * @param {Pointer<Guid>} pguidMajorType 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmediatype-getmajortype
      */
-    GetMajorType(pguidMajorType) {
+    GetMajorType() {
+        pguidMajorType := Guid()
         result := ComCall(33, this, "ptr", pguidMajorType, "HRESULT")
-        return result
+        return pguidMajorType
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfCompressed 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmediatype-iscompressedformat
      */
-    IsCompressedFormat(pfCompressed) {
-        result := ComCall(34, this, "ptr", pfCompressed, "HRESULT")
-        return result
+    IsCompressedFormat() {
+        result := ComCall(34, this, "int*", &pfCompressed := 0, "HRESULT")
+        return pfCompressed
     }
 
     /**
      * 
      * @param {IMFMediaType} pIMediaType 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmediatype-isequal
      */
-    IsEqual(pIMediaType, pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(35, this, "ptr", pIMediaType, pdwFlagsMarshal, pdwFlags, "HRESULT")
-        return result
+    IsEqual(pIMediaType) {
+        result := ComCall(35, this, "ptr", pIMediaType, "uint*", &pdwFlags := 0, "HRESULT")
+        return pdwFlags
     }
 
     /**
      * 
      * @param {Guid} guidRepresentation 
-     * @param {Pointer<Pointer<Void>>} ppvRepresentation 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmediatype-getrepresentation
      */
-    GetRepresentation(guidRepresentation, ppvRepresentation) {
-        ppvRepresentationMarshal := ppvRepresentation is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(36, this, "ptr", guidRepresentation, ppvRepresentationMarshal, ppvRepresentation, "HRESULT")
-        return result
+    GetRepresentation(guidRepresentation) {
+        result := ComCall(36, this, "ptr", guidRepresentation, "ptr*", &ppvRepresentation := 0, "HRESULT")
+        return ppvRepresentation
     }
 
     /**

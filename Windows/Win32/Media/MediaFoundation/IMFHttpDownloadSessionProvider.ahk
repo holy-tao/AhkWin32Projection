@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFHttpDownloadSession.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,14 +34,13 @@ class IMFHttpDownloadSessionProvider extends IUnknown{
     /**
      * 
      * @param {PWSTR} wszScheme 
-     * @param {Pointer<IMFHttpDownloadSession>} ppDownloadSession 
-     * @returns {HRESULT} 
+     * @returns {IMFHttpDownloadSession} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfhttpdownloadsessionprovider-createhttpdownloadsession
      */
-    CreateHttpDownloadSession(wszScheme, ppDownloadSession) {
+    CreateHttpDownloadSession(wszScheme) {
         wszScheme := wszScheme is String ? StrPtr(wszScheme) : wszScheme
 
-        result := ComCall(3, this, "ptr", wszScheme, "ptr*", ppDownloadSession, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", wszScheme, "ptr*", &ppDownloadSession := 0, "HRESULT")
+        return IMFHttpDownloadSession(ppDownloadSession)
     }
 }

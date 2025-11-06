@@ -36,13 +36,10 @@ class ICanvasTextMetrics extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_width(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(7, this, pMarshal, p, "HRESULT")
-        return result
+    get_width() {
+        result := ComCall(7, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 }

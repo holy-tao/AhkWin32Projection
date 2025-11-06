@@ -5567,7 +5567,9 @@ class Registry {
     static RegQueryReflectionKey(hBase, bIsReflectionDisabled) {
         hBase := hBase is Win32Handle ? NumGet(hBase, "ptr") : hBase
 
-        result := DllCall("ADVAPI32.dll\RegQueryReflectionKey", "ptr", hBase, "ptr", bIsReflectionDisabled, "uint")
+        bIsReflectionDisabledMarshal := bIsReflectionDisabled is VarRef ? "int*" : "ptr"
+
+        result := DllCall("ADVAPI32.dll\RegQueryReflectionKey", "ptr", hBase, bIsReflectionDisabledMarshal, bIsReflectionDisabled, "uint")
         return result
     }
 

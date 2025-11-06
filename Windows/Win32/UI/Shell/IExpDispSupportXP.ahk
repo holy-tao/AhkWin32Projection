@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\CIE4ConnectionPoint.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,13 +34,12 @@ class IExpDispSupportXP extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<CIE4ConnectionPoint>} ppccp 
-     * @returns {HRESULT} 
+     * @returns {CIE4ConnectionPoint} 
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-iexpdispsupportxp-findcie4connectionpoint
      */
-    FindCIE4ConnectionPoint(riid, ppccp) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", ppccp, "HRESULT")
-        return result
+    FindCIE4ConnectionPoint(riid) {
+        result := ComCall(3, this, "ptr", riid, "ptr*", &ppccp := 0, "HRESULT")
+        return CIE4ConnectionPoint(ppccp)
     }
 
     /**

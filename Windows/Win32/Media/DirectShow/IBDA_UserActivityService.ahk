@@ -47,15 +47,12 @@ class IBDA_UserActivityService extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwActivityInterval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_useractivityservice-getuseractivityinterval
      */
-    GetUserActivityInterval(pdwActivityInterval) {
-        pdwActivityIntervalMarshal := pdwActivityInterval is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pdwActivityIntervalMarshal, pdwActivityInterval, "HRESULT")
-        return result
+    GetUserActivityInterval() {
+        result := ComCall(4, this, "uint*", &pdwActivityInterval := 0, "HRESULT")
+        return pdwActivityInterval
     }
 
     /**

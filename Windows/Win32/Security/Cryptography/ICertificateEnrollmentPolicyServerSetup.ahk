@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,13 +34,13 @@ class ICertificateEnrollmentPolicyServerSetup extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertificateenrollmentpolicyserversetup-get_errorstring
      */
-    get_ErrorString(pVal) {
+    get_ErrorString() {
+        pVal := BSTR()
         result := ComCall(7, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
@@ -54,13 +56,13 @@ class ICertificateEnrollmentPolicyServerSetup extends IDispatch{
     /**
      * 
      * @param {Integer} propertyId 
-     * @param {Pointer<VARIANT>} pPropertyValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertificateenrollmentpolicyserversetup-getproperty
      */
-    GetProperty(propertyId, pPropertyValue) {
+    GetProperty(propertyId) {
+        pPropertyValue := VARIANT()
         result := ComCall(9, this, "int", propertyId, "ptr", pPropertyValue, "HRESULT")
-        return result
+        return pPropertyValue
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumFilters.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -79,13 +80,12 @@ class IGraphConfig extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumFilters>} pEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumFilters} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-igraphconfig-enumcachefilter
      */
-    EnumCacheFilter(pEnum) {
-        result := ComCall(6, this, "ptr*", pEnum, "HRESULT")
-        return result
+    EnumCacheFilter() {
+        result := ComCall(6, this, "ptr*", &pEnum := 0, "HRESULT")
+        return IEnumFilters(pEnum)
     }
 
     /**
@@ -101,15 +101,12 @@ class IGraphConfig extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} prtStart 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-igraphconfig-getstarttime
      */
-    GetStartTime(prtStart) {
-        prtStartMarshal := prtStart is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(8, this, prtStartMarshal, prtStart, "HRESULT")
-        return result
+    GetStartTime() {
+        result := ComCall(8, this, "int64*", &prtStart := 0, "HRESULT")
+        return prtStart
     }
 
     /**
@@ -142,15 +139,12 @@ class IGraphConfig extends IUnknown{
     /**
      * 
      * @param {IBaseFilter} pFilter 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-igraphconfig-getfilterflags
      */
-    GetFilterFlags(pFilter, pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, "ptr", pFilter, pdwFlagsMarshal, pdwFlags, "HRESULT")
-        return result
+    GetFilterFlags(pFilter) {
+        result := ComCall(11, this, "ptr", pFilter, "uint*", &pdwFlags := 0, "HRESULT")
+        return pdwFlags
     }
 
     /**

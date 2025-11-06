@@ -54,12 +54,11 @@ class ITrusteeGroupAdmin extends IUnknown{
      * 
      * @param {Pointer<TRUSTEE_W>} pMembershipTrustee 
      * @param {Pointer<TRUSTEE_W>} pMemberTrustee 
-     * @param {Pointer<BOOL>} pfStatus 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsMember(pMembershipTrustee, pMemberTrustee, pfStatus) {
-        result := ComCall(5, this, "ptr", pMembershipTrustee, "ptr", pMemberTrustee, "ptr", pfStatus, "HRESULT")
-        return result
+    IsMember(pMembershipTrustee, pMemberTrustee) {
+        result := ComCall(5, this, "ptr", pMembershipTrustee, "ptr", pMemberTrustee, "int*", &pfStatus := 0, "HRESULT")
+        return pfStatus
     }
 
     /**

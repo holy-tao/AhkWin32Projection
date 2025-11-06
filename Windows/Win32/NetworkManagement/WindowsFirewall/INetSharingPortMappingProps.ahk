@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,97 +33,84 @@ class INetSharingPortMappingProps extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingportmappingprops-get_name
      */
-    get_Name(pbstrName) {
+    get_Name() {
+        pbstrName := BSTR()
         result := ComCall(7, this, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pucIPProt 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingportmappingprops-get_ipprotocol
      */
-    get_IPProtocol(pucIPProt) {
-        pucIPProtMarshal := pucIPProt is VarRef ? "char*" : "ptr"
-
-        result := ComCall(8, this, pucIPProtMarshal, pucIPProt, "HRESULT")
-        return result
+    get_IPProtocol() {
+        result := ComCall(8, this, "char*", &pucIPProt := 0, "HRESULT")
+        return pucIPProt
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pusPort 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingportmappingprops-get_externalport
      */
-    get_ExternalPort(pusPort) {
-        pusPortMarshal := pusPort is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pusPortMarshal, pusPort, "HRESULT")
-        return result
+    get_ExternalPort() {
+        result := ComCall(9, this, "int*", &pusPort := 0, "HRESULT")
+        return pusPort
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pusPort 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingportmappingprops-get_internalport
      */
-    get_InternalPort(pusPort) {
-        pusPortMarshal := pusPort is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, pusPortMarshal, pusPort, "HRESULT")
-        return result
+    get_InternalPort() {
+        result := ComCall(10, this, "int*", &pusPort := 0, "HRESULT")
+        return pusPort
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwOptions 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingportmappingprops-get_options
      */
-    get_Options(pdwOptions) {
-        pdwOptionsMarshal := pdwOptions is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, pdwOptionsMarshal, pdwOptions, "HRESULT")
-        return result
+    get_Options() {
+        result := ComCall(11, this, "int*", &pdwOptions := 0, "HRESULT")
+        return pdwOptions
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrTargetName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingportmappingprops-get_targetname
      */
-    get_TargetName(pbstrTargetName) {
+    get_TargetName() {
+        pbstrTargetName := BSTR()
         result := ComCall(12, this, "ptr", pbstrTargetName, "HRESULT")
-        return result
+        return pbstrTargetName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrTargetIPAddress 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingportmappingprops-get_targetipaddress
      */
-    get_TargetIPAddress(pbstrTargetIPAddress) {
+    get_TargetIPAddress() {
+        pbstrTargetIPAddress := BSTR()
         result := ComCall(13, this, "ptr", pbstrTargetIPAddress, "HRESULT")
-        return result
+        return pbstrTargetIPAddress
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbool 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingportmappingprops-get_enabled
      */
-    get_Enabled(pbool) {
-        result := ComCall(14, this, "ptr", pbool, "HRESULT")
-        return result
+    get_Enabled() {
+        result := ComCall(14, this, "short*", &pbool := 0, "HRESULT")
+        return pbool
     }
 }

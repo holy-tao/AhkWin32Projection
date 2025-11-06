@@ -35,13 +35,10 @@ class IWindowsDevicesAllJoynBusAttachmentFactoryInterop extends IInspectable{
      * @param {Integer} win32handle 
      * @param {Integer} enableAboutData 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    CreateFromWin32Handle(win32handle, enableAboutData, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "uint", win32handle, "char", enableAboutData, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    CreateFromWin32Handle(win32handle, enableAboutData, riid) {
+        result := ComCall(6, this, "uint", win32handle, "char", enableAboutData, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 }

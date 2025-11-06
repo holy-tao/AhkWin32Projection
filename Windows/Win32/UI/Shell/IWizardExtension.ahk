@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Controls\HPROPSHEETPAGE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -47,23 +48,23 @@ class IWizardExtension extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HPROPSHEETPAGE>} phpage 
-     * @returns {HRESULT} 
+     * @returns {HPROPSHEETPAGE} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iwizardextension-getfirstpage
      */
-    GetFirstPage(phpage) {
+    GetFirstPage() {
+        phpage := HPROPSHEETPAGE()
         result := ComCall(4, this, "ptr", phpage, "HRESULT")
-        return result
+        return phpage
     }
 
     /**
      * 
-     * @param {Pointer<HPROPSHEETPAGE>} phpage 
-     * @returns {HRESULT} 
+     * @returns {HPROPSHEETPAGE} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iwizardextension-getlastpage
      */
-    GetLastPage(phpage) {
+    GetLastPage() {
+        phpage := HPROPSHEETPAGE()
         result := ComCall(5, this, "ptr", phpage, "HRESULT")
-        return result
+        return phpage
     }
 }

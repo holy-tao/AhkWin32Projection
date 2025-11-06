@@ -33,13 +33,10 @@ class IClassFactoryEx extends IClassFactory{
      * @param {IUnknown} punkContext 
      * @param {IUnknown} punkOuter 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    CreateInstanceWithContext(punkContext, punkOuter, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, "ptr", punkContext, "ptr", punkOuter, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    CreateInstanceWithContext(punkContext, punkOuter, riid) {
+        result := ComCall(5, this, "ptr", punkContext, "ptr", punkOuter, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 }

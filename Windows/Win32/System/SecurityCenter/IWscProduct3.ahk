@@ -30,13 +30,10 @@ class IWscProduct3 extends IWscProduct2{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwDays 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_AntivirusDaysUntilExpired(pdwDays) {
-        pdwDaysMarshal := pdwDays is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(20, this, pdwDaysMarshal, pdwDays, "HRESULT")
-        return result
+    get_AntivirusDaysUntilExpired() {
+        result := ComCall(20, this, "uint*", &pdwDays := 0, "HRESULT")
+        return pdwDays
     }
 }

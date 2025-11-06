@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\IESEvent.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -44,15 +45,14 @@ class IESEventFactory extends IUnknown{
      * @param {Pointer<Integer>} pEventData 
      * @param {BSTR} bstrBaseUrl 
      * @param {IUnknown} pInitContext 
-     * @param {Pointer<IESEvent>} ppESEvent 
-     * @returns {HRESULT} 
+     * @returns {IESEvent} 
      */
-    CreateESEvent(pServiceProvider, dwEventId, guidEventType, dwEventDataLength, pEventData, bstrBaseUrl, pInitContext, ppESEvent) {
+    CreateESEvent(pServiceProvider, dwEventId, guidEventType, dwEventDataLength, pEventData, bstrBaseUrl, pInitContext) {
         bstrBaseUrl := bstrBaseUrl is String ? BSTR.Alloc(bstrBaseUrl).Value : bstrBaseUrl
 
         pEventDataMarshal := pEventData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pServiceProvider, "uint", dwEventId, "ptr", guidEventType, "uint", dwEventDataLength, pEventDataMarshal, pEventData, "ptr", bstrBaseUrl, "ptr", pInitContext, "ptr*", ppESEvent, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pServiceProvider, "uint", dwEventId, "ptr", guidEventType, "uint", dwEventDataLength, pEventDataMarshal, pEventData, "ptr", bstrBaseUrl, "ptr", pInitContext, "ptr*", &ppESEvent := 0, "HRESULT")
+        return IESEvent(ppESEvent)
     }
 }

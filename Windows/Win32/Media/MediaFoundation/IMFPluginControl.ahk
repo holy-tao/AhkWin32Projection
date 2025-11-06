@@ -69,15 +69,15 @@ class IMFPluginControl extends IUnknown{
      * 
      * @param {Integer} pluginType 
      * @param {PWSTR} selector 
-     * @param {Pointer<Guid>} clsid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfplugincontrol-getpreferredclsid
      */
-    GetPreferredClsid(pluginType, selector, clsid) {
+    GetPreferredClsid(pluginType, selector) {
         selector := selector is String ? StrPtr(selector) : selector
 
+        clsid := Guid()
         result := ComCall(3, this, "uint", pluginType, "ptr", selector, "ptr", clsid, "HRESULT")
-        return result
+        return clsid
     }
 
     /**
@@ -90,7 +90,9 @@ class IMFPluginControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfplugincontrol-getpreferredclsidbyindex
      */
     GetPreferredClsidByIndex(pluginType, index, selector, clsid) {
-        result := ComCall(4, this, "uint", pluginType, "uint", index, "ptr", selector, "ptr", clsid, "HRESULT")
+        selectorMarshal := selector is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "uint", pluginType, "uint", index, selectorMarshal, selector, "ptr", clsid, "HRESULT")
         return result
     }
 
@@ -125,13 +127,13 @@ class IMFPluginControl extends IUnknown{
      * 
      * @param {Integer} pluginType 
      * @param {Integer} index 
-     * @param {Pointer<Guid>} clsid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfplugincontrol-getdisabledbyindex
      */
-    GetDisabledByIndex(pluginType, index, clsid) {
+    GetDisabledByIndex(pluginType, index) {
+        clsid := Guid()
         result := ComCall(7, this, "uint", pluginType, "uint", index, "ptr", clsid, "HRESULT")
-        return result
+        return clsid
     }
 
     /**

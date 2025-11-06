@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Foundation\BSTR.ahk
 #Include .\IDataModelScript.ahk
 
 /**
@@ -30,12 +31,12 @@ class IDataModelScript2 extends IDataModelScript{
 
     /**
      * 
-     * @param {Pointer<BSTR>} scriptFullPathName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetScriptFullFilePathName(scriptFullPathName) {
+    GetScriptFullFilePathName() {
+        scriptFullPathName := BSTR()
         result := ComCall(10, this, "ptr", scriptFullPathName, "HRESULT")
-        return result
+        return scriptFullPathName
     }
 
     /**

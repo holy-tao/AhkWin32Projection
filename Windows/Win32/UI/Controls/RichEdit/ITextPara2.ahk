@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\ITextPara2.ahk
 #Include .\ITextPara.ahk
 
 /**
@@ -32,24 +34,22 @@ class ITextPara2 extends ITextPara{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppBorders 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara2-getborders
      */
-    GetBorders(ppBorders) {
-        result := ComCall(55, this, "ptr*", ppBorders, "HRESULT")
-        return result
+    GetBorders() {
+        result := ComCall(55, this, "ptr*", &ppBorders := 0, "HRESULT")
+        return IUnknown(ppBorders)
     }
 
     /**
      * 
-     * @param {Pointer<ITextPara2>} ppPara 
-     * @returns {HRESULT} 
+     * @returns {ITextPara2} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara2-getduplicate2
      */
-    GetDuplicate2(ppPara) {
-        result := ComCall(56, this, "ptr*", ppPara, "HRESULT")
-        return result
+    GetDuplicate2() {
+        result := ComCall(56, this, "ptr*", &ppPara := 0, "HRESULT")
+        return ITextPara2(ppPara)
     }
 
     /**
@@ -65,15 +65,12 @@ class ITextPara2 extends ITextPara{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara2-getfontalignment
      */
-    GetFontAlignment(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(58, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetFontAlignment() {
+        result := ComCall(58, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -89,15 +86,12 @@ class ITextPara2 extends ITextPara{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara2-gethangingpunctuation
      */
-    GetHangingPunctuation(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(60, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetHangingPunctuation() {
+        result := ComCall(60, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -113,15 +107,12 @@ class ITextPara2 extends ITextPara{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara2-getsnaptogrid
      */
-    GetSnapToGrid(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(62, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetSnapToGrid() {
+        result := ComCall(62, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -137,15 +128,12 @@ class ITextPara2 extends ITextPara{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara2-gettrimpunctuationatstart
      */
-    GetTrimPunctuationAtStart(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(64, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetTrimPunctuationAtStart() {
+        result := ComCall(64, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -177,29 +165,23 @@ class ITextPara2 extends ITextPara{
     /**
      * 
      * @param {Integer} Type 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara2-getproperty
      */
-    GetProperty(Type, pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(67, this, "int", Type, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetProperty(Type) {
+        result := ComCall(67, this, "int", Type, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
      * @param {ITextPara2} pPara 
-     * @param {Pointer<Integer>} pB 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara2-isequal2
      */
-    IsEqual2(pPara, pB) {
-        pBMarshal := pB is VarRef ? "int*" : "ptr"
-
-        result := ComCall(68, this, "ptr", pPara, pBMarshal, pB, "HRESULT")
-        return result
+    IsEqual2(pPara) {
+        result := ComCall(68, this, "ptr", pPara, "int*", &pB := 0, "HRESULT")
+        return pB
     }
 
     /**

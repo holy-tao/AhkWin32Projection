@@ -1,6 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IPAT.ahk
+#Include .\ICAT.ahk
+#Include .\IPMT.ahk
+#Include .\ITSDT.ahk
+#Include .\IDVB_NIT.ahk
+#Include .\IDVB_SDT.ahk
+#Include .\IDVB_EIT.ahk
+#Include .\IDVB_BAT.ahk
+#Include .\IDVB_RST.ahk
+#Include .\IDVB_ST.ahk
+#Include .\IDVB_TDT.ahk
+#Include .\IDVB_TOT.ahk
+#Include .\IDVB_DIT.ahk
+#Include .\IDVB_SIT.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -58,180 +72,166 @@ class IDvbSiParser extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IPAT>} ppPAT 
-     * @returns {HRESULT} 
+     * @returns {IPAT} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsiparser-getpat
      */
-    GetPAT(ppPAT) {
-        result := ComCall(4, this, "ptr*", ppPAT, "HRESULT")
-        return result
+    GetPAT() {
+        result := ComCall(4, this, "ptr*", &ppPAT := 0, "HRESULT")
+        return IPAT(ppPAT)
     }
 
     /**
      * 
      * @param {Integer} dwTimeout 
-     * @param {Pointer<ICAT>} ppCAT 
-     * @returns {HRESULT} 
+     * @returns {ICAT} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsiparser-getcat
      */
-    GetCAT(dwTimeout, ppCAT) {
-        result := ComCall(5, this, "uint", dwTimeout, "ptr*", ppCAT, "HRESULT")
-        return result
+    GetCAT(dwTimeout) {
+        result := ComCall(5, this, "uint", dwTimeout, "ptr*", &ppCAT := 0, "HRESULT")
+        return ICAT(ppCAT)
     }
 
     /**
      * 
      * @param {Integer} pid 
      * @param {Pointer<Integer>} pwProgramNumber 
-     * @param {Pointer<IPMT>} ppPMT 
-     * @returns {HRESULT} 
+     * @returns {IPMT} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsiparser-getpmt
      */
-    GetPMT(pid, pwProgramNumber, ppPMT) {
+    GetPMT(pid, pwProgramNumber) {
         pwProgramNumberMarshal := pwProgramNumber is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(6, this, "ushort", pid, pwProgramNumberMarshal, pwProgramNumber, "ptr*", ppPMT, "HRESULT")
-        return result
+        result := ComCall(6, this, "ushort", pid, pwProgramNumberMarshal, pwProgramNumber, "ptr*", &ppPMT := 0, "HRESULT")
+        return IPMT(ppPMT)
     }
 
     /**
      * 
-     * @param {Pointer<ITSDT>} ppTSDT 
-     * @returns {HRESULT} 
+     * @returns {ITSDT} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsiparser-gettsdt
      */
-    GetTSDT(ppTSDT) {
-        result := ComCall(7, this, "ptr*", ppTSDT, "HRESULT")
-        return result
+    GetTSDT() {
+        result := ComCall(7, this, "ptr*", &ppTSDT := 0, "HRESULT")
+        return ITSDT(ppTSDT)
     }
 
     /**
      * 
      * @param {Integer} tableId 
      * @param {Pointer<Integer>} pwNetworkId 
-     * @param {Pointer<IDVB_NIT>} ppNIT 
-     * @returns {HRESULT} 
+     * @returns {IDVB_NIT} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsiparser-getnit
      */
-    GetNIT(tableId, pwNetworkId, ppNIT) {
+    GetNIT(tableId, pwNetworkId) {
         pwNetworkIdMarshal := pwNetworkId is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(8, this, "char", tableId, pwNetworkIdMarshal, pwNetworkId, "ptr*", ppNIT, "HRESULT")
-        return result
+        result := ComCall(8, this, "char", tableId, pwNetworkIdMarshal, pwNetworkId, "ptr*", &ppNIT := 0, "HRESULT")
+        return IDVB_NIT(ppNIT)
     }
 
     /**
      * 
      * @param {Integer} tableId 
      * @param {Pointer<Integer>} pwTransportStreamId 
-     * @param {Pointer<IDVB_SDT>} ppSDT 
-     * @returns {HRESULT} 
+     * @returns {IDVB_SDT} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsiparser-getsdt
      */
-    GetSDT(tableId, pwTransportStreamId, ppSDT) {
+    GetSDT(tableId, pwTransportStreamId) {
         pwTransportStreamIdMarshal := pwTransportStreamId is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(9, this, "char", tableId, pwTransportStreamIdMarshal, pwTransportStreamId, "ptr*", ppSDT, "HRESULT")
-        return result
+        result := ComCall(9, this, "char", tableId, pwTransportStreamIdMarshal, pwTransportStreamId, "ptr*", &ppSDT := 0, "HRESULT")
+        return IDVB_SDT(ppSDT)
     }
 
     /**
      * 
      * @param {Integer} tableId 
      * @param {Pointer<Integer>} pwServiceId 
-     * @param {Pointer<IDVB_EIT>} ppEIT 
-     * @returns {HRESULT} 
+     * @returns {IDVB_EIT} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsiparser-geteit
      */
-    GetEIT(tableId, pwServiceId, ppEIT) {
+    GetEIT(tableId, pwServiceId) {
         pwServiceIdMarshal := pwServiceId is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(10, this, "char", tableId, pwServiceIdMarshal, pwServiceId, "ptr*", ppEIT, "HRESULT")
-        return result
+        result := ComCall(10, this, "char", tableId, pwServiceIdMarshal, pwServiceId, "ptr*", &ppEIT := 0, "HRESULT")
+        return IDVB_EIT(ppEIT)
     }
 
     /**
      * 
      * @param {Pointer<Integer>} pwBouquetId 
-     * @param {Pointer<IDVB_BAT>} ppBAT 
-     * @returns {HRESULT} 
+     * @returns {IDVB_BAT} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsiparser-getbat
      */
-    GetBAT(pwBouquetId, ppBAT) {
+    GetBAT(pwBouquetId) {
         pwBouquetIdMarshal := pwBouquetId is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(11, this, pwBouquetIdMarshal, pwBouquetId, "ptr*", ppBAT, "HRESULT")
-        return result
+        result := ComCall(11, this, pwBouquetIdMarshal, pwBouquetId, "ptr*", &ppBAT := 0, "HRESULT")
+        return IDVB_BAT(ppBAT)
     }
 
     /**
      * 
      * @param {Integer} dwTimeout 
-     * @param {Pointer<IDVB_RST>} ppRST 
-     * @returns {HRESULT} 
+     * @returns {IDVB_RST} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsiparser-getrst
      */
-    GetRST(dwTimeout, ppRST) {
-        result := ComCall(12, this, "uint", dwTimeout, "ptr*", ppRST, "HRESULT")
-        return result
+    GetRST(dwTimeout) {
+        result := ComCall(12, this, "uint", dwTimeout, "ptr*", &ppRST := 0, "HRESULT")
+        return IDVB_RST(ppRST)
     }
 
     /**
      * 
      * @param {Integer} pid 
      * @param {Integer} dwTimeout 
-     * @param {Pointer<IDVB_ST>} ppST 
-     * @returns {HRESULT} 
+     * @returns {IDVB_ST} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsiparser-getst
      */
-    GetST(pid, dwTimeout, ppST) {
-        result := ComCall(13, this, "ushort", pid, "uint", dwTimeout, "ptr*", ppST, "HRESULT")
-        return result
+    GetST(pid, dwTimeout) {
+        result := ComCall(13, this, "ushort", pid, "uint", dwTimeout, "ptr*", &ppST := 0, "HRESULT")
+        return IDVB_ST(ppST)
     }
 
     /**
      * 
-     * @param {Pointer<IDVB_TDT>} ppTDT 
-     * @returns {HRESULT} 
+     * @returns {IDVB_TDT} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsiparser-gettdt
      */
-    GetTDT(ppTDT) {
-        result := ComCall(14, this, "ptr*", ppTDT, "HRESULT")
-        return result
+    GetTDT() {
+        result := ComCall(14, this, "ptr*", &ppTDT := 0, "HRESULT")
+        return IDVB_TDT(ppTDT)
     }
 
     /**
      * 
-     * @param {Pointer<IDVB_TOT>} ppTOT 
-     * @returns {HRESULT} 
+     * @returns {IDVB_TOT} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsiparser-gettot
      */
-    GetTOT(ppTOT) {
-        result := ComCall(15, this, "ptr*", ppTOT, "HRESULT")
-        return result
+    GetTOT() {
+        result := ComCall(15, this, "ptr*", &ppTOT := 0, "HRESULT")
+        return IDVB_TOT(ppTOT)
     }
 
     /**
      * 
      * @param {Integer} dwTimeout 
-     * @param {Pointer<IDVB_DIT>} ppDIT 
-     * @returns {HRESULT} 
+     * @returns {IDVB_DIT} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsiparser-getdit
      */
-    GetDIT(dwTimeout, ppDIT) {
-        result := ComCall(16, this, "uint", dwTimeout, "ptr*", ppDIT, "HRESULT")
-        return result
+    GetDIT(dwTimeout) {
+        result := ComCall(16, this, "uint", dwTimeout, "ptr*", &ppDIT := 0, "HRESULT")
+        return IDVB_DIT(ppDIT)
     }
 
     /**
      * 
      * @param {Integer} dwTimeout 
-     * @param {Pointer<IDVB_SIT>} ppSIT 
-     * @returns {HRESULT} 
+     * @returns {IDVB_SIT} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsiparser-getsit
      */
-    GetSIT(dwTimeout, ppSIT) {
-        result := ComCall(17, this, "uint", dwTimeout, "ptr*", ppSIT, "HRESULT")
-        return result
+    GetSIT(dwTimeout) {
+        result := ComCall(17, this, "uint", dwTimeout, "ptr*", &ppSIT := 0, "HRESULT")
+        return IDVB_SIT(ppSIT)
     }
 }

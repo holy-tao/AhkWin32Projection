@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,37 +34,33 @@ class ITCollection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} lCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcollection-get_count
      */
-    get_Count(lCount) {
-        lCountMarshal := lCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, lCountMarshal, lCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &lCount := 0, "HRESULT")
+        return lCount
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<VARIANT>} pVariant 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcollection-get_item
      */
-    get_Item(Index, pVariant) {
+    get_Item(Index) {
+        pVariant := VARIANT()
         result := ComCall(8, this, "int", Index, "ptr", pVariant, "HRESULT")
-        return result
+        return pVariant
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppNewEnum 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcollection-get__newenum
      */
-    get__NewEnum(ppNewEnum) {
-        result := ComCall(9, this, "ptr*", ppNewEnum, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(9, this, "ptr*", &ppNewEnum := 0, "HRESULT")
+        return IUnknown(ppNewEnum)
     }
 }

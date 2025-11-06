@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IEnumComponentTypes.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -73,12 +74,11 @@ class IEnumComponentTypes extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumComponentTypes>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumComponentTypes} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ienumcomponenttypes-clone
      */
-    Clone(ppEnum) {
-        result := ComCall(6, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumComponentTypes(ppEnum)
     }
 }

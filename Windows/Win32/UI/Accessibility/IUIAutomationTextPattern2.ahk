@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUIAutomationTextRange.ahk
 #Include .\IUIAutomationTextPattern.ahk
 
 /**
@@ -33,24 +34,24 @@ class IUIAutomationTextPattern2 extends IUIAutomationTextPattern{
     /**
      * 
      * @param {IUIAutomationElement} annotation 
-     * @param {Pointer<IUIAutomationTextRange>} range 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationTextRange} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextpattern2-rangefromannotation
      */
-    RangeFromAnnotation(annotation, range) {
-        result := ComCall(9, this, "ptr", annotation, "ptr*", range, "HRESULT")
-        return result
+    RangeFromAnnotation(annotation) {
+        result := ComCall(9, this, "ptr", annotation, "ptr*", &range := 0, "HRESULT")
+        return IUIAutomationTextRange(range)
     }
 
     /**
      * 
      * @param {Pointer<BOOL>} isActive 
-     * @param {Pointer<IUIAutomationTextRange>} range 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationTextRange} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextpattern2-getcaretrange
      */
-    GetCaretRange(isActive, range) {
-        result := ComCall(10, this, "ptr", isActive, "ptr*", range, "HRESULT")
-        return result
+    GetCaretRange(isActive) {
+        isActiveMarshal := isActive is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, isActiveMarshal, isActive, "ptr*", &range := 0, "HRESULT")
+        return IUIAutomationTextRange(range)
     }
 }

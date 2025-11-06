@@ -37,12 +37,11 @@ class IMediaSample2Config extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppDirect3DSurface9 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediasample2config-getsurface
      */
-    GetSurface(ppDirect3DSurface9) {
-        result := ComCall(3, this, "ptr*", ppDirect3DSurface9, "HRESULT")
-        return result
+    GetSurface() {
+        result := ComCall(3, this, "ptr*", &ppDirect3DSurface9 := 0, "HRESULT")
+        return IUnknown(ppDirect3DSurface9)
     }
 }

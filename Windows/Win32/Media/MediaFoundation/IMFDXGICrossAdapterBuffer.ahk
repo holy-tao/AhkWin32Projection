@@ -32,27 +32,21 @@ class IMFDXGICrossAdapterBuffer extends IUnknown{
      * 
      * @param {IUnknown} pUnkDevice 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvObject 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetResourceForDevice(pUnkDevice, riid, ppvObject) {
-        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pUnkDevice, "ptr", riid, ppvObjectMarshal, ppvObject, "HRESULT")
-        return result
+    GetResourceForDevice(pUnkDevice, riid) {
+        result := ComCall(3, this, "ptr", pUnkDevice, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
+        return ppvObject
     }
 
     /**
      * 
      * @param {IUnknown} pUnkDevice 
-     * @param {Pointer<Integer>} puSubresource 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetSubresourceIndexForDevice(pUnkDevice, puSubresource) {
-        puSubresourceMarshal := puSubresource is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, "ptr", pUnkDevice, puSubresourceMarshal, puSubresource, "HRESULT")
-        return result
+    GetSubresourceIndexForDevice(pUnkDevice) {
+        result := ComCall(4, this, "ptr", pUnkDevice, "uint*", &puSubresource := 0, "HRESULT")
+        return puSubresource
     }
 
     /**
@@ -60,14 +54,11 @@ class IMFDXGICrossAdapterBuffer extends IUnknown{
      * @param {IUnknown} pUnkDevice 
      * @param {Pointer<Guid>} guid 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvObject 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetUnknownForDevice(pUnkDevice, guid, riid, ppvObject) {
-        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, "ptr", pUnkDevice, "ptr", guid, "ptr", riid, ppvObjectMarshal, ppvObject, "HRESULT")
-        return result
+    GetUnknownForDevice(pUnkDevice, guid, riid) {
+        result := ComCall(5, this, "ptr", pUnkDevice, "ptr", guid, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
+        return ppvObject
     }
 
     /**

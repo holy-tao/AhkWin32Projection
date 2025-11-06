@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ICredentialProviderUser.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -52,39 +53,32 @@ class ICredentialProviderUserArray extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} credentialProviderAccountOptions 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovideruserarray-getaccountoptions
      */
-    GetAccountOptions(credentialProviderAccountOptions) {
-        credentialProviderAccountOptionsMarshal := credentialProviderAccountOptions is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, credentialProviderAccountOptionsMarshal, credentialProviderAccountOptions, "HRESULT")
-        return result
+    GetAccountOptions() {
+        result := ComCall(4, this, "int*", &credentialProviderAccountOptions := 0, "HRESULT")
+        return credentialProviderAccountOptions
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} userCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovideruserarray-getcount
      */
-    GetCount(userCount) {
-        userCountMarshal := userCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, userCountMarshal, userCount, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(5, this, "uint*", &userCount := 0, "HRESULT")
+        return userCount
     }
 
     /**
      * 
      * @param {Integer} userIndex 
-     * @param {Pointer<ICredentialProviderUser>} user 
-     * @returns {HRESULT} 
+     * @returns {ICredentialProviderUser} 
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovideruserarray-getat
      */
-    GetAt(userIndex, user) {
-        result := ComCall(6, this, "uint", userIndex, "ptr*", user, "HRESULT")
-        return result
+    GetAt(userIndex) {
+        result := ComCall(6, this, "uint", userIndex, "ptr*", &user := 0, "HRESULT")
+        return ICredentialProviderUser(user)
     }
 }

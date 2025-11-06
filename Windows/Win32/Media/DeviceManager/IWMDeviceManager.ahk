@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWMDMEnumDevice.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,38 +33,31 @@ class IWMDeviceManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwRevision 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdevicemanager-getrevision
      */
-    GetRevision(pdwRevision) {
-        pdwRevisionMarshal := pdwRevision is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pdwRevisionMarshal, pdwRevision, "HRESULT")
-        return result
+    GetRevision() {
+        result := ComCall(3, this, "uint*", &pdwRevision := 0, "HRESULT")
+        return pdwRevision
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdevicemanager-getdevicecount
      */
-    GetDeviceCount(pdwCount) {
-        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pdwCountMarshal, pdwCount, "HRESULT")
-        return result
+    GetDeviceCount() {
+        result := ComCall(4, this, "uint*", &pdwCount := 0, "HRESULT")
+        return pdwCount
     }
 
     /**
      * 
-     * @param {Pointer<IWMDMEnumDevice>} ppEnumDevice 
-     * @returns {HRESULT} 
+     * @returns {IWMDMEnumDevice} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdevicemanager-enumdevices
      */
-    EnumDevices(ppEnumDevice) {
-        result := ComCall(5, this, "ptr*", ppEnumDevice, "HRESULT")
-        return result
+    EnumDevices() {
+        result := ComCall(5, this, "ptr*", &ppEnumDevice := 0, "HRESULT")
+        return IWMDMEnumDevice(ppEnumDevice)
     }
 }

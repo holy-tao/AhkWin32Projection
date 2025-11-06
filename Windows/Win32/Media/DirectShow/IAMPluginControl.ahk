@@ -33,13 +33,13 @@ class IAMPluginControl extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} subType 
-     * @param {Pointer<Guid>} clsid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamplugincontrol-getpreferredclsid
      */
-    GetPreferredClsid(subType, clsid) {
+    GetPreferredClsid(subType) {
+        clsid := Guid()
         result := ComCall(3, this, "ptr", subType, "ptr", clsid, "HRESULT")
-        return result
+        return clsid
     }
 
     /**
@@ -81,13 +81,13 @@ class IAMPluginControl extends IUnknown{
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<Guid>} clsid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamplugincontrol-getdisabledbyindex
      */
-    GetDisabledByIndex(index, clsid) {
+    GetDisabledByIndex(index) {
+        clsid := Guid()
         result := ComCall(7, this, "uint", index, "ptr", clsid, "HRESULT")
-        return result
+        return clsid
     }
 
     /**

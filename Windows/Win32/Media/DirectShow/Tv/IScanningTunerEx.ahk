@@ -62,15 +62,12 @@ class IScanningTunerEx extends IScanningTuner{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcurrentFreq 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iscanningtunerex-terminatecurrentscan
      */
-    TerminateCurrentScan(pcurrentFreq) {
-        pcurrentFreqMarshal := pcurrentFreq is VarRef ? "int*" : "ptr"
-
-        result := ComCall(20, this, pcurrentFreqMarshal, pcurrentFreq, "HRESULT")
-        return result
+    TerminateCurrentScan() {
+        result := ComCall(20, this, "int*", &pcurrentFreq := 0, "HRESULT")
+        return pcurrentFreq
     }
 
     /**

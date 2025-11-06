@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\SYSTEMTIME.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include ..\PortableDevices\IPortableDeviceValues.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -38,36 +41,35 @@ class ISensorDataReport extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<SYSTEMTIME>} pTimeStamp 
-     * @returns {HRESULT} 
+     * @returns {SYSTEMTIME} 
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensordatareport-gettimestamp
      */
-    GetTimestamp(pTimeStamp) {
+    GetTimestamp() {
+        pTimeStamp := SYSTEMTIME()
         result := ComCall(3, this, "ptr", pTimeStamp, "HRESULT")
-        return result
+        return pTimeStamp
     }
 
     /**
      * 
      * @param {Pointer<PROPERTYKEY>} pKey 
-     * @param {Pointer<PROPVARIANT>} pValue 
-     * @returns {HRESULT} 
+     * @returns {PROPVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensordatareport-getsensorvalue
      */
-    GetSensorValue(pKey, pValue) {
+    GetSensorValue(pKey) {
+        pValue := PROPVARIANT()
         result := ComCall(4, this, "ptr", pKey, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
      * 
      * @param {IPortableDeviceKeyCollection} pKeys 
-     * @param {Pointer<IPortableDeviceValues>} ppValues 
-     * @returns {HRESULT} 
+     * @returns {IPortableDeviceValues} 
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensordatareport-getsensorvalues
      */
-    GetSensorValues(pKeys, ppValues) {
-        result := ComCall(5, this, "ptr", pKeys, "ptr*", ppValues, "HRESULT")
-        return result
+    GetSensorValues(pKeys) {
+        result := ComCall(5, this, "ptr", pKeys, "ptr*", &ppValues := 0, "HRESULT")
+        return IPortableDeviceValues(ppValues)
     }
 }

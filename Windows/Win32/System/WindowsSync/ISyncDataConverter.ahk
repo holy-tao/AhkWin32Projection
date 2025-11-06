@@ -32,47 +32,43 @@ class ISyncDataConverter extends IUnknown{
      * 
      * @param {IUnknown} pUnkDataRetrieverIn 
      * @param {IEnumSyncChanges} pEnumSyncChanges 
-     * @param {Pointer<IUnknown>} ppUnkDataOut 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    ConvertDataRetrieverFromProviderFormat(pUnkDataRetrieverIn, pEnumSyncChanges, ppUnkDataOut) {
-        result := ComCall(3, this, "ptr", pUnkDataRetrieverIn, "ptr", pEnumSyncChanges, "ptr*", ppUnkDataOut, "HRESULT")
-        return result
+    ConvertDataRetrieverFromProviderFormat(pUnkDataRetrieverIn, pEnumSyncChanges) {
+        result := ComCall(3, this, "ptr", pUnkDataRetrieverIn, "ptr", pEnumSyncChanges, "ptr*", &ppUnkDataOut := 0, "HRESULT")
+        return IUnknown(ppUnkDataOut)
     }
 
     /**
      * 
      * @param {IUnknown} pUnkDataRetrieverIn 
      * @param {IEnumSyncChanges} pEnumSyncChanges 
-     * @param {Pointer<IUnknown>} ppUnkDataOut 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    ConvertDataRetrieverToProviderFormat(pUnkDataRetrieverIn, pEnumSyncChanges, ppUnkDataOut) {
-        result := ComCall(4, this, "ptr", pUnkDataRetrieverIn, "ptr", pEnumSyncChanges, "ptr*", ppUnkDataOut, "HRESULT")
-        return result
+    ConvertDataRetrieverToProviderFormat(pUnkDataRetrieverIn, pEnumSyncChanges) {
+        result := ComCall(4, this, "ptr", pUnkDataRetrieverIn, "ptr", pEnumSyncChanges, "ptr*", &ppUnkDataOut := 0, "HRESULT")
+        return IUnknown(ppUnkDataOut)
     }
 
     /**
      * 
      * @param {ILoadChangeContext} pDataContext 
      * @param {IUnknown} pUnkDataIn 
-     * @param {Pointer<IUnknown>} ppUnkDataOut 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    ConvertDataFromProviderFormat(pDataContext, pUnkDataIn, ppUnkDataOut) {
-        result := ComCall(5, this, "ptr", pDataContext, "ptr", pUnkDataIn, "ptr*", ppUnkDataOut, "HRESULT")
-        return result
+    ConvertDataFromProviderFormat(pDataContext, pUnkDataIn) {
+        result := ComCall(5, this, "ptr", pDataContext, "ptr", pUnkDataIn, "ptr*", &ppUnkDataOut := 0, "HRESULT")
+        return IUnknown(ppUnkDataOut)
     }
 
     /**
      * 
      * @param {ILoadChangeContext} pDataContext 
      * @param {IUnknown} pUnkDataOut 
-     * @param {Pointer<IUnknown>} ppUnkDataout 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    ConvertDataToProviderFormat(pDataContext, pUnkDataOut, ppUnkDataout) {
-        result := ComCall(6, this, "ptr", pDataContext, "ptr", pUnkDataOut, "ptr*", ppUnkDataout, "HRESULT")
-        return result
+    ConvertDataToProviderFormat(pDataContext, pUnkDataOut) {
+        result := ComCall(6, this, "ptr", pDataContext, "ptr", pUnkDataOut, "ptr*", &ppUnkDataout := 0, "HRESULT")
+        return IUnknown(ppUnkDataout)
     }
 }

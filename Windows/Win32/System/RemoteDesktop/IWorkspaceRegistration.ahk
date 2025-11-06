@@ -33,15 +33,12 @@ class IWorkspaceRegistration extends IUnknown{
     /**
      * 
      * @param {IWorkspaceClientExt} pUnk 
-     * @param {Pointer<Integer>} pdwCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/workspaceruntime/nf-workspaceruntime-iworkspaceregistration-addresource
      */
-    AddResource(pUnk, pdwCookie) {
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pUnk, pdwCookieMarshal, pdwCookie, "HRESULT")
-        return result
+    AddResource(pUnk) {
+        result := ComCall(3, this, "ptr", pUnk, "uint*", &pdwCookie := 0, "HRESULT")
+        return pdwCookie
     }
 
     /**

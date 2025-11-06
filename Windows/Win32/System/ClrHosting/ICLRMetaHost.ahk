@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IEnumUnknown.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -32,16 +33,13 @@ class ICLRMetaHost extends IUnknown{
      * 
      * @param {PWSTR} pwzVersion 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppRuntime 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetRuntime(pwzVersion, riid, ppRuntime) {
+    GetRuntime(pwzVersion, riid) {
         pwzVersion := pwzVersion is String ? StrPtr(pwzVersion) : pwzVersion
 
-        ppRuntimeMarshal := ppRuntime is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pwzVersion, "ptr", riid, ppRuntimeMarshal, ppRuntime, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pwzVersion, "ptr", riid, "ptr*", &ppRuntime := 0, "HRESULT")
+        return ppRuntime
     }
 
     /**
@@ -63,25 +61,23 @@ class ICLRMetaHost extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumUnknown>} ppEnumerator 
-     * @returns {HRESULT} 
+     * @returns {IEnumUnknown} 
      */
-    EnumerateInstalledRuntimes(ppEnumerator) {
-        result := ComCall(5, this, "ptr*", ppEnumerator, "HRESULT")
-        return result
+    EnumerateInstalledRuntimes() {
+        result := ComCall(5, this, "ptr*", &ppEnumerator := 0, "HRESULT")
+        return IEnumUnknown(ppEnumerator)
     }
 
     /**
      * 
      * @param {HANDLE} hndProcess 
-     * @param {Pointer<IEnumUnknown>} ppEnumerator 
-     * @returns {HRESULT} 
+     * @returns {IEnumUnknown} 
      */
-    EnumerateLoadedRuntimes(hndProcess, ppEnumerator) {
+    EnumerateLoadedRuntimes(hndProcess) {
         hndProcess := hndProcess is Win32Handle ? NumGet(hndProcess, "ptr") : hndProcess
 
-        result := ComCall(6, this, "ptr", hndProcess, "ptr*", ppEnumerator, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", hndProcess, "ptr*", &ppEnumerator := 0, "HRESULT")
+        return IEnumUnknown(ppEnumerator)
     }
 
     /**
@@ -97,14 +93,11 @@ class ICLRMetaHost extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    QueryLegacyV2RuntimeBinding(riid, ppUnk) {
-        ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(8, this, "ptr", riid, ppUnkMarshal, ppUnk, "HRESULT")
-        return result
+    QueryLegacyV2RuntimeBinding(riid) {
+        result := ComCall(8, this, "ptr", riid, "ptr*", &ppUnk := 0, "HRESULT")
+        return ppUnk
     }
 
     /**

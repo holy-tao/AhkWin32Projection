@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IAssocHandlerInvoker.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,24 +33,22 @@ class IAssocHandler extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppsz 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iassochandler-getname
      */
-    GetName(ppsz) {
-        result := ComCall(3, this, "ptr", ppsz, "HRESULT")
-        return result
+    GetName() {
+        result := ComCall(3, this, "ptr*", &ppsz := 0, "HRESULT")
+        return ppsz
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppsz 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iassochandler-getuiname
      */
-    GetUIName(ppsz) {
-        result := ComCall(4, this, "ptr", ppsz, "HRESULT")
-        return result
+    GetUIName() {
+        result := ComCall(4, this, "ptr*", &ppsz := 0, "HRESULT")
+        return ppsz
     }
 
     /**
@@ -60,9 +59,10 @@ class IAssocHandler extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iassochandler-geticonlocation
      */
     GetIconLocation(ppszPath, pIndex) {
+        ppszPathMarshal := ppszPath is VarRef ? "ptr*" : "ptr"
         pIndexMarshal := pIndex is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, "ptr", ppszPath, pIndexMarshal, pIndex, "HRESULT")
+        result := ComCall(5, this, ppszPathMarshal, ppszPath, pIndexMarshal, pIndex, "HRESULT")
         return result
     }
 
@@ -103,12 +103,11 @@ class IAssocHandler extends IUnknown{
     /**
      * 
      * @param {IDataObject} pdo 
-     * @param {Pointer<IAssocHandlerInvoker>} ppInvoker 
-     * @returns {HRESULT} 
+     * @returns {IAssocHandlerInvoker} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iassochandler-createinvoker
      */
-    CreateInvoker(pdo, ppInvoker) {
-        result := ComCall(9, this, "ptr", pdo, "ptr*", ppInvoker, "HRESULT")
-        return result
+    CreateInvoker(pdo) {
+        result := ComCall(9, this, "ptr", pdo, "ptr*", &ppInvoker := 0, "HRESULT")
+        return IAssocHandlerInvoker(ppInvoker)
     }
 }

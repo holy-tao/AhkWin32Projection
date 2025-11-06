@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -108,14 +109,13 @@ class IShellUIHelper extends IDispatch{
     /**
      * 
      * @param {BSTR} URL 
-     * @param {Pointer<VARIANT_BOOL>} pBool 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    IsSubscribed(URL, pBool) {
+    IsSubscribed(URL) {
         URL := URL is String ? BSTR.Alloc(URL).Value : URL
 
-        result := ComCall(13, this, "ptr", URL, "ptr", pBool, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", URL, "short*", &pBool := 0, "HRESULT")
+        return pBool
     }
 
     /**
@@ -185,13 +185,13 @@ class IShellUIHelper extends IDispatch{
      * 
      * @param {BSTR} bstrName 
      * @param {Pointer<VARIANT>} pvarIn 
-     * @param {Pointer<VARIANT>} pvarOut 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    ShowBrowserUI(bstrName, pvarIn, pvarOut) {
+    ShowBrowserUI(bstrName, pvarIn) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
+        pvarOut := VARIANT()
         result := ComCall(19, this, "ptr", bstrName, "ptr", pvarIn, "ptr", pvarOut, "HRESULT")
-        return result
+        return pvarOut
     }
 }

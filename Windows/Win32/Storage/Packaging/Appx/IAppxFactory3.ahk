@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IAppxPackageReader.ahk
+#Include .\IAppxManifestReader.ahk
+#Include .\IAppxAppInstallerReader.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -34,44 +37,41 @@ class IAppxFactory3 extends IUnknown{
      * 
      * @param {IStream} inputStream 
      * @param {PWSTR} expectedDigest 
-     * @param {Pointer<IAppxPackageReader>} packageReader 
-     * @returns {HRESULT} 
+     * @returns {IAppxPackageReader} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxfactory3-createpackagereader2
      */
-    CreatePackageReader2(inputStream, expectedDigest, packageReader) {
+    CreatePackageReader2(inputStream, expectedDigest) {
         expectedDigest := expectedDigest is String ? StrPtr(expectedDigest) : expectedDigest
 
-        result := ComCall(3, this, "ptr", inputStream, "ptr", expectedDigest, "ptr*", packageReader, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", inputStream, "ptr", expectedDigest, "ptr*", &packageReader := 0, "HRESULT")
+        return IAppxPackageReader(packageReader)
     }
 
     /**
      * 
      * @param {IStream} inputStream 
      * @param {PWSTR} expectedDigest 
-     * @param {Pointer<IAppxManifestReader>} manifestReader 
-     * @returns {HRESULT} 
+     * @returns {IAppxManifestReader} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxfactory3-createmanifestreader2
      */
-    CreateManifestReader2(inputStream, expectedDigest, manifestReader) {
+    CreateManifestReader2(inputStream, expectedDigest) {
         expectedDigest := expectedDigest is String ? StrPtr(expectedDigest) : expectedDigest
 
-        result := ComCall(4, this, "ptr", inputStream, "ptr", expectedDigest, "ptr*", manifestReader, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", inputStream, "ptr", expectedDigest, "ptr*", &manifestReader := 0, "HRESULT")
+        return IAppxManifestReader(manifestReader)
     }
 
     /**
      * 
      * @param {IStream} inputStream 
      * @param {PWSTR} expectedDigest 
-     * @param {Pointer<IAppxAppInstallerReader>} appInstallerReader 
-     * @returns {HRESULT} 
+     * @returns {IAppxAppInstallerReader} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxfactory3-createappinstallerreader
      */
-    CreateAppInstallerReader(inputStream, expectedDigest, appInstallerReader) {
+    CreateAppInstallerReader(inputStream, expectedDigest) {
         expectedDigest := expectedDigest is String ? StrPtr(expectedDigest) : expectedDigest
 
-        result := ComCall(5, this, "ptr", inputStream, "ptr", expectedDigest, "ptr*", appInstallerReader, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", inputStream, "ptr", expectedDigest, "ptr*", &appInstallerReader := 0, "HRESULT")
+        return IAppxAppInstallerReader(appInstallerReader)
     }
 }

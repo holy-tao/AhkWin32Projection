@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDiskQuotaUser.ahk
+#Include .\IEnumDiskQuotaUsers.ahk
+#Include .\IDiskQuotaUserBatch.ahk
 #Include ..\..\System\Com\IConnectionPointContainer.ahk
 
 /**
@@ -182,28 +185,26 @@ class IDiskQuotaControl extends IConnectionPointContainer{
      * 
      * @param {PSID} pUserSid 
      * @param {Integer} fNameResolution 
-     * @param {Pointer<IDiskQuotaUser>} ppUser 
-     * @returns {HRESULT} 
+     * @returns {IDiskQuotaUser} 
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotacontrol-addusersid
      */
-    AddUserSid(pUserSid, fNameResolution, ppUser) {
-        result := ComCall(16, this, "ptr", pUserSid, "uint", fNameResolution, "ptr*", ppUser, "HRESULT")
-        return result
+    AddUserSid(pUserSid, fNameResolution) {
+        result := ComCall(16, this, "ptr", pUserSid, "uint", fNameResolution, "ptr*", &ppUser := 0, "HRESULT")
+        return IDiskQuotaUser(ppUser)
     }
 
     /**
      * 
      * @param {PWSTR} pszLogonName 
      * @param {Integer} fNameResolution 
-     * @param {Pointer<IDiskQuotaUser>} ppUser 
-     * @returns {HRESULT} 
+     * @returns {IDiskQuotaUser} 
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotacontrol-addusername
      */
-    AddUserName(pszLogonName, fNameResolution, ppUser) {
+    AddUserName(pszLogonName, fNameResolution) {
         pszLogonName := pszLogonName is String ? StrPtr(pszLogonName) : pszLogonName
 
-        result := ComCall(17, this, "ptr", pszLogonName, "uint", fNameResolution, "ptr*", ppUser, "HRESULT")
-        return result
+        result := ComCall(17, this, "ptr", pszLogonName, "uint", fNameResolution, "ptr*", &ppUser := 0, "HRESULT")
+        return IDiskQuotaUser(ppUser)
     }
 
     /**
@@ -221,27 +222,25 @@ class IDiskQuotaControl extends IConnectionPointContainer{
      * 
      * @param {PSID} pUserSid 
      * @param {Integer} fNameResolution 
-     * @param {Pointer<IDiskQuotaUser>} ppUser 
-     * @returns {HRESULT} 
+     * @returns {IDiskQuotaUser} 
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotacontrol-findusersid
      */
-    FindUserSid(pUserSid, fNameResolution, ppUser) {
-        result := ComCall(19, this, "ptr", pUserSid, "uint", fNameResolution, "ptr*", ppUser, "HRESULT")
-        return result
+    FindUserSid(pUserSid, fNameResolution) {
+        result := ComCall(19, this, "ptr", pUserSid, "uint", fNameResolution, "ptr*", &ppUser := 0, "HRESULT")
+        return IDiskQuotaUser(ppUser)
     }
 
     /**
      * 
      * @param {PWSTR} pszLogonName 
-     * @param {Pointer<IDiskQuotaUser>} ppUser 
-     * @returns {HRESULT} 
+     * @returns {IDiskQuotaUser} 
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotacontrol-findusername
      */
-    FindUserName(pszLogonName, ppUser) {
+    FindUserName(pszLogonName) {
         pszLogonName := pszLogonName is String ? StrPtr(pszLogonName) : pszLogonName
 
-        result := ComCall(20, this, "ptr", pszLogonName, "ptr*", ppUser, "HRESULT")
-        return result
+        result := ComCall(20, this, "ptr", pszLogonName, "ptr*", &ppUser := 0, "HRESULT")
+        return IDiskQuotaUser(ppUser)
     }
 
     /**
@@ -249,24 +248,24 @@ class IDiskQuotaControl extends IConnectionPointContainer{
      * @param {Pointer<PSID>} rgpUserSids 
      * @param {Integer} cpSids 
      * @param {Integer} fNameResolution 
-     * @param {Pointer<IEnumDiskQuotaUsers>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumDiskQuotaUsers} 
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotacontrol-createenumusers
      */
-    CreateEnumUsers(rgpUserSids, cpSids, fNameResolution, ppEnum) {
-        result := ComCall(21, this, "ptr", rgpUserSids, "uint", cpSids, "uint", fNameResolution, "ptr*", ppEnum, "HRESULT")
-        return result
+    CreateEnumUsers(rgpUserSids, cpSids, fNameResolution) {
+        rgpUserSidsMarshal := rgpUserSids is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(21, this, rgpUserSidsMarshal, rgpUserSids, "uint", cpSids, "uint", fNameResolution, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumDiskQuotaUsers(ppEnum)
     }
 
     /**
      * 
-     * @param {Pointer<IDiskQuotaUserBatch>} ppBatch 
-     * @returns {HRESULT} 
+     * @returns {IDiskQuotaUserBatch} 
      * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotacontrol-createuserbatch
      */
-    CreateUserBatch(ppBatch) {
-        result := ComCall(22, this, "ptr*", ppBatch, "HRESULT")
-        return result
+    CreateUserBatch() {
+        result := ComCall(22, this, "ptr*", &ppBatch := 0, "HRESULT")
+        return IDiskQuotaUserBatch(ppBatch)
     }
 
     /**

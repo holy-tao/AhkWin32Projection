@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\System\Com\IEnumUnknown.ahk
+#Include ..\..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
 #Include ..\..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -48,12 +50,11 @@ class AsyncIIdentityProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumUnknown>} ppIdentityEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumUnknown} 
      */
-    Finish_GetIdentityEnum(ppIdentityEnum) {
-        result := ComCall(4, this, "ptr*", ppIdentityEnum, "HRESULT")
-        return result
+    Finish_GetIdentityEnum() {
+        result := ComCall(4, this, "ptr*", &ppIdentityEnum := 0, "HRESULT")
+        return IEnumUnknown(ppIdentityEnum)
     }
 
     /**
@@ -71,12 +72,11 @@ class AsyncIIdentityProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IPropertyStore>} ppPropertyStore 
-     * @returns {HRESULT} 
+     * @returns {IPropertyStore} 
      */
-    Finish_Create(ppPropertyStore) {
-        result := ComCall(6, this, "ptr*", ppPropertyStore, "HRESULT")
-        return result
+    Finish_Create() {
+        result := ComCall(6, this, "ptr*", &ppPropertyStore := 0, "HRESULT")
+        return IPropertyStore(ppPropertyStore)
     }
 
     /**
@@ -134,12 +134,11 @@ class AsyncIIdentityProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IPropertyStore>} ppPropertyStore 
-     * @returns {HRESULT} 
+     * @returns {IPropertyStore} 
      */
-    Finish_FindByUniqueID(ppPropertyStore) {
-        result := ComCall(12, this, "ptr*", ppPropertyStore, "HRESULT")
-        return result
+    Finish_FindByUniqueID() {
+        result := ComCall(12, this, "ptr*", &ppPropertyStore := 0, "HRESULT")
+        return IPropertyStore(ppPropertyStore)
     }
 
     /**
@@ -153,12 +152,11 @@ class AsyncIIdentityProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IPropertyStore>} ppPropertyStore 
-     * @returns {HRESULT} 
+     * @returns {IPropertyStore} 
      */
-    Finish_GetProviderPropertyStore(ppPropertyStore) {
-        result := ComCall(14, this, "ptr*", ppPropertyStore, "HRESULT")
-        return result
+    Finish_GetProviderPropertyStore() {
+        result := ComCall(14, this, "ptr*", &ppPropertyStore := 0, "HRESULT")
+        return IPropertyStore(ppPropertyStore)
     }
 
     /**
@@ -174,14 +172,11 @@ class AsyncIIdentityProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Finish_Advise(pdwCookie) {
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(16, this, pdwCookieMarshal, pdwCookie, "HRESULT")
-        return result
+    Finish_Advise() {
+        result := ComCall(16, this, "uint*", &pdwCookie := 0, "HRESULT")
+        return pdwCookie
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISVGAnimatedLength.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -46,12 +47,11 @@ class ISVGRadialGradientElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedLength>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedLength} 
      */
-    get_cx(p) {
-        result := ComCall(8, this, "ptr*", p, "HRESULT")
-        return result
+    get_cx() {
+        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedLength(p)
     }
 
     /**
@@ -66,12 +66,11 @@ class ISVGRadialGradientElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedLength>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedLength} 
      */
-    get_cy(p) {
-        result := ComCall(10, this, "ptr*", p, "HRESULT")
-        return result
+    get_cy() {
+        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedLength(p)
     }
 
     /**
@@ -86,12 +85,11 @@ class ISVGRadialGradientElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedLength>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedLength} 
      */
-    get_r(p) {
-        result := ComCall(12, this, "ptr*", p, "HRESULT")
-        return result
+    get_r() {
+        result := ComCall(12, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedLength(p)
     }
 
     /**
@@ -106,12 +104,11 @@ class ISVGRadialGradientElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedLength>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedLength} 
      */
-    get_fx(p) {
-        result := ComCall(14, this, "ptr*", p, "HRESULT")
-        return result
+    get_fx() {
+        result := ComCall(14, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedLength(p)
     }
 
     /**
@@ -126,11 +123,10 @@ class ISVGRadialGradientElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedLength>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedLength} 
      */
-    get_fy(p) {
-        result := ComCall(16, this, "ptr*", p, "HRESULT")
-        return result
+    get_fy() {
+        result := ComCall(16, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedLength(p)
     }
 }

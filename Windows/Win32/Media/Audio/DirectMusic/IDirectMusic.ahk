@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IDirectMusicBuffer.ahk
+#Include .\IDirectMusicPort.ahk
+#Include ..\..\IReferenceClock.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -42,26 +45,24 @@ class IDirectMusic extends IUnknown{
     /**
      * 
      * @param {Pointer<DMUS_BUFFERDESC>} pBufferDesc 
-     * @param {Pointer<IDirectMusicBuffer>} ppBuffer 
      * @param {IUnknown} pUnkOuter 
-     * @returns {HRESULT} 
+     * @returns {IDirectMusicBuffer} 
      */
-    CreateMusicBuffer(pBufferDesc, ppBuffer, pUnkOuter) {
-        result := ComCall(4, this, "ptr", pBufferDesc, "ptr*", ppBuffer, "ptr", pUnkOuter, "HRESULT")
-        return result
+    CreateMusicBuffer(pBufferDesc, pUnkOuter) {
+        result := ComCall(4, this, "ptr", pBufferDesc, "ptr*", &ppBuffer := 0, "ptr", pUnkOuter, "HRESULT")
+        return IDirectMusicBuffer(ppBuffer)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} rclsidPort 
      * @param {Pointer<DMUS_PORTPARAMS8>} pPortParams 
-     * @param {Pointer<IDirectMusicPort>} ppPort 
      * @param {IUnknown} pUnkOuter 
-     * @returns {HRESULT} 
+     * @returns {IDirectMusicPort} 
      */
-    CreatePort(rclsidPort, pPortParams, ppPort, pUnkOuter) {
-        result := ComCall(5, this, "ptr", rclsidPort, "ptr", pPortParams, "ptr*", ppPort, "ptr", pUnkOuter, "HRESULT")
-        return result
+    CreatePort(rclsidPort, pPortParams, pUnkOuter) {
+        result := ComCall(5, this, "ptr", rclsidPort, "ptr", pPortParams, "ptr*", &ppPort := 0, "ptr", pUnkOuter, "HRESULT")
+        return IDirectMusicPort(ppPort)
     }
 
     /**
@@ -78,12 +79,11 @@ class IDirectMusic extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} pguidClock 
-     * @param {Pointer<IReferenceClock>} ppReferenceClock 
-     * @returns {HRESULT} 
+     * @returns {IReferenceClock} 
      */
-    GetMasterClock(pguidClock, ppReferenceClock) {
-        result := ComCall(7, this, "ptr", pguidClock, "ptr*", ppReferenceClock, "HRESULT")
-        return result
+    GetMasterClock(pguidClock) {
+        result := ComCall(7, this, "ptr", pguidClock, "ptr*", &ppReferenceClock := 0, "HRESULT")
+        return IReferenceClock(ppReferenceClock)
     }
 
     /**

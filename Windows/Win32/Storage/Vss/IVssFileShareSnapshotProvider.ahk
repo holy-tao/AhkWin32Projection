@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\VSS_SNAPSHOT_PROP.ahk
+#Include .\IVssEnumObject.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -44,13 +46,13 @@ class IVssFileShareSnapshotProvider extends IUnknown{
     /**
      * 
      * @param {Guid} SnapshotId 
-     * @param {Pointer<VSS_SNAPSHOT_PROP>} pProp 
-     * @returns {HRESULT} 
+     * @returns {VSS_SNAPSHOT_PROP} 
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivssfilesharesnapshotprovider-getsnapshotproperties
      */
-    GetSnapshotProperties(SnapshotId, pProp) {
+    GetSnapshotProperties(SnapshotId) {
+        pProp := VSS_SNAPSHOT_PROP()
         result := ComCall(4, this, "ptr", SnapshotId, "ptr", pProp, "HRESULT")
-        return result
+        return pProp
     }
 
     /**
@@ -58,13 +60,12 @@ class IVssFileShareSnapshotProvider extends IUnknown{
      * @param {Guid} QueriedObjectId 
      * @param {Integer} eQueriedObjectType 
      * @param {Integer} eReturnedObjectsType 
-     * @param {Pointer<IVssEnumObject>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IVssEnumObject} 
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivssfilesharesnapshotprovider-query
      */
-    Query(QueriedObjectId, eQueriedObjectType, eReturnedObjectsType, ppEnum) {
-        result := ComCall(5, this, "ptr", QueriedObjectId, "int", eQueriedObjectType, "int", eReturnedObjectsType, "ptr*", ppEnum, "HRESULT")
-        return result
+    Query(QueriedObjectId, eQueriedObjectType, eReturnedObjectsType) {
+        result := ComCall(5, this, "ptr", QueriedObjectId, "int", eQueriedObjectType, "int", eReturnedObjectsType, "ptr*", &ppEnum := 0, "HRESULT")
+        return IVssEnumObject(ppEnum)
     }
 
     /**
@@ -104,15 +105,14 @@ class IVssFileShareSnapshotProvider extends IUnknown{
     /**
      * 
      * @param {Pointer<Integer>} pwszSharePath 
-     * @param {Pointer<BOOL>} pbSupportedByThisProvider 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivssfilesharesnapshotprovider-ispathsupported
      */
-    IsPathSupported(pwszSharePath, pbSupportedByThisProvider) {
+    IsPathSupported(pwszSharePath) {
         pwszSharePathMarshal := pwszSharePath is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(8, this, pwszSharePathMarshal, pwszSharePath, "ptr", pbSupportedByThisProvider, "HRESULT")
-        return result
+        result := ComCall(8, this, pwszSharePathMarshal, pwszSharePath, "int*", &pbSupportedByThisProvider := 0, "HRESULT")
+        return pbSupportedByThisProvider
     }
 
     /**
@@ -125,9 +125,10 @@ class IVssFileShareSnapshotProvider extends IUnknown{
      */
     IsPathSnapshotted(pwszSharePath, pbSnapshotsPresent, plSnapshotCompatibility) {
         pwszSharePathMarshal := pwszSharePath is VarRef ? "ushort*" : "ptr"
+        pbSnapshotsPresentMarshal := pbSnapshotsPresent is VarRef ? "int*" : "ptr"
         plSnapshotCompatibilityMarshal := plSnapshotCompatibility is VarRef ? "int*" : "ptr"
 
-        result := ComCall(9, this, pwszSharePathMarshal, pwszSharePath, "ptr", pbSnapshotsPresent, plSnapshotCompatibilityMarshal, plSnapshotCompatibility, "HRESULT")
+        result := ComCall(9, this, pwszSharePathMarshal, pwszSharePath, pbSnapshotsPresentMarshal, pbSnapshotsPresent, plSnapshotCompatibilityMarshal, plSnapshotCompatibility, "HRESULT")
         return result
     }
 

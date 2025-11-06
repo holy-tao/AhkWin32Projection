@@ -56,15 +56,14 @@ class IDBPromptInitialize extends IUnknown{
      * @param {Integer} dwPromptOptions 
      * @param {PWSTR} pwszInitialDirectory 
      * @param {PWSTR} pwszInitialFile 
-     * @param {Pointer<PWSTR>} ppwszSelectedFile 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    PromptFileName(hWndParent, dwPromptOptions, pwszInitialDirectory, pwszInitialFile, ppwszSelectedFile) {
+    PromptFileName(hWndParent, dwPromptOptions, pwszInitialDirectory, pwszInitialFile) {
         hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent
         pwszInitialDirectory := pwszInitialDirectory is String ? StrPtr(pwszInitialDirectory) : pwszInitialDirectory
         pwszInitialFile := pwszInitialFile is String ? StrPtr(pwszInitialFile) : pwszInitialFile
 
-        result := ComCall(4, this, "ptr", hWndParent, "uint", dwPromptOptions, "ptr", pwszInitialDirectory, "ptr", pwszInitialFile, "ptr", ppwszSelectedFile, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", hWndParent, "uint", dwPromptOptions, "ptr", pwszInitialDirectory, "ptr", pwszInitialFile, "ptr*", &ppwszSelectedFile := 0, "HRESULT")
+        return ppwszSelectedFile
     }
 }

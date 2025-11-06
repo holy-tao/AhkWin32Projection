@@ -34,17 +34,12 @@ class IVdsProviderPrivate extends IUnknown{
      * The GetObject function retrieves information for the specified graphics object.
      * @param {Guid} ObjectId 
      * @param {Integer} type 
-     * @param {Pointer<IUnknown>} ppObjectUnk 
-     * @returns {HRESULT} If the function succeeds, and <i>lpvObject</i> is a valid pointer, the return value is the number of bytes stored into the buffer.
-     * 
-     * If the function succeeds, and <i>lpvObject</i> is <b>NULL</b>, the return value is the number of bytes required to hold the information the function would store into the buffer.
-     * 
-     * If the function fails, the return value is zero.
+     * @returns {IUnknown} 
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getobject
      */
-    GetObject(ObjectId, type, ppObjectUnk) {
-        result := ComCall(3, this, "ptr", ObjectId, "int", type, "ptr*", ppObjectUnk, "HRESULT")
-        return result
+    GetObject(ObjectId, type) {
+        result := ComCall(3, this, "ptr", ObjectId, "int", type, "ptr*", &ppObjectUnk := 0, "HRESULT")
+        return IUnknown(ppObjectUnk)
     }
 
     /**

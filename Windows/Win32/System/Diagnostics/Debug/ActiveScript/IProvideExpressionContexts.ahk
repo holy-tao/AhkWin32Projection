@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IEnumDebugExpressionContexts.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -30,11 +31,10 @@ class IProvideExpressionContexts extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumDebugExpressionContexts>} ppedec 
-     * @returns {HRESULT} 
+     * @returns {IEnumDebugExpressionContexts} 
      */
-    EnumExpressionContexts(ppedec) {
-        result := ComCall(3, this, "ptr*", ppedec, "HRESULT")
-        return result
+    EnumExpressionContexts() {
+        result := ComCall(3, this, "ptr*", &ppedec := 0, "HRESULT")
+        return IEnumDebugExpressionContexts(ppedec)
     }
 }

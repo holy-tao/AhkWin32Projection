@@ -35,17 +35,14 @@ class IMFExtendedDRMTypeSupport extends IUnknown{
      * 
      * @param {BSTR} type 
      * @param {BSTR} keySystem 
-     * @param {Pointer<Integer>} pAnswer 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfextendeddrmtypesupport-istypesupportedex
      */
-    IsTypeSupportedEx(type, keySystem, pAnswer) {
+    IsTypeSupportedEx(type, keySystem) {
         type := type is String ? BSTR.Alloc(type).Value : type
         keySystem := keySystem is String ? BSTR.Alloc(keySystem).Value : keySystem
 
-        pAnswerMarshal := pAnswer is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, "ptr", type, "ptr", keySystem, pAnswerMarshal, pAnswer, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", type, "ptr", keySystem, "int*", &pAnswer := 0, "HRESULT")
+        return pAnswer
     }
 }

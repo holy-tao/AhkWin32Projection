@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumFilters.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -68,12 +69,11 @@ class IEnumFilters extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumFilters>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumFilters} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ienumfilters-clone
      */
-    Clone(ppEnum) {
-        result := ComCall(6, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumFilters(ppEnum)
     }
 }

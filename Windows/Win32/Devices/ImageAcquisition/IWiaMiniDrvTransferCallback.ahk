@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IStream.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -34,15 +35,14 @@ class IWiaMiniDrvTransferCallback extends IUnknown{
      * @param {Integer} lFlags 
      * @param {BSTR} bstrItemName 
      * @param {BSTR} bstrFullItemName 
-     * @param {Pointer<IStream>} ppIStream 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      */
-    GetNextStream(lFlags, bstrItemName, bstrFullItemName, ppIStream) {
+    GetNextStream(lFlags, bstrItemName, bstrFullItemName) {
         bstrItemName := bstrItemName is String ? BSTR.Alloc(bstrItemName).Value : bstrItemName
         bstrFullItemName := bstrFullItemName is String ? BSTR.Alloc(bstrFullItemName).Value : bstrFullItemName
 
-        result := ComCall(3, this, "int", lFlags, "ptr", bstrItemName, "ptr", bstrFullItemName, "ptr*", ppIStream, "HRESULT")
-        return result
+        result := ComCall(3, this, "int", lFlags, "ptr", bstrItemName, "ptr", bstrFullItemName, "ptr*", &ppIStream := 0, "HRESULT")
+        return IStream(ppIStream)
     }
 
     /**

@@ -43,7 +43,9 @@ class IWTSListenerCallback extends IUnknown{
     OnNewChannelConnection(pChannel, data, pbAccept, ppCallback) {
         data := data is String ? BSTR.Alloc(data).Value : data
 
-        result := ComCall(3, this, "ptr", pChannel, "ptr", data, "ptr", pbAccept, "ptr*", ppCallback, "HRESULT")
+        pbAcceptMarshal := pbAccept is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pChannel, "ptr", data, pbAcceptMarshal, pbAccept, "ptr*", ppCallback, "HRESULT")
         return result
     }
 }

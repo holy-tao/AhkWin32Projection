@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IOfflineFilesItem.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,37 +33,32 @@ class IOfflineFilesItem extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pItemType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesitem-getitemtype
      */
-    GetItemType(pItemType) {
-        pItemTypeMarshal := pItemType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, pItemTypeMarshal, pItemType, "HRESULT")
-        return result
+    GetItemType() {
+        result := ComCall(3, this, "int*", &pItemType := 0, "HRESULT")
+        return pItemType
     }
 
     /**
      * The GetPath function retrieves the coordinates defining the endpoints of lines and the control points of curves found in the path that is selected into the specified device context.
-     * @param {Pointer<PWSTR>} ppszPath 
-     * @returns {HRESULT} If the <i>nSize</i> parameter is nonzero, the return value is the number of points enumerated. If <i>nSize</i> is 0, the return value is the total number of points in the path (and <b>GetPath</b> writes nothing to the buffers). If <i>nSize</i> is nonzero and is less than the number of points in the path, the return value is 1.
+     * @returns {PWSTR} 
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getpath
      */
-    GetPath(ppszPath) {
-        result := ComCall(4, this, "ptr", ppszPath, "HRESULT")
-        return result
+    GetPath() {
+        result := ComCall(4, this, "ptr*", &ppszPath := 0, "HRESULT")
+        return ppszPath
     }
 
     /**
      * 
-     * @param {Pointer<IOfflineFilesItem>} ppItem 
-     * @returns {HRESULT} 
+     * @returns {IOfflineFilesItem} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesitem-getparentitem
      */
-    GetParentItem(ppItem) {
-        result := ComCall(5, this, "ptr*", ppItem, "HRESULT")
-        return result
+    GetParentItem() {
+        result := ComCall(5, this, "ptr*", &ppItem := 0, "HRESULT")
+        return IOfflineFilesItem(ppItem)
     }
 
     /**
@@ -77,12 +73,11 @@ class IOfflineFilesItem extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbMarkedForDeletion 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesitem-ismarkedfordeletion
      */
-    IsMarkedForDeletion(pbMarkedForDeletion) {
-        result := ComCall(7, this, "ptr", pbMarkedForDeletion, "HRESULT")
-        return result
+    IsMarkedForDeletion() {
+        result := ComCall(7, this, "int*", &pbMarkedForDeletion := 0, "HRESULT")
+        return pbMarkedForDeletion
     }
 }

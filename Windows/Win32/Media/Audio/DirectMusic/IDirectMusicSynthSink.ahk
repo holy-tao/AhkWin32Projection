@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\IReferenceClock.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -54,13 +55,12 @@ class IDirectMusicSynthSink extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IReferenceClock>} ppClock 
-     * @returns {HRESULT} 
+     * @returns {IReferenceClock} 
      * @see https://learn.microsoft.com/windows/win32/api/dmusics/nf-dmusics-idirectmusicsynthsink-getlatencyclock
      */
-    GetLatencyClock(ppClock) {
-        result := ComCall(5, this, "ptr*", ppClock, "HRESULT")
-        return result
+    GetLatencyClock() {
+        result := ComCall(5, this, "ptr*", &ppClock := 0, "HRESULT")
+        return IReferenceClock(ppClock)
     }
 
     /**

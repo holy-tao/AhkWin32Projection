@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IAzApplication2.ahk
 #Include .\IAzAuthorizationStore.ahk
 
 /**
@@ -35,29 +36,27 @@ class IAzAuthorizationStore2 extends IAzAuthorizationStore{
      * 
      * @param {BSTR} bstrApplicationName 
      * @param {VARIANT} varReserved 
-     * @param {Pointer<IAzApplication2>} ppApplication 
-     * @returns {HRESULT} 
+     * @returns {IAzApplication2} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore2-openapplication2
      */
-    OpenApplication2(bstrApplicationName, varReserved, ppApplication) {
+    OpenApplication2(bstrApplicationName, varReserved) {
         bstrApplicationName := bstrApplicationName is String ? BSTR.Alloc(bstrApplicationName).Value : bstrApplicationName
 
-        result := ComCall(58, this, "ptr", bstrApplicationName, "ptr", varReserved, "ptr*", ppApplication, "HRESULT")
-        return result
+        result := ComCall(58, this, "ptr", bstrApplicationName, "ptr", varReserved, "ptr*", &ppApplication := 0, "HRESULT")
+        return IAzApplication2(ppApplication)
     }
 
     /**
      * 
      * @param {BSTR} bstrApplicationName 
      * @param {VARIANT} varReserved 
-     * @param {Pointer<IAzApplication2>} ppApplication 
-     * @returns {HRESULT} 
+     * @returns {IAzApplication2} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore2-createapplication2
      */
-    CreateApplication2(bstrApplicationName, varReserved, ppApplication) {
+    CreateApplication2(bstrApplicationName, varReserved) {
         bstrApplicationName := bstrApplicationName is String ? BSTR.Alloc(bstrApplicationName).Value : bstrApplicationName
 
-        result := ComCall(59, this, "ptr", bstrApplicationName, "ptr", varReserved, "ptr*", ppApplication, "HRESULT")
-        return result
+        result := ComCall(59, this, "ptr", bstrApplicationName, "ptr", varReserved, "ptr*", &ppApplication := 0, "HRESULT")
+        return IAzApplication2(ppApplication)
     }
 }

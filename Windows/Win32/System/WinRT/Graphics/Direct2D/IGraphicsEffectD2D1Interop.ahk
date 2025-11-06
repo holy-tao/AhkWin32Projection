@@ -32,13 +32,13 @@ class IGraphicsEffectD2D1Interop extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} id 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.effects.interop/nf-windows-graphics-effects-interop-igraphicseffectd2d1interop-geteffectid
      */
-    GetEffectId(id) {
+    GetEffectId() {
+        id := Guid()
         result := ComCall(3, this, "ptr", id, "HRESULT")
-        return result
+        return id
     }
 
     /**
@@ -61,51 +61,43 @@ class IGraphicsEffectD2D1Interop extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.effects.interop/nf-windows-graphics-effects-interop-igraphicseffectd2d1interop-getpropertycount
      */
-    GetPropertyCount(count) {
-        countMarshal := count is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, countMarshal, count, "HRESULT")
-        return result
+    GetPropertyCount() {
+        result := ComCall(5, this, "uint*", &count := 0, "HRESULT")
+        return count
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<IPropertyValue>} value 
-     * @returns {HRESULT} 
+     * @returns {Pointer<IPropertyValue>} 
      * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.effects.interop/nf-windows-graphics-effects-interop-igraphicseffectd2d1interop-getproperty
      */
-    GetProperty(index, value) {
-        result := ComCall(6, this, "uint", index, "ptr*", value, "HRESULT")
-        return result
+    GetProperty(index) {
+        result := ComCall(6, this, "uint", index, "ptr*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<IGraphicsEffectSource>} source 
-     * @returns {HRESULT} 
+     * @returns {Pointer<IGraphicsEffectSource>} 
      * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.effects.interop/nf-windows-graphics-effects-interop-igraphicseffectd2d1interop-getsource
      */
-    GetSource(index, source) {
-        result := ComCall(7, this, "uint", index, "ptr*", source, "HRESULT")
-        return result
+    GetSource(index) {
+        result := ComCall(7, this, "uint", index, "ptr*", &source := 0, "HRESULT")
+        return source
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.effects.interop/nf-windows-graphics-effects-interop-igraphicseffectd2d1interop-getsourcecount
      */
-    GetSourceCount(count) {
-        countMarshal := count is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, countMarshal, count, "HRESULT")
-        return result
+    GetSourceCount() {
+        result := ComCall(8, this, "uint*", &count := 0, "HRESULT")
+        return count
     }
 }

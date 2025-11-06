@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IHTMLElementCollection.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -49,12 +51,12 @@ class IHTMLTableSection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_align(p) {
+    get_align() {
+        p := BSTR()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -71,12 +73,12 @@ class IHTMLTableSection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_vAlign(p) {
+    get_vAlign() {
+        p := BSTR()
         result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -91,33 +93,31 @@ class IHTMLTableSection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_bgColor(p) {
+    get_bgColor() {
+        p := VARIANT()
         result := ComCall(12, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLElementCollection>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElementCollection} 
      */
-    get_rows(p) {
-        result := ComCall(13, this, "ptr*", p, "HRESULT")
-        return result
+    get_rows() {
+        result := ComCall(13, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLElementCollection(p)
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<IDispatch>} row 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    insertRow(index, row) {
-        result := ComCall(14, this, "int", index, "ptr*", row, "HRESULT")
-        return result
+    insertRow(index) {
+        result := ComCall(14, this, "int", index, "ptr*", &row := 0, "HRESULT")
+        return IDispatch(row)
     }
 
     /**

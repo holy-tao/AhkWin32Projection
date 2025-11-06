@@ -32,49 +32,41 @@ class IInstallationBehavior extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinstallationbehavior-get_canrequestuserinput
      */
-    get_CanRequestUserInput(retval) {
-        result := ComCall(7, this, "ptr", retval, "HRESULT")
-        return result
+    get_CanRequestUserInput() {
+        result := ComCall(7, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinstallationbehavior-get_impact
      */
-    get_Impact(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_Impact() {
+        result := ComCall(8, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinstallationbehavior-get_rebootbehavior
      */
-    get_RebootBehavior(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_RebootBehavior() {
+        result := ComCall(9, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinstallationbehavior-get_requiresnetworkconnectivity
      */
-    get_RequiresNetworkConnectivity(retval) {
-        result := ComCall(10, this, "ptr", retval, "HRESULT")
-        return result
+    get_RequiresNetworkConnectivity() {
+        result := ComCall(10, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 }

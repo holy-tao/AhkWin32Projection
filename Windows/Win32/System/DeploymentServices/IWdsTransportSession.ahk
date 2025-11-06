@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWdsTransportContent.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IWdsTransportCollection.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -38,85 +41,74 @@ class IWdsTransportSession extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IWdsTransportContent>} ppWdsTransportContent 
-     * @returns {HRESULT} 
+     * @returns {IWdsTransportContent} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportsession-get_content
      */
-    get_Content(ppWdsTransportContent) {
-        result := ComCall(7, this, "ptr*", ppWdsTransportContent, "HRESULT")
-        return result
+    get_Content() {
+        result := ComCall(7, this, "ptr*", &ppWdsTransportContent := 0, "HRESULT")
+        return IWdsTransportContent(ppWdsTransportContent)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pulId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportsession-get_id
      */
-    get_Id(pulId) {
-        pulIdMarshal := pulId is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pulIdMarshal, pulId, "HRESULT")
-        return result
+    get_Id() {
+        result := ComCall(8, this, "uint*", &pulId := 0, "HRESULT")
+        return pulId
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbszNetworkInterfaceName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportsession-get_networkinterfacename
      */
-    get_NetworkInterfaceName(pbszNetworkInterfaceName) {
+    get_NetworkInterfaceName() {
+        pbszNetworkInterfaceName := BSTR()
         result := ComCall(9, this, "ptr", pbszNetworkInterfaceName, "HRESULT")
-        return result
+        return pbszNetworkInterfaceName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbszNetworkInterfaceAddress 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportsession-get_networkinterfaceaddress
      */
-    get_NetworkInterfaceAddress(pbszNetworkInterfaceAddress) {
+    get_NetworkInterfaceAddress() {
+        pbszNetworkInterfaceAddress := BSTR()
         result := ComCall(10, this, "ptr", pbszNetworkInterfaceAddress, "HRESULT")
-        return result
+        return pbszNetworkInterfaceAddress
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pulTransferRate 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportsession-get_transferrate
      */
-    get_TransferRate(pulTransferRate) {
-        pulTransferRateMarshal := pulTransferRate is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, pulTransferRateMarshal, pulTransferRate, "HRESULT")
-        return result
+    get_TransferRate() {
+        result := ComCall(11, this, "uint*", &pulTransferRate := 0, "HRESULT")
+        return pulTransferRate
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pulMasterClientId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportsession-get_masterclientid
      */
-    get_MasterClientId(pulMasterClientId) {
-        pulMasterClientIdMarshal := pulMasterClientId is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, pulMasterClientIdMarshal, pulMasterClientId, "HRESULT")
-        return result
+    get_MasterClientId() {
+        result := ComCall(12, this, "uint*", &pulMasterClientId := 0, "HRESULT")
+        return pulMasterClientId
     }
 
     /**
      * 
-     * @param {Pointer<IWdsTransportCollection>} ppWdsTransportClients 
-     * @returns {HRESULT} 
+     * @returns {IWdsTransportCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportsession-retrieveclients
      */
-    RetrieveClients(ppWdsTransportClients) {
-        result := ComCall(13, this, "ptr*", ppWdsTransportClients, "HRESULT")
-        return result
+    RetrieveClients() {
+        result := ComCall(13, this, "ptr*", &ppWdsTransportClients := 0, "HRESULT")
+        return IWdsTransportCollection(ppWdsTransportClients)
     }
 
     /**

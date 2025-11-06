@@ -2,6 +2,10 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IX509PublicKey.ahk
+#Include .\ICspInformations.ahk
+#Include .\ICspStatus.ahk
+#Include .\IObjectId.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -102,37 +106,36 @@ class IX509PrivateKey extends IDispatch{
      * 
      * @param {BSTR} strExportType 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pstrEncodedKey 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-export
      */
-    Export(strExportType, Encoding, pstrEncodedKey) {
+    Export(strExportType, Encoding) {
         strExportType := strExportType is String ? BSTR.Alloc(strExportType).Value : strExportType
 
+        pstrEncodedKey := BSTR()
         result := ComCall(13, this, "ptr", strExportType, "int", Encoding, "ptr", pstrEncodedKey, "HRESULT")
-        return result
+        return pstrEncodedKey
     }
 
     /**
      * 
-     * @param {Pointer<IX509PublicKey>} ppPublicKey 
-     * @returns {HRESULT} 
+     * @returns {IX509PublicKey} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-exportpublickey
      */
-    ExportPublicKey(ppPublicKey) {
-        result := ComCall(14, this, "ptr*", ppPublicKey, "HRESULT")
-        return result
+    ExportPublicKey() {
+        result := ComCall(14, this, "ptr*", &ppPublicKey := 0, "HRESULT")
+        return IX509PublicKey(ppPublicKey)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_containername
      */
-    get_ContainerName(pValue) {
+    get_ContainerName() {
+        pValue := BSTR()
         result := ComCall(15, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
@@ -150,13 +153,13 @@ class IX509PrivateKey extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_containernameprefix
      */
-    get_ContainerNamePrefix(pValue) {
+    get_ContainerNamePrefix() {
+        pValue := BSTR()
         result := ComCall(17, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
@@ -174,13 +177,13 @@ class IX509PrivateKey extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_readername
      */
-    get_ReaderName(pValue) {
+    get_ReaderName() {
+        pValue := BSTR()
         result := ComCall(19, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
@@ -198,13 +201,12 @@ class IX509PrivateKey extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ICspInformations>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {ICspInformations} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_cspinformations
      */
-    get_CspInformations(ppValue) {
-        result := ComCall(21, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_CspInformations() {
+        result := ComCall(21, this, "ptr*", &ppValue := 0, "HRESULT")
+        return ICspInformations(ppValue)
     }
 
     /**
@@ -220,13 +222,12 @@ class IX509PrivateKey extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ICspStatus>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {ICspStatus} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_cspstatus
      */
-    get_CspStatus(ppValue) {
-        result := ComCall(23, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_CspStatus() {
+        result := ComCall(23, this, "ptr*", &ppValue := 0, "HRESULT")
+        return ICspStatus(ppValue)
     }
 
     /**
@@ -242,13 +243,13 @@ class IX509PrivateKey extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_providername
      */
-    get_ProviderName(pValue) {
+    get_ProviderName() {
+        pValue := BSTR()
         result := ComCall(25, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
@@ -266,15 +267,12 @@ class IX509PrivateKey extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_providertype
      */
-    get_ProviderType(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(27, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_ProviderType() {
+        result := ComCall(27, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -290,13 +288,12 @@ class IX509PrivateKey extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_legacycsp
      */
-    get_LegacyCsp(pValue) {
-        result := ComCall(29, this, "ptr", pValue, "HRESULT")
-        return result
+    get_LegacyCsp() {
+        result := ComCall(29, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -312,13 +309,12 @@ class IX509PrivateKey extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IObjectId>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IObjectId} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_algorithm
      */
-    get_Algorithm(ppValue) {
-        result := ComCall(31, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_Algorithm() {
+        result := ComCall(31, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IObjectId(ppValue)
     }
 
     /**
@@ -334,15 +330,12 @@ class IX509PrivateKey extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_keyspec
      */
-    get_KeySpec(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(33, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_KeySpec() {
+        result := ComCall(33, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -358,15 +351,12 @@ class IX509PrivateKey extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_length
      */
-    get_Length(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(35, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_Length() {
+        result := ComCall(35, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -382,15 +372,12 @@ class IX509PrivateKey extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_exportpolicy
      */
-    get_ExportPolicy(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(37, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_ExportPolicy() {
+        result := ComCall(37, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -406,15 +393,12 @@ class IX509PrivateKey extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_keyusage
      */
-    get_KeyUsage(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(39, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_KeyUsage() {
+        result := ComCall(39, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -430,15 +414,12 @@ class IX509PrivateKey extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_keyprotection
      */
-    get_KeyProtection(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(41, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_KeyProtection() {
+        result := ComCall(41, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -454,13 +435,12 @@ class IX509PrivateKey extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_machinecontext
      */
-    get_MachineContext(pValue) {
-        result := ComCall(43, this, "ptr", pValue, "HRESULT")
-        return result
+    get_MachineContext() {
+        result := ComCall(43, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -476,13 +456,13 @@ class IX509PrivateKey extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_securitydescriptor
      */
-    get_SecurityDescriptor(pValue) {
+    get_SecurityDescriptor() {
+        pValue := BSTR()
         result := ComCall(45, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
@@ -501,13 +481,13 @@ class IX509PrivateKey extends IDispatch{
     /**
      * 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_certificate
      */
-    get_Certificate(Encoding, pValue) {
+    get_Certificate(Encoding) {
+        pValue := BSTR()
         result := ComCall(47, this, "int", Encoding, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
@@ -526,46 +506,43 @@ class IX509PrivateKey extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_uniquecontainername
      */
-    get_UniqueContainerName(pValue) {
+    get_UniqueContainerName() {
+        pValue := BSTR()
         result := ComCall(49, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_opened
      */
-    get_Opened(pValue) {
-        result := ComCall(50, this, "ptr", pValue, "HRESULT")
-        return result
+    get_Opened() {
+        result := ComCall(50, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_defaultcontainer
      */
-    get_DefaultContainer(pValue) {
-        result := ComCall(51, this, "ptr", pValue, "HRESULT")
-        return result
+    get_DefaultContainer() {
+        result := ComCall(51, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_existing
      */
-    get_Existing(pValue) {
-        result := ComCall(52, this, "ptr", pValue, "HRESULT")
-        return result
+    get_Existing() {
+        result := ComCall(52, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -581,13 +558,12 @@ class IX509PrivateKey extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_silent
      */
-    get_Silent(pValue) {
-        result := ComCall(54, this, "ptr", pValue, "HRESULT")
-        return result
+    get_Silent() {
+        result := ComCall(54, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -603,15 +579,12 @@ class IX509PrivateKey extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_parentwindow
      */
-    get_ParentWindow(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(56, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_ParentWindow() {
+        result := ComCall(56, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -627,13 +600,13 @@ class IX509PrivateKey extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_uicontextmessage
      */
-    get_UIContextMessage(pValue) {
+    get_UIContextMessage() {
+        pValue := BSTR()
         result := ComCall(58, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
@@ -664,13 +637,13 @@ class IX509PrivateKey extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_friendlyname
      */
-    get_FriendlyName(pValue) {
+    get_FriendlyName() {
+        pValue := BSTR()
         result := ComCall(61, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
@@ -688,13 +661,13 @@ class IX509PrivateKey extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509privatekey-get_description
      */
-    get_Description(pValue) {
+    get_Description() {
+        pValue := BSTR()
         result := ComCall(63, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**

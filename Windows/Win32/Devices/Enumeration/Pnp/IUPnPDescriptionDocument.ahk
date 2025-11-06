@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IUPnPDevice.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -39,15 +40,12 @@ class IUPnPDescriptionDocument extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plReadyState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdescriptiondocument-get_readystate
      */
-    get_ReadyState(plReadyState) {
-        plReadyStateMarshal := plReadyState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, plReadyStateMarshal, plReadyState, "HRESULT")
-        return result
+    get_ReadyState() {
+        result := ComCall(7, this, "int*", &plReadyState := 0, "HRESULT")
+        return plReadyState
     }
 
     /**
@@ -79,15 +77,12 @@ class IUPnPDescriptionDocument extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} phrError 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdescriptiondocument-get_loadresult
      */
-    get_LoadResult(phrError) {
-        phrErrorMarshal := phrError is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, phrErrorMarshal, phrError, "HRESULT")
-        return result
+    get_LoadResult() {
+        result := ComCall(10, this, "int*", &phrError := 0, "HRESULT")
+        return phrError
     }
 
     /**
@@ -102,26 +97,24 @@ class IUPnPDescriptionDocument extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUPnPDevice>} ppudRootDevice 
-     * @returns {HRESULT} 
+     * @returns {IUPnPDevice} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdescriptiondocument-rootdevice
      */
-    RootDevice(ppudRootDevice) {
-        result := ComCall(12, this, "ptr*", ppudRootDevice, "HRESULT")
-        return result
+    RootDevice() {
+        result := ComCall(12, this, "ptr*", &ppudRootDevice := 0, "HRESULT")
+        return IUPnPDevice(ppudRootDevice)
     }
 
     /**
      * 
      * @param {BSTR} bstrUDN 
-     * @param {Pointer<IUPnPDevice>} ppudDevice 
-     * @returns {HRESULT} 
+     * @returns {IUPnPDevice} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdescriptiondocument-devicebyudn
      */
-    DeviceByUDN(bstrUDN, ppudDevice) {
+    DeviceByUDN(bstrUDN) {
         bstrUDN := bstrUDN is String ? BSTR.Alloc(bstrUDN).Value : bstrUDN
 
-        result := ComCall(13, this, "ptr", bstrUDN, "ptr*", ppudDevice, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", bstrUDN, "ptr*", &ppudDevice := 0, "HRESULT")
+        return IUPnPDevice(ppudDevice)
     }
 }

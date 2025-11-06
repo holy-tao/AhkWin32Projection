@@ -64,13 +64,12 @@ class ITfLangBarMgr extends IUnknown{
      * @param {Integer} dwThreadId 
      * @param {Integer} dwType 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppunk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbarmgr-getthreadmarshalinterface
      */
-    GetThreadMarshalInterface(dwThreadId, dwType, riid, ppunk) {
-        result := ComCall(5, this, "uint", dwThreadId, "uint", dwType, "ptr", riid, "ptr*", ppunk, "HRESULT")
-        return result
+    GetThreadMarshalInterface(dwThreadId, dwType, riid) {
+        result := ComCall(5, this, "uint", dwThreadId, "uint", dwType, "ptr", riid, "ptr*", &ppunk := 0, "HRESULT")
+        return IUnknown(ppunk)
     }
 
     /**
@@ -105,16 +104,13 @@ class ITfLangBarMgr extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwThreadId 
      * @param {BOOL} fPrev 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbarmgr-restorelastfocus
      */
-    RestoreLastFocus(pdwThreadId, fPrev) {
-        pdwThreadIdMarshal := pdwThreadId is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pdwThreadIdMarshal, pdwThreadId, "int", fPrev, "HRESULT")
-        return result
+    RestoreLastFocus(fPrev) {
+        result := ComCall(8, this, "uint*", &pdwThreadId := 0, "int", fPrev, "HRESULT")
+        return pdwThreadId
     }
 
     /**
@@ -143,14 +139,11 @@ class ITfLangBarMgr extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbarmgr-getshowfloatingstatus
      */
-    GetShowFloatingStatus(pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
-        return result
+    GetShowFloatingStatus() {
+        result := ComCall(11, this, "uint*", &pdwFlags := 0, "HRESULT")
+        return pdwFlags
     }
 }

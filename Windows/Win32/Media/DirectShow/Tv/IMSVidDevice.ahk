@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -43,26 +44,23 @@ class IMSVidDevice extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} Name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsviddevice-get_name
      */
-    get_Name(Name) {
+    get_Name() {
+        Name := BSTR()
         result := ComCall(7, this, "ptr", Name, "HRESULT")
-        return result
+        return Name
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Status 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsviddevice-get_status
      */
-    get_Status(Status) {
-        StatusMarshal := Status is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, StatusMarshal, Status, "HRESULT")
-        return result
+    get_Status() {
+        result := ComCall(8, this, "int*", &Status := 0, "HRESULT")
+        return Status
     }
 
     /**
@@ -78,68 +76,66 @@ class IMSVidDevice extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} Power 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsviddevice-get_power
      */
-    get_Power(Power) {
-        result := ComCall(10, this, "ptr", Power, "HRESULT")
-        return result
+    get_Power() {
+        result := ComCall(10, this, "short*", &Power := 0, "HRESULT")
+        return Power
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} Guid 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsviddevice-get_category
      */
-    get_Category(Guid) {
+    get_Category() {
+        Guid := BSTR()
         result := ComCall(11, this, "ptr", Guid, "HRESULT")
-        return result
+        return Guid
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} Clsid 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsviddevice-get_classid
      */
-    get_ClassID(Clsid) {
+    get_ClassID() {
+        Clsid := BSTR()
         result := ComCall(12, this, "ptr", Clsid, "HRESULT")
-        return result
+        return Clsid
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} Guid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsviddevice-get__category
      */
-    get__Category(Guid) {
+    get__Category() {
+        Guid := Guid()
         result := ComCall(13, this, "ptr", Guid, "HRESULT")
-        return result
+        return Guid
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} Clsid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsviddevice-get__classid
      */
-    get__ClassID(Clsid) {
+    get__ClassID() {
+        Clsid := Guid()
         result := ComCall(14, this, "ptr", Clsid, "HRESULT")
-        return result
+        return Clsid
     }
 
     /**
      * 
      * @param {IMSVidDevice} Device 
-     * @param {Pointer<VARIANT_BOOL>} IsEqual 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsviddevice-isequaldevice
      */
-    IsEqualDevice(Device, IsEqual) {
-        result := ComCall(15, this, "ptr", Device, "ptr", IsEqual, "HRESULT")
-        return result
+    IsEqualDevice(Device) {
+        result := ComCall(15, this, "ptr", Device, "short*", &IsEqual := 0, "HRESULT")
+        return IsEqual
     }
 }

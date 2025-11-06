@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\IRDPSRAPIAttendee.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -43,24 +45,22 @@ class IRDPSRAPIAttendeeManager extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiattendeemanager-get__newenum
      */
-    get__NewEnum(retval) {
-        result := ComCall(7, this, "ptr*", retval, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(7, this, "ptr*", &retval := 0, "HRESULT")
+        return IUnknown(retval)
     }
 
     /**
      * 
      * @param {Integer} id 
-     * @param {Pointer<IRDPSRAPIAttendee>} ppItem 
-     * @returns {HRESULT} 
+     * @returns {IRDPSRAPIAttendee} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiattendeemanager-get_item
      */
-    get_Item(id, ppItem) {
-        result := ComCall(8, this, "int", id, "ptr*", ppItem, "HRESULT")
-        return result
+    get_Item(id) {
+        result := ComCall(8, this, "int", id, "ptr*", &ppItem := 0, "HRESULT")
+        return IRDPSRAPIAttendee(ppItem)
     }
 }

@@ -37,15 +37,12 @@ class IATSCLocator2 extends IATSCLocator{
 
     /**
      * 
-     * @param {Pointer<Integer>} ProgramNumber 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatsclocator2-get_programnumber
      */
-    get_ProgramNumber(ProgramNumber) {
-        ProgramNumberMarshal := ProgramNumber is VarRef ? "int*" : "ptr"
-
-        result := ComCall(26, this, ProgramNumberMarshal, ProgramNumber, "HRESULT")
-        return result
+    get_ProgramNumber() {
+        result := ComCall(26, this, "int*", &ProgramNumber := 0, "HRESULT")
+        return ProgramNumber
     }
 
     /**

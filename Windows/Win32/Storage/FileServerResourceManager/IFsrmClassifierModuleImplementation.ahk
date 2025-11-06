@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IFsrmPipelineModuleImplementation.ahk
 
 /**
@@ -33,13 +34,13 @@ class IFsrmClassifierModuleImplementation extends IFsrmPipelineModuleImplementat
 
     /**
      * 
-     * @param {Pointer<VARIANT>} lastModified 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassifiermoduleimplementation-get_lastmodified
      */
-    get_LastModified(lastModified) {
+    get_LastModified() {
+        lastModified := VARIANT()
         result := ComCall(9, this, "ptr", lastModified, "HRESULT")
-        return result
+        return lastModified
     }
 
     /**
@@ -70,34 +71,33 @@ class IFsrmClassifierModuleImplementation extends IFsrmPipelineModuleImplementat
      * 
      * @param {BSTR} property 
      * @param {BSTR} value 
-     * @param {Pointer<VARIANT_BOOL>} applyValue 
      * @param {Guid} idRule 
      * @param {Guid} idPropDef 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassifiermoduleimplementation-doespropertyvalueapply
      */
-    DoesPropertyValueApply(property, value, applyValue, idRule, idPropDef) {
+    DoesPropertyValueApply(property, value, idRule, idPropDef) {
         property := property is String ? BSTR.Alloc(property).Value : property
         value := value is String ? BSTR.Alloc(value).Value : value
 
-        result := ComCall(12, this, "ptr", property, "ptr", value, "ptr", applyValue, "ptr", idRule, "ptr", idPropDef, "HRESULT")
-        return result
+        result := ComCall(12, this, "ptr", property, "ptr", value, "short*", &applyValue := 0, "ptr", idRule, "ptr", idPropDef, "HRESULT")
+        return applyValue
     }
 
     /**
      * 
      * @param {BSTR} property 
-     * @param {Pointer<BSTR>} value 
      * @param {Guid} idRule 
      * @param {Guid} idPropDef 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassifiermoduleimplementation-getpropertyvaluetoapply
      */
-    GetPropertyValueToApply(property, value, idRule, idPropDef) {
+    GetPropertyValueToApply(property, idRule, idPropDef) {
         property := property is String ? BSTR.Alloc(property).Value : property
 
+        value := BSTR()
         result := ComCall(13, this, "ptr", property, "ptr", value, "ptr", idRule, "ptr", idPropDef, "HRESULT")
-        return result
+        return value
     }
 
     /**

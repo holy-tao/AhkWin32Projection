@@ -37,7 +37,9 @@ class ISyncSessionState extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncsessionstate-iscanceled
      */
     IsCanceled(pfIsCanceled) {
-        result := ComCall(3, this, "ptr", pfIsCanceled, "HRESULT")
+        pfIsCanceledMarshal := pfIsCanceled is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pfIsCanceledMarshal, pfIsCanceled, "HRESULT")
         return result
     }
 

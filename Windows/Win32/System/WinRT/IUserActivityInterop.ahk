@@ -37,16 +37,13 @@ class IUserActivityInterop extends IInspectable{
      * 
      * @param {HWND} window 
      * @param {Pointer<Guid>} iid 
-     * @param {Pointer<Pointer<Void>>} value 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/useractivityinterop/nf-useractivityinterop-iuseractivityinterop-createsessionforwindow
      */
-    CreateSessionForWindow(window, iid, value) {
+    CreateSessionForWindow(window, iid) {
         window := window is Win32Handle ? NumGet(window, "ptr") : window
 
-        valueMarshal := value is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", window, "ptr", iid, valueMarshal, value, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", window, "ptr", iid, "ptr*", &value := 0, "HRESULT")
+        return value
     }
 }

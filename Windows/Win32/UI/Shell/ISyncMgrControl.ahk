@@ -78,7 +78,9 @@ class ISyncMgrControl extends IUnknown{
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
 
-        result := ComCall(4, this, "ptr", pszHandlerID, "ptr", ppszItemIDs, "uint", cItems, "ptr", hwndOwner, "ptr", punk, "int", nSyncControlFlags, "ptr", pResult, "HRESULT")
+        ppszItemIDsMarshal := ppszItemIDs is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pszHandlerID, ppszItemIDsMarshal, ppszItemIDs, "uint", cItems, "ptr", hwndOwner, "ptr", punk, "int", nSyncControlFlags, "ptr", pResult, "HRESULT")
         return result
     }
 
@@ -119,7 +121,9 @@ class ISyncMgrControl extends IUnknown{
     StopItemSync(pszHandlerID, ppszItemIDs, cItems) {
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID
 
-        result := ComCall(7, this, "ptr", pszHandlerID, "ptr", ppszItemIDs, "uint", cItems, "HRESULT")
+        ppszItemIDsMarshal := ppszItemIDs is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pszHandlerID, ppszItemIDsMarshal, ppszItemIDs, "uint", cItems, "HRESULT")
         return result
     }
 

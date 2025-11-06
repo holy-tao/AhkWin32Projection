@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IMSVidStreamBufferSource.ahk
 
 /**
@@ -49,45 +50,41 @@ class IMSVidStreamBufferSource2 extends IMSVidStreamBufferSource{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersource2-get_audiocounter
      */
-    get_AudioCounter(ppUnk) {
-        result := ComCall(42, this, "ptr*", ppUnk, "HRESULT")
-        return result
+    get_AudioCounter() {
+        result := ComCall(42, this, "ptr*", &ppUnk := 0, "HRESULT")
+        return IUnknown(ppUnk)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersource2-get_videocounter
      */
-    get_VideoCounter(ppUnk) {
-        result := ComCall(43, this, "ptr*", ppUnk, "HRESULT")
-        return result
+    get_VideoCounter() {
+        result := ComCall(43, this, "ptr*", &ppUnk := 0, "HRESULT")
+        return IUnknown(ppUnk)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersource2-get_cccounter
      */
-    get_CCCounter(ppUnk) {
-        result := ComCall(44, this, "ptr*", ppUnk, "HRESULT")
-        return result
+    get_CCCounter() {
+        result := ComCall(44, this, "ptr*", &ppUnk := 0, "HRESULT")
+        return IUnknown(ppUnk)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersource2-get_wstcounter
      */
-    get_WSTCounter(ppUnk) {
-        result := ComCall(45, this, "ptr*", ppUnk, "HRESULT")
-        return result
+    get_WSTCounter() {
+        result := ComCall(45, this, "ptr*", &ppUnk := 0, "HRESULT")
+        return IUnknown(ppUnk)
     }
 }

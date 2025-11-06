@@ -41,64 +41,51 @@ class IMultisessionSequential extends IMultisession{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-imultisessionsequential-get_isfirstdatasession
      */
-    get_IsFirstDataSession(value) {
-        result := ComCall(11, this, "ptr", value, "HRESULT")
-        return result
+    get_IsFirstDataSession() {
+        result := ComCall(11, this, "short*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-imultisessionsequential-get_startaddressofprevioussession
      */
-    get_StartAddressOfPreviousSession(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, valueMarshal, value, "HRESULT")
-        return result
+    get_StartAddressOfPreviousSession() {
+        result := ComCall(12, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-imultisessionsequential-get_lastwrittenaddressofprevioussession
      */
-    get_LastWrittenAddressOfPreviousSession(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, valueMarshal, value, "HRESULT")
-        return result
+    get_LastWrittenAddressOfPreviousSession() {
+        result := ComCall(13, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-imultisessionsequential-get_nextwritableaddress
      */
-    get_NextWritableAddress(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, valueMarshal, value, "HRESULT")
-        return result
+    get_NextWritableAddress() {
+        result := ComCall(14, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-imultisessionsequential-get_freesectorsonmedia
      */
-    get_FreeSectorsOnMedia(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, valueMarshal, value, "HRESULT")
-        return result
+    get_FreeSectorsOnMedia() {
+        result := ComCall(15, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 }

@@ -4706,9 +4706,11 @@ class Services {
     static StartServiceA(hService, dwNumServiceArgs, lpServiceArgVectors) {
         hService := hService is Win32Handle ? NumGet(hService, "ptr") : hService
 
+        lpServiceArgVectorsMarshal := lpServiceArgVectors is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\StartServiceA", "ptr", hService, "uint", dwNumServiceArgs, "ptr", lpServiceArgVectors, "int")
+        result := DllCall("ADVAPI32.dll\StartServiceA", "ptr", hService, "uint", dwNumServiceArgs, lpServiceArgVectorsMarshal, lpServiceArgVectors, "int")
         if(A_LastError)
             throw OSError()
 
@@ -4878,9 +4880,11 @@ class Services {
     static StartServiceW(hService, dwNumServiceArgs, lpServiceArgVectors) {
         hService := hService is Win32Handle ? NumGet(hService, "ptr") : hService
 
+        lpServiceArgVectorsMarshal := lpServiceArgVectors is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\StartServiceW", "ptr", hService, "uint", dwNumServiceArgs, "ptr", lpServiceArgVectors, "int")
+        result := DllCall("ADVAPI32.dll\StartServiceW", "ptr", hService, "uint", dwNumServiceArgs, lpServiceArgVectorsMarshal, lpServiceArgVectors, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5584,8 +5588,9 @@ class Services {
         hService := hService is Win32Handle ? NumGet(hService, "ptr") : hService
 
         pCallbackContextMarshal := pCallbackContext is VarRef ? "ptr" : "ptr"
+        pSubscriptionMarshal := pSubscription is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("SecHost.dll\SubscribeServiceChangeNotifications", "ptr", hService, "int", eEventType, "ptr", pCallback, pCallbackContextMarshal, pCallbackContext, "ptr", pSubscription, "uint")
+        result := DllCall("SecHost.dll\SubscribeServiceChangeNotifications", "ptr", hService, "int", eEventType, "ptr", pCallback, pCallbackContextMarshal, pCallbackContext, pSubscriptionMarshal, pSubscription, "uint")
         return result
     }
 

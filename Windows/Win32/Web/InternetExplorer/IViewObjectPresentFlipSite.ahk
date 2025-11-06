@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISurfacePresenterFlip.ahk
+#Include ..\..\Foundation\LUID.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\SIZE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -36,22 +40,21 @@ class IViewObjectPresentFlipSite extends IUnknown{
      * @param {Integer} backBufferCount 
      * @param {Integer} format 
      * @param {Integer} mode 
-     * @param {Pointer<ISurfacePresenterFlip>} ppSPFlip 
-     * @returns {HRESULT} 
+     * @returns {ISurfacePresenterFlip} 
      */
-    CreateSurfacePresenterFlip(pDevice, width, height, backBufferCount, format, mode, ppSPFlip) {
-        result := ComCall(3, this, "ptr", pDevice, "uint", width, "uint", height, "uint", backBufferCount, "int", format, "int", mode, "ptr*", ppSPFlip, "HRESULT")
-        return result
+    CreateSurfacePresenterFlip(pDevice, width, height, backBufferCount, format, mode) {
+        result := ComCall(3, this, "ptr", pDevice, "uint", width, "uint", height, "uint", backBufferCount, "int", format, "int", mode, "ptr*", &ppSPFlip := 0, "HRESULT")
+        return ISurfacePresenterFlip(ppSPFlip)
     }
 
     /**
      * 
-     * @param {Pointer<LUID>} pLuid 
-     * @returns {HRESULT} 
+     * @returns {LUID} 
      */
-    GetDeviceLuid(pLuid) {
+    GetDeviceLuid() {
+        pLuid := LUID()
         result := ComCall(4, this, "ptr", pLuid, "HRESULT")
-        return result
+        return pLuid
     }
 
     /**
@@ -74,22 +77,21 @@ class IViewObjectPresentFlipSite extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfFullScreen 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsFullScreen(pfFullScreen) {
-        result := ComCall(7, this, "ptr", pfFullScreen, "HRESULT")
-        return result
+    IsFullScreen() {
+        result := ComCall(7, this, "int*", &pfFullScreen := 0, "HRESULT")
+        return pfFullScreen
     }
 
     /**
      * 
-     * @param {Pointer<RECT>} pRect 
-     * @returns {HRESULT} 
+     * @returns {RECT} 
      */
-    GetBoundingRect(pRect) {
+    GetBoundingRect() {
+        pRect := RECT()
         result := ComCall(8, this, "ptr", pRect, "HRESULT")
-        return result
+        return pRect
     }
 
     /**
@@ -110,11 +112,11 @@ class IViewObjectPresentFlipSite extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<SIZE>} pSize 
-     * @returns {HRESULT} 
+     * @returns {SIZE} 
      */
-    GetFullScreenSize(pSize) {
+    GetFullScreenSize() {
+        pSize := SIZE()
         result := ComCall(10, this, "ptr", pSize, "HRESULT")
-        return result
+        return pSize
     }
 }

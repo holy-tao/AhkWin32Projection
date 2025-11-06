@@ -40,13 +40,13 @@ class IFsrmActionEmail extends IFsrmAction{
 
     /**
      * 
-     * @param {Pointer<BSTR>} mailFrom 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionemail-get_mailfrom
      */
-    get_MailFrom(mailFrom) {
+    get_MailFrom() {
+        mailFrom := BSTR()
         result := ComCall(12, this, "ptr", mailFrom, "HRESULT")
-        return result
+        return mailFrom
     }
 
     /**
@@ -64,13 +64,13 @@ class IFsrmActionEmail extends IFsrmAction{
 
     /**
      * 
-     * @param {Pointer<BSTR>} mailReplyTo 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionemail-get_mailreplyto
      */
-    get_MailReplyTo(mailReplyTo) {
+    get_MailReplyTo() {
+        mailReplyTo := BSTR()
         result := ComCall(14, this, "ptr", mailReplyTo, "HRESULT")
-        return result
+        return mailReplyTo
     }
 
     /**
@@ -88,13 +88,13 @@ class IFsrmActionEmail extends IFsrmAction{
 
     /**
      * 
-     * @param {Pointer<BSTR>} mailTo 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionemail-get_mailto
      */
-    get_MailTo(mailTo) {
+    get_MailTo() {
+        mailTo := BSTR()
         result := ComCall(16, this, "ptr", mailTo, "HRESULT")
-        return result
+        return mailTo
     }
 
     /**
@@ -112,13 +112,13 @@ class IFsrmActionEmail extends IFsrmAction{
 
     /**
      * 
-     * @param {Pointer<BSTR>} mailCc 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionemail-get_mailcc
      */
-    get_MailCc(mailCc) {
+    get_MailCc() {
+        mailCc := BSTR()
         result := ComCall(18, this, "ptr", mailCc, "HRESULT")
-        return result
+        return mailCc
     }
 
     /**
@@ -136,13 +136,13 @@ class IFsrmActionEmail extends IFsrmAction{
 
     /**
      * 
-     * @param {Pointer<BSTR>} mailBcc 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionemail-get_mailbcc
      */
-    get_MailBcc(mailBcc) {
+    get_MailBcc() {
+        mailBcc := BSTR()
         result := ComCall(20, this, "ptr", mailBcc, "HRESULT")
-        return result
+        return mailBcc
     }
 
     /**
@@ -160,13 +160,13 @@ class IFsrmActionEmail extends IFsrmAction{
 
     /**
      * 
-     * @param {Pointer<BSTR>} mailSubject 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionemail-get_mailsubject
      */
-    get_MailSubject(mailSubject) {
+    get_MailSubject() {
+        mailSubject := BSTR()
         result := ComCall(22, this, "ptr", mailSubject, "HRESULT")
-        return result
+        return mailSubject
     }
 
     /**
@@ -184,13 +184,13 @@ class IFsrmActionEmail extends IFsrmAction{
 
     /**
      * 
-     * @param {Pointer<BSTR>} messageText 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionemail-get_messagetext
      */
-    get_MessageText(messageText) {
+    get_MessageText() {
+        messageText := BSTR()
         result := ComCall(24, this, "ptr", messageText, "HRESULT")
-        return result
+        return messageText
     }
 
     /**

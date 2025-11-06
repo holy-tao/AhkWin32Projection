@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IHTMLAreasCollection.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -37,12 +38,11 @@ class IHTMLMapElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IHTMLAreasCollection>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLAreasCollection} 
      */
-    get_areas(p) {
-        result := ComCall(7, this, "ptr*", p, "HRESULT")
-        return result
+    get_areas() {
+        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLAreasCollection(p)
     }
 
     /**
@@ -59,11 +59,11 @@ class IHTMLMapElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_name(p) {
+    get_name() {
+        p := BSTR()
         result := ComCall(9, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 }

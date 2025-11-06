@@ -32,15 +32,12 @@ class IPrintClassObjectFactory extends IUnknown{
      * 
      * @param {PWSTR} pszPrinterName 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppNewObject 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetPrintClassObject(pszPrinterName, riid, ppNewObject) {
+    GetPrintClassObject(pszPrinterName, riid) {
         pszPrinterName := pszPrinterName is String ? StrPtr(pszPrinterName) : pszPrinterName
 
-        ppNewObjectMarshal := ppNewObject is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pszPrinterName, "ptr", riid, ppNewObjectMarshal, ppNewObject, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pszPrinterName, "ptr", riid, "ptr*", &ppNewObject := 0, "HRESULT")
+        return ppNewObject
     }
 }

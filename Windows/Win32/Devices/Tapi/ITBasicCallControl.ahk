@@ -161,13 +161,13 @@ class ITBasicCallControl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} ppNonDirAddress 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itbasiccallcontrol-parkindirect
      */
-    ParkIndirect(ppNonDirAddress) {
+    ParkIndirect() {
+        ppNonDirAddress := BSTR()
         result := ComCall(18, this, "ptr", ppNonDirAddress, "HRESULT")
-        return result
+        return ppNonDirAddress
     }
 
     /**

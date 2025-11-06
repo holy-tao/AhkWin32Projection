@@ -50,30 +50,24 @@ class ID3D12VideoDevice extends IUnknown{
      * 
      * @param {Pointer<D3D12_VIDEO_DECODER_DESC>} pDesc 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppVideoDecoder 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodevice-createvideodecoder
      */
-    CreateVideoDecoder(pDesc, riid, ppVideoDecoder) {
-        ppVideoDecoderMarshal := ppVideoDecoder is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "ptr", pDesc, "ptr", riid, ppVideoDecoderMarshal, ppVideoDecoder, "HRESULT")
-        return result
+    CreateVideoDecoder(pDesc, riid) {
+        result := ComCall(4, this, "ptr", pDesc, "ptr", riid, "ptr*", &ppVideoDecoder := 0, "HRESULT")
+        return ppVideoDecoder
     }
 
     /**
      * 
      * @param {Pointer<D3D12_VIDEO_DECODER_HEAP_DESC>} pVideoDecoderHeapDesc 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppVideoDecoderHeap 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodevice-createvideodecoderheap
      */
-    CreateVideoDecoderHeap(pVideoDecoderHeapDesc, riid, ppVideoDecoderHeap) {
-        ppVideoDecoderHeapMarshal := ppVideoDecoderHeap is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, "ptr", pVideoDecoderHeapDesc, "ptr", riid, ppVideoDecoderHeapMarshal, ppVideoDecoderHeap, "HRESULT")
-        return result
+    CreateVideoDecoderHeap(pVideoDecoderHeapDesc, riid) {
+        result := ComCall(5, this, "ptr", pVideoDecoderHeapDesc, "ptr", riid, "ptr*", &ppVideoDecoderHeap := 0, "HRESULT")
+        return ppVideoDecoderHeap
     }
 
     /**
@@ -83,14 +77,11 @@ class ID3D12VideoDevice extends IUnknown{
      * @param {Integer} NumInputStreamDescs 
      * @param {Pointer<D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC>} pInputStreamDescs 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppVideoProcessor 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodevice-createvideoprocessor
      */
-    CreateVideoProcessor(NodeMask, pOutputStreamDesc, NumInputStreamDescs, pInputStreamDescs, riid, ppVideoProcessor) {
-        ppVideoProcessorMarshal := ppVideoProcessor is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "uint", NodeMask, "ptr", pOutputStreamDesc, "uint", NumInputStreamDescs, "ptr", pInputStreamDescs, "ptr", riid, ppVideoProcessorMarshal, ppVideoProcessor, "HRESULT")
-        return result
+    CreateVideoProcessor(NodeMask, pOutputStreamDesc, NumInputStreamDescs, pInputStreamDescs, riid) {
+        result := ComCall(6, this, "uint", NodeMask, "ptr", pOutputStreamDesc, "uint", NumInputStreamDescs, "ptr", pInputStreamDescs, "ptr", riid, "ptr*", &ppVideoProcessor := 0, "HRESULT")
+        return ppVideoProcessor
     }
 }

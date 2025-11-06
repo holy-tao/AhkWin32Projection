@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWPCSettings.ahk
+#Include .\IWPCWebSettings.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -32,54 +34,51 @@ class IWindowsParentalControlsCore extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} peVisibility 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwindowsparentalcontrolscore-getvisibility
      */
-    GetVisibility(peVisibility) {
-        peVisibilityMarshal := peVisibility is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, peVisibilityMarshal, peVisibility, "HRESULT")
-        return result
+    GetVisibility() {
+        result := ComCall(3, this, "int*", &peVisibility := 0, "HRESULT")
+        return peVisibility
     }
 
     /**
      * 
      * @param {PWSTR} pcszSID 
-     * @param {Pointer<IWPCSettings>} ppSettings 
-     * @returns {HRESULT} 
+     * @returns {IWPCSettings} 
      * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwindowsparentalcontrolscore-getusersettings
      */
-    GetUserSettings(pcszSID, ppSettings) {
+    GetUserSettings(pcszSID) {
         pcszSID := pcszSID is String ? StrPtr(pcszSID) : pcszSID
 
-        result := ComCall(4, this, "ptr", pcszSID, "ptr*", ppSettings, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pcszSID, "ptr*", &ppSettings := 0, "HRESULT")
+        return IWPCSettings(ppSettings)
     }
 
     /**
      * 
      * @param {PWSTR} pcszSID 
-     * @param {Pointer<IWPCWebSettings>} ppSettings 
-     * @returns {HRESULT} 
+     * @returns {IWPCWebSettings} 
      * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwindowsparentalcontrolscore-getwebsettings
      */
-    GetWebSettings(pcszSID, ppSettings) {
+    GetWebSettings(pcszSID) {
         pcszSID := pcszSID is String ? StrPtr(pcszSID) : pcszSID
 
-        result := ComCall(5, this, "ptr", pcszSID, "ptr*", ppSettings, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", pcszSID, "ptr*", &ppSettings := 0, "HRESULT")
+        return IWPCWebSettings(ppSettings)
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} pguidID 
      * @param {Pointer<PWSTR>} ppszName 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwindowsparentalcontrolscore-getwebfilterinfo
      */
-    GetWebFilterInfo(pguidID, ppszName) {
-        result := ComCall(6, this, "ptr", pguidID, "ptr", ppszName, "HRESULT")
-        return result
+    GetWebFilterInfo(ppszName) {
+        ppszNameMarshal := ppszName is VarRef ? "ptr*" : "ptr"
+
+        pguidID := Guid()
+        result := ComCall(6, this, "ptr", pguidID, ppszNameMarshal, ppszName, "HRESULT")
+        return pguidID
     }
 }

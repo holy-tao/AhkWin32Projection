@@ -32,13 +32,12 @@ class IMILBitmapEffectRenderContextImpl extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pfSoftware 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectrendercontextimpl-getusesoftwarerenderer
      */
-    GetUseSoftwareRenderer(pfSoftware) {
-        result := ComCall(3, this, "ptr", pfSoftware, "HRESULT")
-        return result
+    GetUseSoftwareRenderer() {
+        result := ComCall(3, this, "short*", &pfSoftware := 0, "HRESULT")
+        return pfSoftware
     }
 
     /**

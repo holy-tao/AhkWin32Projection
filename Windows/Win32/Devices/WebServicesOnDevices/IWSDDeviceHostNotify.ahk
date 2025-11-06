@@ -33,14 +33,13 @@ class IWSDDeviceHostNotify extends IUnknown{
     /**
      * 
      * @param {PWSTR} pszServiceId 
-     * @param {Pointer<IUnknown>} ppService 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdhost/nf-wsdhost-iwsddevicehostnotify-getservice
      */
-    GetService(pszServiceId, ppService) {
+    GetService(pszServiceId) {
         pszServiceId := pszServiceId is String ? StrPtr(pszServiceId) : pszServiceId
 
-        result := ComCall(3, this, "ptr", pszServiceId, "ptr*", ppService, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pszServiceId, "ptr*", &ppService := 0, "HRESULT")
+        return IUnknown(ppService)
     }
 }

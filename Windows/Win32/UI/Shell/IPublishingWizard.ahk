@@ -127,7 +127,9 @@ class IPublishingWizard extends IWizardExtension{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ipublishingwizard-gettransfermanifest
      */
     GetTransferManifest(phrFromTransfer, pdocManifest) {
-        result := ComCall(7, this, "ptr", phrFromTransfer, "ptr*", pdocManifest, "HRESULT")
+        phrFromTransferMarshal := phrFromTransfer is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, phrFromTransferMarshal, phrFromTransfer, "ptr*", pdocManifest, "HRESULT")
         return result
     }
 }

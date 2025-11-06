@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -33,12 +34,12 @@ class IADsFaxNumber extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_TelephoneNumber(retval) {
+    get_TelephoneNumber() {
+        retval := BSTR()
         result := ComCall(7, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -55,12 +56,12 @@ class IADsFaxNumber extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_Parameters(retval) {
+    get_Parameters() {
+        retval := VARIANT()
         result := ComCall(9, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**

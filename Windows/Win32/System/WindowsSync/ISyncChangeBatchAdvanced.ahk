@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISyncFilterInfo.ahk
+#Include .\ISyncChangeBatch.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -37,24 +39,22 @@ class ISyncChangeBatchAdvanced extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ISyncFilterInfo>} ppFilterInfo 
-     * @returns {HRESULT} 
+     * @returns {ISyncFilterInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchadvanced-getfilterinfo
      */
-    GetFilterInfo(ppFilterInfo) {
-        result := ComCall(3, this, "ptr*", ppFilterInfo, "HRESULT")
-        return result
+    GetFilterInfo() {
+        result := ComCall(3, this, "ptr*", &ppFilterInfo := 0, "HRESULT")
+        return ISyncFilterInfo(ppFilterInfo)
     }
 
     /**
      * 
-     * @param {Pointer<ISyncChangeBatch>} ppChangeBatch 
-     * @returns {HRESULT} 
+     * @returns {ISyncChangeBatch} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchadvanced-convertfullenumerationchangebatchtoregularchangebatch
      */
-    ConvertFullEnumerationChangeBatchToRegularChangeBatch(ppChangeBatch) {
-        result := ComCall(4, this, "ptr*", ppChangeBatch, "HRESULT")
-        return result
+    ConvertFullEnumerationChangeBatchToRegularChangeBatch() {
+        result := ComCall(4, this, "ptr*", &ppChangeBatch := 0, "HRESULT")
+        return ISyncChangeBatch(ppChangeBatch)
     }
 
     /**
@@ -79,7 +79,9 @@ class ISyncChangeBatchAdvanced extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchadvanced-getbatchlevelknowledgeshouldbeapplied
      */
     GetBatchLevelKnowledgeShouldBeApplied(pfBatchKnowledgeShouldBeApplied) {
-        result := ComCall(6, this, "ptr", pfBatchKnowledgeShouldBeApplied, "HRESULT")
+        pfBatchKnowledgeShouldBeAppliedMarshal := pfBatchKnowledgeShouldBeApplied is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, pfBatchKnowledgeShouldBeAppliedMarshal, pfBatchKnowledgeShouldBeApplied, "HRESULT")
         return result
     }
 }

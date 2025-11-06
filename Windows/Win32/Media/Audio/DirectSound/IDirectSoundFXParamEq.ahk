@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\DSFXParamEq.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -40,11 +41,11 @@ class IDirectSoundFXParamEq extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<DSFXParamEq>} pDsFxParamEq 
-     * @returns {HRESULT} 
+     * @returns {DSFXParamEq} 
      */
-    GetAllParameters(pDsFxParamEq) {
+    GetAllParameters() {
+        pDsFxParamEq := DSFXParamEq()
         result := ComCall(4, this, "ptr", pDsFxParamEq, "HRESULT")
-        return result
+        return pDsFxParamEq
     }
 }

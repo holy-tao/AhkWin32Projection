@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IGenericDescriptor.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -54,135 +55,111 @@ class IISDB_BIT extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_bit-getversionnumber
      */
-    GetVersionNumber(pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetVersionNumber() {
+        result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_bit-getoriginalnetworkid
      */
-    GetOriginalNetworkId(pwVal) {
-        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(5, this, pwValMarshal, pwVal, "HRESULT")
-        return result
+    GetOriginalNetworkId() {
+        result := ComCall(5, this, "ushort*", &pwVal := 0, "HRESULT")
+        return pwVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_bit-getbroadcastviewpropriety
      */
-    GetBroadcastViewPropriety(pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(6, this, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetBroadcastViewPropriety() {
+        result := ComCall(6, this, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_bit-getcountoftabledescriptors
      */
-    GetCountOfTableDescriptors(pdwVal) {
-        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pdwValMarshal, pdwVal, "HRESULT")
-        return result
+    GetCountOfTableDescriptors() {
+        result := ComCall(7, this, "uint*", &pdwVal := 0, "HRESULT")
+        return pdwVal
     }
 
     /**
      * 
      * @param {Integer} dwIndex 
-     * @param {Pointer<IGenericDescriptor>} ppDescriptor 
-     * @returns {HRESULT} 
+     * @returns {IGenericDescriptor} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_bit-gettabledescriptorbyindex
      */
-    GetTableDescriptorByIndex(dwIndex, ppDescriptor) {
-        result := ComCall(8, this, "uint", dwIndex, "ptr*", ppDescriptor, "HRESULT")
-        return result
+    GetTableDescriptorByIndex(dwIndex) {
+        result := ComCall(8, this, "uint", dwIndex, "ptr*", &ppDescriptor := 0, "HRESULT")
+        return IGenericDescriptor(ppDescriptor)
     }
 
     /**
      * 
      * @param {Integer} bTag 
      * @param {Pointer<Integer>} pdwCookie 
-     * @param {Pointer<IGenericDescriptor>} ppDescriptor 
-     * @returns {HRESULT} 
+     * @returns {IGenericDescriptor} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_bit-gettabledescriptorbytag
      */
-    GetTableDescriptorByTag(bTag, pdwCookie, ppDescriptor) {
+    GetTableDescriptorByTag(bTag, pdwCookie) {
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", ppDescriptor, "HRESULT")
-        return result
+        result := ComCall(9, this, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
+        return IGenericDescriptor(ppDescriptor)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_bit-getcountofrecords
      */
-    GetCountOfRecords(pdwVal) {
-        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, pdwValMarshal, pdwVal, "HRESULT")
-        return result
+    GetCountOfRecords() {
+        result := ComCall(10, this, "uint*", &pdwVal := 0, "HRESULT")
+        return pdwVal
     }
 
     /**
      * 
      * @param {Integer} dwRecordIndex 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_bit-getrecordbroadcasterid
      */
-    GetRecordBroadcasterId(dwRecordIndex, pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(11, this, "uint", dwRecordIndex, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetRecordBroadcasterId(dwRecordIndex) {
+        result := ComCall(11, this, "uint", dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
      * @param {Integer} dwRecordIndex 
-     * @param {Pointer<Integer>} pdwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_bit-getrecordcountofdescriptors
      */
-    GetRecordCountOfDescriptors(dwRecordIndex, pdwVal) {
-        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, "uint", dwRecordIndex, pdwValMarshal, pdwVal, "HRESULT")
-        return result
+    GetRecordCountOfDescriptors(dwRecordIndex) {
+        result := ComCall(12, this, "uint", dwRecordIndex, "uint*", &pdwVal := 0, "HRESULT")
+        return pdwVal
     }
 
     /**
      * 
      * @param {Integer} dwRecordIndex 
      * @param {Integer} dwIndex 
-     * @param {Pointer<IGenericDescriptor>} ppDescriptor 
-     * @returns {HRESULT} 
+     * @returns {IGenericDescriptor} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_bit-getrecorddescriptorbyindex
      */
-    GetRecordDescriptorByIndex(dwRecordIndex, dwIndex, ppDescriptor) {
-        result := ComCall(13, this, "uint", dwRecordIndex, "uint", dwIndex, "ptr*", ppDescriptor, "HRESULT")
-        return result
+    GetRecordDescriptorByIndex(dwRecordIndex, dwIndex) {
+        result := ComCall(13, this, "uint", dwRecordIndex, "uint", dwIndex, "ptr*", &ppDescriptor := 0, "HRESULT")
+        return IGenericDescriptor(ppDescriptor)
     }
 
     /**
@@ -190,27 +167,23 @@ class IISDB_BIT extends IUnknown{
      * @param {Integer} dwRecordIndex 
      * @param {Integer} bTag 
      * @param {Pointer<Integer>} pdwCookie 
-     * @param {Pointer<IGenericDescriptor>} ppDescriptor 
-     * @returns {HRESULT} 
+     * @returns {IGenericDescriptor} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_bit-getrecorddescriptorbytag
      */
-    GetRecordDescriptorByTag(dwRecordIndex, bTag, pdwCookie, ppDescriptor) {
+    GetRecordDescriptorByTag(dwRecordIndex, bTag, pdwCookie) {
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, "uint", dwRecordIndex, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", ppDescriptor, "HRESULT")
-        return result
+        result := ComCall(14, this, "uint", dwRecordIndex, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
+        return IGenericDescriptor(ppDescriptor)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwVersionHash 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdb_bit-getversionhash
      */
-    GetVersionHash(pdwVersionHash) {
-        pdwVersionHashMarshal := pdwVersionHash is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(15, this, pdwVersionHashMarshal, pdwVersionHash, "HRESULT")
-        return result
+    GetVersionHash() {
+        result := ComCall(15, this, "uint*", &pdwVersionHash := 0, "HRESULT")
+        return pdwVersionHash
     }
 }

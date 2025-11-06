@@ -33,15 +33,14 @@ class IWMDMStorage2 extends IWMDMStorage{
     /**
      * 
      * @param {PWSTR} pszStorageName 
-     * @param {Pointer<IWMDMStorage>} ppStorage 
-     * @returns {HRESULT} 
+     * @returns {IWMDMStorage} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorage2-getstorage
      */
-    GetStorage(pszStorageName, ppStorage) {
+    GetStorage(pszStorageName) {
         pszStorageName := pszStorageName is String ? StrPtr(pszStorageName) : pszStorageName
 
-        result := ComCall(12, this, "ptr", pszStorageName, "ptr*", ppStorage, "HRESULT")
-        return result
+        result := ComCall(12, this, "ptr", pszStorageName, "ptr*", &ppStorage := 0, "HRESULT")
+        return IWMDMStorage(ppStorage)
     }
 
     /**

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IHTMLDOMAttribute.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -41,12 +43,12 @@ class IHTMLElement4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onmousewheel(p) {
+    get_onmousewheel() {
+        p := VARIANT()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -61,36 +63,33 @@ class IHTMLElement4 extends IDispatch{
     /**
      * 
      * @param {BSTR} bstrname 
-     * @param {Pointer<IHTMLDOMAttribute>} ppAttribute 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMAttribute} 
      */
-    getAttributeNode(bstrname, ppAttribute) {
+    getAttributeNode(bstrname) {
         bstrname := bstrname is String ? BSTR.Alloc(bstrname).Value : bstrname
 
-        result := ComCall(10, this, "ptr", bstrname, "ptr*", ppAttribute, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", bstrname, "ptr*", &ppAttribute := 0, "HRESULT")
+        return IHTMLDOMAttribute(ppAttribute)
     }
 
     /**
      * 
      * @param {IHTMLDOMAttribute} pattr 
-     * @param {Pointer<IHTMLDOMAttribute>} ppretAttribute 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMAttribute} 
      */
-    setAttributeNode(pattr, ppretAttribute) {
-        result := ComCall(11, this, "ptr", pattr, "ptr*", ppretAttribute, "HRESULT")
-        return result
+    setAttributeNode(pattr) {
+        result := ComCall(11, this, "ptr", pattr, "ptr*", &ppretAttribute := 0, "HRESULT")
+        return IHTMLDOMAttribute(ppretAttribute)
     }
 
     /**
      * 
      * @param {IHTMLDOMAttribute} pattr 
-     * @param {Pointer<IHTMLDOMAttribute>} ppretAttribute 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMAttribute} 
      */
-    removeAttributeNode(pattr, ppretAttribute) {
-        result := ComCall(12, this, "ptr", pattr, "ptr*", ppretAttribute, "HRESULT")
-        return result
+    removeAttributeNode(pattr) {
+        result := ComCall(12, this, "ptr", pattr, "ptr*", &ppretAttribute := 0, "HRESULT")
+        return IHTMLDOMAttribute(ppretAttribute)
     }
 
     /**
@@ -105,12 +104,12 @@ class IHTMLElement4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onbeforeactivate(p) {
+    get_onbeforeactivate() {
+        p := VARIANT()
         result := ComCall(14, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -125,12 +124,12 @@ class IHTMLElement4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onfocusin(p) {
+    get_onfocusin() {
+        p := VARIANT()
         result := ComCall(16, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -145,11 +144,11 @@ class IHTMLElement4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onfocusout(p) {
+    get_onfocusout() {
+        p := VARIANT()
         result := ComCall(18, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 }

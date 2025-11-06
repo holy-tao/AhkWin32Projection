@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include .\IXMLDOMNode.ahk
 
 /**
@@ -30,21 +31,21 @@ class IXMLDOMNotation extends IXMLDOMNode{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} publicID 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_publicId(publicID) {
+    get_publicId() {
+        publicID := VARIANT()
         result := ComCall(43, this, "ptr", publicID, "HRESULT")
-        return result
+        return publicID
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} systemID 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_systemId(systemID) {
+    get_systemId() {
+        systemID := VARIANT()
         result := ComCall(44, this, "ptr", systemID, "HRESULT")
-        return result
+        return systemID
     }
 }

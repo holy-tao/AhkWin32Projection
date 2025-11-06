@@ -52,14 +52,11 @@ class IAMDevMemoryControl extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwDevId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamdevmemorycontrol-getdevid
      */
-    GetDevId(pdwDevId) {
-        pdwDevIdMarshal := pdwDevId is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pdwDevIdMarshal, pdwDevId, "HRESULT")
-        return result
+    GetDevId() {
+        result := ComCall(5, this, "uint*", &pdwDevId := 0, "HRESULT")
+        return pdwDevId
     }
 }

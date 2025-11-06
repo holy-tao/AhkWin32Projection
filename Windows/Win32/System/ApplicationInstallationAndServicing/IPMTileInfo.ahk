@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IPMTilePropertyInfo.ahk
+#Include .\IPMTilePropertyEnumerator.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -31,12 +33,12 @@ class IPMTileInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pProductID 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    get_ProductID(pProductID) {
+    get_ProductID() {
+        pProductID := Guid()
         result := ComCall(3, this, "ptr", pProductID, "HRESULT")
-        return result
+        return pProductID
     }
 
     /**
@@ -51,58 +53,49 @@ class IPMTileInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pTemplateType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_TemplateType(pTemplateType) {
-        pTemplateTypeMarshal := pTemplateType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, pTemplateTypeMarshal, pTemplateType, "HRESULT")
-        return result
+    get_TemplateType() {
+        result := ComCall(5, this, "int*", &pTemplateType := 0, "HRESULT")
+        return pTemplateType
     }
 
     /**
      * 
      * @param {Integer} HubType 
-     * @param {Pointer<BOOL>} pPinned 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_HubPinnedState(HubType, pPinned) {
-        result := ComCall(6, this, "int", HubType, "ptr", pPinned, "HRESULT")
-        return result
+    get_HubPinnedState(HubType) {
+        result := ComCall(6, this, "int", HubType, "int*", &pPinned := 0, "HRESULT")
+        return pPinned
     }
 
     /**
      * 
      * @param {Integer} HubType 
-     * @param {Pointer<Integer>} pPosition 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_HubPosition(HubType, pPosition) {
-        pPositionMarshal := pPosition is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, "int", HubType, pPositionMarshal, pPosition, "HRESULT")
-        return result
+    get_HubPosition(HubType) {
+        result := ComCall(7, this, "int", HubType, "uint*", &pPosition := 0, "HRESULT")
+        return pPosition
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pIsNotified 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_IsNotified(pIsNotified) {
-        result := ComCall(8, this, "ptr", pIsNotified, "HRESULT")
-        return result
+    get_IsNotified() {
+        result := ComCall(8, this, "int*", &pIsNotified := 0, "HRESULT")
+        return pIsNotified
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pIsDefault 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_IsDefault(pIsDefault) {
-        result := ComCall(9, this, "ptr", pIsDefault, "HRESULT")
-        return result
+    get_IsDefault() {
+        result := ComCall(9, this, "int*", &pIsDefault := 0, "HRESULT")
+        return pIsDefault
     }
 
     /**
@@ -117,35 +110,30 @@ class IPMTileInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pStartTileType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_TileType(pStartTileType) {
-        pStartTileTypeMarshal := pStartTileType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, pStartTileTypeMarshal, pStartTileType, "HRESULT")
-        return result
+    get_TileType() {
+        result := ComCall(11, this, "int*", &pStartTileType := 0, "HRESULT")
+        return pStartTileType
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pIsThemable 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_IsThemable(pIsThemable) {
-        result := ComCall(12, this, "ptr", pIsThemable, "HRESULT")
-        return result
+    get_IsThemable() {
+        result := ComCall(12, this, "int*", &pIsThemable := 0, "HRESULT")
+        return pIsThemable
     }
 
     /**
      * 
      * @param {Integer} PropID 
-     * @param {Pointer<IPMTilePropertyInfo>} ppPropInfo 
-     * @returns {HRESULT} 
+     * @returns {IPMTilePropertyInfo} 
      */
-    get_PropertyById(PropID, ppPropInfo) {
-        result := ComCall(13, this, "uint", PropID, "ptr*", ppPropInfo, "HRESULT")
-        return result
+    get_PropertyById(PropID) {
+        result := ComCall(13, this, "uint", PropID, "ptr*", &ppPropInfo := 0, "HRESULT")
+        return IPMTilePropertyInfo(ppPropInfo)
     }
 
     /**
@@ -161,25 +149,21 @@ class IPMTileInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IPMTilePropertyEnumerator>} ppTilePropEnum 
-     * @returns {HRESULT} 
+     * @returns {IPMTilePropertyEnumerator} 
      */
-    get_PropertyEnum(ppTilePropEnum) {
-        result := ComCall(15, this, "ptr*", ppTilePropEnum, "HRESULT")
-        return result
+    get_PropertyEnum() {
+        result := ComCall(15, this, "ptr*", &ppTilePropEnum := 0, "HRESULT")
+        return IPMTilePropertyEnumerator(ppTilePropEnum)
     }
 
     /**
      * 
      * @param {Integer} HubType 
-     * @param {Pointer<Integer>} pSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_HubTileSize(HubType, pSize) {
-        pSizeMarshal := pSize is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, "int", HubType, pSizeMarshal, pSize, "HRESULT")
-        return result
+    get_HubTileSize(HubType) {
+        result := ComCall(16, this, "int", HubType, "int*", &pSize := 0, "HRESULT")
+        return pSize
     }
 
     /**
@@ -251,22 +235,20 @@ class IPMTileInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pIsRestoring 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_IsRestoring(pIsRestoring) {
-        result := ComCall(23, this, "ptr", pIsRestoring, "HRESULT")
-        return result
+    get_IsRestoring() {
+        result := ComCall(23, this, "int*", &pIsRestoring := 0, "HRESULT")
+        return pIsRestoring
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pIsAutoRestoreDisabled 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_IsAutoRestoreDisabled(pIsAutoRestoreDisabled) {
-        result := ComCall(24, this, "ptr", pIsAutoRestoreDisabled, "HRESULT")
-        return result
+    get_IsAutoRestoreDisabled() {
+        result := ComCall(24, this, "int*", &pIsAutoRestoreDisabled := 0, "HRESULT")
+        return pIsAutoRestoreDisabled
     }
 
     /**

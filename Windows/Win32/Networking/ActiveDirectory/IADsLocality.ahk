@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IADs.ahk
 
 /**
@@ -33,12 +34,12 @@ class IADsLocality extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Description(retval) {
+    get_Description() {
+        retval := BSTR()
         result := ComCall(20, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -55,12 +56,12 @@ class IADsLocality extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_LocalityName(retval) {
+    get_LocalityName() {
+        retval := BSTR()
         result := ComCall(22, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -77,12 +78,12 @@ class IADsLocality extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_PostalAddress(retval) {
+    get_PostalAddress() {
+        retval := BSTR()
         result := ComCall(24, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -99,12 +100,12 @@ class IADsLocality extends IADs{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_SeeAlso(retval) {
+    get_SeeAlso() {
+        retval := VARIANT()
         result := ComCall(26, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\Guid.ahk
+#Include .\IXblIdpAuthTokenResult.ahk
 #Include ..\System\Com\IUnknown.ahk
 
 /**
@@ -39,10 +40,9 @@ class IXblIdpAuthManager2 extends IUnknown{
      * @param {Pointer<Integer>} body 
      * @param {Integer} bodySize 
      * @param {BOOL} forceRefresh 
-     * @param {Pointer<IXblIdpAuthTokenResult>} result 
-     * @returns {HRESULT} 
+     * @returns {IXblIdpAuthTokenResult} 
      */
-    GetUserlessTokenAndSignatureWithTokenResult(appSid, msaTarget, msaPolicy, httpMethod, uri, headers, body, bodySize, forceRefresh, result) {
+    GetUserlessTokenAndSignatureWithTokenResult(appSid, msaTarget, msaPolicy, httpMethod, uri, headers, body, bodySize, forceRefresh) {
         appSid := appSid is String ? StrPtr(appSid) : appSid
         msaTarget := msaTarget is String ? StrPtr(msaTarget) : msaTarget
         msaPolicy := msaPolicy is String ? StrPtr(msaPolicy) : msaPolicy
@@ -52,7 +52,7 @@ class IXblIdpAuthManager2 extends IUnknown{
 
         bodyMarshal := body is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "ptr", appSid, "ptr", msaTarget, "ptr", msaPolicy, "ptr", httpMethod, "ptr", uri, "ptr", headers, bodyMarshal, body, "uint", bodySize, "int", forceRefresh, "ptr*", result, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", appSid, "ptr", msaTarget, "ptr", msaPolicy, "ptr", httpMethod, "ptr", uri, "ptr", headers, bodyMarshal, body, "uint", bodySize, "int", forceRefresh, "ptr*", &result := 0, "HRESULT")
+        return IXblIdpAuthTokenResult(result)
     }
 }

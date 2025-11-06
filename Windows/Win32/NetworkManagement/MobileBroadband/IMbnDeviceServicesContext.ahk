@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IMbnDeviceService.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -37,54 +38,44 @@ class IMbnDeviceServicesContext extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} deviceServices 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicescontext-enumeratedeviceservices
      */
-    EnumerateDeviceServices(deviceServices) {
-        deviceServicesMarshal := deviceServices is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, deviceServicesMarshal, deviceServices, "HRESULT")
-        return result
+    EnumerateDeviceServices() {
+        result := ComCall(3, this, "ptr*", &deviceServices := 0, "HRESULT")
+        return deviceServices
     }
 
     /**
      * 
      * @param {BSTR} deviceServiceID 
-     * @param {Pointer<IMbnDeviceService>} mbnDeviceService 
-     * @returns {HRESULT} 
+     * @returns {IMbnDeviceService} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicescontext-getdeviceservice
      */
-    GetDeviceService(deviceServiceID, mbnDeviceService) {
+    GetDeviceService(deviceServiceID) {
         deviceServiceID := deviceServiceID is String ? BSTR.Alloc(deviceServiceID).Value : deviceServiceID
 
-        result := ComCall(4, this, "ptr", deviceServiceID, "ptr*", mbnDeviceService, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", deviceServiceID, "ptr*", &mbnDeviceService := 0, "HRESULT")
+        return IMbnDeviceService(mbnDeviceService)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} maxCommandSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicescontext-get_maxcommandsize
      */
-    get_MaxCommandSize(maxCommandSize) {
-        maxCommandSizeMarshal := maxCommandSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, maxCommandSizeMarshal, maxCommandSize, "HRESULT")
-        return result
+    get_MaxCommandSize() {
+        result := ComCall(5, this, "uint*", &maxCommandSize := 0, "HRESULT")
+        return maxCommandSize
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} maxDataSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicescontext-get_maxdatasize
      */
-    get_MaxDataSize(maxDataSize) {
-        maxDataSizeMarshal := maxDataSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, maxDataSizeMarshal, maxDataSize, "HRESULT")
-        return result
+    get_MaxDataSize() {
+        result := ComCall(6, this, "uint*", &maxDataSize := 0, "HRESULT")
+        return maxDataSize
     }
 }

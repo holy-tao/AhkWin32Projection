@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IWindowsMediaLibrarySharingDevice.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -39,39 +40,34 @@ class IWindowsMediaLibrarySharingDevices extends IDispatch{
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<IWindowsMediaLibrarySharingDevice>} device 
-     * @returns {HRESULT} 
+     * @returns {IWindowsMediaLibrarySharingDevice} 
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdevices-get_item
      */
-    get_Item(index, device) {
-        result := ComCall(7, this, "int", index, "ptr*", device, "HRESULT")
-        return result
+    get_Item(index) {
+        result := ComCall(7, this, "int", index, "ptr*", &device := 0, "HRESULT")
+        return IWindowsMediaLibrarySharingDevice(device)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdevices-get_count
      */
-    get_Count(count) {
-        countMarshal := count is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, countMarshal, count, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(8, this, "int*", &count := 0, "HRESULT")
+        return count
     }
 
     /**
      * 
      * @param {BSTR} deviceID 
-     * @param {Pointer<IWindowsMediaLibrarySharingDevice>} device 
-     * @returns {HRESULT} 
+     * @returns {IWindowsMediaLibrarySharingDevice} 
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdevices-getdevice
      */
-    GetDevice(deviceID, device) {
+    GetDevice(deviceID) {
         deviceID := deviceID is String ? BSTR.Alloc(deviceID).Value : deviceID
 
-        result := ComCall(9, this, "ptr", deviceID, "ptr*", device, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", deviceID, "ptr*", &device := 0, "HRESULT")
+        return IWindowsMediaLibrarySharingDevice(device)
     }
 }

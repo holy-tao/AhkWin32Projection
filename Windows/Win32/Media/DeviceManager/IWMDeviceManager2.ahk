@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWMDMDevice.ahk
+#Include .\IWMDMEnumDevice.ahk
 #Include .\IWMDeviceManager.ahk
 
 /**
@@ -33,26 +35,24 @@ class IWMDeviceManager2 extends IWMDeviceManager{
     /**
      * 
      * @param {PWSTR} pwszCanonicalName 
-     * @param {Pointer<IWMDMDevice>} ppDevice 
-     * @returns {HRESULT} 
+     * @returns {IWMDMDevice} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdevicemanager2-getdevicefromcanonicalname
      */
-    GetDeviceFromCanonicalName(pwszCanonicalName, ppDevice) {
+    GetDeviceFromCanonicalName(pwszCanonicalName) {
         pwszCanonicalName := pwszCanonicalName is String ? StrPtr(pwszCanonicalName) : pwszCanonicalName
 
-        result := ComCall(6, this, "ptr", pwszCanonicalName, "ptr*", ppDevice, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", pwszCanonicalName, "ptr*", &ppDevice := 0, "HRESULT")
+        return IWMDMDevice(ppDevice)
     }
 
     /**
      * 
-     * @param {Pointer<IWMDMEnumDevice>} ppEnumDevice 
-     * @returns {HRESULT} 
+     * @returns {IWMDMEnumDevice} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdevicemanager2-enumdevices2
      */
-    EnumDevices2(ppEnumDevice) {
-        result := ComCall(7, this, "ptr*", ppEnumDevice, "HRESULT")
-        return result
+    EnumDevices2() {
+        result := ComCall(7, this, "ptr*", &ppEnumDevice := 0, "HRESULT")
+        return IWMDMEnumDevice(ppEnumDevice)
     }
 
     /**

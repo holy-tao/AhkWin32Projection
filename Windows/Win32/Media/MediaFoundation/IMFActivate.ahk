@@ -38,15 +38,12 @@ class IMFActivate extends IMFAttributes{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfactivate-activateobject
      */
-    ActivateObject(riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(33, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    ActivateObject(riid) {
+        result := ComCall(33, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**

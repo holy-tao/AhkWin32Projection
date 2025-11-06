@@ -34,13 +34,12 @@ class ITCallInfo2 extends ITCallInfo{
      * 
      * @param {Integer} TapiEvent 
      * @param {Integer} lSubEvent 
-     * @param {Pointer<VARIANT_BOOL>} pEnable 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallinfo2-get_eventfilter
      */
-    get_EventFilter(TapiEvent, lSubEvent, pEnable) {
-        result := ComCall(20, this, "int", TapiEvent, "int", lSubEvent, "ptr", pEnable, "HRESULT")
-        return result
+    get_EventFilter(TapiEvent, lSubEvent) {
+        result := ComCall(20, this, "int", TapiEvent, "int", lSubEvent, "short*", &pEnable := 0, "HRESULT")
+        return pEnable
     }
 
     /**

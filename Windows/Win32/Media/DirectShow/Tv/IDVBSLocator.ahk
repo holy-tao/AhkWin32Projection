@@ -43,15 +43,12 @@ class IDVBSLocator extends IDigitalLocator{
 
     /**
      * 
-     * @param {Pointer<Integer>} PolarisationVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbslocator-get_signalpolarisation
      */
-    get_SignalPolarisation(PolarisationVal) {
-        PolarisationValMarshal := PolarisationVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(22, this, PolarisationValMarshal, PolarisationVal, "HRESULT")
-        return result
+    get_SignalPolarisation() {
+        result := ComCall(22, this, "int*", &PolarisationVal := 0, "HRESULT")
+        return PolarisationVal
     }
 
     /**
@@ -67,13 +64,12 @@ class IDVBSLocator extends IDigitalLocator{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} WestLongitude 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbslocator-get_westposition
      */
-    get_WestPosition(WestLongitude) {
-        result := ComCall(24, this, "ptr", WestLongitude, "HRESULT")
-        return result
+    get_WestPosition() {
+        result := ComCall(24, this, "short*", &WestLongitude := 0, "HRESULT")
+        return WestLongitude
     }
 
     /**
@@ -89,15 +85,12 @@ class IDVBSLocator extends IDigitalLocator{
 
     /**
      * 
-     * @param {Pointer<Integer>} longitude 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbslocator-get_orbitalposition
      */
-    get_OrbitalPosition(longitude) {
-        longitudeMarshal := longitude is VarRef ? "int*" : "ptr"
-
-        result := ComCall(26, this, longitudeMarshal, longitude, "HRESULT")
-        return result
+    get_OrbitalPosition() {
+        result := ComCall(26, this, "int*", &longitude := 0, "HRESULT")
+        return longitude
     }
 
     /**
@@ -113,15 +106,12 @@ class IDVBSLocator extends IDigitalLocator{
 
     /**
      * 
-     * @param {Pointer<Integer>} Azimuth 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbslocator-get_azimuth
      */
-    get_Azimuth(Azimuth) {
-        AzimuthMarshal := Azimuth is VarRef ? "int*" : "ptr"
-
-        result := ComCall(28, this, AzimuthMarshal, Azimuth, "HRESULT")
-        return result
+    get_Azimuth() {
+        result := ComCall(28, this, "int*", &Azimuth := 0, "HRESULT")
+        return Azimuth
     }
 
     /**
@@ -137,15 +127,12 @@ class IDVBSLocator extends IDigitalLocator{
 
     /**
      * 
-     * @param {Pointer<Integer>} Elevation 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbslocator-get_elevation
      */
-    get_Elevation(Elevation) {
-        ElevationMarshal := Elevation is VarRef ? "int*" : "ptr"
-
-        result := ComCall(30, this, ElevationMarshal, Elevation, "HRESULT")
-        return result
+    get_Elevation() {
+        result := ComCall(30, this, "int*", &Elevation := 0, "HRESULT")
+        return Elevation
     }
 
     /**

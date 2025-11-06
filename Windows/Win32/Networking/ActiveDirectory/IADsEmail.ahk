@@ -33,14 +33,11 @@ class IADsEmail extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Type(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_Type() {
+        result := ComCall(7, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -55,12 +52,12 @@ class IADsEmail extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Address(retval) {
+    get_Address() {
+        retval := BSTR()
         result := ComCall(9, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**

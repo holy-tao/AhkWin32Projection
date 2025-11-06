@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\ISWbemMethod.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -37,37 +39,32 @@ class ISWbemMethodSet extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} pUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__NewEnum(pUnk) {
-        result := ComCall(7, this, "ptr*", pUnk, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(7, this, "ptr*", &pUnk := 0, "HRESULT")
+        return IUnknown(pUnk)
     }
 
     /**
      * 
      * @param {BSTR} strName 
      * @param {Integer} iFlags 
-     * @param {Pointer<ISWbemMethod>} objWbemMethod 
-     * @returns {HRESULT} 
+     * @returns {ISWbemMethod} 
      */
-    Item(strName, iFlags, objWbemMethod) {
+    Item(strName, iFlags) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
 
-        result := ComCall(8, this, "ptr", strName, "int", iFlags, "ptr*", objWbemMethod, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", strName, "int", iFlags, "ptr*", &objWbemMethod := 0, "HRESULT")
+        return ISWbemMethod(objWbemMethod)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} iCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Count(iCount) {
-        iCountMarshal := iCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, iCountMarshal, iCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(9, this, "int*", &iCount := 0, "HRESULT")
+        return iCount
     }
 }

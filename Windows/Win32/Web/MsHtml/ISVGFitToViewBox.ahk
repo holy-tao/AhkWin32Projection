@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISVGAnimatedRect.ahk
+#Include .\ISVGAnimatedPreserveAspectRatio.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,12 +32,11 @@ class ISVGFitToViewBox extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedRect>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedRect} 
      */
-    get_viewBox(p) {
-        result := ComCall(7, this, "ptr*", p, "HRESULT")
-        return result
+    get_viewBox() {
+        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedRect(p)
     }
 
     /**
@@ -50,11 +51,10 @@ class ISVGFitToViewBox extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedPreserveAspectRatio>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedPreserveAspectRatio} 
      */
-    get_preserveAspectRatio(p) {
-        result := ComCall(9, this, "ptr*", p, "HRESULT")
-        return result
+    get_preserveAspectRatio() {
+        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedPreserveAspectRatio(p)
     }
 }

@@ -45,12 +45,11 @@ class ITransactionResourcePool extends IUnknown{
     /**
      * 
      * @param {IObjPool} pPool 
-     * @param {Pointer<IUnknown>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-itransactionresourcepool-getresource
      */
-    GetResource(pPool, ppUnk) {
-        result := ComCall(4, this, "ptr", pPool, "ptr*", ppUnk, "HRESULT")
-        return result
+    GetResource(pPool) {
+        result := ComCall(4, this, "ptr", pPool, "ptr*", &ppUnk := 0, "HRESULT")
+        return IUnknown(ppUnk)
     }
 }

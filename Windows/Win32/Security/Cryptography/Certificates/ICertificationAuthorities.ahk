@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\ICertificationAuthority.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -34,37 +36,32 @@ class ICertificationAuthorities extends IDispatch{
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<ICertificationAuthority>} pVal 
-     * @returns {HRESULT} 
+     * @returns {ICertificationAuthority} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertificationauthorities-get_itembyindex
      */
-    get_ItemByIndex(Index, pVal) {
-        result := ComCall(7, this, "int", Index, "ptr*", pVal, "HRESULT")
-        return result
+    get_ItemByIndex(Index) {
+        result := ComCall(7, this, "int", Index, "ptr*", &pVal := 0, "HRESULT")
+        return ICertificationAuthority(pVal)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertificationauthorities-get_count
      */
-    get_Count(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(8, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} pVal 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertificationauthorities-get__newenum
      */
-    get__NewEnum(pVal) {
-        result := ComCall(9, this, "ptr*", pVal, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(9, this, "ptr*", &pVal := 0, "HRESULT")
+        return IUnknown(pVal)
     }
 
     /**
@@ -112,14 +109,13 @@ class ICertificationAuthorities extends IDispatch{
     /**
      * 
      * @param {BSTR} strName 
-     * @param {Pointer<ICertificationAuthority>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {ICertificationAuthority} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertificationauthorities-get_itembyname
      */
-    get_ItemByName(strName, ppValue) {
+    get_ItemByName(strName) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
 
-        result := ComCall(14, this, "ptr", strName, "ptr*", ppValue, "HRESULT")
-        return result
+        result := ComCall(14, this, "ptr", strName, "ptr*", &ppValue := 0, "HRESULT")
+        return ICertificationAuthority(ppValue)
     }
 }

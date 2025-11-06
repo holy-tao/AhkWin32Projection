@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IAudioSourceProvider.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -43,13 +44,12 @@ class IMFMediaEngineWebSupport extends IUnknown{
     /**
      * 
      * @param {Integer} dwSampleRate 
-     * @param {Pointer<IAudioSourceProvider>} ppSourceProvider 
-     * @returns {HRESULT} 
+     * @returns {IAudioSourceProvider} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaenginewebsupport-connectwebaudio
      */
-    ConnectWebAudio(dwSampleRate, ppSourceProvider) {
-        result := ComCall(4, this, "uint", dwSampleRate, "ptr*", ppSourceProvider, "HRESULT")
-        return result
+    ConnectWebAudio(dwSampleRate) {
+        result := ComCall(4, this, "uint", dwSampleRate, "ptr*", &ppSourceProvider := 0, "HRESULT")
+        return IAudioSourceProvider(ppSourceProvider)
     }
 
     /**

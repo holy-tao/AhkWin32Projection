@@ -38,17 +38,14 @@ class IUserConsentVerifierInterop extends IInspectable{
      * @param {HWND} appWindow 
      * @param {HSTRING} message 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} asyncOperation 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/userconsentverifierinterop/nf-userconsentverifierinterop-iuserconsentverifierinterop-requestverificationforwindowasync
      */
-    RequestVerificationForWindowAsync(appWindow, message, riid, asyncOperation) {
+    RequestVerificationForWindowAsync(appWindow, message, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
         message := message is Win32Handle ? NumGet(message, "ptr") : message
 
-        asyncOperationMarshal := asyncOperation is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", appWindow, "ptr", message, "ptr", riid, asyncOperationMarshal, asyncOperation, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", appWindow, "ptr", message, "ptr", riid, "ptr*", &asyncOperation := 0, "HRESULT")
+        return asyncOperation
     }
 }

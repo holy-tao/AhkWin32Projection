@@ -83,15 +83,12 @@ class IDXCoreAdapter extends IUnknown{
     /**
      * 
      * @param {Integer} property 
-     * @param {Pointer<Pointer>} bufferSize 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapter-getpropertysize
      */
-    GetPropertySize(property, bufferSize) {
-        bufferSizeMarshal := bufferSize is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, "uint", property, bufferSizeMarshal, bufferSize, "HRESULT")
-        return result
+    GetPropertySize(property) {
+        result := ComCall(7, this, "uint", property, "ptr*", &bufferSize := 0, "HRESULT")
+        return bufferSize
     }
 
     /**
@@ -149,14 +146,11 @@ class IDXCoreAdapter extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvFactory 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/dxcore_interface/nf-dxcore_interface-idxcoreadapter-getfactory
      */
-    GetFactory(riid, ppvFactory) {
-        ppvFactoryMarshal := ppvFactory is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(12, this, "ptr", riid, ppvFactoryMarshal, ppvFactory, "HRESULT")
-        return result
+    GetFactory(riid) {
+        result := ComCall(12, this, "ptr", riid, "ptr*", &ppvFactory := 0, "HRESULT")
+        return ppvFactory
     }
 }

@@ -38,15 +38,12 @@ class IAMVideoControl extends IUnknown{
     /**
      * 
      * @param {IPin} pPin 
-     * @param {Pointer<Integer>} pCapsFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideocontrol-getcaps
      */
-    GetCaps(pPin, pCapsFlags) {
-        pCapsFlagsMarshal := pCapsFlags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pPin, pCapsFlagsMarshal, pCapsFlags, "HRESULT")
-        return result
+    GetCaps(pPin) {
+        result := ComCall(3, this, "ptr", pPin, "int*", &pCapsFlags := 0, "HRESULT")
+        return pCapsFlags
     }
 
     /**
@@ -64,29 +61,23 @@ class IAMVideoControl extends IUnknown{
     /**
      * 
      * @param {IPin} pPin 
-     * @param {Pointer<Integer>} Mode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideocontrol-getmode
      */
-    GetMode(pPin, Mode) {
-        ModeMarshal := Mode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, "ptr", pPin, ModeMarshal, Mode, "HRESULT")
-        return result
+    GetMode(pPin) {
+        result := ComCall(5, this, "ptr", pPin, "int*", &Mode := 0, "HRESULT")
+        return Mode
     }
 
     /**
      * 
      * @param {IPin} pPin 
-     * @param {Pointer<Integer>} ActualFrameRate 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideocontrol-getcurrentactualframerate
      */
-    GetCurrentActualFrameRate(pPin, ActualFrameRate) {
-        ActualFrameRateMarshal := ActualFrameRate is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(6, this, "ptr", pPin, ActualFrameRateMarshal, ActualFrameRate, "HRESULT")
-        return result
+    GetCurrentActualFrameRate(pPin) {
+        result := ComCall(6, this, "ptr", pPin, "int64*", &ActualFrameRate := 0, "HRESULT")
+        return ActualFrameRate
     }
 
     /**
@@ -94,15 +85,12 @@ class IAMVideoControl extends IUnknown{
      * @param {IPin} pPin 
      * @param {Integer} iIndex 
      * @param {SIZE} Dimensions 
-     * @param {Pointer<Integer>} MaxAvailableFrameRate 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideocontrol-getmaxavailableframerate
      */
-    GetMaxAvailableFrameRate(pPin, iIndex, Dimensions, MaxAvailableFrameRate) {
-        MaxAvailableFrameRateMarshal := MaxAvailableFrameRate is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(7, this, "ptr", pPin, "int", iIndex, "ptr", Dimensions, MaxAvailableFrameRateMarshal, MaxAvailableFrameRate, "HRESULT")
-        return result
+    GetMaxAvailableFrameRate(pPin, iIndex, Dimensions) {
+        result := ComCall(7, this, "ptr", pPin, "int", iIndex, "ptr", Dimensions, "int64*", &MaxAvailableFrameRate := 0, "HRESULT")
+        return MaxAvailableFrameRate
     }
 
     /**

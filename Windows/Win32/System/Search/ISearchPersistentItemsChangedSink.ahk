@@ -60,12 +60,11 @@ class ISearchPersistentItemsChangedSink extends IUnknown{
      * 
      * @param {Integer} dwNumberOfChanges 
      * @param {Pointer<SEARCH_ITEM_PERSISTENT_CHANGE>} DataChangeEntries 
-     * @param {Pointer<HRESULT>} hrCompletionCodes 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchpersistentitemschangedsink-onitemschanged
      */
-    OnItemsChanged(dwNumberOfChanges, DataChangeEntries, hrCompletionCodes) {
-        result := ComCall(5, this, "uint", dwNumberOfChanges, "ptr", DataChangeEntries, "ptr", hrCompletionCodes, "HRESULT")
-        return result
+    OnItemsChanged(dwNumberOfChanges, DataChangeEntries) {
+        result := ComCall(5, this, "uint", dwNumberOfChanges, "ptr", DataChangeEntries, "int*", &hrCompletionCodes := 0, "HRESULT")
+        return hrCompletionCodes
     }
 }

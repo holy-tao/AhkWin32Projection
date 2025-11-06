@@ -31,156 +31,147 @@ class IVBSAXAttributes extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} nLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_length(nLength) {
-        nLengthMarshal := nLength is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, nLengthMarshal, nLength, "HRESULT")
-        return result
+    get_length() {
+        result := ComCall(7, this, "int*", &nLength := 0, "HRESULT")
+        return nLength
     }
 
     /**
      * 
      * @param {Integer} nIndex 
-     * @param {Pointer<BSTR>} strURI 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    getURI(nIndex, strURI) {
+    getURI(nIndex) {
+        strURI := BSTR()
         result := ComCall(8, this, "int", nIndex, "ptr", strURI, "HRESULT")
-        return result
+        return strURI
     }
 
     /**
      * 
      * @param {Integer} nIndex 
-     * @param {Pointer<BSTR>} strLocalName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    getLocalName(nIndex, strLocalName) {
+    getLocalName(nIndex) {
+        strLocalName := BSTR()
         result := ComCall(9, this, "int", nIndex, "ptr", strLocalName, "HRESULT")
-        return result
+        return strLocalName
     }
 
     /**
      * 
      * @param {Integer} nIndex 
-     * @param {Pointer<BSTR>} strQName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    getQName(nIndex, strQName) {
+    getQName(nIndex) {
+        strQName := BSTR()
         result := ComCall(10, this, "int", nIndex, "ptr", strQName, "HRESULT")
-        return result
+        return strQName
     }
 
     /**
      * 
      * @param {BSTR} strURI 
      * @param {BSTR} strLocalName 
-     * @param {Pointer<Integer>} nIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    getIndexFromName(strURI, strLocalName, nIndex) {
+    getIndexFromName(strURI, strLocalName) {
         strURI := strURI is String ? BSTR.Alloc(strURI).Value : strURI
         strLocalName := strLocalName is String ? BSTR.Alloc(strLocalName).Value : strLocalName
 
-        nIndexMarshal := nIndex is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, "ptr", strURI, "ptr", strLocalName, nIndexMarshal, nIndex, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", strURI, "ptr", strLocalName, "int*", &nIndex := 0, "HRESULT")
+        return nIndex
     }
 
     /**
      * 
      * @param {BSTR} strQName 
-     * @param {Pointer<Integer>} nIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    getIndexFromQName(strQName, nIndex) {
+    getIndexFromQName(strQName) {
         strQName := strQName is String ? BSTR.Alloc(strQName).Value : strQName
 
-        nIndexMarshal := nIndex is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, "ptr", strQName, nIndexMarshal, nIndex, "HRESULT")
-        return result
+        result := ComCall(12, this, "ptr", strQName, "int*", &nIndex := 0, "HRESULT")
+        return nIndex
     }
 
     /**
      * 
      * @param {Integer} nIndex 
-     * @param {Pointer<BSTR>} strType 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    getType(nIndex, strType) {
+    getType(nIndex) {
+        strType := BSTR()
         result := ComCall(13, this, "int", nIndex, "ptr", strType, "HRESULT")
-        return result
+        return strType
     }
 
     /**
      * 
      * @param {BSTR} strURI 
      * @param {BSTR} strLocalName 
-     * @param {Pointer<BSTR>} strType 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    getTypeFromName(strURI, strLocalName, strType) {
+    getTypeFromName(strURI, strLocalName) {
         strURI := strURI is String ? BSTR.Alloc(strURI).Value : strURI
         strLocalName := strLocalName is String ? BSTR.Alloc(strLocalName).Value : strLocalName
 
+        strType := BSTR()
         result := ComCall(14, this, "ptr", strURI, "ptr", strLocalName, "ptr", strType, "HRESULT")
-        return result
+        return strType
     }
 
     /**
      * 
      * @param {BSTR} strQName 
-     * @param {Pointer<BSTR>} strType 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    getTypeFromQName(strQName, strType) {
+    getTypeFromQName(strQName) {
         strQName := strQName is String ? BSTR.Alloc(strQName).Value : strQName
 
+        strType := BSTR()
         result := ComCall(15, this, "ptr", strQName, "ptr", strType, "HRESULT")
-        return result
+        return strType
     }
 
     /**
      * 
      * @param {Integer} nIndex 
-     * @param {Pointer<BSTR>} strValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    getValue(nIndex, strValue) {
+    getValue(nIndex) {
+        strValue := BSTR()
         result := ComCall(16, this, "int", nIndex, "ptr", strValue, "HRESULT")
-        return result
+        return strValue
     }
 
     /**
      * 
      * @param {BSTR} strURI 
      * @param {BSTR} strLocalName 
-     * @param {Pointer<BSTR>} strValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    getValueFromName(strURI, strLocalName, strValue) {
+    getValueFromName(strURI, strLocalName) {
         strURI := strURI is String ? BSTR.Alloc(strURI).Value : strURI
         strLocalName := strLocalName is String ? BSTR.Alloc(strLocalName).Value : strLocalName
 
+        strValue := BSTR()
         result := ComCall(17, this, "ptr", strURI, "ptr", strLocalName, "ptr", strValue, "HRESULT")
-        return result
+        return strValue
     }
 
     /**
      * 
      * @param {BSTR} strQName 
-     * @param {Pointer<BSTR>} strValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    getValueFromQName(strQName, strValue) {
+    getValueFromQName(strQName) {
         strQName := strQName is String ? BSTR.Alloc(strQName).Value : strQName
 
+        strValue := BSTR()
         result := ComCall(18, this, "ptr", strQName, "ptr", strValue, "HRESULT")
-        return result
+        return strValue
     }
 }

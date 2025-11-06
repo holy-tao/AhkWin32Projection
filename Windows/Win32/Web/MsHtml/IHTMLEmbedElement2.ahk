@@ -43,21 +43,21 @@ class IHTMLEmbedElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_src(p) {
+    get_src() {
+        p := BSTR()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_pluginspage(p) {
+    get_pluginspage() {
+        p := BSTR()
         result := ComCall(9, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IHTMLRuleStyle.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,11 +31,10 @@ class IHTMLStyleFontFace2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IHTMLRuleStyle>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLRuleStyle} 
      */
-    get_style(p) {
-        result := ComCall(7, this, "ptr*", p, "HRESULT")
-        return result
+    get_style() {
+        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLRuleStyle(p)
     }
 }

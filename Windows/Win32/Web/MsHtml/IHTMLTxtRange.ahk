@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IHTMLElement.ahk
+#Include .\IHTMLTxtRange.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -31,12 +34,12 @@ class IHTMLTxtRange extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_htmlText(p) {
+    get_htmlText() {
+        p := BSTR()
         result := ComCall(7, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -53,54 +56,50 @@ class IHTMLTxtRange extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_text(p) {
+    get_text() {
+        p := BSTR()
         result := ComCall(9, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLElement>} parent 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElement} 
      */
-    parentElement(parent) {
-        result := ComCall(10, this, "ptr*", parent, "HRESULT")
-        return result
+    parentElement() {
+        result := ComCall(10, this, "ptr*", &parent := 0, "HRESULT")
+        return IHTMLElement(parent)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLTxtRange>} Duplicate 
-     * @returns {HRESULT} 
+     * @returns {IHTMLTxtRange} 
      */
-    duplicate(Duplicate) {
-        result := ComCall(11, this, "ptr*", Duplicate, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {IHTMLTxtRange} Range 
-     * @param {Pointer<VARIANT_BOOL>} InRange 
-     * @returns {HRESULT} 
-     */
-    inRange(Range, InRange) {
-        result := ComCall(12, this, "ptr", Range, "ptr", InRange, "HRESULT")
-        return result
+    duplicate() {
+        result := ComCall(11, this, "ptr*", &Duplicate := 0, "HRESULT")
+        return IHTMLTxtRange(Duplicate)
     }
 
     /**
      * 
      * @param {IHTMLTxtRange} Range 
-     * @param {Pointer<VARIANT_BOOL>} IsEqual 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    isEqual(Range, IsEqual) {
-        result := ComCall(13, this, "ptr", Range, "ptr", IsEqual, "HRESULT")
-        return result
+    inRange(Range) {
+        result := ComCall(12, this, "ptr", Range, "short*", &InRange := 0, "HRESULT")
+        return InRange
+    }
+
+    /**
+     * 
+     * @param {IHTMLTxtRange} Range 
+     * @returns {VARIANT_BOOL} 
+     */
+    isEqual(Range) {
+        result := ComCall(13, this, "ptr", Range, "short*", &IsEqual := 0, "HRESULT")
+        return IsEqual
     }
 
     /**
@@ -126,62 +125,52 @@ class IHTMLTxtRange extends IDispatch{
     /**
      * 
      * @param {BSTR} Unit 
-     * @param {Pointer<VARIANT_BOOL>} Success 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    expand(Unit, Success) {
+    expand(Unit) {
         Unit := Unit is String ? BSTR.Alloc(Unit).Value : Unit
 
-        result := ComCall(16, this, "ptr", Unit, "ptr", Success, "HRESULT")
-        return result
+        result := ComCall(16, this, "ptr", Unit, "short*", &Success := 0, "HRESULT")
+        return Success
     }
 
     /**
      * 
      * @param {BSTR} Unit 
      * @param {Integer} Count 
-     * @param {Pointer<Integer>} ActualCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    move(Unit, Count, ActualCount) {
+    move(Unit, Count) {
         Unit := Unit is String ? BSTR.Alloc(Unit).Value : Unit
 
-        ActualCountMarshal := ActualCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, "ptr", Unit, "int", Count, ActualCountMarshal, ActualCount, "HRESULT")
-        return result
+        result := ComCall(17, this, "ptr", Unit, "int", Count, "int*", &ActualCount := 0, "HRESULT")
+        return ActualCount
     }
 
     /**
      * 
      * @param {BSTR} Unit 
      * @param {Integer} Count 
-     * @param {Pointer<Integer>} ActualCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    moveStart(Unit, Count, ActualCount) {
+    moveStart(Unit, Count) {
         Unit := Unit is String ? BSTR.Alloc(Unit).Value : Unit
 
-        ActualCountMarshal := ActualCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(18, this, "ptr", Unit, "int", Count, ActualCountMarshal, ActualCount, "HRESULT")
-        return result
+        result := ComCall(18, this, "ptr", Unit, "int", Count, "int*", &ActualCount := 0, "HRESULT")
+        return ActualCount
     }
 
     /**
      * 
      * @param {BSTR} Unit 
      * @param {Integer} Count 
-     * @param {Pointer<Integer>} ActualCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    moveEnd(Unit, Count, ActualCount) {
+    moveEnd(Unit, Count) {
         Unit := Unit is String ? BSTR.Alloc(Unit).Value : Unit
 
-        ActualCountMarshal := ActualCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(19, this, "ptr", Unit, "int", Count, ActualCountMarshal, ActualCount, "HRESULT")
-        return result
+        result := ComCall(19, this, "ptr", Unit, "int", Count, "int*", &ActualCount := 0, "HRESULT")
+        return ActualCount
     }
 
     /**
@@ -322,16 +311,13 @@ class IHTMLTxtRange extends IDispatch{
      * 
      * @param {BSTR} how 
      * @param {IHTMLTxtRange} SourceRange 
-     * @param {Pointer<Integer>} ret 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    compareEndPoints(how, SourceRange, ret) {
+    compareEndPoints(how, SourceRange) {
         how := how is String ? BSTR.Alloc(how).Value : how
 
-        retMarshal := ret is VarRef ? "int*" : "ptr"
-
-        result := ComCall(24, this, "ptr", how, "ptr", SourceRange, retMarshal, ret, "HRESULT")
-        return result
+        result := ComCall(24, this, "ptr", how, "ptr", SourceRange, "int*", &ret := 0, "HRESULT")
+        return ret
     }
 
     /**
@@ -339,14 +325,13 @@ class IHTMLTxtRange extends IDispatch{
      * @param {BSTR} String 
      * @param {Integer} count 
      * @param {Integer} Flags 
-     * @param {Pointer<VARIANT_BOOL>} Success 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    findText(String, count, Flags, Success) {
+    findText(String, count, Flags) {
         String := String is String ? BSTR.Alloc(String).Value : String
 
-        result := ComCall(25, this, "ptr", String, "int", count, "int", Flags, "ptr", Success, "HRESULT")
-        return result
+        result := ComCall(25, this, "ptr", String, "int", count, "int", Flags, "short*", &Success := 0, "HRESULT")
+        return Success
     }
 
     /**
@@ -362,103 +347,98 @@ class IHTMLTxtRange extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} Boolmark 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    getBookmark(Boolmark) {
+    getBookmark() {
+        Boolmark := BSTR()
         result := ComCall(27, this, "ptr", Boolmark, "HRESULT")
-        return result
+        return Boolmark
     }
 
     /**
      * 
      * @param {BSTR} Bookmark 
-     * @param {Pointer<VARIANT_BOOL>} Success 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    moveToBookmark(Bookmark, Success) {
+    moveToBookmark(Bookmark) {
         Bookmark := Bookmark is String ? BSTR.Alloc(Bookmark).Value : Bookmark
 
-        result := ComCall(28, this, "ptr", Bookmark, "ptr", Success, "HRESULT")
-        return result
+        result := ComCall(28, this, "ptr", Bookmark, "short*", &Success := 0, "HRESULT")
+        return Success
     }
 
     /**
      * 
      * @param {BSTR} cmdID 
-     * @param {Pointer<VARIANT_BOOL>} pfRet 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    queryCommandSupported(cmdID, pfRet) {
+    queryCommandSupported(cmdID) {
         cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
 
-        result := ComCall(29, this, "ptr", cmdID, "ptr", pfRet, "HRESULT")
-        return result
+        result := ComCall(29, this, "ptr", cmdID, "short*", &pfRet := 0, "HRESULT")
+        return pfRet
     }
 
     /**
      * 
      * @param {BSTR} cmdID 
-     * @param {Pointer<VARIANT_BOOL>} pfRet 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    queryCommandEnabled(cmdID, pfRet) {
+    queryCommandEnabled(cmdID) {
         cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
 
-        result := ComCall(30, this, "ptr", cmdID, "ptr", pfRet, "HRESULT")
-        return result
+        result := ComCall(30, this, "ptr", cmdID, "short*", &pfRet := 0, "HRESULT")
+        return pfRet
     }
 
     /**
      * 
      * @param {BSTR} cmdID 
-     * @param {Pointer<VARIANT_BOOL>} pfRet 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    queryCommandState(cmdID, pfRet) {
+    queryCommandState(cmdID) {
         cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
 
-        result := ComCall(31, this, "ptr", cmdID, "ptr", pfRet, "HRESULT")
-        return result
+        result := ComCall(31, this, "ptr", cmdID, "short*", &pfRet := 0, "HRESULT")
+        return pfRet
     }
 
     /**
      * 
      * @param {BSTR} cmdID 
-     * @param {Pointer<VARIANT_BOOL>} pfRet 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    queryCommandIndeterm(cmdID, pfRet) {
+    queryCommandIndeterm(cmdID) {
         cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
 
-        result := ComCall(32, this, "ptr", cmdID, "ptr", pfRet, "HRESULT")
-        return result
+        result := ComCall(32, this, "ptr", cmdID, "short*", &pfRet := 0, "HRESULT")
+        return pfRet
     }
 
     /**
      * 
      * @param {BSTR} cmdID 
-     * @param {Pointer<BSTR>} pcmdText 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    queryCommandText(cmdID, pcmdText) {
+    queryCommandText(cmdID) {
         cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
 
+        pcmdText := BSTR()
         result := ComCall(33, this, "ptr", cmdID, "ptr", pcmdText, "HRESULT")
-        return result
+        return pcmdText
     }
 
     /**
      * 
      * @param {BSTR} cmdID 
-     * @param {Pointer<VARIANT>} pcmdValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    queryCommandValue(cmdID, pcmdValue) {
+    queryCommandValue(cmdID) {
         cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
 
+        pcmdValue := VARIANT()
         result := ComCall(34, this, "ptr", cmdID, "ptr", pcmdValue, "HRESULT")
-        return result
+        return pcmdValue
     }
 
     /**
@@ -466,26 +446,24 @@ class IHTMLTxtRange extends IDispatch{
      * @param {BSTR} cmdID 
      * @param {VARIANT_BOOL} showUI 
      * @param {VARIANT} value 
-     * @param {Pointer<VARIANT_BOOL>} pfRet 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    execCommand(cmdID, showUI, value, pfRet) {
+    execCommand(cmdID, showUI, value) {
         cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
 
-        result := ComCall(35, this, "ptr", cmdID, "short", showUI, "ptr", value, "ptr", pfRet, "HRESULT")
-        return result
+        result := ComCall(35, this, "ptr", cmdID, "short", showUI, "ptr", value, "short*", &pfRet := 0, "HRESULT")
+        return pfRet
     }
 
     /**
      * 
      * @param {BSTR} cmdID 
-     * @param {Pointer<VARIANT_BOOL>} pfRet 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    execCommandShowHelp(cmdID, pfRet) {
+    execCommandShowHelp(cmdID) {
         cmdID := cmdID is String ? BSTR.Alloc(cmdID).Value : cmdID
 
-        result := ComCall(36, this, "ptr", cmdID, "ptr", pfRet, "HRESULT")
-        return result
+        result := ComCall(36, this, "ptr", cmdID, "short*", &pfRet := 0, "HRESULT")
+        return pfRet
     }
 }

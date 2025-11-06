@@ -33,14 +33,11 @@ class IAMDecoderCaps extends IUnknown{
     /**
      * 
      * @param {Integer} dwCapIndex 
-     * @param {Pointer<Integer>} lpdwCap 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamdecodercaps-getdecodercaps
      */
-    GetDecoderCaps(dwCapIndex, lpdwCap) {
-        lpdwCapMarshal := lpdwCap is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "uint", dwCapIndex, lpdwCapMarshal, lpdwCap, "HRESULT")
-        return result
+    GetDecoderCaps(dwCapIndex) {
+        result := ComCall(3, this, "uint", dwCapIndex, "uint*", &lpdwCap := 0, "HRESULT")
+        return lpdwCap
     }
 }

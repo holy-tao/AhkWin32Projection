@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDXGIAdapter.ahk
+#Include .\IDXGISurface.ahk
 #Include .\IDXGIObject.ahk
 
 /**
@@ -54,13 +56,12 @@ class IDXGIDevice extends IDXGIObject{
 
     /**
      * 
-     * @param {Pointer<IDXGIAdapter>} pAdapter 
-     * @returns {HRESULT} 
+     * @returns {IDXGIAdapter} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgidevice-getadapter
      */
-    GetAdapter(pAdapter) {
-        result := ComCall(7, this, "ptr*", pAdapter, "HRESULT")
-        return result
+    GetAdapter() {
+        result := ComCall(7, this, "ptr*", &pAdapter := 0, "HRESULT")
+        return IDXGIAdapter(pAdapter)
     }
 
     /**
@@ -69,28 +70,24 @@ class IDXGIDevice extends IDXGIObject{
      * @param {Integer} NumSurfaces 
      * @param {Integer} Usage 
      * @param {Pointer<DXGI_SHARED_RESOURCE>} pSharedResource 
-     * @param {Pointer<IDXGISurface>} ppSurface 
-     * @returns {HRESULT} 
+     * @returns {IDXGISurface} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgidevice-createsurface
      */
-    CreateSurface(pDesc, NumSurfaces, Usage, pSharedResource, ppSurface) {
-        result := ComCall(8, this, "ptr", pDesc, "uint", NumSurfaces, "uint", Usage, "ptr", pSharedResource, "ptr*", ppSurface, "HRESULT")
-        return result
+    CreateSurface(pDesc, NumSurfaces, Usage, pSharedResource) {
+        result := ComCall(8, this, "ptr", pDesc, "uint", NumSurfaces, "uint", Usage, "ptr", pSharedResource, "ptr*", &ppSurface := 0, "HRESULT")
+        return IDXGISurface(ppSurface)
     }
 
     /**
      * 
      * @param {Pointer<IUnknown>} ppResources 
-     * @param {Pointer<Integer>} pResidencyStatus 
      * @param {Integer} NumResources 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgidevice-queryresourceresidency
      */
-    QueryResourceResidency(ppResources, pResidencyStatus, NumResources) {
-        pResidencyStatusMarshal := pResidencyStatus is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, "ptr*", ppResources, pResidencyStatusMarshal, pResidencyStatus, "uint", NumResources, "HRESULT")
-        return result
+    QueryResourceResidency(ppResources, NumResources) {
+        result := ComCall(9, this, "ptr*", ppResources, "int*", &pResidencyStatus := 0, "uint", NumResources, "HRESULT")
+        return pResidencyStatus
     }
 
     /**
@@ -106,14 +103,11 @@ class IDXGIDevice extends IDXGIObject{
 
     /**
      * 
-     * @param {Pointer<Integer>} pPriority 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgidevice-getgputhreadpriority
      */
-    GetGPUThreadPriority(pPriority) {
-        pPriorityMarshal := pPriority is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, pPriorityMarshal, pPriority, "HRESULT")
-        return result
+    GetGPUThreadPriority() {
+        result := ComCall(11, this, "int*", &pPriority := 0, "HRESULT")
+        return pPriority
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IStream.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -76,13 +77,12 @@ class ITnef extends IUnknown{
      * 
      * @param {IMessage} lpMessage 
      * @param {Integer} ulFlags 
-     * @param {Pointer<IStream>} lppStream 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/itnef-opentaggedbody
      */
-    OpenTaggedBody(lpMessage, ulFlags, lppStream) {
-        result := ComCall(6, this, "ptr", lpMessage, "uint", ulFlags, "ptr*", lppStream, "HRESULT")
-        return result
+    OpenTaggedBody(lpMessage, ulFlags) {
+        result := ComCall(6, this, "ptr", lpMessage, "uint", ulFlags, "ptr*", &lppStream := 0, "HRESULT")
+        return IStream(lppStream)
     }
 
     /**

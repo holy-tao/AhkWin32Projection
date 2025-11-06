@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -133,25 +134,25 @@ class ICodecAPI extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} Api 
-     * @param {Pointer<VARIANT>} Value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icodecapi-getdefaultvalue
      */
-    GetDefaultValue(Api, Value) {
+    GetDefaultValue(Api) {
+        Value := VARIANT()
         result := ComCall(7, this, "ptr", Api, "ptr", Value, "HRESULT")
-        return result
+        return Value
     }
 
     /**
      * 
      * @param {Pointer<Guid>} Api 
-     * @param {Pointer<VARIANT>} Value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icodecapi-getvalue
      */
-    GetValue(Api, Value) {
+    GetValue(Api) {
+        Value := VARIANT()
         result := ComCall(8, this, "ptr", Api, "ptr", Value, "HRESULT")
-        return result
+        return Value
     }
 
     /**

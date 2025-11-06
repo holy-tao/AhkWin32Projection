@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISWbemObject.ahk
+#Include .\ISWbemSecurity.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -37,21 +39,19 @@ class ISWbemEventSource extends IDispatch{
     /**
      * 
      * @param {Integer} iTimeoutMs 
-     * @param {Pointer<ISWbemObject>} objWbemObject 
-     * @returns {HRESULT} 
+     * @returns {ISWbemObject} 
      */
-    NextEvent(iTimeoutMs, objWbemObject) {
-        result := ComCall(7, this, "int", iTimeoutMs, "ptr*", objWbemObject, "HRESULT")
-        return result
+    NextEvent(iTimeoutMs) {
+        result := ComCall(7, this, "int", iTimeoutMs, "ptr*", &objWbemObject := 0, "HRESULT")
+        return ISWbemObject(objWbemObject)
     }
 
     /**
      * 
-     * @param {Pointer<ISWbemSecurity>} objWbemSecurity 
-     * @returns {HRESULT} 
+     * @returns {ISWbemSecurity} 
      */
-    get_Security_(objWbemSecurity) {
-        result := ComCall(8, this, "ptr*", objWbemSecurity, "HRESULT")
-        return result
+    get_Security_() {
+        result := ComCall(8, this, "ptr*", &objWbemSecurity := 0, "HRESULT")
+        return ISWbemSecurity(objWbemSecurity)
     }
 }

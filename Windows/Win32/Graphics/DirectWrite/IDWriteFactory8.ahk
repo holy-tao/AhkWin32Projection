@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteColorGlyphRunEnumerator1.ahk
 #Include .\IDWriteFactory7.ahk
 
 /**
@@ -38,11 +39,10 @@ class IDWriteFactory8 extends IDWriteFactory7{
      * @param {Integer} measuringMode 
      * @param {Pointer<DWRITE_MATRIX>} worldAndDpiTransform 
      * @param {Integer} colorPaletteIndex 
-     * @param {Pointer<IDWriteColorGlyphRunEnumerator1>} colorEnumerator 
-     * @returns {HRESULT} 
+     * @returns {IDWriteColorGlyphRunEnumerator1} 
      */
-    TranslateColorGlyphRun(baselineOrigin, glyphRun, glyphRunDescription, desiredGlyphImageFormats, paintFeatureLevel, measuringMode, worldAndDpiTransform, colorPaletteIndex, colorEnumerator) {
-        result := ComCall(57, this, "ptr", baselineOrigin, "ptr", glyphRun, "ptr", glyphRunDescription, "int", desiredGlyphImageFormats, "int", paintFeatureLevel, "int", measuringMode, "ptr", worldAndDpiTransform, "uint", colorPaletteIndex, "ptr*", colorEnumerator, "HRESULT")
-        return result
+    TranslateColorGlyphRun(baselineOrigin, glyphRun, glyphRunDescription, desiredGlyphImageFormats, paintFeatureLevel, measuringMode, worldAndDpiTransform, colorPaletteIndex) {
+        result := ComCall(57, this, "ptr", baselineOrigin, "ptr", glyphRun, "ptr", glyphRunDescription, "int", desiredGlyphImageFormats, "int", paintFeatureLevel, "int", measuringMode, "ptr", worldAndDpiTransform, "uint", colorPaletteIndex, "ptr*", &colorEnumerator := 0, "HRESULT")
+        return IDWriteColorGlyphRunEnumerator1(colorEnumerator)
     }
 }

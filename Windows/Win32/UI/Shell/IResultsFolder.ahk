@@ -44,15 +44,12 @@ class IResultsFolder extends IUnknown{
     /**
      * 
      * @param {Pointer<ITEMIDLIST>} pidl 
-     * @param {Pointer<Pointer<ITEMIDLIST>>} ppidlAdded 
-     * @returns {HRESULT} 
+     * @returns {Pointer<ITEMIDLIST>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iresultsfolder-addidlist
      */
-    AddIDList(pidl, ppidlAdded) {
-        ppidlAddedMarshal := ppidlAdded is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "ptr", pidl, ppidlAddedMarshal, ppidlAdded, "HRESULT")
-        return result
+    AddIDList(pidl) {
+        result := ComCall(4, this, "ptr", pidl, "ptr*", &ppidlAdded := 0, "HRESULT")
+        return ppidlAdded
     }
 
     /**

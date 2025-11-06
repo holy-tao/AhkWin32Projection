@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumVdsObject.ahk
+#Include .\IVdsPack.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,23 +34,21 @@ class IVdsSwProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumVdsObject>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumVdsObject} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsswprovider-querypacks
      */
-    QueryPacks(ppEnum) {
-        result := ComCall(3, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    QueryPacks() {
+        result := ComCall(3, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumVdsObject(ppEnum)
     }
 
     /**
      * 
-     * @param {Pointer<IVdsPack>} ppPack 
-     * @returns {HRESULT} 
+     * @returns {IVdsPack} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsswprovider-createpack
      */
-    CreatePack(ppPack) {
-        result := ComCall(4, this, "ptr*", ppPack, "HRESULT")
-        return result
+    CreatePack() {
+        result := ComCall(4, this, "ptr*", &ppPack := 0, "HRESULT")
+        return IVdsPack(ppPack)
     }
 }

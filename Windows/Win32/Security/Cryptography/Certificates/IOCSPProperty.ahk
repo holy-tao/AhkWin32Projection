@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,24 +34,24 @@ class IOCSPProperty extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspproperty-get_name
      */
-    get_Name(pVal) {
+    get_Name() {
+        pVal := BSTR()
         result := ComCall(7, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspproperty-get_value
      */
-    get_Value(pVal) {
+    get_Value() {
+        pVal := VARIANT()
         result := ComCall(8, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
@@ -65,12 +67,11 @@ class IOCSPProperty extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspproperty-get_modified
      */
-    get_Modified(pVal) {
-        result := ComCall(10, this, "ptr", pVal, "HRESULT")
-        return result
+    get_Modified() {
+        result := ComCall(10, this, "short*", &pVal := 0, "HRESULT")
+        return pVal
     }
 }

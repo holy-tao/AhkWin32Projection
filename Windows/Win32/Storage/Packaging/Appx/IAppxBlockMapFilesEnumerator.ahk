@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IAppxBlockMapFile.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,34 +33,31 @@ class IAppxBlockMapFilesEnumerator extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IAppxBlockMapFile>} file 
-     * @returns {HRESULT} 
+     * @returns {IAppxBlockMapFile} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxblockmapfilesenumerator-getcurrent
      */
-    GetCurrent(file) {
-        result := ComCall(3, this, "ptr*", file, "HRESULT")
-        return result
+    GetCurrent() {
+        result := ComCall(3, this, "ptr*", &file := 0, "HRESULT")
+        return IAppxBlockMapFile(file)
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} hasCurrent 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxblockmapfilesenumerator-gethascurrent
      */
-    GetHasCurrent(hasCurrent) {
-        result := ComCall(4, this, "ptr", hasCurrent, "HRESULT")
-        return result
+    GetHasCurrent() {
+        result := ComCall(4, this, "int*", &hasCurrent := 0, "HRESULT")
+        return hasCurrent
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} hasCurrent 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxblockmapfilesenumerator-movenext
      */
-    MoveNext(hasCurrent) {
-        result := ComCall(5, this, "ptr", hasCurrent, "HRESULT")
-        return result
+    MoveNext() {
+        result := ComCall(5, this, "int*", &hasCurrent := 0, "HRESULT")
+        return hasCurrent
     }
 }

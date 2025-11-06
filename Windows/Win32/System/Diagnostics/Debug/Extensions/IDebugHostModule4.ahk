@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IDebugHostType.ahk
 #Include .\IDebugHostModule3.ahk
 
 /**
@@ -32,13 +33,12 @@ class IDebugHostModule4 extends IDebugHostModule3{
      * 
      * @param {IDebugHostSymbol} pEnclosingSymbol 
      * @param {PWSTR} typeName 
-     * @param {Pointer<IDebugHostType>} type 
-     * @returns {HRESULT} 
+     * @returns {IDebugHostType} 
      */
-    FindTypeByName2(pEnclosingSymbol, typeName, type) {
+    FindTypeByName2(pEnclosingSymbol, typeName) {
         typeName := typeName is String ? StrPtr(typeName) : typeName
 
-        result := ComCall(18, this, "ptr", pEnclosingSymbol, "ptr", typeName, "ptr*", type, "HRESULT")
-        return result
+        result := ComCall(18, this, "ptr", pEnclosingSymbol, "ptr", typeName, "ptr*", &type := 0, "HRESULT")
+        return IDebugHostType(type)
     }
 }

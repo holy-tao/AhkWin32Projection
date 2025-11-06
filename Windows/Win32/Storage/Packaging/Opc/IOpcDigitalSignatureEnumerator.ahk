@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IOpcDigitalSignature.ahk
+#Include .\IOpcDigitalSignatureEnumerator.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -42,45 +44,41 @@ class IOpcDigitalSignatureEnumerator extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} hasNext 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignatureenumerator-movenext
      */
-    MoveNext(hasNext) {
-        result := ComCall(3, this, "ptr", hasNext, "HRESULT")
-        return result
+    MoveNext() {
+        result := ComCall(3, this, "int*", &hasNext := 0, "HRESULT")
+        return hasNext
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} hasPrevious 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignatureenumerator-moveprevious
      */
-    MovePrevious(hasPrevious) {
-        result := ComCall(4, this, "ptr", hasPrevious, "HRESULT")
-        return result
+    MovePrevious() {
+        result := ComCall(4, this, "int*", &hasPrevious := 0, "HRESULT")
+        return hasPrevious
     }
 
     /**
      * 
-     * @param {Pointer<IOpcDigitalSignature>} digitalSignature 
-     * @returns {HRESULT} 
+     * @returns {IOpcDigitalSignature} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignatureenumerator-getcurrent
      */
-    GetCurrent(digitalSignature) {
-        result := ComCall(5, this, "ptr*", digitalSignature, "HRESULT")
-        return result
+    GetCurrent() {
+        result := ComCall(5, this, "ptr*", &digitalSignature := 0, "HRESULT")
+        return IOpcDigitalSignature(digitalSignature)
     }
 
     /**
      * 
-     * @param {Pointer<IOpcDigitalSignatureEnumerator>} copy 
-     * @returns {HRESULT} 
+     * @returns {IOpcDigitalSignatureEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcdigitalsignatureenumerator-clone
      */
-    Clone(copy) {
-        result := ComCall(6, this, "ptr*", copy, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &copy := 0, "HRESULT")
+        return IOpcDigitalSignatureEnumerator(copy)
     }
 }

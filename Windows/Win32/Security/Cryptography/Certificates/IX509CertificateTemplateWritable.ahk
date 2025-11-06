@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
+#Include .\IX509CertificateTemplate.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -69,13 +71,13 @@ class IX509CertificateTemplateWritable extends IDispatch{
     /**
      * 
      * @param {Integer} property 
-     * @param {Pointer<VARIANT>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificatetemplatewritable-get_property
      */
-    get_Property(property, pValue) {
+    get_Property(property) {
+        pValue := VARIANT()
         result := ComCall(9, this, "int", property, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
@@ -92,12 +94,11 @@ class IX509CertificateTemplateWritable extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IX509CertificateTemplate>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IX509CertificateTemplate} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificatetemplatewritable-get_template
      */
-    get_Template(ppValue) {
-        result := ComCall(11, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_Template() {
+        result := ComCall(11, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IX509CertificateTemplate(ppValue)
     }
 }

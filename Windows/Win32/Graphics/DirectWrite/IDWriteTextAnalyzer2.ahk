@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DWRITE_MATRIX.ahk
 #Include .\IDWriteTextAnalyzer1.ahk
 
 /**
@@ -36,13 +37,13 @@ class IDWriteTextAnalyzer2 extends IDWriteTextAnalyzer1{
      * @param {BOOL} isSideways 
      * @param {Float} originX 
      * @param {Float} originY 
-     * @param {Pointer<DWRITE_MATRIX>} transform 
-     * @returns {HRESULT} 
+     * @returns {DWRITE_MATRIX} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextanalyzer2-getglyphorientationtransform
      */
-    GetGlyphOrientationTransform(glyphOrientationAngle, isSideways, originX, originY, transform) {
+    GetGlyphOrientationTransform(glyphOrientationAngle, isSideways, originX, originY) {
+        transform := DWRITE_MATRIX()
         result := ComCall(19, this, "int", glyphOrientationAngle, "int", isSideways, "float", originX, "float", originY, "ptr", transform, "HRESULT")
-        return result
+        return transform
     }
 
     /**
@@ -74,17 +75,15 @@ class IDWriteTextAnalyzer2 extends IDWriteTextAnalyzer1{
      * @param {Integer} featureTag 
      * @param {Integer} glyphCount 
      * @param {Pointer<Integer>} glyphIndices 
-     * @param {Pointer<Integer>} featureApplies 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextanalyzer2-checktypographicfeature
      */
-    CheckTypographicFeature(fontFace, scriptAnalysis, localeName, featureTag, glyphCount, glyphIndices, featureApplies) {
+    CheckTypographicFeature(fontFace, scriptAnalysis, localeName, featureTag, glyphCount, glyphIndices) {
         localeName := localeName is String ? StrPtr(localeName) : localeName
 
         glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
-        featureAppliesMarshal := featureApplies is VarRef ? "char*" : "ptr"
 
-        result := ComCall(21, this, "ptr", fontFace, "ptr", scriptAnalysis, "ptr", localeName, "uint", featureTag, "uint", glyphCount, glyphIndicesMarshal, glyphIndices, featureAppliesMarshal, featureApplies, "HRESULT")
-        return result
+        result := ComCall(21, this, "ptr", fontFace, "ptr", scriptAnalysis, "ptr", localeName, "uint", featureTag, "uint", glyphCount, glyphIndicesMarshal, glyphIndices, "char*", &featureApplies := 0, "HRESULT")
+        return featureApplies
     }
 }

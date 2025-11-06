@@ -30,11 +30,10 @@ class IElementBehaviorCategory extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppchCategory 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetCategory(ppchCategory) {
-        result := ComCall(3, this, "ptr", ppchCategory, "HRESULT")
-        return result
+    GetCategory() {
+        result := ComCall(3, this, "ptr*", &ppchCategory := 0, "HRESULT")
+        return ppchCategory
     }
 }

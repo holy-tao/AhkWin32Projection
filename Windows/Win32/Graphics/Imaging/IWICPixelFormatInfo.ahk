@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWICColorContext.ahk
 #Include .\IWICComponentInfo.ahk
 
 /**
@@ -32,50 +33,43 @@ class IWICPixelFormatInfo extends IWICComponentInfo{
 
     /**
      * 
-     * @param {Pointer<Guid>} pFormat 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpixelformatinfo-getformatguid
      */
-    GetFormatGUID(pFormat) {
+    GetFormatGUID() {
+        pFormat := Guid()
         result := ComCall(11, this, "ptr", pFormat, "HRESULT")
-        return result
+        return pFormat
     }
 
     /**
      * 
-     * @param {Pointer<IWICColorContext>} ppIColorContext 
-     * @returns {HRESULT} 
+     * @returns {IWICColorContext} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpixelformatinfo-getcolorcontext
      */
-    GetColorContext(ppIColorContext) {
-        result := ComCall(12, this, "ptr*", ppIColorContext, "HRESULT")
-        return result
+    GetColorContext() {
+        result := ComCall(12, this, "ptr*", &ppIColorContext := 0, "HRESULT")
+        return IWICColorContext(ppIColorContext)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} puiBitsPerPixel 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpixelformatinfo-getbitsperpixel
      */
-    GetBitsPerPixel(puiBitsPerPixel) {
-        puiBitsPerPixelMarshal := puiBitsPerPixel is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(13, this, puiBitsPerPixelMarshal, puiBitsPerPixel, "HRESULT")
-        return result
+    GetBitsPerPixel() {
+        result := ComCall(13, this, "uint*", &puiBitsPerPixel := 0, "HRESULT")
+        return puiBitsPerPixel
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} puiChannelCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpixelformatinfo-getchannelcount
      */
-    GetChannelCount(puiChannelCount) {
-        puiChannelCountMarshal := puiChannelCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, puiChannelCountMarshal, puiChannelCount, "HRESULT")
-        return result
+    GetChannelCount() {
+        result := ComCall(14, this, "uint*", &puiChannelCount := 0, "HRESULT")
+        return puiChannelCount
     }
 
     /**
@@ -83,15 +77,13 @@ class IWICPixelFormatInfo extends IWICComponentInfo{
      * @param {Integer} uiChannelIndex 
      * @param {Integer} cbMaskBuffer 
      * @param {Pointer<Integer>} pbMaskBuffer 
-     * @param {Pointer<Integer>} pcbActual 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpixelformatinfo-getchannelmask
      */
-    GetChannelMask(uiChannelIndex, cbMaskBuffer, pbMaskBuffer, pcbActual) {
+    GetChannelMask(uiChannelIndex, cbMaskBuffer, pbMaskBuffer) {
         pbMaskBufferMarshal := pbMaskBuffer is VarRef ? "char*" : "ptr"
-        pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, "uint", uiChannelIndex, "uint", cbMaskBuffer, pbMaskBufferMarshal, pbMaskBuffer, pcbActualMarshal, pcbActual, "HRESULT")
-        return result
+        result := ComCall(15, this, "uint", uiChannelIndex, "uint", cbMaskBuffer, pbMaskBufferMarshal, pbMaskBuffer, "uint*", &pcbActual := 0, "HRESULT")
+        return pcbActual
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\XPS_DASH.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -37,27 +38,24 @@ class IXpsOMDashCollection extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdashcollection-getcount
      */
-    GetCount(count) {
-        countMarshal := count is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, countMarshal, count, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(3, this, "uint*", &count := 0, "HRESULT")
+        return count
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<XPS_DASH>} dash 
-     * @returns {HRESULT} 
+     * @returns {XPS_DASH} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdashcollection-getat
      */
-    GetAt(index, dash) {
+    GetAt(index) {
+        dash := XPS_DASH()
         result := ComCall(4, this, "uint", index, "ptr", dash, "HRESULT")
-        return result
+        return dash
     }
 
     /**

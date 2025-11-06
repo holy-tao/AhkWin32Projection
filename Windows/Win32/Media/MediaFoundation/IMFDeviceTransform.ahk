@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFMediaType.ahk
+#Include .\IMFAttributes.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -45,74 +47,68 @@ class IMFDeviceTransform extends IUnknown{
      * 
      * @param {Integer} dwInputStreamID 
      * @param {Integer} dwTypeIndex 
-     * @param {Pointer<IMFMediaType>} pMediaType 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaType} 
      * @see https://learn.microsoft.com/windows/win32/api/mftransform/nf-mftransform-imfdevicetransform-getinputavailabletype
      */
-    GetInputAvailableType(dwInputStreamID, dwTypeIndex, pMediaType) {
-        result := ComCall(4, this, "uint", dwInputStreamID, "uint", dwTypeIndex, "ptr*", pMediaType, "HRESULT")
-        return result
+    GetInputAvailableType(dwInputStreamID, dwTypeIndex) {
+        result := ComCall(4, this, "uint", dwInputStreamID, "uint", dwTypeIndex, "ptr*", &pMediaType := 0, "HRESULT")
+        return IMFMediaType(pMediaType)
     }
 
     /**
      * 
      * @param {Integer} dwInputStreamID 
-     * @param {Pointer<IMFMediaType>} pMediaType 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaType} 
      * @see https://learn.microsoft.com/windows/win32/api/mftransform/nf-mftransform-imfdevicetransform-getinputcurrenttype
      */
-    GetInputCurrentType(dwInputStreamID, pMediaType) {
-        result := ComCall(5, this, "uint", dwInputStreamID, "ptr*", pMediaType, "HRESULT")
-        return result
+    GetInputCurrentType(dwInputStreamID) {
+        result := ComCall(5, this, "uint", dwInputStreamID, "ptr*", &pMediaType := 0, "HRESULT")
+        return IMFMediaType(pMediaType)
     }
 
     /**
      * 
      * @param {Integer} dwInputStreamID 
-     * @param {Pointer<IMFAttributes>} ppAttributes 
-     * @returns {HRESULT} 
+     * @returns {IMFAttributes} 
      * @see https://learn.microsoft.com/windows/win32/api/mftransform/nf-mftransform-imfdevicetransform-getinputstreamattributes
      */
-    GetInputStreamAttributes(dwInputStreamID, ppAttributes) {
-        result := ComCall(6, this, "uint", dwInputStreamID, "ptr*", ppAttributes, "HRESULT")
-        return result
+    GetInputStreamAttributes(dwInputStreamID) {
+        result := ComCall(6, this, "uint", dwInputStreamID, "ptr*", &ppAttributes := 0, "HRESULT")
+        return IMFAttributes(ppAttributes)
     }
 
     /**
      * 
      * @param {Integer} dwOutputStreamID 
      * @param {Integer} dwTypeIndex 
-     * @param {Pointer<IMFMediaType>} pMediaType 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaType} 
      * @see https://learn.microsoft.com/windows/win32/api/mftransform/nf-mftransform-imfdevicetransform-getoutputavailabletype
      */
-    GetOutputAvailableType(dwOutputStreamID, dwTypeIndex, pMediaType) {
-        result := ComCall(7, this, "uint", dwOutputStreamID, "uint", dwTypeIndex, "ptr*", pMediaType, "HRESULT")
-        return result
+    GetOutputAvailableType(dwOutputStreamID, dwTypeIndex) {
+        result := ComCall(7, this, "uint", dwOutputStreamID, "uint", dwTypeIndex, "ptr*", &pMediaType := 0, "HRESULT")
+        return IMFMediaType(pMediaType)
     }
 
     /**
      * 
      * @param {Integer} dwOutputStreamID 
-     * @param {Pointer<IMFMediaType>} pMediaType 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaType} 
      * @see https://learn.microsoft.com/windows/win32/api/mftransform/nf-mftransform-imfdevicetransform-getoutputcurrenttype
      */
-    GetOutputCurrentType(dwOutputStreamID, pMediaType) {
-        result := ComCall(8, this, "uint", dwOutputStreamID, "ptr*", pMediaType, "HRESULT")
-        return result
+    GetOutputCurrentType(dwOutputStreamID) {
+        result := ComCall(8, this, "uint", dwOutputStreamID, "ptr*", &pMediaType := 0, "HRESULT")
+        return IMFMediaType(pMediaType)
     }
 
     /**
      * 
      * @param {Integer} dwOutputStreamID 
-     * @param {Pointer<IMFAttributes>} ppAttributes 
-     * @returns {HRESULT} 
+     * @returns {IMFAttributes} 
      * @see https://learn.microsoft.com/windows/win32/api/mftransform/nf-mftransform-imfdevicetransform-getoutputstreamattributes
      */
-    GetOutputStreamAttributes(dwOutputStreamID, ppAttributes) {
-        result := ComCall(9, this, "uint", dwOutputStreamID, "ptr*", ppAttributes, "HRESULT")
-        return result
+    GetOutputStreamAttributes(dwOutputStreamID) {
+        result := ComCall(9, this, "uint", dwOutputStreamID, "ptr*", &ppAttributes := 0, "HRESULT")
+        return IMFAttributes(ppAttributes)
     }
 
     /**
@@ -189,15 +185,12 @@ class IMFDeviceTransform extends IUnknown{
      * @param {Integer} dwFlags 
      * @param {Integer} cOutputBufferCount 
      * @param {Pointer<MFT_OUTPUT_DATA_BUFFER>} pOutputSample 
-     * @param {Pointer<Integer>} pdwStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mftransform/nf-mftransform-imfdevicetransform-processoutput
      */
-    ProcessOutput(dwFlags, cOutputBufferCount, pOutputSample, pdwStatus) {
-        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(15, this, "uint", dwFlags, "uint", cOutputBufferCount, "ptr", pOutputSample, pdwStatusMarshal, pdwStatus, "HRESULT")
-        return result
+    ProcessOutput(dwFlags, cOutputBufferCount, pOutputSample) {
+        result := ComCall(15, this, "uint", dwFlags, "uint", cOutputBufferCount, "ptr", pOutputSample, "uint*", &pdwStatus := 0, "HRESULT")
+        return pdwStatus
     }
 
     /**
@@ -217,15 +210,12 @@ class IMFDeviceTransform extends IUnknown{
     /**
      * 
      * @param {Integer} dwStreamID 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mftransform/nf-mftransform-imfdevicetransform-getinputstreamstate
      */
-    GetInputStreamState(dwStreamID, value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, "uint", dwStreamID, valueMarshal, value, "HRESULT")
-        return result
+    GetInputStreamState(dwStreamID) {
+        result := ComCall(17, this, "uint", dwStreamID, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
@@ -245,15 +235,12 @@ class IMFDeviceTransform extends IUnknown{
     /**
      * 
      * @param {Integer} dwStreamID 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mftransform/nf-mftransform-imfdevicetransform-getoutputstreamstate
      */
-    GetOutputStreamState(dwStreamID, value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(19, this, "uint", dwStreamID, valueMarshal, value, "HRESULT")
-        return result
+    GetOutputStreamState(dwStreamID) {
+        result := ComCall(19, this, "uint", dwStreamID, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**

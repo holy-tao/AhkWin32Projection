@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IX509Extensions.ahk
+#Include .\IObjectIds.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -57,36 +59,30 @@ class IX509CertificateRevocationListEntry extends IDispatch{
     /**
      * 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_SerialNumber(Encoding, pValue) {
+    get_SerialNumber(Encoding) {
+        pValue := BSTR()
         result := ComCall(8, this, "int", Encoding, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_RevocationDate(pValue) {
-        pValueMarshal := pValue is VarRef ? "double*" : "ptr"
-
-        result := ComCall(9, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_RevocationDate() {
+        result := ComCall(9, this, "double*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_RevocationReason(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_RevocationReason() {
+        result := ComCall(10, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -101,21 +97,19 @@ class IX509CertificateRevocationListEntry extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IX509Extensions>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IX509Extensions} 
      */
-    get_X509Extensions(ppValue) {
-        result := ComCall(12, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_X509Extensions() {
+        result := ComCall(12, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IX509Extensions(ppValue)
     }
 
     /**
      * 
-     * @param {Pointer<IObjectIds>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IObjectIds} 
      */
-    get_CriticalExtensions(ppValue) {
-        result := ComCall(13, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_CriticalExtensions() {
+        result := ComCall(13, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IObjectIds(ppValue)
     }
 }

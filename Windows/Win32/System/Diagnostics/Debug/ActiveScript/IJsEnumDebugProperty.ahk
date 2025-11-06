@@ -44,13 +44,10 @@ class IJsEnumDebugProperty extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetCount(pCount) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(4, this, "uint*", &pCount := 0, "HRESULT")
+        return pCount
     }
 }

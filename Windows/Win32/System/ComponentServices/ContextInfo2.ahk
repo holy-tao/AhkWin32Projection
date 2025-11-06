@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\ContextInfo.ahk
 
 /**
@@ -38,34 +39,34 @@ class ContextInfo2 extends ContextInfo{
 
     /**
      * 
-     * @param {Pointer<BSTR>} __MIDL__ContextInfo20000 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-contextinfo2-getpartitionid
      */
-    GetPartitionId(__MIDL__ContextInfo20000) {
+    GetPartitionId() {
+        __MIDL__ContextInfo20000 := BSTR()
         result := ComCall(12, this, "ptr", __MIDL__ContextInfo20000, "HRESULT")
-        return result
+        return __MIDL__ContextInfo20000
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} __MIDL__ContextInfo20001 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-contextinfo2-getapplicationid
      */
-    GetApplicationId(__MIDL__ContextInfo20001) {
+    GetApplicationId() {
+        __MIDL__ContextInfo20001 := BSTR()
         result := ComCall(13, this, "ptr", __MIDL__ContextInfo20001, "HRESULT")
-        return result
+        return __MIDL__ContextInfo20001
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} __MIDL__ContextInfo20002 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-contextinfo2-getapplicationinstanceid
      */
-    GetApplicationInstanceId(__MIDL__ContextInfo20002) {
+    GetApplicationInstanceId() {
+        __MIDL__ContextInfo20002 := BSTR()
         result := ComCall(14, this, "ptr", __MIDL__ContextInfo20002, "HRESULT")
-        return result
+        return __MIDL__ContextInfo20002
     }
 }

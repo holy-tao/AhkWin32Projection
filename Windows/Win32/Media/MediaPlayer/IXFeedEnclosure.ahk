@@ -30,34 +30,29 @@ class IXFeedEnclosure extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszUrl 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    Url(ppszUrl) {
-        result := ComCall(3, this, "ptr", ppszUrl, "HRESULT")
-        return result
+    Url() {
+        result := ComCall(3, this, "ptr*", &ppszUrl := 0, "HRESULT")
+        return ppszUrl
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszMimeType 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    Type(ppszMimeType) {
-        result := ComCall(4, this, "ptr", ppszMimeType, "HRESULT")
-        return result
+    Type() {
+        result := ComCall(4, this, "ptr*", &ppszMimeType := 0, "HRESULT")
+        return ppszMimeType
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} puiLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Length(puiLength) {
-        puiLengthMarshal := puiLength is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, puiLengthMarshal, puiLength, "HRESULT")
-        return result
+    Length() {
+        result := ComCall(5, this, "uint*", &puiLength := 0, "HRESULT")
+        return puiLength
     }
 
     /**
@@ -80,69 +75,57 @@ class IXFeedEnclosure extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pfds 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    DownloadStatus(pfds) {
-        pfdsMarshal := pfds is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pfdsMarshal, pfds, "HRESULT")
-        return result
+    DownloadStatus() {
+        result := ComCall(8, this, "int*", &pfds := 0, "HRESULT")
+        return pfds
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pfde 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    LastDownloadError(pfde) {
-        pfdeMarshal := pfde is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pfdeMarshal, pfde, "HRESULT")
-        return result
+    LastDownloadError() {
+        result := ComCall(9, this, "int*", &pfde := 0, "HRESULT")
+        return pfde
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszPath 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    LocalPath(ppszPath) {
-        result := ComCall(10, this, "ptr", ppszPath, "HRESULT")
-        return result
+    LocalPath() {
+        result := ComCall(10, this, "ptr*", &ppszPath := 0, "HRESULT")
+        return ppszPath
     }
 
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    Parent(riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(11, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    Parent(riid) {
+        result := ComCall(11, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszUrl 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    DownloadUrl(ppszUrl) {
-        result := ComCall(12, this, "ptr", ppszUrl, "HRESULT")
-        return result
+    DownloadUrl() {
+        result := ComCall(12, this, "ptr*", &ppszUrl := 0, "HRESULT")
+        return ppszUrl
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszMimeType 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    DownloadMimeType(ppszMimeType) {
-        result := ComCall(13, this, "ptr", ppszMimeType, "HRESULT")
-        return result
+    DownloadMimeType() {
+        result := ComCall(13, this, "ptr*", &ppszMimeType := 0, "HRESULT")
+        return ppszMimeType
     }
 
     /**

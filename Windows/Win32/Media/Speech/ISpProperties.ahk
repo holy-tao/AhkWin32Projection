@@ -73,13 +73,12 @@ class ISpProperties extends IUnknown{
     /**
      * 
      * @param {PWSTR} pName 
-     * @param {Pointer<PWSTR>} ppCoMemValue 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetPropertyString(pName, ppCoMemValue) {
+    GetPropertyString(pName) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        result := ComCall(6, this, "ptr", pName, "ptr", ppCoMemValue, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", pName, "ptr*", &ppCoMemValue := 0, "HRESULT")
+        return ppCoMemValue
     }
 }

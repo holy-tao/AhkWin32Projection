@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFClock.ahk
+#Include .\IMFTopology.ahk
 #Include .\IMFMediaEventGenerator.ahk
 
 /**
@@ -106,38 +108,33 @@ class IMFMediaSession extends IMFMediaEventGenerator{
 
     /**
      * 
-     * @param {Pointer<IMFClock>} ppClock 
-     * @returns {HRESULT} 
+     * @returns {IMFClock} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasession-getclock
      */
-    GetClock(ppClock) {
-        result := ComCall(14, this, "ptr*", ppClock, "HRESULT")
-        return result
+    GetClock() {
+        result := ComCall(14, this, "ptr*", &ppClock := 0, "HRESULT")
+        return IMFClock(ppClock)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwCaps 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasession-getsessioncapabilities
      */
-    GetSessionCapabilities(pdwCaps) {
-        pdwCapsMarshal := pdwCaps is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(15, this, pdwCapsMarshal, pdwCaps, "HRESULT")
-        return result
+    GetSessionCapabilities() {
+        result := ComCall(15, this, "uint*", &pdwCaps := 0, "HRESULT")
+        return pdwCaps
     }
 
     /**
      * 
      * @param {Integer} dwGetFullTopologyFlags 
      * @param {Integer} TopoId 
-     * @param {Pointer<IMFTopology>} ppFullTopology 
-     * @returns {HRESULT} 
+     * @returns {IMFTopology} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasession-getfulltopology
      */
-    GetFullTopology(dwGetFullTopologyFlags, TopoId, ppFullTopology) {
-        result := ComCall(16, this, "uint", dwGetFullTopologyFlags, "uint", TopoId, "ptr*", ppFullTopology, "HRESULT")
-        return result
+    GetFullTopology(dwGetFullTopologyFlags, TopoId) {
+        result := ComCall(16, this, "uint", dwGetFullTopologyFlags, "uint", TopoId, "ptr*", &ppFullTopology := 0, "HRESULT")
+        return IMFTopology(ppFullTopology)
     }
 }

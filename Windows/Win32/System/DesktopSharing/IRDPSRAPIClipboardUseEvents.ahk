@@ -34,12 +34,11 @@ class IRDPSRAPIClipboardUseEvents extends IUnknown{
      * 
      * @param {Integer} clipboardFormat 
      * @param {IDispatch} pAttendee 
-     * @param {Pointer<VARIANT_BOOL>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiclipboarduseevents-onpastefromclipboard
      */
-    OnPasteFromClipboard(clipboardFormat, pAttendee, pRetVal) {
-        result := ComCall(3, this, "uint", clipboardFormat, "ptr", pAttendee, "ptr", pRetVal, "HRESULT")
-        return result
+    OnPasteFromClipboard(clipboardFormat, pAttendee) {
+        result := ComCall(3, this, "uint", clipboardFormat, "ptr", pAttendee, "short*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 }

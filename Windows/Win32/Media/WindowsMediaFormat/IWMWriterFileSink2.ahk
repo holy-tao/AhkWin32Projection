@@ -54,53 +54,32 @@ class IWMWriterFileSink2 extends IWMWriterFileSink{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfStopped 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterfilesink2-isstopped
      */
-    IsStopped(pfStopped) {
-        result := ComCall(11, this, "ptr", pfStopped, "HRESULT")
-        return result
+    IsStopped() {
+        result := ComCall(11, this, "int*", &pfStopped := 0, "HRESULT")
+        return pfStopped
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pcnsDuration 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterfilesink2-getfileduration
      */
-    GetFileDuration(pcnsDuration) {
-        pcnsDurationMarshal := pcnsDuration is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, pcnsDurationMarshal, pcnsDuration, "HRESULT")
-        return result
+    GetFileDuration() {
+        result := ComCall(12, this, "uint*", &pcnsDuration := 0, "HRESULT")
+        return pcnsDuration
     }
 
     /**
      * Retrieves the size of the specified file, in bytes.
-     * @param {Pointer<Integer>} pcbFile 
-     * @returns {HRESULT} If the function succeeds, the return value is the low-order doubleword of the file size, and, if 
-     *        <i>lpFileSizeHigh</i> is non-<b>NULL</b>, the function puts the 
-     *        high-order doubleword of the file size into the variable pointed to by that parameter.
-     * 
-     * If the function fails and <i>lpFileSizeHigh</i> is <b>NULL</b>, the 
-     *        return value is <b>INVALID_FILE_SIZE</b>. To get extended error information, call 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. When 
-     *        <i>lpFileSizeHigh</i> is <b>NULL</b>, the results returned for large 
-     *        files are ambiguous, and you will not be able to determine the actual size of the file. It is recommended that 
-     *        you use <a href="/windows/desktop/api/fileapi/nf-fileapi-getfilesizeex">GetFileSizeEx</a> instead.
-     * 
-     * If the function fails and <i>lpFileSizeHigh</i> is non-<b>NULL</b>, the 
-     *        return value is <b>INVALID_FILE_SIZE</b> and 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return a value other than 
-     *        <b>NO_ERROR</b>.
+     * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//fileapi/nf-fileapi-getfilesize
      */
-    GetFileSize(pcbFile) {
-        pcbFileMarshal := pcbFile is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(13, this, pcbFileMarshal, pcbFile, "HRESULT")
-        return result
+    GetFileSize() {
+        result := ComCall(13, this, "uint*", &pcbFile := 0, "HRESULT")
+        return pcbFile
     }
 
     /**
@@ -115,12 +94,11 @@ class IWMWriterFileSink2 extends IWMWriterFileSink{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfClosed 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterfilesink2-isclosed
      */
-    IsClosed(pfClosed) {
-        result := ComCall(15, this, "ptr", pfClosed, "HRESULT")
-        return result
+    IsClosed() {
+        result := ComCall(15, this, "int*", &pfClosed := 0, "HRESULT")
+        return pfClosed
     }
 }

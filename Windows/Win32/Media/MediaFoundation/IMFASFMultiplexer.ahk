@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ASF_MUX_STATISTICS.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -218,15 +219,12 @@ class IMFASFMultiplexer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfmultiplexer-getflags
      */
-    GetFlags(pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
-        return result
+    GetFlags() {
+        result := ComCall(5, this, "uint*", &pdwFlags := 0, "HRESULT")
+        return pdwFlags
     }
 
     /**
@@ -280,13 +278,13 @@ class IMFASFMultiplexer extends IUnknown{
     /**
      * 
      * @param {Integer} wStreamNumber 
-     * @param {Pointer<ASF_MUX_STATISTICS>} pMuxStats 
-     * @returns {HRESULT} 
+     * @returns {ASF_MUX_STATISTICS} 
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfmultiplexer-getstatistics
      */
-    GetStatistics(wStreamNumber, pMuxStats) {
+    GetStatistics(wStreamNumber) {
+        pMuxStats := ASF_MUX_STATISTICS()
         result := ComCall(10, this, "ushort", wStreamNumber, "ptr", pMuxStats, "HRESULT")
-        return result
+        return pMuxStats
     }
 
     /**

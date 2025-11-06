@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IStream.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,60 +33,51 @@ class IAppxFile extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} compressionOption 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxfile-getcompressionoption
      */
-    GetCompressionOption(compressionOption) {
-        compressionOptionMarshal := compressionOption is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, compressionOptionMarshal, compressionOption, "HRESULT")
-        return result
+    GetCompressionOption() {
+        result := ComCall(3, this, "int*", &compressionOption := 0, "HRESULT")
+        return compressionOption
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} contentType 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxfile-getcontenttype
      */
-    GetContentType(contentType) {
-        result := ComCall(4, this, "ptr", contentType, "HRESULT")
-        return result
+    GetContentType() {
+        result := ComCall(4, this, "ptr*", &contentType := 0, "HRESULT")
+        return contentType
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} fileName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxfile-getname
      */
-    GetName(fileName) {
-        result := ComCall(5, this, "ptr", fileName, "HRESULT")
-        return result
+    GetName() {
+        result := ComCall(5, this, "ptr*", &fileName := 0, "HRESULT")
+        return fileName
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} size 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxfile-getsize
      */
-    GetSize(size) {
-        sizeMarshal := size is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, sizeMarshal, size, "HRESULT")
-        return result
+    GetSize() {
+        result := ComCall(6, this, "uint*", &size := 0, "HRESULT")
+        return size
     }
 
     /**
      * 
-     * @param {Pointer<IStream>} stream 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxfile-getstream
      */
-    GetStream(stream) {
-        result := ComCall(7, this, "ptr*", stream, "HRESULT")
-        return result
+    GetStream() {
+        result := ComCall(7, this, "ptr*", &stream := 0, "HRESULT")
+        return IStream(stream)
     }
 }

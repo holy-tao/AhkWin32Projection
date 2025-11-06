@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -100,26 +101,26 @@ class IWinHttpRequest extends IDispatch{
     /**
      * 
      * @param {BSTR} Header 
-     * @param {Pointer<BSTR>} Value 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/WinHttp/iwinhttprequest-getresponseheader
      */
-    GetResponseHeader(Header, Value) {
+    GetResponseHeader(Header) {
         Header := Header is String ? BSTR.Alloc(Header).Value : Header
 
+        Value := BSTR()
         result := ComCall(11, this, "ptr", Header, "ptr", Value, "HRESULT")
-        return result
+        return Value
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} Headers 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/WinHttp/iwinhttprequest-getallresponseheaders
      */
-    GetAllResponseHeaders(Headers) {
+    GetAllResponseHeaders() {
+        Headers := BSTR()
         result := ComCall(12, this, "ptr", Headers, "HRESULT")
-        return result
+        return Headers
     }
 
     /**
@@ -135,71 +136,68 @@ class IWinHttpRequest extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} Status 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/WinHttp/iwinhttprequest-status
      */
-    get_Status(Status) {
-        StatusMarshal := Status is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, StatusMarshal, Status, "HRESULT")
-        return result
+    get_Status() {
+        result := ComCall(14, this, "int*", &Status := 0, "HRESULT")
+        return Status
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} Status 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/WinHttp/iwinhttprequest-statustext
      */
-    get_StatusText(Status) {
+    get_StatusText() {
+        Status := BSTR()
         result := ComCall(15, this, "ptr", Status, "HRESULT")
-        return result
+        return Status
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} Body 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/WinHttp/iwinhttprequest-responsetext
      */
-    get_ResponseText(Body) {
+    get_ResponseText() {
+        Body := BSTR()
         result := ComCall(16, this, "ptr", Body, "HRESULT")
-        return result
+        return Body
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} Body 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/WinHttp/iwinhttprequest-responsebody
      */
-    get_ResponseBody(Body) {
+    get_ResponseBody() {
+        Body := VARIANT()
         result := ComCall(17, this, "ptr", Body, "HRESULT")
-        return result
+        return Body
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} Body 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/WinHttp/iwinhttprequest-responsestream
      */
-    get_ResponseStream(Body) {
+    get_ResponseStream() {
+        Body := VARIANT()
         result := ComCall(18, this, "ptr", Body, "HRESULT")
-        return result
+        return Body
     }
 
     /**
      * 
      * @param {Integer} Option 
-     * @param {Pointer<VARIANT>} Value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/WinHttp/iwinhttprequest-option
      */
-    get_Option(Option, Value) {
+    get_Option(Option) {
+        Value := VARIANT()
         result := ComCall(19, this, "int", Option, "ptr", Value, "HRESULT")
-        return result
+        return Value
     }
 
     /**
@@ -217,13 +215,12 @@ class IWinHttpRequest extends IDispatch{
     /**
      * 
      * @param {VARIANT} Timeout 
-     * @param {Pointer<VARIANT_BOOL>} Succeeded 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/WinHttp/iwinhttprequest-waitforresponse
      */
-    WaitForResponse(Timeout, Succeeded) {
-        result := ComCall(21, this, "ptr", Timeout, "ptr", Succeeded, "HRESULT")
-        return result
+    WaitForResponse(Timeout) {
+        result := ComCall(21, this, "ptr", Timeout, "short*", &Succeeded := 0, "HRESULT")
+        return Succeeded
     }
 
     /**

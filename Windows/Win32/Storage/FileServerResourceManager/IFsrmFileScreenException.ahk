@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IFsrmMutableCollection.ahk
 #Include .\IFsrmObject.ahk
 
 /**
@@ -32,24 +34,23 @@ class IFsrmFileScreenException extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<BSTR>} path 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreenexception-get_path
      */
-    get_Path(path) {
+    get_Path() {
+        path := BSTR()
         result := ComCall(12, this, "ptr", path, "HRESULT")
-        return result
+        return path
     }
 
     /**
      * 
-     * @param {Pointer<IFsrmMutableCollection>} allowList 
-     * @returns {HRESULT} 
+     * @returns {IFsrmMutableCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreenexception-get_allowedfilegroups
      */
-    get_AllowedFileGroups(allowList) {
-        result := ComCall(13, this, "ptr*", allowList, "HRESULT")
-        return result
+    get_AllowedFileGroups() {
+        result := ComCall(13, this, "ptr*", &allowList := 0, "HRESULT")
+        return IFsrmMutableCollection(allowList)
     }
 
     /**

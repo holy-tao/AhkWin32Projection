@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Graphics\DirectDraw\IDirectDraw.ahk
+#Include .\IDirectDrawStreamSample.ahk
 #Include .\IMediaStream.ahk
 
 /**
@@ -60,13 +62,12 @@ class IDirectDrawMediaStream extends IMediaStream{
 
     /**
      * 
-     * @param {Pointer<IDirectDraw>} ppDirectDraw 
-     * @returns {HRESULT} 
+     * @returns {IDirectDraw} 
      * @see https://learn.microsoft.com/windows/win32/api/ddstream/nf-ddstream-idirectdrawmediastream-getdirectdraw
      */
-    GetDirectDraw(ppDirectDraw) {
-        result := ComCall(11, this, "ptr*", ppDirectDraw, "HRESULT")
-        return result
+    GetDirectDraw() {
+        result := ComCall(11, this, "ptr*", &ppDirectDraw := 0, "HRESULT")
+        return IDirectDraw(ppDirectDraw)
     }
 
     /**
@@ -85,25 +86,21 @@ class IDirectDrawMediaStream extends IMediaStream{
      * @param {IDirectDrawSurface} pSurface 
      * @param {Pointer<RECT>} pRect 
      * @param {Integer} dwFlags 
-     * @param {Pointer<IDirectDrawStreamSample>} ppSample 
-     * @returns {HRESULT} 
+     * @returns {IDirectDrawStreamSample} 
      * @see https://learn.microsoft.com/windows/win32/api/ddstream/nf-ddstream-idirectdrawmediastream-createsample
      */
-    CreateSample(pSurface, pRect, dwFlags, ppSample) {
-        result := ComCall(13, this, "ptr", pSurface, "ptr", pRect, "uint", dwFlags, "ptr*", ppSample, "HRESULT")
-        return result
+    CreateSample(pSurface, pRect, dwFlags) {
+        result := ComCall(13, this, "ptr", pSurface, "ptr", pRect, "uint", dwFlags, "ptr*", &ppSample := 0, "HRESULT")
+        return IDirectDrawStreamSample(ppSample)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pFrameTime 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/ddstream/nf-ddstream-idirectdrawmediastream-gettimeperframe
      */
-    GetTimePerFrame(pFrameTime) {
-        pFrameTimeMarshal := pFrameTime is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(14, this, pFrameTimeMarshal, pFrameTime, "HRESULT")
-        return result
+    GetTimePerFrame() {
+        result := ComCall(14, this, "int64*", &pFrameTime := 0, "HRESULT")
+        return pFrameTime
     }
 }

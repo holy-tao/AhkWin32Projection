@@ -32,14 +32,11 @@ class IPrintWriteStream extends IUnknown{
      * 
      * @param {Pointer} pvBuffer 
      * @param {Integer} cbBuffer 
-     * @param {Pointer<Integer>} pcbWritten 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    WriteBytes(pvBuffer, cbBuffer, pcbWritten) {
-        pcbWrittenMarshal := pcbWritten is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pvBuffer, "uint", cbBuffer, pcbWrittenMarshal, pcbWritten, "HRESULT")
-        return result
+    WriteBytes(pvBuffer, cbBuffer) {
+        result := ComCall(3, this, "ptr", pvBuffer, "uint", cbBuffer, "uint*", &pcbWritten := 0, "HRESULT")
+        return pcbWritten
     }
 
     /**

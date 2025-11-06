@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISegmentListIterator.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,33 +31,28 @@ class ISegmentList extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ISegmentListIterator>} ppIIter 
-     * @returns {HRESULT} 
+     * @returns {ISegmentListIterator} 
      */
-    CreateIterator(ppIIter) {
-        result := ComCall(3, this, "ptr*", ppIIter, "HRESULT")
-        return result
+    CreateIterator() {
+        result := ComCall(3, this, "ptr*", &ppIIter := 0, "HRESULT")
+        return ISegmentListIterator(ppIIter)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} peType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetType(peType) {
-        peTypeMarshal := peType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, peTypeMarshal, peType, "HRESULT")
-        return result
+    GetType() {
+        result := ComCall(4, this, "int*", &peType := 0, "HRESULT")
+        return peType
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfEmpty 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsEmpty(pfEmpty) {
-        result := ComCall(5, this, "ptr", pfEmpty, "HRESULT")
-        return result
+    IsEmpty() {
+        result := ComCall(5, this, "int*", &pfEmpty := 0, "HRESULT")
+        return pfEmpty
     }
 }

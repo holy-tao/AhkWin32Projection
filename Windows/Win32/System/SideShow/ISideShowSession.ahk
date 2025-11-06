@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISideShowContentManager.ahk
+#Include .\ISideShowNotificationManager.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -38,22 +40,20 @@ class ISideShowSession extends IUnknown{
      * 
      * @param {Pointer<Guid>} in_applicationId 
      * @param {Pointer<Guid>} in_endpointId 
-     * @param {Pointer<ISideShowContentManager>} out_ppIContent 
-     * @returns {HRESULT} 
+     * @returns {ISideShowContentManager} 
      */
-    RegisterContent(in_applicationId, in_endpointId, out_ppIContent) {
-        result := ComCall(3, this, "ptr", in_applicationId, "ptr", in_endpointId, "ptr*", out_ppIContent, "HRESULT")
-        return result
+    RegisterContent(in_applicationId, in_endpointId) {
+        result := ComCall(3, this, "ptr", in_applicationId, "ptr", in_endpointId, "ptr*", &out_ppIContent := 0, "HRESULT")
+        return ISideShowContentManager(out_ppIContent)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} in_applicationId 
-     * @param {Pointer<ISideShowNotificationManager>} out_ppINotification 
-     * @returns {HRESULT} 
+     * @returns {ISideShowNotificationManager} 
      */
-    RegisterNotifications(in_applicationId, out_ppINotification) {
-        result := ComCall(4, this, "ptr", in_applicationId, "ptr*", out_ppINotification, "HRESULT")
-        return result
+    RegisterNotifications(in_applicationId) {
+        result := ComCall(4, this, "ptr", in_applicationId, "ptr*", &out_ppINotification := 0, "HRESULT")
+        return ISideShowNotificationManager(out_ppINotification)
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -36,42 +37,42 @@ class MenuItem extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} DisplayName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_DisplayName(DisplayName) {
+    get_DisplayName() {
+        DisplayName := BSTR()
         result := ComCall(7, this, "ptr", DisplayName, "HRESULT")
-        return result
+        return DisplayName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} LanguageIndependentName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_LanguageIndependentName(LanguageIndependentName) {
+    get_LanguageIndependentName() {
+        LanguageIndependentName := BSTR()
         result := ComCall(8, this, "ptr", LanguageIndependentName, "HRESULT")
-        return result
+        return LanguageIndependentName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} Path 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Path(Path) {
+    get_Path() {
+        Path := BSTR()
         result := ComCall(9, this, "ptr", Path, "HRESULT")
-        return result
+        return Path
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} LanguageIndependentPath 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_LanguageIndependentPath(LanguageIndependentPath) {
+    get_LanguageIndependentPath() {
+        LanguageIndependentPath := BSTR()
         result := ComCall(10, this, "ptr", LanguageIndependentPath, "HRESULT")
-        return result
+        return LanguageIndependentPath
     }
 
     /**
@@ -85,11 +86,10 @@ class MenuItem extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BOOL>} Enabled 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_Enabled(Enabled) {
-        result := ComCall(12, this, "ptr", Enabled, "HRESULT")
-        return result
+    get_Enabled() {
+        result := ComCall(12, this, "int*", &Enabled := 0, "HRESULT")
+        return Enabled
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\Com\IServiceProvider.ahk
 
 /**
@@ -32,12 +33,12 @@ class IWebApplicationAuthoringMode extends IServiceProvider{
 
     /**
      * 
-     * @param {Pointer<BSTR>} designModeDllPath 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/webapplication/nf-webapplication-iwebapplicationauthoringmode-get_authoringclientbinary
      */
-    get_AuthoringClientBinary(designModeDllPath) {
+    get_AuthoringClientBinary() {
+        designModeDllPath := BSTR()
         result := ComCall(4, this, "ptr", designModeDllPath, "HRESULT")
-        return result
+        return designModeDllPath
     }
 }

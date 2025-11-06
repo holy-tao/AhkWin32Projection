@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISpPhraseBuilder.ahk
+#Include .\SPSTATEINFO.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,27 +34,22 @@ class ISpSREngineSite extends IUnknown{
      * 
      * @param {Pointer<Void>} pv 
      * @param {Integer} cb 
-     * @param {Pointer<Integer>} pcbRead 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Read(pv, cb, pcbRead) {
+    Read(pv, cb) {
         pvMarshal := pv is VarRef ? "ptr" : "ptr"
-        pcbReadMarshal := pcbRead is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pvMarshal, pv, "uint", cb, pcbReadMarshal, pcbRead, "HRESULT")
-        return result
+        result := ComCall(3, this, pvMarshal, pv, "uint", cb, "uint*", &pcbRead := 0, "HRESULT")
+        return pcbRead
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pcb 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    DataAvailable(pcb) {
-        pcbMarshal := pcb is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pcbMarshal, pcb, "HRESULT")
-        return result
+    DataAvailable() {
+        result := ComCall(4, this, "uint*", &pcb := 0, "HRESULT")
+        return pcb
     }
 
     /**
@@ -68,12 +65,11 @@ class ISpSREngineSite extends IUnknown{
     /**
      * 
      * @param {Pointer<SPPARSEINFO>} pParseInfo 
-     * @param {Pointer<ISpPhraseBuilder>} ppNewPhrase 
-     * @returns {HRESULT} 
+     * @returns {ISpPhraseBuilder} 
      */
-    ParseFromTransitions(pParseInfo, ppNewPhrase) {
-        result := ComCall(6, this, "ptr", pParseInfo, "ptr*", ppNewPhrase, "HRESULT")
-        return result
+    ParseFromTransitions(pParseInfo) {
+        result := ComCall(6, this, "ptr", pParseInfo, "ptr*", &ppNewPhrase := 0, "HRESULT")
+        return ISpPhraseBuilder(ppNewPhrase)
     }
 
     /**
@@ -164,44 +160,40 @@ class ISpSREngineSite extends IUnknown{
     /**
      * 
      * @param {SPSTATEHANDLE} hState 
-     * @param {Pointer<SPSTATEINFO>} pStateInfo 
-     * @returns {HRESULT} 
+     * @returns {SPSTATEINFO} 
      */
-    GetStateInfo(hState, pStateInfo) {
+    GetStateInfo(hState) {
         hState := hState is Win32Handle ? NumGet(hState, "ptr") : hState
 
+        pStateInfo := SPSTATEINFO()
         result := ComCall(14, this, "ptr", hState, "ptr", pStateInfo, "HRESULT")
-        return result
+        return pStateInfo
     }
 
     /**
      * 
      * @param {SPRULEHANDLE} hRule 
      * @param {PWSTR} pszResourceName 
-     * @param {Pointer<PWSTR>} ppCoMemResource 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetResource(hRule, pszResourceName, ppCoMemResource) {
+    GetResource(hRule, pszResourceName) {
         hRule := hRule is Win32Handle ? NumGet(hRule, "ptr") : hRule
         pszResourceName := pszResourceName is String ? StrPtr(pszResourceName) : pszResourceName
 
-        result := ComCall(15, this, "ptr", hRule, "ptr", pszResourceName, "ptr", ppCoMemResource, "HRESULT")
-        return result
+        result := ComCall(15, this, "ptr", hRule, "ptr", pszResourceName, "ptr*", &ppCoMemResource := 0, "HRESULT")
+        return ppCoMemResource
     }
 
     /**
      * 
      * @param {SPTRANSITIONID} ID 
-     * @param {Pointer<Pointer<SPTRANSITIONPROPERTY>>} ppCoMemProperty 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SPTRANSITIONPROPERTY>} 
      */
-    GetTransitionProperty(ID, ppCoMemProperty) {
+    GetTransitionProperty(ID) {
         ID := ID is Win32Handle ? NumGet(ID, "ptr") : ID
 
-        ppCoMemPropertyMarshal := ppCoMemProperty is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(16, this, "ptr", ID, ppCoMemPropertyMarshal, ppCoMemProperty, "HRESULT")
-        return result
+        result := ComCall(16, this, "ptr", ID, "ptr*", &ppCoMemProperty := 0, "HRESULT")
+        return ppCoMemProperty
     }
 
     /**
@@ -221,31 +213,25 @@ class ISpSREngineSite extends IUnknown{
     /**
      * 
      * @param {SPRULEHANDLE} hRule 
-     * @param {Pointer<Integer>} pulNumAlts 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetMaxAlternates(hRule, pulNumAlts) {
+    GetMaxAlternates(hRule) {
         hRule := hRule is Win32Handle ? NumGet(hRule, "ptr") : hRule
 
-        pulNumAltsMarshal := pulNumAlts is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(18, this, "ptr", hRule, pulNumAltsMarshal, pulNumAlts, "HRESULT")
-        return result
+        result := ComCall(18, this, "ptr", hRule, "uint*", &pulNumAlts := 0, "HRESULT")
+        return pulNumAlts
     }
 
     /**
      * 
      * @param {SPRECOCONTEXTHANDLE} hContext 
-     * @param {Pointer<Integer>} pulNumAlts 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetContextMaxAlternates(hContext, pulNumAlts) {
+    GetContextMaxAlternates(hContext) {
         hContext := hContext is Win32Handle ? NumGet(hContext, "ptr") : hContext
 
-        pulNumAltsMarshal := pulNumAlts is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(19, this, "ptr", hContext, pulNumAltsMarshal, pulNumAlts, "HRESULT")
-        return result
+        result := ComCall(19, this, "ptr", hContext, "uint*", &pulNumAlts := 0, "HRESULT")
+        return pulNumAlts
     }
 
     /**

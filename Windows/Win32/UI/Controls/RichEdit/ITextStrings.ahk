@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\ITextRange2.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -34,26 +35,22 @@ class ITextStrings extends IDispatch{
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<ITextRange2>} ppRange 
-     * @returns {HRESULT} 
+     * @returns {ITextRange2} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstrings-item
      */
-    Item(Index, ppRange) {
-        result := ComCall(7, this, "int", Index, "ptr*", ppRange, "HRESULT")
-        return result
+    Item(Index) {
+        result := ComCall(7, this, "int", Index, "ptr*", &ppRange := 0, "HRESULT")
+        return ITextRange2(ppRange)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstrings-getcount
      */
-    GetCount(pCount) {
-        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(8, this, "int*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
@@ -138,15 +135,12 @@ class ITextStrings extends IDispatch{
     /**
      * 
      * @param {Integer} iString 
-     * @param {Pointer<Integer>} pcch 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstrings-getcch
      */
-    GetCch(iString, pcch) {
-        pcchMarshal := pcch is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, "int", iString, pcchMarshal, pcch, "HRESULT")
-        return result
+    GetCch(iString) {
+        result := ComCall(15, this, "int", iString, "int*", &pcch := 0, "HRESULT")
+        return pcch
     }
 
     /**

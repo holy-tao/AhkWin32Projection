@@ -30,15 +30,14 @@ class ISecureUrlHost extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfAllow 
      * @param {PWSTR} pchUrlInQuestion 
      * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    ValidateSecureUrl(pfAllow, pchUrlInQuestion, dwFlags) {
+    ValidateSecureUrl(pchUrlInQuestion, dwFlags) {
         pchUrlInQuestion := pchUrlInQuestion is String ? StrPtr(pchUrlInQuestion) : pchUrlInQuestion
 
-        result := ComCall(3, this, "ptr", pfAllow, "ptr", pchUrlInQuestion, "uint", dwFlags, "HRESULT")
-        return result
+        result := ComCall(3, this, "int*", &pfAllow := 0, "ptr", pchUrlInQuestion, "uint", dwFlags, "HRESULT")
+        return pfAllow
     }
 }

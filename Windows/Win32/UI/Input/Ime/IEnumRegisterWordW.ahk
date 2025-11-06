@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IEnumRegisterWordW.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -31,12 +32,11 @@ class IEnumRegisterWordW extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumRegisterWordW>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumRegisterWordW} 
      */
-    Clone(ppEnum) {
-        result := ComCall(3, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(3, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumRegisterWordW(ppEnum)
     }
 
     /**

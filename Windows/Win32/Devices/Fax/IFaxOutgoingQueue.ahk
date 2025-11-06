@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IFaxOutgoingJobs.ahk
+#Include .\IFaxOutgoingJob.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -43,13 +45,12 @@ class IFaxOutgoingQueue extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbBlocked 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-get_blocked
      */
-    get_Blocked(pbBlocked) {
-        result := ComCall(7, this, "ptr", pbBlocked, "HRESULT")
-        return result
+    get_Blocked() {
+        result := ComCall(7, this, "short*", &pbBlocked := 0, "HRESULT")
+        return pbBlocked
     }
 
     /**
@@ -65,13 +66,12 @@ class IFaxOutgoingQueue extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbPaused 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-get_paused
      */
-    get_Paused(pbPaused) {
-        result := ComCall(9, this, "ptr", pbPaused, "HRESULT")
-        return result
+    get_Paused() {
+        result := ComCall(9, this, "short*", &pbPaused := 0, "HRESULT")
+        return pbPaused
     }
 
     /**
@@ -87,13 +87,12 @@ class IFaxOutgoingQueue extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbAllowPersonalCoverPages 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-get_allowpersonalcoverpages
      */
-    get_AllowPersonalCoverPages(pbAllowPersonalCoverPages) {
-        result := ComCall(11, this, "ptr", pbAllowPersonalCoverPages, "HRESULT")
-        return result
+    get_AllowPersonalCoverPages() {
+        result := ComCall(11, this, "short*", &pbAllowPersonalCoverPages := 0, "HRESULT")
+        return pbAllowPersonalCoverPages
     }
 
     /**
@@ -109,13 +108,12 @@ class IFaxOutgoingQueue extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbUseDeviceTSID 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-get_usedevicetsid
      */
-    get_UseDeviceTSID(pbUseDeviceTSID) {
-        result := ComCall(13, this, "ptr", pbUseDeviceTSID, "HRESULT")
-        return result
+    get_UseDeviceTSID() {
+        result := ComCall(13, this, "short*", &pbUseDeviceTSID := 0, "HRESULT")
+        return pbUseDeviceTSID
     }
 
     /**
@@ -131,15 +129,12 @@ class IFaxOutgoingQueue extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plRetries 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-get_retries
      */
-    get_Retries(plRetries) {
-        plRetriesMarshal := plRetries is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, plRetriesMarshal, plRetries, "HRESULT")
-        return result
+    get_Retries() {
+        result := ComCall(15, this, "int*", &plRetries := 0, "HRESULT")
+        return plRetries
     }
 
     /**
@@ -155,15 +150,12 @@ class IFaxOutgoingQueue extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plRetryDelay 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-get_retrydelay
      */
-    get_RetryDelay(plRetryDelay) {
-        plRetryDelayMarshal := plRetryDelay is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, plRetryDelayMarshal, plRetryDelay, "HRESULT")
-        return result
+    get_RetryDelay() {
+        result := ComCall(17, this, "int*", &plRetryDelay := 0, "HRESULT")
+        return plRetryDelay
     }
 
     /**
@@ -179,15 +171,12 @@ class IFaxOutgoingQueue extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} pdateDiscountRateStart 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-get_discountratestart
      */
-    get_DiscountRateStart(pdateDiscountRateStart) {
-        pdateDiscountRateStartMarshal := pdateDiscountRateStart is VarRef ? "double*" : "ptr"
-
-        result := ComCall(19, this, pdateDiscountRateStartMarshal, pdateDiscountRateStart, "HRESULT")
-        return result
+    get_DiscountRateStart() {
+        result := ComCall(19, this, "double*", &pdateDiscountRateStart := 0, "HRESULT")
+        return pdateDiscountRateStart
     }
 
     /**
@@ -203,15 +192,12 @@ class IFaxOutgoingQueue extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} pdateDiscountRateEnd 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-get_discountrateend
      */
-    get_DiscountRateEnd(pdateDiscountRateEnd) {
-        pdateDiscountRateEndMarshal := pdateDiscountRateEnd is VarRef ? "double*" : "ptr"
-
-        result := ComCall(21, this, pdateDiscountRateEndMarshal, pdateDiscountRateEnd, "HRESULT")
-        return result
+    get_DiscountRateEnd() {
+        result := ComCall(21, this, "double*", &pdateDiscountRateEnd := 0, "HRESULT")
+        return pdateDiscountRateEnd
     }
 
     /**
@@ -227,15 +213,12 @@ class IFaxOutgoingQueue extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plAgeLimit 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-get_agelimit
      */
-    get_AgeLimit(plAgeLimit) {
-        plAgeLimitMarshal := plAgeLimit is VarRef ? "int*" : "ptr"
-
-        result := ComCall(23, this, plAgeLimitMarshal, plAgeLimit, "HRESULT")
-        return result
+    get_AgeLimit() {
+        result := ComCall(23, this, "int*", &plAgeLimit := 0, "HRESULT")
+        return plAgeLimit
     }
 
     /**
@@ -251,13 +234,12 @@ class IFaxOutgoingQueue extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbBranding 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-get_branding
      */
-    get_Branding(pbBranding) {
-        result := ComCall(25, this, "ptr", pbBranding, "HRESULT")
-        return result
+    get_Branding() {
+        result := ComCall(25, this, "short*", &pbBranding := 0, "HRESULT")
+        return pbBranding
     }
 
     /**
@@ -293,26 +275,24 @@ class IFaxOutgoingQueue extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IFaxOutgoingJobs>} pFaxOutgoingJobs 
-     * @returns {HRESULT} 
+     * @returns {IFaxOutgoingJobs} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-getjobs
      */
-    GetJobs(pFaxOutgoingJobs) {
-        result := ComCall(29, this, "ptr*", pFaxOutgoingJobs, "HRESULT")
-        return result
+    GetJobs() {
+        result := ComCall(29, this, "ptr*", &pFaxOutgoingJobs := 0, "HRESULT")
+        return IFaxOutgoingJobs(pFaxOutgoingJobs)
     }
 
     /**
      * 
      * @param {BSTR} bstrJobId 
-     * @param {Pointer<IFaxOutgoingJob>} pFaxOutgoingJob 
-     * @returns {HRESULT} 
+     * @returns {IFaxOutgoingJob} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutgoingqueue-getjob
      */
-    GetJob(bstrJobId, pFaxOutgoingJob) {
+    GetJob(bstrJobId) {
         bstrJobId := bstrJobId is String ? BSTR.Alloc(bstrJobId).Value : bstrJobId
 
-        result := ComCall(30, this, "ptr", bstrJobId, "ptr*", pFaxOutgoingJob, "HRESULT")
-        return result
+        result := ComCall(30, this, "ptr", bstrJobId, "ptr*", &pFaxOutgoingJob := 0, "HRESULT")
+        return IFaxOutgoingJob(pFaxOutgoingJob)
     }
 }

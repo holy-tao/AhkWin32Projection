@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Graphics\Direct3D9\IDirect3DDevice9.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -55,13 +57,13 @@ class IDirect3DDeviceManager9 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HANDLE>} phDevice 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirect3ddevicemanager9-opendevicehandle
      */
-    OpenDeviceHandle(phDevice) {
+    OpenDeviceHandle() {
+        phDevice := HANDLE()
         result := ComCall(4, this, "ptr", phDevice, "HRESULT")
-        return result
+        return phDevice
     }
 
     /**
@@ -93,16 +95,15 @@ class IDirect3DDeviceManager9 extends IUnknown{
     /**
      * 
      * @param {HANDLE} hDevice 
-     * @param {Pointer<IDirect3DDevice9>} ppDevice 
      * @param {BOOL} fBlock 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DDevice9} 
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirect3ddevicemanager9-lockdevice
      */
-    LockDevice(hDevice, ppDevice, fBlock) {
+    LockDevice(hDevice, fBlock) {
         hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
 
-        result := ComCall(7, this, "ptr", hDevice, "ptr*", ppDevice, "int", fBlock, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", hDevice, "ptr*", &ppDevice := 0, "int", fBlock, "HRESULT")
+        return IDirect3DDevice9(ppDevice)
     }
 
     /**
@@ -123,16 +124,13 @@ class IDirect3DDeviceManager9 extends IUnknown{
      * 
      * @param {HANDLE} hDevice 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppService 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirect3ddevicemanager9-getvideoservice
      */
-    GetVideoService(hDevice, riid, ppService) {
+    GetVideoService(hDevice, riid) {
         hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
 
-        ppServiceMarshal := ppService is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(9, this, "ptr", hDevice, "ptr", riid, ppServiceMarshal, ppService, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", hDevice, "ptr", riid, "ptr*", &ppService := 0, "HRESULT")
+        return ppService
     }
 }

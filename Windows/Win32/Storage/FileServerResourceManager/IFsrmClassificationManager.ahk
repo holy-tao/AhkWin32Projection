@@ -2,6 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IFsrmCollection.ahk
+#Include .\IFsrmPropertyDefinition.ahk
+#Include .\IFsrmRule.ahk
+#Include .\IFsrmPipelineModuleDefinition.ahk
+#Include .\IFsrmProperty.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -79,15 +84,12 @@ class IFsrmClassificationManager extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} formats 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-get_classificationreportformats
      */
-    get_ClassificationReportFormats(formats) {
-        formatsMarshal := formats is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, formatsMarshal, formats, "HRESULT")
-        return result
+    get_ClassificationReportFormats() {
+        result := ComCall(7, this, "ptr*", &formats := 0, "HRESULT")
+        return formats
     }
 
     /**
@@ -103,15 +105,12 @@ class IFsrmClassificationManager extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} logging 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-get_logging
      */
-    get_Logging(logging) {
-        loggingMarshal := logging is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, loggingMarshal, logging, "HRESULT")
-        return result
+    get_Logging() {
+        result := ComCall(9, this, "int*", &logging := 0, "HRESULT")
+        return logging
     }
 
     /**
@@ -127,13 +126,13 @@ class IFsrmClassificationManager extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} mailTo 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-get_classificationreportmailto
      */
-    get_ClassificationReportMailTo(mailTo) {
+    get_ClassificationReportMailTo() {
+        mailTo := BSTR()
         result := ComCall(11, this, "ptr", mailTo, "HRESULT")
-        return result
+        return mailTo
     }
 
     /**
@@ -151,13 +150,12 @@ class IFsrmClassificationManager extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} reportEnabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-get_classificationreportenabled
      */
-    get_ClassificationReportEnabled(reportEnabled) {
-        result := ComCall(13, this, "ptr", reportEnabled, "HRESULT")
-        return result
+    get_ClassificationReportEnabled() {
+        result := ComCall(13, this, "short*", &reportEnabled := 0, "HRESULT")
+        return reportEnabled
     }
 
     /**
@@ -173,154 +171,142 @@ class IFsrmClassificationManager extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} lastReportPath 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-get_classificationlastreportpathwithoutextension
      */
-    get_ClassificationLastReportPathWithoutExtension(lastReportPath) {
+    get_ClassificationLastReportPathWithoutExtension() {
+        lastReportPath := BSTR()
         result := ComCall(15, this, "ptr", lastReportPath, "HRESULT")
-        return result
+        return lastReportPath
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} lastError 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-get_classificationlasterror
      */
-    get_ClassificationLastError(lastError) {
+    get_ClassificationLastError() {
+        lastError := BSTR()
         result := ComCall(16, this, "ptr", lastError, "HRESULT")
-        return result
+        return lastError
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} runningStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-get_classificationrunningstatus
      */
-    get_ClassificationRunningStatus(runningStatus) {
-        runningStatusMarshal := runningStatus is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, runningStatusMarshal, runningStatus, "HRESULT")
-        return result
+    get_ClassificationRunningStatus() {
+        result := ComCall(17, this, "int*", &runningStatus := 0, "HRESULT")
+        return runningStatus
     }
 
     /**
      * 
      * @param {Integer} options 
-     * @param {Pointer<IFsrmCollection>} propertyDefinitions 
-     * @returns {HRESULT} 
+     * @returns {IFsrmCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-enumpropertydefinitions
      */
-    EnumPropertyDefinitions(options, propertyDefinitions) {
-        result := ComCall(18, this, "int", options, "ptr*", propertyDefinitions, "HRESULT")
-        return result
+    EnumPropertyDefinitions(options) {
+        result := ComCall(18, this, "int", options, "ptr*", &propertyDefinitions := 0, "HRESULT")
+        return IFsrmCollection(propertyDefinitions)
     }
 
     /**
      * 
-     * @param {Pointer<IFsrmPropertyDefinition>} propertyDefinition 
-     * @returns {HRESULT} 
+     * @returns {IFsrmPropertyDefinition} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-createpropertydefinition
      */
-    CreatePropertyDefinition(propertyDefinition) {
-        result := ComCall(19, this, "ptr*", propertyDefinition, "HRESULT")
-        return result
+    CreatePropertyDefinition() {
+        result := ComCall(19, this, "ptr*", &propertyDefinition := 0, "HRESULT")
+        return IFsrmPropertyDefinition(propertyDefinition)
     }
 
     /**
      * 
      * @param {BSTR} propertyName 
-     * @param {Pointer<IFsrmPropertyDefinition>} propertyDefinition 
-     * @returns {HRESULT} 
+     * @returns {IFsrmPropertyDefinition} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-getpropertydefinition
      */
-    GetPropertyDefinition(propertyName, propertyDefinition) {
+    GetPropertyDefinition(propertyName) {
         propertyName := propertyName is String ? BSTR.Alloc(propertyName).Value : propertyName
 
-        result := ComCall(20, this, "ptr", propertyName, "ptr*", propertyDefinition, "HRESULT")
-        return result
+        result := ComCall(20, this, "ptr", propertyName, "ptr*", &propertyDefinition := 0, "HRESULT")
+        return IFsrmPropertyDefinition(propertyDefinition)
     }
 
     /**
      * 
      * @param {Integer} ruleType 
      * @param {Integer} options 
-     * @param {Pointer<IFsrmCollection>} Rules 
-     * @returns {HRESULT} 
+     * @returns {IFsrmCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-enumrules
      */
-    EnumRules(ruleType, options, Rules) {
-        result := ComCall(21, this, "int", ruleType, "int", options, "ptr*", Rules, "HRESULT")
-        return result
+    EnumRules(ruleType, options) {
+        result := ComCall(21, this, "int", ruleType, "int", options, "ptr*", &Rules := 0, "HRESULT")
+        return IFsrmCollection(Rules)
     }
 
     /**
      * 
      * @param {Integer} ruleType 
-     * @param {Pointer<IFsrmRule>} Rule 
-     * @returns {HRESULT} 
+     * @returns {IFsrmRule} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-createrule
      */
-    CreateRule(ruleType, Rule) {
-        result := ComCall(22, this, "int", ruleType, "ptr*", Rule, "HRESULT")
-        return result
+    CreateRule(ruleType) {
+        result := ComCall(22, this, "int", ruleType, "ptr*", &Rule := 0, "HRESULT")
+        return IFsrmRule(Rule)
     }
 
     /**
      * 
      * @param {BSTR} ruleName 
      * @param {Integer} ruleType 
-     * @param {Pointer<IFsrmRule>} Rule 
-     * @returns {HRESULT} 
+     * @returns {IFsrmRule} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-getrule
      */
-    GetRule(ruleName, ruleType, Rule) {
+    GetRule(ruleName, ruleType) {
         ruleName := ruleName is String ? BSTR.Alloc(ruleName).Value : ruleName
 
-        result := ComCall(23, this, "ptr", ruleName, "int", ruleType, "ptr*", Rule, "HRESULT")
-        return result
+        result := ComCall(23, this, "ptr", ruleName, "int", ruleType, "ptr*", &Rule := 0, "HRESULT")
+        return IFsrmRule(Rule)
     }
 
     /**
      * 
      * @param {Integer} moduleType 
      * @param {Integer} options 
-     * @param {Pointer<IFsrmCollection>} moduleDefinitions 
-     * @returns {HRESULT} 
+     * @returns {IFsrmCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-enummoduledefinitions
      */
-    EnumModuleDefinitions(moduleType, options, moduleDefinitions) {
-        result := ComCall(24, this, "int", moduleType, "int", options, "ptr*", moduleDefinitions, "HRESULT")
-        return result
+    EnumModuleDefinitions(moduleType, options) {
+        result := ComCall(24, this, "int", moduleType, "int", options, "ptr*", &moduleDefinitions := 0, "HRESULT")
+        return IFsrmCollection(moduleDefinitions)
     }
 
     /**
      * 
      * @param {Integer} moduleType 
-     * @param {Pointer<IFsrmPipelineModuleDefinition>} moduleDefinition 
-     * @returns {HRESULT} 
+     * @returns {IFsrmPipelineModuleDefinition} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-createmoduledefinition
      */
-    CreateModuleDefinition(moduleType, moduleDefinition) {
-        result := ComCall(25, this, "int", moduleType, "ptr*", moduleDefinition, "HRESULT")
-        return result
+    CreateModuleDefinition(moduleType) {
+        result := ComCall(25, this, "int", moduleType, "ptr*", &moduleDefinition := 0, "HRESULT")
+        return IFsrmPipelineModuleDefinition(moduleDefinition)
     }
 
     /**
      * 
      * @param {BSTR} moduleName 
      * @param {Integer} moduleType 
-     * @param {Pointer<IFsrmPipelineModuleDefinition>} moduleDefinition 
-     * @returns {HRESULT} 
+     * @returns {IFsrmPipelineModuleDefinition} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-getmoduledefinition
      */
-    GetModuleDefinition(moduleName, moduleType, moduleDefinition) {
+    GetModuleDefinition(moduleName, moduleType) {
         moduleName := moduleName is String ? BSTR.Alloc(moduleName).Value : moduleName
 
-        result := ComCall(26, this, "ptr", moduleName, "int", moduleType, "ptr*", moduleDefinition, "HRESULT")
-        return result
+        result := ComCall(26, this, "ptr", moduleName, "int", moduleType, "ptr*", &moduleDefinition := 0, "HRESULT")
+        return IFsrmPipelineModuleDefinition(moduleDefinition)
     }
 
     /**
@@ -340,13 +326,12 @@ class IFsrmClassificationManager extends IDispatch{
     /**
      * 
      * @param {Integer} waitSeconds 
-     * @param {Pointer<VARIANT_BOOL>} completed 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-waitforclassificationcompletion
      */
-    WaitForClassificationCompletion(waitSeconds, completed) {
-        result := ComCall(28, this, "int", waitSeconds, "ptr", completed, "HRESULT")
-        return result
+    WaitForClassificationCompletion(waitSeconds) {
+        result := ComCall(28, this, "int", waitSeconds, "short*", &completed := 0, "HRESULT")
+        return completed
     }
 
     /**
@@ -363,15 +348,14 @@ class IFsrmClassificationManager extends IDispatch{
      * 
      * @param {BSTR} filePath 
      * @param {Integer} options 
-     * @param {Pointer<IFsrmCollection>} fileProperties 
-     * @returns {HRESULT} 
+     * @returns {IFsrmCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-enumfileproperties
      */
-    EnumFileProperties(filePath, options, fileProperties) {
+    EnumFileProperties(filePath, options) {
         filePath := filePath is String ? BSTR.Alloc(filePath).Value : filePath
 
-        result := ComCall(30, this, "ptr", filePath, "int", options, "ptr*", fileProperties, "HRESULT")
-        return result
+        result := ComCall(30, this, "ptr", filePath, "int", options, "ptr*", &fileProperties := 0, "HRESULT")
+        return IFsrmCollection(fileProperties)
     }
 
     /**
@@ -379,16 +363,15 @@ class IFsrmClassificationManager extends IDispatch{
      * @param {BSTR} filePath 
      * @param {BSTR} propertyName 
      * @param {Integer} options 
-     * @param {Pointer<IFsrmProperty>} property 
-     * @returns {HRESULT} 
+     * @returns {IFsrmProperty} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-getfileproperty
      */
-    GetFileProperty(filePath, propertyName, options, property) {
+    GetFileProperty(filePath, propertyName, options) {
         filePath := filePath is String ? BSTR.Alloc(filePath).Value : filePath
         propertyName := propertyName is String ? BSTR.Alloc(propertyName).Value : propertyName
 
-        result := ComCall(31, this, "ptr", filePath, "ptr", propertyName, "int", options, "ptr*", property, "HRESULT")
-        return result
+        result := ComCall(31, this, "ptr", filePath, "ptr", propertyName, "int", options, "ptr*", &property := 0, "HRESULT")
+        return IFsrmProperty(property)
     }
 
     /**

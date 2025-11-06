@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\StructuredStorage\IStorage.ahk
+#Include ..\..\..\System\Com\IDataObject.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,13 +34,12 @@ class IRichEditOleCallback extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IStorage>} lplpstg 
-     * @returns {HRESULT} 
+     * @returns {IStorage} 
      * @see https://learn.microsoft.com/windows/win32/api/richole/nf-richole-iricheditolecallback-getnewstorage
      */
-    GetNewStorage(lplpstg) {
-        result := ComCall(3, this, "ptr*", lplpstg, "HRESULT")
-        return result
+    GetNewStorage() {
+        result := ComCall(3, this, "ptr*", &lplpstg := 0, "HRESULT")
+        return IStorage(lplpstg)
     }
 
     /**
@@ -125,17 +126,12 @@ class IRichEditOleCallback extends IUnknown{
      * Retrieves data from the clipboard in a specified format. The clipboard must have been opened previously.
      * @param {Pointer<CHARRANGE>} lpchrg 
      * @param {Integer} reco 
-     * @param {Pointer<IDataObject>} lplpdataobj 
-     * @returns {HRESULT} Type: <b>HANDLE</b>
-     * 
-     * If the function succeeds, the return value is the handle to a clipboard object in the specified format.
-     * 
-     * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {IDataObject} 
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getclipboarddata
      */
-    GetClipboardData(lpchrg, reco, lplpdataobj) {
-        result := ComCall(10, this, "ptr", lpchrg, "uint", reco, "ptr*", lplpdataobj, "HRESULT")
-        return result
+    GetClipboardData(lpchrg, reco) {
+        result := ComCall(10, this, "ptr", lpchrg, "uint", reco, "ptr*", &lplpdataobj := 0, "HRESULT")
+        return IDataObject(lplpdataobj)
     }
 
     /**

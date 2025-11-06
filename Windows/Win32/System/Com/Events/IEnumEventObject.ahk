@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IEnumEventObject.ahk
 #Include ..\IUnknown.ahk
 
 /**
@@ -32,13 +33,12 @@ class IEnumEventObject extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumEventObject>} ppInterface 
-     * @returns {HRESULT} 
+     * @returns {IEnumEventObject} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ienumeventobject-clone
      */
-    Clone(ppInterface) {
-        result := ComCall(3, this, "ptr*", ppInterface, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(3, this, "ptr*", &ppInterface := 0, "HRESULT")
+        return IEnumEventObject(ppInterface)
     }
 
     /**

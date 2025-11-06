@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IAppxManifestPackageDependency.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -37,34 +38,31 @@ class IAppxManifestPackageDependenciesEnumerator extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IAppxManifestPackageDependency>} dependency 
-     * @returns {HRESULT} 
+     * @returns {IAppxManifestPackageDependency} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestpackagedependenciesenumerator-getcurrent
      */
-    GetCurrent(dependency) {
-        result := ComCall(3, this, "ptr*", dependency, "HRESULT")
-        return result
+    GetCurrent() {
+        result := ComCall(3, this, "ptr*", &dependency := 0, "HRESULT")
+        return IAppxManifestPackageDependency(dependency)
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} hasCurrent 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestpackagedependenciesenumerator-gethascurrent
      */
-    GetHasCurrent(hasCurrent) {
-        result := ComCall(4, this, "ptr", hasCurrent, "HRESULT")
-        return result
+    GetHasCurrent() {
+        result := ComCall(4, this, "int*", &hasCurrent := 0, "HRESULT")
+        return hasCurrent
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} hasNext 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestpackagedependenciesenumerator-movenext
      */
-    MoveNext(hasNext) {
-        result := ComCall(5, this, "ptr", hasNext, "HRESULT")
-        return result
+    MoveNext() {
+        result := ComCall(5, this, "int*", &hasNext := 0, "HRESULT")
+        return hasNext
     }
 }

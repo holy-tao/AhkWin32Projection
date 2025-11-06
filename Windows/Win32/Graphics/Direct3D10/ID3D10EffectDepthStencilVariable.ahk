@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID3D10DepthStencilState.ahk
+#Include .\D3D10_DEPTH_STENCIL_DESC.ahk
 #Include .\ID3D10EffectVariable.ahk
 
 /**
@@ -41,24 +43,23 @@ class ID3D10EffectDepthStencilVariable extends ID3D10EffectVariable{
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<ID3D10DepthStencilState>} ppDepthStencilState 
-     * @returns {HRESULT} 
+     * @returns {ID3D10DepthStencilState} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectdepthstencilvariable-getdepthstencilstate
      */
-    GetDepthStencilState(Index, ppDepthStencilState) {
-        result := ComCall(25, this, "uint", Index, "ptr*", ppDepthStencilState, "HRESULT")
-        return result
+    GetDepthStencilState(Index) {
+        result := ComCall(25, this, "uint", Index, "ptr*", &ppDepthStencilState := 0, "HRESULT")
+        return ID3D10DepthStencilState(ppDepthStencilState)
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<D3D10_DEPTH_STENCIL_DESC>} pDepthStencilDesc 
-     * @returns {HRESULT} 
+     * @returns {D3D10_DEPTH_STENCIL_DESC} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectdepthstencilvariable-getbackingstore
      */
-    GetBackingStore(Index, pDepthStencilDesc) {
+    GetBackingStore(Index) {
+        pDepthStencilDesc := D3D10_DEPTH_STENCIL_DESC()
         result := ComCall(26, this, "uint", Index, "ptr", pDepthStencilDesc, "HRESULT")
-        return result
+        return pDepthStencilDesc
     }
 }

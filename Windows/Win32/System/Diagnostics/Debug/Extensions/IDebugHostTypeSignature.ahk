@@ -30,14 +30,11 @@ class IDebugHostTypeSignature extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} hashCode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetHashCode(hashCode) {
-        hashCodeMarshal := hashCode is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, hashCodeMarshal, hashCode, "HRESULT")
-        return result
+    GetHashCode() {
+        result := ComCall(3, this, "uint*", &hashCode := 0, "HRESULT")
+        return hashCode
     }
 
     /**
@@ -57,13 +54,10 @@ class IDebugHostTypeSignature extends IUnknown{
     /**
      * 
      * @param {IDebugHostTypeSignature} typeSignature 
-     * @param {Pointer<Integer>} result 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    CompareAgainst(typeSignature, result) {
-        resultMarshal := result is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, "ptr", typeSignature, resultMarshal, result, "HRESULT")
+    CompareAgainst(typeSignature) {
+        result := ComCall(5, this, "ptr", typeSignature, "int*", &result := 0, "HRESULT")
         return result
     }
 }

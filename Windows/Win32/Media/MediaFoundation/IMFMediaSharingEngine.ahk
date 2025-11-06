@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DEVICE_INFO.ahk
 #Include .\IMFMediaEngine.ahk
 
 /**
@@ -32,12 +33,12 @@ class IMFMediaSharingEngine extends IMFMediaEngine{
 
     /**
      * 
-     * @param {Pointer<DEVICE_INFO>} pDevice 
-     * @returns {HRESULT} 
+     * @returns {DEVICE_INFO} 
      * @see https://learn.microsoft.com/windows/win32/api/mfsharingengine/nf-mfsharingengine-imfmediasharingengine-getdevice
      */
-    GetDevice(pDevice) {
+    GetDevice() {
+        pDevice := DEVICE_INFO()
         result := ComCall(45, this, "ptr", pDevice, "HRESULT")
-        return result
+        return pDevice
     }
 }

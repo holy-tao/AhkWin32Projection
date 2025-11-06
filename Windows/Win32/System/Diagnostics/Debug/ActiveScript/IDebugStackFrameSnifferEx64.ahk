@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IEnumDebugStackFrames64.ahk
 #Include .\IDebugStackFrameSniffer.ahk
 
 /**
@@ -31,11 +32,10 @@ class IDebugStackFrameSnifferEx64 extends IDebugStackFrameSniffer{
     /**
      * 
      * @param {Integer} dwSpMin 
-     * @param {Pointer<IEnumDebugStackFrames64>} ppedsf 
-     * @returns {HRESULT} 
+     * @returns {IEnumDebugStackFrames64} 
      */
-    EnumStackFramesEx64(dwSpMin, ppedsf) {
-        result := ComCall(4, this, "uint", dwSpMin, "ptr*", ppedsf, "HRESULT")
-        return result
+    EnumStackFramesEx64(dwSpMin) {
+        result := ComCall(4, this, "uint", dwSpMin, "ptr*", &ppedsf := 0, "HRESULT")
+        return IEnumDebugStackFrames64(ppedsf)
     }
 }

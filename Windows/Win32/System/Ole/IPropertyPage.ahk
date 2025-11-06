@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\PROPPAGEINFO.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -68,13 +69,13 @@ class IPropertyPage extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PROPPAGEINFO>} pPageInfo 
-     * @returns {HRESULT} 
+     * @returns {PROPPAGEINFO} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipropertypage-getpageinfo
      */
-    GetPageInfo(pPageInfo) {
+    GetPageInfo() {
+        pPageInfo := PROPPAGEINFO()
         result := ComCall(6, this, "ptr", pPageInfo, "HRESULT")
-        return result
+        return pPageInfo
     }
 
     /**

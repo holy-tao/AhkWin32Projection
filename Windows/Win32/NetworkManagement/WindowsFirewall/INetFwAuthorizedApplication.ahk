@@ -48,13 +48,13 @@ class INetFwAuthorizedApplication extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwauthorizedapplication-get_name
      */
-    get_Name(name) {
+    get_Name() {
+        name := BSTR()
         result := ComCall(7, this, "ptr", name, "HRESULT")
-        return result
+        return name
     }
 
     /**
@@ -72,13 +72,13 @@ class INetFwAuthorizedApplication extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} imageFileName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwauthorizedapplication-get_processimagefilename
      */
-    get_ProcessImageFileName(imageFileName) {
+    get_ProcessImageFileName() {
+        imageFileName := BSTR()
         result := ComCall(9, this, "ptr", imageFileName, "HRESULT")
-        return result
+        return imageFileName
     }
 
     /**
@@ -96,15 +96,12 @@ class INetFwAuthorizedApplication extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} ipVersion 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwauthorizedapplication-get_ipversion
      */
-    get_IpVersion(ipVersion) {
-        ipVersionMarshal := ipVersion is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, ipVersionMarshal, ipVersion, "HRESULT")
-        return result
+    get_IpVersion() {
+        result := ComCall(11, this, "int*", &ipVersion := 0, "HRESULT")
+        return ipVersion
     }
 
     /**
@@ -120,15 +117,12 @@ class INetFwAuthorizedApplication extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} scope 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwauthorizedapplication-get_scope
      */
-    get_Scope(scope) {
-        scopeMarshal := scope is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, scopeMarshal, scope, "HRESULT")
-        return result
+    get_Scope() {
+        result := ComCall(13, this, "int*", &scope := 0, "HRESULT")
+        return scope
     }
 
     /**
@@ -144,13 +138,13 @@ class INetFwAuthorizedApplication extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} remoteAddrs 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwauthorizedapplication-get_remoteaddresses
      */
-    get_RemoteAddresses(remoteAddrs) {
+    get_RemoteAddresses() {
+        remoteAddrs := BSTR()
         result := ComCall(15, this, "ptr", remoteAddrs, "HRESULT")
-        return result
+        return remoteAddrs
     }
 
     /**
@@ -168,13 +162,12 @@ class INetFwAuthorizedApplication extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} enabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwauthorizedapplication-get_enabled
      */
-    get_Enabled(enabled) {
-        result := ComCall(17, this, "ptr", enabled, "HRESULT")
-        return result
+    get_Enabled() {
+        result := ComCall(17, this, "short*", &enabled := 0, "HRESULT")
+        return enabled
     }
 
     /**

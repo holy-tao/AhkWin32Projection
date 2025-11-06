@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumNetSharingPublicConnection.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -68,12 +69,11 @@ class IEnumNetSharingPublicConnection extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumNetSharingPublicConnection>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IEnumNetSharingPublicConnection} 
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-ienumnetsharingpublicconnection-clone
      */
-    Clone(ppenum) {
-        result := ComCall(6, this, "ptr*", ppenum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")
+        return IEnumNetSharingPublicConnection(ppenum)
     }
 }

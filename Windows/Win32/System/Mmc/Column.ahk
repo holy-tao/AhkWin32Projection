@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -36,24 +37,21 @@ class Column extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} Name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    Name(Name) {
+    Name() {
+        Name := BSTR()
         result := ComCall(7, this, "ptr", Name, "HRESULT")
-        return result
+        return Name
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Width 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Width(Width) {
-        WidthMarshal := Width is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, WidthMarshal, Width, "HRESULT")
-        return result
+    get_Width() {
+        result := ComCall(8, this, "int*", &Width := 0, "HRESULT")
+        return Width
     }
 
     /**
@@ -68,14 +66,11 @@ class Column extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} DisplayPosition 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_DisplayPosition(DisplayPosition) {
-        DisplayPositionMarshal := DisplayPosition is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, DisplayPositionMarshal, DisplayPosition, "HRESULT")
-        return result
+    get_DisplayPosition() {
+        result := ComCall(10, this, "int*", &DisplayPosition := 0, "HRESULT")
+        return DisplayPosition
     }
 
     /**
@@ -90,12 +85,11 @@ class Column extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BOOL>} Hidden 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_Hidden(Hidden) {
-        result := ComCall(12, this, "ptr", Hidden, "HRESULT")
-        return result
+    get_Hidden() {
+        result := ComCall(12, this, "int*", &Hidden := 0, "HRESULT")
+        return Hidden
     }
 
     /**
@@ -120,11 +114,10 @@ class Column extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BOOL>} IsSortColumn 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsSortColumn(IsSortColumn) {
-        result := ComCall(15, this, "ptr", IsSortColumn, "HRESULT")
-        return result
+    IsSortColumn() {
+        result := ComCall(15, this, "int*", &IsSortColumn := 0, "HRESULT")
+        return IsSortColumn
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DWRITE_BITMAP_DATA_BGRA32.ahk
 #Include .\IDWriteBitmapRenderTarget1.ahk
 
 /**
@@ -30,11 +31,11 @@ class IDWriteBitmapRenderTarget2 extends IDWriteBitmapRenderTarget1{
 
     /**
      * 
-     * @param {Pointer<DWRITE_BITMAP_DATA_BGRA32>} bitmapData 
-     * @returns {HRESULT} 
+     * @returns {DWRITE_BITMAP_DATA_BGRA32} 
      */
-    GetBitmapData(bitmapData) {
+    GetBitmapData() {
+        bitmapData := DWRITE_BITMAP_DATA_BGRA32()
         result := ComCall(13, this, "ptr", bitmapData, "HRESULT")
-        return result
+        return bitmapData
     }
 }

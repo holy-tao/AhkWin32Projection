@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,34 +32,30 @@ class IHTMLFontNamesCollection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_length(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pMarshal, p, "HRESULT")
-        return result
+    get_length() {
+        result := ComCall(7, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} p 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__newEnum(p) {
-        result := ComCall(8, this, "ptr*", p, "HRESULT")
-        return result
+    get__newEnum() {
+        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        return IUnknown(p)
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<BSTR>} pBstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    item(index, pBstr) {
+    item(index) {
+        pBstr := BSTR()
         result := ComCall(9, this, "int", index, "ptr", pBstr, "HRESULT")
-        return result
+        return pBstr
     }
 }

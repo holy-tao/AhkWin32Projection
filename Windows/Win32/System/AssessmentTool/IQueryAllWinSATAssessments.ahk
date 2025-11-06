@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Data\Xml\MsXml\IXMLDOMNodeList.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -35,15 +36,14 @@ class IQueryAllWinSATAssessments extends IDispatch{
      * 
      * @param {BSTR} xPath 
      * @param {BSTR} namespaces 
-     * @param {Pointer<IXMLDOMNodeList>} ppDomNodeList 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMNodeList} 
      * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nf-winsatcominterfacei-iqueryallwinsatassessments-get_allxml
      */
-    get_AllXML(xPath, namespaces, ppDomNodeList) {
+    get_AllXML(xPath, namespaces) {
         xPath := xPath is String ? BSTR.Alloc(xPath).Value : xPath
         namespaces := namespaces is String ? BSTR.Alloc(namespaces).Value : namespaces
 
-        result := ComCall(7, this, "ptr", xPath, "ptr", namespaces, "ptr*", ppDomNodeList, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", xPath, "ptr", namespaces, "ptr*", &ppDomNodeList := 0, "HRESULT")
+        return IXMLDOMNodeList(ppDomNodeList)
     }
 }

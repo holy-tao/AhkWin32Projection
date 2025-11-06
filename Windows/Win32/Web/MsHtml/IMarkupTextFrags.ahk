@@ -31,26 +31,23 @@ class IMarkupTextFrags extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcFrags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetTextFragCount(pcFrags) {
-        pcFragsMarshal := pcFrags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, pcFragsMarshal, pcFrags, "HRESULT")
-        return result
+    GetTextFragCount() {
+        result := ComCall(3, this, "int*", &pcFrags := 0, "HRESULT")
+        return pcFrags
     }
 
     /**
      * 
      * @param {Integer} iFrag 
-     * @param {Pointer<BSTR>} pbstrFrag 
      * @param {IMarkupPointer} pPointerFrag 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetTextFrag(iFrag, pbstrFrag, pPointerFrag) {
+    GetTextFrag(iFrag, pPointerFrag) {
+        pbstrFrag := BSTR()
         result := ComCall(4, this, "int", iFrag, "ptr", pbstrFrag, "ptr", pPointerFrag, "HRESULT")
-        return result
+        return pbstrFrag
     }
 
     /**
@@ -86,8 +83,9 @@ class IMarkupTextFrags extends IUnknown{
      */
     FindTextFragFromMarkupPointer(pPointerFind, piFrag, pfFragFound) {
         piFragMarshal := piFrag is VarRef ? "int*" : "ptr"
+        pfFragFoundMarshal := pfFragFound is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, "ptr", pPointerFind, piFragMarshal, piFrag, "ptr", pfFragFound, "HRESULT")
+        result := ComCall(7, this, "ptr", pPointerFind, piFragMarshal, piFrag, pfFragFoundMarshal, pfFragFound, "HRESULT")
         return result
     }
 }

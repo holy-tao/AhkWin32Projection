@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IValueMap.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -46,13 +47,13 @@ class ITraceDataProvider extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedataprovider-get_displayname
      */
-    get_DisplayName(name) {
+    get_DisplayName() {
+        name := BSTR()
         result := ComCall(7, this, "ptr", name, "HRESULT")
-        return result
+        return name
     }
 
     /**
@@ -70,13 +71,13 @@ class ITraceDataProvider extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Guid>} guid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedataprovider-get_guid
      */
-    get_Guid(guid) {
+    get_Guid() {
+        guid := Guid()
         result := ComCall(9, this, "ptr", guid, "HRESULT")
-        return result
+        return guid
     }
 
     /**
@@ -92,57 +93,52 @@ class ITraceDataProvider extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IValueMap>} ppLevel 
-     * @returns {HRESULT} 
+     * @returns {IValueMap} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedataprovider-get_level
      */
-    get_Level(ppLevel) {
-        result := ComCall(11, this, "ptr*", ppLevel, "HRESULT")
-        return result
+    get_Level() {
+        result := ComCall(11, this, "ptr*", &ppLevel := 0, "HRESULT")
+        return IValueMap(ppLevel)
     }
 
     /**
      * 
-     * @param {Pointer<IValueMap>} ppKeywords 
-     * @returns {HRESULT} 
+     * @returns {IValueMap} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedataprovider-get_keywordsany
      */
-    get_KeywordsAny(ppKeywords) {
-        result := ComCall(12, this, "ptr*", ppKeywords, "HRESULT")
-        return result
+    get_KeywordsAny() {
+        result := ComCall(12, this, "ptr*", &ppKeywords := 0, "HRESULT")
+        return IValueMap(ppKeywords)
     }
 
     /**
      * 
-     * @param {Pointer<IValueMap>} ppKeywords 
-     * @returns {HRESULT} 
+     * @returns {IValueMap} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedataprovider-get_keywordsall
      */
-    get_KeywordsAll(ppKeywords) {
-        result := ComCall(13, this, "ptr*", ppKeywords, "HRESULT")
-        return result
+    get_KeywordsAll() {
+        result := ComCall(13, this, "ptr*", &ppKeywords := 0, "HRESULT")
+        return IValueMap(ppKeywords)
     }
 
     /**
      * 
-     * @param {Pointer<IValueMap>} ppProperties 
-     * @returns {HRESULT} 
+     * @returns {IValueMap} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedataprovider-get_properties
      */
-    get_Properties(ppProperties) {
-        result := ComCall(14, this, "ptr*", ppProperties, "HRESULT")
-        return result
+    get_Properties() {
+        result := ComCall(14, this, "ptr*", &ppProperties := 0, "HRESULT")
+        return IValueMap(ppProperties)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} FilterEnabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedataprovider-get_filterenabled
      */
-    get_FilterEnabled(FilterEnabled) {
-        result := ComCall(15, this, "ptr", FilterEnabled, "HRESULT")
-        return result
+    get_FilterEnabled() {
+        result := ComCall(15, this, "short*", &FilterEnabled := 0, "HRESULT")
+        return FilterEnabled
     }
 
     /**
@@ -158,15 +154,12 @@ class ITraceDataProvider extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pulType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedataprovider-get_filtertype
      */
-    get_FilterType(pulType) {
-        pulTypeMarshal := pulType is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(17, this, pulTypeMarshal, pulType, "HRESULT")
-        return result
+    get_FilterType() {
+        result := ComCall(17, this, "uint*", &pulType := 0, "HRESULT")
+        return pulType
     }
 
     /**
@@ -182,15 +175,12 @@ class ITraceDataProvider extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} ppData 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedataprovider-get_filterdata
      */
-    get_FilterData(ppData) {
-        ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(19, this, ppDataMarshal, ppData, "HRESULT")
-        return result
+    get_FilterData() {
+        result := ComCall(19, this, "ptr*", &ppData := 0, "HRESULT")
+        return ppData
     }
 
     /**
@@ -246,23 +236,22 @@ class ITraceDataProvider extends IDispatch{
     /**
      * 
      * @param {Integer} SecurityInfo 
-     * @param {Pointer<BSTR>} Sddl 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedataprovider-getsecurity
      */
-    GetSecurity(SecurityInfo, Sddl) {
+    GetSecurity(SecurityInfo) {
+        Sddl := BSTR()
         result := ComCall(24, this, "uint", SecurityInfo, "ptr", Sddl, "HRESULT")
-        return result
+        return Sddl
     }
 
     /**
      * 
-     * @param {Pointer<IValueMap>} Processes 
-     * @returns {HRESULT} 
+     * @returns {IValueMap} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedataprovider-getregisteredprocesses
      */
-    GetRegisteredProcesses(Processes) {
-        result := ComCall(25, this, "ptr*", Processes, "HRESULT")
-        return result
+    GetRegisteredProcesses() {
+        result := ComCall(25, this, "ptr*", &Processes := 0, "HRESULT")
+        return IValueMap(Processes)
     }
 }

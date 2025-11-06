@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IBackgroundCopyGroup.ahk
+#Include .\IEnumBackgroundCopyGroups.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -39,36 +41,33 @@ class IBackgroundCopyQMgr extends IUnknown{
     /**
      * 
      * @param {Guid} guidGroupID 
-     * @param {Pointer<IBackgroundCopyGroup>} ppGroup 
-     * @returns {HRESULT} 
+     * @returns {IBackgroundCopyGroup} 
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopyqmgr-creategroup
      */
-    CreateGroup(guidGroupID, ppGroup) {
-        result := ComCall(3, this, "ptr", guidGroupID, "ptr*", ppGroup, "HRESULT")
-        return result
+    CreateGroup(guidGroupID) {
+        result := ComCall(3, this, "ptr", guidGroupID, "ptr*", &ppGroup := 0, "HRESULT")
+        return IBackgroundCopyGroup(ppGroup)
     }
 
     /**
      * 
      * @param {Guid} groupID 
-     * @param {Pointer<IBackgroundCopyGroup>} ppGroup 
-     * @returns {HRESULT} 
+     * @returns {IBackgroundCopyGroup} 
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopyqmgr-getgroup
      */
-    GetGroup(groupID, ppGroup) {
-        result := ComCall(4, this, "ptr", groupID, "ptr*", ppGroup, "HRESULT")
-        return result
+    GetGroup(groupID) {
+        result := ComCall(4, this, "ptr", groupID, "ptr*", &ppGroup := 0, "HRESULT")
+        return IBackgroundCopyGroup(ppGroup)
     }
 
     /**
      * 
      * @param {Integer} dwFlags 
-     * @param {Pointer<IEnumBackgroundCopyGroups>} ppEnumGroups 
-     * @returns {HRESULT} 
+     * @returns {IEnumBackgroundCopyGroups} 
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ibackgroundcopyqmgr-enumgroups
      */
-    EnumGroups(dwFlags, ppEnumGroups) {
-        result := ComCall(5, this, "uint", dwFlags, "ptr*", ppEnumGroups, "HRESULT")
-        return result
+    EnumGroups(dwFlags) {
+        result := ComCall(5, this, "uint", dwFlags, "ptr*", &ppEnumGroups := 0, "HRESULT")
+        return IEnumBackgroundCopyGroups(ppEnumGroups)
     }
 }

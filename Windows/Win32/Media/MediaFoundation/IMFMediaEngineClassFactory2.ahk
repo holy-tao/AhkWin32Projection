@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IMFMediaKeys.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -36,16 +37,15 @@ class IMFMediaEngineClassFactory2 extends IUnknown{
      * @param {BSTR} keySystem 
      * @param {BSTR} defaultCdmStorePath 
      * @param {BSTR} inprivateCdmStorePath 
-     * @param {Pointer<IMFMediaKeys>} ppKeys 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaKeys} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineclassfactory2-createmediakeys2
      */
-    CreateMediaKeys2(keySystem, defaultCdmStorePath, inprivateCdmStorePath, ppKeys) {
+    CreateMediaKeys2(keySystem, defaultCdmStorePath, inprivateCdmStorePath) {
         keySystem := keySystem is String ? BSTR.Alloc(keySystem).Value : keySystem
         defaultCdmStorePath := defaultCdmStorePath is String ? BSTR.Alloc(defaultCdmStorePath).Value : defaultCdmStorePath
         inprivateCdmStorePath := inprivateCdmStorePath is String ? BSTR.Alloc(inprivateCdmStorePath).Value : inprivateCdmStorePath
 
-        result := ComCall(3, this, "ptr", keySystem, "ptr", defaultCdmStorePath, "ptr", inprivateCdmStorePath, "ptr*", ppKeys, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", keySystem, "ptr", defaultCdmStorePath, "ptr", inprivateCdmStorePath, "ptr*", &ppKeys := 0, "HRESULT")
+        return IMFMediaKeys(ppKeys)
     }
 }

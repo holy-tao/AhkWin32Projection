@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITCallingCard.ahk
+#Include .\IEnumCallingCard.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,16 +35,15 @@ class IEnumCallingCard extends IUnknown{
     /**
      * 
      * @param {Integer} celt 
-     * @param {Pointer<ITCallingCard>} ppElements 
      * @param {Pointer<Integer>} pceltFetched 
-     * @returns {HRESULT} 
+     * @returns {ITCallingCard} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ienumcallingcard-next
      */
-    Next(celt, ppElements, pceltFetched) {
+    Next(celt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, "ptr*", ppElements, pceltFetchedMarshal, pceltFetched, "HRESULT")
-        return result
+        result := ComCall(3, this, "uint", celt, "ptr*", &ppElements := 0, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        return ITCallingCard(ppElements)
     }
 
     /**
@@ -68,12 +69,11 @@ class IEnumCallingCard extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumCallingCard>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumCallingCard} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ienumcallingcard-clone
      */
-    Clone(ppEnum) {
-        result := ComCall(6, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumCallingCard(ppEnum)
     }
 }

@@ -34,27 +34,14 @@ class IEAPProviderConfig extends IUnknown{
      * Initializes a thread to use Windows Runtime APIs.
      * @param {PWSTR} pszMachineName 
      * @param {Integer} dwEapTypeId 
-     * @param {Pointer<Pointer>} puConnectionParam 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
+     * @returns {Pointer} 
      * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
      */
-    Initialize(pszMachineName, dwEapTypeId, puConnectionParam) {
+    Initialize(pszMachineName, dwEapTypeId) {
         pszMachineName := pszMachineName is String ? StrPtr(pszMachineName) : pszMachineName
 
-        puConnectionParamMarshal := puConnectionParam is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pszMachineName, "uint", dwEapTypeId, puConnectionParamMarshal, puConnectionParam, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pszMachineName, "uint", dwEapTypeId, "ptr*", &puConnectionParam := 0, "HRESULT")
+        return puConnectionParam
     }
 
     /**

@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.DirectComposition
@@ -39,42 +40,34 @@ class DirectComposition {
      * @param {Pointer<Guid>} iid Type: <b>REFIID</b>
      * 
      * The identifier of the interface to retrieve.
-     * @param {Pointer<Pointer<Void>>} dcompositionDevice Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * Receives an interface pointer to the newly created device object. The pointer is of the type specified by the <i>iid</i> parameter. This parameter must not be NULL.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
-     * 
-     * If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
      * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-dcompositioncreatedevice
      * @since windows8.0
      */
-    static DCompositionCreateDevice(dxgiDevice, iid, dcompositionDevice) {
-        dcompositionDeviceMarshal := dcompositionDevice is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("dcomp.dll\DCompositionCreateDevice", "ptr", dxgiDevice, "ptr", iid, dcompositionDeviceMarshal, dcompositionDevice, "int")
+    static DCompositionCreateDevice(dxgiDevice, iid) {
+        result := DllCall("dcomp.dll\DCompositionCreateDevice", "ptr", dxgiDevice, "ptr", iid, "ptr*", &dcompositionDevice := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return dcompositionDevice
     }
 
     /**
      * Creates a new device object that can be used to create other Microsoft DirectComposition objects.
      * @param {IUnknown} renderingDevice An optional pointer to a DirectX device to be used to create DirectComposition surface objects. Must be a pointer to an object implementing the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgidevice">IDXGIDevice</a> or <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1device">ID2D1Device</a> interfaces.
      * @param {Pointer<Guid>} iid The identifier of the interface to retrieve. This must be one of __uuidof(IDCompositionDevice) or __uuidof(IDCompositionDesktopDevice).
-     * @param {Pointer<Pointer<Void>>} dcompositionDevice Receives an interface pointer to the newly created device object. The pointer is of the type specified by the <i>iid</i> parameter. This parameter must not be NULL.
-     * @returns {HRESULT} If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
+     * @returns {Pointer<Void>} Receives an interface pointer to the newly created device object. The pointer is of the type specified by the <i>iid</i> parameter. This parameter must not be NULL.
      * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-dcompositioncreatedevice2
      * @since windows8.1
      */
-    static DCompositionCreateDevice2(renderingDevice, iid, dcompositionDevice) {
-        dcompositionDeviceMarshal := dcompositionDevice is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("dcomp.dll\DCompositionCreateDevice2", "ptr", renderingDevice, "ptr", iid, dcompositionDeviceMarshal, dcompositionDevice, "int")
+    static DCompositionCreateDevice2(renderingDevice, iid) {
+        result := DllCall("dcomp.dll\DCompositionCreateDevice2", "ptr", renderingDevice, "ptr", iid, "ptr*", &dcompositionDevice := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return dcompositionDevice
     }
 
     /**
@@ -85,22 +78,17 @@ class DirectComposition {
      * @param {Pointer<Guid>} iid Type: <b>REFIID</b>
      * 
      * The identifier of the interface to retrieve. This must be one of __uuidof(IDCompositionDevice) or __uuidof(IDCompositionDesktopDevice).
-     * @param {Pointer<Pointer<Void>>} dcompositionDevice Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * Receives an interface pointer to the newly created device object. The pointer is of the type specified by the <i>iid</i> parameter. This parameter must not be NULL.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-dcompositioncreatedevice3
      */
-    static DCompositionCreateDevice3(renderingDevice, iid, dcompositionDevice) {
-        dcompositionDeviceMarshal := dcompositionDevice is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("dcomp.dll\DCompositionCreateDevice3", "ptr", renderingDevice, "ptr", iid, dcompositionDeviceMarshal, dcompositionDevice, "int")
+    static DCompositionCreateDevice3(renderingDevice, iid) {
+        result := DllCall("dcomp.dll\DCompositionCreateDevice3", "ptr", renderingDevice, "ptr", iid, "ptr*", &dcompositionDevice := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return dcompositionDevice
     }
 
     /**
@@ -109,21 +97,19 @@ class DirectComposition {
      * @param {Pointer<SECURITY_ATTRIBUTES>} securityAttributes Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a>*</b>
      * 
      * Contains the security descriptor for the composition surface object, and specifies whether the handle of the composition surface object is inheritable when a child process is created. If this parameter is NULL, the composition surface object is created with default security attributes  that grant read and write access to the current process,  but do not enable child processes to  inherit the handle.
-     * @param {Pointer<HANDLE>} surfaceHandle Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HANDLE</a>*</b>
+     * @returns {HANDLE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HANDLE</a>*</b>
      * 
      * The handle of the new composition surface object. This parameter must not be NULL.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
-     * 
-     * If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
      * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-dcompositioncreatesurfacehandle
      * @since windows8.0
      */
-    static DCompositionCreateSurfaceHandle(desiredAccess, securityAttributes, surfaceHandle) {
+    static DCompositionCreateSurfaceHandle(desiredAccess, securityAttributes) {
+        surfaceHandle := HANDLE()
         result := DllCall("dcomp.dll\DCompositionCreateSurfaceHandle", "uint", desiredAccess, "ptr", securityAttributes, "ptr", surfaceHandle, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return surfaceHandle
     }
 
     /**
@@ -181,18 +167,15 @@ class DirectComposition {
     /**
      * 
      * @param {Integer} frameIdType 
-     * @param {Pointer<Integer>} frameId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-dcompositiongetframeid
      */
-    static DCompositionGetFrameId(frameIdType, frameId) {
-        frameIdMarshal := frameId is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("dcomp.dll\DCompositionGetFrameId", "int", frameIdType, frameIdMarshal, frameId, "int")
+    static DCompositionGetFrameId(frameIdType) {
+        result := DllCall("dcomp.dll\DCompositionGetFrameId", "int", frameIdType, "uint*", &frameId := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return frameId
     }
 
     /**
@@ -201,18 +184,15 @@ class DirectComposition {
      * @param {Pointer<COMPOSITION_FRAME_STATS>} frameStats 
      * @param {Integer} targetIdCount 
      * @param {Pointer<COMPOSITION_TARGET_ID>} targetIds 
-     * @param {Pointer<Integer>} actualTargetIdCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-dcompositiongetstatistics
      */
-    static DCompositionGetStatistics(frameId, frameStats, targetIdCount, targetIds, actualTargetIdCount) {
-        actualTargetIdCountMarshal := actualTargetIdCount is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("dcomp.dll\DCompositionGetStatistics", "uint", frameId, "ptr", frameStats, "uint", targetIdCount, "ptr", targetIds, actualTargetIdCountMarshal, actualTargetIdCount, "int")
+    static DCompositionGetStatistics(frameId, frameStats, targetIdCount, targetIds) {
+        result := DllCall("dcomp.dll\DCompositionGetStatistics", "uint", frameId, "ptr", frameStats, "uint", targetIdCount, "ptr", targetIds, "uint*", &actualTargetIdCount := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return actualTargetIdCount
     }
 
     /**

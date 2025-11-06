@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISVGAnimatedLength.ahk
+#Include .\ISVGAnimatedEnumeration.ahk
+#Include .\ISVGAnimatedAngle.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -46,12 +49,11 @@ class ISVGMarkerElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedLength>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedLength} 
      */
-    get_refX(p) {
-        result := ComCall(8, this, "ptr*", p, "HRESULT")
-        return result
+    get_refX() {
+        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedLength(p)
     }
 
     /**
@@ -66,12 +68,11 @@ class ISVGMarkerElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedLength>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedLength} 
      */
-    get_refY(p) {
-        result := ComCall(10, this, "ptr*", p, "HRESULT")
-        return result
+    get_refY() {
+        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedLength(p)
     }
 
     /**
@@ -86,12 +87,11 @@ class ISVGMarkerElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedEnumeration>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedEnumeration} 
      */
-    get_markerUnits(p) {
-        result := ComCall(12, this, "ptr*", p, "HRESULT")
-        return result
+    get_markerUnits() {
+        result := ComCall(12, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedEnumeration(p)
     }
 
     /**
@@ -106,12 +106,11 @@ class ISVGMarkerElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedLength>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedLength} 
      */
-    get_markerWidth(p) {
-        result := ComCall(14, this, "ptr*", p, "HRESULT")
-        return result
+    get_markerWidth() {
+        result := ComCall(14, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedLength(p)
     }
 
     /**
@@ -126,12 +125,11 @@ class ISVGMarkerElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedLength>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedLength} 
      */
-    get_markerHeight(p) {
-        result := ComCall(16, this, "ptr*", p, "HRESULT")
-        return result
+    get_markerHeight() {
+        result := ComCall(16, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedLength(p)
     }
 
     /**
@@ -146,12 +144,11 @@ class ISVGMarkerElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedEnumeration>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedEnumeration} 
      */
-    get_orientType(p) {
-        result := ComCall(18, this, "ptr*", p, "HRESULT")
-        return result
+    get_orientType() {
+        result := ComCall(18, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedEnumeration(p)
     }
 
     /**
@@ -166,12 +163,11 @@ class ISVGMarkerElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedAngle>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedAngle} 
      */
-    get_orientAngle(p) {
-        result := ComCall(20, this, "ptr*", p, "HRESULT")
-        return result
+    get_orientAngle() {
+        result := ComCall(20, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedAngle(p)
     }
 
     /**

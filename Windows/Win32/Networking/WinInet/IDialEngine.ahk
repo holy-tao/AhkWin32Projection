@@ -101,25 +101,19 @@ class IDialEngine extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetConnectedState(pdwState) {
-        pdwStateMarshal := pdwState is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pdwStateMarshal, pdwState, "HRESULT")
-        return result
+    GetConnectedState() {
+        result := ComCall(8, this, "uint*", &pdwState := 0, "HRESULT")
+        return pdwState
     }
 
     /**
      * 
-     * @param {Pointer<Pointer>} pdwHandle 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    GetConnectHandle(pdwHandle) {
-        pdwHandleMarshal := pdwHandle is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(9, this, pdwHandleMarshal, pdwHandle, "HRESULT")
-        return result
+    GetConnectHandle() {
+        result := ComCall(9, this, "ptr*", &pdwHandle := 0, "HRESULT")
+        return pdwHandle
     }
 }

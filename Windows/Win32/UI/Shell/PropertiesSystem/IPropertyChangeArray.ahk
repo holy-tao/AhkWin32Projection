@@ -36,30 +36,24 @@ class IPropertyChangeArray extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcOperations 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertychangearray-getcount
      */
-    GetCount(pcOperations) {
-        pcOperationsMarshal := pcOperations is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pcOperationsMarshal, pcOperations, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(3, this, "uint*", &pcOperations := 0, "HRESULT")
+        return pcOperations
     }
 
     /**
      * 
      * @param {Integer} iIndex 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertychangearray-getat
      */
-    GetAt(iIndex, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "uint", iIndex, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetAt(iIndex, riid) {
+        result := ComCall(4, this, "uint", iIndex, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**

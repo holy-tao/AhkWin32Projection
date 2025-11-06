@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumVdsObject.ahk
+#Include .\IVdsDisk.ahk
+#Include .\IVdsVDisk.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,13 +35,12 @@ class IVdsVdProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumVdsObject>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumVdsObject} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvdprovider-queryvdisks
      */
-    QueryVDisks(ppEnum) {
-        result := ComCall(3, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    QueryVDisks() {
+        result := ComCall(3, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumVdsObject(ppEnum)
     }
 
     /**
@@ -80,24 +82,22 @@ class IVdsVdProvider extends IUnknown{
     /**
      * 
      * @param {IVdsVDisk} pVDisk 
-     * @param {Pointer<IVdsDisk>} ppDisk 
-     * @returns {HRESULT} 
+     * @returns {IVdsDisk} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvdprovider-getdiskfromvdisk
      */
-    GetDiskFromVDisk(pVDisk, ppDisk) {
-        result := ComCall(6, this, "ptr", pVDisk, "ptr*", ppDisk, "HRESULT")
-        return result
+    GetDiskFromVDisk(pVDisk) {
+        result := ComCall(6, this, "ptr", pVDisk, "ptr*", &ppDisk := 0, "HRESULT")
+        return IVdsDisk(ppDisk)
     }
 
     /**
      * 
      * @param {IVdsDisk} pDisk 
-     * @param {Pointer<IVdsVDisk>} ppVDisk 
-     * @returns {HRESULT} 
+     * @returns {IVdsVDisk} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvdprovider-getvdiskfromdisk
      */
-    GetVDiskFromDisk(pDisk, ppVDisk) {
-        result := ComCall(7, this, "ptr", pDisk, "ptr*", ppVDisk, "HRESULT")
-        return result
+    GetVDiskFromDisk(pDisk) {
+        result := ComCall(7, this, "ptr", pDisk, "ptr*", &ppVDisk := 0, "HRESULT")
+        return IVdsVDisk(ppVDisk)
     }
 }

@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\ISWbemObject.ahk
+#Include .\ISWbemSecurity.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -37,58 +40,51 @@ class ISWbemObjectSet extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} pUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__NewEnum(pUnk) {
-        result := ComCall(7, this, "ptr*", pUnk, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(7, this, "ptr*", &pUnk := 0, "HRESULT")
+        return IUnknown(pUnk)
     }
 
     /**
      * 
      * @param {BSTR} strObjectPath 
      * @param {Integer} iFlags 
-     * @param {Pointer<ISWbemObject>} objWbemObject 
-     * @returns {HRESULT} 
+     * @returns {ISWbemObject} 
      */
-    Item(strObjectPath, iFlags, objWbemObject) {
+    Item(strObjectPath, iFlags) {
         strObjectPath := strObjectPath is String ? BSTR.Alloc(strObjectPath).Value : strObjectPath
 
-        result := ComCall(8, this, "ptr", strObjectPath, "int", iFlags, "ptr*", objWbemObject, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", strObjectPath, "int", iFlags, "ptr*", &objWbemObject := 0, "HRESULT")
+        return ISWbemObject(objWbemObject)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} iCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Count(iCount) {
-        iCountMarshal := iCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, iCountMarshal, iCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(9, this, "int*", &iCount := 0, "HRESULT")
+        return iCount
     }
 
     /**
      * 
-     * @param {Pointer<ISWbemSecurity>} objWbemSecurity 
-     * @returns {HRESULT} 
+     * @returns {ISWbemSecurity} 
      */
-    get_Security_(objWbemSecurity) {
-        result := ComCall(10, this, "ptr*", objWbemSecurity, "HRESULT")
-        return result
+    get_Security_() {
+        result := ComCall(10, this, "ptr*", &objWbemSecurity := 0, "HRESULT")
+        return ISWbemSecurity(objWbemSecurity)
     }
 
     /**
      * 
      * @param {Integer} lIndex 
-     * @param {Pointer<ISWbemObject>} objWbemObject 
-     * @returns {HRESULT} 
+     * @returns {ISWbemObject} 
      */
-    ItemIndex(lIndex, objWbemObject) {
-        result := ComCall(11, this, "int", lIndex, "ptr*", objWbemObject, "HRESULT")
-        return result
+    ItemIndex(lIndex) {
+        result := ComCall(11, this, "int", lIndex, "ptr*", &objWbemObject := 0, "HRESULT")
+        return ISWbemObject(objWbemObject)
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -30,12 +31,12 @@ class IManagedObject extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pBSTR 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetSerializedBuffer(pBSTR) {
+    GetSerializedBuffer() {
+        pBSTR := BSTR()
         result := ComCall(3, this, "ptr", pBSTR, "HRESULT")
-        return result
+        return pBSTR
     }
 
     /**

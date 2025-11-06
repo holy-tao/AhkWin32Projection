@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include ..\..\..\System\Com\IPersist.ahk
 
 /**
@@ -57,12 +58,12 @@ class IPersistTuneXml extends IPersist{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarFragment 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ipersisttunexml-save
      */
-    Save(pvarFragment) {
+    Save() {
+        pvarFragment := VARIANT()
         result := ComCall(6, this, "ptr", pvarFragment, "HRESULT")
-        return result
+        return pvarFragment
     }
 }

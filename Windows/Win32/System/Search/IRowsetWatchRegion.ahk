@@ -31,14 +31,11 @@ class IRowsetWatchRegion extends IRowsetWatchAll{
     /**
      * 
      * @param {Integer} dwWatchMode 
-     * @param {Pointer<Pointer>} phRegion 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    CreateWatchRegion(dwWatchMode, phRegion) {
-        phRegionMarshal := phRegion is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "uint", dwWatchMode, phRegionMarshal, phRegion, "HRESULT")
-        return result
+    CreateWatchRegion(dwWatchMode) {
+        result := ComCall(6, this, "uint", dwWatchMode, "ptr*", &phRegion := 0, "HRESULT")
+        return phRegion
     }
 
     /**
@@ -86,15 +83,13 @@ class IRowsetWatchRegion extends IRowsetWatchAll{
     /**
      * 
      * @param {Pointer<Pointer>} pcChangesObtained 
-     * @param {Pointer<Pointer<DBROWWATCHCHANGE>>} prgChanges 
-     * @returns {HRESULT} 
+     * @returns {Pointer<DBROWWATCHCHANGE>} 
      */
-    Refresh(pcChangesObtained, prgChanges) {
+    Refresh(pcChangesObtained) {
         pcChangesObtainedMarshal := pcChangesObtained is VarRef ? "ptr*" : "ptr"
-        prgChangesMarshal := prgChanges is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(10, this, pcChangesObtainedMarshal, pcChangesObtained, prgChangesMarshal, prgChanges, "HRESULT")
-        return result
+        result := ComCall(10, this, pcChangesObtainedMarshal, pcChangesObtained, "ptr*", &prgChanges := 0, "HRESULT")
+        return prgChanges
     }
 
     /**

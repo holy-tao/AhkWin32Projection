@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteFontFace3.ahk
+#Include .\IDWriteFontFile.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,25 +35,23 @@ class IDWriteFontFaceReference extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDWriteFontFace3>} fontFace 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontFace3} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontfacereference-createfontface
      */
-    CreateFontFace(fontFace) {
-        result := ComCall(3, this, "ptr*", fontFace, "HRESULT")
-        return result
+    CreateFontFace() {
+        result := ComCall(3, this, "ptr*", &fontFace := 0, "HRESULT")
+        return IDWriteFontFace3(fontFace)
     }
 
     /**
      * 
      * @param {Integer} fontFaceSimulationFlags 
-     * @param {Pointer<IDWriteFontFace3>} fontFace 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontFace3} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontfacereference-createfontfacewithsimulations
      */
-    CreateFontFaceWithSimulations(fontFaceSimulationFlags, fontFace) {
-        result := ComCall(4, this, "int", fontFaceSimulationFlags, "ptr*", fontFace, "HRESULT")
-        return result
+    CreateFontFaceWithSimulations(fontFaceSimulationFlags) {
+        result := ComCall(4, this, "int", fontFaceSimulationFlags, "ptr*", &fontFace := 0, "HRESULT")
+        return IDWriteFontFace3(fontFace)
     }
 
     /**
@@ -85,13 +86,12 @@ class IDWriteFontFaceReference extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDWriteFontFile>} fontFile 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontFile} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontfacereference-getfontfile
      */
-    GetFontFile(fontFile) {
-        result := ComCall(8, this, "ptr*", fontFile, "HRESULT")
-        return result
+    GetFontFile() {
+        result := ComCall(8, this, "ptr*", &fontFile := 0, "HRESULT")
+        return IDWriteFontFile(fontFile)
     }
 
     /**
@@ -130,16 +130,13 @@ class IDWriteFontFaceReference extends IUnknown{
 
     /**
      * Retrieves the date and time that a file or directory was created, last accessed, and last modified.
-     * @param {Pointer<FILETIME>} lastWriteTime 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {FILETIME} 
      * @see https://docs.microsoft.com/windows/win32/api//fileapi/nf-fileapi-getfiletime
      */
-    GetFileTime(lastWriteTime) {
+    GetFileTime() {
+        lastWriteTime := FILETIME()
         result := ComCall(11, this, "ptr", lastWriteTime, "HRESULT")
-        return result
+        return lastWriteTime
     }
 
     /**

@@ -30,13 +30,10 @@ class ISClusRefObject extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Pointer>} phandle 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    get_Handle(phandle) {
-        phandleMarshal := phandle is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, phandleMarshal, phandle, "HRESULT")
-        return result
+    get_Handle() {
+        result := ComCall(7, this, "ptr*", &phandle := 0, "HRESULT")
+        return phandle
     }
 }

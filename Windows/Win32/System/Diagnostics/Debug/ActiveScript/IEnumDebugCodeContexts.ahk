@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IEnumDebugCodeContexts.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -63,11 +64,10 @@ class IEnumDebugCodeContexts extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumDebugCodeContexts>} ppescc 
-     * @returns {HRESULT} 
+     * @returns {IEnumDebugCodeContexts} 
      */
-    Clone(ppescc) {
-        result := ComCall(6, this, "ptr*", ppescc, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppescc := 0, "HRESULT")
+        return IEnumDebugCodeContexts(ppescc)
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumTfCandidates.ahk
+#Include .\ITfCandidateString.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -37,38 +39,33 @@ class ITfCandidateList extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumTfCandidates>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumTfCandidates} 
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itfcandidatelist-enumcandidates
      */
-    EnumCandidates(ppEnum) {
-        result := ComCall(3, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumCandidates() {
+        result := ComCall(3, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumTfCandidates(ppEnum)
     }
 
     /**
      * 
      * @param {Integer} nIndex 
-     * @param {Pointer<ITfCandidateString>} ppCand 
-     * @returns {HRESULT} 
+     * @returns {ITfCandidateString} 
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itfcandidatelist-getcandidate
      */
-    GetCandidate(nIndex, ppCand) {
-        result := ComCall(4, this, "uint", nIndex, "ptr*", ppCand, "HRESULT")
-        return result
+    GetCandidate(nIndex) {
+        result := ComCall(4, this, "uint", nIndex, "ptr*", &ppCand := 0, "HRESULT")
+        return ITfCandidateString(ppCand)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pnCnt 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itfcandidatelist-getcandidatenum
      */
-    GetCandidateNum(pnCnt) {
-        pnCntMarshal := pnCnt is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pnCntMarshal, pnCnt, "HRESULT")
-        return result
+    GetCandidateNum() {
+        result := ComCall(5, this, "uint*", &pnCnt := 0, "HRESULT")
+        return pnCnt
     }
 
     /**

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumSyncChangeUnits.ahk
+#Include .\ISyncKnowledge.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -116,35 +118,32 @@ class ISyncChange extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumSyncChangeUnits>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumSyncChangeUnits} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchange-getchangeunits
      */
-    GetChangeUnits(ppEnum) {
-        result := ComCall(9, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    GetChangeUnits() {
+        result := ComCall(9, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumSyncChangeUnits(ppEnum)
     }
 
     /**
      * 
-     * @param {Pointer<ISyncKnowledge>} ppMadeWithKnowledge 
-     * @returns {HRESULT} 
+     * @returns {ISyncKnowledge} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchange-getmadewithknowledge
      */
-    GetMadeWithKnowledge(ppMadeWithKnowledge) {
-        result := ComCall(10, this, "ptr*", ppMadeWithKnowledge, "HRESULT")
-        return result
+    GetMadeWithKnowledge() {
+        result := ComCall(10, this, "ptr*", &ppMadeWithKnowledge := 0, "HRESULT")
+        return ISyncKnowledge(ppMadeWithKnowledge)
     }
 
     /**
      * 
-     * @param {Pointer<ISyncKnowledge>} ppLearnedKnowledge 
-     * @returns {HRESULT} 
+     * @returns {ISyncKnowledge} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchange-getlearnedknowledge
      */
-    GetLearnedKnowledge(ppLearnedKnowledge) {
-        result := ComCall(11, this, "ptr*", ppLearnedKnowledge, "HRESULT")
-        return result
+    GetLearnedKnowledge() {
+        result := ComCall(11, this, "ptr*", &ppLearnedKnowledge := 0, "HRESULT")
+        return ISyncKnowledge(ppLearnedKnowledge)
     }
 
     /**

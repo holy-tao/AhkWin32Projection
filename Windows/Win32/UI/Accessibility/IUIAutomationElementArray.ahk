@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUIAutomationElement.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,26 +33,22 @@ class IUIAutomationElementArray extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} length 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelementarray-get_length
      */
-    get_Length(length) {
-        lengthMarshal := length is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, lengthMarshal, length, "HRESULT")
-        return result
+    get_Length() {
+        result := ComCall(3, this, "int*", &length := 0, "HRESULT")
+        return length
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<IUIAutomationElement>} element 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElement} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelementarray-getelement
      */
-    GetElement(index, element) {
-        result := ComCall(4, this, "int", index, "ptr*", element, "HRESULT")
-        return result
+    GetElement(index) {
+        result := ComCall(4, this, "int", index, "ptr*", &element := 0, "HRESULT")
+        return IUIAutomationElement(element)
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumVdsObject.ahk
+#Include .\IVdsAsync.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,40 +34,37 @@ class IVdsSubSystemIscsi extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumVdsObject>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumVdsObject} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdssubsystemiscsi-querytargets
      */
-    QueryTargets(ppEnum) {
-        result := ComCall(3, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    QueryTargets() {
+        result := ComCall(3, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumVdsObject(ppEnum)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumVdsObject>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumVdsObject} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdssubsystemiscsi-queryportals
      */
-    QueryPortals(ppEnum) {
-        result := ComCall(4, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    QueryPortals() {
+        result := ComCall(4, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumVdsObject(ppEnum)
     }
 
     /**
      * 
      * @param {PWSTR} pwszIscsiName 
      * @param {PWSTR} pwszFriendlyName 
-     * @param {Pointer<IVdsAsync>} ppAsync 
-     * @returns {HRESULT} 
+     * @returns {IVdsAsync} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdssubsystemiscsi-createtarget
      */
-    CreateTarget(pwszIscsiName, pwszFriendlyName, ppAsync) {
+    CreateTarget(pwszIscsiName, pwszFriendlyName) {
         pwszIscsiName := pwszIscsiName is String ? StrPtr(pwszIscsiName) : pwszIscsiName
         pwszFriendlyName := pwszFriendlyName is String ? StrPtr(pwszFriendlyName) : pwszFriendlyName
 
-        result := ComCall(5, this, "ptr", pwszIscsiName, "ptr", pwszFriendlyName, "ptr*", ppAsync, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", pwszIscsiName, "ptr", pwszFriendlyName, "ptr*", &ppAsync := 0, "HRESULT")
+        return IVdsAsync(ppAsync)
     }
 
     /**

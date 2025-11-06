@@ -38,7 +38,10 @@ class IMetaData extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-imetadata-getdata
      */
     GetData(ppszKey, ppszValue) {
-        result := ComCall(3, this, "ptr", ppszKey, "ptr", ppszValue, "HRESULT")
+        ppszKeyMarshal := ppszKey is VarRef ? "ptr*" : "ptr"
+        ppszValueMarshal := ppszValue is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, ppszKeyMarshal, ppszKey, ppszValueMarshal, ppszValue, "HRESULT")
         return result
     }
 }

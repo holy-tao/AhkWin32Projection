@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Storage\Xps\IXpsDocumentPackageTarget.ahk
 #Include ..\..\Com\IUnknown.ahk
 
 /**
@@ -30,11 +31,10 @@ class IPrintWorkflowXpsObjectModelTargetPackageNative extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IXpsDocumentPackageTarget>} value 
-     * @returns {HRESULT} 
+     * @returns {IXpsDocumentPackageTarget} 
      */
-    get_DocumentPackageTarget(value) {
-        result := ComCall(3, this, "ptr*", value, "HRESULT")
-        return result
+    get_DocumentPackageTarget() {
+        result := ComCall(3, this, "ptr*", &value := 0, "HRESULT")
+        return IXpsDocumentPackageTarget(value)
     }
 }

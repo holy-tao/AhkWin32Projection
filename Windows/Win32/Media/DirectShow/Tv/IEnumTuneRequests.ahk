@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IEnumTuneRequests.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -73,12 +74,11 @@ class IEnumTuneRequests extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumTuneRequests>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IEnumTuneRequests} 
      * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-ienumtunerequests-clone
      */
-    Clone(ppenum) {
-        result := ComCall(6, this, "ptr*", ppenum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")
+        return IEnumTuneRequests(ppenum)
     }
 }

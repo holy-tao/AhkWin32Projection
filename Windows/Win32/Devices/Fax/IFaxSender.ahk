@@ -43,13 +43,13 @@ class IFaxSender extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrBillingCode 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsender-get_billingcode
      */
-    get_BillingCode(pbstrBillingCode) {
+    get_BillingCode() {
+        pbstrBillingCode := BSTR()
         result := ComCall(7, this, "ptr", pbstrBillingCode, "HRESULT")
-        return result
+        return pbstrBillingCode
     }
 
     /**
@@ -67,12 +67,12 @@ class IFaxSender extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrCity 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_City(pbstrCity) {
+    get_City() {
+        pbstrCity := BSTR()
         result := ComCall(9, this, "ptr", pbstrCity, "HRESULT")
-        return result
+        return pbstrCity
     }
 
     /**
@@ -89,13 +89,13 @@ class IFaxSender extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrCompany 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsender-get_company
      */
-    get_Company(pbstrCompany) {
+    get_Company() {
+        pbstrCompany := BSTR()
         result := ComCall(11, this, "ptr", pbstrCompany, "HRESULT")
-        return result
+        return pbstrCompany
     }
 
     /**
@@ -113,12 +113,12 @@ class IFaxSender extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrCountry 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Country(pbstrCountry) {
+    get_Country() {
+        pbstrCountry := BSTR()
         result := ComCall(13, this, "ptr", pbstrCountry, "HRESULT")
-        return result
+        return pbstrCountry
     }
 
     /**
@@ -135,13 +135,13 @@ class IFaxSender extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrDepartment 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsender-get_department
      */
-    get_Department(pbstrDepartment) {
+    get_Department() {
+        pbstrDepartment := BSTR()
         result := ComCall(15, this, "ptr", pbstrDepartment, "HRESULT")
-        return result
+        return pbstrDepartment
     }
 
     /**
@@ -159,13 +159,13 @@ class IFaxSender extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrEmail 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsender-get_email
      */
-    get_Email(pbstrEmail) {
+    get_Email() {
+        pbstrEmail := BSTR()
         result := ComCall(17, this, "ptr", pbstrEmail, "HRESULT")
-        return result
+        return pbstrEmail
     }
 
     /**
@@ -183,13 +183,13 @@ class IFaxSender extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrFaxNumber 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsender-get_faxnumber
      */
-    get_FaxNumber(pbstrFaxNumber) {
+    get_FaxNumber() {
+        pbstrFaxNumber := BSTR()
         result := ComCall(19, this, "ptr", pbstrFaxNumber, "HRESULT")
-        return result
+        return pbstrFaxNumber
     }
 
     /**
@@ -207,13 +207,13 @@ class IFaxSender extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrHomePhone 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsender-get_homephone
      */
-    get_HomePhone(pbstrHomePhone) {
+    get_HomePhone() {
+        pbstrHomePhone := BSTR()
         result := ComCall(21, this, "ptr", pbstrHomePhone, "HRESULT")
-        return result
+        return pbstrHomePhone
     }
 
     /**
@@ -231,13 +231,13 @@ class IFaxSender extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsender-get_name
      */
-    get_Name(pbstrName) {
+    get_Name() {
+        pbstrName := BSTR()
         result := ComCall(23, this, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 
     /**
@@ -255,13 +255,13 @@ class IFaxSender extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrTSID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsender-get_tsid
      */
-    get_TSID(pbstrTSID) {
+    get_TSID() {
+        pbstrTSID := BSTR()
         result := ComCall(25, this, "ptr", pbstrTSID, "HRESULT")
-        return result
+        return pbstrTSID
     }
 
     /**
@@ -279,13 +279,13 @@ class IFaxSender extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrOfficePhone 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsender-get_officephone
      */
-    get_OfficePhone(pbstrOfficePhone) {
+    get_OfficePhone() {
+        pbstrOfficePhone := BSTR()
         result := ComCall(27, this, "ptr", pbstrOfficePhone, "HRESULT")
-        return result
+        return pbstrOfficePhone
     }
 
     /**
@@ -303,13 +303,13 @@ class IFaxSender extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrOfficeLocation 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsender-get_officelocation
      */
-    get_OfficeLocation(pbstrOfficeLocation) {
+    get_OfficeLocation() {
+        pbstrOfficeLocation := BSTR()
         result := ComCall(29, this, "ptr", pbstrOfficeLocation, "HRESULT")
-        return result
+        return pbstrOfficeLocation
     }
 
     /**
@@ -327,12 +327,12 @@ class IFaxSender extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrState 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_State(pbstrState) {
+    get_State() {
+        pbstrState := BSTR()
         result := ComCall(31, this, "ptr", pbstrState, "HRESULT")
-        return result
+        return pbstrState
     }
 
     /**
@@ -349,13 +349,13 @@ class IFaxSender extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrStreetAddress 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsender-get_streetaddress
      */
-    get_StreetAddress(pbstrStreetAddress) {
+    get_StreetAddress() {
+        pbstrStreetAddress := BSTR()
         result := ComCall(33, this, "ptr", pbstrStreetAddress, "HRESULT")
-        return result
+        return pbstrStreetAddress
     }
 
     /**
@@ -373,13 +373,13 @@ class IFaxSender extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrTitle 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsender-get_title
      */
-    get_Title(pbstrTitle) {
+    get_Title() {
+        pbstrTitle := BSTR()
         result := ComCall(35, this, "ptr", pbstrTitle, "HRESULT")
-        return result
+        return pbstrTitle
     }
 
     /**
@@ -397,12 +397,12 @@ class IFaxSender extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrZipCode 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ZipCode(pbstrZipCode) {
+    get_ZipCode() {
+        pbstrZipCode := BSTR()
         result := ComCall(37, this, "ptr", pbstrZipCode, "HRESULT")
-        return result
+        return pbstrZipCode
     }
 
     /**

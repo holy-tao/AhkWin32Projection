@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\UI\WindowsAndMessaging\HICON.ahk
 #Include .\IOpenService.ahk
 
 /**
@@ -43,23 +45,21 @@ class IOpenServiceActivity extends IOpenService{
      * 
      * @param {IOpenServiceActivityInput} pInput 
      * @param {IOpenServiceActivityOutputContext} pOutput 
-     * @param {Pointer<BOOL>} pfCanExecute 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    CanExecute(pInput, pOutput, pfCanExecute) {
-        result := ComCall(7, this, "ptr", pInput, "ptr", pOutput, "ptr", pfCanExecute, "HRESULT")
-        return result
+    CanExecute(pInput, pOutput) {
+        result := ComCall(7, this, "ptr", pInput, "ptr", pOutput, "int*", &pfCanExecute := 0, "HRESULT")
+        return pfCanExecute
     }
 
     /**
      * 
      * @param {Integer} type 
-     * @param {Pointer<BOOL>} pfCanExecute 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    CanExecuteType(type, pfCanExecute) {
-        result := ComCall(8, this, "int", type, "ptr", pfCanExecute, "HRESULT")
-        return result
+    CanExecuteType(type) {
+        result := ComCall(8, this, "int", type, "int*", &pfCanExecute := 0, "HRESULT")
+        return pfCanExecute
     }
 
     /**
@@ -77,135 +77,132 @@ class IOpenServiceActivity extends IOpenService{
      * 
      * @param {IOpenServiceActivityInput} pInput 
      * @param {IOpenServiceActivityOutputContext} pOutput 
-     * @param {Pointer<BOOL>} pfCanPreview 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    CanPreview(pInput, pOutput, pfCanPreview) {
-        result := ComCall(10, this, "ptr", pInput, "ptr", pOutput, "ptr", pfCanPreview, "HRESULT")
-        return result
+    CanPreview(pInput, pOutput) {
+        result := ComCall(10, this, "ptr", pInput, "ptr", pOutput, "int*", &pfCanPreview := 0, "HRESULT")
+        return pfCanPreview
     }
 
     /**
      * 
      * @param {Integer} type 
-     * @param {Pointer<BOOL>} pfCanPreview 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    CanPreviewType(type, pfCanPreview) {
-        result := ComCall(11, this, "int", type, "ptr", pfCanPreview, "HRESULT")
-        return result
+    CanPreviewType(type) {
+        result := ComCall(11, this, "int", type, "int*", &pfCanPreview := 0, "HRESULT")
+        return pfCanPreview
     }
 
     /**
      * 
      * @param {IOpenServiceActivityInput} pInput 
-     * @param {Pointer<BSTR>} pbstrStatusText 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetStatusText(pInput, pbstrStatusText) {
+    GetStatusText(pInput) {
+        pbstrStatusText := BSTR()
         result := ComCall(12, this, "ptr", pInput, "ptr", pbstrStatusText, "HRESULT")
-        return result
+        return pbstrStatusText
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrHomepageUrl 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetHomepageUrl(pbstrHomepageUrl) {
+    GetHomepageUrl() {
+        pbstrHomepageUrl := BSTR()
         result := ComCall(13, this, "ptr", pbstrHomepageUrl, "HRESULT")
-        return result
+        return pbstrHomepageUrl
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrDisplayName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetDisplayName(pbstrDisplayName) {
+    GetDisplayName() {
+        pbstrDisplayName := BSTR()
         result := ComCall(14, this, "ptr", pbstrDisplayName, "HRESULT")
-        return result
+        return pbstrDisplayName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrDescription 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetDescription(pbstrDescription) {
+    GetDescription() {
+        pbstrDescription := BSTR()
         result := ComCall(15, this, "ptr", pbstrDescription, "HRESULT")
-        return result
+        return pbstrDescription
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrCategoryName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetCategoryName(pbstrCategoryName) {
+    GetCategoryName() {
+        pbstrCategoryName := BSTR()
         result := ComCall(16, this, "ptr", pbstrCategoryName, "HRESULT")
-        return result
+        return pbstrCategoryName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrIconPath 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetIconPath(pbstrIconPath) {
+    GetIconPath() {
+        pbstrIconPath := BSTR()
         result := ComCall(17, this, "ptr", pbstrIconPath, "HRESULT")
-        return result
+        return pbstrIconPath
     }
 
     /**
      * 
      * @param {BOOL} fSmallIcon 
-     * @param {Pointer<HICON>} phIcon 
-     * @returns {HRESULT} 
+     * @returns {HICON} 
      */
-    GetIcon(fSmallIcon, phIcon) {
+    GetIcon(fSmallIcon) {
+        phIcon := HICON()
         result := ComCall(18, this, "int", fSmallIcon, "ptr", phIcon, "HRESULT")
-        return result
+        return phIcon
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrXmlPath 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetDescriptionFilePath(pbstrXmlPath) {
+    GetDescriptionFilePath() {
+        pbstrXmlPath := BSTR()
         result := ComCall(19, this, "ptr", pbstrXmlPath, "HRESULT")
-        return result
+        return pbstrXmlPath
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrXmlUri 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetDownloadUrl(pbstrXmlUri) {
+    GetDownloadUrl() {
+        pbstrXmlUri := BSTR()
         result := ComCall(20, this, "ptr", pbstrXmlUri, "HRESULT")
-        return result
+        return pbstrXmlUri
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrInstallUri 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetInstallUrl(pbstrInstallUri) {
+    GetInstallUrl() {
+        pbstrInstallUri := BSTR()
         result := ComCall(21, this, "ptr", pbstrInstallUri, "HRESULT")
-        return result
+        return pbstrInstallUri
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfIsEnabled 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsEnabled(pfIsEnabled) {
-        result := ComCall(22, this, "ptr", pfIsEnabled, "HRESULT")
-        return result
+    IsEnabled() {
+        result := ComCall(22, this, "int*", &pfIsEnabled := 0, "HRESULT")
+        return pfIsEnabled
     }
 
     /**

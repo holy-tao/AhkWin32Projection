@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IEnumUnknown.ahk
 #Include .\IParseDisplayName.ahk
 
 /**
@@ -33,15 +34,12 @@ class IOleContainer extends IParseDisplayName{
     /**
      * The EnumObjects function enumerates the pens or brushes available for the specified device context (DC).
      * @param {Integer} grfFlags 
-     * @param {Pointer<IEnumUnknown>} ppenum 
-     * @returns {HRESULT} If the function succeeds, the return value is the last value returned by the callback function. Its meaning is user-defined.
-     * 
-     * If the objects cannot be enumerated (for example, there are too many objects), the function returns zero without calling the callback function.
+     * @returns {IEnumUnknown} 
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-enumobjects
      */
-    EnumObjects(grfFlags, ppenum) {
-        result := ComCall(4, this, "uint", grfFlags, "ptr*", ppenum, "HRESULT")
-        return result
+    EnumObjects(grfFlags) {
+        result := ComCall(4, this, "uint", grfFlags, "ptr*", &ppenum := 0, "HRESULT")
+        return IEnumUnknown(ppenum)
     }
 
     /**

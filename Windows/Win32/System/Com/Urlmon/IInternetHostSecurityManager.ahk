@@ -30,36 +30,32 @@ class IInternetHostSecurityManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pbSecurityId 
      * @param {Pointer<Integer>} pcbSecurityId 
      * @param {Pointer} dwReserved 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetSecurityId(pbSecurityId, pcbSecurityId, dwReserved) {
-        pbSecurityIdMarshal := pbSecurityId is VarRef ? "char*" : "ptr"
+    GetSecurityId(pcbSecurityId, dwReserved) {
         pcbSecurityIdMarshal := pcbSecurityId is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pbSecurityIdMarshal, pbSecurityId, pcbSecurityIdMarshal, pcbSecurityId, "ptr", dwReserved, "HRESULT")
-        return result
+        result := ComCall(3, this, "char*", &pbSecurityId := 0, pcbSecurityIdMarshal, pcbSecurityId, "ptr", dwReserved, "HRESULT")
+        return pbSecurityId
     }
 
     /**
      * 
      * @param {Integer} dwAction 
-     * @param {Pointer<Integer>} pPolicy 
      * @param {Integer} cbPolicy 
      * @param {Pointer<Integer>} pContext 
      * @param {Integer} cbContext 
      * @param {Integer} dwFlags 
      * @param {Integer} dwReserved 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    ProcessUrlAction(dwAction, pPolicy, cbPolicy, pContext, cbContext, dwFlags, dwReserved) {
-        pPolicyMarshal := pPolicy is VarRef ? "char*" : "ptr"
+    ProcessUrlAction(dwAction, cbPolicy, pContext, cbContext, dwFlags, dwReserved) {
         pContextMarshal := pContext is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwAction, pPolicyMarshal, pPolicy, "uint", cbPolicy, pContextMarshal, pContext, "uint", cbContext, "uint", dwFlags, "uint", dwReserved, "HRESULT")
-        return result
+        result := ComCall(4, this, "uint", dwAction, "char*", &pPolicy := 0, "uint", cbPolicy, pContextMarshal, pContext, "uint", cbContext, "uint", dwFlags, "uint", dwReserved, "HRESULT")
+        return pPolicy
     }
 
     /**

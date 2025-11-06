@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ISBE2MediaTypeProfile.ahk
+#Include .\ISBE2EnumStream.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -47,13 +49,12 @@ class ISBE2Crossbar extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ISBE2MediaTypeProfile>} ppProfile 
-     * @returns {HRESULT} 
+     * @returns {ISBE2MediaTypeProfile} 
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-isbe2crossbar-getinitialprofile
      */
-    GetInitialProfile(ppProfile) {
-        result := ComCall(4, this, "ptr*", ppProfile, "HRESULT")
-        return result
+    GetInitialProfile() {
+        result := ComCall(4, this, "ptr*", &ppProfile := 0, "HRESULT")
+        return ISBE2MediaTypeProfile(ppProfile)
     }
 
     /**
@@ -73,12 +74,11 @@ class ISBE2Crossbar extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ISBE2EnumStream>} ppStreams 
-     * @returns {HRESULT} 
+     * @returns {ISBE2EnumStream} 
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-isbe2crossbar-enumstreams
      */
-    EnumStreams(ppStreams) {
-        result := ComCall(6, this, "ptr*", ppStreams, "HRESULT")
-        return result
+    EnumStreams() {
+        result := ComCall(6, this, "ptr*", &ppStreams := 0, "HRESULT")
+        return ISBE2EnumStream(ppStreams)
     }
 }

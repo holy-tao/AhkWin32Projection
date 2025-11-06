@@ -117,7 +117,9 @@ class IMonthlyDOWTrigger extends ITrigger{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-imonthlydowtrigger-get_runonlastweekofmonth
      */
     get_RunOnLastWeekOfMonth(pLastWeek) {
-        result := ComCall(26, this, "ptr", pLastWeek, "HRESULT")
+        pLastWeekMarshal := pLastWeek is VarRef ? "short*" : "ptr"
+
+        result := ComCall(26, this, pLastWeekMarshal, pLastWeek, "HRESULT")
         return result
     }
 

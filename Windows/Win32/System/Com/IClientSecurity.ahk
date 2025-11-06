@@ -88,12 +88,11 @@ class IClientSecurity extends IUnknown{
     /**
      * 
      * @param {IUnknown} pProxy 
-     * @param {Pointer<IUnknown>} ppCopy 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-iclientsecurity-copyproxy
      */
-    CopyProxy(pProxy, ppCopy) {
-        result := ComCall(5, this, "ptr", pProxy, "ptr*", ppCopy, "HRESULT")
-        return result
+    CopyProxy(pProxy) {
+        result := ComCall(5, this, "ptr", pProxy, "ptr*", &ppCopy := 0, "HRESULT")
+        return IUnknown(ppCopy)
     }
 }

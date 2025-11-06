@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -31,12 +32,12 @@ class IHTMLXDomainRequest extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_responseText(p) {
+    get_responseText() {
+        p := BSTR()
         result := ComCall(7, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -51,24 +52,21 @@ class IHTMLXDomainRequest extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_timeout(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pMarshal, p, "HRESULT")
-        return result
+    get_timeout() {
+        result := ComCall(9, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_contentType(p) {
+    get_contentType() {
+        p := BSTR()
         result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -83,12 +81,12 @@ class IHTMLXDomainRequest extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onprogress(p) {
+    get_onprogress() {
+        p := VARIANT()
         result := ComCall(12, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -103,12 +101,12 @@ class IHTMLXDomainRequest extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onerror(p) {
+    get_onerror() {
+        p := VARIANT()
         result := ComCall(14, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -123,12 +121,12 @@ class IHTMLXDomainRequest extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_ontimeout(p) {
+    get_ontimeout() {
+        p := VARIANT()
         result := ComCall(16, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -143,12 +141,12 @@ class IHTMLXDomainRequest extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onload(p) {
+    get_onload() {
+        p := VARIANT()
         result := ComCall(18, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**

@@ -47,28 +47,22 @@ class ISelector extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwNumSources 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-iselector-get_numsources
      */
-    get_NumSources(pdwNumSources) {
-        pdwNumSourcesMarshal := pdwNumSources is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pdwNumSourcesMarshal, pdwNumSources, "HRESULT")
-        return result
+    get_NumSources() {
+        result := ComCall(3, this, "uint*", &pdwNumSources := 0, "HRESULT")
+        return pdwNumSources
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwPinId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-iselector-get_sourcenodeid
      */
-    get_SourceNodeId(pdwPinId) {
-        pdwPinIdMarshal := pdwPinId is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pdwPinIdMarshal, pdwPinId, "HRESULT")
-        return result
+    get_SourceNodeId() {
+        result := ComCall(4, this, "uint*", &pdwPinId := 0, "HRESULT")
+        return pdwPinId
     }
 
     /**

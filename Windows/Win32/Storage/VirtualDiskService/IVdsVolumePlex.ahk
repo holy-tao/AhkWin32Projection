@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\VDS_VOLUME_PLEX_PROP.ahk
+#Include .\IVdsVolume.ahk
+#Include .\IVdsAsync.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,24 +35,23 @@ class IVdsVolumePlex extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VDS_VOLUME_PLEX_PROP>} pPlexProperties 
-     * @returns {HRESULT} 
+     * @returns {VDS_VOLUME_PLEX_PROP} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolumeplex-getproperties
      */
-    GetProperties(pPlexProperties) {
+    GetProperties() {
+        pPlexProperties := VDS_VOLUME_PLEX_PROP()
         result := ComCall(3, this, "ptr", pPlexProperties, "HRESULT")
-        return result
+        return pPlexProperties
     }
 
     /**
      * 
-     * @param {Pointer<IVdsVolume>} ppVolume 
-     * @returns {HRESULT} 
+     * @returns {IVdsVolume} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolumeplex-getvolume
      */
-    GetVolume(ppVolume) {
-        result := ComCall(4, this, "ptr*", ppVolume, "HRESULT")
-        return result
+    GetVolume() {
+        result := ComCall(4, this, "ptr*", &ppVolume := 0, "HRESULT")
+        return IVdsVolume(ppVolume)
     }
 
     /**
@@ -71,12 +73,11 @@ class IVdsVolumePlex extends IUnknown{
      * 
      * @param {Pointer<VDS_INPUT_DISK>} pInputDiskArray 
      * @param {Integer} lNumberOfDisks 
-     * @param {Pointer<IVdsAsync>} ppAsync 
-     * @returns {HRESULT} 
+     * @returns {IVdsAsync} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolumeplex-repair
      */
-    Repair(pInputDiskArray, lNumberOfDisks, ppAsync) {
-        result := ComCall(6, this, "ptr", pInputDiskArray, "int", lNumberOfDisks, "ptr*", ppAsync, "HRESULT")
-        return result
+    Repair(pInputDiskArray, lNumberOfDisks) {
+        result := ComCall(6, this, "ptr", pInputDiskArray, "int", lNumberOfDisks, "ptr*", &ppAsync := 0, "HRESULT")
+        return IVdsAsync(ppAsync)
     }
 }

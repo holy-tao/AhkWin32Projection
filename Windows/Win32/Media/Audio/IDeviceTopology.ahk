@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IConnector.ahk
+#Include .\ISubunit.ahk
+#Include .\IPart.ahk
+#Include .\IPartsList.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -38,75 +42,65 @@ class IDeviceTopology extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-idevicetopology-getconnectorcount
      */
-    GetConnectorCount(pCount) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    GetConnectorCount() {
+        result := ComCall(3, this, "uint*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
      * 
      * @param {Integer} nIndex 
-     * @param {Pointer<IConnector>} ppConnector 
-     * @returns {HRESULT} 
+     * @returns {IConnector} 
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-idevicetopology-getconnector
      */
-    GetConnector(nIndex, ppConnector) {
-        result := ComCall(4, this, "uint", nIndex, "ptr*", ppConnector, "HRESULT")
-        return result
+    GetConnector(nIndex) {
+        result := ComCall(4, this, "uint", nIndex, "ptr*", &ppConnector := 0, "HRESULT")
+        return IConnector(ppConnector)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-idevicetopology-getsubunitcount
      */
-    GetSubunitCount(pCount) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    GetSubunitCount() {
+        result := ComCall(5, this, "uint*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
      * 
      * @param {Integer} nIndex 
-     * @param {Pointer<ISubunit>} ppSubunit 
-     * @returns {HRESULT} 
+     * @returns {ISubunit} 
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-idevicetopology-getsubunit
      */
-    GetSubunit(nIndex, ppSubunit) {
-        result := ComCall(6, this, "uint", nIndex, "ptr*", ppSubunit, "HRESULT")
-        return result
+    GetSubunit(nIndex) {
+        result := ComCall(6, this, "uint", nIndex, "ptr*", &ppSubunit := 0, "HRESULT")
+        return ISubunit(ppSubunit)
     }
 
     /**
      * 
      * @param {Integer} nId 
-     * @param {Pointer<IPart>} ppPart 
-     * @returns {HRESULT} 
+     * @returns {IPart} 
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-idevicetopology-getpartbyid
      */
-    GetPartById(nId, ppPart) {
-        result := ComCall(7, this, "uint", nId, "ptr*", ppPart, "HRESULT")
-        return result
+    GetPartById(nId) {
+        result := ComCall(7, this, "uint", nId, "ptr*", &ppPart := 0, "HRESULT")
+        return IPart(ppPart)
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppwstrDeviceId 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-idevicetopology-getdeviceid
      */
-    GetDeviceId(ppwstrDeviceId) {
-        result := ComCall(8, this, "ptr", ppwstrDeviceId, "HRESULT")
-        return result
+    GetDeviceId() {
+        result := ComCall(8, this, "ptr*", &ppwstrDeviceId := 0, "HRESULT")
+        return ppwstrDeviceId
     }
 
     /**
@@ -114,12 +108,11 @@ class IDeviceTopology extends IUnknown{
      * @param {IPart} pIPartFrom 
      * @param {IPart} pIPartTo 
      * @param {BOOL} bRejectMixedPaths 
-     * @param {Pointer<IPartsList>} ppParts 
-     * @returns {HRESULT} 
+     * @returns {IPartsList} 
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-idevicetopology-getsignalpath
      */
-    GetSignalPath(pIPartFrom, pIPartTo, bRejectMixedPaths, ppParts) {
-        result := ComCall(9, this, "ptr", pIPartFrom, "ptr", pIPartTo, "int", bRejectMixedPaths, "ptr*", ppParts, "HRESULT")
-        return result
+    GetSignalPath(pIPartFrom, pIPartTo, bRejectMixedPaths) {
+        result := ComCall(9, this, "ptr", pIPartFrom, "ptr", pIPartTo, "int", bRejectMixedPaths, "ptr*", &ppParts := 0, "HRESULT")
+        return IPartsList(ppParts)
     }
 }

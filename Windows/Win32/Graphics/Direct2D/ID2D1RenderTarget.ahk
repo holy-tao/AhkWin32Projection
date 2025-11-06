@@ -1,6 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID2D1Bitmap.ahk
+#Include .\ID2D1BitmapBrush.ahk
+#Include .\ID2D1SolidColorBrush.ahk
+#Include .\ID2D1GradientStopCollection.ahk
+#Include .\ID2D1LinearGradientBrush.ahk
+#Include .\ID2D1RadialGradientBrush.ahk
+#Include .\ID2D1BitmapRenderTarget.ahk
+#Include .\ID2D1Layer.ahk
+#Include .\ID2D1Mesh.ahk
 #Include .\ID2D1Resource.ahk
 
 /**
@@ -41,50 +50,26 @@ class ID2D1RenderTarget extends ID2D1Resource{
      * @param {Pointer<Void>} srcData 
      * @param {Integer} pitch 
      * @param {Pointer<D2D1_BITMAP_PROPERTIES>} bitmapProperties 
-     * @param {Pointer<ID2D1Bitmap>} bitmap 
-     * @returns {HRESULT} If the function succeeds, the return value is a handle to a bitmap.
-     * 
-     * If the function fails, the return value is <b>NULL</b>.
-     * 
-     * This function can return the following value.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INVALID_BITMAP</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The calculated size of the bitmap is less than zero.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {ID2D1Bitmap} 
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createbitmap
      */
-    CreateBitmap(size, srcData, pitch, bitmapProperties, bitmap) {
+    CreateBitmap(size, srcData, pitch, bitmapProperties) {
         srcDataMarshal := srcData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "ptr", size, srcDataMarshal, srcData, "uint", pitch, "ptr", bitmapProperties, "ptr*", bitmap, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", size, srcDataMarshal, srcData, "uint", pitch, "ptr", bitmapProperties, "ptr*", &bitmap := 0, "HRESULT")
+        return ID2D1Bitmap(bitmap)
     }
 
     /**
      * 
      * @param {IWICBitmapSource} wicBitmapSource 
      * @param {Pointer<D2D1_BITMAP_PROPERTIES>} bitmapProperties 
-     * @param {Pointer<ID2D1Bitmap>} bitmap 
-     * @returns {HRESULT} 
+     * @returns {ID2D1Bitmap} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-createbitmapfromwicbitmap
      */
-    CreateBitmapFromWicBitmap(wicBitmapSource, bitmapProperties, bitmap) {
-        result := ComCall(5, this, "ptr", wicBitmapSource, "ptr", bitmapProperties, "ptr*", bitmap, "HRESULT")
-        return result
+    CreateBitmapFromWicBitmap(wicBitmapSource, bitmapProperties) {
+        result := ComCall(5, this, "ptr", wicBitmapSource, "ptr", bitmapProperties, "ptr*", &bitmap := 0, "HRESULT")
+        return ID2D1Bitmap(bitmap)
     }
 
     /**
@@ -92,15 +77,14 @@ class ID2D1RenderTarget extends ID2D1Resource{
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Void>} data 
      * @param {Pointer<D2D1_BITMAP_PROPERTIES>} bitmapProperties 
-     * @param {Pointer<ID2D1Bitmap>} bitmap 
-     * @returns {HRESULT} 
+     * @returns {ID2D1Bitmap} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-createsharedbitmap
      */
-    CreateSharedBitmap(riid, data, bitmapProperties, bitmap) {
+    CreateSharedBitmap(riid, data, bitmapProperties) {
         dataMarshal := data is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(6, this, "ptr", riid, dataMarshal, data, "ptr", bitmapProperties, "ptr*", bitmap, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", riid, dataMarshal, data, "ptr", bitmapProperties, "ptr*", &bitmap := 0, "HRESULT")
+        return ID2D1Bitmap(bitmap)
     }
 
     /**
@@ -108,26 +92,24 @@ class ID2D1RenderTarget extends ID2D1Resource{
      * @param {ID2D1Bitmap} bitmap 
      * @param {Pointer<D2D1_BITMAP_BRUSH_PROPERTIES>} bitmapBrushProperties 
      * @param {Pointer<D2D1_BRUSH_PROPERTIES>} brushProperties 
-     * @param {Pointer<ID2D1BitmapBrush>} bitmapBrush 
-     * @returns {HRESULT} 
+     * @returns {ID2D1BitmapBrush} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-createbitmapbrush
      */
-    CreateBitmapBrush(bitmap, bitmapBrushProperties, brushProperties, bitmapBrush) {
-        result := ComCall(7, this, "ptr", bitmap, "ptr", bitmapBrushProperties, "ptr", brushProperties, "ptr*", bitmapBrush, "HRESULT")
-        return result
+    CreateBitmapBrush(bitmap, bitmapBrushProperties, brushProperties) {
+        result := ComCall(7, this, "ptr", bitmap, "ptr", bitmapBrushProperties, "ptr", brushProperties, "ptr*", &bitmapBrush := 0, "HRESULT")
+        return ID2D1BitmapBrush(bitmapBrush)
     }
 
     /**
      * 
      * @param {Pointer<D2D1_COLOR_F>} color 
      * @param {Pointer<D2D1_BRUSH_PROPERTIES>} brushProperties 
-     * @param {Pointer<ID2D1SolidColorBrush>} solidColorBrush 
-     * @returns {HRESULT} 
+     * @returns {ID2D1SolidColorBrush} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-createsolidcolorbrush
      */
-    CreateSolidColorBrush(color, brushProperties, solidColorBrush) {
-        result := ComCall(8, this, "ptr", color, "ptr", brushProperties, "ptr*", solidColorBrush, "HRESULT")
-        return result
+    CreateSolidColorBrush(color, brushProperties) {
+        result := ComCall(8, this, "ptr", color, "ptr", brushProperties, "ptr*", &solidColorBrush := 0, "HRESULT")
+        return ID2D1SolidColorBrush(solidColorBrush)
     }
 
     /**
@@ -136,13 +118,12 @@ class ID2D1RenderTarget extends ID2D1Resource{
      * @param {Integer} gradientStopsCount 
      * @param {Integer} colorInterpolationGamma 
      * @param {Integer} extendMode 
-     * @param {Pointer<ID2D1GradientStopCollection>} gradientStopCollection 
-     * @returns {HRESULT} 
+     * @returns {ID2D1GradientStopCollection} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-creategradientstopcollection
      */
-    CreateGradientStopCollection(gradientStops, gradientStopsCount, colorInterpolationGamma, extendMode, gradientStopCollection) {
-        result := ComCall(9, this, "ptr", gradientStops, "uint", gradientStopsCount, "int", colorInterpolationGamma, "int", extendMode, "ptr*", gradientStopCollection, "HRESULT")
-        return result
+    CreateGradientStopCollection(gradientStops, gradientStopsCount, colorInterpolationGamma, extendMode) {
+        result := ComCall(9, this, "ptr", gradientStops, "uint", gradientStopsCount, "int", colorInterpolationGamma, "int", extendMode, "ptr*", &gradientStopCollection := 0, "HRESULT")
+        return ID2D1GradientStopCollection(gradientStopCollection)
     }
 
     /**
@@ -150,13 +131,12 @@ class ID2D1RenderTarget extends ID2D1Resource{
      * @param {Pointer<D2D1_LINEAR_GRADIENT_BRUSH_PROPERTIES>} linearGradientBrushProperties 
      * @param {Pointer<D2D1_BRUSH_PROPERTIES>} brushProperties 
      * @param {ID2D1GradientStopCollection} gradientStopCollection 
-     * @param {Pointer<ID2D1LinearGradientBrush>} linearGradientBrush 
-     * @returns {HRESULT} 
+     * @returns {ID2D1LinearGradientBrush} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-createlineargradientbrush
      */
-    CreateLinearGradientBrush(linearGradientBrushProperties, brushProperties, gradientStopCollection, linearGradientBrush) {
-        result := ComCall(10, this, "ptr", linearGradientBrushProperties, "ptr", brushProperties, "ptr", gradientStopCollection, "ptr*", linearGradientBrush, "HRESULT")
-        return result
+    CreateLinearGradientBrush(linearGradientBrushProperties, brushProperties, gradientStopCollection) {
+        result := ComCall(10, this, "ptr", linearGradientBrushProperties, "ptr", brushProperties, "ptr", gradientStopCollection, "ptr*", &linearGradientBrush := 0, "HRESULT")
+        return ID2D1LinearGradientBrush(linearGradientBrush)
     }
 
     /**
@@ -164,13 +144,12 @@ class ID2D1RenderTarget extends ID2D1Resource{
      * @param {Pointer<D2D1_RADIAL_GRADIENT_BRUSH_PROPERTIES>} radialGradientBrushProperties 
      * @param {Pointer<D2D1_BRUSH_PROPERTIES>} brushProperties 
      * @param {ID2D1GradientStopCollection} gradientStopCollection 
-     * @param {Pointer<ID2D1RadialGradientBrush>} radialGradientBrush 
-     * @returns {HRESULT} 
+     * @returns {ID2D1RadialGradientBrush} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-createradialgradientbrush
      */
-    CreateRadialGradientBrush(radialGradientBrushProperties, brushProperties, gradientStopCollection, radialGradientBrush) {
-        result := ComCall(11, this, "ptr", radialGradientBrushProperties, "ptr", brushProperties, "ptr", gradientStopCollection, "ptr*", radialGradientBrush, "HRESULT")
-        return result
+    CreateRadialGradientBrush(radialGradientBrushProperties, brushProperties, gradientStopCollection) {
+        result := ComCall(11, this, "ptr", radialGradientBrushProperties, "ptr", brushProperties, "ptr", gradientStopCollection, "ptr*", &radialGradientBrush := 0, "HRESULT")
+        return ID2D1RadialGradientBrush(radialGradientBrush)
     }
 
     /**
@@ -179,36 +158,33 @@ class ID2D1RenderTarget extends ID2D1Resource{
      * @param {Pointer<D2D_SIZE_U>} desiredPixelSize 
      * @param {Pointer<D2D1_PIXEL_FORMAT>} desiredFormat 
      * @param {Integer} options 
-     * @param {Pointer<ID2D1BitmapRenderTarget>} bitmapRenderTarget 
-     * @returns {HRESULT} 
+     * @returns {ID2D1BitmapRenderTarget} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-createcompatiblerendertarget
      */
-    CreateCompatibleRenderTarget(desiredSize, desiredPixelSize, desiredFormat, options, bitmapRenderTarget) {
-        result := ComCall(12, this, "ptr", desiredSize, "ptr", desiredPixelSize, "ptr", desiredFormat, "int", options, "ptr*", bitmapRenderTarget, "HRESULT")
-        return result
+    CreateCompatibleRenderTarget(desiredSize, desiredPixelSize, desiredFormat, options) {
+        result := ComCall(12, this, "ptr", desiredSize, "ptr", desiredPixelSize, "ptr", desiredFormat, "int", options, "ptr*", &bitmapRenderTarget := 0, "HRESULT")
+        return ID2D1BitmapRenderTarget(bitmapRenderTarget)
     }
 
     /**
      * 
      * @param {Pointer<D2D_SIZE_F>} size 
-     * @param {Pointer<ID2D1Layer>} layer 
-     * @returns {HRESULT} 
+     * @returns {ID2D1Layer} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1rendertarget-createlayer
      */
-    CreateLayer(size, layer) {
-        result := ComCall(13, this, "ptr", size, "ptr*", layer, "HRESULT")
-        return result
+    CreateLayer(size) {
+        result := ComCall(13, this, "ptr", size, "ptr*", &layer := 0, "HRESULT")
+        return ID2D1Layer(layer)
     }
 
     /**
      * 
-     * @param {Pointer<ID2D1Mesh>} mesh 
-     * @returns {HRESULT} 
+     * @returns {ID2D1Mesh} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-createmesh
      */
-    CreateMesh(mesh) {
-        result := ComCall(14, this, "ptr*", mesh, "HRESULT")
-        return result
+    CreateMesh() {
+        result := ComCall(14, this, "ptr*", &mesh := 0, "HRESULT")
+        return ID2D1Mesh(mesh)
     }
 
     /**

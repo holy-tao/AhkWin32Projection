@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\ID2D1Device.ahk
+#Include .\ID2D1DeviceContext.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct2D
@@ -367,23 +369,18 @@ class Direct2D {
      * @param {Pointer<D2D1_FACTORY_OPTIONS>} pFactoryOptions Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_factory_options">D2D1_FACTORY_OPTIONS</a>*</b>
      * 
      * The level of detail provided to the debugging layer.
-     * @param {Pointer<Pointer<Void>>} ppIFactory Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this method returns, contains the address to a pointer to the new factory.
-     * @returns {HRESULT} Type: **[HRESULT](/windows/win32/com/structure-of-com-error-codes)**
-     * 
-     * If the function succeeds, it returns **S_OK**. Otherwise, it returns an [**HRESULT**](/windows/win32/com/structure-of-com-error-codes) [error code](/windows/win32/com/com-error-codes-10).
      * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-d2d1createfactory
      * @since windows6.1
      */
-    static D2D1CreateFactory(factoryType, riid, pFactoryOptions, ppIFactory) {
-        ppIFactoryMarshal := ppIFactory is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("d2d1.dll\D2D1CreateFactory", "int", factoryType, "ptr", riid, "ptr", pFactoryOptions, ppIFactoryMarshal, ppIFactory, "int")
+    static D2D1CreateFactory(factoryType, riid, pFactoryOptions) {
+        result := DllCall("d2d1.dll\D2D1CreateFactory", "int", factoryType, "ptr", riid, "ptr", pFactoryOptions, "ptr*", &ppIFactory := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppIFactory
     }
 
     /**
@@ -468,72 +465,32 @@ class Direct2D {
      * Creates a new Direct2D device associated with the provided DXGI device.
      * @param {IDXGIDevice} dxgiDevice The DXGI device the Direct2D device is associated with.
      * @param {Pointer<D2D1_CREATION_PROPERTIES>} creationProperties The properties to apply to the Direct2D device.
-     * @param {Pointer<ID2D1Device>} d2dDevice When this function returns, contains the address of a pointer to a Direct2D device.
-     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
-     * 
-     * <table>
-     * <tr>
-     * <th>HRESULT</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td>S_OK</td>
-     * <td>No error occurred.</td>
-     * </tr>
-     * <tr>
-     * <td>E_OUTOFMEMORY</td>
-     * <td>Direct2D could not allocate sufficient memory to complete the call.</td>
-     * </tr>
-     * <tr>
-     * <td>E_INVALIDARG</td>
-     * <td>An invalid value was passed to the method.</td>
-     * </tr>
-     * </table>
+     * @returns {ID2D1Device} When this function returns, contains the address of a pointer to a Direct2D device.
      * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-d2d1createdevice
      * @since windows8.0
      */
-    static D2D1CreateDevice(dxgiDevice, creationProperties, d2dDevice) {
-        result := DllCall("d2d1.dll\D2D1CreateDevice", "ptr", dxgiDevice, "ptr", creationProperties, "ptr*", d2dDevice, "int")
+    static D2D1CreateDevice(dxgiDevice, creationProperties) {
+        result := DllCall("d2d1.dll\D2D1CreateDevice", "ptr", dxgiDevice, "ptr", creationProperties, "ptr*", &d2dDevice := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ID2D1Device(d2dDevice)
     }
 
     /**
      * Creates a new Direct2D device context associated with a DXGI surface.
      * @param {IDXGISurface} dxgiSurface The DXGI surface the Direct2D device context is associated with.
      * @param {Pointer<D2D1_CREATION_PROPERTIES>} creationProperties The properties to apply to the Direct2D device context.
-     * @param {Pointer<ID2D1DeviceContext>} d2dDeviceContext When this function returns, contains the address of a pointer to a Direct2D device context.
-     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
-     * 
-     * <table>
-     * <tr>
-     * <th>HRESULT</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td>S_OK</td>
-     * <td>No error occurred.</td>
-     * </tr>
-     * <tr>
-     * <td>E_OUTOFMEMORY</td>
-     * <td>Direct2D could not allocate sufficient memory to complete the call.</td>
-     * </tr>
-     * <tr>
-     * <td>E_INVALIDARG</td>
-     * <td>An invalid value was passed to the method.</td>
-     * </tr>
-     * </table>
+     * @returns {ID2D1DeviceContext} When this function returns, contains the address of a pointer to a Direct2D device context.
      * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-d2d1createdevicecontext
      * @since windows8.0
      */
-    static D2D1CreateDeviceContext(dxgiSurface, creationProperties, d2dDeviceContext) {
-        result := DllCall("d2d1.dll\D2D1CreateDeviceContext", "ptr", dxgiSurface, "ptr", creationProperties, "ptr*", d2dDeviceContext, "int")
+    static D2D1CreateDeviceContext(dxgiSurface, creationProperties) {
+        result := DllCall("d2d1.dll\D2D1CreateDeviceContext", "ptr", dxgiSurface, "ptr", creationProperties, "ptr*", &d2dDeviceContext := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ID2D1DeviceContext(d2dDeviceContext)
     }
 
     /**

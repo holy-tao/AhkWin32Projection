@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -38,53 +39,50 @@ class IGPMTrustee extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} bstrVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_TrusteeSid(bstrVal) {
+    get_TrusteeSid() {
+        bstrVal := BSTR()
         result := ComCall(7, this, "ptr", bstrVal, "HRESULT")
-        return result
+        return bstrVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} bstrVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_TrusteeName(bstrVal) {
+    get_TrusteeName() {
+        bstrVal := BSTR()
         result := ComCall(8, this, "ptr", bstrVal, "HRESULT")
-        return result
+        return bstrVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} bstrVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_TrusteeDomain(bstrVal) {
+    get_TrusteeDomain() {
+        bstrVal := BSTR()
         result := ComCall(9, this, "ptr", bstrVal, "HRESULT")
-        return result
+        return bstrVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_TrusteeDSPath(pVal) {
+    get_TrusteeDSPath() {
+        pVal := BSTR()
         result := ComCall(10, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} lVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_TrusteeType(lVal) {
-        lValMarshal := lVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, lValMarshal, lVal, "HRESULT")
-        return result
+    get_TrusteeType() {
+        result := ComCall(11, this, "int*", &lVal := 0, "HRESULT")
+        return lVal
     }
 }

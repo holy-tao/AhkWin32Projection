@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -30,11 +31,11 @@ class IObjectHandle extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} ppv 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    Unwrap(ppv) {
+    Unwrap() {
+        ppv := VARIANT()
         result := ComCall(3, this, "ptr", ppv, "HRESULT")
-        return result
+        return ppv
     }
 }

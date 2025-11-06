@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IFsrmCommittableCollection.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -70,16 +71,15 @@ class IFsrmExportImport extends IDispatch{
      * @param {BSTR} filePath 
      * @param {Pointer<VARIANT>} fileGroupNamesSafeArray 
      * @param {BSTR} remoteHost 
-     * @param {Pointer<IFsrmCommittableCollection>} fileGroups 
-     * @returns {HRESULT} 
+     * @returns {IFsrmCommittableCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmexportimport-importfilegroups
      */
-    ImportFileGroups(filePath, fileGroupNamesSafeArray, remoteHost, fileGroups) {
+    ImportFileGroups(filePath, fileGroupNamesSafeArray, remoteHost) {
         filePath := filePath is String ? BSTR.Alloc(filePath).Value : filePath
         remoteHost := remoteHost is String ? BSTR.Alloc(remoteHost).Value : remoteHost
 
-        result := ComCall(8, this, "ptr", filePath, "ptr", fileGroupNamesSafeArray, "ptr", remoteHost, "ptr*", fileGroups, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", filePath, "ptr", fileGroupNamesSafeArray, "ptr", remoteHost, "ptr*", &fileGroups := 0, "HRESULT")
+        return IFsrmCommittableCollection(fileGroups)
     }
 
     /**
@@ -103,16 +103,15 @@ class IFsrmExportImport extends IDispatch{
      * @param {BSTR} filePath 
      * @param {Pointer<VARIANT>} templateNamesSafeArray 
      * @param {BSTR} remoteHost 
-     * @param {Pointer<IFsrmCommittableCollection>} templates 
-     * @returns {HRESULT} 
+     * @returns {IFsrmCommittableCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmexportimport-importfilescreentemplates
      */
-    ImportFileScreenTemplates(filePath, templateNamesSafeArray, remoteHost, templates) {
+    ImportFileScreenTemplates(filePath, templateNamesSafeArray, remoteHost) {
         filePath := filePath is String ? BSTR.Alloc(filePath).Value : filePath
         remoteHost := remoteHost is String ? BSTR.Alloc(remoteHost).Value : remoteHost
 
-        result := ComCall(10, this, "ptr", filePath, "ptr", templateNamesSafeArray, "ptr", remoteHost, "ptr*", templates, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", filePath, "ptr", templateNamesSafeArray, "ptr", remoteHost, "ptr*", &templates := 0, "HRESULT")
+        return IFsrmCommittableCollection(templates)
     }
 
     /**
@@ -136,15 +135,14 @@ class IFsrmExportImport extends IDispatch{
      * @param {BSTR} filePath 
      * @param {Pointer<VARIANT>} templateNamesSafeArray 
      * @param {BSTR} remoteHost 
-     * @param {Pointer<IFsrmCommittableCollection>} templates 
-     * @returns {HRESULT} 
+     * @returns {IFsrmCommittableCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmexportimport-importquotatemplates
      */
-    ImportQuotaTemplates(filePath, templateNamesSafeArray, remoteHost, templates) {
+    ImportQuotaTemplates(filePath, templateNamesSafeArray, remoteHost) {
         filePath := filePath is String ? BSTR.Alloc(filePath).Value : filePath
         remoteHost := remoteHost is String ? BSTR.Alloc(remoteHost).Value : remoteHost
 
-        result := ComCall(12, this, "ptr", filePath, "ptr", templateNamesSafeArray, "ptr", remoteHost, "ptr*", templates, "HRESULT")
-        return result
+        result := ComCall(12, this, "ptr", filePath, "ptr", templateNamesSafeArray, "ptr", remoteHost, "ptr*", &templates := 0, "HRESULT")
+        return IFsrmCommittableCollection(templates)
     }
 }

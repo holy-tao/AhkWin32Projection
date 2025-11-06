@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -43,12 +44,12 @@ class IMSVidDevice2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} DevPath 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsviddevice2-get_devicepath
      */
-    get_DevicePath(DevPath) {
+    get_DevicePath() {
+        DevPath := BSTR()
         result := ComCall(3, this, "ptr", DevPath, "HRESULT")
-        return result
+        return DevPath
     }
 }

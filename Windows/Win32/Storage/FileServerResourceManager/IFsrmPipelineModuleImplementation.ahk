@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IFsrmPipelineModuleConnector.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -33,13 +34,12 @@ class IFsrmPipelineModuleImplementation extends IDispatch{
     /**
      * 
      * @param {IFsrmPipelineModuleDefinition} moduleDefinition 
-     * @param {Pointer<IFsrmPipelineModuleConnector>} moduleConnector 
-     * @returns {HRESULT} 
+     * @returns {IFsrmPipelineModuleConnector} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleimplementation-onload
      */
-    OnLoad(moduleDefinition, moduleConnector) {
-        result := ComCall(7, this, "ptr", moduleDefinition, "ptr*", moduleConnector, "HRESULT")
-        return result
+    OnLoad(moduleDefinition) {
+        result := ComCall(7, this, "ptr", moduleDefinition, "ptr*", &moduleConnector := 0, "HRESULT")
+        return IFsrmPipelineModuleConnector(moduleConnector)
     }
 
     /**

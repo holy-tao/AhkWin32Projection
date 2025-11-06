@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IEventObjectCollection.ahk
 #Include ..\IDispatch.ahk
 
 /**
@@ -47,13 +48,12 @@ class IEventControl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfAllowInprocActivation 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventcontrol-get_allowinprocactivation
      */
-    get_AllowInprocActivation(pfAllowInprocActivation) {
-        result := ComCall(8, this, "ptr", pfAllowInprocActivation, "HRESULT")
-        return result
+    get_AllowInprocActivation() {
+        result := ComCall(8, this, "int*", &pfAllowInprocActivation := 0, "HRESULT")
+        return pfAllowInprocActivation
     }
 
     /**
@@ -72,35 +72,31 @@ class IEventControl extends IDispatch{
      * @param {BSTR} methodName 
      * @param {BSTR} optionalCriteria 
      * @param {Pointer<Integer>} optionalErrorIndex 
-     * @param {Pointer<IEventObjectCollection>} ppCollection 
-     * @returns {HRESULT} 
+     * @returns {IEventObjectCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventcontrol-getsubscriptions
      */
-    GetSubscriptions(methodName, optionalCriteria, optionalErrorIndex, ppCollection) {
+    GetSubscriptions(methodName, optionalCriteria, optionalErrorIndex) {
         methodName := methodName is String ? BSTR.Alloc(methodName).Value : methodName
         optionalCriteria := optionalCriteria is String ? BSTR.Alloc(optionalCriteria).Value : optionalCriteria
 
         optionalErrorIndexMarshal := optionalErrorIndex is VarRef ? "int*" : "ptr"
 
-        result := ComCall(10, this, "ptr", methodName, "ptr", optionalCriteria, optionalErrorIndexMarshal, optionalErrorIndex, "ptr*", ppCollection, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", methodName, "ptr", optionalCriteria, optionalErrorIndexMarshal, optionalErrorIndex, "ptr*", &ppCollection := 0, "HRESULT")
+        return IEventObjectCollection(ppCollection)
     }
 
     /**
      * 
      * @param {BSTR} methodName 
      * @param {BSTR} criteria 
-     * @param {Pointer<Integer>} errorIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventcontrol-setdefaultquery
      */
-    SetDefaultQuery(methodName, criteria, errorIndex) {
+    SetDefaultQuery(methodName, criteria) {
         methodName := methodName is String ? BSTR.Alloc(methodName).Value : methodName
         criteria := criteria is String ? BSTR.Alloc(criteria).Value : criteria
 
-        errorIndexMarshal := errorIndex is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, "ptr", methodName, "ptr", criteria, errorIndexMarshal, errorIndex, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", methodName, "ptr", criteria, "int*", &errorIndex := 0, "HRESULT")
+        return errorIndex
     }
 }

@@ -38,13 +38,12 @@ class ILocationPermissions extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfEnabled 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-ilocationpermissions-getgloballocationpermission
      */
-    GetGlobalLocationPermission(pfEnabled) {
-        result := ComCall(3, this, "ptr", pfEnabled, "HRESULT")
-        return result
+    GetGlobalLocationPermission() {
+        result := ComCall(3, this, "int*", &pfEnabled := 0, "HRESULT")
+        return pfEnabled
     }
 
     /**

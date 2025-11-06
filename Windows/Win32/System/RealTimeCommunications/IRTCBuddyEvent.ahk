@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRTCBuddy.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -30,11 +31,10 @@ class IRTCBuddyEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IRTCBuddy>} ppBuddy 
-     * @returns {HRESULT} 
+     * @returns {IRTCBuddy} 
      */
-    get_Buddy(ppBuddy) {
-        result := ComCall(7, this, "ptr*", ppBuddy, "HRESULT")
-        return result
+    get_Buddy() {
+        result := ComCall(7, this, "ptr*", &ppBuddy := 0, "HRESULT")
+        return IRTCBuddy(ppBuddy)
     }
 }

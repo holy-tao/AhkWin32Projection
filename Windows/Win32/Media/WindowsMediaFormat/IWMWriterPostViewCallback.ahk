@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\INSSBuffer.ahk
 #Include .\IWMStatusCallback.ahk
 
 /**
@@ -52,15 +53,14 @@ class IWMWriterPostViewCallback extends IWMStatusCallback{
      * 
      * @param {Integer} wStreamNum 
      * @param {Integer} cbBuffer 
-     * @param {Pointer<INSSBuffer>} ppBuffer 
      * @param {Pointer<Void>} pvContext 
-     * @returns {HRESULT} 
+     * @returns {INSSBuffer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterpostviewcallback-allocateforpostview
      */
-    AllocateForPostView(wStreamNum, cbBuffer, ppBuffer, pvContext) {
+    AllocateForPostView(wStreamNum, cbBuffer, pvContext) {
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, "ushort", wStreamNum, "uint", cbBuffer, "ptr*", ppBuffer, pvContextMarshal, pvContext, "HRESULT")
-        return result
+        result := ComCall(5, this, "ushort", wStreamNum, "uint", cbBuffer, "ptr*", &ppBuffer := 0, pvContextMarshal, pvContext, "HRESULT")
+        return INSSBuffer(ppBuffer)
     }
 }

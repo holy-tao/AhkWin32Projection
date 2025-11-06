@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -30,30 +31,13 @@ class IHostIoCompletionManager extends IUnknown{
 
     /**
      * Creates an input/output (I/O) completion port and associates it with a specified file handle, or creates an I/O completion port that is not yet associated with a file handle, allowing association at a later time.
-     * @param {Pointer<HANDLE>} phPort 
-     * @returns {HRESULT} If the function succeeds, the return value is the handle to an I/O completion port:
-     * 
-     * <ul>
-     * <li>
-     * If the <i>ExistingCompletionPort</i> parameter was <b>NULL</b>, the return value is a new handle.
-     * 
-     * </li>
-     * <li>
-     * If the <i>ExistingCompletionPort</i> parameter was a valid I/O completion port handle, the return value is that same handle.
-     * 
-     * </li>
-     * <li>
-     * If the <i>FileHandle</i> parameter was a valid handle, that file handle is now associated with the returned I/O completion port.
-     * 
-     * </li>
-     * </ul>
-     * If the function fails, the return value is <b>NULL</b>. To get extended error information, call 
-     * the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * @returns {HANDLE} 
      * @see https://docs.microsoft.com/windows/win32/api//ioapiset/nf-ioapiset-createiocompletionport
      */
-    CreateIoCompletionPort(phPort) {
+    CreateIoCompletionPort() {
+        phPort := HANDLE()
         result := ComCall(3, this, "ptr", phPort, "HRESULT")
-        return result
+        return phPort
     }
 
     /**
@@ -80,38 +64,29 @@ class IHostIoCompletionManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwMaxIOCompletionThreads 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetMaxThreads(pdwMaxIOCompletionThreads) {
-        pdwMaxIOCompletionThreadsMarshal := pdwMaxIOCompletionThreads is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pdwMaxIOCompletionThreadsMarshal, pdwMaxIOCompletionThreads, "HRESULT")
-        return result
+    GetMaxThreads() {
+        result := ComCall(6, this, "uint*", &pdwMaxIOCompletionThreads := 0, "HRESULT")
+        return pdwMaxIOCompletionThreads
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwAvailableIOCompletionThreads 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetAvailableThreads(pdwAvailableIOCompletionThreads) {
-        pdwAvailableIOCompletionThreadsMarshal := pdwAvailableIOCompletionThreads is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pdwAvailableIOCompletionThreadsMarshal, pdwAvailableIOCompletionThreads, "HRESULT")
-        return result
+    GetAvailableThreads() {
+        result := ComCall(7, this, "uint*", &pdwAvailableIOCompletionThreads := 0, "HRESULT")
+        return pdwAvailableIOCompletionThreads
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pcbSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetHostOverlappedSize(pcbSize) {
-        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pcbSizeMarshal, pcbSize, "HRESULT")
-        return result
+    GetHostOverlappedSize() {
+        result := ComCall(8, this, "uint*", &pcbSize := 0, "HRESULT")
+        return pcbSize
     }
 
     /**
@@ -162,13 +137,10 @@ class IHostIoCompletionManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwMinIOCompletionThreads 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetMinThreads(pdwMinIOCompletionThreads) {
-        pdwMinIOCompletionThreadsMarshal := pdwMinIOCompletionThreads is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(13, this, pdwMinIOCompletionThreadsMarshal, pdwMinIOCompletionThreads, "HRESULT")
-        return result
+    GetMinThreads() {
+        result := ComCall(13, this, "uint*", &pdwMinIOCompletionThreads := 0, "HRESULT")
+        return pdwMinIOCompletionThreads
     }
 }

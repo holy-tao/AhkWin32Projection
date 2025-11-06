@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Ole\IFontDisp.ahk
+#Include .\ICounters.ahk
+#Include .\ICounterItem.ahk
+#Include .\ILogFiles.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -37,14 +41,11 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} iAppearance 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Appearance(iAppearance) {
-        iAppearanceMarshal := iAppearance is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, iAppearanceMarshal, iAppearance, "HRESULT")
-        return result
+    get_Appearance() {
+        result := ComCall(3, this, "int*", &iAppearance := 0, "HRESULT")
+        return iAppearance
     }
 
     /**
@@ -59,14 +60,11 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pColor 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_BackColor(pColor) {
-        pColorMarshal := pColor is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pColorMarshal, pColor, "HRESULT")
-        return result
+    get_BackColor() {
+        result := ComCall(5, this, "uint*", &pColor := 0, "HRESULT")
+        return pColor
     }
 
     /**
@@ -81,14 +79,11 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} iBorderStyle 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_BorderStyle(iBorderStyle) {
-        iBorderStyleMarshal := iBorderStyle is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, iBorderStyleMarshal, iBorderStyle, "HRESULT")
-        return result
+    get_BorderStyle() {
+        result := ComCall(7, this, "int*", &iBorderStyle := 0, "HRESULT")
+        return iBorderStyle
     }
 
     /**
@@ -103,14 +98,11 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pColor 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ForeColor(pColor) {
-        pColorMarshal := pColor is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, pColorMarshal, pColor, "HRESULT")
-        return result
+    get_ForeColor() {
+        result := ComCall(9, this, "uint*", &pColor := 0, "HRESULT")
+        return pColor
     }
 
     /**
@@ -125,12 +117,11 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IFontDisp>} ppFont 
-     * @returns {HRESULT} 
+     * @returns {IFontDisp} 
      */
-    get_Font(ppFont) {
-        result := ComCall(11, this, "ptr*", ppFont, "HRESULT")
-        return result
+    get_Font() {
+        result := ComCall(11, this, "ptr*", &ppFont := 0, "HRESULT")
+        return IFontDisp(ppFont)
     }
 
     /**
@@ -145,12 +136,11 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ICounters>} ppICounters 
-     * @returns {HRESULT} 
+     * @returns {ICounters} 
      */
-    get_Counters(ppICounters) {
-        result := ComCall(13, this, "ptr*", ppICounters, "HRESULT")
-        return result
+    get_Counters() {
+        result := ComCall(13, this, "ptr*", &ppICounters := 0, "HRESULT")
+        return ICounters(ppICounters)
     }
 
     /**
@@ -165,12 +155,11 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbState 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_ShowVerticalGrid(pbState) {
-        result := ComCall(15, this, "ptr", pbState, "HRESULT")
-        return result
+    get_ShowVerticalGrid() {
+        result := ComCall(15, this, "short*", &pbState := 0, "HRESULT")
+        return pbState
     }
 
     /**
@@ -185,12 +174,11 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbState 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_ShowHorizontalGrid(pbState) {
-        result := ComCall(17, this, "ptr", pbState, "HRESULT")
-        return result
+    get_ShowHorizontalGrid() {
+        result := ComCall(17, this, "short*", &pbState := 0, "HRESULT")
+        return pbState
     }
 
     /**
@@ -205,12 +193,11 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbState 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_ShowLegend(pbState) {
-        result := ComCall(19, this, "ptr", pbState, "HRESULT")
-        return result
+    get_ShowLegend() {
+        result := ComCall(19, this, "short*", &pbState := 0, "HRESULT")
+        return pbState
     }
 
     /**
@@ -225,12 +212,11 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbState 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_ShowScaleLabels(pbState) {
-        result := ComCall(21, this, "ptr", pbState, "HRESULT")
-        return result
+    get_ShowScaleLabels() {
+        result := ComCall(21, this, "short*", &pbState := 0, "HRESULT")
+        return pbState
     }
 
     /**
@@ -245,12 +231,11 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbState 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_ShowValueBar(pbState) {
-        result := ComCall(23, this, "ptr", pbState, "HRESULT")
-        return result
+    get_ShowValueBar() {
+        result := ComCall(23, this, "short*", &pbState := 0, "HRESULT")
+        return pbState
     }
 
     /**
@@ -265,14 +250,11 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} piValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_MaximumScale(piValue) {
-        piValueMarshal := piValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(25, this, piValueMarshal, piValue, "HRESULT")
-        return result
+    get_MaximumScale() {
+        result := ComCall(25, this, "int*", &piValue := 0, "HRESULT")
+        return piValue
     }
 
     /**
@@ -287,14 +269,11 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} piValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_MinimumScale(piValue) {
-        piValueMarshal := piValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(27, this, piValueMarshal, piValue, "HRESULT")
-        return result
+    get_MinimumScale() {
+        result := ComCall(27, this, "int*", &piValue := 0, "HRESULT")
+        return piValue
     }
 
     /**
@@ -309,14 +288,11 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} pfValue 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_UpdateInterval(pfValue) {
-        pfValueMarshal := pfValue is VarRef ? "float*" : "ptr"
-
-        result := ComCall(29, this, pfValueMarshal, pfValue, "HRESULT")
-        return result
+    get_UpdateInterval() {
+        result := ComCall(29, this, "float*", &pfValue := 0, "HRESULT")
+        return pfValue
     }
 
     /**
@@ -331,14 +307,11 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} peDisplayType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_DisplayType(peDisplayType) {
-        peDisplayTypeMarshal := peDisplayType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(31, this, peDisplayTypeMarshal, peDisplayType, "HRESULT")
-        return result
+    get_DisplayType() {
+        result := ComCall(31, this, "int*", &peDisplayType := 0, "HRESULT")
+        return peDisplayType
     }
 
     /**
@@ -353,12 +326,11 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbState 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_ManualUpdate(pbState) {
-        result := ComCall(33, this, "ptr", pbState, "HRESULT")
-        return result
+    get_ManualUpdate() {
+        result := ComCall(33, this, "short*", &pbState := 0, "HRESULT")
+        return pbState
     }
 
     /**
@@ -375,12 +347,12 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbsTitle 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_GraphTitle(pbsTitle) {
+    get_GraphTitle() {
+        pbsTitle := BSTR()
         result := ComCall(35, this, "ptr", pbsTitle, "HRESULT")
-        return result
+        return pbsTitle
     }
 
     /**
@@ -397,12 +369,12 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbsTitle 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_YAxisLabel(pbsTitle) {
+    get_YAxisLabel() {
+        pbsTitle := BSTR()
         result := ComCall(37, this, "ptr", pbsTitle, "HRESULT")
-        return result
+        return pbsTitle
     }
 
     /**
@@ -444,25 +416,23 @@ class ISystemMonitor extends IUnknown{
     /**
      * 
      * @param {Integer} iIndex 
-     * @param {Pointer<ICounterItem>} ppICounter 
-     * @returns {HRESULT} 
+     * @returns {ICounterItem} 
      */
-    Counter(iIndex, ppICounter) {
-        result := ComCall(42, this, "int", iIndex, "ptr*", ppICounter, "HRESULT")
-        return result
+    Counter(iIndex) {
+        result := ComCall(42, this, "int", iIndex, "ptr*", &ppICounter := 0, "HRESULT")
+        return ICounterItem(ppICounter)
     }
 
     /**
      * 
      * @param {BSTR} bsPath 
-     * @param {Pointer<ICounterItem>} ppICounter 
-     * @returns {HRESULT} 
+     * @returns {ICounterItem} 
      */
-    AddCounter(bsPath, ppICounter) {
+    AddCounter(bsPath) {
         bsPath := bsPath is String ? BSTR.Alloc(bsPath).Value : bsPath
 
-        result := ComCall(43, this, "ptr", bsPath, "ptr*", ppICounter, "HRESULT")
-        return result
+        result := ComCall(43, this, "ptr", bsPath, "ptr*", &ppICounter := 0, "HRESULT")
+        return ICounterItem(ppICounter)
     }
 
     /**
@@ -477,14 +447,11 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pColor 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_BackColorCtl(pColor) {
-        pColorMarshal := pColor is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(45, this, pColorMarshal, pColor, "HRESULT")
-        return result
+    get_BackColorCtl() {
+        result := ComCall(45, this, "uint*", &pColor := 0, "HRESULT")
+        return pColor
     }
 
     /**
@@ -511,12 +478,12 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} bsFileName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_LogFileName(bsFileName) {
+    get_LogFileName() {
+        bsFileName := BSTR()
         result := ComCall(48, this, "ptr", bsFileName, "HRESULT")
-        return result
+        return bsFileName
     }
 
     /**
@@ -531,14 +498,11 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} StartTime 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_LogViewStart(StartTime) {
-        StartTimeMarshal := StartTime is VarRef ? "double*" : "ptr"
-
-        result := ComCall(50, this, StartTimeMarshal, StartTime, "HRESULT")
-        return result
+    get_LogViewStart() {
+        result := ComCall(50, this, "double*", &StartTime := 0, "HRESULT")
+        return StartTime
     }
 
     /**
@@ -553,26 +517,20 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} StopTime 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_LogViewStop(StopTime) {
-        StopTimeMarshal := StopTime is VarRef ? "double*" : "ptr"
-
-        result := ComCall(52, this, StopTimeMarshal, StopTime, "HRESULT")
-        return result
+    get_LogViewStop() {
+        result := ComCall(52, this, "double*", &StopTime := 0, "HRESULT")
+        return StopTime
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pColor 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_GridColor(pColor) {
-        pColorMarshal := pColor is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(53, this, pColorMarshal, pColor, "HRESULT")
-        return result
+    get_GridColor() {
+        result := ComCall(53, this, "uint*", &pColor := 0, "HRESULT")
+        return pColor
     }
 
     /**
@@ -587,14 +545,11 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pColor 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_TimeBarColor(pColor) {
-        pColorMarshal := pColor is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(55, this, pColorMarshal, pColor, "HRESULT")
-        return result
+    get_TimeBarColor() {
+        result := ComCall(55, this, "uint*", &pColor := 0, "HRESULT")
+        return pColor
     }
 
     /**
@@ -609,12 +564,11 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbState 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_Highlight(pbState) {
-        result := ComCall(57, this, "ptr", pbState, "HRESULT")
-        return result
+    get_Highlight() {
+        result := ComCall(57, this, "short*", &pbState := 0, "HRESULT")
+        return pbState
     }
 
     /**
@@ -629,12 +583,11 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbState 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_ShowToolbar(pbState) {
-        result := ComCall(59, this, "ptr", pbState, "HRESULT")
-        return result
+    get_ShowToolbar() {
+        result := ComCall(59, this, "short*", &pbState := 0, "HRESULT")
+        return pbState
     }
 
     /**
@@ -686,12 +639,11 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbState 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_ReadOnly(pbState) {
-        result := ComCall(65, this, "ptr", pbState, "HRESULT")
-        return result
+    get_ReadOnly() {
+        result := ComCall(65, this, "short*", &pbState := 0, "HRESULT")
+        return pbState
     }
 
     /**
@@ -706,14 +658,11 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} peReportValueType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ReportValueType(peReportValueType) {
-        peReportValueTypeMarshal := peReportValueType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(67, this, peReportValueTypeMarshal, peReportValueType, "HRESULT")
-        return result
+    get_ReportValueType() {
+        result := ComCall(67, this, "int*", &peReportValueType := 0, "HRESULT")
+        return peReportValueType
     }
 
     /**
@@ -728,12 +677,11 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbState 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_MonitorDuplicateInstances(pbState) {
-        result := ComCall(69, this, "ptr", pbState, "HRESULT")
-        return result
+    get_MonitorDuplicateInstances() {
+        result := ComCall(69, this, "short*", &pbState := 0, "HRESULT")
+        return pbState
     }
 
     /**
@@ -748,24 +696,20 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} piValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_DisplayFilter(piValue) {
-        piValueMarshal := piValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(71, this, piValueMarshal, piValue, "HRESULT")
-        return result
+    get_DisplayFilter() {
+        result := ComCall(71, this, "int*", &piValue := 0, "HRESULT")
+        return piValue
     }
 
     /**
      * 
-     * @param {Pointer<ILogFiles>} ppILogFiles 
-     * @returns {HRESULT} 
+     * @returns {ILogFiles} 
      */
-    get_LogFiles(ppILogFiles) {
-        result := ComCall(72, this, "ptr*", ppILogFiles, "HRESULT")
-        return result
+    get_LogFiles() {
+        result := ComCall(72, this, "ptr*", &ppILogFiles := 0, "HRESULT")
+        return ILogFiles(ppILogFiles)
     }
 
     /**
@@ -780,14 +724,11 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} peDataSourceType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_DataSourceType(peDataSourceType) {
-        peDataSourceTypeMarshal := peDataSourceType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(74, this, peDataSourceTypeMarshal, peDataSourceType, "HRESULT")
-        return result
+    get_DataSourceType() {
+        result := ComCall(74, this, "int*", &peDataSourceType := 0, "HRESULT")
+        return peDataSourceType
     }
 
     /**
@@ -804,12 +745,12 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} bsSqlDsnName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_SqlDsnName(bsSqlDsnName) {
+    get_SqlDsnName() {
+        bsSqlDsnName := BSTR()
         result := ComCall(76, this, "ptr", bsSqlDsnName, "HRESULT")
-        return result
+        return bsSqlDsnName
     }
 
     /**
@@ -826,11 +767,11 @@ class ISystemMonitor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} bsSqlLogSetName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_SqlLogSetName(bsSqlLogSetName) {
+    get_SqlLogSetName() {
+        bsSqlLogSetName := BSTR()
         result := ComCall(78, this, "ptr", bsSqlLogSetName, "HRESULT")
-        return result
+        return bsSqlLogSetName
     }
 }

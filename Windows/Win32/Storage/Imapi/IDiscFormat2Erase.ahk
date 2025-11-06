@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IDiscRecorder2.ahk
 #Include .\IDiscFormat2.ahk
 
 /**
@@ -49,13 +50,12 @@ class IDiscFormat2Erase extends IDiscFormat2{
 
     /**
      * 
-     * @param {Pointer<IDiscRecorder2>} value 
-     * @returns {HRESULT} 
+     * @returns {IDiscRecorder2} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2erase-get_recorder
      */
-    get_Recorder(value) {
-        result := ComCall(13, this, "ptr*", value, "HRESULT")
-        return result
+    get_Recorder() {
+        result := ComCall(13, this, "ptr*", &value := 0, "HRESULT")
+        return IDiscRecorder2(value)
     }
 
     /**
@@ -71,26 +71,22 @@ class IDiscFormat2Erase extends IDiscFormat2{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2erase-get_fullerase
      */
-    get_FullErase(value) {
-        result := ComCall(15, this, "ptr", value, "HRESULT")
-        return result
+    get_FullErase() {
+        result := ComCall(15, this, "short*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2erase-get_currentphysicalmediatype
      */
-    get_CurrentPhysicalMediaType(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, valueMarshal, value, "HRESULT")
-        return result
+    get_CurrentPhysicalMediaType() {
+        result := ComCall(16, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
@@ -108,13 +104,13 @@ class IDiscFormat2Erase extends IDiscFormat2{
 
     /**
      * 
-     * @param {Pointer<BSTR>} value 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2erase-get_clientname
      */
-    get_ClientName(value) {
+    get_ClientName() {
+        value := BSTR()
         result := ComCall(18, this, "ptr", value, "HRESULT")
-        return result
+        return value
     }
 
     /**

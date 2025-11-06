@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IShellUIHelper5.ahk
 
 /**
@@ -83,12 +84,12 @@ class IShellUIHelper6 extends IShellUIHelper5{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarSiteState 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    msPinnedSiteState(pvarSiteState) {
+    msPinnedSiteState() {
+        pvarSiteState := VARIANT()
         result := ComCall(79, this, "ptr", pvarSiteState, "HRESULT")
-        return result
+        return pvarSiteState
     }
 
     /**

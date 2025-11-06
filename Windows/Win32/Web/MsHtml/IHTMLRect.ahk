@@ -40,14 +40,11 @@ class IHTMLRect extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_left(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pMarshal, p, "HRESULT")
-        return result
+    get_left() {
+        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -62,14 +59,11 @@ class IHTMLRect extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_top(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, pMarshal, p, "HRESULT")
-        return result
+    get_top() {
+        result := ComCall(10, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -84,14 +78,11 @@ class IHTMLRect extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_right(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, pMarshal, p, "HRESULT")
-        return result
+    get_right() {
+        result := ComCall(12, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -106,13 +97,10 @@ class IHTMLRect extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_bottom(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, pMarshal, p, "HRESULT")
-        return result
+    get_bottom() {
+        result := ComCall(14, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 }

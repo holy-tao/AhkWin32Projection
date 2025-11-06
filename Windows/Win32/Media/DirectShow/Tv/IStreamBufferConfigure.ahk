@@ -50,13 +50,12 @@ class IStreamBufferConfigure extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszDirectoryName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferconfigure-getdirectory
      */
-    GetDirectory(ppszDirectoryName) {
-        result := ComCall(4, this, "ptr", ppszDirectoryName, "HRESULT")
-        return result
+    GetDirectory() {
+        result := ComCall(4, this, "ptr*", &ppszDirectoryName := 0, "HRESULT")
+        return ppszDirectoryName
     }
 
     /**
@@ -99,14 +98,11 @@ class IStreamBufferConfigure extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwSeconds 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferconfigure-getbackingfileduration
      */
-    GetBackingFileDuration(pdwSeconds) {
-        pdwSecondsMarshal := pdwSeconds is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pdwSecondsMarshal, pdwSeconds, "HRESULT")
-        return result
+    GetBackingFileDuration() {
+        result := ComCall(8, this, "uint*", &pdwSeconds := 0, "HRESULT")
+        return pdwSeconds
     }
 }

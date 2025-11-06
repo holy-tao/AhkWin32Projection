@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\IUnknown.ahk
 
 /**
@@ -31,273 +32,250 @@ class IUri extends IUnknown{
     /**
      * 
      * @param {Integer} uriProp 
-     * @param {Pointer<BSTR>} pbstrProperty 
      * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetPropertyBSTR(uriProp, pbstrProperty, dwFlags) {
+    GetPropertyBSTR(uriProp, dwFlags) {
+        pbstrProperty := BSTR()
         result := ComCall(3, this, "int", uriProp, "ptr", pbstrProperty, "uint", dwFlags, "HRESULT")
-        return result
+        return pbstrProperty
     }
 
     /**
      * 
      * @param {Integer} uriProp 
-     * @param {Pointer<Integer>} pcchProperty 
      * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetPropertyLength(uriProp, pcchProperty, dwFlags) {
-        pcchPropertyMarshal := pcchProperty is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, "int", uriProp, pcchPropertyMarshal, pcchProperty, "uint", dwFlags, "HRESULT")
-        return result
+    GetPropertyLength(uriProp, dwFlags) {
+        result := ComCall(4, this, "int", uriProp, "uint*", &pcchProperty := 0, "uint", dwFlags, "HRESULT")
+        return pcchProperty
     }
 
     /**
      * 
      * @param {Integer} uriProp 
-     * @param {Pointer<Integer>} pdwProperty 
      * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetPropertyDWORD(uriProp, pdwProperty, dwFlags) {
-        pdwPropertyMarshal := pdwProperty is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, "int", uriProp, pdwPropertyMarshal, pdwProperty, "uint", dwFlags, "HRESULT")
-        return result
+    GetPropertyDWORD(uriProp, dwFlags) {
+        result := ComCall(5, this, "int", uriProp, "uint*", &pdwProperty := 0, "uint", dwFlags, "HRESULT")
+        return pdwProperty
     }
 
     /**
      * 
      * @param {Integer} uriProp 
-     * @param {Pointer<BOOL>} pfHasProperty 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    HasProperty(uriProp, pfHasProperty) {
-        result := ComCall(6, this, "int", uriProp, "ptr", pfHasProperty, "HRESULT")
-        return result
+    HasProperty(uriProp) {
+        result := ComCall(6, this, "int", uriProp, "int*", &pfHasProperty := 0, "HRESULT")
+        return pfHasProperty
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrAbsoluteUri 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetAbsoluteUri(pbstrAbsoluteUri) {
+    GetAbsoluteUri() {
+        pbstrAbsoluteUri := BSTR()
         result := ComCall(7, this, "ptr", pbstrAbsoluteUri, "HRESULT")
-        return result
+        return pbstrAbsoluteUri
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrAuthority 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetAuthority(pbstrAuthority) {
+    GetAuthority() {
+        pbstrAuthority := BSTR()
         result := ComCall(8, this, "ptr", pbstrAuthority, "HRESULT")
-        return result
+        return pbstrAuthority
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrDisplayString 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetDisplayUri(pbstrDisplayString) {
+    GetDisplayUri() {
+        pbstrDisplayString := BSTR()
         result := ComCall(9, this, "ptr", pbstrDisplayString, "HRESULT")
-        return result
+        return pbstrDisplayString
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrDomain 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetDomain(pbstrDomain) {
+    GetDomain() {
+        pbstrDomain := BSTR()
         result := ComCall(10, this, "ptr", pbstrDomain, "HRESULT")
-        return result
+        return pbstrDomain
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrExtension 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetExtension(pbstrExtension) {
+    GetExtension() {
+        pbstrExtension := BSTR()
         result := ComCall(11, this, "ptr", pbstrExtension, "HRESULT")
-        return result
+        return pbstrExtension
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrFragment 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetFragment(pbstrFragment) {
+    GetFragment() {
+        pbstrFragment := BSTR()
         result := ComCall(12, this, "ptr", pbstrFragment, "HRESULT")
-        return result
+        return pbstrFragment
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrHost 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetHost(pbstrHost) {
+    GetHost() {
+        pbstrHost := BSTR()
         result := ComCall(13, this, "ptr", pbstrHost, "HRESULT")
-        return result
+        return pbstrHost
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrPassword 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetPassword(pbstrPassword) {
+    GetPassword() {
+        pbstrPassword := BSTR()
         result := ComCall(14, this, "ptr", pbstrPassword, "HRESULT")
-        return result
+        return pbstrPassword
     }
 
     /**
      * The GetPath function retrieves the coordinates defining the endpoints of lines and the control points of curves found in the path that is selected into the specified device context.
-     * @param {Pointer<BSTR>} pbstrPath 
-     * @returns {HRESULT} If the <i>nSize</i> parameter is nonzero, the return value is the number of points enumerated. If <i>nSize</i> is 0, the return value is the total number of points in the path (and <b>GetPath</b> writes nothing to the buffers). If <i>nSize</i> is nonzero and is less than the number of points in the path, the return value is 1.
+     * @returns {BSTR} 
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getpath
      */
-    GetPath(pbstrPath) {
+    GetPath() {
+        pbstrPath := BSTR()
         result := ComCall(15, this, "ptr", pbstrPath, "HRESULT")
-        return result
+        return pbstrPath
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrPathAndQuery 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetPathAndQuery(pbstrPathAndQuery) {
+    GetPathAndQuery() {
+        pbstrPathAndQuery := BSTR()
         result := ComCall(16, this, "ptr", pbstrPathAndQuery, "HRESULT")
-        return result
+        return pbstrPathAndQuery
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrQuery 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetQuery(pbstrQuery) {
+    GetQuery() {
+        pbstrQuery := BSTR()
         result := ComCall(17, this, "ptr", pbstrQuery, "HRESULT")
-        return result
+        return pbstrQuery
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrRawUri 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetRawUri(pbstrRawUri) {
+    GetRawUri() {
+        pbstrRawUri := BSTR()
         result := ComCall(18, this, "ptr", pbstrRawUri, "HRESULT")
-        return result
+        return pbstrRawUri
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrSchemeName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetSchemeName(pbstrSchemeName) {
+    GetSchemeName() {
+        pbstrSchemeName := BSTR()
         result := ComCall(19, this, "ptr", pbstrSchemeName, "HRESULT")
-        return result
+        return pbstrSchemeName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrUserInfo 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetUserInfo(pbstrUserInfo) {
+    GetUserInfo() {
+        pbstrUserInfo := BSTR()
         result := ComCall(20, this, "ptr", pbstrUserInfo, "HRESULT")
-        return result
+        return pbstrUserInfo
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrUserName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetUserName(pbstrUserName) {
+    GetUserName() {
+        pbstrUserName := BSTR()
         result := ComCall(21, this, "ptr", pbstrUserName, "HRESULT")
-        return result
+        return pbstrUserName
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwHostType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetHostType(pdwHostType) {
-        pdwHostTypeMarshal := pdwHostType is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(22, this, pdwHostTypeMarshal, pdwHostType, "HRESULT")
-        return result
+    GetHostType() {
+        result := ComCall(22, this, "uint*", &pdwHostType := 0, "HRESULT")
+        return pdwHostType
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwPort 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetPort(pdwPort) {
-        pdwPortMarshal := pdwPort is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(23, this, pdwPortMarshal, pdwPort, "HRESULT")
-        return result
+    GetPort() {
+        result := ComCall(23, this, "uint*", &pdwPort := 0, "HRESULT")
+        return pdwPort
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwScheme 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetScheme(pdwScheme) {
-        pdwSchemeMarshal := pdwScheme is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(24, this, pdwSchemeMarshal, pdwScheme, "HRESULT")
-        return result
+    GetScheme() {
+        result := ComCall(24, this, "uint*", &pdwScheme := 0, "HRESULT")
+        return pdwScheme
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwZone 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetZone(pdwZone) {
-        pdwZoneMarshal := pdwZone is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(25, this, pdwZoneMarshal, pdwZone, "HRESULT")
-        return result
+    GetZone() {
+        result := ComCall(25, this, "uint*", &pdwZone := 0, "HRESULT")
+        return pdwZone
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetProperties(pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(26, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
-        return result
+    GetProperties() {
+        result := ComCall(26, this, "uint*", &pdwFlags := 0, "HRESULT")
+        return pdwFlags
     }
 
     /**
      * 
      * @param {IUri} pUri 
-     * @param {Pointer<BOOL>} pfEqual 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsEqual(pUri, pfEqual) {
-        result := ComCall(27, this, "ptr", pUri, "ptr", pfEqual, "HRESULT")
-        return result
+    IsEqual(pUri) {
+        result := ComCall(27, this, "ptr", pUri, "int*", &pfEqual := 0, "HRESULT")
+        return pfEqual
     }
 }

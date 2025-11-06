@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFAttributes.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,96 +33,79 @@ class IMFSensorDevice extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pDeviceId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensordevice-getdeviceid
      */
-    GetDeviceId(pDeviceId) {
-        pDeviceIdMarshal := pDeviceId is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pDeviceIdMarshal, pDeviceId, "HRESULT")
-        return result
+    GetDeviceId() {
+        result := ComCall(3, this, "uint*", &pDeviceId := 0, "HRESULT")
+        return pDeviceId
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensordevice-getdevicetype
      */
-    GetDeviceType(pType) {
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, pTypeMarshal, pType, "HRESULT")
-        return result
+    GetDeviceType() {
+        result := ComCall(4, this, "int*", &pType := 0, "HRESULT")
+        return pType
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensordevice-getflags
      */
-    GetFlags(pFlags) {
-        pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pFlagsMarshal, pFlags, "HRESULT")
-        return result
+    GetFlags() {
+        result := ComCall(5, this, "uint*", &pFlags := 0, "HRESULT")
+        return pFlags
     }
 
     /**
      * 
      * @param {PWSTR} SymbolicLink 
      * @param {Integer} cchSymbolicLink 
-     * @param {Pointer<Integer>} pcchWritten 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensordevice-getsymboliclink
      */
-    GetSymbolicLink(SymbolicLink, cchSymbolicLink, pcchWritten) {
+    GetSymbolicLink(SymbolicLink, cchSymbolicLink) {
         SymbolicLink := SymbolicLink is String ? StrPtr(SymbolicLink) : SymbolicLink
 
-        pcchWrittenMarshal := pcchWritten is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, "ptr", SymbolicLink, "int", cchSymbolicLink, pcchWrittenMarshal, pcchWritten, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", SymbolicLink, "int", cchSymbolicLink, "int*", &pcchWritten := 0, "HRESULT")
+        return pcchWritten
     }
 
     /**
      * 
-     * @param {Pointer<IMFAttributes>} ppAttributes 
-     * @returns {HRESULT} 
+     * @returns {IMFAttributes} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensordevice-getdeviceattributes
      */
-    GetDeviceAttributes(ppAttributes) {
-        result := ComCall(7, this, "ptr*", ppAttributes, "HRESULT")
-        return result
+    GetDeviceAttributes() {
+        result := ComCall(7, this, "ptr*", &ppAttributes := 0, "HRESULT")
+        return IMFAttributes(ppAttributes)
     }
 
     /**
      * 
      * @param {Integer} eType 
-     * @param {Pointer<Integer>} pdwCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensordevice-getstreamattributescount
      */
-    GetStreamAttributesCount(eType, pdwCount) {
-        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, "int", eType, pdwCountMarshal, pdwCount, "HRESULT")
-        return result
+    GetStreamAttributesCount(eType) {
+        result := ComCall(8, this, "int", eType, "uint*", &pdwCount := 0, "HRESULT")
+        return pdwCount
     }
 
     /**
      * 
      * @param {Integer} eType 
      * @param {Integer} dwIndex 
-     * @param {Pointer<IMFAttributes>} ppAttributes 
-     * @returns {HRESULT} 
+     * @returns {IMFAttributes} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensordevice-getstreamattributes
      */
-    GetStreamAttributes(eType, dwIndex, ppAttributes) {
-        result := ComCall(9, this, "int", eType, "uint", dwIndex, "ptr*", ppAttributes, "HRESULT")
-        return result
+    GetStreamAttributes(eType, dwIndex) {
+        result := ComCall(9, this, "int", eType, "uint", dwIndex, "ptr*", &ppAttributes := 0, "HRESULT")
+        return IMFAttributes(ppAttributes)
     }
 
     /**
@@ -137,14 +121,11 @@ class IMFSensorDevice extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} peMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensordevice-getsensordevicemode
      */
-    GetSensorDeviceMode(peMode) {
-        peModeMarshal := peMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, peModeMarshal, peMode, "HRESULT")
-        return result
+    GetSensorDeviceMode() {
+        result := ComCall(11, this, "int*", &peMode := 0, "HRESULT")
+        return peMode
     }
 }

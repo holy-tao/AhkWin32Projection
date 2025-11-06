@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -53,14 +54,13 @@ class IPortableDeviceDispatchFactory extends IUnknown{
     /**
      * 
      * @param {PWSTR} pszPnPDeviceID 
-     * @param {Pointer<IDispatch>} ppDeviceDispatch 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicedispatchfactory-getdevicedispatch
      */
-    GetDeviceDispatch(pszPnPDeviceID, ppDeviceDispatch) {
+    GetDeviceDispatch(pszPnPDeviceID) {
         pszPnPDeviceID := pszPnPDeviceID is String ? StrPtr(pszPnPDeviceID) : pszPnPDeviceID
 
-        result := ComCall(3, this, "ptr", pszPnPDeviceID, "ptr*", ppDeviceDispatch, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pszPnPDeviceID, "ptr*", &ppDeviceDispatch := 0, "HRESULT")
+        return IDispatch(ppDeviceDispatch)
     }
 }

@@ -700,7 +700,9 @@ class Sensors {
      * @returns {NTSTATUS} 
      */
     static PropKeyFindKeyGetBool(pList, pKey, pRetValue) {
-        result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetBool", "ptr", pList, "ptr", pKey, "ptr", pRetValue, "int")
+        pRetValueMarshal := pRetValue is VarRef ? "int*" : "ptr"
+
+        result := DllCall("SensorsUtilsV2.dll\PropKeyFindKeyGetBool", "ptr", pList, "ptr", pKey, pRetValueMarshal, pRetValue, "int")
         return result
     }
 

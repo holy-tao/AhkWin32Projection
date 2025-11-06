@@ -38,7 +38,9 @@ class IDesktopWindowXamlSourceNative2 extends IDesktopWindowXamlSourceNative{
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.hosting.desktopwindowxamlsource/nf-windows-ui-xaml-hosting-desktopwindowxamlsource-idesktopwindowxamlsourcenative2-pretranslatemessage
      */
     PreTranslateMessage(message, result) {
-        result := ComCall(5, this, "ptr", message, "ptr", result, "HRESULT")
+        resultMarshal := result is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, "ptr", message, resultMarshal, result, "HRESULT")
         return result
     }
 }

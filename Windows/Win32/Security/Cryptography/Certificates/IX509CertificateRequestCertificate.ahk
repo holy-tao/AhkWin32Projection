@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IX500DistinguishedName.ahk
+#Include .\ISignerCertificate.ahk
 #Include .\IX509CertificateRequestPkcs10.ahk
 
 /**
@@ -44,13 +46,12 @@ class IX509CertificateRequestCertificate extends IX509CertificateRequestPkcs10{
 
     /**
      * 
-     * @param {Pointer<IX500DistinguishedName>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IX500DistinguishedName} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcertificate-get_issuer
      */
-    get_Issuer(ppValue) {
-        result := ComCall(61, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_Issuer() {
+        result := ComCall(61, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IX500DistinguishedName(ppValue)
     }
 
     /**
@@ -66,15 +67,12 @@ class IX509CertificateRequestCertificate extends IX509CertificateRequestPkcs10{
 
     /**
      * 
-     * @param {Pointer<Float>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcertificate-get_notbefore
      */
-    get_NotBefore(pValue) {
-        pValueMarshal := pValue is VarRef ? "double*" : "ptr"
-
-        result := ComCall(63, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_NotBefore() {
+        result := ComCall(63, this, "double*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -90,15 +88,12 @@ class IX509CertificateRequestCertificate extends IX509CertificateRequestPkcs10{
 
     /**
      * 
-     * @param {Pointer<Float>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcertificate-get_notafter
      */
-    get_NotAfter(pValue) {
-        pValueMarshal := pValue is VarRef ? "double*" : "ptr"
-
-        result := ComCall(65, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_NotAfter() {
+        result := ComCall(65, this, "double*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -115,13 +110,13 @@ class IX509CertificateRequestCertificate extends IX509CertificateRequestPkcs10{
     /**
      * 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcertificate-get_serialnumber
      */
-    get_SerialNumber(Encoding, pValue) {
+    get_SerialNumber(Encoding) {
+        pValue := BSTR()
         result := ComCall(67, this, "int", Encoding, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
@@ -140,13 +135,12 @@ class IX509CertificateRequestCertificate extends IX509CertificateRequestPkcs10{
 
     /**
      * 
-     * @param {Pointer<ISignerCertificate>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {ISignerCertificate} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcertificate-get_signercertificate
      */
-    get_SignerCertificate(ppValue) {
-        result := ComCall(69, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_SignerCertificate() {
+        result := ComCall(69, this, "ptr*", &ppValue := 0, "HRESULT")
+        return ISignerCertificate(ppValue)
     }
 
     /**

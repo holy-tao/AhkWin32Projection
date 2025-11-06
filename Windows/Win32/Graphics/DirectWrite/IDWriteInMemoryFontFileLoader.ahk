@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteFontFile.ahk
 #Include .\IDWriteFontFileLoader.ahk
 
 /**
@@ -36,13 +37,12 @@ class IDWriteInMemoryFontFileLoader extends IDWriteFontFileLoader{
      * @param {Pointer} fontData 
      * @param {Integer} fontDataSize 
      * @param {IUnknown} ownerObject 
-     * @param {Pointer<IDWriteFontFile>} fontFile 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontFile} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwriteinmemoryfontfileloader-createinmemoryfontfilereference
      */
-    CreateInMemoryFontFileReference(factory, fontData, fontDataSize, ownerObject, fontFile) {
-        result := ComCall(4, this, "ptr", factory, "ptr", fontData, "uint", fontDataSize, "ptr", ownerObject, "ptr*", fontFile, "HRESULT")
-        return result
+    CreateInMemoryFontFileReference(factory, fontData, fontDataSize, ownerObject) {
+        result := ComCall(4, this, "ptr", factory, "ptr", fontData, "uint", fontDataSize, "ptr", ownerObject, "ptr*", &fontFile := 0, "HRESULT")
+        return IDWriteFontFile(fontFile)
     }
 
     /**

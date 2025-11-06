@@ -56,57 +56,48 @@ class ICEnroll3 extends ICEnroll2{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwKeySpec 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll3-getsupportedkeyspec
      */
-    GetSupportedKeySpec(pdwKeySpec) {
-        pdwKeySpecMarshal := pdwKeySpec is VarRef ? "int*" : "ptr"
-
-        result := ComCall(71, this, pdwKeySpecMarshal, pdwKeySpec, "HRESULT")
-        return result
+    GetSupportedKeySpec() {
+        result := ComCall(71, this, "int*", &pdwKeySpec := 0, "HRESULT")
+        return pdwKeySpec
     }
 
     /**
      * 
      * @param {BOOL} fMin 
      * @param {BOOL} fExchange 
-     * @param {Pointer<Integer>} pdwKeySize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll3-getkeylen
      */
-    GetKeyLen(fMin, fExchange, pdwKeySize) {
-        pdwKeySizeMarshal := pdwKeySize is VarRef ? "int*" : "ptr"
-
-        result := ComCall(72, this, "int", fMin, "int", fExchange, pdwKeySizeMarshal, pdwKeySize, "HRESULT")
-        return result
+    GetKeyLen(fMin, fExchange) {
+        result := ComCall(72, this, "int", fMin, "int", fExchange, "int*", &pdwKeySize := 0, "HRESULT")
+        return pdwKeySize
     }
 
     /**
      * 
      * @param {Integer} dwIndex 
      * @param {Integer} algClass 
-     * @param {Pointer<Integer>} pdwAlgID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll3-enumalgs
      */
-    EnumAlgs(dwIndex, algClass, pdwAlgID) {
-        pdwAlgIDMarshal := pdwAlgID is VarRef ? "int*" : "ptr"
-
-        result := ComCall(73, this, "int", dwIndex, "int", algClass, pdwAlgIDMarshal, pdwAlgID, "HRESULT")
-        return result
+    EnumAlgs(dwIndex, algClass) {
+        result := ComCall(73, this, "int", dwIndex, "int", algClass, "int*", &pdwAlgID := 0, "HRESULT")
+        return pdwAlgID
     }
 
     /**
      * 
      * @param {Integer} algID 
-     * @param {Pointer<BSTR>} pbstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll3-getalgname
      */
-    GetAlgName(algID, pbstr) {
+    GetAlgName(algID) {
+        pbstr := BSTR()
         result := ComCall(74, this, "int", algID, "ptr", pbstr, "HRESULT")
-        return result
+        return pbstr
     }
 
     /**
@@ -122,13 +113,12 @@ class ICEnroll3 extends ICEnroll2{
 
     /**
      * 
-     * @param {Pointer<BOOL>} fReuseHardwareKeyIfUnableToGenNew 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll3-get_reusehardwarekeyifunabletogennew
      */
-    get_ReuseHardwareKeyIfUnableToGenNew(fReuseHardwareKeyIfUnableToGenNew) {
-        result := ComCall(76, this, "ptr", fReuseHardwareKeyIfUnableToGenNew, "HRESULT")
-        return result
+    get_ReuseHardwareKeyIfUnableToGenNew() {
+        result := ComCall(76, this, "int*", &fReuseHardwareKeyIfUnableToGenNew := 0, "HRESULT")
+        return fReuseHardwareKeyIfUnableToGenNew
     }
 
     /**
@@ -144,15 +134,12 @@ class ICEnroll3 extends ICEnroll2{
 
     /**
      * 
-     * @param {Pointer<Integer>} hashAlgID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll3-get_hashalgid
      */
-    get_HashAlgID(hashAlgID) {
-        hashAlgIDMarshal := hashAlgID is VarRef ? "int*" : "ptr"
-
-        result := ComCall(78, this, hashAlgIDMarshal, hashAlgID, "HRESULT")
-        return result
+    get_HashAlgID() {
+        result := ComCall(78, this, "int*", &hashAlgID := 0, "HRESULT")
+        return hashAlgID
     }
 
     /**
@@ -168,13 +155,12 @@ class ICEnroll3 extends ICEnroll2{
 
     /**
      * 
-     * @param {Pointer<BOOL>} fLimitExchangeKeyToEncipherment 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll3-get_limitexchangekeytoencipherment
      */
-    get_LimitExchangeKeyToEncipherment(fLimitExchangeKeyToEncipherment) {
-        result := ComCall(80, this, "ptr", fLimitExchangeKeyToEncipherment, "HRESULT")
-        return result
+    get_LimitExchangeKeyToEncipherment() {
+        result := ComCall(80, this, "int*", &fLimitExchangeKeyToEncipherment := 0, "HRESULT")
+        return fLimitExchangeKeyToEncipherment
     }
 
     /**
@@ -190,12 +176,11 @@ class ICEnroll3 extends ICEnroll2{
 
     /**
      * 
-     * @param {Pointer<BOOL>} fEnableSMIMECapabilities 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-icenroll3-get_enablesmimecapabilities
      */
-    get_EnableSMIMECapabilities(fEnableSMIMECapabilities) {
-        result := ComCall(82, this, "ptr", fEnableSMIMECapabilities, "HRESULT")
-        return result
+    get_EnableSMIMECapabilities() {
+        result := ComCall(82, this, "int*", &fEnableSMIMECapabilities := 0, "HRESULT")
+        return fEnableSMIMECapabilities
     }
 }

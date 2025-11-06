@@ -69,13 +69,12 @@ class IDXGIDevice2 extends IDXGIDevice1{
      * 
      * @param {Integer} NumResources 
      * @param {Pointer<IDXGIResource>} ppResources 
-     * @param {Pointer<BOOL>} pDiscarded 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgidevice2-reclaimresources
      */
-    ReclaimResources(NumResources, ppResources, pDiscarded) {
-        result := ComCall(15, this, "uint", NumResources, "ptr*", ppResources, "ptr", pDiscarded, "HRESULT")
-        return result
+    ReclaimResources(NumResources, ppResources) {
+        result := ComCall(15, this, "uint", NumResources, "ptr*", ppResources, "int*", &pDiscarded := 0, "HRESULT")
+        return pDiscarded
     }
 
     /**

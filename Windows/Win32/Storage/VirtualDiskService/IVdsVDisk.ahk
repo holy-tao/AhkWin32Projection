@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IVdsOpenVDisk.ahk
+#Include .\VDS_VDISK_PROPERTIES.ahk
+#Include .\IVdsVolume.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -35,45 +38,42 @@ class IVdsVDisk extends IUnknown{
      * @param {Integer} AccessMask 
      * @param {Integer} Flags 
      * @param {Integer} ReadWriteDepth 
-     * @param {Pointer<IVdsOpenVDisk>} ppOpenVDisk 
-     * @returns {HRESULT} 
+     * @returns {IVdsOpenVDisk} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvdisk-open
      */
-    Open(AccessMask, Flags, ReadWriteDepth, ppOpenVDisk) {
-        result := ComCall(3, this, "int", AccessMask, "int", Flags, "uint", ReadWriteDepth, "ptr*", ppOpenVDisk, "HRESULT")
-        return result
+    Open(AccessMask, Flags, ReadWriteDepth) {
+        result := ComCall(3, this, "int", AccessMask, "int", Flags, "uint", ReadWriteDepth, "ptr*", &ppOpenVDisk := 0, "HRESULT")
+        return IVdsOpenVDisk(ppOpenVDisk)
     }
 
     /**
      * 
-     * @param {Pointer<VDS_VDISK_PROPERTIES>} pDiskProperties 
-     * @returns {HRESULT} 
+     * @returns {VDS_VDISK_PROPERTIES} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvdisk-getproperties
      */
-    GetProperties(pDiskProperties) {
+    GetProperties() {
+        pDiskProperties := VDS_VDISK_PROPERTIES()
         result := ComCall(4, this, "ptr", pDiskProperties, "HRESULT")
-        return result
+        return pDiskProperties
     }
 
     /**
      * 
-     * @param {Pointer<IVdsVolume>} ppVolume 
-     * @returns {HRESULT} 
+     * @returns {IVdsVolume} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvdisk-gethostvolume
      */
-    GetHostVolume(ppVolume) {
-        result := ComCall(5, this, "ptr*", ppVolume, "HRESULT")
-        return result
+    GetHostVolume() {
+        result := ComCall(5, this, "ptr*", &ppVolume := 0, "HRESULT")
+        return IVdsVolume(ppVolume)
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppDeviceName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvdisk-getdevicename
      */
-    GetDeviceName(ppDeviceName) {
-        result := ComCall(6, this, "ptr", ppDeviceName, "HRESULT")
-        return result
+    GetDeviceName() {
+        result := ComCall(6, this, "ptr*", &ppDeviceName := 0, "HRESULT")
+        return ppDeviceName
     }
 }

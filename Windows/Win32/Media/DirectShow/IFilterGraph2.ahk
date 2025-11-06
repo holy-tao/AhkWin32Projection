@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IBaseFilter.ahk
 #Include .\IGraphBuilder.ahk
 
 /**
@@ -35,15 +36,14 @@ class IFilterGraph2 extends IGraphBuilder{
      * @param {IMoniker} pMoniker 
      * @param {IBindCtx} pCtx 
      * @param {PWSTR} lpcwstrFilterName 
-     * @param {Pointer<IBaseFilter>} ppFilter 
-     * @returns {HRESULT} 
+     * @returns {IBaseFilter} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ifiltergraph2-addsourcefilterformoniker
      */
-    AddSourceFilterForMoniker(pMoniker, pCtx, lpcwstrFilterName, ppFilter) {
+    AddSourceFilterForMoniker(pMoniker, pCtx, lpcwstrFilterName) {
         lpcwstrFilterName := lpcwstrFilterName is String ? StrPtr(lpcwstrFilterName) : lpcwstrFilterName
 
-        result := ComCall(18, this, "ptr", pMoniker, "ptr", pCtx, "ptr", lpcwstrFilterName, "ptr*", ppFilter, "HRESULT")
-        return result
+        result := ComCall(18, this, "ptr", pMoniker, "ptr", pCtx, "ptr", lpcwstrFilterName, "ptr*", &ppFilter := 0, "HRESULT")
+        return IBaseFilter(ppFilter)
     }
 
     /**

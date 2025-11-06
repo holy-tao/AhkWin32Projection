@@ -30,14 +30,11 @@ class IInputPanelWindowHandle extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} AttachedEditWindow 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_AttachedEditWindow32(AttachedEditWindow) {
-        AttachedEditWindowMarshal := AttachedEditWindow is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, AttachedEditWindowMarshal, AttachedEditWindow, "HRESULT")
-        return result
+    get_AttachedEditWindow32() {
+        result := ComCall(3, this, "int*", &AttachedEditWindow := 0, "HRESULT")
+        return AttachedEditWindow
     }
 
     /**
@@ -52,14 +49,11 @@ class IInputPanelWindowHandle extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} AttachedEditWindow 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_AttachedEditWindow64(AttachedEditWindow) {
-        AttachedEditWindowMarshal := AttachedEditWindow is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(5, this, AttachedEditWindowMarshal, AttachedEditWindow, "HRESULT")
-        return result
+    get_AttachedEditWindow64() {
+        result := ComCall(5, this, "int64*", &AttachedEditWindow := 0, "HRESULT")
+        return AttachedEditWindow
     }
 
     /**

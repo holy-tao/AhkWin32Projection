@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IFaxOutboundRoutingRule.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -43,51 +45,45 @@ class IFaxOutboundRoutingRules extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutingrules-get__newenum
      */
-    get__NewEnum(ppUnk) {
-        result := ComCall(7, this, "ptr*", ppUnk, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(7, this, "ptr*", &ppUnk := 0, "HRESULT")
+        return IUnknown(ppUnk)
     }
 
     /**
      * 
      * @param {Integer} lIndex 
-     * @param {Pointer<IFaxOutboundRoutingRule>} pFaxOutboundRoutingRule 
-     * @returns {HRESULT} 
+     * @returns {IFaxOutboundRoutingRule} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutingrules-get_item
      */
-    get_Item(lIndex, pFaxOutboundRoutingRule) {
-        result := ComCall(8, this, "int", lIndex, "ptr*", pFaxOutboundRoutingRule, "HRESULT")
-        return result
+    get_Item(lIndex) {
+        result := ComCall(8, this, "int", lIndex, "ptr*", &pFaxOutboundRoutingRule := 0, "HRESULT")
+        return IFaxOutboundRoutingRule(pFaxOutboundRoutingRule)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutingrules-get_count
      */
-    get_Count(plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, plCountMarshal, plCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(9, this, "int*", &plCount := 0, "HRESULT")
+        return plCount
     }
 
     /**
      * 
      * @param {Integer} lCountryCode 
      * @param {Integer} lAreaCode 
-     * @param {Pointer<IFaxOutboundRoutingRule>} pFaxOutboundRoutingRule 
-     * @returns {HRESULT} 
+     * @returns {IFaxOutboundRoutingRule} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutingrules-itembycountryandarea
      */
-    ItemByCountryAndArea(lCountryCode, lAreaCode, pFaxOutboundRoutingRule) {
-        result := ComCall(10, this, "int", lCountryCode, "int", lAreaCode, "ptr*", pFaxOutboundRoutingRule, "HRESULT")
-        return result
+    ItemByCountryAndArea(lCountryCode, lAreaCode) {
+        result := ComCall(10, this, "int", lCountryCode, "int", lAreaCode, "ptr*", &pFaxOutboundRoutingRule := 0, "HRESULT")
+        return IFaxOutboundRoutingRule(pFaxOutboundRoutingRule)
     }
 
     /**
@@ -120,14 +116,13 @@ class IFaxOutboundRoutingRules extends IDispatch{
      * @param {VARIANT_BOOL} bUseDevice 
      * @param {BSTR} bstrGroupName 
      * @param {Integer} lDeviceId 
-     * @param {Pointer<IFaxOutboundRoutingRule>} pFaxOutboundRoutingRule 
-     * @returns {HRESULT} 
+     * @returns {IFaxOutboundRoutingRule} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutingrules-add
      */
-    Add(lCountryCode, lAreaCode, bUseDevice, bstrGroupName, lDeviceId, pFaxOutboundRoutingRule) {
+    Add(lCountryCode, lAreaCode, bUseDevice, bstrGroupName, lDeviceId) {
         bstrGroupName := bstrGroupName is String ? BSTR.Alloc(bstrGroupName).Value : bstrGroupName
 
-        result := ComCall(13, this, "int", lCountryCode, "int", lAreaCode, "short", bUseDevice, "ptr", bstrGroupName, "int", lDeviceId, "ptr*", pFaxOutboundRoutingRule, "HRESULT")
-        return result
+        result := ComCall(13, this, "int", lCountryCode, "int", lAreaCode, "short", bUseDevice, "ptr", bstrGroupName, "int", lDeviceId, "ptr*", &pFaxOutboundRoutingRule := 0, "HRESULT")
+        return IFaxOutboundRoutingRule(pFaxOutboundRoutingRule)
     }
 }

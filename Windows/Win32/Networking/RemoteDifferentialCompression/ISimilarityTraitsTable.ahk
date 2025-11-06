@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISimilarityTableDumpState.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -41,33 +42,28 @@ class ISimilarityTraitsTable extends IUnknown{
      * @param {PWSTR} path 
      * @param {BOOL} truncate 
      * @param {Pointer<Integer>} securityDescriptor 
-     * @param {Pointer<Integer>} isNew 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilaritytraitstable-createtable
      */
-    CreateTable(path, truncate, securityDescriptor, isNew) {
+    CreateTable(path, truncate, securityDescriptor) {
         path := path is String ? StrPtr(path) : path
 
         securityDescriptorMarshal := securityDescriptor is VarRef ? "char*" : "ptr"
-        isNewMarshal := isNew is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", path, "int", truncate, securityDescriptorMarshal, securityDescriptor, isNewMarshal, isNew, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", path, "int", truncate, securityDescriptorMarshal, securityDescriptor, "int*", &isNew := 0, "HRESULT")
+        return isNew
     }
 
     /**
      * 
      * @param {ISimilarityTraitsMapping} mapping 
      * @param {BOOL} truncate 
-     * @param {Pointer<Integer>} isNew 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilaritytraitstable-createtableindirect
      */
-    CreateTableIndirect(mapping, truncate, isNew) {
-        isNewMarshal := isNew is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, "ptr", mapping, "int", truncate, isNewMarshal, isNew, "HRESULT")
-        return result
+    CreateTableIndirect(mapping, truncate) {
+        result := ComCall(4, this, "ptr", mapping, "int", truncate, "int*", &isNew := 0, "HRESULT")
+        return isNew
     }
 
     /**
@@ -112,25 +108,21 @@ class ISimilarityTraitsTable extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ISimilarityTableDumpState>} similarityTableDumpState 
-     * @returns {HRESULT} 
+     * @returns {ISimilarityTableDumpState} 
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilaritytraitstable-begindump
      */
-    BeginDump(similarityTableDumpState) {
-        result := ComCall(8, this, "ptr*", similarityTableDumpState, "HRESULT")
-        return result
+    BeginDump() {
+        result := ComCall(8, this, "ptr*", &similarityTableDumpState := 0, "HRESULT")
+        return ISimilarityTableDumpState(similarityTableDumpState)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} fileIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilaritytraitstable-getlastindex
      */
-    GetLastIndex(fileIndex) {
-        fileIndexMarshal := fileIndex is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, fileIndexMarshal, fileIndex, "HRESULT")
-        return result
+    GetLastIndex() {
+        result := ComCall(9, this, "uint*", &fileIndex := 0, "HRESULT")
+        return fileIndex
     }
 }

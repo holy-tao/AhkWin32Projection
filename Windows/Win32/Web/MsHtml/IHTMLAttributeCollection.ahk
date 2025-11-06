@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -36,34 +37,29 @@ class IHTMLAttributeCollection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_length(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pMarshal, p, "HRESULT")
-        return result
+    get_length() {
+        result := ComCall(7, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} p 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__newEnum(p) {
-        result := ComCall(8, this, "ptr*", p, "HRESULT")
-        return result
+    get__newEnum() {
+        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        return IUnknown(p)
     }
 
     /**
      * 
      * @param {Pointer<VARIANT>} name 
-     * @param {Pointer<IDispatch>} pdisp 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    item(name, pdisp) {
-        result := ComCall(9, this, "ptr", name, "ptr*", pdisp, "HRESULT")
-        return result
+    item(name) {
+        result := ComCall(9, this, "ptr", name, "ptr*", &pdisp := 0, "HRESULT")
+        return IDispatch(pdisp)
     }
 }

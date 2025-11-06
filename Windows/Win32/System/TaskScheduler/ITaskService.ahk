@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ITaskFolder.ahk
+#Include .\IRunningTaskCollection.ahk
+#Include .\ITaskDefinition.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -34,39 +37,36 @@ class ITaskService extends IDispatch{
     /**
      * 
      * @param {BSTR} path 
-     * @param {Pointer<ITaskFolder>} ppFolder 
-     * @returns {HRESULT} 
+     * @returns {ITaskFolder} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskservice-getfolder
      */
-    GetFolder(path, ppFolder) {
+    GetFolder(path) {
         path := path is String ? BSTR.Alloc(path).Value : path
 
-        result := ComCall(7, this, "ptr", path, "ptr*", ppFolder, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", path, "ptr*", &ppFolder := 0, "HRESULT")
+        return ITaskFolder(ppFolder)
     }
 
     /**
      * 
      * @param {Integer} flags 
-     * @param {Pointer<IRunningTaskCollection>} ppRunningTasks 
-     * @returns {HRESULT} 
+     * @returns {IRunningTaskCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskservice-getrunningtasks
      */
-    GetRunningTasks(flags, ppRunningTasks) {
-        result := ComCall(8, this, "int", flags, "ptr*", ppRunningTasks, "HRESULT")
-        return result
+    GetRunningTasks(flags) {
+        result := ComCall(8, this, "int", flags, "ptr*", &ppRunningTasks := 0, "HRESULT")
+        return IRunningTaskCollection(ppRunningTasks)
     }
 
     /**
      * 
      * @param {Integer} flags 
-     * @param {Pointer<ITaskDefinition>} ppDefinition 
-     * @returns {HRESULT} 
+     * @returns {ITaskDefinition} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskservice-newtask
      */
-    NewTask(flags, ppDefinition) {
-        result := ComCall(9, this, "uint", flags, "ptr*", ppDefinition, "HRESULT")
-        return result
+    NewTask(flags) {
+        result := ComCall(9, this, "uint", flags, "ptr*", &ppDefinition := 0, "HRESULT")
+        return ITaskDefinition(ppDefinition)
     }
 
     /**
@@ -85,58 +85,54 @@ class ITaskService extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pConnected 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskservice-get_connected
      */
-    get_Connected(pConnected) {
-        result := ComCall(11, this, "ptr", pConnected, "HRESULT")
-        return result
+    get_Connected() {
+        result := ComCall(11, this, "short*", &pConnected := 0, "HRESULT")
+        return pConnected
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pServer 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskservice-get_targetserver
      */
-    get_TargetServer(pServer) {
+    get_TargetServer() {
+        pServer := BSTR()
         result := ComCall(12, this, "ptr", pServer, "HRESULT")
-        return result
+        return pServer
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pUser 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskservice-get_connecteduser
      */
-    get_ConnectedUser(pUser) {
+    get_ConnectedUser() {
+        pUser := BSTR()
         result := ComCall(13, this, "ptr", pUser, "HRESULT")
-        return result
+        return pUser
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pDomain 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskservice-get_connecteddomain
      */
-    get_ConnectedDomain(pDomain) {
+    get_ConnectedDomain() {
+        pDomain := BSTR()
         result := ComCall(14, this, "ptr", pDomain, "HRESULT")
-        return result
+        return pDomain
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVersion 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskservice-get_highestversion
      */
-    get_HighestVersion(pVersion) {
-        pVersionMarshal := pVersion is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(15, this, pVersionMarshal, pVersion, "HRESULT")
-        return result
+    get_HighestVersion() {
+        result := ComCall(15, this, "uint*", &pVersion := 0, "HRESULT")
+        return pVersion
     }
 }

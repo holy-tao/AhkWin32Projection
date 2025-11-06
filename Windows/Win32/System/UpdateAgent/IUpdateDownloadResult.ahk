@@ -32,27 +32,21 @@ class IUpdateDownloadResult extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatedownloadresult-get_hresult
      */
-    get_HResult(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_HResult() {
+        result := ComCall(7, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatedownloadresult-get_resultcode
      */
-    get_ResultCode(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_ResultCode() {
+        result := ComCall(8, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 }

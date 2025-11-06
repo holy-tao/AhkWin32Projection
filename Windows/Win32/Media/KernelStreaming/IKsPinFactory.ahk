@@ -30,13 +30,10 @@ class IKsPinFactory extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} PinFactory 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    KsPinFactory(PinFactory) {
-        PinFactoryMarshal := PinFactory is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, PinFactoryMarshal, PinFactory, "HRESULT")
-        return result
+    KsPinFactory() {
+        result := ComCall(3, this, "uint*", &PinFactory := 0, "HRESULT")
+        return PinFactory
     }
 }

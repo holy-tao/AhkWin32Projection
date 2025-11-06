@@ -50,8 +50,9 @@ class IInternetZoneManagerEx2 extends IInternetZoneManagerEx{
      */
     GetZoneSecurityState(dwZoneIndex, fRespectPolicy, pdwState, pfPolicyEncountered) {
         pdwStateMarshal := pdwState is VarRef ? "uint*" : "ptr"
+        pfPolicyEncounteredMarshal := pfPolicyEncountered is VarRef ? "int*" : "ptr"
 
-        result := ComCall(18, this, "uint", dwZoneIndex, "int", fRespectPolicy, pdwStateMarshal, pdwState, "ptr", pfPolicyEncountered, "HRESULT")
+        result := ComCall(18, this, "uint", dwZoneIndex, "int", fRespectPolicy, pdwStateMarshal, pdwState, pfPolicyEncounteredMarshal, pfPolicyEncountered, "HRESULT")
         return result
     }
 
@@ -65,8 +66,9 @@ class IInternetZoneManagerEx2 extends IInternetZoneManagerEx{
      */
     GetIESecurityState(fRespectPolicy, pdwState, pfPolicyEncountered, fNoCache) {
         pdwStateMarshal := pdwState is VarRef ? "uint*" : "ptr"
+        pfPolicyEncounteredMarshal := pfPolicyEncountered is VarRef ? "int*" : "ptr"
 
-        result := ComCall(19, this, "int", fRespectPolicy, pdwStateMarshal, pdwState, "ptr", pfPolicyEncountered, "int", fNoCache, "HRESULT")
+        result := ComCall(19, this, "int", fRespectPolicy, pdwStateMarshal, pdwState, pfPolicyEncounteredMarshal, pfPolicyEncountered, "int", fNoCache, "HRESULT")
         return result
     }
 

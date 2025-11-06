@@ -52,28 +52,22 @@ class IPersistMemory extends IPersist{
 
     /**
      * 
-     * @param {Pointer<Void>} pMem 
      * @param {BOOL} fClearDirty 
      * @param {Integer} cbSize 
-     * @returns {HRESULT} 
+     * @returns {Void} 
      */
-    Save(pMem, fClearDirty, cbSize) {
-        pMemMarshal := pMem is VarRef ? "ptr" : "ptr"
-
-        result := ComCall(6, this, pMemMarshal, pMem, "int", fClearDirty, "uint", cbSize, "HRESULT")
-        return result
+    Save(fClearDirty, cbSize) {
+        result := ComCall(6, this, "ptr", &pMem := 0, "int", fClearDirty, "uint", cbSize, "HRESULT")
+        return pMem
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCbSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetSizeMax(pCbSize) {
-        pCbSizeMarshal := pCbSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pCbSizeMarshal, pCbSize, "HRESULT")
-        return result
+    GetSizeMax() {
+        result := ComCall(7, this, "uint*", &pCbSize := 0, "HRESULT")
+        return pCbSize
     }
 
     /**

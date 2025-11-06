@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumPortableDeviceObjectIDs.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,16 +34,15 @@ class IEnumPortableDeviceObjectIDs extends IUnknown{
     /**
      * 
      * @param {Integer} cObjects 
-     * @param {Pointer<PWSTR>} pObjIDs 
      * @param {Pointer<Integer>} pcFetched 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-ienumportabledeviceobjectids-next
      */
-    Next(cObjects, pObjIDs, pcFetched) {
+    Next(cObjects, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cObjects, "ptr", pObjIDs, pcFetchedMarshal, pcFetched, "int")
-        return result
+        result := ComCall(3, this, "uint", cObjects, "ptr*", &pObjIDs := 0, pcFetchedMarshal, pcFetched, "int")
+        return pObjIDs
     }
 
     /**
@@ -68,13 +68,12 @@ class IEnumPortableDeviceObjectIDs extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumPortableDeviceObjectIDs>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumPortableDeviceObjectIDs} 
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-ienumportabledeviceobjectids-clone
      */
-    Clone(ppEnum) {
-        result := ComCall(6, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumPortableDeviceObjectIDs(ppEnum)
     }
 
     /**

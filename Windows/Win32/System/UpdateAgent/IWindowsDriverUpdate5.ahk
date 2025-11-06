@@ -32,27 +32,21 @@ class IWindowsDriverUpdate5 extends IWindowsDriverUpdate4{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate5-get_autoselection
      */
-    get_AutoSelection(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(67, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_AutoSelection() {
+        result := ComCall(67, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate5-get_autodownload
      */
-    get_AutoDownload(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(68, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_AutoDownload() {
+        result := ComCall(68, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 }

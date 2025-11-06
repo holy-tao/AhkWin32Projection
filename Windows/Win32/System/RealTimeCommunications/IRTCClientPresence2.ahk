@@ -2,6 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IRTCBuddyGroup.ahk
+#Include .\IRTCEnumGroups.ahk
+#Include .\IRTCCollection.ahk
+#Include .\IRTCWatcher2.ahk
+#Include .\IRTCBuddy2.ahk
 #Include .\IRTCClientPresence.ahk
 
 /**
@@ -56,15 +61,14 @@ class IRTCClientPresence2 extends IRTCClientPresence{
      * @param {BSTR} bstrData 
      * @param {IRTCProfile} pProfile 
      * @param {Integer} lFlags 
-     * @param {Pointer<IRTCBuddyGroup>} ppGroup 
-     * @returns {HRESULT} 
+     * @returns {IRTCBuddyGroup} 
      */
-    AddGroup(bstrGroupName, bstrData, pProfile, lFlags, ppGroup) {
+    AddGroup(bstrGroupName, bstrData, pProfile, lFlags) {
         bstrGroupName := bstrGroupName is String ? BSTR.Alloc(bstrGroupName).Value : bstrGroupName
         bstrData := bstrData is String ? BSTR.Alloc(bstrData).Value : bstrData
 
-        result := ComCall(23, this, "ptr", bstrGroupName, "ptr", bstrData, "ptr", pProfile, "int", lFlags, "ptr*", ppGroup, "HRESULT")
-        return result
+        result := ComCall(23, this, "ptr", bstrGroupName, "ptr", bstrData, "ptr", pProfile, "int", lFlags, "ptr*", &ppGroup := 0, "HRESULT")
+        return IRTCBuddyGroup(ppGroup)
     }
 
     /**
@@ -79,35 +83,32 @@ class IRTCClientPresence2 extends IRTCClientPresence{
 
     /**
      * 
-     * @param {Pointer<IRTCEnumGroups>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IRTCEnumGroups} 
      */
-    EnumerateGroups(ppEnum) {
-        result := ComCall(25, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumerateGroups() {
+        result := ComCall(25, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IRTCEnumGroups(ppEnum)
     }
 
     /**
      * 
-     * @param {Pointer<IRTCCollection>} ppCollection 
-     * @returns {HRESULT} 
+     * @returns {IRTCCollection} 
      */
-    get_Groups(ppCollection) {
-        result := ComCall(26, this, "ptr*", ppCollection, "HRESULT")
-        return result
+    get_Groups() {
+        result := ComCall(26, this, "ptr*", &ppCollection := 0, "HRESULT")
+        return IRTCCollection(ppCollection)
     }
 
     /**
      * 
      * @param {BSTR} bstrGroupName 
-     * @param {Pointer<IRTCBuddyGroup>} ppGroup 
-     * @returns {HRESULT} 
+     * @returns {IRTCBuddyGroup} 
      */
-    get_Group(bstrGroupName, ppGroup) {
+    get_Group(bstrGroupName) {
         bstrGroupName := bstrGroupName is String ? BSTR.Alloc(bstrGroupName).Value : bstrGroupName
 
-        result := ComCall(27, this, "ptr", bstrGroupName, "ptr*", ppGroup, "HRESULT")
-        return result
+        result := ComCall(27, this, "ptr", bstrGroupName, "ptr*", &ppGroup := 0, "HRESULT")
+        return IRTCBuddyGroup(ppGroup)
     }
 
     /**
@@ -120,30 +121,28 @@ class IRTCClientPresence2 extends IRTCClientPresence{
      * @param {Integer} enScope 
      * @param {IRTCProfile} pProfile 
      * @param {Integer} lFlags 
-     * @param {Pointer<IRTCWatcher2>} ppWatcher 
-     * @returns {HRESULT} 
+     * @returns {IRTCWatcher2} 
      */
-    AddWatcherEx(bstrPresentityURI, bstrUserName, bstrData, enState, fPersistent, enScope, pProfile, lFlags, ppWatcher) {
+    AddWatcherEx(bstrPresentityURI, bstrUserName, bstrData, enState, fPersistent, enScope, pProfile, lFlags) {
         bstrPresentityURI := bstrPresentityURI is String ? BSTR.Alloc(bstrPresentityURI).Value : bstrPresentityURI
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
         bstrData := bstrData is String ? BSTR.Alloc(bstrData).Value : bstrData
 
-        result := ComCall(28, this, "ptr", bstrPresentityURI, "ptr", bstrUserName, "ptr", bstrData, "int", enState, "short", fPersistent, "int", enScope, "ptr", pProfile, "int", lFlags, "ptr*", ppWatcher, "HRESULT")
-        return result
+        result := ComCall(28, this, "ptr", bstrPresentityURI, "ptr", bstrUserName, "ptr", bstrData, "int", enState, "short", fPersistent, "int", enScope, "ptr", pProfile, "int", lFlags, "ptr*", &ppWatcher := 0, "HRESULT")
+        return IRTCWatcher2(ppWatcher)
     }
 
     /**
      * 
      * @param {Integer} enMode 
      * @param {BSTR} bstrPresentityURI 
-     * @param {Pointer<IRTCWatcher2>} ppWatcher 
-     * @returns {HRESULT} 
+     * @returns {IRTCWatcher2} 
      */
-    get_WatcherEx(enMode, bstrPresentityURI, ppWatcher) {
+    get_WatcherEx(enMode, bstrPresentityURI) {
         bstrPresentityURI := bstrPresentityURI is String ? BSTR.Alloc(bstrPresentityURI).Value : bstrPresentityURI
 
-        result := ComCall(29, this, "int", enMode, "ptr", bstrPresentityURI, "ptr*", ppWatcher, "HRESULT")
-        return result
+        result := ComCall(29, this, "int", enMode, "ptr", bstrPresentityURI, "ptr*", &ppWatcher := 0, "HRESULT")
+        return IRTCWatcher2(ppWatcher)
     }
 
     /**
@@ -162,12 +161,12 @@ class IRTCClientPresence2 extends IRTCClientPresence{
     /**
      * 
      * @param {Integer} enProperty 
-     * @param {Pointer<BSTR>} pbstrProperty 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_PresenceProperty(enProperty, pbstrProperty) {
+    get_PresenceProperty(enProperty) {
+        pbstrProperty := BSTR()
         result := ComCall(31, this, "int", enProperty, "ptr", pbstrProperty, "HRESULT")
-        return result
+        return pbstrProperty
     }
 
     /**
@@ -217,15 +216,14 @@ class IRTCClientPresence2 extends IRTCClientPresence{
      * @param {Integer} enSubscriptionType 
      * @param {IRTCProfile} pProfile 
      * @param {Integer} lFlags 
-     * @param {Pointer<IRTCBuddy2>} ppBuddy 
-     * @returns {HRESULT} 
+     * @returns {IRTCBuddy2} 
      */
-    AddBuddyEx(bstrPresentityURI, bstrUserName, bstrData, fPersistent, enSubscriptionType, pProfile, lFlags, ppBuddy) {
+    AddBuddyEx(bstrPresentityURI, bstrUserName, bstrData, fPersistent, enSubscriptionType, pProfile, lFlags) {
         bstrPresentityURI := bstrPresentityURI is String ? BSTR.Alloc(bstrPresentityURI).Value : bstrPresentityURI
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
         bstrData := bstrData is String ? BSTR.Alloc(bstrData).Value : bstrData
 
-        result := ComCall(35, this, "ptr", bstrPresentityURI, "ptr", bstrUserName, "ptr", bstrData, "short", fPersistent, "int", enSubscriptionType, "ptr", pProfile, "int", lFlags, "ptr*", ppBuddy, "HRESULT")
-        return result
+        result := ComCall(35, this, "ptr", bstrPresentityURI, "ptr", bstrUserName, "ptr", bstrData, "short", fPersistent, "int", enSubscriptionType, "ptr", pProfile, "int", lFlags, "ptr*", &ppBuddy := 0, "HRESULT")
+        return IRTCBuddy2(ppBuddy)
     }
 }

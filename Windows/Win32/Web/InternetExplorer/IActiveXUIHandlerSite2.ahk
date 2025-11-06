@@ -30,14 +30,11 @@ class IActiveXUIHandlerSite2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pullCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    AddSuspensionExemption(pullCookie) {
-        pullCookieMarshal := pullCookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pullCookieMarshal, pullCookie, "HRESULT")
-        return result
+    AddSuspensionExemption() {
+        result := ComCall(3, this, "uint*", &pullCookie := 0, "HRESULT")
+        return pullCookie
     }
 
     /**

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -67,26 +68,26 @@ class IAzBizRuleContext extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrBusinessRuleString 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazbizrulecontext-get_businessrulestring
      */
-    get_BusinessRuleString(pbstrBusinessRuleString) {
+    get_BusinessRuleString() {
+        pbstrBusinessRuleString := BSTR()
         result := ComCall(9, this, "ptr", pbstrBusinessRuleString, "HRESULT")
-        return result
+        return pbstrBusinessRuleString
     }
 
     /**
      * 
      * @param {BSTR} bstrParameterName 
-     * @param {Pointer<VARIANT>} pvarParameterValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazbizrulecontext-getparameter
      */
-    GetParameter(bstrParameterName, pvarParameterValue) {
+    GetParameter(bstrParameterName) {
         bstrParameterName := bstrParameterName is String ? BSTR.Alloc(bstrParameterName).Value : bstrParameterName
 
+        pvarParameterValue := VARIANT()
         result := ComCall(10, this, "ptr", bstrParameterName, "ptr", pvarParameterValue, "HRESULT")
-        return result
+        return pvarParameterValue
     }
 }

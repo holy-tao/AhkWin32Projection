@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -33,25 +35,25 @@ class IPerPropertyBrowsing extends IUnknown{
     /**
      * 
      * @param {Integer} dispID 
-     * @param {Pointer<BSTR>} pBstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iperpropertybrowsing-getdisplaystring
      */
-    GetDisplayString(dispID, pBstr) {
+    GetDisplayString(dispID) {
+        pBstr := BSTR()
         result := ComCall(3, this, "int", dispID, "ptr", pBstr, "HRESULT")
-        return result
+        return pBstr
     }
 
     /**
      * 
      * @param {Integer} dispID 
-     * @param {Pointer<Guid>} pClsid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iperpropertybrowsing-mappropertytopage
      */
-    MapPropertyToPage(dispID, pClsid) {
+    MapPropertyToPage(dispID) {
+        pClsid := Guid()
         result := ComCall(4, this, "int", dispID, "ptr", pClsid, "HRESULT")
-        return result
+        return pClsid
     }
 
     /**
@@ -71,12 +73,12 @@ class IPerPropertyBrowsing extends IUnknown{
      * 
      * @param {Integer} dispID 
      * @param {Integer} dwCookie 
-     * @param {Pointer<VARIANT>} pVarOut 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iperpropertybrowsing-getpredefinedvalue
      */
-    GetPredefinedValue(dispID, dwCookie, pVarOut) {
+    GetPredefinedValue(dispID, dwCookie) {
+        pVarOut := VARIANT()
         result := ComCall(6, this, "int", dispID, "uint", dwCookie, "ptr", pVarOut, "HRESULT")
-        return result
+        return pVarOut
     }
 }

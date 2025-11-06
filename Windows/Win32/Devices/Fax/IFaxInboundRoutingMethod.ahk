@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -42,70 +43,67 @@ class IFaxInboundRoutingMethod extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingmethod-get_name
      */
-    get_Name(pbstrName) {
+    get_Name() {
+        pbstrName := BSTR()
         result := ComCall(7, this, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrGUID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingmethod-get_guid
      */
-    get_GUID(pbstrGUID) {
+    get_GUID() {
+        pbstrGUID := BSTR()
         result := ComCall(8, this, "ptr", pbstrGUID, "HRESULT")
-        return result
+        return pbstrGUID
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrFunctionName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingmethod-get_functionname
      */
-    get_FunctionName(pbstrFunctionName) {
+    get_FunctionName() {
+        pbstrFunctionName := BSTR()
         result := ComCall(9, this, "ptr", pbstrFunctionName, "HRESULT")
-        return result
+        return pbstrFunctionName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrExtensionFriendlyName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingmethod-get_extensionfriendlyname
      */
-    get_ExtensionFriendlyName(pbstrExtensionFriendlyName) {
+    get_ExtensionFriendlyName() {
+        pbstrExtensionFriendlyName := BSTR()
         result := ComCall(10, this, "ptr", pbstrExtensionFriendlyName, "HRESULT")
-        return result
+        return pbstrExtensionFriendlyName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrExtensionImageName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingmethod-get_extensionimagename
      */
-    get_ExtensionImageName(pbstrExtensionImageName) {
+    get_ExtensionImageName() {
+        pbstrExtensionImageName := BSTR()
         result := ComCall(11, this, "ptr", pbstrExtensionImageName, "HRESULT")
-        return result
+        return pbstrExtensionImageName
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plPriority 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxinboundroutingmethod-get_priority
      */
-    get_Priority(plPriority) {
-        plPriorityMarshal := plPriority is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, plPriorityMarshal, plPriority, "HRESULT")
-        return result
+    get_Priority() {
+        result := ComCall(12, this, "int*", &plPriority := 0, "HRESULT")
+        return plPriority
     }
 
     /**

@@ -48,24 +48,24 @@ class ICertEncodeBitString2 extends ICertEncodeBitString{
      * @param {BSTR} strBitString 
      * @param {Integer} EncodingIn 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pstrEncodedData 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    EncodeBlob(BitCount, strBitString, EncodingIn, Encoding, pstrEncodedData) {
+    EncodeBlob(BitCount, strBitString, EncodingIn, Encoding) {
         strBitString := strBitString is String ? BSTR.Alloc(strBitString).Value : strBitString
 
+        pstrEncodedData := BSTR()
         result := ComCall(12, this, "int", BitCount, "ptr", strBitString, "int", EncodingIn, "int", Encoding, "ptr", pstrEncodedData, "HRESULT")
-        return result
+        return pstrEncodedData
     }
 
     /**
      * 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pstrBitString 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetBitStringBlob(Encoding, pstrBitString) {
+    GetBitStringBlob(Encoding) {
+        pstrBitString := BSTR()
         result := ComCall(13, this, "int", Encoding, "ptr", pstrBitString, "HRESULT")
-        return result
+        return pstrBitString
     }
 }

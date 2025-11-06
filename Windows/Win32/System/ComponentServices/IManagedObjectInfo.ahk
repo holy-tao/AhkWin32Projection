@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IUnknown.ahk
+#Include .\IObjectControl.ahk
 
 /**
  * Describes the stub for a managed object.
@@ -32,24 +33,22 @@ class IManagedObjectInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} pUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-imanagedobjectinfo-getiunknown
      */
-    GetIUnknown(pUnk) {
-        result := ComCall(3, this, "ptr*", pUnk, "HRESULT")
-        return result
+    GetIUnknown() {
+        result := ComCall(3, this, "ptr*", &pUnk := 0, "HRESULT")
+        return IUnknown(pUnk)
     }
 
     /**
      * 
-     * @param {Pointer<IObjectControl>} pCtrl 
-     * @returns {HRESULT} 
+     * @returns {IObjectControl} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-imanagedobjectinfo-getiobjectcontrol
      */
-    GetIObjectControl(pCtrl) {
-        result := ComCall(4, this, "ptr*", pCtrl, "HRESULT")
-        return result
+    GetIObjectControl() {
+        result := ComCall(4, this, "ptr*", &pCtrl := 0, "HRESULT")
+        return IObjectControl(pCtrl)
     }
 
     /**

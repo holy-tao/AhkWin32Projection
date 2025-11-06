@@ -2,6 +2,13 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IGPMGPO.ahk
+#Include .\IGPMGPOCollection.ahk
+#Include .\IGPMResult.ahk
+#Include .\IGPMSOM.ahk
+#Include .\IGPMSOMCollection.ahk
+#Include .\IGPMWMIFilter.ahk
+#Include .\IGPMWMIFilterCollection.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -39,59 +46,56 @@ class IGPMDomain extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_DomainController(pVal) {
+    get_DomainController() {
+        pVal := BSTR()
         result := ComCall(7, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Domain(pVal) {
+    get_Domain() {
+        pVal := BSTR()
         result := ComCall(8, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<IGPMGPO>} ppNewGPO 
-     * @returns {HRESULT} 
+     * @returns {IGPMGPO} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmdomain-creategpo
      */
-    CreateGPO(ppNewGPO) {
-        result := ComCall(9, this, "ptr*", ppNewGPO, "HRESULT")
-        return result
+    CreateGPO() {
+        result := ComCall(9, this, "ptr*", &ppNewGPO := 0, "HRESULT")
+        return IGPMGPO(ppNewGPO)
     }
 
     /**
      * 
      * @param {BSTR} bstrGuid 
-     * @param {Pointer<IGPMGPO>} ppGPO 
-     * @returns {HRESULT} 
+     * @returns {IGPMGPO} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmdomain-getgpo
      */
-    GetGPO(bstrGuid, ppGPO) {
+    GetGPO(bstrGuid) {
         bstrGuid := bstrGuid is String ? BSTR.Alloc(bstrGuid).Value : bstrGuid
 
-        result := ComCall(10, this, "ptr", bstrGuid, "ptr*", ppGPO, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", bstrGuid, "ptr*", &ppGPO := 0, "HRESULT")
+        return IGPMGPO(ppGPO)
     }
 
     /**
      * 
      * @param {IGPMSearchCriteria} pIGPMSearchCriteria 
-     * @param {Pointer<IGPMGPOCollection>} ppIGPMGPOCollection 
-     * @returns {HRESULT} 
+     * @returns {IGPMGPOCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmdomain-searchgpos
      */
-    SearchGPOs(pIGPMSearchCriteria, ppIGPMGPOCollection) {
-        result := ComCall(11, this, "ptr", pIGPMSearchCriteria, "ptr*", ppIGPMGPOCollection, "HRESULT")
-        return result
+    SearchGPOs(pIGPMSearchCriteria) {
+        result := ComCall(11, this, "ptr", pIGPMSearchCriteria, "ptr*", &ppIGPMGPOCollection := 0, "HRESULT")
+        return IGPMGPOCollection(ppIGPMGPOCollection)
     }
 
     /**
@@ -100,64 +104,59 @@ class IGPMDomain extends IDispatch{
      * @param {Integer} lDCFlags 
      * @param {Pointer<VARIANT>} pvarGPMProgress 
      * @param {Pointer<VARIANT>} pvarGPMCancel 
-     * @param {Pointer<IGPMResult>} ppIGPMResult 
-     * @returns {HRESULT} 
+     * @returns {IGPMResult} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmdomain-restoregpo
      */
-    RestoreGPO(pIGPMBackup, lDCFlags, pvarGPMProgress, pvarGPMCancel, ppIGPMResult) {
-        result := ComCall(12, this, "ptr", pIGPMBackup, "int", lDCFlags, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", ppIGPMResult, "HRESULT")
-        return result
+    RestoreGPO(pIGPMBackup, lDCFlags, pvarGPMProgress, pvarGPMCancel) {
+        result := ComCall(12, this, "ptr", pIGPMBackup, "int", lDCFlags, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
+        return IGPMResult(ppIGPMResult)
     }
 
     /**
      * 
      * @param {BSTR} bstrPath 
-     * @param {Pointer<IGPMSOM>} ppSOM 
-     * @returns {HRESULT} 
+     * @returns {IGPMSOM} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmdomain-getsom
      */
-    GetSOM(bstrPath, ppSOM) {
+    GetSOM(bstrPath) {
         bstrPath := bstrPath is String ? BSTR.Alloc(bstrPath).Value : bstrPath
 
-        result := ComCall(13, this, "ptr", bstrPath, "ptr*", ppSOM, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", bstrPath, "ptr*", &ppSOM := 0, "HRESULT")
+        return IGPMSOM(ppSOM)
     }
 
     /**
      * 
      * @param {IGPMSearchCriteria} pIGPMSearchCriteria 
-     * @param {Pointer<IGPMSOMCollection>} ppIGPMSOMCollection 
-     * @returns {HRESULT} 
+     * @returns {IGPMSOMCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmdomain-searchsoms
      */
-    SearchSOMs(pIGPMSearchCriteria, ppIGPMSOMCollection) {
-        result := ComCall(14, this, "ptr", pIGPMSearchCriteria, "ptr*", ppIGPMSOMCollection, "HRESULT")
-        return result
+    SearchSOMs(pIGPMSearchCriteria) {
+        result := ComCall(14, this, "ptr", pIGPMSearchCriteria, "ptr*", &ppIGPMSOMCollection := 0, "HRESULT")
+        return IGPMSOMCollection(ppIGPMSOMCollection)
     }
 
     /**
      * 
      * @param {BSTR} bstrPath 
-     * @param {Pointer<IGPMWMIFilter>} ppWMIFilter 
-     * @returns {HRESULT} 
+     * @returns {IGPMWMIFilter} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmdomain-getwmifilter
      */
-    GetWMIFilter(bstrPath, ppWMIFilter) {
+    GetWMIFilter(bstrPath) {
         bstrPath := bstrPath is String ? BSTR.Alloc(bstrPath).Value : bstrPath
 
-        result := ComCall(15, this, "ptr", bstrPath, "ptr*", ppWMIFilter, "HRESULT")
-        return result
+        result := ComCall(15, this, "ptr", bstrPath, "ptr*", &ppWMIFilter := 0, "HRESULT")
+        return IGPMWMIFilter(ppWMIFilter)
     }
 
     /**
      * 
      * @param {IGPMSearchCriteria} pIGPMSearchCriteria 
-     * @param {Pointer<IGPMWMIFilterCollection>} ppIGPMWMIFilterCollection 
-     * @returns {HRESULT} 
+     * @returns {IGPMWMIFilterCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmdomain-searchwmifilters
      */
-    SearchWMIFilters(pIGPMSearchCriteria, ppIGPMWMIFilterCollection) {
-        result := ComCall(16, this, "ptr", pIGPMSearchCriteria, "ptr*", ppIGPMWMIFilterCollection, "HRESULT")
-        return result
+    SearchWMIFilters(pIGPMSearchCriteria) {
+        result := ComCall(16, this, "ptr", pIGPMSearchCriteria, "ptr*", &ppIGPMWMIFilterCollection := 0, "HRESULT")
+        return IGPMWMIFilterCollection(ppIGPMWMIFilterCollection)
     }
 }

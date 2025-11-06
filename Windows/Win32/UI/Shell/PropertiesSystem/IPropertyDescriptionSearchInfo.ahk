@@ -32,51 +32,41 @@ class IPropertyDescriptionSearchInfo extends IPropertyDescription{
 
     /**
      * 
-     * @param {Pointer<Integer>} ppdsiFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescriptionsearchinfo-getsearchinfoflags
      */
-    GetSearchInfoFlags(ppdsiFlags) {
-        ppdsiFlagsMarshal := ppdsiFlags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(24, this, ppdsiFlagsMarshal, ppdsiFlags, "HRESULT")
-        return result
+    GetSearchInfoFlags() {
+        result := ComCall(24, this, "int*", &ppdsiFlags := 0, "HRESULT")
+        return ppdsiFlags
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} ppdciType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescriptionsearchinfo-getcolumnindextype
      */
-    GetColumnIndexType(ppdciType) {
-        ppdciTypeMarshal := ppdciType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(25, this, ppdciTypeMarshal, ppdciType, "HRESULT")
-        return result
+    GetColumnIndexType() {
+        result := ComCall(25, this, "int*", &ppdciType := 0, "HRESULT")
+        return ppdciType
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszProjection 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescriptionsearchinfo-getprojectionstring
      */
-    GetProjectionString(ppszProjection) {
-        result := ComCall(26, this, "ptr", ppszProjection, "HRESULT")
-        return result
+    GetProjectionString() {
+        result := ComCall(26, this, "ptr*", &ppszProjection := 0, "HRESULT")
+        return ppszProjection
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pcbMaxSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescriptionsearchinfo-getmaxsize
      */
-    GetMaxSize(pcbMaxSize) {
-        pcbMaxSizeMarshal := pcbMaxSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(27, this, pcbMaxSizeMarshal, pcbMaxSize, "HRESULT")
-        return result
+    GetMaxSize() {
+        result := ComCall(27, this, "uint*", &pcbMaxSize := 0, "HRESULT")
+        return pcbMaxSize
     }
 }

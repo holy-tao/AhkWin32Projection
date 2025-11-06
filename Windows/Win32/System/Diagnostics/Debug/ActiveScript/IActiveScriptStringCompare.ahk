@@ -33,16 +33,13 @@ class IActiveScriptStringCompare extends IUnknown{
      * 
      * @param {BSTR} bszStr1 
      * @param {BSTR} bszStr2 
-     * @param {Pointer<Integer>} iRet 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    StrComp(bszStr1, bszStr2, iRet) {
+    StrComp(bszStr1, bszStr2) {
         bszStr1 := bszStr1 is String ? BSTR.Alloc(bszStr1).Value : bszStr1
         bszStr2 := bszStr2 is String ? BSTR.Alloc(bszStr2).Value : bszStr2
 
-        iRetMarshal := iRet is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, "ptr", bszStr1, "ptr", bszStr2, iRetMarshal, iRet, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", bszStr1, "ptr", bszStr2, "int*", &iRet := 0, "HRESULT")
+        return iRet
     }
 }

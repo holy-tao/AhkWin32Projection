@@ -7324,10 +7324,11 @@ class WinInet {
         lpszReferrer := lpszReferrer is String ? StrPtr(lpszReferrer) : lpszReferrer
 
         hConnectMarshal := hConnect is VarRef ? "ptr" : "ptr"
+        lplpszAcceptTypesMarshal := lplpszAcceptTypes is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\HttpOpenRequestA", hConnectMarshal, hConnect, "ptr", lpszVerb, "ptr", lpszObjectName, "ptr", lpszVersion, "ptr", lpszReferrer, "ptr", lplpszAcceptTypes, "uint", dwFlags, "ptr", dwContext, "ptr")
+        result := DllCall("WININET.dll\HttpOpenRequestA", hConnectMarshal, hConnect, "ptr", lpszVerb, "ptr", lpszObjectName, "ptr", lpszVersion, "ptr", lpszReferrer, lplpszAcceptTypesMarshal, lplpszAcceptTypes, "uint", dwFlags, "ptr", dwContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -7392,10 +7393,11 @@ class WinInet {
         lpszReferrer := lpszReferrer is String ? StrPtr(lpszReferrer) : lpszReferrer
 
         hConnectMarshal := hConnect is VarRef ? "ptr" : "ptr"
+        lplpszAcceptTypesMarshal := lplpszAcceptTypes is VarRef ? "ptr*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("WININET.dll\HttpOpenRequestW", hConnectMarshal, hConnect, "ptr", lpszVerb, "ptr", lpszObjectName, "ptr", lpszVersion, "ptr", lpszReferrer, "ptr", lplpszAcceptTypes, "uint", dwFlags, "ptr", dwContext, "ptr")
+        result := DllCall("WININET.dll\HttpOpenRequestW", hConnectMarshal, hConnect, "ptr", lpszVerb, "ptr", lpszObjectName, "ptr", lpszVersion, "ptr", lpszReferrer, lplpszAcceptTypesMarshal, lplpszAcceptTypes, "uint", dwFlags, "ptr", dwContext, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -8875,7 +8877,6 @@ class WinInet {
 
         lpszUrlName := lpszUrlName is String ? StrPtr(lpszUrlName) : lpszUrlName
         lpszLocalFileName := lpszLocalFileName is String ? StrPtr(lpszLocalFileName) : lpszLocalFileName
-        lpszFileExtension := lpszFileExtension is String ? StrPtr(lpszFileExtension) : lpszFileExtension
         lpszOriginalUrl := lpszOriginalUrl is String ? StrPtr(lpszOriginalUrl) : lpszOriginalUrl
 
         lpHeaderInfoMarshal := lpHeaderInfo is VarRef ? "char*" : "ptr"
@@ -9042,7 +9043,6 @@ class WinInet {
         lpszUrlName := lpszUrlName is String ? StrPtr(lpszUrlName) : lpszUrlName
         lpszLocalFileName := lpszLocalFileName is String ? StrPtr(lpszLocalFileName) : lpszLocalFileName
         lpszHeaderInfo := lpszHeaderInfo is String ? StrPtr(lpszHeaderInfo) : lpszHeaderInfo
-        lpszFileExtension := lpszFileExtension is String ? StrPtr(lpszFileExtension) : lpszFileExtension
         lpszOriginalUrl := lpszOriginalUrl is String ? StrPtr(lpszOriginalUrl) : lpszOriginalUrl
 
         A_LastError := 0
@@ -9764,7 +9764,6 @@ class WinInet {
         static lpszRedirectUrl := 0, lpcbRedirectUrl := 0, lpReserved := 0 ;Reserved parameters must always be NULL
 
         lpszUrl := lpszUrl is String ? StrPtr(lpszUrl) : lpszUrl
-        lpszRedirectUrl := lpszRedirectUrl is String ? StrPtr(lpszRedirectUrl) : lpszRedirectUrl
 
         lpcbCacheEntryInfoMarshal := lpcbCacheEntryInfo is VarRef ? "uint*" : "ptr"
 
@@ -9827,7 +9826,6 @@ class WinInet {
         static lpszRedirectUrl := 0, lpcbRedirectUrl := 0, lpReserved := 0 ;Reserved parameters must always be NULL
 
         lpszUrl := lpszUrl is String ? StrPtr(lpszUrl) : lpszUrl
-        lpszRedirectUrl := lpszRedirectUrl is String ? StrPtr(lpszRedirectUrl) : lpszRedirectUrl
 
         lpcbCacheEntryInfoMarshal := lpcbCacheEntryInfo is VarRef ? "uint*" : "ptr"
 
@@ -11529,7 +11527,9 @@ class WinInet {
     static HttpIsHostHstsEnabled(pcwszUrl, pfIsHsts) {
         pcwszUrl := pcwszUrl is String ? StrPtr(pcwszUrl) : pcwszUrl
 
-        result := DllCall("WININET.dll\HttpIsHostHstsEnabled", "ptr", pcwszUrl, "ptr", pfIsHsts, "uint")
+        pfIsHstsMarshal := pfIsHsts is VarRef ? "int*" : "ptr"
+
+        result := DllCall("WININET.dll\HttpIsHostHstsEnabled", "ptr", pcwszUrl, pfIsHstsMarshal, pfIsHsts, "uint")
         return result
     }
 
@@ -11835,7 +11835,10 @@ class WinInet {
     static HttpGetServerCredentials(pwszUrl, ppwszUserName, ppwszPassword) {
         pwszUrl := pwszUrl is String ? StrPtr(pwszUrl) : pwszUrl
 
-        result := DllCall("WININET.dll\HttpGetServerCredentials", "ptr", pwszUrl, "ptr", ppwszUserName, "ptr", ppwszPassword, "uint")
+        ppwszUserNameMarshal := ppwszUserName is VarRef ? "ptr*" : "ptr"
+        ppwszPasswordMarshal := ppwszPassword is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WININET.dll\HttpGetServerCredentials", "ptr", pwszUrl, ppwszUserNameMarshal, ppwszUserName, ppwszPasswordMarshal, ppwszPassword, "uint")
         return result
     }
 
@@ -11892,9 +11895,10 @@ class WinInet {
         lpszComplianceToken := lpszComplianceToken is String ? StrPtr(lpszComplianceToken) : lpszComplianceToken
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
+        lpfFoundMarshal := lpfFound is VarRef ? "int*" : "ptr"
         lpvReservedMarshal := lpvReserved is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("WININET.dll\HttpCheckDavComplianceA", "ptr", lpszUrl, "ptr", lpszComplianceToken, "ptr", lpfFound, "ptr", hWnd, lpvReservedMarshal, lpvReserved, "int")
+        result := DllCall("WININET.dll\HttpCheckDavComplianceA", "ptr", lpszUrl, "ptr", lpszComplianceToken, lpfFoundMarshal, lpfFound, "ptr", hWnd, lpvReservedMarshal, lpvReserved, "int")
         return result
     }
 
@@ -11912,9 +11916,10 @@ class WinInet {
         lpszComplianceToken := lpszComplianceToken is String ? StrPtr(lpszComplianceToken) : lpszComplianceToken
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
+        lpfFoundMarshal := lpfFound is VarRef ? "int*" : "ptr"
         lpvReservedMarshal := lpvReserved is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("WININET.dll\HttpCheckDavComplianceW", "ptr", lpszUrl, "ptr", lpszComplianceToken, "ptr", lpfFound, "ptr", hWnd, lpvReservedMarshal, lpvReserved, "int")
+        result := DllCall("WININET.dll\HttpCheckDavComplianceW", "ptr", lpszUrl, "ptr", lpszComplianceToken, lpfFoundMarshal, lpfFound, "ptr", hWnd, lpvReservedMarshal, lpvReserved, "int")
         return result
     }
 
@@ -12504,8 +12509,9 @@ class WinInet {
         pwszUrl := pwszUrl is String ? StrPtr(pwszUrl) : pwszUrl
 
         hAppCacheMarshal := hAppCache is VarRef ? "ptr" : "ptr"
+        ppwszFallbackUrlMarshal := ppwszFallbackUrl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WININET.dll\AppCacheGetFallbackUrl", hAppCacheMarshal, hAppCache, "ptr", pwszUrl, "ptr", ppwszFallbackUrl, "uint")
+        result := DllCall("WININET.dll\AppCacheGetFallbackUrl", hAppCacheMarshal, hAppCache, "ptr", pwszUrl, ppwszFallbackUrlMarshal, ppwszFallbackUrl, "uint")
         return result
     }
 
@@ -12517,8 +12523,9 @@ class WinInet {
      */
     static AppCacheGetManifestUrl(hAppCache, ppwszManifestUrl) {
         hAppCacheMarshal := hAppCache is VarRef ? "ptr" : "ptr"
+        ppwszManifestUrlMarshal := ppwszManifestUrl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WININET.dll\AppCacheGetManifestUrl", hAppCacheMarshal, hAppCache, "ptr", ppwszManifestUrl, "uint")
+        result := DllCall("WININET.dll\AppCacheGetManifestUrl", hAppCacheMarshal, hAppCache, ppwszManifestUrlMarshal, ppwszManifestUrl, "uint")
         return result
     }
 
@@ -12838,7 +12845,10 @@ class WinInet {
      * @returns {Integer} 
      */
     static UrlCacheCheckEntriesExist(rgpwszUrls, cEntries, rgfExist) {
-        result := DllCall("WININET.dll\UrlCacheCheckEntriesExist", "ptr", rgpwszUrls, "uint", cEntries, "ptr", rgfExist, "uint")
+        rgpwszUrlsMarshal := rgpwszUrls is VarRef ? "ptr*" : "ptr"
+        rgfExistMarshal := rgfExist is VarRef ? "int*" : "ptr"
+
+        result := DllCall("WININET.dll\UrlCacheCheckEntriesExist", rgpwszUrlsMarshal, rgpwszUrls, "uint", cEntries, rgfExistMarshal, rgfExist, "uint")
         return result
     }
 
@@ -13265,7 +13275,9 @@ class WinInet {
         pcszUrl := pcszUrl is String ? StrPtr(pcszUrl) : pcszUrl
         pcwszBaseUrl := pcwszBaseUrl is String ? StrPtr(pcwszBaseUrl) : pcwszBaseUrl
 
-        result := DllCall("WININET.dll\InternetConvertUrlFromWireToWideChar", "ptr", pcszUrl, "uint", cchUrl, "ptr", pcwszBaseUrl, "uint", dwCodePageHost, "uint", dwCodePagePath, "int", fEncodePathExtra, "uint", dwCodePageExtra, "ptr", ppwszConvertedUrl, "uint")
+        ppwszConvertedUrlMarshal := ppwszConvertedUrl is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WININET.dll\InternetConvertUrlFromWireToWideChar", "ptr", pcszUrl, "uint", cchUrl, "ptr", pcwszBaseUrl, "uint", dwCodePageHost, "uint", dwCodePagePath, "int", fEncodePathExtra, "uint", dwCodePageExtra, ppwszConvertedUrlMarshal, ppwszConvertedUrl, "uint")
         return result
     }
 

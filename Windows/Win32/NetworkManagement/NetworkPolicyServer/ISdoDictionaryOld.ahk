@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -34,66 +35,62 @@ class ISdoDictionaryOld extends IDispatch{
     /**
      * 
      * @param {Pointer<VARIANT>} Id 
-     * @param {Pointer<VARIANT>} pValues 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdodictionaryold-enumattributes
      */
-    EnumAttributes(Id, pValues) {
+    EnumAttributes(Id) {
+        pValues := VARIANT()
         result := ComCall(7, this, "ptr", Id, "ptr", pValues, "HRESULT")
-        return result
+        return pValues
     }
 
     /**
      * 
      * @param {Integer} Id 
      * @param {Pointer<VARIANT>} pInfoIDs 
-     * @param {Pointer<VARIANT>} pInfoValues 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdodictionaryold-getattributeinfo
      */
-    GetAttributeInfo(Id, pInfoIDs, pInfoValues) {
+    GetAttributeInfo(Id, pInfoIDs) {
+        pInfoValues := VARIANT()
         result := ComCall(8, this, "uint", Id, "ptr", pInfoIDs, "ptr", pInfoValues, "HRESULT")
-        return result
+        return pInfoValues
     }
 
     /**
      * 
      * @param {Integer} Id 
      * @param {Pointer<VARIANT>} pValueIds 
-     * @param {Pointer<VARIANT>} pValuesDesc 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdodictionaryold-enumattributevalues
      */
-    EnumAttributeValues(Id, pValueIds, pValuesDesc) {
+    EnumAttributeValues(Id, pValueIds) {
+        pValuesDesc := VARIANT()
         result := ComCall(9, this, "uint", Id, "ptr", pValueIds, "ptr", pValuesDesc, "HRESULT")
-        return result
+        return pValuesDesc
     }
 
     /**
      * 
      * @param {Integer} Id 
-     * @param {Pointer<IDispatch>} ppAttributeObject 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdodictionaryold-createattribute
      */
-    CreateAttribute(Id, ppAttributeObject) {
-        result := ComCall(10, this, "uint", Id, "ptr*", ppAttributeObject, "HRESULT")
-        return result
+    CreateAttribute(Id) {
+        result := ComCall(10, this, "uint", Id, "ptr*", &ppAttributeObject := 0, "HRESULT")
+        return IDispatch(ppAttributeObject)
     }
 
     /**
      * 
      * @param {BSTR} bstrAttributeName 
-     * @param {Pointer<Integer>} pId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdodictionaryold-getattributeid
      */
-    GetAttributeID(bstrAttributeName, pId) {
+    GetAttributeID(bstrAttributeName) {
         bstrAttributeName := bstrAttributeName is String ? BSTR.Alloc(bstrAttributeName).Value : bstrAttributeName
 
-        pIdMarshal := pId is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, "ptr", bstrAttributeName, pIdMarshal, pId, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", bstrAttributeName, "uint*", &pId := 0, "HRESULT")
+        return pId
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRDPSRAPIAttendee.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -38,38 +39,31 @@ class IRDPSRAPIAttendeeDisconnectInfo extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IRDPSRAPIAttendee>} retval 
-     * @returns {HRESULT} 
+     * @returns {IRDPSRAPIAttendee} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiattendeedisconnectinfo-get_attendee
      */
-    get_Attendee(retval) {
-        result := ComCall(7, this, "ptr*", retval, "HRESULT")
-        return result
+    get_Attendee() {
+        result := ComCall(7, this, "ptr*", &retval := 0, "HRESULT")
+        return IRDPSRAPIAttendee(retval)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pReason 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiattendeedisconnectinfo-get_reason
      */
-    get_Reason(pReason) {
-        pReasonMarshal := pReason is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pReasonMarshal, pReason, "HRESULT")
-        return result
+    get_Reason() {
+        result := ComCall(8, this, "int*", &pReason := 0, "HRESULT")
+        return pReason
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiattendeedisconnectinfo-get_code
      */
-    get_Code(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_Code() {
+        result := ComCall(9, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 }

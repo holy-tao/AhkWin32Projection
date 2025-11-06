@@ -43,15 +43,14 @@ class IMFNetResourceFilter extends IUnknown{
     /**
      * 
      * @param {PWSTR} pszUrl 
-     * @param {Pointer<VARIANT_BOOL>} pvbCancel 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfnetresourcefilter-onredirect
      */
-    OnRedirect(pszUrl, pvbCancel) {
+    OnRedirect(pszUrl) {
         pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
 
-        result := ComCall(3, this, "ptr", pszUrl, "ptr", pvbCancel, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pszUrl, "short*", &pvbCancel := 0, "HRESULT")
+        return pvbCancel
     }
 
     /**

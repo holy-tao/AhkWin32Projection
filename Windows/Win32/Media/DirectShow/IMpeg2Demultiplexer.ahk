@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IPin.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -34,15 +35,14 @@ class IMpeg2Demultiplexer extends IUnknown{
      * 
      * @param {Pointer<AM_MEDIA_TYPE>} pMediaType 
      * @param {PWSTR} pszPinName 
-     * @param {Pointer<IPin>} ppIPin 
-     * @returns {HRESULT} 
+     * @returns {IPin} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-impeg2demultiplexer-createoutputpin
      */
-    CreateOutputPin(pMediaType, pszPinName, ppIPin) {
+    CreateOutputPin(pMediaType, pszPinName) {
         pszPinName := pszPinName is String ? StrPtr(pszPinName) : pszPinName
 
-        result := ComCall(3, this, "ptr", pMediaType, "ptr", pszPinName, "ptr*", ppIPin, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pMediaType, "ptr", pszPinName, "ptr*", &ppIPin := 0, "HRESULT")
+        return IPin(ppIPin)
     }
 
     /**

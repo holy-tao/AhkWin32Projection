@@ -42,47 +42,45 @@ class IWSMan extends IDispatch{
      * @param {BSTR} connection 
      * @param {Integer} flags 
      * @param {IDispatch} connectionOptions 
-     * @param {Pointer<IDispatch>} session 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsman-createsession
      */
-    CreateSession(connection, flags, connectionOptions, session) {
+    CreateSession(connection, flags, connectionOptions) {
         connection := connection is String ? BSTR.Alloc(connection).Value : connection
 
-        result := ComCall(7, this, "ptr", connection, "int", flags, "ptr", connectionOptions, "ptr*", session, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", connection, "int", flags, "ptr", connectionOptions, "ptr*", &session := 0, "HRESULT")
+        return IDispatch(session)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} connectionOptions 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsman-createconnectionoptions
      */
-    CreateConnectionOptions(connectionOptions) {
-        result := ComCall(8, this, "ptr*", connectionOptions, "HRESULT")
-        return result
+    CreateConnectionOptions() {
+        result := ComCall(8, this, "ptr*", &connectionOptions := 0, "HRESULT")
+        return IDispatch(connectionOptions)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} value 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsman-get_commandline
      */
-    get_CommandLine(value) {
+    get_CommandLine() {
+        value := BSTR()
         result := ComCall(9, this, "ptr", value, "HRESULT")
-        return result
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} value 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsman-get_error
      */
-    get_Error(value) {
+    get_Error() {
+        value := BSTR()
         result := ComCall(10, this, "ptr", value, "HRESULT")
-        return result
+        return value
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IInkRectangle.ahk
+#Include .\InkRecoGuide.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,13 +34,12 @@ class IInkRecognizerGuide extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IInkRectangle>} Rectangle 
-     * @returns {HRESULT} 
+     * @returns {IInkRectangle} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizerguide-get_writingbox
      */
-    get_WritingBox(Rectangle) {
-        result := ComCall(7, this, "ptr*", Rectangle, "HRESULT")
-        return result
+    get_WritingBox() {
+        result := ComCall(7, this, "ptr*", &Rectangle := 0, "HRESULT")
+        return IInkRectangle(Rectangle)
     }
 
     /**
@@ -54,13 +55,12 @@ class IInkRecognizerGuide extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IInkRectangle>} Rectangle 
-     * @returns {HRESULT} 
+     * @returns {IInkRectangle} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizerguide-get_drawnbox
      */
-    get_DrawnBox(Rectangle) {
-        result := ComCall(9, this, "ptr*", Rectangle, "HRESULT")
-        return result
+    get_DrawnBox() {
+        result := ComCall(9, this, "ptr*", &Rectangle := 0, "HRESULT")
+        return IInkRectangle(Rectangle)
     }
 
     /**
@@ -76,15 +76,12 @@ class IInkRecognizerGuide extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} Units 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizerguide-get_rows
      */
-    get_Rows(Units) {
-        UnitsMarshal := Units is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, UnitsMarshal, Units, "HRESULT")
-        return result
+    get_Rows() {
+        result := ComCall(11, this, "int*", &Units := 0, "HRESULT")
+        return Units
     }
 
     /**
@@ -100,15 +97,12 @@ class IInkRecognizerGuide extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} Units 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizerguide-get_columns
      */
-    get_Columns(Units) {
-        UnitsMarshal := Units is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, UnitsMarshal, Units, "HRESULT")
-        return result
+    get_Columns() {
+        result := ComCall(13, this, "int*", &Units := 0, "HRESULT")
+        return Units
     }
 
     /**
@@ -124,15 +118,12 @@ class IInkRecognizerGuide extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} Units 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizerguide-get_midline
      */
-    get_Midline(Units) {
-        UnitsMarshal := Units is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, UnitsMarshal, Units, "HRESULT")
-        return result
+    get_Midline() {
+        result := ComCall(15, this, "int*", &Units := 0, "HRESULT")
+        return Units
     }
 
     /**
@@ -148,13 +139,13 @@ class IInkRecognizerGuide extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<InkRecoGuide>} pRecoGuide 
-     * @returns {HRESULT} 
+     * @returns {InkRecoGuide} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizerguide-get_guidedata
      */
-    get_GuideData(pRecoGuide) {
+    get_GuideData() {
+        pRecoGuide := InkRecoGuide()
         result := ComCall(17, this, "ptr", pRecoGuide, "HRESULT")
-        return result
+        return pRecoGuide
     }
 
     /**

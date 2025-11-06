@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -39,13 +40,13 @@ class IMultipleViewProvider extends IUnknown{
     /**
      * 
      * @param {Integer} viewId 
-     * @param {Pointer<BSTR>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-imultipleviewprovider-getviewname
      */
-    GetViewName(viewId, pRetVal) {
+    GetViewName(viewId) {
+        pRetVal := BSTR()
         result := ComCall(3, this, "int", viewId, "ptr", pRetVal, "HRESULT")
-        return result
+        return pRetVal
     }
 
     /**
@@ -61,27 +62,21 @@ class IMultipleViewProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-imultipleviewprovider-get_currentview
      */
-    get_CurrentView(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    get_CurrentView() {
+        result := ComCall(5, this, "int*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-imultipleviewprovider-getsupportedviews
      */
-    GetSupportedViews(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    GetSupportedViews() {
+        result := ComCall(6, this, "ptr*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 }

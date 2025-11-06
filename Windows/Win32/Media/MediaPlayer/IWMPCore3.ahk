@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IWMPPlaylist.ahk
+#Include .\IWMPMedia.ahk
 #Include .\IWMPCore2.ahk
 
 /**
@@ -35,29 +37,27 @@ class IWMPCore3 extends IWMPCore2{
      * 
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrURL 
-     * @param {Pointer<IWMPPlaylist>} ppPlaylist 
-     * @returns {HRESULT} 
+     * @returns {IWMPPlaylist} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcore3-newplaylist
      */
-    newPlaylist(bstrName, bstrURL, ppPlaylist) {
+    newPlaylist(bstrName, bstrURL) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
         bstrURL := bstrURL is String ? BSTR.Alloc(bstrURL).Value : bstrURL
 
-        result := ComCall(29, this, "ptr", bstrName, "ptr", bstrURL, "ptr*", ppPlaylist, "HRESULT")
-        return result
+        result := ComCall(29, this, "ptr", bstrName, "ptr", bstrURL, "ptr*", &ppPlaylist := 0, "HRESULT")
+        return IWMPPlaylist(ppPlaylist)
     }
 
     /**
      * 
      * @param {BSTR} bstrURL 
-     * @param {Pointer<IWMPMedia>} ppMedia 
-     * @returns {HRESULT} 
+     * @returns {IWMPMedia} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcore3-newmedia
      */
-    newMedia(bstrURL, ppMedia) {
+    newMedia(bstrURL) {
         bstrURL := bstrURL is String ? BSTR.Alloc(bstrURL).Value : bstrURL
 
-        result := ComCall(30, this, "ptr", bstrURL, "ptr*", ppMedia, "HRESULT")
-        return result
+        result := ComCall(30, this, "ptr", bstrURL, "ptr*", &ppMedia := 0, "HRESULT")
+        return IWMPMedia(ppMedia)
     }
 }

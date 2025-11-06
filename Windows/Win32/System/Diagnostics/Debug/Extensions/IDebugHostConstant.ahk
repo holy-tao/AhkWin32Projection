@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Variant\VARIANT.ahk
 #Include .\IDebugHostSymbol.ahk
 
 /**
@@ -30,11 +31,11 @@ class IDebugHostConstant extends IDebugHostSymbol{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    GetValue(value) {
+    GetValue() {
+        value := VARIANT()
         result := ComCall(10, this, "ptr", value, "HRESULT")
-        return result
+        return value
     }
 }

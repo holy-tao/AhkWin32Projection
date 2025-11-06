@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWMDMMetaData.ahk
+#Include .\IWMDMStorage.ahk
 #Include .\IWMDMStorage3.ahk
 
 /**
@@ -77,50 +79,37 @@ class IWMDMStorage4 extends IWMDMStorage3{
      * 
      * @param {Integer} cProperties 
      * @param {Pointer<PWSTR>} ppwszPropNames 
-     * @param {Pointer<IWMDMMetaData>} ppMetadata 
-     * @returns {HRESULT} 
+     * @returns {IWMDMMetaData} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorage4-getspecifiedmetadata
      */
-    GetSpecifiedMetadata(cProperties, ppwszPropNames, ppMetadata) {
-        result := ComCall(22, this, "uint", cProperties, "ptr", ppwszPropNames, "ptr*", ppMetadata, "HRESULT")
-        return result
+    GetSpecifiedMetadata(cProperties, ppwszPropNames) {
+        ppwszPropNamesMarshal := ppwszPropNames is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(22, this, "uint", cProperties, ppwszPropNamesMarshal, ppwszPropNames, "ptr*", &ppMetadata := 0, "HRESULT")
+        return IWMDMMetaData(ppMetadata)
     }
 
     /**
      * 
      * @param {Integer} findScope 
      * @param {PWSTR} pwszUniqueID 
-     * @param {Pointer<IWMDMStorage>} ppStorage 
-     * @returns {HRESULT} 
+     * @returns {IWMDMStorage} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorage4-findstorage
      */
-    FindStorage(findScope, pwszUniqueID, ppStorage) {
+    FindStorage(findScope, pwszUniqueID) {
         pwszUniqueID := pwszUniqueID is String ? StrPtr(pwszUniqueID) : pwszUniqueID
 
-        result := ComCall(23, this, "int", findScope, "ptr", pwszUniqueID, "ptr*", ppStorage, "HRESULT")
-        return result
+        result := ComCall(23, this, "int", findScope, "ptr", pwszUniqueID, "ptr*", &ppStorage := 0, "HRESULT")
+        return IWMDMStorage(ppStorage)
     }
 
     /**
      * Retrieves a handle to the specified window's parent or owner.
-     * @param {Pointer<IWMDMStorage>} ppStorage 
-     * @returns {HRESULT} Type: <b>HWND</b>
-     * 
-     * If the window is a child window, the return value is a handle to the parent window. If the window is a top-level window with the <b>WS_POPUP</b> style, the return value is a handle to the owner window. 
-     * 
-     * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * 
-     * This function typically fails for one of the following reasons:
-     * 
-     * 
-     * <ul>
-     * <li>The window is a top-level window that is unowned or does not have the <b>WS_POPUP</b> style. </li>
-     * <li>The owner window has <b>WS_POPUP</b> style.</li>
-     * </ul>
+     * @returns {IWMDMStorage} 
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getparent
      */
-    GetParent(ppStorage) {
-        result := ComCall(24, this, "ptr*", ppStorage, "HRESULT")
-        return result
+    GetParent() {
+        result := ComCall(24, this, "ptr*", &ppStorage := 0, "HRESULT")
+        return IWMDMStorage(ppStorage)
     }
 }

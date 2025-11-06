@@ -32,26 +32,22 @@ class IAudioSessionControl extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessioncontrol-getstate
      */
-    GetState(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    GetState() {
+        result := ComCall(3, this, "int*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessioncontrol-getdisplayname
      */
-    GetDisplayName(pRetVal) {
-        result := ComCall(4, this, "ptr", pRetVal, "HRESULT")
-        return result
+    GetDisplayName() {
+        result := ComCall(4, this, "ptr*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
@@ -70,13 +66,12 @@ class IAudioSessionControl extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessioncontrol-geticonpath
      */
-    GetIconPath(pRetVal) {
-        result := ComCall(6, this, "ptr", pRetVal, "HRESULT")
-        return result
+    GetIconPath() {
+        result := ComCall(6, this, "ptr*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
@@ -95,13 +90,13 @@ class IAudioSessionControl extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessioncontrol-getgroupingparam
      */
-    GetGroupingParam(pRetVal) {
+    GetGroupingParam() {
+        pRetVal := Guid()
         result := ComCall(8, this, "ptr", pRetVal, "HRESULT")
-        return result
+        return pRetVal
     }
 
     /**

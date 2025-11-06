@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IPrintSchemaParameterDefinition.ahk
 #Include .\IPrintSchemaCapabilities.ahk
 
 /**
@@ -33,14 +34,13 @@ class IPrintSchemaCapabilities2 extends IPrintSchemaCapabilities{
      * 
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrNamespaceUri 
-     * @param {Pointer<IPrintSchemaParameterDefinition>} ppParameterDefinition 
-     * @returns {HRESULT} 
+     * @returns {IPrintSchemaParameterDefinition} 
      */
-    GetParameterDefinition(bstrName, bstrNamespaceUri, ppParameterDefinition) {
+    GetParameterDefinition(bstrName, bstrNamespaceUri) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
         bstrNamespaceUri := bstrNamespaceUri is String ? BSTR.Alloc(bstrNamespaceUri).Value : bstrNamespaceUri
 
-        result := ComCall(17, this, "ptr", bstrName, "ptr", bstrNamespaceUri, "ptr*", ppParameterDefinition, "HRESULT")
-        return result
+        result := ComCall(17, this, "ptr", bstrName, "ptr", bstrNamespaceUri, "ptr*", &ppParameterDefinition := 0, "HRESULT")
+        return IPrintSchemaParameterDefinition(ppParameterDefinition)
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\StructuredStorage\IPropertyBag2.ahk
 #Include .\IWICBitmapFrameDecode.ahk
 
 /**
@@ -54,13 +55,12 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
 
     /**
      * 
-     * @param {Pointer<IPropertyBag2>} ppCurrentParameterSet 
-     * @returns {HRESULT} 
+     * @returns {IPropertyBag2} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-getcurrentparameterset
      */
-    GetCurrentParameterSet(ppCurrentParameterSet) {
-        result := ComCall(13, this, "ptr*", ppCurrentParameterSet, "HRESULT")
-        return result
+    GetCurrentParameterSet() {
+        result := ComCall(13, this, "ptr*", &ppCurrentParameterSet := 0, "HRESULT")
+        return IPropertyBag2(ppCurrentParameterSet)
     }
 
     /**
@@ -76,15 +76,12 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
 
     /**
      * 
-     * @param {Pointer<Float>} pEV 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-getexposurecompensation
      */
-    GetExposureCompensation(pEV) {
-        pEVMarshal := pEV is VarRef ? "double*" : "ptr"
-
-        result := ComCall(15, this, pEVMarshal, pEV, "HRESULT")
-        return result
+    GetExposureCompensation() {
+        result := ComCall(15, this, "double*", &pEV := 0, "HRESULT")
+        return pEV
     }
 
     /**
@@ -130,15 +127,12 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
 
     /**
      * 
-     * @param {Pointer<Integer>} pWhitePoint 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-getnamedwhitepoint
      */
-    GetNamedWhitePoint(pWhitePoint) {
-        pWhitePointMarshal := pWhitePoint is VarRef ? "int*" : "ptr"
-
-        result := ComCall(19, this, pWhitePointMarshal, pWhitePoint, "HRESULT")
-        return result
+    GetNamedWhitePoint() {
+        result := ComCall(19, this, "int*", &pWhitePoint := 0, "HRESULT")
+        return pWhitePoint
     }
 
     /**
@@ -154,15 +148,12 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
 
     /**
      * 
-     * @param {Pointer<Integer>} pWhitePointKelvin 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-getwhitepointkelvin
      */
-    GetWhitePointKelvin(pWhitePointKelvin) {
-        pWhitePointKelvinMarshal := pWhitePointKelvin is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(21, this, pWhitePointKelvinMarshal, pWhitePointKelvin, "HRESULT")
-        return result
+    GetWhitePointKelvin() {
+        result := ComCall(21, this, "uint*", &pWhitePointKelvin := 0, "HRESULT")
+        return pWhitePointKelvin
     }
 
     /**
@@ -195,15 +186,12 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
 
     /**
      * 
-     * @param {Pointer<Float>} pContrast 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-getcontrast
      */
-    GetContrast(pContrast) {
-        pContrastMarshal := pContrast is VarRef ? "double*" : "ptr"
-
-        result := ComCall(24, this, pContrastMarshal, pContrast, "HRESULT")
-        return result
+    GetContrast() {
+        result := ComCall(24, this, "double*", &pContrast := 0, "HRESULT")
+        return pContrast
     }
 
     /**
@@ -219,15 +207,12 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
 
     /**
      * 
-     * @param {Pointer<Float>} pGamma 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-getgamma
      */
-    GetGamma(pGamma) {
-        pGammaMarshal := pGamma is VarRef ? "double*" : "ptr"
-
-        result := ComCall(26, this, pGammaMarshal, pGamma, "HRESULT")
-        return result
+    GetGamma() {
+        result := ComCall(26, this, "double*", &pGamma := 0, "HRESULT")
+        return pGamma
     }
 
     /**
@@ -243,15 +228,12 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
 
     /**
      * 
-     * @param {Pointer<Float>} pSharpness 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-getsharpness
      */
-    GetSharpness(pSharpness) {
-        pSharpnessMarshal := pSharpness is VarRef ? "double*" : "ptr"
-
-        result := ComCall(28, this, pSharpnessMarshal, pSharpness, "HRESULT")
-        return result
+    GetSharpness() {
+        result := ComCall(28, this, "double*", &pSharpness := 0, "HRESULT")
+        return pSharpness
     }
 
     /**
@@ -267,15 +249,12 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
 
     /**
      * 
-     * @param {Pointer<Float>} pSaturation 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-getsaturation
      */
-    GetSaturation(pSaturation) {
-        pSaturationMarshal := pSaturation is VarRef ? "double*" : "ptr"
-
-        result := ComCall(30, this, pSaturationMarshal, pSaturation, "HRESULT")
-        return result
+    GetSaturation() {
+        result := ComCall(30, this, "double*", &pSaturation := 0, "HRESULT")
+        return pSaturation
     }
 
     /**
@@ -291,15 +270,12 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
 
     /**
      * 
-     * @param {Pointer<Float>} pTint 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-gettint
      */
-    GetTint(pTint) {
-        pTintMarshal := pTint is VarRef ? "double*" : "ptr"
-
-        result := ComCall(32, this, pTintMarshal, pTint, "HRESULT")
-        return result
+    GetTint() {
+        result := ComCall(32, this, "double*", &pTint := 0, "HRESULT")
+        return pTint
     }
 
     /**
@@ -315,15 +291,12 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
 
     /**
      * 
-     * @param {Pointer<Float>} pNoiseReduction 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-getnoisereduction
      */
-    GetNoiseReduction(pNoiseReduction) {
-        pNoiseReductionMarshal := pNoiseReduction is VarRef ? "double*" : "ptr"
-
-        result := ComCall(34, this, pNoiseReductionMarshal, pNoiseReduction, "HRESULT")
-        return result
+    GetNoiseReduction() {
+        result := ComCall(34, this, "double*", &pNoiseReduction := 0, "HRESULT")
+        return pNoiseReduction
     }
 
     /**
@@ -377,15 +350,12 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
 
     /**
      * 
-     * @param {Pointer<Float>} pRotation 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-getrotation
      */
-    GetRotation(pRotation) {
-        pRotationMarshal := pRotation is VarRef ? "double*" : "ptr"
-
-        result := ComCall(39, this, pRotationMarshal, pRotation, "HRESULT")
-        return result
+    GetRotation() {
+        result := ComCall(39, this, "double*", &pRotation := 0, "HRESULT")
+        return pRotation
     }
 
     /**
@@ -401,15 +371,12 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
 
     /**
      * 
-     * @param {Pointer<Integer>} pRenderMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-getrendermode
      */
-    GetRenderMode(pRenderMode) {
-        pRenderModeMarshal := pRenderMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(41, this, pRenderModeMarshal, pRenderMode, "HRESULT")
-        return result
+    GetRenderMode() {
+        result := ComCall(41, this, "int*", &pRenderMode := 0, "HRESULT")
+        return pRenderMode
     }
 
     /**

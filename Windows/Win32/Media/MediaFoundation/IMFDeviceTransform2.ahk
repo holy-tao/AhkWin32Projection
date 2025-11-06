@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFAttributes.ahk
 #Include .\IMFDeviceTransform.ahk
 
 /**
@@ -30,11 +31,10 @@ class IMFDeviceTransform2 extends IMFDeviceTransform{
 
     /**
      * 
-     * @param {Pointer<IMFAttributes>} ppAttributes 
-     * @returns {HRESULT} 
+     * @returns {IMFAttributes} 
      */
-    GetTransformAttributes(ppAttributes) {
-        result := ComCall(23, this, "ptr*", ppAttributes, "HRESULT")
-        return result
+    GetTransformAttributes() {
+        result := ComCall(23, this, "ptr*", &ppAttributes := 0, "HRESULT")
+        return IMFAttributes(ppAttributes)
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFTimedTextTrack.ahk
+#Include .\IMFTimedTextTrackList.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -60,18 +62,15 @@ class IMFTimedText extends IUnknown{
      * @param {PWSTR} language 
      * @param {Integer} kind 
      * @param {BOOL} isDefault 
-     * @param {Pointer<Integer>} trackId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtext-adddatasource
      */
-    AddDataSource(byteStream, label, language, kind, isDefault, trackId) {
+    AddDataSource(byteStream, label, language, kind, isDefault) {
         label := label is String ? StrPtr(label) : label
         language := language is String ? StrPtr(language) : language
 
-        trackIdMarshal := trackId is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, "ptr", byteStream, "ptr", label, "ptr", language, "int", kind, "int", isDefault, trackIdMarshal, trackId, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", byteStream, "ptr", label, "ptr", language, "int", kind, "int", isDefault, "uint*", &trackId := 0, "HRESULT")
+        return trackId
     }
 
     /**
@@ -81,19 +80,16 @@ class IMFTimedText extends IUnknown{
      * @param {PWSTR} language 
      * @param {Integer} kind 
      * @param {BOOL} isDefault 
-     * @param {Pointer<Integer>} trackId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtext-adddatasourcefromurl
      */
-    AddDataSourceFromUrl(url, label, language, kind, isDefault, trackId) {
+    AddDataSourceFromUrl(url, label, language, kind, isDefault) {
         url := url is String ? StrPtr(url) : url
         label := label is String ? StrPtr(label) : label
         language := language is String ? StrPtr(language) : language
 
-        trackIdMarshal := trackId is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, "ptr", url, "ptr", label, "ptr", language, "int", kind, "int", isDefault, trackIdMarshal, trackId, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", url, "ptr", label, "ptr", language, "int", kind, "int", isDefault, "uint*", &trackId := 0, "HRESULT")
+        return trackId
     }
 
     /**
@@ -101,15 +97,14 @@ class IMFTimedText extends IUnknown{
      * @param {PWSTR} label 
      * @param {PWSTR} language 
      * @param {Integer} kind 
-     * @param {Pointer<IMFTimedTextTrack>} track 
-     * @returns {HRESULT} 
+     * @returns {IMFTimedTextTrack} 
      */
-    AddTrack(label, language, kind, track) {
+    AddTrack(label, language, kind) {
         label := label is String ? StrPtr(label) : label
         language := language is String ? StrPtr(language) : language
 
-        result := ComCall(7, this, "ptr", label, "ptr", language, "int", kind, "ptr*", track, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", label, "ptr", language, "int", kind, "ptr*", &track := 0, "HRESULT")
+        return IMFTimedTextTrack(track)
     }
 
     /**
@@ -125,15 +120,12 @@ class IMFTimedText extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} offset 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtext-getcuetimeoffset
      */
-    GetCueTimeOffset(offset) {
-        offsetMarshal := offset is VarRef ? "double*" : "ptr"
-
-        result := ComCall(9, this, offsetMarshal, offset, "HRESULT")
-        return result
+    GetCueTimeOffset() {
+        result := ComCall(9, this, "double*", &offset := 0, "HRESULT")
+        return offset
     }
 
     /**
@@ -149,46 +141,42 @@ class IMFTimedText extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IMFTimedTextTrackList>} tracks 
-     * @returns {HRESULT} 
+     * @returns {IMFTimedTextTrackList} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtext-gettracks
      */
-    GetTracks(tracks) {
-        result := ComCall(11, this, "ptr*", tracks, "HRESULT")
-        return result
+    GetTracks() {
+        result := ComCall(11, this, "ptr*", &tracks := 0, "HRESULT")
+        return IMFTimedTextTrackList(tracks)
     }
 
     /**
      * 
-     * @param {Pointer<IMFTimedTextTrackList>} activeTracks 
-     * @returns {HRESULT} 
+     * @returns {IMFTimedTextTrackList} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtext-getactivetracks
      */
-    GetActiveTracks(activeTracks) {
-        result := ComCall(12, this, "ptr*", activeTracks, "HRESULT")
-        return result
+    GetActiveTracks() {
+        result := ComCall(12, this, "ptr*", &activeTracks := 0, "HRESULT")
+        return IMFTimedTextTrackList(activeTracks)
     }
 
     /**
      * 
-     * @param {Pointer<IMFTimedTextTrackList>} textTracks 
-     * @returns {HRESULT} 
+     * @returns {IMFTimedTextTrackList} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtext-gettexttracks
      */
-    GetTextTracks(textTracks) {
-        result := ComCall(13, this, "ptr*", textTracks, "HRESULT")
-        return result
+    GetTextTracks() {
+        result := ComCall(13, this, "ptr*", &textTracks := 0, "HRESULT")
+        return IMFTimedTextTrackList(textTracks)
     }
 
     /**
      * 
-     * @param {Pointer<IMFTimedTextTrackList>} metadataTracks 
-     * @returns {HRESULT} 
+     * @returns {IMFTimedTextTrackList} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtext-getmetadatatracks
      */
-    GetMetadataTracks(metadataTracks) {
-        result := ComCall(14, this, "ptr*", metadataTracks, "HRESULT")
-        return result
+    GetMetadataTracks() {
+        result := ComCall(14, this, "ptr*", &metadataTracks := 0, "HRESULT")
+        return IMFTimedTextTrackList(metadataTracks)
     }
 
     /**

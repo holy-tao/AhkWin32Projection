@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFTimedTextBinary.ahk
+#Include .\IMFTimedTextRegion.ahk
+#Include .\IMFTimedTextStyle.ahk
+#Include .\IMFTimedTextFormattedText.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -42,13 +46,12 @@ class IMFTimedTextCue extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} originalId 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextcue-getoriginalid
      */
-    GetOriginalId(originalId) {
-        result := ComCall(4, this, "ptr", originalId, "HRESULT")
-        return result
+    GetOriginalId() {
+        result := ComCall(4, this, "ptr*", &originalId := 0, "HRESULT")
+        return originalId
     }
 
     /**
@@ -93,35 +96,32 @@ class IMFTimedTextCue extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IMFTimedTextBinary>} data 
-     * @returns {HRESULT} 
+     * @returns {IMFTimedTextBinary} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextcue-getdata
      */
-    GetData(data) {
-        result := ComCall(9, this, "ptr*", data, "HRESULT")
-        return result
+    GetData() {
+        result := ComCall(9, this, "ptr*", &data := 0, "HRESULT")
+        return IMFTimedTextBinary(data)
     }
 
     /**
      * 
-     * @param {Pointer<IMFTimedTextRegion>} region 
-     * @returns {HRESULT} 
+     * @returns {IMFTimedTextRegion} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextcue-getregion
      */
-    GetRegion(region) {
-        result := ComCall(10, this, "ptr*", region, "HRESULT")
-        return result
+    GetRegion() {
+        result := ComCall(10, this, "ptr*", &region := 0, "HRESULT")
+        return IMFTimedTextRegion(region)
     }
 
     /**
      * 
-     * @param {Pointer<IMFTimedTextStyle>} style 
-     * @returns {HRESULT} 
+     * @returns {IMFTimedTextStyle} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextcue-getstyle
      */
-    GetStyle(style) {
-        result := ComCall(11, this, "ptr*", style, "HRESULT")
-        return result
+    GetStyle() {
+        result := ComCall(11, this, "ptr*", &style := 0, "HRESULT")
+        return IMFTimedTextStyle(style)
     }
 
     /**
@@ -137,12 +137,11 @@ class IMFTimedTextCue extends IUnknown{
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<IMFTimedTextFormattedText>} line 
-     * @returns {HRESULT} 
+     * @returns {IMFTimedTextFormattedText} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextcue-getline
      */
-    GetLine(index, line) {
-        result := ComCall(13, this, "uint", index, "ptr*", line, "HRESULT")
-        return result
+    GetLine(index) {
+        result := ComCall(13, this, "uint", index, "ptr*", &line := 0, "HRESULT")
+        return IMFTimedTextFormattedText(line)
     }
 }

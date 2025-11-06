@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFMediaSink.ahk
+#Include .\IMFMediaTypeHandler.ahk
 #Include .\IMFMediaEventGenerator.ahk
 
 /**
@@ -32,37 +34,32 @@ class IMFStreamSink extends IMFMediaEventGenerator{
 
     /**
      * 
-     * @param {Pointer<IMFMediaSink>} ppMediaSink 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaSink} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfstreamsink-getmediasink
      */
-    GetMediaSink(ppMediaSink) {
-        result := ComCall(7, this, "ptr*", ppMediaSink, "HRESULT")
-        return result
+    GetMediaSink() {
+        result := ComCall(7, this, "ptr*", &ppMediaSink := 0, "HRESULT")
+        return IMFMediaSink(ppMediaSink)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwIdentifier 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfstreamsink-getidentifier
      */
-    GetIdentifier(pdwIdentifier) {
-        pdwIdentifierMarshal := pdwIdentifier is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pdwIdentifierMarshal, pdwIdentifier, "HRESULT")
-        return result
+    GetIdentifier() {
+        result := ComCall(8, this, "uint*", &pdwIdentifier := 0, "HRESULT")
+        return pdwIdentifier
     }
 
     /**
      * 
-     * @param {Pointer<IMFMediaTypeHandler>} ppHandler 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaTypeHandler} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfstreamsink-getmediatypehandler
      */
-    GetMediaTypeHandler(ppHandler) {
-        result := ComCall(9, this, "ptr*", ppHandler, "HRESULT")
-        return result
+    GetMediaTypeHandler() {
+        result := ComCall(9, this, "ptr*", &ppHandler := 0, "HRESULT")
+        return IMFMediaTypeHandler(ppHandler)
     }
 
     /**

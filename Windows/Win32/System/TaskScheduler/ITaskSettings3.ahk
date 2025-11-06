@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMaintenanceSettings.ahk
 #Include .\ITaskSettings.ahk
 
 /**
@@ -36,7 +37,9 @@ class ITaskSettings3 extends ITaskSettings{
      * @returns {HRESULT} 
      */
     get_DisallowStartOnRemoteAppSession(pDisallowStart) {
-        result := ComCall(47, this, "ptr", pDisallowStart, "HRESULT")
+        pDisallowStartMarshal := pDisallowStart is VarRef ? "short*" : "ptr"
+
+        result := ComCall(47, this, pDisallowStartMarshal, pDisallowStart, "HRESULT")
         return result
     }
 
@@ -56,7 +59,9 @@ class ITaskSettings3 extends ITaskSettings{
      * @returns {HRESULT} 
      */
     get_UseUnifiedSchedulingEngine(pUseUnifiedEngine) {
-        result := ComCall(49, this, "ptr", pUseUnifiedEngine, "HRESULT")
+        pUseUnifiedEngineMarshal := pUseUnifiedEngine is VarRef ? "short*" : "ptr"
+
+        result := ComCall(49, this, pUseUnifiedEngineMarshal, pUseUnifiedEngine, "HRESULT")
         return result
     }
 
@@ -72,13 +77,12 @@ class ITaskSettings3 extends ITaskSettings{
 
     /**
      * 
-     * @param {Pointer<IMaintenanceSettings>} ppMaintenanceSettings 
-     * @returns {HRESULT} 
+     * @returns {IMaintenanceSettings} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings3-get_maintenancesettings
      */
-    get_MaintenanceSettings(ppMaintenanceSettings) {
-        result := ComCall(51, this, "ptr*", ppMaintenanceSettings, "HRESULT")
-        return result
+    get_MaintenanceSettings() {
+        result := ComCall(51, this, "ptr*", &ppMaintenanceSettings := 0, "HRESULT")
+        return IMaintenanceSettings(ppMaintenanceSettings)
     }
 
     /**
@@ -94,12 +98,11 @@ class ITaskSettings3 extends ITaskSettings{
 
     /**
      * 
-     * @param {Pointer<IMaintenanceSettings>} ppMaintenanceSettings 
-     * @returns {HRESULT} 
+     * @returns {IMaintenanceSettings} 
      */
-    CreateMaintenanceSettings(ppMaintenanceSettings) {
-        result := ComCall(53, this, "ptr*", ppMaintenanceSettings, "HRESULT")
-        return result
+    CreateMaintenanceSettings() {
+        result := ComCall(53, this, "ptr*", &ppMaintenanceSettings := 0, "HRESULT")
+        return IMaintenanceSettings(ppMaintenanceSettings)
     }
 
     /**
@@ -109,7 +112,9 @@ class ITaskSettings3 extends ITaskSettings{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings3-get_volatile
      */
     get_Volatile(pVolatile) {
-        result := ComCall(54, this, "ptr", pVolatile, "HRESULT")
+        pVolatileMarshal := pVolatile is VarRef ? "short*" : "ptr"
+
+        result := ComCall(54, this, pVolatileMarshal, pVolatile, "HRESULT")
         return result
     }
 

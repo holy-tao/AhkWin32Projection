@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWICBitmapDecoderInfo.ahk
+#Include .\IWICMetadataQueryReader.ahk
+#Include .\IWICBitmapSource.ahk
+#Include .\IWICBitmapFrameDecode.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -89,15 +93,12 @@ class IWICBitmapDecoder extends IUnknown{
     /**
      * 
      * @param {IStream} pIStream 
-     * @param {Pointer<Integer>} pdwCapability 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapdecoder-querycapability
      */
-    QueryCapability(pIStream, pdwCapability) {
-        pdwCapabilityMarshal := pdwCapability is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pIStream, pdwCapabilityMarshal, pdwCapability, "HRESULT")
-        return result
+    QueryCapability(pIStream) {
+        result := ComCall(3, this, "ptr", pIStream, "uint*", &pdwCapability := 0, "HRESULT")
+        return pdwCapability
     }
 
     /**
@@ -124,24 +125,23 @@ class IWICBitmapDecoder extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pguidContainerFormat 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapdecoder-getcontainerformat
      */
-    GetContainerFormat(pguidContainerFormat) {
+    GetContainerFormat() {
+        pguidContainerFormat := Guid()
         result := ComCall(5, this, "ptr", pguidContainerFormat, "HRESULT")
-        return result
+        return pguidContainerFormat
     }
 
     /**
      * 
-     * @param {Pointer<IWICBitmapDecoderInfo>} ppIDecoderInfo 
-     * @returns {HRESULT} 
+     * @returns {IWICBitmapDecoderInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapdecoder-getdecoderinfo
      */
-    GetDecoderInfo(ppIDecoderInfo) {
-        result := ComCall(6, this, "ptr*", ppIDecoderInfo, "HRESULT")
-        return result
+    GetDecoderInfo() {
+        result := ComCall(6, this, "ptr*", &ppIDecoderInfo := 0, "HRESULT")
+        return IWICBitmapDecoderInfo(ppIDecoderInfo)
     }
 
     /**
@@ -157,74 +157,64 @@ class IWICBitmapDecoder extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IWICMetadataQueryReader>} ppIMetadataQueryReader 
-     * @returns {HRESULT} 
+     * @returns {IWICMetadataQueryReader} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapdecoder-getmetadataqueryreader
      */
-    GetMetadataQueryReader(ppIMetadataQueryReader) {
-        result := ComCall(8, this, "ptr*", ppIMetadataQueryReader, "HRESULT")
-        return result
+    GetMetadataQueryReader() {
+        result := ComCall(8, this, "ptr*", &ppIMetadataQueryReader := 0, "HRESULT")
+        return IWICMetadataQueryReader(ppIMetadataQueryReader)
     }
 
     /**
      * 
-     * @param {Pointer<IWICBitmapSource>} ppIBitmapSource 
-     * @returns {HRESULT} 
+     * @returns {IWICBitmapSource} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapdecoder-getpreview
      */
-    GetPreview(ppIBitmapSource) {
-        result := ComCall(9, this, "ptr*", ppIBitmapSource, "HRESULT")
-        return result
+    GetPreview() {
+        result := ComCall(9, this, "ptr*", &ppIBitmapSource := 0, "HRESULT")
+        return IWICBitmapSource(ppIBitmapSource)
     }
 
     /**
      * 
      * @param {Integer} cCount 
      * @param {Pointer<IWICColorContext>} ppIColorContexts 
-     * @param {Pointer<Integer>} pcActualCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapdecoder-getcolorcontexts
      */
-    GetColorContexts(cCount, ppIColorContexts, pcActualCount) {
-        pcActualCountMarshal := pcActualCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, "uint", cCount, "ptr*", ppIColorContexts, pcActualCountMarshal, pcActualCount, "HRESULT")
-        return result
+    GetColorContexts(cCount, ppIColorContexts) {
+        result := ComCall(10, this, "uint", cCount, "ptr*", ppIColorContexts, "uint*", &pcActualCount := 0, "HRESULT")
+        return pcActualCount
     }
 
     /**
      * 
-     * @param {Pointer<IWICBitmapSource>} ppIThumbnail 
-     * @returns {HRESULT} 
+     * @returns {IWICBitmapSource} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapdecoder-getthumbnail
      */
-    GetThumbnail(ppIThumbnail) {
-        result := ComCall(11, this, "ptr*", ppIThumbnail, "HRESULT")
-        return result
+    GetThumbnail() {
+        result := ComCall(11, this, "ptr*", &ppIThumbnail := 0, "HRESULT")
+        return IWICBitmapSource(ppIThumbnail)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapdecoder-getframecount
      */
-    GetFrameCount(pCount) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    GetFrameCount() {
+        result := ComCall(12, this, "uint*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<IWICBitmapFrameDecode>} ppIBitmapFrame 
-     * @returns {HRESULT} 
+     * @returns {IWICBitmapFrameDecode} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapdecoder-getframe
      */
-    GetFrame(index, ppIBitmapFrame) {
-        result := ComCall(13, this, "uint", index, "ptr*", ppIBitmapFrame, "HRESULT")
-        return result
+    GetFrame(index) {
+        result := ComCall(13, this, "uint", index, "ptr*", &ppIBitmapFrame := 0, "HRESULT")
+        return IWICBitmapFrameDecode(ppIBitmapFrame)
     }
 }

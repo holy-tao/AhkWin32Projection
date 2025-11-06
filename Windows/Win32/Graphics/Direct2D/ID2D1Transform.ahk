@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\RECT.ahk
 #Include .\ID2D1TransformNode.ahk
 
 /**
@@ -38,14 +39,14 @@ class ID2D1Transform extends ID2D1TransformNode{
     /**
      * 
      * @param {Pointer<RECT>} outputRect 
-     * @param {Pointer<RECT>} inputRects 
      * @param {Integer} inputRectsCount 
-     * @returns {HRESULT} 
+     * @returns {RECT} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1transform-mapoutputrecttoinputrects
      */
-    MapOutputRectToInputRects(outputRect, inputRects, inputRectsCount) {
+    MapOutputRectToInputRects(outputRect, inputRectsCount) {
+        inputRects := RECT()
         result := ComCall(4, this, "ptr", outputRect, "ptr", inputRects, "uint", inputRectsCount, "HRESULT")
-        return result
+        return inputRects
     }
 
     /**
@@ -67,12 +68,12 @@ class ID2D1Transform extends ID2D1TransformNode{
      * 
      * @param {Integer} inputIndex 
      * @param {RECT} invalidInputRect 
-     * @param {Pointer<RECT>} invalidOutputRect 
-     * @returns {HRESULT} 
+     * @returns {RECT} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1transform-mapinvalidrect
      */
-    MapInvalidRect(inputIndex, invalidInputRect, invalidOutputRect) {
+    MapInvalidRect(inputIndex, invalidInputRect) {
+        invalidOutputRect := RECT()
         result := ComCall(6, this, "uint", inputIndex, "ptr", invalidInputRect, "ptr", invalidOutputRect, "HRESULT")
-        return result
+        return invalidOutputRect
     }
 }

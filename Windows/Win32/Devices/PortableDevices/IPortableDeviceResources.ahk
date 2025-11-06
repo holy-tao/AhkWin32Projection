@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IPortableDeviceKeyCollection.ahk
+#Include .\IPortableDeviceValues.ahk
+#Include ..\..\System\Com\IStream.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,30 +36,28 @@ class IPortableDeviceResources extends IUnknown{
     /**
      * 
      * @param {PWSTR} pszObjectID 
-     * @param {Pointer<IPortableDeviceKeyCollection>} ppKeys 
-     * @returns {HRESULT} 
+     * @returns {IPortableDeviceKeyCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceresources-getsupportedresources
      */
-    GetSupportedResources(pszObjectID, ppKeys) {
+    GetSupportedResources(pszObjectID) {
         pszObjectID := pszObjectID is String ? StrPtr(pszObjectID) : pszObjectID
 
-        result := ComCall(3, this, "ptr", pszObjectID, "ptr*", ppKeys, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pszObjectID, "ptr*", &ppKeys := 0, "HRESULT")
+        return IPortableDeviceKeyCollection(ppKeys)
     }
 
     /**
      * 
      * @param {PWSTR} pszObjectID 
      * @param {Pointer<PROPERTYKEY>} Key 
-     * @param {Pointer<IPortableDeviceValues>} ppResourceAttributes 
-     * @returns {HRESULT} 
+     * @returns {IPortableDeviceValues} 
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceresources-getresourceattributes
      */
-    GetResourceAttributes(pszObjectID, Key, ppResourceAttributes) {
+    GetResourceAttributes(pszObjectID, Key) {
         pszObjectID := pszObjectID is String ? StrPtr(pszObjectID) : pszObjectID
 
-        result := ComCall(4, this, "ptr", pszObjectID, "ptr", Key, "ptr*", ppResourceAttributes, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pszObjectID, "ptr", Key, "ptr*", &ppResourceAttributes := 0, "HRESULT")
+        return IPortableDeviceValues(ppResourceAttributes)
     }
 
     /**
@@ -65,17 +66,16 @@ class IPortableDeviceResources extends IUnknown{
      * @param {Pointer<PROPERTYKEY>} Key 
      * @param {Integer} dwMode 
      * @param {Pointer<Integer>} pdwOptimalBufferSize 
-     * @param {Pointer<IStream>} ppStream 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceresources-getstream
      */
-    GetStream(pszObjectID, Key, dwMode, pdwOptimalBufferSize, ppStream) {
+    GetStream(pszObjectID, Key, dwMode, pdwOptimalBufferSize) {
         pszObjectID := pszObjectID is String ? StrPtr(pszObjectID) : pszObjectID
 
         pdwOptimalBufferSizeMarshal := pdwOptimalBufferSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pszObjectID, "ptr", Key, "uint", dwMode, pdwOptimalBufferSizeMarshal, pdwOptimalBufferSize, "ptr*", ppStream, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", pszObjectID, "ptr", Key, "uint", dwMode, pdwOptimalBufferSizeMarshal, pdwOptimalBufferSize, "ptr*", &ppStream := 0, "HRESULT")
+        return IStream(ppStream)
     }
 
     /**
@@ -105,16 +105,16 @@ class IPortableDeviceResources extends IUnknown{
     /**
      * 
      * @param {IPortableDeviceValues} pResourceAttributes 
-     * @param {Pointer<IStream>} ppData 
      * @param {Pointer<Integer>} pdwOptimalWriteBufferSize 
      * @param {Pointer<PWSTR>} ppszCookie 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceresources-createresource
      */
-    CreateResource(pResourceAttributes, ppData, pdwOptimalWriteBufferSize, ppszCookie) {
+    CreateResource(pResourceAttributes, pdwOptimalWriteBufferSize, ppszCookie) {
         pdwOptimalWriteBufferSizeMarshal := pdwOptimalWriteBufferSize is VarRef ? "uint*" : "ptr"
+        ppszCookieMarshal := ppszCookie is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(8, this, "ptr", pResourceAttributes, "ptr*", ppData, pdwOptimalWriteBufferSizeMarshal, pdwOptimalWriteBufferSize, "ptr", ppszCookie, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", pResourceAttributes, "ptr*", &ppData := 0, pdwOptimalWriteBufferSizeMarshal, pdwOptimalWriteBufferSize, ppszCookieMarshal, ppszCookie, "HRESULT")
+        return IStream(ppData)
     }
 }

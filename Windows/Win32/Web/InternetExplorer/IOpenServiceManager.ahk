@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IOpenService.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -37,14 +38,13 @@ class IOpenServiceManager extends IUnknown{
     /**
      * 
      * @param {PWSTR} pwzServiceUrl 
-     * @param {Pointer<IOpenService>} ppService 
-     * @returns {HRESULT} 
+     * @returns {IOpenService} 
      */
-    InstallService(pwzServiceUrl, ppService) {
+    InstallService(pwzServiceUrl) {
         pwzServiceUrl := pwzServiceUrl is String ? StrPtr(pwzServiceUrl) : pwzServiceUrl
 
-        result := ComCall(3, this, "ptr", pwzServiceUrl, "ptr*", ppService, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pwzServiceUrl, "ptr*", &ppService := 0, "HRESULT")
+        return IOpenService(ppService)
     }
 
     /**
@@ -60,13 +60,12 @@ class IOpenServiceManager extends IUnknown{
     /**
      * 
      * @param {PWSTR} pwzID 
-     * @param {Pointer<IOpenService>} ppService 
-     * @returns {HRESULT} 
+     * @returns {IOpenService} 
      */
-    GetServiceByID(pwzID, ppService) {
+    GetServiceByID(pwzID) {
         pwzID := pwzID is String ? StrPtr(pwzID) : pwzID
 
-        result := ComCall(5, this, "ptr", pwzID, "ptr*", ppService, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", pwzID, "ptr*", &ppService := 0, "HRESULT")
+        return IOpenService(ppService)
     }
 }

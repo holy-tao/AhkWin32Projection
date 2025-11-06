@@ -64,14 +64,11 @@ class IDebugAdvanced4 extends IUnknown{
      * @param {Integer} InBufferSize 
      * @param {Pointer} OutBuffer 
      * @param {Integer} OutBufferSize 
-     * @param {Pointer<Integer>} OutSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Request(Request, InBuffer, InBufferSize, OutBuffer, OutBufferSize, OutSize) {
-        OutSizeMarshal := OutSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, "uint", Request, "ptr", InBuffer, "uint", InBufferSize, "ptr", OutBuffer, "uint", OutBufferSize, OutSizeMarshal, OutSize, "HRESULT")
-        return result
+    Request(Request, InBuffer, InBufferSize, OutBuffer, OutBufferSize) {
+        result := ComCall(5, this, "uint", Request, "ptr", InBuffer, "uint", InBufferSize, "ptr", OutBuffer, "uint", OutBufferSize, "uint*", &OutSize := 0, "HRESULT")
+        return OutSize
     }
 
     /**
@@ -82,16 +79,13 @@ class IDebugAdvanced4 extends IUnknown{
      * @param {Integer} Arg32 
      * @param {Pointer} Buffer 
      * @param {Integer} BufferSize 
-     * @param {Pointer<Integer>} InfoSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetSourceFileInformation(Which, SourceFile, Arg64, Arg32, Buffer, BufferSize, InfoSize) {
+    GetSourceFileInformation(Which, SourceFile, Arg64, Arg32, Buffer, BufferSize) {
         SourceFile := SourceFile is String ? StrPtr(SourceFile) : SourceFile
 
-        InfoSizeMarshal := InfoSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, "uint", Which, "ptr", SourceFile, "uint", Arg64, "uint", Arg32, "ptr", Buffer, "uint", BufferSize, InfoSizeMarshal, InfoSize, "HRESULT")
-        return result
+        result := ComCall(6, this, "uint", Which, "ptr", SourceFile, "uint", Arg64, "uint", Arg32, "ptr", Buffer, "uint", BufferSize, "uint*", &InfoSize := 0, "HRESULT")
+        return InfoSize
     }
 
     /**
@@ -149,14 +143,11 @@ class IDebugAdvanced4 extends IUnknown{
      * @param {Integer} Arg32 
      * @param {Pointer} Buffer 
      * @param {Integer} BufferSize 
-     * @param {Pointer<Integer>} InfoSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetSystemObjectInformation(Which, Arg64, Arg32, Buffer, BufferSize, InfoSize) {
-        InfoSizeMarshal := InfoSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, "uint", Which, "uint", Arg64, "uint", Arg32, "ptr", Buffer, "uint", BufferSize, InfoSizeMarshal, InfoSize, "HRESULT")
-        return result
+    GetSystemObjectInformation(Which, Arg64, Arg32, Buffer, BufferSize) {
+        result := ComCall(9, this, "uint", Which, "uint", Arg64, "uint", Arg32, "ptr", Buffer, "uint", BufferSize, "uint*", &InfoSize := 0, "HRESULT")
+        return InfoSize
     }
 
     /**
@@ -167,16 +158,13 @@ class IDebugAdvanced4 extends IUnknown{
      * @param {Integer} Arg32 
      * @param {Pointer} Buffer 
      * @param {Integer} BufferSize 
-     * @param {Pointer<Integer>} InfoSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetSourceFileInformationWide(Which, SourceFile, Arg64, Arg32, Buffer, BufferSize, InfoSize) {
+    GetSourceFileInformationWide(Which, SourceFile, Arg64, Arg32, Buffer, BufferSize) {
         SourceFile := SourceFile is String ? StrPtr(SourceFile) : SourceFile
 
-        InfoSizeMarshal := InfoSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, "uint", Which, "ptr", SourceFile, "uint", Arg64, "uint", Arg32, "ptr", Buffer, "uint", BufferSize, InfoSizeMarshal, InfoSize, "HRESULT")
-        return result
+        result := ComCall(10, this, "uint", Which, "ptr", SourceFile, "uint", Arg64, "uint", Arg32, "ptr", Buffer, "uint", BufferSize, "uint*", &InfoSize := 0, "HRESULT")
+        return InfoSize
     }
 
     /**

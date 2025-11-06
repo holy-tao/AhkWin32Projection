@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\SPTMTHREADINFO.ahk
+#Include .\ISpNotifySink.ahk
+#Include .\ISpThreadControl.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -40,12 +43,12 @@ class ISpTaskManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<SPTMTHREADINFO>} pPoolInfo 
-     * @returns {HRESULT} 
+     * @returns {SPTMTHREADINFO} 
      */
-    GetThreadPoolInfo(pPoolInfo) {
+    GetThreadPoolInfo() {
+        pPoolInfo := SPTMTHREADINFO()
         result := ComCall(4, this, "ptr", pPoolInfo, "HRESULT")
-        return result
+        return pPoolInfo
     }
 
     /**
@@ -54,18 +57,16 @@ class ISpTaskManager extends IUnknown{
      * @param {Pointer<Void>} pvTaskData 
      * @param {HANDLE} hCompEvent 
      * @param {Pointer<Integer>} pdwGroupId 
-     * @param {Pointer<Integer>} pTaskID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    QueueTask(pTask, pvTaskData, hCompEvent, pdwGroupId, pTaskID) {
+    QueueTask(pTask, pvTaskData, hCompEvent, pdwGroupId) {
         hCompEvent := hCompEvent is Win32Handle ? NumGet(hCompEvent, "ptr") : hCompEvent
 
         pvTaskDataMarshal := pvTaskData is VarRef ? "ptr" : "ptr"
         pdwGroupIdMarshal := pdwGroupId is VarRef ? "uint*" : "ptr"
-        pTaskIDMarshal := pTaskID is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pTask, pvTaskDataMarshal, pvTaskData, "ptr", hCompEvent, pdwGroupIdMarshal, pdwGroupId, pTaskIDMarshal, pTaskID, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", pTask, pvTaskDataMarshal, pvTaskData, "ptr", hCompEvent, pdwGroupIdMarshal, pdwGroupId, "uint*", &pTaskID := 0, "HRESULT")
+        return pTaskID
     }
 
     /**
@@ -73,16 +74,15 @@ class ISpTaskManager extends IUnknown{
      * @param {ISpTask} pTask 
      * @param {Pointer<Void>} pvTaskData 
      * @param {HANDLE} hCompEvent 
-     * @param {Pointer<ISpNotifySink>} ppTaskCtrl 
-     * @returns {HRESULT} 
+     * @returns {ISpNotifySink} 
      */
-    CreateReoccurringTask(pTask, pvTaskData, hCompEvent, ppTaskCtrl) {
+    CreateReoccurringTask(pTask, pvTaskData, hCompEvent) {
         hCompEvent := hCompEvent is Win32Handle ? NumGet(hCompEvent, "ptr") : hCompEvent
 
         pvTaskDataMarshal := pvTaskData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(6, this, "ptr", pTask, pvTaskDataMarshal, pvTaskData, "ptr", hCompEvent, "ptr*", ppTaskCtrl, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", pTask, pvTaskDataMarshal, pvTaskData, "ptr", hCompEvent, "ptr*", &ppTaskCtrl := 0, "HRESULT")
+        return ISpNotifySink(ppTaskCtrl)
     }
 
     /**
@@ -90,14 +90,13 @@ class ISpTaskManager extends IUnknown{
      * @param {ISpThreadTask} pTask 
      * @param {Pointer<Void>} pvTaskData 
      * @param {Integer} nPriority 
-     * @param {Pointer<ISpThreadControl>} ppTaskCtrl 
-     * @returns {HRESULT} 
+     * @returns {ISpThreadControl} 
      */
-    CreateThreadControl(pTask, pvTaskData, nPriority, ppTaskCtrl) {
+    CreateThreadControl(pTask, pvTaskData, nPriority) {
         pvTaskDataMarshal := pvTaskData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(7, this, "ptr", pTask, pvTaskDataMarshal, pvTaskData, "int", nPriority, "ptr*", ppTaskCtrl, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", pTask, pvTaskDataMarshal, pvTaskData, "int", nPriority, "ptr*", &ppTaskCtrl := 0, "HRESULT")
+        return ISpThreadControl(ppTaskCtrl)
     }
 
     /**

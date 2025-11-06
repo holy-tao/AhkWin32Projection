@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\MPEG_DATE_AND_TIME.ahk
+#Include .\MPEG_TIME.ahk
+#Include .\IGenericDescriptor.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -54,106 +57,88 @@ class IATSC_EIT extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_eit-getversionnumber
      */
-    GetVersionNumber(pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetVersionNumber() {
+        result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_eit-getsourceid
      */
-    GetSourceId(pwVal) {
-        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(5, this, pwValMarshal, pwVal, "HRESULT")
-        return result
+    GetSourceId() {
+        result := ComCall(5, this, "ushort*", &pwVal := 0, "HRESULT")
+        return pwVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_eit-getprotocolversion
      */
-    GetProtocolVersion(pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(6, this, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetProtocolVersion() {
+        result := ComCall(6, this, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_eit-getcountofrecords
      */
-    GetCountOfRecords(pdwVal) {
-        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pdwValMarshal, pdwVal, "HRESULT")
-        return result
+    GetCountOfRecords() {
+        result := ComCall(7, this, "uint*", &pdwVal := 0, "HRESULT")
+        return pdwVal
     }
 
     /**
      * 
      * @param {Integer} dwRecordIndex 
-     * @param {Pointer<Integer>} pwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_eit-getrecordeventid
      */
-    GetRecordEventId(dwRecordIndex, pwVal) {
-        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(8, this, "uint", dwRecordIndex, pwValMarshal, pwVal, "HRESULT")
-        return result
+    GetRecordEventId(dwRecordIndex) {
+        result := ComCall(8, this, "uint", dwRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
+        return pwVal
     }
 
     /**
      * 
      * @param {Integer} dwRecordIndex 
-     * @param {Pointer<MPEG_DATE_AND_TIME>} pmdtVal 
-     * @returns {HRESULT} 
+     * @returns {MPEG_DATE_AND_TIME} 
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_eit-getrecordstarttime
      */
-    GetRecordStartTime(dwRecordIndex, pmdtVal) {
+    GetRecordStartTime(dwRecordIndex) {
+        pmdtVal := MPEG_DATE_AND_TIME()
         result := ComCall(9, this, "uint", dwRecordIndex, "ptr", pmdtVal, "HRESULT")
-        return result
+        return pmdtVal
     }
 
     /**
      * 
      * @param {Integer} dwRecordIndex 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_eit-getrecordetmlocation
      */
-    GetRecordEtmLocation(dwRecordIndex, pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(10, this, "uint", dwRecordIndex, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetRecordEtmLocation(dwRecordIndex) {
+        result := ComCall(10, this, "uint", dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
      * @param {Integer} dwRecordIndex 
-     * @param {Pointer<MPEG_TIME>} pmdVal 
-     * @returns {HRESULT} 
+     * @returns {MPEG_TIME} 
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_eit-getrecordduration
      */
-    GetRecordDuration(dwRecordIndex, pmdVal) {
+    GetRecordDuration(dwRecordIndex) {
+        pmdVal := MPEG_TIME()
         result := ComCall(11, this, "uint", dwRecordIndex, "ptr", pmdVal, "HRESULT")
-        return result
+        return pmdVal
     }
 
     /**
@@ -175,28 +160,24 @@ class IATSC_EIT extends IUnknown{
     /**
      * 
      * @param {Integer} dwRecordIndex 
-     * @param {Pointer<Integer>} pdwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_eit-getrecordcountofdescriptors
      */
-    GetRecordCountOfDescriptors(dwRecordIndex, pdwVal) {
-        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(13, this, "uint", dwRecordIndex, pdwValMarshal, pdwVal, "HRESULT")
-        return result
+    GetRecordCountOfDescriptors(dwRecordIndex) {
+        result := ComCall(13, this, "uint", dwRecordIndex, "uint*", &pdwVal := 0, "HRESULT")
+        return pdwVal
     }
 
     /**
      * 
      * @param {Integer} dwRecordIndex 
      * @param {Integer} dwIndex 
-     * @param {Pointer<IGenericDescriptor>} ppDescriptor 
-     * @returns {HRESULT} 
+     * @returns {IGenericDescriptor} 
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_eit-getrecorddescriptorbyindex
      */
-    GetRecordDescriptorByIndex(dwRecordIndex, dwIndex, ppDescriptor) {
-        result := ComCall(14, this, "uint", dwRecordIndex, "uint", dwIndex, "ptr*", ppDescriptor, "HRESULT")
-        return result
+    GetRecordDescriptorByIndex(dwRecordIndex, dwIndex) {
+        result := ComCall(14, this, "uint", dwRecordIndex, "uint", dwIndex, "ptr*", &ppDescriptor := 0, "HRESULT")
+        return IGenericDescriptor(ppDescriptor)
     }
 
     /**
@@ -204,14 +185,13 @@ class IATSC_EIT extends IUnknown{
      * @param {Integer} dwRecordIndex 
      * @param {Integer} bTag 
      * @param {Pointer<Integer>} pdwCookie 
-     * @param {Pointer<IGenericDescriptor>} ppDescriptor 
-     * @returns {HRESULT} 
+     * @returns {IGenericDescriptor} 
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatsc_eit-getrecorddescriptorbytag
      */
-    GetRecordDescriptorByTag(dwRecordIndex, bTag, pdwCookie, ppDescriptor) {
+    GetRecordDescriptorByTag(dwRecordIndex, bTag, pdwCookie) {
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, "uint", dwRecordIndex, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", ppDescriptor, "HRESULT")
-        return result
+        result := ComCall(15, this, "uint", dwRecordIndex, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
+        return IGenericDescriptor(ppDescriptor)
     }
 }

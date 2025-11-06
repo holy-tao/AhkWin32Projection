@@ -130,20 +130,18 @@ class IBDA_WMDRMSession extends IUnknown{
      * @param {Pointer<Integer>} pbInXmrLicense 
      * @param {Integer} ulEntitlementTokenLen 
      * @param {Pointer<Integer>} pbEntitlementToken 
-     * @param {Pointer<Integer>} pulDescrambleStatus 
      * @param {Pointer<Integer>} pulOutXmrLicenseLen 
      * @param {Pointer<Integer>} pbOutXmrLicense 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    RenewLicense(ulInXmrLicenseLen, pbInXmrLicense, ulEntitlementTokenLen, pbEntitlementToken, pulDescrambleStatus, pulOutXmrLicenseLen, pbOutXmrLicense) {
+    RenewLicense(ulInXmrLicenseLen, pbInXmrLicense, ulEntitlementTokenLen, pbEntitlementToken, pulOutXmrLicenseLen, pbOutXmrLicense) {
         pbInXmrLicenseMarshal := pbInXmrLicense is VarRef ? "char*" : "ptr"
         pbEntitlementTokenMarshal := pbEntitlementToken is VarRef ? "char*" : "ptr"
-        pulDescrambleStatusMarshal := pulDescrambleStatus is VarRef ? "uint*" : "ptr"
         pulOutXmrLicenseLenMarshal := pulOutXmrLicenseLen is VarRef ? "uint*" : "ptr"
         pbOutXmrLicenseMarshal := pbOutXmrLicense is VarRef ? "char*" : "ptr"
 
-        result := ComCall(9, this, "uint", ulInXmrLicenseLen, pbInXmrLicenseMarshal, pbInXmrLicense, "uint", ulEntitlementTokenLen, pbEntitlementTokenMarshal, pbEntitlementToken, pulDescrambleStatusMarshal, pulDescrambleStatus, pulOutXmrLicenseLenMarshal, pulOutXmrLicenseLen, pbOutXmrLicenseMarshal, pbOutXmrLicense, "HRESULT")
-        return result
+        result := ComCall(9, this, "uint", ulInXmrLicenseLen, pbInXmrLicenseMarshal, pbInXmrLicense, "uint", ulEntitlementTokenLen, pbEntitlementTokenMarshal, pbEntitlementToken, "uint*", &pulDescrambleStatus := 0, pulOutXmrLicenseLenMarshal, pulOutXmrLicenseLen, pbOutXmrLicenseMarshal, pbOutXmrLicense, "HRESULT")
+        return pulDescrambleStatus
     }
 
     /**

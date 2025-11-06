@@ -31,12 +31,12 @@ class IShellLinkDual extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbs 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Path(pbs) {
+    get_Path() {
+        pbs := BSTR()
         result := ComCall(7, this, "ptr", pbs, "HRESULT")
-        return result
+        return pbs
     }
 
     /**
@@ -53,12 +53,12 @@ class IShellLinkDual extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbs 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Description(pbs) {
+    get_Description() {
+        pbs := BSTR()
         result := ComCall(9, this, "ptr", pbs, "HRESULT")
-        return result
+        return pbs
     }
 
     /**
@@ -75,12 +75,12 @@ class IShellLinkDual extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbs 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_WorkingDirectory(pbs) {
+    get_WorkingDirectory() {
+        pbs := BSTR()
         result := ComCall(11, this, "ptr", pbs, "HRESULT")
-        return result
+        return pbs
     }
 
     /**
@@ -97,12 +97,12 @@ class IShellLinkDual extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbs 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Arguments(pbs) {
+    get_Arguments() {
+        pbs := BSTR()
         result := ComCall(13, this, "ptr", pbs, "HRESULT")
-        return result
+        return pbs
     }
 
     /**
@@ -119,14 +119,11 @@ class IShellLinkDual extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} piHK 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Hotkey(piHK) {
-        piHKMarshal := piHK is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, piHKMarshal, piHK, "HRESULT")
-        return result
+    get_Hotkey() {
+        result := ComCall(15, this, "int*", &piHK := 0, "HRESULT")
+        return piHK
     }
 
     /**
@@ -141,14 +138,11 @@ class IShellLinkDual extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} piShowCommand 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ShowCommand(piShowCommand) {
-        piShowCommandMarshal := piShowCommand is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, piShowCommandMarshal, piShowCommand, "HRESULT")
-        return result
+    get_ShowCommand() {
+        result := ComCall(17, this, "int*", &piShowCommand := 0, "HRESULT")
+        return piShowCommand
     }
 
     /**
@@ -174,14 +168,11 @@ class IShellLinkDual extends IDispatch{
     /**
      * 
      * @param {Pointer<BSTR>} pbs 
-     * @param {Pointer<Integer>} piIcon 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetIconLocation(pbs, piIcon) {
-        piIconMarshal := piIcon is VarRef ? "int*" : "ptr"
-
-        result := ComCall(20, this, "ptr", pbs, piIconMarshal, piIcon, "HRESULT")
-        return result
+    GetIconLocation(pbs) {
+        result := ComCall(20, this, "ptr", pbs, "int*", &piIcon := 0, "HRESULT")
+        return piIcon
     }
 
     /**

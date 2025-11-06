@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\Guid.ahk
+#Include ..\System\Com\IEnumString.ahk
+#Include .\ISpellCheckProvider.ahk
 #Include ..\System\Com\IUnknown.ahk
 
 /**
@@ -32,40 +34,37 @@ class ISpellCheckProviderFactory extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumString>} value 
-     * @returns {HRESULT} 
+     * @returns {IEnumString} 
      * @see https://learn.microsoft.com/windows/win32/api/spellcheckprovider/nf-spellcheckprovider-ispellcheckproviderfactory-get_supportedlanguages
      */
-    get_SupportedLanguages(value) {
-        result := ComCall(3, this, "ptr*", value, "HRESULT")
-        return result
+    get_SupportedLanguages() {
+        result := ComCall(3, this, "ptr*", &value := 0, "HRESULT")
+        return IEnumString(value)
     }
 
     /**
      * 
      * @param {PWSTR} languageTag 
-     * @param {Pointer<BOOL>} value 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/spellcheckprovider/nf-spellcheckprovider-ispellcheckproviderfactory-issupported
      */
-    IsSupported(languageTag, value) {
+    IsSupported(languageTag) {
         languageTag := languageTag is String ? StrPtr(languageTag) : languageTag
 
-        result := ComCall(4, this, "ptr", languageTag, "ptr", value, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", languageTag, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
      * @param {PWSTR} languageTag 
-     * @param {Pointer<ISpellCheckProvider>} value 
-     * @returns {HRESULT} 
+     * @returns {ISpellCheckProvider} 
      * @see https://learn.microsoft.com/windows/win32/api/spellcheckprovider/nf-spellcheckprovider-ispellcheckproviderfactory-createspellcheckprovider
      */
-    CreateSpellCheckProvider(languageTag, value) {
+    CreateSpellCheckProvider(languageTag) {
         languageTag := languageTag is String ? StrPtr(languageTag) : languageTag
 
-        result := ComCall(5, this, "ptr", languageTag, "ptr*", value, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", languageTag, "ptr*", &value := 0, "HRESULT")
+        return ISpellCheckProvider(value)
     }
 }

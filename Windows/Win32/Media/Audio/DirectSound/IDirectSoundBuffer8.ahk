@@ -32,28 +32,22 @@ class IDirectSoundBuffer8 extends IDirectSoundBuffer{
      * 
      * @param {Integer} dwEffectsCount 
      * @param {Pointer<DSEFFECTDESC>} pDSFXDesc 
-     * @param {Pointer<Integer>} pdwResultCodes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    SetFX(dwEffectsCount, pDSFXDesc, pdwResultCodes) {
-        pdwResultCodesMarshal := pdwResultCodes is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(21, this, "uint", dwEffectsCount, "ptr", pDSFXDesc, pdwResultCodesMarshal, pdwResultCodes, "HRESULT")
-        return result
+    SetFX(dwEffectsCount, pDSFXDesc) {
+        result := ComCall(21, this, "uint", dwEffectsCount, "ptr", pDSFXDesc, "uint*", &pdwResultCodes := 0, "HRESULT")
+        return pdwResultCodes
     }
 
     /**
      * 
      * @param {Integer} dwFlags 
      * @param {Integer} dwEffectsCount 
-     * @param {Pointer<Integer>} pdwResultCodes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    AcquireResources(dwFlags, dwEffectsCount, pdwResultCodes) {
-        pdwResultCodesMarshal := pdwResultCodes is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(22, this, "uint", dwFlags, "uint", dwEffectsCount, pdwResultCodesMarshal, pdwResultCodes, "HRESULT")
-        return result
+    AcquireResources(dwFlags, dwEffectsCount) {
+        result := ComCall(22, this, "uint", dwFlags, "uint", dwEffectsCount, "uint*", &pdwResultCodes := 0, "HRESULT")
+        return pdwResultCodes
     }
 
     /**
@@ -61,13 +55,10 @@ class IDirectSoundBuffer8 extends IDirectSoundBuffer{
      * @param {Pointer<Guid>} rguidObject 
      * @param {Integer} dwIndex 
      * @param {Pointer<Guid>} rguidInterface 
-     * @param {Pointer<Pointer<Void>>} ppObject 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetObjectInPath(rguidObject, dwIndex, rguidInterface, ppObject) {
-        ppObjectMarshal := ppObject is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(23, this, "ptr", rguidObject, "uint", dwIndex, "ptr", rguidInterface, ppObjectMarshal, ppObject, "HRESULT")
-        return result
+    GetObjectInPath(rguidObject, dwIndex, rguidInterface) {
+        result := ComCall(23, this, "ptr", rguidObject, "uint", dwIndex, "ptr", rguidInterface, "ptr*", &ppObject := 0, "HRESULT")
+        return ppObject
     }
 }

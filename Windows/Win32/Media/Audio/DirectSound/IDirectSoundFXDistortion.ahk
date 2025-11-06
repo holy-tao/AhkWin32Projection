@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\DSFXDistortion.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -40,11 +41,11 @@ class IDirectSoundFXDistortion extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<DSFXDistortion>} pDsFxDistortion 
-     * @returns {HRESULT} 
+     * @returns {DSFXDistortion} 
      */
-    GetAllParameters(pDsFxDistortion) {
+    GetAllParameters() {
+        pDsFxDistortion := DSFXDistortion()
         result := ComCall(4, this, "ptr", pDsFxDistortion, "HRESULT")
-        return result
+        return pDsFxDistortion
     }
 }

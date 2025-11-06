@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUIImage.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -34,14 +35,13 @@ class IUIImageFromBitmap extends IUnknown{
      * 
      * @param {HBITMAP} bitmap 
      * @param {Integer} options 
-     * @param {Pointer<IUIImage>} image 
-     * @returns {HRESULT} 
+     * @returns {IUIImage} 
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuiimagefrombitmap-createimage
      */
-    CreateImage(bitmap, options, image) {
+    CreateImage(bitmap, options) {
         bitmap := bitmap is Win32Handle ? NumGet(bitmap, "ptr") : bitmap
 
-        result := ComCall(3, this, "ptr", bitmap, "int", options, "ptr*", image, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", bitmap, "int", options, "ptr*", &image := 0, "HRESULT")
+        return IUIImage(image)
     }
 }

@@ -32,15 +32,12 @@ class IMFOutputTrustAuthority extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pAction 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfoutputtrustauthority-getaction
      */
-    GetAction(pAction) {
-        pActionMarshal := pAction is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, pActionMarshal, pAction, "HRESULT")
-        return result
+    GetAction() {
+        result := ComCall(3, this, "int*", &pAction := 0, "HRESULT")
+        return pAction
     }
 
     /**

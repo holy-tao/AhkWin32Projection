@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -43,12 +44,12 @@ class ITMediaPlayback extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pPlayListVariant 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itmediaplayback-get_playlist
      */
-    get_PlayList(pPlayListVariant) {
+    get_PlayList() {
+        pPlayListVariant := VARIANT()
         result := ComCall(8, this, "ptr", pPlayListVariant, "HRESULT")
-        return result
+        return pPlayListVariant
     }
 }

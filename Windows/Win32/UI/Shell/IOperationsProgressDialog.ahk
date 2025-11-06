@@ -152,14 +152,11 @@ class IOperationsProgressDialog extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} popstatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ioperationsprogressdialog-getoperationstatus
      */
-    GetOperationStatus(popstatus) {
-        popstatusMarshal := popstatus is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, popstatusMarshal, popstatus, "HRESULT")
-        return result
+    GetOperationStatus() {
+        result := ComCall(13, this, "int*", &popstatus := 0, "HRESULT")
+        return popstatus
     }
 }

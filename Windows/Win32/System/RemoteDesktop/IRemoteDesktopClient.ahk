@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IRemoteDesktopClientSettings.ahk
+#Include .\IRemoteDesktopClientActions.ahk
+#Include .\IRemoteDesktopClientTouchPointer.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -65,35 +68,32 @@ class IRemoteDesktopClient extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IRemoteDesktopClientSettings>} settings 
-     * @returns {HRESULT} 
+     * @returns {IRemoteDesktopClientSettings} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclient-get_settings
      */
-    get_Settings(settings) {
-        result := ComCall(10, this, "ptr*", settings, "HRESULT")
-        return result
+    get_Settings() {
+        result := ComCall(10, this, "ptr*", &settings := 0, "HRESULT")
+        return IRemoteDesktopClientSettings(settings)
     }
 
     /**
      * 
-     * @param {Pointer<IRemoteDesktopClientActions>} actions 
-     * @returns {HRESULT} 
+     * @returns {IRemoteDesktopClientActions} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclient-get_actions
      */
-    get_Actions(actions) {
-        result := ComCall(11, this, "ptr*", actions, "HRESULT")
-        return result
+    get_Actions() {
+        result := ComCall(11, this, "ptr*", &actions := 0, "HRESULT")
+        return IRemoteDesktopClientActions(actions)
     }
 
     /**
      * 
-     * @param {Pointer<IRemoteDesktopClientTouchPointer>} touchPointer 
-     * @returns {HRESULT} 
+     * @returns {IRemoteDesktopClientTouchPointer} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpappcontainerclient/nf-rdpappcontainerclient-iremotedesktopclient-get_touchpointer
      */
-    get_TouchPointer(touchPointer) {
-        result := ComCall(12, this, "ptr*", touchPointer, "HRESULT")
-        return result
+    get_TouchPointer() {
+        result := ComCall(12, this, "ptr*", &touchPointer := 0, "HRESULT")
+        return IRemoteDesktopClientTouchPointer(touchPointer)
     }
 
     /**

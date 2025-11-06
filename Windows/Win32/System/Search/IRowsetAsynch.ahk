@@ -40,8 +40,9 @@ class IRowsetAsynch extends IUnknown{
         pulDenominatorMarshal := pulDenominator is VarRef ? "ptr*" : "ptr"
         pulNumeratorMarshal := pulNumerator is VarRef ? "ptr*" : "ptr"
         pcRowsMarshal := pcRows is VarRef ? "ptr*" : "ptr"
+        pfNewRowsMarshal := pfNewRows is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, pulDenominatorMarshal, pulDenominator, pulNumeratorMarshal, pulNumerator, pcRowsMarshal, pcRows, "ptr", pfNewRows, "HRESULT")
+        result := ComCall(3, this, pulDenominatorMarshal, pulDenominator, pulNumeratorMarshal, pulNumerator, pcRowsMarshal, pcRows, pfNewRowsMarshal, pfNewRows, "HRESULT")
         return result
     }
 

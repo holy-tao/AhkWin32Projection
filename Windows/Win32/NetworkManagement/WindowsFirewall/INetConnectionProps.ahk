@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,73 +33,64 @@ class INetConnectionProps extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrGuid 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetconnectionprops-get_guid
      */
-    get_Guid(pbstrGuid) {
+    get_Guid() {
+        pbstrGuid := BSTR()
         result := ComCall(7, this, "ptr", pbstrGuid, "HRESULT")
-        return result
+        return pbstrGuid
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetconnectionprops-get_name
      */
-    get_Name(pbstrName) {
+    get_Name() {
+        pbstrName := BSTR()
         result := ComCall(8, this, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrDeviceName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetconnectionprops-get_devicename
      */
-    get_DeviceName(pbstrDeviceName) {
+    get_DeviceName() {
+        pbstrDeviceName := BSTR()
         result := ComCall(9, this, "ptr", pbstrDeviceName, "HRESULT")
-        return result
+        return pbstrDeviceName
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetconnectionprops-get_status
      */
-    get_Status(pStatus) {
-        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, pStatusMarshal, pStatus, "HRESULT")
-        return result
+    get_Status() {
+        result := ComCall(10, this, "int*", &pStatus := 0, "HRESULT")
+        return pStatus
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pMediaType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetconnectionprops-get_mediatype
      */
-    get_MediaType(pMediaType) {
-        pMediaTypeMarshal := pMediaType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, pMediaTypeMarshal, pMediaType, "HRESULT")
-        return result
+    get_MediaType() {
+        result := ComCall(11, this, "int*", &pMediaType := 0, "HRESULT")
+        return pMediaType
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetconnectionprops-get_characteristics
      */
-    get_Characteristics(pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
-        return result
+    get_Characteristics() {
+        result := ComCall(12, this, "uint*", &pdwFlags := 0, "HRESULT")
+        return pdwFlags
     }
 }

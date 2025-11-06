@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IDebugApplicationThread.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -30,22 +31,20 @@ class IDebugSyncOperation extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDebugApplicationThread>} ppatTarget 
-     * @returns {HRESULT} 
+     * @returns {IDebugApplicationThread} 
      */
-    GetTargetThread(ppatTarget) {
-        result := ComCall(3, this, "ptr*", ppatTarget, "HRESULT")
-        return result
+    GetTargetThread() {
+        result := ComCall(3, this, "ptr*", &ppatTarget := 0, "HRESULT")
+        return IDebugApplicationThread(ppatTarget)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppunkResult 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    Execute(ppunkResult) {
-        result := ComCall(4, this, "ptr*", ppunkResult, "HRESULT")
-        return result
+    Execute() {
+        result := ComCall(4, this, "ptr*", &ppunkResult := 0, "HRESULT")
+        return IUnknown(ppunkResult)
     }
 
     /**

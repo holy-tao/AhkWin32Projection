@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumExplorerCommand.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -37,63 +38,57 @@ class IExplorerCommand extends IUnknown{
     /**
      * 
      * @param {IShellItemArray} psiItemArray 
-     * @param {Pointer<PWSTR>} ppszName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorercommand-gettitle
      */
-    GetTitle(psiItemArray, ppszName) {
-        result := ComCall(3, this, "ptr", psiItemArray, "ptr", ppszName, "HRESULT")
-        return result
+    GetTitle(psiItemArray) {
+        result := ComCall(3, this, "ptr", psiItemArray, "ptr*", &ppszName := 0, "HRESULT")
+        return ppszName
     }
 
     /**
      * 
      * @param {IShellItemArray} psiItemArray 
-     * @param {Pointer<PWSTR>} ppszIcon 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorercommand-geticon
      */
-    GetIcon(psiItemArray, ppszIcon) {
-        result := ComCall(4, this, "ptr", psiItemArray, "ptr", ppszIcon, "HRESULT")
-        return result
+    GetIcon(psiItemArray) {
+        result := ComCall(4, this, "ptr", psiItemArray, "ptr*", &ppszIcon := 0, "HRESULT")
+        return ppszIcon
     }
 
     /**
      * 
      * @param {IShellItemArray} psiItemArray 
-     * @param {Pointer<PWSTR>} ppszInfotip 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorercommand-gettooltip
      */
-    GetToolTip(psiItemArray, ppszInfotip) {
-        result := ComCall(5, this, "ptr", psiItemArray, "ptr", ppszInfotip, "HRESULT")
-        return result
+    GetToolTip(psiItemArray) {
+        result := ComCall(5, this, "ptr", psiItemArray, "ptr*", &ppszInfotip := 0, "HRESULT")
+        return ppszInfotip
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} pguidCommandName 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorercommand-getcanonicalname
      */
-    GetCanonicalName(pguidCommandName) {
+    GetCanonicalName() {
+        pguidCommandName := Guid()
         result := ComCall(6, this, "ptr", pguidCommandName, "HRESULT")
-        return result
+        return pguidCommandName
     }
 
     /**
      * 
      * @param {IShellItemArray} psiItemArray 
      * @param {BOOL} fOkToBeSlow 
-     * @param {Pointer<Integer>} pCmdState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorercommand-getstate
      */
-    GetState(psiItemArray, fOkToBeSlow, pCmdState) {
-        pCmdStateMarshal := pCmdState is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, "ptr", psiItemArray, "int", fOkToBeSlow, pCmdStateMarshal, pCmdState, "HRESULT")
-        return result
+    GetState(psiItemArray, fOkToBeSlow) {
+        result := ComCall(7, this, "ptr", psiItemArray, "int", fOkToBeSlow, "uint*", &pCmdState := 0, "HRESULT")
+        return pCmdState
     }
 
     /**
@@ -110,25 +105,21 @@ class IExplorerCommand extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorercommand-getflags
      */
-    GetFlags(pFlags) {
-        pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, pFlagsMarshal, pFlags, "HRESULT")
-        return result
+    GetFlags() {
+        result := ComCall(9, this, "uint*", &pFlags := 0, "HRESULT")
+        return pFlags
     }
 
     /**
      * 
-     * @param {Pointer<IEnumExplorerCommand>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumExplorerCommand} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorercommand-enumsubcommands
      */
-    EnumSubCommands(ppEnum) {
-        result := ComCall(10, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumSubCommands() {
+        result := ComCall(10, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumExplorerCommand(ppEnum)
     }
 }

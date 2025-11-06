@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IMLOperatorTensor.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -31,12 +32,11 @@ class IMLOperatorKernelContext extends IUnknown{
     /**
      * 
      * @param {Integer} inputIndex 
-     * @param {Pointer<IMLOperatorTensor>} tensor 
-     * @returns {HRESULT} 
+     * @returns {IMLOperatorTensor} 
      */
-    GetInputTensor(inputIndex, tensor) {
-        result := ComCall(3, this, "uint", inputIndex, "ptr*", tensor, "HRESULT")
-        return result
+    GetInputTensor(inputIndex) {
+        result := ComCall(3, this, "uint", inputIndex, "ptr*", &tensor := 0, "HRESULT")
+        return IMLOperatorTensor(tensor)
     }
 
     /**
@@ -44,36 +44,33 @@ class IMLOperatorKernelContext extends IUnknown{
      * @param {Integer} outputIndex 
      * @param {Integer} dimensionCount 
      * @param {Pointer<Integer>} dimensionSizes 
-     * @param {Pointer<IMLOperatorTensor>} tensor 
-     * @returns {HRESULT} 
+     * @returns {IMLOperatorTensor} 
      */
-    GetOutputTensor(outputIndex, dimensionCount, dimensionSizes, tensor) {
+    GetOutputTensor(outputIndex, dimensionCount, dimensionSizes) {
         dimensionSizesMarshal := dimensionSizes is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", outputIndex, "uint", dimensionCount, dimensionSizesMarshal, dimensionSizes, "ptr*", tensor, "HRESULT")
-        return result
+        result := ComCall(4, this, "uint", outputIndex, "uint", dimensionCount, dimensionSizesMarshal, dimensionSizes, "ptr*", &tensor := 0, "HRESULT")
+        return IMLOperatorTensor(tensor)
     }
 
     /**
      * 
      * @param {Integer} outputIndex 
-     * @param {Pointer<IMLOperatorTensor>} tensor 
-     * @returns {HRESULT} 
+     * @returns {IMLOperatorTensor} 
      */
-    GetOutputTensor1(outputIndex, tensor) {
-        result := ComCall(5, this, "uint", outputIndex, "ptr*", tensor, "HRESULT")
-        return result
+    GetOutputTensor1(outputIndex) {
+        result := ComCall(5, this, "uint", outputIndex, "ptr*", &tensor := 0, "HRESULT")
+        return IMLOperatorTensor(tensor)
     }
 
     /**
      * 
      * @param {Pointer} size 
-     * @param {Pointer<IUnknown>} data 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    AllocateTemporaryData(size, data) {
-        result := ComCall(6, this, "ptr", size, "ptr*", data, "HRESULT")
-        return result
+    AllocateTemporaryData(size) {
+        result := ComCall(6, this, "ptr", size, "ptr*", &data := 0, "HRESULT")
+        return IUnknown(data)
     }
 
     /**

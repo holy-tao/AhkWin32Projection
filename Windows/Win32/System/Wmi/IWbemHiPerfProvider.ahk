@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWbemRefresher.ahk
+#Include .\IWbemObjectAccess.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -51,13 +53,12 @@ class IWbemHiPerfProvider extends IUnknown{
      * 
      * @param {IWbemServices} pNamespace 
      * @param {Integer} lFlags 
-     * @param {Pointer<IWbemRefresher>} ppRefresher 
-     * @returns {HRESULT} 
+     * @returns {IWbemRefresher} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemhiperfprovider-createrefresher
      */
-    CreateRefresher(pNamespace, lFlags, ppRefresher) {
-        result := ComCall(4, this, "ptr", pNamespace, "int", lFlags, "ptr*", ppRefresher, "HRESULT")
-        return result
+    CreateRefresher(pNamespace, lFlags) {
+        result := ComCall(4, this, "ptr", pNamespace, "int", lFlags, "ptr*", &ppRefresher := 0, "HRESULT")
+        return IWbemRefresher(ppRefresher)
     }
 
     /**
@@ -100,31 +101,27 @@ class IWbemHiPerfProvider extends IUnknown{
      * @param {Integer} lFlags 
      * @param {IWbemContext} pContext 
      * @param {IWbemHiPerfEnum} pHiPerfEnum 
-     * @param {Pointer<Integer>} plId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemhiperfprovider-createrefreshableenum
      */
-    CreateRefreshableEnum(pNamespace, wszClass, pRefresher, lFlags, pContext, pHiPerfEnum, plId) {
+    CreateRefreshableEnum(pNamespace, wszClass, pRefresher, lFlags, pContext, pHiPerfEnum) {
         wszClass := wszClass is String ? StrPtr(wszClass) : wszClass
 
-        plIdMarshal := plId is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, "ptr", pNamespace, "ptr", wszClass, "ptr", pRefresher, "int", lFlags, "ptr", pContext, "ptr", pHiPerfEnum, plIdMarshal, plId, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", pNamespace, "ptr", wszClass, "ptr", pRefresher, "int", lFlags, "ptr", pContext, "ptr", pHiPerfEnum, "int*", &plId := 0, "HRESULT")
+        return plId
     }
 
     /**
      * 
      * @param {IWbemServices} pNamespace 
      * @param {Integer} lNumObjects 
-     * @param {Pointer<IWbemObjectAccess>} apObj 
      * @param {Integer} lFlags 
      * @param {IWbemContext} pContext 
-     * @returns {HRESULT} 
+     * @returns {IWbemObjectAccess} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemhiperfprovider-getobjects
      */
-    GetObjects(pNamespace, lNumObjects, apObj, lFlags, pContext) {
-        result := ComCall(8, this, "ptr", pNamespace, "int", lNumObjects, "ptr*", apObj, "int", lFlags, "ptr", pContext, "HRESULT")
-        return result
+    GetObjects(pNamespace, lNumObjects, lFlags, pContext) {
+        result := ComCall(8, this, "ptr", pNamespace, "int", lNumObjects, "ptr*", &apObj := 0, "int", lFlags, "ptr", pContext, "HRESULT")
+        return IWbemObjectAccess(apObj)
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID3D11ModuleInstance.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -43,14 +44,13 @@ class ID3D11Module extends IUnknown{
     /**
      * 
      * @param {PSTR} pNamespace 
-     * @param {Pointer<ID3D11ModuleInstance>} ppModuleInstance 
-     * @returns {HRESULT} 
+     * @returns {ID3D11ModuleInstance} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11module-createinstance
      */
-    CreateInstance(pNamespace, ppModuleInstance) {
+    CreateInstance(pNamespace) {
         pNamespace := pNamespace is String ? StrPtr(pNamespace) : pNamespace
 
-        result := ComCall(3, this, "ptr", pNamespace, "ptr*", ppModuleInstance, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pNamespace, "ptr*", &ppModuleInstance := 0, "HRESULT")
+        return ID3D11ModuleInstance(ppModuleInstance)
     }
 }

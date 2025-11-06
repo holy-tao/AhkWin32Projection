@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISVGPathSeg.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -46,14 +47,11 @@ class ISVGPathSegList extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_numberOfItems(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pMarshal, p, "HRESULT")
-        return result
+    get_numberOfItems() {
+        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -68,68 +66,62 @@ class ISVGPathSegList extends IDispatch{
     /**
      * 
      * @param {ISVGPathSeg} newItem 
-     * @param {Pointer<ISVGPathSeg>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGPathSeg} 
      */
-    initialize(newItem, ppResult) {
-        result := ComCall(10, this, "ptr", newItem, "ptr*", ppResult, "HRESULT")
-        return result
+    initialize(newItem) {
+        result := ComCall(10, this, "ptr", newItem, "ptr*", &ppResult := 0, "HRESULT")
+        return ISVGPathSeg(ppResult)
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<ISVGPathSeg>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGPathSeg} 
      */
-    getItem(index, ppResult) {
-        result := ComCall(11, this, "int", index, "ptr*", ppResult, "HRESULT")
-        return result
+    getItem(index) {
+        result := ComCall(11, this, "int", index, "ptr*", &ppResult := 0, "HRESULT")
+        return ISVGPathSeg(ppResult)
     }
 
     /**
      * 
      * @param {ISVGPathSeg} newItem 
      * @param {Integer} index 
-     * @param {Pointer<ISVGPathSeg>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGPathSeg} 
      */
-    insertItemBefore(newItem, index, ppResult) {
-        result := ComCall(12, this, "ptr", newItem, "int", index, "ptr*", ppResult, "HRESULT")
-        return result
+    insertItemBefore(newItem, index) {
+        result := ComCall(12, this, "ptr", newItem, "int", index, "ptr*", &ppResult := 0, "HRESULT")
+        return ISVGPathSeg(ppResult)
     }
 
     /**
      * 
      * @param {ISVGPathSeg} newItem 
      * @param {Integer} index 
-     * @param {Pointer<ISVGPathSeg>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGPathSeg} 
      */
-    replaceItem(newItem, index, ppResult) {
-        result := ComCall(13, this, "ptr", newItem, "int", index, "ptr*", ppResult, "HRESULT")
-        return result
+    replaceItem(newItem, index) {
+        result := ComCall(13, this, "ptr", newItem, "int", index, "ptr*", &ppResult := 0, "HRESULT")
+        return ISVGPathSeg(ppResult)
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<ISVGPathSeg>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGPathSeg} 
      */
-    removeItem(index, ppResult) {
-        result := ComCall(14, this, "int", index, "ptr*", ppResult, "HRESULT")
-        return result
+    removeItem(index) {
+        result := ComCall(14, this, "int", index, "ptr*", &ppResult := 0, "HRESULT")
+        return ISVGPathSeg(ppResult)
     }
 
     /**
      * 
      * @param {ISVGPathSeg} newItem 
-     * @param {Pointer<ISVGPathSeg>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGPathSeg} 
      */
-    appendItem(newItem, ppResult) {
-        result := ComCall(15, this, "ptr", newItem, "ptr*", ppResult, "HRESULT")
-        return result
+    appendItem(newItem) {
+        result := ComCall(15, this, "ptr", newItem, "ptr*", &ppResult := 0, "HRESULT")
+        return ISVGPathSeg(ppResult)
     }
 }

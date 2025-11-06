@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IPortableDeviceValues.ahk
+#Include .\IPortableDeviceContent.ahk
+#Include .\IPortableDeviceCapabilities.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -64,35 +67,32 @@ class IPortableDevice extends IUnknown{
      * 
      * @param {Integer} dwFlags 
      * @param {IPortableDeviceValues} pParameters 
-     * @param {Pointer<IPortableDeviceValues>} ppResults 
-     * @returns {HRESULT} 
+     * @returns {IPortableDeviceValues} 
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevice-sendcommand
      */
-    SendCommand(dwFlags, pParameters, ppResults) {
-        result := ComCall(4, this, "uint", dwFlags, "ptr", pParameters, "ptr*", ppResults, "HRESULT")
-        return result
+    SendCommand(dwFlags, pParameters) {
+        result := ComCall(4, this, "uint", dwFlags, "ptr", pParameters, "ptr*", &ppResults := 0, "HRESULT")
+        return IPortableDeviceValues(ppResults)
     }
 
     /**
      * 
-     * @param {Pointer<IPortableDeviceContent>} ppContent 
-     * @returns {HRESULT} 
+     * @returns {IPortableDeviceContent} 
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevice-content
      */
-    Content(ppContent) {
-        result := ComCall(5, this, "ptr*", ppContent, "HRESULT")
-        return result
+    Content() {
+        result := ComCall(5, this, "ptr*", &ppContent := 0, "HRESULT")
+        return IPortableDeviceContent(ppContent)
     }
 
     /**
      * 
-     * @param {Pointer<IPortableDeviceCapabilities>} ppCapabilities 
-     * @returns {HRESULT} 
+     * @returns {IPortableDeviceCapabilities} 
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevice-capabilities
      */
-    Capabilities(ppCapabilities) {
-        result := ComCall(6, this, "ptr*", ppCapabilities, "HRESULT")
-        return result
+    Capabilities() {
+        result := ComCall(6, this, "ptr*", &ppCapabilities := 0, "HRESULT")
+        return IPortableDeviceCapabilities(ppCapabilities)
     }
 
     /**
@@ -120,13 +120,12 @@ class IPortableDevice extends IUnknown{
      * @param {Integer} dwFlags 
      * @param {IPortableDeviceEventCallback} pCallback 
      * @param {IPortableDeviceValues} pParameters 
-     * @param {Pointer<PWSTR>} ppszCookie 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevice-advise
      */
-    Advise(dwFlags, pCallback, pParameters, ppszCookie) {
-        result := ComCall(9, this, "uint", dwFlags, "ptr", pCallback, "ptr", pParameters, "ptr", ppszCookie, "HRESULT")
-        return result
+    Advise(dwFlags, pCallback, pParameters) {
+        result := ComCall(9, this, "uint", dwFlags, "ptr", pCallback, "ptr", pParameters, "ptr*", &ppszCookie := 0, "HRESULT")
+        return ppszCookie
     }
 
     /**
@@ -144,12 +143,11 @@ class IPortableDevice extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszPnPDeviceID 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevice-getpnpdeviceid
      */
-    GetPnPDeviceID(ppszPnPDeviceID) {
-        result := ComCall(11, this, "ptr", ppszPnPDeviceID, "HRESULT")
-        return result
+    GetPnPDeviceID() {
+        result := ComCall(11, this, "ptr*", &ppszPnPDeviceID := 0, "HRESULT")
+        return ppszPnPDeviceID
     }
 }

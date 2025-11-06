@@ -2,6 +2,13 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ISpeechRecoContext.ahk
+#Include .\ISpeechRecoResultTimes.ahk
+#Include .\ISpeechAudioFormat.ahk
+#Include .\ISpeechPhraseInfo.ahk
+#Include .\ISpeechPhraseAlternates.ahk
+#Include .\ISpeechMemoryStream.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -31,22 +38,20 @@ class ISpeechRecoResultDispatch extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISpeechRecoContext>} RecoContext 
-     * @returns {HRESULT} 
+     * @returns {ISpeechRecoContext} 
      */
-    get_RecoContext(RecoContext) {
-        result := ComCall(7, this, "ptr*", RecoContext, "HRESULT")
-        return result
+    get_RecoContext() {
+        result := ComCall(7, this, "ptr*", &RecoContext := 0, "HRESULT")
+        return ISpeechRecoContext(RecoContext)
     }
 
     /**
      * 
-     * @param {Pointer<ISpeechRecoResultTimes>} Times 
-     * @returns {HRESULT} 
+     * @returns {ISpeechRecoResultTimes} 
      */
-    get_Times(Times) {
-        result := ComCall(8, this, "ptr*", Times, "HRESULT")
-        return result
+    get_Times() {
+        result := ComCall(8, this, "ptr*", &Times := 0, "HRESULT")
+        return ISpeechRecoResultTimes(Times)
     }
 
     /**
@@ -61,22 +66,20 @@ class ISpeechRecoResultDispatch extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISpeechAudioFormat>} Format 
-     * @returns {HRESULT} 
+     * @returns {ISpeechAudioFormat} 
      */
-    get_AudioFormat(Format) {
-        result := ComCall(10, this, "ptr*", Format, "HRESULT")
-        return result
+    get_AudioFormat() {
+        result := ComCall(10, this, "ptr*", &Format := 0, "HRESULT")
+        return ISpeechAudioFormat(Format)
     }
 
     /**
      * 
-     * @param {Pointer<ISpeechPhraseInfo>} PhraseInfo 
-     * @returns {HRESULT} 
+     * @returns {ISpeechPhraseInfo} 
      */
-    get_PhraseInfo(PhraseInfo) {
-        result := ComCall(11, this, "ptr*", PhraseInfo, "HRESULT")
-        return result
+    get_PhraseInfo() {
+        result := ComCall(11, this, "ptr*", &PhraseInfo := 0, "HRESULT")
+        return ISpeechPhraseInfo(PhraseInfo)
     }
 
     /**
@@ -84,24 +87,22 @@ class ISpeechRecoResultDispatch extends IDispatch{
      * @param {Integer} RequestCount 
      * @param {Integer} StartElement 
      * @param {Integer} Elements 
-     * @param {Pointer<ISpeechPhraseAlternates>} Alternates 
-     * @returns {HRESULT} 
+     * @returns {ISpeechPhraseAlternates} 
      */
-    Alternates(RequestCount, StartElement, Elements, Alternates) {
-        result := ComCall(12, this, "int", RequestCount, "int", StartElement, "int", Elements, "ptr*", Alternates, "HRESULT")
-        return result
+    Alternates(RequestCount, StartElement, Elements) {
+        result := ComCall(12, this, "int", RequestCount, "int", StartElement, "int", Elements, "ptr*", &Alternates := 0, "HRESULT")
+        return ISpeechPhraseAlternates(Alternates)
     }
 
     /**
      * 
      * @param {Integer} StartElement 
      * @param {Integer} Elements 
-     * @param {Pointer<ISpeechMemoryStream>} Stream 
-     * @returns {HRESULT} 
+     * @returns {ISpeechMemoryStream} 
      */
-    Audio(StartElement, Elements, Stream) {
-        result := ComCall(13, this, "int", StartElement, "int", Elements, "ptr*", Stream, "HRESULT")
-        return result
+    Audio(StartElement, Elements) {
+        result := ComCall(13, this, "int", StartElement, "int", Elements, "ptr*", &Stream := 0, "HRESULT")
+        return ISpeechMemoryStream(Stream)
     }
 
     /**
@@ -109,24 +110,21 @@ class ISpeechRecoResultDispatch extends IDispatch{
      * @param {Integer} StartElement 
      * @param {Integer} Elements 
      * @param {Integer} Flags 
-     * @param {Pointer<Integer>} StreamNumber 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    SpeakAudio(StartElement, Elements, Flags, StreamNumber) {
-        StreamNumberMarshal := StreamNumber is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, "int", StartElement, "int", Elements, "int", Flags, StreamNumberMarshal, StreamNumber, "HRESULT")
-        return result
+    SpeakAudio(StartElement, Elements, Flags) {
+        result := ComCall(14, this, "int", StartElement, "int", Elements, "int", Flags, "int*", &StreamNumber := 0, "HRESULT")
+        return StreamNumber
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} ResultBlock 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    SaveToMemory(ResultBlock) {
+    SaveToMemory() {
+        ResultBlock := VARIANT()
         result := ComCall(15, this, "ptr", ResultBlock, "HRESULT")
-        return result
+        return ResultBlock
     }
 
     /**
@@ -142,12 +140,12 @@ class ISpeechRecoResultDispatch extends IDispatch{
     /**
      * 
      * @param {Integer} Options 
-     * @param {Pointer<BSTR>} pResult 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetXMLResult(Options, pResult) {
+    GetXMLResult(Options) {
+        pResult := BSTR()
         result := ComCall(17, this, "int", Options, "ptr", pResult, "HRESULT")
-        return result
+        return pResult
     }
 
     /**
@@ -162,8 +160,10 @@ class ISpeechRecoResultDispatch extends IDispatch{
      */
     GetXMLErrorInfo(LineNumber, ScriptLine, Source, Description, ResultCode, IsError) {
         LineNumberMarshal := LineNumber is VarRef ? "int*" : "ptr"
+        ResultCodeMarshal := ResultCode is VarRef ? "int*" : "ptr"
+        IsErrorMarshal := IsError is VarRef ? "short*" : "ptr"
 
-        result := ComCall(18, this, LineNumberMarshal, LineNumber, "ptr", ScriptLine, "ptr", Source, "ptr", Description, "ptr", ResultCode, "ptr", IsError, "HRESULT")
+        result := ComCall(18, this, LineNumberMarshal, LineNumber, "ptr", ScriptLine, "ptr", Source, "ptr", Description, ResultCodeMarshal, ResultCode, IsErrorMarshal, IsError, "HRESULT")
         return result
     }
 

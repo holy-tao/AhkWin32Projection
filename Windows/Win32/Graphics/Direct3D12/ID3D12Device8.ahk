@@ -56,15 +56,12 @@ class ID3D12Device8 extends ID3D12Device7{
      * @param {Pointer<D3D12_CLEAR_VALUE>} pOptimizedClearValue 
      * @param {ID3D12ProtectedResourceSession} pProtectedSession 
      * @param {Pointer<Guid>} riidResource 
-     * @param {Pointer<Pointer<Void>>} ppvResource 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device8-createcommittedresource2
      */
-    CreateCommittedResource2(pHeapProperties, HeapFlags, pDesc, InitialResourceState, pOptimizedClearValue, pProtectedSession, riidResource, ppvResource) {
-        ppvResourceMarshal := ppvResource is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(69, this, "ptr", pHeapProperties, "int", HeapFlags, "ptr", pDesc, "int", InitialResourceState, "ptr", pOptimizedClearValue, "ptr", pProtectedSession, "ptr", riidResource, ppvResourceMarshal, ppvResource, "HRESULT")
-        return result
+    CreateCommittedResource2(pHeapProperties, HeapFlags, pDesc, InitialResourceState, pOptimizedClearValue, pProtectedSession, riidResource) {
+        result := ComCall(69, this, "ptr", pHeapProperties, "int", HeapFlags, "ptr", pDesc, "int", InitialResourceState, "ptr", pOptimizedClearValue, "ptr", pProtectedSession, "ptr", riidResource, "ptr*", &ppvResource := 0, "HRESULT")
+        return ppvResource
     }
 
     /**
@@ -75,15 +72,12 @@ class ID3D12Device8 extends ID3D12Device7{
      * @param {Integer} InitialState 
      * @param {Pointer<D3D12_CLEAR_VALUE>} pOptimizedClearValue 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvResource 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device8-createplacedresource1
      */
-    CreatePlacedResource1(pHeap, HeapOffset, pDesc, InitialState, pOptimizedClearValue, riid, ppvResource) {
-        ppvResourceMarshal := ppvResource is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(70, this, "ptr", pHeap, "uint", HeapOffset, "ptr", pDesc, "int", InitialState, "ptr", pOptimizedClearValue, "ptr", riid, ppvResourceMarshal, ppvResource, "HRESULT")
-        return result
+    CreatePlacedResource1(pHeap, HeapOffset, pDesc, InitialState, pOptimizedClearValue, riid) {
+        result := ComCall(70, this, "ptr", pHeap, "uint", HeapOffset, "ptr", pDesc, "int", InitialState, "ptr", pOptimizedClearValue, "ptr", riid, "ptr*", &ppvResource := 0, "HRESULT")
+        return ppvResource
     }
 
     /**

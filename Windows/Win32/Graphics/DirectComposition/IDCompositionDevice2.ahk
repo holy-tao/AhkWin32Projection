@@ -1,6 +1,25 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DCOMPOSITION_FRAME_STATISTICS.ahk
+#Include .\IDCompositionVisual2.ahk
+#Include .\IDCompositionSurfaceFactory.ahk
+#Include .\IDCompositionSurface.ahk
+#Include .\IDCompositionVirtualSurface.ahk
+#Include .\IDCompositionTranslateTransform.ahk
+#Include .\IDCompositionScaleTransform.ahk
+#Include .\IDCompositionRotateTransform.ahk
+#Include .\IDCompositionSkewTransform.ahk
+#Include .\IDCompositionMatrixTransform.ahk
+#Include .\IDCompositionTransform.ahk
+#Include .\IDCompositionTranslateTransform3D.ahk
+#Include .\IDCompositionScaleTransform3D.ahk
+#Include .\IDCompositionRotateTransform3D.ahk
+#Include .\IDCompositionMatrixTransform3D.ahk
+#Include .\IDCompositionTransform3D.ahk
+#Include .\IDCompositionEffectGroup.ahk
+#Include .\IDCompositionRectangleClip.ahk
+#Include .\IDCompositionAnimation.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -52,36 +71,34 @@ class IDCompositionDevice2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<DCOMPOSITION_FRAME_STATISTICS>} statistics 
-     * @returns {HRESULT} 
+     * @returns {DCOMPOSITION_FRAME_STATISTICS} 
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-getframestatistics
      */
-    GetFrameStatistics(statistics) {
+    GetFrameStatistics() {
+        statistics := DCOMPOSITION_FRAME_STATISTICS()
         result := ComCall(5, this, "ptr", statistics, "HRESULT")
-        return result
+        return statistics
     }
 
     /**
      * 
-     * @param {Pointer<IDCompositionVisual2>} visual 
-     * @returns {HRESULT} 
+     * @returns {IDCompositionVisual2} 
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-createvisual
      */
-    CreateVisual(visual) {
-        result := ComCall(6, this, "ptr*", visual, "HRESULT")
-        return result
+    CreateVisual() {
+        result := ComCall(6, this, "ptr*", &visual := 0, "HRESULT")
+        return IDCompositionVisual2(visual)
     }
 
     /**
      * 
      * @param {IUnknown} renderingDevice 
-     * @param {Pointer<IDCompositionSurfaceFactory>} surfaceFactory 
-     * @returns {HRESULT} 
+     * @returns {IDCompositionSurfaceFactory} 
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-createsurfacefactory
      */
-    CreateSurfaceFactory(renderingDevice, surfaceFactory) {
-        result := ComCall(7, this, "ptr", renderingDevice, "ptr*", surfaceFactory, "HRESULT")
-        return result
+    CreateSurfaceFactory(renderingDevice) {
+        result := ComCall(7, this, "ptr", renderingDevice, "ptr*", &surfaceFactory := 0, "HRESULT")
+        return IDCompositionSurfaceFactory(surfaceFactory)
     }
 
     /**
@@ -90,13 +107,12 @@ class IDCompositionDevice2 extends IUnknown{
      * @param {Integer} height 
      * @param {Integer} pixelFormat 
      * @param {Integer} alphaMode 
-     * @param {Pointer<IDCompositionSurface>} surface 
-     * @returns {HRESULT} 
+     * @returns {IDCompositionSurface} 
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-createsurface
      */
-    CreateSurface(width, height, pixelFormat, alphaMode, surface) {
-        result := ComCall(8, this, "uint", width, "uint", height, "int", pixelFormat, "int", alphaMode, "ptr*", surface, "HRESULT")
-        return result
+    CreateSurface(width, height, pixelFormat, alphaMode) {
+        result := ComCall(8, this, "uint", width, "uint", height, "int", pixelFormat, "int", alphaMode, "ptr*", &surface := 0, "HRESULT")
+        return IDCompositionSurface(surface)
     }
 
     /**
@@ -105,170 +121,155 @@ class IDCompositionDevice2 extends IUnknown{
      * @param {Integer} initialHeight 
      * @param {Integer} pixelFormat 
      * @param {Integer} alphaMode 
-     * @param {Pointer<IDCompositionVirtualSurface>} virtualSurface 
-     * @returns {HRESULT} 
+     * @returns {IDCompositionVirtualSurface} 
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-createvirtualsurface
      */
-    CreateVirtualSurface(initialWidth, initialHeight, pixelFormat, alphaMode, virtualSurface) {
-        result := ComCall(9, this, "uint", initialWidth, "uint", initialHeight, "int", pixelFormat, "int", alphaMode, "ptr*", virtualSurface, "HRESULT")
-        return result
+    CreateVirtualSurface(initialWidth, initialHeight, pixelFormat, alphaMode) {
+        result := ComCall(9, this, "uint", initialWidth, "uint", initialHeight, "int", pixelFormat, "int", alphaMode, "ptr*", &virtualSurface := 0, "HRESULT")
+        return IDCompositionVirtualSurface(virtualSurface)
     }
 
     /**
      * 
-     * @param {Pointer<IDCompositionTranslateTransform>} translateTransform 
-     * @returns {HRESULT} 
+     * @returns {IDCompositionTranslateTransform} 
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-createtranslatetransform
      */
-    CreateTranslateTransform(translateTransform) {
-        result := ComCall(10, this, "ptr*", translateTransform, "HRESULT")
-        return result
+    CreateTranslateTransform() {
+        result := ComCall(10, this, "ptr*", &translateTransform := 0, "HRESULT")
+        return IDCompositionTranslateTransform(translateTransform)
     }
 
     /**
      * 
-     * @param {Pointer<IDCompositionScaleTransform>} scaleTransform 
-     * @returns {HRESULT} 
+     * @returns {IDCompositionScaleTransform} 
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-createscaletransform
      */
-    CreateScaleTransform(scaleTransform) {
-        result := ComCall(11, this, "ptr*", scaleTransform, "HRESULT")
-        return result
+    CreateScaleTransform() {
+        result := ComCall(11, this, "ptr*", &scaleTransform := 0, "HRESULT")
+        return IDCompositionScaleTransform(scaleTransform)
     }
 
     /**
      * 
-     * @param {Pointer<IDCompositionRotateTransform>} rotateTransform 
-     * @returns {HRESULT} 
+     * @returns {IDCompositionRotateTransform} 
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-createrotatetransform
      */
-    CreateRotateTransform(rotateTransform) {
-        result := ComCall(12, this, "ptr*", rotateTransform, "HRESULT")
-        return result
+    CreateRotateTransform() {
+        result := ComCall(12, this, "ptr*", &rotateTransform := 0, "HRESULT")
+        return IDCompositionRotateTransform(rotateTransform)
     }
 
     /**
      * 
-     * @param {Pointer<IDCompositionSkewTransform>} skewTransform 
-     * @returns {HRESULT} 
+     * @returns {IDCompositionSkewTransform} 
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-createskewtransform
      */
-    CreateSkewTransform(skewTransform) {
-        result := ComCall(13, this, "ptr*", skewTransform, "HRESULT")
-        return result
+    CreateSkewTransform() {
+        result := ComCall(13, this, "ptr*", &skewTransform := 0, "HRESULT")
+        return IDCompositionSkewTransform(skewTransform)
     }
 
     /**
      * 
-     * @param {Pointer<IDCompositionMatrixTransform>} matrixTransform 
-     * @returns {HRESULT} 
+     * @returns {IDCompositionMatrixTransform} 
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-creatematrixtransform
      */
-    CreateMatrixTransform(matrixTransform) {
-        result := ComCall(14, this, "ptr*", matrixTransform, "HRESULT")
-        return result
+    CreateMatrixTransform() {
+        result := ComCall(14, this, "ptr*", &matrixTransform := 0, "HRESULT")
+        return IDCompositionMatrixTransform(matrixTransform)
     }
 
     /**
      * 
      * @param {Pointer<IDCompositionTransform>} transforms 
      * @param {Integer} elements 
-     * @param {Pointer<IDCompositionTransform>} transformGroup 
-     * @returns {HRESULT} 
+     * @returns {IDCompositionTransform} 
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-createtransformgroup
      */
-    CreateTransformGroup(transforms, elements, transformGroup) {
-        result := ComCall(15, this, "ptr*", transforms, "uint", elements, "ptr*", transformGroup, "HRESULT")
-        return result
+    CreateTransformGroup(transforms, elements) {
+        result := ComCall(15, this, "ptr*", transforms, "uint", elements, "ptr*", &transformGroup := 0, "HRESULT")
+        return IDCompositionTransform(transformGroup)
     }
 
     /**
      * 
-     * @param {Pointer<IDCompositionTranslateTransform3D>} translateTransform3D 
-     * @returns {HRESULT} 
+     * @returns {IDCompositionTranslateTransform3D} 
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-createtranslatetransform3d
      */
-    CreateTranslateTransform3D(translateTransform3D) {
-        result := ComCall(16, this, "ptr*", translateTransform3D, "HRESULT")
-        return result
+    CreateTranslateTransform3D() {
+        result := ComCall(16, this, "ptr*", &translateTransform3D := 0, "HRESULT")
+        return IDCompositionTranslateTransform3D(translateTransform3D)
     }
 
     /**
      * 
-     * @param {Pointer<IDCompositionScaleTransform3D>} scaleTransform3D 
-     * @returns {HRESULT} 
+     * @returns {IDCompositionScaleTransform3D} 
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-createscaletransform3d
      */
-    CreateScaleTransform3D(scaleTransform3D) {
-        result := ComCall(17, this, "ptr*", scaleTransform3D, "HRESULT")
-        return result
+    CreateScaleTransform3D() {
+        result := ComCall(17, this, "ptr*", &scaleTransform3D := 0, "HRESULT")
+        return IDCompositionScaleTransform3D(scaleTransform3D)
     }
 
     /**
      * 
-     * @param {Pointer<IDCompositionRotateTransform3D>} rotateTransform3D 
-     * @returns {HRESULT} 
+     * @returns {IDCompositionRotateTransform3D} 
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-createrotatetransform3d
      */
-    CreateRotateTransform3D(rotateTransform3D) {
-        result := ComCall(18, this, "ptr*", rotateTransform3D, "HRESULT")
-        return result
+    CreateRotateTransform3D() {
+        result := ComCall(18, this, "ptr*", &rotateTransform3D := 0, "HRESULT")
+        return IDCompositionRotateTransform3D(rotateTransform3D)
     }
 
     /**
      * 
-     * @param {Pointer<IDCompositionMatrixTransform3D>} matrixTransform3D 
-     * @returns {HRESULT} 
+     * @returns {IDCompositionMatrixTransform3D} 
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-creatematrixtransform3d
      */
-    CreateMatrixTransform3D(matrixTransform3D) {
-        result := ComCall(19, this, "ptr*", matrixTransform3D, "HRESULT")
-        return result
+    CreateMatrixTransform3D() {
+        result := ComCall(19, this, "ptr*", &matrixTransform3D := 0, "HRESULT")
+        return IDCompositionMatrixTransform3D(matrixTransform3D)
     }
 
     /**
      * 
      * @param {Pointer<IDCompositionTransform3D>} transforms3D 
      * @param {Integer} elements 
-     * @param {Pointer<IDCompositionTransform3D>} transform3DGroup 
-     * @returns {HRESULT} 
+     * @returns {IDCompositionTransform3D} 
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-createtransform3dgroup
      */
-    CreateTransform3DGroup(transforms3D, elements, transform3DGroup) {
-        result := ComCall(20, this, "ptr*", transforms3D, "uint", elements, "ptr*", transform3DGroup, "HRESULT")
-        return result
+    CreateTransform3DGroup(transforms3D, elements) {
+        result := ComCall(20, this, "ptr*", transforms3D, "uint", elements, "ptr*", &transform3DGroup := 0, "HRESULT")
+        return IDCompositionTransform3D(transform3DGroup)
     }
 
     /**
      * 
-     * @param {Pointer<IDCompositionEffectGroup>} effectGroup 
-     * @returns {HRESULT} 
+     * @returns {IDCompositionEffectGroup} 
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-createeffectgroup
      */
-    CreateEffectGroup(effectGroup) {
-        result := ComCall(21, this, "ptr*", effectGroup, "HRESULT")
-        return result
+    CreateEffectGroup() {
+        result := ComCall(21, this, "ptr*", &effectGroup := 0, "HRESULT")
+        return IDCompositionEffectGroup(effectGroup)
     }
 
     /**
      * 
-     * @param {Pointer<IDCompositionRectangleClip>} clip 
-     * @returns {HRESULT} 
+     * @returns {IDCompositionRectangleClip} 
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-createrectangleclip
      */
-    CreateRectangleClip(clip) {
-        result := ComCall(22, this, "ptr*", clip, "HRESULT")
-        return result
+    CreateRectangleClip() {
+        result := ComCall(22, this, "ptr*", &clip := 0, "HRESULT")
+        return IDCompositionRectangleClip(clip)
     }
 
     /**
      * 
-     * @param {Pointer<IDCompositionAnimation>} animation 
-     * @returns {HRESULT} 
+     * @returns {IDCompositionAnimation} 
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice2-createanimation
      */
-    CreateAnimation(animation) {
-        result := ComCall(23, this, "ptr*", animation, "HRESULT")
-        return result
+    CreateAnimation() {
+        result := ComCall(23, this, "ptr*", &animation := 0, "HRESULT")
+        return IDCompositionAnimation(animation)
     }
 }

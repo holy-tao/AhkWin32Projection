@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITfCandidateList.ahk
 #Include .\ITfFunction.ahk
 
 /**
@@ -39,32 +40,32 @@ class ITfFnLMProcessor extends ITfFunction{
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnlmprocessor-queryrange
      */
     QueryRange(pRange, ppNewRange, pfAccepted) {
-        result := ComCall(4, this, "ptr", pRange, "ptr*", ppNewRange, "ptr", pfAccepted, "HRESULT")
+        pfAcceptedMarshal := pfAccepted is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pRange, "ptr*", ppNewRange, pfAcceptedMarshal, pfAccepted, "HRESULT")
         return result
     }
 
     /**
      * 
      * @param {Integer} langid 
-     * @param {Pointer<BOOL>} pfAccepted 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnlmprocessor-querylangid
      */
-    QueryLangID(langid, pfAccepted) {
-        result := ComCall(5, this, "ushort", langid, "ptr", pfAccepted, "HRESULT")
-        return result
+    QueryLangID(langid) {
+        result := ComCall(5, this, "ushort", langid, "int*", &pfAccepted := 0, "HRESULT")
+        return pfAccepted
     }
 
     /**
      * 
      * @param {ITfRange} pRange 
-     * @param {Pointer<ITfCandidateList>} ppCandList 
-     * @returns {HRESULT} 
+     * @returns {ITfCandidateList} 
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnlmprocessor-getreconversion
      */
-    GetReconversion(pRange, ppCandList) {
-        result := ComCall(6, this, "ptr", pRange, "ptr*", ppCandList, "HRESULT")
-        return result
+    GetReconversion(pRange) {
+        result := ComCall(6, this, "ptr", pRange, "ptr*", &ppCandList := 0, "HRESULT")
+        return ITfCandidateList(ppCandList)
     }
 
     /**
@@ -83,13 +84,12 @@ class ITfFnLMProcessor extends ITfFunction{
      * @param {BOOL} fUp 
      * @param {WPARAM} vKey 
      * @param {LPARAM} lparamKeydata 
-     * @param {Pointer<BOOL>} pfInterested 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnlmprocessor-querykey
      */
-    QueryKey(fUp, vKey, lparamKeydata, pfInterested) {
-        result := ComCall(8, this, "int", fUp, "ptr", vKey, "ptr", lparamKeydata, "ptr", pfInterested, "HRESULT")
-        return result
+    QueryKey(fUp, vKey, lparamKeydata) {
+        result := ComCall(8, this, "int", fUp, "ptr", vKey, "ptr", lparamKeydata, "int*", &pfInterested := 0, "HRESULT")
+        return pfInterested
     }
 
     /**

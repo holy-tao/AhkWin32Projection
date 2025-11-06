@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRTCWatcher.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -30,11 +31,10 @@ class IRTCWatcherEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IRTCWatcher>} ppWatcher 
-     * @returns {HRESULT} 
+     * @returns {IRTCWatcher} 
      */
-    get_Watcher(ppWatcher) {
-        result := ComCall(7, this, "ptr*", ppWatcher, "HRESULT")
-        return result
+    get_Watcher() {
+        result := ComCall(7, this, "ptr*", &ppWatcher := 0, "HRESULT")
+        return IRTCWatcher(ppWatcher)
     }
 }

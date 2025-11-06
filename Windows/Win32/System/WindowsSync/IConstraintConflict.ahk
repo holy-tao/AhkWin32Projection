@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISyncChange.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -30,62 +31,56 @@ class IConstraintConflict extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ISyncChange>} ppConflictingChange 
-     * @returns {HRESULT} 
+     * @returns {ISyncChange} 
      */
-    GetDestinationProviderConflictingChange(ppConflictingChange) {
-        result := ComCall(3, this, "ptr*", ppConflictingChange, "HRESULT")
-        return result
+    GetDestinationProviderConflictingChange() {
+        result := ComCall(3, this, "ptr*", &ppConflictingChange := 0, "HRESULT")
+        return ISyncChange(ppConflictingChange)
     }
 
     /**
      * 
-     * @param {Pointer<ISyncChange>} ppConflictingChange 
-     * @returns {HRESULT} 
+     * @returns {ISyncChange} 
      */
-    GetSourceProviderConflictingChange(ppConflictingChange) {
-        result := ComCall(4, this, "ptr*", ppConflictingChange, "HRESULT")
-        return result
+    GetSourceProviderConflictingChange() {
+        result := ComCall(4, this, "ptr*", &ppConflictingChange := 0, "HRESULT")
+        return ISyncChange(ppConflictingChange)
     }
 
     /**
      * 
-     * @param {Pointer<ISyncChange>} ppOriginalChange 
-     * @returns {HRESULT} 
+     * @returns {ISyncChange} 
      */
-    GetDestinationProviderOriginalChange(ppOriginalChange) {
-        result := ComCall(5, this, "ptr*", ppOriginalChange, "HRESULT")
-        return result
+    GetDestinationProviderOriginalChange() {
+        result := ComCall(5, this, "ptr*", &ppOriginalChange := 0, "HRESULT")
+        return ISyncChange(ppOriginalChange)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppConflictingData 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    GetDestinationProviderConflictingData(ppConflictingData) {
-        result := ComCall(6, this, "ptr*", ppConflictingData, "HRESULT")
-        return result
+    GetDestinationProviderConflictingData() {
+        result := ComCall(6, this, "ptr*", &ppConflictingData := 0, "HRESULT")
+        return IUnknown(ppConflictingData)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppConflictingData 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    GetSourceProviderConflictingData(ppConflictingData) {
-        result := ComCall(7, this, "ptr*", ppConflictingData, "HRESULT")
-        return result
+    GetSourceProviderConflictingData() {
+        result := ComCall(7, this, "ptr*", &ppConflictingData := 0, "HRESULT")
+        return IUnknown(ppConflictingData)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppOriginalData 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    GetDestinationProviderOriginalData(ppOriginalData) {
-        result := ComCall(8, this, "ptr*", ppOriginalData, "HRESULT")
-        return result
+    GetDestinationProviderOriginalData() {
+        result := ComCall(8, this, "ptr*", &ppOriginalData := 0, "HRESULT")
+        return IUnknown(ppOriginalData)
     }
 
     /**

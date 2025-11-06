@@ -38,7 +38,9 @@ class ICorProfilerInfo6 extends ICorProfilerInfo5{
      * @returns {HRESULT} 
      */
     EnumNgenModuleMethodsInliningThisMethod(inlinersModuleId, inlineeModuleId, inlineeMethodId, incompleteData, ppEnum) {
-        result := ComCall(83, this, "ptr", inlinersModuleId, "ptr", inlineeModuleId, "uint", inlineeMethodId, "ptr", incompleteData, "ptr*", ppEnum, "HRESULT")
+        incompleteDataMarshal := incompleteData is VarRef ? "int*" : "ptr"
+
+        result := ComCall(83, this, "ptr", inlinersModuleId, "ptr", inlineeModuleId, "uint", inlineeMethodId, incompleteDataMarshal, incompleteData, "ptr*", ppEnum, "HRESULT")
         return result
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumTravelLogEntry.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -63,11 +64,10 @@ class IEnumTravelLogEntry extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumTravelLogEntry>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumTravelLogEntry} 
      */
-    Clone(ppEnum) {
-        result := ComCall(6, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumTravelLogEntry(ppEnum)
     }
 }

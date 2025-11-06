@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\SMDATA.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -165,13 +166,13 @@ class IShellMenu extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<SMDATA>} psmd 
-     * @returns {HRESULT} 
+     * @returns {SMDATA} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellmenu-getstate
      */
-    GetState(psmd) {
+    GetState() {
+        psmd := SMDATA()
         result := ComCall(10, this, "ptr", psmd, "HRESULT")
-        return result
+        return psmd
     }
 
     /**

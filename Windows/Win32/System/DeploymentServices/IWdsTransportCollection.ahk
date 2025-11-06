@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\Com\IUnknown.ahk
 
 /**
  * Represents a collection of Windows Deployment Services (WDS) transport management objects.
@@ -38,37 +39,32 @@ class IWdsTransportCollection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pulCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportcollection-get_count
      */
-    get_Count(pulCount) {
-        pulCountMarshal := pulCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pulCountMarshal, pulCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "uint*", &pulCount := 0, "HRESULT")
+        return pulCount
     }
 
     /**
      * 
      * @param {Integer} ulIndex 
-     * @param {Pointer<IDispatch>} ppVal 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportcollection-get_item
      */
-    get_Item(ulIndex, ppVal) {
-        result := ComCall(8, this, "uint", ulIndex, "ptr*", ppVal, "HRESULT")
-        return result
+    get_Item(ulIndex) {
+        result := ComCall(8, this, "uint", ulIndex, "ptr*", &ppVal := 0, "HRESULT")
+        return IDispatch(ppVal)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppVal 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportcollection-get__newenum
      */
-    get__NewEnum(ppVal) {
-        result := ComCall(9, this, "ptr*", ppVal, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(9, this, "ptr*", &ppVal := 0, "HRESULT")
+        return IUnknown(ppVal)
     }
 }

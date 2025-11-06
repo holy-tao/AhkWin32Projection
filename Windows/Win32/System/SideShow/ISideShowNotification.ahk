@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\UI\WindowsAndMessaging\HICON.ahk
+#Include ..\..\Foundation\SYSTEMTIME.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -36,14 +38,11 @@ class ISideShowNotification extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} out_pNotificationId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_NotificationId(out_pNotificationId) {
-        out_pNotificationIdMarshal := out_pNotificationId is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, out_pNotificationIdMarshal, out_pNotificationId, "HRESULT")
-        return result
+    get_NotificationId() {
+        result := ComCall(3, this, "uint*", &out_pNotificationId := 0, "HRESULT")
+        return out_pNotificationId
     }
 
     /**
@@ -58,12 +57,11 @@ class ISideShowNotification extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} out_ppwszTitle 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    get_Title(out_ppwszTitle) {
-        result := ComCall(5, this, "ptr", out_ppwszTitle, "HRESULT")
-        return result
+    get_Title() {
+        result := ComCall(5, this, "ptr*", &out_ppwszTitle := 0, "HRESULT")
+        return out_ppwszTitle
     }
 
     /**
@@ -80,12 +78,11 @@ class ISideShowNotification extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} out_ppwszMessage 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    get_Message(out_ppwszMessage) {
-        result := ComCall(7, this, "ptr", out_ppwszMessage, "HRESULT")
-        return result
+    get_Message() {
+        result := ComCall(7, this, "ptr*", &out_ppwszMessage := 0, "HRESULT")
+        return out_ppwszMessage
     }
 
     /**
@@ -102,12 +99,12 @@ class ISideShowNotification extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HICON>} out_phIcon 
-     * @returns {HRESULT} 
+     * @returns {HICON} 
      */
-    get_Image(out_phIcon) {
+    get_Image() {
+        out_phIcon := HICON()
         result := ComCall(9, this, "ptr", out_phIcon, "HRESULT")
-        return result
+        return out_phIcon
     }
 
     /**
@@ -124,12 +121,12 @@ class ISideShowNotification extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<SYSTEMTIME>} out_pTime 
-     * @returns {HRESULT} 
+     * @returns {SYSTEMTIME} 
      */
-    get_ExpirationTime(out_pTime) {
+    get_ExpirationTime() {
+        out_pTime := SYSTEMTIME()
         result := ComCall(11, this, "ptr", out_pTime, "HRESULT")
-        return result
+        return out_pTime
     }
 
     /**

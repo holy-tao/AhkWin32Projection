@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 #Include ..\..\Com\IUnknown.ahk
+#Include .\IMethodMalloc.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.ClrProfiling
@@ -31,28 +33,22 @@ class ICorProfilerInfo extends IUnknown{
     /**
      * 
      * @param {Pointer} objectId 
-     * @param {Pointer<Pointer>} pClassId 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    GetClassFromObject(objectId, pClassId) {
-        pClassIdMarshal := pClassId is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", objectId, pClassIdMarshal, pClassId, "HRESULT")
-        return result
+    GetClassFromObject(objectId) {
+        result := ComCall(3, this, "ptr", objectId, "ptr*", &pClassId := 0, "HRESULT")
+        return pClassId
     }
 
     /**
      * 
      * @param {Pointer} moduleId 
      * @param {Integer} typeDef 
-     * @param {Pointer<Pointer>} pClassId 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    GetClassFromToken(moduleId, typeDef, pClassId) {
-        pClassIdMarshal := pClassId is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "ptr", moduleId, "uint", typeDef, pClassIdMarshal, pClassId, "HRESULT")
-        return result
+    GetClassFromToken(moduleId, typeDef) {
+        result := ComCall(4, this, "ptr", moduleId, "uint", typeDef, "ptr*", &pClassId := 0, "HRESULT")
+        return pClassId
     }
 
     /**
@@ -72,66 +68,55 @@ class ICorProfilerInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwEvents 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetEventMask(pdwEvents) {
-        pdwEventsMarshal := pdwEvents is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pdwEventsMarshal, pdwEvents, "HRESULT")
-        return result
+    GetEventMask() {
+        result := ComCall(6, this, "uint*", &pdwEvents := 0, "HRESULT")
+        return pdwEvents
     }
 
     /**
      * 
      * @param {Pointer<Integer>} ip 
-     * @param {Pointer<Pointer>} pFunctionId 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    GetFunctionFromIP(ip, pFunctionId) {
+    GetFunctionFromIP(ip) {
         ipMarshal := ip is VarRef ? "char*" : "ptr"
-        pFunctionIdMarshal := pFunctionId is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, ipMarshal, ip, pFunctionIdMarshal, pFunctionId, "HRESULT")
-        return result
+        result := ComCall(7, this, ipMarshal, ip, "ptr*", &pFunctionId := 0, "HRESULT")
+        return pFunctionId
     }
 
     /**
      * 
      * @param {Pointer} moduleId 
      * @param {Integer} token 
-     * @param {Pointer<Pointer>} pFunctionId 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    GetFunctionFromToken(moduleId, token, pFunctionId) {
-        pFunctionIdMarshal := pFunctionId is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(8, this, "ptr", moduleId, "uint", token, pFunctionIdMarshal, pFunctionId, "HRESULT")
-        return result
+    GetFunctionFromToken(moduleId, token) {
+        result := ComCall(8, this, "ptr", moduleId, "uint", token, "ptr*", &pFunctionId := 0, "HRESULT")
+        return pFunctionId
     }
 
     /**
      * 
      * @param {Pointer} threadId 
-     * @param {Pointer<HANDLE>} phThread 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      */
-    GetHandleFromThread(threadId, phThread) {
+    GetHandleFromThread(threadId) {
+        phThread := HANDLE()
         result := ComCall(9, this, "ptr", threadId, "ptr", phThread, "HRESULT")
-        return result
+        return phThread
     }
 
     /**
      * 
      * @param {Pointer} objectId 
-     * @param {Pointer<Integer>} pcSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetObjectSize(objectId, pcSize) {
-        pcSizeMarshal := pcSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, "ptr", objectId, pcSizeMarshal, pcSize, "HRESULT")
-        return result
+    GetObjectSize(objectId) {
+        result := ComCall(10, this, "ptr", objectId, "uint*", &pcSize := 0, "HRESULT")
+        return pcSize
     }
 
     /**
@@ -154,26 +139,20 @@ class ICorProfilerInfo extends IUnknown{
     /**
      * 
      * @param {Pointer} threadId 
-     * @param {Pointer<Integer>} pdwWin32ThreadId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetThreadInfo(threadId, pdwWin32ThreadId) {
-        pdwWin32ThreadIdMarshal := pdwWin32ThreadId is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, "ptr", threadId, pdwWin32ThreadIdMarshal, pdwWin32ThreadId, "HRESULT")
-        return result
+    GetThreadInfo(threadId) {
+        result := ComCall(12, this, "ptr", threadId, "uint*", &pdwWin32ThreadId := 0, "HRESULT")
+        return pdwWin32ThreadId
     }
 
     /**
      * 
-     * @param {Pointer<Pointer>} pThreadId 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    GetCurrentThreadID(pThreadId) {
-        pThreadIdMarshal := pThreadId is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(13, this, pThreadIdMarshal, pThreadId, "HRESULT")
-        return result
+    GetCurrentThreadID() {
+        result := ComCall(13, this, "ptr*", &pThreadId := 0, "HRESULT")
+        return pThreadId
     }
 
     /**
@@ -287,12 +266,11 @@ class ICorProfilerInfo extends IUnknown{
      * @param {Pointer} moduleId 
      * @param {Integer} dwOpenFlags 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppOut 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    GetModuleMetaData(moduleId, dwOpenFlags, riid, ppOut) {
-        result := ComCall(21, this, "ptr", moduleId, "uint", dwOpenFlags, "ptr", riid, "ptr*", ppOut, "HRESULT")
-        return result
+    GetModuleMetaData(moduleId, dwOpenFlags, riid) {
+        result := ComCall(21, this, "ptr", moduleId, "uint", dwOpenFlags, "ptr", riid, "ptr*", &ppOut := 0, "HRESULT")
+        return IUnknown(ppOut)
     }
 
     /**
@@ -314,12 +292,11 @@ class ICorProfilerInfo extends IUnknown{
     /**
      * 
      * @param {Pointer} moduleId 
-     * @param {Pointer<IMethodMalloc>} ppMalloc 
-     * @returns {HRESULT} 
+     * @returns {IMethodMalloc} 
      */
-    GetILFunctionBodyAllocator(moduleId, ppMalloc) {
-        result := ComCall(23, this, "ptr", moduleId, "ptr*", ppMalloc, "HRESULT")
-        return result
+    GetILFunctionBodyAllocator(moduleId) {
+        result := ComCall(23, this, "ptr", moduleId, "ptr*", &ppMalloc := 0, "HRESULT")
+        return IMethodMalloc(ppMalloc)
     }
 
     /**
@@ -410,51 +387,41 @@ class ICorProfilerInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppicd 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    GetInprocInspectionInterface(ppicd) {
-        result := ComCall(30, this, "ptr*", ppicd, "HRESULT")
-        return result
+    GetInprocInspectionInterface() {
+        result := ComCall(30, this, "ptr*", &ppicd := 0, "HRESULT")
+        return IUnknown(ppicd)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppicd 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    GetInprocInspectionIThisThread(ppicd) {
-        result := ComCall(31, this, "ptr*", ppicd, "HRESULT")
-        return result
+    GetInprocInspectionIThisThread() {
+        result := ComCall(31, this, "ptr*", &ppicd := 0, "HRESULT")
+        return IUnknown(ppicd)
     }
 
     /**
      * Retrieves the context of the specified thread.
      * @param {Pointer} threadId 
-     * @param {Pointer<Pointer>} pContextId 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call [GetLastError](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror).
+     * @returns {Pointer} 
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getthreadcontext
      */
-    GetThreadContext(threadId, pContextId) {
-        pContextIdMarshal := pContextId is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(32, this, "ptr", threadId, pContextIdMarshal, pContextId, "HRESULT")
-        return result
+    GetThreadContext(threadId) {
+        result := ComCall(32, this, "ptr", threadId, "ptr*", &pContextId := 0, "HRESULT")
+        return pContextId
     }
 
     /**
      * 
      * @param {BOOL} fThisThreadOnly 
-     * @param {Pointer<Integer>} pdwProfilerContext 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    BeginInprocDebugging(fThisThreadOnly, pdwProfilerContext) {
-        pdwProfilerContextMarshal := pdwProfilerContext is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(33, this, "int", fThisThreadOnly, pdwProfilerContextMarshal, pdwProfilerContext, "HRESULT")
-        return result
+    BeginInprocDebugging(fThisThreadOnly) {
+        result := ComCall(33, this, "int", fThisThreadOnly, "uint*", &pdwProfilerContext := 0, "HRESULT")
+        return pdwProfilerContext
     }
 
     /**

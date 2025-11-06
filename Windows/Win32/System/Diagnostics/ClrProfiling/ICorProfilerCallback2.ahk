@@ -50,7 +50,9 @@ class ICorProfilerCallback2 extends ICorProfilerCallback{
      * @returns {HRESULT} 
      */
     GarbageCollectionStarted(cGenerations, generationCollected, reason) {
-        result := ComCall(73, this, "int", cGenerations, "ptr", generationCollected, "int", reason, "HRESULT")
+        generationCollectedMarshal := generationCollected is VarRef ? "int*" : "ptr"
+
+        result := ComCall(73, this, "int", cGenerations, generationCollectedMarshal, generationCollected, "int", reason, "HRESULT")
         return result
     }
 

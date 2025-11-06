@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumBackgroundCopyGroups.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -68,25 +69,21 @@ class IEnumBackgroundCopyGroups extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumBackgroundCopyGroups>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IEnumBackgroundCopyGroups} 
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ienumbackgroundcopygroups-clone
      */
-    Clone(ppenum) {
-        result := ComCall(6, this, "ptr*", ppenum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")
+        return IEnumBackgroundCopyGroups(ppenum)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} puCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/qmgr/nf-qmgr-ienumbackgroundcopygroups-getcount
      */
-    GetCount(puCount) {
-        puCountMarshal := puCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, puCountMarshal, puCount, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(7, this, "uint*", &puCount := 0, "HRESULT")
+        return puCount
     }
 }

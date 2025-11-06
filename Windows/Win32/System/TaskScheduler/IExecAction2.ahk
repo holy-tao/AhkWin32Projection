@@ -34,7 +34,9 @@ class IExecAction2 extends IExecAction{
      * @returns {HRESULT} 
      */
     get_HideAppWindow(pHideAppWindow) {
-        result := ComCall(16, this, "ptr", pHideAppWindow, "HRESULT")
+        pHideAppWindowMarshal := pHideAppWindow is VarRef ? "short*" : "ptr"
+
+        result := ComCall(16, this, pHideAppWindowMarshal, pHideAppWindow, "HRESULT")
         return result
     }
 

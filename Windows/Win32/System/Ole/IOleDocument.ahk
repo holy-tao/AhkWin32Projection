@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IOleDocumentView.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -35,26 +36,22 @@ class IOleDocument extends IUnknown{
      * @param {IOleInPlaceSite} pIPSite 
      * @param {IStream} pstm 
      * @param {Integer} dwReserved 
-     * @param {Pointer<IOleDocumentView>} ppView 
-     * @returns {HRESULT} 
+     * @returns {IOleDocumentView} 
      * @see https://learn.microsoft.com/windows/win32/api/docobj/nf-docobj-ioledocument-createview
      */
-    CreateView(pIPSite, pstm, dwReserved, ppView) {
-        result := ComCall(3, this, "ptr", pIPSite, "ptr", pstm, "uint", dwReserved, "ptr*", ppView, "HRESULT")
-        return result
+    CreateView(pIPSite, pstm, dwReserved) {
+        result := ComCall(3, this, "ptr", pIPSite, "ptr", pstm, "uint", dwReserved, "ptr*", &ppView := 0, "HRESULT")
+        return IOleDocumentView(ppView)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/docobj/nf-docobj-ioledocument-getdocmiscstatus
      */
-    GetDocMiscStatus(pdwStatus) {
-        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pdwStatusMarshal, pdwStatus, "HRESULT")
-        return result
+    GetDocMiscStatus() {
+        result := ComCall(4, this, "uint*", &pdwStatus := 0, "HRESULT")
+        return pdwStatus
     }
 
     /**

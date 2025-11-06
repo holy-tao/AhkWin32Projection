@@ -33,17 +33,14 @@ class IOfflineFilesSyncProgress extends IOfflineFilesProgress{
     /**
      * 
      * @param {PWSTR} pszFile 
-     * @param {Pointer<Integer>} pResponse 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessyncprogress-syncitembegin
      */
-    SyncItemBegin(pszFile, pResponse) {
+    SyncItemBegin(pszFile) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        pResponseMarshal := pResponse is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, "ptr", pszFile, pResponseMarshal, pResponse, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", pszFile, "int*", &pResponse := 0, "HRESULT")
+        return pResponse
     }
 
     /**
@@ -51,16 +48,13 @@ class IOfflineFilesSyncProgress extends IOfflineFilesProgress{
      * @param {PWSTR} pszFile 
      * @param {HRESULT} hrResult 
      * @param {IOfflineFilesSyncErrorInfo} pErrorInfo 
-     * @param {Pointer<Integer>} pResponse 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessyncprogress-syncitemresult
      */
-    SyncItemResult(pszFile, hrResult, pErrorInfo, pResponse) {
+    SyncItemResult(pszFile, hrResult, pErrorInfo) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        pResponseMarshal := pResponse is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, "ptr", pszFile, "int", hrResult, "ptr", pErrorInfo, pResponseMarshal, pResponse, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", pszFile, "int", hrResult, "ptr", pErrorInfo, "int*", &pResponse := 0, "HRESULT")
+        return pResponse
     }
 }

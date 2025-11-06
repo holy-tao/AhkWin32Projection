@@ -54,15 +54,12 @@ class IVMRFilterConfig9 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwMaxStreams 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrfilterconfig9-getnumberofstreams
      */
-    GetNumberOfStreams(pdwMaxStreams) {
-        pdwMaxStreamsMarshal := pdwMaxStreams is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pdwMaxStreamsMarshal, pdwMaxStreams, "HRESULT")
-        return result
+    GetNumberOfStreams() {
+        result := ComCall(5, this, "uint*", &pdwMaxStreams := 0, "HRESULT")
+        return pdwMaxStreams
     }
 
     /**
@@ -78,15 +75,12 @@ class IVMRFilterConfig9 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwRenderFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrfilterconfig9-getrenderingprefs
      */
-    GetRenderingPrefs(pdwRenderFlags) {
-        pdwRenderFlagsMarshal := pdwRenderFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pdwRenderFlagsMarshal, pdwRenderFlags, "HRESULT")
-        return result
+    GetRenderingPrefs() {
+        result := ComCall(7, this, "uint*", &pdwRenderFlags := 0, "HRESULT")
+        return pdwRenderFlags
     }
 
     /**
@@ -102,14 +96,11 @@ class IVMRFilterConfig9 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrfilterconfig9-getrenderingmode
      */
-    GetRenderingMode(pMode) {
-        pModeMarshal := pMode is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, pModeMarshal, pMode, "HRESULT")
-        return result
+    GetRenderingMode() {
+        result := ComCall(9, this, "uint*", &pMode := 0, "HRESULT")
+        return pMode
     }
 }

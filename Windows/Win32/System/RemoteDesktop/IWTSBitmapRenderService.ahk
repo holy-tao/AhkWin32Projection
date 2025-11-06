@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWTSBitmapRenderer.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -34,12 +35,11 @@ class IWTSBitmapRenderService extends IUnknown{
      * 
      * @param {Integer} mappingId 
      * @param {IWTSBitmapRendererCallback} pMappedRendererCallback 
-     * @param {Pointer<IWTSBitmapRenderer>} ppMappedRenderer 
-     * @returns {HRESULT} 
+     * @returns {IWTSBitmapRenderer} 
      * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nf-tsvirtualchannels-iwtsbitmaprenderservice-getmappedrenderer
      */
-    GetMappedRenderer(mappingId, pMappedRendererCallback, ppMappedRenderer) {
-        result := ComCall(3, this, "uint", mappingId, "ptr", pMappedRendererCallback, "ptr*", ppMappedRenderer, "HRESULT")
-        return result
+    GetMappedRenderer(mappingId, pMappedRendererCallback) {
+        result := ComCall(3, this, "uint", mappingId, "ptr", pMappedRendererCallback, "ptr*", &ppMappedRenderer := 0, "HRESULT")
+        return IWTSBitmapRenderer(ppMappedRenderer)
     }
 }

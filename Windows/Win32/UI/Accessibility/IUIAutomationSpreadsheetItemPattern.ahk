@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IUIAutomationElementArray.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,71 +34,63 @@ class IUIAutomationSpreadsheetItemPattern extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationspreadsheetitempattern-get_currentformula
      */
-    get_CurrentFormula(retVal) {
+    get_CurrentFormula() {
+        retVal := BSTR()
         result := ComCall(3, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<IUIAutomationElementArray>} retVal 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElementArray} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationspreadsheetitempattern-getcurrentannotationobjects
      */
-    GetCurrentAnnotationObjects(retVal) {
-        result := ComCall(4, this, "ptr*", retVal, "HRESULT")
-        return result
+    GetCurrentAnnotationObjects() {
+        result := ComCall(4, this, "ptr*", &retVal := 0, "HRESULT")
+        return IUIAutomationElementArray(retVal)
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationspreadsheetitempattern-getcurrentannotationtypes
      */
-    GetCurrentAnnotationTypes(retVal) {
-        retValMarshal := retVal is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, retValMarshal, retVal, "HRESULT")
-        return result
+    GetCurrentAnnotationTypes() {
+        result := ComCall(5, this, "ptr*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationspreadsheetitempattern-get_cachedformula
      */
-    get_CachedFormula(retVal) {
+    get_CachedFormula() {
+        retVal := BSTR()
         result := ComCall(6, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<IUIAutomationElementArray>} retVal 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElementArray} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationspreadsheetitempattern-getcachedannotationobjects
      */
-    GetCachedAnnotationObjects(retVal) {
-        result := ComCall(7, this, "ptr*", retVal, "HRESULT")
-        return result
+    GetCachedAnnotationObjects() {
+        result := ComCall(7, this, "ptr*", &retVal := 0, "HRESULT")
+        return IUIAutomationElementArray(retVal)
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationspreadsheetitempattern-getcachedannotationtypes
      */
-    GetCachedAnnotationTypes(retVal) {
-        retValMarshal := retVal is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(8, this, retValMarshal, retVal, "HRESULT")
-        return result
+    GetCachedAnnotationTypes() {
+        result := ComCall(8, this, "ptr*", &retVal := 0, "HRESULT")
+        return retVal
     }
 }

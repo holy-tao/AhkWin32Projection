@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMFMediaType.ahk
 #Include .\IMFAttributes.ahk
 
 /**
@@ -43,43 +45,32 @@ class IMFTopologyNode extends IMFAttributes{
 
     /**
      * The GetObject function retrieves information for the specified graphics object.
-     * @param {Pointer<IUnknown>} ppObject 
-     * @returns {HRESULT} If the function succeeds, and <i>lpvObject</i> is a valid pointer, the return value is the number of bytes stored into the buffer.
-     * 
-     * If the function succeeds, and <i>lpvObject</i> is <b>NULL</b>, the return value is the number of bytes required to hold the information the function would store into the buffer.
-     * 
-     * If the function fails, the return value is zero.
+     * @returns {IUnknown} 
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getobject
      */
-    GetObject(ppObject) {
-        result := ComCall(34, this, "ptr*", ppObject, "HRESULT")
-        return result
+    GetObject() {
+        result := ComCall(34, this, "ptr*", &ppObject := 0, "HRESULT")
+        return IUnknown(ppObject)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftopologynode-getnodetype
      */
-    GetNodeType(pType) {
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(35, this, pTypeMarshal, pType, "HRESULT")
-        return result
+    GetNodeType() {
+        result := ComCall(35, this, "int*", &pType := 0, "HRESULT")
+        return pType
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftopologynode-gettoponodeid
      */
-    GetTopoNodeID(pID) {
-        pIDMarshal := pID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(36, this, pIDMarshal, pID, "HRESULT")
-        return result
+    GetTopoNodeID() {
+        result := ComCall(36, this, "uint*", &pID := 0, "HRESULT")
+        return pID
     }
 
     /**
@@ -95,28 +86,22 @@ class IMFTopologyNode extends IMFAttributes{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcInputs 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftopologynode-getinputcount
      */
-    GetInputCount(pcInputs) {
-        pcInputsMarshal := pcInputs is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(38, this, pcInputsMarshal, pcInputs, "HRESULT")
-        return result
+    GetInputCount() {
+        result := ComCall(38, this, "uint*", &pcInputs := 0, "HRESULT")
+        return pcInputs
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pcOutputs 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftopologynode-getoutputcount
      */
-    GetOutputCount(pcOutputs) {
-        pcOutputsMarshal := pcOutputs is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(39, this, pcOutputsMarshal, pcOutputs, "HRESULT")
-        return result
+    GetOutputCount() {
+        result := ComCall(39, this, "uint*", &pcOutputs := 0, "HRESULT")
+        return pcOutputs
     }
 
     /**
@@ -188,13 +173,12 @@ class IMFTopologyNode extends IMFAttributes{
     /**
      * 
      * @param {Integer} dwOutputIndex 
-     * @param {Pointer<IMFMediaType>} ppType 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaType} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftopologynode-getoutputpreftype
      */
-    GetOutputPrefType(dwOutputIndex, ppType) {
-        result := ComCall(45, this, "uint", dwOutputIndex, "ptr*", ppType, "HRESULT")
-        return result
+    GetOutputPrefType(dwOutputIndex) {
+        result := ComCall(45, this, "uint", dwOutputIndex, "ptr*", &ppType := 0, "HRESULT")
+        return IMFMediaType(ppType)
     }
 
     /**
@@ -212,13 +196,12 @@ class IMFTopologyNode extends IMFAttributes{
     /**
      * 
      * @param {Integer} dwInputIndex 
-     * @param {Pointer<IMFMediaType>} ppType 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaType} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftopologynode-getinputpreftype
      */
-    GetInputPrefType(dwInputIndex, ppType) {
-        result := ComCall(47, this, "uint", dwInputIndex, "ptr*", ppType, "HRESULT")
-        return result
+    GetInputPrefType(dwInputIndex) {
+        result := ComCall(47, this, "uint", dwInputIndex, "ptr*", &ppType := 0, "HRESULT")
+        return IMFMediaType(ppType)
     }
 
     /**

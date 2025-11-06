@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ISpeechGrammarRule.ahk
+#Include .\ISpeechGrammarRuleStateTransitions.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -31,22 +33,20 @@ class ISpeechGrammarRuleState extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISpeechGrammarRule>} Rule 
-     * @returns {HRESULT} 
+     * @returns {ISpeechGrammarRule} 
      */
-    get_Rule(Rule) {
-        result := ComCall(7, this, "ptr*", Rule, "HRESULT")
-        return result
+    get_Rule() {
+        result := ComCall(7, this, "ptr*", &Rule := 0, "HRESULT")
+        return ISpeechGrammarRule(Rule)
     }
 
     /**
      * 
-     * @param {Pointer<ISpeechGrammarRuleStateTransitions>} Transitions 
-     * @returns {HRESULT} 
+     * @returns {ISpeechGrammarRuleStateTransitions} 
      */
-    get_Transitions(Transitions) {
-        result := ComCall(8, this, "ptr*", Transitions, "HRESULT")
-        return result
+    get_Transitions() {
+        result := ComCall(8, this, "ptr*", &Transitions := 0, "HRESULT")
+        return ISpeechGrammarRuleStateTransitions(Transitions)
     }
 
     /**

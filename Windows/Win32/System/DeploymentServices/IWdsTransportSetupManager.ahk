@@ -39,41 +39,32 @@ class IWdsTransportSetupManager extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pullVersion 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportsetupmanager-get_version
      */
-    get_Version(pullVersion) {
-        pullVersionMarshal := pullVersion is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pullVersionMarshal, pullVersion, "HRESULT")
-        return result
+    get_Version() {
+        result := ComCall(7, this, "uint*", &pullVersion := 0, "HRESULT")
+        return pullVersion
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pulInstalledFeatures 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportsetupmanager-get_installedfeatures
      */
-    get_InstalledFeatures(pulInstalledFeatures) {
-        pulInstalledFeaturesMarshal := pulInstalledFeatures is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pulInstalledFeaturesMarshal, pulInstalledFeatures, "HRESULT")
-        return result
+    get_InstalledFeatures() {
+        result := ComCall(8, this, "uint*", &pulInstalledFeatures := 0, "HRESULT")
+        return pulInstalledFeatures
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pulProtocols 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportsetupmanager-get_protocols
      */
-    get_Protocols(pulProtocols) {
-        pulProtocolsMarshal := pulProtocols is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, pulProtocolsMarshal, pulProtocols, "HRESULT")
-        return result
+    get_Protocols() {
+        result := ComCall(9, this, "uint*", &pulProtocols := 0, "HRESULT")
+        return pulProtocols
     }
 
     /**

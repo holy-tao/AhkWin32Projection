@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsOMFontResourceCollection.ahk
+#Include .\IXpsOMImageResourceCollection.ahk
+#Include .\IXpsOMColorProfileResourceCollection.ahk
+#Include .\IXpsOMRemoteDictionaryResourceCollection.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -72,45 +76,41 @@ class IXpsOMPartResources extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IXpsOMFontResourceCollection>} fontResources 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMFontResourceCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompartresources-getfontresources
      */
-    GetFontResources(fontResources) {
-        result := ComCall(3, this, "ptr*", fontResources, "HRESULT")
-        return result
+    GetFontResources() {
+        result := ComCall(3, this, "ptr*", &fontResources := 0, "HRESULT")
+        return IXpsOMFontResourceCollection(fontResources)
     }
 
     /**
      * 
-     * @param {Pointer<IXpsOMImageResourceCollection>} imageResources 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMImageResourceCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompartresources-getimageresources
      */
-    GetImageResources(imageResources) {
-        result := ComCall(4, this, "ptr*", imageResources, "HRESULT")
-        return result
+    GetImageResources() {
+        result := ComCall(4, this, "ptr*", &imageResources := 0, "HRESULT")
+        return IXpsOMImageResourceCollection(imageResources)
     }
 
     /**
      * 
-     * @param {Pointer<IXpsOMColorProfileResourceCollection>} colorProfileResources 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMColorProfileResourceCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompartresources-getcolorprofileresources
      */
-    GetColorProfileResources(colorProfileResources) {
-        result := ComCall(5, this, "ptr*", colorProfileResources, "HRESULT")
-        return result
+    GetColorProfileResources() {
+        result := ComCall(5, this, "ptr*", &colorProfileResources := 0, "HRESULT")
+        return IXpsOMColorProfileResourceCollection(colorProfileResources)
     }
 
     /**
      * 
-     * @param {Pointer<IXpsOMRemoteDictionaryResourceCollection>} dictionaryResources 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMRemoteDictionaryResourceCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompartresources-getremotedictionaryresources
      */
-    GetRemoteDictionaryResources(dictionaryResources) {
-        result := ComCall(6, this, "ptr*", dictionaryResources, "HRESULT")
-        return result
+    GetRemoteDictionaryResources() {
+        result := ComCall(6, this, "ptr*", &dictionaryResources := 0, "HRESULT")
+        return IXpsOMRemoteDictionaryResourceCollection(dictionaryResources)
     }
 }

@@ -34,53 +34,47 @@ class ICertConfig extends IDispatch{
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertconfig-reset
      */
-    Reset(Index, pCount) {
-        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, "int", Index, pCountMarshal, pCount, "HRESULT")
-        return result
+    Reset(Index) {
+        result := ComCall(7, this, "int", Index, "int*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertconfig-next
      */
-    Next(pIndex) {
-        pIndexMarshal := pIndex is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pIndexMarshal, pIndex, "HRESULT")
-        return result
+    Next() {
+        result := ComCall(8, this, "int*", &pIndex := 0, "HRESULT")
+        return pIndex
     }
 
     /**
      * 
      * @param {BSTR} strFieldName 
-     * @param {Pointer<BSTR>} pstrOut 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertconfig-getfield
      */
-    GetField(strFieldName, pstrOut) {
+    GetField(strFieldName) {
         strFieldName := strFieldName is String ? BSTR.Alloc(strFieldName).Value : strFieldName
 
+        pstrOut := BSTR()
         result := ComCall(9, this, "ptr", strFieldName, "ptr", pstrOut, "HRESULT")
-        return result
+        return pstrOut
     }
 
     /**
      * 
      * @param {Integer} Flags 
-     * @param {Pointer<BSTR>} pstrOut 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertconfig-getconfig
      */
-    GetConfig(Flags, pstrOut) {
+    GetConfig(Flags) {
+        pstrOut := BSTR()
         result := ComCall(10, this, "int", Flags, "ptr", pstrOut, "HRESULT")
-        return result
+        return pstrOut
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -269,17 +270,14 @@ class IAttachmentExecute extends IUnknown{
      * 
      * @param {HWND} hwnd 
      * @param {Integer} prompt 
-     * @param {Pointer<Integer>} paction 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iattachmentexecute-prompt
      */
-    Prompt(hwnd, prompt, paction) {
+    Prompt(hwnd, prompt) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        pactionMarshal := paction is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, "ptr", hwnd, "int", prompt, pactionMarshal, paction, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", hwnd, "int", prompt, "int*", &paction := 0, "HRESULT")
+        return paction
     }
 
     /**
@@ -296,16 +294,16 @@ class IAttachmentExecute extends IUnknown{
      * 
      * @param {HWND} hwnd 
      * @param {PWSTR} pszVerb 
-     * @param {Pointer<HANDLE>} phProcess 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iattachmentexecute-execute
      */
-    Execute(hwnd, pszVerb, phProcess) {
+    Execute(hwnd, pszVerb) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         pszVerb := pszVerb is String ? StrPtr(pszVerb) : pszVerb
 
+        phProcess := HANDLE()
         result := ComCall(12, this, "ptr", hwnd, "ptr", pszVerb, "ptr", phProcess, "HRESULT")
-        return result
+        return phProcess
     }
 
     /**

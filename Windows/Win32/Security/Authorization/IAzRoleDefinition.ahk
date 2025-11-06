@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IAzRoleAssignments.ahk
+#Include .\IAzRoleDefinitions.ahk
 #Include .\IAzTask.ahk
 
 /**
@@ -35,15 +37,14 @@ class IAzRoleDefinition extends IAzTask{
      * 
      * @param {BSTR} bstrScopeName 
      * @param {VARIANT_BOOL} bRecursive 
-     * @param {Pointer<IAzRoleAssignments>} ppRoleAssignments 
-     * @returns {HRESULT} 
+     * @returns {IAzRoleAssignments} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazroledefinition-roleassignments
      */
-    RoleAssignments(bstrScopeName, bRecursive, ppRoleAssignments) {
+    RoleAssignments(bstrScopeName, bRecursive) {
         bstrScopeName := bstrScopeName is String ? BSTR.Alloc(bstrScopeName).Value : bstrScopeName
 
-        result := ComCall(33, this, "ptr", bstrScopeName, "short", bRecursive, "ptr*", ppRoleAssignments, "HRESULT")
-        return result
+        result := ComCall(33, this, "ptr", bstrScopeName, "short", bRecursive, "ptr*", &ppRoleAssignments := 0, "HRESULT")
+        return IAzRoleAssignments(ppRoleAssignments)
     }
 
     /**
@@ -74,12 +75,11 @@ class IAzRoleDefinition extends IAzTask{
 
     /**
      * 
-     * @param {Pointer<IAzRoleDefinitions>} ppRoleDefinitions 
-     * @returns {HRESULT} 
+     * @returns {IAzRoleDefinitions} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazroledefinition-get_roledefinitions
      */
-    get_RoleDefinitions(ppRoleDefinitions) {
-        result := ComCall(36, this, "ptr*", ppRoleDefinitions, "HRESULT")
-        return result
+    get_RoleDefinitions() {
+        result := ComCall(36, this, "ptr*", &ppRoleDefinitions := 0, "HRESULT")
+        return IAzRoleDefinitions(ppRoleDefinitions)
     }
 }

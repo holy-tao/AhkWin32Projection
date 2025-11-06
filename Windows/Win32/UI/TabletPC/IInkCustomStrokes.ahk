@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IInkStrokes.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -55,37 +57,32 @@ class IInkCustomStrokes extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} Count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcustomstrokes-get_count
      */
-    get_Count(Count) {
-        CountMarshal := Count is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, CountMarshal, Count, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &Count := 0, "HRESULT")
+        return Count
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} _NewEnum 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__NewEnum(_NewEnum) {
-        result := ComCall(8, this, "ptr*", _NewEnum, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(8, this, "ptr*", &_NewEnum := 0, "HRESULT")
+        return IUnknown(_NewEnum)
     }
 
     /**
      * 
      * @param {VARIANT} Identifier 
-     * @param {Pointer<IInkStrokes>} Strokes 
-     * @returns {HRESULT} 
+     * @returns {IInkStrokes} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcustomstrokes-item
      */
-    Item(Identifier, Strokes) {
-        result := ComCall(9, this, "ptr", Identifier, "ptr*", Strokes, "HRESULT")
-        return result
+    Item(Identifier) {
+        result := ComCall(9, this, "ptr", Identifier, "ptr*", &Strokes := 0, "HRESULT")
+        return IInkStrokes(Strokes)
     }
 
     /**

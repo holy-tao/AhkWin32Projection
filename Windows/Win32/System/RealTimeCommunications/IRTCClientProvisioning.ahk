@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IRTCProfile.ahk
+#Include .\IRTCEnumProfiles.ahk
+#Include .\IRTCCollection.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -32,46 +35,14 @@ class IRTCClientProvisioning extends IUnknown{
     /**
      * Creates a new user profile.
      * @param {BSTR} bstrProfileXML 
-     * @param {Pointer<IRTCProfile>} ppProfile 
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * Returns S_OK if successful, or an error value otherwise, including the following:
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_ACCESSDENIED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The caller does not have a sufficient permission level to create the profile.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>HRESULT_FROM_WIN32(ERROR_ALREADY_EXISTS)</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * A profile already exists for the specified user.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {IRTCProfile} 
      * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-createprofile
      */
-    CreateProfile(bstrProfileXML, ppProfile) {
+    CreateProfile(bstrProfileXML) {
         bstrProfileXML := bstrProfileXML is String ? BSTR.Alloc(bstrProfileXML).Value : bstrProfileXML
 
-        result := ComCall(3, this, "ptr", bstrProfileXML, "ptr*", ppProfile, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", bstrProfileXML, "ptr*", &ppProfile := 0, "HRESULT")
+        return IRTCProfile(ppProfile)
     }
 
     /**
@@ -97,22 +68,20 @@ class IRTCClientProvisioning extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IRTCEnumProfiles>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IRTCEnumProfiles} 
      */
-    EnumerateProfiles(ppEnum) {
-        result := ComCall(6, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumerateProfiles() {
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IRTCEnumProfiles(ppEnum)
     }
 
     /**
      * 
-     * @param {Pointer<IRTCCollection>} ppCollection 
-     * @returns {HRESULT} 
+     * @returns {IRTCCollection} 
      */
-    get_Profiles(ppCollection) {
-        result := ComCall(7, this, "ptr*", ppCollection, "HRESULT")
-        return result
+    get_Profiles() {
+        result := ComCall(7, this, "ptr*", &ppCollection := 0, "HRESULT")
+        return IRTCCollection(ppCollection)
     }
 
     /**
@@ -137,13 +106,10 @@ class IRTCClientProvisioning extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} plSupportedSessions 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_SessionCapabilities(plSupportedSessions) {
-        plSupportedSessionsMarshal := plSupportedSessions is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, plSupportedSessionsMarshal, plSupportedSessions, "HRESULT")
-        return result
+    get_SessionCapabilities() {
+        result := ComCall(9, this, "int*", &plSupportedSessions := 0, "HRESULT")
+        return plSupportedSessions
     }
 }

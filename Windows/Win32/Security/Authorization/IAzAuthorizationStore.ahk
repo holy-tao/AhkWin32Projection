@@ -2,6 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IAzApplications.ahk
+#Include .\IAzApplication.ahk
+#Include .\IAzApplicationGroups.ahk
+#Include .\IAzApplicationGroup.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -48,13 +53,13 @@ class IAzAuthorizationStore extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrDescription 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-get_description
      */
-    get_Description(pbstrDescription) {
+    get_Description() {
+        pbstrDescription := BSTR()
         result := ComCall(7, this, "ptr", pbstrDescription, "HRESULT")
-        return result
+        return pbstrDescription
     }
 
     /**
@@ -72,13 +77,13 @@ class IAzAuthorizationStore extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrApplicationData 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-get_applicationdata
      */
-    get_ApplicationData(pbstrApplicationData) {
+    get_ApplicationData() {
+        pbstrApplicationData := BSTR()
         result := ComCall(9, this, "ptr", pbstrApplicationData, "HRESULT")
-        return result
+        return pbstrApplicationData
     }
 
     /**
@@ -96,15 +101,12 @@ class IAzAuthorizationStore extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plProp 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-get_domaintimeout
      */
-    get_DomainTimeout(plProp) {
-        plPropMarshal := plProp is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, plPropMarshal, plProp, "HRESULT")
-        return result
+    get_DomainTimeout() {
+        result := ComCall(11, this, "int*", &plProp := 0, "HRESULT")
+        return plProp
     }
 
     /**
@@ -120,15 +122,12 @@ class IAzAuthorizationStore extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plProp 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-get_scriptenginetimeout
      */
-    get_ScriptEngineTimeout(plProp) {
-        plPropMarshal := plProp is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, plPropMarshal, plProp, "HRESULT")
-        return result
+    get_ScriptEngineTimeout() {
+        result := ComCall(13, this, "int*", &plProp := 0, "HRESULT")
+        return plProp
     }
 
     /**
@@ -144,15 +143,12 @@ class IAzAuthorizationStore extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plProp 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-get_maxscriptengines
      */
-    get_MaxScriptEngines(plProp) {
-        plPropMarshal := plProp is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, plPropMarshal, plProp, "HRESULT")
-        return result
+    get_MaxScriptEngines() {
+        result := ComCall(15, this, "int*", &plProp := 0, "HRESULT")
+        return plProp
     }
 
     /**
@@ -168,13 +164,12 @@ class IAzAuthorizationStore extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbProp 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-get_generateaudits
      */
-    get_GenerateAudits(pbProp) {
-        result := ComCall(17, this, "ptr", pbProp, "HRESULT")
-        return result
+    get_GenerateAudits() {
+        result := ComCall(17, this, "int*", &pbProp := 0, "HRESULT")
+        return pbProp
     }
 
     /**
@@ -190,26 +185,25 @@ class IAzAuthorizationStore extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfProp 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-get_writable
      */
-    get_Writable(pfProp) {
-        result := ComCall(19, this, "ptr", pfProp, "HRESULT")
-        return result
+    get_Writable() {
+        result := ComCall(19, this, "int*", &pfProp := 0, "HRESULT")
+        return pfProp
     }
 
     /**
      * 
      * @param {Integer} lPropId 
      * @param {VARIANT} varReserved 
-     * @param {Pointer<VARIANT>} pvarProp 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-getproperty
      */
-    GetProperty(lPropId, varReserved, pvarProp) {
+    GetProperty(lPropId, varReserved) {
+        pvarProp := VARIANT()
         result := ComCall(20, this, "int", lPropId, "ptr", varReserved, "ptr", pvarProp, "HRESULT")
-        return result
+        return pvarProp
     }
 
     /**
@@ -253,24 +247,24 @@ class IAzAuthorizationStore extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarAdmins 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-get_policyadministrators
      */
-    get_PolicyAdministrators(pvarAdmins) {
+    get_PolicyAdministrators() {
+        pvarAdmins := VARIANT()
         result := ComCall(24, this, "ptr", pvarAdmins, "HRESULT")
-        return result
+        return pvarAdmins
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarReaders 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-get_policyreaders
      */
-    get_PolicyReaders(pvarReaders) {
+    get_PolicyReaders() {
+        pvarReaders := VARIANT()
         result := ComCall(25, this, "ptr", pvarReaders, "HRESULT")
-        return result
+        return pvarReaders
     }
 
     /**
@@ -378,43 +372,40 @@ class IAzAuthorizationStore extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IAzApplications>} ppAppCollection 
-     * @returns {HRESULT} 
+     * @returns {IAzApplications} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-get_applications
      */
-    get_Applications(ppAppCollection) {
-        result := ComCall(33, this, "ptr*", ppAppCollection, "HRESULT")
-        return result
+    get_Applications() {
+        result := ComCall(33, this, "ptr*", &ppAppCollection := 0, "HRESULT")
+        return IAzApplications(ppAppCollection)
     }
 
     /**
      * 
      * @param {BSTR} bstrApplicationName 
      * @param {VARIANT} varReserved 
-     * @param {Pointer<IAzApplication>} ppApplication 
-     * @returns {HRESULT} 
+     * @returns {IAzApplication} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-openapplication
      */
-    OpenApplication(bstrApplicationName, varReserved, ppApplication) {
+    OpenApplication(bstrApplicationName, varReserved) {
         bstrApplicationName := bstrApplicationName is String ? BSTR.Alloc(bstrApplicationName).Value : bstrApplicationName
 
-        result := ComCall(34, this, "ptr", bstrApplicationName, "ptr", varReserved, "ptr*", ppApplication, "HRESULT")
-        return result
+        result := ComCall(34, this, "ptr", bstrApplicationName, "ptr", varReserved, "ptr*", &ppApplication := 0, "HRESULT")
+        return IAzApplication(ppApplication)
     }
 
     /**
      * 
      * @param {BSTR} bstrApplicationName 
      * @param {VARIANT} varReserved 
-     * @param {Pointer<IAzApplication>} ppApplication 
-     * @returns {HRESULT} 
+     * @returns {IAzApplication} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-createapplication
      */
-    CreateApplication(bstrApplicationName, varReserved, ppApplication) {
+    CreateApplication(bstrApplicationName, varReserved) {
         bstrApplicationName := bstrApplicationName is String ? BSTR.Alloc(bstrApplicationName).Value : bstrApplicationName
 
-        result := ComCall(35, this, "ptr", bstrApplicationName, "ptr", varReserved, "ptr*", ppApplication, "HRESULT")
-        return result
+        result := ComCall(35, this, "ptr", bstrApplicationName, "ptr", varReserved, "ptr*", &ppApplication := 0, "HRESULT")
+        return IAzApplication(ppApplication)
     }
 
     /**
@@ -433,43 +424,40 @@ class IAzAuthorizationStore extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IAzApplicationGroups>} ppGroupCollection 
-     * @returns {HRESULT} 
+     * @returns {IAzApplicationGroups} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-get_applicationgroups
      */
-    get_ApplicationGroups(ppGroupCollection) {
-        result := ComCall(37, this, "ptr*", ppGroupCollection, "HRESULT")
-        return result
+    get_ApplicationGroups() {
+        result := ComCall(37, this, "ptr*", &ppGroupCollection := 0, "HRESULT")
+        return IAzApplicationGroups(ppGroupCollection)
     }
 
     /**
      * 
      * @param {BSTR} bstrGroupName 
      * @param {VARIANT} varReserved 
-     * @param {Pointer<IAzApplicationGroup>} ppGroup 
-     * @returns {HRESULT} 
+     * @returns {IAzApplicationGroup} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-createapplicationgroup
      */
-    CreateApplicationGroup(bstrGroupName, varReserved, ppGroup) {
+    CreateApplicationGroup(bstrGroupName, varReserved) {
         bstrGroupName := bstrGroupName is String ? BSTR.Alloc(bstrGroupName).Value : bstrGroupName
 
-        result := ComCall(38, this, "ptr", bstrGroupName, "ptr", varReserved, "ptr*", ppGroup, "HRESULT")
-        return result
+        result := ComCall(38, this, "ptr", bstrGroupName, "ptr", varReserved, "ptr*", &ppGroup := 0, "HRESULT")
+        return IAzApplicationGroup(ppGroup)
     }
 
     /**
      * 
      * @param {BSTR} bstrGroupName 
      * @param {VARIANT} varReserved 
-     * @param {Pointer<IAzApplicationGroup>} ppGroup 
-     * @returns {HRESULT} 
+     * @returns {IAzApplicationGroup} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-openapplicationgroup
      */
-    OpenApplicationGroup(bstrGroupName, varReserved, ppGroup) {
+    OpenApplicationGroup(bstrGroupName, varReserved) {
         bstrGroupName := bstrGroupName is String ? BSTR.Alloc(bstrGroupName).Value : bstrGroupName
 
-        result := ComCall(39, this, "ptr", bstrGroupName, "ptr", varReserved, "ptr*", ppGroup, "HRESULT")
-        return result
+        result := ComCall(39, this, "ptr", bstrGroupName, "ptr", varReserved, "ptr*", &ppGroup := 0, "HRESULT")
+        return IAzApplicationGroup(ppGroup)
     }
 
     /**
@@ -500,13 +488,13 @@ class IAzAuthorizationStore extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarDelegatedPolicyUsers 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-get_delegatedpolicyusers
      */
-    get_DelegatedPolicyUsers(pvarDelegatedPolicyUsers) {
+    get_DelegatedPolicyUsers() {
+        pvarDelegatedPolicyUsers := VARIANT()
         result := ComCall(42, this, "ptr", pvarDelegatedPolicyUsers, "HRESULT")
-        return result
+        return pvarDelegatedPolicyUsers
     }
 
     /**
@@ -539,24 +527,23 @@ class IAzAuthorizationStore extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrTargetMachine 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-get_targetmachine
      */
-    get_TargetMachine(pbstrTargetMachine) {
+    get_TargetMachine() {
+        pbstrTargetMachine := BSTR()
         result := ComCall(45, this, "ptr", pbstrTargetMachine, "HRESULT")
-        return result
+        return pbstrTargetMachine
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbApplyStoreSacl 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-get_applystoresacl
      */
-    get_ApplyStoreSacl(pbApplyStoreSacl) {
-        result := ComCall(46, this, "ptr", pbApplyStoreSacl, "HRESULT")
-        return result
+    get_ApplyStoreSacl() {
+        result := ComCall(46, this, "int*", &pbApplyStoreSacl := 0, "HRESULT")
+        return pbApplyStoreSacl
     }
 
     /**
@@ -572,24 +559,24 @@ class IAzAuthorizationStore extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarAdmins 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-get_policyadministratorsname
      */
-    get_PolicyAdministratorsName(pvarAdmins) {
+    get_PolicyAdministratorsName() {
+        pvarAdmins := VARIANT()
         result := ComCall(48, this, "ptr", pvarAdmins, "HRESULT")
-        return result
+        return pvarAdmins
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarReaders 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-get_policyreadersname
      */
-    get_PolicyReadersName(pvarReaders) {
+    get_PolicyReadersName() {
+        pvarReaders := VARIANT()
         result := ComCall(49, this, "ptr", pvarReaders, "HRESULT")
-        return result
+        return pvarReaders
     }
 
     /**
@@ -650,13 +637,13 @@ class IAzAuthorizationStore extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarDelegatedPolicyUsers 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazauthorizationstore-get_delegatedpolicyusersname
      */
-    get_DelegatedPolicyUsersName(pvarDelegatedPolicyUsers) {
+    get_DelegatedPolicyUsersName() {
+        pvarDelegatedPolicyUsers := VARIANT()
         result := ComCall(54, this, "ptr", pvarDelegatedPolicyUsers, "HRESULT")
-        return result
+        return pvarDelegatedPolicyUsers
     }
 
     /**

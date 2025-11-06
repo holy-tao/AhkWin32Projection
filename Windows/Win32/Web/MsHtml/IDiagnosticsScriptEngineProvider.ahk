@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDiagnosticsScriptEngine.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,11 +34,10 @@ class IDiagnosticsScriptEngineProvider extends IUnknown{
      * @param {IDiagnosticsScriptEngineSite} pScriptSite 
      * @param {BOOL} fDebuggingEnabled 
      * @param {Integer} ulProcessId 
-     * @param {Pointer<IDiagnosticsScriptEngine>} ppEngine 
-     * @returns {HRESULT} 
+     * @returns {IDiagnosticsScriptEngine} 
      */
-    CreateDiagnosticsScriptEngine(pScriptSite, fDebuggingEnabled, ulProcessId, ppEngine) {
-        result := ComCall(3, this, "ptr", pScriptSite, "int", fDebuggingEnabled, "uint", ulProcessId, "ptr*", ppEngine, "HRESULT")
-        return result
+    CreateDiagnosticsScriptEngine(pScriptSite, fDebuggingEnabled, ulProcessId) {
+        result := ComCall(3, this, "ptr", pScriptSite, "int", fDebuggingEnabled, "uint", ulProcessId, "ptr*", &ppEngine := 0, "HRESULT")
+        return IDiagnosticsScriptEngine(ppEngine)
     }
 }

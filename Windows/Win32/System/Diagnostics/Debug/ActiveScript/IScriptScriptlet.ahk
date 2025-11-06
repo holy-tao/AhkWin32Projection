@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Foundation\BSTR.ahk
 #Include .\IScriptEntry.ahk
 
 /**
@@ -30,12 +31,12 @@ class IScriptScriptlet extends IScriptEntry{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetSubItemName(pbstr) {
+    GetSubItemName() {
+        pbstr := BSTR()
         result := ComCall(24, this, "ptr", pbstr, "HRESULT")
-        return result
+        return pbstr
     }
 
     /**
@@ -52,12 +53,12 @@ class IScriptScriptlet extends IScriptEntry{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetEventName(pbstr) {
+    GetEventName() {
+        pbstr := BSTR()
         result := ComCall(26, this, "ptr", pbstr, "HRESULT")
-        return result
+        return pbstr
     }
 
     /**
@@ -74,12 +75,12 @@ class IScriptScriptlet extends IScriptEntry{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetSimpleEventName(pbstr) {
+    GetSimpleEventName() {
+        pbstr := BSTR()
         result := ComCall(28, this, "ptr", pbstr, "HRESULT")
-        return result
+        return pbstr
     }
 
     /**

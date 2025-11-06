@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumNetworks.ahk
+#Include .\INetwork.ahk
+#Include .\IEnumNetworkConnections.ahk
+#Include .\INetworkConnection.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -39,83 +43,74 @@ class INetworkListManager extends IDispatch{
     /**
      * 
      * @param {Integer} Flags 
-     * @param {Pointer<IEnumNetworks>} ppEnumNetwork 
-     * @returns {HRESULT} 
+     * @returns {IEnumNetworks} 
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworklistmanager-getnetworks
      */
-    GetNetworks(Flags, ppEnumNetwork) {
-        result := ComCall(7, this, "int", Flags, "ptr*", ppEnumNetwork, "HRESULT")
-        return result
+    GetNetworks(Flags) {
+        result := ComCall(7, this, "int", Flags, "ptr*", &ppEnumNetwork := 0, "HRESULT")
+        return IEnumNetworks(ppEnumNetwork)
     }
 
     /**
      * 
      * @param {Guid} gdNetworkId 
-     * @param {Pointer<INetwork>} ppNetwork 
-     * @returns {HRESULT} 
+     * @returns {INetwork} 
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworklistmanager-getnetwork
      */
-    GetNetwork(gdNetworkId, ppNetwork) {
-        result := ComCall(8, this, "ptr", gdNetworkId, "ptr*", ppNetwork, "HRESULT")
-        return result
+    GetNetwork(gdNetworkId) {
+        result := ComCall(8, this, "ptr", gdNetworkId, "ptr*", &ppNetwork := 0, "HRESULT")
+        return INetwork(ppNetwork)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumNetworkConnections>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumNetworkConnections} 
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworklistmanager-getnetworkconnections
      */
-    GetNetworkConnections(ppEnum) {
-        result := ComCall(9, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    GetNetworkConnections() {
+        result := ComCall(9, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumNetworkConnections(ppEnum)
     }
 
     /**
      * 
      * @param {Guid} gdNetworkConnectionId 
-     * @param {Pointer<INetworkConnection>} ppNetworkConnection 
-     * @returns {HRESULT} 
+     * @returns {INetworkConnection} 
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworklistmanager-getnetworkconnection
      */
-    GetNetworkConnection(gdNetworkConnectionId, ppNetworkConnection) {
-        result := ComCall(10, this, "ptr", gdNetworkConnectionId, "ptr*", ppNetworkConnection, "HRESULT")
-        return result
+    GetNetworkConnection(gdNetworkConnectionId) {
+        result := ComCall(10, this, "ptr", gdNetworkConnectionId, "ptr*", &ppNetworkConnection := 0, "HRESULT")
+        return INetworkConnection(ppNetworkConnection)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbIsConnected 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworklistmanager-get_isconnectedtointernet
      */
-    get_IsConnectedToInternet(pbIsConnected) {
-        result := ComCall(11, this, "ptr", pbIsConnected, "HRESULT")
-        return result
+    get_IsConnectedToInternet() {
+        result := ComCall(11, this, "short*", &pbIsConnected := 0, "HRESULT")
+        return pbIsConnected
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbIsConnected 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworklistmanager-get_isconnected
      */
-    get_IsConnected(pbIsConnected) {
-        result := ComCall(12, this, "ptr", pbIsConnected, "HRESULT")
-        return result
+    get_IsConnected() {
+        result := ComCall(12, this, "short*", &pbIsConnected := 0, "HRESULT")
+        return pbIsConnected
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pConnectivity 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworklistmanager-getconnectivity
      */
-    GetConnectivity(pConnectivity) {
-        pConnectivityMarshal := pConnectivity is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, pConnectivityMarshal, pConnectivity, "HRESULT")
-        return result
+    GetConnectivity() {
+        result := ComCall(13, this, "int*", &pConnectivity := 0, "HRESULT")
+        return pConnectivity
     }
 
     /**

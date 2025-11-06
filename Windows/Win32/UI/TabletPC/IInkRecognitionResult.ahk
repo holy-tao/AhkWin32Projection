@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IInkRecognitionAlternate.ahk
+#Include .\IInkStrokes.ahk
+#Include .\IInkRecognitionAlternates.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -48,48 +52,43 @@ class IInkRecognitionResult extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} TopString 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognitionresult-get_topstring
      */
-    get_TopString(TopString) {
+    get_TopString() {
+        TopString := BSTR()
         result := ComCall(7, this, "ptr", TopString, "HRESULT")
-        return result
+        return TopString
     }
 
     /**
      * 
-     * @param {Pointer<IInkRecognitionAlternate>} TopAlternate 
-     * @returns {HRESULT} 
+     * @returns {IInkRecognitionAlternate} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognitionresult-get_topalternate
      */
-    get_TopAlternate(TopAlternate) {
-        result := ComCall(8, this, "ptr*", TopAlternate, "HRESULT")
-        return result
+    get_TopAlternate() {
+        result := ComCall(8, this, "ptr*", &TopAlternate := 0, "HRESULT")
+        return IInkRecognitionAlternate(TopAlternate)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} TopConfidence 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognitionresult-get_topconfidence
      */
-    get_TopConfidence(TopConfidence) {
-        TopConfidenceMarshal := TopConfidence is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, TopConfidenceMarshal, TopConfidence, "HRESULT")
-        return result
+    get_TopConfidence() {
+        result := ComCall(9, this, "int*", &TopConfidence := 0, "HRESULT")
+        return TopConfidence
     }
 
     /**
      * 
-     * @param {Pointer<IInkStrokes>} Strokes 
-     * @returns {HRESULT} 
+     * @returns {IInkStrokes} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognitionresult-get_strokes
      */
-    get_Strokes(Strokes) {
-        result := ComCall(10, this, "ptr*", Strokes, "HRESULT")
-        return result
+    get_Strokes() {
+        result := ComCall(10, this, "ptr*", &Strokes := 0, "HRESULT")
+        return IInkStrokes(Strokes)
     }
 
     /**
@@ -97,12 +96,11 @@ class IInkRecognitionResult extends IDispatch{
      * @param {Integer} selectionStart 
      * @param {Integer} selectionLength 
      * @param {Integer} maximumAlternates 
-     * @param {Pointer<IInkRecognitionAlternates>} AlternatesFromSelection 
-     * @returns {HRESULT} 
+     * @returns {IInkRecognitionAlternates} 
      */
-    AlternatesFromSelection(selectionStart, selectionLength, maximumAlternates, AlternatesFromSelection) {
-        result := ComCall(11, this, "int", selectionStart, "int", selectionLength, "int", maximumAlternates, "ptr*", AlternatesFromSelection, "HRESULT")
-        return result
+    AlternatesFromSelection(selectionStart, selectionLength, maximumAlternates) {
+        result := ComCall(11, this, "int", selectionStart, "int", selectionLength, "int", maximumAlternates, "ptr*", &AlternatesFromSelection := 0, "HRESULT")
+        return IInkRecognitionAlternates(AlternatesFromSelection)
     }
 
     /**

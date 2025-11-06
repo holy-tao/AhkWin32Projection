@@ -43,22 +43,21 @@ class IHTMLFormElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_acceptCharset(p) {
+    get_acceptCharset() {
+        p := BSTR()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
      * @param {VARIANT} urn 
-     * @param {Pointer<IDispatch>} pdisp 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    urns(urn, pdisp) {
-        result := ComCall(9, this, "ptr", urn, "ptr*", pdisp, "HRESULT")
-        return result
+    urns(urn) {
+        result := ComCall(9, this, "ptr", urn, "ptr*", &pdisp := 0, "HRESULT")
+        return IDispatch(pdisp)
     }
 }

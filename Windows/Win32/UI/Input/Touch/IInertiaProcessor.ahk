@@ -32,15 +32,12 @@ class IInertiaProcessor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} x 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_initialoriginx
      */
-    get_InitialOriginX(x) {
-        xMarshal := x is VarRef ? "float*" : "ptr"
-
-        result := ComCall(3, this, xMarshal, x, "HRESULT")
-        return result
+    get_InitialOriginX() {
+        result := ComCall(3, this, "float*", &x := 0, "HRESULT")
+        return x
     }
 
     /**
@@ -56,15 +53,12 @@ class IInertiaProcessor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} y 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_initialoriginy
      */
-    get_InitialOriginY(y) {
-        yMarshal := y is VarRef ? "float*" : "ptr"
-
-        result := ComCall(5, this, yMarshal, y, "HRESULT")
-        return result
+    get_InitialOriginY() {
+        result := ComCall(5, this, "float*", &y := 0, "HRESULT")
+        return y
     }
 
     /**
@@ -80,15 +74,12 @@ class IInertiaProcessor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} x 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_initialvelocityx
      */
-    get_InitialVelocityX(x) {
-        xMarshal := x is VarRef ? "float*" : "ptr"
-
-        result := ComCall(7, this, xMarshal, x, "HRESULT")
-        return result
+    get_InitialVelocityX() {
+        result := ComCall(7, this, "float*", &x := 0, "HRESULT")
+        return x
     }
 
     /**
@@ -104,15 +95,12 @@ class IInertiaProcessor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} y 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_initialvelocityy
      */
-    get_InitialVelocityY(y) {
-        yMarshal := y is VarRef ? "float*" : "ptr"
-
-        result := ComCall(9, this, yMarshal, y, "HRESULT")
-        return result
+    get_InitialVelocityY() {
+        result := ComCall(9, this, "float*", &y := 0, "HRESULT")
+        return y
     }
 
     /**
@@ -128,15 +116,12 @@ class IInertiaProcessor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} velocity 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_initialangularvelocity
      */
-    get_InitialAngularVelocity(velocity) {
-        velocityMarshal := velocity is VarRef ? "float*" : "ptr"
-
-        result := ComCall(11, this, velocityMarshal, velocity, "HRESULT")
-        return result
+    get_InitialAngularVelocity() {
+        result := ComCall(11, this, "float*", &velocity := 0, "HRESULT")
+        return velocity
     }
 
     /**
@@ -152,15 +137,12 @@ class IInertiaProcessor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} velocity 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_initialexpansionvelocity
      */
-    get_InitialExpansionVelocity(velocity) {
-        velocityMarshal := velocity is VarRef ? "float*" : "ptr"
-
-        result := ComCall(13, this, velocityMarshal, velocity, "HRESULT")
-        return result
+    get_InitialExpansionVelocity() {
+        result := ComCall(13, this, "float*", &velocity := 0, "HRESULT")
+        return velocity
     }
 
     /**
@@ -176,15 +158,12 @@ class IInertiaProcessor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} radius 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_initialradius
      */
-    get_InitialRadius(radius) {
-        radiusMarshal := radius is VarRef ? "float*" : "ptr"
-
-        result := ComCall(15, this, radiusMarshal, radius, "HRESULT")
-        return result
+    get_InitialRadius() {
+        result := ComCall(15, this, "float*", &radius := 0, "HRESULT")
+        return radius
     }
 
     /**
@@ -200,15 +179,12 @@ class IInertiaProcessor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} left 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_boundaryleft
      */
-    get_BoundaryLeft(left) {
-        leftMarshal := left is VarRef ? "float*" : "ptr"
-
-        result := ComCall(17, this, leftMarshal, left, "HRESULT")
-        return result
+    get_BoundaryLeft() {
+        result := ComCall(17, this, "float*", &left := 0, "HRESULT")
+        return left
     }
 
     /**
@@ -224,15 +200,12 @@ class IInertiaProcessor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} top 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_boundarytop
      */
-    get_BoundaryTop(top) {
-        topMarshal := top is VarRef ? "float*" : "ptr"
-
-        result := ComCall(19, this, topMarshal, top, "HRESULT")
-        return result
+    get_BoundaryTop() {
+        result := ComCall(19, this, "float*", &top := 0, "HRESULT")
+        return top
     }
 
     /**
@@ -248,15 +221,12 @@ class IInertiaProcessor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} right 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_boundaryright
      */
-    get_BoundaryRight(right) {
-        rightMarshal := right is VarRef ? "float*" : "ptr"
-
-        result := ComCall(21, this, rightMarshal, right, "HRESULT")
-        return result
+    get_BoundaryRight() {
+        result := ComCall(21, this, "float*", &right := 0, "HRESULT")
+        return right
     }
 
     /**
@@ -272,15 +242,12 @@ class IInertiaProcessor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} bottom 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_boundarybottom
      */
-    get_BoundaryBottom(bottom) {
-        bottomMarshal := bottom is VarRef ? "float*" : "ptr"
-
-        result := ComCall(23, this, bottomMarshal, bottom, "HRESULT")
-        return result
+    get_BoundaryBottom() {
+        result := ComCall(23, this, "float*", &bottom := 0, "HRESULT")
+        return bottom
     }
 
     /**
@@ -296,15 +263,12 @@ class IInertiaProcessor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} left 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_elasticmarginleft
      */
-    get_ElasticMarginLeft(left) {
-        leftMarshal := left is VarRef ? "float*" : "ptr"
-
-        result := ComCall(25, this, leftMarshal, left, "HRESULT")
-        return result
+    get_ElasticMarginLeft() {
+        result := ComCall(25, this, "float*", &left := 0, "HRESULT")
+        return left
     }
 
     /**
@@ -320,15 +284,12 @@ class IInertiaProcessor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} top 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_elasticmargintop
      */
-    get_ElasticMarginTop(top) {
-        topMarshal := top is VarRef ? "float*" : "ptr"
-
-        result := ComCall(27, this, topMarshal, top, "HRESULT")
-        return result
+    get_ElasticMarginTop() {
+        result := ComCall(27, this, "float*", &top := 0, "HRESULT")
+        return top
     }
 
     /**
@@ -344,15 +305,12 @@ class IInertiaProcessor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} right 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_elasticmarginright
      */
-    get_ElasticMarginRight(right) {
-        rightMarshal := right is VarRef ? "float*" : "ptr"
-
-        result := ComCall(29, this, rightMarshal, right, "HRESULT")
-        return result
+    get_ElasticMarginRight() {
+        result := ComCall(29, this, "float*", &right := 0, "HRESULT")
+        return right
     }
 
     /**
@@ -368,15 +326,12 @@ class IInertiaProcessor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} bottom 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_elasticmarginbottom
      */
-    get_ElasticMarginBottom(bottom) {
-        bottomMarshal := bottom is VarRef ? "float*" : "ptr"
-
-        result := ComCall(31, this, bottomMarshal, bottom, "HRESULT")
-        return result
+    get_ElasticMarginBottom() {
+        result := ComCall(31, this, "float*", &bottom := 0, "HRESULT")
+        return bottom
     }
 
     /**
@@ -392,15 +347,12 @@ class IInertiaProcessor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} displacement 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_desireddisplacement
      */
-    get_DesiredDisplacement(displacement) {
-        displacementMarshal := displacement is VarRef ? "float*" : "ptr"
-
-        result := ComCall(33, this, displacementMarshal, displacement, "HRESULT")
-        return result
+    get_DesiredDisplacement() {
+        result := ComCall(33, this, "float*", &displacement := 0, "HRESULT")
+        return displacement
     }
 
     /**
@@ -416,15 +368,12 @@ class IInertiaProcessor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} rotation 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_desiredrotation
      */
-    get_DesiredRotation(rotation) {
-        rotationMarshal := rotation is VarRef ? "float*" : "ptr"
-
-        result := ComCall(35, this, rotationMarshal, rotation, "HRESULT")
-        return result
+    get_DesiredRotation() {
+        result := ComCall(35, this, "float*", &rotation := 0, "HRESULT")
+        return rotation
     }
 
     /**
@@ -440,15 +389,12 @@ class IInertiaProcessor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} expansion 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_desiredexpansion
      */
-    get_DesiredExpansion(expansion) {
-        expansionMarshal := expansion is VarRef ? "float*" : "ptr"
-
-        result := ComCall(37, this, expansionMarshal, expansion, "HRESULT")
-        return result
+    get_DesiredExpansion() {
+        result := ComCall(37, this, "float*", &expansion := 0, "HRESULT")
+        return expansion
     }
 
     /**
@@ -464,15 +410,12 @@ class IInertiaProcessor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} deceleration 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_desireddeceleration
      */
-    get_DesiredDeceleration(deceleration) {
-        decelerationMarshal := deceleration is VarRef ? "float*" : "ptr"
-
-        result := ComCall(39, this, decelerationMarshal, deceleration, "HRESULT")
-        return result
+    get_DesiredDeceleration() {
+        result := ComCall(39, this, "float*", &deceleration := 0, "HRESULT")
+        return deceleration
     }
 
     /**
@@ -488,15 +431,12 @@ class IInertiaProcessor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} deceleration 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_desiredangulardeceleration
      */
-    get_DesiredAngularDeceleration(deceleration) {
-        decelerationMarshal := deceleration is VarRef ? "float*" : "ptr"
-
-        result := ComCall(41, this, decelerationMarshal, deceleration, "HRESULT")
-        return result
+    get_DesiredAngularDeceleration() {
+        result := ComCall(41, this, "float*", &deceleration := 0, "HRESULT")
+        return deceleration
     }
 
     /**
@@ -512,15 +452,12 @@ class IInertiaProcessor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} deceleration 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_desiredexpansiondeceleration
      */
-    get_DesiredExpansionDeceleration(deceleration) {
-        decelerationMarshal := deceleration is VarRef ? "float*" : "ptr"
-
-        result := ComCall(43, this, decelerationMarshal, deceleration, "HRESULT")
-        return result
+    get_DesiredExpansionDeceleration() {
+        result := ComCall(43, this, "float*", &deceleration := 0, "HRESULT")
+        return deceleration
     }
 
     /**
@@ -536,15 +473,12 @@ class IInertiaProcessor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} timestamp 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-get_initialtimestamp
      */
-    get_InitialTimestamp(timestamp) {
-        timestampMarshal := timestamp is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(45, this, timestampMarshal, timestamp, "HRESULT")
-        return result
+    get_InitialTimestamp() {
+        result := ComCall(45, this, "uint*", &timestamp := 0, "HRESULT")
+        return timestamp
     }
 
     /**
@@ -570,98 +504,23 @@ class IInertiaProcessor extends IUnknown{
 
     /**
      * Performs ink recognition synchronously.
-     * @param {Pointer<BOOL>} completed 
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_FALSE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function did not process the ink because the ink has been fully processed, or the <a href="/windows/desktop/api/msinkaut/nf-msinkaut-iinkrecognizercontext-endinkinput">EndInkInput</a> function has not been called and the recognizer does not support incremental processing of ink.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>TPC_S_INTERRUPTED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The process was interrupted by a call to the <a href="/windows/desktop/api/recapis/nf-recapis-adviseinkchange">AdviseInkChange</a> function.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_POINTER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the parameters is an invalid pointer.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_FAIL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An unspecified error occurred.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An invalid argument was received.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {BOOL} 
      * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-process
      */
-    Process(completed) {
-        result := ComCall(48, this, "ptr", completed, "HRESULT")
-        return result
+    Process() {
+        result := ComCall(48, this, "int*", &completed := 0, "HRESULT")
+        return completed
     }
 
     /**
      * 
      * @param {Integer} timestamp 
-     * @param {Pointer<BOOL>} completed 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/manipulations/nf-manipulations-iinertiaprocessor-processtime
      */
-    ProcessTime(timestamp, completed) {
-        result := ComCall(49, this, "uint", timestamp, "ptr", completed, "HRESULT")
-        return result
+    ProcessTime(timestamp) {
+        result := ComCall(49, this, "uint", timestamp, "int*", &completed := 0, "HRESULT")
+        return completed
     }
 
     /**

@@ -43,15 +43,12 @@ class IBitsTokenOptions extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/bits4_0/nf-bits4_0-ibitstokenoptions-gethelpertokenflags
      */
-    GetHelperTokenFlags(pFlags) {
-        pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pFlagsMarshal, pFlags, "HRESULT")
-        return result
+    GetHelperTokenFlags() {
+        result := ComCall(4, this, "uint*", &pFlags := 0, "HRESULT")
+        return pFlags
     }
 
     /**
@@ -76,12 +73,11 @@ class IBitsTokenOptions extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pSid 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/bits4_0/nf-bits4_0-ibitstokenoptions-gethelpertokensid
      */
-    GetHelperTokenSid(pSid) {
-        result := ComCall(7, this, "ptr", pSid, "HRESULT")
-        return result
+    GetHelperTokenSid() {
+        result := ComCall(7, this, "ptr*", &pSid := 0, "HRESULT")
+        return pSid
     }
 }

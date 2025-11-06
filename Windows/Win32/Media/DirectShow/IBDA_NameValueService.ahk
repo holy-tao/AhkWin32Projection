@@ -38,29 +38,29 @@ class IBDA_NameValueService extends IUnknown{
     /**
      * 
      * @param {Integer} ulIndex 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_namevalueservice-getvaluenamebyindex
      */
-    GetValueNameByIndex(ulIndex, pbstrName) {
+    GetValueNameByIndex(ulIndex) {
+        pbstrName := BSTR()
         result := ComCall(3, this, "uint", ulIndex, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 
     /**
      * 
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrLanguage 
-     * @param {Pointer<BSTR>} pbstrValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_namevalueservice-getvalue
      */
-    GetValue(bstrName, bstrLanguage, pbstrValue) {
+    GetValue(bstrName, bstrLanguage) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
         bstrLanguage := bstrLanguage is String ? BSTR.Alloc(bstrLanguage).Value : bstrLanguage
 
+        pbstrValue := BSTR()
         result := ComCall(4, this, "ptr", bstrName, "ptr", bstrLanguage, "ptr", pbstrValue, "HRESULT")
-        return result
+        return pbstrValue
     }
 
     /**

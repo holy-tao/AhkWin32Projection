@@ -47,22 +47,14 @@ class IWMReaderStreamClock extends IUnknown{
      * Creates a timer with the specified time-out value.
      * @param {Integer} cnsWhen 
      * @param {Pointer<Void>} pvParam 
-     * @param {Pointer<Integer>} pdwTimerId 
-     * @returns {HRESULT} Type: <b>UINT_PTR</b>
-     * 
-     * If the function succeeds and the <i>hWnd</i> parameter is <b>NULL</b>, the return value is an integer identifying the new timer. An application can pass this value to the <a href="/windows/desktop/api/winuser/nf-winuser-killtimer">KillTimer</a> function to destroy the timer.
-     * 
-     * If the function succeeds and the <i>hWnd</i> parameter is not <b>NULL</b>, then the return value is a nonzero integer. An application can pass the value of the <i>nIDEvent</i> parameter to the <a href="/windows/desktop/api/winuser/nf-winuser-killtimer">KillTimer</a> function to destroy the timer.
-     * 
-     * If the function fails to create a timer, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-settimer
      */
-    SetTimer(cnsWhen, pvParam, pdwTimerId) {
+    SetTimer(cnsWhen, pvParam) {
         pvParamMarshal := pvParam is VarRef ? "ptr" : "ptr"
-        pdwTimerIdMarshal := pdwTimerId is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", cnsWhen, pvParamMarshal, pvParam, pdwTimerIdMarshal, pdwTimerId, "HRESULT")
-        return result
+        result := ComCall(4, this, "uint", cnsWhen, pvParamMarshal, pvParam, "uint*", &pdwTimerId := 0, "HRESULT")
+        return pdwTimerId
     }
 
     /**

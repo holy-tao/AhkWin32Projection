@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,21 +31,21 @@ class IMediaTypeInfo extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} strType 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Type(strType) {
+    get_Type() {
+        strType := BSTR()
         result := ComCall(7, this, "ptr", strType, "HRESULT")
-        return result
+        return strType
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} strType 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Subtype(strType) {
+    get_Subtype() {
+        strType := BSTR()
         result := ComCall(8, this, "ptr", strType, "HRESULT")
-        return result
+        return strType
     }
 }

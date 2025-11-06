@@ -1,6 +1,38 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsOMPackage.ahk
+#Include .\IXpsOMStoryFragmentsResource.ahk
+#Include .\IXpsOMDocumentStructureResource.ahk
+#Include .\IXpsOMSignatureBlockResource.ahk
+#Include .\IXpsOMRemoteDictionaryResource.ahk
+#Include .\IXpsOMPartResources.ahk
+#Include .\IXpsOMDocumentSequence.ahk
+#Include .\IXpsOMDocument.ahk
+#Include .\IXpsOMPageReference.ahk
+#Include .\IXpsOMPage.ahk
+#Include .\IXpsOMCanvas.ahk
+#Include .\IXpsOMGlyphs.ahk
+#Include .\IXpsOMPath.ahk
+#Include .\IXpsOMGeometry.ahk
+#Include .\IXpsOMGeometryFigure.ahk
+#Include .\IXpsOMMatrixTransform.ahk
+#Include .\IXpsOMSolidColorBrush.ahk
+#Include .\IXpsOMColorProfileResource.ahk
+#Include .\IXpsOMImageBrush.ahk
+#Include .\IXpsOMVisualBrush.ahk
+#Include .\IXpsOMImageResource.ahk
+#Include .\IXpsOMPrintTicketResource.ahk
+#Include .\IXpsOMFontResource.ahk
+#Include .\IXpsOMGradientStop.ahk
+#Include .\IXpsOMLinearGradientBrush.ahk
+#Include .\IXpsOMRadialGradientBrush.ahk
+#Include .\IXpsOMCoreProperties.ahk
+#Include .\IXpsOMDictionary.ahk
+#Include .\IXpsOMPartUriCollection.ahk
+#Include .\IXpsOMPackageWriter.ahk
+#Include ..\Packaging\Opc\IOpcPartUri.ahk
+#Include ..\..\System\Com\IStream.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -38,93 +70,86 @@ class IXpsOMObjectFactory extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IXpsOMPackage>} package 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMPackage} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createpackage
      */
-    CreatePackage(package) {
-        result := ComCall(3, this, "ptr*", package, "HRESULT")
-        return result
+    CreatePackage() {
+        result := ComCall(3, this, "ptr*", &package := 0, "HRESULT")
+        return IXpsOMPackage(package)
     }
 
     /**
      * 
      * @param {PWSTR} filename 
      * @param {BOOL} reuseObjects 
-     * @param {Pointer<IXpsOMPackage>} package 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMPackage} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createpackagefromfile
      */
-    CreatePackageFromFile(filename, reuseObjects, package) {
+    CreatePackageFromFile(filename, reuseObjects) {
         filename := filename is String ? StrPtr(filename) : filename
 
-        result := ComCall(4, this, "ptr", filename, "int", reuseObjects, "ptr*", package, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", filename, "int", reuseObjects, "ptr*", &package := 0, "HRESULT")
+        return IXpsOMPackage(package)
     }
 
     /**
      * 
      * @param {IStream} stream 
      * @param {BOOL} reuseObjects 
-     * @param {Pointer<IXpsOMPackage>} package 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMPackage} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createpackagefromstream
      */
-    CreatePackageFromStream(stream, reuseObjects, package) {
-        result := ComCall(5, this, "ptr", stream, "int", reuseObjects, "ptr*", package, "HRESULT")
-        return result
+    CreatePackageFromStream(stream, reuseObjects) {
+        result := ComCall(5, this, "ptr", stream, "int", reuseObjects, "ptr*", &package := 0, "HRESULT")
+        return IXpsOMPackage(package)
     }
 
     /**
      * 
      * @param {IStream} acquiredStream 
      * @param {IOpcPartUri} partUri 
-     * @param {Pointer<IXpsOMStoryFragmentsResource>} storyFragmentsResource 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMStoryFragmentsResource} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createstoryfragmentsresource
      */
-    CreateStoryFragmentsResource(acquiredStream, partUri, storyFragmentsResource) {
-        result := ComCall(6, this, "ptr", acquiredStream, "ptr", partUri, "ptr*", storyFragmentsResource, "HRESULT")
-        return result
+    CreateStoryFragmentsResource(acquiredStream, partUri) {
+        result := ComCall(6, this, "ptr", acquiredStream, "ptr", partUri, "ptr*", &storyFragmentsResource := 0, "HRESULT")
+        return IXpsOMStoryFragmentsResource(storyFragmentsResource)
     }
 
     /**
      * 
      * @param {IStream} acquiredStream 
      * @param {IOpcPartUri} partUri 
-     * @param {Pointer<IXpsOMDocumentStructureResource>} documentStructureResource 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMDocumentStructureResource} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createdocumentstructureresource
      */
-    CreateDocumentStructureResource(acquiredStream, partUri, documentStructureResource) {
-        result := ComCall(7, this, "ptr", acquiredStream, "ptr", partUri, "ptr*", documentStructureResource, "HRESULT")
-        return result
+    CreateDocumentStructureResource(acquiredStream, partUri) {
+        result := ComCall(7, this, "ptr", acquiredStream, "ptr", partUri, "ptr*", &documentStructureResource := 0, "HRESULT")
+        return IXpsOMDocumentStructureResource(documentStructureResource)
     }
 
     /**
      * 
      * @param {IStream} acquiredStream 
      * @param {IOpcPartUri} partUri 
-     * @param {Pointer<IXpsOMSignatureBlockResource>} signatureBlockResource 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMSignatureBlockResource} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createsignatureblockresource
      */
-    CreateSignatureBlockResource(acquiredStream, partUri, signatureBlockResource) {
-        result := ComCall(8, this, "ptr", acquiredStream, "ptr", partUri, "ptr*", signatureBlockResource, "HRESULT")
-        return result
+    CreateSignatureBlockResource(acquiredStream, partUri) {
+        result := ComCall(8, this, "ptr", acquiredStream, "ptr", partUri, "ptr*", &signatureBlockResource := 0, "HRESULT")
+        return IXpsOMSignatureBlockResource(signatureBlockResource)
     }
 
     /**
      * 
      * @param {IXpsOMDictionary} dictionary 
      * @param {IOpcPartUri} partUri 
-     * @param {Pointer<IXpsOMRemoteDictionaryResource>} remoteDictionaryResource 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMRemoteDictionaryResource} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createremotedictionaryresource
      */
-    CreateRemoteDictionaryResource(dictionary, partUri, remoteDictionaryResource) {
-        result := ComCall(9, this, "ptr", dictionary, "ptr", partUri, "ptr*", remoteDictionaryResource, "HRESULT")
-        return result
+    CreateRemoteDictionaryResource(dictionary, partUri) {
+        result := ComCall(9, this, "ptr", dictionary, "ptr", partUri, "ptr*", &remoteDictionaryResource := 0, "HRESULT")
+        return IXpsOMRemoteDictionaryResource(remoteDictionaryResource)
     }
 
     /**
@@ -132,60 +157,55 @@ class IXpsOMObjectFactory extends IUnknown{
      * @param {IStream} dictionaryMarkupStream 
      * @param {IOpcPartUri} dictionaryPartUri 
      * @param {IXpsOMPartResources} resources 
-     * @param {Pointer<IXpsOMRemoteDictionaryResource>} dictionaryResource 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMRemoteDictionaryResource} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createremotedictionaryresourcefromstream
      */
-    CreateRemoteDictionaryResourceFromStream(dictionaryMarkupStream, dictionaryPartUri, resources, dictionaryResource) {
-        result := ComCall(10, this, "ptr", dictionaryMarkupStream, "ptr", dictionaryPartUri, "ptr", resources, "ptr*", dictionaryResource, "HRESULT")
-        return result
+    CreateRemoteDictionaryResourceFromStream(dictionaryMarkupStream, dictionaryPartUri, resources) {
+        result := ComCall(10, this, "ptr", dictionaryMarkupStream, "ptr", dictionaryPartUri, "ptr", resources, "ptr*", &dictionaryResource := 0, "HRESULT")
+        return IXpsOMRemoteDictionaryResource(dictionaryResource)
     }
 
     /**
      * 
-     * @param {Pointer<IXpsOMPartResources>} partResources 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMPartResources} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createpartresources
      */
-    CreatePartResources(partResources) {
-        result := ComCall(11, this, "ptr*", partResources, "HRESULT")
-        return result
+    CreatePartResources() {
+        result := ComCall(11, this, "ptr*", &partResources := 0, "HRESULT")
+        return IXpsOMPartResources(partResources)
     }
 
     /**
      * 
      * @param {IOpcPartUri} partUri 
-     * @param {Pointer<IXpsOMDocumentSequence>} documentSequence 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMDocumentSequence} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createdocumentsequence
      */
-    CreateDocumentSequence(partUri, documentSequence) {
-        result := ComCall(12, this, "ptr", partUri, "ptr*", documentSequence, "HRESULT")
-        return result
+    CreateDocumentSequence(partUri) {
+        result := ComCall(12, this, "ptr", partUri, "ptr*", &documentSequence := 0, "HRESULT")
+        return IXpsOMDocumentSequence(documentSequence)
     }
 
     /**
      * 
      * @param {IOpcPartUri} partUri 
-     * @param {Pointer<IXpsOMDocument>} document 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMDocument} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createdocument
      */
-    CreateDocument(partUri, document) {
-        result := ComCall(13, this, "ptr", partUri, "ptr*", document, "HRESULT")
-        return result
+    CreateDocument(partUri) {
+        result := ComCall(13, this, "ptr", partUri, "ptr*", &document := 0, "HRESULT")
+        return IXpsOMDocument(document)
     }
 
     /**
      * 
      * @param {Pointer<XPS_SIZE>} advisoryPageDimensions 
-     * @param {Pointer<IXpsOMPageReference>} pageReference 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMPageReference} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createpagereference
      */
-    CreatePageReference(advisoryPageDimensions, pageReference) {
-        result := ComCall(14, this, "ptr", advisoryPageDimensions, "ptr*", pageReference, "HRESULT")
-        return result
+    CreatePageReference(advisoryPageDimensions) {
+        result := ComCall(14, this, "ptr", advisoryPageDimensions, "ptr*", &pageReference := 0, "HRESULT")
+        return IXpsOMPageReference(pageReference)
     }
 
     /**
@@ -193,15 +213,14 @@ class IXpsOMObjectFactory extends IUnknown{
      * @param {Pointer<XPS_SIZE>} pageDimensions 
      * @param {PWSTR} language 
      * @param {IOpcPartUri} partUri 
-     * @param {Pointer<IXpsOMPage>} page 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMPage} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createpage
      */
-    CreatePage(pageDimensions, language, partUri, page) {
+    CreatePage(pageDimensions, language, partUri) {
         language := language is String ? StrPtr(language) : language
 
-        result := ComCall(15, this, "ptr", pageDimensions, "ptr", language, "ptr", partUri, "ptr*", page, "HRESULT")
-        return result
+        result := ComCall(15, this, "ptr", pageDimensions, "ptr", language, "ptr", partUri, "ptr*", &page := 0, "HRESULT")
+        return IXpsOMPage(page)
     }
 
     /**
@@ -210,108 +229,99 @@ class IXpsOMObjectFactory extends IUnknown{
      * @param {IOpcPartUri} partUri 
      * @param {IXpsOMPartResources} resources 
      * @param {BOOL} reuseObjects 
-     * @param {Pointer<IXpsOMPage>} page 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMPage} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createpagefromstream
      */
-    CreatePageFromStream(pageMarkupStream, partUri, resources, reuseObjects, page) {
-        result := ComCall(16, this, "ptr", pageMarkupStream, "ptr", partUri, "ptr", resources, "int", reuseObjects, "ptr*", page, "HRESULT")
-        return result
+    CreatePageFromStream(pageMarkupStream, partUri, resources, reuseObjects) {
+        result := ComCall(16, this, "ptr", pageMarkupStream, "ptr", partUri, "ptr", resources, "int", reuseObjects, "ptr*", &page := 0, "HRESULT")
+        return IXpsOMPage(page)
     }
 
     /**
      * 
-     * @param {Pointer<IXpsOMCanvas>} canvas 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMCanvas} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createcanvas
      */
-    CreateCanvas(canvas) {
-        result := ComCall(17, this, "ptr*", canvas, "HRESULT")
-        return result
+    CreateCanvas() {
+        result := ComCall(17, this, "ptr*", &canvas := 0, "HRESULT")
+        return IXpsOMCanvas(canvas)
     }
 
     /**
      * 
      * @param {IXpsOMFontResource} fontResource 
-     * @param {Pointer<IXpsOMGlyphs>} glyphs 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMGlyphs} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createglyphs
      */
-    CreateGlyphs(fontResource, glyphs) {
-        result := ComCall(18, this, "ptr", fontResource, "ptr*", glyphs, "HRESULT")
-        return result
+    CreateGlyphs(fontResource) {
+        result := ComCall(18, this, "ptr", fontResource, "ptr*", &glyphs := 0, "HRESULT")
+        return IXpsOMGlyphs(glyphs)
     }
 
     /**
      * 
-     * @param {Pointer<IXpsOMPath>} path 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMPath} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createpath
      */
-    CreatePath(path) {
-        result := ComCall(19, this, "ptr*", path, "HRESULT")
-        return result
+    CreatePath() {
+        result := ComCall(19, this, "ptr*", &path := 0, "HRESULT")
+        return IXpsOMPath(path)
     }
 
     /**
      * 
-     * @param {Pointer<IXpsOMGeometry>} geometry 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMGeometry} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-creategeometry
      */
-    CreateGeometry(geometry) {
-        result := ComCall(20, this, "ptr*", geometry, "HRESULT")
-        return result
+    CreateGeometry() {
+        result := ComCall(20, this, "ptr*", &geometry := 0, "HRESULT")
+        return IXpsOMGeometry(geometry)
     }
 
     /**
      * 
      * @param {Pointer<XPS_POINT>} startPoint 
-     * @param {Pointer<IXpsOMGeometryFigure>} figure 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMGeometryFigure} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-creategeometryfigure
      */
-    CreateGeometryFigure(startPoint, figure) {
-        result := ComCall(21, this, "ptr", startPoint, "ptr*", figure, "HRESULT")
-        return result
+    CreateGeometryFigure(startPoint) {
+        result := ComCall(21, this, "ptr", startPoint, "ptr*", &figure := 0, "HRESULT")
+        return IXpsOMGeometryFigure(figure)
     }
 
     /**
      * 
      * @param {Pointer<XPS_MATRIX>} matrix 
-     * @param {Pointer<IXpsOMMatrixTransform>} transform 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMMatrixTransform} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-creatematrixtransform
      */
-    CreateMatrixTransform(matrix, transform) {
-        result := ComCall(22, this, "ptr", matrix, "ptr*", transform, "HRESULT")
-        return result
+    CreateMatrixTransform(matrix) {
+        result := ComCall(22, this, "ptr", matrix, "ptr*", &transform := 0, "HRESULT")
+        return IXpsOMMatrixTransform(transform)
     }
 
     /**
      * 
      * @param {Pointer<XPS_COLOR>} color 
      * @param {IXpsOMColorProfileResource} colorProfile 
-     * @param {Pointer<IXpsOMSolidColorBrush>} solidColorBrush 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMSolidColorBrush} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createsolidcolorbrush
      */
-    CreateSolidColorBrush(color, colorProfile, solidColorBrush) {
-        result := ComCall(23, this, "ptr", color, "ptr", colorProfile, "ptr*", solidColorBrush, "HRESULT")
-        return result
+    CreateSolidColorBrush(color, colorProfile) {
+        result := ComCall(23, this, "ptr", color, "ptr", colorProfile, "ptr*", &solidColorBrush := 0, "HRESULT")
+        return IXpsOMSolidColorBrush(solidColorBrush)
     }
 
     /**
      * 
      * @param {IStream} acquiredStream 
      * @param {IOpcPartUri} partUri 
-     * @param {Pointer<IXpsOMColorProfileResource>} colorProfileResource 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMColorProfileResource} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createcolorprofileresource
      */
-    CreateColorProfileResource(acquiredStream, partUri, colorProfileResource) {
-        result := ComCall(24, this, "ptr", acquiredStream, "ptr", partUri, "ptr*", colorProfileResource, "HRESULT")
-        return result
+    CreateColorProfileResource(acquiredStream, partUri) {
+        result := ComCall(24, this, "ptr", acquiredStream, "ptr", partUri, "ptr*", &colorProfileResource := 0, "HRESULT")
+        return IXpsOMColorProfileResource(colorProfileResource)
     }
 
     /**
@@ -319,26 +329,24 @@ class IXpsOMObjectFactory extends IUnknown{
      * @param {IXpsOMImageResource} image 
      * @param {Pointer<XPS_RECT>} viewBox 
      * @param {Pointer<XPS_RECT>} viewPort 
-     * @param {Pointer<IXpsOMImageBrush>} imageBrush 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMImageBrush} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createimagebrush
      */
-    CreateImageBrush(image, viewBox, viewPort, imageBrush) {
-        result := ComCall(25, this, "ptr", image, "ptr", viewBox, "ptr", viewPort, "ptr*", imageBrush, "HRESULT")
-        return result
+    CreateImageBrush(image, viewBox, viewPort) {
+        result := ComCall(25, this, "ptr", image, "ptr", viewBox, "ptr", viewPort, "ptr*", &imageBrush := 0, "HRESULT")
+        return IXpsOMImageBrush(imageBrush)
     }
 
     /**
      * 
      * @param {Pointer<XPS_RECT>} viewBox 
      * @param {Pointer<XPS_RECT>} viewPort 
-     * @param {Pointer<IXpsOMVisualBrush>} visualBrush 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMVisualBrush} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createvisualbrush
      */
-    CreateVisualBrush(viewBox, viewPort, visualBrush) {
-        result := ComCall(26, this, "ptr", viewBox, "ptr", viewPort, "ptr*", visualBrush, "HRESULT")
-        return result
+    CreateVisualBrush(viewBox, viewPort) {
+        result := ComCall(26, this, "ptr", viewBox, "ptr", viewPort, "ptr*", &visualBrush := 0, "HRESULT")
+        return IXpsOMVisualBrush(visualBrush)
     }
 
     /**
@@ -346,26 +354,24 @@ class IXpsOMObjectFactory extends IUnknown{
      * @param {IStream} acquiredStream 
      * @param {Integer} contentType 
      * @param {IOpcPartUri} partUri 
-     * @param {Pointer<IXpsOMImageResource>} imageResource 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMImageResource} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createimageresource
      */
-    CreateImageResource(acquiredStream, contentType, partUri, imageResource) {
-        result := ComCall(27, this, "ptr", acquiredStream, "int", contentType, "ptr", partUri, "ptr*", imageResource, "HRESULT")
-        return result
+    CreateImageResource(acquiredStream, contentType, partUri) {
+        result := ComCall(27, this, "ptr", acquiredStream, "int", contentType, "ptr", partUri, "ptr*", &imageResource := 0, "HRESULT")
+        return IXpsOMImageResource(imageResource)
     }
 
     /**
      * 
      * @param {IStream} acquiredStream 
      * @param {IOpcPartUri} partUri 
-     * @param {Pointer<IXpsOMPrintTicketResource>} printTicketResource 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMPrintTicketResource} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createprintticketresource
      */
-    CreatePrintTicketResource(acquiredStream, partUri, printTicketResource) {
-        result := ComCall(28, this, "ptr", acquiredStream, "ptr", partUri, "ptr*", printTicketResource, "HRESULT")
-        return result
+    CreatePrintTicketResource(acquiredStream, partUri) {
+        result := ComCall(28, this, "ptr", acquiredStream, "ptr", partUri, "ptr*", &printTicketResource := 0, "HRESULT")
+        return IXpsOMPrintTicketResource(printTicketResource)
     }
 
     /**
@@ -374,13 +380,12 @@ class IXpsOMObjectFactory extends IUnknown{
      * @param {Integer} fontEmbedding 
      * @param {IOpcPartUri} partUri 
      * @param {BOOL} isObfSourceStream 
-     * @param {Pointer<IXpsOMFontResource>} fontResource 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMFontResource} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createfontresource
      */
-    CreateFontResource(acquiredStream, fontEmbedding, partUri, isObfSourceStream, fontResource) {
-        result := ComCall(29, this, "ptr", acquiredStream, "int", fontEmbedding, "ptr", partUri, "int", isObfSourceStream, "ptr*", fontResource, "HRESULT")
-        return result
+    CreateFontResource(acquiredStream, fontEmbedding, partUri, isObfSourceStream) {
+        result := ComCall(29, this, "ptr", acquiredStream, "int", fontEmbedding, "ptr", partUri, "int", isObfSourceStream, "ptr*", &fontResource := 0, "HRESULT")
+        return IXpsOMFontResource(fontResource)
     }
 
     /**
@@ -388,13 +393,12 @@ class IXpsOMObjectFactory extends IUnknown{
      * @param {Pointer<XPS_COLOR>} color 
      * @param {IXpsOMColorProfileResource} colorProfile 
      * @param {Float} offset 
-     * @param {Pointer<IXpsOMGradientStop>} gradientStop 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMGradientStop} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-creategradientstop
      */
-    CreateGradientStop(color, colorProfile, offset, gradientStop) {
-        result := ComCall(30, this, "ptr", color, "ptr", colorProfile, "float", offset, "ptr*", gradientStop, "HRESULT")
-        return result
+    CreateGradientStop(color, colorProfile, offset) {
+        result := ComCall(30, this, "ptr", color, "ptr", colorProfile, "float", offset, "ptr*", &gradientStop := 0, "HRESULT")
+        return IXpsOMGradientStop(gradientStop)
     }
 
     /**
@@ -403,13 +407,12 @@ class IXpsOMObjectFactory extends IUnknown{
      * @param {IXpsOMGradientStop} gradStop2 
      * @param {Pointer<XPS_POINT>} startPoint 
      * @param {Pointer<XPS_POINT>} endPoint 
-     * @param {Pointer<IXpsOMLinearGradientBrush>} linearGradientBrush 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMLinearGradientBrush} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createlineargradientbrush
      */
-    CreateLinearGradientBrush(gradStop1, gradStop2, startPoint, endPoint, linearGradientBrush) {
-        result := ComCall(31, this, "ptr", gradStop1, "ptr", gradStop2, "ptr", startPoint, "ptr", endPoint, "ptr*", linearGradientBrush, "HRESULT")
-        return result
+    CreateLinearGradientBrush(gradStop1, gradStop2, startPoint, endPoint) {
+        result := ComCall(31, this, "ptr", gradStop1, "ptr", gradStop2, "ptr", startPoint, "ptr", endPoint, "ptr*", &linearGradientBrush := 0, "HRESULT")
+        return IXpsOMLinearGradientBrush(linearGradientBrush)
     }
 
     /**
@@ -419,47 +422,43 @@ class IXpsOMObjectFactory extends IUnknown{
      * @param {Pointer<XPS_POINT>} centerPoint 
      * @param {Pointer<XPS_POINT>} gradientOrigin 
      * @param {Pointer<XPS_SIZE>} radiiSizes 
-     * @param {Pointer<IXpsOMRadialGradientBrush>} radialGradientBrush 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMRadialGradientBrush} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createradialgradientbrush
      */
-    CreateRadialGradientBrush(gradStop1, gradStop2, centerPoint, gradientOrigin, radiiSizes, radialGradientBrush) {
-        result := ComCall(32, this, "ptr", gradStop1, "ptr", gradStop2, "ptr", centerPoint, "ptr", gradientOrigin, "ptr", radiiSizes, "ptr*", radialGradientBrush, "HRESULT")
-        return result
+    CreateRadialGradientBrush(gradStop1, gradStop2, centerPoint, gradientOrigin, radiiSizes) {
+        result := ComCall(32, this, "ptr", gradStop1, "ptr", gradStop2, "ptr", centerPoint, "ptr", gradientOrigin, "ptr", radiiSizes, "ptr*", &radialGradientBrush := 0, "HRESULT")
+        return IXpsOMRadialGradientBrush(radialGradientBrush)
     }
 
     /**
      * 
      * @param {IOpcPartUri} partUri 
-     * @param {Pointer<IXpsOMCoreProperties>} coreProperties 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMCoreProperties} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createcoreproperties
      */
-    CreateCoreProperties(partUri, coreProperties) {
-        result := ComCall(33, this, "ptr", partUri, "ptr*", coreProperties, "HRESULT")
-        return result
+    CreateCoreProperties(partUri) {
+        result := ComCall(33, this, "ptr", partUri, "ptr*", &coreProperties := 0, "HRESULT")
+        return IXpsOMCoreProperties(coreProperties)
     }
 
     /**
      * 
-     * @param {Pointer<IXpsOMDictionary>} dictionary 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMDictionary} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createdictionary
      */
-    CreateDictionary(dictionary) {
-        result := ComCall(34, this, "ptr*", dictionary, "HRESULT")
-        return result
+    CreateDictionary() {
+        result := ComCall(34, this, "ptr*", &dictionary := 0, "HRESULT")
+        return IXpsOMDictionary(dictionary)
     }
 
     /**
      * 
-     * @param {Pointer<IXpsOMPartUriCollection>} partUriCollection 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMPartUriCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createparturicollection
      */
-    CreatePartUriCollection(partUriCollection) {
-        result := ComCall(35, this, "ptr*", partUriCollection, "HRESULT")
-        return result
+    CreatePartUriCollection() {
+        result := ComCall(35, this, "ptr*", &partUriCollection := 0, "HRESULT")
+        return IXpsOMPartUriCollection(partUriCollection)
     }
 
     /**
@@ -474,15 +473,14 @@ class IXpsOMObjectFactory extends IUnknown{
      * @param {IXpsOMImageResource} packageThumbnail 
      * @param {IXpsOMPrintTicketResource} documentSequencePrintTicket 
      * @param {IOpcPartUri} discardControlPartName 
-     * @param {Pointer<IXpsOMPackageWriter>} packageWriter 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMPackageWriter} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createpackagewriteronfile
      */
-    CreatePackageWriterOnFile(fileName, securityAttributes, flagsAndAttributes, optimizeMarkupSize, interleaving, documentSequencePartName, coreProperties, packageThumbnail, documentSequencePrintTicket, discardControlPartName, packageWriter) {
+    CreatePackageWriterOnFile(fileName, securityAttributes, flagsAndAttributes, optimizeMarkupSize, interleaving, documentSequencePartName, coreProperties, packageThumbnail, documentSequencePrintTicket, discardControlPartName) {
         fileName := fileName is String ? StrPtr(fileName) : fileName
 
-        result := ComCall(36, this, "ptr", fileName, "ptr", securityAttributes, "uint", flagsAndAttributes, "int", optimizeMarkupSize, "int", interleaving, "ptr", documentSequencePartName, "ptr", coreProperties, "ptr", packageThumbnail, "ptr", documentSequencePrintTicket, "ptr", discardControlPartName, "ptr*", packageWriter, "HRESULT")
-        return result
+        result := ComCall(36, this, "ptr", fileName, "ptr", securityAttributes, "uint", flagsAndAttributes, "int", optimizeMarkupSize, "int", interleaving, "ptr", documentSequencePartName, "ptr", coreProperties, "ptr", packageThumbnail, "ptr", documentSequencePrintTicket, "ptr", discardControlPartName, "ptr*", &packageWriter := 0, "HRESULT")
+        return IXpsOMPackageWriter(packageWriter)
     }
 
     /**
@@ -495,40 +493,37 @@ class IXpsOMObjectFactory extends IUnknown{
      * @param {IXpsOMImageResource} packageThumbnail 
      * @param {IXpsOMPrintTicketResource} documentSequencePrintTicket 
      * @param {IOpcPartUri} discardControlPartName 
-     * @param {Pointer<IXpsOMPackageWriter>} packageWriter 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMPackageWriter} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createpackagewriteronstream
      */
-    CreatePackageWriterOnStream(outputStream, optimizeMarkupSize, interleaving, documentSequencePartName, coreProperties, packageThumbnail, documentSequencePrintTicket, discardControlPartName, packageWriter) {
-        result := ComCall(37, this, "ptr", outputStream, "int", optimizeMarkupSize, "int", interleaving, "ptr", documentSequencePartName, "ptr", coreProperties, "ptr", packageThumbnail, "ptr", documentSequencePrintTicket, "ptr", discardControlPartName, "ptr*", packageWriter, "HRESULT")
-        return result
+    CreatePackageWriterOnStream(outputStream, optimizeMarkupSize, interleaving, documentSequencePartName, coreProperties, packageThumbnail, documentSequencePrintTicket, discardControlPartName) {
+        result := ComCall(37, this, "ptr", outputStream, "int", optimizeMarkupSize, "int", interleaving, "ptr", documentSequencePartName, "ptr", coreProperties, "ptr", packageThumbnail, "ptr", documentSequencePrintTicket, "ptr", discardControlPartName, "ptr*", &packageWriter := 0, "HRESULT")
+        return IXpsOMPackageWriter(packageWriter)
     }
 
     /**
      * 
      * @param {PWSTR} uri 
-     * @param {Pointer<IOpcPartUri>} partUri 
-     * @returns {HRESULT} 
+     * @returns {IOpcPartUri} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createparturi
      */
-    CreatePartUri(uri, partUri) {
+    CreatePartUri(uri) {
         uri := uri is String ? StrPtr(uri) : uri
 
-        result := ComCall(38, this, "ptr", uri, "ptr*", partUri, "HRESULT")
-        return result
+        result := ComCall(38, this, "ptr", uri, "ptr*", &partUri := 0, "HRESULT")
+        return IOpcPartUri(partUri)
     }
 
     /**
      * 
      * @param {PWSTR} filename 
-     * @param {Pointer<IStream>} stream 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createreadonlystreamonfile
      */
-    CreateReadOnlyStreamOnFile(filename, stream) {
+    CreateReadOnlyStreamOnFile(filename) {
         filename := filename is String ? StrPtr(filename) : filename
 
-        result := ComCall(39, this, "ptr", filename, "ptr*", stream, "HRESULT")
-        return result
+        result := ComCall(39, this, "ptr", filename, "ptr*", &stream := 0, "HRESULT")
+        return IStream(stream)
     }
 }

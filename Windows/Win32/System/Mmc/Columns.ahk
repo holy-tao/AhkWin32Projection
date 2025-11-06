@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\Column.ahk
+#Include ..\Com\IUnknown.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -37,33 +39,28 @@ class Columns extends IDispatch{
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<Column>} Column 
-     * @returns {HRESULT} 
+     * @returns {Column} 
      */
-    Item(Index, Column) {
-        result := ComCall(7, this, "int", Index, "ptr*", Column, "HRESULT")
-        return result
+    Item(Index) {
+        result := ComCall(7, this, "int", Index, "ptr*", &Column := 0, "HRESULT")
+        return Column(Column)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Count(Count) {
-        CountMarshal := Count is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, CountMarshal, Count, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(8, this, "int*", &Count := 0, "HRESULT")
+        return Count
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__NewEnum(retval) {
-        result := ComCall(9, this, "ptr*", retval, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(9, this, "ptr*", &retval := 0, "HRESULT")
+        return IUnknown(retval)
     }
 }

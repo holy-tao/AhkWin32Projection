@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IAction.ahk
+#Include ..\Com\IUnknown.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -53,24 +55,22 @@ class IActionCollection extends IDispatch{
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<IAction>} ppAction 
-     * @returns {HRESULT} 
+     * @returns {IAction} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iactioncollection-get_item
      */
-    get_Item(index, ppAction) {
-        result := ComCall(8, this, "int", index, "ptr*", ppAction, "HRESULT")
-        return result
+    get_Item(index) {
+        result := ComCall(8, this, "int", index, "ptr*", &ppAction := 0, "HRESULT")
+        return IAction(ppAction)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iactioncollection-get__newenum
      */
-    get__NewEnum(ppEnum) {
-        result := ComCall(9, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(9, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IUnknown(ppEnum)
     }
 
     /**
@@ -100,13 +100,12 @@ class IActionCollection extends IDispatch{
     /**
      * 
      * @param {Integer} type 
-     * @param {Pointer<IAction>} ppAction 
-     * @returns {HRESULT} 
+     * @returns {IAction} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iactioncollection-create
      */
-    Create(type, ppAction) {
-        result := ComCall(12, this, "int", type, "ptr*", ppAction, "HRESULT")
-        return result
+    Create(type) {
+        result := ComCall(12, this, "int", type, "ptr*", &ppAction := 0, "HRESULT")
+        return IAction(ppAction)
     }
 
     /**

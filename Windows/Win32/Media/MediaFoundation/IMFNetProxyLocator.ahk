@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFNetProxyLocator.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -85,12 +86,11 @@ class IMFNetProxyLocator extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IMFNetProxyLocator>} ppProxyLocator 
-     * @returns {HRESULT} 
+     * @returns {IMFNetProxyLocator} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfnetproxylocator-clone
      */
-    Clone(ppProxyLocator) {
-        result := ComCall(7, this, "ptr*", ppProxyLocator, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(7, this, "ptr*", &ppProxyLocator := 0, "HRESULT")
+        return IMFNetProxyLocator(ppProxyLocator)
     }
 }

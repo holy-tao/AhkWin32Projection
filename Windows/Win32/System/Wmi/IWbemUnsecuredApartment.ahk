@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWbemObjectSink.ahk
 #Include .\IUnsecuredApartment.ahk
 
 /**
@@ -46,14 +47,13 @@ class IWbemUnsecuredApartment extends IUnsecuredApartment{
      * @param {IWbemObjectSink} pSink 
      * @param {Integer} dwFlags 
      * @param {PWSTR} wszReserved 
-     * @param {Pointer<IWbemObjectSink>} ppStub 
-     * @returns {HRESULT} 
+     * @returns {IWbemObjectSink} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemunsecuredapartment-createsinkstub
      */
-    CreateSinkStub(pSink, dwFlags, wszReserved, ppStub) {
+    CreateSinkStub(pSink, dwFlags, wszReserved) {
         wszReserved := wszReserved is String ? StrPtr(wszReserved) : wszReserved
 
-        result := ComCall(4, this, "ptr", pSink, "uint", dwFlags, "ptr", wszReserved, "ptr*", ppStub, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pSink, "uint", dwFlags, "ptr", wszReserved, "ptr*", &ppStub := 0, "HRESULT")
+        return IWbemObjectSink(ppStub)
     }
 }

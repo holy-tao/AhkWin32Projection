@@ -33,25 +33,23 @@ class IAppxManifestApplication extends IUnknown{
     /**
      * 
      * @param {PWSTR} name 
-     * @param {Pointer<PWSTR>} value 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestapplication-getstringvalue
      */
-    GetStringValue(name, value) {
+    GetStringValue(name) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(3, this, "ptr", name, "ptr", value, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", name, "ptr*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} appUserModelId 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestapplication-getappusermodelid
      */
-    GetAppUserModelId(appUserModelId) {
-        result := ComCall(4, this, "ptr", appUserModelId, "HRESULT")
-        return result
+    GetAppUserModelId() {
+        result := ComCall(4, this, "ptr*", &appUserModelId := 0, "HRESULT")
+        return appUserModelId
     }
 }

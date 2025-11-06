@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ICLRControl.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -64,12 +65,11 @@ class ICLRRuntimeHost extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ICLRControl>} pCLRControl 
-     * @returns {HRESULT} 
+     * @returns {ICLRControl} 
      */
-    GetCLRControl(pCLRControl) {
-        result := ComCall(6, this, "ptr*", pCLRControl, "HRESULT")
-        return result
+    GetCLRControl() {
+        result := ComCall(6, this, "ptr*", &pCLRControl := 0, "HRESULT")
+        return ICLRControl(pCLRControl)
     }
 
     /**
@@ -99,14 +99,11 @@ class ICLRRuntimeHost extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwAppDomainId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetCurrentAppDomainId(pdwAppDomainId) {
-        pdwAppDomainIdMarshal := pdwAppDomainId is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, pdwAppDomainIdMarshal, pdwAppDomainId, "HRESULT")
-        return result
+    GetCurrentAppDomainId() {
+        result := ComCall(9, this, "uint*", &pdwAppDomainId := 0, "HRESULT")
+        return pdwAppDomainId
     }
 
     /**
@@ -116,16 +113,16 @@ class ICLRRuntimeHost extends IUnknown{
      * @param {Pointer<PWSTR>} ppwzManifestPaths 
      * @param {Integer} dwActivationData 
      * @param {Pointer<PWSTR>} ppwzActivationData 
-     * @param {Pointer<Integer>} pReturnValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    ExecuteApplication(pwzAppFullName, dwManifestPaths, ppwzManifestPaths, dwActivationData, ppwzActivationData, pReturnValue) {
+    ExecuteApplication(pwzAppFullName, dwManifestPaths, ppwzManifestPaths, dwActivationData, ppwzActivationData) {
         pwzAppFullName := pwzAppFullName is String ? StrPtr(pwzAppFullName) : pwzAppFullName
 
-        pReturnValueMarshal := pReturnValue is VarRef ? "int*" : "ptr"
+        ppwzManifestPathsMarshal := ppwzManifestPaths is VarRef ? "ptr*" : "ptr"
+        ppwzActivationDataMarshal := ppwzActivationData is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(10, this, "ptr", pwzAppFullName, "uint", dwManifestPaths, "ptr", ppwzManifestPaths, "uint", dwActivationData, "ptr", ppwzActivationData, pReturnValueMarshal, pReturnValue, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", pwzAppFullName, "uint", dwManifestPaths, ppwzManifestPathsMarshal, ppwzManifestPaths, "uint", dwActivationData, ppwzActivationDataMarshal, ppwzActivationData, "int*", &pReturnValue := 0, "HRESULT")
+        return pReturnValue
     }
 
     /**
@@ -134,18 +131,15 @@ class ICLRRuntimeHost extends IUnknown{
      * @param {PWSTR} pwzTypeName 
      * @param {PWSTR} pwzMethodName 
      * @param {PWSTR} pwzArgument 
-     * @param {Pointer<Integer>} pReturnValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    ExecuteInDefaultAppDomain(pwzAssemblyPath, pwzTypeName, pwzMethodName, pwzArgument, pReturnValue) {
+    ExecuteInDefaultAppDomain(pwzAssemblyPath, pwzTypeName, pwzMethodName, pwzArgument) {
         pwzAssemblyPath := pwzAssemblyPath is String ? StrPtr(pwzAssemblyPath) : pwzAssemblyPath
         pwzTypeName := pwzTypeName is String ? StrPtr(pwzTypeName) : pwzTypeName
         pwzMethodName := pwzMethodName is String ? StrPtr(pwzMethodName) : pwzMethodName
         pwzArgument := pwzArgument is String ? StrPtr(pwzArgument) : pwzArgument
 
-        pReturnValueMarshal := pReturnValue is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, "ptr", pwzAssemblyPath, "ptr", pwzTypeName, "ptr", pwzMethodName, "ptr", pwzArgument, pReturnValueMarshal, pReturnValue, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", pwzAssemblyPath, "ptr", pwzTypeName, "ptr", pwzMethodName, "ptr", pwzArgument, "uint*", &pReturnValue := 0, "HRESULT")
+        return pReturnValue
     }
 }

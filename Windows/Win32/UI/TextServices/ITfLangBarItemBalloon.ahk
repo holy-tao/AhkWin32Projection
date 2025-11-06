@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\SIZE.ahk
+#Include .\TF_LBBALLOONINFO.ahk
 #Include .\ITfLangBarItem.ahk
 
 /**
@@ -51,23 +53,23 @@ class ITfLangBarItemBalloon extends ITfLangBarItem{
     /**
      * 
      * @param {Pointer<SIZE>} pszDefault 
-     * @param {Pointer<SIZE>} psz 
-     * @returns {HRESULT} 
+     * @returns {SIZE} 
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritemballoon-getpreferredsize
      */
-    GetPreferredSize(pszDefault, psz) {
+    GetPreferredSize(pszDefault) {
+        psz := SIZE()
         result := ComCall(8, this, "ptr", pszDefault, "ptr", psz, "HRESULT")
-        return result
+        return psz
     }
 
     /**
      * 
-     * @param {Pointer<TF_LBBALLOONINFO>} pInfo 
-     * @returns {HRESULT} 
+     * @returns {TF_LBBALLOONINFO} 
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritemballoon-getballooninfo
      */
-    GetBalloonInfo(pInfo) {
+    GetBalloonInfo() {
+        pInfo := TF_LBBALLOONINFO()
         result := ComCall(9, this, "ptr", pInfo, "HRESULT")
-        return result
+        return pInfo
     }
 }

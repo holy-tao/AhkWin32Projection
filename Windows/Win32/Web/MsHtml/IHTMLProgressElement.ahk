@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IHTMLFormElement.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -46,14 +47,11 @@ class IHTMLProgressElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_value(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(8, this, pMarshal, p, "HRESULT")
-        return result
+    get_value() {
+        result := ComCall(8, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -68,35 +66,28 @@ class IHTMLProgressElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_max(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(10, this, pMarshal, p, "HRESULT")
-        return result
+    get_max() {
+        result := ComCall(10, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_position(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(11, this, pMarshal, p, "HRESULT")
-        return result
+    get_position() {
+        result := ComCall(11, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLFormElement>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLFormElement} 
      */
-    get_form(p) {
-        result := ComCall(12, this, "ptr*", p, "HRESULT")
-        return result
+    get_form() {
+        result := ComCall(12, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLFormElement(p)
     }
 }

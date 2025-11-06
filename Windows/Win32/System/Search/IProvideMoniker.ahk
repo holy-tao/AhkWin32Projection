@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IMoniker.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -30,11 +31,10 @@ class IProvideMoniker extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IMoniker>} ppIMoniker 
-     * @returns {HRESULT} 
+     * @returns {IMoniker} 
      */
-    GetMoniker(ppIMoniker) {
-        result := ComCall(3, this, "ptr*", ppIMoniker, "HRESULT")
-        return result
+    GetMoniker() {
+        result := ComCall(3, this, "ptr*", &ppIMoniker := 0, "HRESULT")
+        return IMoniker(ppIMoniker)
     }
 }

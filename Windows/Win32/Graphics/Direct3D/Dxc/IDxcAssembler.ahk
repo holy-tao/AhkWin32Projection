@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IDxcOperationResult.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -31,11 +32,10 @@ class IDxcAssembler extends IUnknown{
     /**
      * 
      * @param {IDxcBlob} pShader 
-     * @param {Pointer<IDxcOperationResult>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {IDxcOperationResult} 
      */
-    AssembleToContainer(pShader, ppResult) {
-        result := ComCall(3, this, "ptr", pShader, "ptr*", ppResult, "HRESULT")
-        return result
+    AssembleToContainer(pShader) {
+        result := ComCall(3, this, "ptr", pShader, "ptr*", &ppResult := 0, "HRESULT")
+        return IDxcOperationResult(ppResult)
     }
 }

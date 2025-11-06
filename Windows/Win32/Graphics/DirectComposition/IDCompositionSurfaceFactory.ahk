@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDCompositionSurface.ahk
+#Include .\IDCompositionVirtualSurface.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -36,13 +38,12 @@ class IDCompositionSurfaceFactory extends IUnknown{
      * @param {Integer} height 
      * @param {Integer} pixelFormat 
      * @param {Integer} alphaMode 
-     * @param {Pointer<IDCompositionSurface>} surface 
-     * @returns {HRESULT} 
+     * @returns {IDCompositionSurface} 
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionsurfacefactory-createsurface
      */
-    CreateSurface(width, height, pixelFormat, alphaMode, surface) {
-        result := ComCall(3, this, "uint", width, "uint", height, "int", pixelFormat, "int", alphaMode, "ptr*", surface, "HRESULT")
-        return result
+    CreateSurface(width, height, pixelFormat, alphaMode) {
+        result := ComCall(3, this, "uint", width, "uint", height, "int", pixelFormat, "int", alphaMode, "ptr*", &surface := 0, "HRESULT")
+        return IDCompositionSurface(surface)
     }
 
     /**
@@ -51,12 +52,11 @@ class IDCompositionSurfaceFactory extends IUnknown{
      * @param {Integer} initialHeight 
      * @param {Integer} pixelFormat 
      * @param {Integer} alphaMode 
-     * @param {Pointer<IDCompositionVirtualSurface>} virtualSurface 
-     * @returns {HRESULT} 
+     * @returns {IDCompositionVirtualSurface} 
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionsurfacefactory-createvirtualsurface
      */
-    CreateVirtualSurface(initialWidth, initialHeight, pixelFormat, alphaMode, virtualSurface) {
-        result := ComCall(4, this, "uint", initialWidth, "uint", initialHeight, "int", pixelFormat, "int", alphaMode, "ptr*", virtualSurface, "HRESULT")
-        return result
+    CreateVirtualSurface(initialWidth, initialHeight, pixelFormat, alphaMode) {
+        result := ComCall(4, this, "uint", initialWidth, "uint", initialHeight, "int", pixelFormat, "int", alphaMode, "ptr*", &virtualSurface := 0, "HRESULT")
+        return IDCompositionVirtualSurface(virtualSurface)
     }
 }

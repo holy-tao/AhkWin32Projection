@@ -35,12 +35,11 @@ class ICallFactory extends IUnknown{
      * @param {Pointer<Guid>} riid 
      * @param {IUnknown} pCtrlUnk 
      * @param {Pointer<Guid>} riid2 
-     * @param {Pointer<IUnknown>} ppv 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-icallfactory-createcall
      */
-    CreateCall(riid, pCtrlUnk, riid2, ppv) {
-        result := ComCall(3, this, "ptr", riid, "ptr", pCtrlUnk, "ptr", riid2, "ptr*", ppv, "HRESULT")
-        return result
+    CreateCall(riid, pCtrlUnk, riid2) {
+        result := ComCall(3, this, "ptr", riid, "ptr", pCtrlUnk, "ptr", riid2, "ptr*", &ppv := 0, "HRESULT")
+        return IUnknown(ppv)
     }
 }

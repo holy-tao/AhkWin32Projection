@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Graphics\Imaging\IWICBitmapSource.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -40,13 +41,14 @@ class IMILBitmapEffectPrimitive extends IUnknown{
      * @param {Integer} uiIndex 
      * @param {IMILBitmapEffectRenderContext} pContext 
      * @param {Pointer<VARIANT_BOOL>} pfModifyInPlace 
-     * @param {Pointer<IWICBitmapSource>} ppBitmapSource 
-     * @returns {HRESULT} 
+     * @returns {IWICBitmapSource} 
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectprimitive-getoutput
      */
-    GetOutput(uiIndex, pContext, pfModifyInPlace, ppBitmapSource) {
-        result := ComCall(3, this, "uint", uiIndex, "ptr", pContext, "ptr", pfModifyInPlace, "ptr*", ppBitmapSource, "HRESULT")
-        return result
+    GetOutput(uiIndex, pContext, pfModifyInPlace) {
+        pfModifyInPlaceMarshal := pfModifyInPlace is VarRef ? "short*" : "ptr"
+
+        result := ComCall(3, this, "uint", uiIndex, "ptr", pContext, pfModifyInPlaceMarshal, pfModifyInPlace, "ptr*", &ppBitmapSource := 0, "HRESULT")
+        return IWICBitmapSource(ppBitmapSource)
     }
 
     /**
@@ -55,13 +57,12 @@ class IMILBitmapEffectPrimitive extends IUnknown{
      * @param {Pointer<MilPoint2D>} p 
      * @param {VARIANT_BOOL} fForwardTransform 
      * @param {IMILBitmapEffectRenderContext} pContext 
-     * @param {Pointer<VARIANT_BOOL>} pfPointTransformed 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectprimitive-transformpoint
      */
-    TransformPoint(uiIndex, p, fForwardTransform, pContext, pfPointTransformed) {
-        result := ComCall(4, this, "uint", uiIndex, "ptr", p, "short", fForwardTransform, "ptr", pContext, "ptr", pfPointTransformed, "HRESULT")
-        return result
+    TransformPoint(uiIndex, p, fForwardTransform, pContext) {
+        result := ComCall(4, this, "uint", uiIndex, "ptr", p, "short", fForwardTransform, "ptr", pContext, "short*", &pfPointTransformed := 0, "HRESULT")
+        return pfPointTransformed
     }
 
     /**
@@ -81,25 +82,23 @@ class IMILBitmapEffectPrimitive extends IUnknown{
     /**
      * 
      * @param {Integer} uiIndex 
-     * @param {Pointer<VARIANT_BOOL>} pfAffine 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectprimitive-hasaffinetransform
      */
-    HasAffineTransform(uiIndex, pfAffine) {
-        result := ComCall(6, this, "uint", uiIndex, "ptr", pfAffine, "HRESULT")
-        return result
+    HasAffineTransform(uiIndex) {
+        result := ComCall(6, this, "uint", uiIndex, "short*", &pfAffine := 0, "HRESULT")
+        return pfAffine
     }
 
     /**
      * 
      * @param {Integer} uiIndex 
-     * @param {Pointer<VARIANT_BOOL>} pfHasInverse 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectprimitive-hasinversetransform
      */
-    HasInverseTransform(uiIndex, pfHasInverse) {
-        result := ComCall(7, this, "uint", uiIndex, "ptr", pfHasInverse, "HRESULT")
-        return result
+    HasInverseTransform(uiIndex) {
+        result := ComCall(7, this, "uint", uiIndex, "short*", &pfHasInverse := 0, "HRESULT")
+        return pfHasInverse
     }
 
     /**

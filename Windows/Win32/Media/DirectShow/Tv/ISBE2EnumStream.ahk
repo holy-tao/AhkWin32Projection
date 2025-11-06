@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ISBE2EnumStream.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -38,15 +39,12 @@ class ISBE2EnumStream extends IUnknown{
      * 
      * @param {Integer} cRequest 
      * @param {Pointer<SBE2_STREAM_DESC>} pStreamDesc 
-     * @param {Pointer<Integer>} pcReceived 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-isbe2enumstream-next
      */
-    Next(cRequest, pStreamDesc, pcReceived) {
-        pcReceivedMarshal := pcReceived is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "uint", cRequest, "ptr", pStreamDesc, pcReceivedMarshal, pcReceived, "HRESULT")
-        return result
+    Next(cRequest, pStreamDesc) {
+        result := ComCall(3, this, "uint", cRequest, "ptr", pStreamDesc, "uint*", &pcReceived := 0, "HRESULT")
+        return pcReceived
     }
 
     /**
@@ -72,12 +70,11 @@ class ISBE2EnumStream extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ISBE2EnumStream>} ppIEnumStream 
-     * @returns {HRESULT} 
+     * @returns {ISBE2EnumStream} 
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-isbe2enumstream-clone
      */
-    Clone(ppIEnumStream) {
-        result := ComCall(6, this, "ptr*", ppIEnumStream, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppIEnumStream := 0, "HRESULT")
+        return ISBE2EnumStream(ppIEnumStream)
     }
 }

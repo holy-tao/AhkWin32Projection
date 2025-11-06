@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDirect3DResource9.ahk
+#Include .\IDirect3DSurface9.ahk
 #Include .\IDirect3DDevice9.ahk
 
 /**
@@ -159,14 +161,13 @@ class IDirect3DDevice9Ex extends IDirect3DDevice9{
 
     /**
      * 
-     * @param {Pointer<IDirect3DResource9>} pResourceArray 
      * @param {Integer} NumResources 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DResource9} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9ex-checkresourceresidency
      */
-    CheckResourceResidency(pResourceArray, NumResources) {
-        result := ComCall(125, this, "ptr*", pResourceArray, "uint", NumResources, "HRESULT")
-        return result
+    CheckResourceResidency(NumResources) {
+        result := ComCall(125, this, "ptr*", &pResourceArray := 0, "uint", NumResources, "HRESULT")
+        return IDirect3DResource9(pResourceArray)
     }
 
     /**
@@ -214,15 +215,14 @@ class IDirect3DDevice9Ex extends IDirect3DDevice9{
      * @param {Integer} MultiSample 
      * @param {Integer} MultisampleQuality 
      * @param {BOOL} Lockable 
-     * @param {Pointer<IDirect3DSurface9>} ppSurface 
      * @param {Pointer<HANDLE>} pSharedHandle 
      * @param {Integer} Usage 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DSurface9} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9ex-createrendertargetex
      */
-    CreateRenderTargetEx(Width, Height, Format, MultiSample, MultisampleQuality, Lockable, ppSurface, pSharedHandle, Usage) {
-        result := ComCall(129, this, "uint", Width, "uint", Height, "uint", Format, "int", MultiSample, "uint", MultisampleQuality, "int", Lockable, "ptr*", ppSurface, "ptr", pSharedHandle, "uint", Usage, "HRESULT")
-        return result
+    CreateRenderTargetEx(Width, Height, Format, MultiSample, MultisampleQuality, Lockable, pSharedHandle, Usage) {
+        result := ComCall(129, this, "uint", Width, "uint", Height, "uint", Format, "int", MultiSample, "uint", MultisampleQuality, "int", Lockable, "ptr*", &ppSurface := 0, "ptr", pSharedHandle, "uint", Usage, "HRESULT")
+        return IDirect3DSurface9(ppSurface)
     }
 
     /**
@@ -231,15 +231,14 @@ class IDirect3DDevice9Ex extends IDirect3DDevice9{
      * @param {Integer} Height 
      * @param {Integer} Format 
      * @param {Integer} Pool 
-     * @param {Pointer<IDirect3DSurface9>} ppSurface 
      * @param {Pointer<HANDLE>} pSharedHandle 
      * @param {Integer} Usage 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DSurface9} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9ex-createoffscreenplainsurfaceex
      */
-    CreateOffscreenPlainSurfaceEx(Width, Height, Format, Pool, ppSurface, pSharedHandle, Usage) {
-        result := ComCall(130, this, "uint", Width, "uint", Height, "uint", Format, "int", Pool, "ptr*", ppSurface, "ptr", pSharedHandle, "uint", Usage, "HRESULT")
-        return result
+    CreateOffscreenPlainSurfaceEx(Width, Height, Format, Pool, pSharedHandle, Usage) {
+        result := ComCall(130, this, "uint", Width, "uint", Height, "uint", Format, "int", Pool, "ptr*", &ppSurface := 0, "ptr", pSharedHandle, "uint", Usage, "HRESULT")
+        return IDirect3DSurface9(ppSurface)
     }
 
     /**
@@ -250,15 +249,14 @@ class IDirect3DDevice9Ex extends IDirect3DDevice9{
      * @param {Integer} MultiSample 
      * @param {Integer} MultisampleQuality 
      * @param {BOOL} Discard 
-     * @param {Pointer<IDirect3DSurface9>} ppSurface 
      * @param {Pointer<HANDLE>} pSharedHandle 
      * @param {Integer} Usage 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DSurface9} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3ddevice9ex-createdepthstencilsurfaceex
      */
-    CreateDepthStencilSurfaceEx(Width, Height, Format, MultiSample, MultisampleQuality, Discard, ppSurface, pSharedHandle, Usage) {
-        result := ComCall(131, this, "uint", Width, "uint", Height, "uint", Format, "int", MultiSample, "uint", MultisampleQuality, "int", Discard, "ptr*", ppSurface, "ptr", pSharedHandle, "uint", Usage, "HRESULT")
-        return result
+    CreateDepthStencilSurfaceEx(Width, Height, Format, MultiSample, MultisampleQuality, Discard, pSharedHandle, Usage) {
+        result := ComCall(131, this, "uint", Width, "uint", Height, "uint", Format, "int", MultiSample, "uint", MultisampleQuality, "int", Discard, "ptr*", &ppSurface := 0, "ptr", pSharedHandle, "uint", Usage, "HRESULT")
+        return IDirect3DSurface9(ppSurface)
     }
 
     /**

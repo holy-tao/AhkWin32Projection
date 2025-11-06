@@ -30,11 +30,10 @@ class ITransactionCloner extends ITransaction{
 
     /**
      * 
-     * @param {Pointer<ITransaction>} ppITransaction 
-     * @returns {HRESULT} 
+     * @returns {ITransaction} 
      */
-    CloneWithCommitDisabled(ppITransaction) {
-        result := ComCall(6, this, "ptr*", ppITransaction, "HRESULT")
-        return result
+    CloneWithCommitDisabled() {
+        result := ComCall(6, this, "ptr*", &ppITransaction := 0, "HRESULT")
+        return ITransaction(ppITransaction)
     }
 }

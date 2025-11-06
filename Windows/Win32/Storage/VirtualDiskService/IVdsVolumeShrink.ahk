@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IVdsAsync.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,27 +33,23 @@ class IVdsVolumeShrink extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pullMaxNumberOfReclaimableBytes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolumeshrink-querymaxreclaimablebytes
      */
-    QueryMaxReclaimableBytes(pullMaxNumberOfReclaimableBytes) {
-        pullMaxNumberOfReclaimableBytesMarshal := pullMaxNumberOfReclaimableBytes is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pullMaxNumberOfReclaimableBytesMarshal, pullMaxNumberOfReclaimableBytes, "HRESULT")
-        return result
+    QueryMaxReclaimableBytes() {
+        result := ComCall(3, this, "uint*", &pullMaxNumberOfReclaimableBytes := 0, "HRESULT")
+        return pullMaxNumberOfReclaimableBytes
     }
 
     /**
      * 
      * @param {Integer} ullDesiredNumberOfReclaimableBytes 
      * @param {Integer} ullMinNumberOfReclaimableBytes 
-     * @param {Pointer<IVdsAsync>} ppAsync 
-     * @returns {HRESULT} 
+     * @returns {IVdsAsync} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolumeshrink-shrink
      */
-    Shrink(ullDesiredNumberOfReclaimableBytes, ullMinNumberOfReclaimableBytes, ppAsync) {
-        result := ComCall(4, this, "uint", ullDesiredNumberOfReclaimableBytes, "uint", ullMinNumberOfReclaimableBytes, "ptr*", ppAsync, "HRESULT")
-        return result
+    Shrink(ullDesiredNumberOfReclaimableBytes, ullMinNumberOfReclaimableBytes) {
+        result := ComCall(4, this, "uint", ullDesiredNumberOfReclaimableBytes, "uint", ullMinNumberOfReclaimableBytes, "ptr*", &ppAsync := 0, "HRESULT")
+        return IVdsAsync(ppAsync)
     }
 }

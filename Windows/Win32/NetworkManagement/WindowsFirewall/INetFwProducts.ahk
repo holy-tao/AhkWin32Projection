@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\INetFwProduct.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -38,49 +40,43 @@ class INetFwProducts extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwproducts-get_count
      */
-    get_Count(count) {
-        countMarshal := count is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, countMarshal, count, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &count := 0, "HRESULT")
+        return count
     }
 
     /**
      * 
      * @param {INetFwProduct} product 
-     * @param {Pointer<IUnknown>} registration 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwproducts-register
      */
-    Register(product, registration) {
-        result := ComCall(8, this, "ptr", product, "ptr*", registration, "HRESULT")
-        return result
+    Register(product) {
+        result := ComCall(8, this, "ptr", product, "ptr*", &registration := 0, "HRESULT")
+        return IUnknown(registration)
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<INetFwProduct>} product 
-     * @returns {HRESULT} 
+     * @returns {INetFwProduct} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwproducts-item
      */
-    Item(index, product) {
-        result := ComCall(9, this, "int", index, "ptr*", product, "HRESULT")
-        return result
+    Item(index) {
+        result := ComCall(9, this, "int", index, "ptr*", &product := 0, "HRESULT")
+        return INetFwProduct(product)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} newEnum 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwproducts-get__newenum
      */
-    get__NewEnum(newEnum) {
-        result := ComCall(10, this, "ptr*", newEnum, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(10, this, "ptr*", &newEnum := 0, "HRESULT")
+        return IUnknown(newEnum)
     }
 }

@@ -43,31 +43,29 @@ class IHTMLStyleSheet3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_href(p) {
+    get_href() {
+        p := BSTR()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_isAlternate(p) {
-        result := ComCall(9, this, "ptr", p, "HRESULT")
-        return result
+    get_isAlternate() {
+        result := ComCall(9, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_isPrefAlternate(p) {
-        result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+    get_isPrefAlternate() {
+        result := ComCall(10, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 }

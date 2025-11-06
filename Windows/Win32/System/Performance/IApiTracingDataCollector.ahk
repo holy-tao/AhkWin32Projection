@@ -56,13 +56,12 @@ class IApiTracingDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} logapinames 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iapitracingdatacollector-get_logapinamesonly
      */
-    get_LogApiNamesOnly(logapinames) {
-        result := ComCall(32, this, "ptr", logapinames, "HRESULT")
-        return result
+    get_LogApiNamesOnly() {
+        result := ComCall(32, this, "short*", &logapinames := 0, "HRESULT")
+        return logapinames
     }
 
     /**
@@ -78,13 +77,12 @@ class IApiTracingDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} logrecursively 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iapitracingdatacollector-get_logapisrecursively
      */
-    get_LogApisRecursively(logrecursively) {
-        result := ComCall(34, this, "ptr", logrecursively, "HRESULT")
-        return result
+    get_LogApisRecursively() {
+        result := ComCall(34, this, "short*", &logrecursively := 0, "HRESULT")
+        return logrecursively
     }
 
     /**
@@ -100,13 +98,13 @@ class IApiTracingDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<BSTR>} exepath 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iapitracingdatacollector-get_exepath
      */
-    get_ExePath(exepath) {
+    get_ExePath() {
+        exepath := BSTR()
         result := ComCall(36, this, "ptr", exepath, "HRESULT")
-        return result
+        return exepath
     }
 
     /**
@@ -124,13 +122,13 @@ class IApiTracingDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<BSTR>} logfilepath 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iapitracingdatacollector-get_logfilepath
      */
-    get_LogFilePath(logfilepath) {
+    get_LogFilePath() {
+        logfilepath := BSTR()
         result := ComCall(38, this, "ptr", logfilepath, "HRESULT")
-        return result
+        return logfilepath
     }
 
     /**
@@ -148,15 +146,12 @@ class IApiTracingDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} includemodules 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iapitracingdatacollector-get_includemodules
      */
-    get_IncludeModules(includemodules) {
-        includemodulesMarshal := includemodules is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(40, this, includemodulesMarshal, includemodules, "HRESULT")
-        return result
+    get_IncludeModules() {
+        result := ComCall(40, this, "ptr*", &includemodules := 0, "HRESULT")
+        return includemodules
     }
 
     /**
@@ -172,15 +167,12 @@ class IApiTracingDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} includeapis 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iapitracingdatacollector-get_includeapis
      */
-    get_IncludeApis(includeapis) {
-        includeapisMarshal := includeapis is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(42, this, includeapisMarshal, includeapis, "HRESULT")
-        return result
+    get_IncludeApis() {
+        result := ComCall(42, this, "ptr*", &includeapis := 0, "HRESULT")
+        return includeapis
     }
 
     /**
@@ -196,15 +188,12 @@ class IApiTracingDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} excludeapis 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iapitracingdatacollector-get_excludeapis
      */
-    get_ExcludeApis(excludeapis) {
-        excludeapisMarshal := excludeapis is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(44, this, excludeapisMarshal, excludeapis, "HRESULT")
-        return result
+    get_ExcludeApis() {
+        result := ComCall(44, this, "ptr*", &excludeapis := 0, "HRESULT")
+        return excludeapis
     }
 
     /**

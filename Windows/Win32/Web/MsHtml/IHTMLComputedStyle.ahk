@@ -30,202 +30,173 @@ class IHTMLComputedStyle extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_bold(p) {
-        result := ComCall(3, this, "ptr", p, "HRESULT")
-        return result
+    get_bold() {
+        result := ComCall(3, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_italic(p) {
-        result := ComCall(4, this, "ptr", p, "HRESULT")
-        return result
+    get_italic() {
+        result := ComCall(4, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_underline(p) {
-        result := ComCall(5, this, "ptr", p, "HRESULT")
-        return result
+    get_underline() {
+        result := ComCall(5, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_overline(p) {
-        result := ComCall(6, this, "ptr", p, "HRESULT")
-        return result
+    get_overline() {
+        result := ComCall(6, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_strikeOut(p) {
-        result := ComCall(7, this, "ptr", p, "HRESULT")
-        return result
+    get_strikeOut() {
+        result := ComCall(7, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_subScript(p) {
-        result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+    get_subScript() {
+        result := ComCall(8, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_superScript(p) {
-        result := ComCall(9, this, "ptr", p, "HRESULT")
-        return result
+    get_superScript() {
+        result := ComCall(9, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_explicitFace(p) {
-        result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+    get_explicitFace() {
+        result := ComCall(10, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_fontWeight(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, pMarshal, p, "HRESULT")
-        return result
+    get_fontWeight() {
+        result := ComCall(11, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_fontSize(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, pMarshal, p, "HRESULT")
-        return result
+    get_fontSize() {
+        result := ComCall(12, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_fontName(p) {
-        pMarshal := p is VarRef ? "char*" : "ptr"
-
-        result := ComCall(13, this, pMarshal, p, "HRESULT")
-        return result
+    get_fontName() {
+        result := ComCall(13, this, "char*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_hasBgColor(p) {
-        result := ComCall(14, this, "ptr", p, "HRESULT")
-        return result
+    get_hasBgColor() {
+        result := ComCall(14, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_textColor(p) {
-        pMarshal := p is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(15, this, pMarshal, p, "HRESULT")
-        return result
+    get_textColor() {
+        result := ComCall(15, this, "uint*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_backgroundColor(p) {
-        pMarshal := p is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(16, this, pMarshal, p, "HRESULT")
-        return result
+    get_backgroundColor() {
+        result := ComCall(16, this, "uint*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_preFormatted(p) {
-        result := ComCall(17, this, "ptr", p, "HRESULT")
-        return result
+    get_preFormatted() {
+        result := ComCall(17, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_direction(p) {
-        result := ComCall(18, this, "ptr", p, "HRESULT")
-        return result
+    get_direction() {
+        result := ComCall(18, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_blockDirection(p) {
-        result := ComCall(19, this, "ptr", p, "HRESULT")
-        return result
+    get_blockDirection() {
+        result := ComCall(19, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_OL(p) {
-        result := ComCall(20, this, "ptr", p, "HRESULT")
-        return result
+    get_OL() {
+        result := ComCall(20, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
      * @param {IHTMLComputedStyle} pComputedStyle 
-     * @param {Pointer<VARIANT_BOOL>} pfEqual 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    IsEqual(pComputedStyle, pfEqual) {
-        result := ComCall(21, this, "ptr", pComputedStyle, "ptr", pfEqual, "HRESULT")
-        return result
+    IsEqual(pComputedStyle) {
+        result := ComCall(21, this, "ptr", pComputedStyle, "short*", &pfEqual := 0, "HRESULT")
+        return pfEqual
     }
 }

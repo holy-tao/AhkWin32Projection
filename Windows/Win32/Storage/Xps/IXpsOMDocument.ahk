@@ -1,6 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsOMDocumentSequence.ahk
+#Include .\IXpsOMPageReferenceCollection.ahk
+#Include .\IXpsOMPrintTicketResource.ahk
+#Include .\IXpsOMDocumentStructureResource.ahk
+#Include .\IXpsOMSignatureBlockResourceCollection.ahk
+#Include .\IXpsOMDocument.ahk
 #Include .\IXpsOMPart.ahk
 
 /**
@@ -79,35 +85,32 @@ class IXpsOMDocument extends IXpsOMPart{
 
     /**
      * 
-     * @param {Pointer<IXpsOMDocumentSequence>} documentSequence 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMDocumentSequence} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdocument-getowner
      */
-    GetOwner(documentSequence) {
-        result := ComCall(5, this, "ptr*", documentSequence, "HRESULT")
-        return result
+    GetOwner() {
+        result := ComCall(5, this, "ptr*", &documentSequence := 0, "HRESULT")
+        return IXpsOMDocumentSequence(documentSequence)
     }
 
     /**
      * 
-     * @param {Pointer<IXpsOMPageReferenceCollection>} pageReferences 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMPageReferenceCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdocument-getpagereferences
      */
-    GetPageReferences(pageReferences) {
-        result := ComCall(6, this, "ptr*", pageReferences, "HRESULT")
-        return result
+    GetPageReferences() {
+        result := ComCall(6, this, "ptr*", &pageReferences := 0, "HRESULT")
+        return IXpsOMPageReferenceCollection(pageReferences)
     }
 
     /**
      * 
-     * @param {Pointer<IXpsOMPrintTicketResource>} printTicketResource 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMPrintTicketResource} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdocument-getprintticketresource
      */
-    GetPrintTicketResource(printTicketResource) {
-        result := ComCall(7, this, "ptr*", printTicketResource, "HRESULT")
-        return result
+    GetPrintTicketResource() {
+        result := ComCall(7, this, "ptr*", &printTicketResource := 0, "HRESULT")
+        return IXpsOMPrintTicketResource(printTicketResource)
     }
 
     /**
@@ -123,13 +126,12 @@ class IXpsOMDocument extends IXpsOMPart{
 
     /**
      * 
-     * @param {Pointer<IXpsOMDocumentStructureResource>} documentStructureResource 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMDocumentStructureResource} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdocument-getdocumentstructureresource
      */
-    GetDocumentStructureResource(documentStructureResource) {
-        result := ComCall(9, this, "ptr*", documentStructureResource, "HRESULT")
-        return result
+    GetDocumentStructureResource() {
+        result := ComCall(9, this, "ptr*", &documentStructureResource := 0, "HRESULT")
+        return IXpsOMDocumentStructureResource(documentStructureResource)
     }
 
     /**
@@ -145,23 +147,21 @@ class IXpsOMDocument extends IXpsOMPart{
 
     /**
      * 
-     * @param {Pointer<IXpsOMSignatureBlockResourceCollection>} signatureBlockResources 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMSignatureBlockResourceCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdocument-getsignatureblockresources
      */
-    GetSignatureBlockResources(signatureBlockResources) {
-        result := ComCall(11, this, "ptr*", signatureBlockResources, "HRESULT")
-        return result
+    GetSignatureBlockResources() {
+        result := ComCall(11, this, "ptr*", &signatureBlockResources := 0, "HRESULT")
+        return IXpsOMSignatureBlockResourceCollection(signatureBlockResources)
     }
 
     /**
      * 
-     * @param {Pointer<IXpsOMDocument>} document 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMDocument} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdocument-clone
      */
-    Clone(document) {
-        result := ComCall(12, this, "ptr*", document, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(12, this, "ptr*", &document := 0, "HRESULT")
+        return IXpsOMDocument(document)
     }
 }

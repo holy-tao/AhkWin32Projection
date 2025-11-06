@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDataObject.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -60,14 +61,13 @@ class IDsObjectPicker extends IUnknown{
     /**
      * 
      * @param {HWND} hwndParent 
-     * @param {Pointer<IDataObject>} ppdoSelections 
-     * @returns {HRESULT} 
+     * @returns {IDataObject} 
      * @see https://learn.microsoft.com/windows/win32/api/objsel/nf-objsel-idsobjectpicker-invokedialog
      */
-    InvokeDialog(hwndParent, ppdoSelections) {
+    InvokeDialog(hwndParent) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
-        result := ComCall(4, this, "ptr", hwndParent, "ptr*", ppdoSelections, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", hwndParent, "ptr*", &ppdoSelections := 0, "HRESULT")
+        return IDataObject(ppdoSelections)
     }
 }

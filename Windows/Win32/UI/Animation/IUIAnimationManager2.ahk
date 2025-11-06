@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUIAnimationVariable2.ahk
+#Include .\IUIAnimationStoryboard2.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -40,27 +42,25 @@ class IUIAnimationManager2 extends IUnknown{
      * 
      * @param {Pointer<Float>} initialValue 
      * @param {Integer} cDimension 
-     * @param {Pointer<IUIAnimationVariable2>} variable 
-     * @returns {HRESULT} 
+     * @returns {IUIAnimationVariable2} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager2-createanimationvectorvariable
      */
-    CreateAnimationVectorVariable(initialValue, cDimension, variable) {
+    CreateAnimationVectorVariable(initialValue, cDimension) {
         initialValueMarshal := initialValue is VarRef ? "double*" : "ptr"
 
-        result := ComCall(3, this, initialValueMarshal, initialValue, "uint", cDimension, "ptr*", variable, "HRESULT")
-        return result
+        result := ComCall(3, this, initialValueMarshal, initialValue, "uint", cDimension, "ptr*", &variable := 0, "HRESULT")
+        return IUIAnimationVariable2(variable)
     }
 
     /**
      * 
      * @param {Float} initialValue 
-     * @param {Pointer<IUIAnimationVariable2>} variable 
-     * @returns {HRESULT} 
+     * @returns {IUIAnimationVariable2} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager2-createanimationvariable
      */
-    CreateAnimationVariable(initialValue, variable) {
-        result := ComCall(4, this, "double", initialValue, "ptr*", variable, "HRESULT")
-        return result
+    CreateAnimationVariable(initialValue) {
+        result := ComCall(4, this, "double", initialValue, "ptr*", &variable := 0, "HRESULT")
+        return IUIAnimationVariable2(variable)
     }
 
     /**
@@ -78,13 +78,12 @@ class IUIAnimationManager2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IUIAnimationStoryboard2>} storyboard 
-     * @returns {HRESULT} 
+     * @returns {IUIAnimationStoryboard2} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager2-createstoryboard
      */
-    CreateStoryboard(storyboard) {
-        result := ComCall(6, this, "ptr*", storyboard, "HRESULT")
-        return result
+    CreateStoryboard() {
+        result := ComCall(6, this, "ptr*", &storyboard := 0, "HRESULT")
+        return IUIAnimationStoryboard2(storyboard)
     }
 
     /**
@@ -111,67 +110,56 @@ class IUIAnimationManager2 extends IUnknown{
     /**
      * 
      * @param {Float} timeNow 
-     * @param {Pointer<Integer>} updateResult 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager2-update
      */
-    Update(timeNow, updateResult) {
-        updateResultMarshal := updateResult is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, "double", timeNow, updateResultMarshal, updateResult, "HRESULT")
-        return result
+    Update(timeNow) {
+        result := ComCall(9, this, "double", timeNow, "int*", &updateResult := 0, "HRESULT")
+        return updateResult
     }
 
     /**
      * 
      * @param {IUnknown} object 
      * @param {Integer} id 
-     * @param {Pointer<IUIAnimationVariable2>} variable 
-     * @returns {HRESULT} 
+     * @returns {IUIAnimationVariable2} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager2-getvariablefromtag
      */
-    GetVariableFromTag(object, id, variable) {
-        result := ComCall(10, this, "ptr", object, "uint", id, "ptr*", variable, "HRESULT")
-        return result
+    GetVariableFromTag(object, id) {
+        result := ComCall(10, this, "ptr", object, "uint", id, "ptr*", &variable := 0, "HRESULT")
+        return IUIAnimationVariable2(variable)
     }
 
     /**
      * 
      * @param {IUnknown} object 
      * @param {Integer} id 
-     * @param {Pointer<IUIAnimationStoryboard2>} storyboard 
-     * @returns {HRESULT} 
+     * @returns {IUIAnimationStoryboard2} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager2-getstoryboardfromtag
      */
-    GetStoryboardFromTag(object, id, storyboard) {
-        result := ComCall(11, this, "ptr", object, "uint", id, "ptr*", storyboard, "HRESULT")
-        return result
+    GetStoryboardFromTag(object, id) {
+        result := ComCall(11, this, "ptr", object, "uint", id, "ptr*", &storyboard := 0, "HRESULT")
+        return IUIAnimationStoryboard2(storyboard)
     }
 
     /**
      * 
-     * @param {Pointer<Float>} seconds 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager2-estimatenexteventtime
      */
-    EstimateNextEventTime(seconds) {
-        secondsMarshal := seconds is VarRef ? "double*" : "ptr"
-
-        result := ComCall(12, this, secondsMarshal, seconds, "HRESULT")
-        return result
+    EstimateNextEventTime() {
+        result := ComCall(12, this, "double*", &seconds := 0, "HRESULT")
+        return seconds
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} status 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationmanager2-getstatus
      */
-    GetStatus(status) {
-        statusMarshal := status is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, statusMarshal, status, "HRESULT")
-        return result
+    GetStatus() {
+        result := ComCall(13, this, "int*", &status := 0, "HRESULT")
+        return status
     }
 
     /**

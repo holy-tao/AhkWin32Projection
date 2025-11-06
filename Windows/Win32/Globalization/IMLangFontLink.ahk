@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\Guid.ahk
+#Include ..\Graphics\Gdi\HFONT.ahk
 #Include .\IMLangCodePages.ahk
 
 /**
@@ -32,17 +33,14 @@ class IMLangFontLink extends IMLangCodePages{
      * 
      * @param {HDC} hDC 
      * @param {HFONT} hFont 
-     * @param {Pointer<Integer>} pdwCodePages 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetFontCodePages(hDC, hFont, pdwCodePages) {
+    GetFontCodePages(hDC, hFont) {
         hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
         hFont := hFont is Win32Handle ? NumGet(hFont, "ptr") : hFont
 
-        pdwCodePagesMarshal := pdwCodePages is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, "ptr", hDC, "ptr", hFont, pdwCodePagesMarshal, pdwCodePages, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", hDC, "ptr", hFont, "uint*", &pdwCodePages := 0, "HRESULT")
+        return pdwCodePages
     }
 
     /**
@@ -50,15 +48,15 @@ class IMLangFontLink extends IMLangCodePages{
      * @param {HDC} hDC 
      * @param {Integer} dwCodePages 
      * @param {HFONT} hSrcFont 
-     * @param {Pointer<HFONT>} phDestFont 
-     * @returns {HRESULT} 
+     * @returns {HFONT} 
      */
-    MapFont(hDC, dwCodePages, hSrcFont, phDestFont) {
+    MapFont(hDC, dwCodePages, hSrcFont) {
         hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
         hSrcFont := hSrcFont is Win32Handle ? NumGet(hSrcFont, "ptr") : hSrcFont
 
+        phDestFont := HFONT()
         result := ComCall(8, this, "ptr", hDC, "uint", dwCodePages, "ptr", hSrcFont, "ptr", phDestFont, "HRESULT")
-        return result
+        return phDestFont
     }
 
     /**

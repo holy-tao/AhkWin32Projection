@@ -32,58 +32,46 @@ class IPropertyEnumTypeList extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pctypes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertyenumtypelist-getcount
      */
-    GetCount(pctypes) {
-        pctypesMarshal := pctypes is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pctypesMarshal, pctypes, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(3, this, "uint*", &pctypes := 0, "HRESULT")
+        return pctypes
     }
 
     /**
      * 
      * @param {Integer} itype 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertyenumtypelist-getat
      */
-    GetAt(itype, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "uint", itype, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetAt(itype, riid) {
+        result := ComCall(4, this, "uint", itype, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * 
      * @param {Integer} nIndex 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertyenumtypelist-getconditionat
      */
-    GetConditionAt(nIndex, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, "uint", nIndex, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetConditionAt(nIndex, riid) {
+        result := ComCall(5, this, "uint", nIndex, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * 
      * @param {Pointer<PROPVARIANT>} propvarCmp 
-     * @param {Pointer<Integer>} pnIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertyenumtypelist-findmatchingindex
      */
-    FindMatchingIndex(propvarCmp, pnIndex) {
-        pnIndexMarshal := pnIndex is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, "ptr", propvarCmp, pnIndexMarshal, pnIndex, "HRESULT")
-        return result
+    FindMatchingIndex(propvarCmp) {
+        result := ComCall(6, this, "ptr", propvarCmp, "uint*", &pnIndex := 0, "HRESULT")
+        return pnIndex
     }
 }

@@ -46,13 +46,13 @@ class IX509EnrollmentStatus extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentstatus-get_text
      */
-    get_Text(pValue) {
+    get_Text() {
+        pValue := BSTR()
         result := ComCall(8, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
@@ -70,15 +70,12 @@ class IX509EnrollmentStatus extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentstatus-get_selected
      */
-    get_Selected(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_Selected() {
+        result := ComCall(10, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -94,15 +91,12 @@ class IX509EnrollmentStatus extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentstatus-get_display
      */
-    get_Display(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_Display() {
+        result := ComCall(12, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -118,15 +112,12 @@ class IX509EnrollmentStatus extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentstatus-get_status
      */
-    get_Status(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_Status() {
+        result := ComCall(14, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -142,13 +133,12 @@ class IX509EnrollmentStatus extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<HRESULT>} pValue 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentstatus-get_error
      */
-    get_Error(pValue) {
-        result := ComCall(16, this, "ptr", pValue, "HRESULT")
-        return result
+    get_Error() {
+        result := ComCall(16, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -164,12 +154,12 @@ class IX509EnrollmentStatus extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509enrollmentstatus-get_errortext
      */
-    get_ErrorText(pValue) {
+    get_ErrorText() {
+        pValue := BSTR()
         result := ComCall(18, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D11_FUNCTION_DESC.ahk
+#Include .\D3D11_SHADER_INPUT_BIND_DESC.ahk
 
 /**
  * A function-reflection interface accesses function info.
@@ -39,13 +41,13 @@ class ID3D11FunctionReflection extends Win32ComInterface{
 
     /**
      * 
-     * @param {Pointer<D3D11_FUNCTION_DESC>} pDesc 
-     * @returns {HRESULT} 
+     * @returns {D3D11_FUNCTION_DESC} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11functionreflection-getdesc
      */
-    GetDesc(pDesc) {
+    GetDesc() {
+        pDesc := D3D11_FUNCTION_DESC()
         result := ComCall(0, this, "ptr", pDesc, "HRESULT")
-        return result
+        return pDesc
     }
 
     /**
@@ -75,13 +77,13 @@ class ID3D11FunctionReflection extends Win32ComInterface{
     /**
      * 
      * @param {Integer} ResourceIndex 
-     * @param {Pointer<D3D11_SHADER_INPUT_BIND_DESC>} pDesc 
-     * @returns {HRESULT} 
+     * @returns {D3D11_SHADER_INPUT_BIND_DESC} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11functionreflection-getresourcebindingdesc
      */
-    GetResourceBindingDesc(ResourceIndex, pDesc) {
+    GetResourceBindingDesc(ResourceIndex) {
+        pDesc := D3D11_SHADER_INPUT_BIND_DESC()
         result := ComCall(3, this, "uint", ResourceIndex, "ptr", pDesc, "HRESULT")
-        return result
+        return pDesc
     }
 
     /**
@@ -100,15 +102,15 @@ class ID3D11FunctionReflection extends Win32ComInterface{
     /**
      * 
      * @param {PSTR} Name 
-     * @param {Pointer<D3D11_SHADER_INPUT_BIND_DESC>} pDesc 
-     * @returns {HRESULT} 
+     * @returns {D3D11_SHADER_INPUT_BIND_DESC} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11functionreflection-getresourcebindingdescbyname
      */
-    GetResourceBindingDescByName(Name, pDesc) {
+    GetResourceBindingDescByName(Name) {
         Name := Name is String ? StrPtr(Name) : Name
 
+        pDesc := D3D11_SHADER_INPUT_BIND_DESC()
         result := ComCall(5, this, "ptr", Name, "ptr", pDesc, "HRESULT")
-        return result
+        return pDesc
     }
 
     /**

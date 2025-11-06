@@ -32,15 +32,12 @@ class IWMVideoMediaProps extends IWMMediaProps{
 
     /**
      * 
-     * @param {Pointer<Integer>} pllTime 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmvideomediaprops-getmaxkeyframespacing
      */
-    GetMaxKeyFrameSpacing(pllTime) {
-        pllTimeMarshal := pllTime is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(6, this, pllTimeMarshal, pllTime, "HRESULT")
-        return result
+    GetMaxKeyFrameSpacing() {
+        result := ComCall(6, this, "int64*", &pllTime := 0, "HRESULT")
+        return pllTime
     }
 
     /**
@@ -56,15 +53,12 @@ class IWMVideoMediaProps extends IWMMediaProps{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwQuality 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmvideomediaprops-getquality
      */
-    GetQuality(pdwQuality) {
-        pdwQualityMarshal := pdwQuality is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pdwQualityMarshal, pdwQuality, "HRESULT")
-        return result
+    GetQuality() {
+        result := ComCall(8, this, "uint*", &pdwQuality := 0, "HRESULT")
+        return pdwQuality
     }
 
     /**

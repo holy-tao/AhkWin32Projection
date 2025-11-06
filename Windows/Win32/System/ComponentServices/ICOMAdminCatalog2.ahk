@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IDispatch.ahk
 #Include .\ICOMAdminCatalog.ahk
 
 /**
@@ -35,27 +36,26 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
      * 
      * @param {BSTR} bstrCollectionName 
      * @param {Pointer<VARIANT>} pVarQueryStrings 
-     * @param {Pointer<IDispatch>} ppCatalogCollection 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-getcollectionbyquery2
      */
-    GetCollectionByQuery2(bstrCollectionName, pVarQueryStrings, ppCatalogCollection) {
+    GetCollectionByQuery2(bstrCollectionName, pVarQueryStrings) {
         bstrCollectionName := bstrCollectionName is String ? BSTR.Alloc(bstrCollectionName).Value : bstrCollectionName
 
-        result := ComCall(33, this, "ptr", bstrCollectionName, "ptr", pVarQueryStrings, "ptr*", ppCatalogCollection, "HRESULT")
-        return result
+        result := ComCall(33, this, "ptr", bstrCollectionName, "ptr", pVarQueryStrings, "ptr*", &ppCatalogCollection := 0, "HRESULT")
+        return IDispatch(ppCatalogCollection)
     }
 
     /**
      * 
      * @param {Integer} lProcessID 
-     * @param {Pointer<BSTR>} pbstrApplicationInstanceID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-getapplicationinstanceidfromprocessid
      */
-    GetApplicationInstanceIDFromProcessID(lProcessID, pbstrApplicationInstanceID) {
+    GetApplicationInstanceIDFromProcessID(lProcessID) {
+        pbstrApplicationInstanceID := BSTR()
         result := ComCall(34, this, "int", lProcessID, "ptr", pbstrApplicationInstanceID, "HRESULT")
-        return result
+        return pbstrApplicationInstanceID
     }
 
     /**
@@ -106,13 +106,12 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
     /**
      * 
      * @param {Pointer<VARIANT>} pVarApplicationInstanceID 
-     * @param {Pointer<VARIANT_BOOL>} pVarBoolPaused 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-areapplicationinstancespaused
      */
-    AreApplicationInstancesPaused(pVarApplicationInstanceID, pVarBoolPaused) {
-        result := ComCall(39, this, "ptr", pVarApplicationInstanceID, "ptr", pVarBoolPaused, "HRESULT")
-        return result
+    AreApplicationInstancesPaused(pVarApplicationInstanceID) {
+        result := ComCall(39, this, "ptr", pVarApplicationInstanceID, "short*", &pVarBoolPaused := 0, "HRESULT")
+        return pVarBoolPaused
     }
 
     /**
@@ -120,27 +119,26 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
      * @param {BSTR} bstrApplicationInstanceID 
      * @param {BSTR} bstrDirectory 
      * @param {Integer} lMaxImages 
-     * @param {Pointer<BSTR>} pbstrDumpFile 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-dumpapplicationinstance
      */
-    DumpApplicationInstance(bstrApplicationInstanceID, bstrDirectory, lMaxImages, pbstrDumpFile) {
+    DumpApplicationInstance(bstrApplicationInstanceID, bstrDirectory, lMaxImages) {
         bstrApplicationInstanceID := bstrApplicationInstanceID is String ? BSTR.Alloc(bstrApplicationInstanceID).Value : bstrApplicationInstanceID
         bstrDirectory := bstrDirectory is String ? BSTR.Alloc(bstrDirectory).Value : bstrDirectory
 
+        pbstrDumpFile := BSTR()
         result := ComCall(40, this, "ptr", bstrApplicationInstanceID, "ptr", bstrDirectory, "int", lMaxImages, "ptr", pbstrDumpFile, "HRESULT")
-        return result
+        return pbstrDumpFile
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pVarBoolDumpSupported 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-get_isapplicationinstancedumpsupported
      */
-    get_IsApplicationInstanceDumpSupported(pVarBoolDumpSupported) {
-        result := ComCall(41, this, "ptr", pVarBoolDumpSupported, "HRESULT")
-        return result
+    get_IsApplicationInstanceDumpSupported() {
+        result := ComCall(41, this, "short*", &pVarBoolDumpSupported := 0, "HRESULT")
+        return pVarBoolDumpSupported
     }
 
     /**
@@ -185,29 +183,29 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
     /**
      * 
      * @param {BSTR} bstrApplicationIDOrName 
-     * @param {Pointer<BSTR>} pbstrPartitionID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-getpartitionid
      */
-    GetPartitionID(bstrApplicationIDOrName, pbstrPartitionID) {
+    GetPartitionID(bstrApplicationIDOrName) {
         bstrApplicationIDOrName := bstrApplicationIDOrName is String ? BSTR.Alloc(bstrApplicationIDOrName).Value : bstrApplicationIDOrName
 
+        pbstrPartitionID := BSTR()
         result := ComCall(44, this, "ptr", bstrApplicationIDOrName, "ptr", pbstrPartitionID, "HRESULT")
-        return result
+        return pbstrPartitionID
     }
 
     /**
      * 
      * @param {BSTR} bstrApplicationIDOrName 
-     * @param {Pointer<BSTR>} pbstrPartitionName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-getpartitionname
      */
-    GetPartitionName(bstrApplicationIDOrName, pbstrPartitionName) {
+    GetPartitionName(bstrApplicationIDOrName) {
         bstrApplicationIDOrName := bstrApplicationIDOrName is String ? BSTR.Alloc(bstrApplicationIDOrName).Value : bstrApplicationIDOrName
 
+        pbstrPartitionName := BSTR()
         result := ComCall(45, this, "ptr", bstrApplicationIDOrName, "ptr", pbstrPartitionName, "HRESULT")
-        return result
+        return pbstrPartitionName
     }
 
     /**
@@ -225,35 +223,35 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrPartitionID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-get_currentpartitionid
      */
-    get_CurrentPartitionID(pbstrPartitionID) {
+    get_CurrentPartitionID() {
+        pbstrPartitionID := BSTR()
         result := ComCall(47, this, "ptr", pbstrPartitionID, "HRESULT")
-        return result
+        return pbstrPartitionID
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrPartitionName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-get_currentpartitionname
      */
-    get_CurrentPartitionName(pbstrPartitionName) {
+    get_CurrentPartitionName() {
+        pbstrPartitionName := BSTR()
         result := ComCall(48, this, "ptr", pbstrPartitionName, "HRESULT")
-        return result
+        return pbstrPartitionName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrGlobalPartitionID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-get_globalpartitionid
      */
-    get_GlobalPartitionID(pbstrGlobalPartitionID) {
+    get_GlobalPartitionID() {
+        pbstrGlobalPartitionID := BSTR()
         result := ComCall(49, this, "ptr", pbstrGlobalPartitionID, "HRESULT")
-        return result
+        return pbstrGlobalPartitionID
     }
 
     /**
@@ -338,17 +336,14 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
     /**
      * 
      * @param {BSTR} bstrDllName 
-     * @param {Pointer<Integer>} pCOMAdminInUse 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-issafetodelete
      */
-    IsSafeToDelete(bstrDllName, pCOMAdminInUse) {
+    IsSafeToDelete(bstrDllName) {
         bstrDllName := bstrDllName is String ? BSTR.Alloc(bstrDllName).Value : bstrDllName
 
-        pCOMAdminInUseMarshal := pCOMAdminInUse is VarRef ? "int*" : "ptr"
-
-        result := ComCall(55, this, "ptr", bstrDllName, pCOMAdminInUseMarshal, pCOMAdminInUse, "HRESULT")
-        return result
+        result := ComCall(55, this, "ptr", bstrDllName, "int*", &pCOMAdminInUse := 0, "HRESULT")
+        return pCOMAdminInUse
     }
 
     /**
@@ -398,13 +393,12 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbIs64Bit 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-get_is64bitcatalogserver
      */
-    get_Is64BitCatalogServer(pbIs64Bit) {
-        result := ComCall(59, this, "ptr", pbIs64Bit, "HRESULT")
-        return result
+    get_Is64BitCatalogServer() {
+        result := ComCall(59, this, "short*", &pbIs64Bit := 0, "HRESULT")
+        return pbIs64Bit
     }
 
     /**
@@ -448,30 +442,26 @@ class ICOMAdminCatalog2 extends ICOMAdminCatalog{
     /**
      * 
      * @param {BSTR} bstrApplicationFile 
-     * @param {Pointer<IDispatch>} ppFilesForImport 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-queryapplicationfile2
      */
-    QueryApplicationFile2(bstrApplicationFile, ppFilesForImport) {
+    QueryApplicationFile2(bstrApplicationFile) {
         bstrApplicationFile := bstrApplicationFile is String ? BSTR.Alloc(bstrApplicationFile).Value : bstrApplicationFile
 
-        result := ComCall(62, this, "ptr", bstrApplicationFile, "ptr*", ppFilesForImport, "HRESULT")
-        return result
+        result := ComCall(62, this, "ptr", bstrApplicationFile, "ptr*", &ppFilesForImport := 0, "HRESULT")
+        return IDispatch(ppFilesForImport)
     }
 
     /**
      * 
      * @param {BSTR} bstrCLSIDOrProgID 
-     * @param {Pointer<Integer>} plVersionCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog2-getcomponentversioncount
      */
-    GetComponentVersionCount(bstrCLSIDOrProgID, plVersionCount) {
+    GetComponentVersionCount(bstrCLSIDOrProgID) {
         bstrCLSIDOrProgID := bstrCLSIDOrProgID is String ? BSTR.Alloc(bstrCLSIDOrProgID).Value : bstrCLSIDOrProgID
 
-        plVersionCountMarshal := plVersionCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(63, this, "ptr", bstrCLSIDOrProgID, plVersionCountMarshal, plVersionCount, "HRESULT")
-        return result
+        result := ComCall(63, this, "ptr", bstrCLSIDOrProgID, "int*", &plVersionCount := 0, "HRESULT")
+        return plVersionCount
     }
 }

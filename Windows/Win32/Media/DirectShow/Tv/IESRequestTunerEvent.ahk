@@ -36,53 +36,41 @@ class IESRequestTunerEvent extends IESEvent{
 
     /**
      * 
-     * @param {Pointer<Integer>} pbyPriority 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesrequesttunerevent-getpriority
      */
-    GetPriority(pbyPriority) {
-        pbyPriorityMarshal := pbyPriority is VarRef ? "char*" : "ptr"
-
-        result := ComCall(8, this, pbyPriorityMarshal, pbyPriority, "HRESULT")
-        return result
+    GetPriority() {
+        result := ComCall(8, this, "char*", &pbyPriority := 0, "HRESULT")
+        return pbyPriority
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pbyReason 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesrequesttunerevent-getreason
      */
-    GetReason(pbyReason) {
-        pbyReasonMarshal := pbyReason is VarRef ? "char*" : "ptr"
-
-        result := ComCall(9, this, pbyReasonMarshal, pbyReason, "HRESULT")
-        return result
+    GetReason() {
+        result := ComCall(9, this, "char*", &pbyReason := 0, "HRESULT")
+        return pbyReason
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pbyConsequences 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesrequesttunerevent-getconsequences
      */
-    GetConsequences(pbyConsequences) {
-        pbyConsequencesMarshal := pbyConsequences is VarRef ? "char*" : "ptr"
-
-        result := ComCall(10, this, pbyConsequencesMarshal, pbyConsequences, "HRESULT")
-        return result
+    GetConsequences() {
+        result := ComCall(10, this, "char*", &pbyConsequences := 0, "HRESULT")
+        return pbyConsequences
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwEstimatedTime 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesrequesttunerevent-getestimatedtime
      */
-    GetEstimatedTime(pdwEstimatedTime) {
-        pdwEstimatedTimeMarshal := pdwEstimatedTime is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, pdwEstimatedTimeMarshal, pdwEstimatedTime, "HRESULT")
-        return result
+    GetEstimatedTime() {
+        result := ComCall(11, this, "uint*", &pdwEstimatedTime := 0, "HRESULT")
+        return pdwEstimatedTime
     }
 }

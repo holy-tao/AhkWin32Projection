@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IPrintSchemaDisplayableElement.ahk
 
 /**
@@ -31,38 +32,33 @@ class IPrintSchemaOption extends IPrintSchemaDisplayableElement{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbIsSelected 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_Selected(pbIsSelected) {
-        result := ComCall(11, this, "ptr", pbIsSelected, "HRESULT")
-        return result
+    get_Selected() {
+        result := ComCall(11, this, "int*", &pbIsSelected := 0, "HRESULT")
+        return pbIsSelected
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pSetting 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Constrained(pSetting) {
-        pSettingMarshal := pSetting is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, pSettingMarshal, pSetting, "HRESULT")
-        return result
+    get_Constrained() {
+        result := ComCall(12, this, "int*", &pSetting := 0, "HRESULT")
+        return pSetting
     }
 
     /**
      * 
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrNamespaceUri 
-     * @param {Pointer<IUnknown>} ppXmlValueNode 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    GetPropertyValue(bstrName, bstrNamespaceUri, ppXmlValueNode) {
+    GetPropertyValue(bstrName, bstrNamespaceUri) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
         bstrNamespaceUri := bstrNamespaceUri is String ? BSTR.Alloc(bstrNamespaceUri).Value : bstrNamespaceUri
 
-        result := ComCall(13, this, "ptr", bstrName, "ptr", bstrNamespaceUri, "ptr*", ppXmlValueNode, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", bstrName, "ptr", bstrNamespaceUri, "ptr*", &ppXmlValueNode := 0, "HRESULT")
+        return IUnknown(ppXmlValueNode)
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IMoniker.ahk
+#Include .\IOleContainer.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -44,24 +46,22 @@ class IOleClientSite extends IUnknown{
      * 
      * @param {Integer} dwAssign 
      * @param {Integer} dwWhichMoniker 
-     * @param {Pointer<IMoniker>} ppmk 
-     * @returns {HRESULT} 
+     * @returns {IMoniker} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleclientsite-getmoniker
      */
-    GetMoniker(dwAssign, dwWhichMoniker, ppmk) {
-        result := ComCall(4, this, "uint", dwAssign, "uint", dwWhichMoniker, "ptr*", ppmk, "HRESULT")
-        return result
+    GetMoniker(dwAssign, dwWhichMoniker) {
+        result := ComCall(4, this, "uint", dwAssign, "uint", dwWhichMoniker, "ptr*", &ppmk := 0, "HRESULT")
+        return IMoniker(ppmk)
     }
 
     /**
      * 
-     * @param {Pointer<IOleContainer>} ppContainer 
-     * @returns {HRESULT} 
+     * @returns {IOleContainer} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-ioleclientsite-getcontainer
      */
-    GetContainer(ppContainer) {
-        result := ComCall(5, this, "ptr*", ppContainer, "HRESULT")
-        return result
+    GetContainer() {
+        result := ComCall(5, this, "ptr*", &ppContainer := 0, "HRESULT")
+        return IOleContainer(ppContainer)
     }
 
     /**

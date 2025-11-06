@@ -40,8 +40,9 @@ class ISearchViewChangedSink extends IUnknown{
      */
     OnChange(pdwDocID, pChange, pfInView) {
         pdwDocIDMarshal := pdwDocID is VarRef ? "int*" : "ptr"
+        pfInViewMarshal := pfInView is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, pdwDocIDMarshal, pdwDocID, "ptr", pChange, "ptr", pfInView, "HRESULT")
+        result := ComCall(3, this, pdwDocIDMarshal, pdwDocID, "ptr", pChange, pfInViewMarshal, pfInView, "HRESULT")
         return result
     }
 }

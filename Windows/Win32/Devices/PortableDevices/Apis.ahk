@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.Devices.PortableDevices
@@ -3211,17 +3212,19 @@ class PortableDevices {
      * @param {PWSTR} pszXmlIn 
      * @param {Pointer<PWSTR>} rgszAllowedCspNodes 
      * @param {Integer} dwNumAllowedCspNodes 
-     * @param {Pointer<BSTR>} pbstrXmlOut 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    static DMProcessConfigXMLFiltered(pszXmlIn, rgszAllowedCspNodes, dwNumAllowedCspNodes, pbstrXmlOut) {
+    static DMProcessConfigXMLFiltered(pszXmlIn, rgszAllowedCspNodes, dwNumAllowedCspNodes) {
         pszXmlIn := pszXmlIn is String ? StrPtr(pszXmlIn) : pszXmlIn
 
-        result := DllCall("DMProcessXMLFiltered.dll\DMProcessConfigXMLFiltered", "ptr", pszXmlIn, "ptr", rgszAllowedCspNodes, "uint", dwNumAllowedCspNodes, "ptr", pbstrXmlOut, "int")
+        rgszAllowedCspNodesMarshal := rgszAllowedCspNodes is VarRef ? "ptr*" : "ptr"
+
+        pbstrXmlOut := BSTR()
+        result := DllCall("DMProcessXMLFiltered.dll\DMProcessConfigXMLFiltered", "ptr", pszXmlIn, rgszAllowedCspNodesMarshal, rgszAllowedCspNodes, "uint", dwNumAllowedCspNodes, "ptr", pbstrXmlOut, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbstrXmlOut
     }
 
 ;@endregion Methods

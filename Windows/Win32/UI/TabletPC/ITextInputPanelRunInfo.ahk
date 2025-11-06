@@ -37,12 +37,11 @@ class ITextInputPanelRunInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfRunning 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanelruninfo-istiprunning
      */
-    IsTipRunning(pfRunning) {
-        result := ComCall(3, this, "ptr", pfRunning, "HRESULT")
-        return result
+    IsTipRunning() {
+        result := ComCall(3, this, "int*", &pfRunning := 0, "HRESULT")
+        return pfRunning
     }
 }

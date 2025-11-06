@@ -47,14 +47,11 @@ class ISVGStringList extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_numberOfItems(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pMarshal, p, "HRESULT")
-        return result
+    get_numberOfItems() {
+        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -69,76 +66,76 @@ class ISVGStringList extends IDispatch{
     /**
      * 
      * @param {BSTR} newItem 
-     * @param {Pointer<BSTR>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    initialize(newItem, ppResult) {
+    initialize(newItem) {
         newItem := newItem is String ? BSTR.Alloc(newItem).Value : newItem
 
+        ppResult := BSTR()
         result := ComCall(10, this, "ptr", newItem, "ptr", ppResult, "HRESULT")
-        return result
+        return ppResult
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<BSTR>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    getItem(index, ppResult) {
+    getItem(index) {
+        ppResult := BSTR()
         result := ComCall(11, this, "int", index, "ptr", ppResult, "HRESULT")
-        return result
+        return ppResult
     }
 
     /**
      * 
      * @param {BSTR} newItem 
      * @param {Integer} index 
-     * @param {Pointer<BSTR>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    insertItemBefore(newItem, index, ppResult) {
+    insertItemBefore(newItem, index) {
         newItem := newItem is String ? BSTR.Alloc(newItem).Value : newItem
 
+        ppResult := BSTR()
         result := ComCall(12, this, "ptr", newItem, "int", index, "ptr", ppResult, "HRESULT")
-        return result
+        return ppResult
     }
 
     /**
      * 
      * @param {BSTR} newItem 
      * @param {Integer} index 
-     * @param {Pointer<BSTR>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    replaceItem(newItem, index, ppResult) {
+    replaceItem(newItem, index) {
         newItem := newItem is String ? BSTR.Alloc(newItem).Value : newItem
 
+        ppResult := BSTR()
         result := ComCall(13, this, "ptr", newItem, "int", index, "ptr", ppResult, "HRESULT")
-        return result
+        return ppResult
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<BSTR>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    removeItem(index, ppResult) {
+    removeItem(index) {
+        ppResult := BSTR()
         result := ComCall(14, this, "int", index, "ptr", ppResult, "HRESULT")
-        return result
+        return ppResult
     }
 
     /**
      * 
      * @param {BSTR} newItem 
-     * @param {Pointer<BSTR>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    appendItem(newItem, ppResult) {
+    appendItem(newItem) {
         newItem := newItem is String ? BSTR.Alloc(newItem).Value : newItem
 
+        ppResult := BSTR()
         result := ComCall(15, this, "ptr", newItem, "ptr", ppResult, "HRESULT")
-        return result
+        return ppResult
     }
 }

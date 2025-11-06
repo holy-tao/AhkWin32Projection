@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\HWND.ahk
 #Include ..\..\Com\IUnknown.ahk
 
 /**
@@ -31,13 +32,13 @@ class IIsolatedEnvironmentInterop extends IUnknown{
     /**
      * 
      * @param {HWND} containerHwnd 
-     * @param {Pointer<HWND>} hostHwnd 
-     * @returns {HRESULT} 
+     * @returns {HWND} 
      */
-    GetHostHwndInterop(containerHwnd, hostHwnd) {
+    GetHostHwndInterop(containerHwnd) {
         containerHwnd := containerHwnd is Win32Handle ? NumGet(containerHwnd, "ptr") : containerHwnd
 
+        hostHwnd := HWND()
         result := ComCall(3, this, "ptr", containerHwnd, "ptr", hostHwnd, "HRESULT")
-        return result
+        return hostHwnd
     }
 }

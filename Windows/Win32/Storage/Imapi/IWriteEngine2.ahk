@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDiscRecorder2Ex.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -73,13 +74,12 @@ class IWriteEngine2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDiscRecorder2Ex>} value 
-     * @returns {HRESULT} 
+     * @returns {IDiscRecorder2Ex} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iwriteengine2-get_recorder
      */
-    get_Recorder(value) {
-        result := ComCall(10, this, "ptr*", value, "HRESULT")
-        return result
+    get_Recorder() {
+        result := ComCall(10, this, "ptr*", &value := 0, "HRESULT")
+        return IDiscRecorder2Ex(value)
     }
 
     /**
@@ -95,13 +95,12 @@ class IWriteEngine2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iwriteengine2-get_usestreamingwrite12
      */
-    get_UseStreamingWrite12(value) {
-        result := ComCall(12, this, "ptr", value, "HRESULT")
-        return result
+    get_UseStreamingWrite12() {
+        result := ComCall(12, this, "short*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
@@ -117,15 +116,12 @@ class IWriteEngine2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iwriteengine2-get_startingsectorspersecond
      */
-    get_StartingSectorsPerSecond(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, valueMarshal, value, "HRESULT")
-        return result
+    get_StartingSectorsPerSecond() {
+        result := ComCall(14, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
@@ -141,15 +137,12 @@ class IWriteEngine2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iwriteengine2-get_endingsectorspersecond
      */
-    get_EndingSectorsPerSecond(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, valueMarshal, value, "HRESULT")
-        return result
+    get_EndingSectorsPerSecond() {
+        result := ComCall(16, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
@@ -165,25 +158,21 @@ class IWriteEngine2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iwriteengine2-get_bytespersector
      */
-    get_BytesPerSector(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(18, this, valueMarshal, value, "HRESULT")
-        return result
+    get_BytesPerSector() {
+        result := ComCall(18, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iwriteengine2-get_writeinprogress
      */
-    get_WriteInProgress(value) {
-        result := ComCall(19, this, "ptr", value, "HRESULT")
-        return result
+    get_WriteInProgress() {
+        result := ComCall(19, this, "short*", &value := 0, "HRESULT")
+        return value
     }
 }

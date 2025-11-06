@@ -54,25 +54,18 @@ class DirectML {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the globally unique identifier (GUID) of the interface that you wish to be returned in <i>device</i>. This is expected to be the GUID of [IDMLDevice](/windows/win32/api/directml/nn-directml-idmldevice).
-     * @param {Pointer<Pointer<Void>>} ppv Type: \_COM\_Outptr\_opt\_ <b>void**</b>
+     * @returns {Pointer<Void>} Type: \_COM\_Outptr\_opt\_ <b>void**</b>
      * 
      * A pointer to a memory block that receives a pointer to the device. This is the address of a pointer to an [IDMLDevice](/windows/win32/api/directml/nn-directml-idmldevice), representing  the DirectML device created.
-     * @returns {HRESULT} Type: [**HRESULT**](/windows/desktop/winprog/windows-data-types)
-     * 
-     * If the function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an [HRESULT](/windows/desktop/winprog/windows-data-types) error code.
-     * 
-     * The Graphics Tools Feature on Demand (FOD) must be installed in order to use the DirectML debug layers. If the [DML_CREATE_DEVICE_FLAG_DEBUG](/windows/win32/api/directml/ne-directml-dml_create_device_flags) flag is specified in *flags* and the debug layers are not installed, then **DMLCreateDevice** returns **DXGI_ERROR_SDK_COMPONENT_MISSING**.
      * @see https://docs.microsoft.com/windows/win32/api//directml/nf-directml-dmlcreatedevice
      * @since windows10.0.10240
      */
-    static DMLCreateDevice(d3d12Device, flags, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("DirectML.dll\DMLCreateDevice", "ptr", d3d12Device, "int", flags, "ptr", riid, ppvMarshal, ppv, "int")
+    static DMLCreateDevice(d3d12Device, flags, riid) {
+        result := DllCall("DirectML.dll\DMLCreateDevice", "ptr", d3d12Device, "int", flags, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -97,26 +90,17 @@ class DirectML {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the globally unique identifier (GUID) of the interface that you wish to be returned in <i>device</i>. This is expected to be the GUID of [IDMLDevice](/windows/win32/api/directml/nn-directml-idmldevice).
-     * @param {Pointer<Pointer<Void>>} ppv Type: \_COM\_Outptr\_opt\_ <b>void**</b>
+     * @returns {Pointer<Void>} Type: \_COM\_Outptr\_opt\_ <b>void**</b>
      * 
      * A pointer to a memory block that receives a pointer to the device. This is the address of a pointer to an [IDMLDevice](/windows/win32/api/directml/nn-directml-idmldevice), representing  the DirectML device created.
-     * @returns {HRESULT} Type: [**HRESULT**](/windows/desktop/winprog/windows-data-types)
-     * 
-     * If the function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an [HRESULT](/windows/desktop/winprog/windows-data-types) error code.
-     * 
-     * If this version of DirectML doesn't support the *minimumFeatureLevel* requested, then this function will return **DXGI_ERROR_UNSUPPORTED**.
-     * 
-     * The Graphics Tools Feature on Demand (FOD) must be installed in order to use the DirectML debug layers. If the [DML_CREATE_DEVICE_FLAG_DEBUG](/windows/win32/api/directml/ne-directml-dml_create_device_flags) flag is specified in *flags* and the debug layers are not installed, then **DMLCreateDevice1** returns **DXGI_ERROR_SDK_COMPONENT_MISSING**.
      * @see https://docs.microsoft.com/windows/win32/api//directml/nf-directml-dmlcreatedevice1
      */
-    static DMLCreateDevice1(d3d12Device, flags, minimumFeatureLevel, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("DirectML.dll\DMLCreateDevice1", "ptr", d3d12Device, "int", flags, "int", minimumFeatureLevel, "ptr", riid, ppvMarshal, ppv, "int")
+    static DMLCreateDevice1(d3d12Device, flags, minimumFeatureLevel, riid) {
+        result := DllCall("DirectML.dll\DMLCreateDevice1", "ptr", d3d12Device, "int", flags, "int", minimumFeatureLevel, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
 ;@endregion Methods

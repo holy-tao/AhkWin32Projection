@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\TIMECODE_SAMPLE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -63,15 +64,12 @@ class IAMTimecodeReader extends IUnknown{
     /**
      * 
      * @param {Integer} Param 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtimecodereader-gettcrmode
      */
-    GetTCRMode(Param, pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, "int", Param, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetTCRMode(Param) {
+        result := ComCall(3, this, "int", Param, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -99,25 +97,22 @@ class IAMTimecodeReader extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pLine 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtimecodereader-get_vitcline
      */
-    get_VITCLine(pLine) {
-        pLineMarshal := pLine is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, pLineMarshal, pLine, "HRESULT")
-        return result
+    get_VITCLine() {
+        result := ComCall(6, this, "int*", &pLine := 0, "HRESULT")
+        return pLine
     }
 
     /**
      * 
-     * @param {Pointer<TIMECODE_SAMPLE>} pTimecodeSample 
-     * @returns {HRESULT} 
+     * @returns {TIMECODE_SAMPLE} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtimecodereader-gettimecode
      */
-    GetTimecode(pTimecodeSample) {
+    GetTimecode() {
+        pTimecodeSample := TIMECODE_SAMPLE()
         result := ComCall(7, this, "ptr", pTimecodeSample, "HRESULT")
-        return result
+        return pTimecodeSample
     }
 }

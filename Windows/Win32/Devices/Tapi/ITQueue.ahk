@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -43,142 +44,112 @@ class ITQueue extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plPeriod 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itqueue-get_measurementperiod
      */
-    get_MeasurementPeriod(plPeriod) {
-        plPeriodMarshal := plPeriod is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, plPeriodMarshal, plPeriod, "HRESULT")
-        return result
+    get_MeasurementPeriod() {
+        result := ComCall(8, this, "int*", &plPeriod := 0, "HRESULT")
+        return plPeriod
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plCalls 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itqueue-get_totalcallsqueued
      */
-    get_TotalCallsQueued(plCalls) {
-        plCallsMarshal := plCalls is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, plCallsMarshal, plCalls, "HRESULT")
-        return result
+    get_TotalCallsQueued() {
+        result := ComCall(9, this, "int*", &plCalls := 0, "HRESULT")
+        return plCalls
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plCalls 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itqueue-get_currentcallsqueued
      */
-    get_CurrentCallsQueued(plCalls) {
-        plCallsMarshal := plCalls is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, plCallsMarshal, plCalls, "HRESULT")
-        return result
+    get_CurrentCallsQueued() {
+        result := ComCall(10, this, "int*", &plCalls := 0, "HRESULT")
+        return plCalls
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plCalls 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itqueue-get_totalcallsabandoned
      */
-    get_TotalCallsAbandoned(plCalls) {
-        plCallsMarshal := plCalls is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, plCallsMarshal, plCalls, "HRESULT")
-        return result
+    get_TotalCallsAbandoned() {
+        result := ComCall(11, this, "int*", &plCalls := 0, "HRESULT")
+        return plCalls
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plCalls 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itqueue-get_totalcallsflowedin
      */
-    get_TotalCallsFlowedIn(plCalls) {
-        plCallsMarshal := plCalls is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, plCallsMarshal, plCalls, "HRESULT")
-        return result
+    get_TotalCallsFlowedIn() {
+        result := ComCall(12, this, "int*", &plCalls := 0, "HRESULT")
+        return plCalls
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plCalls 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itqueue-get_totalcallsflowedout
      */
-    get_TotalCallsFlowedOut(plCalls) {
-        plCallsMarshal := plCalls is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, plCallsMarshal, plCalls, "HRESULT")
-        return result
+    get_TotalCallsFlowedOut() {
+        result := ComCall(13, this, "int*", &plCalls := 0, "HRESULT")
+        return plCalls
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plWaitTime 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itqueue-get_longesteverwaittime
      */
-    get_LongestEverWaitTime(plWaitTime) {
-        plWaitTimeMarshal := plWaitTime is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, plWaitTimeMarshal, plWaitTime, "HRESULT")
-        return result
+    get_LongestEverWaitTime() {
+        result := ComCall(14, this, "int*", &plWaitTime := 0, "HRESULT")
+        return plWaitTime
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plWaitTime 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itqueue-get_currentlongestwaittime
      */
-    get_CurrentLongestWaitTime(plWaitTime) {
-        plWaitTimeMarshal := plWaitTime is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, plWaitTimeMarshal, plWaitTime, "HRESULT")
-        return result
+    get_CurrentLongestWaitTime() {
+        result := ComCall(15, this, "int*", &plWaitTime := 0, "HRESULT")
+        return plWaitTime
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plWaitTime 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itqueue-get_averagewaittime
      */
-    get_AverageWaitTime(plWaitTime) {
-        plWaitTimeMarshal := plWaitTime is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, plWaitTimeMarshal, plWaitTime, "HRESULT")
-        return result
+    get_AverageWaitTime() {
+        result := ComCall(16, this, "int*", &plWaitTime := 0, "HRESULT")
+        return plWaitTime
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plCalls 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itqueue-get_finaldisposition
      */
-    get_FinalDisposition(plCalls) {
-        plCallsMarshal := plCalls is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, plCallsMarshal, plCalls, "HRESULT")
-        return result
+    get_FinalDisposition() {
+        result := ComCall(17, this, "int*", &plCalls := 0, "HRESULT")
+        return plCalls
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} ppName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itqueue-get_name
      */
-    get_Name(ppName) {
+    get_Name() {
+        ppName := BSTR()
         result := ComCall(18, this, "ptr", ppName, "HRESULT")
-        return result
+        return ppName
     }
 }

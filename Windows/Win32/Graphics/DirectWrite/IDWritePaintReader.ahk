@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Direct2D\Common\D2D1_GRADIENT_STOP.ahk
+#Include .\DWRITE_PAINT_COLOR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -113,23 +115,23 @@ class IDWritePaintReader extends IUnknown{
      * 
      * @param {Integer} firstGradientStopIndex 
      * @param {Integer} gradientStopCount 
-     * @param {Pointer<D2D1_GRADIENT_STOP>} gradientStops 
-     * @returns {HRESULT} 
+     * @returns {D2D1_GRADIENT_STOP} 
      */
-    GetGradientStops(firstGradientStopIndex, gradientStopCount, gradientStops) {
+    GetGradientStops(firstGradientStopIndex, gradientStopCount) {
+        gradientStops := D2D1_GRADIENT_STOP()
         result := ComCall(10, this, "uint", firstGradientStopIndex, "uint", gradientStopCount, "ptr", gradientStops, "HRESULT")
-        return result
+        return gradientStops
     }
 
     /**
      * 
      * @param {Integer} firstGradientStopIndex 
      * @param {Integer} gradientStopCount 
-     * @param {Pointer<DWRITE_PAINT_COLOR>} gradientStopColors 
-     * @returns {HRESULT} 
+     * @returns {DWRITE_PAINT_COLOR} 
      */
-    GetGradientStopColors(firstGradientStopIndex, gradientStopCount, gradientStopColors) {
+    GetGradientStopColors(firstGradientStopIndex, gradientStopCount) {
+        gradientStopColors := DWRITE_PAINT_COLOR()
         result := ComCall(11, this, "uint", firstGradientStopIndex, "uint", gradientStopCount, "ptr", gradientStopColors, "HRESULT")
-        return result
+        return gradientStopColors
     }
 }

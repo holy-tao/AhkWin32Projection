@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IDOMDocumentType.ahk
+#Include .\IHTMLDocument7.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -34,14 +36,13 @@ class IHTMLDOMImplementation2 extends IDispatch{
      * @param {BSTR} bstrQualifiedName 
      * @param {Pointer<VARIANT>} pvarPublicId 
      * @param {Pointer<VARIANT>} pvarSystemId 
-     * @param {Pointer<IDOMDocumentType>} newDocumentType 
-     * @returns {HRESULT} 
+     * @returns {IDOMDocumentType} 
      */
-    createDocumentType(bstrQualifiedName, pvarPublicId, pvarSystemId, newDocumentType) {
+    createDocumentType(bstrQualifiedName, pvarPublicId, pvarSystemId) {
         bstrQualifiedName := bstrQualifiedName is String ? BSTR.Alloc(bstrQualifiedName).Value : bstrQualifiedName
 
-        result := ComCall(7, this, "ptr", bstrQualifiedName, "ptr", pvarPublicId, "ptr", pvarSystemId, "ptr*", newDocumentType, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", bstrQualifiedName, "ptr", pvarPublicId, "ptr", pvarSystemId, "ptr*", &newDocumentType := 0, "HRESULT")
+        return IDOMDocumentType(newDocumentType)
     }
 
     /**
@@ -49,38 +50,35 @@ class IHTMLDOMImplementation2 extends IDispatch{
      * @param {Pointer<VARIANT>} pvarNS 
      * @param {Pointer<VARIANT>} pvarTagName 
      * @param {IDOMDocumentType} pDocumentType 
-     * @param {Pointer<IHTMLDocument7>} ppnewDocument 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDocument7} 
      */
-    createDocument(pvarNS, pvarTagName, pDocumentType, ppnewDocument) {
-        result := ComCall(8, this, "ptr", pvarNS, "ptr", pvarTagName, "ptr", pDocumentType, "ptr*", ppnewDocument, "HRESULT")
-        return result
+    createDocument(pvarNS, pvarTagName, pDocumentType) {
+        result := ComCall(8, this, "ptr", pvarNS, "ptr", pvarTagName, "ptr", pDocumentType, "ptr*", &ppnewDocument := 0, "HRESULT")
+        return IHTMLDocument7(ppnewDocument)
     }
 
     /**
      * 
      * @param {BSTR} bstrTitle 
-     * @param {Pointer<IHTMLDocument7>} ppnewDocument 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDocument7} 
      */
-    createHTMLDocument(bstrTitle, ppnewDocument) {
+    createHTMLDocument(bstrTitle) {
         bstrTitle := bstrTitle is String ? BSTR.Alloc(bstrTitle).Value : bstrTitle
 
-        result := ComCall(9, this, "ptr", bstrTitle, "ptr*", ppnewDocument, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", bstrTitle, "ptr*", &ppnewDocument := 0, "HRESULT")
+        return IHTMLDocument7(ppnewDocument)
     }
 
     /**
      * 
      * @param {BSTR} bstrfeature 
      * @param {VARIANT} version 
-     * @param {Pointer<VARIANT_BOOL>} pfHasFeature 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    hasFeature(bstrfeature, version, pfHasFeature) {
+    hasFeature(bstrfeature, version) {
         bstrfeature := bstrfeature is String ? BSTR.Alloc(bstrfeature).Value : bstrfeature
 
-        result := ComCall(10, this, "ptr", bstrfeature, "ptr", version, "ptr", pfHasFeature, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", bstrfeature, "ptr", version, "short*", &pfHasFeature := 0, "HRESULT")
+        return pfHasFeature
     }
 }

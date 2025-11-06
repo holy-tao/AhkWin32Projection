@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IWMPDownloadItem2.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -56,27 +57,25 @@ class IWMPDownloadCollection extends IDispatch{
     /**
      * 
      * @param {Integer} lItem 
-     * @param {Pointer<IWMPDownloadItem2>} ppDownload 
-     * @returns {HRESULT} 
+     * @returns {IWMPDownloadItem2} 
      */
-    item(lItem, ppDownload) {
-        result := ComCall(9, this, "int", lItem, "ptr*", ppDownload, "HRESULT")
-        return result
+    item(lItem) {
+        result := ComCall(9, this, "int", lItem, "ptr*", &ppDownload := 0, "HRESULT")
+        return IWMPDownloadItem2(ppDownload)
     }
 
     /**
      * 
      * @param {BSTR} bstrSourceURL 
      * @param {BSTR} bstrType 
-     * @param {Pointer<IWMPDownloadItem2>} ppDownload 
-     * @returns {HRESULT} 
+     * @returns {IWMPDownloadItem2} 
      */
-    startDownload(bstrSourceURL, bstrType, ppDownload) {
+    startDownload(bstrSourceURL, bstrType) {
         bstrSourceURL := bstrSourceURL is String ? BSTR.Alloc(bstrSourceURL).Value : bstrSourceURL
         bstrType := bstrType is String ? BSTR.Alloc(bstrType).Value : bstrType
 
-        result := ComCall(10, this, "ptr", bstrSourceURL, "ptr", bstrType, "ptr*", ppDownload, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", bstrSourceURL, "ptr", bstrType, "ptr*", &ppDownload := 0, "HRESULT")
+        return IWMPDownloadItem2(ppDownload)
     }
 
     /**

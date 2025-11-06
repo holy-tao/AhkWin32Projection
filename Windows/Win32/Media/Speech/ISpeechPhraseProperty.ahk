@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\ISpeechPhraseProperty.ahk
+#Include .\ISpeechPhraseProperties.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,101 +34,84 @@ class ISpeechPhraseProperty extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} Name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Name(Name) {
+    get_Name() {
+        Name := BSTR()
         result := ComCall(7, this, "ptr", Name, "HRESULT")
-        return result
+        return Name
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Id 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Id(Id) {
-        IdMarshal := Id is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, IdMarshal, Id, "HRESULT")
-        return result
+    get_Id() {
+        result := ComCall(8, this, "int*", &Id := 0, "HRESULT")
+        return Id
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} Value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_Value(Value) {
+    get_Value() {
+        Value := VARIANT()
         result := ComCall(9, this, "ptr", Value, "HRESULT")
-        return result
+        return Value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} FirstElement 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_FirstElement(FirstElement) {
-        FirstElementMarshal := FirstElement is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, FirstElementMarshal, FirstElement, "HRESULT")
-        return result
+    get_FirstElement() {
+        result := ComCall(10, this, "int*", &FirstElement := 0, "HRESULT")
+        return FirstElement
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} NumberOfElements 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_NumberOfElements(NumberOfElements) {
-        NumberOfElementsMarshal := NumberOfElements is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, NumberOfElementsMarshal, NumberOfElements, "HRESULT")
-        return result
+    get_NumberOfElements() {
+        result := ComCall(11, this, "int*", &NumberOfElements := 0, "HRESULT")
+        return NumberOfElements
     }
 
     /**
      * 
-     * @param {Pointer<Float>} Confidence 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_EngineConfidence(Confidence) {
-        ConfidenceMarshal := Confidence is VarRef ? "float*" : "ptr"
-
-        result := ComCall(12, this, ConfidenceMarshal, Confidence, "HRESULT")
-        return result
+    get_EngineConfidence() {
+        result := ComCall(12, this, "float*", &Confidence := 0, "HRESULT")
+        return Confidence
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Confidence 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Confidence(Confidence) {
-        ConfidenceMarshal := Confidence is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, ConfidenceMarshal, Confidence, "HRESULT")
-        return result
+    get_Confidence() {
+        result := ComCall(13, this, "int*", &Confidence := 0, "HRESULT")
+        return Confidence
     }
 
     /**
      * 
-     * @param {Pointer<ISpeechPhraseProperty>} ParentProperty 
-     * @returns {HRESULT} 
+     * @returns {ISpeechPhraseProperty} 
      */
-    get_Parent(ParentProperty) {
-        result := ComCall(14, this, "ptr*", ParentProperty, "HRESULT")
-        return result
+    get_Parent() {
+        result := ComCall(14, this, "ptr*", &ParentProperty := 0, "HRESULT")
+        return ISpeechPhraseProperty(ParentProperty)
     }
 
     /**
      * 
-     * @param {Pointer<ISpeechPhraseProperties>} Children 
-     * @returns {HRESULT} 
+     * @returns {ISpeechPhraseProperties} 
      */
-    get_Children(Children) {
-        result := ComCall(15, this, "ptr*", Children, "HRESULT")
-        return result
+    get_Children() {
+        result := ComCall(15, this, "ptr*", &Children := 0, "HRESULT")
+        return ISpeechPhraseProperties(Children)
     }
 }

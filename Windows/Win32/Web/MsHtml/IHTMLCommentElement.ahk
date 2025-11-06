@@ -49,12 +49,12 @@ class IHTMLCommentElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_text(p) {
+    get_text() {
+        p := BSTR()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -69,13 +69,10 @@ class IHTMLCommentElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_atomic(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, pMarshal, p, "HRESULT")
-        return result
+    get_atomic() {
+        result := ComCall(10, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 }

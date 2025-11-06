@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IHTMLDOMAttribute2.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -33,98 +34,88 @@ class IHTMLAttributeCollection4 extends IDispatch{
      * 
      * @param {Pointer<VARIANT>} pvarNS 
      * @param {BSTR} bstrName 
-     * @param {Pointer<IHTMLDOMAttribute2>} ppNodeOut 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMAttribute2} 
      */
-    getNamedItemNS(pvarNS, bstrName, ppNodeOut) {
+    getNamedItemNS(pvarNS, bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(7, this, "ptr", pvarNS, "ptr", bstrName, "ptr*", ppNodeOut, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", pvarNS, "ptr", bstrName, "ptr*", &ppNodeOut := 0, "HRESULT")
+        return IHTMLDOMAttribute2(ppNodeOut)
     }
 
     /**
      * 
      * @param {IHTMLDOMAttribute2} pNodeIn 
-     * @param {Pointer<IHTMLDOMAttribute2>} ppNodeOut 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMAttribute2} 
      */
-    setNamedItemNS(pNodeIn, ppNodeOut) {
-        result := ComCall(8, this, "ptr", pNodeIn, "ptr*", ppNodeOut, "HRESULT")
-        return result
+    setNamedItemNS(pNodeIn) {
+        result := ComCall(8, this, "ptr", pNodeIn, "ptr*", &ppNodeOut := 0, "HRESULT")
+        return IHTMLDOMAttribute2(ppNodeOut)
     }
 
     /**
      * 
      * @param {Pointer<VARIANT>} pvarNS 
      * @param {BSTR} bstrName 
-     * @param {Pointer<IHTMLDOMAttribute2>} ppNodeOut 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMAttribute2} 
      */
-    removeNamedItemNS(pvarNS, bstrName, ppNodeOut) {
+    removeNamedItemNS(pvarNS, bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(9, this, "ptr", pvarNS, "ptr", bstrName, "ptr*", ppNodeOut, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", pvarNS, "ptr", bstrName, "ptr*", &ppNodeOut := 0, "HRESULT")
+        return IHTMLDOMAttribute2(ppNodeOut)
     }
 
     /**
      * 
      * @param {BSTR} bstrName 
-     * @param {Pointer<IHTMLDOMAttribute2>} ppNodeOut 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMAttribute2} 
      */
-    getNamedItem(bstrName, ppNodeOut) {
+    getNamedItem(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(10, this, "ptr", bstrName, "ptr*", ppNodeOut, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", bstrName, "ptr*", &ppNodeOut := 0, "HRESULT")
+        return IHTMLDOMAttribute2(ppNodeOut)
     }
 
     /**
      * 
      * @param {IHTMLDOMAttribute2} pNodeIn 
-     * @param {Pointer<IHTMLDOMAttribute2>} ppNodeOut 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMAttribute2} 
      */
-    setNamedItem(pNodeIn, ppNodeOut) {
-        result := ComCall(11, this, "ptr", pNodeIn, "ptr*", ppNodeOut, "HRESULT")
-        return result
+    setNamedItem(pNodeIn) {
+        result := ComCall(11, this, "ptr", pNodeIn, "ptr*", &ppNodeOut := 0, "HRESULT")
+        return IHTMLDOMAttribute2(ppNodeOut)
     }
 
     /**
      * 
      * @param {BSTR} bstrName 
-     * @param {Pointer<IHTMLDOMAttribute2>} ppNodeOut 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMAttribute2} 
      */
-    removeNamedItem(bstrName, ppNodeOut) {
+    removeNamedItem(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(12, this, "ptr", bstrName, "ptr*", ppNodeOut, "HRESULT")
-        return result
+        result := ComCall(12, this, "ptr", bstrName, "ptr*", &ppNodeOut := 0, "HRESULT")
+        return IHTMLDOMAttribute2(ppNodeOut)
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<IHTMLDOMAttribute2>} ppNodeOut 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMAttribute2} 
      */
-    item(index, ppNodeOut) {
-        result := ComCall(13, this, "int", index, "ptr*", ppNodeOut, "HRESULT")
-        return result
+    item(index) {
+        result := ComCall(13, this, "int", index, "ptr*", &ppNodeOut := 0, "HRESULT")
+        return IHTMLDOMAttribute2(ppNodeOut)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_length(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, pMarshal, p, "HRESULT")
-        return result
+    get_length() {
+        result := ComCall(14, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 }

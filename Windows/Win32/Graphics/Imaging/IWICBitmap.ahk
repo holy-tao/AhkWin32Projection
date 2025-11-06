@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWICBitmapLock.ahk
 #Include .\IWICBitmapSource.ahk
 
 /**
@@ -43,13 +44,12 @@ class IWICBitmap extends IWICBitmapSource{
      * 
      * @param {Pointer<WICRect>} prcLock 
      * @param {Integer} flags 
-     * @param {Pointer<IWICBitmapLock>} ppILock 
-     * @returns {HRESULT} 
+     * @returns {IWICBitmapLock} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmap-lock
      */
-    Lock(prcLock, flags, ppILock) {
-        result := ComCall(8, this, "ptr", prcLock, "uint", flags, "ptr*", ppILock, "HRESULT")
-        return result
+    Lock(prcLock, flags) {
+        result := ComCall(8, this, "ptr", prcLock, "uint", flags, "ptr*", &ppILock := 0, "HRESULT")
+        return IWICBitmapLock(ppILock)
     }
 
     /**

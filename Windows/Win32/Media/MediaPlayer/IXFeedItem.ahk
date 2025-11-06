@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IStream.ahk
+#Include ..\..\Foundation\SYSTEMTIME.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -31,105 +33,94 @@ class IXFeedItem extends IUnknown{
     /**
      * 
      * @param {Integer} fxif 
-     * @param {Pointer<IStream>} pps 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      */
-    Xml(fxif, pps) {
-        result := ComCall(3, this, "int", fxif, "ptr*", pps, "HRESULT")
-        return result
+    Xml(fxif) {
+        result := ComCall(3, this, "int", fxif, "ptr*", &pps := 0, "HRESULT")
+        return IStream(pps)
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszTitle 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    Title(ppszTitle) {
-        result := ComCall(4, this, "ptr", ppszTitle, "HRESULT")
-        return result
+    Title() {
+        result := ComCall(4, this, "ptr*", &ppszTitle := 0, "HRESULT")
+        return ppszTitle
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszUrl 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    Link(ppszUrl) {
-        result := ComCall(5, this, "ptr", ppszUrl, "HRESULT")
-        return result
+    Link() {
+        result := ComCall(5, this, "ptr*", &ppszUrl := 0, "HRESULT")
+        return ppszUrl
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszGuid 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    Guid(ppszGuid) {
-        result := ComCall(6, this, "ptr", ppszGuid, "HRESULT")
-        return result
+    Guid() {
+        result := ComCall(6, this, "ptr*", &ppszGuid := 0, "HRESULT")
+        return ppszGuid
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszDescription 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    Description(ppszDescription) {
-        result := ComCall(7, this, "ptr", ppszDescription, "HRESULT")
-        return result
+    Description() {
+        result := ComCall(7, this, "ptr*", &ppszDescription := 0, "HRESULT")
+        return ppszDescription
     }
 
     /**
      * 
-     * @param {Pointer<SYSTEMTIME>} pstPubDate 
-     * @returns {HRESULT} 
+     * @returns {SYSTEMTIME} 
      */
-    PubDate(pstPubDate) {
+    PubDate() {
+        pstPubDate := SYSTEMTIME()
         result := ComCall(8, this, "ptr", pstPubDate, "HRESULT")
-        return result
+        return pstPubDate
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszUrl 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    Comments(ppszUrl) {
-        result := ComCall(9, this, "ptr", ppszUrl, "HRESULT")
-        return result
+    Comments() {
+        result := ComCall(9, this, "ptr*", &ppszUrl := 0, "HRESULT")
+        return ppszUrl
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszAuthor 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    Author(ppszAuthor) {
-        result := ComCall(10, this, "ptr", ppszAuthor, "HRESULT")
-        return result
+    Author() {
+        result := ComCall(10, this, "ptr*", &ppszAuthor := 0, "HRESULT")
+        return ppszAuthor
     }
 
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    Enclosure(riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(11, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    Enclosure(riid) {
+        result := ComCall(11, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbIsRead 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsRead(pbIsRead) {
-        result := ComCall(12, this, "ptr", pbIsRead, "HRESULT")
-        return result
+    IsRead() {
+        result := ComCall(12, this, "int*", &pbIsRead := 0, "HRESULT")
+        return pbIsRead
     }
 
     /**
@@ -144,27 +135,21 @@ class IXFeedItem extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} puiId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    LocalId(puiId) {
-        puiIdMarshal := puiId is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, puiIdMarshal, puiId, "HRESULT")
-        return result
+    LocalId() {
+        result := ComCall(14, this, "uint*", &puiId := 0, "HRESULT")
+        return puiId
     }
 
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    Parent(riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(15, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    Parent(riid) {
+        result := ComCall(15, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
@@ -178,31 +163,30 @@ class IXFeedItem extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszUrl 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    DownloadUrl(ppszUrl) {
-        result := ComCall(17, this, "ptr", ppszUrl, "HRESULT")
-        return result
+    DownloadUrl() {
+        result := ComCall(17, this, "ptr*", &ppszUrl := 0, "HRESULT")
+        return ppszUrl
     }
 
     /**
      * 
-     * @param {Pointer<SYSTEMTIME>} pstLastDownloadTime 
-     * @returns {HRESULT} 
+     * @returns {SYSTEMTIME} 
      */
-    LastDownloadTime(pstLastDownloadTime) {
+    LastDownloadTime() {
+        pstLastDownloadTime := SYSTEMTIME()
         result := ComCall(18, this, "ptr", pstLastDownloadTime, "HRESULT")
-        return result
+        return pstLastDownloadTime
     }
 
     /**
      * 
-     * @param {Pointer<SYSTEMTIME>} pstModifiedTime 
-     * @returns {HRESULT} 
+     * @returns {SYSTEMTIME} 
      */
-    Modified(pstModifiedTime) {
+    Modified() {
+        pstModifiedTime := SYSTEMTIME()
         result := ComCall(19, this, "ptr", pstModifiedTime, "HRESULT")
-        return result
+        return pstModifiedTime
     }
 }

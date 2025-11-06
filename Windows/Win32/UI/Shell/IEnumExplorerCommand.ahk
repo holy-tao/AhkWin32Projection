@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumExplorerCommand.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -72,12 +73,11 @@ class IEnumExplorerCommand extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumExplorerCommand>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IEnumExplorerCommand} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ienumexplorercommand-clone
      */
-    Clone(ppenum) {
-        result := ComCall(6, this, "ptr*", ppenum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")
+        return IEnumExplorerCommand(ppenum)
     }
 }

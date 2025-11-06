@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ISchemaAny.ahk
+#Include .\ISchemaItemCollection.ahk
+#Include .\ISchemaModelGroup.ahk
 #Include .\ISchemaType.ahk
 
 /**
@@ -30,65 +33,55 @@ class ISchemaComplexType extends ISchemaType{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} abstract 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_isAbstract(abstract) {
-        result := ComCall(31, this, "ptr", abstract, "HRESULT")
-        return result
+    get_isAbstract() {
+        result := ComCall(31, this, "short*", &abstract := 0, "HRESULT")
+        return abstract
     }
 
     /**
      * 
-     * @param {Pointer<ISchemaAny>} anyAttribute 
-     * @returns {HRESULT} 
+     * @returns {ISchemaAny} 
      */
-    get_anyAttribute(anyAttribute) {
-        result := ComCall(32, this, "ptr*", anyAttribute, "HRESULT")
-        return result
+    get_anyAttribute() {
+        result := ComCall(32, this, "ptr*", &anyAttribute := 0, "HRESULT")
+        return ISchemaAny(anyAttribute)
     }
 
     /**
      * 
-     * @param {Pointer<ISchemaItemCollection>} attributes 
-     * @returns {HRESULT} 
+     * @returns {ISchemaItemCollection} 
      */
-    get_attributes(attributes) {
-        result := ComCall(33, this, "ptr*", attributes, "HRESULT")
-        return result
+    get_attributes() {
+        result := ComCall(33, this, "ptr*", &attributes := 0, "HRESULT")
+        return ISchemaItemCollection(attributes)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} contentType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_contentType(contentType) {
-        contentTypeMarshal := contentType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(34, this, contentTypeMarshal, contentType, "HRESULT")
-        return result
+    get_contentType() {
+        result := ComCall(34, this, "int*", &contentType := 0, "HRESULT")
+        return contentType
     }
 
     /**
      * 
-     * @param {Pointer<ISchemaModelGroup>} contentModel 
-     * @returns {HRESULT} 
+     * @returns {ISchemaModelGroup} 
      */
-    get_contentModel(contentModel) {
-        result := ComCall(35, this, "ptr*", contentModel, "HRESULT")
-        return result
+    get_contentModel() {
+        result := ComCall(35, this, "ptr*", &contentModel := 0, "HRESULT")
+        return ISchemaModelGroup(contentModel)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} prohibited 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_prohibitedSubstitutions(prohibited) {
-        prohibitedMarshal := prohibited is VarRef ? "int*" : "ptr"
-
-        result := ComCall(36, this, prohibitedMarshal, prohibited, "HRESULT")
-        return result
+    get_prohibitedSubstitutions() {
+        result := ComCall(36, this, "int*", &prohibited := 0, "HRESULT")
+        return prohibited
     }
 }

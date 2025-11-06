@@ -101,14 +101,11 @@ class IAzBizRuleInterfaces extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazbizruleinterfaces-get_count
      */
-    get_Count(plCount) {
-        plCountMarshal := plCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, plCountMarshal, plCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(12, this, "uint*", &plCount := 0, "HRESULT")
+        return plCount
     }
 }

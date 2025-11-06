@@ -30,13 +30,10 @@ class IDebugHostFunctionIntrospection3 extends IDebugHostFunctionIntrospection2{
 
     /**
      * 
-     * @param {Pointer<Boolean>} pIsNoReturnFunction 
-     * @returns {HRESULT} 
+     * @returns {Boolean} 
      */
-    IsNoReturnFunction(pIsNoReturnFunction) {
-        pIsNoReturnFunctionMarshal := pIsNoReturnFunction is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pIsNoReturnFunctionMarshal, pIsNoReturnFunction, "HRESULT")
-        return result
+    IsNoReturnFunction() {
+        result := ComCall(8, this, "int*", &pIsNoReturnFunction := 0, "HRESULT")
+        return pIsNoReturnFunction
     }
 }

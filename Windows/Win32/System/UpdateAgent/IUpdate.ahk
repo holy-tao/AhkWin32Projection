@@ -2,6 +2,15 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IUpdateCollection.ahk
+#Include .\ICategoryCollection.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include .\IUpdateIdentity.ahk
+#Include .\IImageInformation.ahk
+#Include .\IInstallationBehavior.ahk
+#Include .\IStringCollection.ahk
+#Include ..\..\Foundation\DECIMAL.ahk
+#Include .\IUpdateDownloadContentCollection.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -37,200 +46,187 @@ class IUpdate extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_title
      */
-    get_Title(retval) {
+    get_Title() {
+        retval := BSTR()
         result := ComCall(7, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_autoselectonwebsites
      */
-    get_AutoSelectOnWebSites(retval) {
-        result := ComCall(8, this, "ptr", retval, "HRESULT")
-        return result
+    get_AutoSelectOnWebSites() {
+        result := ComCall(8, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<IUpdateCollection>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUpdateCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_bundledupdates
      */
-    get_BundledUpdates(retval) {
-        result := ComCall(9, this, "ptr*", retval, "HRESULT")
-        return result
+    get_BundledUpdates() {
+        result := ComCall(9, this, "ptr*", &retval := 0, "HRESULT")
+        return IUpdateCollection(retval)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_canrequiresource
      */
-    get_CanRequireSource(retval) {
-        result := ComCall(10, this, "ptr", retval, "HRESULT")
-        return result
+    get_CanRequireSource() {
+        result := ComCall(10, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<ICategoryCollection>} retval 
-     * @returns {HRESULT} 
+     * @returns {ICategoryCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_categories
      */
-    get_Categories(retval) {
-        result := ComCall(11, this, "ptr*", retval, "HRESULT")
-        return result
+    get_Categories() {
+        result := ComCall(11, this, "ptr*", &retval := 0, "HRESULT")
+        return ICategoryCollection(retval)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_deadline
      */
-    get_Deadline(retval) {
+    get_Deadline() {
+        retval := VARIANT()
         result := ComCall(12, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_deltacompressedcontentavailable
      */
-    get_DeltaCompressedContentAvailable(retval) {
-        result := ComCall(13, this, "ptr", retval, "HRESULT")
-        return result
+    get_DeltaCompressedContentAvailable() {
+        result := ComCall(13, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_deltacompressedcontentpreferred
      */
-    get_DeltaCompressedContentPreferred(retval) {
-        result := ComCall(14, this, "ptr", retval, "HRESULT")
-        return result
+    get_DeltaCompressedContentPreferred() {
+        result := ComCall(14, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_description
      */
-    get_Description(retval) {
+    get_Description() {
+        retval := BSTR()
         result := ComCall(15, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_eulaaccepted
      */
-    get_EulaAccepted(retval) {
-        result := ComCall(16, this, "ptr", retval, "HRESULT")
-        return result
+    get_EulaAccepted() {
+        result := ComCall(16, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_eulatext
      */
-    get_EulaText(retval) {
+    get_EulaText() {
+        retval := BSTR()
         result := ComCall(17, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_handlerid
      */
-    get_HandlerID(retval) {
+    get_HandlerID() {
+        retval := BSTR()
         result := ComCall(18, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<IUpdateIdentity>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUpdateIdentity} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_identity
      */
-    get_Identity(retval) {
-        result := ComCall(19, this, "ptr*", retval, "HRESULT")
-        return result
+    get_Identity() {
+        result := ComCall(19, this, "ptr*", &retval := 0, "HRESULT")
+        return IUpdateIdentity(retval)
     }
 
     /**
      * 
-     * @param {Pointer<IImageInformation>} retval 
-     * @returns {HRESULT} 
+     * @returns {IImageInformation} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_image
      */
-    get_Image(retval) {
-        result := ComCall(20, this, "ptr*", retval, "HRESULT")
-        return result
+    get_Image() {
+        result := ComCall(20, this, "ptr*", &retval := 0, "HRESULT")
+        return IImageInformation(retval)
     }
 
     /**
      * 
-     * @param {Pointer<IInstallationBehavior>} retval 
-     * @returns {HRESULT} 
+     * @returns {IInstallationBehavior} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_installationbehavior
      */
-    get_InstallationBehavior(retval) {
-        result := ComCall(21, this, "ptr*", retval, "HRESULT")
-        return result
+    get_InstallationBehavior() {
+        result := ComCall(21, this, "ptr*", &retval := 0, "HRESULT")
+        return IInstallationBehavior(retval)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_isbeta
      */
-    get_IsBeta(retval) {
-        result := ComCall(22, this, "ptr", retval, "HRESULT")
-        return result
+    get_IsBeta() {
+        result := ComCall(22, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_isdownloaded
      */
-    get_IsDownloaded(retval) {
-        result := ComCall(23, this, "ptr", retval, "HRESULT")
-        return result
+    get_IsDownloaded() {
+        result := ComCall(23, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_ishidden
      */
-    get_IsHidden(retval) {
-        result := ComCall(24, this, "ptr", retval, "HRESULT")
-        return result
+    get_IsHidden() {
+        result := ComCall(24, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -246,243 +242,218 @@ class IUpdate extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_isinstalled
      */
-    get_IsInstalled(retval) {
-        result := ComCall(26, this, "ptr", retval, "HRESULT")
-        return result
+    get_IsInstalled() {
+        result := ComCall(26, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_ismandatory
      */
-    get_IsMandatory(retval) {
-        result := ComCall(27, this, "ptr", retval, "HRESULT")
-        return result
+    get_IsMandatory() {
+        result := ComCall(27, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_isuninstallable
      */
-    get_IsUninstallable(retval) {
-        result := ComCall(28, this, "ptr", retval, "HRESULT")
-        return result
+    get_IsUninstallable() {
+        result := ComCall(28, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<IStringCollection>} retval 
-     * @returns {HRESULT} 
+     * @returns {IStringCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_languages
      */
-    get_Languages(retval) {
-        result := ComCall(29, this, "ptr*", retval, "HRESULT")
-        return result
+    get_Languages() {
+        result := ComCall(29, this, "ptr*", &retval := 0, "HRESULT")
+        return IStringCollection(retval)
     }
 
     /**
      * 
-     * @param {Pointer<Float>} retval 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_lastdeploymentchangetime
      */
-    get_LastDeploymentChangeTime(retval) {
-        retvalMarshal := retval is VarRef ? "double*" : "ptr"
-
-        result := ComCall(30, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_LastDeploymentChangeTime() {
+        result := ComCall(30, this, "double*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<DECIMAL>} retval 
-     * @returns {HRESULT} 
+     * @returns {DECIMAL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_maxdownloadsize
      */
-    get_MaxDownloadSize(retval) {
+    get_MaxDownloadSize() {
+        retval := DECIMAL()
         result := ComCall(31, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<DECIMAL>} retval 
-     * @returns {HRESULT} 
+     * @returns {DECIMAL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_mindownloadsize
      */
-    get_MinDownloadSize(retval) {
+    get_MinDownloadSize() {
+        retval := DECIMAL()
         result := ComCall(32, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<IStringCollection>} retval 
-     * @returns {HRESULT} 
+     * @returns {IStringCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_moreinfourls
      */
-    get_MoreInfoUrls(retval) {
-        result := ComCall(33, this, "ptr*", retval, "HRESULT")
-        return result
+    get_MoreInfoUrls() {
+        result := ComCall(33, this, "ptr*", &retval := 0, "HRESULT")
+        return IStringCollection(retval)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_msrcseverity
      */
-    get_MsrcSeverity(retval) {
+    get_MsrcSeverity() {
+        retval := BSTR()
         result := ComCall(34, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_recommendedcpuspeed
      */
-    get_RecommendedCpuSpeed(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(35, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_RecommendedCpuSpeed() {
+        result := ComCall(35, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_recommendedharddiskspace
      */
-    get_RecommendedHardDiskSpace(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(36, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_RecommendedHardDiskSpace() {
+        result := ComCall(36, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_recommendedmemory
      */
-    get_RecommendedMemory(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(37, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_RecommendedMemory() {
+        result := ComCall(37, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_releasenotes
      */
-    get_ReleaseNotes(retval) {
+    get_ReleaseNotes() {
+        retval := BSTR()
         result := ComCall(38, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<IStringCollection>} retval 
-     * @returns {HRESULT} 
+     * @returns {IStringCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_securitybulletinids
      */
-    get_SecurityBulletinIDs(retval) {
-        result := ComCall(39, this, "ptr*", retval, "HRESULT")
-        return result
+    get_SecurityBulletinIDs() {
+        result := ComCall(39, this, "ptr*", &retval := 0, "HRESULT")
+        return IStringCollection(retval)
     }
 
     /**
      * 
-     * @param {Pointer<IStringCollection>} retval 
-     * @returns {HRESULT} 
+     * @returns {IStringCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_supersededupdateids
      */
-    get_SupersededUpdateIDs(retval) {
-        result := ComCall(40, this, "ptr*", retval, "HRESULT")
-        return result
+    get_SupersededUpdateIDs() {
+        result := ComCall(40, this, "ptr*", &retval := 0, "HRESULT")
+        return IStringCollection(retval)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_supporturl
      */
-    get_SupportUrl(retval) {
+    get_SupportUrl() {
+        retval := BSTR()
         result := ComCall(41, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_type
      */
-    get_Type(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(42, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_Type() {
+        result := ComCall(42, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_uninstallationnotes
      */
-    get_UninstallationNotes(retval) {
+    get_UninstallationNotes() {
+        retval := BSTR()
         result := ComCall(43, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<IInstallationBehavior>} retval 
-     * @returns {HRESULT} 
+     * @returns {IInstallationBehavior} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_uninstallationbehavior
      */
-    get_UninstallationBehavior(retval) {
-        result := ComCall(44, this, "ptr*", retval, "HRESULT")
-        return result
+    get_UninstallationBehavior() {
+        result := ComCall(44, this, "ptr*", &retval := 0, "HRESULT")
+        return IInstallationBehavior(retval)
     }
 
     /**
      * 
-     * @param {Pointer<IStringCollection>} retval 
-     * @returns {HRESULT} 
+     * @returns {IStringCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_uninstallationsteps
      */
-    get_UninstallationSteps(retval) {
-        result := ComCall(45, this, "ptr*", retval, "HRESULT")
-        return result
+    get_UninstallationSteps() {
+        result := ComCall(45, this, "ptr*", &retval := 0, "HRESULT")
+        return IStringCollection(retval)
     }
 
     /**
      * 
-     * @param {Pointer<IStringCollection>} retval 
-     * @returns {HRESULT} 
+     * @returns {IStringCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_kbarticleids
      */
-    get_KBArticleIDs(retval) {
-        result := ComCall(46, this, "ptr*", retval, "HRESULT")
-        return result
+    get_KBArticleIDs() {
+        result := ComCall(46, this, "ptr*", &retval := 0, "HRESULT")
+        return IStringCollection(retval)
     }
 
     /**
@@ -497,15 +468,12 @@ class IUpdate extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_deploymentaction
      */
-    get_DeploymentAction(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(48, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_DeploymentAction() {
+        result := ComCall(48, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -524,25 +492,21 @@ class IUpdate extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_downloadpriority
      */
-    get_DownloadPriority(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(50, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_DownloadPriority() {
+        result := ComCall(50, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<IUpdateDownloadContentCollection>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUpdateDownloadContentCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate-get_downloadcontents
      */
-    get_DownloadContents(retval) {
-        result := ComCall(51, this, "ptr*", retval, "HRESULT")
-        return result
+    get_DownloadContents() {
+        result := ComCall(51, this, "ptr*", &retval := 0, "HRESULT")
+        return IUpdateDownloadContentCollection(retval)
     }
 }

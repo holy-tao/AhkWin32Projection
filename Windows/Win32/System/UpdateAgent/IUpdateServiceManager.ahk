@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IUpdateServiceCollection.ahk
+#Include .\IUpdateService.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -43,29 +45,27 @@ class IUpdateServiceManager extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUpdateServiceCollection>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUpdateServiceCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservicemanager-get_services
      */
-    get_Services(retval) {
-        result := ComCall(7, this, "ptr*", retval, "HRESULT")
-        return result
+    get_Services() {
+        result := ComCall(7, this, "ptr*", &retval := 0, "HRESULT")
+        return IUpdateServiceCollection(retval)
     }
 
     /**
      * 
      * @param {BSTR} serviceID 
      * @param {BSTR} authorizationCabPath 
-     * @param {Pointer<IUpdateService>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUpdateService} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservicemanager-addservice
      */
-    AddService(serviceID, authorizationCabPath, retval) {
+    AddService(serviceID, authorizationCabPath) {
         serviceID := serviceID is String ? BSTR.Alloc(serviceID).Value : serviceID
         authorizationCabPath := authorizationCabPath is String ? BSTR.Alloc(authorizationCabPath).Value : authorizationCabPath
 
-        result := ComCall(8, this, "ptr", serviceID, "ptr", authorizationCabPath, "ptr*", retval, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", serviceID, "ptr", authorizationCabPath, "ptr*", &retval := 0, "HRESULT")
+        return IUpdateService(retval)
     }
 
     /**
@@ -112,16 +112,15 @@ class IUpdateServiceManager extends IDispatch{
      * @param {BSTR} serviceName 
      * @param {BSTR} scanFileLocation 
      * @param {Integer} flags 
-     * @param {Pointer<IUpdateService>} ppService 
-     * @returns {HRESULT} 
+     * @returns {IUpdateService} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservicemanager-addscanpackageservice
      */
-    AddScanPackageService(serviceName, scanFileLocation, flags, ppService) {
+    AddScanPackageService(serviceName, scanFileLocation, flags) {
         serviceName := serviceName is String ? BSTR.Alloc(serviceName).Value : serviceName
         scanFileLocation := scanFileLocation is String ? BSTR.Alloc(scanFileLocation).Value : scanFileLocation
 
-        result := ComCall(12, this, "ptr", serviceName, "ptr", scanFileLocation, "int", flags, "ptr*", ppService, "HRESULT")
-        return result
+        result := ComCall(12, this, "ptr", serviceName, "ptr", scanFileLocation, "int", flags, "ptr*", &ppService := 0, "HRESULT")
+        return IUpdateService(ppService)
     }
 
     /**

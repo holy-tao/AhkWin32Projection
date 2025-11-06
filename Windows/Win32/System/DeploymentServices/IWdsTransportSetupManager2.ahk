@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWdsTransportCollection.ahk
 #Include .\IWdsTransportSetupManager.ahk
 
 /**
@@ -32,25 +33,21 @@ class IWdsTransportSetupManager2 extends IWdsTransportSetupManager{
 
     /**
      * 
-     * @param {Pointer<Integer>} pulTftpCapabilities 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportsetupmanager2-get_tftpcapabilities
      */
-    get_TftpCapabilities(pulTftpCapabilities) {
-        pulTftpCapabilitiesMarshal := pulTftpCapabilities is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, pulTftpCapabilitiesMarshal, pulTftpCapabilities, "HRESULT")
-        return result
+    get_TftpCapabilities() {
+        result := ComCall(12, this, "uint*", &pulTftpCapabilities := 0, "HRESULT")
+        return pulTftpCapabilities
     }
 
     /**
      * 
-     * @param {Pointer<IWdsTransportCollection>} ppProviderCollection 
-     * @returns {HRESULT} 
+     * @returns {IWdsTransportCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportsetupmanager2-get_contentproviders
      */
-    get_ContentProviders(ppProviderCollection) {
-        result := ComCall(13, this, "ptr*", ppProviderCollection, "HRESULT")
-        return result
+    get_ContentProviders() {
+        result := ComCall(13, this, "ptr*", &ppProviderCollection := 0, "HRESULT")
+        return IWdsTransportCollection(ppProviderCollection)
     }
 }

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IInkTablet.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -38,61 +40,54 @@ class IInkTablets extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} Count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktablets-get_count
      */
-    get_Count(Count) {
-        CountMarshal := Count is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, CountMarshal, Count, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &Count := 0, "HRESULT")
+        return Count
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} _NewEnum 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__NewEnum(_NewEnum) {
-        result := ComCall(8, this, "ptr*", _NewEnum, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(8, this, "ptr*", &_NewEnum := 0, "HRESULT")
+        return IUnknown(_NewEnum)
     }
 
     /**
      * 
-     * @param {Pointer<IInkTablet>} DefaultTablet 
-     * @returns {HRESULT} 
+     * @returns {IInkTablet} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktablets-get_defaulttablet
      */
-    get_DefaultTablet(DefaultTablet) {
-        result := ComCall(9, this, "ptr*", DefaultTablet, "HRESULT")
-        return result
+    get_DefaultTablet() {
+        result := ComCall(9, this, "ptr*", &DefaultTablet := 0, "HRESULT")
+        return IInkTablet(DefaultTablet)
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<IInkTablet>} Tablet 
-     * @returns {HRESULT} 
+     * @returns {IInkTablet} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktablets-item
      */
-    Item(Index, Tablet) {
-        result := ComCall(10, this, "int", Index, "ptr*", Tablet, "HRESULT")
-        return result
+    Item(Index) {
+        result := ComCall(10, this, "int", Index, "ptr*", &Tablet := 0, "HRESULT")
+        return IInkTablet(Tablet)
     }
 
     /**
      * 
      * @param {BSTR} packetPropertyName 
-     * @param {Pointer<VARIANT_BOOL>} Supported 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktablets-ispacketpropertysupported
      */
-    IsPacketPropertySupported(packetPropertyName, Supported) {
+    IsPacketPropertySupported(packetPropertyName) {
         packetPropertyName := packetPropertyName is String ? BSTR.Alloc(packetPropertyName).Value : packetPropertyName
 
-        result := ComCall(11, this, "ptr", packetPropertyName, "ptr", Supported, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", packetPropertyName, "short*", &Supported := 0, "HRESULT")
+        return Supported
     }
 }

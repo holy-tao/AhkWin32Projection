@@ -43,15 +43,12 @@ class IWMWriterNetworkSink extends IWMWriterSink{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwMaxClients 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriternetworksink-getmaximumclients
      */
-    GetMaximumClients(pdwMaxClients) {
-        pdwMaxClientsMarshal := pdwMaxClients is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, pdwMaxClientsMarshal, pdwMaxClients, "HRESULT")
-        return result
+    GetMaximumClients() {
+        result := ComCall(9, this, "uint*", &pdwMaxClients := 0, "HRESULT")
+        return pdwMaxClients
     }
 
     /**
@@ -67,15 +64,12 @@ class IWMWriterNetworkSink extends IWMWriterSink{
 
     /**
      * 
-     * @param {Pointer<Integer>} pProtocol 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriternetworksink-getnetworkprotocol
      */
-    GetNetworkProtocol(pProtocol) {
-        pProtocolMarshal := pProtocol is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, pProtocolMarshal, pProtocol, "HRESULT")
-        return result
+    GetNetworkProtocol() {
+        result := ComCall(11, this, "int*", &pProtocol := 0, "HRESULT")
+        return pProtocol
     }
 
     /**

@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsOMPackage.ahk
+#Include ..\..\Foundation\SYSTEMTIME.ahk
+#Include .\IXpsOMCoreProperties.ahk
 #Include .\IXpsOMPart.ahk
 
 /**
@@ -37,24 +40,22 @@ class IXpsOMCoreProperties extends IXpsOMPart{
 
     /**
      * 
-     * @param {Pointer<IXpsOMPackage>} package 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMPackage} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getowner
      */
-    GetOwner(package) {
-        result := ComCall(5, this, "ptr*", package, "HRESULT")
-        return result
+    GetOwner() {
+        result := ComCall(5, this, "ptr*", &package := 0, "HRESULT")
+        return IXpsOMPackage(package)
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} category 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getcategory
      */
-    GetCategory(category) {
-        result := ComCall(6, this, "ptr", category, "HRESULT")
-        return result
+    GetCategory() {
+        result := ComCall(6, this, "ptr*", &category := 0, "HRESULT")
+        return category
     }
 
     /**
@@ -72,13 +73,12 @@ class IXpsOMCoreProperties extends IXpsOMPart{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} contentStatus 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getcontentstatus
      */
-    GetContentStatus(contentStatus) {
-        result := ComCall(8, this, "ptr", contentStatus, "HRESULT")
-        return result
+    GetContentStatus() {
+        result := ComCall(8, this, "ptr*", &contentStatus := 0, "HRESULT")
+        return contentStatus
     }
 
     /**
@@ -96,13 +96,12 @@ class IXpsOMCoreProperties extends IXpsOMPart{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} contentType 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getcontenttype
      */
-    GetContentType(contentType) {
-        result := ComCall(10, this, "ptr", contentType, "HRESULT")
-        return result
+    GetContentType() {
+        result := ComCall(10, this, "ptr*", &contentType := 0, "HRESULT")
+        return contentType
     }
 
     /**
@@ -120,13 +119,13 @@ class IXpsOMCoreProperties extends IXpsOMPart{
 
     /**
      * 
-     * @param {Pointer<SYSTEMTIME>} created 
-     * @returns {HRESULT} 
+     * @returns {SYSTEMTIME} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getcreated
      */
-    GetCreated(created) {
+    GetCreated() {
+        created := SYSTEMTIME()
         result := ComCall(12, this, "ptr", created, "HRESULT")
-        return result
+        return created
     }
 
     /**
@@ -142,13 +141,12 @@ class IXpsOMCoreProperties extends IXpsOMPart{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} creator 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getcreator
      */
-    GetCreator(creator) {
-        result := ComCall(14, this, "ptr", creator, "HRESULT")
-        return result
+    GetCreator() {
+        result := ComCall(14, this, "ptr*", &creator := 0, "HRESULT")
+        return creator
     }
 
     /**
@@ -166,13 +164,12 @@ class IXpsOMCoreProperties extends IXpsOMPart{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} description 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getdescription
      */
-    GetDescription(description) {
-        result := ComCall(16, this, "ptr", description, "HRESULT")
-        return result
+    GetDescription() {
+        result := ComCall(16, this, "ptr*", &description := 0, "HRESULT")
+        return description
     }
 
     /**
@@ -190,13 +187,12 @@ class IXpsOMCoreProperties extends IXpsOMPart{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} identifier 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getidentifier
      */
-    GetIdentifier(identifier) {
-        result := ComCall(18, this, "ptr", identifier, "HRESULT")
-        return result
+    GetIdentifier() {
+        result := ComCall(18, this, "ptr*", &identifier := 0, "HRESULT")
+        return identifier
     }
 
     /**
@@ -214,13 +210,12 @@ class IXpsOMCoreProperties extends IXpsOMPart{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} keywords 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getkeywords
      */
-    GetKeywords(keywords) {
-        result := ComCall(20, this, "ptr", keywords, "HRESULT")
-        return result
+    GetKeywords() {
+        result := ComCall(20, this, "ptr*", &keywords := 0, "HRESULT")
+        return keywords
     }
 
     /**
@@ -238,13 +233,12 @@ class IXpsOMCoreProperties extends IXpsOMPart{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} language 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getlanguage
      */
-    GetLanguage(language) {
-        result := ComCall(22, this, "ptr", language, "HRESULT")
-        return result
+    GetLanguage() {
+        result := ComCall(22, this, "ptr*", &language := 0, "HRESULT")
+        return language
     }
 
     /**
@@ -262,13 +256,12 @@ class IXpsOMCoreProperties extends IXpsOMPart{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lastModifiedBy 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getlastmodifiedby
      */
-    GetLastModifiedBy(lastModifiedBy) {
-        result := ComCall(24, this, "ptr", lastModifiedBy, "HRESULT")
-        return result
+    GetLastModifiedBy() {
+        result := ComCall(24, this, "ptr*", &lastModifiedBy := 0, "HRESULT")
+        return lastModifiedBy
     }
 
     /**
@@ -286,13 +279,13 @@ class IXpsOMCoreProperties extends IXpsOMPart{
 
     /**
      * 
-     * @param {Pointer<SYSTEMTIME>} lastPrinted 
-     * @returns {HRESULT} 
+     * @returns {SYSTEMTIME} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getlastprinted
      */
-    GetLastPrinted(lastPrinted) {
+    GetLastPrinted() {
+        lastPrinted := SYSTEMTIME()
         result := ComCall(26, this, "ptr", lastPrinted, "HRESULT")
-        return result
+        return lastPrinted
     }
 
     /**
@@ -308,13 +301,13 @@ class IXpsOMCoreProperties extends IXpsOMPart{
 
     /**
      * 
-     * @param {Pointer<SYSTEMTIME>} modified 
-     * @returns {HRESULT} 
+     * @returns {SYSTEMTIME} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getmodified
      */
-    GetModified(modified) {
+    GetModified() {
+        modified := SYSTEMTIME()
         result := ComCall(28, this, "ptr", modified, "HRESULT")
-        return result
+        return modified
     }
 
     /**
@@ -330,13 +323,12 @@ class IXpsOMCoreProperties extends IXpsOMPart{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} revision 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getrevision
      */
-    GetRevision(revision) {
-        result := ComCall(30, this, "ptr", revision, "HRESULT")
-        return result
+    GetRevision() {
+        result := ComCall(30, this, "ptr*", &revision := 0, "HRESULT")
+        return revision
     }
 
     /**
@@ -354,13 +346,12 @@ class IXpsOMCoreProperties extends IXpsOMPart{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} subject 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-getsubject
      */
-    GetSubject(subject) {
-        result := ComCall(32, this, "ptr", subject, "HRESULT")
-        return result
+    GetSubject() {
+        result := ComCall(32, this, "ptr*", &subject := 0, "HRESULT")
+        return subject
     }
 
     /**
@@ -378,13 +369,12 @@ class IXpsOMCoreProperties extends IXpsOMPart{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} title 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-gettitle
      */
-    GetTitle(title) {
-        result := ComCall(34, this, "ptr", title, "HRESULT")
-        return result
+    GetTitle() {
+        result := ComCall(34, this, "ptr*", &title := 0, "HRESULT")
+        return title
     }
 
     /**
@@ -402,15 +392,12 @@ class IXpsOMCoreProperties extends IXpsOMPart{
 
     /**
      * With the release of Windows 8.1, the behavior of the GetVersion API has changed in the value it will return for the operating system version. The value returned by the GetVersion function now depends on how the application is manifested.
-     * @param {Pointer<PWSTR>} version 
-     * @returns {HRESULT} If the function succeeds, the return value includes the major and minor version numbers of the operating system in the low-order word, and information about the operating system platform in the high-order word.
-     * 
-     * For all platforms, the low-order word contains the version number of the operating system. The low-order byte of this word specifies the major version number, in hexadecimal notation. The high-order byte specifies the minor version (revision) number, in hexadecimal notation. The  high-order bit is zero, the next 7 bits represent the build number, and the low-order byte is 5.
+     * @returns {PWSTR} 
      * @see https://docs.microsoft.com/windows/win32/api//sysinfoapi/nf-sysinfoapi-getversion
      */
-    GetVersion(version) {
-        result := ComCall(36, this, "ptr", version, "HRESULT")
-        return result
+    GetVersion() {
+        result := ComCall(36, this, "ptr*", &version := 0, "HRESULT")
+        return version
     }
 
     /**
@@ -428,12 +415,11 @@ class IXpsOMCoreProperties extends IXpsOMPart{
 
     /**
      * 
-     * @param {Pointer<IXpsOMCoreProperties>} coreProperties 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMCoreProperties} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcoreproperties-clone
      */
-    Clone(coreProperties) {
-        result := ComCall(38, this, "ptr*", coreProperties, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(38, this, "ptr*", &coreProperties := 0, "HRESULT")
+        return IXpsOMCoreProperties(coreProperties)
     }
 }

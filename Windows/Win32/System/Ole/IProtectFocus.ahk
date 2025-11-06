@@ -30,11 +30,10 @@ class IProtectFocus extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfAllow 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    AllowFocusChange(pfAllow) {
-        result := ComCall(3, this, "ptr", pfAllow, "HRESULT")
-        return result
+    AllowFocusChange() {
+        result := ComCall(3, this, "int*", &pfAllow := 0, "HRESULT")
+        return pfAllow
     }
 }

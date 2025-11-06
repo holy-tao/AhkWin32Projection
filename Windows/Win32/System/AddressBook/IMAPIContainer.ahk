@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMAPITable.ahk
 #Include .\IMAPIProp.ahk
 
 /**
@@ -28,25 +29,23 @@ class IMAPIContainer extends IMAPIProp{
     /**
      * 
      * @param {Integer} ulFlags 
-     * @param {Pointer<IMAPITable>} lppTable 
-     * @returns {HRESULT} 
+     * @returns {IMAPITable} 
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapicontainer-getcontentstable
      */
-    GetContentsTable(ulFlags, lppTable) {
-        result := ComCall(14, this, "uint", ulFlags, "ptr*", lppTable, "HRESULT")
-        return result
+    GetContentsTable(ulFlags) {
+        result := ComCall(14, this, "uint", ulFlags, "ptr*", &lppTable := 0, "HRESULT")
+        return IMAPITable(lppTable)
     }
 
     /**
      * 
      * @param {Integer} ulFlags 
-     * @param {Pointer<IMAPITable>} lppTable 
-     * @returns {HRESULT} 
+     * @returns {IMAPITable} 
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/imapicontainer-gethierarchytable
      */
-    GetHierarchyTable(ulFlags, lppTable) {
-        result := ComCall(15, this, "uint", ulFlags, "ptr*", lppTable, "HRESULT")
-        return result
+    GetHierarchyTable(ulFlags) {
+        result := ComCall(15, this, "uint", ulFlags, "ptr*", &lppTable := 0, "HRESULT")
+        return IMAPITable(lppTable)
     }
 
     /**

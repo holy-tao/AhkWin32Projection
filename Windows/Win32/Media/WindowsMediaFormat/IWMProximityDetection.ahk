@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\INSSBuffer.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -44,18 +45,17 @@ class IWMProximityDetection extends IUnknown{
      * @param {Pointer<Integer>} pbLocalAddress 
      * @param {Integer} cbLocalAddress 
      * @param {Integer} dwExtraPortsAllowed 
-     * @param {Pointer<INSSBuffer>} ppRegistrationResponseMsg 
      * @param {IWMStatusCallback} pCallback 
      * @param {Pointer<Void>} pvContext 
-     * @returns {HRESULT} 
+     * @returns {INSSBuffer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmproximitydetection-startdetection
      */
-    StartDetection(pbRegistrationMsg, cbRegistrationMsg, pbLocalAddress, cbLocalAddress, dwExtraPortsAllowed, ppRegistrationResponseMsg, pCallback, pvContext) {
+    StartDetection(pbRegistrationMsg, cbRegistrationMsg, pbLocalAddress, cbLocalAddress, dwExtraPortsAllowed, pCallback, pvContext) {
         pbRegistrationMsgMarshal := pbRegistrationMsg is VarRef ? "char*" : "ptr"
         pbLocalAddressMarshal := pbLocalAddress is VarRef ? "char*" : "ptr"
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, pbRegistrationMsgMarshal, pbRegistrationMsg, "uint", cbRegistrationMsg, pbLocalAddressMarshal, pbLocalAddress, "uint", cbLocalAddress, "uint", dwExtraPortsAllowed, "ptr*", ppRegistrationResponseMsg, "ptr", pCallback, pvContextMarshal, pvContext, "HRESULT")
-        return result
+        result := ComCall(3, this, pbRegistrationMsgMarshal, pbRegistrationMsg, "uint", cbRegistrationMsg, pbLocalAddressMarshal, pbLocalAddress, "uint", cbLocalAddress, "uint", dwExtraPortsAllowed, "ptr*", &ppRegistrationResponseMsg := 0, "ptr", pCallback, pvContextMarshal, pvContext, "HRESULT")
+        return INSSBuffer(ppRegistrationResponseMsg)
     }
 }

@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Ole\IEnumVARIANT.ahk
+#Include .\IProgressItem.ahk
+#Include .\IEnumProgressItems.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -44,74 +47,66 @@ class IProgressItems extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IEnumVARIANT>} NewEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-iprogressitems-get__newenum
      */
-    get__NewEnum(NewEnum) {
-        result := ComCall(7, this, "ptr*", NewEnum, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(7, this, "ptr*", &NewEnum := 0, "HRESULT")
+        return IEnumVARIANT(NewEnum)
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<IProgressItem>} item 
-     * @returns {HRESULT} 
+     * @returns {IProgressItem} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-iprogressitems-get_item
      */
-    get_Item(Index, item) {
-        result := ComCall(8, this, "int", Index, "ptr*", item, "HRESULT")
-        return result
+    get_Item(Index) {
+        result := ComCall(8, this, "int", Index, "ptr*", &item := 0, "HRESULT")
+        return IProgressItem(item)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-iprogressitems-get_count
      */
-    get_Count(Count) {
-        CountMarshal := Count is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, CountMarshal, Count, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(9, this, "int*", &Count := 0, "HRESULT")
+        return Count
     }
 
     /**
      * 
      * @param {Integer} block 
-     * @param {Pointer<IProgressItem>} item 
-     * @returns {HRESULT} 
+     * @returns {IProgressItem} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-iprogressitems-progressitemfromblock
      */
-    ProgressItemFromBlock(block, item) {
-        result := ComCall(10, this, "uint", block, "ptr*", item, "HRESULT")
-        return result
+    ProgressItemFromBlock(block) {
+        result := ComCall(10, this, "uint", block, "ptr*", &item := 0, "HRESULT")
+        return IProgressItem(item)
     }
 
     /**
      * 
      * @param {BSTR} description 
-     * @param {Pointer<IProgressItem>} item 
-     * @returns {HRESULT} 
+     * @returns {IProgressItem} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-iprogressitems-progressitemfromdescription
      */
-    ProgressItemFromDescription(description, item) {
+    ProgressItemFromDescription(description) {
         description := description is String ? BSTR.Alloc(description).Value : description
 
-        result := ComCall(11, this, "ptr", description, "ptr*", item, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", description, "ptr*", &item := 0, "HRESULT")
+        return IProgressItem(item)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumProgressItems>} NewEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumProgressItems} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-iprogressitems-get_enumprogressitems
      */
-    get_EnumProgressItems(NewEnum) {
-        result := ComCall(12, this, "ptr*", NewEnum, "HRESULT")
-        return result
+    get_EnumProgressItems() {
+        result := ComCall(12, this, "ptr*", &NewEnum := 0, "HRESULT")
+        return IEnumProgressItems(NewEnum)
     }
 }

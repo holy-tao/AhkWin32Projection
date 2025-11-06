@@ -50,15 +50,12 @@ class IMFVideoMediaType extends IMFMediaType{
     /**
      * 
      * @param {Guid} guidRepresentation 
-     * @param {Pointer<Pointer<Void>>} ppvRepresentation 
      * @param {Integer} lStride 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfvideomediatype-getvideorepresentation
      */
-    GetVideoRepresentation(guidRepresentation, ppvRepresentation, lStride) {
-        ppvRepresentationMarshal := ppvRepresentation is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(39, this, "ptr", guidRepresentation, ppvRepresentationMarshal, ppvRepresentation, "int", lStride, "HRESULT")
-        return result
+    GetVideoRepresentation(guidRepresentation, lStride) {
+        result := ComCall(39, this, "ptr", guidRepresentation, "ptr*", &ppvRepresentation := 0, "int", lStride, "HRESULT")
+        return ppvRepresentation
     }
 }

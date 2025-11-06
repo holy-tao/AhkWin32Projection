@@ -35,12 +35,11 @@ class IImageDecodeEventSink extends IUnknown{
      * @param {Pointer<Guid>} bfid 
      * @param {Integer} nPasses 
      * @param {Integer} dwHints 
-     * @param {Pointer<IUnknown>} ppSurface 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    GetSurface(nWidth, nHeight, bfid, nPasses, dwHints, ppSurface) {
-        result := ComCall(3, this, "int", nWidth, "int", nHeight, "ptr", bfid, "uint", nPasses, "uint", dwHints, "ptr*", ppSurface, "HRESULT")
-        return result
+    GetSurface(nWidth, nHeight, bfid, nPasses, dwHints) {
+        result := ComCall(3, this, "int", nWidth, "int", nHeight, "ptr", bfid, "uint", nPasses, "uint", dwHints, "ptr*", &ppSurface := 0, "HRESULT")
+        return IUnknown(ppSurface)
     }
 
     /**

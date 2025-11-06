@@ -32,34 +32,31 @@ class IHandlerInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} value 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ihandlerinfo-getapplicationdisplayname
      */
-    GetApplicationDisplayName(value) {
-        result := ComCall(3, this, "ptr", value, "HRESULT")
-        return result
+    GetApplicationDisplayName() {
+        result := ComCall(3, this, "ptr*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} value 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ihandlerinfo-getapplicationpublisher
      */
-    GetApplicationPublisher(value) {
-        result := ComCall(4, this, "ptr", value, "HRESULT")
-        return result
+    GetApplicationPublisher() {
+        result := ComCall(4, this, "ptr*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} value 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ihandlerinfo-getapplicationiconreference
      */
-    GetApplicationIconReference(value) {
-        result := ComCall(5, this, "ptr", value, "HRESULT")
-        return result
+    GetApplicationIconReference() {
+        result := ComCall(5, this, "ptr*", &value := 0, "HRESULT")
+        return value
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\INetwork.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,82 +33,73 @@ class INetworkConnection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<INetwork>} ppNetwork 
-     * @returns {HRESULT} 
+     * @returns {INetwork} 
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkconnection-getnetwork
      */
-    GetNetwork(ppNetwork) {
-        result := ComCall(7, this, "ptr*", ppNetwork, "HRESULT")
-        return result
+    GetNetwork() {
+        result := ComCall(7, this, "ptr*", &ppNetwork := 0, "HRESULT")
+        return INetwork(ppNetwork)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbIsConnected 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkconnection-get_isconnectedtointernet
      */
-    get_IsConnectedToInternet(pbIsConnected) {
-        result := ComCall(8, this, "ptr", pbIsConnected, "HRESULT")
-        return result
+    get_IsConnectedToInternet() {
+        result := ComCall(8, this, "short*", &pbIsConnected := 0, "HRESULT")
+        return pbIsConnected
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbIsConnected 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkconnection-get_isconnected
      */
-    get_IsConnected(pbIsConnected) {
-        result := ComCall(9, this, "ptr", pbIsConnected, "HRESULT")
-        return result
+    get_IsConnected() {
+        result := ComCall(9, this, "short*", &pbIsConnected := 0, "HRESULT")
+        return pbIsConnected
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pConnectivity 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkconnection-getconnectivity
      */
-    GetConnectivity(pConnectivity) {
-        pConnectivityMarshal := pConnectivity is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, pConnectivityMarshal, pConnectivity, "HRESULT")
-        return result
+    GetConnectivity() {
+        result := ComCall(10, this, "int*", &pConnectivity := 0, "HRESULT")
+        return pConnectivity
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} pgdConnectionId 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkconnection-getconnectionid
      */
-    GetConnectionId(pgdConnectionId) {
+    GetConnectionId() {
+        pgdConnectionId := Guid()
         result := ComCall(11, this, "ptr", pgdConnectionId, "HRESULT")
-        return result
+        return pgdConnectionId
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} pgdAdapterId 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkconnection-getadapterid
      */
-    GetAdapterId(pgdAdapterId) {
+    GetAdapterId() {
+        pgdAdapterId := Guid()
         result := ComCall(12, this, "ptr", pgdAdapterId, "HRESULT")
-        return result
+        return pgdAdapterId
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pDomainType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkconnection-getdomaintype
      */
-    GetDomainType(pDomainType) {
-        pDomainTypeMarshal := pDomainType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, pDomainTypeMarshal, pDomainType, "HRESULT")
-        return result
+    GetDomainType() {
+        result := ComCall(13, this, "int*", &pDomainType := 0, "HRESULT")
+        return pDomainType
     }
 }

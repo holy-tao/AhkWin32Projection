@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\INetCfgComponent.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,14 +33,13 @@ class INetCfgClassSetup extends IUnknown{
      * 
      * @param {HWND} hwndParent 
      * @param {Pointer<OBO_TOKEN>} pOboToken 
-     * @param {Pointer<INetCfgComponent>} ppnccItem 
-     * @returns {HRESULT} 
+     * @returns {INetCfgComponent} 
      */
-    SelectAndInstall(hwndParent, pOboToken, ppnccItem) {
+    SelectAndInstall(hwndParent, pOboToken) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
-        result := ComCall(3, this, "ptr", hwndParent, "ptr", pOboToken, "ptr*", ppnccItem, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", hwndParent, "ptr", pOboToken, "ptr*", &ppnccItem := 0, "HRESULT")
+        return INetCfgComponent(ppnccItem)
     }
 
     /**
@@ -50,16 +50,15 @@ class INetCfgClassSetup extends IUnknown{
      * @param {Integer} dwUpgradeFromBuildNo 
      * @param {PWSTR} pszwAnswerFile 
      * @param {PWSTR} pszwAnswerSections 
-     * @param {Pointer<INetCfgComponent>} ppnccItem 
-     * @returns {HRESULT} 
+     * @returns {INetCfgComponent} 
      */
-    Install(pszwInfId, pOboToken, dwSetupFlags, dwUpgradeFromBuildNo, pszwAnswerFile, pszwAnswerSections, ppnccItem) {
+    Install(pszwInfId, pOboToken, dwSetupFlags, dwUpgradeFromBuildNo, pszwAnswerFile, pszwAnswerSections) {
         pszwInfId := pszwInfId is String ? StrPtr(pszwInfId) : pszwInfId
         pszwAnswerFile := pszwAnswerFile is String ? StrPtr(pszwAnswerFile) : pszwAnswerFile
         pszwAnswerSections := pszwAnswerSections is String ? StrPtr(pszwAnswerSections) : pszwAnswerSections
 
-        result := ComCall(4, this, "ptr", pszwInfId, "ptr", pOboToken, "uint", dwSetupFlags, "uint", dwUpgradeFromBuildNo, "ptr", pszwAnswerFile, "ptr", pszwAnswerSections, "ptr*", ppnccItem, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pszwInfId, "ptr", pOboToken, "uint", dwSetupFlags, "uint", dwUpgradeFromBuildNo, "ptr", pszwAnswerFile, "ptr", pszwAnswerSections, "ptr*", &ppnccItem := 0, "HRESULT")
+        return INetCfgComponent(ppnccItem)
     }
 
     /**
@@ -70,7 +69,9 @@ class INetCfgClassSetup extends IUnknown{
      * @returns {HRESULT} 
      */
     DeInstall(pComponent, pOboToken, pmszwRefs) {
-        result := ComCall(5, this, "ptr", pComponent, "ptr", pOboToken, "ptr", pmszwRefs, "HRESULT")
+        pmszwRefsMarshal := pmszwRefs is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, "ptr", pComponent, "ptr", pOboToken, pmszwRefsMarshal, pmszwRefs, "HRESULT")
         return result
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IHTMLElement.ahk
+#Include .\IHTMLEventObj.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -36,41 +38,37 @@ class IHTCDefaultDispatch extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IHTMLElement>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElement} 
      */
-    get_element(p) {
-        result := ComCall(7, this, "ptr*", p, "HRESULT")
-        return result
+    get_element() {
+        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLElement(p)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLEventObj>} eventObj 
-     * @returns {HRESULT} 
+     * @returns {IHTMLEventObj} 
      */
-    createEventObject(eventObj) {
-        result := ComCall(8, this, "ptr*", eventObj, "HRESULT")
-        return result
+    createEventObject() {
+        result := ComCall(8, this, "ptr*", &eventObj := 0, "HRESULT")
+        return IHTMLEventObj(eventObj)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_defaults(p) {
-        result := ComCall(9, this, "ptr*", p, "HRESULT")
-        return result
+    get_defaults() {
+        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_document(p) {
-        result := ComCall(10, this, "ptr*", p, "HRESULT")
-        return result
+    get_document() {
+        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 }

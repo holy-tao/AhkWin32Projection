@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -47,15 +48,12 @@ class IVMRSurface9 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<Integer>>} lpSurface 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrsurface9-locksurface
      */
-    LockSurface(lpSurface) {
-        lpSurfaceMarshal := lpSurface is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, lpSurfaceMarshal, lpSurface, "HRESULT")
-        return result
+    LockSurface() {
+        result := ComCall(4, this, "ptr*", &lpSurface := 0, "HRESULT")
+        return lpSurface
     }
 
     /**
@@ -70,12 +68,11 @@ class IVMRSurface9 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDirect3DSurface9>} lplpSurface 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DSurface9} 
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrsurface9-getsurface
      */
-    GetSurface(lplpSurface) {
-        result := ComCall(6, this, "ptr*", lplpSurface, "HRESULT")
-        return result
+    GetSurface() {
+        result := ComCall(6, this, "ptr*", &lplpSurface := 0, "HRESULT")
+        return IDirect3DSurface9(lplpSurface)
     }
 }

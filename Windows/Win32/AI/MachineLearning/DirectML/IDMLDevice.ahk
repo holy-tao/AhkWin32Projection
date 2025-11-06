@@ -49,15 +49,12 @@ class IDMLDevice extends IDMLObject{
      * 
      * @param {Pointer<DML_OPERATOR_DESC>} desc 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldevice-createoperator
      */
-    CreateOperator(desc, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(8, this, "ptr", desc, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    CreateOperator(desc, riid) {
+        result := ComCall(8, this, "ptr", desc, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
@@ -65,15 +62,12 @@ class IDMLDevice extends IDMLObject{
      * @param {IDMLOperator} op 
      * @param {Integer} flags 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldevice-compileoperator
      */
-    CompileOperator(op, flags, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(9, this, "ptr", op, "int", flags, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    CompileOperator(op, flags, riid) {
+        result := ComCall(9, this, "ptr", op, "int", flags, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
@@ -81,44 +75,35 @@ class IDMLDevice extends IDMLObject{
      * @param {Integer} operatorCount 
      * @param {Pointer<IDMLCompiledOperator>} operators 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldevice-createoperatorinitializer
      */
-    CreateOperatorInitializer(operatorCount, operators, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(10, this, "uint", operatorCount, "ptr*", operators, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    CreateOperatorInitializer(operatorCount, operators, riid) {
+        result := ComCall(10, this, "uint", operatorCount, "ptr*", operators, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldevice-createcommandrecorder
      */
-    CreateCommandRecorder(riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(11, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    CreateCommandRecorder(riid) {
+        result := ComCall(11, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * 
      * @param {Pointer<DML_BINDING_TABLE_DESC>} desc 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldevice-createbindingtable
      */
-    CreateBindingTable(desc, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(12, this, "ptr", desc, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    CreateBindingTable(desc, riid) {
+        result := ComCall(12, this, "ptr", desc, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
@@ -158,14 +143,11 @@ class IDMLDevice extends IDMLObject{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldevice-getparentdevice
      */
-    GetParentDevice(riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(16, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetParentDevice(riid) {
+        result := ComCall(16, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 }

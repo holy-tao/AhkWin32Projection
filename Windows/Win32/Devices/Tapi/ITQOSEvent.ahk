@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITCallInfo.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,38 +33,31 @@ class ITQOSEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ITCallInfo>} ppCall 
-     * @returns {HRESULT} 
+     * @returns {ITCallInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itqosevent-get_call
      */
-    get_Call(ppCall) {
-        result := ComCall(7, this, "ptr*", ppCall, "HRESULT")
-        return result
+    get_Call() {
+        result := ComCall(7, this, "ptr*", &ppCall := 0, "HRESULT")
+        return ITCallInfo(ppCall)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pQosEvent 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itqosevent-get_event
      */
-    get_Event(pQosEvent) {
-        pQosEventMarshal := pQosEvent is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pQosEventMarshal, pQosEvent, "HRESULT")
-        return result
+    get_Event() {
+        result := ComCall(8, this, "int*", &pQosEvent := 0, "HRESULT")
+        return pQosEvent
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plMediaType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itqosevent-get_mediatype
      */
-    get_MediaType(plMediaType) {
-        plMediaTypeMarshal := plMediaType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, plMediaTypeMarshal, plMediaType, "HRESULT")
-        return result
+    get_MediaType() {
+        result := ComCall(9, this, "int*", &plMediaType := 0, "HRESULT")
+        return plMediaType
     }
 }

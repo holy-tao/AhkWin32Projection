@@ -32,16 +32,13 @@ class IGraphicsCaptureItemInterop extends IUnknown{
      * 
      * @param {HWND} window 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} result 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.capture.interop/nf-windows-graphics-capture-interop-igraphicscaptureiteminterop-createforwindow
      */
-    CreateForWindow(window, riid, result) {
+    CreateForWindow(window, riid) {
         window := window is Win32Handle ? NumGet(window, "ptr") : window
 
-        resultMarshal := result is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", window, "ptr", riid, resultMarshal, result, "HRESULT")
+        result := ComCall(3, this, "ptr", window, "ptr", riid, "ptr*", &result := 0, "HRESULT")
         return result
     }
 
@@ -49,16 +46,13 @@ class IGraphicsCaptureItemInterop extends IUnknown{
      * 
      * @param {HMONITOR} monitor 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} result 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.capture.interop/nf-windows-graphics-capture-interop-igraphicscaptureiteminterop-createformonitor
      */
-    CreateForMonitor(monitor, riid, result) {
+    CreateForMonitor(monitor, riid) {
         monitor := monitor is Win32Handle ? NumGet(monitor, "ptr") : monitor
 
-        resultMarshal := result is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "ptr", monitor, "ptr", riid, resultMarshal, result, "HRESULT")
+        result := ComCall(4, this, "ptr", monitor, "ptr", riid, "ptr*", &result := 0, "HRESULT")
         return result
     }
 }

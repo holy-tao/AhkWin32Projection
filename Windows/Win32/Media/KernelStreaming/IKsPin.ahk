@@ -32,27 +32,21 @@ class IKsPin extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<KSMULTIPLE_ITEM>>} MediumList 
-     * @returns {HRESULT} 
+     * @returns {Pointer<KSMULTIPLE_ITEM>} 
      * @see https://learn.microsoft.com/windows/win32/DirectShow/ikspin-ksquerymediums
      */
-    KsQueryMediums(MediumList) {
-        MediumListMarshal := MediumList is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, MediumListMarshal, MediumList, "HRESULT")
-        return result
+    KsQueryMediums() {
+        result := ComCall(3, this, "ptr*", &MediumList := 0, "HRESULT")
+        return MediumList
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<KSMULTIPLE_ITEM>>} InterfaceList 
-     * @returns {HRESULT} 
+     * @returns {Pointer<KSMULTIPLE_ITEM>} 
      */
-    KsQueryInterfaces(InterfaceList) {
-        InterfaceListMarshal := InterfaceList is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, InterfaceListMarshal, InterfaceList, "HRESULT")
-        return result
+    KsQueryInterfaces() {
+        result := ComCall(4, this, "ptr*", &InterfaceList := 0, "HRESULT")
+        return InterfaceList
     }
 
     /**

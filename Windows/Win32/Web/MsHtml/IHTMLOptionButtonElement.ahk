@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IHTMLFormElement.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -49,22 +51,22 @@ class IHTMLOptionButtonElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_value(p) {
+    get_value() {
+        p := BSTR()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_type(p) {
+    get_type() {
+        p := BSTR()
         result := ComCall(9, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -81,12 +83,12 @@ class IHTMLOptionButtonElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_name(p) {
+    get_name() {
+        p := BSTR()
         result := ComCall(11, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -101,12 +103,11 @@ class IHTMLOptionButtonElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_checked(p) {
-        result := ComCall(13, this, "ptr", p, "HRESULT")
-        return result
+    get_checked() {
+        result := ComCall(13, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -121,12 +122,11 @@ class IHTMLOptionButtonElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_defaultChecked(p) {
-        result := ComCall(15, this, "ptr", p, "HRESULT")
-        return result
+    get_defaultChecked() {
+        result := ComCall(15, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -141,12 +141,12 @@ class IHTMLOptionButtonElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onchange(p) {
+    get_onchange() {
+        p := VARIANT()
         result := ComCall(17, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -161,12 +161,11 @@ class IHTMLOptionButtonElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_disabled(p) {
-        result := ComCall(19, this, "ptr", p, "HRESULT")
-        return result
+    get_disabled() {
+        result := ComCall(19, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -181,12 +180,11 @@ class IHTMLOptionButtonElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_status(p) {
-        result := ComCall(21, this, "ptr", p, "HRESULT")
-        return result
+    get_status() {
+        result := ComCall(21, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -201,21 +199,19 @@ class IHTMLOptionButtonElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_indeterminate(p) {
-        result := ComCall(23, this, "ptr", p, "HRESULT")
-        return result
+    get_indeterminate() {
+        result := ComCall(23, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLFormElement>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLFormElement} 
      */
-    get_form(p) {
-        result := ComCall(24, this, "ptr*", p, "HRESULT")
-        return result
+    get_form() {
+        result := ComCall(24, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLFormElement(p)
     }
 }

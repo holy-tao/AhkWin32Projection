@@ -48,15 +48,12 @@ class IStreamPseudoRandomBased extends IStream{
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-istreampseudorandombased-get_seed
      */
-    get_Seed(value) {
-        valueMarshal := value is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(15, this, valueMarshal, value, "HRESULT")
-        return result
+    get_Seed() {
+        result := ComCall(15, this, "uint*", &value := 0, "HRESULT")
+        return value
     }
 
     /**

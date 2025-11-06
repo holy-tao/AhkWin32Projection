@@ -2,6 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ITsSbLoadBalanceResult.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include .\ITsSbEnvironment.ahk
+#Include .\ITsSbClientConnectionPropertySet.ahk
+#Include .\ITsSbSession.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -33,97 +38,95 @@ class ITsSbClientConnection extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-get_username
      */
-    get_UserName(pVal) {
+    get_UserName() {
+        pVal := BSTR()
         result := ComCall(3, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-get_domain
      */
-    get_Domain(pVal) {
+    get_Domain() {
+        pVal := BSTR()
         result := ComCall(4, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-get_initialprogram
      */
-    get_InitialProgram(pVal) {
+    get_InitialProgram() {
+        pVal := BSTR()
         result := ComCall(5, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<ITsSbLoadBalanceResult>} ppVal 
-     * @returns {HRESULT} 
+     * @returns {ITsSbLoadBalanceResult} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-get_loadbalanceresult
      */
-    get_LoadBalanceResult(ppVal) {
-        result := ComCall(6, this, "ptr*", ppVal, "HRESULT")
-        return result
+    get_LoadBalanceResult() {
+        result := ComCall(6, this, "ptr*", &ppVal := 0, "HRESULT")
+        return ITsSbLoadBalanceResult(ppVal)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-get_farmname
      */
-    get_FarmName(pVal) {
+    get_FarmName() {
+        pVal := BSTR()
         result := ComCall(7, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
      * @param {BSTR} contextId 
      * @param {VARIANT} context 
-     * @param {Pointer<VARIANT>} existingContext 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-putcontext
      */
-    PutContext(contextId, context, existingContext) {
+    PutContext(contextId, context) {
         contextId := contextId is String ? BSTR.Alloc(contextId).Value : contextId
 
+        existingContext := VARIANT()
         result := ComCall(8, this, "ptr", contextId, "ptr", context, "ptr", existingContext, "HRESULT")
-        return result
+        return existingContext
     }
 
     /**
      * 
      * @param {BSTR} contextId 
-     * @param {Pointer<VARIANT>} context 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-getcontext
      */
-    GetContext(contextId, context) {
+    GetContext(contextId) {
         contextId := contextId is String ? BSTR.Alloc(contextId).Value : contextId
 
+        context := VARIANT()
         result := ComCall(9, this, "ptr", contextId, "ptr", context, "HRESULT")
-        return result
+        return context
     }
 
     /**
      * 
-     * @param {Pointer<ITsSbEnvironment>} ppEnvironment 
-     * @returns {HRESULT} 
+     * @returns {ITsSbEnvironment} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-get_environment
      */
-    get_Environment(ppEnvironment) {
-        result := ComCall(10, this, "ptr*", ppEnvironment, "HRESULT")
-        return result
+    get_Environment() {
+        result := ComCall(10, this, "ptr*", &ppEnvironment := 0, "HRESULT")
+        return ITsSbEnvironment(ppEnvironment)
     }
 
     /**
@@ -138,71 +141,62 @@ class ITsSbClientConnection extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-get_samuseraccount
      */
-    get_SamUserAccount(pVal) {
+    get_SamUserAccount() {
+        pVal := BSTR()
         result := ComCall(12, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<ITsSbClientConnectionPropertySet>} ppPropertySet 
-     * @returns {HRESULT} 
+     * @returns {ITsSbClientConnectionPropertySet} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-get_clientconnectionpropertyset
      */
-    get_ClientConnectionPropertySet(ppPropertySet) {
-        result := ComCall(13, this, "ptr*", ppPropertySet, "HRESULT")
-        return result
+    get_ClientConnectionPropertySet() {
+        result := ComCall(13, this, "ptr*", &ppPropertySet := 0, "HRESULT")
+        return ITsSbClientConnectionPropertySet(ppPropertySet)
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} ppVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-get_isfirstassignment
      */
-    get_IsFirstAssignment(ppVal) {
-        result := ComCall(14, this, "ptr", ppVal, "HRESULT")
-        return result
+    get_IsFirstAssignment() {
+        result := ComCall(14, this, "int*", &ppVal := 0, "HRESULT")
+        return ppVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pRdFarmType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-get_rdfarmtype
      */
-    get_RdFarmType(pRdFarmType) {
-        pRdFarmTypeMarshal := pRdFarmType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, pRdFarmTypeMarshal, pRdFarmType, "HRESULT")
-        return result
+    get_RdFarmType() {
+        result := ComCall(15, this, "int*", &pRdFarmType := 0, "HRESULT")
+        return pRdFarmType
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Integer>>} pszUserSidString 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-get_usersidstring
      */
-    get_UserSidString(pszUserSidString) {
-        pszUserSidStringMarshal := pszUserSidString is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(16, this, pszUserSidStringMarshal, pszUserSidString, "HRESULT")
-        return result
+    get_UserSidString() {
+        result := ComCall(16, this, "ptr*", &pszUserSidString := 0, "HRESULT")
+        return pszUserSidString
     }
 
     /**
      * 
-     * @param {Pointer<ITsSbSession>} ppSession 
-     * @returns {HRESULT} 
+     * @returns {ITsSbSession} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbclientconnection-getdisconnectedsession
      */
-    GetDisconnectedSession(ppSession) {
-        result := ComCall(17, this, "ptr*", ppSession, "HRESULT")
-        return result
+    GetDisconnectedSession() {
+        result := ComCall(17, this, "ptr*", &ppSession := 0, "HRESULT")
+        return ITsSbSession(ppSession)
     }
 }

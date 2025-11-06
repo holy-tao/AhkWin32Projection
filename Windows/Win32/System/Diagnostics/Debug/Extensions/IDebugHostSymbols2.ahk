@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Foundation\BSTR.ahk
 #Include .\IDebugHostSymbols.ahk
 
 /**
@@ -32,11 +33,11 @@ class IDebugHostSymbols2 extends IDebugHostSymbols{
      * 
      * @param {IDebugHostSymbol} pSymbol 
      * @param {Integer} flags 
-     * @param {Pointer<BSTR>} pDemangledSymbolName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    DemangleSymbolName(pSymbol, flags, pDemangledSymbolName) {
+    DemangleSymbolName(pSymbol, flags) {
+        pDemangledSymbolName := BSTR()
         result := ComCall(10, this, "ptr", pSymbol, "uint", flags, "ptr", pDemangledSymbolName, "HRESULT")
-        return result
+        return pDemangledSymbolName
     }
 }

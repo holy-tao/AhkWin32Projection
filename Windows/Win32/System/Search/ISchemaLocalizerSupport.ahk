@@ -33,14 +33,13 @@ class ISchemaLocalizerSupport extends IUnknown{
     /**
      * 
      * @param {PWSTR} pszGlobalString 
-     * @param {Pointer<PWSTR>} ppszLocalString 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquery/nf-structuredquery-ischemalocalizersupport-localize
      */
-    Localize(pszGlobalString, ppszLocalString) {
+    Localize(pszGlobalString) {
         pszGlobalString := pszGlobalString is String ? StrPtr(pszGlobalString) : pszGlobalString
 
-        result := ComCall(3, this, "ptr", pszGlobalString, "ptr", ppszLocalString, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pszGlobalString, "ptr*", &ppszLocalString := 0, "HRESULT")
+        return ppszLocalString
     }
 }

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include ..\Com\IUnknown.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -33,39 +35,35 @@ class ISecurityIdentityColl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isecurityidentitycoll-get_count
      */
-    get_Count(plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, plCountMarshal, plCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &plCount := 0, "HRESULT")
+        return plCount
     }
 
     /**
      * 
      * @param {BSTR} name 
-     * @param {Pointer<VARIANT>} pItem 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isecurityidentitycoll-get_item
      */
-    get_Item(name, pItem) {
+    get_Item(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
+        pItem := VARIANT()
         result := ComCall(8, this, "ptr", name, "ptr", pItem, "HRESULT")
-        return result
+        return pItem
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isecurityidentitycoll-get__newenum
      */
-    get__NewEnum(ppEnum) {
-        result := ComCall(9, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(9, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IUnknown(ppEnum)
     }
 }

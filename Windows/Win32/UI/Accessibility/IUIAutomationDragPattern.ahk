@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IUIAutomationElementArray.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -37,93 +39,83 @@ class IUIAutomationDragPattern extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationdragpattern-get_currentisgrabbed
      */
-    get_CurrentIsGrabbed(retVal) {
-        result := ComCall(3, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CurrentIsGrabbed() {
+        result := ComCall(3, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationdragpattern-get_cachedisgrabbed
      */
-    get_CachedIsGrabbed(retVal) {
-        result := ComCall(4, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CachedIsGrabbed() {
+        result := ComCall(4, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationdragpattern-get_currentdropeffect
      */
-    get_CurrentDropEffect(retVal) {
+    get_CurrentDropEffect() {
+        retVal := BSTR()
         result := ComCall(5, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationdragpattern-get_cacheddropeffect
      */
-    get_CachedDropEffect(retVal) {
+    get_CachedDropEffect() {
+        retVal := BSTR()
         result := ComCall(6, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationdragpattern-get_currentdropeffects
      */
-    get_CurrentDropEffects(retVal) {
-        retValMarshal := retVal is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CurrentDropEffects() {
+        result := ComCall(7, this, "ptr*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationdragpattern-get_cacheddropeffects
      */
-    get_CachedDropEffects(retVal) {
-        retValMarshal := retVal is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(8, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CachedDropEffects() {
+        result := ComCall(8, this, "ptr*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<IUIAutomationElementArray>} retVal 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElementArray} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationdragpattern-getcurrentgrabbeditems
      */
-    GetCurrentGrabbedItems(retVal) {
-        result := ComCall(9, this, "ptr*", retVal, "HRESULT")
-        return result
+    GetCurrentGrabbedItems() {
+        result := ComCall(9, this, "ptr*", &retVal := 0, "HRESULT")
+        return IUIAutomationElementArray(retVal)
     }
 
     /**
      * 
-     * @param {Pointer<IUIAutomationElementArray>} retVal 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElementArray} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationdragpattern-getcachedgrabbeditems
      */
-    GetCachedGrabbedItems(retVal) {
-        result := ComCall(10, this, "ptr*", retVal, "HRESULT")
-        return result
+    GetCachedGrabbedItems() {
+        result := ComCall(10, this, "ptr*", &retVal := 0, "HRESULT")
+        return IUIAutomationElementArray(retVal)
     }
 }

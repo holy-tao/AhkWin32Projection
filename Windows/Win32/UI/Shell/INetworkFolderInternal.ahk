@@ -30,26 +30,20 @@ class INetworkFolderInternal extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} displayType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetResourceDisplayType(displayType) {
-        displayTypeMarshal := displayType is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, displayTypeMarshal, displayType, "HRESULT")
-        return result
+    GetResourceDisplayType() {
+        result := ComCall(3, this, "uint*", &displayType := 0, "HRESULT")
+        return displayType
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<ITEMIDLIST>>} idList 
-     * @returns {HRESULT} 
+     * @returns {Pointer<ITEMIDLIST>} 
      */
-    GetIDList(idList) {
-        idListMarshal := idList is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, idListMarshal, idList, "HRESULT")
-        return result
+    GetIDList() {
+        result := ComCall(4, this, "ptr*", &idList := 0, "HRESULT")
+        return idList
     }
 
     /**

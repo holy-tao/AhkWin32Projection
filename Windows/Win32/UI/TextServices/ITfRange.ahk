@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDataObject.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\ITfRange.ahk
+#Include .\ITfContext.ahk
 
 /**
  * The ITfRange interface is used by text services and applications to reference and manipulate text within a given context. The interface ID is IID_ITfRange.
@@ -42,17 +45,14 @@ class ITfRange extends IUnknown{
      * @param {Integer} dwFlags 
      * @param {PWSTR} pchText 
      * @param {Integer} cchMax 
-     * @param {Pointer<Integer>} pcch 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-gettext
      */
-    GetText(ec, dwFlags, pchText, cchMax, pcch) {
+    GetText(ec, dwFlags, pchText, cchMax) {
         pchText := pchText is String ? StrPtr(pchText) : pchText
 
-        pcchMarshal := pcch is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "uint", ec, "uint", dwFlags, "ptr", pchText, "uint", cchMax, pcchMarshal, pcch, "HRESULT")
-        return result
+        result := ComCall(3, this, "uint", ec, "uint", dwFlags, "ptr", pchText, "uint", cchMax, "uint*", &pcch := 0, "HRESULT")
+        return pcch
     }
 
     /**
@@ -74,13 +74,12 @@ class ITfRange extends IUnknown{
     /**
      * 
      * @param {Integer} ec 
-     * @param {Pointer<IDataObject>} ppDataObject 
-     * @returns {HRESULT} 
+     * @returns {IDataObject} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-getformattedtext
      */
-    GetFormattedText(ec, ppDataObject) {
-        result := ComCall(5, this, "uint", ec, "ptr*", ppDataObject, "HRESULT")
-        return result
+    GetFormattedText(ec) {
+        result := ComCall(5, this, "uint", ec, "ptr*", &ppDataObject := 0, "HRESULT")
+        return IDataObject(ppDataObject)
     }
 
     /**
@@ -88,13 +87,12 @@ class ITfRange extends IUnknown{
      * @param {Integer} ec 
      * @param {Pointer<Guid>} rguidService 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppunk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-getembedded
      */
-    GetEmbedded(ec, rguidService, riid, ppunk) {
-        result := ComCall(6, this, "uint", ec, "ptr", rguidService, "ptr", riid, "ptr*", ppunk, "HRESULT")
-        return result
+    GetEmbedded(ec, rguidService, riid) {
+        result := ComCall(6, this, "uint", ec, "ptr", rguidService, "ptr", riid, "ptr*", &ppunk := 0, "HRESULT")
+        return IUnknown(ppunk)
     }
 
     /**
@@ -114,32 +112,26 @@ class ITfRange extends IUnknown{
      * 
      * @param {Integer} ec 
      * @param {Integer} cchReq 
-     * @param {Pointer<Integer>} pcch 
      * @param {Pointer<TF_HALTCOND>} pHalt 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-shiftstart
      */
-    ShiftStart(ec, cchReq, pcch, pHalt) {
-        pcchMarshal := pcch is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, "uint", ec, "int", cchReq, pcchMarshal, pcch, "ptr", pHalt, "HRESULT")
-        return result
+    ShiftStart(ec, cchReq, pHalt) {
+        result := ComCall(8, this, "uint", ec, "int", cchReq, "int*", &pcch := 0, "ptr", pHalt, "HRESULT")
+        return pcch
     }
 
     /**
      * 
      * @param {Integer} ec 
      * @param {Integer} cchReq 
-     * @param {Pointer<Integer>} pcch 
      * @param {Pointer<TF_HALTCOND>} pHalt 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-shiftend
      */
-    ShiftEnd(ec, cchReq, pcch, pHalt) {
-        pcchMarshal := pcch is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, "uint", ec, "int", cchReq, pcchMarshal, pcch, "ptr", pHalt, "HRESULT")
-        return result
+    ShiftEnd(ec, cchReq, pHalt) {
+        result := ComCall(9, this, "uint", ec, "int", cchReq, "int*", &pcch := 0, "ptr", pHalt, "HRESULT")
+        return pcch
     }
 
     /**
@@ -172,38 +164,35 @@ class ITfRange extends IUnknown{
      * 
      * @param {Integer} ec 
      * @param {Integer} dir 
-     * @param {Pointer<BOOL>} pfNoRegion 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-shiftstartregion
      */
-    ShiftStartRegion(ec, dir, pfNoRegion) {
-        result := ComCall(12, this, "uint", ec, "int", dir, "ptr", pfNoRegion, "HRESULT")
-        return result
+    ShiftStartRegion(ec, dir) {
+        result := ComCall(12, this, "uint", ec, "int", dir, "int*", &pfNoRegion := 0, "HRESULT")
+        return pfNoRegion
     }
 
     /**
      * 
      * @param {Integer} ec 
      * @param {Integer} dir 
-     * @param {Pointer<BOOL>} pfNoRegion 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-shiftendregion
      */
-    ShiftEndRegion(ec, dir, pfNoRegion) {
-        result := ComCall(13, this, "uint", ec, "int", dir, "ptr", pfNoRegion, "HRESULT")
-        return result
+    ShiftEndRegion(ec, dir) {
+        result := ComCall(13, this, "uint", ec, "int", dir, "int*", &pfNoRegion := 0, "HRESULT")
+        return pfNoRegion
     }
 
     /**
      * 
      * @param {Integer} ec 
-     * @param {Pointer<BOOL>} pfEmpty 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-isempty
      */
-    IsEmpty(ec, pfEmpty) {
-        result := ComCall(14, this, "uint", ec, "ptr", pfEmpty, "HRESULT")
-        return result
+    IsEmpty(ec) {
+        result := ComCall(14, this, "uint", ec, "int*", &pfEmpty := 0, "HRESULT")
+        return pfEmpty
     }
 
     /**
@@ -223,13 +212,12 @@ class ITfRange extends IUnknown{
      * @param {Integer} ec 
      * @param {ITfRange} pWith 
      * @param {Integer} aPos 
-     * @param {Pointer<BOOL>} pfEqual 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-isequalstart
      */
-    IsEqualStart(ec, pWith, aPos, pfEqual) {
-        result := ComCall(16, this, "uint", ec, "ptr", pWith, "int", aPos, "ptr", pfEqual, "HRESULT")
-        return result
+    IsEqualStart(ec, pWith, aPos) {
+        result := ComCall(16, this, "uint", ec, "ptr", pWith, "int", aPos, "int*", &pfEqual := 0, "HRESULT")
+        return pfEqual
     }
 
     /**
@@ -237,13 +225,12 @@ class ITfRange extends IUnknown{
      * @param {Integer} ec 
      * @param {ITfRange} pWith 
      * @param {Integer} aPos 
-     * @param {Pointer<BOOL>} pfEqual 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-isequalend
      */
-    IsEqualEnd(ec, pWith, aPos, pfEqual) {
-        result := ComCall(17, this, "uint", ec, "ptr", pWith, "int", aPos, "ptr", pfEqual, "HRESULT")
-        return result
+    IsEqualEnd(ec, pWith, aPos) {
+        result := ComCall(17, this, "uint", ec, "ptr", pWith, "int", aPos, "int*", &pfEqual := 0, "HRESULT")
+        return pfEqual
     }
 
     /**
@@ -251,15 +238,12 @@ class ITfRange extends IUnknown{
      * @param {Integer} ec 
      * @param {ITfRange} pWith 
      * @param {Integer} aPos 
-     * @param {Pointer<Integer>} plResult 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-comparestart
      */
-    CompareStart(ec, pWith, aPos, plResult) {
-        plResultMarshal := plResult is VarRef ? "int*" : "ptr"
-
-        result := ComCall(18, this, "uint", ec, "ptr", pWith, "int", aPos, plResultMarshal, plResult, "HRESULT")
-        return result
+    CompareStart(ec, pWith, aPos) {
+        result := ComCall(18, this, "uint", ec, "ptr", pWith, "int", aPos, "int*", &plResult := 0, "HRESULT")
+        return plResult
     }
 
     /**
@@ -267,28 +251,24 @@ class ITfRange extends IUnknown{
      * @param {Integer} ec 
      * @param {ITfRange} pWith 
      * @param {Integer} aPos 
-     * @param {Pointer<Integer>} plResult 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-compareend
      */
-    CompareEnd(ec, pWith, aPos, plResult) {
-        plResultMarshal := plResult is VarRef ? "int*" : "ptr"
-
-        result := ComCall(19, this, "uint", ec, "ptr", pWith, "int", aPos, plResultMarshal, plResult, "HRESULT")
-        return result
+    CompareEnd(ec, pWith, aPos) {
+        result := ComCall(19, this, "uint", ec, "ptr", pWith, "int", aPos, "int*", &plResult := 0, "HRESULT")
+        return plResult
     }
 
     /**
      * 
      * @param {Integer} ec 
      * @param {Integer} cchInsert 
-     * @param {Pointer<BOOL>} pfInsertOk 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-adjustforinsert
      */
-    AdjustForInsert(ec, cchInsert, pfInsertOk) {
-        result := ComCall(20, this, "uint", ec, "uint", cchInsert, "ptr", pfInsertOk, "HRESULT")
-        return result
+    AdjustForInsert(ec, cchInsert) {
+        result := ComCall(20, this, "uint", ec, "uint", cchInsert, "int*", &pfInsertOk := 0, "HRESULT")
+        return pfInsertOk
     }
 
     /**
@@ -321,23 +301,21 @@ class ITfRange extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ITfRange>} ppClone 
-     * @returns {HRESULT} 
+     * @returns {ITfRange} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-clone
      */
-    Clone(ppClone) {
-        result := ComCall(23, this, "ptr*", ppClone, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(23, this, "ptr*", &ppClone := 0, "HRESULT")
+        return ITfRange(ppClone)
     }
 
     /**
      * 
-     * @param {Pointer<ITfContext>} ppContext 
-     * @returns {HRESULT} 
+     * @returns {ITfContext} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrange-getcontext
      */
-    GetContext(ppContext) {
-        result := ComCall(24, this, "ptr*", ppContext, "HRESULT")
-        return result
+    GetContext() {
+        result := ComCall(24, this, "ptr*", &ppContext := 0, "HRESULT")
+        return ITfContext(ppContext)
     }
 }

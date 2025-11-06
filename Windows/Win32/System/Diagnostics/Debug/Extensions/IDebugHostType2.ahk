@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IDebugHostType2.ahk
 #Include .\IDebugHostType.ahk
 
 /**
@@ -30,55 +31,46 @@ class IDebugHostType2 extends IDebugHostType{
 
     /**
      * 
-     * @param {Pointer<Boolean>} isTypedef 
-     * @returns {HRESULT} 
+     * @returns {Boolean} 
      */
-    IsTypedef(isTypedef) {
-        isTypedefMarshal := isTypedef is VarRef ? "int*" : "ptr"
-
-        result := ComCall(29, this, isTypedefMarshal, isTypedef, "HRESULT")
-        return result
+    IsTypedef() {
+        result := ComCall(29, this, "int*", &isTypedef := 0, "HRESULT")
+        return isTypedef
     }
 
     /**
      * 
-     * @param {Pointer<IDebugHostType2>} baseType 
-     * @returns {HRESULT} 
+     * @returns {IDebugHostType2} 
      */
-    GetTypedefBaseType(baseType) {
-        result := ComCall(30, this, "ptr*", baseType, "HRESULT")
-        return result
+    GetTypedefBaseType() {
+        result := ComCall(30, this, "ptr*", &baseType := 0, "HRESULT")
+        return IDebugHostType2(baseType)
     }
 
     /**
      * 
-     * @param {Pointer<IDebugHostType2>} finalBaseType 
-     * @returns {HRESULT} 
+     * @returns {IDebugHostType2} 
      */
-    GetTypedefFinalBaseType(finalBaseType) {
-        result := ComCall(31, this, "ptr*", finalBaseType, "HRESULT")
-        return result
+    GetTypedefFinalBaseType() {
+        result := ComCall(31, this, "ptr*", &finalBaseType := 0, "HRESULT")
+        return IDebugHostType2(finalBaseType)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} varArgsKind 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetFunctionVarArgsKind(varArgsKind) {
-        varArgsKindMarshal := varArgsKind is VarRef ? "int*" : "ptr"
-
-        result := ComCall(32, this, varArgsKindMarshal, varArgsKind, "HRESULT")
-        return result
+    GetFunctionVarArgsKind() {
+        result := ComCall(32, this, "int*", &varArgsKind := 0, "HRESULT")
+        return varArgsKind
     }
 
     /**
      * 
-     * @param {Pointer<IDebugHostType2>} instancePointerType 
-     * @returns {HRESULT} 
+     * @returns {IDebugHostType2} 
      */
-    GetFunctionInstancePointerType(instancePointerType) {
-        result := ComCall(33, this, "ptr*", instancePointerType, "HRESULT")
-        return result
+    GetFunctionInstancePointerType() {
+        result := ComCall(33, this, "ptr*", &instancePointerType := 0, "HRESULT")
+        return IDebugHostType2(instancePointerType)
     }
 }

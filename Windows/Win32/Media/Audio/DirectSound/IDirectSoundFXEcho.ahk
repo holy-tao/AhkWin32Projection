@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\DSFXEcho.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -40,11 +41,11 @@ class IDirectSoundFXEcho extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<DSFXEcho>} pDsFxEcho 
-     * @returns {HRESULT} 
+     * @returns {DSFXEcho} 
      */
-    GetAllParameters(pDsFxEcho) {
+    GetAllParameters() {
+        pDsFxEcho := DSFXEcho()
         result := ComCall(4, this, "ptr", pDsFxEcho, "HRESULT")
-        return result
+        return pDsFxEcho
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IRemoteDebugApplicationThread.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -41,23 +42,19 @@ class IRemoteDebugApplication110 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pCurrentOptions 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetCurrentDebuggerOptions(pCurrentOptions) {
-        pCurrentOptionsMarshal := pCurrentOptions is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, pCurrentOptionsMarshal, pCurrentOptions, "HRESULT")
-        return result
+    GetCurrentDebuggerOptions() {
+        result := ComCall(4, this, "int*", &pCurrentOptions := 0, "HRESULT")
+        return pCurrentOptions
     }
 
     /**
      * 
-     * @param {Pointer<IRemoteDebugApplicationThread>} ppThread 
-     * @returns {HRESULT} 
+     * @returns {IRemoteDebugApplicationThread} 
      */
-    GetMainThread(ppThread) {
-        result := ComCall(5, this, "ptr*", ppThread, "HRESULT")
-        return result
+    GetMainThread() {
+        result := ComCall(5, this, "ptr*", &ppThread := 0, "HRESULT")
+        return IRemoteDebugApplicationThread(ppThread)
     }
 }

@@ -32,15 +32,12 @@ class IWSDTransportAddress extends IWSDAddress{
 
     /**
      * 
-     * @param {Pointer<Integer>} pwPort 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdtransportaddress-getport
      */
-    GetPort(pwPort) {
-        pwPortMarshal := pwPort is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(5, this, pwPortMarshal, pwPort, "HRESULT")
-        return result
+    GetPort() {
+        result := ComCall(5, this, "ushort*", &pwPort := 0, "HRESULT")
+        return pwPort
     }
 
     /**
@@ -56,25 +53,23 @@ class IWSDTransportAddress extends IWSDAddress{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszAddress 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdtransportaddress-gettransportaddress
      */
-    GetTransportAddress(ppszAddress) {
-        result := ComCall(7, this, "ptr", ppszAddress, "HRESULT")
-        return result
+    GetTransportAddress() {
+        result := ComCall(7, this, "ptr*", &ppszAddress := 0, "HRESULT")
+        return ppszAddress
     }
 
     /**
      * 
      * @param {BOOL} fSafe 
-     * @param {Pointer<PWSTR>} ppszAddress 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdtransportaddress-gettransportaddressex
      */
-    GetTransportAddressEx(fSafe, ppszAddress) {
-        result := ComCall(8, this, "int", fSafe, "ptr", ppszAddress, "HRESULT")
-        return result
+    GetTransportAddressEx(fSafe) {
+        result := ComCall(8, this, "int", fSafe, "ptr*", &ppszAddress := 0, "HRESULT")
+        return ppszAddress
     }
 
     /**

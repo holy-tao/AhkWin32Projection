@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -38,37 +39,35 @@ class IBDA_IPSinkInfo extends IUnknown{
     /**
      * 
      * @param {Pointer<Integer>} pulcbAddresses 
-     * @param {Pointer<Pointer<Integer>>} ppbAddressList 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_ipsinkinfo-get_multicastlist
      */
-    get_MulticastList(pulcbAddresses, ppbAddressList) {
+    get_MulticastList(pulcbAddresses) {
         pulcbAddressesMarshal := pulcbAddresses is VarRef ? "uint*" : "ptr"
-        ppbAddressListMarshal := ppbAddressList is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, pulcbAddressesMarshal, pulcbAddresses, ppbAddressListMarshal, ppbAddressList, "HRESULT")
-        return result
+        result := ComCall(3, this, pulcbAddressesMarshal, pulcbAddresses, "ptr*", &ppbAddressList := 0, "HRESULT")
+        return ppbAddressList
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrBuffer 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_ipsinkinfo-get_adapteripaddress
      */
-    get_AdapterIPAddress(pbstrBuffer) {
+    get_AdapterIPAddress() {
+        pbstrBuffer := BSTR()
         result := ComCall(4, this, "ptr", pbstrBuffer, "HRESULT")
-        return result
+        return pbstrBuffer
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrBuffer 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_ipsinkinfo-get_adapterdescription
      */
-    get_AdapterDescription(pbstrBuffer) {
+    get_AdapterDescription() {
+        pbstrBuffer := BSTR()
         result := ComCall(5, this, "ptr", pbstrBuffer, "HRESULT")
-        return result
+        return pbstrBuffer
     }
 }

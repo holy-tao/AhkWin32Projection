@@ -45,8 +45,9 @@ class IOfflineFilesSyncConflictHandler extends IUnknown{
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         pConflictResolutionMarshal := pConflictResolution is VarRef ? "int*" : "ptr"
+        ppszNewNameMarshal := ppszNewName is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pszPath, "uint", fStateKnown, "int", state, "uint", fChangeDetails, pConflictResolutionMarshal, pConflictResolution, "ptr", ppszNewName, "HRESULT")
+        result := ComCall(3, this, "ptr", pszPath, "uint", fStateKnown, "int", state, "uint", fChangeDetails, pConflictResolutionMarshal, pConflictResolution, ppszNewNameMarshal, ppszNewName, "HRESULT")
         return result
     }
 }

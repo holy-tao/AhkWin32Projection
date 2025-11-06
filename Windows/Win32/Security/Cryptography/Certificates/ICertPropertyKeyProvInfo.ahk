@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IX509PrivateKey.ahk
 #Include .\ICertProperty.ahk
 
 /**
@@ -53,12 +54,11 @@ class ICertPropertyKeyProvInfo extends ICertProperty{
 
     /**
      * 
-     * @param {Pointer<IX509PrivateKey>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IX509PrivateKey} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertykeyprovinfo-get_privatekey
      */
-    get_PrivateKey(ppValue) {
-        result := ComCall(15, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_PrivateKey() {
+        result := ComCall(15, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IX509PrivateKey(ppValue)
     }
 }

@@ -39,15 +39,12 @@ class IFolderAction extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pulAge 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ifolderaction-get_age
      */
-    get_Age(pulAge) {
-        pulAgeMarshal := pulAge is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pulAgeMarshal, pulAge, "HRESULT")
-        return result
+    get_Age() {
+        result := ComCall(7, this, "uint*", &pulAge := 0, "HRESULT")
+        return pulAge
     }
 
     /**
@@ -63,15 +60,12 @@ class IFolderAction extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pulAge 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ifolderaction-get_size
      */
-    get_Size(pulAge) {
-        pulAgeMarshal := pulAge is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, pulAgeMarshal, pulAge, "HRESULT")
-        return result
+    get_Size() {
+        result := ComCall(9, this, "uint*", &pulAge := 0, "HRESULT")
+        return pulAge
     }
 
     /**
@@ -87,15 +81,12 @@ class IFolderAction extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} Steps 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ifolderaction-get_actions
      */
-    get_Actions(Steps) {
-        StepsMarshal := Steps is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, StepsMarshal, Steps, "HRESULT")
-        return result
+    get_Actions() {
+        result := ComCall(11, this, "int*", &Steps := 0, "HRESULT")
+        return Steps
     }
 
     /**
@@ -111,13 +102,13 @@ class IFolderAction extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrDestination 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ifolderaction-get_sendcabto
      */
-    get_SendCabTo(pbstrDestination) {
+    get_SendCabTo() {
+        pbstrDestination := BSTR()
         result := ComCall(13, this, "ptr", pbstrDestination, "HRESULT")
-        return result
+        return pbstrDestination
     }
 
     /**

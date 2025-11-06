@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HMODULE.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -61,14 +62,13 @@ class ICLRRuntimeInfo extends IUnknown{
     /**
      * 
      * @param {HANDLE} hndProcess 
-     * @param {Pointer<BOOL>} pbLoaded 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsLoaded(hndProcess, pbLoaded) {
+    IsLoaded(hndProcess) {
         hndProcess := hndProcess is Win32Handle ? NumGet(hndProcess, "ptr") : hndProcess
 
-        result := ComCall(5, this, "ptr", hndProcess, "ptr", pbLoaded, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", hndProcess, "int*", &pbLoaded := 0, "HRESULT")
+        return pbLoaded
     }
 
     /**
@@ -91,61 +91,48 @@ class ICLRRuntimeInfo extends IUnknown{
     /**
      * Loads the specified module into the address space of the calling process.
      * @param {PWSTR} pwzDllName 
-     * @param {Pointer<HMODULE>} phndModule 
-     * @returns {HRESULT} If the function succeeds, the return value is a handle to the module.
-     * 
-     * If the function fails, the return value is NULL. To get extended error information, call 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {HMODULE} 
      * @see https://docs.microsoft.com/windows/win32/api//libloaderapi/nf-libloaderapi-loadlibrarya
      */
-    LoadLibraryA(pwzDllName, phndModule) {
+    LoadLibraryA(pwzDllName) {
         pwzDllName := pwzDllName is String ? StrPtr(pwzDllName) : pwzDllName
 
+        phndModule := HMODULE()
         result := ComCall(7, this, "ptr", pwzDllName, "ptr", phndModule, "HRESULT")
-        return result
+        return phndModule
     }
 
     /**
      * Retrieves the address of an exported function or variable from the specified dynamic-link library (DLL).
      * @param {PSTR} pszProcName 
-     * @param {Pointer<Pointer<Void>>} ppProc 
-     * @returns {HRESULT} If the function succeeds, the return value is the address of the exported function or variable.
-     * 
-     * If the function fails, the return value is NULL. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {Pointer<Void>} 
      * @see https://docs.microsoft.com/windows/win32/api//libloaderapi/nf-libloaderapi-getprocaddress
      */
-    GetProcAddress(pszProcName, ppProc) {
+    GetProcAddress(pszProcName) {
         pszProcName := pszProcName is String ? StrPtr(pszProcName) : pszProcName
 
-        ppProcMarshal := ppProc is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(8, this, "ptr", pszProcName, ppProcMarshal, ppProc, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", pszProcName, "ptr*", &ppProc := 0, "HRESULT")
+        return ppProc
     }
 
     /**
      * 
      * @param {Pointer<Guid>} rclsid 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetInterface(rclsid, riid, ppUnk) {
-        ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(9, this, "ptr", rclsid, "ptr", riid, ppUnkMarshal, ppUnk, "HRESULT")
-        return result
+    GetInterface(rclsid, riid) {
+        result := ComCall(9, this, "ptr", rclsid, "ptr", riid, "ptr*", &ppUnk := 0, "HRESULT")
+        return ppUnk
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbLoadable 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsLoadable(pbLoadable) {
-        result := ComCall(10, this, "ptr", pbLoadable, "HRESULT")
-        return result
+    IsLoadable() {
+        result := ComCall(10, this, "int*", &pbLoadable := 0, "HRESULT")
+        return pbLoadable
     }
 
     /**
@@ -163,19 +150,17 @@ class ICLRRuntimeInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwStartupFlags 
      * @param {PWSTR} pwzHostConfigFile 
      * @param {Pointer<Integer>} pcchHostConfigFile 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetDefaultStartupFlags(pdwStartupFlags, pwzHostConfigFile, pcchHostConfigFile) {
+    GetDefaultStartupFlags(pwzHostConfigFile, pcchHostConfigFile) {
         pwzHostConfigFile := pwzHostConfigFile is String ? StrPtr(pwzHostConfigFile) : pwzHostConfigFile
 
-        pdwStartupFlagsMarshal := pdwStartupFlags is VarRef ? "uint*" : "ptr"
         pcchHostConfigFileMarshal := pcchHostConfigFile is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, pdwStartupFlagsMarshal, pdwStartupFlags, "ptr", pwzHostConfigFile, pcchHostConfigFileMarshal, pcchHostConfigFile, "HRESULT")
-        return result
+        result := ComCall(12, this, "uint*", &pdwStartupFlags := 0, "ptr", pwzHostConfigFile, pcchHostConfigFileMarshal, pcchHostConfigFile, "HRESULT")
+        return pdwStartupFlags
     }
 
     /**
@@ -194,9 +179,10 @@ class ICLRRuntimeInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     IsStarted(pbStarted, pdwStartupFlags) {
+        pbStartedMarshal := pbStarted is VarRef ? "int*" : "ptr"
         pdwStartupFlagsMarshal := pdwStartupFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, "ptr", pbStarted, pdwStartupFlagsMarshal, pdwStartupFlags, "HRESULT")
+        result := ComCall(14, this, pbStartedMarshal, pbStarted, pdwStartupFlagsMarshal, pdwStartupFlags, "HRESULT")
         return result
     }
 }

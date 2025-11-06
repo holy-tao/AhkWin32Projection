@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\IRDPSRAPIInvitation.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -39,38 +41,33 @@ class IRDPSRAPIInvitationManager extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitationmanager-get__newenum
      */
-    get__NewEnum(retval) {
-        result := ComCall(7, this, "ptr*", retval, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(7, this, "ptr*", &retval := 0, "HRESULT")
+        return IUnknown(retval)
     }
 
     /**
      * 
      * @param {VARIANT} item 
-     * @param {Pointer<IRDPSRAPIInvitation>} ppInvitation 
-     * @returns {HRESULT} 
+     * @returns {IRDPSRAPIInvitation} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitationmanager-get_item
      */
-    get_Item(item, ppInvitation) {
-        result := ComCall(8, this, "ptr", item, "ptr*", ppInvitation, "HRESULT")
-        return result
+    get_Item(item) {
+        result := ComCall(8, this, "ptr", item, "ptr*", &ppInvitation := 0, "HRESULT")
+        return IRDPSRAPIInvitation(ppInvitation)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitationmanager-get_count
      */
-    get_Count(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(9, this, "int*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
@@ -79,16 +76,15 @@ class IRDPSRAPIInvitationManager extends IDispatch{
      * @param {BSTR} bstrGroupName 
      * @param {BSTR} bstrPassword 
      * @param {Integer} AttendeeLimit 
-     * @param {Pointer<IRDPSRAPIInvitation>} ppInvitation 
-     * @returns {HRESULT} 
+     * @returns {IRDPSRAPIInvitation} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitationmanager-createinvitation
      */
-    CreateInvitation(bstrAuthString, bstrGroupName, bstrPassword, AttendeeLimit, ppInvitation) {
+    CreateInvitation(bstrAuthString, bstrGroupName, bstrPassword, AttendeeLimit) {
         bstrAuthString := bstrAuthString is String ? BSTR.Alloc(bstrAuthString).Value : bstrAuthString
         bstrGroupName := bstrGroupName is String ? BSTR.Alloc(bstrGroupName).Value : bstrGroupName
         bstrPassword := bstrPassword is String ? BSTR.Alloc(bstrPassword).Value : bstrPassword
 
-        result := ComCall(10, this, "ptr", bstrAuthString, "ptr", bstrGroupName, "ptr", bstrPassword, "int", AttendeeLimit, "ptr*", ppInvitation, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", bstrAuthString, "ptr", bstrGroupName, "ptr", bstrPassword, "int", AttendeeLimit, "ptr*", &ppInvitation := 0, "HRESULT")
+        return IRDPSRAPIInvitation(ppInvitation)
     }
 }

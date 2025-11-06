@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IRTCSession2.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -31,12 +32,11 @@ class IRTCReInviteEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IRTCSession2>} ppSession2 
-     * @returns {HRESULT} 
+     * @returns {IRTCSession2} 
      */
-    get_Session(ppSession2) {
-        result := ComCall(7, this, "ptr*", ppSession2, "HRESULT")
-        return result
+    get_Session() {
+        result := ComCall(7, this, "ptr*", &ppSession2 := 0, "HRESULT")
+        return IRTCSession2(ppSession2)
     }
 
     /**
@@ -64,14 +64,11 @@ class IRTCReInviteEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_State(pState) {
-        pStateMarshal := pState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, pStateMarshal, pState, "HRESULT")
-        return result
+    get_State() {
+        result := ComCall(10, this, "int*", &pState := 0, "HRESULT")
+        return pState
     }
 
     /**

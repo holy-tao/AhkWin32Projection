@@ -30,33 +30,28 @@ class IPrintManagerTemplatePrinter2 extends IPrintManagerTemplatePrinter{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_showHeaderFooter(p) {
-        result := ComCall(13, this, "ptr", p, "HRESULT")
-        return result
+    get_showHeaderFooter() {
+        result := ComCall(13, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_shrinkToFit(p) {
-        result := ComCall(14, this, "ptr", p, "HRESULT")
-        return result
+    get_shrinkToFit() {
+        result := ComCall(14, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_percentScale(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(15, this, pMarshal, p, "HRESULT")
-        return result
+    get_percentScale() {
+        result := ComCall(15, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IFsrmCollection.ahk
 #Include .\IFsrmPropertyBag.ahk
 
 /**
@@ -33,22 +35,21 @@ class IFsrmPropertyBag2 extends IFsrmPropertyBag{
     /**
      * 
      * @param {Integer} field 
-     * @param {Pointer<VARIANT>} value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag2-getfieldvalue
      */
-    GetFieldValue(field, value) {
+    GetFieldValue(field) {
+        value := VARIANT()
         result := ComCall(28, this, "int", field, "ptr", value, "HRESULT")
-        return result
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<IFsrmCollection>} props 
-     * @returns {HRESULT} 
+     * @returns {IFsrmCollection} 
      */
-    GetUntrustedInFileProperties(props) {
-        result := ComCall(29, this, "ptr*", props, "HRESULT")
-        return result
+    GetUntrustedInFileProperties() {
+        result := ComCall(29, this, "ptr*", &props := 0, "HRESULT")
+        return IFsrmCollection(props)
     }
 }

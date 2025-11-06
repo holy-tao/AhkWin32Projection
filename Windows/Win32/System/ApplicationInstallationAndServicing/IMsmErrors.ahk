@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMsmError.ahk
+#Include ..\Com\IUnknown.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -31,12 +33,11 @@ class IMsmErrors extends IDispatch{
     /**
      * 
      * @param {Integer} Item 
-     * @param {Pointer<IMsmError>} Return_R 
-     * @returns {HRESULT} 
+     * @returns {IMsmError} 
      */
-    get_Item(Item, Return_R) {
-        result := ComCall(7, this, "int", Item, "ptr*", Return_R, "HRESULT")
-        return result
+    get_Item(Item) {
+        result := ComCall(7, this, "int", Item, "ptr*", &Return_R := 0, "HRESULT")
+        return IMsmError(Return_R)
     }
 
     /**
@@ -53,11 +54,10 @@ class IMsmErrors extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} NewEnum 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__NewEnum(NewEnum) {
-        result := ComCall(9, this, "ptr*", NewEnum, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(9, this, "ptr*", &NewEnum := 0, "HRESULT")
+        return IUnknown(NewEnum)
     }
 }

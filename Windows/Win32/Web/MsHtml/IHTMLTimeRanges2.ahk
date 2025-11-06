@@ -31,26 +31,20 @@ class IHTMLTimeRanges2 extends IDispatch{
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<Float>} startTime 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    startDouble(index, startTime) {
-        startTimeMarshal := startTime is VarRef ? "double*" : "ptr"
-
-        result := ComCall(7, this, "int", index, startTimeMarshal, startTime, "HRESULT")
-        return result
+    startDouble(index) {
+        result := ComCall(7, this, "int", index, "double*", &startTime := 0, "HRESULT")
+        return startTime
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<Float>} endTime 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    endDouble(index, endTime) {
-        endTimeMarshal := endTime is VarRef ? "double*" : "ptr"
-
-        result := ComCall(8, this, "int", index, endTimeMarshal, endTime, "HRESULT")
-        return result
+    endDouble(index) {
+        result := ComCall(8, this, "int", index, "double*", &endTime := 0, "HRESULT")
+        return endTime
     }
 }

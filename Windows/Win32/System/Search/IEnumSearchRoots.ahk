@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISearchRoot.ahk
+#Include .\IEnumSearchRoots.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -38,16 +40,15 @@ class IEnumSearchRoots extends IUnknown{
     /**
      * 
      * @param {Integer} celt 
-     * @param {Pointer<ISearchRoot>} rgelt 
      * @param {Pointer<Integer>} pceltFetched 
-     * @returns {HRESULT} 
+     * @returns {ISearchRoot} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-ienumsearchroots-next
      */
-    Next(celt, rgelt, pceltFetched) {
+    Next(celt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, "ptr*", rgelt, pceltFetchedMarshal, pceltFetched, "HRESULT")
-        return result
+        result := ComCall(3, this, "uint", celt, "ptr*", &rgelt := 0, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        return ISearchRoot(rgelt)
     }
 
     /**
@@ -73,12 +74,11 @@ class IEnumSearchRoots extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumSearchRoots>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IEnumSearchRoots} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-ienumsearchroots-clone
      */
-    Clone(ppenum) {
-        result := ComCall(6, this, "ptr*", ppenum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")
+        return IEnumSearchRoots(ppenum)
     }
 }

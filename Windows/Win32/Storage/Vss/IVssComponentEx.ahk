@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\IVssComponent.ahk
 
 /**
@@ -58,37 +59,34 @@ class IVssComponentEx extends IVssComponent{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrFailureMsg 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponentex-getprepareforbackupfailuremsg
      */
-    GetPrepareForBackupFailureMsg(pbstrFailureMsg) {
+    GetPrepareForBackupFailureMsg() {
+        pbstrFailureMsg := BSTR()
         result := ComCall(43, this, "ptr", pbstrFailureMsg, "HRESULT")
-        return result
+        return pbstrFailureMsg
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrFailureMsg 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponentex-getpostsnapshotfailuremsg
      */
-    GetPostSnapshotFailureMsg(pbstrFailureMsg) {
+    GetPostSnapshotFailureMsg() {
+        pbstrFailureMsg := BSTR()
         result := ComCall(44, this, "ptr", pbstrFailureMsg, "HRESULT")
-        return result
+        return pbstrFailureMsg
     }
 
     /**
      * 
-     * @param {Pointer<Boolean>} pbAuth 
-     * @returns {HRESULT} 
+     * @returns {Boolean} 
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponentex-getauthoritativerestore
      */
-    GetAuthoritativeRestore(pbAuth) {
-        pbAuthMarshal := pbAuth is VarRef ? "int*" : "ptr"
-
-        result := ComCall(45, this, pbAuthMarshal, pbAuth, "HRESULT")
-        return result
+    GetAuthoritativeRestore() {
+        result := ComCall(45, this, "int*", &pbAuth := 0, "HRESULT")
+        return pbAuth
     }
 
     /**
@@ -107,12 +105,12 @@ class IVssComponentEx extends IVssComponent{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponentex-getrestorename
      */
-    GetRestoreName(pbstrName) {
+    GetRestoreName() {
+        pbstrName := BSTR()
         result := ComCall(47, this, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 }

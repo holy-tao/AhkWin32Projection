@@ -43,7 +43,9 @@ class ISecurityProperty extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isecurityproperty-getdirectcreatorsid
      */
     GetDirectCreatorSID(pSID) {
-        result := ComCall(3, this, "ptr", pSID, "HRESULT")
+        pSIDMarshal := pSID is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, pSIDMarshal, pSID, "HRESULT")
         return result
     }
 
@@ -54,7 +56,9 @@ class ISecurityProperty extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isecurityproperty-getoriginalcreatorsid
      */
     GetOriginalCreatorSID(pSID) {
-        result := ComCall(4, this, "ptr", pSID, "HRESULT")
+        pSIDMarshal := pSID is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, pSIDMarshal, pSID, "HRESULT")
         return result
     }
 
@@ -65,7 +69,9 @@ class ISecurityProperty extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isecurityproperty-getdirectcallersid
      */
     GetDirectCallerSID(pSID) {
-        result := ComCall(5, this, "ptr", pSID, "HRESULT")
+        pSIDMarshal := pSID is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(5, this, pSIDMarshal, pSID, "HRESULT")
         return result
     }
 
@@ -76,7 +82,9 @@ class ISecurityProperty extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isecurityproperty-getoriginalcallersid
      */
     GetOriginalCallerSID(pSID) {
-        result := ComCall(6, this, "ptr", pSID, "HRESULT")
+        pSIDMarshal := pSID is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, pSIDMarshal, pSID, "HRESULT")
         return result
     }
 

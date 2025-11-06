@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IEnumDebugApplicationNodes.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -63,11 +64,10 @@ class IEnumDebugApplicationNodes extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumDebugApplicationNodes>} pperddp 
-     * @returns {HRESULT} 
+     * @returns {IEnumDebugApplicationNodes} 
      */
-    Clone(pperddp) {
-        result := ComCall(6, this, "ptr*", pperddp, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &pperddp := 0, "HRESULT")
+        return IEnumDebugApplicationNodes(pperddp)
     }
 }

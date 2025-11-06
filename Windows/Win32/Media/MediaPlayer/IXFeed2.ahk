@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\SYSTEMTIME.ahk
 #Include .\IXFeed.ahk
 
 /**
@@ -32,44 +33,39 @@ class IXFeed2 extends IXFeed{
      * 
      * @param {Integer} uiEffectiveId 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetItemByEffectiveId(uiEffectiveId, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(47, this, "uint", uiEffectiveId, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetItemByEffectiveId(uiEffectiveId, riid) {
+        result := ComCall(47, this, "uint", uiEffectiveId, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * 
-     * @param {Pointer<SYSTEMTIME>} pstLastItemDownloadTime 
-     * @returns {HRESULT} 
+     * @returns {SYSTEMTIME} 
      */
-    LastItemDownloadTime(pstLastItemDownloadTime) {
+    LastItemDownloadTime() {
+        pstLastItemDownloadTime := SYSTEMTIME()
         result := ComCall(48, this, "ptr", pstLastItemDownloadTime, "HRESULT")
-        return result
+        return pstLastItemDownloadTime
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszUsername 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    Username(ppszUsername) {
-        result := ComCall(49, this, "ptr", ppszUsername, "HRESULT")
-        return result
+    Username() {
+        result := ComCall(49, this, "ptr*", &ppszUsername := 0, "HRESULT")
+        return ppszUsername
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszPassword 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    Password(ppszPassword) {
-        result := ComCall(50, this, "ptr", ppszPassword, "HRESULT")
-        return result
+    Password() {
+        result := ComCall(50, this, "ptr*", &ppszPassword := 0, "HRESULT")
+        return ppszPassword
     }
 
     /**

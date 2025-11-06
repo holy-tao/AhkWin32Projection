@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ISVGStringList.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -31,44 +32,40 @@ class ISVGTests extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGStringList>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGStringList} 
      */
-    get_requiredFeatures(p) {
-        result := ComCall(7, this, "ptr*", p, "HRESULT")
-        return result
+    get_requiredFeatures() {
+        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGStringList(p)
     }
 
     /**
      * 
-     * @param {Pointer<ISVGStringList>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGStringList} 
      */
-    get_requiredExtensions(p) {
-        result := ComCall(8, this, "ptr*", p, "HRESULT")
-        return result
+    get_requiredExtensions() {
+        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGStringList(p)
     }
 
     /**
      * 
-     * @param {Pointer<ISVGStringList>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGStringList} 
      */
-    get_systemLanguage(p) {
-        result := ComCall(9, this, "ptr*", p, "HRESULT")
-        return result
+    get_systemLanguage() {
+        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGStringList(p)
     }
 
     /**
      * 
      * @param {BSTR} extension 
-     * @param {Pointer<VARIANT_BOOL>} pResult 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    hasExtension(extension, pResult) {
+    hasExtension(extension) {
         extension := extension is String ? BSTR.Alloc(extension).Value : extension
 
-        result := ComCall(10, this, "ptr", extension, "ptr", pResult, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", extension, "short*", &pResult := 0, "HRESULT")
+        return pResult
     }
 }

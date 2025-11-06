@@ -38,24 +38,22 @@ class IEnhancedStorageSiloAction extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppwszActionName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienhancedstoragesiloaction-getname
      */
-    GetName(ppwszActionName) {
-        result := ComCall(3, this, "ptr", ppwszActionName, "HRESULT")
-        return result
+    GetName() {
+        result := ComCall(3, this, "ptr*", &ppwszActionName := 0, "HRESULT")
+        return ppwszActionName
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppwszActionDescription 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienhancedstoragesiloaction-getdescription
      */
-    GetDescription(ppwszActionDescription) {
-        result := ComCall(4, this, "ptr", ppwszActionDescription, "HRESULT")
-        return result
+    GetDescription() {
+        result := ComCall(4, this, "ptr*", &ppwszActionDescription := 0, "HRESULT")
+        return ppwszActionDescription
     }
 
     /**

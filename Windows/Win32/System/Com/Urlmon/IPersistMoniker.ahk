@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\IMoniker.ahk
 #Include ..\IUnknown.ahk
 
 /**
@@ -30,12 +31,12 @@ class IPersistMoniker extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pClassID 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    GetClassID(pClassID) {
+    GetClassID() {
+        pClassID := Guid()
         result := ComCall(3, this, "ptr", pClassID, "HRESULT")
-        return result
+        return pClassID
     }
 
     /**
@@ -85,11 +86,10 @@ class IPersistMoniker extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IMoniker>} ppimkName 
-     * @returns {HRESULT} 
+     * @returns {IMoniker} 
      */
-    GetCurMoniker(ppimkName) {
-        result := ComCall(8, this, "ptr*", ppimkName, "HRESULT")
-        return result
+    GetCurMoniker() {
+        result := ComCall(8, this, "ptr*", &ppimkName := 0, "HRESULT")
+        return IMoniker(ppimkName)
     }
 }

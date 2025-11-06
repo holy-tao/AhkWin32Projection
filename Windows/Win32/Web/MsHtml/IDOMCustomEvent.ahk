@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -37,12 +38,12 @@ class IDOMCustomEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_detail(p) {
+    get_detail() {
+        p := VARIANT()
         result := ComCall(7, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**

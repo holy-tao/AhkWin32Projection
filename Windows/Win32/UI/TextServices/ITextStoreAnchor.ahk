@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\TS_STATUS.ahk
+#Include ..\..\System\Com\IDataObject.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IAnchor.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\HWND.ahk
 
 /**
  * The ITextStoreAnchor interface is implemented by a Microsoft Active Accessibility client and is used by the TSF manager to manipulate text streams.
@@ -57,24 +62,23 @@ class ITextStoreAnchor extends IUnknown{
     /**
      * 
      * @param {Integer} dwLockFlags 
-     * @param {Pointer<HRESULT>} phrSession 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreanchor-requestlock
      */
-    RequestLock(dwLockFlags, phrSession) {
-        result := ComCall(5, this, "uint", dwLockFlags, "ptr", phrSession, "HRESULT")
-        return result
+    RequestLock(dwLockFlags) {
+        result := ComCall(5, this, "uint", dwLockFlags, "int*", &phrSession := 0, "HRESULT")
+        return phrSession
     }
 
     /**
      * 
-     * @param {Pointer<TS_STATUS>} pdcs 
-     * @returns {HRESULT} 
+     * @returns {TS_STATUS} 
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreanchor-getstatus
      */
-    GetStatus(pdcs) {
+    GetStatus() {
+        pdcs := TS_STATUS()
         result := ComCall(6, this, "ptr", pdcs, "HRESULT")
-        return result
+        return pdcs
     }
 
     /**
@@ -127,18 +131,15 @@ class ITextStoreAnchor extends IUnknown{
      * @param {IAnchor} paEnd 
      * @param {PWSTR} pchText 
      * @param {Integer} cchReq 
-     * @param {Pointer<Integer>} pcch 
      * @param {BOOL} fUpdateAnchor 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreanchor-gettext
      */
-    GetText(dwFlags, paStart, paEnd, pchText, cchReq, pcch, fUpdateAnchor) {
+    GetText(dwFlags, paStart, paEnd, pchText, cchReq, fUpdateAnchor) {
         pchText := pchText is String ? StrPtr(pchText) : pchText
 
-        pcchMarshal := pcch is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, "uint", dwFlags, "ptr", paStart, "ptr", paEnd, "ptr", pchText, "uint", cchReq, pcchMarshal, pcch, "int", fUpdateAnchor, "HRESULT")
-        return result
+        result := ComCall(10, this, "uint", dwFlags, "ptr", paStart, "ptr", paEnd, "ptr", pchText, "uint", cchReq, "uint*", &pcch := 0, "int", fUpdateAnchor, "HRESULT")
+        return pcch
     }
 
     /**
@@ -162,13 +163,12 @@ class ITextStoreAnchor extends IUnknown{
      * 
      * @param {IAnchor} paStart 
      * @param {IAnchor} paEnd 
-     * @param {Pointer<IDataObject>} ppDataObject 
-     * @returns {HRESULT} 
+     * @returns {IDataObject} 
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreanchor-getformattedtext
      */
-    GetFormattedText(paStart, paEnd, ppDataObject) {
-        result := ComCall(12, this, "ptr", paStart, "ptr", paEnd, "ptr*", ppDataObject, "HRESULT")
-        return result
+    GetFormattedText(paStart, paEnd) {
+        result := ComCall(12, this, "ptr", paStart, "ptr", paEnd, "ptr*", &ppDataObject := 0, "HRESULT")
+        return IDataObject(ppDataObject)
     }
 
     /**
@@ -177,13 +177,12 @@ class ITextStoreAnchor extends IUnknown{
      * @param {IAnchor} paPos 
      * @param {Pointer<Guid>} rguidService 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppunk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreanchor-getembedded
      */
-    GetEmbedded(dwFlags, paPos, rguidService, riid, ppunk) {
-        result := ComCall(13, this, "uint", dwFlags, "ptr", paPos, "ptr", rguidService, "ptr", riid, "ptr*", ppunk, "HRESULT")
-        return result
+    GetEmbedded(dwFlags, paPos, rguidService, riid) {
+        result := ComCall(13, this, "uint", dwFlags, "ptr", paPos, "ptr", rguidService, "ptr", riid, "ptr*", &ppunk := 0, "HRESULT")
+        return IUnknown(ppunk)
     }
 
     /**
@@ -254,9 +253,10 @@ class ITextStoreAnchor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreanchor-findnextattrtransition
      */
     FindNextAttrTransition(paStart, paHalt, cFilterAttrs, paFilterAttrs, dwFlags, pfFound, plFoundOffset) {
+        pfFoundMarshal := pfFound is VarRef ? "int*" : "ptr"
         plFoundOffsetMarshal := plFoundOffset is VarRef ? "int*" : "ptr"
 
-        result := ComCall(18, this, "ptr", paStart, "ptr", paHalt, "uint", cFilterAttrs, "ptr", paFilterAttrs, "uint", dwFlags, "ptr", pfFound, plFoundOffsetMarshal, plFoundOffset, "HRESULT")
+        result := ComCall(18, this, "ptr", paStart, "ptr", paHalt, "uint", cFilterAttrs, "ptr", paFilterAttrs, "uint", dwFlags, pfFoundMarshal, pfFound, plFoundOffsetMarshal, plFoundOffset, "HRESULT")
         return result
     }
 
@@ -277,37 +277,32 @@ class ITextStoreAnchor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IAnchor>} ppaStart 
-     * @returns {HRESULT} 
+     * @returns {IAnchor} 
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreanchor-getstart
      */
-    GetStart(ppaStart) {
-        result := ComCall(20, this, "ptr*", ppaStart, "HRESULT")
-        return result
+    GetStart() {
+        result := ComCall(20, this, "ptr*", &ppaStart := 0, "HRESULT")
+        return IAnchor(ppaStart)
     }
 
     /**
      * 
-     * @param {Pointer<IAnchor>} ppaEnd 
-     * @returns {HRESULT} 
+     * @returns {IAnchor} 
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreanchor-getend
      */
-    GetEnd(ppaEnd) {
-        result := ComCall(21, this, "ptr*", ppaEnd, "HRESULT")
-        return result
+    GetEnd() {
+        result := ComCall(21, this, "ptr*", &ppaEnd := 0, "HRESULT")
+        return IAnchor(ppaEnd)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pvcView 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreanchor-getactiveview
      */
-    GetActiveView(pvcView) {
-        pvcViewMarshal := pvcView is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(22, this, pvcViewMarshal, pvcView, "HRESULT")
-        return result
+    GetActiveView() {
+        result := ComCall(22, this, "uint*", &pvcView := 0, "HRESULT")
+        return pvcView
     }
 
     /**
@@ -315,13 +310,12 @@ class ITextStoreAnchor extends IUnknown{
      * @param {Integer} vcView 
      * @param {Pointer<POINT>} ptScreen 
      * @param {Integer} dwFlags 
-     * @param {Pointer<IAnchor>} ppaSite 
-     * @returns {HRESULT} 
+     * @returns {IAnchor} 
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreanchor-getanchorfrompoint
      */
-    GetAnchorFromPoint(vcView, ptScreen, dwFlags, ppaSite) {
-        result := ComCall(23, this, "uint", vcView, "ptr", ptScreen, "uint", dwFlags, "ptr*", ppaSite, "HRESULT")
-        return result
+    GetAnchorFromPoint(vcView, ptScreen, dwFlags) {
+        result := ComCall(23, this, "uint", vcView, "ptr", ptScreen, "uint", dwFlags, "ptr*", &ppaSite := 0, "HRESULT")
+        return IAnchor(ppaSite)
     }
 
     /**
@@ -335,45 +329,46 @@ class ITextStoreAnchor extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreanchor-gettextext
      */
     GetTextExt(vcView, paStart, paEnd, prc, pfClipped) {
-        result := ComCall(24, this, "uint", vcView, "ptr", paStart, "ptr", paEnd, "ptr", prc, "ptr", pfClipped, "HRESULT")
+        pfClippedMarshal := pfClipped is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, "uint", vcView, "ptr", paStart, "ptr", paEnd, "ptr", prc, pfClippedMarshal, pfClipped, "HRESULT")
         return result
     }
 
     /**
      * 
      * @param {Integer} vcView 
-     * @param {Pointer<RECT>} prc 
-     * @returns {HRESULT} 
+     * @returns {RECT} 
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreanchor-getscreenext
      */
-    GetScreenExt(vcView, prc) {
+    GetScreenExt(vcView) {
+        prc := RECT()
         result := ComCall(25, this, "uint", vcView, "ptr", prc, "HRESULT")
-        return result
+        return prc
     }
 
     /**
      * 
      * @param {Integer} vcView 
-     * @param {Pointer<HWND>} phwnd 
-     * @returns {HRESULT} 
+     * @returns {HWND} 
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreanchor-getwnd
      */
-    GetWnd(vcView, phwnd) {
+    GetWnd(vcView) {
+        phwnd := HWND()
         result := ComCall(26, this, "uint", vcView, "ptr", phwnd, "HRESULT")
-        return result
+        return phwnd
     }
 
     /**
      * 
      * @param {Pointer<Guid>} pguidService 
      * @param {Pointer<FORMATETC>} pFormatEtc 
-     * @param {Pointer<BOOL>} pfInsertable 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/textstor/nf-textstor-itextstoreanchor-queryinsertembedded
      */
-    QueryInsertEmbedded(pguidService, pFormatEtc, pfInsertable) {
-        result := ComCall(27, this, "ptr", pguidService, "ptr", pFormatEtc, "ptr", pfInsertable, "HRESULT")
-        return result
+    QueryInsertEmbedded(pguidService, pFormatEtc) {
+        result := ComCall(27, this, "ptr", pguidService, "ptr", pFormatEtc, "int*", &pfInsertable := 0, "HRESULT")
+        return pfInsertable
     }
 
     /**

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IRawElementProviderSimple.ahk
 
 /**
  * Defines methods and properties that expose simple UI elements.
@@ -45,49 +47,44 @@ class IRawElementProviderSimple extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementprovidersimple-get_provideroptions
      */
-    get_ProviderOptions(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    get_ProviderOptions() {
+        result := ComCall(3, this, "int*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
      * 
      * @param {Integer} patternId 
-     * @param {Pointer<IUnknown>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementprovidersimple-getpatternprovider
      */
-    GetPatternProvider(patternId, pRetVal) {
-        result := ComCall(4, this, "int", patternId, "ptr*", pRetVal, "HRESULT")
-        return result
+    GetPatternProvider(patternId) {
+        result := ComCall(4, this, "int", patternId, "ptr*", &pRetVal := 0, "HRESULT")
+        return IUnknown(pRetVal)
     }
 
     /**
      * 
      * @param {Integer} propertyId 
-     * @param {Pointer<VARIANT>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementprovidersimple-getpropertyvalue
      */
-    GetPropertyValue(propertyId, pRetVal) {
+    GetPropertyValue(propertyId) {
+        pRetVal := VARIANT()
         result := ComCall(5, this, "int", propertyId, "ptr", pRetVal, "HRESULT")
-        return result
+        return pRetVal
     }
 
     /**
      * 
-     * @param {Pointer<IRawElementProviderSimple>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {IRawElementProviderSimple} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementprovidersimple-get_hostrawelementprovider
      */
-    get_HostRawElementProvider(pRetVal) {
-        result := ComCall(6, this, "ptr*", pRetVal, "HRESULT")
-        return result
+    get_HostRawElementProvider() {
+        result := ComCall(6, this, "ptr*", &pRetVal := 0, "HRESULT")
+        return IRawElementProviderSimple(pRetVal)
     }
 }

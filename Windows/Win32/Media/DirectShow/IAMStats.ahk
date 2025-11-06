@@ -76,15 +76,12 @@ class IAMStats extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-iamstats-get_count
      */
-    get_Count(plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, plCountMarshal, plCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(8, this, "int*", &plCount := 0, "HRESULT")
+        return plCount
     }
 
     /**
@@ -144,17 +141,14 @@ class IAMStats extends IDispatch{
      * 
      * @param {BSTR} szName 
      * @param {Integer} lCreate 
-     * @param {Pointer<Integer>} plIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-iamstats-getindex
      */
-    GetIndex(szName, lCreate, plIndex) {
+    GetIndex(szName, lCreate) {
         szName := szName is String ? BSTR.Alloc(szName).Value : szName
 
-        plIndexMarshal := plIndex is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, "ptr", szName, "int", lCreate, plIndexMarshal, plIndex, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", szName, "int", lCreate, "int*", &plIndex := 0, "HRESULT")
+        return plIndex
     }
 
     /**

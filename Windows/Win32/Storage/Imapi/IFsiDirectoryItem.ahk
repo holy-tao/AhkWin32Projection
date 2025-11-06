@@ -2,7 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Ole\IEnumVARIANT.ahk
 #Include .\IFsiItem.ahk
+#Include .\IEnumFsiItems.ahk
 
 /**
  * Use this interface to add items to or remove items from the file-system image.
@@ -49,51 +51,45 @@ class IFsiDirectoryItem extends IFsiItem{
 
     /**
      * 
-     * @param {Pointer<IEnumVARIANT>} NewEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsidirectoryitem-get__newenum
      */
-    get__NewEnum(NewEnum) {
-        result := ComCall(19, this, "ptr*", NewEnum, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(19, this, "ptr*", &NewEnum := 0, "HRESULT")
+        return IEnumVARIANT(NewEnum)
     }
 
     /**
      * 
      * @param {BSTR} path 
-     * @param {Pointer<IFsiItem>} item 
-     * @returns {HRESULT} 
+     * @returns {IFsiItem} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsidirectoryitem-get_item
      */
-    get_Item(path, item) {
+    get_Item(path) {
         path := path is String ? BSTR.Alloc(path).Value : path
 
-        result := ComCall(20, this, "ptr", path, "ptr*", item, "HRESULT")
-        return result
+        result := ComCall(20, this, "ptr", path, "ptr*", &item := 0, "HRESULT")
+        return IFsiItem(item)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsidirectoryitem-get_count
      */
-    get_Count(Count) {
-        CountMarshal := Count is VarRef ? "int*" : "ptr"
-
-        result := ComCall(21, this, CountMarshal, Count, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(21, this, "int*", &Count := 0, "HRESULT")
+        return Count
     }
 
     /**
      * 
-     * @param {Pointer<IEnumFsiItems>} NewEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumFsiItems} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsidirectoryitem-get_enumfsiitems
      */
-    get_EnumFsiItems(NewEnum) {
-        result := ComCall(22, this, "ptr*", NewEnum, "HRESULT")
-        return result
+    get_EnumFsiItems() {
+        result := ComCall(22, this, "ptr*", &NewEnum := 0, "HRESULT")
+        return IEnumFsiItems(NewEnum)
     }
 
     /**

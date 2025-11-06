@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRTCProfile2.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -30,45 +32,38 @@ class IRTCRoamingEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pEventType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_EventType(pEventType) {
-        pEventTypeMarshal := pEventType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pEventTypeMarshal, pEventType, "HRESULT")
-        return result
+    get_EventType() {
+        result := ComCall(7, this, "int*", &pEventType := 0, "HRESULT")
+        return pEventType
     }
 
     /**
      * 
-     * @param {Pointer<IRTCProfile2>} ppProfile 
-     * @returns {HRESULT} 
+     * @returns {IRTCProfile2} 
      */
-    get_Profile(ppProfile) {
-        result := ComCall(8, this, "ptr*", ppProfile, "HRESULT")
-        return result
+    get_Profile() {
+        result := ComCall(8, this, "ptr*", &ppProfile := 0, "HRESULT")
+        return IRTCProfile2(ppProfile)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plStatusCode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_StatusCode(plStatusCode) {
-        plStatusCodeMarshal := plStatusCode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, plStatusCodeMarshal, plStatusCode, "HRESULT")
-        return result
+    get_StatusCode() {
+        result := ComCall(9, this, "int*", &plStatusCode := 0, "HRESULT")
+        return plStatusCode
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrStatusText 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_StatusText(pbstrStatusText) {
+    get_StatusText() {
+        pbstrStatusText := BSTR()
         result := ComCall(10, this, "ptr", pbstrStatusText, "HRESULT")
-        return result
+        return pbstrStatusText
     }
 }

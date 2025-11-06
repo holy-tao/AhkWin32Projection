@@ -44,15 +44,12 @@ class IDVBSTuningSpace extends IDVBTuningSpace2{
 
     /**
      * 
-     * @param {Pointer<Integer>} LowOscillator 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbstuningspace-get_lowoscillator
      */
-    get_LowOscillator(LowOscillator) {
-        LowOscillatorMarshal := LowOscillator is VarRef ? "int*" : "ptr"
-
-        result := ComCall(30, this, LowOscillatorMarshal, LowOscillator, "HRESULT")
-        return result
+    get_LowOscillator() {
+        result := ComCall(30, this, "int*", &LowOscillator := 0, "HRESULT")
+        return LowOscillator
     }
 
     /**
@@ -68,15 +65,12 @@ class IDVBSTuningSpace extends IDVBTuningSpace2{
 
     /**
      * 
-     * @param {Pointer<Integer>} HighOscillator 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbstuningspace-get_highoscillator
      */
-    get_HighOscillator(HighOscillator) {
-        HighOscillatorMarshal := HighOscillator is VarRef ? "int*" : "ptr"
-
-        result := ComCall(32, this, HighOscillatorMarshal, HighOscillator, "HRESULT")
-        return result
+    get_HighOscillator() {
+        result := ComCall(32, this, "int*", &HighOscillator := 0, "HRESULT")
+        return HighOscillator
     }
 
     /**
@@ -92,15 +86,12 @@ class IDVBSTuningSpace extends IDVBTuningSpace2{
 
     /**
      * 
-     * @param {Pointer<Integer>} LNBSwitch 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbstuningspace-get_lnbswitch
      */
-    get_LNBSwitch(LNBSwitch) {
-        LNBSwitchMarshal := LNBSwitch is VarRef ? "int*" : "ptr"
-
-        result := ComCall(34, this, LNBSwitchMarshal, LNBSwitch, "HRESULT")
-        return result
+    get_LNBSwitch() {
+        result := ComCall(34, this, "int*", &LNBSwitch := 0, "HRESULT")
+        return LNBSwitch
     }
 
     /**
@@ -116,13 +107,13 @@ class IDVBSTuningSpace extends IDVBTuningSpace2{
 
     /**
      * 
-     * @param {Pointer<BSTR>} InputRange 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbstuningspace-get_inputrange
      */
-    get_InputRange(InputRange) {
+    get_InputRange() {
+        InputRange := BSTR()
         result := ComCall(36, this, "ptr", InputRange, "HRESULT")
-        return result
+        return InputRange
     }
 
     /**
@@ -140,15 +131,12 @@ class IDVBSTuningSpace extends IDVBTuningSpace2{
 
     /**
      * 
-     * @param {Pointer<Integer>} SpectralInversionVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbstuningspace-get_spectralinversion
      */
-    get_SpectralInversion(SpectralInversionVal) {
-        SpectralInversionValMarshal := SpectralInversionVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(38, this, SpectralInversionValMarshal, SpectralInversionVal, "HRESULT")
-        return result
+    get_SpectralInversion() {
+        result := ComCall(38, this, "int*", &SpectralInversionVal := 0, "HRESULT")
+        return SpectralInversionVal
     }
 
     /**

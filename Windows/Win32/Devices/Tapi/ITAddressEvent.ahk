@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITAddress.ahk
+#Include .\ITTerminal.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -39,36 +41,31 @@ class ITAddressEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ITAddress>} ppAddress 
-     * @returns {HRESULT} 
+     * @returns {ITAddress} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddressevent-get_address
      */
-    get_Address(ppAddress) {
-        result := ComCall(7, this, "ptr*", ppAddress, "HRESULT")
-        return result
+    get_Address() {
+        result := ComCall(7, this, "ptr*", &ppAddress := 0, "HRESULT")
+        return ITAddress(ppAddress)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pEvent 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddressevent-get_event
      */
-    get_Event(pEvent) {
-        pEventMarshal := pEvent is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pEventMarshal, pEvent, "HRESULT")
-        return result
+    get_Event() {
+        result := ComCall(8, this, "int*", &pEvent := 0, "HRESULT")
+        return pEvent
     }
 
     /**
      * 
-     * @param {Pointer<ITTerminal>} ppTerminal 
-     * @returns {HRESULT} 
+     * @returns {ITTerminal} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddressevent-get_terminal
      */
-    get_Terminal(ppTerminal) {
-        result := ComCall(9, this, "ptr*", ppTerminal, "HRESULT")
-        return result
+    get_Terminal() {
+        result := ComCall(9, this, "ptr*", &ppTerminal := 0, "HRESULT")
+        return ITTerminal(ppTerminal)
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITCallInfo.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,51 +33,41 @@ class ITCallStateEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ITCallInfo>} ppCallInfo 
-     * @returns {HRESULT} 
+     * @returns {ITCallInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallstateevent-get_call
      */
-    get_Call(ppCallInfo) {
-        result := ComCall(7, this, "ptr*", ppCallInfo, "HRESULT")
-        return result
+    get_Call() {
+        result := ComCall(7, this, "ptr*", &ppCallInfo := 0, "HRESULT")
+        return ITCallInfo(ppCallInfo)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCallState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallstateevent-get_state
      */
-    get_State(pCallState) {
-        pCallStateMarshal := pCallState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pCallStateMarshal, pCallState, "HRESULT")
-        return result
+    get_State() {
+        result := ComCall(8, this, "int*", &pCallState := 0, "HRESULT")
+        return pCallState
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCEC 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallstateevent-get_cause
      */
-    get_Cause(pCEC) {
-        pCECMarshal := pCEC is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pCECMarshal, pCEC, "HRESULT")
-        return result
+    get_Cause() {
+        result := ComCall(9, this, "int*", &pCEC := 0, "HRESULT")
+        return pCEC
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plCallbackInstance 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallstateevent-get_callbackinstance
      */
-    get_CallbackInstance(plCallbackInstance) {
-        plCallbackInstanceMarshal := plCallbackInstance is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, plCallbackInstanceMarshal, plCallbackInstance, "HRESULT")
-        return result
+    get_CallbackInstance() {
+        result := ComCall(10, this, "int*", &plCallbackInstance := 0, "HRESULT")
+        return plCallbackInstance
     }
 }

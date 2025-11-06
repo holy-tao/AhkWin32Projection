@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IDebugCodeContext.ahk
+#Include ..\..\..\..\Foundation\BSTR.ahk
+#Include .\IDebugApplicationThread.ahk
+#Include ..\IDebugProperty.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -30,53 +34,50 @@ class IDebugStackFrame extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDebugCodeContext>} ppcc 
-     * @returns {HRESULT} 
+     * @returns {IDebugCodeContext} 
      */
-    GetCodeContext(ppcc) {
-        result := ComCall(3, this, "ptr*", ppcc, "HRESULT")
-        return result
+    GetCodeContext() {
+        result := ComCall(3, this, "ptr*", &ppcc := 0, "HRESULT")
+        return IDebugCodeContext(ppcc)
     }
 
     /**
      * 
      * @param {BOOL} fLong 
-     * @param {Pointer<BSTR>} pbstrDescription 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetDescriptionString(fLong, pbstrDescription) {
+    GetDescriptionString(fLong) {
+        pbstrDescription := BSTR()
         result := ComCall(4, this, "int", fLong, "ptr", pbstrDescription, "HRESULT")
-        return result
+        return pbstrDescription
     }
 
     /**
      * 
      * @param {BOOL} fLong 
-     * @param {Pointer<BSTR>} pbstrLanguage 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetLanguageString(fLong, pbstrLanguage) {
+    GetLanguageString(fLong) {
+        pbstrLanguage := BSTR()
         result := ComCall(5, this, "int", fLong, "ptr", pbstrLanguage, "HRESULT")
-        return result
+        return pbstrLanguage
     }
 
     /**
      * 
-     * @param {Pointer<IDebugApplicationThread>} ppat 
-     * @returns {HRESULT} 
+     * @returns {IDebugApplicationThread} 
      */
-    GetThread(ppat) {
-        result := ComCall(6, this, "ptr*", ppat, "HRESULT")
-        return result
+    GetThread() {
+        result := ComCall(6, this, "ptr*", &ppat := 0, "HRESULT")
+        return IDebugApplicationThread(ppat)
     }
 
     /**
      * 
-     * @param {Pointer<IDebugProperty>} ppDebugProp 
-     * @returns {HRESULT} 
+     * @returns {IDebugProperty} 
      */
-    GetDebugProperty(ppDebugProp) {
-        result := ComCall(7, this, "ptr*", ppDebugProp, "HRESULT")
-        return result
+    GetDebugProperty() {
+        result := ComCall(7, this, "ptr*", &ppDebugProp := 0, "HRESULT")
+        return IDebugProperty(ppDebugProp)
     }
 }

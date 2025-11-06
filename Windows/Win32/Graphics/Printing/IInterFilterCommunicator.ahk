@@ -30,25 +30,19 @@ class IInterFilterCommunicator extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} ppIReader 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    RequestReader(ppIReader) {
-        ppIReaderMarshal := ppIReader is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, ppIReaderMarshal, ppIReader, "HRESULT")
-        return result
+    RequestReader() {
+        result := ComCall(3, this, "ptr*", &ppIReader := 0, "HRESULT")
+        return ppIReader
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} ppIWriter 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    RequestWriter(ppIWriter) {
-        ppIWriterMarshal := ppIWriter is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, ppIWriterMarshal, ppIWriter, "HRESULT")
-        return result
+    RequestWriter() {
+        result := ComCall(4, this, "ptr*", &ppIWriter := 0, "HRESULT")
+        return ppIWriter
     }
 }

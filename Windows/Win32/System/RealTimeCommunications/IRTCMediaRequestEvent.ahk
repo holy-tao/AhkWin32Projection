@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRTCSession2.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -30,36 +31,29 @@ class IRTCMediaRequestEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IRTCSession2>} ppSession 
-     * @returns {HRESULT} 
+     * @returns {IRTCSession2} 
      */
-    get_Session(ppSession) {
-        result := ComCall(7, this, "ptr*", ppSession, "HRESULT")
-        return result
+    get_Session() {
+        result := ComCall(7, this, "ptr*", &ppSession := 0, "HRESULT")
+        return IRTCSession2(ppSession)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plMediaTypes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ProposedMedia(plMediaTypes) {
-        plMediaTypesMarshal := plMediaTypes is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, plMediaTypesMarshal, plMediaTypes, "HRESULT")
-        return result
+    get_ProposedMedia() {
+        result := ComCall(8, this, "int*", &plMediaTypes := 0, "HRESULT")
+        return plMediaTypes
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plMediaTypes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_CurrentMedia(plMediaTypes) {
-        plMediaTypesMarshal := plMediaTypes is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, plMediaTypesMarshal, plMediaTypes, "HRESULT")
-        return result
+    get_CurrentMedia() {
+        result := ComCall(9, this, "int*", &plMediaTypes := 0, "HRESULT")
+        return plMediaTypes
     }
 
     /**
@@ -75,14 +69,11 @@ class IRTCMediaRequestEvent extends IDispatch{
     /**
      * 
      * @param {Integer} enSecurityType 
-     * @param {Pointer<Integer>} penSecurityLevel 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_RemotePreferredSecurityLevel(enSecurityType, penSecurityLevel) {
-        penSecurityLevelMarshal := penSecurityLevel is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, "int", enSecurityType, penSecurityLevelMarshal, penSecurityLevel, "HRESULT")
-        return result
+    get_RemotePreferredSecurityLevel(enSecurityType) {
+        result := ComCall(11, this, "int", enSecurityType, "int*", &penSecurityLevel := 0, "HRESULT")
+        return penSecurityLevel
     }
 
     /**
@@ -96,13 +87,10 @@ class IRTCMediaRequestEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_State(pState) {
-        pStateMarshal := pState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, pStateMarshal, pState, "HRESULT")
-        return result
+    get_State() {
+        result := ComCall(13, this, "int*", &pState := 0, "HRESULT")
+        return pState
     }
 }

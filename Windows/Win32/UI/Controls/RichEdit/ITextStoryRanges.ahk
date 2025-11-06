@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\ITextRange.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -38,37 +40,32 @@ class ITextStoryRanges extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppunkEnum 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstoryranges-_newenum
      */
-    _NewEnum(ppunkEnum) {
-        result := ComCall(7, this, "ptr*", ppunkEnum, "HRESULT")
-        return result
+    _NewEnum() {
+        result := ComCall(7, this, "ptr*", &ppunkEnum := 0, "HRESULT")
+        return IUnknown(ppunkEnum)
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<ITextRange>} ppRange 
-     * @returns {HRESULT} 
+     * @returns {ITextRange} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstoryranges-item
      */
-    Item(Index, ppRange) {
-        result := ComCall(8, this, "int", Index, "ptr*", ppRange, "HRESULT")
-        return result
+    Item(Index) {
+        result := ComCall(8, this, "int", Index, "ptr*", &ppRange := 0, "HRESULT")
+        return ITextRange(ppRange)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstoryranges-getcount
      */
-    GetCount(pCount) {
-        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(9, this, "int*", &pCount := 0, "HRESULT")
+        return pCount
     }
 }

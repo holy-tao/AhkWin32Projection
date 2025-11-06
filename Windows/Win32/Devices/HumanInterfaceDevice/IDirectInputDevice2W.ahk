@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDirectInputEffect.ahk
 #Include .\IDirectInputDeviceW.ahk
 
 /**
@@ -33,13 +34,12 @@ class IDirectInputDevice2W extends IDirectInputDeviceW{
      * 
      * @param {Pointer<Guid>} param0 
      * @param {Pointer<DIEFFECT>} param1 
-     * @param {Pointer<IDirectInputEffect>} param2 
      * @param {IUnknown} param3 
-     * @returns {HRESULT} 
+     * @returns {IDirectInputEffect} 
      */
-    CreateEffect(param0, param1, param2, param3) {
-        result := ComCall(18, this, "ptr", param0, "ptr", param1, "ptr*", param2, "ptr", param3, "HRESULT")
-        return result
+    CreateEffect(param0, param1, param3) {
+        result := ComCall(18, this, "ptr", param0, "ptr", param1, "ptr*", &param2 := 0, "ptr", param3, "HRESULT")
+        return IDirectInputEffect(param2)
     }
 
     /**

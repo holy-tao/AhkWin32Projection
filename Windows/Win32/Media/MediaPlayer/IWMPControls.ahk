@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IWMPMedia.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -41,7 +42,9 @@ class IWMPControls extends IDispatch{
     get_isAvailable(bstrItem, pIsAvailable) {
         bstrItem := bstrItem is String ? BSTR.Alloc(bstrItem).Value : bstrItem
 
-        result := ComCall(7, this, "ptr", bstrItem, "ptr", pIsAvailable, "HRESULT")
+        pIsAvailableMarshal := pIsAvailable is VarRef ? "short*" : "ptr"
+
+        result := ComCall(7, this, "ptr", bstrItem, pIsAvailableMarshal, pIsAvailable, "HRESULT")
         return result
     }
 
@@ -152,13 +155,12 @@ class IWMPControls extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IWMPMedia>} ppIWMPMedia 
-     * @returns {HRESULT} 
+     * @returns {IWMPMedia} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols-get_currentitem
      */
-    get_currentItem(ppIWMPMedia) {
-        result := ComCall(18, this, "ptr*", ppIWMPMedia, "HRESULT")
-        return result
+    get_currentItem() {
+        result := ComCall(18, this, "ptr*", &ppIWMPMedia := 0, "HRESULT")
+        return IWMPMedia(ppIWMPMedia)
     }
 
     /**

@@ -225,17 +225,14 @@ class Dxc {
      * 
      * @param {Pointer<Guid>} rclsid 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    static DxcCreateInstance(rclsid, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("dxcompiler.dll\DxcCreateInstance", "ptr", rclsid, "ptr", riid, ppvMarshal, ppv, "int")
+    static DxcCreateInstance(rclsid, riid) {
+        result := DllCall("dxcompiler.dll\DxcCreateInstance", "ptr", rclsid, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -243,17 +240,14 @@ class Dxc {
      * @param {IMalloc} pMalloc 
      * @param {Pointer<Guid>} rclsid 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    static DxcCreateInstance2(pMalloc, rclsid, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("dxcompiler.dll\DxcCreateInstance2", "ptr", pMalloc, "ptr", rclsid, "ptr", riid, ppvMarshal, ppv, "int")
+    static DxcCreateInstance2(pMalloc, rclsid, riid) {
+        result := DllCall("dxcompiler.dll\DxcCreateInstance2", "ptr", pMalloc, "ptr", rclsid, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
 ;@endregion Methods

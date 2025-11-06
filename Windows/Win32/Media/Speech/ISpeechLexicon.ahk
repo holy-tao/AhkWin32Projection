@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ISpeechLexiconPronunciations.ahk
+#Include .\ISpeechLexiconWords.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -31,14 +33,11 @@ class ISpeechLexicon extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} GenerationId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_GenerationId(GenerationId) {
-        GenerationIdMarshal := GenerationId is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, GenerationIdMarshal, GenerationId, "HRESULT")
-        return result
+    get_GenerationId() {
+        result := ComCall(7, this, "int*", &GenerationId := 0, "HRESULT")
+        return GenerationId
     }
 
     /**
@@ -122,26 +121,24 @@ class ISpeechLexicon extends IDispatch{
      * @param {BSTR} bstrWord 
      * @param {Integer} LangId 
      * @param {Integer} TypeFlags 
-     * @param {Pointer<ISpeechLexiconPronunciations>} ppPronunciations 
-     * @returns {HRESULT} 
+     * @returns {ISpeechLexiconPronunciations} 
      */
-    GetPronunciations(bstrWord, LangId, TypeFlags, ppPronunciations) {
+    GetPronunciations(bstrWord, LangId, TypeFlags) {
         bstrWord := bstrWord is String ? BSTR.Alloc(bstrWord).Value : bstrWord
 
-        result := ComCall(13, this, "ptr", bstrWord, "int", LangId, "int", TypeFlags, "ptr*", ppPronunciations, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", bstrWord, "int", LangId, "int", TypeFlags, "ptr*", &ppPronunciations := 0, "HRESULT")
+        return ISpeechLexiconPronunciations(ppPronunciations)
     }
 
     /**
      * 
      * @param {Pointer<Integer>} GenerationID 
-     * @param {Pointer<ISpeechLexiconWords>} ppWords 
-     * @returns {HRESULT} 
+     * @returns {ISpeechLexiconWords} 
      */
-    GetGenerationChange(GenerationID, ppWords) {
+    GetGenerationChange(GenerationID) {
         GenerationIDMarshal := GenerationID is VarRef ? "int*" : "ptr"
 
-        result := ComCall(14, this, GenerationIDMarshal, GenerationID, "ptr*", ppWords, "HRESULT")
-        return result
+        result := ComCall(14, this, GenerationIDMarshal, GenerationID, "ptr*", &ppWords := 0, "HRESULT")
+        return ISpeechLexiconWords(ppWords)
     }
 }

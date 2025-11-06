@@ -62,8 +62,10 @@ class ITpmVirtualSmartCardManager extends IUnknown{
         pbAdminKcvMarshal := pbAdminKcv is VarRef ? "char*" : "ptr"
         pbPukMarshal := pbPuk is VarRef ? "char*" : "ptr"
         pbPinMarshal := pbPin is VarRef ? "char*" : "ptr"
+        ppszInstanceIdMarshal := ppszInstanceId is VarRef ? "ptr*" : "ptr"
+        pfNeedRebootMarshal := pfNeedReboot is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pszFriendlyName, "char", bAdminAlgId, pbAdminKeyMarshal, pbAdminKey, "uint", cbAdminKey, pbAdminKcvMarshal, pbAdminKcv, "uint", cbAdminKcv, pbPukMarshal, pbPuk, "uint", cbPuk, pbPinMarshal, pbPin, "uint", cbPin, "int", fGenerate, "ptr", pStatusCallback, "ptr", ppszInstanceId, "ptr", pfNeedReboot, "HRESULT")
+        result := ComCall(3, this, "ptr", pszFriendlyName, "char", bAdminAlgId, pbAdminKeyMarshal, pbAdminKey, "uint", cbAdminKey, pbAdminKcvMarshal, pbAdminKcv, "uint", cbAdminKcv, pbPukMarshal, pbPuk, "uint", cbPuk, pbPinMarshal, pbPin, "uint", cbPin, "int", fGenerate, "ptr", pStatusCallback, ppszInstanceIdMarshal, ppszInstanceId, pfNeedRebootMarshal, pfNeedReboot, "HRESULT")
         return result
     }
 
@@ -71,14 +73,13 @@ class ITpmVirtualSmartCardManager extends IUnknown{
      * 
      * @param {PWSTR} pszInstanceId 
      * @param {ITpmVirtualSmartCardManagerStatusCallback} pStatusCallback 
-     * @param {Pointer<BOOL>} pfNeedReboot 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/tpmvscmgr/nf-tpmvscmgr-itpmvirtualsmartcardmanager-destroyvirtualsmartcard
      */
-    DestroyVirtualSmartCard(pszInstanceId, pStatusCallback, pfNeedReboot) {
+    DestroyVirtualSmartCard(pszInstanceId, pStatusCallback) {
         pszInstanceId := pszInstanceId is String ? StrPtr(pszInstanceId) : pszInstanceId
 
-        result := ComCall(4, this, "ptr", pszInstanceId, "ptr", pStatusCallback, "ptr", pfNeedReboot, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pszInstanceId, "ptr", pStatusCallback, "int*", &pfNeedReboot := 0, "HRESULT")
+        return pfNeedReboot
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Networking\WinSock\SOCKADDR_STORAGE.ahk
 #Include .\IWSDTransportAddress.ahk
 
 /**
@@ -43,13 +44,13 @@ class IWSDUdpAddress extends IWSDTransportAddress{
 
     /**
      * 
-     * @param {Pointer<SOCKADDR_STORAGE>} pSockAddr 
-     * @returns {HRESULT} 
+     * @returns {SOCKADDR_STORAGE} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdudpaddress-getsockaddr
      */
-    GetSockaddr(pSockAddr) {
+    GetSockaddr() {
+        pSockAddr := SOCKADDR_STORAGE()
         result := ComCall(11, this, "ptr", pSockAddr, "HRESULT")
-        return result
+        return pSockAddr
     }
 
     /**
@@ -86,15 +87,12 @@ class IWSDUdpAddress extends IWSDTransportAddress{
 
     /**
      * 
-     * @param {Pointer<Integer>} pMessageType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdudpaddress-getmessagetype
      */
-    GetMessageType(pMessageType) {
-        pMessageTypeMarshal := pMessageType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, pMessageTypeMarshal, pMessageType, "HRESULT")
-        return result
+    GetMessageType() {
+        result := ComCall(15, this, "int*", &pMessageType := 0, "HRESULT")
+        return pMessageType
     }
 
     /**
@@ -110,15 +108,12 @@ class IWSDUdpAddress extends IWSDTransportAddress{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwTTL 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdudpaddress-getttl
      */
-    GetTTL(pdwTTL) {
-        pdwTTLMarshal := pdwTTL is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(17, this, pdwTTLMarshal, pdwTTL, "HRESULT")
-        return result
+    GetTTL() {
+        result := ComCall(17, this, "uint*", &pdwTTL := 0, "HRESULT")
+        return pdwTTL
     }
 
     /**
@@ -134,12 +129,12 @@ class IWSDUdpAddress extends IWSDTransportAddress{
 
     /**
      * 
-     * @param {Pointer<Guid>} pAlias 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdudpaddress-getalias
      */
-    GetAlias(pAlias) {
+    GetAlias() {
+        pAlias := Guid()
         result := ComCall(19, this, "ptr", pAlias, "HRESULT")
-        return result
+        return pAlias
     }
 }

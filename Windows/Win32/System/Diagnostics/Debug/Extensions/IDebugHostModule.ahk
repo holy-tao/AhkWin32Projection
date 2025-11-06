@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Foundation\BSTR.ahk
+#Include .\Location.ahk
+#Include .\IDebugHostType.ahk
 #Include .\IDebugHostSymbol.ahk
 
 /**
@@ -31,22 +34,22 @@ class IDebugHostModule extends IDebugHostSymbol{
     /**
      * 
      * @param {Integer} allowPath 
-     * @param {Pointer<BSTR>} imageName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetImageName(allowPath, imageName) {
+    GetImageName(allowPath) {
+        imageName := BSTR()
         result := ComCall(10, this, "char", allowPath, "ptr", imageName, "HRESULT")
-        return result
+        return imageName
     }
 
     /**
      * 
-     * @param {Pointer<Location>} moduleBaseLocation 
-     * @returns {HRESULT} 
+     * @returns {Location} 
      */
-    GetBaseLocation(moduleBaseLocation) {
+    GetBaseLocation() {
+        moduleBaseLocation := Location()
         result := ComCall(11, this, "ptr", moduleBaseLocation, "HRESULT")
-        return result
+        return moduleBaseLocation
     }
 
     /**
@@ -69,37 +72,34 @@ class IDebugHostModule extends IDebugHostSymbol{
     /**
      * 
      * @param {PWSTR} typeName 
-     * @param {Pointer<IDebugHostType>} type 
-     * @returns {HRESULT} 
+     * @returns {IDebugHostType} 
      */
-    FindTypeByName(typeName, type) {
+    FindTypeByName(typeName) {
         typeName := typeName is String ? StrPtr(typeName) : typeName
 
-        result := ComCall(13, this, "ptr", typeName, "ptr*", type, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", typeName, "ptr*", &type := 0, "HRESULT")
+        return IDebugHostType(type)
     }
 
     /**
      * 
      * @param {Integer} rva 
-     * @param {Pointer<IDebugHostSymbol>} symbol 
-     * @returns {HRESULT} 
+     * @returns {IDebugHostSymbol} 
      */
-    FindSymbolByRVA(rva, symbol) {
-        result := ComCall(14, this, "uint", rva, "ptr*", symbol, "HRESULT")
-        return result
+    FindSymbolByRVA(rva) {
+        result := ComCall(14, this, "uint", rva, "ptr*", &symbol := 0, "HRESULT")
+        return IDebugHostSymbol(symbol)
     }
 
     /**
      * 
      * @param {PWSTR} symbolName 
-     * @param {Pointer<IDebugHostSymbol>} symbol 
-     * @returns {HRESULT} 
+     * @returns {IDebugHostSymbol} 
      */
-    FindSymbolByName(symbolName, symbol) {
+    FindSymbolByName(symbolName) {
         symbolName := symbolName is String ? StrPtr(symbolName) : symbolName
 
-        result := ComCall(15, this, "ptr", symbolName, "ptr*", symbol, "HRESULT")
-        return result
+        result := ComCall(15, this, "ptr", symbolName, "ptr*", &symbol := 0, "HRESULT")
+        return IDebugHostSymbol(symbol)
     }
 }

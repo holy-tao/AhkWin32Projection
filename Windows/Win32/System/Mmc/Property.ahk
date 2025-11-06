@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -38,12 +40,12 @@ class Property extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} Value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_Value(Value) {
+    get_Value() {
+        Value := VARIANT()
         result := ComCall(7, this, "ptr", Value, "HRESULT")
-        return result
+        return Value
     }
 
     /**
@@ -58,11 +60,11 @@ class Property extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} Name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Name(Name) {
+    get_Name() {
+        Name := BSTR()
         result := ComCall(9, this, "ptr", Name, "HRESULT")
-        return result
+        return Name
     }
 }

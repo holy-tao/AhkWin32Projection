@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IEventObjectCollection.ahk
 #Include ..\IUnknown.ahk
 
 /**
@@ -48,18 +49,17 @@ class IMultiInterfaceEventControl extends IUnknown{
      * @param {BSTR} bstrMethodName 
      * @param {BSTR} optionalCriteria 
      * @param {Pointer<Integer>} optionalErrorIndex 
-     * @param {Pointer<IEventObjectCollection>} ppCollection 
-     * @returns {HRESULT} 
+     * @returns {IEventObjectCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-imultiinterfaceeventcontrol-getsubscriptions
      */
-    GetSubscriptions(eventIID, bstrMethodName, optionalCriteria, optionalErrorIndex, ppCollection) {
+    GetSubscriptions(eventIID, bstrMethodName, optionalCriteria, optionalErrorIndex) {
         bstrMethodName := bstrMethodName is String ? BSTR.Alloc(bstrMethodName).Value : bstrMethodName
         optionalCriteria := optionalCriteria is String ? BSTR.Alloc(optionalCriteria).Value : optionalCriteria
 
         optionalErrorIndexMarshal := optionalErrorIndex is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", eventIID, "ptr", bstrMethodName, "ptr", optionalCriteria, optionalErrorIndexMarshal, optionalErrorIndex, "ptr*", ppCollection, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", eventIID, "ptr", bstrMethodName, "ptr", optionalCriteria, optionalErrorIndexMarshal, optionalErrorIndex, "ptr*", &ppCollection := 0, "HRESULT")
+        return IEventObjectCollection(ppCollection)
     }
 
     /**
@@ -67,29 +67,25 @@ class IMultiInterfaceEventControl extends IUnknown{
      * @param {Pointer<Guid>} eventIID 
      * @param {BSTR} bstrMethodName 
      * @param {BSTR} bstrCriteria 
-     * @param {Pointer<Integer>} errorIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-imultiinterfaceeventcontrol-setdefaultquery
      */
-    SetDefaultQuery(eventIID, bstrMethodName, bstrCriteria, errorIndex) {
+    SetDefaultQuery(eventIID, bstrMethodName, bstrCriteria) {
         bstrMethodName := bstrMethodName is String ? BSTR.Alloc(bstrMethodName).Value : bstrMethodName
         bstrCriteria := bstrCriteria is String ? BSTR.Alloc(bstrCriteria).Value : bstrCriteria
 
-        errorIndexMarshal := errorIndex is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, "ptr", eventIID, "ptr", bstrMethodName, "ptr", bstrCriteria, errorIndexMarshal, errorIndex, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", eventIID, "ptr", bstrMethodName, "ptr", bstrCriteria, "int*", &errorIndex := 0, "HRESULT")
+        return errorIndex
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfAllowInprocActivation 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-imultiinterfaceeventcontrol-get_allowinprocactivation
      */
-    get_AllowInprocActivation(pfAllowInprocActivation) {
-        result := ComCall(6, this, "ptr", pfAllowInprocActivation, "HRESULT")
-        return result
+    get_AllowInprocActivation() {
+        result := ComCall(6, this, "int*", &pfAllowInprocActivation := 0, "HRESULT")
+        return pfAllowInprocActivation
     }
 
     /**
@@ -105,13 +101,12 @@ class IMultiInterfaceEventControl extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfFireInParallel 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-imultiinterfaceeventcontrol-get_fireinparallel
      */
-    get_FireInParallel(pfFireInParallel) {
-        result := ComCall(8, this, "ptr", pfFireInParallel, "HRESULT")
-        return result
+    get_FireInParallel() {
+        result := ComCall(8, this, "int*", &pfFireInParallel := 0, "HRESULT")
+        return pfFireInParallel
     }
 
     /**

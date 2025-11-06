@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMoniker.ahk
 #Include .\IUnknown.ahk
 
 /**
@@ -32,15 +33,14 @@ class IBindHost extends IUnknown{
      * 
      * @param {PWSTR} szName 
      * @param {IBindCtx} pBC 
-     * @param {Pointer<IMoniker>} ppmk 
      * @param {Integer} dwReserved 
-     * @returns {HRESULT} 
+     * @returns {IMoniker} 
      */
-    CreateMoniker(szName, pBC, ppmk, dwReserved) {
+    CreateMoniker(szName, pBC, dwReserved) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(3, this, "ptr", szName, "ptr", pBC, "ptr*", ppmk, "uint", dwReserved, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", szName, "ptr", pBC, "ptr*", &ppmk := 0, "uint", dwReserved, "HRESULT")
+        return IMoniker(ppmk)
     }
 
     /**
@@ -49,14 +49,11 @@ class IBindHost extends IUnknown{
      * @param {IBindCtx} pBC 
      * @param {IBindStatusCallback} pBSC 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvObj 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    MonikerBindToStorage(pMk, pBC, pBSC, riid, ppvObj) {
-        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "ptr", pMk, "ptr", pBC, "ptr", pBSC, "ptr", riid, ppvObjMarshal, ppvObj, "HRESULT")
-        return result
+    MonikerBindToStorage(pMk, pBC, pBSC, riid) {
+        result := ComCall(4, this, "ptr", pMk, "ptr", pBC, "ptr", pBSC, "ptr", riid, "ptr*", &ppvObj := 0, "HRESULT")
+        return ppvObj
     }
 
     /**
@@ -65,13 +62,10 @@ class IBindHost extends IUnknown{
      * @param {IBindCtx} pBC 
      * @param {IBindStatusCallback} pBSC 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvObj 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    MonikerBindToObject(pMk, pBC, pBSC, riid, ppvObj) {
-        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, "ptr", pMk, "ptr", pBC, "ptr", pBSC, "ptr", riid, ppvObjMarshal, ppvObj, "HRESULT")
-        return result
+    MonikerBindToObject(pMk, pBC, pBSC, riid) {
+        result := ComCall(5, this, "ptr", pMk, "ptr", pBC, "ptr", pBSC, "ptr", riid, "ptr*", &ppvObj := 0, "HRESULT")
+        return ppvObj
     }
 }

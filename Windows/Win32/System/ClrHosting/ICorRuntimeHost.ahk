@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HMODULE.ahk
+#Include .\ICorConfiguration.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -66,49 +68,42 @@ class ICorRuntimeHost extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<Integer>>} pFiberCookie 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Integer>} 
      */
-    SwitchOutLogicalThreadState(pFiberCookie) {
-        pFiberCookieMarshal := pFiberCookie is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, pFiberCookieMarshal, pFiberCookie, "HRESULT")
-        return result
+    SwitchOutLogicalThreadState() {
+        result := ComCall(6, this, "ptr*", &pFiberCookie := 0, "HRESULT")
+        return pFiberCookie
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    LocksHeldByLogicalThread(pCount) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    LocksHeldByLogicalThread() {
+        result := ComCall(7, this, "uint*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
      * 
      * @param {HANDLE} hFile 
-     * @param {Pointer<HMODULE>} hMapAddress 
-     * @returns {HRESULT} 
+     * @returns {HMODULE} 
      */
-    MapFile(hFile, hMapAddress) {
+    MapFile(hFile) {
         hFile := hFile is Win32Handle ? NumGet(hFile, "ptr") : hFile
 
+        hMapAddress := HMODULE()
         result := ComCall(8, this, "ptr", hFile, "ptr", hMapAddress, "HRESULT")
-        return result
+        return hMapAddress
     }
 
     /**
      * 
-     * @param {Pointer<ICorConfiguration>} pConfiguration 
-     * @returns {HRESULT} 
+     * @returns {ICorConfiguration} 
      */
-    GetConfiguration(pConfiguration) {
-        result := ComCall(9, this, "ptr*", pConfiguration, "HRESULT")
-        return result
+    GetConfiguration() {
+        result := ComCall(9, this, "ptr*", &pConfiguration := 0, "HRESULT")
+        return ICorConfiguration(pConfiguration)
     }
 
     /**
@@ -133,49 +128,43 @@ class ICorRuntimeHost extends IUnknown{
      * 
      * @param {PWSTR} pwzFriendlyName 
      * @param {IUnknown} pIdentityArray 
-     * @param {Pointer<IUnknown>} pAppDomain 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    CreateDomain(pwzFriendlyName, pIdentityArray, pAppDomain) {
+    CreateDomain(pwzFriendlyName, pIdentityArray) {
         pwzFriendlyName := pwzFriendlyName is String ? StrPtr(pwzFriendlyName) : pwzFriendlyName
 
-        result := ComCall(12, this, "ptr", pwzFriendlyName, "ptr", pIdentityArray, "ptr*", pAppDomain, "HRESULT")
-        return result
+        result := ComCall(12, this, "ptr", pwzFriendlyName, "ptr", pIdentityArray, "ptr*", &pAppDomain := 0, "HRESULT")
+        return IUnknown(pAppDomain)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} pAppDomain 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    GetDefaultDomain(pAppDomain) {
-        result := ComCall(13, this, "ptr*", pAppDomain, "HRESULT")
-        return result
+    GetDefaultDomain() {
+        result := ComCall(13, this, "ptr*", &pAppDomain := 0, "HRESULT")
+        return IUnknown(pAppDomain)
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} hEnum 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    EnumDomains(hEnum) {
-        hEnumMarshal := hEnum is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(14, this, hEnumMarshal, hEnum, "HRESULT")
-        return result
+    EnumDomains() {
+        result := ComCall(14, this, "ptr*", &hEnum := 0, "HRESULT")
+        return hEnum
     }
 
     /**
      * 
      * @param {Pointer<Void>} hEnum 
-     * @param {Pointer<IUnknown>} pAppDomain 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    NextDomain(hEnum, pAppDomain) {
+    NextDomain(hEnum) {
         hEnumMarshal := hEnum is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(15, this, hEnumMarshal, hEnum, "ptr*", pAppDomain, "HRESULT")
-        return result
+        result := ComCall(15, this, hEnumMarshal, hEnum, "ptr*", &pAppDomain := 0, "HRESULT")
+        return IUnknown(pAppDomain)
     }
 
     /**
@@ -195,34 +184,31 @@ class ICorRuntimeHost extends IUnknown{
      * @param {PWSTR} pwzFriendlyName 
      * @param {IUnknown} pSetup 
      * @param {IUnknown} pEvidence 
-     * @param {Pointer<IUnknown>} pAppDomain 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    CreateDomainEx(pwzFriendlyName, pSetup, pEvidence, pAppDomain) {
+    CreateDomainEx(pwzFriendlyName, pSetup, pEvidence) {
         pwzFriendlyName := pwzFriendlyName is String ? StrPtr(pwzFriendlyName) : pwzFriendlyName
 
-        result := ComCall(17, this, "ptr", pwzFriendlyName, "ptr", pSetup, "ptr", pEvidence, "ptr*", pAppDomain, "HRESULT")
-        return result
+        result := ComCall(17, this, "ptr", pwzFriendlyName, "ptr", pSetup, "ptr", pEvidence, "ptr*", &pAppDomain := 0, "HRESULT")
+        return IUnknown(pAppDomain)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} pAppDomainSetup 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    CreateDomainSetup(pAppDomainSetup) {
-        result := ComCall(18, this, "ptr*", pAppDomainSetup, "HRESULT")
-        return result
+    CreateDomainSetup() {
+        result := ComCall(18, this, "ptr*", &pAppDomainSetup := 0, "HRESULT")
+        return IUnknown(pAppDomainSetup)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} pEvidence 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    CreateEvidence(pEvidence) {
-        result := ComCall(19, this, "ptr*", pEvidence, "HRESULT")
-        return result
+    CreateEvidence() {
+        result := ComCall(19, this, "ptr*", &pEvidence := 0, "HRESULT")
+        return IUnknown(pEvidence)
     }
 
     /**
@@ -237,11 +223,10 @@ class ICorRuntimeHost extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} pAppDomain 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    CurrentDomain(pAppDomain) {
-        result := ComCall(21, this, "ptr*", pAppDomain, "HRESULT")
-        return result
+    CurrentDomain() {
+        result := ComCall(21, this, "ptr*", &pAppDomain := 0, "HRESULT")
+        return IUnknown(pAppDomain)
     }
 }

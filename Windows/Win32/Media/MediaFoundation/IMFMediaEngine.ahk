@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IMFMediaError.ahk
+#Include .\IMFMediaTimeRange.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -40,13 +42,12 @@ class IMFMediaEngine extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IMFMediaError>} ppError 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaError} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-geterror
      */
-    GetError(ppError) {
-        result := ComCall(3, this, "ptr*", ppError, "HRESULT")
-        return result
+    GetError() {
+        result := ComCall(3, this, "ptr*", &ppError := 0, "HRESULT")
+        return IMFMediaError(ppError)
     }
 
     /**
@@ -86,13 +87,13 @@ class IMFMediaEngine extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} ppUrl 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-getcurrentsource
      */
-    GetCurrentSource(ppUrl) {
+    GetCurrentSource() {
+        ppUrl := BSTR()
         result := ComCall(7, this, "ptr", ppUrl, "HRESULT")
-        return result
+        return ppUrl
     }
 
     /**
@@ -128,13 +129,12 @@ class IMFMediaEngine extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IMFMediaTimeRange>} ppBuffered 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaTimeRange} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-getbuffered
      */
-    GetBuffered(ppBuffered) {
-        result := ComCall(11, this, "ptr*", ppBuffered, "HRESULT")
-        return result
+    GetBuffered() {
+        result := ComCall(11, this, "ptr*", &ppBuffered := 0, "HRESULT")
+        return IMFMediaTimeRange(ppBuffered)
     }
 
     /**
@@ -150,17 +150,14 @@ class IMFMediaEngine extends IUnknown{
     /**
      * 
      * @param {BSTR} type 
-     * @param {Pointer<Integer>} pAnswer 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-canplaytype
      */
-    CanPlayType(type, pAnswer) {
+    CanPlayType(type) {
         type := type is String ? BSTR.Alloc(type).Value : type
 
-        pAnswerMarshal := pAnswer is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, "ptr", type, pAnswerMarshal, pAnswer, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", type, "int*", &pAnswer := 0, "HRESULT")
+        return pAnswer
     }
 
     /**
@@ -278,24 +275,22 @@ class IMFMediaEngine extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IMFMediaTimeRange>} ppPlayed 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaTimeRange} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-getplayed
      */
-    GetPlayed(ppPlayed) {
-        result := ComCall(25, this, "ptr*", ppPlayed, "HRESULT")
-        return result
+    GetPlayed() {
+        result := ComCall(25, this, "ptr*", &ppPlayed := 0, "HRESULT")
+        return IMFMediaTimeRange(ppPlayed)
     }
 
     /**
      * 
-     * @param {Pointer<IMFMediaTimeRange>} ppSeekable 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaTimeRange} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-getseekable
      */
-    GetSeekable(ppSeekable) {
-        result := ComCall(26, this, "ptr*", ppSeekable, "HRESULT")
-        return result
+    GetSeekable() {
+        result := ComCall(26, this, "ptr*", &ppSeekable := 0, "HRESULT")
+        return IMFMediaTimeRange(ppSeekable)
     }
 
     /**
@@ -488,14 +483,11 @@ class IMFMediaEngine extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pPts 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengine-onvideostreamtick
      */
-    OnVideoStreamTick(pPts) {
-        pPtsMarshal := pPts is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(44, this, pPtsMarshal, pPts, "HRESULT")
-        return result
+    OnVideoStreamTick() {
+        result := ComCall(44, this, "int64*", &pPts := 0, "HRESULT")
+        return pPts
     }
 }

@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\RECT.ahk
 #Include ..\Gdi\HDC.ahk
+#Include .\DWRITE_MATRIX.ahk
+#Include ..\..\Foundation\SIZE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -96,13 +99,13 @@ class IDWriteBitmapRenderTarget extends IUnknown{
      * @param {Pointer<DWRITE_GLYPH_RUN>} glyphRun 
      * @param {IDWriteRenderingParams} renderingParams 
      * @param {COLORREF} textColor 
-     * @param {Pointer<RECT>} blackBoxRect 
-     * @returns {HRESULT} 
+     * @returns {RECT} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritebitmaprendertarget-drawglyphrun
      */
-    DrawGlyphRun(baselineOriginX, baselineOriginY, measuringMode, glyphRun, renderingParams, textColor, blackBoxRect) {
+    DrawGlyphRun(baselineOriginX, baselineOriginY, measuringMode, glyphRun, renderingParams, textColor) {
+        blackBoxRect := RECT()
         result := ComCall(3, this, "float", baselineOriginX, "float", baselineOriginY, "int", measuringMode, "ptr", glyphRun, "ptr", renderingParams, "uint", textColor, "ptr", blackBoxRect, "HRESULT")
-        return result
+        return blackBoxRect
     }
 
     /**
@@ -112,7 +115,7 @@ class IDWriteBitmapRenderTarget extends IUnknown{
      */
     GetMemoryDC() {
         result := ComCall(4, this, "ptr")
-        return result
+        return HDC({Value: result}, True)
     }
 
     /**
@@ -138,13 +141,13 @@ class IDWriteBitmapRenderTarget extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<DWRITE_MATRIX>} transform 
-     * @returns {HRESULT} 
+     * @returns {DWRITE_MATRIX} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritebitmaprendertarget-getcurrenttransform
      */
-    GetCurrentTransform(transform) {
+    GetCurrentTransform() {
+        transform := DWRITE_MATRIX()
         result := ComCall(7, this, "ptr", transform, "HRESULT")
-        return result
+        return transform
     }
 
     /**
@@ -160,13 +163,13 @@ class IDWriteBitmapRenderTarget extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<SIZE>} size 
-     * @returns {HRESULT} 
+     * @returns {SIZE} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritebitmaprendertarget-getsize
      */
-    GetSize(size) {
+    GetSize() {
+        size := SIZE()
         result := ComCall(9, this, "ptr", size, "HRESULT")
-        return result
+        return size
     }
 
     /**

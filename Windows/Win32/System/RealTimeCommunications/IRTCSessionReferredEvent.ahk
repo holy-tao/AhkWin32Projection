@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRTCSession2.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -30,42 +32,41 @@ class IRTCSessionReferredEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IRTCSession2>} ppSession 
-     * @returns {HRESULT} 
+     * @returns {IRTCSession2} 
      */
-    get_Session(ppSession) {
-        result := ComCall(7, this, "ptr*", ppSession, "HRESULT")
-        return result
+    get_Session() {
+        result := ComCall(7, this, "ptr*", &ppSession := 0, "HRESULT")
+        return IRTCSession2(ppSession)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrReferredByURI 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ReferredByURI(pbstrReferredByURI) {
+    get_ReferredByURI() {
+        pbstrReferredByURI := BSTR()
         result := ComCall(8, this, "ptr", pbstrReferredByURI, "HRESULT")
-        return result
+        return pbstrReferredByURI
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrReferoURI 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ReferToURI(pbstrReferoURI) {
+    get_ReferToURI() {
+        pbstrReferoURI := BSTR()
         result := ComCall(9, this, "ptr", pbstrReferoURI, "HRESULT")
-        return result
+        return pbstrReferoURI
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrReferCookie 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ReferCookie(pbstrReferCookie) {
+    get_ReferCookie() {
+        pbstrReferCookie := BSTR()
         result := ComCall(10, this, "ptr", pbstrReferCookie, "HRESULT")
-        return result
+        return pbstrReferCookie
     }
 
     /**

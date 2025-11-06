@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\ISpDataKey.ahk
+#Include .\IEnumSpObjectTokens.ahk
 
 /**
  * @namespace Windows.Win32.Media.Speech
@@ -49,38 +50,35 @@ class ISpObjectTokenCategory extends ISpDataKey{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszCoMemCategoryId 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetId(ppszCoMemCategoryId) {
-        result := ComCall(16, this, "ptr", ppszCoMemCategoryId, "HRESULT")
-        return result
+    GetId() {
+        result := ComCall(16, this, "ptr*", &ppszCoMemCategoryId := 0, "HRESULT")
+        return ppszCoMemCategoryId
     }
 
     /**
      * 
      * @param {Integer} spdkl 
-     * @param {Pointer<ISpDataKey>} ppDataKey 
-     * @returns {HRESULT} 
+     * @returns {ISpDataKey} 
      */
-    GetDataKey(spdkl, ppDataKey) {
-        result := ComCall(17, this, "int", spdkl, "ptr*", ppDataKey, "HRESULT")
-        return result
+    GetDataKey(spdkl) {
+        result := ComCall(17, this, "int", spdkl, "ptr*", &ppDataKey := 0, "HRESULT")
+        return ISpDataKey(ppDataKey)
     }
 
     /**
      * 
      * @param {PWSTR} pzsReqAttribs 
      * @param {PWSTR} pszOptAttribs 
-     * @param {Pointer<IEnumSpObjectTokens>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumSpObjectTokens} 
      */
-    EnumTokens(pzsReqAttribs, pszOptAttribs, ppEnum) {
+    EnumTokens(pzsReqAttribs, pszOptAttribs) {
         pzsReqAttribs := pzsReqAttribs is String ? StrPtr(pzsReqAttribs) : pzsReqAttribs
         pszOptAttribs := pszOptAttribs is String ? StrPtr(pszOptAttribs) : pszOptAttribs
 
-        result := ComCall(18, this, "ptr", pzsReqAttribs, "ptr", pszOptAttribs, "ptr*", ppEnum, "HRESULT")
-        return result
+        result := ComCall(18, this, "ptr", pzsReqAttribs, "ptr", pszOptAttribs, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumSpObjectTokens(ppEnum)
     }
 
     /**
@@ -97,11 +95,10 @@ class ISpObjectTokenCategory extends ISpDataKey{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszCoMemTokenId 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetDefaultTokenId(ppszCoMemTokenId) {
-        result := ComCall(20, this, "ptr", ppszCoMemTokenId, "HRESULT")
-        return result
+    GetDefaultTokenId() {
+        result := ComCall(20, this, "ptr*", &ppszCoMemTokenId := 0, "HRESULT")
+        return ppszCoMemTokenId
     }
 }

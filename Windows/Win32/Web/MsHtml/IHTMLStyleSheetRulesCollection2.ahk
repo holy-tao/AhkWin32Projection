@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IHTMLCSSRule.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,24 +31,20 @@ class IHTMLStyleSheetRulesCollection2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_length(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pMarshal, p, "HRESULT")
-        return result
+    get_length() {
+        result := ComCall(7, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<IHTMLCSSRule>} ppHTMLCSSRule 
-     * @returns {HRESULT} 
+     * @returns {IHTMLCSSRule} 
      */
-    item(index, ppHTMLCSSRule) {
-        result := ComCall(8, this, "int", index, "ptr*", ppHTMLCSSRule, "HRESULT")
-        return result
+    item(index) {
+        result := ComCall(8, this, "int", index, "ptr*", &ppHTMLCSSRule := 0, "HRESULT")
+        return IHTMLCSSRule(ppHTMLCSSRule)
     }
 }

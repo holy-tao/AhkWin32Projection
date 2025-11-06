@@ -38,23 +38,23 @@ class IItemNameLimits extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iitemnamelimits-getvalidcharacters
      */
     GetValidCharacters(ppwszValidChars, ppwszInvalidChars) {
-        result := ComCall(3, this, "ptr", ppwszValidChars, "ptr", ppwszInvalidChars, "HRESULT")
+        ppwszValidCharsMarshal := ppwszValidChars is VarRef ? "ptr*" : "ptr"
+        ppwszInvalidCharsMarshal := ppwszInvalidChars is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, ppwszValidCharsMarshal, ppwszValidChars, ppwszInvalidCharsMarshal, ppwszInvalidChars, "HRESULT")
         return result
     }
 
     /**
      * 
      * @param {PWSTR} pszName 
-     * @param {Pointer<Integer>} piMaxNameLen 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iitemnamelimits-getmaxlength
      */
-    GetMaxLength(pszName, piMaxNameLen) {
+    GetMaxLength(pszName) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        piMaxNameLenMarshal := piMaxNameLen is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, "ptr", pszName, piMaxNameLenMarshal, piMaxNameLen, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pszName, "int*", &piMaxNameLen := 0, "HRESULT")
+        return piMaxNameLen
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DXGI_QUERY_VIDEO_MEMORY_INFO.ahk
 #Include .\IDXGIAdapter2.ahk
 
 /**
@@ -38,17 +39,14 @@ class IDXGIAdapter3 extends IDXGIAdapter2{
     /**
      * 
      * @param {HANDLE} hEvent 
-     * @param {Pointer<Integer>} pdwCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_4/nf-dxgi1_4-idxgiadapter3-registerhardwarecontentprotectionteardownstatusevent
      */
-    RegisterHardwareContentProtectionTeardownStatusEvent(hEvent, pdwCookie) {
+    RegisterHardwareContentProtectionTeardownStatusEvent(hEvent) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, "ptr", hEvent, pdwCookieMarshal, pdwCookie, "HRESULT")
-        return result
+        result := ComCall(12, this, "ptr", hEvent, "uint*", &pdwCookie := 0, "HRESULT")
+        return pdwCookie
     }
 
     /**
@@ -65,13 +63,13 @@ class IDXGIAdapter3 extends IDXGIAdapter2{
      * 
      * @param {Integer} NodeIndex 
      * @param {Integer} MemorySegmentGroup 
-     * @param {Pointer<DXGI_QUERY_VIDEO_MEMORY_INFO>} pVideoMemoryInfo 
-     * @returns {HRESULT} 
+     * @returns {DXGI_QUERY_VIDEO_MEMORY_INFO} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_4/nf-dxgi1_4-idxgiadapter3-queryvideomemoryinfo
      */
-    QueryVideoMemoryInfo(NodeIndex, MemorySegmentGroup, pVideoMemoryInfo) {
+    QueryVideoMemoryInfo(NodeIndex, MemorySegmentGroup) {
+        pVideoMemoryInfo := DXGI_QUERY_VIDEO_MEMORY_INFO()
         result := ComCall(14, this, "uint", NodeIndex, "int", MemorySegmentGroup, "ptr", pVideoMemoryInfo, "HRESULT")
-        return result
+        return pVideoMemoryInfo
     }
 
     /**
@@ -90,17 +88,14 @@ class IDXGIAdapter3 extends IDXGIAdapter2{
     /**
      * 
      * @param {HANDLE} hEvent 
-     * @param {Pointer<Integer>} pdwCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_4/nf-dxgi1_4-idxgiadapter3-registervideomemorybudgetchangenotificationevent
      */
-    RegisterVideoMemoryBudgetChangeNotificationEvent(hEvent, pdwCookie) {
+    RegisterVideoMemoryBudgetChangeNotificationEvent(hEvent) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(16, this, "ptr", hEvent, pdwCookieMarshal, pdwCookie, "HRESULT")
-        return result
+        result := ComCall(16, this, "ptr", hEvent, "uint*", &pdwCookie := 0, "HRESULT")
+        return pdwCookie
     }
 
     /**

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IHTMLStyleSheetPagesCollection.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -31,12 +32,11 @@ class IHTMLStyleSheet2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IHTMLStyleSheetPagesCollection>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLStyleSheetPagesCollection} 
      */
-    get_pages(p) {
-        result := ComCall(7, this, "ptr*", p, "HRESULT")
-        return result
+    get_pages() {
+        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLStyleSheetPagesCollection(p)
     }
 
     /**
@@ -44,16 +44,13 @@ class IHTMLStyleSheet2 extends IDispatch{
      * @param {BSTR} bstrSelector 
      * @param {BSTR} bstrStyle 
      * @param {Integer} lIndex 
-     * @param {Pointer<Integer>} plNewIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    addPageRule(bstrSelector, bstrStyle, lIndex, plNewIndex) {
+    addPageRule(bstrSelector, bstrStyle, lIndex) {
         bstrSelector := bstrSelector is String ? BSTR.Alloc(bstrSelector).Value : bstrSelector
         bstrStyle := bstrStyle is String ? BSTR.Alloc(bstrStyle).Value : bstrStyle
 
-        plNewIndexMarshal := plNewIndex is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, "ptr", bstrSelector, "ptr", bstrStyle, "int", lIndex, plNewIndexMarshal, plNewIndex, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", bstrSelector, "ptr", bstrStyle, "int", lIndex, "int*", &plNewIndex := 0, "HRESULT")
+        return plNewIndex
     }
 }

@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMoniker.ahk
+#Include .\IEnumMoniker.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 #Include .\IPersistStream.ahk
 
 /**
@@ -147,15 +150,12 @@ class IMoniker extends IPersistStream{
      * @param {IBindCtx} pbc 
      * @param {IMoniker} pmkToLeft 
      * @param {Pointer<Guid>} riidResult 
-     * @param {Pointer<Pointer<Void>>} ppvResult 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imoniker-bindtoobject
      */
-    BindToObject(pbc, pmkToLeft, riidResult, ppvResult) {
-        ppvResultMarshal := ppvResult is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(8, this, "ptr", pbc, "ptr", pmkToLeft, "ptr", riidResult, ppvResultMarshal, ppvResult, "HRESULT")
-        return result
+    BindToObject(pbc, pmkToLeft, riidResult) {
+        result := ComCall(8, this, "ptr", pbc, "ptr", pmkToLeft, "ptr", riidResult, "ptr*", &ppvResult := 0, "HRESULT")
+        return ppvResult
     }
 
     /**
@@ -163,15 +163,12 @@ class IMoniker extends IPersistStream{
      * @param {IBindCtx} pbc 
      * @param {IMoniker} pmkToLeft 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvObj 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imoniker-bindtostorage
      */
-    BindToStorage(pbc, pmkToLeft, riid, ppvObj) {
-        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(9, this, "ptr", pbc, "ptr", pmkToLeft, "ptr", riid, ppvObjMarshal, ppvObj, "HRESULT")
-        return result
+    BindToStorage(pbc, pmkToLeft, riid) {
+        result := ComCall(9, this, "ptr", pbc, "ptr", pmkToLeft, "ptr", riid, "ptr*", &ppvObj := 0, "HRESULT")
+        return ppvObj
     }
 
     /**
@@ -179,38 +176,35 @@ class IMoniker extends IPersistStream{
      * @param {IBindCtx} pbc 
      * @param {Integer} dwReduceHowFar 
      * @param {Pointer<IMoniker>} ppmkToLeft 
-     * @param {Pointer<IMoniker>} ppmkReduced 
-     * @returns {HRESULT} 
+     * @returns {IMoniker} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imoniker-reduce
      */
-    Reduce(pbc, dwReduceHowFar, ppmkToLeft, ppmkReduced) {
-        result := ComCall(10, this, "ptr", pbc, "uint", dwReduceHowFar, "ptr*", ppmkToLeft, "ptr*", ppmkReduced, "HRESULT")
-        return result
+    Reduce(pbc, dwReduceHowFar, ppmkToLeft) {
+        result := ComCall(10, this, "ptr", pbc, "uint", dwReduceHowFar, "ptr*", ppmkToLeft, "ptr*", &ppmkReduced := 0, "HRESULT")
+        return IMoniker(ppmkReduced)
     }
 
     /**
      * 
      * @param {IMoniker} pmkRight 
      * @param {BOOL} fOnlyIfNotGeneric 
-     * @param {Pointer<IMoniker>} ppmkComposite 
-     * @returns {HRESULT} 
+     * @returns {IMoniker} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imoniker-composewith
      */
-    ComposeWith(pmkRight, fOnlyIfNotGeneric, ppmkComposite) {
-        result := ComCall(11, this, "ptr", pmkRight, "int", fOnlyIfNotGeneric, "ptr*", ppmkComposite, "HRESULT")
-        return result
+    ComposeWith(pmkRight, fOnlyIfNotGeneric) {
+        result := ComCall(11, this, "ptr", pmkRight, "int", fOnlyIfNotGeneric, "ptr*", &ppmkComposite := 0, "HRESULT")
+        return IMoniker(ppmkComposite)
     }
 
     /**
      * 
      * @param {BOOL} fForward 
-     * @param {Pointer<IEnumMoniker>} ppenumMoniker 
-     * @returns {HRESULT} 
+     * @returns {IEnumMoniker} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imoniker-enum
      */
-    Enum(fForward, ppenumMoniker) {
-        result := ComCall(12, this, "int", fForward, "ptr*", ppenumMoniker, "HRESULT")
-        return result
+    Enum(fForward) {
+        result := ComCall(12, this, "int", fForward, "ptr*", &ppenumMoniker := 0, "HRESULT")
+        return IEnumMoniker(ppenumMoniker)
     }
 
     /**
@@ -226,15 +220,12 @@ class IMoniker extends IPersistStream{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwHash 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imoniker-hash
      */
-    Hash(pdwHash) {
-        pdwHashMarshal := pdwHash is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, pdwHashMarshal, pdwHash, "HRESULT")
-        return result
+    Hash() {
+        result := ComCall(14, this, "uint*", &pdwHash := 0, "HRESULT")
+        return pdwHash
     }
 
     /**
@@ -254,61 +245,57 @@ class IMoniker extends IPersistStream{
      * 
      * @param {IBindCtx} pbc 
      * @param {IMoniker} pmkToLeft 
-     * @param {Pointer<FILETIME>} pFileTime 
-     * @returns {HRESULT} 
+     * @returns {FILETIME} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imoniker-gettimeoflastchange
      */
-    GetTimeOfLastChange(pbc, pmkToLeft, pFileTime) {
+    GetTimeOfLastChange(pbc, pmkToLeft) {
+        pFileTime := FILETIME()
         result := ComCall(16, this, "ptr", pbc, "ptr", pmkToLeft, "ptr", pFileTime, "HRESULT")
-        return result
+        return pFileTime
     }
 
     /**
      * 
-     * @param {Pointer<IMoniker>} ppmk 
-     * @returns {HRESULT} 
+     * @returns {IMoniker} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imoniker-inverse
      */
-    Inverse(ppmk) {
-        result := ComCall(17, this, "ptr*", ppmk, "HRESULT")
-        return result
+    Inverse() {
+        result := ComCall(17, this, "ptr*", &ppmk := 0, "HRESULT")
+        return IMoniker(ppmk)
     }
 
     /**
      * 
      * @param {IMoniker} pmkOther 
-     * @param {Pointer<IMoniker>} ppmkPrefix 
-     * @returns {HRESULT} 
+     * @returns {IMoniker} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imoniker-commonprefixwith
      */
-    CommonPrefixWith(pmkOther, ppmkPrefix) {
-        result := ComCall(18, this, "ptr", pmkOther, "ptr*", ppmkPrefix, "HRESULT")
-        return result
+    CommonPrefixWith(pmkOther) {
+        result := ComCall(18, this, "ptr", pmkOther, "ptr*", &ppmkPrefix := 0, "HRESULT")
+        return IMoniker(ppmkPrefix)
     }
 
     /**
      * 
      * @param {IMoniker} pmkOther 
-     * @param {Pointer<IMoniker>} ppmkRelPath 
-     * @returns {HRESULT} 
+     * @returns {IMoniker} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imoniker-relativepathto
      */
-    RelativePathTo(pmkOther, ppmkRelPath) {
-        result := ComCall(19, this, "ptr", pmkOther, "ptr*", ppmkRelPath, "HRESULT")
-        return result
+    RelativePathTo(pmkOther) {
+        result := ComCall(19, this, "ptr", pmkOther, "ptr*", &ppmkRelPath := 0, "HRESULT")
+        return IMoniker(ppmkRelPath)
     }
 
     /**
      * 
      * @param {IBindCtx} pbc 
      * @param {IMoniker} pmkToLeft 
-     * @param {Pointer<PWSTR>} ppszDisplayName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imoniker-getdisplayname
      */
-    GetDisplayName(pbc, pmkToLeft, ppszDisplayName) {
-        result := ComCall(20, this, "ptr", pbc, "ptr", pmkToLeft, "ptr", ppszDisplayName, "HRESULT")
-        return result
+    GetDisplayName(pbc, pmkToLeft) {
+        result := ComCall(20, this, "ptr", pbc, "ptr", pmkToLeft, "ptr*", &ppszDisplayName := 0, "HRESULT")
+        return ppszDisplayName
     }
 
     /**
@@ -332,14 +319,11 @@ class IMoniker extends IPersistStream{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwMksys 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imoniker-issystemmoniker
      */
-    IsSystemMoniker(pdwMksys) {
-        pdwMksysMarshal := pdwMksys is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(22, this, pdwMksysMarshal, pdwMksys, "HRESULT")
-        return result
+    IsSystemMoniker() {
+        result := ComCall(22, this, "uint*", &pdwMksys := 0, "HRESULT")
+        return pdwMksys
     }
 }

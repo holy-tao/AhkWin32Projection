@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\DSCFXAec.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -40,24 +41,21 @@ class IDirectSoundCaptureFXAec extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<DSCFXAec>} pDscFxAec 
-     * @returns {HRESULT} 
+     * @returns {DSCFXAec} 
      */
-    GetAllParameters(pDscFxAec) {
+    GetAllParameters() {
+        pDscFxAec := DSCFXAec()
         result := ComCall(4, this, "ptr", pDscFxAec, "HRESULT")
-        return result
+        return pDscFxAec
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetStatus(pdwStatus) {
-        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pdwStatusMarshal, pdwStatus, "HRESULT")
-        return result
+    GetStatus() {
+        result := ComCall(5, this, "uint*", &pdwStatus := 0, "HRESULT")
+        return pdwStatus
     }
 
     /**

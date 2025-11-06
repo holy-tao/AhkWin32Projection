@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IAVIStream.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -34,32 +35,30 @@ class IAVIEditStream extends IUnknown{
      * 
      * @param {Pointer<Integer>} plStart 
      * @param {Pointer<Integer>} plLength 
-     * @param {Pointer<IAVIStream>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {IAVIStream} 
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavieditstream-cut
      */
-    Cut(plStart, plLength, ppResult) {
+    Cut(plStart, plLength) {
         plStartMarshal := plStart is VarRef ? "int*" : "ptr"
         plLengthMarshal := plLength is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, plStartMarshal, plStart, plLengthMarshal, plLength, "ptr*", ppResult, "HRESULT")
-        return result
+        result := ComCall(3, this, plStartMarshal, plStart, plLengthMarshal, plLength, "ptr*", &ppResult := 0, "HRESULT")
+        return IAVIStream(ppResult)
     }
 
     /**
      * 
      * @param {Pointer<Integer>} plStart 
      * @param {Pointer<Integer>} plLength 
-     * @param {Pointer<IAVIStream>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {IAVIStream} 
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavieditstream-copy
      */
-    Copy(plStart, plLength, ppResult) {
+    Copy(plStart, plLength) {
         plStartMarshal := plStart is VarRef ? "int*" : "ptr"
         plLengthMarshal := plLength is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, plStartMarshal, plStart, plLengthMarshal, plLength, "ptr*", ppResult, "HRESULT")
-        return result
+        result := ComCall(4, this, plStartMarshal, plStart, plLengthMarshal, plLength, "ptr*", &ppResult := 0, "HRESULT")
+        return IAVIStream(ppResult)
     }
 
     /**
@@ -82,13 +81,12 @@ class IAVIEditStream extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IAVIStream>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {IAVIStream} 
      * @see https://learn.microsoft.com/windows/win32/api/vfw/nf-vfw-iavieditstream-clone
      */
-    Clone(ppResult) {
-        result := ComCall(6, this, "ptr*", ppResult, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppResult := 0, "HRESULT")
+        return IAVIStream(ppResult)
     }
 
     /**

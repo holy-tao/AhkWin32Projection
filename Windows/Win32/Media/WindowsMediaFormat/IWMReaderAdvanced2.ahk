@@ -43,15 +43,12 @@ class IWMReaderAdvanced2 extends IWMReaderAdvanced{
 
     /**
      * 
-     * @param {Pointer<Integer>} pMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced2-getplaymode
      */
-    GetPlayMode(pMode) {
-        pModeMarshal := pMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(24, this, pModeMarshal, pMode, "HRESULT")
-        return result
+    GetPlayMode() {
+        result := ComCall(24, this, "int*", &pMode := 0, "HRESULT")
+        return pMode
     }
 
     /**
@@ -88,15 +85,12 @@ class IWMReaderAdvanced2 extends IWMReaderAdvanced{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwPercent 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced2-getsaveasprogress
      */
-    GetSaveAsProgress(pdwPercent) {
-        pdwPercentMarshal := pdwPercent is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(27, this, pdwPercentMarshal, pdwPercent, "HRESULT")
-        return result
+    GetSaveAsProgress() {
+        result := ComCall(27, this, "uint*", &pdwPercent := 0, "HRESULT")
+        return pdwPercent
     }
 
     /**
@@ -210,13 +204,12 @@ class IWMReaderAdvanced2 extends IWMReaderAdvanced{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfLogClientID 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced2-getlogclientid
      */
-    GetLogClientID(pfLogClientID) {
-        result := ComCall(35, this, "ptr", pfLogClientID, "HRESULT")
-        return result
+    GetLogClientID() {
+        result := ComCall(35, this, "int*", &pfLogClientID := 0, "HRESULT")
+        return pfLogClientID
     }
 
     /**

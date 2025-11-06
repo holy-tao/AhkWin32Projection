@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IFaxIncomingMessage.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -43,26 +44,22 @@ class IFaxIncomingMessageIterator extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IFaxIncomingMessage>} pFaxIncomingMessage 
-     * @returns {HRESULT} 
+     * @returns {IFaxIncomingMessage} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessageiterator-get_message
      */
-    get_Message(pFaxIncomingMessage) {
-        result := ComCall(7, this, "ptr*", pFaxIncomingMessage, "HRESULT")
-        return result
+    get_Message() {
+        result := ComCall(7, this, "ptr*", &pFaxIncomingMessage := 0, "HRESULT")
+        return IFaxIncomingMessage(pFaxIncomingMessage)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plPrefetchSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessageiterator-get_prefetchsize
      */
-    get_PrefetchSize(plPrefetchSize) {
-        plPrefetchSizeMarshal := plPrefetchSize is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, plPrefetchSizeMarshal, plPrefetchSize, "HRESULT")
-        return result
+    get_PrefetchSize() {
+        result := ComCall(8, this, "int*", &plPrefetchSize := 0, "HRESULT")
+        return plPrefetchSize
     }
 
     /**
@@ -78,13 +75,12 @@ class IFaxIncomingMessageIterator extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbEOF 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessageiterator-get_ateof
      */
-    get_AtEOF(pbEOF) {
-        result := ComCall(10, this, "ptr", pbEOF, "HRESULT")
-        return result
+    get_AtEOF() {
+        result := ComCall(10, this, "short*", &pbEOF := 0, "HRESULT")
+        return pbEOF
     }
 
     /**

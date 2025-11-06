@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\MFCameraIntrinsic_DistortionModelArcTan.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,12 +31,12 @@ class IMFExtendedCameraIntrinsicsDistortionModelArcTan extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<MFCameraIntrinsic_DistortionModelArcTan>} pDistortionModel 
-     * @returns {HRESULT} 
+     * @returns {MFCameraIntrinsic_DistortionModelArcTan} 
      */
-    GetDistortionModel(pDistortionModel) {
+    GetDistortionModel() {
+        pDistortionModel := MFCameraIntrinsic_DistortionModelArcTan()
         result := ComCall(3, this, "ptr", pDistortionModel, "HRESULT")
-        return result
+        return pDistortionModel
     }
 
     /**

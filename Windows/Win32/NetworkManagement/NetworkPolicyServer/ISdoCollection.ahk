@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Use the ISdoCollection interface to manipulate a collection of SDO objects.
@@ -40,15 +41,12 @@ class ISdoCollection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdocollection-get_count
      */
-    get_Count(pCount) {
-        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
@@ -99,37 +97,34 @@ class ISdoCollection extends IDispatch{
     /**
      * 
      * @param {BSTR} bstrName 
-     * @param {Pointer<VARIANT_BOOL>} pBool 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdocollection-isnameunique
      */
-    IsNameUnique(bstrName, pBool) {
+    IsNameUnique(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(12, this, "ptr", bstrName, "ptr", pBool, "HRESULT")
-        return result
+        result := ComCall(12, this, "ptr", bstrName, "short*", &pBool := 0, "HRESULT")
+        return pBool
     }
 
     /**
      * 
      * @param {Pointer<VARIANT>} Name 
-     * @param {Pointer<IDispatch>} pItem 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdocollection-item
      */
-    Item(Name, pItem) {
-        result := ComCall(13, this, "ptr", Name, "ptr*", pItem, "HRESULT")
-        return result
+    Item(Name) {
+        result := ComCall(13, this, "ptr", Name, "ptr*", &pItem := 0, "HRESULT")
+        return IDispatch(pItem)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppEnumVARIANT 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdocollection-get__newenum
      */
-    get__NewEnum(ppEnumVARIANT) {
-        result := ComCall(14, this, "ptr*", ppEnumVARIANT, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(14, this, "ptr*", &ppEnumVARIANT := 0, "HRESULT")
+        return IUnknown(ppEnumVARIANT)
     }
 }

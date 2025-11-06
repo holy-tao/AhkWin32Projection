@@ -47,7 +47,9 @@ class ISpeechResourceLoader extends IDispatch{
     LoadResource(bstrResourceUri, fAlwaysReload, pStream, pbstrMIMEType, pfModified, pbstrRedirectUrl) {
         bstrResourceUri := bstrResourceUri is String ? BSTR.Alloc(bstrResourceUri).Value : bstrResourceUri
 
-        result := ComCall(7, this, "ptr", bstrResourceUri, "short", fAlwaysReload, "ptr*", pStream, "ptr", pbstrMIMEType, "ptr", pfModified, "ptr", pbstrRedirectUrl, "HRESULT")
+        pfModifiedMarshal := pfModified is VarRef ? "short*" : "ptr"
+
+        result := ComCall(7, this, "ptr", bstrResourceUri, "short", fAlwaysReload, "ptr*", pStream, "ptr", pbstrMIMEType, pfModifiedMarshal, pfModified, "ptr", pbstrRedirectUrl, "HRESULT")
         return result
     }
 

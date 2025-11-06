@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID3D11ClassInstance.ahk
 #Include .\ID3D11DeviceChild.ahk
 
 /**
@@ -41,15 +42,14 @@ class ID3D11ClassLinkage extends ID3D11DeviceChild{
      * 
      * @param {PSTR} pClassInstanceName 
      * @param {Integer} InstanceIndex 
-     * @param {Pointer<ID3D11ClassInstance>} ppInstance 
-     * @returns {HRESULT} 
+     * @returns {ID3D11ClassInstance} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11classlinkage-getclassinstance
      */
-    GetClassInstance(pClassInstanceName, InstanceIndex, ppInstance) {
+    GetClassInstance(pClassInstanceName, InstanceIndex) {
         pClassInstanceName := pClassInstanceName is String ? StrPtr(pClassInstanceName) : pClassInstanceName
 
-        result := ComCall(7, this, "ptr", pClassInstanceName, "uint", InstanceIndex, "ptr*", ppInstance, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", pClassInstanceName, "uint", InstanceIndex, "ptr*", &ppInstance := 0, "HRESULT")
+        return ID3D11ClassInstance(ppInstance)
     }
 
     /**
@@ -59,14 +59,13 @@ class ID3D11ClassLinkage extends ID3D11DeviceChild{
      * @param {Integer} ConstantVectorOffset 
      * @param {Integer} TextureOffset 
      * @param {Integer} SamplerOffset 
-     * @param {Pointer<ID3D11ClassInstance>} ppInstance 
-     * @returns {HRESULT} 
+     * @returns {ID3D11ClassInstance} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11classlinkage-createclassinstance
      */
-    CreateClassInstance(pClassTypeName, ConstantBufferOffset, ConstantVectorOffset, TextureOffset, SamplerOffset, ppInstance) {
+    CreateClassInstance(pClassTypeName, ConstantBufferOffset, ConstantVectorOffset, TextureOffset, SamplerOffset) {
         pClassTypeName := pClassTypeName is String ? StrPtr(pClassTypeName) : pClassTypeName
 
-        result := ComCall(8, this, "ptr", pClassTypeName, "uint", ConstantBufferOffset, "uint", ConstantVectorOffset, "uint", TextureOffset, "uint", SamplerOffset, "ptr*", ppInstance, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", pClassTypeName, "uint", ConstantBufferOffset, "uint", ConstantVectorOffset, "uint", TextureOffset, "uint", SamplerOffset, "ptr*", &ppInstance := 0, "HRESULT")
+        return ID3D11ClassInstance(ppInstance)
     }
 }

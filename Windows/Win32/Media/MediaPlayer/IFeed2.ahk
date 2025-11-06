@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include .\IFeed.ahk
 
 /**
@@ -32,44 +33,40 @@ class IFeed2 extends IFeed{
     /**
      * 
      * @param {Integer} itemEffectiveId 
-     * @param {Pointer<IDispatch>} disp 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    GetItemByEffectiveId(itemEffectiveId, disp) {
-        result := ComCall(51, this, "int", itemEffectiveId, "ptr*", disp, "HRESULT")
-        return result
+    GetItemByEffectiveId(itemEffectiveId) {
+        result := ComCall(51, this, "int", itemEffectiveId, "ptr*", &disp := 0, "HRESULT")
+        return IDispatch(disp)
     }
 
     /**
      * 
-     * @param {Pointer<Float>} lastItemDownloadTime 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_LastItemDownloadTime(lastItemDownloadTime) {
-        lastItemDownloadTimeMarshal := lastItemDownloadTime is VarRef ? "double*" : "ptr"
-
-        result := ComCall(52, this, lastItemDownloadTimeMarshal, lastItemDownloadTime, "HRESULT")
-        return result
+    get_LastItemDownloadTime() {
+        result := ComCall(52, this, "double*", &lastItemDownloadTime := 0, "HRESULT")
+        return lastItemDownloadTime
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} username 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Username(username) {
+    get_Username() {
+        username := BSTR()
         result := ComCall(53, this, "ptr", username, "HRESULT")
-        return result
+        return username
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} password 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Password(password) {
+    get_Password() {
+        password := BSTR()
         result := ComCall(54, this, "ptr", password, "HRESULT")
-        return result
+        return password
     }
 
     /**

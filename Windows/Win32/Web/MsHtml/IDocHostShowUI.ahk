@@ -36,17 +36,16 @@ class IDocHostShowUI extends IUnknown{
      * @param {Integer} dwType 
      * @param {PWSTR} lpstrHelpFile 
      * @param {Integer} dwHelpContext 
-     * @param {Pointer<LRESULT>} plResult 
-     * @returns {HRESULT} 
+     * @returns {LRESULT} 
      */
-    ShowMessage(hwnd, lpstrText, lpstrCaption, dwType, lpstrHelpFile, dwHelpContext, plResult) {
+    ShowMessage(hwnd, lpstrText, lpstrCaption, dwType, lpstrHelpFile, dwHelpContext) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         lpstrText := lpstrText is String ? StrPtr(lpstrText) : lpstrText
         lpstrCaption := lpstrCaption is String ? StrPtr(lpstrCaption) : lpstrCaption
         lpstrHelpFile := lpstrHelpFile is String ? StrPtr(lpstrHelpFile) : lpstrHelpFile
 
-        result := ComCall(3, this, "ptr", hwnd, "ptr", lpstrText, "ptr", lpstrCaption, "uint", dwType, "ptr", lpstrHelpFile, "uint", dwHelpContext, "ptr", plResult, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", hwnd, "ptr", lpstrText, "ptr", lpstrCaption, "uint", dwType, "ptr", lpstrHelpFile, "uint", dwHelpContext, "ptr*", &plResult := 0, "HRESULT")
+        return plResult
     }
 
     /**

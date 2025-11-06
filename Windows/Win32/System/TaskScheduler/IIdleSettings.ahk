@@ -94,7 +94,9 @@ class IIdleSettings extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iidlesettings-get_stoponidleend
      */
     get_StopOnIdleEnd(pStop) {
-        result := ComCall(11, this, "ptr", pStop, "HRESULT")
+        pStopMarshal := pStop is VarRef ? "short*" : "ptr"
+
+        result := ComCall(11, this, pStopMarshal, pStop, "HRESULT")
         return result
     }
 
@@ -116,7 +118,9 @@ class IIdleSettings extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iidlesettings-get_restartonidle
      */
     get_RestartOnIdle(pRestart) {
-        result := ComCall(13, this, "ptr", pRestart, "HRESULT")
+        pRestartMarshal := pRestart is VarRef ? "short*" : "ptr"
+
+        result := ComCall(13, this, pRestartMarshal, pRestart, "HRESULT")
         return result
     }
 

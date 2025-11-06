@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IAudioFormatEnumerator.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -77,53 +78,43 @@ class ISpatialAudioClient extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} mask 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient-getnativestaticobjecttypemask
      */
-    GetNativeStaticObjectTypeMask(mask) {
-        maskMarshal := mask is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, maskMarshal, mask, "HRESULT")
-        return result
+    GetNativeStaticObjectTypeMask() {
+        result := ComCall(4, this, "int*", &mask := 0, "HRESULT")
+        return mask
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient-getmaxdynamicobjectcount
      */
-    GetMaxDynamicObjectCount(value) {
-        valueMarshal := value is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, valueMarshal, value, "HRESULT")
-        return result
+    GetMaxDynamicObjectCount() {
+        result := ComCall(5, this, "uint*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<IAudioFormatEnumerator>} enumerator 
-     * @returns {HRESULT} 
+     * @returns {IAudioFormatEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient-getsupportedaudioobjectformatenumerator
      */
-    GetSupportedAudioObjectFormatEnumerator(enumerator) {
-        result := ComCall(6, this, "ptr*", enumerator, "HRESULT")
-        return result
+    GetSupportedAudioObjectFormatEnumerator() {
+        result := ComCall(6, this, "ptr*", &enumerator := 0, "HRESULT")
+        return IAudioFormatEnumerator(enumerator)
     }
 
     /**
      * 
      * @param {Pointer<WAVEFORMATEX>} objectFormat 
-     * @param {Pointer<Integer>} frameCountPerBuffer 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient-getmaxframecount
      */
-    GetMaxFrameCount(objectFormat, frameCountPerBuffer) {
-        frameCountPerBufferMarshal := frameCountPerBuffer is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, "ptr", objectFormat, frameCountPerBufferMarshal, frameCountPerBuffer, "HRESULT")
-        return result
+    GetMaxFrameCount(objectFormat) {
+        result := ComCall(7, this, "ptr", objectFormat, "uint*", &frameCountPerBuffer := 0, "HRESULT")
+        return frameCountPerBuffer
     }
 
     /**
@@ -153,14 +144,11 @@ class ISpatialAudioClient extends IUnknown{
      * 
      * @param {Pointer<PROPVARIANT>} activationParams 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} stream 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioclient-activatespatialaudiostream
      */
-    ActivateSpatialAudioStream(activationParams, riid, stream) {
-        streamMarshal := stream is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(10, this, "ptr", activationParams, "ptr", riid, streamMarshal, stream, "HRESULT")
-        return result
+    ActivateSpatialAudioStream(activationParams, riid) {
+        result := ComCall(10, this, "ptr", activationParams, "ptr", riid, "ptr*", &stream := 0, "HRESULT")
+        return stream
     }
 }

@@ -49,13 +49,10 @@ class IResourceManager2 extends IResourceManager{
      * 
      * @param {Pointer<XID>} pXid 
      * @param {Integer} dwTimeout 
-     * @param {Pointer<Integer>} pXactStat 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Reenlist2(pXid, dwTimeout, pXactStat) {
-        pXactStatMarshal := pXactStat is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, "ptr", pXid, "uint", dwTimeout, pXactStatMarshal, pXactStat, "HRESULT")
-        return result
+    Reenlist2(pXid, dwTimeout) {
+        result := ComCall(8, this, "ptr", pXid, "uint", dwTimeout, "int*", &pXactStat := 0, "HRESULT")
+        return pXactStat
     }
 }

@@ -40,34 +40,31 @@ class IAppxManifestDeviceCapabilitiesEnumerator extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} deviceCapability 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestdevicecapabilitiesenumerator-getcurrent
      */
-    GetCurrent(deviceCapability) {
-        result := ComCall(3, this, "ptr", deviceCapability, "HRESULT")
-        return result
+    GetCurrent() {
+        result := ComCall(3, this, "ptr*", &deviceCapability := 0, "HRESULT")
+        return deviceCapability
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} hasCurrent 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestdevicecapabilitiesenumerator-gethascurrent
      */
-    GetHasCurrent(hasCurrent) {
-        result := ComCall(4, this, "ptr", hasCurrent, "HRESULT")
-        return result
+    GetHasCurrent() {
+        result := ComCall(4, this, "int*", &hasCurrent := 0, "HRESULT")
+        return hasCurrent
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} hasNext 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestdevicecapabilitiesenumerator-movenext
      */
-    MoveNext(hasNext) {
-        result := ComCall(5, this, "ptr", hasNext, "HRESULT")
-        return result
+    MoveNext() {
+        result := ComCall(5, this, "int*", &hasNext := 0, "HRESULT")
+        return hasNext
     }
 }

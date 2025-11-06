@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IHTMLWindow2.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -37,32 +38,31 @@ class IDOMMessageEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_data(p) {
+    get_data() {
+        p := BSTR()
         result := ComCall(7, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_origin(p) {
+    get_origin() {
+        p := BSTR()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLWindow2>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLWindow2} 
      */
-    get_source(p) {
-        result := ComCall(9, this, "ptr*", p, "HRESULT")
-        return result
+    get_source() {
+        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLWindow2(p)
     }
 
     /**

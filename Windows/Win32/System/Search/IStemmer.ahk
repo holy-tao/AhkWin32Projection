@@ -45,7 +45,9 @@ class IStemmer extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nf-indexsrv-istemmer-init
      */
     Init(ulMaxTokenSize, pfLicense) {
-        result := ComCall(3, this, "uint", ulMaxTokenSize, "ptr", pfLicense, "HRESULT")
+        pfLicenseMarshal := pfLicense is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "uint", ulMaxTokenSize, pfLicenseMarshal, pfLicense, "HRESULT")
         return result
     }
 

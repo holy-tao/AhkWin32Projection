@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\IPartBase.ahk
 
 /**
@@ -30,12 +31,12 @@ class IPartImage extends IPartBase{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pContentType 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetImageProperties(pContentType) {
+    GetImageProperties() {
+        pContentType := BSTR()
         result := ComCall(7, this, "ptr", pContentType, "HRESULT")
-        return result
+        return pContentType
     }
 
     /**

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ICorProfilerThreadEnum.ahk
+#Include .\ICorProfilerFunctionEnum.ahk
 #Include .\ICorProfilerInfo3.ahk
 
 /**
@@ -30,12 +32,11 @@ class ICorProfilerInfo4 extends ICorProfilerInfo3{
 
     /**
      * 
-     * @param {Pointer<ICorProfilerThreadEnum>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {ICorProfilerThreadEnum} 
      */
-    EnumThreads(ppEnum) {
-        result := ComCall(71, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumThreads() {
+        result := ComCall(71, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return ICorProfilerThreadEnum(ppEnum)
     }
 
     /**
@@ -67,15 +68,14 @@ class ICorProfilerInfo4 extends ICorProfilerInfo3{
      * @param {Integer} cFunctions 
      * @param {Pointer<Pointer>} moduleIds 
      * @param {Pointer<Integer>} methodIds 
-     * @param {Pointer<HRESULT>} status 
      * @returns {HRESULT} 
      */
-    RequestRevert(cFunctions, moduleIds, methodIds, status) {
+    RequestRevert(cFunctions, moduleIds, methodIds) {
         moduleIdsMarshal := moduleIds is VarRef ? "ptr*" : "ptr"
         methodIdsMarshal := methodIds is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(74, this, "uint", cFunctions, moduleIdsMarshal, moduleIds, methodIdsMarshal, methodIds, "ptr", status, "HRESULT")
-        return result
+        result := ComCall(74, this, "uint", cFunctions, moduleIdsMarshal, moduleIds, methodIdsMarshal, methodIds, "int*", &status := 0, "HRESULT")
+        return status
     }
 
     /**
@@ -144,24 +144,20 @@ class ICorProfilerInfo4 extends ICorProfilerInfo3{
 
     /**
      * 
-     * @param {Pointer<ICorProfilerFunctionEnum>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {ICorProfilerFunctionEnum} 
      */
-    EnumJITedFunctions2(ppEnum) {
-        result := ComCall(79, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumJITedFunctions2() {
+        result := ComCall(79, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return ICorProfilerFunctionEnum(ppEnum)
     }
 
     /**
      * 
      * @param {Pointer} objectId 
-     * @param {Pointer<Pointer>} pcSize 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    GetObjectSize2(objectId, pcSize) {
-        pcSizeMarshal := pcSize is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(80, this, "ptr", objectId, pcSizeMarshal, pcSize, "HRESULT")
-        return result
+    GetObjectSize2(objectId) {
+        result := ComCall(80, this, "ptr", objectId, "ptr*", &pcSize := 0, "HRESULT")
+        return pcSize
     }
 }

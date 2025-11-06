@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWbemContext.ahk
+#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -76,27 +78,23 @@ class IWbemContext extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IWbemContext>} ppNewCopy 
-     * @returns {HRESULT} 
+     * @returns {IWbemContext} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemcontext-clone
      */
-    Clone(ppNewCopy) {
-        result := ComCall(3, this, "ptr*", ppNewCopy, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(3, this, "ptr*", &ppNewCopy := 0, "HRESULT")
+        return IWbemContext(ppNewCopy)
     }
 
     /**
      * 
      * @param {Integer} lFlags 
-     * @param {Pointer<Pointer<SAFEARRAY>>} pNames 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemcontext-getnames
      */
-    GetNames(lFlags, pNames) {
-        pNamesMarshal := pNames is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "int", lFlags, pNamesMarshal, pNames, "HRESULT")
-        return result
+    GetNames(lFlags) {
+        result := ComCall(4, this, "int", lFlags, "ptr*", &pNames := 0, "HRESULT")
+        return pNames
     }
 
     /**
@@ -152,15 +150,15 @@ class IWbemContext extends IUnknown{
      * 
      * @param {PWSTR} wszName 
      * @param {Integer} lFlags 
-     * @param {Pointer<VARIANT>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemcontext-getvalue
      */
-    GetValue(wszName, lFlags, pValue) {
+    GetValue(wszName, lFlags) {
         wszName := wszName is String ? StrPtr(wszName) : wszName
 
+        pValue := VARIANT()
         result := ComCall(9, this, "ptr", wszName, "int", lFlags, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**

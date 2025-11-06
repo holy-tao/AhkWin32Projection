@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IHTMLElement2.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -31,37 +32,32 @@ class IHTMLAreasCollection4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_length(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pMarshal, p, "HRESULT")
-        return result
+    get_length() {
+        result := ComCall(7, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<IHTMLElement2>} pNode 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElement2} 
      */
-    item(index, pNode) {
-        result := ComCall(8, this, "int", index, "ptr*", pNode, "HRESULT")
-        return result
+    item(index) {
+        result := ComCall(8, this, "int", index, "ptr*", &pNode := 0, "HRESULT")
+        return IHTMLElement2(pNode)
     }
 
     /**
      * 
      * @param {BSTR} name 
-     * @param {Pointer<IHTMLElement2>} pNode 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElement2} 
      */
-    namedItem(name, pNode) {
+    namedItem(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(9, this, "ptr", name, "ptr*", pNode, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", name, "ptr*", &pNode := 0, "HRESULT")
+        return IHTMLElement2(pNode)
     }
 }

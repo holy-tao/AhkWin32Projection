@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -32,49 +33,46 @@ class ICrmFormatLogRecords extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} plColumnCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmformatlogrecords-getcolumncount
      */
-    GetColumnCount(plColumnCount) {
-        plColumnCountMarshal := plColumnCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, plColumnCountMarshal, plColumnCount, "HRESULT")
-        return result
+    GetColumnCount() {
+        result := ComCall(3, this, "int*", &plColumnCount := 0, "HRESULT")
+        return plColumnCount
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pHeaders 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmformatlogrecords-getcolumnheaders
      */
-    GetColumnHeaders(pHeaders) {
+    GetColumnHeaders() {
+        pHeaders := VARIANT()
         result := ComCall(4, this, "ptr", pHeaders, "HRESULT")
-        return result
+        return pHeaders
     }
 
     /**
      * 
      * @param {CrmLogRecordRead} CrmLogRec 
-     * @param {Pointer<VARIANT>} pFormattedLogRecord 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmformatlogrecords-getcolumn
      */
-    GetColumn(CrmLogRec, pFormattedLogRecord) {
+    GetColumn(CrmLogRec) {
+        pFormattedLogRecord := VARIANT()
         result := ComCall(5, this, "ptr", CrmLogRec, "ptr", pFormattedLogRecord, "HRESULT")
-        return result
+        return pFormattedLogRecord
     }
 
     /**
      * 
      * @param {VARIANT} LogRecord 
-     * @param {Pointer<VARIANT>} pFormattedLogRecord 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmformatlogrecords-getcolumnvariants
      */
-    GetColumnVariants(LogRecord, pFormattedLogRecord) {
+    GetColumnVariants(LogRecord) {
+        pFormattedLogRecord := VARIANT()
         result := ComCall(6, this, "ptr", LogRecord, "ptr", pFormattedLogRecord, "HRESULT")
-        return result
+        return pFormattedLogRecord
     }
 }

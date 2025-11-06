@@ -83,12 +83,11 @@ class IPersistFile extends IPersist{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszFileName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ipersistfile-getcurfile
      */
-    GetCurFile(ppszFileName) {
-        result := ComCall(8, this, "ptr", ppszFileName, "HRESULT")
-        return result
+    GetCurFile() {
+        result := ComCall(8, this, "ptr*", &ppszFileName := 0, "HRESULT")
+        return ppszFileName
     }
 }

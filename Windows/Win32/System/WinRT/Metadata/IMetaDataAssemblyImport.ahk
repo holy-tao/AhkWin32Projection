@@ -293,20 +293,19 @@ class IMetaDataAssemblyImport extends IUnknown{
      * @param {PWSTR} szAppBase 
      * @param {PWSTR} szPrivateBin 
      * @param {PWSTR} szAssemblyName 
-     * @param {Pointer<IUnknown>} ppIUnk 
      * @param {Integer} cMax 
      * @param {Pointer<Integer>} pcAssemblies 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadataassemblyimport-findassembliesbyname
      */
-    FindAssembliesByName(szAppBase, szPrivateBin, szAssemblyName, ppIUnk, cMax, pcAssemblies) {
+    FindAssembliesByName(szAppBase, szPrivateBin, szAssemblyName, cMax, pcAssemblies) {
         szAppBase := szAppBase is String ? StrPtr(szAppBase) : szAppBase
         szPrivateBin := szPrivateBin is String ? StrPtr(szPrivateBin) : szPrivateBin
         szAssemblyName := szAssemblyName is String ? StrPtr(szAssemblyName) : szAssemblyName
 
         pcAssembliesMarshal := pcAssemblies is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, "ptr", szAppBase, "ptr", szPrivateBin, "ptr", szAssemblyName, "ptr*", ppIUnk, "uint", cMax, pcAssembliesMarshal, pcAssemblies, "HRESULT")
-        return result
+        result := ComCall(16, this, "ptr", szAppBase, "ptr", szPrivateBin, "ptr", szAssemblyName, "ptr*", &ppIUnk := 0, "uint", cMax, pcAssembliesMarshal, pcAssemblies, "HRESULT")
+        return IUnknown(ppIUnk)
     }
 }

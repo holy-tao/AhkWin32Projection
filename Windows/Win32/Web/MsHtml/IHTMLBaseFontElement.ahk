@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -47,12 +48,12 @@ class IHTMLBaseFontElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_color(p) {
+    get_color() {
+        p := VARIANT()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -69,12 +70,12 @@ class IHTMLBaseFontElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_face(p) {
+    get_face() {
+        p := BSTR()
         result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -89,13 +90,10 @@ class IHTMLBaseFontElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_size(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, pMarshal, p, "HRESULT")
-        return result
+    get_size() {
+        result := ComCall(12, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 }

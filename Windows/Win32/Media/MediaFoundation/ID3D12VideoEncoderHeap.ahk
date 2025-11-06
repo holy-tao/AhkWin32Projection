@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC.ahk
 #Include ..\..\Graphics\Direct3D12\ID3D12Pageable.ahk
 
 /**
@@ -95,12 +96,12 @@ class ID3D12VideoEncoderHeap extends ID3D12Pageable{
     /**
      * 
      * @param {Integer} ResolutionsListCount 
-     * @param {Pointer<D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC>} pResolutionList 
-     * @returns {HRESULT} 
+     * @returns {D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videoencoderheap-getresolutionlist
      */
-    GetResolutionList(ResolutionsListCount, pResolutionList) {
+    GetResolutionList(ResolutionsListCount) {
+        pResolutionList := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC()
         result := ComCall(14, this, "uint", ResolutionsListCount, "ptr", pResolutionList, "HRESULT")
-        return result
+        return pResolutionList
     }
 }

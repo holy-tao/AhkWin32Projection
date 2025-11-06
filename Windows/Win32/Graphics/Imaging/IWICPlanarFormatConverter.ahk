@@ -62,12 +62,11 @@ class IWICPlanarFormatConverter extends IWICBitmapSource{
      * @param {Pointer<Guid>} pSrcPixelFormats 
      * @param {Integer} cSrcPlanes 
      * @param {Pointer<Guid>} dstPixelFormat 
-     * @param {Pointer<BOOL>} pfCanConvert 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicplanarformatconverter-canconvert
      */
-    CanConvert(pSrcPixelFormats, cSrcPlanes, dstPixelFormat, pfCanConvert) {
-        result := ComCall(9, this, "ptr", pSrcPixelFormats, "uint", cSrcPlanes, "ptr", dstPixelFormat, "ptr", pfCanConvert, "HRESULT")
-        return result
+    CanConvert(pSrcPixelFormats, cSrcPlanes, dstPixelFormat) {
+        result := ComCall(9, this, "ptr", pSrcPixelFormats, "uint", cSrcPlanes, "ptr", dstPixelFormat, "int*", &pfCanConvert := 0, "HRESULT")
+        return pfCanConvert
     }
 }

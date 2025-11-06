@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IXMLDOMText.ahk
 #Include .\IXMLDOMCharacterData.ahk
 
 /**
@@ -31,11 +32,10 @@ class IXMLDOMText extends IXMLDOMCharacterData{
     /**
      * 
      * @param {Integer} offset 
-     * @param {Pointer<IXMLDOMText>} rightHandTextNode 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMText} 
      */
-    splitText(offset, rightHandTextNode) {
-        result := ComCall(51, this, "int", offset, "ptr*", rightHandTextNode, "HRESULT")
-        return result
+    splitText(offset) {
+        result := ComCall(51, this, "int", offset, "ptr*", &rightHandTextNode := 0, "HRESULT")
+        return IXMLDOMText(rightHandTextNode)
     }
 }

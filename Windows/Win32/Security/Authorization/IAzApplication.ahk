@@ -2,6 +2,18 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IAzScopes.ahk
+#Include .\IAzScope.ahk
+#Include .\IAzOperations.ahk
+#Include .\IAzOperation.ahk
+#Include .\IAzTasks.ahk
+#Include .\IAzTask.ahk
+#Include .\IAzApplicationGroups.ahk
+#Include .\IAzApplicationGroup.ahk
+#Include .\IAzRoles.ahk
+#Include .\IAzRole.ahk
+#Include .\IAzClientContext.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -38,13 +50,13 @@ class IAzApplication extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-get_name
      */
-    get_Name(pbstrName) {
+    get_Name() {
+        pbstrName := BSTR()
         result := ComCall(7, this, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 
     /**
@@ -62,13 +74,13 @@ class IAzApplication extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrDescription 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-get_description
      */
-    get_Description(pbstrDescription) {
+    get_Description() {
+        pbstrDescription := BSTR()
         result := ComCall(9, this, "ptr", pbstrDescription, "HRESULT")
-        return result
+        return pbstrDescription
     }
 
     /**
@@ -86,13 +98,13 @@ class IAzApplication extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrApplicationData 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-get_applicationdata
      */
-    get_ApplicationData(pbstrApplicationData) {
+    get_ApplicationData() {
+        pbstrApplicationData := BSTR()
         result := ComCall(11, this, "ptr", pbstrApplicationData, "HRESULT")
-        return result
+        return pbstrApplicationData
     }
 
     /**
@@ -110,13 +122,13 @@ class IAzApplication extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrProp 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-get_authzinterfaceclsid
      */
-    get_AuthzInterfaceClsid(pbstrProp) {
+    get_AuthzInterfaceClsid() {
+        pbstrProp := BSTR()
         result := ComCall(13, this, "ptr", pbstrProp, "HRESULT")
-        return result
+        return pbstrProp
     }
 
     /**
@@ -134,13 +146,13 @@ class IAzApplication extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrProp 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-get_version
      */
-    get_Version(pbstrProp) {
+    get_Version() {
+        pbstrProp := BSTR()
         result := ComCall(15, this, "ptr", pbstrProp, "HRESULT")
-        return result
+        return pbstrProp
     }
 
     /**
@@ -158,13 +170,12 @@ class IAzApplication extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbProp 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-get_generateaudits
      */
-    get_GenerateAudits(pbProp) {
-        result := ComCall(17, this, "ptr", pbProp, "HRESULT")
-        return result
+    get_GenerateAudits() {
+        result := ComCall(17, this, "int*", &pbProp := 0, "HRESULT")
+        return pbProp
     }
 
     /**
@@ -180,13 +191,12 @@ class IAzApplication extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbProp 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-get_applystoresacl
      */
-    get_ApplyStoreSacl(pbProp) {
-        result := ComCall(19, this, "ptr", pbProp, "HRESULT")
-        return result
+    get_ApplyStoreSacl() {
+        result := ComCall(19, this, "int*", &pbProp := 0, "HRESULT")
+        return pbProp
     }
 
     /**
@@ -202,26 +212,25 @@ class IAzApplication extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfProp 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-get_writable
      */
-    get_Writable(pfProp) {
-        result := ComCall(21, this, "ptr", pfProp, "HRESULT")
-        return result
+    get_Writable() {
+        result := ComCall(21, this, "int*", &pfProp := 0, "HRESULT")
+        return pfProp
     }
 
     /**
      * 
      * @param {Integer} lPropId 
      * @param {VARIANT} varReserved 
-     * @param {Pointer<VARIANT>} pvarProp 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-getproperty
      */
-    GetProperty(lPropId, varReserved, pvarProp) {
+    GetProperty(lPropId, varReserved) {
+        pvarProp := VARIANT()
         result := ComCall(22, this, "int", lPropId, "ptr", varReserved, "ptr", pvarProp, "HRESULT")
-        return result
+        return pvarProp
     }
 
     /**
@@ -239,24 +248,24 @@ class IAzApplication extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarAdmins 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-get_policyadministrators
      */
-    get_PolicyAdministrators(pvarAdmins) {
+    get_PolicyAdministrators() {
+        pvarAdmins := VARIANT()
         result := ComCall(24, this, "ptr", pvarAdmins, "HRESULT")
-        return result
+        return pvarAdmins
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarReaders 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-get_policyreaders
      */
-    get_PolicyReaders(pvarReaders) {
+    get_PolicyReaders() {
+        pvarReaders := VARIANT()
         result := ComCall(25, this, "ptr", pvarReaders, "HRESULT")
-        return result
+        return pvarReaders
     }
 
     /**
@@ -317,43 +326,40 @@ class IAzApplication extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IAzScopes>} ppScopeCollection 
-     * @returns {HRESULT} 
+     * @returns {IAzScopes} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-get_scopes
      */
-    get_Scopes(ppScopeCollection) {
-        result := ComCall(30, this, "ptr*", ppScopeCollection, "HRESULT")
-        return result
+    get_Scopes() {
+        result := ComCall(30, this, "ptr*", &ppScopeCollection := 0, "HRESULT")
+        return IAzScopes(ppScopeCollection)
     }
 
     /**
      * 
      * @param {BSTR} bstrScopeName 
      * @param {VARIANT} varReserved 
-     * @param {Pointer<IAzScope>} ppScope 
-     * @returns {HRESULT} 
+     * @returns {IAzScope} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-openscope
      */
-    OpenScope(bstrScopeName, varReserved, ppScope) {
+    OpenScope(bstrScopeName, varReserved) {
         bstrScopeName := bstrScopeName is String ? BSTR.Alloc(bstrScopeName).Value : bstrScopeName
 
-        result := ComCall(31, this, "ptr", bstrScopeName, "ptr", varReserved, "ptr*", ppScope, "HRESULT")
-        return result
+        result := ComCall(31, this, "ptr", bstrScopeName, "ptr", varReserved, "ptr*", &ppScope := 0, "HRESULT")
+        return IAzScope(ppScope)
     }
 
     /**
      * 
      * @param {BSTR} bstrScopeName 
      * @param {VARIANT} varReserved 
-     * @param {Pointer<IAzScope>} ppScope 
-     * @returns {HRESULT} 
+     * @returns {IAzScope} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-createscope
      */
-    CreateScope(bstrScopeName, varReserved, ppScope) {
+    CreateScope(bstrScopeName, varReserved) {
         bstrScopeName := bstrScopeName is String ? BSTR.Alloc(bstrScopeName).Value : bstrScopeName
 
-        result := ComCall(32, this, "ptr", bstrScopeName, "ptr", varReserved, "ptr*", ppScope, "HRESULT")
-        return result
+        result := ComCall(32, this, "ptr", bstrScopeName, "ptr", varReserved, "ptr*", &ppScope := 0, "HRESULT")
+        return IAzScope(ppScope)
     }
 
     /**
@@ -372,43 +378,40 @@ class IAzApplication extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IAzOperations>} ppOperationCollection 
-     * @returns {HRESULT} 
+     * @returns {IAzOperations} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-get_operations
      */
-    get_Operations(ppOperationCollection) {
-        result := ComCall(34, this, "ptr*", ppOperationCollection, "HRESULT")
-        return result
+    get_Operations() {
+        result := ComCall(34, this, "ptr*", &ppOperationCollection := 0, "HRESULT")
+        return IAzOperations(ppOperationCollection)
     }
 
     /**
      * 
      * @param {BSTR} bstrOperationName 
      * @param {VARIANT} varReserved 
-     * @param {Pointer<IAzOperation>} ppOperation 
-     * @returns {HRESULT} 
+     * @returns {IAzOperation} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-openoperation
      */
-    OpenOperation(bstrOperationName, varReserved, ppOperation) {
+    OpenOperation(bstrOperationName, varReserved) {
         bstrOperationName := bstrOperationName is String ? BSTR.Alloc(bstrOperationName).Value : bstrOperationName
 
-        result := ComCall(35, this, "ptr", bstrOperationName, "ptr", varReserved, "ptr*", ppOperation, "HRESULT")
-        return result
+        result := ComCall(35, this, "ptr", bstrOperationName, "ptr", varReserved, "ptr*", &ppOperation := 0, "HRESULT")
+        return IAzOperation(ppOperation)
     }
 
     /**
      * 
      * @param {BSTR} bstrOperationName 
      * @param {VARIANT} varReserved 
-     * @param {Pointer<IAzOperation>} ppOperation 
-     * @returns {HRESULT} 
+     * @returns {IAzOperation} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-createoperation
      */
-    CreateOperation(bstrOperationName, varReserved, ppOperation) {
+    CreateOperation(bstrOperationName, varReserved) {
         bstrOperationName := bstrOperationName is String ? BSTR.Alloc(bstrOperationName).Value : bstrOperationName
 
-        result := ComCall(36, this, "ptr", bstrOperationName, "ptr", varReserved, "ptr*", ppOperation, "HRESULT")
-        return result
+        result := ComCall(36, this, "ptr", bstrOperationName, "ptr", varReserved, "ptr*", &ppOperation := 0, "HRESULT")
+        return IAzOperation(ppOperation)
     }
 
     /**
@@ -427,43 +430,40 @@ class IAzApplication extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IAzTasks>} ppTaskCollection 
-     * @returns {HRESULT} 
+     * @returns {IAzTasks} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-get_tasks
      */
-    get_Tasks(ppTaskCollection) {
-        result := ComCall(38, this, "ptr*", ppTaskCollection, "HRESULT")
-        return result
+    get_Tasks() {
+        result := ComCall(38, this, "ptr*", &ppTaskCollection := 0, "HRESULT")
+        return IAzTasks(ppTaskCollection)
     }
 
     /**
      * 
      * @param {BSTR} bstrTaskName 
      * @param {VARIANT} varReserved 
-     * @param {Pointer<IAzTask>} ppTask 
-     * @returns {HRESULT} 
+     * @returns {IAzTask} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-opentask
      */
-    OpenTask(bstrTaskName, varReserved, ppTask) {
+    OpenTask(bstrTaskName, varReserved) {
         bstrTaskName := bstrTaskName is String ? BSTR.Alloc(bstrTaskName).Value : bstrTaskName
 
-        result := ComCall(39, this, "ptr", bstrTaskName, "ptr", varReserved, "ptr*", ppTask, "HRESULT")
-        return result
+        result := ComCall(39, this, "ptr", bstrTaskName, "ptr", varReserved, "ptr*", &ppTask := 0, "HRESULT")
+        return IAzTask(ppTask)
     }
 
     /**
      * 
      * @param {BSTR} bstrTaskName 
      * @param {VARIANT} varReserved 
-     * @param {Pointer<IAzTask>} ppTask 
-     * @returns {HRESULT} 
+     * @returns {IAzTask} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-createtask
      */
-    CreateTask(bstrTaskName, varReserved, ppTask) {
+    CreateTask(bstrTaskName, varReserved) {
         bstrTaskName := bstrTaskName is String ? BSTR.Alloc(bstrTaskName).Value : bstrTaskName
 
-        result := ComCall(40, this, "ptr", bstrTaskName, "ptr", varReserved, "ptr*", ppTask, "HRESULT")
-        return result
+        result := ComCall(40, this, "ptr", bstrTaskName, "ptr", varReserved, "ptr*", &ppTask := 0, "HRESULT")
+        return IAzTask(ppTask)
     }
 
     /**
@@ -482,43 +482,40 @@ class IAzApplication extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IAzApplicationGroups>} ppGroupCollection 
-     * @returns {HRESULT} 
+     * @returns {IAzApplicationGroups} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-get_applicationgroups
      */
-    get_ApplicationGroups(ppGroupCollection) {
-        result := ComCall(42, this, "ptr*", ppGroupCollection, "HRESULT")
-        return result
+    get_ApplicationGroups() {
+        result := ComCall(42, this, "ptr*", &ppGroupCollection := 0, "HRESULT")
+        return IAzApplicationGroups(ppGroupCollection)
     }
 
     /**
      * 
      * @param {BSTR} bstrGroupName 
      * @param {VARIANT} varReserved 
-     * @param {Pointer<IAzApplicationGroup>} ppGroup 
-     * @returns {HRESULT} 
+     * @returns {IAzApplicationGroup} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-openapplicationgroup
      */
-    OpenApplicationGroup(bstrGroupName, varReserved, ppGroup) {
+    OpenApplicationGroup(bstrGroupName, varReserved) {
         bstrGroupName := bstrGroupName is String ? BSTR.Alloc(bstrGroupName).Value : bstrGroupName
 
-        result := ComCall(43, this, "ptr", bstrGroupName, "ptr", varReserved, "ptr*", ppGroup, "HRESULT")
-        return result
+        result := ComCall(43, this, "ptr", bstrGroupName, "ptr", varReserved, "ptr*", &ppGroup := 0, "HRESULT")
+        return IAzApplicationGroup(ppGroup)
     }
 
     /**
      * 
      * @param {BSTR} bstrGroupName 
      * @param {VARIANT} varReserved 
-     * @param {Pointer<IAzApplicationGroup>} ppGroup 
-     * @returns {HRESULT} 
+     * @returns {IAzApplicationGroup} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-createapplicationgroup
      */
-    CreateApplicationGroup(bstrGroupName, varReserved, ppGroup) {
+    CreateApplicationGroup(bstrGroupName, varReserved) {
         bstrGroupName := bstrGroupName is String ? BSTR.Alloc(bstrGroupName).Value : bstrGroupName
 
-        result := ComCall(44, this, "ptr", bstrGroupName, "ptr", varReserved, "ptr*", ppGroup, "HRESULT")
-        return result
+        result := ComCall(44, this, "ptr", bstrGroupName, "ptr", varReserved, "ptr*", &ppGroup := 0, "HRESULT")
+        return IAzApplicationGroup(ppGroup)
     }
 
     /**
@@ -537,43 +534,40 @@ class IAzApplication extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IAzRoles>} ppRoleCollection 
-     * @returns {HRESULT} 
+     * @returns {IAzRoles} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-get_roles
      */
-    get_Roles(ppRoleCollection) {
-        result := ComCall(46, this, "ptr*", ppRoleCollection, "HRESULT")
-        return result
+    get_Roles() {
+        result := ComCall(46, this, "ptr*", &ppRoleCollection := 0, "HRESULT")
+        return IAzRoles(ppRoleCollection)
     }
 
     /**
      * 
      * @param {BSTR} bstrRoleName 
      * @param {VARIANT} varReserved 
-     * @param {Pointer<IAzRole>} ppRole 
-     * @returns {HRESULT} 
+     * @returns {IAzRole} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-openrole
      */
-    OpenRole(bstrRoleName, varReserved, ppRole) {
+    OpenRole(bstrRoleName, varReserved) {
         bstrRoleName := bstrRoleName is String ? BSTR.Alloc(bstrRoleName).Value : bstrRoleName
 
-        result := ComCall(47, this, "ptr", bstrRoleName, "ptr", varReserved, "ptr*", ppRole, "HRESULT")
-        return result
+        result := ComCall(47, this, "ptr", bstrRoleName, "ptr", varReserved, "ptr*", &ppRole := 0, "HRESULT")
+        return IAzRole(ppRole)
     }
 
     /**
      * 
      * @param {BSTR} bstrRoleName 
      * @param {VARIANT} varReserved 
-     * @param {Pointer<IAzRole>} ppRole 
-     * @returns {HRESULT} 
+     * @returns {IAzRole} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-createrole
      */
-    CreateRole(bstrRoleName, varReserved, ppRole) {
+    CreateRole(bstrRoleName, varReserved) {
         bstrRoleName := bstrRoleName is String ? BSTR.Alloc(bstrRoleName).Value : bstrRoleName
 
-        result := ComCall(48, this, "ptr", bstrRoleName, "ptr", varReserved, "ptr*", ppRole, "HRESULT")
-        return result
+        result := ComCall(48, this, "ptr", bstrRoleName, "ptr", varReserved, "ptr*", &ppRole := 0, "HRESULT")
+        return IAzRole(ppRole)
     }
 
     /**
@@ -594,13 +588,12 @@ class IAzApplication extends IDispatch{
      * 
      * @param {Integer} ullTokenHandle 
      * @param {VARIANT} varReserved 
-     * @param {Pointer<IAzClientContext>} ppClientContext 
-     * @returns {HRESULT} 
+     * @returns {IAzClientContext} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-initializeclientcontextfromtoken
      */
-    InitializeClientContextFromToken(ullTokenHandle, varReserved, ppClientContext) {
-        result := ComCall(50, this, "uint", ullTokenHandle, "ptr", varReserved, "ptr*", ppClientContext, "HRESULT")
-        return result
+    InitializeClientContextFromToken(ullTokenHandle, varReserved) {
+        result := ComCall(50, this, "uint", ullTokenHandle, "ptr", varReserved, "ptr*", &ppClientContext := 0, "HRESULT")
+        return IAzClientContext(ppClientContext)
     }
 
     /**
@@ -646,27 +639,26 @@ class IAzApplication extends IDispatch{
      * @param {BSTR} ClientName 
      * @param {BSTR} DomainName 
      * @param {VARIANT} varReserved 
-     * @param {Pointer<IAzClientContext>} ppClientContext 
-     * @returns {HRESULT} 
+     * @returns {IAzClientContext} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-initializeclientcontextfromname
      */
-    InitializeClientContextFromName(ClientName, DomainName, varReserved, ppClientContext) {
+    InitializeClientContextFromName(ClientName, DomainName, varReserved) {
         ClientName := ClientName is String ? BSTR.Alloc(ClientName).Value : ClientName
         DomainName := DomainName is String ? BSTR.Alloc(DomainName).Value : DomainName
 
-        result := ComCall(54, this, "ptr", ClientName, "ptr", DomainName, "ptr", varReserved, "ptr*", ppClientContext, "HRESULT")
-        return result
+        result := ComCall(54, this, "ptr", ClientName, "ptr", DomainName, "ptr", varReserved, "ptr*", &ppClientContext := 0, "HRESULT")
+        return IAzClientContext(ppClientContext)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarDelegatedPolicyUsers 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-get_delegatedpolicyusers
      */
-    get_DelegatedPolicyUsers(pvarDelegatedPolicyUsers) {
+    get_DelegatedPolicyUsers() {
+        pvarDelegatedPolicyUsers := VARIANT()
         result := ComCall(55, this, "ptr", pvarDelegatedPolicyUsers, "HRESULT")
-        return result
+        return pvarDelegatedPolicyUsers
     }
 
     /**
@@ -702,37 +694,36 @@ class IAzApplication extends IDispatch{
      * @param {BSTR} SidString 
      * @param {Integer} lOptions 
      * @param {VARIANT} varReserved 
-     * @param {Pointer<IAzClientContext>} ppClientContext 
-     * @returns {HRESULT} 
+     * @returns {IAzClientContext} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-initializeclientcontextfromstringsid
      */
-    InitializeClientContextFromStringSid(SidString, lOptions, varReserved, ppClientContext) {
+    InitializeClientContextFromStringSid(SidString, lOptions, varReserved) {
         SidString := SidString is String ? BSTR.Alloc(SidString).Value : SidString
 
-        result := ComCall(58, this, "ptr", SidString, "int", lOptions, "ptr", varReserved, "ptr*", ppClientContext, "HRESULT")
-        return result
+        result := ComCall(58, this, "ptr", SidString, "int", lOptions, "ptr", varReserved, "ptr*", &ppClientContext := 0, "HRESULT")
+        return IAzClientContext(ppClientContext)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarAdmins 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-get_policyadministratorsname
      */
-    get_PolicyAdministratorsName(pvarAdmins) {
+    get_PolicyAdministratorsName() {
+        pvarAdmins := VARIANT()
         result := ComCall(59, this, "ptr", pvarAdmins, "HRESULT")
-        return result
+        return pvarAdmins
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarReaders 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-get_policyreadersname
      */
-    get_PolicyReadersName(pvarReaders) {
+    get_PolicyReadersName() {
+        pvarReaders := VARIANT()
         result := ComCall(60, this, "ptr", pvarReaders, "HRESULT")
-        return result
+        return pvarReaders
     }
 
     /**
@@ -793,13 +784,13 @@ class IAzApplication extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarDelegatedPolicyUsers 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication-get_delegatedpolicyusersname
      */
-    get_DelegatedPolicyUsersName(pvarDelegatedPolicyUsers) {
+    get_DelegatedPolicyUsersName() {
+        pvarDelegatedPolicyUsers := VARIANT()
         result := ComCall(65, this, "ptr", pvarDelegatedPolicyUsers, "HRESULT")
-        return result
+        return pvarDelegatedPolicyUsers
     }
 
     /**

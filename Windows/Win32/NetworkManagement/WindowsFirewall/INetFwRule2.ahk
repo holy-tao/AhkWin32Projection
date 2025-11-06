@@ -32,15 +32,12 @@ class INetFwRule2 extends INetFwRule{
 
     /**
      * 
-     * @param {Pointer<Integer>} lOptions 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule2-get_edgetraversaloptions
      */
-    get_EdgeTraversalOptions(lOptions) {
-        lOptionsMarshal := lOptions is VarRef ? "int*" : "ptr"
-
-        result := ComCall(43, this, lOptionsMarshal, lOptions, "HRESULT")
-        return result
+    get_EdgeTraversalOptions() {
+        result := ComCall(43, this, "int*", &lOptions := 0, "HRESULT")
+        return lOptions
     }
 
     /**

@@ -32,15 +32,12 @@ class INewMenuClient extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pflags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inewmenuclient-includeitems
      */
-    IncludeItems(pflags) {
-        pflagsMarshal := pflags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, pflagsMarshal, pflags, "HRESULT")
-        return result
+    IncludeItems() {
+        result := ComCall(3, this, "int*", &pflags := 0, "HRESULT")
+        return pflags
     }
 
     /**

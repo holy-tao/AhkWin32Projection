@@ -1,6 +1,21 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWICBitmapDecoder.ahk
+#Include .\IWICComponentInfo.ahk
+#Include .\IWICBitmapEncoder.ahk
+#Include .\IWICPalette.ahk
+#Include .\IWICFormatConverter.ahk
+#Include .\IWICBitmapScaler.ahk
+#Include .\IWICBitmapClipper.ahk
+#Include .\IWICBitmapFlipRotator.ahk
+#Include .\IWICStream.ahk
+#Include .\IWICColorContext.ahk
+#Include .\IWICColorTransform.ahk
+#Include .\IWICBitmap.ahk
+#Include ..\..\System\Com\IEnumUnknown.ahk
+#Include .\IWICFastMetadataEncoder.ahk
+#Include .\IWICMetadataQueryWriter.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -36,15 +51,14 @@ class IWICImagingFactory extends IUnknown{
      * @param {Pointer<Guid>} pguidVendor 
      * @param {Integer} dwDesiredAccess 
      * @param {Integer} metadataOptions 
-     * @param {Pointer<IWICBitmapDecoder>} ppIDecoder 
-     * @returns {HRESULT} 
+     * @returns {IWICBitmapDecoder} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createdecoderfromfilename
      */
-    CreateDecoderFromFilename(wzFilename, pguidVendor, dwDesiredAccess, metadataOptions, ppIDecoder) {
+    CreateDecoderFromFilename(wzFilename, pguidVendor, dwDesiredAccess, metadataOptions) {
         wzFilename := wzFilename is String ? StrPtr(wzFilename) : wzFilename
 
-        result := ComCall(3, this, "ptr", wzFilename, "ptr", pguidVendor, "uint", dwDesiredAccess, "int", metadataOptions, "ptr*", ppIDecoder, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", wzFilename, "ptr", pguidVendor, "uint", dwDesiredAccess, "int", metadataOptions, "ptr*", &ppIDecoder := 0, "HRESULT")
+        return IWICBitmapDecoder(ppIDecoder)
     }
 
     /**
@@ -52,13 +66,12 @@ class IWICImagingFactory extends IUnknown{
      * @param {IStream} pIStream 
      * @param {Pointer<Guid>} pguidVendor 
      * @param {Integer} metadataOptions 
-     * @param {Pointer<IWICBitmapDecoder>} ppIDecoder 
-     * @returns {HRESULT} 
+     * @returns {IWICBitmapDecoder} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createdecoderfromstream
      */
-    CreateDecoderFromStream(pIStream, pguidVendor, metadataOptions, ppIDecoder) {
-        result := ComCall(4, this, "ptr", pIStream, "ptr", pguidVendor, "int", metadataOptions, "ptr*", ppIDecoder, "HRESULT")
-        return result
+    CreateDecoderFromStream(pIStream, pguidVendor, metadataOptions) {
+        result := ComCall(4, this, "ptr", pIStream, "ptr", pguidVendor, "int", metadataOptions, "ptr*", &ppIDecoder := 0, "HRESULT")
+        return IWICBitmapDecoder(ppIDecoder)
     }
 
     /**
@@ -66,141 +79,127 @@ class IWICImagingFactory extends IUnknown{
      * @param {Pointer} hFile 
      * @param {Pointer<Guid>} pguidVendor 
      * @param {Integer} metadataOptions 
-     * @param {Pointer<IWICBitmapDecoder>} ppIDecoder 
-     * @returns {HRESULT} 
+     * @returns {IWICBitmapDecoder} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createdecoderfromfilehandle
      */
-    CreateDecoderFromFileHandle(hFile, pguidVendor, metadataOptions, ppIDecoder) {
-        result := ComCall(5, this, "ptr", hFile, "ptr", pguidVendor, "int", metadataOptions, "ptr*", ppIDecoder, "HRESULT")
-        return result
+    CreateDecoderFromFileHandle(hFile, pguidVendor, metadataOptions) {
+        result := ComCall(5, this, "ptr", hFile, "ptr", pguidVendor, "int", metadataOptions, "ptr*", &ppIDecoder := 0, "HRESULT")
+        return IWICBitmapDecoder(ppIDecoder)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} clsidComponent 
-     * @param {Pointer<IWICComponentInfo>} ppIInfo 
-     * @returns {HRESULT} 
+     * @returns {IWICComponentInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createcomponentinfo
      */
-    CreateComponentInfo(clsidComponent, ppIInfo) {
-        result := ComCall(6, this, "ptr", clsidComponent, "ptr*", ppIInfo, "HRESULT")
-        return result
+    CreateComponentInfo(clsidComponent) {
+        result := ComCall(6, this, "ptr", clsidComponent, "ptr*", &ppIInfo := 0, "HRESULT")
+        return IWICComponentInfo(ppIInfo)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} guidContainerFormat 
      * @param {Pointer<Guid>} pguidVendor 
-     * @param {Pointer<IWICBitmapDecoder>} ppIDecoder 
-     * @returns {HRESULT} 
+     * @returns {IWICBitmapDecoder} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createdecoder
      */
-    CreateDecoder(guidContainerFormat, pguidVendor, ppIDecoder) {
-        result := ComCall(7, this, "ptr", guidContainerFormat, "ptr", pguidVendor, "ptr*", ppIDecoder, "HRESULT")
-        return result
+    CreateDecoder(guidContainerFormat, pguidVendor) {
+        result := ComCall(7, this, "ptr", guidContainerFormat, "ptr", pguidVendor, "ptr*", &ppIDecoder := 0, "HRESULT")
+        return IWICBitmapDecoder(ppIDecoder)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} guidContainerFormat 
      * @param {Pointer<Guid>} pguidVendor 
-     * @param {Pointer<IWICBitmapEncoder>} ppIEncoder 
-     * @returns {HRESULT} 
+     * @returns {IWICBitmapEncoder} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createencoder
      */
-    CreateEncoder(guidContainerFormat, pguidVendor, ppIEncoder) {
-        result := ComCall(8, this, "ptr", guidContainerFormat, "ptr", pguidVendor, "ptr*", ppIEncoder, "HRESULT")
-        return result
+    CreateEncoder(guidContainerFormat, pguidVendor) {
+        result := ComCall(8, this, "ptr", guidContainerFormat, "ptr", pguidVendor, "ptr*", &ppIEncoder := 0, "HRESULT")
+        return IWICBitmapEncoder(ppIEncoder)
     }
 
     /**
      * The CreatePalette function creates a logical palette.
-     * @param {Pointer<IWICPalette>} ppIPalette 
-     * @returns {HRESULT} If the function succeeds, the return value is a handle to a logical palette.
-     * 
-     * If the function fails, the return value is <b>NULL</b>.
+     * @returns {IWICPalette} 
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createpalette
      */
-    CreatePalette(ppIPalette) {
-        result := ComCall(9, this, "ptr*", ppIPalette, "HRESULT")
-        return result
+    CreatePalette() {
+        result := ComCall(9, this, "ptr*", &ppIPalette := 0, "HRESULT")
+        return IWICPalette(ppIPalette)
     }
 
     /**
      * 
-     * @param {Pointer<IWICFormatConverter>} ppIFormatConverter 
-     * @returns {HRESULT} 
+     * @returns {IWICFormatConverter} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createformatconverter
      */
-    CreateFormatConverter(ppIFormatConverter) {
-        result := ComCall(10, this, "ptr*", ppIFormatConverter, "HRESULT")
-        return result
+    CreateFormatConverter() {
+        result := ComCall(10, this, "ptr*", &ppIFormatConverter := 0, "HRESULT")
+        return IWICFormatConverter(ppIFormatConverter)
     }
 
     /**
      * 
-     * @param {Pointer<IWICBitmapScaler>} ppIBitmapScaler 
-     * @returns {HRESULT} 
+     * @returns {IWICBitmapScaler} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createbitmapscaler
      */
-    CreateBitmapScaler(ppIBitmapScaler) {
-        result := ComCall(11, this, "ptr*", ppIBitmapScaler, "HRESULT")
-        return result
+    CreateBitmapScaler() {
+        result := ComCall(11, this, "ptr*", &ppIBitmapScaler := 0, "HRESULT")
+        return IWICBitmapScaler(ppIBitmapScaler)
     }
 
     /**
      * 
-     * @param {Pointer<IWICBitmapClipper>} ppIBitmapClipper 
-     * @returns {HRESULT} 
+     * @returns {IWICBitmapClipper} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createbitmapclipper
      */
-    CreateBitmapClipper(ppIBitmapClipper) {
-        result := ComCall(12, this, "ptr*", ppIBitmapClipper, "HRESULT")
-        return result
+    CreateBitmapClipper() {
+        result := ComCall(12, this, "ptr*", &ppIBitmapClipper := 0, "HRESULT")
+        return IWICBitmapClipper(ppIBitmapClipper)
     }
 
     /**
      * 
-     * @param {Pointer<IWICBitmapFlipRotator>} ppIBitmapFlipRotator 
-     * @returns {HRESULT} 
+     * @returns {IWICBitmapFlipRotator} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createbitmapfliprotator
      */
-    CreateBitmapFlipRotator(ppIBitmapFlipRotator) {
-        result := ComCall(13, this, "ptr*", ppIBitmapFlipRotator, "HRESULT")
-        return result
+    CreateBitmapFlipRotator() {
+        result := ComCall(13, this, "ptr*", &ppIBitmapFlipRotator := 0, "HRESULT")
+        return IWICBitmapFlipRotator(ppIBitmapFlipRotator)
     }
 
     /**
      * 
-     * @param {Pointer<IWICStream>} ppIWICStream 
-     * @returns {HRESULT} 
+     * @returns {IWICStream} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createstream
      */
-    CreateStream(ppIWICStream) {
-        result := ComCall(14, this, "ptr*", ppIWICStream, "HRESULT")
-        return result
+    CreateStream() {
+        result := ComCall(14, this, "ptr*", &ppIWICStream := 0, "HRESULT")
+        return IWICStream(ppIWICStream)
     }
 
     /**
      * 
-     * @param {Pointer<IWICColorContext>} ppIWICColorContext 
-     * @returns {HRESULT} 
+     * @returns {IWICColorContext} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createcolorcontext
      */
-    CreateColorContext(ppIWICColorContext) {
-        result := ComCall(15, this, "ptr*", ppIWICColorContext, "HRESULT")
-        return result
+    CreateColorContext() {
+        result := ComCall(15, this, "ptr*", &ppIWICColorContext := 0, "HRESULT")
+        return IWICColorContext(ppIWICColorContext)
     }
 
     /**
      * 
-     * @param {Pointer<IWICColorTransform>} ppIWICColorTransform 
-     * @returns {HRESULT} 
+     * @returns {IWICColorTransform} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createcolortransformer
      */
-    CreateColorTransformer(ppIWICColorTransform) {
-        result := ComCall(16, this, "ptr*", ppIWICColorTransform, "HRESULT")
-        return result
+    CreateColorTransformer() {
+        result := ComCall(16, this, "ptr*", &ppIWICColorTransform := 0, "HRESULT")
+        return IWICColorTransform(ppIWICColorTransform)
     }
 
     /**
@@ -209,48 +208,24 @@ class IWICImagingFactory extends IUnknown{
      * @param {Integer} uiHeight 
      * @param {Pointer<Guid>} pixelFormat 
      * @param {Integer} option 
-     * @param {Pointer<IWICBitmap>} ppIBitmap 
-     * @returns {HRESULT} If the function succeeds, the return value is a handle to a bitmap.
-     * 
-     * If the function fails, the return value is <b>NULL</b>.
-     * 
-     * This function can return the following value.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INVALID_BITMAP</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The calculated size of the bitmap is less than zero.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {IWICBitmap} 
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-createbitmap
      */
-    CreateBitmap(uiWidth, uiHeight, pixelFormat, option, ppIBitmap) {
-        result := ComCall(17, this, "uint", uiWidth, "uint", uiHeight, "ptr", pixelFormat, "int", option, "ptr*", ppIBitmap, "HRESULT")
-        return result
+    CreateBitmap(uiWidth, uiHeight, pixelFormat, option) {
+        result := ComCall(17, this, "uint", uiWidth, "uint", uiHeight, "ptr", pixelFormat, "int", option, "ptr*", &ppIBitmap := 0, "HRESULT")
+        return IWICBitmap(ppIBitmap)
     }
 
     /**
      * 
      * @param {IWICBitmapSource} pIBitmapSource 
      * @param {Integer} option 
-     * @param {Pointer<IWICBitmap>} ppIBitmap 
-     * @returns {HRESULT} 
+     * @returns {IWICBitmap} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createbitmapfromsource
      */
-    CreateBitmapFromSource(pIBitmapSource, option, ppIBitmap) {
-        result := ComCall(18, this, "ptr", pIBitmapSource, "int", option, "ptr*", ppIBitmap, "HRESULT")
-        return result
+    CreateBitmapFromSource(pIBitmapSource, option) {
+        result := ComCall(18, this, "ptr", pIBitmapSource, "int", option, "ptr*", &ppIBitmap := 0, "HRESULT")
+        return IWICBitmap(ppIBitmap)
     }
 
     /**
@@ -260,13 +235,12 @@ class IWICImagingFactory extends IUnknown{
      * @param {Integer} y 
      * @param {Integer} width 
      * @param {Integer} height 
-     * @param {Pointer<IWICBitmap>} ppIBitmap 
-     * @returns {HRESULT} 
+     * @returns {IWICBitmap} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createbitmapfromsourcerect
      */
-    CreateBitmapFromSourceRect(pIBitmapSource, x, y, width, height, ppIBitmap) {
-        result := ComCall(19, this, "ptr", pIBitmapSource, "uint", x, "uint", y, "uint", width, "uint", height, "ptr*", ppIBitmap, "HRESULT")
-        return result
+    CreateBitmapFromSourceRect(pIBitmapSource, x, y, width, height) {
+        result := ComCall(19, this, "ptr", pIBitmapSource, "uint", x, "uint", y, "uint", width, "uint", height, "ptr*", &ppIBitmap := 0, "HRESULT")
+        return IWICBitmap(ppIBitmap)
     }
 
     /**
@@ -277,15 +251,14 @@ class IWICImagingFactory extends IUnknown{
      * @param {Integer} cbStride 
      * @param {Integer} cbBufferSize 
      * @param {Pointer<Integer>} pbBuffer 
-     * @param {Pointer<IWICBitmap>} ppIBitmap 
-     * @returns {HRESULT} 
+     * @returns {IWICBitmap} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createbitmapfrommemory
      */
-    CreateBitmapFromMemory(uiWidth, uiHeight, pixelFormat, cbStride, cbBufferSize, pbBuffer, ppIBitmap) {
+    CreateBitmapFromMemory(uiWidth, uiHeight, pixelFormat, cbStride, cbBufferSize, pbBuffer) {
         pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(20, this, "uint", uiWidth, "uint", uiHeight, "ptr", pixelFormat, "uint", cbStride, "uint", cbBufferSize, pbBufferMarshal, pbBuffer, "ptr*", ppIBitmap, "HRESULT")
-        return result
+        result := ComCall(20, this, "uint", uiWidth, "uint", uiHeight, "ptr", pixelFormat, "uint", cbStride, "uint", cbBufferSize, pbBufferMarshal, pbBuffer, "ptr*", &ppIBitmap := 0, "HRESULT")
+        return IWICBitmap(ppIBitmap)
     }
 
     /**
@@ -293,92 +266,85 @@ class IWICImagingFactory extends IUnknown{
      * @param {HBITMAP} hBitmap 
      * @param {HPALETTE} hPalette 
      * @param {Integer} options 
-     * @param {Pointer<IWICBitmap>} ppIBitmap 
-     * @returns {HRESULT} 
+     * @returns {IWICBitmap} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createbitmapfromhbitmap
      */
-    CreateBitmapFromHBITMAP(hBitmap, hPalette, options, ppIBitmap) {
+    CreateBitmapFromHBITMAP(hBitmap, hPalette, options) {
         hBitmap := hBitmap is Win32Handle ? NumGet(hBitmap, "ptr") : hBitmap
         hPalette := hPalette is Win32Handle ? NumGet(hPalette, "ptr") : hPalette
 
-        result := ComCall(21, this, "ptr", hBitmap, "ptr", hPalette, "int", options, "ptr*", ppIBitmap, "HRESULT")
-        return result
+        result := ComCall(21, this, "ptr", hBitmap, "ptr", hPalette, "int", options, "ptr*", &ppIBitmap := 0, "HRESULT")
+        return IWICBitmap(ppIBitmap)
     }
 
     /**
      * 
      * @param {HICON} hIcon 
-     * @param {Pointer<IWICBitmap>} ppIBitmap 
-     * @returns {HRESULT} 
+     * @returns {IWICBitmap} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createbitmapfromhicon
      */
-    CreateBitmapFromHICON(hIcon, ppIBitmap) {
+    CreateBitmapFromHICON(hIcon) {
         hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
 
-        result := ComCall(22, this, "ptr", hIcon, "ptr*", ppIBitmap, "HRESULT")
-        return result
+        result := ComCall(22, this, "ptr", hIcon, "ptr*", &ppIBitmap := 0, "HRESULT")
+        return IWICBitmap(ppIBitmap)
     }
 
     /**
      * 
      * @param {Integer} componentTypes 
      * @param {Integer} options 
-     * @param {Pointer<IEnumUnknown>} ppIEnumUnknown 
-     * @returns {HRESULT} 
+     * @returns {IEnumUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createcomponentenumerator
      */
-    CreateComponentEnumerator(componentTypes, options, ppIEnumUnknown) {
-        result := ComCall(23, this, "uint", componentTypes, "uint", options, "ptr*", ppIEnumUnknown, "HRESULT")
-        return result
+    CreateComponentEnumerator(componentTypes, options) {
+        result := ComCall(23, this, "uint", componentTypes, "uint", options, "ptr*", &ppIEnumUnknown := 0, "HRESULT")
+        return IEnumUnknown(ppIEnumUnknown)
     }
 
     /**
      * 
      * @param {IWICBitmapDecoder} pIDecoder 
-     * @param {Pointer<IWICFastMetadataEncoder>} ppIFastEncoder 
-     * @returns {HRESULT} 
+     * @returns {IWICFastMetadataEncoder} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createfastmetadataencoderfromdecoder
      */
-    CreateFastMetadataEncoderFromDecoder(pIDecoder, ppIFastEncoder) {
-        result := ComCall(24, this, "ptr", pIDecoder, "ptr*", ppIFastEncoder, "HRESULT")
-        return result
+    CreateFastMetadataEncoderFromDecoder(pIDecoder) {
+        result := ComCall(24, this, "ptr", pIDecoder, "ptr*", &ppIFastEncoder := 0, "HRESULT")
+        return IWICFastMetadataEncoder(ppIFastEncoder)
     }
 
     /**
      * 
      * @param {IWICBitmapFrameDecode} pIFrameDecoder 
-     * @param {Pointer<IWICFastMetadataEncoder>} ppIFastEncoder 
-     * @returns {HRESULT} 
+     * @returns {IWICFastMetadataEncoder} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createfastmetadataencoderfromframedecode
      */
-    CreateFastMetadataEncoderFromFrameDecode(pIFrameDecoder, ppIFastEncoder) {
-        result := ComCall(25, this, "ptr", pIFrameDecoder, "ptr*", ppIFastEncoder, "HRESULT")
-        return result
+    CreateFastMetadataEncoderFromFrameDecode(pIFrameDecoder) {
+        result := ComCall(25, this, "ptr", pIFrameDecoder, "ptr*", &ppIFastEncoder := 0, "HRESULT")
+        return IWICFastMetadataEncoder(ppIFastEncoder)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} guidMetadataFormat 
      * @param {Pointer<Guid>} pguidVendor 
-     * @param {Pointer<IWICMetadataQueryWriter>} ppIQueryWriter 
-     * @returns {HRESULT} 
+     * @returns {IWICMetadataQueryWriter} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createquerywriter
      */
-    CreateQueryWriter(guidMetadataFormat, pguidVendor, ppIQueryWriter) {
-        result := ComCall(26, this, "ptr", guidMetadataFormat, "ptr", pguidVendor, "ptr*", ppIQueryWriter, "HRESULT")
-        return result
+    CreateQueryWriter(guidMetadataFormat, pguidVendor) {
+        result := ComCall(26, this, "ptr", guidMetadataFormat, "ptr", pguidVendor, "ptr*", &ppIQueryWriter := 0, "HRESULT")
+        return IWICMetadataQueryWriter(ppIQueryWriter)
     }
 
     /**
      * 
      * @param {IWICMetadataQueryReader} pIQueryReader 
      * @param {Pointer<Guid>} pguidVendor 
-     * @param {Pointer<IWICMetadataQueryWriter>} ppIQueryWriter 
-     * @returns {HRESULT} 
+     * @returns {IWICMetadataQueryWriter} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory-createquerywriterfromreader
      */
-    CreateQueryWriterFromReader(pIQueryReader, pguidVendor, ppIQueryWriter) {
-        result := ComCall(27, this, "ptr", pIQueryReader, "ptr", pguidVendor, "ptr*", ppIQueryWriter, "HRESULT")
-        return result
+    CreateQueryWriterFromReader(pIQueryReader, pguidVendor) {
+        result := ComCall(27, this, "ptr", pIQueryReader, "ptr", pguidVendor, "ptr*", &ppIQueryWriter := 0, "HRESULT")
+        return IWICMetadataQueryWriter(ppIQueryWriter)
     }
 }

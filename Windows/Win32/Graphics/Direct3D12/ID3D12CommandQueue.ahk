@@ -144,15 +144,12 @@ class ID3D12CommandQueue extends ID3D12Pageable{
 
     /**
      * 
-     * @param {Pointer<Integer>} pFrequency 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12commandqueue-gettimestampfrequency
      */
-    GetTimestampFrequency(pFrequency) {
-        pFrequencyMarshal := pFrequency is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(16, this, pFrequencyMarshal, pFrequency, "HRESULT")
-        return result
+    GetTimestampFrequency() {
+        result := ComCall(16, this, "uint*", &pFrequency := 0, "HRESULT")
+        return pFrequency
     }
 
     /**

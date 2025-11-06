@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteFontFileStream.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -39,12 +40,11 @@ class IDWriteFontFileLoader extends IUnknown{
      * 
      * @param {Pointer} fontFileReferenceKey 
      * @param {Integer} fontFileReferenceKeySize 
-     * @param {Pointer<IDWriteFontFileStream>} fontFileStream 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontFileStream} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontfileloader-createstreamfromkey
      */
-    CreateStreamFromKey(fontFileReferenceKey, fontFileReferenceKeySize, fontFileStream) {
-        result := ComCall(3, this, "ptr", fontFileReferenceKey, "uint", fontFileReferenceKeySize, "ptr*", fontFileStream, "HRESULT")
-        return result
+    CreateStreamFromKey(fontFileReferenceKey, fontFileReferenceKeySize) {
+        result := ComCall(3, this, "ptr", fontFileReferenceKey, "uint", fontFileReferenceKeySize, "ptr*", &fontFileStream := 0, "HRESULT")
+        return IDWriteFontFileStream(fontFileStream)
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Registry\HKEY.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,12 +31,11 @@ class INetCfgComponent extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszwDisplayName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetDisplayName(ppszwDisplayName) {
-        result := ComCall(3, this, "ptr", ppszwDisplayName, "HRESULT")
-        return result
+    GetDisplayName() {
+        result := ComCall(3, this, "ptr*", &ppszwDisplayName := 0, "HRESULT")
+        return ppszwDisplayName
     }
 
     /**
@@ -52,96 +52,86 @@ class INetCfgComponent extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pszwHelpText 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetHelpText(pszwHelpText) {
-        result := ComCall(5, this, "ptr", pszwHelpText, "HRESULT")
-        return result
+    GetHelpText() {
+        result := ComCall(5, this, "ptr*", &pszwHelpText := 0, "HRESULT")
+        return pszwHelpText
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszwId 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetId(ppszwId) {
-        result := ComCall(6, this, "ptr", ppszwId, "HRESULT")
-        return result
+    GetId() {
+        result := ComCall(6, this, "ptr*", &ppszwId := 0, "HRESULT")
+        return ppszwId
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwCharacteristics 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetCharacteristics(pdwCharacteristics) {
-        pdwCharacteristicsMarshal := pdwCharacteristics is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pdwCharacteristicsMarshal, pdwCharacteristics, "HRESULT")
-        return result
+    GetCharacteristics() {
+        result := ComCall(7, this, "uint*", &pdwCharacteristics := 0, "HRESULT")
+        return pdwCharacteristics
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} pGuid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    GetInstanceGuid(pGuid) {
+    GetInstanceGuid() {
+        pGuid := Guid()
         result := ComCall(8, this, "ptr", pGuid, "HRESULT")
-        return result
+        return pGuid
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszwDevNodeId 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetPnpDevNodeId(ppszwDevNodeId) {
-        result := ComCall(9, this, "ptr", ppszwDevNodeId, "HRESULT")
-        return result
+    GetPnpDevNodeId() {
+        result := ComCall(9, this, "ptr*", &ppszwDevNodeId := 0, "HRESULT")
+        return ppszwDevNodeId
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} pGuid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    GetClassGuid(pGuid) {
+    GetClassGuid() {
+        pGuid := Guid()
         result := ComCall(10, this, "ptr", pGuid, "HRESULT")
-        return result
+        return pGuid
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszwBindName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetBindName(ppszwBindName) {
-        result := ComCall(11, this, "ptr", ppszwBindName, "HRESULT")
-        return result
+    GetBindName() {
+        result := ComCall(11, this, "ptr*", &ppszwBindName := 0, "HRESULT")
+        return ppszwBindName
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pulStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetDeviceStatus(pulStatus) {
-        pulStatusMarshal := pulStatus is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, pulStatusMarshal, pulStatus, "HRESULT")
-        return result
+    GetDeviceStatus() {
+        result := ComCall(12, this, "uint*", &pulStatus := 0, "HRESULT")
+        return pulStatus
     }
 
     /**
      * 
-     * @param {Pointer<HKEY>} phkey 
-     * @returns {HRESULT} 
+     * @returns {HKEY} 
      */
-    OpenParamKey(phkey) {
+    OpenParamKey() {
+        phkey := HKEY()
         result := ComCall(13, this, "ptr", phkey, "HRESULT")
-        return result
+        return phkey
     }
 
     /**

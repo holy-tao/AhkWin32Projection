@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID2D1SvgElement.ahk
 #Include .\ID2D1Resource.ahk
 
 /**
@@ -117,25 +118,23 @@ class ID2D1SvgElement extends ID2D1Resource{
     /**
      * 
      * @param {ID2D1SvgElement} referenceChild 
-     * @param {Pointer<ID2D1SvgElement>} previousChild 
-     * @returns {HRESULT} 
+     * @returns {ID2D1SvgElement} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-getpreviouschild
      */
-    GetPreviousChild(referenceChild, previousChild) {
-        result := ComCall(12, this, "ptr", referenceChild, "ptr*", previousChild, "HRESULT")
-        return result
+    GetPreviousChild(referenceChild) {
+        result := ComCall(12, this, "ptr", referenceChild, "ptr*", &previousChild := 0, "HRESULT")
+        return ID2D1SvgElement(previousChild)
     }
 
     /**
      * 
      * @param {ID2D1SvgElement} referenceChild 
-     * @param {Pointer<ID2D1SvgElement>} nextChild 
-     * @returns {HRESULT} 
+     * @returns {ID2D1SvgElement} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-getnextchild
      */
-    GetNextChild(referenceChild, nextChild) {
-        result := ComCall(13, this, "ptr", referenceChild, "ptr*", nextChild, "HRESULT")
-        return result
+    GetNextChild(referenceChild) {
+        result := ComCall(13, this, "ptr", referenceChild, "ptr*", &nextChild := 0, "HRESULT")
+        return ID2D1SvgElement(nextChild)
     }
 
     /**
@@ -187,15 +186,14 @@ class ID2D1SvgElement extends ID2D1Resource{
     /**
      * 
      * @param {PWSTR} tagName 
-     * @param {Pointer<ID2D1SvgElement>} newChild 
-     * @returns {HRESULT} 
+     * @returns {ID2D1SvgElement} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-createchild
      */
-    CreateChild(tagName, newChild) {
+    CreateChild(tagName) {
         tagName := tagName is String ? StrPtr(tagName) : tagName
 
-        result := ComCall(18, this, "ptr", tagName, "ptr*", newChild, "HRESULT")
-        return result
+        result := ComCall(18, this, "ptr", tagName, "ptr*", &newChild := 0, "HRESULT")
+        return ID2D1SvgElement(newChild)
     }
 
     /**
@@ -208,7 +206,9 @@ class ID2D1SvgElement extends ID2D1Resource{
     IsAttributeSpecified(name, inherited) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(19, this, "ptr", name, "ptr", inherited, "int")
+        inheritedMarshal := inherited is VarRef ? "int*" : "ptr"
+
+        result := ComCall(19, this, "ptr", name, inheritedMarshal, inherited, "int")
         return result
     }
 
@@ -227,15 +227,14 @@ class ID2D1SvgElement extends ID2D1Resource{
      * @param {Integer} index 
      * @param {PWSTR} name 
      * @param {Integer} nameCount 
-     * @param {Pointer<BOOL>} inherited 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-getspecifiedattributename
      */
-    GetSpecifiedAttributeName(index, name, nameCount, inherited) {
+    GetSpecifiedAttributeName(index, name, nameCount) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(21, this, "uint", index, "ptr", name, "uint", nameCount, "ptr", inherited, "HRESULT")
-        return result
+        result := ComCall(21, this, "uint", index, "ptr", name, "uint", nameCount, "int*", &inherited := 0, "HRESULT")
+        return inherited
     }
 
     /**
@@ -248,8 +247,9 @@ class ID2D1SvgElement extends ID2D1Resource{
      */
     GetSpecifiedAttributeNameLength(index, nameLength, inherited) {
         nameLengthMarshal := nameLength is VarRef ? "uint*" : "ptr"
+        inheritedMarshal := inherited is VarRef ? "int*" : "ptr"
 
-        result := ComCall(22, this, "uint", index, nameLengthMarshal, nameLength, "ptr", inherited, "HRESULT")
+        result := ComCall(22, this, "uint", index, nameLengthMarshal, nameLength, inheritedMarshal, inherited, "HRESULT")
         return result
     }
 
@@ -354,17 +354,14 @@ class ID2D1SvgElement extends ID2D1Resource{
      * 
      * @param {PWSTR} name 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} value 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1svgelement-getattributevalue-overload
      */
-    GetAttributeValue(name, riid, value) {
+    GetAttributeValue(name, riid) {
         name := name is String ? StrPtr(name) : name
 
-        valueMarshal := value is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(30, this, "ptr", name, "ptr", riid, valueMarshal, value, "HRESULT")
-        return result
+        result := ComCall(30, this, "ptr", name, "ptr", riid, "ptr*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
@@ -404,16 +401,13 @@ class ID2D1SvgElement extends ID2D1Resource{
      * 
      * @param {PWSTR} name 
      * @param {Integer} type 
-     * @param {Pointer<Integer>} valueLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgelement-getattributevaluelength
      */
-    GetAttributeValueLength(name, type, valueLength) {
+    GetAttributeValueLength(name, type) {
         name := name is String ? StrPtr(name) : name
 
-        valueLengthMarshal := valueLength is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(33, this, "ptr", name, "int", type, valueLengthMarshal, valueLength, "HRESULT")
-        return result
+        result := ComCall(33, this, "ptr", name, "int", type, "uint*", &valueLength := 0, "HRESULT")
+        return valueLength
     }
 }

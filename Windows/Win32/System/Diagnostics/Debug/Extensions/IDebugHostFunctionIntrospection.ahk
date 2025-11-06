@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IDebugHostFunctionLocalDetailsEnumerator.ahk
+#Include .\IDebugHostSymbolEnumerator.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -30,23 +32,21 @@ class IDebugHostFunctionIntrospection extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDebugHostFunctionLocalDetailsEnumerator>} localsEnum 
-     * @returns {HRESULT} 
+     * @returns {IDebugHostFunctionLocalDetailsEnumerator} 
      */
-    EnumerateLocalsDetails(localsEnum) {
-        result := ComCall(3, this, "ptr*", localsEnum, "HRESULT")
-        return result
+    EnumerateLocalsDetails() {
+        result := ComCall(3, this, "ptr*", &localsEnum := 0, "HRESULT")
+        return IDebugHostFunctionLocalDetailsEnumerator(localsEnum)
     }
 
     /**
      * 
      * @param {Integer} rva 
-     * @param {Pointer<IDebugHostSymbolEnumerator>} inlinesEnum 
-     * @returns {HRESULT} 
+     * @returns {IDebugHostSymbolEnumerator} 
      */
-    EnumerateInlineFunctionsByRVA(rva, inlinesEnum) {
-        result := ComCall(4, this, "uint", rva, "ptr*", inlinesEnum, "HRESULT")
-        return result
+    EnumerateInlineFunctionsByRVA(rva) {
+        result := ComCall(4, this, "uint", rva, "ptr*", &inlinesEnum := 0, "HRESULT")
+        return IDebugHostSymbolEnumerator(inlinesEnum)
     }
 
     /**

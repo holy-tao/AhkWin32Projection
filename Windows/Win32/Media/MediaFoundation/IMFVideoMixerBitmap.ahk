@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\MFVideoAlphaBitmapParams.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -64,12 +65,12 @@ class IMFVideoMixerBitmap extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<MFVideoAlphaBitmapParams>} pBmpParms 
-     * @returns {HRESULT} 
+     * @returns {MFVideoAlphaBitmapParams} 
      * @see https://learn.microsoft.com/windows/win32/api/evr9/nf-evr9-imfvideomixerbitmap-getalphabitmapparameters
      */
-    GetAlphaBitmapParameters(pBmpParms) {
+    GetAlphaBitmapParameters() {
+        pBmpParms := MFVideoAlphaBitmapParams()
         result := ComCall(6, this, "ptr", pBmpParms, "HRESULT")
-        return result
+        return pBmpParms
     }
 }

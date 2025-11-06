@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Graphics\DirectDraw\DDPIXELFORMAT.ahk
+#Include .\AMVACompBufferInfo.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,30 +35,30 @@ class IAMVideoAccelerator extends IUnknown{
     /**
      * 
      * @param {Pointer<Integer>} pdwNumGuidsSupported 
-     * @param {Pointer<Guid>} pGuidsSupported 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/videoacc/nf-videoacc-iamvideoaccelerator-getvideoacceleratorguids
      */
-    GetVideoAcceleratorGUIDs(pdwNumGuidsSupported, pGuidsSupported) {
+    GetVideoAcceleratorGUIDs(pdwNumGuidsSupported) {
         pdwNumGuidsSupportedMarshal := pdwNumGuidsSupported is VarRef ? "uint*" : "ptr"
 
+        pGuidsSupported := Guid()
         result := ComCall(3, this, pdwNumGuidsSupportedMarshal, pdwNumGuidsSupported, "ptr", pGuidsSupported, "HRESULT")
-        return result
+        return pGuidsSupported
     }
 
     /**
      * 
      * @param {Pointer<Guid>} pGuid 
      * @param {Pointer<Integer>} pdwNumFormatsSupported 
-     * @param {Pointer<DDPIXELFORMAT>} pFormatsSupported 
-     * @returns {HRESULT} 
+     * @returns {DDPIXELFORMAT} 
      * @see https://learn.microsoft.com/windows/win32/api/videoacc/nf-videoacc-iamvideoaccelerator-getuncompformatssupported
      */
-    GetUncompFormatsSupported(pGuid, pdwNumFormatsSupported, pFormatsSupported) {
+    GetUncompFormatsSupported(pGuid, pdwNumFormatsSupported) {
         pdwNumFormatsSupportedMarshal := pdwNumFormatsSupported is VarRef ? "uint*" : "ptr"
 
+        pFormatsSupported := DDPIXELFORMAT()
         result := ComCall(4, this, "ptr", pGuid, pdwNumFormatsSupportedMarshal, pdwNumFormatsSupported, "ptr", pFormatsSupported, "HRESULT")
-        return result
+        return pFormatsSupported
     }
 
     /**
@@ -77,29 +79,29 @@ class IAMVideoAccelerator extends IUnknown{
      * @param {Pointer<Guid>} pGuid 
      * @param {Pointer<AMVAUncompDataInfo>} pamvaUncompDataInfo 
      * @param {Pointer<Integer>} pdwNumTypesCompBuffers 
-     * @param {Pointer<AMVACompBufferInfo>} pamvaCompBufferInfo 
-     * @returns {HRESULT} 
+     * @returns {AMVACompBufferInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/videoacc/nf-videoacc-iamvideoaccelerator-getcompbufferinfo
      */
-    GetCompBufferInfo(pGuid, pamvaUncompDataInfo, pdwNumTypesCompBuffers, pamvaCompBufferInfo) {
+    GetCompBufferInfo(pGuid, pamvaUncompDataInfo, pdwNumTypesCompBuffers) {
         pdwNumTypesCompBuffersMarshal := pdwNumTypesCompBuffers is VarRef ? "uint*" : "ptr"
 
+        pamvaCompBufferInfo := AMVACompBufferInfo()
         result := ComCall(6, this, "ptr", pGuid, "ptr", pamvaUncompDataInfo, pdwNumTypesCompBuffersMarshal, pdwNumTypesCompBuffers, "ptr", pamvaCompBufferInfo, "HRESULT")
-        return result
+        return pamvaCompBufferInfo
     }
 
     /**
      * 
      * @param {Pointer<Integer>} pdwNumTypesCompBuffers 
-     * @param {Pointer<AMVACompBufferInfo>} pamvaCompBufferInfo 
-     * @returns {HRESULT} 
+     * @returns {AMVACompBufferInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/videoacc/nf-videoacc-iamvideoaccelerator-getinternalcompbufferinfo
      */
-    GetInternalCompBufferInfo(pdwNumTypesCompBuffers, pamvaCompBufferInfo) {
+    GetInternalCompBufferInfo(pdwNumTypesCompBuffers) {
         pdwNumTypesCompBuffersMarshal := pdwNumTypesCompBuffers is VarRef ? "uint*" : "ptr"
 
+        pamvaCompBufferInfo := AMVACompBufferInfo()
         result := ComCall(7, this, pdwNumTypesCompBuffersMarshal, pdwNumTypesCompBuffers, "ptr", pamvaCompBufferInfo, "HRESULT")
-        return result
+        return pamvaCompBufferInfo
     }
 
     /**

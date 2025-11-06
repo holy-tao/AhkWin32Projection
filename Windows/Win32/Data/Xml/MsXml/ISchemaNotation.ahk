@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\ISchemaItem.ahk
 
 /**
@@ -30,21 +31,21 @@ class ISchemaNotation extends ISchemaItem{
 
     /**
      * 
-     * @param {Pointer<BSTR>} uri 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_systemIdentifier(uri) {
+    get_systemIdentifier() {
+        uri := BSTR()
         result := ComCall(14, this, "ptr", uri, "HRESULT")
-        return result
+        return uri
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} uri 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_publicIdentifier(uri) {
+    get_publicIdentifier() {
+        uri := BSTR()
         result := ComCall(15, this, "ptr", uri, "HRESULT")
-        return result
+        return uri
     }
 }

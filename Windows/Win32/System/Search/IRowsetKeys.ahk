@@ -31,14 +31,12 @@ class IRowsetKeys extends IUnknown{
     /**
      * 
      * @param {Pointer<Pointer>} pcColumns 
-     * @param {Pointer<Pointer<Pointer>>} prgColumns 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Pointer>} 
      */
-    ListKeys(pcColumns, prgColumns) {
+    ListKeys(pcColumns) {
         pcColumnsMarshal := pcColumns is VarRef ? "ptr*" : "ptr"
-        prgColumnsMarshal := prgColumns is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, pcColumnsMarshal, pcColumns, prgColumnsMarshal, prgColumns, "HRESULT")
-        return result
+        result := ComCall(3, this, pcColumnsMarshal, pcColumns, "ptr*", &prgColumns := 0, "HRESULT")
+        return prgColumns
     }
 }

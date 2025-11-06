@@ -31,23 +31,21 @@ class ITipTransaction extends IUnknown{
     /**
      * 
      * @param {Pointer<Integer>} i_pszRemoteTmUrl 
-     * @param {Pointer<PSTR>} o_ppszRemoteTxUrl 
-     * @returns {HRESULT} 
+     * @returns {PSTR} 
      */
-    Push(i_pszRemoteTmUrl, o_ppszRemoteTxUrl) {
+    Push(i_pszRemoteTmUrl) {
         i_pszRemoteTmUrlMarshal := i_pszRemoteTmUrl is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, i_pszRemoteTmUrlMarshal, i_pszRemoteTmUrl, "ptr", o_ppszRemoteTxUrl, "HRESULT")
-        return result
+        result := ComCall(3, this, i_pszRemoteTmUrlMarshal, i_pszRemoteTmUrl, "ptr*", &o_ppszRemoteTxUrl := 0, "HRESULT")
+        return o_ppszRemoteTxUrl
     }
 
     /**
      * 
-     * @param {Pointer<PSTR>} o_ppszLocalTxUrl 
-     * @returns {HRESULT} 
+     * @returns {PSTR} 
      */
-    GetTransactionUrl(o_ppszLocalTxUrl) {
-        result := ComCall(4, this, "ptr", o_ppszLocalTxUrl, "HRESULT")
-        return result
+    GetTransactionUrl() {
+        result := ComCall(4, this, "ptr*", &o_ppszLocalTxUrl := 0, "HRESULT")
+        return o_ppszLocalTxUrl
     }
 }

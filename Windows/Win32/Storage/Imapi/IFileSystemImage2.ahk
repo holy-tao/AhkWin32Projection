@@ -39,15 +39,12 @@ class IFileSystemImage2 extends IFileSystemImage{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimage2-get_bootimageoptionsarray
      */
-    get_BootImageOptionsArray(pVal) {
-        pValMarshal := pVal is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(57, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_BootImageOptionsArray() {
+        result := ComCall(57, this, "ptr*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -32,34 +33,32 @@ class IOpLockStatus extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfIsOplockValid 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-ioplockstatus-isoplockvalid
      */
-    IsOplockValid(pfIsOplockValid) {
-        result := ComCall(3, this, "ptr", pfIsOplockValid, "HRESULT")
-        return result
+    IsOplockValid() {
+        result := ComCall(3, this, "int*", &pfIsOplockValid := 0, "HRESULT")
+        return pfIsOplockValid
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfIsOplockBroken 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-ioplockstatus-isoplockbroken
      */
-    IsOplockBroken(pfIsOplockBroken) {
-        result := ComCall(4, this, "ptr", pfIsOplockBroken, "HRESULT")
-        return result
+    IsOplockBroken() {
+        result := ComCall(4, this, "int*", &pfIsOplockBroken := 0, "HRESULT")
+        return pfIsOplockBroken
     }
 
     /**
      * 
-     * @param {Pointer<HANDLE>} phOplockEv 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-ioplockstatus-getoplockeventhandle
      */
-    GetOplockEventHandle(phOplockEv) {
+    GetOplockEventHandle() {
+        phOplockEv := HANDLE()
         result := ComCall(5, this, "ptr", phOplockEv, "HRESULT")
-        return result
+        return phOplockEv
     }
 }

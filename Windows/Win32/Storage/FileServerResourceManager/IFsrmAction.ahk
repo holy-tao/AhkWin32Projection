@@ -38,39 +38,33 @@ class IFsrmAction extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Guid>} id 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmaction-get_id
      */
-    get_Id(id) {
+    get_Id() {
+        id := Guid()
         result := ComCall(7, this, "ptr", id, "HRESULT")
-        return result
+        return id
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} actionType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmaction-get_actiontype
      */
-    get_ActionType(actionType) {
-        actionTypeMarshal := actionType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, actionTypeMarshal, actionType, "HRESULT")
-        return result
+    get_ActionType() {
+        result := ComCall(8, this, "int*", &actionType := 0, "HRESULT")
+        return actionType
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} minutes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmaction-get_runlimitinterval
      */
-    get_RunLimitInterval(minutes) {
-        minutesMarshal := minutes is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, minutesMarshal, minutes, "HRESULT")
-        return result
+    get_RunLimitInterval() {
+        result := ComCall(9, this, "int*", &minutes := 0, "HRESULT")
+        return minutes
     }
 
     /**

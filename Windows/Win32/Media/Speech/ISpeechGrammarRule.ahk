@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ISpeechGrammarRuleState.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -31,46 +32,39 @@ class ISpeechGrammarRule extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} Attributes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Attributes(Attributes) {
-        AttributesMarshal := Attributes is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, AttributesMarshal, Attributes, "HRESULT")
-        return result
+    get_Attributes() {
+        result := ComCall(7, this, "int*", &Attributes := 0, "HRESULT")
+        return Attributes
     }
 
     /**
      * 
-     * @param {Pointer<ISpeechGrammarRuleState>} State 
-     * @returns {HRESULT} 
+     * @returns {ISpeechGrammarRuleState} 
      */
-    get_InitialState(State) {
-        result := ComCall(8, this, "ptr*", State, "HRESULT")
-        return result
+    get_InitialState() {
+        result := ComCall(8, this, "ptr*", &State := 0, "HRESULT")
+        return ISpeechGrammarRuleState(State)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} Name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Name(Name) {
+    get_Name() {
+        Name := BSTR()
         result := ComCall(9, this, "ptr", Name, "HRESULT")
-        return result
+        return Name
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Id 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Id(Id) {
-        IdMarshal := Id is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, IdMarshal, Id, "HRESULT")
-        return result
+    get_Id() {
+        result := ComCall(10, this, "int*", &Id := 0, "HRESULT")
+        return Id
     }
 
     /**
@@ -98,11 +92,10 @@ class ISpeechGrammarRule extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISpeechGrammarRuleState>} State 
-     * @returns {HRESULT} 
+     * @returns {ISpeechGrammarRuleState} 
      */
-    AddState(State) {
-        result := ComCall(13, this, "ptr*", State, "HRESULT")
-        return result
+    AddState() {
+        result := ComCall(13, this, "ptr*", &State := 0, "HRESULT")
+        return ISpeechGrammarRuleState(State)
     }
 }

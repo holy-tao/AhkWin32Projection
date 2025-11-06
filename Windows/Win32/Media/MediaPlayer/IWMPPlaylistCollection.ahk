@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IWMPPlaylist.ahk
+#Include .\IWMPPlaylistArray.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -34,40 +36,37 @@ class IWMPPlaylistCollection extends IDispatch{
     /**
      * 
      * @param {BSTR} bstrName 
-     * @param {Pointer<IWMPPlaylist>} ppItem 
-     * @returns {HRESULT} 
+     * @returns {IWMPPlaylist} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplaylistcollection-newplaylist
      */
-    newPlaylist(bstrName, ppItem) {
+    newPlaylist(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(7, this, "ptr", bstrName, "ptr*", ppItem, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", bstrName, "ptr*", &ppItem := 0, "HRESULT")
+        return IWMPPlaylist(ppItem)
     }
 
     /**
      * 
-     * @param {Pointer<IWMPPlaylistArray>} ppPlaylistArray 
-     * @returns {HRESULT} 
+     * @returns {IWMPPlaylistArray} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplaylistcollection-getall
      */
-    getAll(ppPlaylistArray) {
-        result := ComCall(8, this, "ptr*", ppPlaylistArray, "HRESULT")
-        return result
+    getAll() {
+        result := ComCall(8, this, "ptr*", &ppPlaylistArray := 0, "HRESULT")
+        return IWMPPlaylistArray(ppPlaylistArray)
     }
 
     /**
      * 
      * @param {BSTR} bstrName 
-     * @param {Pointer<IWMPPlaylistArray>} ppPlaylistArray 
-     * @returns {HRESULT} 
+     * @returns {IWMPPlaylistArray} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplaylistcollection-getbyname
      */
-    getByName(bstrName, ppPlaylistArray) {
+    getByName(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(9, this, "ptr", bstrName, "ptr*", ppPlaylistArray, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", bstrName, "ptr*", &ppPlaylistArray := 0, "HRESULT")
+        return IWMPPlaylistArray(ppPlaylistArray)
     }
 
     /**
@@ -101,19 +100,20 @@ class IWMPPlaylistCollection extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplaylistcollection-isdeleted
      */
     isDeleted(pItem, pvarfIsDeleted) {
-        result := ComCall(12, this, "ptr", pItem, "ptr", pvarfIsDeleted, "HRESULT")
+        pvarfIsDeletedMarshal := pvarfIsDeleted is VarRef ? "short*" : "ptr"
+
+        result := ComCall(12, this, "ptr", pItem, pvarfIsDeletedMarshal, pvarfIsDeleted, "HRESULT")
         return result
     }
 
     /**
      * 
      * @param {IWMPPlaylist} pItem 
-     * @param {Pointer<IWMPPlaylist>} ppImportedItem 
-     * @returns {HRESULT} 
+     * @returns {IWMPPlaylist} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplaylistcollection-importplaylist
      */
-    importPlaylist(pItem, ppImportedItem) {
-        result := ComCall(13, this, "ptr", pItem, "ptr*", ppImportedItem, "HRESULT")
-        return result
+    importPlaylist(pItem) {
+        result := ComCall(13, this, "ptr", pItem, "ptr*", &ppImportedItem := 0, "HRESULT")
+        return IWMPPlaylist(ppImportedItem)
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -52,12 +53,12 @@ class IWiaErrorHandler extends IUnknown{
      * @param {Integer} lFlags 
      * @param {IWiaItem2} pWiaItem2 
      * @param {HRESULT} hrStatus 
-     * @param {Pointer<BSTR>} pbstrDescription 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiaerrorhandler-getstatusdescription
      */
-    GetStatusDescription(lFlags, pWiaItem2, hrStatus, pbstrDescription) {
+    GetStatusDescription(lFlags, pWiaItem2, hrStatus) {
+        pbstrDescription := BSTR()
         result := ComCall(4, this, "int", lFlags, "ptr", pWiaItem2, "int", hrStatus, "ptr", pbstrDescription, "HRESULT")
-        return result
+        return pbstrDescription
     }
 }

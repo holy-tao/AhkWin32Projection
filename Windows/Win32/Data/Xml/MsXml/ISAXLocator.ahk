@@ -30,49 +30,37 @@ class ISAXLocator extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pnColumn 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    getColumnNumber(pnColumn) {
-        pnColumnMarshal := pnColumn is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, pnColumnMarshal, pnColumn, "HRESULT")
-        return result
+    getColumnNumber() {
+        result := ComCall(3, this, "int*", &pnColumn := 0, "HRESULT")
+        return pnColumn
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pnLine 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    getLineNumber(pnLine) {
-        pnLineMarshal := pnLine is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, pnLineMarshal, pnLine, "HRESULT")
-        return result
+    getLineNumber() {
+        result := ComCall(4, this, "int*", &pnLine := 0, "HRESULT")
+        return pnLine
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Integer>>} ppwchPublicId 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Integer>} 
      */
-    getPublicId(ppwchPublicId) {
-        ppwchPublicIdMarshal := ppwchPublicId is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, ppwchPublicIdMarshal, ppwchPublicId, "HRESULT")
-        return result
+    getPublicId() {
+        result := ComCall(5, this, "ptr*", &ppwchPublicId := 0, "HRESULT")
+        return ppwchPublicId
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Integer>>} ppwchSystemId 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Integer>} 
      */
-    getSystemId(ppwchSystemId) {
-        ppwchSystemIdMarshal := ppwchSystemId is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, ppwchSystemIdMarshal, ppwchSystemId, "HRESULT")
-        return result
+    getSystemId() {
+        result := ComCall(6, this, "ptr*", &ppwchSystemId := 0, "HRESULT")
+        return ppwchSystemId
     }
 }

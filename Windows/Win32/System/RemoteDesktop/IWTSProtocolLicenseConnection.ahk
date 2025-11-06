@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\WTS_LICENSE_CAPABILITIES.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -32,16 +33,16 @@ class IWTSProtocolLicenseConnection extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<WTS_LICENSE_CAPABILITIES>} ppLicenseCapabilities 
      * @param {Pointer<Integer>} pcbLicenseCapabilities 
-     * @returns {HRESULT} 
+     * @returns {WTS_LICENSE_CAPABILITIES} 
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwtsprotocollicenseconnection-requestlicensingcapabilities
      */
-    RequestLicensingCapabilities(ppLicenseCapabilities, pcbLicenseCapabilities) {
+    RequestLicensingCapabilities(pcbLicenseCapabilities) {
         pcbLicenseCapabilitiesMarshal := pcbLicenseCapabilities is VarRef ? "uint*" : "ptr"
 
+        ppLicenseCapabilities := WTS_LICENSE_CAPABILITIES()
         result := ComCall(3, this, "ptr", ppLicenseCapabilities, pcbLicenseCapabilitiesMarshal, pcbLicenseCapabilities, "HRESULT")
-        return result
+        return ppLicenseCapabilities
     }
 
     /**
@@ -62,18 +63,16 @@ class IWTSProtocolLicenseConnection extends IUnknown{
      * 
      * @param {Pointer<Integer>} Reserve1 
      * @param {Integer} Reserve2 
-     * @param {Pointer<Integer>} ppClientLicense 
      * @param {Pointer<Integer>} pcbClientLicense 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwtsprotocollicenseconnection-requestclientlicense
      */
-    RequestClientLicense(Reserve1, Reserve2, ppClientLicense, pcbClientLicense) {
+    RequestClientLicense(Reserve1, Reserve2, pcbClientLicense) {
         Reserve1Marshal := Reserve1 is VarRef ? "char*" : "ptr"
-        ppClientLicenseMarshal := ppClientLicense is VarRef ? "char*" : "ptr"
         pcbClientLicenseMarshal := pcbClientLicense is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, Reserve1Marshal, Reserve1, "uint", Reserve2, ppClientLicenseMarshal, ppClientLicense, pcbClientLicenseMarshal, pcbClientLicense, "HRESULT")
-        return result
+        result := ComCall(5, this, Reserve1Marshal, Reserve1, "uint", Reserve2, "char*", &ppClientLicense := 0, pcbClientLicenseMarshal, pcbClientLicense, "HRESULT")
+        return ppClientLicense
     }
 
     /**

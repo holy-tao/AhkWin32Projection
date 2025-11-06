@@ -38,12 +38,11 @@ class IPropertyEnumType2 extends IPropertyEnumType{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszImageRes 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertyenumtype2-getimagereference
      */
-    GetImageReference(ppszImageRes) {
-        result := ComCall(8, this, "ptr", ppszImageRes, "HRESULT")
-        return result
+    GetImageReference() {
+        result := ComCall(8, this, "ptr*", &ppszImageRes := 0, "HRESULT")
+        return ppszImageRes
     }
 }

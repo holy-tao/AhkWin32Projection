@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUIAutomationElementArray.ahk
 #Include .\IUIAutomationElement3.ahk
 
 /**
@@ -32,127 +33,101 @@ class IUIAutomationElement4 extends IUIAutomationElement3{
 
     /**
      * 
-     * @param {Pointer<Integer>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement4-get_currentpositioninset
      */
-    get_CurrentPositionInSet(retVal) {
-        retValMarshal := retVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(94, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CurrentPositionInSet() {
+        result := ComCall(94, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement4-get_currentsizeofset
      */
-    get_CurrentSizeOfSet(retVal) {
-        retValMarshal := retVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(95, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CurrentSizeOfSet() {
+        result := ComCall(95, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement4-get_currentlevel
      */
-    get_CurrentLevel(retVal) {
-        retValMarshal := retVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(96, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CurrentLevel() {
+        result := ComCall(96, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement4-get_currentannotationtypes
      */
-    get_CurrentAnnotationTypes(retVal) {
-        retValMarshal := retVal is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(97, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CurrentAnnotationTypes() {
+        result := ComCall(97, this, "ptr*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<IUIAutomationElementArray>} retVal 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElementArray} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement4-get_currentannotationobjects
      */
-    get_CurrentAnnotationObjects(retVal) {
-        result := ComCall(98, this, "ptr*", retVal, "HRESULT")
-        return result
+    get_CurrentAnnotationObjects() {
+        result := ComCall(98, this, "ptr*", &retVal := 0, "HRESULT")
+        return IUIAutomationElementArray(retVal)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement4-get_cachedpositioninset
      */
-    get_CachedPositionInSet(retVal) {
-        retValMarshal := retVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(99, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CachedPositionInSet() {
+        result := ComCall(99, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement4-get_cachedsizeofset
      */
-    get_CachedSizeOfSet(retVal) {
-        retValMarshal := retVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(100, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CachedSizeOfSet() {
+        result := ComCall(100, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement4-get_cachedlevel
      */
-    get_CachedLevel(retVal) {
-        retValMarshal := retVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(101, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CachedLevel() {
+        result := ComCall(101, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement4-get_cachedannotationtypes
      */
-    get_CachedAnnotationTypes(retVal) {
-        retValMarshal := retVal is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(102, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CachedAnnotationTypes() {
+        result := ComCall(102, this, "ptr*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<IUIAutomationElementArray>} retVal 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElementArray} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement4-get_cachedannotationobjects
      */
-    get_CachedAnnotationObjects(retVal) {
-        result := ComCall(103, this, "ptr*", retVal, "HRESULT")
-        return result
+    get_CachedAnnotationObjects() {
+        result := ComCall(103, this, "ptr*", &retVal := 0, "HRESULT")
+        return IUIAutomationElementArray(retVal)
     }
 }

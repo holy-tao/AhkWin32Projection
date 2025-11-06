@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ICanvasRenderingContext2D.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -47,14 +48,11 @@ class IHTMLCanvasElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_width(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pMarshal, p, "HRESULT")
-        return result
+    get_width() {
+        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -69,40 +67,36 @@ class IHTMLCanvasElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_height(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, pMarshal, p, "HRESULT")
-        return result
+    get_height() {
+        result := ComCall(10, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
      * @param {BSTR} contextId 
-     * @param {Pointer<ICanvasRenderingContext2D>} ppContext 
-     * @returns {HRESULT} 
+     * @returns {ICanvasRenderingContext2D} 
      */
-    getContext(contextId, ppContext) {
+    getContext(contextId) {
         contextId := contextId is String ? BSTR.Alloc(contextId).Value : contextId
 
-        result := ComCall(11, this, "ptr", contextId, "ptr*", ppContext, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", contextId, "ptr*", &ppContext := 0, "HRESULT")
+        return ICanvasRenderingContext2D(ppContext)
     }
 
     /**
      * 
      * @param {BSTR} type 
      * @param {VARIANT} jpegquality 
-     * @param {Pointer<BSTR>} pUrl 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    toDataURL(type, jpegquality, pUrl) {
+    toDataURL(type, jpegquality) {
         type := type is String ? BSTR.Alloc(type).Value : type
 
+        pUrl := BSTR()
         result := ComCall(12, this, "ptr", type, "ptr", jpegquality, "ptr", pUrl, "HRESULT")
-        return result
+        return pUrl
     }
 }

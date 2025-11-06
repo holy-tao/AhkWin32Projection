@@ -1,6 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IInkStrokes.ahk
+#Include .\IInkExtendedProperties.ahk
+#Include .\IInkCustomStrokes.ahk
+#Include .\IInkRectangle.ahk
+#Include .\IInkDisp.ahk
+#Include .\IInkStrokeDisp.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\System\Com\IDataObject.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,35 +40,32 @@ class IInkDisp extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IInkStrokes>} Strokes 
-     * @returns {HRESULT} 
+     * @returns {IInkStrokes} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdisp-get_strokes
      */
-    get_Strokes(Strokes) {
-        result := ComCall(7, this, "ptr*", Strokes, "HRESULT")
-        return result
+    get_Strokes() {
+        result := ComCall(7, this, "ptr*", &Strokes := 0, "HRESULT")
+        return IInkStrokes(Strokes)
     }
 
     /**
      * 
-     * @param {Pointer<IInkExtendedProperties>} Properties 
-     * @returns {HRESULT} 
+     * @returns {IInkExtendedProperties} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdisp-get_extendedproperties
      */
-    get_ExtendedProperties(Properties) {
-        result := ComCall(8, this, "ptr*", Properties, "HRESULT")
-        return result
+    get_ExtendedProperties() {
+        result := ComCall(8, this, "ptr*", &Properties := 0, "HRESULT")
+        return IInkExtendedProperties(Properties)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} Dirty 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdisp-get_dirty
      */
-    get_Dirty(Dirty) {
-        result := ComCall(9, this, "ptr", Dirty, "HRESULT")
-        return result
+    get_Dirty() {
+        result := ComCall(9, this, "short*", &Dirty := 0, "HRESULT")
+        return Dirty
     }
 
     /**
@@ -76,25 +81,23 @@ class IInkDisp extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IInkCustomStrokes>} ppunkInkCustomStrokes 
-     * @returns {HRESULT} 
+     * @returns {IInkCustomStrokes} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdisp-get_customstrokes
      */
-    get_CustomStrokes(ppunkInkCustomStrokes) {
-        result := ComCall(11, this, "ptr*", ppunkInkCustomStrokes, "HRESULT")
-        return result
+    get_CustomStrokes() {
+        result := ComCall(11, this, "ptr*", &ppunkInkCustomStrokes := 0, "HRESULT")
+        return IInkCustomStrokes(ppunkInkCustomStrokes)
     }
 
     /**
      * 
      * @param {Integer} BoundingBoxMode 
-     * @param {Pointer<IInkRectangle>} Rectangle 
-     * @returns {HRESULT} 
+     * @returns {IInkRectangle} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdisp-getboundingbox
      */
-    GetBoundingBox(BoundingBoxMode, Rectangle) {
-        result := ComCall(12, this, "int", BoundingBoxMode, "ptr*", Rectangle, "HRESULT")
-        return result
+    GetBoundingBox(BoundingBoxMode) {
+        result := ComCall(12, this, "int", BoundingBoxMode, "ptr*", &Rectangle := 0, "HRESULT")
+        return IInkRectangle(Rectangle)
     }
 
     /**
@@ -123,26 +126,24 @@ class IInkDisp extends IDispatch{
      * 
      * @param {IInkStrokes} Strokes 
      * @param {Integer} ExtractFlags 
-     * @param {Pointer<IInkDisp>} ExtractedInk 
-     * @returns {HRESULT} 
+     * @returns {IInkDisp} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdisp-extractstrokes
      */
-    ExtractStrokes(Strokes, ExtractFlags, ExtractedInk) {
-        result := ComCall(15, this, "ptr", Strokes, "int", ExtractFlags, "ptr*", ExtractedInk, "HRESULT")
-        return result
+    ExtractStrokes(Strokes, ExtractFlags) {
+        result := ComCall(15, this, "ptr", Strokes, "int", ExtractFlags, "ptr*", &ExtractedInk := 0, "HRESULT")
+        return IInkDisp(ExtractedInk)
     }
 
     /**
      * 
      * @param {IInkRectangle} Rectangle 
      * @param {Integer} extractFlags 
-     * @param {Pointer<IInkDisp>} ExtractedInk 
-     * @returns {HRESULT} 
+     * @returns {IInkDisp} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdisp-extractwithrectangle
      */
-    ExtractWithRectangle(Rectangle, extractFlags, ExtractedInk) {
-        result := ComCall(16, this, "ptr", Rectangle, "int", extractFlags, "ptr*", ExtractedInk, "HRESULT")
-        return result
+    ExtractWithRectangle(Rectangle, extractFlags) {
+        result := ComCall(16, this, "ptr", Rectangle, "int", extractFlags, "ptr*", &ExtractedInk := 0, "HRESULT")
+        return IInkDisp(ExtractedInk)
     }
 
     /**
@@ -158,13 +159,12 @@ class IInkDisp extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IInkDisp>} NewInk 
-     * @returns {HRESULT} 
+     * @returns {IInkDisp} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdisp-clone
      */
-    Clone(NewInk) {
-        result := ComCall(18, this, "ptr*", NewInk, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(18, this, "ptr*", &NewInk := 0, "HRESULT")
+        return IInkDisp(NewInk)
     }
 
     /**
@@ -172,26 +172,24 @@ class IInkDisp extends IDispatch{
      * @param {Integer} X 
      * @param {Integer} Y 
      * @param {Float} radius 
-     * @param {Pointer<IInkStrokes>} Strokes 
-     * @returns {HRESULT} 
+     * @returns {IInkStrokes} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdisp-hittestcircle
      */
-    HitTestCircle(X, Y, radius, Strokes) {
-        result := ComCall(19, this, "int", X, "int", Y, "float", radius, "ptr*", Strokes, "HRESULT")
-        return result
+    HitTestCircle(X, Y, radius) {
+        result := ComCall(19, this, "int", X, "int", Y, "float", radius, "ptr*", &Strokes := 0, "HRESULT")
+        return IInkStrokes(Strokes)
     }
 
     /**
      * 
      * @param {IInkRectangle} SelectionRectangle 
      * @param {Float} IntersectPercent 
-     * @param {Pointer<IInkStrokes>} Strokes 
-     * @returns {HRESULT} 
+     * @returns {IInkStrokes} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdisp-hittestwithrectangle
      */
-    HitTestWithRectangle(SelectionRectangle, IntersectPercent, Strokes) {
-        result := ComCall(20, this, "ptr", SelectionRectangle, "float", IntersectPercent, "ptr*", Strokes, "HRESULT")
-        return result
+    HitTestWithRectangle(SelectionRectangle, IntersectPercent) {
+        result := ComCall(20, this, "ptr", SelectionRectangle, "float", IntersectPercent, "ptr*", &Strokes := 0, "HRESULT")
+        return IInkStrokes(Strokes)
     }
 
     /**
@@ -199,13 +197,12 @@ class IInkDisp extends IDispatch{
      * @param {VARIANT} Points 
      * @param {Float} IntersectPercent 
      * @param {Pointer<VARIANT>} LassoPoints 
-     * @param {Pointer<IInkStrokes>} Strokes 
-     * @returns {HRESULT} 
+     * @returns {IInkStrokes} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdisp-hittestwithlasso
      */
-    HitTestWithLasso(Points, IntersectPercent, LassoPoints, Strokes) {
-        result := ComCall(21, this, "ptr", Points, "float", IntersectPercent, "ptr", LassoPoints, "ptr*", Strokes, "HRESULT")
-        return result
+    HitTestWithLasso(Points, IntersectPercent, LassoPoints) {
+        result := ComCall(21, this, "ptr", Points, "float", IntersectPercent, "ptr", LassoPoints, "ptr*", &Strokes := 0, "HRESULT")
+        return IInkStrokes(Strokes)
     }
 
     /**
@@ -214,28 +211,26 @@ class IInkDisp extends IDispatch{
      * @param {Integer} Y 
      * @param {Pointer<Float>} PointOnStroke 
      * @param {Pointer<Float>} DistanceFromPacket 
-     * @param {Pointer<IInkStrokeDisp>} Stroke 
-     * @returns {HRESULT} 
+     * @returns {IInkStrokeDisp} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdisp-nearestpoint
      */
-    NearestPoint(X, Y, PointOnStroke, DistanceFromPacket, Stroke) {
+    NearestPoint(X, Y, PointOnStroke, DistanceFromPacket) {
         PointOnStrokeMarshal := PointOnStroke is VarRef ? "float*" : "ptr"
         DistanceFromPacketMarshal := DistanceFromPacket is VarRef ? "float*" : "ptr"
 
-        result := ComCall(22, this, "int", X, "int", Y, PointOnStrokeMarshal, PointOnStroke, DistanceFromPacketMarshal, DistanceFromPacket, "ptr*", Stroke, "HRESULT")
-        return result
+        result := ComCall(22, this, "int", X, "int", Y, PointOnStrokeMarshal, PointOnStroke, DistanceFromPacketMarshal, DistanceFromPacket, "ptr*", &Stroke := 0, "HRESULT")
+        return IInkStrokeDisp(Stroke)
     }
 
     /**
      * 
      * @param {VARIANT} StrokeIds 
-     * @param {Pointer<IInkStrokes>} Strokes 
-     * @returns {HRESULT} 
+     * @returns {IInkStrokes} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdisp-createstrokes
      */
-    CreateStrokes(StrokeIds, Strokes) {
-        result := ComCall(23, this, "ptr", StrokeIds, "ptr*", Strokes, "HRESULT")
-        return result
+    CreateStrokes(StrokeIds) {
+        result := ComCall(23, this, "ptr", StrokeIds, "ptr*", &Strokes := 0, "HRESULT")
+        return IInkStrokes(Strokes)
     }
 
     /**
@@ -254,13 +249,13 @@ class IInkDisp extends IDispatch{
      * 
      * @param {Integer} PersistenceFormat 
      * @param {Integer} CompressionMode 
-     * @param {Pointer<VARIANT>} Data 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdisp-save
      */
-    Save(PersistenceFormat, CompressionMode, Data) {
+    Save(PersistenceFormat, CompressionMode) {
+        Data := VARIANT()
         result := ComCall(25, this, "int", PersistenceFormat, "int", CompressionMode, "ptr", Data, "HRESULT")
-        return result
+        return Data
     }
 
     /**
@@ -278,13 +273,12 @@ class IInkDisp extends IDispatch{
      * 
      * @param {VARIANT} PacketData 
      * @param {VARIANT} PacketDescription 
-     * @param {Pointer<IInkStrokeDisp>} Stroke 
-     * @returns {HRESULT} 
+     * @returns {IInkStrokeDisp} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdisp-createstroke
      */
-    CreateStroke(PacketData, PacketDescription, Stroke) {
-        result := ComCall(27, this, "ptr", PacketData, "ptr", PacketDescription, "ptr*", Stroke, "HRESULT")
-        return result
+    CreateStroke(PacketData, PacketDescription) {
+        result := ComCall(27, this, "ptr", PacketData, "ptr", PacketDescription, "ptr*", &Stroke := 0, "HRESULT")
+        return IInkStrokeDisp(Stroke)
     }
 
     /**
@@ -292,13 +286,12 @@ class IInkDisp extends IDispatch{
      * @param {IInkRectangle} Rectangle 
      * @param {Integer} ClipboardFormats 
      * @param {Integer} ClipboardModes 
-     * @param {Pointer<IDataObject>} DataObject 
-     * @returns {HRESULT} 
+     * @returns {IDataObject} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdisp-clipboardcopywithrectangle
      */
-    ClipboardCopyWithRectangle(Rectangle, ClipboardFormats, ClipboardModes, DataObject) {
-        result := ComCall(28, this, "ptr", Rectangle, "int", ClipboardFormats, "int", ClipboardModes, "ptr*", DataObject, "HRESULT")
-        return result
+    ClipboardCopyWithRectangle(Rectangle, ClipboardFormats, ClipboardModes) {
+        result := ComCall(28, this, "ptr", Rectangle, "int", ClipboardFormats, "int", ClipboardModes, "ptr*", &DataObject := 0, "HRESULT")
+        return IDataObject(DataObject)
     }
 
     /**
@@ -306,25 +299,23 @@ class IInkDisp extends IDispatch{
      * @param {IInkStrokes} strokes 
      * @param {Integer} ClipboardFormats 
      * @param {Integer} ClipboardModes 
-     * @param {Pointer<IDataObject>} DataObject 
-     * @returns {HRESULT} 
+     * @returns {IDataObject} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdisp-clipboardcopy
      */
-    ClipboardCopy(strokes, ClipboardFormats, ClipboardModes, DataObject) {
-        result := ComCall(29, this, "ptr", strokes, "int", ClipboardFormats, "int", ClipboardModes, "ptr*", DataObject, "HRESULT")
-        return result
+    ClipboardCopy(strokes, ClipboardFormats, ClipboardModes) {
+        result := ComCall(29, this, "ptr", strokes, "int", ClipboardFormats, "int", ClipboardModes, "ptr*", &DataObject := 0, "HRESULT")
+        return IDataObject(DataObject)
     }
 
     /**
      * 
      * @param {IDataObject} DataObject 
-     * @param {Pointer<VARIANT_BOOL>} CanPaste 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdisp-canpaste
      */
-    CanPaste(DataObject, CanPaste) {
-        result := ComCall(30, this, "ptr", DataObject, "ptr", CanPaste, "HRESULT")
-        return result
+    CanPaste(DataObject) {
+        result := ComCall(30, this, "ptr", DataObject, "short*", &CanPaste := 0, "HRESULT")
+        return CanPaste
     }
 
     /**
@@ -332,12 +323,11 @@ class IInkDisp extends IDispatch{
      * @param {Integer} x 
      * @param {Integer} y 
      * @param {IDataObject} DataObject 
-     * @param {Pointer<IInkStrokes>} Strokes 
-     * @returns {HRESULT} 
+     * @returns {IInkStrokes} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkdisp-clipboardpaste
      */
-    ClipboardPaste(x, y, DataObject, Strokes) {
-        result := ComCall(31, this, "int", x, "int", y, "ptr", DataObject, "ptr*", Strokes, "HRESULT")
-        return result
+    ClipboardPaste(x, y, DataObject) {
+        result := ComCall(31, this, "int", x, "int", y, "ptr", DataObject, "ptr*", &Strokes := 0, "HRESULT")
+        return IInkStrokes(Strokes)
     }
 }

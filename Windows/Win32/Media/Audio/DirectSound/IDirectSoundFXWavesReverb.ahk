@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\DSFXWavesReverb.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -40,11 +41,11 @@ class IDirectSoundFXWavesReverb extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<DSFXWavesReverb>} pDsFxWavesReverb 
-     * @returns {HRESULT} 
+     * @returns {DSFXWavesReverb} 
      */
-    GetAllParameters(pDsFxWavesReverb) {
+    GetAllParameters() {
+        pDsFxWavesReverb := DSFXWavesReverb()
         result := ComCall(4, this, "ptr", pDsFxWavesReverb, "HRESULT")
-        return result
+        return pDsFxWavesReverb
     }
 }

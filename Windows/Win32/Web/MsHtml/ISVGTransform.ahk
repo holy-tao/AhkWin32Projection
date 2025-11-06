@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISVGMatrix.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -46,14 +47,11 @@ class ISVGTransform extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_type(p) {
-        pMarshal := p is VarRef ? "short*" : "ptr"
-
-        result := ComCall(8, this, pMarshal, p, "HRESULT")
-        return result
+    get_type() {
+        result := ComCall(8, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -68,12 +66,11 @@ class ISVGTransform extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGMatrix>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGMatrix} 
      */
-    get_matrix(p) {
-        result := ComCall(10, this, "ptr*", p, "HRESULT")
-        return result
+    get_matrix() {
+        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGMatrix(p)
     }
 
     /**
@@ -88,14 +85,11 @@ class ISVGTransform extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_angle(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(12, this, pMarshal, p, "HRESULT")
-        return result
+    get_angle() {
+        result := ComCall(12, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 
     /**

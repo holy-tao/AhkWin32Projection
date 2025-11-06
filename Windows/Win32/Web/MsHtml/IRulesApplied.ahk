@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IHTMLElement.ahk
+#Include .\IHTMLStyle.ahk
+#Include .\IHTMLStyleSheetRulesAppliedCollection.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -37,67 +40,61 @@ class IRulesApplied extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IHTMLElement>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElement} 
      */
-    get_element(p) {
-        result := ComCall(7, this, "ptr*", p, "HRESULT")
-        return result
+    get_element() {
+        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLElement(p)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLStyle>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLStyle} 
      */
-    get_inlineStyles(p) {
-        result := ComCall(8, this, "ptr*", p, "HRESULT")
-        return result
+    get_inlineStyles() {
+        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLStyle(p)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLStyleSheetRulesAppliedCollection>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLStyleSheetRulesAppliedCollection} 
      */
-    get_appliedRules(p) {
-        result := ComCall(9, this, "ptr*", p, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {BSTR} name 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
-     */
-    propertyIsInline(name, p) {
-        name := name is String ? BSTR.Alloc(name).Value : name
-
-        result := ComCall(10, this, "ptr", name, "ptr", p, "HRESULT")
-        return result
+    get_appliedRules() {
+        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLStyleSheetRulesAppliedCollection(p)
     }
 
     /**
      * 
      * @param {BSTR} name 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    propertyIsInheritable(name, p) {
+    propertyIsInline(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(11, this, "ptr", name, "ptr", p, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", name, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @param {BSTR} name 
+     * @returns {VARIANT_BOOL} 
      */
-    hasInheritableProperty(p) {
-        result := ComCall(12, this, "ptr", p, "HRESULT")
-        return result
+    propertyIsInheritable(name) {
+        name := name is String ? BSTR.Alloc(name).Value : name
+
+        result := ComCall(11, this, "ptr", name, "short*", &p := 0, "HRESULT")
+        return p
+    }
+
+    /**
+     * 
+     * @returns {VARIANT_BOOL} 
+     */
+    hasInheritableProperty() {
+        result := ComCall(12, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 }

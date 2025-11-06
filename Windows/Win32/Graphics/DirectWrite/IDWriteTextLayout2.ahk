@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DWRITE_TEXT_METRICS1.ahk
+#Include .\IDWriteFontFallback.ahk
 #Include .\IDWriteTextLayout1.ahk
 
 /**
@@ -32,13 +34,13 @@ class IDWriteTextLayout2 extends IDWriteTextLayout1{
 
     /**
      * 
-     * @param {Pointer<DWRITE_TEXT_METRICS1>} textMetrics 
-     * @returns {HRESULT} 
+     * @returns {DWRITE_TEXT_METRICS1} 
      * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritetextlayout2-getmetrics
      */
-    GetMetrics(textMetrics) {
+    GetMetrics() {
+        textMetrics := DWRITE_TEXT_METRICS1()
         result := ComCall(71, this, "ptr", textMetrics, "HRESULT")
-        return result
+        return textMetrics
     }
 
     /**
@@ -117,12 +119,11 @@ class IDWriteTextLayout2 extends IDWriteTextLayout1{
 
     /**
      * 
-     * @param {Pointer<IDWriteFontFallback>} fontFallback 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontFallback} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextlayout2-getfontfallback
      */
-    GetFontFallback(fontFallback) {
-        result := ComCall(79, this, "ptr*", fontFallback, "HRESULT")
-        return result
+    GetFontFallback() {
+        result := ComCall(79, this, "ptr*", &fontFallback := 0, "HRESULT")
+        return IDWriteFontFallback(fontFallback)
     }
 }

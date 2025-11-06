@@ -31,12 +31,12 @@ class IRTCProfile2 extends IRTCProfile{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrRealm 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Realm(pbstrRealm) {
+    get_Realm() {
+        pbstrRealm := BSTR()
         result := ComCall(21, this, "ptr", pbstrRealm, "HRESULT")
-        return result
+        return pbstrRealm
     }
 
     /**
@@ -53,14 +53,11 @@ class IRTCProfile2 extends IRTCProfile{
 
     /**
      * 
-     * @param {Pointer<Integer>} plAllowedAuth 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_AllowedAuth(plAllowedAuth) {
-        plAllowedAuthMarshal := plAllowedAuth is VarRef ? "int*" : "ptr"
-
-        result := ComCall(23, this, plAllowedAuthMarshal, plAllowedAuth, "HRESULT")
-        return result
+    get_AllowedAuth() {
+        result := ComCall(23, this, "int*", &plAllowedAuth := 0, "HRESULT")
+        return plAllowedAuth
     }
 
     /**

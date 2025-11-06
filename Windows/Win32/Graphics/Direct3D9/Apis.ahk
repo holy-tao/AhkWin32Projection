@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\IDirect3D9Ex.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9
@@ -3586,24 +3587,15 @@ class Direct3D9 {
      * @param {Integer} SDKVersion Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The value of this parameter should be <b>D3D_SDK_VERSION</b>. See Remarks.
-     * @param {Pointer<IDirect3D9Ex>} param1 
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
-     * 
-     * <ul>
-     * <li><b>D3DERR_NOTAVAILABLE</b> if Direct3DEx features are not supported (no WDDM driver is
-     *             installed) or if the <b>SDKVersion</b> does not match the version of the DLL.</li>
-     * <li><b>D3DERR_OUTOFMEMORY</b> if out-of-memory conditions are detected when creating the
-     *             enumerator object.</li>
-     * <li><b>S_OK</b> if the creation of the enumerator object is successful.</li>
-     * </ul>
+     * @returns {IDirect3D9Ex} 
      * @see https://docs.microsoft.com/windows/win32/api//d3d9/nf-d3d9-direct3dcreate9ex
      */
-    static Direct3DCreate9Ex(SDKVersion, param1) {
-        result := DllCall("d3d9.dll\Direct3DCreate9Ex", "uint", SDKVersion, "ptr*", param1, "int")
+    static Direct3DCreate9Ex(SDKVersion) {
+        result := DllCall("d3d9.dll\Direct3DCreate9Ex", "uint", SDKVersion, "ptr*", &param1 := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IDirect3D9Ex(param1)
     }
 
 ;@endregion Methods

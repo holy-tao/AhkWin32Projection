@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\BITS_FILE_PROPERTY_VALUE.ahk
 #Include .\IBackgroundCopyFile4.ahk
 
 /**
@@ -45,12 +46,12 @@ class IBackgroundCopyFile5 extends IBackgroundCopyFile4{
     /**
      * 
      * @param {Integer} PropertyId 
-     * @param {Pointer<BITS_FILE_PROPERTY_VALUE>} PropertyValue 
-     * @returns {HRESULT} 
+     * @returns {BITS_FILE_PROPERTY_VALUE} 
      * @see https://learn.microsoft.com/windows/win32/api/bits5_0/nf-bits5_0-ibackgroundcopyfile5-getproperty
      */
-    GetProperty(PropertyId, PropertyValue) {
+    GetProperty(PropertyId) {
+        PropertyValue := BITS_FILE_PROPERTY_VALUE()
         result := ComCall(14, this, "int", PropertyId, "ptr", PropertyValue, "HRESULT")
-        return result
+        return PropertyValue
     }
 }

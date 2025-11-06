@@ -38,65 +38,53 @@ class IRawCDImageTrackInfo extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagetrackinfo-get_startinglba
      */
-    get_StartingLba(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, valueMarshal, value, "HRESULT")
-        return result
+    get_StartingLba() {
+        result := ComCall(7, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagetrackinfo-get_sectorcount
      */
-    get_SectorCount(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, valueMarshal, value, "HRESULT")
-        return result
+    get_SectorCount() {
+        result := ComCall(8, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagetrackinfo-get_tracknumber
      */
-    get_TrackNumber(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, valueMarshal, value, "HRESULT")
-        return result
+    get_TrackNumber() {
+        result := ComCall(9, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagetrackinfo-get_sectortype
      */
-    get_SectorType(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, valueMarshal, value, "HRESULT")
-        return result
+    get_SectorType() {
+        result := ComCall(10, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} value 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagetrackinfo-get_isrc
      */
-    get_ISRC(value) {
+    get_ISRC() {
+        value := BSTR()
         result := ComCall(11, this, "ptr", value, "HRESULT")
-        return result
+        return value
     }
 
     /**
@@ -114,15 +102,12 @@ class IRawCDImageTrackInfo extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagetrackinfo-get_digitalaudiocopysetting
      */
-    get_DigitalAudioCopySetting(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, valueMarshal, value, "HRESULT")
-        return result
+    get_DigitalAudioCopySetting() {
+        result := ComCall(13, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
@@ -138,13 +123,12 @@ class IRawCDImageTrackInfo extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagetrackinfo-get_audiohaspreemphasis
      */
-    get_AudioHasPreemphasis(value) {
-        result := ComCall(15, this, "ptr", value, "HRESULT")
-        return result
+    get_AudioHasPreemphasis() {
+        result := ComCall(15, this, "short*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
@@ -160,15 +144,12 @@ class IRawCDImageTrackInfo extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} value 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-irawcdimagetrackinfo-get_trackindexes
      */
-    get_TrackIndexes(value) {
-        valueMarshal := value is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(17, this, valueMarshal, value, "HRESULT")
-        return result
+    get_TrackIndexes() {
+        result := ComCall(17, this, "ptr*", &value := 0, "HRESULT")
+        return value
     }
 
     /**

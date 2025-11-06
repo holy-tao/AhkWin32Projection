@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\DSFXChorus.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -40,11 +41,11 @@ class IDirectSoundFXChorus extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<DSFXChorus>} pDsFxChorus 
-     * @returns {HRESULT} 
+     * @returns {DSFXChorus} 
      */
-    GetAllParameters(pDsFxChorus) {
+    GetAllParameters() {
+        pDsFxChorus := DSFXChorus()
         result := ComCall(4, this, "ptr", pDsFxChorus, "HRESULT")
-        return result
+        return pDsFxChorus
     }
 }

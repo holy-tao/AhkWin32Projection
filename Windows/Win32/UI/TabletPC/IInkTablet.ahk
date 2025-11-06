@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IInkRectangle.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -48,62 +49,57 @@ class IInkTablet extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} Name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktablet-get_name
      */
-    get_Name(Name) {
+    get_Name() {
+        Name := BSTR()
         result := ComCall(7, this, "ptr", Name, "HRESULT")
-        return result
+        return Name
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} Id 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktablet-get_plugandplayid
      */
-    get_PlugAndPlayId(Id) {
+    get_PlugAndPlayId() {
+        Id := BSTR()
         result := ComCall(8, this, "ptr", Id, "HRESULT")
-        return result
+        return Id
     }
 
     /**
      * 
-     * @param {Pointer<IInkRectangle>} Rectangle 
-     * @returns {HRESULT} 
+     * @returns {IInkRectangle} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktablet-get_maximuminputrectangle
      */
-    get_MaximumInputRectangle(Rectangle) {
-        result := ComCall(9, this, "ptr*", Rectangle, "HRESULT")
-        return result
+    get_MaximumInputRectangle() {
+        result := ComCall(9, this, "ptr*", &Rectangle := 0, "HRESULT")
+        return IInkRectangle(Rectangle)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Capabilities 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktablet-get_hardwarecapabilities
      */
-    get_HardwareCapabilities(Capabilities) {
-        CapabilitiesMarshal := Capabilities is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, CapabilitiesMarshal, Capabilities, "HRESULT")
-        return result
+    get_HardwareCapabilities() {
+        result := ComCall(10, this, "int*", &Capabilities := 0, "HRESULT")
+        return Capabilities
     }
 
     /**
      * 
      * @param {BSTR} packetPropertyName 
-     * @param {Pointer<VARIANT_BOOL>} Supported 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktablet-ispacketpropertysupported
      */
-    IsPacketPropertySupported(packetPropertyName, Supported) {
+    IsPacketPropertySupported(packetPropertyName) {
         packetPropertyName := packetPropertyName is String ? BSTR.Alloc(packetPropertyName).Value : packetPropertyName
 
-        result := ComCall(11, this, "ptr", packetPropertyName, "ptr", Supported, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", packetPropertyName, "short*", &Supported := 0, "HRESULT")
+        return Supported
     }
 
     /**

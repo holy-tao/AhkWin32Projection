@@ -48,14 +48,11 @@ class IDVB_EIT2 extends IDVB_EIT{
     /**
      * 
      * @param {Integer} dwRecordIndex 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_eit2-getrecordsection
      */
-    GetRecordSection(dwRecordIndex, pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(25, this, "uint", dwRecordIndex, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetRecordSection(dwRecordIndex) {
+        result := ComCall(25, this, "uint", dwRecordIndex, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 }

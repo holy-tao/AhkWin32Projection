@@ -58,23 +58,23 @@ class IX509NameValuePair extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509namevaluepair-get_value
      */
-    get_Value(pValue) {
+    get_Value() {
+        pValue := BSTR()
         result := ComCall(8, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509namevaluepair-get_name
      */
-    get_Name(pValue) {
+    get_Name() {
+        pValue := BSTR()
         result := ComCall(9, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 }

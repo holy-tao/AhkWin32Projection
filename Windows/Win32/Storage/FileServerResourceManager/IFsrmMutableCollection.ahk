@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IFsrmMutableCollection.ahk
 #Include .\IFsrmCollection.ahk
 
 /**
@@ -65,12 +66,11 @@ class IFsrmMutableCollection extends IFsrmCollection{
 
     /**
      * 
-     * @param {Pointer<IFsrmMutableCollection>} collection 
-     * @returns {HRESULT} 
+     * @returns {IFsrmMutableCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmmutablecollection-clone
      */
-    Clone(collection) {
-        result := ComCall(17, this, "ptr*", collection, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(17, this, "ptr*", &collection := 0, "HRESULT")
+        return IFsrmMutableCollection(collection)
     }
 }

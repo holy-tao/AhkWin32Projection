@@ -32,12 +32,11 @@ class IUpdateService2 extends IUpdateService{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservice2-get_isdefaultauservice
      */
-    get_IsDefaultAUService(retval) {
-        result := ComCall(20, this, "ptr", retval, "HRESULT")
-        return result
+    get_IsDefaultAUService() {
+        result := ComCall(20, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 }

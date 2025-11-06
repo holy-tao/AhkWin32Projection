@@ -36,7 +36,11 @@ class IDTFilterLicenseRenewal extends IUnknown{
      * @returns {HRESULT} 
      */
     GetLicenseRenewalData(ppwszFileName, ppwszExpiredKid, ppwszTunerId) {
-        result := ComCall(3, this, "ptr", ppwszFileName, "ptr", ppwszExpiredKid, "ptr", ppwszTunerId, "HRESULT")
+        ppwszFileNameMarshal := ppwszFileName is VarRef ? "ptr*" : "ptr"
+        ppwszExpiredKidMarshal := ppwszExpiredKid is VarRef ? "ptr*" : "ptr"
+        ppwszTunerIdMarshal := ppwszTunerId is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, ppwszFileNameMarshal, ppwszFileName, ppwszExpiredKidMarshal, ppwszExpiredKid, ppwszTunerIdMarshal, ppwszTunerId, "HRESULT")
         return result
     }
 }

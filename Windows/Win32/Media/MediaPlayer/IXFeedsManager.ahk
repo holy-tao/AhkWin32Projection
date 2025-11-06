@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IStream.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -31,101 +32,86 @@ class IXFeedsManager extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    RootFolder(riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    RootFolder(riid) {
+        result := ComCall(3, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * 
      * @param {PWSTR} pszUrl 
-     * @param {Pointer<BOOL>} pbSubscribed 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsSubscribed(pszUrl, pbSubscribed) {
+    IsSubscribed(pszUrl) {
         pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
 
-        result := ComCall(4, this, "ptr", pszUrl, "ptr", pbSubscribed, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pszUrl, "int*", &pbSubscribed := 0, "HRESULT")
+        return pbSubscribed
     }
 
     /**
      * 
      * @param {PWSTR} pszPath 
-     * @param {Pointer<BOOL>} pbFeedExists 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    ExistsFeed(pszPath, pbFeedExists) {
+    ExistsFeed(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(5, this, "ptr", pszPath, "ptr", pbFeedExists, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", pszPath, "int*", &pbFeedExists := 0, "HRESULT")
+        return pbFeedExists
     }
 
     /**
      * 
      * @param {PWSTR} pszPath 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetFeed(pszPath, riid, ppv) {
+    GetFeed(pszPath, riid) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", pszPath, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", pszPath, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * 
      * @param {PWSTR} pszUrl 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetFeedByUrl(pszUrl, riid, ppv) {
+    GetFeedByUrl(pszUrl, riid) {
         pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl
 
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, "ptr", pszUrl, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", pszUrl, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * 
      * @param {PWSTR} pszPath 
-     * @param {Pointer<BOOL>} pbFolderExists 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    ExistsFolder(pszPath, pbFolderExists) {
+    ExistsFolder(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := ComCall(8, this, "ptr", pszPath, "ptr", pbFolderExists, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", pszPath, "int*", &pbFolderExists := 0, "HRESULT")
+        return pbFolderExists
     }
 
     /**
      * 
      * @param {PWSTR} pszPath 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetFolder(pszPath, riid, ppv) {
+    GetFolder(pszPath, riid) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(9, this, "ptr", pszPath, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", pszPath, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
@@ -164,26 +150,20 @@ class IXFeedsManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pfbss 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    BackgroundSyncStatus(pfbss) {
-        pfbssMarshal := pfbss is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, pfbssMarshal, pfbss, "HRESULT")
-        return result
+    BackgroundSyncStatus() {
+        result := ComCall(13, this, "int*", &pfbss := 0, "HRESULT")
+        return pfbss
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} puiInterval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    DefaultInterval(puiInterval) {
-        puiIntervalMarshal := puiInterval is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, puiIntervalMarshal, puiInterval, "HRESULT")
-        return result
+    DefaultInterval() {
+        result := ComCall(14, this, "uint*", &puiInterval := 0, "HRESULT")
+        return puiInterval
     }
 
     /**
@@ -208,23 +188,19 @@ class IXFeedsManager extends IUnknown{
     /**
      * 
      * @param {IStream} pStreamIn 
-     * @param {Pointer<IStream>} ppStreamOut 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      */
-    Normalize(pStreamIn, ppStreamOut) {
-        result := ComCall(17, this, "ptr", pStreamIn, "ptr*", ppStreamOut, "HRESULT")
-        return result
+    Normalize(pStreamIn) {
+        result := ComCall(17, this, "ptr", pStreamIn, "ptr*", &ppStreamOut := 0, "HRESULT")
+        return IStream(ppStreamOut)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} puiItemCountLimit 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    ItemCountLimit(puiItemCountLimit) {
-        puiItemCountLimitMarshal := puiItemCountLimit is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(18, this, puiItemCountLimitMarshal, puiItemCountLimit, "HRESULT")
-        return result
+    ItemCountLimit() {
+        result := ComCall(18, this, "uint*", &puiItemCountLimit := 0, "HRESULT")
+        return puiItemCountLimit
     }
 }

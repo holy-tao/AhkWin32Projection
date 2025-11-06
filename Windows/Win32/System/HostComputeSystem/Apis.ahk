@@ -178,36 +178,34 @@ class HostComputeSystem {
     /**
      * 
      * @param {HCS_OPERATION} operation 
-     * @param {Pointer<PWSTR>} resultDocument 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsGetOperationResult
      */
-    static HcsGetOperationResult(operation, resultDocument) {
+    static HcsGetOperationResult(operation) {
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
 
-        result := DllCall("computecore.dll\HcsGetOperationResult", "ptr", operation, "ptr", resultDocument, "int")
+        result := DllCall("computecore.dll\HcsGetOperationResult", "ptr", operation, "ptr*", &resultDocument := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return resultDocument
     }
 
     /**
      * 
      * @param {HCS_OPERATION} operation 
      * @param {Pointer<HCS_PROCESS_INFORMATION>} processInformation 
-     * @param {Pointer<PWSTR>} resultDocument 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsGetOperationResultAndProcessInfo
      */
-    static HcsGetOperationResultAndProcessInfo(operation, processInformation, resultDocument) {
+    static HcsGetOperationResultAndProcessInfo(operation, processInformation) {
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
 
-        result := DllCall("computecore.dll\HcsGetOperationResultAndProcessInfo", "ptr", operation, "ptr", processInformation, "ptr", resultDocument, "int")
+        result := DllCall("computecore.dll\HcsGetOperationResultAndProcessInfo", "ptr", operation, "ptr", processInformation, "ptr*", &resultDocument := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return resultDocument
     }
 
     /**
@@ -233,36 +231,34 @@ class HostComputeSystem {
     /**
      * 
      * @param {PWSTR} RuntimeFileName 
-     * @param {Pointer<PWSTR>} ProcessorFeaturesString 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsGetProcessorCompatibilityFromSavedState
      */
-    static HcsGetProcessorCompatibilityFromSavedState(RuntimeFileName, ProcessorFeaturesString) {
+    static HcsGetProcessorCompatibilityFromSavedState(RuntimeFileName) {
         RuntimeFileName := RuntimeFileName is String ? StrPtr(RuntimeFileName) : RuntimeFileName
 
-        result := DllCall("computecore.dll\HcsGetProcessorCompatibilityFromSavedState", "ptr", RuntimeFileName, "ptr", ProcessorFeaturesString, "int")
+        result := DllCall("computecore.dll\HcsGetProcessorCompatibilityFromSavedState", "ptr", RuntimeFileName, "ptr*", &ProcessorFeaturesString := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ProcessorFeaturesString
     }
 
     /**
      * 
      * @param {HCS_OPERATION} operation 
      * @param {Integer} timeoutMs 
-     * @param {Pointer<PWSTR>} resultDocument 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsWaitForOperationResult
      */
-    static HcsWaitForOperationResult(operation, timeoutMs, resultDocument) {
+    static HcsWaitForOperationResult(operation, timeoutMs) {
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
 
-        result := DllCall("computecore.dll\HcsWaitForOperationResult", "ptr", operation, "uint", timeoutMs, "ptr", resultDocument, "int")
+        result := DllCall("computecore.dll\HcsWaitForOperationResult", "ptr", operation, "uint", timeoutMs, "ptr*", &resultDocument := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return resultDocument
     }
 
     /**
@@ -270,18 +266,17 @@ class HostComputeSystem {
      * @param {HCS_OPERATION} operation 
      * @param {Integer} timeoutMs 
      * @param {Pointer<HCS_PROCESS_INFORMATION>} processInformation 
-     * @param {Pointer<PWSTR>} resultDocument 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsWaitForOperationResultAndProcessInfo
      */
-    static HcsWaitForOperationResultAndProcessInfo(operation, timeoutMs, processInformation, resultDocument) {
+    static HcsWaitForOperationResultAndProcessInfo(operation, timeoutMs, processInformation) {
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
 
-        result := DllCall("computecore.dll\HcsWaitForOperationResultAndProcessInfo", "ptr", operation, "uint", timeoutMs, "ptr", processInformation, "ptr", resultDocument, "int")
+        result := DllCall("computecore.dll\HcsWaitForOperationResultAndProcessInfo", "ptr", operation, "uint", timeoutMs, "ptr", processInformation, "ptr*", &resultDocument := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return resultDocument
     }
 
     /**
@@ -324,18 +319,17 @@ class HostComputeSystem {
      * 
      * @param {HCS_OPERATION} operation 
      * @param {PWSTR} options 
-     * @param {Pointer<PWSTR>} resultDocument 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    static HcsGetOperationProperties(operation, options, resultDocument) {
+    static HcsGetOperationProperties(operation, options) {
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
         options := options is String ? StrPtr(options) : options
 
-        result := DllCall("computecore.dll\HcsGetOperationProperties", "ptr", operation, "ptr", options, "ptr", resultDocument, "int")
+        result := DllCall("computecore.dll\HcsGetOperationProperties", "ptr", operation, "ptr", options, "ptr*", &resultDocument := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return resultDocument
     }
 
     /**
@@ -344,20 +338,20 @@ class HostComputeSystem {
      * @param {PWSTR} configuration 
      * @param {HCS_OPERATION} operation 
      * @param {Pointer<SECURITY_DESCRIPTOR>} securityDescriptor 
-     * @param {Pointer<HCS_SYSTEM>} computeSystem 
-     * @returns {HRESULT} 
+     * @returns {HCS_SYSTEM} 
      * @see https://learn.microsoft.com/virtualization/api/hcs/reference/HcsCreateComputeSystem
      */
-    static HcsCreateComputeSystem(id, configuration, operation, securityDescriptor, computeSystem) {
+    static HcsCreateComputeSystem(id, configuration, operation, securityDescriptor) {
         id := id is String ? StrPtr(id) : id
         configuration := configuration is String ? StrPtr(configuration) : configuration
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
 
+        computeSystem := HCS_SYSTEM()
         result := DllCall("computecore.dll\HcsCreateComputeSystem", "ptr", id, "ptr", configuration, "ptr", operation, "ptr", securityDescriptor, "ptr", computeSystem, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return computeSystem
     }
 
     /**
@@ -367,10 +361,9 @@ class HostComputeSystem {
      * @param {PWSTR} configuration 
      * @param {HCS_OPERATION} operation 
      * @param {Pointer<Integer>} options 
-     * @param {Pointer<HCS_SYSTEM>} computeSystem 
-     * @returns {HRESULT} 
+     * @returns {HCS_SYSTEM} 
      */
-    static HcsCreateComputeSystemInNamespace(idNamespace, id, configuration, operation, options, computeSystem) {
+    static HcsCreateComputeSystemInNamespace(idNamespace, id, configuration, operation, options) {
         idNamespace := idNamespace is String ? StrPtr(idNamespace) : idNamespace
         id := id is String ? StrPtr(id) : id
         configuration := configuration is String ? StrPtr(configuration) : configuration
@@ -378,29 +371,30 @@ class HostComputeSystem {
 
         optionsMarshal := options is VarRef ? "int*" : "ptr"
 
+        computeSystem := HCS_SYSTEM()
         result := DllCall("computecore.dll\HcsCreateComputeSystemInNamespace", "ptr", idNamespace, "ptr", id, "ptr", configuration, "ptr", operation, optionsMarshal, options, "ptr", computeSystem, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return computeSystem
     }
 
     /**
      * 
      * @param {PWSTR} id 
      * @param {Integer} requestedAccess 
-     * @param {Pointer<HCS_SYSTEM>} computeSystem 
-     * @returns {HRESULT} 
+     * @returns {HCS_SYSTEM} 
      * @see https://learn.microsoft.com/virtualization/api/hcs/reference/HcsOpenComputeSystem
      */
-    static HcsOpenComputeSystem(id, requestedAccess, computeSystem) {
+    static HcsOpenComputeSystem(id, requestedAccess) {
         id := id is String ? StrPtr(id) : id
 
+        computeSystem := HCS_SYSTEM()
         result := DllCall("computecore.dll\HcsOpenComputeSystem", "ptr", id, "uint", requestedAccess, "ptr", computeSystem, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return computeSystem
     }
 
     /**
@@ -408,18 +402,18 @@ class HostComputeSystem {
      * @param {PWSTR} idNamespace 
      * @param {PWSTR} id 
      * @param {Integer} requestedAccess 
-     * @param {Pointer<HCS_SYSTEM>} computeSystem 
-     * @returns {HRESULT} 
+     * @returns {HCS_SYSTEM} 
      */
-    static HcsOpenComputeSystemInNamespace(idNamespace, id, requestedAccess, computeSystem) {
+    static HcsOpenComputeSystemInNamespace(idNamespace, id, requestedAccess) {
         idNamespace := idNamespace is String ? StrPtr(idNamespace) : idNamespace
         id := id is String ? StrPtr(id) : id
 
+        computeSystem := HCS_SYSTEM()
         result := DllCall("computecore.dll\HcsOpenComputeSystemInNamespace", "ptr", idNamespace, "ptr", id, "uint", requestedAccess, "ptr", computeSystem, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return computeSystem
     }
 
     /**
@@ -620,14 +614,13 @@ class HostComputeSystem {
      * 
      * @param {HCS_SYSTEM} computeSystem 
      * @param {Integer} timeoutMs 
-     * @param {Pointer<PWSTR>} result 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsWaitForComputeSystemExit
      */
-    static HcsWaitForComputeSystemExit(computeSystem, timeoutMs, result) {
+    static HcsWaitForComputeSystemExit(computeSystem, timeoutMs) {
         computeSystem := computeSystem is Win32Handle ? NumGet(computeSystem, "ptr") : computeSystem
 
-        result := DllCall("computecore.dll\HcsWaitForComputeSystemExit", "ptr", computeSystem, "uint", timeoutMs, "ptr", result, "int")
+        result := DllCall("computecore.dll\HcsWaitForComputeSystemExit", "ptr", computeSystem, "uint", timeoutMs, "ptr*", &result := 0, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -737,20 +730,20 @@ class HostComputeSystem {
      * @param {PWSTR} processParameters 
      * @param {HCS_OPERATION} operation 
      * @param {Pointer<SECURITY_DESCRIPTOR>} securityDescriptor 
-     * @param {Pointer<HCS_PROCESS>} process 
-     * @returns {HRESULT} 
+     * @returns {HCS_PROCESS} 
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsCreateProcess
      */
-    static HcsCreateProcess(computeSystem, processParameters, operation, securityDescriptor, process) {
+    static HcsCreateProcess(computeSystem, processParameters, operation, securityDescriptor) {
         computeSystem := computeSystem is Win32Handle ? NumGet(computeSystem, "ptr") : computeSystem
         processParameters := processParameters is String ? StrPtr(processParameters) : processParameters
         operation := operation is Win32Handle ? NumGet(operation, "ptr") : operation
 
+        process := HCS_PROCESS()
         result := DllCall("computecore.dll\HcsCreateProcess", "ptr", computeSystem, "ptr", processParameters, "ptr", operation, "ptr", securityDescriptor, "ptr", process, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return process
     }
 
     /**
@@ -758,18 +751,18 @@ class HostComputeSystem {
      * @param {HCS_SYSTEM} computeSystem 
      * @param {Integer} processId 
      * @param {Integer} requestedAccess 
-     * @param {Pointer<HCS_PROCESS>} process 
-     * @returns {HRESULT} 
+     * @returns {HCS_PROCESS} 
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsOpenProcess
      */
-    static HcsOpenProcess(computeSystem, processId, requestedAccess, process) {
+    static HcsOpenProcess(computeSystem, processId, requestedAccess) {
         computeSystem := computeSystem is Win32Handle ? NumGet(computeSystem, "ptr") : computeSystem
 
+        process := HCS_PROCESS()
         result := DllCall("computecore.dll\HcsOpenProcess", "ptr", computeSystem, "uint", processId, "uint", requestedAccess, "ptr", process, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return process
     }
 
     /**
@@ -907,14 +900,13 @@ class HostComputeSystem {
      * 
      * @param {HCS_PROCESS} computeSystem 
      * @param {Integer} timeoutMs 
-     * @param {Pointer<PWSTR>} result 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsWaitForProcessExit
      */
-    static HcsWaitForProcessExit(computeSystem, timeoutMs, result) {
+    static HcsWaitForProcessExit(computeSystem, timeoutMs) {
         computeSystem := computeSystem is Win32Handle ? NumGet(computeSystem, "ptr") : computeSystem
 
-        result := DllCall("computecore.dll\HcsWaitForProcessExit", "ptr", computeSystem, "uint", timeoutMs, "ptr", result, "int")
+        result := DllCall("computecore.dll\HcsWaitForProcessExit", "ptr", computeSystem, "uint", timeoutMs, "ptr*", &result := 0, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -924,14 +916,13 @@ class HostComputeSystem {
     /**
      * 
      * @param {PWSTR} propertyQuery 
-     * @param {Pointer<PWSTR>} result 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsGetServiceProperties
      */
-    static HcsGetServiceProperties(propertyQuery, result) {
+    static HcsGetServiceProperties(propertyQuery) {
         propertyQuery := propertyQuery is String ? StrPtr(propertyQuery) : propertyQuery
 
-        result := DllCall("computecore.dll\HcsGetServiceProperties", "ptr", propertyQuery, "ptr", result, "int")
+        result := DllCall("computecore.dll\HcsGetServiceProperties", "ptr", propertyQuery, "ptr*", &result := 0, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -941,14 +932,13 @@ class HostComputeSystem {
     /**
      * 
      * @param {PWSTR} settings 
-     * @param {Pointer<PWSTR>} result 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsModifyServiceSettings
      */
-    static HcsModifyServiceSettings(settings, result) {
+    static HcsModifyServiceSettings(settings) {
         settings := settings is String ? StrPtr(settings) : settings
 
-        result := DllCall("computecore.dll\HcsModifyServiceSettings", "ptr", settings, "ptr", result, "int")
+        result := DllCall("computecore.dll\HcsModifyServiceSettings", "ptr", settings, "ptr*", &result := 0, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -1265,18 +1255,17 @@ class HostComputeSystem {
     /**
      * 
      * @param {HANDLE} vhdHandle 
-     * @param {Pointer<PWSTR>} mountPath 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/virtualization/api/hcs/Reference/HcsGetLayerVhdMountPath
      */
-    static HcsGetLayerVhdMountPath(vhdHandle, mountPath) {
+    static HcsGetLayerVhdMountPath(vhdHandle) {
         vhdHandle := vhdHandle is Win32Handle ? NumGet(vhdHandle, "ptr") : vhdHandle
 
-        result := DllCall("computestorage.dll\HcsGetLayerVhdMountPath", "ptr", vhdHandle, "ptr", mountPath, "int")
+        result := DllCall("computestorage.dll\HcsGetLayerVhdMountPath", "ptr", vhdHandle, "ptr*", &mountPath := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return mountPath
     }
 
     /**

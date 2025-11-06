@@ -38,27 +38,25 @@ class ICatalog extends IDispatch{
     /**
      * 
      * @param {BSTR} bstrCollName 
-     * @param {Pointer<IDispatch>} ppCatalogCollection 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    GetCollection(bstrCollName, ppCatalogCollection) {
+    GetCollection(bstrCollName) {
         bstrCollName := bstrCollName is String ? BSTR.Alloc(bstrCollName).Value : bstrCollName
 
-        result := ComCall(7, this, "ptr", bstrCollName, "ptr*", ppCatalogCollection, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", bstrCollName, "ptr*", &ppCatalogCollection := 0, "HRESULT")
+        return IDispatch(ppCatalogCollection)
     }
 
     /**
      * 
      * @param {BSTR} bstrConnectString 
-     * @param {Pointer<IDispatch>} ppCatalogCollection 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    Connect(bstrConnectString, ppCatalogCollection) {
+    Connect(bstrConnectString) {
         bstrConnectString := bstrConnectString is String ? BSTR.Alloc(bstrConnectString).Value : bstrConnectString
 
-        result := ComCall(8, this, "ptr", bstrConnectString, "ptr*", ppCatalogCollection, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", bstrConnectString, "ptr*", &ppCatalogCollection := 0, "HRESULT")
+        return IDispatch(ppCatalogCollection)
     }
 
     /**

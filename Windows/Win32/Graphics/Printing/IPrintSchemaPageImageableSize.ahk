@@ -30,73 +30,55 @@ class IPrintSchemaPageImageableSize extends IPrintSchemaElement{
 
     /**
      * 
-     * @param {Pointer<Integer>} pulImageableSizeWidth 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ImageableSizeWidthInMicrons(pulImageableSizeWidth) {
-        pulImageableSizeWidthMarshal := pulImageableSizeWidth is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, pulImageableSizeWidthMarshal, pulImageableSizeWidth, "HRESULT")
-        return result
+    get_ImageableSizeWidthInMicrons() {
+        result := ComCall(10, this, "uint*", &pulImageableSizeWidth := 0, "HRESULT")
+        return pulImageableSizeWidth
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pulImageableSizeHeight 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ImageableSizeHeightInMicrons(pulImageableSizeHeight) {
-        pulImageableSizeHeightMarshal := pulImageableSizeHeight is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, pulImageableSizeHeightMarshal, pulImageableSizeHeight, "HRESULT")
-        return result
+    get_ImageableSizeHeightInMicrons() {
+        result := ComCall(11, this, "uint*", &pulImageableSizeHeight := 0, "HRESULT")
+        return pulImageableSizeHeight
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pulOriginWidth 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_OriginWidthInMicrons(pulOriginWidth) {
-        pulOriginWidthMarshal := pulOriginWidth is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, pulOriginWidthMarshal, pulOriginWidth, "HRESULT")
-        return result
+    get_OriginWidthInMicrons() {
+        result := ComCall(12, this, "uint*", &pulOriginWidth := 0, "HRESULT")
+        return pulOriginWidth
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pulOriginHeight 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_OriginHeightInMicrons(pulOriginHeight) {
-        pulOriginHeightMarshal := pulOriginHeight is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(13, this, pulOriginHeightMarshal, pulOriginHeight, "HRESULT")
-        return result
+    get_OriginHeightInMicrons() {
+        result := ComCall(13, this, "uint*", &pulOriginHeight := 0, "HRESULT")
+        return pulOriginHeight
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pulExtentWidth 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ExtentWidthInMicrons(pulExtentWidth) {
-        pulExtentWidthMarshal := pulExtentWidth is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, pulExtentWidthMarshal, pulExtentWidth, "HRESULT")
-        return result
+    get_ExtentWidthInMicrons() {
+        result := ComCall(14, this, "uint*", &pulExtentWidth := 0, "HRESULT")
+        return pulExtentWidth
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pulExtentHeight 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ExtentHeightInMicrons(pulExtentHeight) {
-        pulExtentHeightMarshal := pulExtentHeight is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(15, this, pulExtentHeightMarshal, pulExtentHeight, "HRESULT")
-        return result
+    get_ExtentHeightInMicrons() {
+        result := ComCall(15, this, "uint*", &pulExtentHeight := 0, "HRESULT")
+        return pulExtentHeight
     }
 }

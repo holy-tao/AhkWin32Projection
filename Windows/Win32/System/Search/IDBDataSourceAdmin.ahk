@@ -34,12 +34,11 @@ class IDBDataSourceAdmin extends IUnknown{
      * @param {Pointer<DBPROPSET>} rgPropertySets 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppDBSession 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    CreateDataSource(cPropertySets, rgPropertySets, pUnkOuter, riid, ppDBSession) {
-        result := ComCall(3, this, "uint", cPropertySets, "ptr", rgPropertySets, "ptr", pUnkOuter, "ptr", riid, "ptr*", ppDBSession, "HRESULT")
-        return result
+    CreateDataSource(cPropertySets, rgPropertySets, pUnkOuter, riid) {
+        result := ComCall(3, this, "uint", cPropertySets, "ptr", rgPropertySets, "ptr", pUnkOuter, "ptr", riid, "ptr*", &ppDBSession := 0, "HRESULT")
+        return IUnknown(ppDBSession)
     }
 
     /**

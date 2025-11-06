@@ -2,6 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IOCSPPropertyCollection.ahk
+#Include .\IOCSPCAConfigurationCollection.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -91,24 +94,22 @@ class IOCSPAdmin extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IOCSPPropertyCollection>} ppVal 
-     * @returns {HRESULT} 
+     * @returns {IOCSPPropertyCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspadmin-get_ocspserviceproperties
      */
-    get_OCSPServiceProperties(ppVal) {
-        result := ComCall(7, this, "ptr*", ppVal, "HRESULT")
-        return result
+    get_OCSPServiceProperties() {
+        result := ComCall(7, this, "ptr*", &ppVal := 0, "HRESULT")
+        return IOCSPPropertyCollection(ppVal)
     }
 
     /**
      * 
-     * @param {Pointer<IOCSPCAConfigurationCollection>} pVal 
-     * @returns {HRESULT} 
+     * @returns {IOCSPCAConfigurationCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspadmin-get_ocspcaconfigurationcollection
      */
-    get_OCSPCAConfigurationCollection(pVal) {
-        result := ComCall(8, this, "ptr*", pVal, "HRESULT")
-        return result
+    get_OCSPCAConfigurationCollection() {
+        result := ComCall(8, this, "ptr*", &pVal := 0, "HRESULT")
+        return IOCSPCAConfigurationCollection(pVal)
     }
 
     /**
@@ -142,17 +143,14 @@ class IOCSPAdmin extends IDispatch{
     /**
      * 
      * @param {BSTR} bstrServerName 
-     * @param {Pointer<Integer>} pRoles 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspadmin-getmyroles
      */
-    GetMyRoles(bstrServerName, pRoles) {
+    GetMyRoles(bstrServerName) {
         bstrServerName := bstrServerName is String ? BSTR.Alloc(bstrServerName).Value : bstrServerName
 
-        pRolesMarshal := pRoles is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, "ptr", bstrServerName, pRolesMarshal, pRoles, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", bstrServerName, "int*", &pRoles := 0, "HRESULT")
+        return pRoles
     }
 
     /**
@@ -186,45 +184,45 @@ class IOCSPAdmin extends IDispatch{
     /**
      * 
      * @param {BSTR} bstrServerName 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspadmin-getsecurity
      */
-    GetSecurity(bstrServerName, pVal) {
+    GetSecurity(bstrServerName) {
         bstrServerName := bstrServerName is String ? BSTR.Alloc(bstrServerName).Value : bstrServerName
 
+        pVal := BSTR()
         result := ComCall(14, this, "ptr", bstrServerName, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
      * @param {BSTR} bstrServerName 
      * @param {Pointer<VARIANT>} pCACertVar 
-     * @param {Pointer<VARIANT>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspadmin-getsigningcertificates
      */
-    GetSigningCertificates(bstrServerName, pCACertVar, pVal) {
+    GetSigningCertificates(bstrServerName, pCACertVar) {
         bstrServerName := bstrServerName is String ? BSTR.Alloc(bstrServerName).Value : bstrServerName
 
+        pVal := VARIANT()
         result := ComCall(15, this, "ptr", bstrServerName, "ptr", pCACertVar, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
      * @param {BSTR} bstrServerName 
      * @param {BSTR} bstrCAId 
-     * @param {Pointer<VARIANT>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspadmin-gethashalgorithms
      */
-    GetHashAlgorithms(bstrServerName, bstrCAId, pVal) {
+    GetHashAlgorithms(bstrServerName, bstrCAId) {
         bstrServerName := bstrServerName is String ? BSTR.Alloc(bstrServerName).Value : bstrServerName
         bstrCAId := bstrCAId is String ? BSTR.Alloc(bstrCAId).Value : bstrCAId
 
+        pVal := VARIANT()
         result := ComCall(16, this, "ptr", bstrServerName, "ptr", bstrCAId, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 }

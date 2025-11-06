@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\MPEG_DATE_AND_TIME.ahk
+#Include .\MPEG_TIME.ahk
+#Include .\IGenericDescriptor.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -56,119 +59,100 @@ class IPBDA_EIT extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbda_eit-gettableid
      */
-    GetTableId(pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetTableId() {
+        result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbda_eit-getversionnumber
      */
-    GetVersionNumber(pwVal) {
-        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(5, this, pwValMarshal, pwVal, "HRESULT")
-        return result
+    GetVersionNumber() {
+        result := ComCall(5, this, "ushort*", &pwVal := 0, "HRESULT")
+        return pwVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbda_eit-getserviceidx
      */
-    GetServiceIdx(plwVal) {
-        plwValMarshal := plwVal is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, plwValMarshal, plwVal, "HRESULT")
-        return result
+    GetServiceIdx() {
+        result := ComCall(6, this, "uint*", &plwVal := 0, "HRESULT")
+        return plwVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbda_eit-getcountofrecords
      */
-    GetCountOfRecords(pdwVal) {
-        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pdwValMarshal, pdwVal, "HRESULT")
-        return result
+    GetCountOfRecords() {
+        result := ComCall(7, this, "uint*", &pdwVal := 0, "HRESULT")
+        return pdwVal
     }
 
     /**
      * 
      * @param {Integer} dwRecordIndex 
-     * @param {Pointer<Integer>} plwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbda_eit-getrecordeventid
      */
-    GetRecordEventId(dwRecordIndex, plwVal) {
-        plwValMarshal := plwVal is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, "uint", dwRecordIndex, plwValMarshal, plwVal, "HRESULT")
-        return result
+    GetRecordEventId(dwRecordIndex) {
+        result := ComCall(8, this, "uint", dwRecordIndex, "uint*", &plwVal := 0, "HRESULT")
+        return plwVal
     }
 
     /**
      * 
      * @param {Integer} dwRecordIndex 
-     * @param {Pointer<MPEG_DATE_AND_TIME>} pmdtVal 
-     * @returns {HRESULT} 
+     * @returns {MPEG_DATE_AND_TIME} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbda_eit-getrecordstarttime
      */
-    GetRecordStartTime(dwRecordIndex, pmdtVal) {
+    GetRecordStartTime(dwRecordIndex) {
+        pmdtVal := MPEG_DATE_AND_TIME()
         result := ComCall(9, this, "uint", dwRecordIndex, "ptr", pmdtVal, "HRESULT")
-        return result
+        return pmdtVal
     }
 
     /**
      * 
      * @param {Integer} dwRecordIndex 
-     * @param {Pointer<MPEG_TIME>} pmdVal 
-     * @returns {HRESULT} 
+     * @returns {MPEG_TIME} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbda_eit-getrecordduration
      */
-    GetRecordDuration(dwRecordIndex, pmdVal) {
+    GetRecordDuration(dwRecordIndex) {
+        pmdVal := MPEG_TIME()
         result := ComCall(10, this, "uint", dwRecordIndex, "ptr", pmdVal, "HRESULT")
-        return result
+        return pmdVal
     }
 
     /**
      * 
      * @param {Integer} dwRecordIndex 
-     * @param {Pointer<Integer>} pdwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbda_eit-getrecordcountofdescriptors
      */
-    GetRecordCountOfDescriptors(dwRecordIndex, pdwVal) {
-        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, "uint", dwRecordIndex, pdwValMarshal, pdwVal, "HRESULT")
-        return result
+    GetRecordCountOfDescriptors(dwRecordIndex) {
+        result := ComCall(11, this, "uint", dwRecordIndex, "uint*", &pdwVal := 0, "HRESULT")
+        return pdwVal
     }
 
     /**
      * 
      * @param {Integer} dwRecordIndex 
      * @param {Integer} dwIndex 
-     * @param {Pointer<IGenericDescriptor>} ppDescriptor 
-     * @returns {HRESULT} 
+     * @returns {IGenericDescriptor} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbda_eit-getrecorddescriptorbyindex
      */
-    GetRecordDescriptorByIndex(dwRecordIndex, dwIndex, ppDescriptor) {
-        result := ComCall(12, this, "uint", dwRecordIndex, "uint", dwIndex, "ptr*", ppDescriptor, "HRESULT")
-        return result
+    GetRecordDescriptorByIndex(dwRecordIndex, dwIndex) {
+        result := ComCall(12, this, "uint", dwRecordIndex, "uint", dwIndex, "ptr*", &ppDescriptor := 0, "HRESULT")
+        return IGenericDescriptor(ppDescriptor)
     }
 
     /**
@@ -176,14 +160,13 @@ class IPBDA_EIT extends IUnknown{
      * @param {Integer} dwRecordIndex 
      * @param {Integer} bTag 
      * @param {Pointer<Integer>} pdwCookie 
-     * @param {Pointer<IGenericDescriptor>} ppDescriptor 
-     * @returns {HRESULT} 
+     * @returns {IGenericDescriptor} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbda_eit-getrecorddescriptorbytag
      */
-    GetRecordDescriptorByTag(dwRecordIndex, bTag, pdwCookie, ppDescriptor) {
+    GetRecordDescriptorByTag(dwRecordIndex, bTag, pdwCookie) {
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, "uint", dwRecordIndex, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", ppDescriptor, "HRESULT")
-        return result
+        result := ComCall(13, this, "uint", dwRecordIndex, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
+        return IGenericDescriptor(ppDescriptor)
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMsmDependency.ahk
+#Include .\IEnumMsmDependency.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -31,15 +33,14 @@ class IEnumMsmDependency extends IUnknown{
     /**
      * 
      * @param {Integer} cFetch 
-     * @param {Pointer<IMsmDependency>} rgmsmDependencies 
      * @param {Pointer<Integer>} pcFetched 
-     * @returns {HRESULT} 
+     * @returns {IMsmDependency} 
      */
-    Next(cFetch, rgmsmDependencies, pcFetched) {
+    Next(cFetch, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cFetch, "ptr*", rgmsmDependencies, pcFetchedMarshal, pcFetched, "HRESULT")
-        return result
+        result := ComCall(3, this, "uint", cFetch, "ptr*", &rgmsmDependencies := 0, pcFetchedMarshal, pcFetched, "HRESULT")
+        return IMsmDependency(rgmsmDependencies)
     }
 
     /**
@@ -63,11 +64,10 @@ class IEnumMsmDependency extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumMsmDependency>} pemsmDependencies 
-     * @returns {HRESULT} 
+     * @returns {IEnumMsmDependency} 
      */
-    Clone(pemsmDependencies) {
-        result := ComCall(6, this, "ptr*", pemsmDependencies, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &pemsmDependencies := 0, "HRESULT")
+        return IEnumMsmDependency(pemsmDependencies)
     }
 }

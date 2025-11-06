@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,75 +33,63 @@ class ITTerminal extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} ppName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminal-get_name
      */
-    get_Name(ppName) {
+    get_Name() {
+        ppName := BSTR()
         result := ComCall(7, this, "ptr", ppName, "HRESULT")
-        return result
+        return ppName
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pTerminalState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminal-get_state
      */
-    get_State(pTerminalState) {
-        pTerminalStateMarshal := pTerminalState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pTerminalStateMarshal, pTerminalState, "HRESULT")
-        return result
+    get_State() {
+        result := ComCall(8, this, "int*", &pTerminalState := 0, "HRESULT")
+        return pTerminalState
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminal-get_terminaltype
      */
-    get_TerminalType(pType) {
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pTypeMarshal, pType, "HRESULT")
-        return result
+    get_TerminalType() {
+        result := ComCall(9, this, "int*", &pType := 0, "HRESULT")
+        return pType
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} ppTerminalClass 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminal-get_terminalclass
      */
-    get_TerminalClass(ppTerminalClass) {
+    get_TerminalClass() {
+        ppTerminalClass := BSTR()
         result := ComCall(10, this, "ptr", ppTerminalClass, "HRESULT")
-        return result
+        return ppTerminalClass
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plMediaType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminal-get_mediatype
      */
-    get_MediaType(plMediaType) {
-        plMediaTypeMarshal := plMediaType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, plMediaTypeMarshal, plMediaType, "HRESULT")
-        return result
+    get_MediaType() {
+        result := ComCall(11, this, "int*", &plMediaType := 0, "HRESULT")
+        return plMediaType
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pDirection 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminal-get_direction
      */
-    get_Direction(pDirection) {
-        pDirectionMarshal := pDirection is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, pDirectionMarshal, pDirection, "HRESULT")
-        return result
+    get_Direction() {
+        result := ComCall(12, this, "int*", &pDirection := 0, "HRESULT")
+        return pDirection
     }
 }

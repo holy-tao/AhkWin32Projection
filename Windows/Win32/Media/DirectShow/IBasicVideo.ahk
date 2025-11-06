@@ -32,67 +32,52 @@ class IBasicVideo extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} pAvgTimePerFrame 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ibasicvideo-get_avgtimeperframe
      */
-    get_AvgTimePerFrame(pAvgTimePerFrame) {
-        pAvgTimePerFrameMarshal := pAvgTimePerFrame is VarRef ? "double*" : "ptr"
-
-        result := ComCall(7, this, pAvgTimePerFrameMarshal, pAvgTimePerFrame, "HRESULT")
-        return result
+    get_AvgTimePerFrame() {
+        result := ComCall(7, this, "double*", &pAvgTimePerFrame := 0, "HRESULT")
+        return pAvgTimePerFrame
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pBitRate 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ibasicvideo-get_bitrate
      */
-    get_BitRate(pBitRate) {
-        pBitRateMarshal := pBitRate is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pBitRateMarshal, pBitRate, "HRESULT")
-        return result
+    get_BitRate() {
+        result := ComCall(8, this, "int*", &pBitRate := 0, "HRESULT")
+        return pBitRate
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pBitErrorRate 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ibasicvideo-get_biterrorrate
      */
-    get_BitErrorRate(pBitErrorRate) {
-        pBitErrorRateMarshal := pBitErrorRate is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pBitErrorRateMarshal, pBitErrorRate, "HRESULT")
-        return result
+    get_BitErrorRate() {
+        result := ComCall(9, this, "int*", &pBitErrorRate := 0, "HRESULT")
+        return pBitErrorRate
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVideoWidth 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ibasicvideo-get_videowidth
      */
-    get_VideoWidth(pVideoWidth) {
-        pVideoWidthMarshal := pVideoWidth is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, pVideoWidthMarshal, pVideoWidth, "HRESULT")
-        return result
+    get_VideoWidth() {
+        result := ComCall(10, this, "int*", &pVideoWidth := 0, "HRESULT")
+        return pVideoWidth
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVideoHeight 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ibasicvideo-get_videoheight
      */
-    get_VideoHeight(pVideoHeight) {
-        pVideoHeightMarshal := pVideoHeight is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, pVideoHeightMarshal, pVideoHeight, "HRESULT")
-        return result
+    get_VideoHeight() {
+        result := ComCall(11, this, "int*", &pVideoHeight := 0, "HRESULT")
+        return pVideoHeight
     }
 
     /**
@@ -108,15 +93,12 @@ class IBasicVideo extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pSourceLeft 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ibasicvideo-get_sourceleft
      */
-    get_SourceLeft(pSourceLeft) {
-        pSourceLeftMarshal := pSourceLeft is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, pSourceLeftMarshal, pSourceLeft, "HRESULT")
-        return result
+    get_SourceLeft() {
+        result := ComCall(13, this, "int*", &pSourceLeft := 0, "HRESULT")
+        return pSourceLeft
     }
 
     /**
@@ -132,15 +114,12 @@ class IBasicVideo extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pSourceWidth 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ibasicvideo-get_sourcewidth
      */
-    get_SourceWidth(pSourceWidth) {
-        pSourceWidthMarshal := pSourceWidth is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, pSourceWidthMarshal, pSourceWidth, "HRESULT")
-        return result
+    get_SourceWidth() {
+        result := ComCall(15, this, "int*", &pSourceWidth := 0, "HRESULT")
+        return pSourceWidth
     }
 
     /**
@@ -156,15 +135,12 @@ class IBasicVideo extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pSourceTop 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ibasicvideo-get_sourcetop
      */
-    get_SourceTop(pSourceTop) {
-        pSourceTopMarshal := pSourceTop is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, pSourceTopMarshal, pSourceTop, "HRESULT")
-        return result
+    get_SourceTop() {
+        result := ComCall(17, this, "int*", &pSourceTop := 0, "HRESULT")
+        return pSourceTop
     }
 
     /**
@@ -180,15 +156,12 @@ class IBasicVideo extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pSourceHeight 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ibasicvideo-get_sourceheight
      */
-    get_SourceHeight(pSourceHeight) {
-        pSourceHeightMarshal := pSourceHeight is VarRef ? "int*" : "ptr"
-
-        result := ComCall(19, this, pSourceHeightMarshal, pSourceHeight, "HRESULT")
-        return result
+    get_SourceHeight() {
+        result := ComCall(19, this, "int*", &pSourceHeight := 0, "HRESULT")
+        return pSourceHeight
     }
 
     /**
@@ -204,15 +177,12 @@ class IBasicVideo extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pDestinationLeft 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ibasicvideo-get_destinationleft
      */
-    get_DestinationLeft(pDestinationLeft) {
-        pDestinationLeftMarshal := pDestinationLeft is VarRef ? "int*" : "ptr"
-
-        result := ComCall(21, this, pDestinationLeftMarshal, pDestinationLeft, "HRESULT")
-        return result
+    get_DestinationLeft() {
+        result := ComCall(21, this, "int*", &pDestinationLeft := 0, "HRESULT")
+        return pDestinationLeft
     }
 
     /**
@@ -228,15 +198,12 @@ class IBasicVideo extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pDestinationWidth 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ibasicvideo-get_destinationwidth
      */
-    get_DestinationWidth(pDestinationWidth) {
-        pDestinationWidthMarshal := pDestinationWidth is VarRef ? "int*" : "ptr"
-
-        result := ComCall(23, this, pDestinationWidthMarshal, pDestinationWidth, "HRESULT")
-        return result
+    get_DestinationWidth() {
+        result := ComCall(23, this, "int*", &pDestinationWidth := 0, "HRESULT")
+        return pDestinationWidth
     }
 
     /**
@@ -252,15 +219,12 @@ class IBasicVideo extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pDestinationTop 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ibasicvideo-get_destinationtop
      */
-    get_DestinationTop(pDestinationTop) {
-        pDestinationTopMarshal := pDestinationTop is VarRef ? "int*" : "ptr"
-
-        result := ComCall(25, this, pDestinationTopMarshal, pDestinationTop, "HRESULT")
-        return result
+    get_DestinationTop() {
+        result := ComCall(25, this, "int*", &pDestinationTop := 0, "HRESULT")
+        return pDestinationTop
     }
 
     /**
@@ -276,15 +240,12 @@ class IBasicVideo extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pDestinationHeight 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ibasicvideo-get_destinationheight
      */
-    get_DestinationHeight(pDestinationHeight) {
-        pDestinationHeightMarshal := pDestinationHeight is VarRef ? "int*" : "ptr"
-
-        result := ComCall(27, this, pDestinationHeightMarshal, pDestinationHeight, "HRESULT")
-        return result
+    get_DestinationHeight() {
+        result := ComCall(27, this, "int*", &pDestinationHeight := 0, "HRESULT")
+        return pDestinationHeight
     }
 
     /**
@@ -408,16 +369,14 @@ class IBasicVideo extends IDispatch{
     /**
      * 
      * @param {Pointer<Integer>} pBufferSize 
-     * @param {Pointer<Integer>} pDIBImage 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ibasicvideo-getcurrentimage
      */
-    GetCurrentImage(pBufferSize, pDIBImage) {
+    GetCurrentImage(pBufferSize) {
         pBufferSizeMarshal := pBufferSize is VarRef ? "int*" : "ptr"
-        pDIBImageMarshal := pDIBImage is VarRef ? "int*" : "ptr"
 
-        result := ComCall(36, this, pBufferSizeMarshal, pBufferSize, pDIBImageMarshal, pDIBImage, "HRESULT")
-        return result
+        result := ComCall(36, this, pBufferSizeMarshal, pBufferSize, "int*", &pDIBImage := 0, "HRESULT")
+        return pDIBImage
     }
 
     /**

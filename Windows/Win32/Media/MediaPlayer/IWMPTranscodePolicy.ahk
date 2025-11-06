@@ -37,7 +37,9 @@ class IWMPTranscodePolicy extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wmpservices/nf-wmpservices-iwmptranscodepolicy-allowtranscode
      */
     allowTranscode(pvbAllow) {
-        result := ComCall(3, this, "ptr", pvbAllow, "HRESULT")
+        pvbAllowMarshal := pvbAllow is VarRef ? "short*" : "ptr"
+
+        result := ComCall(3, this, pvbAllowMarshal, pvbAllow, "HRESULT")
         return result
     }
 }

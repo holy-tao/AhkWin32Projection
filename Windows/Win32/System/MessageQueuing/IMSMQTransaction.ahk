@@ -36,14 +36,11 @@ class IMSMQTransaction extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plTransaction 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Transaction(plTransaction) {
-        plTransactionMarshal := plTransaction is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, plTransactionMarshal, plTransaction, "HRESULT")
-        return result
+    get_Transaction() {
+        result := ComCall(7, this, "int*", &plTransaction := 0, "HRESULT")
+        return plTransaction
     }
 
     /**

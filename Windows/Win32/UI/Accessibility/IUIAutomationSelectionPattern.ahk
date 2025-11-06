@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUIAutomationElementArray.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,67 +33,61 @@ class IUIAutomationSelectionPattern extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IUIAutomationElementArray>} retVal 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElementArray} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationselectionpattern-getcurrentselection
      */
-    GetCurrentSelection(retVal) {
-        result := ComCall(3, this, "ptr*", retVal, "HRESULT")
-        return result
+    GetCurrentSelection() {
+        result := ComCall(3, this, "ptr*", &retVal := 0, "HRESULT")
+        return IUIAutomationElementArray(retVal)
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationselectionpattern-get_currentcanselectmultiple
      */
-    get_CurrentCanSelectMultiple(retVal) {
-        result := ComCall(4, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CurrentCanSelectMultiple() {
+        result := ComCall(4, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationselectionpattern-get_currentisselectionrequired
      */
-    get_CurrentIsSelectionRequired(retVal) {
-        result := ComCall(5, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CurrentIsSelectionRequired() {
+        result := ComCall(5, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<IUIAutomationElementArray>} retVal 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElementArray} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationselectionpattern-getcachedselection
      */
-    GetCachedSelection(retVal) {
-        result := ComCall(6, this, "ptr*", retVal, "HRESULT")
-        return result
+    GetCachedSelection() {
+        result := ComCall(6, this, "ptr*", &retVal := 0, "HRESULT")
+        return IUIAutomationElementArray(retVal)
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationselectionpattern-get_cachedcanselectmultiple
      */
-    get_CachedCanSelectMultiple(retVal) {
-        result := ComCall(7, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CachedCanSelectMultiple() {
+        result := ComCall(7, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationselectionpattern-get_cachedisselectionrequired
      */
-    get_CachedIsSelectionRequired(retVal) {
-        result := ComCall(8, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CachedIsSelectionRequired() {
+        result := ComCall(8, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 }

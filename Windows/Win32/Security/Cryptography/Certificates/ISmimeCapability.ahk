@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IObjectId.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -54,25 +55,21 @@ class ISmimeCapability extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IObjectId>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IObjectId} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ismimecapability-get_objectid
      */
-    get_ObjectId(ppValue) {
-        result := ComCall(8, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_ObjectId() {
+        result := ComCall(8, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IObjectId(ppValue)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ismimecapability-get_bitcount
      */
-    get_BitCount(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_BitCount() {
+        result := ComCall(9, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 }

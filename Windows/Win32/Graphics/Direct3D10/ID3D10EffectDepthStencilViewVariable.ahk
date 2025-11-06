@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID3D10DepthStencilView.ahk
 #Include .\ID3D10EffectVariable.ahk
 
 /**
@@ -43,13 +44,12 @@ class ID3D10EffectDepthStencilViewVariable extends ID3D10EffectVariable{
 
     /**
      * 
-     * @param {Pointer<ID3D10DepthStencilView>} ppResource 
-     * @returns {HRESULT} 
+     * @returns {ID3D10DepthStencilView} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectdepthstencilviewvariable-getdepthstencil
      */
-    GetDepthStencil(ppResource) {
-        result := ComCall(26, this, "ptr*", ppResource, "HRESULT")
-        return result
+    GetDepthStencil() {
+        result := ComCall(26, this, "ptr*", &ppResource := 0, "HRESULT")
+        return ID3D10DepthStencilView(ppResource)
     }
 
     /**
@@ -67,14 +67,13 @@ class ID3D10EffectDepthStencilViewVariable extends ID3D10EffectVariable{
 
     /**
      * 
-     * @param {Pointer<ID3D10DepthStencilView>} ppResources 
      * @param {Integer} Offset 
      * @param {Integer} Count 
-     * @returns {HRESULT} 
+     * @returns {ID3D10DepthStencilView} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectdepthstencilviewvariable-getdepthstencilarray
      */
-    GetDepthStencilArray(ppResources, Offset, Count) {
-        result := ComCall(28, this, "ptr*", ppResources, "uint", Offset, "uint", Count, "HRESULT")
-        return result
+    GetDepthStencilArray(Offset, Count) {
+        result := ComCall(28, this, "ptr*", &ppResources := 0, "uint", Offset, "uint", Count, "HRESULT")
+        return ID3D10DepthStencilView(ppResources)
     }
 }

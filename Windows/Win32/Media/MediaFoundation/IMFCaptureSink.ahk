@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFMediaType.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -81,13 +82,12 @@ class IMFCaptureSink extends IUnknown{
     /**
      * 
      * @param {Integer} dwSinkStreamIndex 
-     * @param {Pointer<IMFMediaType>} ppMediaType 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaType} 
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesink-getoutputmediatype
      */
-    GetOutputMediaType(dwSinkStreamIndex, ppMediaType) {
-        result := ComCall(3, this, "uint", dwSinkStreamIndex, "ptr*", ppMediaType, "HRESULT")
-        return result
+    GetOutputMediaType(dwSinkStreamIndex) {
+        result := ComCall(3, this, "uint", dwSinkStreamIndex, "ptr*", &ppMediaType := 0, "HRESULT")
+        return IMFMediaType(ppMediaType)
     }
 
     /**
@@ -95,13 +95,12 @@ class IMFCaptureSink extends IUnknown{
      * @param {Integer} dwSinkStreamIndex 
      * @param {Pointer<Guid>} rguidService 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppUnknown 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesink-getservice
      */
-    GetService(dwSinkStreamIndex, rguidService, riid, ppUnknown) {
-        result := ComCall(4, this, "uint", dwSinkStreamIndex, "ptr", rguidService, "ptr", riid, "ptr*", ppUnknown, "HRESULT")
-        return result
+    GetService(dwSinkStreamIndex, rguidService, riid) {
+        result := ComCall(4, this, "uint", dwSinkStreamIndex, "ptr", rguidService, "ptr", riid, "ptr*", &ppUnknown := 0, "HRESULT")
+        return IUnknown(ppUnknown)
     }
 
     /**
@@ -109,15 +108,12 @@ class IMFCaptureSink extends IUnknown{
      * @param {Integer} dwSourceStreamIndex 
      * @param {IMFMediaType} pMediaType 
      * @param {IMFAttributes} pAttributes 
-     * @param {Pointer<Integer>} pdwSinkStreamIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesink-addstream
      */
-    AddStream(dwSourceStreamIndex, pMediaType, pAttributes, pdwSinkStreamIndex) {
-        pdwSinkStreamIndexMarshal := pdwSinkStreamIndex is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, "uint", dwSourceStreamIndex, "ptr", pMediaType, "ptr", pAttributes, pdwSinkStreamIndexMarshal, pdwSinkStreamIndex, "HRESULT")
-        return result
+    AddStream(dwSourceStreamIndex, pMediaType, pAttributes) {
+        result := ComCall(5, this, "uint", dwSourceStreamIndex, "ptr", pMediaType, "ptr", pAttributes, "uint*", &pdwSinkStreamIndex := 0, "HRESULT")
+        return pdwSinkStreamIndex
     }
 
     /**

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IWbemClassObject.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -43,13 +44,13 @@ class IWbemObjectTextSrc extends IUnknown{
      * @param {IWbemClassObject} pObj 
      * @param {Integer} uObjTextFormat 
      * @param {IWbemContext} pCtx 
-     * @param {Pointer<BSTR>} strText 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemobjecttextsrc-gettext
      */
-    GetText(lFlags, pObj, uObjTextFormat, pCtx, strText) {
+    GetText(lFlags, pObj, uObjTextFormat, pCtx) {
+        strText := BSTR()
         result := ComCall(3, this, "int", lFlags, "ptr", pObj, "uint", uObjTextFormat, "ptr", pCtx, "ptr", strText, "HRESULT")
-        return result
+        return strText
     }
 
     /**
@@ -58,14 +59,13 @@ class IWbemObjectTextSrc extends IUnknown{
      * @param {BSTR} strText 
      * @param {Integer} uObjTextFormat 
      * @param {IWbemContext} pCtx 
-     * @param {Pointer<IWbemClassObject>} pNewObj 
-     * @returns {HRESULT} 
+     * @returns {IWbemClassObject} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-iwbemobjecttextsrc
      */
-    CreateFromText(lFlags, strText, uObjTextFormat, pCtx, pNewObj) {
+    CreateFromText(lFlags, strText, uObjTextFormat, pCtx) {
         strText := strText is String ? BSTR.Alloc(strText).Value : strText
 
-        result := ComCall(4, this, "int", lFlags, "ptr", strText, "uint", uObjTextFormat, "ptr", pCtx, "ptr*", pNewObj, "HRESULT")
-        return result
+        result := ComCall(4, this, "int", lFlags, "ptr", strText, "uint", uObjTextFormat, "ptr", pCtx, "ptr*", &pNewObj := 0, "HRESULT")
+        return IWbemClassObject(pNewObj)
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IPrintPreviewPageCollection.ahk
 #Include ..\..\Com\IUnknown.ahk
 
 /**
@@ -31,12 +32,11 @@ class IPrintDocumentPageSource extends IUnknown{
     /**
      * 
      * @param {IPrintDocumentPackageTarget} docPackageTarget 
-     * @param {Pointer<IPrintPreviewPageCollection>} docPageCollection 
-     * @returns {HRESULT} 
+     * @returns {IPrintPreviewPageCollection} 
      */
-    GetPreviewPageCollection(docPackageTarget, docPageCollection) {
-        result := ComCall(3, this, "ptr", docPackageTarget, "ptr*", docPageCollection, "HRESULT")
-        return result
+    GetPreviewPageCollection(docPackageTarget) {
+        result := ComCall(3, this, "ptr", docPackageTarget, "ptr*", &docPageCollection := 0, "HRESULT")
+        return IPrintPreviewPageCollection(docPageCollection)
     }
 
     /**

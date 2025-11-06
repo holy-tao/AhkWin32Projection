@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISVGAnimatedLength.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -46,12 +47,11 @@ class ISVGEllipseElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedLength>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedLength} 
      */
-    get_cx(p) {
-        result := ComCall(8, this, "ptr*", p, "HRESULT")
-        return result
+    get_cx() {
+        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedLength(p)
     }
 
     /**
@@ -66,12 +66,11 @@ class ISVGEllipseElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedLength>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedLength} 
      */
-    get_cy(p) {
-        result := ComCall(10, this, "ptr*", p, "HRESULT")
-        return result
+    get_cy() {
+        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedLength(p)
     }
 
     /**
@@ -86,12 +85,11 @@ class ISVGEllipseElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedLength>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedLength} 
      */
-    get_rx(p) {
-        result := ComCall(12, this, "ptr*", p, "HRESULT")
-        return result
+    get_rx() {
+        result := ComCall(12, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedLength(p)
     }
 
     /**
@@ -106,11 +104,10 @@ class ISVGEllipseElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedLength>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedLength} 
      */
-    get_ry(p) {
-        result := ComCall(14, this, "ptr*", p, "HRESULT")
-        return result
+    get_ry() {
+        result := ComCall(14, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedLength(p)
     }
 }

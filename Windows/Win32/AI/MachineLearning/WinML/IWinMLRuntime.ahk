@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IWinMLModel.ahk
+#Include .\IWinMLEvaluationContext.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,27 +35,25 @@ class IWinMLRuntime extends IUnknown{
     /**
      * 
      * @param {PWSTR} Path 
-     * @param {Pointer<IWinMLModel>} ppModel 
-     * @returns {HRESULT} 
+     * @returns {IWinMLModel} 
      * @see https://learn.microsoft.com/windows/win32/api/winml/nf-winml-iwinmlruntime-loadmodel
      */
-    LoadModel(Path, ppModel) {
+    LoadModel(Path) {
         Path := Path is String ? StrPtr(Path) : Path
 
-        result := ComCall(3, this, "ptr", Path, "ptr*", ppModel, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", Path, "ptr*", &ppModel := 0, "HRESULT")
+        return IWinMLModel(ppModel)
     }
 
     /**
      * 
      * @param {ID3D12Device} device 
-     * @param {Pointer<IWinMLEvaluationContext>} ppContext 
-     * @returns {HRESULT} 
+     * @returns {IWinMLEvaluationContext} 
      * @see https://learn.microsoft.com/windows/win32/api/winml/nf-winml-iwinmlruntime-createevaluationcontext
      */
-    CreateEvaluationContext(device, ppContext) {
-        result := ComCall(4, this, "ptr", device, "ptr*", ppContext, "HRESULT")
-        return result
+    CreateEvaluationContext(device) {
+        result := ComCall(4, this, "ptr", device, "ptr*", &ppContext := 0, "HRESULT")
+        return IWinMLEvaluationContext(ppContext)
     }
 
     /**

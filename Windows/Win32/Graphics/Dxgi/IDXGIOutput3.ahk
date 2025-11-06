@@ -34,14 +34,11 @@ class IDXGIOutput3 extends IDXGIOutput2{
      * 
      * @param {Integer} EnumFormat 
      * @param {IUnknown} pConcernedDevice 
-     * @param {Pointer<Integer>} pFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgioutput3-checkoverlaysupport
      */
-    CheckOverlaySupport(EnumFormat, pConcernedDevice, pFlags) {
-        pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(24, this, "int", EnumFormat, "ptr", pConcernedDevice, pFlagsMarshal, pFlags, "HRESULT")
-        return result
+    CheckOverlaySupport(EnumFormat, pConcernedDevice) {
+        result := ComCall(24, this, "int", EnumFormat, "ptr", pConcernedDevice, "uint*", &pFlags := 0, "HRESULT")
+        return pFlags
     }
 }

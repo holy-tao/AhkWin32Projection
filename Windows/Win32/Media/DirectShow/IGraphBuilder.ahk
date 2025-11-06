@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IBaseFilter.ahk
 #Include .\IFilterGraph.ahk
 
 /**
@@ -72,16 +73,15 @@ class IGraphBuilder extends IFilterGraph{
      * 
      * @param {PWSTR} lpcwstrFileName 
      * @param {PWSTR} lpcwstrFilterName 
-     * @param {Pointer<IBaseFilter>} ppFilter 
-     * @returns {HRESULT} 
+     * @returns {IBaseFilter} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-igraphbuilder-addsourcefilter
      */
-    AddSourceFilter(lpcwstrFileName, lpcwstrFilterName, ppFilter) {
+    AddSourceFilter(lpcwstrFileName, lpcwstrFilterName) {
         lpcwstrFileName := lpcwstrFileName is String ? StrPtr(lpcwstrFileName) : lpcwstrFileName
         lpcwstrFilterName := lpcwstrFilterName is String ? StrPtr(lpcwstrFilterName) : lpcwstrFilterName
 
-        result := ComCall(14, this, "ptr", lpcwstrFileName, "ptr", lpcwstrFilterName, "ptr*", ppFilter, "HRESULT")
-        return result
+        result := ComCall(14, this, "ptr", lpcwstrFileName, "ptr", lpcwstrFilterName, "ptr*", &ppFilter := 0, "HRESULT")
+        return IBaseFilter(ppFilter)
     }
 
     /**

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ITraceDataProviderCollection.ahk
 #Include .\IDataCollector.ahk
 
 /**
@@ -91,15 +92,12 @@ class ITraceDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<Integer>} size 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_buffersize
      */
-    get_BufferSize(size) {
-        sizeMarshal := size is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(32, this, sizeMarshal, size, "HRESULT")
-        return result
+    get_BufferSize() {
+        result := ComCall(32, this, "uint*", &size := 0, "HRESULT")
+        return size
     }
 
     /**
@@ -115,15 +113,12 @@ class ITraceDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<Integer>} buffers 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_bufferslost
      */
-    get_BuffersLost(buffers) {
-        buffersMarshal := buffers is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(34, this, buffersMarshal, buffers, "HRESULT")
-        return result
+    get_BuffersLost() {
+        result := ComCall(34, this, "uint*", &buffers := 0, "HRESULT")
+        return buffers
     }
 
     /**
@@ -138,15 +133,12 @@ class ITraceDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<Integer>} buffers 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_bufferswritten
      */
-    get_BuffersWritten(buffers) {
-        buffersMarshal := buffers is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(36, this, buffersMarshal, buffers, "HRESULT")
-        return result
+    get_BuffersWritten() {
+        result := ComCall(36, this, "uint*", &buffers := 0, "HRESULT")
+        return buffers
     }
 
     /**
@@ -161,15 +153,12 @@ class ITraceDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<Integer>} clock 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_clocktype
      */
-    get_ClockType(clock) {
-        clockMarshal := clock is VarRef ? "int*" : "ptr"
-
-        result := ComCall(38, this, clockMarshal, clock, "HRESULT")
-        return result
+    get_ClockType() {
+        result := ComCall(38, this, "int*", &clock := 0, "HRESULT")
+        return clock
     }
 
     /**
@@ -185,15 +174,12 @@ class ITraceDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<Integer>} events 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_eventslost
      */
-    get_EventsLost(events) {
-        eventsMarshal := events is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(40, this, eventsMarshal, events, "HRESULT")
-        return result
+    get_EventsLost() {
+        result := ComCall(40, this, "uint*", &events := 0, "HRESULT")
+        return events
     }
 
     /**
@@ -208,15 +194,12 @@ class ITraceDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<Integer>} mode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_extendedmodes
      */
-    get_ExtendedModes(mode) {
-        modeMarshal := mode is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(42, this, modeMarshal, mode, "HRESULT")
-        return result
+    get_ExtendedModes() {
+        result := ComCall(42, this, "uint*", &mode := 0, "HRESULT")
+        return mode
     }
 
     /**
@@ -232,15 +215,12 @@ class ITraceDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<Integer>} seconds 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_flushtimer
      */
-    get_FlushTimer(seconds) {
-        secondsMarshal := seconds is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(44, this, secondsMarshal, seconds, "HRESULT")
-        return result
+    get_FlushTimer() {
+        result := ComCall(44, this, "uint*", &seconds := 0, "HRESULT")
+        return seconds
     }
 
     /**
@@ -256,15 +236,12 @@ class ITraceDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<Integer>} buffers 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_freebuffers
      */
-    get_FreeBuffers(buffers) {
-        buffersMarshal := buffers is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(46, this, buffersMarshal, buffers, "HRESULT")
-        return result
+    get_FreeBuffers() {
+        result := ComCall(46, this, "uint*", &buffers := 0, "HRESULT")
+        return buffers
     }
 
     /**
@@ -279,13 +256,13 @@ class ITraceDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<Guid>} guid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_guid
      */
-    get_Guid(guid) {
+    get_Guid() {
+        guid := Guid()
         result := ComCall(48, this, "ptr", guid, "HRESULT")
-        return result
+        return guid
     }
 
     /**
@@ -301,26 +278,22 @@ class ITraceDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} kernel 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_iskerneltrace
      */
-    get_IsKernelTrace(kernel) {
-        result := ComCall(50, this, "ptr", kernel, "HRESULT")
-        return result
+    get_IsKernelTrace() {
+        result := ComCall(50, this, "short*", &kernel := 0, "HRESULT")
+        return kernel
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} buffers 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_maximumbuffers
      */
-    get_MaximumBuffers(buffers) {
-        buffersMarshal := buffers is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(51, this, buffersMarshal, buffers, "HRESULT")
-        return result
+    get_MaximumBuffers() {
+        result := ComCall(51, this, "uint*", &buffers := 0, "HRESULT")
+        return buffers
     }
 
     /**
@@ -336,15 +309,12 @@ class ITraceDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<Integer>} buffers 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_minimumbuffers
      */
-    get_MinimumBuffers(buffers) {
-        buffersMarshal := buffers is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(53, this, buffersMarshal, buffers, "HRESULT")
-        return result
+    get_MinimumBuffers() {
+        result := ComCall(53, this, "uint*", &buffers := 0, "HRESULT")
+        return buffers
     }
 
     /**
@@ -360,15 +330,12 @@ class ITraceDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<Integer>} buffers 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_numberofbuffers
      */
-    get_NumberOfBuffers(buffers) {
-        buffersMarshal := buffers is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(55, this, buffersMarshal, buffers, "HRESULT")
-        return result
+    get_NumberOfBuffers() {
+        result := ComCall(55, this, "uint*", &buffers := 0, "HRESULT")
+        return buffers
     }
 
     /**
@@ -384,13 +351,12 @@ class ITraceDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} allocate 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_preallocatefile
      */
-    get_PreallocateFile(allocate) {
-        result := ComCall(57, this, "ptr", allocate, "HRESULT")
-        return result
+    get_PreallocateFile() {
+        result := ComCall(57, this, "short*", &allocate := 0, "HRESULT")
+        return allocate
     }
 
     /**
@@ -406,13 +372,12 @@ class ITraceDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} process 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_processmode
      */
-    get_ProcessMode(process) {
-        result := ComCall(59, this, "ptr", process, "HRESULT")
-        return result
+    get_ProcessMode() {
+        result := ComCall(59, this, "short*", &process := 0, "HRESULT")
+        return process
     }
 
     /**
@@ -428,15 +393,12 @@ class ITraceDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<Integer>} buffers 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_realtimebufferslost
      */
-    get_RealTimeBuffersLost(buffers) {
-        buffersMarshal := buffers is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(61, this, buffersMarshal, buffers, "HRESULT")
-        return result
+    get_RealTimeBuffersLost() {
+        result := ComCall(61, this, "uint*", &buffers := 0, "HRESULT")
+        return buffers
     }
 
     /**
@@ -451,15 +413,12 @@ class ITraceDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<Integer>} id 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_sessionid
      */
-    get_SessionId(id) {
-        idMarshal := id is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(63, this, idMarshal, id, "HRESULT")
-        return result
+    get_SessionId() {
+        result := ComCall(63, this, "uint*", &id := 0, "HRESULT")
+        return id
     }
 
     /**
@@ -474,13 +433,13 @@ class ITraceDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<BSTR>} name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_sessionname
      */
-    get_SessionName(name) {
+    get_SessionName() {
+        name := BSTR()
         result := ComCall(65, this, "ptr", name, "HRESULT")
-        return result
+        return name
     }
 
     /**
@@ -498,15 +457,12 @@ class ITraceDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<Integer>} tid 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_sessionthreadid
      */
-    get_SessionThreadId(tid) {
-        tidMarshal := tid is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(67, this, tidMarshal, tid, "HRESULT")
-        return result
+    get_SessionThreadId() {
+        result := ComCall(67, this, "uint*", &tid := 0, "HRESULT")
+        return tid
     }
 
     /**
@@ -521,15 +477,12 @@ class ITraceDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<Integer>} mode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_streammode
      */
-    get_StreamMode(mode) {
-        modeMarshal := mode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(69, this, modeMarshal, mode, "HRESULT")
-        return result
+    get_StreamMode() {
+        result := ComCall(69, this, "int*", &mode := 0, "HRESULT")
+        return mode
     }
 
     /**
@@ -545,12 +498,11 @@ class ITraceDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<ITraceDataProviderCollection>} providers 
-     * @returns {HRESULT} 
+     * @returns {ITraceDataProviderCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_tracedataproviders
      */
-    get_TraceDataProviders(providers) {
-        result := ComCall(71, this, "ptr*", providers, "HRESULT")
-        return result
+    get_TraceDataProviders() {
+        result := ComCall(71, this, "ptr*", &providers := 0, "HRESULT")
+        return ITraceDataProviderCollection(providers)
     }
 }

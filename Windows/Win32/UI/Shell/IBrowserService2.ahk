@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\IBrowserService.ahk
 
 /**
@@ -62,13 +64,13 @@ class IBrowserService2 extends IBrowserService{
 
     /**
      * 
-     * @param {Pointer<RECT>} prc 
-     * @returns {HRESULT} 
+     * @returns {RECT} 
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-getviewrect
      */
-    GetViewRect(prc) {
+    GetViewRect() {
+        prc := RECT()
         result := ComCall(35, this, "ptr", prc, "HRESULT")
-        return result
+        return prc
     }
 
     /**
@@ -172,51 +174,45 @@ class IBrowserService2 extends IBrowserService{
      * @param {IShellView} psvNew 
      * @param {IShellView} psvOld 
      * @param {Pointer<RECT>} prcView 
-     * @param {Pointer<HWND>} phwnd 
-     * @returns {HRESULT} 
+     * @returns {HWND} 
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-createviewwindow
      */
-    CreateViewWindow(psvNew, psvOld, prcView, phwnd) {
+    CreateViewWindow(psvNew, psvOld, prcView) {
+        phwnd := HWND()
         result := ComCall(45, this, "ptr", psvNew, "ptr", psvOld, "ptr", prcView, "ptr", phwnd, "HRESULT")
-        return result
+        return phwnd
     }
 
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-createbrowserpropsheetext
      */
-    CreateBrowserPropSheetExt(riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(46, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    CreateBrowserPropSheetExt(riid) {
+        result := ComCall(46, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * 
-     * @param {Pointer<HWND>} phwndView 
-     * @returns {HRESULT} 
+     * @returns {HWND} 
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-getviewwindow
      */
-    GetViewWindow(phwndView) {
+    GetViewWindow() {
+        phwndView := HWND()
         result := ComCall(47, this, "ptr", phwndView, "HRESULT")
-        return result
+        return phwndView
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<BASEBROWSERDATALH>>} pbbd 
-     * @returns {HRESULT} 
+     * @returns {Pointer<BASEBROWSERDATALH>} 
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-getbasebrowserdata
      */
-    GetBaseBrowserData(pbbd) {
-        pbbdMarshal := pbbd is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(48, this, pbbdMarshal, pbbd, "HRESULT")
-        return result
+    GetBaseBrowserData() {
+        result := ComCall(48, this, "ptr*", &pbbd := 0, "HRESULT")
+        return pbbd
     }
 
     /**
@@ -557,16 +553,16 @@ class IBrowserService2 extends IBrowserService{
 
     /**
      * 
-     * @param {Pointer<RECT>} lprectBorder 
      * @param {HMONITOR} hmon 
-     * @returns {HRESULT} 
+     * @returns {RECT} 
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_geteffectiveclientarea
      */
-    _GetEffectiveClientArea(lprectBorder, hmon) {
+    _GetEffectiveClientArea(hmon) {
         hmon := hmon is Win32Handle ? NumGet(hmon, "ptr") : hmon
 
+        lprectBorder := RECT()
         result := ComCall(79, this, "ptr", lprectBorder, "ptr", hmon, "HRESULT")
-        return result
+        return lprectBorder
     }
 
     /**
@@ -733,14 +729,14 @@ class IBrowserService2 extends IBrowserService{
     /**
      * 
      * @param {IUnknown} punkSrc 
-     * @param {Pointer<RECT>} lprectBorder 
      * @param {BOOL} bUseHmonitor 
-     * @returns {HRESULT} 
+     * @returns {RECT} 
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice2-_getborderdwhelper
      */
-    _GetBorderDWHelper(punkSrc, lprectBorder, bUseHmonitor) {
+    _GetBorderDWHelper(punkSrc, bUseHmonitor) {
+        lprectBorder := RECT()
         result := ComCall(93, this, "ptr", punkSrc, "ptr", lprectBorder, "int", bUseHmonitor, "HRESULT")
-        return result
+        return lprectBorder
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,41 +31,41 @@ class ISClusScsiAddress extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarPortNumber 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_PortNumber(pvarPortNumber) {
+    get_PortNumber() {
+        pvarPortNumber := VARIANT()
         result := ComCall(7, this, "ptr", pvarPortNumber, "HRESULT")
-        return result
+        return pvarPortNumber
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarPathId 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_PathId(pvarPathId) {
+    get_PathId() {
+        pvarPathId := VARIANT()
         result := ComCall(8, this, "ptr", pvarPathId, "HRESULT")
-        return result
+        return pvarPathId
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarTargetId 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_TargetId(pvarTargetId) {
+    get_TargetId() {
+        pvarTargetId := VARIANT()
         result := ComCall(9, this, "ptr", pvarTargetId, "HRESULT")
-        return result
+        return pvarTargetId
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarLun 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_Lun(pvarLun) {
+    get_Lun() {
+        pvarLun := VARIANT()
         result := ComCall(10, this, "ptr", pvarLun, "HRESULT")
-        return result
+        return pvarLun
     }
 }

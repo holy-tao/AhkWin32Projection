@@ -38,7 +38,9 @@ class ILoadFilterWithPrivateComActivation extends ILoadFilter{
      * @returns {HRESULT} 
      */
     LoadIFilterWithPrivateComActivation(filteredSources, useDefault, filterClsid, isFilterPrivateComActivated, filterObj) {
-        result := ComCall(6, this, "ptr", filteredSources, "int", useDefault, "ptr", filterClsid, "ptr", isFilterPrivateComActivated, "ptr*", filterObj, "HRESULT")
+        isFilterPrivateComActivatedMarshal := isFilterPrivateComActivated is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, "ptr", filteredSources, "int", useDefault, "ptr", filterClsid, isFilterPrivateComActivatedMarshal, isFilterPrivateComActivated, "ptr*", filterObj, "HRESULT")
         return result
     }
 }

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IAzClientContext.ahk
 
 /**
@@ -36,13 +37,13 @@ class IAzClientContext2 extends IAzClientContext{
      * @param {Integer} lOptions 
      * @param {Integer} PageSize 
      * @param {Pointer<VARIANT>} pvarCursor 
-     * @param {Pointer<VARIANT>} pvarScopeNames 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext2-getassignedscopespage
      */
-    GetAssignedScopesPage(lOptions, PageSize, pvarCursor, pvarScopeNames) {
+    GetAssignedScopesPage(lOptions, PageSize, pvarCursor) {
+        pvarScopeNames := VARIANT()
         result := ComCall(20, this, "int", lOptions, "int", PageSize, "ptr", pvarCursor, "ptr", pvarScopeNames, "HRESULT")
-        return result
+        return pvarScopeNames
     }
 
     /**
@@ -96,12 +97,12 @@ class IAzClientContext2 extends IAzClientContext{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrLDAPQueryDN 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext2-get_ldapquerydn
      */
-    get_LDAPQueryDN(pbstrLDAPQueryDN) {
+    get_LDAPQueryDN() {
+        pbstrLDAPQueryDN := BSTR()
         result := ComCall(25, this, "ptr", pbstrLDAPQueryDN, "HRESULT")
-        return result
+        return pbstrLDAPQueryDN
     }
 }

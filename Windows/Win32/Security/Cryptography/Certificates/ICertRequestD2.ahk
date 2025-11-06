@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\CERTTRANSBLOB.ahk
 #Include .\ICertRequestD.ahk
 
 /**
@@ -60,14 +61,14 @@ class ICertRequestD2 extends ICertRequestD{
      * @param {Integer} PropId 
      * @param {Integer} PropIndex 
      * @param {Integer} PropType 
-     * @param {Pointer<CERTTRANSBLOB>} pctbPropertyValue 
-     * @returns {HRESULT} 
+     * @returns {CERTTRANSBLOB} 
      */
-    GetCAProperty(pwszAuthority, PropId, PropIndex, PropType, pctbPropertyValue) {
+    GetCAProperty(pwszAuthority, PropId, PropIndex, PropType) {
         pwszAuthority := pwszAuthority is String ? StrPtr(pwszAuthority) : pwszAuthority
 
+        pctbPropertyValue := CERTTRANSBLOB()
         result := ComCall(7, this, "ptr", pwszAuthority, "int", PropId, "int", PropIndex, "int", PropType, "ptr", pctbPropertyValue, "HRESULT")
-        return result
+        return pctbPropertyValue
     }
 
     /**

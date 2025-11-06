@@ -43,15 +43,12 @@ class IDWriteStringList extends IUnknown{
     /**
      * 
      * @param {Integer} listIndex 
-     * @param {Pointer<Integer>} length 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritestringlist-getlocalenamelength
      */
-    GetLocaleNameLength(listIndex, length) {
-        lengthMarshal := length is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, "uint", listIndex, lengthMarshal, length, "HRESULT")
-        return result
+    GetLocaleNameLength(listIndex) {
+        result := ComCall(4, this, "uint", listIndex, "uint*", &length := 0, "HRESULT")
+        return length
     }
 
     /**
@@ -72,15 +69,12 @@ class IDWriteStringList extends IUnknown{
     /**
      * 
      * @param {Integer} listIndex 
-     * @param {Pointer<Integer>} length 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritestringlist-getstringlength
      */
-    GetStringLength(listIndex, length) {
-        lengthMarshal := length is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, "uint", listIndex, lengthMarshal, length, "HRESULT")
-        return result
+    GetStringLength(listIndex) {
+        result := ComCall(6, this, "uint", listIndex, "uint*", &length := 0, "HRESULT")
+        return length
     }
 
     /**

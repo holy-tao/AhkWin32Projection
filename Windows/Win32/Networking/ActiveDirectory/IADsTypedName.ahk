@@ -33,12 +33,12 @@ class IADsTypedName extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ObjectName(retval) {
+    get_ObjectName() {
+        retval := BSTR()
         result := ComCall(7, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -55,14 +55,11 @@ class IADsTypedName extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Level(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_Level() {
+        result := ComCall(9, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -77,14 +74,11 @@ class IADsTypedName extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Interval(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_Interval() {
+        result := ComCall(11, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**

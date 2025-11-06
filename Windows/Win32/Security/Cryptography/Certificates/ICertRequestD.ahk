@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\CERTTRANSBLOB.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -56,14 +57,14 @@ class ICertRequestD extends IUnknown{
      * 
      * @param {Integer} fchain 
      * @param {PWSTR} pwszAuthority 
-     * @param {Pointer<CERTTRANSBLOB>} pctbOut 
-     * @returns {HRESULT} 
+     * @returns {CERTTRANSBLOB} 
      */
-    GetCACert(fchain, pwszAuthority, pctbOut) {
+    GetCACert(fchain, pwszAuthority) {
         pwszAuthority := pwszAuthority is String ? StrPtr(pwszAuthority) : pwszAuthority
 
+        pctbOut := CERTTRANSBLOB()
         result := ComCall(4, this, "uint", fchain, "ptr", pwszAuthority, "ptr", pctbOut, "HRESULT")
-        return result
+        return pctbOut
     }
 
     /**

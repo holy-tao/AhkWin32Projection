@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IFsrmQuotaObject.ahk
 
 /**
@@ -37,37 +38,34 @@ class IFsrmQuota extends IFsrmQuotaObject{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} used 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquota-get_quotaused
      */
-    get_QuotaUsed(used) {
+    get_QuotaUsed() {
+        used := VARIANT()
         result := ComCall(28, this, "ptr", used, "HRESULT")
-        return result
+        return used
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} peakUsage 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquota-get_quotapeakusage
      */
-    get_QuotaPeakUsage(peakUsage) {
+    get_QuotaPeakUsage() {
+        peakUsage := VARIANT()
         result := ComCall(29, this, "ptr", peakUsage, "HRESULT")
-        return result
+        return peakUsage
     }
 
     /**
      * 
-     * @param {Pointer<Float>} peakUsageDateTime 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquota-get_quotapeakusagetime
      */
-    get_QuotaPeakUsageTime(peakUsageDateTime) {
-        peakUsageDateTimeMarshal := peakUsageDateTime is VarRef ? "double*" : "ptr"
-
-        result := ComCall(30, this, peakUsageDateTimeMarshal, peakUsageDateTime, "HRESULT")
-        return result
+    get_QuotaPeakUsageTime() {
+        result := ComCall(30, this, "double*", &peakUsageDateTime := 0, "HRESULT")
+        return peakUsageDateTime
     }
 
     /**

@@ -30,13 +30,10 @@ class IXFeedItem2 extends IXFeedItem{
 
     /**
      * 
-     * @param {Pointer<Integer>} puiEffectiveId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    EffectiveId(puiEffectiveId) {
-        puiEffectiveIdMarshal := puiEffectiveId is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(20, this, puiEffectiveIdMarshal, puiEffectiveId, "HRESULT")
-        return result
+    EffectiveId() {
+        result := ComCall(20, this, "uint*", &puiEffectiveId := 0, "HRESULT")
+        return puiEffectiveId
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IStream.ahk
 #Include .\IXpsOMResource.ahk
 
 /**
@@ -84,13 +85,12 @@ class IXpsOMFontResource extends IXpsOMResource{
 
     /**
      * 
-     * @param {Pointer<IStream>} readerStream 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomfontresource-getstream
      */
-    GetStream(readerStream) {
-        result := ComCall(5, this, "ptr*", readerStream, "HRESULT")
-        return result
+    GetStream() {
+        result := ComCall(5, this, "ptr*", &readerStream := 0, "HRESULT")
+        return IStream(readerStream)
     }
 
     /**
@@ -108,14 +108,11 @@ class IXpsOMFontResource extends IXpsOMResource{
 
     /**
      * 
-     * @param {Pointer<Integer>} embeddingOption 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomfontresource-getembeddingoption
      */
-    GetEmbeddingOption(embeddingOption) {
-        embeddingOptionMarshal := embeddingOption is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, embeddingOptionMarshal, embeddingOption, "HRESULT")
-        return result
+    GetEmbeddingOption() {
+        result := ComCall(7, this, "int*", &embeddingOption := 0, "HRESULT")
+        return embeddingOption
     }
 }

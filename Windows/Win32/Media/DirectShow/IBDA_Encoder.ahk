@@ -155,10 +155,11 @@ class IBDA_Encoder extends IUnknown{
         VideoMethodIDMarshal := VideoMethodID is VarRef ? "uint*" : "ptr"
         SignalSourceIDMarshal := SignalSourceID is VarRef ? "uint*" : "ptr"
         SignalFormatMarshal := SignalFormat is VarRef ? "uint*" : "ptr"
+        SignalLockMarshal := SignalLock is VarRef ? "int*" : "ptr"
         SignalLevelMarshal := SignalLevel is VarRef ? "int*" : "ptr"
         SignalToNoiseRatioMarshal := SignalToNoiseRatio is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, AudioBitrateMaxMarshal, AudioBitrateMax, AudioBitrateMinMarshal, AudioBitrateMin, AudioBitrateModeMarshal, AudioBitrateMode, AudioBitrateSteppingMarshal, AudioBitrateStepping, AudioBitrateMarshal, AudioBitrate, AudioMethodIDMarshal, AudioMethodID, AvailableAudioProgramsMarshal, AvailableAudioPrograms, AudioProgramMarshal, AudioProgram, VideoBitrateMaxMarshal, VideoBitrateMax, VideoBitrateMinMarshal, VideoBitrateMin, VideoBitrateModeMarshal, VideoBitrateMode, VideoBitrateMarshal, VideoBitrate, VideoBitrateSteppingMarshal, VideoBitrateStepping, VideoMethodIDMarshal, VideoMethodID, SignalSourceIDMarshal, SignalSourceID, SignalFormatMarshal, SignalFormat, "ptr", SignalLock, SignalLevelMarshal, SignalLevel, SignalToNoiseRatioMarshal, SignalToNoiseRatio, "HRESULT")
+        result := ComCall(7, this, AudioBitrateMaxMarshal, AudioBitrateMax, AudioBitrateMinMarshal, AudioBitrateMin, AudioBitrateModeMarshal, AudioBitrateMode, AudioBitrateSteppingMarshal, AudioBitrateStepping, AudioBitrateMarshal, AudioBitrate, AudioMethodIDMarshal, AudioMethodID, AvailableAudioProgramsMarshal, AvailableAudioPrograms, AudioProgramMarshal, AudioProgram, VideoBitrateMaxMarshal, VideoBitrateMax, VideoBitrateMinMarshal, VideoBitrateMin, VideoBitrateModeMarshal, VideoBitrateMode, VideoBitrateMarshal, VideoBitrate, VideoBitrateSteppingMarshal, VideoBitrateStepping, VideoMethodIDMarshal, VideoMethodID, SignalSourceIDMarshal, SignalSourceID, SignalFormatMarshal, SignalFormat, SignalLockMarshal, SignalLock, SignalLevelMarshal, SignalLevel, SignalToNoiseRatioMarshal, SignalToNoiseRatio, "HRESULT")
         return result
     }
 }

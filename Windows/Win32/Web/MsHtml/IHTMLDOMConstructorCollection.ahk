@@ -30,1061 +30,955 @@ class IHTMLDOMConstructorCollection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Attr(p) {
-        result := ComCall(7, this, "ptr*", p, "HRESULT")
-        return result
+    get_Attr() {
+        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_BehaviorUrnsCollection(p) {
-        result := ComCall(8, this, "ptr*", p, "HRESULT")
-        return result
+    get_BehaviorUrnsCollection() {
+        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_BookmarkCollection(p) {
-        result := ComCall(9, this, "ptr*", p, "HRESULT")
-        return result
+    get_BookmarkCollection() {
+        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_CompatibleInfo(p) {
-        result := ComCall(10, this, "ptr*", p, "HRESULT")
-        return result
+    get_CompatibleInfo() {
+        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_CompatibleInfoCollection(p) {
-        result := ComCall(11, this, "ptr*", p, "HRESULT")
-        return result
+    get_CompatibleInfoCollection() {
+        result := ComCall(11, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_ControlRangeCollection(p) {
-        result := ComCall(12, this, "ptr*", p, "HRESULT")
-        return result
+    get_ControlRangeCollection() {
+        result := ComCall(12, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_CSSCurrentStyleDeclaration(p) {
-        result := ComCall(13, this, "ptr*", p, "HRESULT")
-        return result
+    get_CSSCurrentStyleDeclaration() {
+        result := ComCall(13, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_CSSRuleList(p) {
-        result := ComCall(14, this, "ptr*", p, "HRESULT")
-        return result
+    get_CSSRuleList() {
+        result := ComCall(14, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_CSSRuleStyleDeclaration(p) {
-        result := ComCall(15, this, "ptr*", p, "HRESULT")
-        return result
+    get_CSSRuleStyleDeclaration() {
+        result := ComCall(15, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_CSSStyleDeclaration(p) {
-        result := ComCall(16, this, "ptr*", p, "HRESULT")
-        return result
+    get_CSSStyleDeclaration() {
+        result := ComCall(16, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_CSSStyleRule(p) {
-        result := ComCall(17, this, "ptr*", p, "HRESULT")
-        return result
+    get_CSSStyleRule() {
+        result := ComCall(17, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_CSSStyleSheet(p) {
-        result := ComCall(18, this, "ptr*", p, "HRESULT")
-        return result
+    get_CSSStyleSheet() {
+        result := ComCall(18, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_DataTransfer(p) {
-        result := ComCall(19, this, "ptr*", p, "HRESULT")
-        return result
+    get_DataTransfer() {
+        result := ComCall(19, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_DOMImplementation(p) {
-        result := ComCall(20, this, "ptr*", p, "HRESULT")
-        return result
+    get_DOMImplementation() {
+        result := ComCall(20, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Element(p) {
-        result := ComCall(21, this, "ptr*", p, "HRESULT")
-        return result
+    get_Element() {
+        result := ComCall(21, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Event(p) {
-        result := ComCall(22, this, "ptr*", p, "HRESULT")
-        return result
+    get_Event() {
+        result := ComCall(22, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_History(p) {
-        result := ComCall(23, this, "ptr*", p, "HRESULT")
-        return result
+    get_History() {
+        result := ComCall(23, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTCElementBehaviorDefaults(p) {
-        result := ComCall(24, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTCElementBehaviorDefaults() {
+        result := ComCall(24, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLAnchorElement(p) {
-        result := ComCall(25, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLAnchorElement() {
+        result := ComCall(25, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLAreaElement(p) {
-        result := ComCall(26, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLAreaElement() {
+        result := ComCall(26, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLAreasCollection(p) {
-        result := ComCall(27, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLAreasCollection() {
+        result := ComCall(27, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLBaseElement(p) {
-        result := ComCall(28, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLBaseElement() {
+        result := ComCall(28, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLBaseFontElement(p) {
-        result := ComCall(29, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLBaseFontElement() {
+        result := ComCall(29, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLBGSoundElement(p) {
-        result := ComCall(30, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLBGSoundElement() {
+        result := ComCall(30, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLBlockElement(p) {
-        result := ComCall(31, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLBlockElement() {
+        result := ComCall(31, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLBodyElement(p) {
-        result := ComCall(32, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLBodyElement() {
+        result := ComCall(32, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLBRElement(p) {
-        result := ComCall(33, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLBRElement() {
+        result := ComCall(33, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLButtonElement(p) {
-        result := ComCall(34, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLButtonElement() {
+        result := ComCall(34, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLCollection(p) {
-        result := ComCall(35, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLCollection() {
+        result := ComCall(35, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLCommentElement(p) {
-        result := ComCall(36, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLCommentElement() {
+        result := ComCall(36, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLDDElement(p) {
-        result := ComCall(37, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLDDElement() {
+        result := ComCall(37, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLDivElement(p) {
-        result := ComCall(38, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLDivElement() {
+        result := ComCall(38, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLDocument(p) {
-        result := ComCall(39, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLDocument() {
+        result := ComCall(39, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLDListElement(p) {
-        result := ComCall(40, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLDListElement() {
+        result := ComCall(40, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLDTElement(p) {
-        result := ComCall(41, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLDTElement() {
+        result := ComCall(41, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLEmbedElement(p) {
-        result := ComCall(42, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLEmbedElement() {
+        result := ComCall(42, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLFieldSetElement(p) {
-        result := ComCall(43, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLFieldSetElement() {
+        result := ComCall(43, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLFontElement(p) {
-        result := ComCall(44, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLFontElement() {
+        result := ComCall(44, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLFormElement(p) {
-        result := ComCall(45, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLFormElement() {
+        result := ComCall(45, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLFrameElement(p) {
-        result := ComCall(46, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLFrameElement() {
+        result := ComCall(46, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLFrameSetElement(p) {
-        result := ComCall(47, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLFrameSetElement() {
+        result := ComCall(47, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLGenericElement(p) {
-        result := ComCall(48, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLGenericElement() {
+        result := ComCall(48, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLHeadElement(p) {
-        result := ComCall(49, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLHeadElement() {
+        result := ComCall(49, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLHeadingElement(p) {
-        result := ComCall(50, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLHeadingElement() {
+        result := ComCall(50, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLHRElement(p) {
-        result := ComCall(51, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLHRElement() {
+        result := ComCall(51, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLHtmlElement(p) {
-        result := ComCall(52, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLHtmlElement() {
+        result := ComCall(52, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLIFrameElement(p) {
-        result := ComCall(53, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLIFrameElement() {
+        result := ComCall(53, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLImageElement(p) {
-        result := ComCall(54, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLImageElement() {
+        result := ComCall(54, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLInputElement(p) {
-        result := ComCall(55, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLInputElement() {
+        result := ComCall(55, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLIsIndexElement(p) {
-        result := ComCall(56, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLIsIndexElement() {
+        result := ComCall(56, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLLabelElement(p) {
-        result := ComCall(57, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLLabelElement() {
+        result := ComCall(57, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLLegendElement(p) {
-        result := ComCall(58, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLLegendElement() {
+        result := ComCall(58, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLLIElement(p) {
-        result := ComCall(59, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLLIElement() {
+        result := ComCall(59, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLLinkElement(p) {
-        result := ComCall(60, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLLinkElement() {
+        result := ComCall(60, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLMapElement(p) {
-        result := ComCall(61, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLMapElement() {
+        result := ComCall(61, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLMarqueeElement(p) {
-        result := ComCall(62, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLMarqueeElement() {
+        result := ComCall(62, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLMetaElement(p) {
-        result := ComCall(63, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLMetaElement() {
+        result := ComCall(63, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLModelessDialog(p) {
-        result := ComCall(64, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLModelessDialog() {
+        result := ComCall(64, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLNamespaceInfo(p) {
-        result := ComCall(65, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLNamespaceInfo() {
+        result := ComCall(65, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLNamespaceInfoCollection(p) {
-        result := ComCall(66, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLNamespaceInfoCollection() {
+        result := ComCall(66, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLNextIdElement(p) {
-        result := ComCall(67, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLNextIdElement() {
+        result := ComCall(67, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLNoShowElement(p) {
-        result := ComCall(68, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLNoShowElement() {
+        result := ComCall(68, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLObjectElement(p) {
-        result := ComCall(69, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLObjectElement() {
+        result := ComCall(69, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLOListElement(p) {
-        result := ComCall(70, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLOListElement() {
+        result := ComCall(70, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLOptionElement(p) {
-        result := ComCall(71, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLOptionElement() {
+        result := ComCall(71, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLParagraphElement(p) {
-        result := ComCall(72, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLParagraphElement() {
+        result := ComCall(72, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLParamElement(p) {
-        result := ComCall(73, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLParamElement() {
+        result := ComCall(73, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLPhraseElement(p) {
-        result := ComCall(74, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLPhraseElement() {
+        result := ComCall(74, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLPluginsCollection(p) {
-        result := ComCall(75, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLPluginsCollection() {
+        result := ComCall(75, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLPopup(p) {
-        result := ComCall(76, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLPopup() {
+        result := ComCall(76, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLScriptElement(p) {
-        result := ComCall(77, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLScriptElement() {
+        result := ComCall(77, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLSelectElement(p) {
-        result := ComCall(78, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLSelectElement() {
+        result := ComCall(78, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLSpanElement(p) {
-        result := ComCall(79, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLSpanElement() {
+        result := ComCall(79, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLStyleElement(p) {
-        result := ComCall(80, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLStyleElement() {
+        result := ComCall(80, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLTableCaptionElement(p) {
-        result := ComCall(81, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLTableCaptionElement() {
+        result := ComCall(81, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLTableCellElement(p) {
-        result := ComCall(82, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLTableCellElement() {
+        result := ComCall(82, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLTableColElement(p) {
-        result := ComCall(83, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLTableColElement() {
+        result := ComCall(83, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLTableElement(p) {
-        result := ComCall(84, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLTableElement() {
+        result := ComCall(84, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLTableRowElement(p) {
-        result := ComCall(85, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLTableRowElement() {
+        result := ComCall(85, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLTableSectionElement(p) {
-        result := ComCall(86, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLTableSectionElement() {
+        result := ComCall(86, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLTextAreaElement(p) {
-        result := ComCall(87, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLTextAreaElement() {
+        result := ComCall(87, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLTextElement(p) {
-        result := ComCall(88, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLTextElement() {
+        result := ComCall(88, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLTitleElement(p) {
-        result := ComCall(89, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLTitleElement() {
+        result := ComCall(89, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLUListElement(p) {
-        result := ComCall(90, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLUListElement() {
+        result := ComCall(90, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_HTMLUnknownElement(p) {
-        result := ComCall(91, this, "ptr*", p, "HRESULT")
-        return result
+    get_HTMLUnknownElement() {
+        result := ComCall(91, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Image(p) {
-        result := ComCall(92, this, "ptr*", p, "HRESULT")
-        return result
+    get_Image() {
+        result := ComCall(92, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Location(p) {
-        result := ComCall(93, this, "ptr*", p, "HRESULT")
-        return result
+    get_Location() {
+        result := ComCall(93, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_NamedNodeMap(p) {
-        result := ComCall(94, this, "ptr*", p, "HRESULT")
-        return result
+    get_NamedNodeMap() {
+        result := ComCall(94, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Navigator(p) {
-        result := ComCall(95, this, "ptr*", p, "HRESULT")
-        return result
+    get_Navigator() {
+        result := ComCall(95, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_NodeList(p) {
-        result := ComCall(96, this, "ptr*", p, "HRESULT")
-        return result
+    get_NodeList() {
+        result := ComCall(96, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Option(p) {
-        result := ComCall(97, this, "ptr*", p, "HRESULT")
-        return result
+    get_Option() {
+        result := ComCall(97, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Screen(p) {
-        result := ComCall(98, this, "ptr*", p, "HRESULT")
-        return result
+    get_Screen() {
+        result := ComCall(98, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Selection(p) {
-        result := ComCall(99, this, "ptr*", p, "HRESULT")
-        return result
+    get_Selection() {
+        result := ComCall(99, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_StaticNodeList(p) {
-        result := ComCall(100, this, "ptr*", p, "HRESULT")
-        return result
+    get_StaticNodeList() {
+        result := ComCall(100, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Storage(p) {
-        result := ComCall(101, this, "ptr*", p, "HRESULT")
-        return result
+    get_Storage() {
+        result := ComCall(101, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_StyleSheetList(p) {
-        result := ComCall(102, this, "ptr*", p, "HRESULT")
-        return result
+    get_StyleSheetList() {
+        result := ComCall(102, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_StyleSheetPage(p) {
-        result := ComCall(103, this, "ptr*", p, "HRESULT")
-        return result
+    get_StyleSheetPage() {
+        result := ComCall(103, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_StyleSheetPageList(p) {
-        result := ComCall(104, this, "ptr*", p, "HRESULT")
-        return result
+    get_StyleSheetPageList() {
+        result := ComCall(104, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Text(p) {
-        result := ComCall(105, this, "ptr*", p, "HRESULT")
-        return result
+    get_Text() {
+        result := ComCall(105, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_TextRange(p) {
-        result := ComCall(106, this, "ptr*", p, "HRESULT")
-        return result
+    get_TextRange() {
+        result := ComCall(106, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_TextRangeCollection(p) {
-        result := ComCall(107, this, "ptr*", p, "HRESULT")
-        return result
+    get_TextRangeCollection() {
+        result := ComCall(107, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_TextRectangle(p) {
-        result := ComCall(108, this, "ptr*", p, "HRESULT")
-        return result
+    get_TextRectangle() {
+        result := ComCall(108, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_TextRectangleList(p) {
-        result := ComCall(109, this, "ptr*", p, "HRESULT")
-        return result
+    get_TextRectangleList() {
+        result := ComCall(109, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Window(p) {
-        result := ComCall(110, this, "ptr*", p, "HRESULT")
-        return result
+    get_Window() {
+        result := ComCall(110, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_XDomainRequest(p) {
-        result := ComCall(111, this, "ptr*", p, "HRESULT")
-        return result
+    get_XDomainRequest() {
+        result := ComCall(111, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_XMLHttpRequest(p) {
-        result := ComCall(112, this, "ptr*", p, "HRESULT")
-        return result
+    get_XMLHttpRequest() {
+        result := ComCall(112, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 }

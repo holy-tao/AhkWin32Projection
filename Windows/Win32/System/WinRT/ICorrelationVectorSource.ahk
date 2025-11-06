@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\HSTRING.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -30,11 +31,11 @@ class ICorrelationVectorSource extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HSTRING>} cv 
-     * @returns {HRESULT} 
+     * @returns {HSTRING} 
      */
-    get_CorrelationVector(cv) {
+    get_CorrelationVector() {
+        cv := HSTRING()
         result := ComCall(3, this, "ptr", cv, "HRESULT")
-        return result
+        return cv
     }
 }

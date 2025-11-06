@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\WindowsAndMessaging\HICON.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\ITfLangBarItem.ahk
 
 /**
@@ -77,23 +79,23 @@ class ITfLangBarItemButton extends ITfLangBarItem{
 
     /**
      * 
-     * @param {Pointer<HICON>} phIcon 
-     * @returns {HRESULT} 
+     * @returns {HICON} 
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritembutton-geticon
      */
-    GetIcon(phIcon) {
+    GetIcon() {
+        phIcon := HICON()
         result := ComCall(10, this, "ptr", phIcon, "HRESULT")
-        return result
+        return phIcon
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrText 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritembutton-gettext
      */
-    GetText(pbstrText) {
+    GetText() {
+        pbstrText := BSTR()
         result := ComCall(11, this, "ptr", pbstrText, "HRESULT")
-        return result
+        return pbstrText
     }
 }

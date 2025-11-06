@@ -31,14 +31,11 @@ class IMLangCodePages extends IUnknown{
     /**
      * 
      * @param {Integer} chSrc 
-     * @param {Pointer<Integer>} pdwCodePages 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetCharCodePages(chSrc, pdwCodePages) {
-        pdwCodePagesMarshal := pdwCodePages is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "char", chSrc, pdwCodePagesMarshal, pdwCodePages, "HRESULT")
-        return result
+    GetCharCodePages(chSrc) {
+        result := ComCall(3, this, "char", chSrc, "uint*", &pdwCodePages := 0, "HRESULT")
+        return pdwCodePages
     }
 
     /**
@@ -63,27 +60,21 @@ class IMLangCodePages extends IUnknown{
     /**
      * 
      * @param {Integer} uCodePage 
-     * @param {Pointer<Integer>} pdwCodePages 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    CodePageToCodePages(uCodePage, pdwCodePages) {
-        pdwCodePagesMarshal := pdwCodePages is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, "uint", uCodePage, pdwCodePagesMarshal, pdwCodePages, "HRESULT")
-        return result
+    CodePageToCodePages(uCodePage) {
+        result := ComCall(5, this, "uint", uCodePage, "uint*", &pdwCodePages := 0, "HRESULT")
+        return pdwCodePages
     }
 
     /**
      * 
      * @param {Integer} dwCodePages 
      * @param {Integer} uDefaultCodePage 
-     * @param {Pointer<Integer>} puCodePage 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    CodePagesToCodePage(dwCodePages, uDefaultCodePage, puCodePage) {
-        puCodePageMarshal := puCodePage is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, "uint", dwCodePages, "uint", uDefaultCodePage, puCodePageMarshal, puCodePage, "HRESULT")
-        return result
+    CodePagesToCodePage(dwCodePages, uDefaultCodePage) {
+        result := ComCall(6, this, "uint", dwCodePages, "uint", uDefaultCodePage, "uint*", &puCodePage := 0, "HRESULT")
+        return puCodePage
     }
 }

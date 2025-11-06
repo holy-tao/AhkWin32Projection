@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IOpcSignatureReference.ahk
+#Include .\IOpcSignatureReferenceEnumerator.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -49,17 +51,16 @@ class IOpcSignatureReferenceSet extends IUnknown{
      * @param {PWSTR} type 
      * @param {PWSTR} digestMethod 
      * @param {Integer} transformMethod 
-     * @param {Pointer<IOpcSignatureReference>} reference 
-     * @returns {HRESULT} 
+     * @returns {IOpcSignatureReference} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturereferenceset-create
      */
-    Create(referenceUri, referenceId, type, digestMethod, transformMethod, reference) {
+    Create(referenceUri, referenceId, type, digestMethod, transformMethod) {
         referenceId := referenceId is String ? StrPtr(referenceId) : referenceId
         type := type is String ? StrPtr(type) : type
         digestMethod := digestMethod is String ? StrPtr(digestMethod) : digestMethod
 
-        result := ComCall(3, this, "ptr", referenceUri, "ptr", referenceId, "ptr", type, "ptr", digestMethod, "int", transformMethod, "ptr*", reference, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", referenceUri, "ptr", referenceId, "ptr", type, "ptr", digestMethod, "int", transformMethod, "ptr*", &reference := 0, "HRESULT")
+        return IOpcSignatureReference(reference)
     }
 
     /**
@@ -75,12 +76,11 @@ class IOpcSignatureReferenceSet extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IOpcSignatureReferenceEnumerator>} referenceEnumerator 
-     * @returns {HRESULT} 
+     * @returns {IOpcSignatureReferenceEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturereferenceset-getenumerator
      */
-    GetEnumerator(referenceEnumerator) {
-        result := ComCall(5, this, "ptr*", referenceEnumerator, "HRESULT")
-        return result
+    GetEnumerator() {
+        result := ComCall(5, this, "ptr*", &referenceEnumerator := 0, "HRESULT")
+        return IOpcSignatureReferenceEnumerator(referenceEnumerator)
     }
 }

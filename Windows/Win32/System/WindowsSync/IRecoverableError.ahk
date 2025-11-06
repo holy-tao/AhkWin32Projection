@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISyncChange.ahk
+#Include .\IRecoverableErrorData.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -58,37 +60,38 @@ class IRecoverableError extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ISyncChange>} ppChangeWithRecoverableError 
-     * @returns {HRESULT} 
+     * @returns {ISyncChange} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-irecoverableerror-getchangewithrecoverableerror
      */
-    GetChangeWithRecoverableError(ppChangeWithRecoverableError) {
-        result := ComCall(5, this, "ptr*", ppChangeWithRecoverableError, "HRESULT")
-        return result
+    GetChangeWithRecoverableError() {
+        result := ComCall(5, this, "ptr*", &ppChangeWithRecoverableError := 0, "HRESULT")
+        return ISyncChange(ppChangeWithRecoverableError)
     }
 
     /**
      * 
      * @param {Pointer<HRESULT>} phrError 
-     * @param {Pointer<IRecoverableErrorData>} ppErrorData 
-     * @returns {HRESULT} 
+     * @returns {IRecoverableErrorData} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-irecoverableerror-getrecoverableerrordataforchange
      */
-    GetRecoverableErrorDataForChange(phrError, ppErrorData) {
-        result := ComCall(6, this, "ptr", phrError, "ptr*", ppErrorData, "HRESULT")
-        return result
+    GetRecoverableErrorDataForChange(phrError) {
+        phrErrorMarshal := phrError is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, phrErrorMarshal, phrError, "ptr*", &ppErrorData := 0, "HRESULT")
+        return IRecoverableErrorData(ppErrorData)
     }
 
     /**
      * 
      * @param {ISyncChangeUnit} pChangeUnit 
      * @param {Pointer<HRESULT>} phrError 
-     * @param {Pointer<IRecoverableErrorData>} ppErrorData 
-     * @returns {HRESULT} 
+     * @returns {IRecoverableErrorData} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-irecoverableerror-getrecoverableerrordataforchangeunit
      */
-    GetRecoverableErrorDataForChangeUnit(pChangeUnit, phrError, ppErrorData) {
-        result := ComCall(7, this, "ptr", pChangeUnit, "ptr", phrError, "ptr*", ppErrorData, "HRESULT")
-        return result
+    GetRecoverableErrorDataForChangeUnit(pChangeUnit, phrError) {
+        phrErrorMarshal := phrError is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pChangeUnit, phrErrorMarshal, phrError, "ptr*", &ppErrorData := 0, "HRESULT")
+        return IRecoverableErrorData(ppErrorData)
     }
 }

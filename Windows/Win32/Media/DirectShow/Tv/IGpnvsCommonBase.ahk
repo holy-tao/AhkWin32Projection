@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,11 +31,11 @@ class IGpnvsCommonBase extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetValueUpdateName(pbstrName) {
+    GetValueUpdateName() {
+        pbstrName := BSTR()
         result := ComCall(3, this, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 }

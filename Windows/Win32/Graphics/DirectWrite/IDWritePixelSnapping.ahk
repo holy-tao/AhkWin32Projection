@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DWRITE_MATRIX.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,42 +34,39 @@ class IDWritePixelSnapping extends IUnknown{
     /**
      * 
      * @param {Pointer<Void>} clientDrawingContext 
-     * @param {Pointer<BOOL>} isDisabled 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsPixelSnappingDisabled(clientDrawingContext, isDisabled) {
+    IsPixelSnappingDisabled(clientDrawingContext) {
         clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, clientDrawingContextMarshal, clientDrawingContext, "ptr", isDisabled, "HRESULT")
-        return result
+        result := ComCall(3, this, clientDrawingContextMarshal, clientDrawingContext, "int*", &isDisabled := 0, "HRESULT")
+        return isDisabled
     }
 
     /**
      * 
      * @param {Pointer<Void>} clientDrawingContext 
-     * @param {Pointer<DWRITE_MATRIX>} transform 
-     * @returns {HRESULT} 
+     * @returns {DWRITE_MATRIX} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritepixelsnapping-getcurrenttransform
      */
-    GetCurrentTransform(clientDrawingContext, transform) {
+    GetCurrentTransform(clientDrawingContext) {
         clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
 
+        transform := DWRITE_MATRIX()
         result := ComCall(4, this, clientDrawingContextMarshal, clientDrawingContext, "ptr", transform, "HRESULT")
-        return result
+        return transform
     }
 
     /**
      * 
      * @param {Pointer<Void>} clientDrawingContext 
-     * @param {Pointer<Float>} pixelsPerDip 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritepixelsnapping-getpixelsperdip
      */
-    GetPixelsPerDip(clientDrawingContext, pixelsPerDip) {
+    GetPixelsPerDip(clientDrawingContext) {
         clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
-        pixelsPerDipMarshal := pixelsPerDip is VarRef ? "float*" : "ptr"
 
-        result := ComCall(5, this, clientDrawingContextMarshal, clientDrawingContext, pixelsPerDipMarshal, pixelsPerDip, "HRESULT")
-        return result
+        result := ComCall(5, this, clientDrawingContextMarshal, clientDrawingContext, "float*", &pixelsPerDip := 0, "HRESULT")
+        return pixelsPerDip
     }
 }

@@ -30,19 +30,18 @@ class ISpPhraseAlt extends ISpPhrase{
 
     /**
      * 
-     * @param {Pointer<ISpPhrase>} ppParent 
      * @param {Pointer<Integer>} pulStartElementInParent 
      * @param {Pointer<Integer>} pcElementsInParent 
      * @param {Pointer<Integer>} pcElementsInAlt 
-     * @returns {HRESULT} 
+     * @returns {ISpPhrase} 
      */
-    GetAltInfo(ppParent, pulStartElementInParent, pcElementsInParent, pcElementsInAlt) {
+    GetAltInfo(pulStartElementInParent, pcElementsInParent, pcElementsInAlt) {
         pulStartElementInParentMarshal := pulStartElementInParent is VarRef ? "uint*" : "ptr"
         pcElementsInParentMarshal := pcElementsInParent is VarRef ? "uint*" : "ptr"
         pcElementsInAltMarshal := pcElementsInAlt is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "ptr*", ppParent, pulStartElementInParentMarshal, pulStartElementInParent, pcElementsInParentMarshal, pcElementsInParent, pcElementsInAltMarshal, pcElementsInAlt, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr*", &ppParent := 0, pulStartElementInParentMarshal, pulStartElementInParent, pcElementsInParentMarshal, pcElementsInParent, pcElementsInAltMarshal, pcElementsInAlt, "HRESULT")
+        return ISpPhrase(ppParent)
     }
 
     /**

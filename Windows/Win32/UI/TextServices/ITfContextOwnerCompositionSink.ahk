@@ -33,13 +33,12 @@ class ITfContextOwnerCompositionSink extends IUnknown{
     /**
      * 
      * @param {ITfCompositionView} pComposition 
-     * @param {Pointer<BOOL>} pfOk 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextownercompositionsink-onstartcomposition
      */
-    OnStartComposition(pComposition, pfOk) {
-        result := ComCall(3, this, "ptr", pComposition, "ptr", pfOk, "HRESULT")
-        return result
+    OnStartComposition(pComposition) {
+        result := ComCall(3, this, "ptr", pComposition, "int*", &pfOk := 0, "HRESULT")
+        return pfOk
     }
 
     /**

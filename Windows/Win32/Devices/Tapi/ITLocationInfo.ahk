@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,132 +33,117 @@ class ITLocationInfo extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plLocationID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlocationinfo-get_permanentlocationid
      */
-    get_PermanentLocationID(plLocationID) {
-        plLocationIDMarshal := plLocationID is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, plLocationIDMarshal, plLocationID, "HRESULT")
-        return result
+    get_PermanentLocationID() {
+        result := ComCall(7, this, "int*", &plLocationID := 0, "HRESULT")
+        return plLocationID
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plCountryCode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlocationinfo-get_countrycode
      */
-    get_CountryCode(plCountryCode) {
-        plCountryCodeMarshal := plCountryCode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, plCountryCodeMarshal, plCountryCode, "HRESULT")
-        return result
+    get_CountryCode() {
+        result := ComCall(8, this, "int*", &plCountryCode := 0, "HRESULT")
+        return plCountryCode
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plCountryID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlocationinfo-get_countryid
      */
-    get_CountryID(plCountryID) {
-        plCountryIDMarshal := plCountryID is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, plCountryIDMarshal, plCountryID, "HRESULT")
-        return result
+    get_CountryID() {
+        result := ComCall(9, this, "int*", &plCountryID := 0, "HRESULT")
+        return plCountryID
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plOptions 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlocationinfo-get_options
      */
-    get_Options(plOptions) {
-        plOptionsMarshal := plOptions is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, plOptionsMarshal, plOptions, "HRESULT")
-        return result
+    get_Options() {
+        result := ComCall(10, this, "int*", &plOptions := 0, "HRESULT")
+        return plOptions
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plCardID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlocationinfo-get_preferredcardid
      */
-    get_PreferredCardID(plCardID) {
-        plCardIDMarshal := plCardID is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, plCardIDMarshal, plCardID, "HRESULT")
-        return result
+    get_PreferredCardID() {
+        result := ComCall(11, this, "int*", &plCardID := 0, "HRESULT")
+        return plCardID
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} ppLocationName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlocationinfo-get_locationname
      */
-    get_LocationName(ppLocationName) {
+    get_LocationName() {
+        ppLocationName := BSTR()
         result := ComCall(12, this, "ptr", ppLocationName, "HRESULT")
-        return result
+        return ppLocationName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} ppCode 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlocationinfo-get_citycode
      */
-    get_CityCode(ppCode) {
+    get_CityCode() {
+        ppCode := BSTR()
         result := ComCall(13, this, "ptr", ppCode, "HRESULT")
-        return result
+        return ppCode
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} ppCode 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlocationinfo-get_localaccesscode
      */
-    get_LocalAccessCode(ppCode) {
+    get_LocalAccessCode() {
+        ppCode := BSTR()
         result := ComCall(14, this, "ptr", ppCode, "HRESULT")
-        return result
+        return ppCode
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} ppCode 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlocationinfo-get_longdistanceaccesscode
      */
-    get_LongDistanceAccessCode(ppCode) {
+    get_LongDistanceAccessCode() {
+        ppCode := BSTR()
         result := ComCall(15, this, "ptr", ppCode, "HRESULT")
-        return result
+        return ppCode
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} ppTollList 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlocationinfo-get_tollprefixlist
      */
-    get_TollPrefixList(ppTollList) {
+    get_TollPrefixList() {
+        ppTollList := BSTR()
         result := ComCall(16, this, "ptr", ppTollList, "HRESULT")
-        return result
+        return ppTollList
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} ppCode 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlocationinfo-get_cancelcallwaitingcode
      */
-    get_CancelCallWaitingCode(ppCode) {
+    get_CancelCallWaitingCode() {
+        ppCode := BSTR()
         result := ComCall(17, this, "ptr", ppCode, "HRESULT")
-        return result
+        return ppCode
     }
 }

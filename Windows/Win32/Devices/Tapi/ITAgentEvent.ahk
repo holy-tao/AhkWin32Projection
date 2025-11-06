@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITAgent.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,25 +33,21 @@ class ITAgentEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ITAgent>} ppAgent 
-     * @returns {HRESULT} 
+     * @returns {ITAgent} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagentevent-get_agent
      */
-    get_Agent(ppAgent) {
-        result := ComCall(7, this, "ptr*", ppAgent, "HRESULT")
-        return result
+    get_Agent() {
+        result := ComCall(7, this, "ptr*", &ppAgent := 0, "HRESULT")
+        return ITAgent(ppAgent)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pEvent 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagentevent-get_event
      */
-    get_Event(pEvent) {
-        pEventMarshal := pEvent is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pEventMarshal, pEvent, "HRESULT")
-        return result
+    get_Event() {
+        result := ComCall(8, this, "int*", &pEvent := 0, "HRESULT")
+        return pEvent
     }
 }

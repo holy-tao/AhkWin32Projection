@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWMPContentContainer.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,39 +33,32 @@ class IWMPContentContainerList extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pwmptt 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentcontainerlist-gettransactiontype
      */
-    GetTransactionType(pwmptt) {
-        pwmpttMarshal := pwmptt is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, pwmpttMarshal, pwmptt, "HRESULT")
-        return result
+    GetTransactionType() {
+        result := ComCall(3, this, "int*", &pwmptt := 0, "HRESULT")
+        return pwmptt
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pcContainer 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentcontainerlist-getcontainercount
      */
-    GetContainerCount(pcContainer) {
-        pcContainerMarshal := pcContainer is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pcContainerMarshal, pcContainer, "HRESULT")
-        return result
+    GetContainerCount() {
+        result := ComCall(4, this, "uint*", &pcContainer := 0, "HRESULT")
+        return pcContainer
     }
 
     /**
      * 
      * @param {Integer} idxContainer 
-     * @param {Pointer<IWMPContentContainer>} ppContent 
-     * @returns {HRESULT} 
+     * @returns {IWMPContentContainer} 
      * @see https://learn.microsoft.com/windows/win32/api/contentpartner/nf-contentpartner-iwmpcontentcontainerlist-getcontainer
      */
-    GetContainer(idxContainer, ppContent) {
-        result := ComCall(5, this, "uint", idxContainer, "ptr*", ppContent, "HRESULT")
-        return result
+    GetContainer(idxContainer) {
+        result := ComCall(5, this, "uint", idxContainer, "ptr*", &ppContent := 0, "HRESULT")
+        return IWMPContentContainer(ppContent)
     }
 }

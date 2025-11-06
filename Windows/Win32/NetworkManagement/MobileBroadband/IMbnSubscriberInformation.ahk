@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -36,36 +37,33 @@ class IMbnSubscriberInformation extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} SubscriberID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsubscriberinformation-get_subscriberid
      */
-    get_SubscriberID(SubscriberID) {
+    get_SubscriberID() {
+        SubscriberID := BSTR()
         result := ComCall(3, this, "ptr", SubscriberID, "HRESULT")
-        return result
+        return SubscriberID
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} SimIccID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsubscriberinformation-get_simiccid
      */
-    get_SimIccID(SimIccID) {
+    get_SimIccID() {
+        SimIccID := BSTR()
         result := ComCall(4, this, "ptr", SimIccID, "HRESULT")
-        return result
+        return SimIccID
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} TelephoneNumbers 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnsubscriberinformation-get_telephonenumbers
      */
-    get_TelephoneNumbers(TelephoneNumbers) {
-        TelephoneNumbersMarshal := TelephoneNumbers is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, TelephoneNumbersMarshal, TelephoneNumbers, "HRESULT")
-        return result
+    get_TelephoneNumbers() {
+        result := ComCall(5, this, "ptr*", &TelephoneNumbers := 0, "HRESULT")
+        return TelephoneNumbers
     }
 }

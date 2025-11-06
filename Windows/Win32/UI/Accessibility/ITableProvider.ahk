@@ -42,40 +42,31 @@ class ITableProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itableprovider-getrowheaders
      */
-    GetRowHeaders(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    GetRowHeaders() {
+        result := ComCall(3, this, "ptr*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itableprovider-getcolumnheaders
      */
-    GetColumnHeaders(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    GetColumnHeaders() {
+        result := ComCall(4, this, "ptr*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itableprovider-get_roworcolumnmajor
      */
-    get_RowOrColumnMajor(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    get_RowOrColumnMajor() {
+        result := ComCall(5, this, "int*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 }

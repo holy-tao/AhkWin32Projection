@@ -34,15 +34,14 @@ class INameSpaceTreeControlCustomDraw extends IUnknown{
      * 
      * @param {HDC} hdc 
      * @param {Pointer<RECT>} prc 
-     * @param {Pointer<LRESULT>} plres 
-     * @returns {HRESULT} 
+     * @returns {LRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolcustomdraw-prepaint
      */
-    PrePaint(hdc, prc, plres) {
+    PrePaint(hdc, prc) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := ComCall(3, this, "ptr", hdc, "ptr", prc, "ptr", plres, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", hdc, "ptr", prc, "ptr*", &plres := 0, "HRESULT")
+        return plres
     }
 
     /**
@@ -66,15 +65,17 @@ class INameSpaceTreeControlCustomDraw extends IUnknown{
      * @param {Pointer<NSTCCUSTOMDRAW>} pnstccdItem 
      * @param {Pointer<COLORREF>} pclrText 
      * @param {Pointer<COLORREF>} pclrTextBk 
-     * @param {Pointer<LRESULT>} plres 
-     * @returns {HRESULT} 
+     * @returns {LRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolcustomdraw-itemprepaint
      */
-    ItemPrePaint(hdc, prc, pnstccdItem, pclrText, pclrTextBk, plres) {
+    ItemPrePaint(hdc, prc, pnstccdItem, pclrText, pclrTextBk) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        result := ComCall(5, this, "ptr", hdc, "ptr", prc, "ptr", pnstccdItem, "ptr", pclrText, "ptr", pclrTextBk, "ptr", plres, "HRESULT")
-        return result
+        pclrTextMarshal := pclrText is VarRef ? "uint*" : "ptr"
+        pclrTextBkMarshal := pclrTextBk is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(5, this, "ptr", hdc, "ptr", prc, "ptr", pnstccdItem, pclrTextMarshal, pclrText, pclrTextBkMarshal, pclrTextBk, "ptr*", &plres := 0, "HRESULT")
+        return plres
     }
 
     /**

@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISVGElement.ahk
+#Include .\ISVGRect.ahk
+#Include .\ISVGMatrix.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,62 +33,56 @@ class ISVGLocatable extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGElement>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGElement} 
      */
-    get_nearestViewportElement(p) {
-        result := ComCall(7, this, "ptr*", p, "HRESULT")
-        return result
+    get_nearestViewportElement() {
+        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGElement(p)
     }
 
     /**
      * 
-     * @param {Pointer<ISVGElement>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGElement} 
      */
-    get_farthestViewportElement(p) {
-        result := ComCall(8, this, "ptr*", p, "HRESULT")
-        return result
+    get_farthestViewportElement() {
+        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGElement(p)
     }
 
     /**
      * 
-     * @param {Pointer<ISVGRect>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGRect} 
      */
-    getBBox(ppResult) {
-        result := ComCall(9, this, "ptr*", ppResult, "HRESULT")
-        return result
+    getBBox() {
+        result := ComCall(9, this, "ptr*", &ppResult := 0, "HRESULT")
+        return ISVGRect(ppResult)
     }
 
     /**
      * 
-     * @param {Pointer<ISVGMatrix>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGMatrix} 
      */
-    getCTM(ppResult) {
-        result := ComCall(10, this, "ptr*", ppResult, "HRESULT")
-        return result
+    getCTM() {
+        result := ComCall(10, this, "ptr*", &ppResult := 0, "HRESULT")
+        return ISVGMatrix(ppResult)
     }
 
     /**
      * 
-     * @param {Pointer<ISVGMatrix>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGMatrix} 
      */
-    getScreenCTM(ppResult) {
-        result := ComCall(11, this, "ptr*", ppResult, "HRESULT")
-        return result
+    getScreenCTM() {
+        result := ComCall(11, this, "ptr*", &ppResult := 0, "HRESULT")
+        return ISVGMatrix(ppResult)
     }
 
     /**
      * 
      * @param {ISVGElement} pElement 
-     * @param {Pointer<ISVGMatrix>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGMatrix} 
      */
-    getTransformToElement(pElement, ppResult) {
-        result := ComCall(12, this, "ptr", pElement, "ptr*", ppResult, "HRESULT")
-        return result
+    getTransformToElement(pElement) {
+        result := ComCall(12, this, "ptr", pElement, "ptr*", &ppResult := 0, "HRESULT")
+        return ISVGMatrix(ppResult)
     }
 }

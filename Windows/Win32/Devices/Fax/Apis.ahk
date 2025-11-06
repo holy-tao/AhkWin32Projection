@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\IStillImageW.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Fax
@@ -5107,18 +5108,17 @@ class Fax {
      * 
      * @param {HINSTANCE} hinst 
      * @param {Integer} dwVer 
-     * @param {Pointer<IStillImageW>} ppSti 
      * @param {IUnknown} punkOuter 
-     * @returns {HRESULT} 
+     * @returns {IStillImageW} 
      */
-    static StiCreateInstanceW(hinst, dwVer, ppSti, punkOuter) {
+    static StiCreateInstanceW(hinst, dwVer, punkOuter) {
         hinst := hinst is Win32Handle ? NumGet(hinst, "ptr") : hinst
 
-        result := DllCall("STI.dll\StiCreateInstanceW", "ptr", hinst, "uint", dwVer, "ptr*", ppSti, "ptr", punkOuter, "int")
+        result := DllCall("STI.dll\StiCreateInstanceW", "ptr", hinst, "uint", dwVer, "ptr*", &ppSti := 0, "ptr", punkOuter, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IStillImageW(ppSti)
     }
 
 ;@endregion Methods

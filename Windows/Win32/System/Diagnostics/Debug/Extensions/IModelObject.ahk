@@ -1,6 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IDebugHostContext.ahk
+#Include ..\..\..\Variant\VARIANT.ahk
+#Include .\IKeyEnumerator.ahk
+#Include .\IModelObject.ahk
+#Include .\IRawEnumerator.ahk
+#Include .\Location.ahk
+#Include .\IDebugHostType.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -30,45 +37,41 @@ class IModelObject extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDebugHostContext>} context 
-     * @returns {HRESULT} 
+     * @returns {IDebugHostContext} 
      */
-    GetContext(context) {
-        result := ComCall(3, this, "ptr*", context, "HRESULT")
-        return result
+    GetContext() {
+        result := ComCall(3, this, "ptr*", &context := 0, "HRESULT")
+        return IDebugHostContext(context)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} kind 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetKind(kind) {
-        kindMarshal := kind is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, kindMarshal, kind, "HRESULT")
-        return result
+    GetKind() {
+        result := ComCall(4, this, "int*", &kind := 0, "HRESULT")
+        return kind
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} intrinsicData 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    GetIntrinsicValue(intrinsicData) {
+    GetIntrinsicValue() {
+        intrinsicData := VARIANT()
         result := ComCall(5, this, "ptr", intrinsicData, "HRESULT")
-        return result
+        return intrinsicData
     }
 
     /**
      * 
      * @param {Integer} vt 
-     * @param {Pointer<VARIANT>} intrinsicData 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    GetIntrinsicValueAs(vt, intrinsicData) {
+    GetIntrinsicValueAs(vt) {
+        intrinsicData := VARIANT()
         result := ComCall(6, this, "ushort", vt, "ptr", intrinsicData, "HRESULT")
-        return result
+        return intrinsicData
     }
 
     /**
@@ -100,12 +103,11 @@ class IModelObject extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IKeyEnumerator>} enumerator 
-     * @returns {HRESULT} 
+     * @returns {IKeyEnumerator} 
      */
-    EnumerateKeyValues(enumerator) {
-        result := ComCall(9, this, "ptr*", enumerator, "HRESULT")
-        return result
+    EnumerateKeyValues() {
+        result := ComCall(9, this, "ptr*", &enumerator := 0, "HRESULT")
+        return IKeyEnumerator(enumerator)
     }
 
     /**
@@ -113,46 +115,42 @@ class IModelObject extends IUnknown{
      * @param {Integer} kind 
      * @param {PWSTR} name 
      * @param {Integer} searchFlags 
-     * @param {Pointer<IModelObject>} object 
-     * @returns {HRESULT} 
+     * @returns {IModelObject} 
      */
-    GetRawValue(kind, name, searchFlags, object) {
+    GetRawValue(kind, name, searchFlags) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(10, this, "int", kind, "ptr", name, "uint", searchFlags, "ptr*", object, "HRESULT")
-        return result
+        result := ComCall(10, this, "int", kind, "ptr", name, "uint", searchFlags, "ptr*", &object := 0, "HRESULT")
+        return IModelObject(object)
     }
 
     /**
      * 
      * @param {Integer} kind 
      * @param {Integer} searchFlags 
-     * @param {Pointer<IRawEnumerator>} enumerator 
-     * @returns {HRESULT} 
+     * @returns {IRawEnumerator} 
      */
-    EnumerateRawValues(kind, searchFlags, enumerator) {
-        result := ComCall(11, this, "int", kind, "uint", searchFlags, "ptr*", enumerator, "HRESULT")
-        return result
+    EnumerateRawValues(kind, searchFlags) {
+        result := ComCall(11, this, "int", kind, "uint", searchFlags, "ptr*", &enumerator := 0, "HRESULT")
+        return IRawEnumerator(enumerator)
     }
 
     /**
      * 
-     * @param {Pointer<IModelObject>} object 
-     * @returns {HRESULT} 
+     * @returns {IModelObject} 
      */
-    Dereference(object) {
-        result := ComCall(12, this, "ptr*", object, "HRESULT")
-        return result
+    Dereference() {
+        result := ComCall(12, this, "ptr*", &object := 0, "HRESULT")
+        return IModelObject(object)
     }
 
     /**
      * 
-     * @param {Pointer<IModelObject>} runtimeTypedObject 
-     * @returns {HRESULT} 
+     * @returns {IModelObject} 
      */
-    TryCastToRuntimeType(runtimeTypedObject) {
-        result := ComCall(13, this, "ptr*", runtimeTypedObject, "HRESULT")
-        return result
+    TryCastToRuntimeType() {
+        result := ComCall(13, this, "ptr*", &runtimeTypedObject := 0, "HRESULT")
+        return IModelObject(runtimeTypedObject)
     }
 
     /**
@@ -169,22 +167,21 @@ class IModelObject extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Location>} location 
-     * @returns {HRESULT} 
+     * @returns {Location} 
      */
-    GetLocation(location) {
+    GetLocation() {
+        location := Location()
         result := ComCall(15, this, "ptr", location, "HRESULT")
-        return result
+        return location
     }
 
     /**
      * 
-     * @param {Pointer<IDebugHostType>} type 
-     * @returns {HRESULT} 
+     * @returns {IDebugHostType} 
      */
-    GetTypeInfo(type) {
-        result := ComCall(16, this, "ptr*", type, "HRESULT")
-        return result
+    GetTypeInfo() {
+        result := ComCall(16, this, "ptr*", &type := 0, "HRESULT")
+        return IDebugHostType(type)
     }
 
     /**
@@ -200,14 +197,11 @@ class IModelObject extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} numModels 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetNumberOfParentModels(numModels) {
-        numModelsMarshal := numModels is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(18, this, numModelsMarshal, numModels, "HRESULT")
-        return result
+    GetNumberOfParentModels() {
+        result := ComCall(18, this, "uint*", &numModels := 0, "HRESULT")
+        return numModels
     }
 
     /**
@@ -297,22 +291,20 @@ class IModelObject extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IKeyEnumerator>} enumerator 
-     * @returns {HRESULT} 
+     * @returns {IKeyEnumerator} 
      */
-    EnumerateKeys(enumerator) {
-        result := ComCall(26, this, "ptr*", enumerator, "HRESULT")
-        return result
+    EnumerateKeys() {
+        result := ComCall(26, this, "ptr*", &enumerator := 0, "HRESULT")
+        return IKeyEnumerator(enumerator)
     }
 
     /**
      * 
-     * @param {Pointer<IKeyEnumerator>} enumerator 
-     * @returns {HRESULT} 
+     * @returns {IKeyEnumerator} 
      */
-    EnumerateKeyReferences(enumerator) {
-        result := ComCall(27, this, "ptr*", enumerator, "HRESULT")
-        return result
+    EnumerateKeyReferences() {
+        result := ComCall(27, this, "ptr*", &enumerator := 0, "HRESULT")
+        return IKeyEnumerator(enumerator)
     }
 
     /**
@@ -341,26 +333,24 @@ class IModelObject extends IUnknown{
      * @param {Integer} kind 
      * @param {PWSTR} name 
      * @param {Integer} searchFlags 
-     * @param {Pointer<IModelObject>} object 
-     * @returns {HRESULT} 
+     * @returns {IModelObject} 
      */
-    GetRawReference(kind, name, searchFlags, object) {
+    GetRawReference(kind, name, searchFlags) {
         name := name is String ? StrPtr(name) : name
 
-        result := ComCall(30, this, "int", kind, "ptr", name, "uint", searchFlags, "ptr*", object, "HRESULT")
-        return result
+        result := ComCall(30, this, "int", kind, "ptr", name, "uint", searchFlags, "ptr*", &object := 0, "HRESULT")
+        return IModelObject(object)
     }
 
     /**
      * 
      * @param {Integer} kind 
      * @param {Integer} searchFlags 
-     * @param {Pointer<IRawEnumerator>} enumerator 
-     * @returns {HRESULT} 
+     * @returns {IRawEnumerator} 
      */
-    EnumerateRawReferences(kind, searchFlags, enumerator) {
-        result := ComCall(31, this, "int", kind, "uint", searchFlags, "ptr*", enumerator, "HRESULT")
-        return result
+    EnumerateRawReferences(kind, searchFlags) {
+        result := ComCall(31, this, "int", kind, "uint", searchFlags, "ptr*", &enumerator := 0, "HRESULT")
+        return IRawEnumerator(enumerator)
     }
 
     /**
@@ -377,35 +367,30 @@ class IModelObject extends IUnknown{
     /**
      * 
      * @param {IModelObject} dataModelObject 
-     * @param {Pointer<IUnknown>} context 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    GetContextForDataModel(dataModelObject, context) {
-        result := ComCall(33, this, "ptr", dataModelObject, "ptr*", context, "HRESULT")
-        return result
+    GetContextForDataModel(dataModelObject) {
+        result := ComCall(33, this, "ptr", dataModelObject, "ptr*", &context := 0, "HRESULT")
+        return IUnknown(context)
     }
 
     /**
      * 
      * @param {IModelObject} other 
-     * @param {Pointer<IModelObject>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {IModelObject} 
      */
-    Compare(other, ppResult) {
-        result := ComCall(34, this, "ptr", other, "ptr*", ppResult, "HRESULT")
-        return result
+    Compare(other) {
+        result := ComCall(34, this, "ptr", other, "ptr*", &ppResult := 0, "HRESULT")
+        return IModelObject(ppResult)
     }
 
     /**
      * 
      * @param {IModelObject} other 
-     * @param {Pointer<Boolean>} equal 
-     * @returns {HRESULT} 
+     * @returns {Boolean} 
      */
-    IsEqualTo(other, equal) {
-        equalMarshal := equal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(35, this, "ptr", other, equalMarshal, equal, "HRESULT")
-        return result
+    IsEqualTo(other) {
+        result := ComCall(35, this, "ptr", other, "int*", &equal := 0, "HRESULT")
+        return equal
     }
 }

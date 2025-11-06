@@ -43,15 +43,12 @@ class IWICBitmapSourceTransform extends IUnknown{
      * @param {Integer} dstTransform 
      * @param {Integer} nStride 
      * @param {Integer} cbBufferSize 
-     * @param {Pointer<Integer>} pbBuffer 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapsourcetransform-copypixels
      */
-    CopyPixels(prc, uiWidth, uiHeight, pguidDstFormat, dstTransform, nStride, cbBufferSize, pbBuffer) {
-        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
-
-        result := ComCall(3, this, "ptr", prc, "uint", uiWidth, "uint", uiHeight, "ptr", pguidDstFormat, "int", dstTransform, "uint", nStride, "uint", cbBufferSize, pbBufferMarshal, pbBuffer, "HRESULT")
-        return result
+    CopyPixels(prc, uiWidth, uiHeight, pguidDstFormat, dstTransform, nStride, cbBufferSize) {
+        result := ComCall(3, this, "ptr", prc, "uint", uiWidth, "uint", uiHeight, "ptr", pguidDstFormat, "int", dstTransform, "uint", nStride, "uint", cbBufferSize, "char*", &pbBuffer := 0, "HRESULT")
+        return pbBuffer
     }
 
     /**
@@ -83,12 +80,11 @@ class IWICBitmapSourceTransform extends IUnknown{
     /**
      * 
      * @param {Integer} dstTransform 
-     * @param {Pointer<BOOL>} pfIsSupported 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapsourcetransform-doessupporttransform
      */
-    DoesSupportTransform(dstTransform, pfIsSupported) {
-        result := ComCall(6, this, "int", dstTransform, "ptr", pfIsSupported, "HRESULT")
-        return result
+    DoesSupportTransform(dstTransform) {
+        result := ComCall(6, this, "int", dstTransform, "int*", &pfIsSupported := 0, "HRESULT")
+        return pfIsSupported
     }
 }

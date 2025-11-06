@@ -58,14 +58,11 @@ class IFolderViewOptions extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pfvoFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ifolderviewoptions-getfolderviewoptions
      */
-    GetFolderViewOptions(pfvoFlags) {
-        pfvoFlagsMarshal := pfvoFlags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, pfvoFlagsMarshal, pfvoFlags, "HRESULT")
-        return result
+    GetFolderViewOptions() {
+        result := ComCall(4, this, "int*", &pfvoFlags := 0, "HRESULT")
+        return pfvoFlags
     }
 }

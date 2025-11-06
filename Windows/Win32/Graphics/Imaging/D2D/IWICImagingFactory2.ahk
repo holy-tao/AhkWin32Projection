@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IWICImageEncoder.ahk
 #Include ..\IWICImagingFactory.ahk
 
 /**
@@ -33,12 +34,11 @@ class IWICImagingFactory2 extends IWICImagingFactory{
     /**
      * 
      * @param {ID2D1Device} pD2DDevice 
-     * @param {Pointer<IWICImageEncoder>} ppWICImageEncoder 
-     * @returns {HRESULT} 
+     * @returns {IWICImageEncoder} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicimagingfactory2-createimageencoder
      */
-    CreateImageEncoder(pD2DDevice, ppWICImageEncoder) {
-        result := ComCall(28, this, "ptr", pD2DDevice, "ptr*", ppWICImageEncoder, "HRESULT")
-        return result
+    CreateImageEncoder(pD2DDevice) {
+        result := ComCall(28, this, "ptr", pD2DDevice, "ptr*", &ppWICImageEncoder := 0, "HRESULT")
+        return IWICImageEncoder(ppWICImageEncoder)
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Data\Xml\MsXml\IXMLDOMDocument.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,12 +33,11 @@ class IAppxAppInstallerReader extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IXMLDOMDocument>} dom 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMDocument} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxappinstallerreader-getxmldom
      */
-    GetXmlDom(dom) {
-        result := ComCall(3, this, "ptr*", dom, "HRESULT")
-        return result
+    GetXmlDom() {
+        result := ComCall(3, this, "ptr*", &dom := 0, "HRESULT")
+        return IXMLDOMDocument(dom)
     }
 }

@@ -117,23 +117,21 @@ class IDWriteLocalizedStrings extends IUnknown{
         localeName := localeName is String ? StrPtr(localeName) : localeName
 
         indexMarshal := index is VarRef ? "uint*" : "ptr"
+        existsMarshal := exists is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", localeName, indexMarshal, index, "ptr", exists, "HRESULT")
+        result := ComCall(4, this, "ptr", localeName, indexMarshal, index, existsMarshal, exists, "HRESULT")
         return result
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<Integer>} length 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritelocalizedstrings-getlocalenamelength
      */
-    GetLocaleNameLength(index, length) {
-        lengthMarshal := length is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, "uint", index, lengthMarshal, length, "HRESULT")
-        return result
+    GetLocaleNameLength(index) {
+        result := ComCall(5, this, "uint", index, "uint*", &length := 0, "HRESULT")
+        return length
     }
 
     /**
@@ -154,15 +152,12 @@ class IDWriteLocalizedStrings extends IUnknown{
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<Integer>} length 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritelocalizedstrings-getstringlength
      */
-    GetStringLength(index, length) {
-        lengthMarshal := length is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, "uint", index, lengthMarshal, length, "HRESULT")
-        return result
+    GetStringLength(index) {
+        result := ComCall(7, this, "uint", index, "uint*", &length := 0, "HRESULT")
+        return length
     }
 
     /**

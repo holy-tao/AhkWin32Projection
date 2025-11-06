@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUIAutomationElement.ahk
+#Include .\IUIAutomationTextRange.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,23 +34,21 @@ class IUIAutomationTextChildPattern extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IUIAutomationElement>} container 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElement} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextchildpattern-get_textcontainer
      */
-    get_TextContainer(container) {
-        result := ComCall(3, this, "ptr*", container, "HRESULT")
-        return result
+    get_TextContainer() {
+        result := ComCall(3, this, "ptr*", &container := 0, "HRESULT")
+        return IUIAutomationElement(container)
     }
 
     /**
      * 
-     * @param {Pointer<IUIAutomationTextRange>} range 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationTextRange} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextchildpattern-get_textrange
      */
-    get_TextRange(range) {
-        result := ComCall(4, this, "ptr*", range, "HRESULT")
-        return result
+    get_TextRange() {
+        result := ComCall(4, this, "ptr*", &range := 0, "HRESULT")
+        return IUIAutomationTextRange(range)
     }
 }

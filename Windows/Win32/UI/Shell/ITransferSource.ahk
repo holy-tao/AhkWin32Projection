@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IShellItem.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,15 +34,12 @@ class ITransferSource extends IUnknown{
     /**
      * 
      * @param {ITransferAdviseSink} psink 
-     * @param {Pointer<Integer>} pdwCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransfersource-advise
      */
-    Advise(psink, pdwCookie) {
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", psink, pdwCookieMarshal, pdwCookie, "HRESULT")
-        return result
+    Advise(psink) {
+        result := ComCall(3, this, "ptr", psink, "uint*", &pdwCookie := 0, "HRESULT")
+        return pdwCookie
     }
 
     /**
@@ -71,15 +69,12 @@ class ITransferSource extends IUnknown{
      * @param {IShellItem} psi 
      * @param {Integer} flags 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransfersource-openitem
      */
-    OpenItem(psi, flags, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", psi, "uint", flags, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    OpenItem(psi, flags, riid) {
+        result := ComCall(6, this, "ptr", psi, "uint", flags, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
@@ -88,15 +83,14 @@ class ITransferSource extends IUnknown{
      * @param {IShellItem} psiParentDst 
      * @param {PWSTR} pszNameDst 
      * @param {Integer} flags 
-     * @param {Pointer<IShellItem>} ppsiNew 
-     * @returns {HRESULT} 
+     * @returns {IShellItem} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransfersource-moveitem
      */
-    MoveItem(psi, psiParentDst, pszNameDst, flags, ppsiNew) {
+    MoveItem(psi, psiParentDst, pszNameDst, flags) {
         pszNameDst := pszNameDst is String ? StrPtr(pszNameDst) : pszNameDst
 
-        result := ComCall(7, this, "ptr", psi, "ptr", psiParentDst, "ptr", pszNameDst, "uint", flags, "ptr*", ppsiNew, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", psi, "ptr", psiParentDst, "ptr", pszNameDst, "uint", flags, "ptr*", &ppsiNew := 0, "HRESULT")
+        return IShellItem(ppsiNew)
     }
 
     /**
@@ -104,13 +98,12 @@ class ITransferSource extends IUnknown{
      * @param {IShellItem} psiSource 
      * @param {IShellItem} psiParentDest 
      * @param {Integer} flags 
-     * @param {Pointer<IShellItem>} ppsiNewDest 
-     * @returns {HRESULT} 
+     * @returns {IShellItem} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransfersource-recycleitem
      */
-    RecycleItem(psiSource, psiParentDest, flags, ppsiNewDest) {
-        result := ComCall(8, this, "ptr", psiSource, "ptr", psiParentDest, "uint", flags, "ptr*", ppsiNewDest, "HRESULT")
-        return result
+    RecycleItem(psiSource, psiParentDest, flags) {
+        result := ComCall(8, this, "ptr", psiSource, "ptr", psiParentDest, "uint", flags, "ptr*", &ppsiNewDest := 0, "HRESULT")
+        return IShellItem(ppsiNewDest)
     }
 
     /**
@@ -130,15 +123,14 @@ class ITransferSource extends IUnknown{
      * @param {IShellItem} psiSource 
      * @param {PWSTR} pszNewName 
      * @param {Integer} flags 
-     * @param {Pointer<IShellItem>} ppsiNewDest 
-     * @returns {HRESULT} 
+     * @returns {IShellItem} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransfersource-renameitem
      */
-    RenameItem(psiSource, pszNewName, flags, ppsiNewDest) {
+    RenameItem(psiSource, pszNewName, flags) {
         pszNewName := pszNewName is String ? StrPtr(pszNewName) : pszNewName
 
-        result := ComCall(10, this, "ptr", psiSource, "ptr", pszNewName, "uint", flags, "ptr*", ppsiNewDest, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", psiSource, "ptr", pszNewName, "uint", flags, "ptr*", &ppsiNewDest := 0, "HRESULT")
+        return IShellItem(ppsiNewDest)
     }
 
     /**
@@ -147,40 +139,37 @@ class ITransferSource extends IUnknown{
      * @param {IShellItem} psiParentDest 
      * @param {PWSTR} pszNewName 
      * @param {Integer} flags 
-     * @param {Pointer<IShellItem>} ppsiNewDest 
-     * @returns {HRESULT} 
+     * @returns {IShellItem} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransfersource-linkitem
      */
-    LinkItem(psiSource, psiParentDest, pszNewName, flags, ppsiNewDest) {
+    LinkItem(psiSource, psiParentDest, pszNewName, flags) {
         pszNewName := pszNewName is String ? StrPtr(pszNewName) : pszNewName
 
-        result := ComCall(11, this, "ptr", psiSource, "ptr", psiParentDest, "ptr", pszNewName, "uint", flags, "ptr*", ppsiNewDest, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", psiSource, "ptr", psiParentDest, "ptr", pszNewName, "uint", flags, "ptr*", &ppsiNewDest := 0, "HRESULT")
+        return IShellItem(ppsiNewDest)
     }
 
     /**
      * 
      * @param {IShellItem} psiSource 
-     * @param {Pointer<IShellItem>} ppsiNew 
-     * @returns {HRESULT} 
+     * @returns {IShellItem} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransfersource-applypropertiestoitem
      */
-    ApplyPropertiesToItem(psiSource, ppsiNew) {
-        result := ComCall(12, this, "ptr", psiSource, "ptr*", ppsiNew, "HRESULT")
-        return result
+    ApplyPropertiesToItem(psiSource) {
+        result := ComCall(12, this, "ptr", psiSource, "ptr*", &ppsiNew := 0, "HRESULT")
+        return IShellItem(ppsiNew)
     }
 
     /**
      * 
      * @param {IShellItem} psiSource 
      * @param {IShellItem} psiParentDest 
-     * @param {Pointer<PWSTR>} ppszDestinationName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransfersource-getdefaultdestinationname
      */
-    GetDefaultDestinationName(psiSource, psiParentDest, ppszDestinationName) {
-        result := ComCall(13, this, "ptr", psiSource, "ptr", psiParentDest, "ptr", ppszDestinationName, "HRESULT")
-        return result
+    GetDefaultDestinationName(psiSource, psiParentDest) {
+        result := ComCall(13, this, "ptr", psiSource, "ptr", psiParentDest, "ptr*", &ppszDestinationName := 0, "HRESULT")
+        return ppszDestinationName
     }
 
     /**

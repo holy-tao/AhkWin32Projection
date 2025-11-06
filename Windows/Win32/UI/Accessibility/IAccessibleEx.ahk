@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IAccessibleEx.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -38,13 +39,12 @@ class IAccessibleEx extends IUnknown{
     /**
      * 
      * @param {Integer} idChild 
-     * @param {Pointer<IAccessibleEx>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {IAccessibleEx} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iaccessibleex-getobjectforchild
      */
-    GetObjectForChild(idChild, pRetVal) {
-        result := ComCall(3, this, "int", idChild, "ptr*", pRetVal, "HRESULT")
-        return result
+    GetObjectForChild(idChild) {
+        result := ComCall(3, this, "int", idChild, "ptr*", &pRetVal := 0, "HRESULT")
+        return IAccessibleEx(pRetVal)
     }
 
     /**
@@ -63,26 +63,22 @@ class IAccessibleEx extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iaccessibleex-getruntimeid
      */
-    GetRuntimeId(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    GetRuntimeId() {
+        result := ComCall(5, this, "ptr*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
      * 
      * @param {IRawElementProviderSimple} pIn 
-     * @param {Pointer<IAccessibleEx>} ppRetValOut 
-     * @returns {HRESULT} 
+     * @returns {IAccessibleEx} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iaccessibleex-convertreturnedelement
      */
-    ConvertReturnedElement(pIn, ppRetValOut) {
-        result := ComCall(6, this, "ptr", pIn, "ptr*", ppRetValOut, "HRESULT")
-        return result
+    ConvertReturnedElement(pIn) {
+        result := ComCall(6, this, "ptr", pIn, "ptr*", &ppRetValOut := 0, "HRESULT")
+        return IAccessibleEx(ppRetValOut)
     }
 }

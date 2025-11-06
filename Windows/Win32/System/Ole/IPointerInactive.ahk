@@ -32,15 +32,12 @@ class IPointerInactive extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwPolicy 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipointerinactive-getactivationpolicy
      */
-    GetActivationPolicy(pdwPolicy) {
-        pdwPolicyMarshal := pdwPolicy is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, pdwPolicyMarshal, pdwPolicy, "HRESULT")
-        return result
+    GetActivationPolicy() {
+        result := ComCall(3, this, "int*", &pdwPolicy := 0, "HRESULT")
+        return pdwPolicy
     }
 
     /**

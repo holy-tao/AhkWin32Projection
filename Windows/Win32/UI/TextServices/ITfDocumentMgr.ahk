@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITfContext.ahk
+#Include .\IEnumTfContexts.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -133,34 +135,31 @@ class ITfDocumentMgr extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ITfContext>} ppic 
-     * @returns {HRESULT} 
+     * @returns {ITfContext} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfdocumentmgr-gettop
      */
-    GetTop(ppic) {
-        result := ComCall(6, this, "ptr*", ppic, "HRESULT")
-        return result
+    GetTop() {
+        result := ComCall(6, this, "ptr*", &ppic := 0, "HRESULT")
+        return ITfContext(ppic)
     }
 
     /**
      * 
-     * @param {Pointer<ITfContext>} ppic 
-     * @returns {HRESULT} 
+     * @returns {ITfContext} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfdocumentmgr-getbase
      */
-    GetBase(ppic) {
-        result := ComCall(7, this, "ptr*", ppic, "HRESULT")
-        return result
+    GetBase() {
+        result := ComCall(7, this, "ptr*", &ppic := 0, "HRESULT")
+        return ITfContext(ppic)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumTfContexts>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumTfContexts} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfdocumentmgr-enumcontexts
      */
-    EnumContexts(ppEnum) {
-        result := ComCall(8, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumContexts() {
+        result := ComCall(8, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumTfContexts(ppEnum)
     }
 }

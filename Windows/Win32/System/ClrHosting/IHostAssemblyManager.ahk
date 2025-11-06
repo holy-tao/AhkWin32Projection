@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ICLRAssemblyReferenceList.ahk
+#Include .\IHostAssemblyStore.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -30,21 +32,19 @@ class IHostAssemblyManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ICLRAssemblyReferenceList>} ppReferenceList 
-     * @returns {HRESULT} 
+     * @returns {ICLRAssemblyReferenceList} 
      */
-    GetNonHostStoreAssemblies(ppReferenceList) {
-        result := ComCall(3, this, "ptr*", ppReferenceList, "HRESULT")
-        return result
+    GetNonHostStoreAssemblies() {
+        result := ComCall(3, this, "ptr*", &ppReferenceList := 0, "HRESULT")
+        return ICLRAssemblyReferenceList(ppReferenceList)
     }
 
     /**
      * 
-     * @param {Pointer<IHostAssemblyStore>} ppAssemblyStore 
-     * @returns {HRESULT} 
+     * @returns {IHostAssemblyStore} 
      */
-    GetAssemblyStore(ppAssemblyStore) {
-        result := ComCall(4, this, "ptr*", ppAssemblyStore, "HRESULT")
-        return result
+    GetAssemblyStore() {
+        result := ComCall(4, this, "ptr*", &ppAssemblyStore := 0, "HRESULT")
+        return IHostAssemblyStore(ppAssemblyStore)
     }
 }

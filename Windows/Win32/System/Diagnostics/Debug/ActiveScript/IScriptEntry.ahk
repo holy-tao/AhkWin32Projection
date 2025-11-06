@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Foundation\BSTR.ahk
 #Include .\IScriptNode.ahk
 
 /**
@@ -30,12 +31,12 @@ class IScriptEntry extends IScriptNode{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetText(pbstr) {
+    GetText() {
+        pbstr := BSTR()
         result := ComCall(13, this, "ptr", pbstr, "HRESULT")
-        return result
+        return pbstr
     }
 
     /**
@@ -52,12 +53,12 @@ class IScriptEntry extends IScriptNode{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetBody(pbstr) {
+    GetBody() {
+        pbstr := BSTR()
         result := ComCall(15, this, "ptr", pbstr, "HRESULT")
-        return result
+        return pbstr
     }
 
     /**
@@ -74,12 +75,12 @@ class IScriptEntry extends IScriptNode{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetName(pbstr) {
+    GetName() {
+        pbstr := BSTR()
         result := ComCall(17, this, "ptr", pbstr, "HRESULT")
-        return result
+        return pbstr
     }
 
     /**
@@ -96,12 +97,12 @@ class IScriptEntry extends IScriptNode{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetItemName(pbstr) {
+    GetItemName() {
+        pbstr := BSTR()
         result := ComCall(19, this, "ptr", pbstr, "HRESULT")
-        return result
+        return pbstr
     }
 
     /**

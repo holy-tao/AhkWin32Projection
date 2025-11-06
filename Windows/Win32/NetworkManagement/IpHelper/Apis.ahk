@@ -13868,7 +13868,7 @@ class IpHelper {
     static if_indextoname(InterfaceIndex, InterfaceName) {
         InterfaceName := InterfaceName is String ? StrPtr(InterfaceName) : InterfaceName
 
-        result := DllCall("IPHLPAPI.dll\if_indextoname", "uint", InterfaceIndex, "ptr", InterfaceName, "char*")
+        result := DllCall("IPHLPAPI.dll\if_indextoname", "uint", InterfaceIndex, "ptr", InterfaceName, "ptr")
         return result
     }
 

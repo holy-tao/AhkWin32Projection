@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 #Include ..\..\Com\IUnknown.ahk
 
 /**
@@ -30,25 +31,22 @@ class IDisplayPathInterop extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HANDLE>} pValue 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      * @see https://learn.microsoft.com/windows/win32/api/windows.devices.display.core.interop/nf-windows-devices-display-core-interop-idisplaypathinterop-createsourcepresentationhandle
      */
-    CreateSourcePresentationHandle(pValue) {
+    CreateSourcePresentationHandle() {
+        pValue := HANDLE()
         result := ComCall(3, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pSourceId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/windows.devices.display.core.interop/nf-windows-devices-display-core-interop-idisplaypathinterop-getsourceid
      */
-    GetSourceId(pSourceId) {
-        pSourceIdMarshal := pSourceId is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pSourceIdMarshal, pSourceId, "HRESULT")
-        return result
+    GetSourceId() {
+        result := ComCall(4, this, "uint*", &pSourceId := 0, "HRESULT")
+        return pSourceId
     }
 }

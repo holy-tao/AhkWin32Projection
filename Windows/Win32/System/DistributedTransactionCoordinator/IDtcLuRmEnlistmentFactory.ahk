@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDtcLuRmEnlistment.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -36,14 +37,13 @@ class IDtcLuRmEnlistmentFactory extends IUnknown{
      * @param {Pointer<Integer>} pTransId 
      * @param {Integer} cbTransId 
      * @param {IDtcLuRmEnlistmentSink} pRmEnlistmentSink 
-     * @param {Pointer<IDtcLuRmEnlistment>} ppRmEnlistment 
-     * @returns {HRESULT} 
+     * @returns {IDtcLuRmEnlistment} 
      */
-    Create(pucLuPair, cbLuPair, pITransaction, pTransId, cbTransId, pRmEnlistmentSink, ppRmEnlistment) {
+    Create(pucLuPair, cbLuPair, pITransaction, pTransId, cbTransId, pRmEnlistmentSink) {
         pucLuPairMarshal := pucLuPair is VarRef ? "char*" : "ptr"
         pTransIdMarshal := pTransId is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, pucLuPairMarshal, pucLuPair, "uint", cbLuPair, "ptr", pITransaction, pTransIdMarshal, pTransId, "uint", cbTransId, "ptr", pRmEnlistmentSink, "ptr*", ppRmEnlistment, "HRESULT")
-        return result
+        result := ComCall(3, this, pucLuPairMarshal, pucLuPair, "uint", cbLuPair, "ptr", pITransaction, pTransIdMarshal, pTransId, "uint", cbTransId, "ptr", pRmEnlistmentSink, "ptr*", &ppRmEnlistment := 0, "HRESULT")
+        return IDtcLuRmEnlistment(ppRmEnlistment)
     }
 }

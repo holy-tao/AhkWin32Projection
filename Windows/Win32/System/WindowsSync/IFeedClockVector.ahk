@@ -50,7 +50,9 @@ class IFeedClockVector extends IClockVector{
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ifeedclockvector-isnoconflictsspecified
      */
     IsNoConflictsSpecified(pfIsNoConflictsSpecified) {
-        result := ComCall(6, this, "ptr", pfIsNoConflictsSpecified, "HRESULT")
+        pfIsNoConflictsSpecifiedMarshal := pfIsNoConflictsSpecified is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, pfIsNoConflictsSpecifiedMarshal, pfIsNoConflictsSpecified, "HRESULT")
         return result
     }
 }

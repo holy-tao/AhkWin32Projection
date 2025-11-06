@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,51 +34,44 @@ class IFsrmCollection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} unknown 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmcollection-get__newenum
      */
-    get__NewEnum(unknown) {
-        result := ComCall(7, this, "ptr*", unknown, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(7, this, "ptr*", &unknown := 0, "HRESULT")
+        return IUnknown(unknown)
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<VARIANT>} item 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmcollection-get_item
      */
-    get_Item(index, item) {
+    get_Item(index) {
+        item := VARIANT()
         result := ComCall(8, this, "int", index, "ptr", item, "HRESULT")
-        return result
+        return item
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmcollection-get_count
      */
-    get_Count(count) {
-        countMarshal := count is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, countMarshal, count, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(9, this, "int*", &count := 0, "HRESULT")
+        return count
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} state 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmcollection-get_state
      */
-    get_State(state) {
-        stateMarshal := state is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, stateMarshal, state, "HRESULT")
-        return result
+    get_State() {
+        result := ComCall(10, this, "int*", &state := 0, "HRESULT")
+        return state
     }
 
     /**
@@ -92,24 +87,23 @@ class IFsrmCollection extends IDispatch{
     /**
      * 
      * @param {Integer} waitSeconds 
-     * @param {Pointer<VARIANT_BOOL>} completed 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmcollection-waitforcompletion
      */
-    WaitForCompletion(waitSeconds, completed) {
-        result := ComCall(12, this, "int", waitSeconds, "ptr", completed, "HRESULT")
-        return result
+    WaitForCompletion(waitSeconds) {
+        result := ComCall(12, this, "int", waitSeconds, "short*", &completed := 0, "HRESULT")
+        return completed
     }
 
     /**
      * 
      * @param {Guid} id 
-     * @param {Pointer<VARIANT>} entry 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmcollection-getbyid
      */
-    GetById(id, entry) {
+    GetById(id) {
+        entry := VARIANT()
         result := ComCall(13, this, "ptr", id, "ptr", entry, "HRESULT")
-        return result
+        return entry
     }
 }

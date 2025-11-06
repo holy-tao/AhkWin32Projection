@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D12_DRED_PAGE_FAULT_OUTPUT2.ahk
 #Include .\ID3D12DeviceRemovedExtendedData1.ahk
 
 /**
@@ -30,12 +31,12 @@ class ID3D12DeviceRemovedExtendedData2 extends ID3D12DeviceRemovedExtendedData1{
 
     /**
      * 
-     * @param {Pointer<D3D12_DRED_PAGE_FAULT_OUTPUT2>} pOutput 
-     * @returns {HRESULT} 
+     * @returns {D3D12_DRED_PAGE_FAULT_OUTPUT2} 
      */
-    GetPageFaultAllocationOutput2(pOutput) {
+    GetPageFaultAllocationOutput2() {
+        pOutput := D3D12_DRED_PAGE_FAULT_OUTPUT2()
         result := ComCall(7, this, "ptr", pOutput, "HRESULT")
-        return result
+        return pOutput
     }
 
     /**

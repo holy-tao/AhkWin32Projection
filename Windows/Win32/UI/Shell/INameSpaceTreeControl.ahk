@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IShellItemArray.ahk
+#Include .\IShellItem.ahk
+#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -62,15 +65,12 @@ class INameSpaceTreeControl extends IUnknown{
     /**
      * 
      * @param {IUnknown} punk 
-     * @param {Pointer<Integer>} pdwCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inamespacetreecontrol-treeadvise
      */
-    TreeAdvise(punk, pdwCookie) {
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, "ptr", punk, pdwCookieMarshal, pdwCookie, "HRESULT")
-        return result
+    TreeAdvise(punk) {
+        result := ComCall(4, this, "ptr", punk, "uint*", &pdwCookie := 0, "HRESULT")
+        return pdwCookie
     }
 
     /**
@@ -136,13 +136,12 @@ class INameSpaceTreeControl extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IShellItemArray>} ppsiaRootItems 
-     * @returns {HRESULT} 
+     * @returns {IShellItemArray} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inamespacetreecontrol-getrootitems
      */
-    GetRootItems(ppsiaRootItems) {
-        result := ComCall(10, this, "ptr*", ppsiaRootItems, "HRESULT")
-        return result
+    GetRootItems() {
+        result := ComCall(10, this, "ptr*", &ppsiaRootItems := 0, "HRESULT")
+        return IShellItemArray(ppsiaRootItems)
     }
 
     /**
@@ -162,40 +161,33 @@ class INameSpaceTreeControl extends IUnknown{
      * 
      * @param {IShellItem} psi 
      * @param {Integer} nstcisMask 
-     * @param {Pointer<Integer>} pnstcisFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inamespacetreecontrol-getitemstate
      */
-    GetItemState(psi, nstcisMask, pnstcisFlags) {
-        pnstcisFlagsMarshal := pnstcisFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, "ptr", psi, "uint", nstcisMask, pnstcisFlagsMarshal, pnstcisFlags, "HRESULT")
-        return result
+    GetItemState(psi, nstcisMask) {
+        result := ComCall(12, this, "ptr", psi, "uint", nstcisMask, "uint*", &pnstcisFlags := 0, "HRESULT")
+        return pnstcisFlags
     }
 
     /**
      * 
-     * @param {Pointer<IShellItemArray>} psiaItems 
-     * @returns {HRESULT} 
+     * @returns {IShellItemArray} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inamespacetreecontrol-getselecteditems
      */
-    GetSelectedItems(psiaItems) {
-        result := ComCall(13, this, "ptr*", psiaItems, "HRESULT")
-        return result
+    GetSelectedItems() {
+        result := ComCall(13, this, "ptr*", &psiaItems := 0, "HRESULT")
+        return IShellItemArray(psiaItems)
     }
 
     /**
      * 
      * @param {IShellItem} psi 
-     * @param {Pointer<Integer>} piStateNumber 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inamespacetreecontrol-getitemcustomstate
      */
-    GetItemCustomState(psi, piStateNumber) {
-        piStateNumberMarshal := piStateNumber is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, "ptr", psi, piStateNumberMarshal, piStateNumber, "HRESULT")
-        return result
+    GetItemCustomState(psi) {
+        result := ComCall(14, this, "ptr", psi, "int*", &piStateNumber := 0, "HRESULT")
+        return piStateNumber
     }
 
     /**
@@ -238,37 +230,35 @@ class INameSpaceTreeControl extends IUnknown{
      * 
      * @param {IShellItem} psi 
      * @param {Integer} nstcgi 
-     * @param {Pointer<IShellItem>} ppsiNext 
-     * @returns {HRESULT} 
+     * @returns {IShellItem} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inamespacetreecontrol-getnextitem
      */
-    GetNextItem(psi, nstcgi, ppsiNext) {
-        result := ComCall(18, this, "ptr", psi, "int", nstcgi, "ptr*", ppsiNext, "HRESULT")
-        return result
+    GetNextItem(psi, nstcgi) {
+        result := ComCall(18, this, "ptr", psi, "int", nstcgi, "ptr*", &ppsiNext := 0, "HRESULT")
+        return IShellItem(ppsiNext)
     }
 
     /**
      * 
      * @param {Pointer<POINT>} ppt 
-     * @param {Pointer<IShellItem>} ppsiOut 
-     * @returns {HRESULT} 
+     * @returns {IShellItem} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inamespacetreecontrol-hittest
      */
-    HitTest(ppt, ppsiOut) {
-        result := ComCall(19, this, "ptr", ppt, "ptr*", ppsiOut, "HRESULT")
-        return result
+    HitTest(ppt) {
+        result := ComCall(19, this, "ptr", ppt, "ptr*", &ppsiOut := 0, "HRESULT")
+        return IShellItem(ppsiOut)
     }
 
     /**
      * 
      * @param {IShellItem} psi 
-     * @param {Pointer<RECT>} prect 
-     * @returns {HRESULT} 
+     * @returns {RECT} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inamespacetreecontrol-getitemrect
      */
-    GetItemRect(psi, prect) {
+    GetItemRect(psi) {
+        prect := RECT()
         result := ComCall(20, this, "ptr", psi, "ptr", prect, "HRESULT")
-        return result
+        return prect
     }
 
     /**

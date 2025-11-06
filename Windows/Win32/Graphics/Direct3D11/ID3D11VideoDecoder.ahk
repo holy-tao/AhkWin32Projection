@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include .\ID3D11DeviceChild.ahk
 
 /**
@@ -49,12 +50,12 @@ class ID3D11VideoDecoder extends ID3D11DeviceChild{
 
     /**
      * 
-     * @param {Pointer<HANDLE>} pDriverHandle 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodecoder-getdriverhandle
      */
-    GetDriverHandle(pDriverHandle) {
+    GetDriverHandle() {
+        pDriverHandle := HANDLE()
         result := ComCall(8, this, "ptr", pDriverHandle, "HRESULT")
-        return result
+        return pDriverHandle
     }
 }

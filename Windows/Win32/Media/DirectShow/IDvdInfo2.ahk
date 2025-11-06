@@ -1,6 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DVD_PLAYBACK_LOCATION2.ahk
+#Include .\DVD_MenuAttributes.ahk
+#Include .\DVD_VideoAttributes.ahk
+#Include .\DVD_AudioAttributes.ahk
+#Include .\DVD_KaraokeAttributes.ahk
+#Include .\DVD_SubpictureAttributes.ahk
+#Include .\IDvdState.ahk
+#Include .\IDvdCmd.ahk
+#Include .\DVD_DECODER_CAPS.ahk
+#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,26 +42,23 @@ class IDvdInfo2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pDomain 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getcurrentdomain
      */
-    GetCurrentDomain(pDomain) {
-        pDomainMarshal := pDomain is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, pDomainMarshal, pDomain, "HRESULT")
-        return result
+    GetCurrentDomain() {
+        result := ComCall(3, this, "int*", &pDomain := 0, "HRESULT")
+        return pDomain
     }
 
     /**
      * 
-     * @param {Pointer<DVD_PLAYBACK_LOCATION2>} pLocation 
-     * @returns {HRESULT} 
+     * @returns {DVD_PLAYBACK_LOCATION2} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getcurrentlocation
      */
-    GetCurrentLocation(pLocation) {
+    GetCurrentLocation() {
+        pLocation := DVD_PLAYBACK_LOCATION2()
         result := ComCall(4, this, "ptr", pLocation, "HRESULT")
-        return result
+        return pLocation
     }
 
     /**
@@ -124,76 +131,62 @@ class IDvdInfo2 extends IUnknown{
     GetCurrentSubpicture(pulStreamsAvailable, pulCurrentStream, pbIsDisabled) {
         pulStreamsAvailableMarshal := pulStreamsAvailable is VarRef ? "uint*" : "ptr"
         pulCurrentStreamMarshal := pulCurrentStream is VarRef ? "uint*" : "ptr"
+        pbIsDisabledMarshal := pbIsDisabled is VarRef ? "int*" : "ptr"
 
-        result := ComCall(9, this, pulStreamsAvailableMarshal, pulStreamsAvailable, pulCurrentStreamMarshal, pulCurrentStream, "ptr", pbIsDisabled, "HRESULT")
+        result := ComCall(9, this, pulStreamsAvailableMarshal, pulStreamsAvailable, pulCurrentStreamMarshal, pulCurrentStream, pbIsDisabledMarshal, pbIsDisabled, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pulUOPs 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getcurrentuops
      */
-    GetCurrentUOPS(pulUOPs) {
-        pulUOPsMarshal := pulUOPs is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, pulUOPsMarshal, pulUOPs, "HRESULT")
-        return result
+    GetCurrentUOPS() {
+        result := ComCall(10, this, "uint*", &pulUOPs := 0, "HRESULT")
+        return pulUOPs
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Integer>>} pRegisterArray 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getallsprms
      */
-    GetAllSPRMs(pRegisterArray) {
-        pRegisterArrayMarshal := pRegisterArray is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(11, this, pRegisterArrayMarshal, pRegisterArray, "HRESULT")
-        return result
+    GetAllSPRMs() {
+        result := ComCall(11, this, "ptr*", &pRegisterArray := 0, "HRESULT")
+        return pRegisterArray
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Integer>>} pRegisterArray 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getallgprms
      */
-    GetAllGPRMs(pRegisterArray) {
-        pRegisterArrayMarshal := pRegisterArray is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(12, this, pRegisterArrayMarshal, pRegisterArray, "HRESULT")
-        return result
+    GetAllGPRMs() {
+        result := ComCall(12, this, "ptr*", &pRegisterArray := 0, "HRESULT")
+        return pRegisterArray
     }
 
     /**
      * 
      * @param {Integer} ulStream 
-     * @param {Pointer<Integer>} pLanguage 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getaudiolanguage
      */
-    GetAudioLanguage(ulStream, pLanguage) {
-        pLanguageMarshal := pLanguage is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(13, this, "uint", ulStream, pLanguageMarshal, pLanguage, "HRESULT")
-        return result
+    GetAudioLanguage(ulStream) {
+        result := ComCall(13, this, "uint", ulStream, "uint*", &pLanguage := 0, "HRESULT")
+        return pLanguage
     }
 
     /**
      * 
      * @param {Integer} ulStream 
-     * @param {Pointer<Integer>} pLanguage 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getsubpicturelanguage
      */
-    GetSubpictureLanguage(ulStream, pLanguage) {
-        pLanguageMarshal := pLanguage is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, "uint", ulStream, pLanguageMarshal, pLanguage, "HRESULT")
-        return result
+    GetSubpictureLanguage(ulStream) {
+        result := ComCall(14, this, "uint", ulStream, "uint*", &pLanguage := 0, "HRESULT")
+        return pLanguage
     }
 
     /**
@@ -211,60 +204,60 @@ class IDvdInfo2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<DVD_MenuAttributes>} pATR 
-     * @returns {HRESULT} 
+     * @returns {DVD_MenuAttributes} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getvmgattributes
      */
-    GetVMGAttributes(pATR) {
+    GetVMGAttributes() {
+        pATR := DVD_MenuAttributes()
         result := ComCall(16, this, "ptr", pATR, "HRESULT")
-        return result
+        return pATR
     }
 
     /**
      * 
-     * @param {Pointer<DVD_VideoAttributes>} pATR 
-     * @returns {HRESULT} 
+     * @returns {DVD_VideoAttributes} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getcurrentvideoattributes
      */
-    GetCurrentVideoAttributes(pATR) {
+    GetCurrentVideoAttributes() {
+        pATR := DVD_VideoAttributes()
         result := ComCall(17, this, "ptr", pATR, "HRESULT")
-        return result
+        return pATR
     }
 
     /**
      * 
      * @param {Integer} ulStream 
-     * @param {Pointer<DVD_AudioAttributes>} pATR 
-     * @returns {HRESULT} 
+     * @returns {DVD_AudioAttributes} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getaudioattributes
      */
-    GetAudioAttributes(ulStream, pATR) {
+    GetAudioAttributes(ulStream) {
+        pATR := DVD_AudioAttributes()
         result := ComCall(18, this, "uint", ulStream, "ptr", pATR, "HRESULT")
-        return result
+        return pATR
     }
 
     /**
      * 
      * @param {Integer} ulStream 
-     * @param {Pointer<DVD_KaraokeAttributes>} pAttributes 
-     * @returns {HRESULT} 
+     * @returns {DVD_KaraokeAttributes} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getkaraokeattributes
      */
-    GetKaraokeAttributes(ulStream, pAttributes) {
+    GetKaraokeAttributes(ulStream) {
+        pAttributes := DVD_KaraokeAttributes()
         result := ComCall(19, this, "uint", ulStream, "ptr", pAttributes, "HRESULT")
-        return result
+        return pAttributes
     }
 
     /**
      * 
      * @param {Integer} ulStream 
-     * @param {Pointer<DVD_SubpictureAttributes>} pATR 
-     * @returns {HRESULT} 
+     * @returns {DVD_SubpictureAttributes} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getsubpictureattributes
      */
-    GetSubpictureAttributes(ulStream, pATR) {
+    GetSubpictureAttributes(ulStream) {
+        pATR := DVD_SubpictureAttributes()
         result := ComCall(20, this, "uint", ulStream, "ptr", pATR, "HRESULT")
-        return result
+        return pATR
     }
 
     /**
@@ -288,15 +281,12 @@ class IDvdInfo2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pulNumOfLangs 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getdvdtextnumberoflanguages
      */
-    GetDVDTextNumberOfLanguages(pulNumOfLangs) {
-        pulNumOfLangsMarshal := pulNumOfLangs is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(22, this, pulNumOfLangsMarshal, pulNumOfLangs, "HRESULT")
-        return result
+    GetDVDTextNumberOfLanguages() {
+        result := ComCall(22, this, "uint*", &pulNumOfLangs := 0, "HRESULT")
+        return pulNumOfLangs
     }
 
     /**
@@ -376,85 +366,71 @@ class IDvdInfo2 extends IUnknown{
     /**
      * 
      * @param {Integer} ulTitle 
-     * @param {Pointer<Integer>} pulNumOfChapters 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getnumberofchapters
      */
-    GetNumberOfChapters(ulTitle, pulNumOfChapters) {
-        pulNumOfChaptersMarshal := pulNumOfChapters is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(27, this, "uint", ulTitle, pulNumOfChaptersMarshal, pulNumOfChapters, "HRESULT")
-        return result
+    GetNumberOfChapters(ulTitle) {
+        result := ComCall(27, this, "uint", ulTitle, "uint*", &pulNumOfChapters := 0, "HRESULT")
+        return pulNumOfChapters
     }
 
     /**
      * 
      * @param {Integer} ulTitle 
-     * @param {Pointer<Integer>} pulParentalLevels 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-gettitleparentallevels
      */
-    GetTitleParentalLevels(ulTitle, pulParentalLevels) {
-        pulParentalLevelsMarshal := pulParentalLevels is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(28, this, "uint", ulTitle, pulParentalLevelsMarshal, pulParentalLevels, "HRESULT")
-        return result
+    GetTitleParentalLevels(ulTitle) {
+        result := ComCall(28, this, "uint", ulTitle, "uint*", &pulParentalLevels := 0, "HRESULT")
+        return pulParentalLevels
     }
 
     /**
      * 
      * @param {PWSTR} pszwPath 
      * @param {Integer} ulMaxSize 
-     * @param {Pointer<Integer>} pulActualSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getdvddirectory
      */
-    GetDVDDirectory(pszwPath, ulMaxSize, pulActualSize) {
+    GetDVDDirectory(pszwPath, ulMaxSize) {
         pszwPath := pszwPath is String ? StrPtr(pszwPath) : pszwPath
 
-        pulActualSizeMarshal := pulActualSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(29, this, "ptr", pszwPath, "uint", ulMaxSize, pulActualSizeMarshal, pulActualSize, "HRESULT")
-        return result
+        result := ComCall(29, this, "ptr", pszwPath, "uint", ulMaxSize, "uint*", &pulActualSize := 0, "HRESULT")
+        return pulActualSize
     }
 
     /**
      * 
      * @param {Integer} ulStreamNum 
-     * @param {Pointer<BOOL>} pbEnabled 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-isaudiostreamenabled
      */
-    IsAudioStreamEnabled(ulStreamNum, pbEnabled) {
-        result := ComCall(30, this, "uint", ulStreamNum, "ptr", pbEnabled, "HRESULT")
-        return result
+    IsAudioStreamEnabled(ulStreamNum) {
+        result := ComCall(30, this, "uint", ulStreamNum, "int*", &pbEnabled := 0, "HRESULT")
+        return pbEnabled
     }
 
     /**
      * 
      * @param {PWSTR} pszwPath 
-     * @param {Pointer<Integer>} pullDiscID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getdiscid
      */
-    GetDiscID(pszwPath, pullDiscID) {
+    GetDiscID(pszwPath) {
         pszwPath := pszwPath is String ? StrPtr(pszwPath) : pszwPath
 
-        pullDiscIDMarshal := pullDiscID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(31, this, "ptr", pszwPath, pullDiscIDMarshal, pullDiscID, "HRESULT")
-        return result
+        result := ComCall(31, this, "ptr", pszwPath, "uint*", &pullDiscID := 0, "HRESULT")
+        return pullDiscID
     }
 
     /**
      * 
-     * @param {Pointer<IDvdState>} pStateData 
-     * @returns {HRESULT} 
+     * @returns {IDvdState} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getstate
      */
-    GetState(pStateData) {
-        result := ComCall(32, this, "ptr*", pStateData, "HRESULT")
-        return result
+    GetState() {
+        result := ComCall(32, this, "ptr*", &pStateData := 0, "HRESULT")
+        return IDvdState(pStateData)
     }
 
     /**
@@ -476,40 +452,33 @@ class IDvdInfo2 extends IUnknown{
     /**
      * 
      * @param {POINT} point 
-     * @param {Pointer<Integer>} pulButtonIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getbuttonatposition
      */
-    GetButtonAtPosition(point, pulButtonIndex) {
-        pulButtonIndexMarshal := pulButtonIndex is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(34, this, "ptr", point, pulButtonIndexMarshal, pulButtonIndex, "HRESULT")
-        return result
+    GetButtonAtPosition(point) {
+        result := ComCall(34, this, "ptr", point, "uint*", &pulButtonIndex := 0, "HRESULT")
+        return pulButtonIndex
     }
 
     /**
      * 
      * @param {Pointer} lParam1 
-     * @param {Pointer<IDvdCmd>} pCmdObj 
-     * @returns {HRESULT} 
+     * @returns {IDvdCmd} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getcmdfromevent
      */
-    GetCmdFromEvent(lParam1, pCmdObj) {
-        result := ComCall(35, this, "ptr", lParam1, "ptr*", pCmdObj, "HRESULT")
-        return result
+    GetCmdFromEvent(lParam1) {
+        result := ComCall(35, this, "ptr", lParam1, "ptr*", &pCmdObj := 0, "HRESULT")
+        return IDvdCmd(pCmdObj)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pLanguage 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getdefaultmenulanguage
      */
-    GetDefaultMenuLanguage(pLanguage) {
-        pLanguageMarshal := pLanguage is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(36, this, pLanguageMarshal, pLanguage, "HRESULT")
-        return result
+    GetDefaultMenuLanguage() {
+        result := ComCall(36, this, "uint*", &pLanguage := 0, "HRESULT")
+        return pLanguage
     }
 
     /**
@@ -544,36 +513,35 @@ class IDvdInfo2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<DVD_DECODER_CAPS>} pCaps 
-     * @returns {HRESULT} 
+     * @returns {DVD_DECODER_CAPS} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getdecodercaps
      */
-    GetDecoderCaps(pCaps) {
+    GetDecoderCaps() {
+        pCaps := DVD_DECODER_CAPS()
         result := ComCall(39, this, "ptr", pCaps, "HRESULT")
-        return result
+        return pCaps
     }
 
     /**
      * 
      * @param {Integer} ulButton 
-     * @param {Pointer<RECT>} pRect 
-     * @returns {HRESULT} 
+     * @returns {RECT} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-getbuttonrect
      */
-    GetButtonRect(ulButton, pRect) {
+    GetButtonRect(ulButton) {
+        pRect := RECT()
         result := ComCall(40, this, "uint", ulButton, "ptr", pRect, "HRESULT")
-        return result
+        return pRect
     }
 
     /**
      * 
      * @param {Integer} ulStreamNum 
-     * @param {Pointer<BOOL>} pbEnabled 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdinfo2-issubpicturestreamenabled
      */
-    IsSubpictureStreamEnabled(ulStreamNum, pbEnabled) {
-        result := ComCall(41, this, "uint", ulStreamNum, "ptr", pbEnabled, "HRESULT")
-        return result
+    IsSubpictureStreamEnabled(ulStreamNum) {
+        result := ComCall(41, this, "uint", ulStreamNum, "int*", &pbEnabled := 0, "HRESULT")
+        return pbEnabled
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,12 +33,12 @@ class IUIImage extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HBITMAP>} bitmap 
-     * @returns {HRESULT} 
+     * @returns {HBITMAP} 
      * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuiimage-getbitmap
      */
-    GetBitmap(bitmap) {
+    GetBitmap() {
+        bitmap := HBITMAP()
         result := ComCall(3, this, "ptr", bitmap, "HRESULT")
-        return result
+        return bitmap
     }
 }

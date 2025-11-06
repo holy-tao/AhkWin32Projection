@@ -31,42 +31,42 @@ class IShellUIHelper8 extends IShellUIHelper7{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrResult 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetCVListData(pbstrResult) {
+    GetCVListData() {
+        pbstrResult := BSTR()
         result := ComCall(97, this, "ptr", pbstrResult, "HRESULT")
-        return result
+        return pbstrResult
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrResult 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetCVListLocalData(pbstrResult) {
+    GetCVListLocalData() {
+        pbstrResult := BSTR()
         result := ComCall(98, this, "ptr", pbstrResult, "HRESULT")
-        return result
+        return pbstrResult
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrResult 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetEMIEListData(pbstrResult) {
+    GetEMIEListData() {
+        pbstrResult := BSTR()
         result := ComCall(99, this, "ptr", pbstrResult, "HRESULT")
-        return result
+        return pbstrResult
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrResult 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetEMIEListLocalData(pbstrResult) {
+    GetEMIEListLocalData() {
+        pbstrResult := BSTR()
         result := ComCall(100, this, "ptr", pbstrResult, "HRESULT")
-        return result
+        return pbstrResult
     }
 
     /**

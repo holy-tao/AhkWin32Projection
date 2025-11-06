@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -41,13 +42,13 @@ class IWbemStatusCodeText extends IUnknown{
      * @param {HRESULT} hRes 
      * @param {Integer} LocaleId 
      * @param {Integer} lFlags 
-     * @param {Pointer<BSTR>} MessageText 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemstatuscodetext-geterrorcodetext
      */
-    GetErrorCodeText(hRes, LocaleId, lFlags, MessageText) {
+    GetErrorCodeText(hRes, LocaleId, lFlags) {
+        MessageText := BSTR()
         result := ComCall(3, this, "int", hRes, "uint", LocaleId, "int", lFlags, "ptr", MessageText, "HRESULT")
-        return result
+        return MessageText
     }
 
     /**
@@ -55,12 +56,12 @@ class IWbemStatusCodeText extends IUnknown{
      * @param {HRESULT} hRes 
      * @param {Integer} LocaleId 
      * @param {Integer} lFlags 
-     * @param {Pointer<BSTR>} MessageText 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemstatuscodetext-getfacilitycodetext
      */
-    GetFacilityCodeText(hRes, LocaleId, lFlags, MessageText) {
+    GetFacilityCodeText(hRes, LocaleId, lFlags) {
+        MessageText := BSTR()
         result := ComCall(4, this, "int", hRes, "uint", LocaleId, "int", lFlags, "ptr", MessageText, "HRESULT")
-        return result
+        return MessageText
     }
 }

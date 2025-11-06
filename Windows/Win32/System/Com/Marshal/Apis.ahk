@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
+#Include .\IMarshal.ahk
+#Include ..\IUnknown.ahk
+#Include ..\IStream.ahk
 
 /**
  * @namespace Windows.Win32.System.Com.Marshal
@@ -38,7 +41,7 @@ class Marshal {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLEAUT32.dll\BSTR_UserMarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLEAUT32.dll\BSTR_UserMarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -83,7 +86,7 @@ class Marshal {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLEAUT32.dll\BSTR_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLEAUT32.dll\BSTR_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -127,7 +130,7 @@ class Marshal {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLE32.dll\HWND_UserMarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLE32.dll\HWND_UserMarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -143,7 +146,7 @@ class Marshal {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLE32.dll\HWND_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLE32.dll\HWND_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -189,7 +192,7 @@ class Marshal {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLEAUT32.dll\BSTR_UserMarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLEAUT32.dll\BSTR_UserMarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -235,7 +238,7 @@ class Marshal {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLEAUT32.dll\BSTR_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLEAUT32.dll\BSTR_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -280,7 +283,7 @@ class Marshal {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLE32.dll\HWND_UserMarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLE32.dll\HWND_UserMarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -296,7 +299,7 @@ class Marshal {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLE32.dll\HWND_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLE32.dll\HWND_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -342,7 +345,7 @@ class Marshal {
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
         param2Marshal := param2 is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("OLE32.dll\CLIPFORMAT_UserMarshal", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, "char*")
+        result := DllCall("OLE32.dll\CLIPFORMAT_UserMarshal", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, "ptr")
         return result
     }
 
@@ -359,7 +362,7 @@ class Marshal {
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
         param2Marshal := param2 is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("OLE32.dll\CLIPFORMAT_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, "char*")
+        result := DllCall("OLE32.dll\CLIPFORMAT_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, "ptr")
         return result
     }
 
@@ -404,7 +407,7 @@ class Marshal {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLE32.dll\HBITMAP_UserMarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLE32.dll\HBITMAP_UserMarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -420,7 +423,7 @@ class Marshal {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLE32.dll\HBITMAP_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLE32.dll\HBITMAP_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -464,7 +467,7 @@ class Marshal {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLE32.dll\HDC_UserMarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLE32.dll\HDC_UserMarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -480,7 +483,7 @@ class Marshal {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLE32.dll\HDC_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLE32.dll\HDC_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -522,7 +525,7 @@ class Marshal {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLE32.dll\HICON_UserMarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLE32.dll\HICON_UserMarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -537,7 +540,7 @@ class Marshal {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLE32.dll\HICON_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLE32.dll\HICON_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -580,7 +583,7 @@ class Marshal {
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
         param2Marshal := param2 is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ole32.dll\SNB_UserMarshal", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, "char*")
+        result := DllCall("ole32.dll\SNB_UserMarshal", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, "ptr")
         return result
     }
 
@@ -596,7 +599,7 @@ class Marshal {
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
         param2Marshal := param2 is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ole32.dll\SNB_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, "char*")
+        result := DllCall("ole32.dll\SNB_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, "ptr")
         return result
     }
 
@@ -640,7 +643,7 @@ class Marshal {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLE32.dll\STGMEDIUM_UserMarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLE32.dll\STGMEDIUM_UserMarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -656,7 +659,7 @@ class Marshal {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLE32.dll\STGMEDIUM_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLE32.dll\STGMEDIUM_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -702,7 +705,7 @@ class Marshal {
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
         param2Marshal := param2 is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("OLE32.dll\CLIPFORMAT_UserMarshal64", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, "char*")
+        result := DllCall("OLE32.dll\CLIPFORMAT_UserMarshal64", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, "ptr")
         return result
     }
 
@@ -719,7 +722,7 @@ class Marshal {
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
         param2Marshal := param2 is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("OLE32.dll\CLIPFORMAT_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, "char*")
+        result := DllCall("OLE32.dll\CLIPFORMAT_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, "ptr")
         return result
     }
 
@@ -764,7 +767,7 @@ class Marshal {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLE32.dll\HBITMAP_UserMarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLE32.dll\HBITMAP_UserMarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -780,7 +783,7 @@ class Marshal {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLE32.dll\HBITMAP_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLE32.dll\HBITMAP_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -824,7 +827,7 @@ class Marshal {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLE32.dll\HDC_UserMarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLE32.dll\HDC_UserMarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -840,7 +843,7 @@ class Marshal {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLE32.dll\HDC_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLE32.dll\HDC_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -882,7 +885,7 @@ class Marshal {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLE32.dll\HICON_UserMarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLE32.dll\HICON_UserMarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -897,7 +900,7 @@ class Marshal {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLE32.dll\HICON_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLE32.dll\HICON_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -940,7 +943,7 @@ class Marshal {
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
         param2Marshal := param2 is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ole32.dll\SNB_UserMarshal64", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, "char*")
+        result := DllCall("ole32.dll\SNB_UserMarshal64", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, "ptr")
         return result
     }
 
@@ -956,7 +959,7 @@ class Marshal {
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
         param2Marshal := param2 is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ole32.dll\SNB_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, "char*")
+        result := DllCall("ole32.dll\SNB_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, "ptr")
         return result
     }
 
@@ -1000,7 +1003,7 @@ class Marshal {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLE32.dll\STGMEDIUM_UserMarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLE32.dll\STGMEDIUM_UserMarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -1016,7 +1019,7 @@ class Marshal {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLE32.dll\STGMEDIUM_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLE32.dll\STGMEDIUM_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -1035,54 +1038,23 @@ class Marshal {
 
     /**
      * Returns an upper bound on the number of bytes needed to marshal the specified interface pointer to the specified object.
-     * @param {Pointer<Integer>} pulSize A pointer to the upper-bound value on the size, in bytes, of the data packet to be written to the marshaling stream. If this parameter is 0, the size of the packet is unknown.
      * @param {Pointer<Guid>} riid A reference to the identifier of the interface whose pointer is to be marshaled. This interface must be derived from the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface.
      * @param {IUnknown} pUnk A pointer to the interface to be marshaled. This interface must be derived from the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface.
      * @param {Integer} dwDestContext The destination context where the specified interface is to be unmarshaled. Values for <i>dwDestContext</i> come from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshctx">MSHCTX</a>.
      * @param {Pointer<Void>} pvDestContext This parameter is reserved and must be <b>NULL</b>.
      * @param {Integer} mshlflags Indicates whether the data to be marshaled is to be transmitted back to the client processthe normal case or written to a global table, where it can be retrieved by multiple clients. Values come from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshlflags">MSHLFLAGS</a>.
-     * @returns {HRESULT} This function can return the standard return value E_UNEXPECTED, as well as the following values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The upper bound was returned successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>CO_E_NOTINITIALIZED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Before this function can be called, either the <a href="/windows/desktop/api/objbase/nf-objbase-coinitialize">CoInitialize</a> or <a href="/windows/desktop/api/ole2/nf-ole2-oleinitialize">OleInitialize</a> function must be called.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} A pointer to the upper-bound value on the size, in bytes, of the data packet to be written to the marshaling stream. If this parameter is 0, the size of the packet is unknown.
      * @see https://docs.microsoft.com/windows/win32/api//combaseapi/nf-combaseapi-cogetmarshalsizemax
      * @since windows5.0
      */
-    static CoGetMarshalSizeMax(pulSize, riid, pUnk, dwDestContext, pvDestContext, mshlflags) {
-        pulSizeMarshal := pulSize is VarRef ? "uint*" : "ptr"
+    static CoGetMarshalSizeMax(riid, pUnk, dwDestContext, pvDestContext, mshlflags) {
         pvDestContextMarshal := pvDestContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("OLE32.dll\CoGetMarshalSizeMax", pulSizeMarshal, pulSize, "ptr", riid, "ptr", pUnk, "uint", dwDestContext, pvDestContextMarshal, pvDestContext, "uint", mshlflags, "int")
+        result := DllCall("OLE32.dll\CoGetMarshalSizeMax", "uint*", &pulSize := 0, "ptr", riid, "ptr", pUnk, "uint", dwDestContext, pvDestContextMarshal, pvDestContext, "uint", mshlflags, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pulSize
     }
 
     /**
@@ -1140,92 +1112,16 @@ class Marshal {
      * Initializes a newly created proxy using data written into the stream by a previous call to the CoMarshalInterface function, and returns an interface pointer to that proxy.
      * @param {IStream} pStm A pointer to the stream from which the interface is to be unmarshaled.
      * @param {Pointer<Guid>} riid A reference to the identifier of the interface to be unmarshaled. For <b>IID_NULL</b>, the returned interface is the one defined by the stream, objref.iid.
-     * @param {Pointer<Pointer<Void>>} ppv The address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppv</i> contains the requested interface pointer for the unmarshaled interface.
-     * @returns {HRESULT} This function can return the standard return value E_FAIL, errors returned by <a href="/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a>, and the following values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The interface pointer was unmarshaled successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>STG_E_INVALIDPOINTER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * <i>pStm</i> is an invalid pointer.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>CO_E_NOTINITIALIZED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <a href="/windows/desktop/api/objbase/nf-objbase-coinitialize">CoInitialize</a> or <a href="/windows/desktop/api/ole2/nf-ole2-oleinitialize">OleInitialize</a> function was not called on the current thread before this function was called.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>CO_E_OBJNOTCONNECTED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The object application has been disconnected from the remoting system (for example, as a result of a call to the <a href="/windows/desktop/api/combaseapi/nf-combaseapi-codisconnectobject">CoDisconnectObject</a> function).
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>REGDB_E_CLASSNOTREG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An error occurred reading the registration database.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_NOINTERFACE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The final <a href="/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> of this function for the requested interface returned E_NOINTERFACE.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Void>} The address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppv</i> contains the requested interface pointer for the unmarshaled interface.
      * @see https://docs.microsoft.com/windows/win32/api//combaseapi/nf-combaseapi-counmarshalinterface
      * @since windows5.0
      */
-    static CoUnmarshalInterface(pStm, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("OLE32.dll\CoUnmarshalInterface", "ptr", pStm, "ptr", riid, ppvMarshal, ppv, "int")
+    static CoUnmarshalInterface(pStm, riid) {
+        result := DllCall("OLE32.dll\CoUnmarshalInterface", "ptr", pStm, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -1287,47 +1183,16 @@ class Marshal {
     /**
      * Unmarshals an HRESULT type from the specified stream.
      * @param {IStream} pstm A pointer to the stream from which the <b>HRESULT</b> is to be unmarshaled.
-     * @param {Pointer<HRESULT>} phresult A pointer to the unmarshaled <b>HRESULT</b>.
-     * @returns {HRESULT} This function can return the standard return values E_OUTOFMEMORY and E_UNEXPECTED, as well as the following values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <b>HRESULT</b> was unmarshaled successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>STG_E_INVALIDPOINTER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * <i>pStm</i> is an invalid pointer.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {HRESULT} A pointer to the unmarshaled <b>HRESULT</b>.
      * @see https://docs.microsoft.com/windows/win32/api//combaseapi/nf-combaseapi-counmarshalhresult
      * @since windows5.0
      */
-    static CoUnmarshalHresult(pstm, phresult) {
-        result := DllCall("OLE32.dll\CoUnmarshalHresult", "ptr", pstm, "ptr", phresult, "int")
+    static CoUnmarshalHresult(pstm) {
+        result := DllCall("OLE32.dll\CoUnmarshalHresult", "ptr", pstm, "int*", &phresult := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return phresult
     }
 
     /**
@@ -1393,48 +1258,18 @@ class Marshal {
      * @param {Integer} dwDestContext The destination context where the specified interface is to be unmarshaled. Values come from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshctx">MSHCTX</a>. Unmarshaling can occur either in another apartment of the current process (MSHCTX_INPROC) or in another process on the same computer as the current process (MSHCTX_LOCAL).
      * @param {Pointer<Void>} pvDestContext This parameter is reserved and must be <b>NULL</b>.
      * @param {Integer} mshlflags Indicates whether the data to be marshaled is to be transmitted back to the client process (the normal case) or written to a global table where it can be retrieved by multiple clients. Values come from the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshlflags">MSHLFLAGS</a> enumeration.
-     * @param {Pointer<IMarshal>} ppMarshal The address of <b>IMarshal*</b> pointer variable that receives the interface pointer to the standard marshaler.
-     * @returns {HRESULT} This function can return the standard return values E_FAIL, E_OUTOFMEMORY, and E_UNEXPECTED, as well as the following values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <a href="/windows/desktop/api/objidl/nn-objidl-imarshal">IMarshal</a> instance was returned successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>CO_E_NOTINITIALIZED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Before this function can be called, the <a href="/windows/desktop/api/objbase/nf-objbase-coinitialize">CoInitialize</a> or <a href="/windows/desktop/api/ole2/nf-ole2-oleinitialize">OleInitialize</a> function must be called on the current thread.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {IMarshal} The address of <b>IMarshal*</b> pointer variable that receives the interface pointer to the standard marshaler.
      * @see https://docs.microsoft.com/windows/win32/api//combaseapi/nf-combaseapi-cogetstandardmarshal
      * @since windows5.0
      */
-    static CoGetStandardMarshal(riid, pUnk, dwDestContext, pvDestContext, mshlflags, ppMarshal) {
+    static CoGetStandardMarshal(riid, pUnk, dwDestContext, pvDestContext, mshlflags) {
         pvDestContextMarshal := pvDestContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("OLE32.dll\CoGetStandardMarshal", "ptr", riid, "ptr", pUnk, "uint", dwDestContext, pvDestContextMarshal, pvDestContext, "uint", mshlflags, "ptr*", ppMarshal, "int")
+        result := DllCall("OLE32.dll\CoGetStandardMarshal", "ptr", riid, "ptr", pUnk, "uint", dwDestContext, pvDestContextMarshal, pvDestContext, "uint", mshlflags, "ptr*", &ppMarshal := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IMarshal(ppMarshal)
     }
 
     /**
@@ -1470,34 +1305,32 @@ class Marshal {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<IUnknown>} ppUnkInner On successful return, address of pointer to the <a href="https://docs.microsoft.com/windows/desktop/com/iunknown-and-interface-inheritance">IUnknown</a> interface on the newly-created aggregated standard marshaler. If an error occurs, this value is <b>NULL</b>.
-     * @returns {HRESULT} This function returns S_OK.
+     * @returns {IUnknown} On successful return, address of pointer to the <a href="https://docs.microsoft.com/windows/desktop/com/iunknown-and-interface-inheritance">IUnknown</a> interface on the newly-created aggregated standard marshaler. If an error occurs, this value is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//combaseapi/nf-combaseapi-cogetstdmarshalex
      * @since windows5.0
      */
-    static CoGetStdMarshalEx(pUnkOuter, smexflags, ppUnkInner) {
-        result := DllCall("OLE32.dll\CoGetStdMarshalEx", "ptr", pUnkOuter, "uint", smexflags, "ptr*", ppUnkInner, "int")
+    static CoGetStdMarshalEx(pUnkOuter, smexflags) {
+        result := DllCall("OLE32.dll\CoGetStdMarshalEx", "ptr", pUnkOuter, "uint", smexflags, "ptr*", &ppUnkInner := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IUnknown(ppUnkInner)
     }
 
     /**
      * Marshals an interface pointer from one thread to another thread in the same process.
      * @param {Pointer<Guid>} riid A reference to the identifier of the interface to be marshaled.
      * @param {IUnknown} pUnk A pointer to the interface to be marshaled, which must be derived from <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>. This parameter can be <b>NULL</b>.
-     * @param {Pointer<IStream>} ppStm The address of the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>* pointer variable that receives the interface pointer to the stream that contains the marshaled interface.
-     * @returns {HRESULT} This function can return the standard return values E_OUTOFMEMORY and S_OK.
+     * @returns {IStream} The address of the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>* pointer variable that receives the interface pointer to the stream that contains the marshaled interface.
      * @see https://docs.microsoft.com/windows/win32/api//combaseapi/nf-combaseapi-comarshalinterthreadinterfaceinstream
      * @since windows5.0
      */
-    static CoMarshalInterThreadInterfaceInStream(riid, pUnk, ppStm) {
-        result := DllCall("OLE32.dll\CoMarshalInterThreadInterfaceInStream", "ptr", riid, "ptr", pUnk, "ptr*", ppStm, "int")
+    static CoMarshalInterThreadInterfaceInStream(riid, pUnk) {
+        result := DllCall("OLE32.dll\CoMarshalInterThreadInterfaceInStream", "ptr", riid, "ptr", pUnk, "ptr*", &ppStm := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IStream(ppStm)
     }
 
     /**
@@ -1576,7 +1409,7 @@ class Marshal {
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
         param2Marshal := param2 is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("OLEAUT32.dll\LPSAFEARRAY_UserMarshal", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, "char*")
+        result := DllCall("OLEAUT32.dll\LPSAFEARRAY_UserMarshal", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, "ptr")
         return result
     }
 
@@ -1661,7 +1494,7 @@ class Marshal {
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
         param2Marshal := param2 is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("OLEAUT32.dll\LPSAFEARRAY_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, "char*")
+        result := DllCall("OLEAUT32.dll\LPSAFEARRAY_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, "ptr")
         return result
     }
 
@@ -1757,7 +1590,7 @@ class Marshal {
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
         param2Marshal := param2 is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("OLEAUT32.dll\LPSAFEARRAY_UserMarshal64", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, "char*")
+        result := DllCall("OLEAUT32.dll\LPSAFEARRAY_UserMarshal64", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, "ptr")
         return result
     }
 
@@ -1843,7 +1676,7 @@ class Marshal {
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
         param2Marshal := param2 is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("OLEAUT32.dll\LPSAFEARRAY_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, "char*")
+        result := DllCall("OLEAUT32.dll\LPSAFEARRAY_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, param2Marshal, param2, "ptr")
         return result
     }
 
@@ -1889,7 +1722,7 @@ class Marshal {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLE32.dll\HACCEL_UserMarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLE32.dll\HACCEL_UserMarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -1905,7 +1738,7 @@ class Marshal {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLE32.dll\HACCEL_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLE32.dll\HACCEL_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -1949,7 +1782,7 @@ class Marshal {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLE32.dll\HGLOBAL_UserMarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLE32.dll\HGLOBAL_UserMarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -1965,7 +1798,7 @@ class Marshal {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLE32.dll\HGLOBAL_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLE32.dll\HGLOBAL_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -2008,7 +1841,7 @@ class Marshal {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLE32.dll\HMENU_UserMarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLE32.dll\HMENU_UserMarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -2024,7 +1857,7 @@ class Marshal {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLE32.dll\HMENU_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLE32.dll\HMENU_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -2068,7 +1901,7 @@ class Marshal {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLE32.dll\HACCEL_UserMarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLE32.dll\HACCEL_UserMarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -2084,7 +1917,7 @@ class Marshal {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLE32.dll\HACCEL_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLE32.dll\HACCEL_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -2128,7 +1961,7 @@ class Marshal {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLE32.dll\HGLOBAL_UserMarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLE32.dll\HGLOBAL_UserMarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -2144,7 +1977,7 @@ class Marshal {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLE32.dll\HGLOBAL_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLE32.dll\HGLOBAL_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -2188,7 +2021,7 @@ class Marshal {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLE32.dll\HMENU_UserMarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLE32.dll\HMENU_UserMarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -2204,7 +2037,7 @@ class Marshal {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLE32.dll\HMENU_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLE32.dll\HMENU_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -2248,7 +2081,7 @@ class Marshal {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLE32.dll\HPALETTE_UserMarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLE32.dll\HPALETTE_UserMarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -2264,7 +2097,7 @@ class Marshal {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLE32.dll\HPALETTE_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLE32.dll\HPALETTE_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -2308,7 +2141,7 @@ class Marshal {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLE32.dll\HPALETTE_UserMarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLE32.dll\HPALETTE_UserMarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -2324,7 +2157,7 @@ class Marshal {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLE32.dll\HPALETTE_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLE32.dll\HPALETTE_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 

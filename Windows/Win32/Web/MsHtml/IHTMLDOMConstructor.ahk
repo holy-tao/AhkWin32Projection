@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -31,38 +32,37 @@ class IHTMLDOMConstructor extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_constructor(p) {
-        result := ComCall(7, this, "ptr*", p, "HRESULT")
-        return result
+    get_constructor() {
+        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
      * @param {BSTR} propname 
-     * @param {Pointer<VARIANT>} ppDispHandler 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    LookupGetter(propname, ppDispHandler) {
+    LookupGetter(propname) {
         propname := propname is String ? BSTR.Alloc(propname).Value : propname
 
+        ppDispHandler := VARIANT()
         result := ComCall(8, this, "ptr", propname, "ptr", ppDispHandler, "HRESULT")
-        return result
+        return ppDispHandler
     }
 
     /**
      * 
      * @param {BSTR} propname 
-     * @param {Pointer<VARIANT>} ppDispHandler 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    LookupSetter(propname, ppDispHandler) {
+    LookupSetter(propname) {
         propname := propname is String ? BSTR.Alloc(propname).Value : propname
 
+        ppDispHandler := VARIANT()
         result := ComCall(9, this, "ptr", propname, "ptr", ppDispHandler, "HRESULT")
-        return result
+        return ppDispHandler
     }
 
     /**

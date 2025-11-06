@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITQueue.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,25 +33,21 @@ class ITQueueEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ITQueue>} ppQueue 
-     * @returns {HRESULT} 
+     * @returns {ITQueue} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itqueueevent-get_queue
      */
-    get_Queue(ppQueue) {
-        result := ComCall(7, this, "ptr*", ppQueue, "HRESULT")
-        return result
+    get_Queue() {
+        result := ComCall(7, this, "ptr*", &ppQueue := 0, "HRESULT")
+        return ITQueue(ppQueue)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pEvent 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itqueueevent-get_event
      */
-    get_Event(pEvent) {
-        pEventMarshal := pEvent is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pEventMarshal, pEvent, "HRESULT")
-        return result
+    get_Event() {
+        result := ComCall(8, this, "int*", &pEvent := 0, "HRESULT")
+        return pEvent
     }
 }

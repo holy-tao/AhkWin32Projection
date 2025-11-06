@@ -51,13 +51,12 @@ class ISpCFGInterpreterSite extends IUnknown{
     /**
      * 
      * @param {PWSTR} pszResourceName 
-     * @param {Pointer<PWSTR>} ppCoMemResource 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetResourceValue(pszResourceName, ppCoMemResource) {
+    GetResourceValue(pszResourceName) {
         pszResourceName := pszResourceName is String ? StrPtr(pszResourceName) : pszResourceName
 
-        result := ComCall(5, this, "ptr", pszResourceName, "ptr", ppCoMemResource, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", pszResourceName, "ptr*", &ppCoMemResource := 0, "HRESULT")
+        return ppCoMemResource
     }
 }

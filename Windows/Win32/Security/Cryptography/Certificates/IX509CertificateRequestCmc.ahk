@@ -2,6 +2,13 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IObjectId.ahk
+#Include .\ICryptAttributes.ahk
+#Include .\IX509NameValuePairs.ahk
+#Include .\IX509Extensions.ahk
+#Include .\IObjectIds.ahk
+#Include .\IX509SignatureInformation.ahk
+#Include .\ISignerCertificates.ahk
 #Include .\IX509CertificateRequestPkcs7.ahk
 
 /**
@@ -47,92 +54,82 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
 
     /**
      * 
-     * @param {Pointer<IObjectId>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IObjectId} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_templateobjectid
      */
-    get_TemplateObjectId(ppValue) {
-        result := ComCall(41, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_TemplateObjectId() {
+        result := ComCall(41, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IObjectId(ppValue)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_nullsigned
      */
-    get_NullSigned(pValue) {
-        result := ComCall(42, this, "ptr", pValue, "HRESULT")
-        return result
+    get_NullSigned() {
+        result := ComCall(42, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<ICryptAttributes>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {ICryptAttributes} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_cryptattributes
      */
-    get_CryptAttributes(ppValue) {
-        result := ComCall(43, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_CryptAttributes() {
+        result := ComCall(43, this, "ptr*", &ppValue := 0, "HRESULT")
+        return ICryptAttributes(ppValue)
     }
 
     /**
      * 
-     * @param {Pointer<IX509NameValuePairs>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IX509NameValuePairs} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_namevaluepairs
      */
-    get_NameValuePairs(ppValue) {
-        result := ComCall(44, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_NameValuePairs() {
+        result := ComCall(44, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IX509NameValuePairs(ppValue)
     }
 
     /**
      * 
-     * @param {Pointer<IX509Extensions>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IX509Extensions} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_x509extensions
      */
-    get_X509Extensions(ppValue) {
-        result := ComCall(45, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_X509Extensions() {
+        result := ComCall(45, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IX509Extensions(ppValue)
     }
 
     /**
      * 
-     * @param {Pointer<IObjectIds>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IObjectIds} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_criticalextensions
      */
-    get_CriticalExtensions(ppValue) {
-        result := ComCall(46, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_CriticalExtensions() {
+        result := ComCall(46, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IObjectIds(ppValue)
     }
 
     /**
      * 
-     * @param {Pointer<IObjectIds>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IObjectIds} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_suppressoids
      */
-    get_SuppressOids(ppValue) {
-        result := ComCall(47, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_SuppressOids() {
+        result := ComCall(47, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IObjectIds(ppValue)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_transactionid
      */
-    get_TransactionId(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(48, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_TransactionId() {
+        result := ComCall(48, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -149,13 +146,13 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
     /**
      * 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_sendernonce
      */
-    get_SenderNonce(Encoding, pValue) {
+    get_SenderNonce(Encoding) {
+        pValue := BSTR()
         result := ComCall(50, this, "int", Encoding, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
@@ -174,24 +171,22 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
 
     /**
      * 
-     * @param {Pointer<IX509SignatureInformation>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IX509SignatureInformation} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_signatureinformation
      */
-    get_SignatureInformation(ppValue) {
-        result := ComCall(52, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_SignatureInformation() {
+        result := ComCall(52, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IX509SignatureInformation(ppValue)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_archiveprivatekey
      */
-    get_ArchivePrivateKey(pValue) {
-        result := ComCall(53, this, "ptr", pValue, "HRESULT")
-        return result
+    get_ArchivePrivateKey() {
+        result := ComCall(53, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -208,13 +203,13 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
     /**
      * 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_keyarchivalcertificate
      */
-    get_KeyArchivalCertificate(Encoding, pValue) {
+    get_KeyArchivalCertificate(Encoding) {
+        pValue := BSTR()
         result := ComCall(55, this, "int", Encoding, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
@@ -233,13 +228,12 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
 
     /**
      * 
-     * @param {Pointer<IObjectId>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IObjectId} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_encryptionalgorithm
      */
-    get_EncryptionAlgorithm(ppValue) {
-        result := ComCall(57, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_EncryptionAlgorithm() {
+        result := ComCall(57, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IObjectId(ppValue)
     }
 
     /**
@@ -255,15 +249,12 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_encryptionstrength
      */
-    get_EncryptionStrength(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(59, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_EncryptionStrength() {
+        result := ComCall(59, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -280,23 +271,22 @@ class IX509CertificateRequestCmc extends IX509CertificateRequestPkcs7{
     /**
      * 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_encryptedkeyhash
      */
-    get_EncryptedKeyHash(Encoding, pValue) {
+    get_EncryptedKeyHash(Encoding) {
+        pValue := BSTR()
         result := ComCall(61, this, "int", Encoding, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<ISignerCertificates>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {ISignerCertificates} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_signercertificates
      */
-    get_SignerCertificates(ppValue) {
-        result := ComCall(62, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_SignerCertificates() {
+        result := ComCall(62, this, "ptr*", &ppValue := 0, "HRESULT")
+        return ISignerCertificates(ppValue)
     }
 }

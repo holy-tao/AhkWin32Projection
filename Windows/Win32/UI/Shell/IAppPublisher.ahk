@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\APPCATEGORYINFOLIST.ahk
+#Include .\IEnumPublishedApps.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -90,50 +92,43 @@ class IAppPublisher extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwCat 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shappmgr/nf-shappmgr-iapppublisher-getnumberofcategories
      */
-    GetNumberOfCategories(pdwCat) {
-        pdwCatMarshal := pdwCat is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pdwCatMarshal, pdwCat, "HRESULT")
-        return result
+    GetNumberOfCategories() {
+        result := ComCall(3, this, "uint*", &pdwCat := 0, "HRESULT")
+        return pdwCat
     }
 
     /**
      * 
-     * @param {Pointer<APPCATEGORYINFOLIST>} pAppCategoryList 
-     * @returns {HRESULT} 
+     * @returns {APPCATEGORYINFOLIST} 
      * @see https://learn.microsoft.com/windows/win32/api/shappmgr/nf-shappmgr-iapppublisher-getcategories
      */
-    GetCategories(pAppCategoryList) {
+    GetCategories() {
+        pAppCategoryList := APPCATEGORYINFOLIST()
         result := ComCall(4, this, "ptr", pAppCategoryList, "HRESULT")
-        return result
+        return pAppCategoryList
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwApps 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shappmgr/nf-shappmgr-iapppublisher-getnumberofapps
      */
-    GetNumberOfApps(pdwApps) {
-        pdwAppsMarshal := pdwApps is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pdwAppsMarshal, pdwApps, "HRESULT")
-        return result
+    GetNumberOfApps() {
+        result := ComCall(5, this, "uint*", &pdwApps := 0, "HRESULT")
+        return pdwApps
     }
 
     /**
      * 
      * @param {Pointer<Guid>} pAppCategoryId 
-     * @param {Pointer<IEnumPublishedApps>} ppepa 
-     * @returns {HRESULT} 
+     * @returns {IEnumPublishedApps} 
      * @see https://learn.microsoft.com/windows/win32/api/shappmgr/nf-shappmgr-iapppublisher-enumapps
      */
-    EnumApps(pAppCategoryId, ppepa) {
-        result := ComCall(6, this, "ptr", pAppCategoryId, "ptr*", ppepa, "HRESULT")
-        return result
+    EnumApps(pAppCategoryId) {
+        result := ComCall(6, this, "ptr", pAppCategoryId, "ptr*", &ppepa := 0, "HRESULT")
+        return IEnumPublishedApps(ppepa)
     }
 }

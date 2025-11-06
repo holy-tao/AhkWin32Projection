@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,43 +31,40 @@ class ISpeechRecoResultTimes extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} Time 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_StreamTime(Time) {
+    get_StreamTime() {
+        Time := VARIANT()
         result := ComCall(7, this, "ptr", Time, "HRESULT")
-        return result
+        return Time
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} Length 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_Length(Length) {
+    get_Length() {
+        Length := VARIANT()
         result := ComCall(8, this, "ptr", Length, "HRESULT")
-        return result
+        return Length
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} TickCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_TickCount(TickCount) {
-        TickCountMarshal := TickCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, TickCountMarshal, TickCount, "HRESULT")
-        return result
+    get_TickCount() {
+        result := ComCall(9, this, "int*", &TickCount := 0, "HRESULT")
+        return TickCount
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} OffsetFromStart 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_OffsetFromStart(OffsetFromStart) {
+    get_OffsetFromStart() {
+        OffsetFromStart := VARIANT()
         result := ComCall(10, this, "ptr", OffsetFromStart, "HRESULT")
-        return result
+        return OffsetFromStart
     }
 }

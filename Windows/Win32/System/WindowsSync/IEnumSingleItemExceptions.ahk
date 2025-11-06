@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISingleItemException.ahk
+#Include .\IEnumSingleItemExceptions.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -33,16 +35,15 @@ class IEnumSingleItemExceptions extends IUnknown{
     /**
      * 
      * @param {Integer} cExceptions 
-     * @param {Pointer<ISingleItemException>} ppSingleItemException 
      * @param {Pointer<Integer>} pcFetched 
-     * @returns {HRESULT} 
+     * @returns {ISingleItemException} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumsingleitemexceptions-next
      */
-    Next(cExceptions, ppSingleItemException, pcFetched) {
+    Next(cExceptions, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cExceptions, "ptr*", ppSingleItemException, pcFetchedMarshal, pcFetched, "HRESULT")
-        return result
+        result := ComCall(3, this, "uint", cExceptions, "ptr*", &ppSingleItemException := 0, pcFetchedMarshal, pcFetched, "HRESULT")
+        return ISingleItemException(ppSingleItemException)
     }
 
     /**
@@ -68,12 +69,11 @@ class IEnumSingleItemExceptions extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumSingleItemExceptions>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumSingleItemExceptions} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumsingleitemexceptions-clone
      */
-    Clone(ppEnum) {
-        result := ComCall(6, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumSingleItemExceptions(ppEnum)
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\IUIAutomationElement4.ahk
 
 /**
@@ -32,49 +33,43 @@ class IUIAutomationElement5 extends IUIAutomationElement4{
 
     /**
      * 
-     * @param {Pointer<Integer>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement5-get_currentlandmarktype
      */
-    get_CurrentLandmarkType(retVal) {
-        retValMarshal := retVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(104, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CurrentLandmarkType() {
+        result := ComCall(104, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement5-get_currentlocalizedlandmarktype
      */
-    get_CurrentLocalizedLandmarkType(retVal) {
+    get_CurrentLocalizedLandmarkType() {
+        retVal := BSTR()
         result := ComCall(105, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement5-get_cachedlandmarktype
      */
-    get_CachedLandmarkType(retVal) {
-        retValMarshal := retVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(106, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CachedLandmarkType() {
+        result := ComCall(106, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement5-get_cachedlocalizedlandmarktype
      */
-    get_CachedLocalizedLandmarkType(retVal) {
+    get_CachedLocalizedLandmarkType() {
+        retVal := BSTR()
         result := ComCall(107, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 }

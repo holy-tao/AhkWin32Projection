@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Ole\IOleWindow.ahk
 
 /**
@@ -43,13 +44,12 @@ class IDeskBar extends IOleWindow{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppunkClient 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ideskbar-getclient
      */
-    GetClient(ppunkClient) {
-        result := ComCall(6, this, "ptr*", ppunkClient, "HRESULT")
-        return result
+    GetClient() {
+        result := ComCall(6, this, "ptr*", &ppunkClient := 0, "HRESULT")
+        return IUnknown(ppunkClient)
     }
 
     /**

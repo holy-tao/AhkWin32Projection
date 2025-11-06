@@ -50,12 +50,11 @@ class ICredentialProviderCredential2 extends ICredentialProviderCredential{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} sid 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovidercredential2-getusersid
      */
-    GetUserSid(sid) {
-        result := ComCall(20, this, "ptr", sid, "HRESULT")
-        return result
+    GetUserSid() {
+        result := ComCall(20, this, "ptr*", &sid := 0, "HRESULT")
+        return sid
     }
 }

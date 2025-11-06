@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\TF_LANGBARITEMINFO.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,26 +34,23 @@ class ITfLangBarItem extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<TF_LANGBARITEMINFO>} pInfo 
-     * @returns {HRESULT} 
+     * @returns {TF_LANGBARITEMINFO} 
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritem-getinfo
      */
-    GetInfo(pInfo) {
+    GetInfo() {
+        pInfo := TF_LANGBARITEMINFO()
         result := ComCall(3, this, "ptr", pInfo, "HRESULT")
-        return result
+        return pInfo
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritem-getstatus
      */
-    GetStatus(pdwStatus) {
-        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pdwStatusMarshal, pdwStatus, "HRESULT")
-        return result
+    GetStatus() {
+        result := ComCall(4, this, "uint*", &pdwStatus := 0, "HRESULT")
+        return pdwStatus
     }
 
     /**
@@ -67,12 +66,12 @@ class ITfLangBarItem extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrToolTip 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbaritem-gettooltipstring
      */
-    GetTooltipString(pbstrToolTip) {
+    GetTooltipString() {
+        pbstrToolTip := BSTR()
         result := ComCall(6, this, "ptr", pbstrToolTip, "HRESULT")
-        return result
+        return pbstrToolTip
     }
 }

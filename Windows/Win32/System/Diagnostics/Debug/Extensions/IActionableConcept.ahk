@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IActionEnumerator.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -31,11 +32,10 @@ class IActionableConcept extends IUnknown{
     /**
      * 
      * @param {IModelObject} contextObject 
-     * @param {Pointer<IActionEnumerator>} actionEnumerator 
-     * @returns {HRESULT} 
+     * @returns {IActionEnumerator} 
      */
-    EnumerateActions(contextObject, actionEnumerator) {
-        result := ComCall(3, this, "ptr", contextObject, "ptr*", actionEnumerator, "HRESULT")
-        return result
+    EnumerateActions(contextObject) {
+        result := ComCall(3, this, "ptr", contextObject, "ptr*", &actionEnumerator := 0, "HRESULT")
+        return IActionEnumerator(actionEnumerator)
     }
 }

@@ -33,14 +33,11 @@ class IDirect3DDxgiInterfaceAccess extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} iid 
-     * @param {Pointer<Pointer<Void>>} p 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.directx.direct3d11.interop/nf-windows-graphics-directx-direct3d11-interop-idirect3ddxgiinterfaceaccess-getinterface
      */
-    GetInterface(iid, p) {
-        pMarshal := p is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", iid, pMarshal, p, "HRESULT")
-        return result
+    GetInterface(iid) {
+        result := ComCall(3, this, "ptr", iid, "ptr*", &p := 0, "HRESULT")
+        return p
     }
 }

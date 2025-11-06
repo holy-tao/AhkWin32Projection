@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRunningObjectTable.ahk
 #Include .\IUnknown.ahk
+#Include .\IEnumString.ahk
 
 /**
  * Provides access to a bind context, which is an object that stores information about a particular moniker binding operation.
@@ -100,13 +102,12 @@ class IBindCtx extends IUnknown{
 
     /**
      * Returns a pointer to the IRunningObjectTable interface on the local running object table (ROT).
-     * @param {Pointer<IRunningObjectTable>} pprot The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-irunningobjecttable">IRunningObjectTable</a>* pointer variable that receives the interface pointer to the local ROT. When the function is successful, the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the interface pointer. If an error occurs, *<i>pprot</i> is undefined.
-     * @returns {HRESULT} This function can return the standard return values E_UNEXPECTED and S_OK.
+     * @returns {IRunningObjectTable} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-irunningobjecttable">IRunningObjectTable</a>* pointer variable that receives the interface pointer to the local ROT. When the function is successful, the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the interface pointer. If an error occurs, *<i>pprot</i> is undefined.
      * @see https://docs.microsoft.com/windows/win32/api//objbase/nf-objbase-getrunningobjecttable
      */
-    GetRunningObjectTable(pprot) {
-        result := ComCall(8, this, "ptr*", pprot, "HRESULT")
-        return result
+    GetRunningObjectTable() {
+        result := ComCall(8, this, "ptr*", &pprot := 0, "HRESULT")
+        return IRunningObjectTable(pprot)
     }
 
     /**
@@ -126,26 +127,24 @@ class IBindCtx extends IUnknown{
     /**
      * 
      * @param {PWSTR} pszKey 
-     * @param {Pointer<IUnknown>} ppunk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ibindctx-getobjectparam
      */
-    GetObjectParam(pszKey, ppunk) {
+    GetObjectParam(pszKey) {
         pszKey := pszKey is String ? StrPtr(pszKey) : pszKey
 
-        result := ComCall(10, this, "ptr", pszKey, "ptr*", ppunk, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", pszKey, "ptr*", &ppunk := 0, "HRESULT")
+        return IUnknown(ppunk)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumString>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IEnumString} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ibindctx-enumobjectparam
      */
-    EnumObjectParam(ppenum) {
-        result := ComCall(11, this, "ptr*", ppenum, "HRESULT")
-        return result
+    EnumObjectParam() {
+        result := ComCall(11, this, "ptr*", &ppenum := 0, "HRESULT")
+        return IEnumString(ppenum)
     }
 
     /**

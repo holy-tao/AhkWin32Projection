@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,46 +32,39 @@ class IHTMLFontSizesCollection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_length(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pMarshal, p, "HRESULT")
-        return result
+    get_length() {
+        result := ComCall(7, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} p 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__newEnum(p) {
-        result := ComCall(8, this, "ptr*", p, "HRESULT")
-        return result
+    get__newEnum() {
+        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        return IUnknown(p)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_forFont(p) {
+    get_forFont() {
+        p := BSTR()
         result := ComCall(9, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<Integer>} plSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    item(index, plSize) {
-        plSizeMarshal := plSize is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, "int", index, plSizeMarshal, plSize, "HRESULT")
-        return result
+    item(index) {
+        result := ComCall(10, this, "int", index, "int*", &plSize := 0, "HRESULT")
+        return plSize
     }
 }

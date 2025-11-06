@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -32,71 +33,64 @@ class ISettingsResult extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} description 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsresult-getdescription
      */
-    GetDescription(description) {
+    GetDescription() {
+        description := BSTR()
         result := ComCall(3, this, "ptr", description, "HRESULT")
-        return result
+        return description
     }
 
     /**
      * 
-     * @param {Pointer<HRESULT>} hrOut 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsresult-geterrorcode
      */
-    GetErrorCode(hrOut) {
-        result := ComCall(4, this, "ptr", hrOut, "HRESULT")
-        return result
+    GetErrorCode() {
+        result := ComCall(4, this, "int*", &hrOut := 0, "HRESULT")
+        return hrOut
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} description 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsresult-getcontextdescription
      */
-    GetContextDescription(description) {
+    GetContextDescription() {
+        description := BSTR()
         result := ComCall(5, this, "ptr", description, "HRESULT")
-        return result
+        return description
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} dwLine 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsresult-getline
      */
-    GetLine(dwLine) {
-        dwLineMarshal := dwLine is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, dwLineMarshal, dwLine, "HRESULT")
-        return result
+    GetLine() {
+        result := ComCall(6, this, "uint*", &dwLine := 0, "HRESULT")
+        return dwLine
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} dwColumn 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsresult-getcolumn
      */
-    GetColumn(dwColumn) {
-        dwColumnMarshal := dwColumn is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, dwColumnMarshal, dwColumn, "HRESULT")
-        return result
+    GetColumn() {
+        result := ComCall(7, this, "uint*", &dwColumn := 0, "HRESULT")
+        return dwColumn
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} file 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsresult-getsource
      */
-    GetSource(file) {
+    GetSource() {
+        file := BSTR()
         result := ComCall(8, this, "ptr", file, "HRESULT")
-        return result
+        return file
     }
 }

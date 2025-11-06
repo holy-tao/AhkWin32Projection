@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\DEBUG_SYMBOL_PARAMETERS.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -30,14 +31,11 @@ class IDebugSymbolGroup extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} Number 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetNumberSymbols(Number) {
-        NumberMarshal := Number is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, NumberMarshal, Number, "HRESULT")
-        return result
+    GetNumberSymbols() {
+        result := ComCall(3, this, "uint*", &Number := 0, "HRESULT")
+        return Number
     }
 
     /**
@@ -82,28 +80,25 @@ class IDebugSymbolGroup extends IUnknown{
      * @param {Integer} Index 
      * @param {PSTR} Buffer 
      * @param {Integer} BufferSize 
-     * @param {Pointer<Integer>} NameSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetSymbolName(Index, Buffer, BufferSize, NameSize) {
+    GetSymbolName(Index, Buffer, BufferSize) {
         Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
 
-        NameSizeMarshal := NameSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, NameSizeMarshal, NameSize, "HRESULT")
-        return result
+        result := ComCall(7, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, "uint*", &NameSize := 0, "HRESULT")
+        return NameSize
     }
 
     /**
      * 
      * @param {Integer} Start 
      * @param {Integer} Count 
-     * @param {Pointer<DEBUG_SYMBOL_PARAMETERS>} Params 
-     * @returns {HRESULT} 
+     * @returns {DEBUG_SYMBOL_PARAMETERS} 
      */
-    GetSymbolParameters(Start, Count, Params) {
+    GetSymbolParameters(Start, Count) {
+        Params := DEBUG_SYMBOL_PARAMETERS()
         result := ComCall(8, this, "uint", Start, "uint", Count, "ptr", Params, "HRESULT")
-        return result
+        return Params
     }
 
     /**

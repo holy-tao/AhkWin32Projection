@@ -64,30 +64,27 @@ class IWorkspaceResTypeRegistry extends IDispatch{
     /**
      * 
      * @param {VARIANT_BOOL} fMachineWide 
-     * @param {Pointer<Pointer<SAFEARRAY>>} psaFileExtensions 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/workspaceax/nf-workspaceax-iworkspacerestyperegistry-getregisteredfileextensions
      */
-    GetRegisteredFileExtensions(fMachineWide, psaFileExtensions) {
-        psaFileExtensionsMarshal := psaFileExtensions is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(9, this, "short", fMachineWide, psaFileExtensionsMarshal, psaFileExtensions, "HRESULT")
-        return result
+    GetRegisteredFileExtensions(fMachineWide) {
+        result := ComCall(9, this, "short", fMachineWide, "ptr*", &psaFileExtensions := 0, "HRESULT")
+        return psaFileExtensions
     }
 
     /**
      * 
      * @param {VARIANT_BOOL} fMachineWide 
      * @param {BSTR} bstrFileExtension 
-     * @param {Pointer<BSTR>} pbstrLauncher 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/workspaceax/nf-workspaceax-iworkspacerestyperegistry-getresourcetypeinfo
      */
-    GetResourceTypeInfo(fMachineWide, bstrFileExtension, pbstrLauncher) {
+    GetResourceTypeInfo(fMachineWide, bstrFileExtension) {
         bstrFileExtension := bstrFileExtension is String ? BSTR.Alloc(bstrFileExtension).Value : bstrFileExtension
 
+        pbstrLauncher := BSTR()
         result := ComCall(10, this, "short", fMachineWide, "ptr", bstrFileExtension, "ptr", pbstrLauncher, "HRESULT")
-        return result
+        return pbstrLauncher
     }
 
     /**

@@ -33,81 +33,64 @@ class IMbnMultiCarrier extends IUnknown{
     /**
      * 
      * @param {Pointer<MBN_PROVIDER2>} homeProvider 
-     * @param {Pointer<Integer>} requestID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnmulticarrier-sethomeprovider
      */
-    SetHomeProvider(homeProvider, requestID) {
-        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", homeProvider, requestIDMarshal, requestID, "HRESULT")
-        return result
+    SetHomeProvider(homeProvider) {
+        result := ComCall(3, this, "ptr", homeProvider, "uint*", &requestID := 0, "HRESULT")
+        return requestID
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} preferredMulticarrierProviders 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnmulticarrier-getpreferredproviders
      */
-    GetPreferredProviders(preferredMulticarrierProviders) {
-        preferredMulticarrierProvidersMarshal := preferredMulticarrierProviders is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, preferredMulticarrierProvidersMarshal, preferredMulticarrierProviders, "HRESULT")
-        return result
+    GetPreferredProviders() {
+        result := ComCall(4, this, "ptr*", &preferredMulticarrierProviders := 0, "HRESULT")
+        return preferredMulticarrierProviders
     }
 
     /**
      * 
      * @param {Pointer<Integer>} age 
-     * @param {Pointer<Pointer<SAFEARRAY>>} visibleProviders 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnmulticarrier-getvisibleproviders
      */
-    GetVisibleProviders(age, visibleProviders) {
+    GetVisibleProviders(age) {
         ageMarshal := age is VarRef ? "uint*" : "ptr"
-        visibleProvidersMarshal := visibleProviders is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, ageMarshal, age, visibleProvidersMarshal, visibleProviders, "HRESULT")
-        return result
+        result := ComCall(5, this, ageMarshal, age, "ptr*", &visibleProviders := 0, "HRESULT")
+        return visibleProviders
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} cellularClasses 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnmulticarrier-getsupportedcellularclasses
      */
-    GetSupportedCellularClasses(cellularClasses) {
-        cellularClassesMarshal := cellularClasses is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, cellularClassesMarshal, cellularClasses, "HRESULT")
-        return result
+    GetSupportedCellularClasses() {
+        result := ComCall(6, this, "ptr*", &cellularClasses := 0, "HRESULT")
+        return cellularClasses
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} currentCellularClass 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnmulticarrier-getcurrentcellularclass
      */
-    GetCurrentCellularClass(currentCellularClass) {
-        currentCellularClassMarshal := currentCellularClass is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, currentCellularClassMarshal, currentCellularClass, "HRESULT")
-        return result
+    GetCurrentCellularClass() {
+        result := ComCall(7, this, "int*", &currentCellularClass := 0, "HRESULT")
+        return currentCellularClass
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} requestID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnmulticarrier-scannetwork
      */
-    ScanNetwork(requestID) {
-        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, requestIDMarshal, requestID, "HRESULT")
-        return result
+    ScanNetwork() {
+        result := ComCall(8, this, "uint*", &requestID := 0, "HRESULT")
+        return requestID
     }
 }

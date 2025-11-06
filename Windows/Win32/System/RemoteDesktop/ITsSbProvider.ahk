@@ -2,6 +2,16 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ITsSbTarget.ahk
+#Include .\ITsSbLoadBalanceResult.ahk
+#Include .\ITsSbSession.ahk
+#Include .\ITsSbPluginPropertySet.ahk
+#Include .\ITsSbTargetPropertySet.ahk
+#Include .\ITsSbEnvironment.ahk
+#Include .\ITsSbResourcePluginStore.ahk
+#Include .\ITsSbFilterPluginStore.ahk
+#Include .\ITsSbGlobalStore.ahk
+#Include .\ITsSbEnvironmentPropertySet.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -35,30 +45,28 @@ class ITsSbProvider extends IUnknown{
      * 
      * @param {BSTR} TargetName 
      * @param {BSTR} EnvironmentName 
-     * @param {Pointer<ITsSbTarget>} ppTarget 
-     * @returns {HRESULT} 
+     * @returns {ITsSbTarget} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbprovider-createtargetobject
      */
-    CreateTargetObject(TargetName, EnvironmentName, ppTarget) {
+    CreateTargetObject(TargetName, EnvironmentName) {
         TargetName := TargetName is String ? BSTR.Alloc(TargetName).Value : TargetName
         EnvironmentName := EnvironmentName is String ? BSTR.Alloc(EnvironmentName).Value : EnvironmentName
 
-        result := ComCall(3, this, "ptr", TargetName, "ptr", EnvironmentName, "ptr*", ppTarget, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", TargetName, "ptr", EnvironmentName, "ptr*", &ppTarget := 0, "HRESULT")
+        return ITsSbTarget(ppTarget)
     }
 
     /**
      * 
      * @param {BSTR} TargetName 
-     * @param {Pointer<ITsSbLoadBalanceResult>} ppLBResult 
-     * @returns {HRESULT} 
+     * @returns {ITsSbLoadBalanceResult} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbprovider-createloadbalanceresultobject
      */
-    CreateLoadBalanceResultObject(TargetName, ppLBResult) {
+    CreateLoadBalanceResultObject(TargetName) {
         TargetName := TargetName is String ? BSTR.Alloc(TargetName).Value : TargetName
 
-        result := ComCall(4, this, "ptr", TargetName, "ptr*", ppLBResult, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", TargetName, "ptr*", &ppLBResult := 0, "HRESULT")
+        return ITsSbLoadBalanceResult(ppLBResult)
     }
 
     /**
@@ -67,76 +75,70 @@ class ITsSbProvider extends IUnknown{
      * @param {BSTR} UserName 
      * @param {BSTR} Domain 
      * @param {Integer} SessionId 
-     * @param {Pointer<ITsSbSession>} ppSession 
-     * @returns {HRESULT} 
+     * @returns {ITsSbSession} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbprovider-createsessionobject
      */
-    CreateSessionObject(TargetName, UserName, Domain, SessionId, ppSession) {
+    CreateSessionObject(TargetName, UserName, Domain, SessionId) {
         TargetName := TargetName is String ? BSTR.Alloc(TargetName).Value : TargetName
         UserName := UserName is String ? BSTR.Alloc(UserName).Value : UserName
         Domain := Domain is String ? BSTR.Alloc(Domain).Value : Domain
 
-        result := ComCall(5, this, "ptr", TargetName, "ptr", UserName, "ptr", Domain, "uint", SessionId, "ptr*", ppSession, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", TargetName, "ptr", UserName, "ptr", Domain, "uint", SessionId, "ptr*", &ppSession := 0, "HRESULT")
+        return ITsSbSession(ppSession)
     }
 
     /**
      * 
-     * @param {Pointer<ITsSbPluginPropertySet>} ppPropertySet 
-     * @returns {HRESULT} 
+     * @returns {ITsSbPluginPropertySet} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbprovider-createpluginpropertyset
      */
-    CreatePluginPropertySet(ppPropertySet) {
-        result := ComCall(6, this, "ptr*", ppPropertySet, "HRESULT")
-        return result
+    CreatePluginPropertySet() {
+        result := ComCall(6, this, "ptr*", &ppPropertySet := 0, "HRESULT")
+        return ITsSbPluginPropertySet(ppPropertySet)
     }
 
     /**
      * 
-     * @param {Pointer<ITsSbTargetPropertySet>} ppPropertySet 
-     * @returns {HRESULT} 
+     * @returns {ITsSbTargetPropertySet} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbprovider-createtargetpropertysetobject
      */
-    CreateTargetPropertySetObject(ppPropertySet) {
-        result := ComCall(7, this, "ptr*", ppPropertySet, "HRESULT")
-        return result
+    CreateTargetPropertySetObject() {
+        result := ComCall(7, this, "ptr*", &ppPropertySet := 0, "HRESULT")
+        return ITsSbTargetPropertySet(ppPropertySet)
     }
 
     /**
      * 
      * @param {BSTR} Name 
      * @param {Integer} ServerWeight 
-     * @param {Pointer<ITsSbEnvironment>} ppEnvironment 
-     * @returns {HRESULT} 
+     * @returns {ITsSbEnvironment} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbprovider-createenvironmentobject
      */
-    CreateEnvironmentObject(Name, ServerWeight, ppEnvironment) {
+    CreateEnvironmentObject(Name, ServerWeight) {
         Name := Name is String ? BSTR.Alloc(Name).Value : Name
 
-        result := ComCall(8, this, "ptr", Name, "uint", ServerWeight, "ptr*", ppEnvironment, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", Name, "uint", ServerWeight, "ptr*", &ppEnvironment := 0, "HRESULT")
+        return ITsSbEnvironment(ppEnvironment)
     }
 
     /**
      * 
-     * @param {Pointer<ITsSbResourcePluginStore>} ppStore 
-     * @returns {HRESULT} 
+     * @returns {ITsSbResourcePluginStore} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbprovider-getresourcepluginstore
      */
-    GetResourcePluginStore(ppStore) {
-        result := ComCall(9, this, "ptr*", ppStore, "HRESULT")
-        return result
+    GetResourcePluginStore() {
+        result := ComCall(9, this, "ptr*", &ppStore := 0, "HRESULT")
+        return ITsSbResourcePluginStore(ppStore)
     }
 
     /**
      * 
-     * @param {Pointer<ITsSbFilterPluginStore>} ppStore 
-     * @returns {HRESULT} 
+     * @returns {ITsSbFilterPluginStore} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbprovider-getfilterpluginstore
      */
-    GetFilterPluginStore(ppStore) {
-        result := ComCall(10, this, "ptr*", ppStore, "HRESULT")
-        return result
+    GetFilterPluginStore() {
+        result := ComCall(10, this, "ptr*", &ppStore := 0, "HRESULT")
+        return ITsSbFilterPluginStore(ppStore)
     }
 
     /**
@@ -170,23 +172,21 @@ class ITsSbProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ITsSbGlobalStore>} ppGlobalStore 
-     * @returns {HRESULT} 
+     * @returns {ITsSbGlobalStore} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbprovider-getinstanceofglobalstore
      */
-    GetInstanceOfGlobalStore(ppGlobalStore) {
-        result := ComCall(13, this, "ptr*", ppGlobalStore, "HRESULT")
-        return result
+    GetInstanceOfGlobalStore() {
+        result := ComCall(13, this, "ptr*", &ppGlobalStore := 0, "HRESULT")
+        return ITsSbGlobalStore(ppGlobalStore)
     }
 
     /**
      * 
-     * @param {Pointer<ITsSbEnvironmentPropertySet>} ppPropertySet 
-     * @returns {HRESULT} 
+     * @returns {ITsSbEnvironmentPropertySet} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbprovider-createenvironmentpropertysetobject
      */
-    CreateEnvironmentPropertySetObject(ppPropertySet) {
-        result := ComCall(14, this, "ptr*", ppPropertySet, "HRESULT")
-        return result
+    CreateEnvironmentPropertySetObject() {
+        result := ComCall(14, this, "ptr*", &ppPropertySet := 0, "HRESULT")
+        return ITsSbEnvironmentPropertySet(ppPropertySet)
     }
 }

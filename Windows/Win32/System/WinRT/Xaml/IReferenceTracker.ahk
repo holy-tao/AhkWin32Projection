@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IReferenceTrackerManager.ahk
 #Include ..\..\Com\IUnknown.ahk
 
 /**
@@ -63,13 +64,12 @@ class IReferenceTracker extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IReferenceTrackerManager>} value 
-     * @returns {HRESULT} 
+     * @returns {IReferenceTrackerManager} 
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.hosting.referencetracker/nf-windows-ui-xaml-hosting-referencetracker-ireferencetracker-getreferencetrackermanager
      */
-    GetReferenceTrackerManager(value) {
-        result := ComCall(6, this, "ptr*", value, "HRESULT")
-        return result
+    GetReferenceTrackerManager() {
+        result := ComCall(6, this, "ptr*", &value := 0, "HRESULT")
+        return IReferenceTrackerManager(value)
     }
 
     /**

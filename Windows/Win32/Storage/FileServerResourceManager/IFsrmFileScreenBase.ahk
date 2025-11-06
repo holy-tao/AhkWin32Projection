@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IFsrmMutableCollection.ahk
+#Include .\IFsrmAction.ahk
+#Include .\IFsrmCollection.ahk
 #Include .\IFsrmObject.ahk
 
 /**
@@ -32,13 +35,12 @@ class IFsrmFileScreenBase extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<IFsrmMutableCollection>} blockList 
-     * @returns {HRESULT} 
+     * @returns {IFsrmMutableCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreenbase-get_blockedfilegroups
      */
-    get_BlockedFileGroups(blockList) {
-        result := ComCall(12, this, "ptr*", blockList, "HRESULT")
-        return result
+    get_BlockedFileGroups() {
+        result := ComCall(12, this, "ptr*", &blockList := 0, "HRESULT")
+        return IFsrmMutableCollection(blockList)
     }
 
     /**
@@ -54,15 +56,12 @@ class IFsrmFileScreenBase extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<Integer>} fileScreenFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreenbase-get_filescreenflags
      */
-    get_FileScreenFlags(fileScreenFlags) {
-        fileScreenFlagsMarshal := fileScreenFlags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, fileScreenFlagsMarshal, fileScreenFlags, "HRESULT")
-        return result
+    get_FileScreenFlags() {
+        result := ComCall(14, this, "int*", &fileScreenFlags := 0, "HRESULT")
+        return fileScreenFlags
     }
 
     /**
@@ -79,23 +78,21 @@ class IFsrmFileScreenBase extends IFsrmObject{
     /**
      * 
      * @param {Integer} actionType 
-     * @param {Pointer<IFsrmAction>} action 
-     * @returns {HRESULT} 
+     * @returns {IFsrmAction} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreenbase-createaction
      */
-    CreateAction(actionType, action) {
-        result := ComCall(16, this, "int", actionType, "ptr*", action, "HRESULT")
-        return result
+    CreateAction(actionType) {
+        result := ComCall(16, this, "int", actionType, "ptr*", &action := 0, "HRESULT")
+        return IFsrmAction(action)
     }
 
     /**
      * 
-     * @param {Pointer<IFsrmCollection>} actions 
-     * @returns {HRESULT} 
+     * @returns {IFsrmCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreenbase-enumactions
      */
-    EnumActions(actions) {
-        result := ComCall(17, this, "ptr*", actions, "HRESULT")
-        return result
+    EnumActions() {
+        result := ComCall(17, this, "ptr*", &actions := 0, "HRESULT")
+        return IFsrmCollection(actions)
     }
 }

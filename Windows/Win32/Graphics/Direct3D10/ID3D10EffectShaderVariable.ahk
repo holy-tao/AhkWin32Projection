@@ -1,6 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D10_EFFECT_SHADER_DESC.ahk
+#Include .\ID3D10VertexShader.ahk
+#Include .\ID3D10GeometryShader.ahk
+#Include .\ID3D10PixelShader.ahk
+#Include .\D3D10_SIGNATURE_PARAMETER_DESC.ahk
 #Include .\ID3D10EffectVariable.ahk
 
 /**
@@ -33,74 +38,71 @@ class ID3D10EffectShaderVariable extends ID3D10EffectVariable{
     /**
      * 
      * @param {Integer} ShaderIndex 
-     * @param {Pointer<D3D10_EFFECT_SHADER_DESC>} pDesc 
-     * @returns {HRESULT} 
+     * @returns {D3D10_EFFECT_SHADER_DESC} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectshadervariable-getshaderdesc
      */
-    GetShaderDesc(ShaderIndex, pDesc) {
+    GetShaderDesc(ShaderIndex) {
+        pDesc := D3D10_EFFECT_SHADER_DESC()
         result := ComCall(25, this, "uint", ShaderIndex, "ptr", pDesc, "HRESULT")
-        return result
+        return pDesc
     }
 
     /**
      * 
      * @param {Integer} ShaderIndex 
-     * @param {Pointer<ID3D10VertexShader>} ppVS 
-     * @returns {HRESULT} 
+     * @returns {ID3D10VertexShader} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectshadervariable-getvertexshader
      */
-    GetVertexShader(ShaderIndex, ppVS) {
-        result := ComCall(26, this, "uint", ShaderIndex, "ptr*", ppVS, "HRESULT")
-        return result
+    GetVertexShader(ShaderIndex) {
+        result := ComCall(26, this, "uint", ShaderIndex, "ptr*", &ppVS := 0, "HRESULT")
+        return ID3D10VertexShader(ppVS)
     }
 
     /**
      * 
      * @param {Integer} ShaderIndex 
-     * @param {Pointer<ID3D10GeometryShader>} ppGS 
-     * @returns {HRESULT} 
+     * @returns {ID3D10GeometryShader} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectshadervariable-getgeometryshader
      */
-    GetGeometryShader(ShaderIndex, ppGS) {
-        result := ComCall(27, this, "uint", ShaderIndex, "ptr*", ppGS, "HRESULT")
-        return result
+    GetGeometryShader(ShaderIndex) {
+        result := ComCall(27, this, "uint", ShaderIndex, "ptr*", &ppGS := 0, "HRESULT")
+        return ID3D10GeometryShader(ppGS)
     }
 
     /**
      * 
      * @param {Integer} ShaderIndex 
-     * @param {Pointer<ID3D10PixelShader>} ppPS 
-     * @returns {HRESULT} 
+     * @returns {ID3D10PixelShader} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectshadervariable-getpixelshader
      */
-    GetPixelShader(ShaderIndex, ppPS) {
-        result := ComCall(28, this, "uint", ShaderIndex, "ptr*", ppPS, "HRESULT")
-        return result
+    GetPixelShader(ShaderIndex) {
+        result := ComCall(28, this, "uint", ShaderIndex, "ptr*", &ppPS := 0, "HRESULT")
+        return ID3D10PixelShader(ppPS)
     }
 
     /**
      * 
      * @param {Integer} ShaderIndex 
      * @param {Integer} Element 
-     * @param {Pointer<D3D10_SIGNATURE_PARAMETER_DESC>} pDesc 
-     * @returns {HRESULT} 
+     * @returns {D3D10_SIGNATURE_PARAMETER_DESC} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectshadervariable-getinputsignatureelementdesc
      */
-    GetInputSignatureElementDesc(ShaderIndex, Element, pDesc) {
+    GetInputSignatureElementDesc(ShaderIndex, Element) {
+        pDesc := D3D10_SIGNATURE_PARAMETER_DESC()
         result := ComCall(29, this, "uint", ShaderIndex, "uint", Element, "ptr", pDesc, "HRESULT")
-        return result
+        return pDesc
     }
 
     /**
      * 
      * @param {Integer} ShaderIndex 
      * @param {Integer} Element 
-     * @param {Pointer<D3D10_SIGNATURE_PARAMETER_DESC>} pDesc 
-     * @returns {HRESULT} 
+     * @returns {D3D10_SIGNATURE_PARAMETER_DESC} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectshadervariable-getoutputsignatureelementdesc
      */
-    GetOutputSignatureElementDesc(ShaderIndex, Element, pDesc) {
+    GetOutputSignatureElementDesc(ShaderIndex, Element) {
+        pDesc := D3D10_SIGNATURE_PARAMETER_DESC()
         result := ComCall(30, this, "uint", ShaderIndex, "uint", Element, "ptr", pDesc, "HRESULT")
-        return result
+        return pDesc
     }
 }

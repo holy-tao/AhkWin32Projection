@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumExtraSearch.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include Common\SHELLDETAILS.ahk
+#Include ..\..\Foundation\PROPERTYKEY.ahk
 #Include .\IShellFolder.ahk
 
 /**
@@ -42,24 +46,23 @@ class IShellFolder2 extends IShellFolder{
 
     /**
      * 
-     * @param {Pointer<Guid>} pguid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder2-getdefaultsearchguid
      */
-    GetDefaultSearchGUID(pguid) {
+    GetDefaultSearchGUID() {
+        pguid := Guid()
         result := ComCall(13, this, "ptr", pguid, "HRESULT")
-        return result
+        return pguid
     }
 
     /**
      * 
-     * @param {Pointer<IEnumExtraSearch>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IEnumExtraSearch} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder2-enumsearches
      */
-    EnumSearches(ppenum) {
-        result := ComCall(14, this, "ptr*", ppenum, "HRESULT")
-        return result
+    EnumSearches() {
+        result := ComCall(14, this, "ptr*", &ppenum := 0, "HRESULT")
+        return IEnumExtraSearch(ppenum)
     }
 
     /**
@@ -81,52 +84,49 @@ class IShellFolder2 extends IShellFolder{
     /**
      * 
      * @param {Integer} iColumn 
-     * @param {Pointer<Integer>} pcsFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder2-getdefaultcolumnstate
      */
-    GetDefaultColumnState(iColumn, pcsFlags) {
-        pcsFlagsMarshal := pcsFlags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, "uint", iColumn, pcsFlagsMarshal, pcsFlags, "HRESULT")
-        return result
+    GetDefaultColumnState(iColumn) {
+        result := ComCall(16, this, "uint", iColumn, "int*", &pcsFlags := 0, "HRESULT")
+        return pcsFlags
     }
 
     /**
      * 
      * @param {Pointer<ITEMIDLIST>} pidl 
      * @param {Pointer<PROPERTYKEY>} pscid 
-     * @param {Pointer<VARIANT>} pv 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder2-getdetailsex
      */
-    GetDetailsEx(pidl, pscid, pv) {
+    GetDetailsEx(pidl, pscid) {
+        pv := VARIANT()
         result := ComCall(17, this, "ptr", pidl, "ptr", pscid, "ptr", pv, "HRESULT")
-        return result
+        return pv
     }
 
     /**
      * 
      * @param {Pointer<ITEMIDLIST>} pidl 
      * @param {Integer} iColumn 
-     * @param {Pointer<SHELLDETAILS>} psd 
-     * @returns {HRESULT} 
+     * @returns {SHELLDETAILS} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder2-getdetailsof
      */
-    GetDetailsOf(pidl, iColumn, psd) {
+    GetDetailsOf(pidl, iColumn) {
+        psd := SHELLDETAILS()
         result := ComCall(18, this, "ptr", pidl, "uint", iColumn, "ptr", psd, "HRESULT")
-        return result
+        return psd
     }
 
     /**
      * 
      * @param {Integer} iColumn 
-     * @param {Pointer<PROPERTYKEY>} pscid 
-     * @returns {HRESULT} 
+     * @returns {PROPERTYKEY} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellfolder2-mapcolumntoscid
      */
-    MapColumnToSCID(iColumn, pscid) {
+    MapColumnToSCID(iColumn) {
+        pscid := PROPERTYKEY()
         result := ComCall(19, this, "uint", iColumn, "ptr", pscid, "HRESULT")
-        return result
+        return pscid
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IAppxManifestOptionalPackageInfo.ahk
 #Include .\IAppxManifestReader3.ahk
 
 /**
@@ -30,11 +31,10 @@ class IAppxManifestReader4 extends IAppxManifestReader3{
 
     /**
      * 
-     * @param {Pointer<IAppxManifestOptionalPackageInfo>} optionalPackageInfo 
-     * @returns {HRESULT} 
+     * @returns {IAppxManifestOptionalPackageInfo} 
      */
-    GetOptionalPackageInfo(optionalPackageInfo) {
-        result := ComCall(15, this, "ptr*", optionalPackageInfo, "HRESULT")
-        return result
+    GetOptionalPackageInfo() {
+        result := ComCall(15, this, "ptr*", &optionalPackageInfo := 0, "HRESULT")
+        return IAppxManifestOptionalPackageInfo(optionalPackageInfo)
     }
 }

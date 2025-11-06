@@ -38,13 +38,12 @@ class IWdsTransportDiagnosticsPolicy extends IWdsTransportCacheable{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbEnabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportdiagnosticspolicy-get_enabled
      */
-    get_Enabled(pbEnabled) {
-        result := ComCall(11, this, "ptr", pbEnabled, "HRESULT")
-        return result
+    get_Enabled() {
+        result := ComCall(11, this, "short*", &pbEnabled := 0, "HRESULT")
+        return pbEnabled
     }
 
     /**
@@ -60,15 +59,12 @@ class IWdsTransportDiagnosticsPolicy extends IWdsTransportCacheable{
 
     /**
      * 
-     * @param {Pointer<Integer>} pulComponents 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportdiagnosticspolicy-get_components
      */
-    get_Components(pulComponents) {
-        pulComponentsMarshal := pulComponents is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(13, this, pulComponentsMarshal, pulComponents, "HRESULT")
-        return result
+    get_Components() {
+        result := ComCall(13, this, "uint*", &pulComponents := 0, "HRESULT")
+        return pulComponents
     }
 
     /**

@@ -2464,22 +2464,17 @@ class Direct3D12 {
      * @param {Pointer<Guid>} pRootSignatureDeserializerInterface Type: <b><b>REFIID</b></b>
      * 
      * The globally unique identifier (<b>GUID</b>) for the root signature deserializer interface. See remarks.
-     * @param {Pointer<Pointer<Void>>} ppRootSignatureDeserializer Type: <b><b>void</b>**</b>
+     * @returns {Pointer<Void>} Type: <b><b>void</b>**</b>
      * 
      * A pointer to a memory block that receives a pointer to the root signature deserializer.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
-     * 
-     * Returns <b>S_OK</b> if successful; otherwise, returns one of the <a href="/windows/desktop/direct3d12/d3d12-graphics-reference-returnvalues">Direct3D 12 Return Codes</a>.
      * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-d3d12createrootsignaturedeserializer
      */
-    static D3D12CreateRootSignatureDeserializer(pSrcData, SrcDataSizeInBytes, pRootSignatureDeserializerInterface, ppRootSignatureDeserializer) {
-        ppRootSignatureDeserializerMarshal := ppRootSignatureDeserializer is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("d3d12.dll\D3D12CreateRootSignatureDeserializer", "ptr", pSrcData, "ptr", SrcDataSizeInBytes, "ptr", pRootSignatureDeserializerInterface, ppRootSignatureDeserializerMarshal, ppRootSignatureDeserializer, "int")
+    static D3D12CreateRootSignatureDeserializer(pSrcData, SrcDataSizeInBytes, pRootSignatureDeserializerInterface) {
+        result := DllCall("d3d12.dll\D3D12CreateRootSignatureDeserializer", "ptr", pSrcData, "ptr", SrcDataSizeInBytes, "ptr", pRootSignatureDeserializerInterface, "ptr*", &ppRootSignatureDeserializer := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppRootSignatureDeserializer
     }
 
     /**
@@ -2517,22 +2512,17 @@ class Direct3D12 {
      * @param {Pointer<Guid>} pRootSignatureDeserializerInterface Type: <b>REFIID</b>
      * 
      * The globally unique identifier (<b>GUID</b>) for the root signature deserializer interface. See remarks.
-     * @param {Pointer<Pointer<Void>>} ppRootSignatureDeserializer Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * A pointer to a memory block that receives a pointer to the root signature deserializer.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
-     * 
-     * Returns <b>S_OK</b> if successful; otherwise, returns one of the <a href="/windows/desktop/direct3d12/d3d12-graphics-reference-returnvalues">Direct3D 12 Return Codes</a>.
      * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-d3d12createversionedrootsignaturedeserializer
      */
-    static D3D12CreateVersionedRootSignatureDeserializer(pSrcData, SrcDataSizeInBytes, pRootSignatureDeserializerInterface, ppRootSignatureDeserializer) {
-        ppRootSignatureDeserializerMarshal := ppRootSignatureDeserializer is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("d3d12.dll\D3D12CreateVersionedRootSignatureDeserializer", "ptr", pSrcData, "ptr", SrcDataSizeInBytes, "ptr", pRootSignatureDeserializerInterface, ppRootSignatureDeserializerMarshal, ppRootSignatureDeserializer, "int")
+    static D3D12CreateVersionedRootSignatureDeserializer(pSrcData, SrcDataSizeInBytes, pRootSignatureDeserializerInterface) {
+        result := DllCall("d3d12.dll\D3D12CreateVersionedRootSignatureDeserializer", "ptr", pSrcData, "ptr", SrcDataSizeInBytes, "ptr", pRootSignatureDeserializerInterface, "ptr*", &ppRootSignatureDeserializer := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppRootSignatureDeserializer
     }
 
     /**
@@ -2555,27 +2545,17 @@ class Direct3D12 {
      * The globally unique identifier (<b>GUID</b>) for the device interface.
      *             This parameter, and <i>ppDevice</i>, can be addressed with the single macro
      *           <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-iid_ppv_args">IID_PPV_ARGS</a>.
-     * @param {Pointer<Pointer<Void>>} ppDevice Type: <b><b>void</b>**</b>
+     * @returns {Pointer<Void>} Type: <b><b>void</b>**</b>
      * 
      * A pointer to a memory block that receives a pointer to the device. Pass **NULL** to test if device creation would succeed, but to not actually create the device. If **NULL** is passed and device creation would succeed, **S_FALSE** is returned.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
-     * 
-     * This method can return one of the <a href="/windows/desktop/direct3d12/d3d12-graphics-reference-returnvalues">Direct3D 12 Return Codes</a>.
-     *           
-     * 
-     * Possible return values include those documented for <a href="/windows/desktop/api/dxgi/nf-dxgi-createdxgifactory1">CreateDXGIFactory1</a> and  <a href="/windows/desktop/api/dxgi/nf-dxgi-idxgifactory-enumadapters">IDXGIFactory::EnumAdapters</a>.
-     *           
-     * If **ppDevice** is **NULL** and the function succeeds, **S_FALSE** is returned, rather than **S_OK**.
      * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-d3d12createdevice
      */
-    static D3D12CreateDevice(pAdapter, MinimumFeatureLevel, riid, ppDevice) {
-        ppDeviceMarshal := ppDevice is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("d3d12.dll\D3D12CreateDevice", "ptr", pAdapter, "int", MinimumFeatureLevel, "ptr", riid, ppDeviceMarshal, ppDevice, "int")
+    static D3D12CreateDevice(pAdapter, MinimumFeatureLevel, riid) {
+        result := DllCall("d3d12.dll\D3D12CreateDevice", "ptr", pAdapter, "int", MinimumFeatureLevel, "ptr", riid, "ptr*", &ppDevice := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppDevice
     }
 
     /**
@@ -2585,25 +2565,20 @@ class Direct3D12 {
      * The globally unique identifier (<b>GUID</b>) for the debug interface.
      *             The <b>REFIID</b>, or <b>GUID</b>, of the debug interface can be obtained by using the __uuidof() macro.
      *             For example, __uuidof(<a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12debug">ID3D12Debug</a>) will get the <b>GUID</b> of the debug interface.
-     * @param {Pointer<Pointer<Void>>} ppvDebug Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * The debug interface, as a pointer to pointer to void.
      *             See
      *             <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12debug">ID3D12Debug</a>and
      *             <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12debugdevice">ID3D12DebugDevice</a>.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
-     * 
-     * This method returns one of the <a href="/windows/desktop/direct3d12/d3d12-graphics-reference-returnvalues">Direct3D 12 Return Codes</a>.
      * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-d3d12getdebuginterface
      */
-    static D3D12GetDebugInterface(riid, ppvDebug) {
-        ppvDebugMarshal := ppvDebug is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("d3d12.dll\D3D12GetDebugInterface", "ptr", riid, ppvDebugMarshal, ppvDebug, "int")
+    static D3D12GetDebugInterface(riid) {
+        result := DllCall("d3d12.dll\D3D12GetDebugInterface", "ptr", riid, "ptr*", &ppvDebug := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppvDebug
     }
 
     /**
@@ -2646,18 +2621,15 @@ class Direct3D12 {
      * 
      * @param {Pointer<Guid>} rclsid 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvDebug 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-d3d12getinterface
      */
-    static D3D12GetInterface(rclsid, riid, ppvDebug) {
-        ppvDebugMarshal := ppvDebug is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("d3d12.dll\D3D12GetInterface", "ptr", rclsid, "ptr", riid, ppvDebugMarshal, ppvDebug, "int")
+    static D3D12GetInterface(rclsid, riid) {
+        result := DllCall("d3d12.dll\D3D12GetInterface", "ptr", rclsid, "ptr", riid, "ptr*", &ppvDebug := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppvDebug
     }
 
 ;@endregion Methods

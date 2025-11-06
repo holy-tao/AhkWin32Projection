@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IDataCollectorCollection.ahk
+#Include .\IScheduleCollection.ahk
+#Include .\IDataManager.ahk
+#Include .\IValueMap.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -170,26 +174,22 @@ class IDataCollectorSet extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDataCollectorCollection>} collectors 
-     * @returns {HRESULT} 
+     * @returns {IDataCollectorCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_datacollectors
      */
-    get_DataCollectors(collectors) {
-        result := ComCall(7, this, "ptr*", collectors, "HRESULT")
-        return result
+    get_DataCollectors() {
+        result := ComCall(7, this, "ptr*", &collectors := 0, "HRESULT")
+        return IDataCollectorCollection(collectors)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} seconds 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_duration
      */
-    get_Duration(seconds) {
-        secondsMarshal := seconds is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, secondsMarshal, seconds, "HRESULT")
-        return result
+    get_Duration() {
+        result := ComCall(8, this, "uint*", &seconds := 0, "HRESULT")
+        return seconds
     }
 
     /**
@@ -205,13 +205,13 @@ class IDataCollectorSet extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} description 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_description
      */
-    get_Description(description) {
+    get_Description() {
+        description := BSTR()
         result := ComCall(10, this, "ptr", description, "HRESULT")
-        return result
+        return description
     }
 
     /**
@@ -229,24 +229,24 @@ class IDataCollectorSet extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} Descr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_descriptionunresolved
      */
-    get_DescriptionUnresolved(Descr) {
+    get_DescriptionUnresolved() {
+        Descr := BSTR()
         result := ComCall(12, this, "ptr", Descr, "HRESULT")
-        return result
+        return Descr
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} DisplayName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_displayname
      */
-    get_DisplayName(DisplayName) {
+    get_DisplayName() {
+        DisplayName := BSTR()
         result := ComCall(13, this, "ptr", DisplayName, "HRESULT")
-        return result
+        return DisplayName
     }
 
     /**
@@ -264,26 +264,23 @@ class IDataCollectorSet extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_displaynameunresolved
      */
-    get_DisplayNameUnresolved(name) {
+    get_DisplayNameUnresolved() {
+        name := BSTR()
         result := ComCall(15, this, "ptr", name, "HRESULT")
-        return result
+        return name
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} keywords 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_keywords
      */
-    get_Keywords(keywords) {
-        keywordsMarshal := keywords is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(16, this, keywordsMarshal, keywords, "HRESULT")
-        return result
+    get_Keywords() {
+        result := ComCall(16, this, "ptr*", &keywords := 0, "HRESULT")
+        return keywords
     }
 
     /**
@@ -299,13 +296,13 @@ class IDataCollectorSet extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} path 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_latestoutputlocation
      */
-    get_LatestOutputLocation(path) {
+    get_LatestOutputLocation() {
+        path := BSTR()
         result := ComCall(18, this, "ptr", path, "HRESULT")
-        return result
+        return path
     }
 
     /**
@@ -323,35 +320,35 @@ class IDataCollectorSet extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_name
      */
-    get_Name(name) {
+    get_Name() {
+        name := BSTR()
         result := ComCall(20, this, "ptr", name, "HRESULT")
-        return result
+        return name
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} path 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_outputlocation
      */
-    get_OutputLocation(path) {
+    get_OutputLocation() {
+        path := BSTR()
         result := ComCall(21, this, "ptr", path, "HRESULT")
-        return result
+        return path
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} folder 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_rootpath
      */
-    get_RootPath(folder) {
+    get_RootPath() {
+        folder := BSTR()
         result := ComCall(22, this, "ptr", folder, "HRESULT")
-        return result
+        return folder
     }
 
     /**
@@ -369,13 +366,12 @@ class IDataCollectorSet extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} segment 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_segment
      */
-    get_Segment(segment) {
-        result := ComCall(24, this, "ptr", segment, "HRESULT")
-        return result
+    get_Segment() {
+        result := ComCall(24, this, "short*", &segment := 0, "HRESULT")
+        return segment
     }
 
     /**
@@ -391,15 +387,12 @@ class IDataCollectorSet extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} seconds 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_segmentmaxduration
      */
-    get_SegmentMaxDuration(seconds) {
-        secondsMarshal := seconds is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(26, this, secondsMarshal, seconds, "HRESULT")
-        return result
+    get_SegmentMaxDuration() {
+        result := ComCall(26, this, "uint*", &seconds := 0, "HRESULT")
+        return seconds
     }
 
     /**
@@ -415,15 +408,12 @@ class IDataCollectorSet extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} size 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_segmentmaxsize
      */
-    get_SegmentMaxSize(size) {
-        sizeMarshal := size is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(28, this, sizeMarshal, size, "HRESULT")
-        return result
+    get_SegmentMaxSize() {
+        result := ComCall(28, this, "uint*", &size := 0, "HRESULT")
+        return size
     }
 
     /**
@@ -439,15 +429,12 @@ class IDataCollectorSet extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} index 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_serialnumber
      */
-    get_SerialNumber(index) {
-        indexMarshal := index is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(30, this, indexMarshal, index, "HRESULT")
-        return result
+    get_SerialNumber() {
+        result := ComCall(30, this, "uint*", &index := 0, "HRESULT")
+        return index
     }
 
     /**
@@ -463,37 +450,34 @@ class IDataCollectorSet extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} server 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_server
      */
-    get_Server(server) {
+    get_Server() {
+        server := BSTR()
         result := ComCall(32, this, "ptr", server, "HRESULT")
-        return result
+        return server
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} status 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_status
      */
-    get_Status(status) {
-        statusMarshal := status is VarRef ? "int*" : "ptr"
-
-        result := ComCall(33, this, statusMarshal, status, "HRESULT")
-        return result
+    get_Status() {
+        result := ComCall(33, this, "int*", &status := 0, "HRESULT")
+        return status
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} folder 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_subdirectory
      */
-    get_Subdirectory(folder) {
+    get_Subdirectory() {
+        folder := BSTR()
         result := ComCall(34, this, "ptr", folder, "HRESULT")
-        return result
+        return folder
     }
 
     /**
@@ -511,15 +495,12 @@ class IDataCollectorSet extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} format 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_subdirectoryformat
      */
-    get_SubdirectoryFormat(format) {
-        formatMarshal := format is VarRef ? "int*" : "ptr"
-
-        result := ComCall(36, this, formatMarshal, format, "HRESULT")
-        return result
+    get_SubdirectoryFormat() {
+        result := ComCall(36, this, "int*", &format := 0, "HRESULT")
+        return format
     }
 
     /**
@@ -535,13 +516,13 @@ class IDataCollectorSet extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pattern 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_subdirectoryformatpattern
      */
-    get_SubdirectoryFormatPattern(pattern) {
+    get_SubdirectoryFormatPattern() {
+        pattern := BSTR()
         result := ComCall(38, this, "ptr", pattern, "HRESULT")
-        return result
+        return pattern
     }
 
     /**
@@ -559,13 +540,13 @@ class IDataCollectorSet extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} task 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_task
      */
-    get_Task(task) {
+    get_Task() {
+        task := BSTR()
         result := ComCall(40, this, "ptr", task, "HRESULT")
-        return result
+        return task
     }
 
     /**
@@ -583,13 +564,12 @@ class IDataCollectorSet extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} RunAsSelf 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_taskrunasself
      */
-    get_TaskRunAsSelf(RunAsSelf) {
-        result := ComCall(42, this, "ptr", RunAsSelf, "HRESULT")
-        return result
+    get_TaskRunAsSelf() {
+        result := ComCall(42, this, "short*", &RunAsSelf := 0, "HRESULT")
+        return RunAsSelf
     }
 
     /**
@@ -605,13 +585,13 @@ class IDataCollectorSet extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} task 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_taskarguments
      */
-    get_TaskArguments(task) {
+    get_TaskArguments() {
+        task := BSTR()
         result := ComCall(44, this, "ptr", task, "HRESULT")
-        return result
+        return task
     }
 
     /**
@@ -629,13 +609,13 @@ class IDataCollectorSet extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} UserText 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_taskusertextarguments
      */
-    get_TaskUserTextArguments(UserText) {
+    get_TaskUserTextArguments() {
+        UserText := BSTR()
         result := ComCall(46, this, "ptr", UserText, "HRESULT")
-        return result
+        return UserText
     }
 
     /**
@@ -653,24 +633,22 @@ class IDataCollectorSet extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IScheduleCollection>} ppSchedules 
-     * @returns {HRESULT} 
+     * @returns {IScheduleCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_schedules
      */
-    get_Schedules(ppSchedules) {
-        result := ComCall(48, this, "ptr*", ppSchedules, "HRESULT")
-        return result
+    get_Schedules() {
+        result := ComCall(48, this, "ptr*", &ppSchedules := 0, "HRESULT")
+        return IScheduleCollection(ppSchedules)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} enabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_schedulesenabled
      */
-    get_SchedulesEnabled(enabled) {
-        result := ComCall(49, this, "ptr", enabled, "HRESULT")
-        return result
+    get_SchedulesEnabled() {
+        result := ComCall(49, this, "short*", &enabled := 0, "HRESULT")
+        return enabled
     }
 
     /**
@@ -686,35 +664,35 @@ class IDataCollectorSet extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} user 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_useraccount
      */
-    get_UserAccount(user) {
+    get_UserAccount() {
+        user := BSTR()
         result := ComCall(51, this, "ptr", user, "HRESULT")
-        return result
+        return user
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} xml 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_xml
      */
-    get_Xml(xml) {
+    get_Xml() {
+        xml := BSTR()
         result := ComCall(52, this, "ptr", xml, "HRESULT")
-        return result
+        return xml
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrSecurity 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_security
      */
-    get_Security(pbstrSecurity) {
+    get_Security() {
+        pbstrSecurity := BSTR()
         result := ComCall(53, this, "ptr", pbstrSecurity, "HRESULT")
-        return result
+        return pbstrSecurity
     }
 
     /**
@@ -732,13 +710,12 @@ class IDataCollectorSet extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} Stop 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_stoponcompletion
      */
-    get_StopOnCompletion(Stop) {
-        result := ComCall(55, this, "ptr", Stop, "HRESULT")
-        return result
+    get_StopOnCompletion() {
+        result := ComCall(55, this, "short*", &Stop := 0, "HRESULT")
+        return Stop
     }
 
     /**
@@ -754,13 +731,12 @@ class IDataCollectorSet extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDataManager>} DataManager 
-     * @returns {HRESULT} 
+     * @returns {IDataManager} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-get_datamanager
      */
-    get_DataManager(DataManager) {
-        result := ComCall(57, this, "ptr*", DataManager, "HRESULT")
-        return result
+    get_DataManager() {
+        result := ComCall(57, this, "ptr*", &DataManager := 0, "HRESULT")
+        return IDataManager(DataManager)
     }
 
     /**
@@ -798,16 +774,15 @@ class IDataCollectorSet extends IDispatch{
      * @param {BSTR} name 
      * @param {BSTR} server 
      * @param {Integer} mode 
-     * @param {Pointer<IValueMap>} validation 
-     * @returns {HRESULT} 
+     * @returns {IValueMap} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-commit
      */
-    Commit(name, server, mode, validation) {
+    Commit(name, server, mode) {
         name := name is String ? BSTR.Alloc(name).Value : name
         server := server is String ? BSTR.Alloc(server).Value : server
 
-        result := ComCall(60, this, "ptr", name, "ptr", server, "int", mode, "ptr*", validation, "HRESULT")
-        return result
+        result := ComCall(60, this, "ptr", name, "ptr", server, "int", mode, "ptr*", &validation := 0, "HRESULT")
+        return IValueMap(validation)
     }
 
     /**
@@ -845,15 +820,14 @@ class IDataCollectorSet extends IDispatch{
     /**
      * 
      * @param {BSTR} xml 
-     * @param {Pointer<IValueMap>} validation 
-     * @returns {HRESULT} 
+     * @returns {IValueMap} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-setxml
      */
-    SetXml(xml, validation) {
+    SetXml(xml) {
         xml := xml is String ? BSTR.Alloc(xml).Value : xml
 
-        result := ComCall(64, this, "ptr", xml, "ptr*", validation, "HRESULT")
-        return result
+        result := ComCall(64, this, "ptr", xml, "ptr*", &validation := 0, "HRESULT")
+        return IValueMap(validation)
     }
 
     /**
@@ -874,14 +848,14 @@ class IDataCollectorSet extends IDispatch{
     /**
      * 
      * @param {BSTR} key 
-     * @param {Pointer<BSTR>} value 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorset-getvalue
      */
-    GetValue(key, value) {
+    GetValue(key) {
         key := key is String ? BSTR.Alloc(key).Value : key
 
+        value := BSTR()
         result := ComCall(66, this, "ptr", key, "ptr", value, "HRESULT")
-        return result
+        return value
     }
 }

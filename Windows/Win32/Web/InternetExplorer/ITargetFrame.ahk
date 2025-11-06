@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Ole\IOleContainer.ahk
 
 /**
  * @namespace Windows.Win32.Web.InternetExplorer
@@ -42,22 +43,20 @@ class ITargetFrame extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszFrameName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetFrameName(ppszFrameName) {
-        result := ComCall(4, this, "ptr", ppszFrameName, "HRESULT")
-        return result
+    GetFrameName() {
+        result := ComCall(4, this, "ptr*", &ppszFrameName := 0, "HRESULT")
+        return ppszFrameName
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppunkParent 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    GetParentFrame(ppunkParent) {
-        result := ComCall(5, this, "ptr*", ppunkParent, "HRESULT")
-        return result
+    GetParentFrame() {
+        result := ComCall(5, this, "ptr*", &ppunkParent := 0, "HRESULT")
+        return IUnknown(ppunkParent)
     }
 
     /**
@@ -65,14 +64,13 @@ class ITargetFrame extends IUnknown{
      * @param {PWSTR} pszTargetName 
      * @param {IUnknown} ppunkContextFrame 
      * @param {Integer} dwFlags 
-     * @param {Pointer<IUnknown>} ppunkTargetFrame 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    FindFrame(pszTargetName, ppunkContextFrame, dwFlags, ppunkTargetFrame) {
+    FindFrame(pszTargetName, ppunkContextFrame, dwFlags) {
         pszTargetName := pszTargetName is String ? StrPtr(pszTargetName) : pszTargetName
 
-        result := ComCall(6, this, "ptr", pszTargetName, "ptr", ppunkContextFrame, "uint", dwFlags, "ptr*", ppunkTargetFrame, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", pszTargetName, "ptr", ppunkContextFrame, "uint", dwFlags, "ptr*", &ppunkTargetFrame := 0, "HRESULT")
+        return IUnknown(ppunkTargetFrame)
     }
 
     /**
@@ -89,22 +87,20 @@ class ITargetFrame extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszFrameSrc 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetFrameSrc(ppszFrameSrc) {
-        result := ComCall(8, this, "ptr", ppszFrameSrc, "HRESULT")
-        return result
+    GetFrameSrc() {
+        result := ComCall(8, this, "ptr*", &ppszFrameSrc := 0, "HRESULT")
+        return ppszFrameSrc
     }
 
     /**
      * 
-     * @param {Pointer<IOleContainer>} ppContainer 
-     * @returns {HRESULT} 
+     * @returns {IOleContainer} 
      */
-    GetFramesContainer(ppContainer) {
-        result := ComCall(9, this, "ptr*", ppContainer, "HRESULT")
-        return result
+    GetFramesContainer() {
+        result := ComCall(9, this, "ptr*", &ppContainer := 0, "HRESULT")
+        return IOleContainer(ppContainer)
     }
 
     /**
@@ -119,14 +115,11 @@ class ITargetFrame extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetFrameOptions(pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
-        return result
+    GetFrameOptions() {
+        result := ComCall(11, this, "uint*", &pdwFlags := 0, "HRESULT")
+        return pdwFlags
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\Com\IUnknown.ahk
 #Include .\IMetaDataDispenser.ahk
 
 /**
@@ -59,13 +60,12 @@ class IMetaDataDispenserEx extends IMetaDataDispenser{
      * @param {ITypeInfo} pITI 
      * @param {Integer} dwOpenFlags 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppIUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatadispenserex-openscopeonitypeinfo
      */
-    OpenScopeOnITypeInfo(pITI, dwOpenFlags, riid, ppIUnk) {
-        result := ComCall(8, this, "ptr", pITI, "uint", dwOpenFlags, "ptr", riid, "ptr*", ppIUnk, "HRESULT")
-        return result
+    OpenScopeOnITypeInfo(pITI, dwOpenFlags, riid) {
+        result := ComCall(8, this, "ptr", pITI, "uint", dwOpenFlags, "ptr", riid, "ptr*", &ppIUnk := 0, "HRESULT")
+        return IUnknown(ppIUnk)
     }
 
     /**

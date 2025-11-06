@@ -14313,7 +14313,9 @@ class NetManagement {
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
         AccountName := AccountName is String ? StrPtr(AccountName) : AccountName
 
-        result := DllCall("NETAPI32.dll\NetIsServiceAccount", "ptr", ServerName, "ptr", AccountName, "ptr", IsService, "int")
+        IsServiceMarshal := IsService is VarRef ? "int*" : "ptr"
+
+        result := DllCall("NETAPI32.dll\NetIsServiceAccount", "ptr", ServerName, "ptr", AccountName, IsServiceMarshal, IsService, "int")
         return result
     }
 
@@ -14329,9 +14331,10 @@ class NetManagement {
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
         AccountName := AccountName is String ? StrPtr(AccountName) : AccountName
 
+        IsServiceMarshal := IsService is VarRef ? "int*" : "ptr"
         AccountTypeMarshal := AccountType is VarRef ? "int*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetIsServiceAccount2", "ptr", ServerName, "ptr", AccountName, "ptr", IsService, AccountTypeMarshal, AccountType, "int")
+        result := DllCall("NETAPI32.dll\NetIsServiceAccount2", "ptr", ServerName, "ptr", AccountName, IsServiceMarshal, IsService, AccountTypeMarshal, AccountType, "int")
         return result
     }
 
@@ -16492,9 +16495,10 @@ class NetManagement {
         servername := servername is String ? StrPtr(servername) : servername
         service := service is String ? StrPtr(service) : service
 
+        argvMarshal := argv is VarRef ? "ptr*" : "ptr"
         bufptrMarshal := bufptr is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetServiceInstall", "ptr", servername, "ptr", service, "uint", argc, "ptr", argv, bufptrMarshal, bufptr, "uint")
+        result := DllCall("NETAPI32.dll\NetServiceInstall", "ptr", servername, "ptr", service, "uint", argc, argvMarshal, argv, bufptrMarshal, bufptr, "uint")
         return result
     }
 
@@ -18721,8 +18725,9 @@ class NetManagement {
 
         pProvisionBinDataMarshal := pProvisionBinData is VarRef ? "ptr*" : "ptr"
         pdwProvisionBinDataSizeMarshal := pdwProvisionBinDataSize is VarRef ? "uint*" : "ptr"
+        pProvisionTextDataMarshal := pProvisionTextData is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetProvisionComputerAccount", "ptr", lpDomain, "ptr", lpMachineName, "ptr", lpMachineAccountOU, "ptr", lpDcName, "uint", dwOptions, pProvisionBinDataMarshal, pProvisionBinData, pdwProvisionBinDataSizeMarshal, pdwProvisionBinDataSize, "ptr", pProvisionTextData, "uint")
+        result := DllCall("NETAPI32.dll\NetProvisionComputerAccount", "ptr", lpDomain, "ptr", lpMachineName, "ptr", lpMachineAccountOU, "ptr", lpDcName, "uint", dwOptions, pProvisionBinDataMarshal, pProvisionBinData, pdwProvisionBinDataSizeMarshal, pdwProvisionBinDataSize, pProvisionTextDataMarshal, pProvisionTextData, "uint")
         return result
     }
 
@@ -19109,8 +19114,9 @@ class NetManagement {
     static NetCreateProvisioningPackage(pProvisioningParams, ppPackageBinData, pdwPackageBinDataSize, ppPackageTextData) {
         ppPackageBinDataMarshal := ppPackageBinData is VarRef ? "ptr*" : "ptr"
         pdwPackageBinDataSizeMarshal := pdwPackageBinDataSize is VarRef ? "uint*" : "ptr"
+        ppPackageTextDataMarshal := ppPackageTextData is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetCreateProvisioningPackage", "ptr", pProvisioningParams, ppPackageBinDataMarshal, ppPackageBinData, pdwPackageBinDataSizeMarshal, pdwPackageBinDataSize, "ptr", ppPackageTextData, "uint")
+        result := DllCall("NETAPI32.dll\NetCreateProvisioningPackage", "ptr", pProvisioningParams, ppPackageBinDataMarshal, ppPackageBinData, pdwPackageBinDataSizeMarshal, pdwPackageBinDataSize, ppPackageTextDataMarshal, ppPackageTextData, "uint")
         return result
     }
 
@@ -19290,23 +19296,20 @@ class NetManagement {
      *                        Azure AD work accounts. The algorithm for selecting one of the work
      *                        accounts is not specified.</li>
      * </ul>
-     * @param {Pointer<Pointer<DSREG_JOIN_INFO>>} ppJoinInfo The join information for the tenant that the <i>pcszTenantId</i> parameter specifies. If this parameter is NULL,  the device is not joined to Azure AD and the current user added no Azure AD work accounts. You must call
+     * @returns {Pointer<DSREG_JOIN_INFO>} The join information for the tenant that the <i>pcszTenantId</i> parameter specifies. If this parameter is NULL,  the device is not joined to Azure AD and the current user added no Azure AD work accounts. You must call
      *                      the <a href="https://docs.microsoft.com/windows/desktop/api/lmjoin/nf-lmjoin-netfreeaadjoininformation">NetFreeAadJoinInformation</a> function to free the memory allocated for
      *                      this structure.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//lmjoin/nf-lmjoin-netgetaadjoininformation
      * @since windows10.0.10240
      */
-    static NetGetAadJoinInformation(pcszTenantId, ppJoinInfo) {
+    static NetGetAadJoinInformation(pcszTenantId) {
         pcszTenantId := pcszTenantId is String ? StrPtr(pcszTenantId) : pcszTenantId
 
-        ppJoinInfoMarshal := ppJoinInfo is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("NETAPI32.dll\NetGetAadJoinInformation", "ptr", pcszTenantId, ppJoinInfoMarshal, ppJoinInfo, "int")
+        result := DllCall("NETAPI32.dll\NetGetAadJoinInformation", "ptr", pcszTenantId, "ptr*", &ppJoinInfo := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppJoinInfo
     }
 
     /**
@@ -19356,9 +19359,10 @@ class NetManagement {
     static NetGetJoinInformation(lpServer, lpNameBuffer, BufferType) {
         lpServer := lpServer is String ? StrPtr(lpServer) : lpServer
 
+        lpNameBufferMarshal := lpNameBuffer is VarRef ? "ptr*" : "ptr"
         BufferTypeMarshal := BufferType is VarRef ? "int*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetGetJoinInformation", "ptr", lpServer, "ptr", lpNameBuffer, BufferTypeMarshal, BufferType, "uint")
+        result := DllCall("NETAPI32.dll\NetGetJoinInformation", "ptr", lpServer, lpNameBufferMarshal, lpNameBuffer, BufferTypeMarshal, BufferType, "uint")
         return result
     }
 
@@ -19802,7 +19806,9 @@ class NetManagement {
      * @returns {String} Nothing - always returns an empty string
      */
     static LogErrorA(dwMessageId, cNumberOfSubStrings, plpwsSubStrings, dwErrorCode) {
-        DllCall("rtutils.dll\LogErrorA", "uint", dwMessageId, "uint", cNumberOfSubStrings, "ptr", plpwsSubStrings, "uint", dwErrorCode)
+        plpwsSubStringsMarshal := plpwsSubStrings is VarRef ? "ptr*" : "ptr"
+
+        DllCall("rtutils.dll\LogErrorA", "uint", dwMessageId, "uint", cNumberOfSubStrings, plpwsSubStringsMarshal, plpwsSubStrings, "uint", dwErrorCode)
     }
 
     /**
@@ -19814,7 +19820,9 @@ class NetManagement {
      * @returns {String} Nothing - always returns an empty string
      */
     static LogEventA(wEventType, dwMessageId, cNumberOfSubStrings, plpwsSubStrings) {
-        DllCall("rtutils.dll\LogEventA", "uint", wEventType, "uint", dwMessageId, "uint", cNumberOfSubStrings, "ptr", plpwsSubStrings)
+        plpwsSubStringsMarshal := plpwsSubStrings is VarRef ? "ptr*" : "ptr"
+
+        DllCall("rtutils.dll\LogEventA", "uint", wEventType, "uint", dwMessageId, "uint", cNumberOfSubStrings, plpwsSubStringsMarshal, plpwsSubStrings)
     }
 
     /**
@@ -19826,7 +19834,9 @@ class NetManagement {
      * @returns {String} Nothing - always returns an empty string
      */
     static LogErrorW(dwMessageId, cNumberOfSubStrings, plpwsSubStrings, dwErrorCode) {
-        DllCall("rtutils.dll\LogErrorW", "uint", dwMessageId, "uint", cNumberOfSubStrings, "ptr", plpwsSubStrings, "uint", dwErrorCode)
+        plpwsSubStringsMarshal := plpwsSubStrings is VarRef ? "ptr*" : "ptr"
+
+        DllCall("rtutils.dll\LogErrorW", "uint", dwMessageId, "uint", cNumberOfSubStrings, plpwsSubStringsMarshal, plpwsSubStrings, "uint", dwErrorCode)
     }
 
     /**
@@ -19838,7 +19848,9 @@ class NetManagement {
      * @returns {String} Nothing - always returns an empty string
      */
     static LogEventW(wEventType, dwMessageId, cNumberOfSubStrings, plpwsSubStrings) {
-        DllCall("rtutils.dll\LogEventW", "uint", wEventType, "uint", dwMessageId, "uint", cNumberOfSubStrings, "ptr", plpwsSubStrings)
+        plpwsSubStringsMarshal := plpwsSubStrings is VarRef ? "ptr*" : "ptr"
+
+        DllCall("rtutils.dll\LogEventW", "uint", wEventType, "uint", dwMessageId, "uint", cNumberOfSubStrings, plpwsSubStringsMarshal, plpwsSubStrings)
     }
 
     /**
@@ -19877,7 +19889,9 @@ class NetManagement {
     static RouterLogEventA(hLogHandle, dwEventType, dwMessageId, dwSubStringCount, plpszSubStringArray, dwErrorCode) {
         hLogHandle := hLogHandle is Win32Handle ? NumGet(hLogHandle, "ptr") : hLogHandle
 
-        DllCall("rtutils.dll\RouterLogEventA", "ptr", hLogHandle, "uint", dwEventType, "uint", dwMessageId, "uint", dwSubStringCount, "ptr", plpszSubStringArray, "uint", dwErrorCode)
+        plpszSubStringArrayMarshal := plpszSubStringArray is VarRef ? "ptr*" : "ptr"
+
+        DllCall("rtutils.dll\RouterLogEventA", "ptr", hLogHandle, "uint", dwEventType, "uint", dwMessageId, "uint", dwSubStringCount, plpszSubStringArrayMarshal, plpszSubStringArray, "uint", dwErrorCode)
     }
 
     /**
@@ -19894,9 +19908,10 @@ class NetManagement {
     static RouterLogEventDataA(hLogHandle, dwEventType, dwMessageId, dwSubStringCount, plpszSubStringArray, dwDataBytes, lpDataBytes) {
         hLogHandle := hLogHandle is Win32Handle ? NumGet(hLogHandle, "ptr") : hLogHandle
 
+        plpszSubStringArrayMarshal := plpszSubStringArray is VarRef ? "ptr*" : "ptr"
         lpDataBytesMarshal := lpDataBytes is VarRef ? "char*" : "ptr"
 
-        DllCall("rtutils.dll\RouterLogEventDataA", "ptr", hLogHandle, "uint", dwEventType, "uint", dwMessageId, "uint", dwSubStringCount, "ptr", plpszSubStringArray, "uint", dwDataBytes, lpDataBytesMarshal, lpDataBytes)
+        DllCall("rtutils.dll\RouterLogEventDataA", "ptr", hLogHandle, "uint", dwEventType, "uint", dwMessageId, "uint", dwSubStringCount, plpszSubStringArrayMarshal, plpszSubStringArray, "uint", dwDataBytes, lpDataBytesMarshal, lpDataBytes)
     }
 
     /**
@@ -19913,7 +19928,9 @@ class NetManagement {
     static RouterLogEventStringA(hLogHandle, dwEventType, dwMessageId, dwSubStringCount, plpszSubStringArray, dwErrorCode, dwErrorIndex) {
         hLogHandle := hLogHandle is Win32Handle ? NumGet(hLogHandle, "ptr") : hLogHandle
 
-        DllCall("rtutils.dll\RouterLogEventStringA", "ptr", hLogHandle, "uint", dwEventType, "uint", dwMessageId, "uint", dwSubStringCount, "ptr", plpszSubStringArray, "uint", dwErrorCode, "uint", dwErrorIndex)
+        plpszSubStringArrayMarshal := plpszSubStringArray is VarRef ? "ptr*" : "ptr"
+
+        DllCall("rtutils.dll\RouterLogEventStringA", "ptr", hLogHandle, "uint", dwEventType, "uint", dwMessageId, "uint", dwSubStringCount, plpszSubStringArrayMarshal, plpszSubStringArray, "uint", dwErrorCode, "uint", dwErrorIndex)
     }
 
     /**
@@ -19958,7 +19975,9 @@ class NetManagement {
      * @returns {Integer} 
      */
     static RouterGetErrorStringA(dwErrorCode, lplpszErrorString) {
-        result := DllCall("rtutils.dll\RouterGetErrorStringA", "uint", dwErrorCode, "ptr", lplpszErrorString, "uint")
+        lplpszErrorStringMarshal := lplpszErrorString is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("rtutils.dll\RouterGetErrorStringA", "uint", dwErrorCode, lplpszErrorStringMarshal, lplpszErrorString, "uint")
         return result
     }
 
@@ -19998,7 +20017,9 @@ class NetManagement {
     static RouterLogEventW(hLogHandle, dwEventType, dwMessageId, dwSubStringCount, plpszSubStringArray, dwErrorCode) {
         hLogHandle := hLogHandle is Win32Handle ? NumGet(hLogHandle, "ptr") : hLogHandle
 
-        DllCall("rtutils.dll\RouterLogEventW", "ptr", hLogHandle, "uint", dwEventType, "uint", dwMessageId, "uint", dwSubStringCount, "ptr", plpszSubStringArray, "uint", dwErrorCode)
+        plpszSubStringArrayMarshal := plpszSubStringArray is VarRef ? "ptr*" : "ptr"
+
+        DllCall("rtutils.dll\RouterLogEventW", "ptr", hLogHandle, "uint", dwEventType, "uint", dwMessageId, "uint", dwSubStringCount, plpszSubStringArrayMarshal, plpszSubStringArray, "uint", dwErrorCode)
     }
 
     /**
@@ -20015,9 +20036,10 @@ class NetManagement {
     static RouterLogEventDataW(hLogHandle, dwEventType, dwMessageId, dwSubStringCount, plpszSubStringArray, dwDataBytes, lpDataBytes) {
         hLogHandle := hLogHandle is Win32Handle ? NumGet(hLogHandle, "ptr") : hLogHandle
 
+        plpszSubStringArrayMarshal := plpszSubStringArray is VarRef ? "ptr*" : "ptr"
         lpDataBytesMarshal := lpDataBytes is VarRef ? "char*" : "ptr"
 
-        DllCall("rtutils.dll\RouterLogEventDataW", "ptr", hLogHandle, "uint", dwEventType, "uint", dwMessageId, "uint", dwSubStringCount, "ptr", plpszSubStringArray, "uint", dwDataBytes, lpDataBytesMarshal, lpDataBytes)
+        DllCall("rtutils.dll\RouterLogEventDataW", "ptr", hLogHandle, "uint", dwEventType, "uint", dwMessageId, "uint", dwSubStringCount, plpszSubStringArrayMarshal, plpszSubStringArray, "uint", dwDataBytes, lpDataBytesMarshal, lpDataBytes)
     }
 
     /**
@@ -20034,7 +20056,9 @@ class NetManagement {
     static RouterLogEventStringW(hLogHandle, dwEventType, dwMessageId, dwSubStringCount, plpszSubStringArray, dwErrorCode, dwErrorIndex) {
         hLogHandle := hLogHandle is Win32Handle ? NumGet(hLogHandle, "ptr") : hLogHandle
 
-        DllCall("rtutils.dll\RouterLogEventStringW", "ptr", hLogHandle, "uint", dwEventType, "uint", dwMessageId, "uint", dwSubStringCount, "ptr", plpszSubStringArray, "uint", dwErrorCode, "uint", dwErrorIndex)
+        plpszSubStringArrayMarshal := plpszSubStringArray is VarRef ? "ptr*" : "ptr"
+
+        DllCall("rtutils.dll\RouterLogEventStringW", "ptr", hLogHandle, "uint", dwEventType, "uint", dwMessageId, "uint", dwSubStringCount, plpszSubStringArrayMarshal, plpszSubStringArray, "uint", dwErrorCode, "uint", dwErrorIndex)
     }
 
     /**
@@ -20079,7 +20103,9 @@ class NetManagement {
      * @returns {Integer} 
      */
     static RouterGetErrorStringW(dwErrorCode, lplpwszErrorString) {
-        result := DllCall("rtutils.dll\RouterGetErrorStringW", "uint", dwErrorCode, "ptr", lplpwszErrorString, "uint")
+        lplpwszErrorStringMarshal := lplpwszErrorString is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("rtutils.dll\RouterGetErrorStringW", "uint", dwErrorCode, lplpwszErrorStringMarshal, lplpwszErrorString, "uint")
         return result
     }
 

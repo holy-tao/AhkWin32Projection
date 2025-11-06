@@ -42,13 +42,12 @@ class IObjectContextInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} pptrans 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iobjectcontextinfo-gettransaction
      */
-    GetTransaction(pptrans) {
-        result := ComCall(4, this, "ptr*", pptrans, "HRESULT")
-        return result
+    GetTransaction() {
+        result := ComCall(4, this, "ptr*", &pptrans := 0, "HRESULT")
+        return IUnknown(pptrans)
     }
 
     /**

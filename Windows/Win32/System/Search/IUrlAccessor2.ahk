@@ -34,17 +34,14 @@ class IUrlAccessor2 extends IUrlAccessor{
      * 
      * @param {PWSTR} wszDocUrl 
      * @param {Integer} dwSize 
-     * @param {Pointer<Integer>} pdwLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-iurlaccessor2-getdisplayurl
      */
-    GetDisplayUrl(wszDocUrl, dwSize, pdwLength) {
+    GetDisplayUrl(wszDocUrl, dwSize) {
         wszDocUrl := wszDocUrl is String ? StrPtr(wszDocUrl) : wszDocUrl
 
-        pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(16, this, "ptr", wszDocUrl, "uint", dwSize, pdwLengthMarshal, pdwLength, "HRESULT")
-        return result
+        result := ComCall(16, this, "ptr", wszDocUrl, "uint", dwSize, "uint*", &pdwLength := 0, "HRESULT")
+        return pdwLength
     }
 
     /**
@@ -61,16 +58,13 @@ class IUrlAccessor2 extends IUrlAccessor{
      * 
      * @param {PWSTR} wszCodePage 
      * @param {Integer} dwSize 
-     * @param {Pointer<Integer>} pdwLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-iurlaccessor2-getcodepage
      */
-    GetCodePage(wszCodePage, dwSize, pdwLength) {
+    GetCodePage(wszCodePage, dwSize) {
         wszCodePage := wszCodePage is String ? StrPtr(wszCodePage) : wszCodePage
 
-        pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(18, this, "ptr", wszCodePage, "uint", dwSize, pdwLengthMarshal, pdwLength, "HRESULT")
-        return result
+        result := ComCall(18, this, "ptr", wszCodePage, "uint", dwSize, "uint*", &pdwLength := 0, "HRESULT")
+        return pdwLength
     }
 }

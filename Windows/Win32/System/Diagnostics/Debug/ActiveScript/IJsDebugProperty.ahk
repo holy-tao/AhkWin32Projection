@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\JsDebugPropertyInfo.ahk
+#Include .\IJsEnumDebugProperty.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -31,22 +33,21 @@ class IJsDebugProperty extends IUnknown{
     /**
      * 
      * @param {Integer} nRadix 
-     * @param {Pointer<JsDebugPropertyInfo>} pPropertyInfo 
-     * @returns {HRESULT} 
+     * @returns {JsDebugPropertyInfo} 
      */
-    GetPropertyInfo(nRadix, pPropertyInfo) {
+    GetPropertyInfo(nRadix) {
+        pPropertyInfo := JsDebugPropertyInfo()
         result := ComCall(3, this, "uint", nRadix, "ptr", pPropertyInfo, "HRESULT")
-        return result
+        return pPropertyInfo
     }
 
     /**
      * 
      * @param {Integer} members 
-     * @param {Pointer<IJsEnumDebugProperty>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IJsEnumDebugProperty} 
      */
-    GetMembers(members, ppEnum) {
-        result := ComCall(4, this, "int", members, "ptr*", ppEnum, "HRESULT")
-        return result
+    GetMembers(members) {
+        result := ComCall(4, this, "int", members, "ptr*", &ppEnum := 0, "HRESULT")
+        return IJsEnumDebugProperty(ppEnum)
     }
 }

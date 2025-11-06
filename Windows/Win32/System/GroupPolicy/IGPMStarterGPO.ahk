@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IGPMResult.ahk
+#Include .\IGPMSecurityInfo.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -49,12 +51,12 @@ class IGPMStarterGPO extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_DisplayName(pVal) {
+    get_DisplayName() {
+        pVal := BSTR()
         result := ComCall(7, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
@@ -71,12 +73,12 @@ class IGPMStarterGPO extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Description(pVal) {
+    get_Description() {
+        pVal := BSTR()
         result := ComCall(9, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
@@ -93,102 +95,87 @@ class IGPMStarterGPO extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Author(pVal) {
+    get_Author() {
+        pVal := BSTR()
         result := ComCall(11, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Product(pVal) {
+    get_Product() {
+        pVal := BSTR()
         result := ComCall(12, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_CreationTime(pVal) {
-        pValMarshal := pVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(13, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_CreationTime() {
+        result := ComCall(13, this, "double*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ID(pVal) {
+    get_ID() {
+        pVal := BSTR()
         result := ComCall(14, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_ModifiedTime(pVal) {
-        pValMarshal := pVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(15, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_ModifiedTime() {
+        result := ComCall(15, this, "double*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Type(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_Type() {
+        result := ComCall(16, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ComputerVersion(pVal) {
-        pValMarshal := pVal is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(17, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_ComputerVersion() {
+        result := ComCall(17, this, "ushort*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_UserVersion(pVal) {
-        pValMarshal := pVal is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(18, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_UserVersion() {
+        result := ComCall(18, this, "ushort*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_StarterGPOVersion(pVal) {
+    get_StarterGPOVersion() {
+        pVal := BSTR()
         result := ComCall(19, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
@@ -213,15 +200,14 @@ class IGPMStarterGPO extends IDispatch{
      * @param {Pointer<VARIANT>} bstrVersion 
      * @param {Pointer<VARIANT>} pvarGPMProgress 
      * @param {Pointer<VARIANT>} pvarGPMCancel 
-     * @param {Pointer<IGPMResult>} ppIGPMResult 
-     * @returns {HRESULT} 
+     * @returns {IGPMResult} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmstartergpo-save
      */
-    Save(bstrSaveFile, bOverwrite, bSaveAsSystem, bstrLanguage, bstrAuthor, bstrProduct, bstrUniqueID, bstrVersion, pvarGPMProgress, pvarGPMCancel, ppIGPMResult) {
+    Save(bstrSaveFile, bOverwrite, bSaveAsSystem, bstrLanguage, bstrAuthor, bstrProduct, bstrUniqueID, bstrVersion, pvarGPMProgress, pvarGPMCancel) {
         bstrSaveFile := bstrSaveFile is String ? BSTR.Alloc(bstrSaveFile).Value : bstrSaveFile
 
-        result := ComCall(21, this, "ptr", bstrSaveFile, "short", bOverwrite, "short", bSaveAsSystem, "ptr", bstrLanguage, "ptr", bstrAuthor, "ptr", bstrProduct, "ptr", bstrUniqueID, "ptr", bstrVersion, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", ppIGPMResult, "HRESULT")
-        return result
+        result := ComCall(21, this, "ptr", bstrSaveFile, "short", bOverwrite, "short", bSaveAsSystem, "ptr", bstrLanguage, "ptr", bstrAuthor, "ptr", bstrProduct, "ptr", bstrUniqueID, "ptr", bstrVersion, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
+        return IGPMResult(ppIGPMResult)
     }
 
     /**
@@ -230,16 +216,15 @@ class IGPMStarterGPO extends IDispatch{
      * @param {BSTR} bstrComment 
      * @param {Pointer<VARIANT>} pvarGPMProgress 
      * @param {Pointer<VARIANT>} pvarGPMCancel 
-     * @param {Pointer<IGPMResult>} ppIGPMResult 
-     * @returns {HRESULT} 
+     * @returns {IGPMResult} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmstartergpo-backup
      */
-    Backup(bstrBackupDir, bstrComment, pvarGPMProgress, pvarGPMCancel, ppIGPMResult) {
+    Backup(bstrBackupDir, bstrComment, pvarGPMProgress, pvarGPMCancel) {
         bstrBackupDir := bstrBackupDir is String ? BSTR.Alloc(bstrBackupDir).Value : bstrBackupDir
         bstrComment := bstrComment is String ? BSTR.Alloc(bstrComment).Value : bstrComment
 
-        result := ComCall(22, this, "ptr", bstrBackupDir, "ptr", bstrComment, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", ppIGPMResult, "HRESULT")
-        return result
+        result := ComCall(22, this, "ptr", bstrBackupDir, "ptr", bstrComment, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
+        return IGPMResult(ppIGPMResult)
     }
 
     /**
@@ -247,13 +232,12 @@ class IGPMStarterGPO extends IDispatch{
      * @param {Pointer<VARIANT>} pvarNewDisplayName 
      * @param {Pointer<VARIANT>} pvarGPMProgress 
      * @param {Pointer<VARIANT>} pvarGPMCancel 
-     * @param {Pointer<IGPMResult>} ppIGPMResult 
-     * @returns {HRESULT} 
+     * @returns {IGPMResult} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmstartergpo-copyto
      */
-    CopyTo(pvarNewDisplayName, pvarGPMProgress, pvarGPMCancel, ppIGPMResult) {
-        result := ComCall(23, this, "ptr", pvarNewDisplayName, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", ppIGPMResult, "HRESULT")
-        return result
+    CopyTo(pvarNewDisplayName, pvarGPMProgress, pvarGPMCancel) {
+        result := ComCall(23, this, "ptr", pvarNewDisplayName, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
+        return IGPMResult(ppIGPMResult)
     }
 
     /**
@@ -261,41 +245,36 @@ class IGPMStarterGPO extends IDispatch{
      * @param {Integer} gpmReportType 
      * @param {Pointer<VARIANT>} pvarGPMProgress 
      * @param {Pointer<VARIANT>} pvarGPMCancel 
-     * @param {Pointer<IGPMResult>} ppIGPMResult 
-     * @returns {HRESULT} 
+     * @returns {IGPMResult} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmstartergpo-generatereport
      */
-    GenerateReport(gpmReportType, pvarGPMProgress, pvarGPMCancel, ppIGPMResult) {
-        result := ComCall(24, this, "int", gpmReportType, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", ppIGPMResult, "HRESULT")
-        return result
+    GenerateReport(gpmReportType, pvarGPMProgress, pvarGPMCancel) {
+        result := ComCall(24, this, "int", gpmReportType, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
+        return IGPMResult(ppIGPMResult)
     }
 
     /**
      * 
      * @param {Integer} gpmReportType 
      * @param {BSTR} bstrTargetFilePath 
-     * @param {Pointer<IGPMResult>} ppIGPMResult 
-     * @returns {HRESULT} 
+     * @returns {IGPMResult} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmstartergpo-generatereporttofile
      */
-    GenerateReportToFile(gpmReportType, bstrTargetFilePath, ppIGPMResult) {
+    GenerateReportToFile(gpmReportType, bstrTargetFilePath) {
         bstrTargetFilePath := bstrTargetFilePath is String ? BSTR.Alloc(bstrTargetFilePath).Value : bstrTargetFilePath
 
-        result := ComCall(25, this, "int", gpmReportType, "ptr", bstrTargetFilePath, "ptr*", ppIGPMResult, "HRESULT")
-        return result
+        result := ComCall(25, this, "int", gpmReportType, "ptr", bstrTargetFilePath, "ptr*", &ppIGPMResult := 0, "HRESULT")
+        return IGPMResult(ppIGPMResult)
     }
 
     /**
      * Retrieves a copy of the security descriptor for an object specified by a handle.
-     * @param {Pointer<IGPMSecurityInfo>} ppSecurityInfo 
-     * @returns {HRESULT} If the function succeeds, the return value is ERROR_SUCCESS.
-     * 
-     * If the function fails, the return value is a nonzero error code defined in WinError.h.
+     * @returns {IGPMSecurityInfo} 
      * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-getsecurityinfo
      */
-    GetSecurityInfo(ppSecurityInfo) {
-        result := ComCall(26, this, "ptr*", ppSecurityInfo, "HRESULT")
-        return result
+    GetSecurityInfo() {
+        result := ComCall(26, this, "ptr*", &ppSecurityInfo := 0, "HRESULT")
+        return IGPMSecurityInfo(ppSecurityInfo)
     }
 
     /**

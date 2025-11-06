@@ -31,11 +31,10 @@ class IGetSession extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppSession 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    GetSession(riid, ppSession) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", ppSession, "HRESULT")
-        return result
+    GetSession(riid) {
+        result := ComCall(3, this, "ptr", riid, "ptr*", &ppSession := 0, "HRESULT")
+        return IUnknown(ppSession)
     }
 }

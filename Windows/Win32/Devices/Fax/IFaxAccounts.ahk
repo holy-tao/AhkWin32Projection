@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IFaxAccount.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -42,36 +44,31 @@ class IFaxAccounts extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__NewEnum(ppUnk) {
-        result := ComCall(7, this, "ptr*", ppUnk, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(7, this, "ptr*", &ppUnk := 0, "HRESULT")
+        return IUnknown(ppUnk)
     }
 
     /**
      * 
      * @param {VARIANT} vIndex 
-     * @param {Pointer<IFaxAccount>} pFaxAccount 
-     * @returns {HRESULT} 
+     * @returns {IFaxAccount} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxaccounts-get_item
      */
-    get_Item(vIndex, pFaxAccount) {
-        result := ComCall(8, this, "ptr", vIndex, "ptr*", pFaxAccount, "HRESULT")
-        return result
+    get_Item(vIndex) {
+        result := ComCall(8, this, "ptr", vIndex, "ptr*", &pFaxAccount := 0, "HRESULT")
+        return IFaxAccount(pFaxAccount)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxaccounts-get_count
      */
-    get_Count(plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, plCountMarshal, plCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(9, this, "int*", &plCount := 0, "HRESULT")
+        return plCount
     }
 }

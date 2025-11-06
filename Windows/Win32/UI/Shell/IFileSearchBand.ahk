@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -63,31 +65,31 @@ class IFileSearchBand extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrSearchID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_SearchID(pbstrSearchID) {
+    get_SearchID() {
+        pbstrSearchID := BSTR()
         result := ComCall(9, this, "ptr", pbstrSearchID, "HRESULT")
-        return result
+        return pbstrSearchID
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarScope 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_Scope(pvarScope) {
+    get_Scope() {
+        pvarScope := VARIANT()
         result := ComCall(10, this, "ptr", pvarScope, "HRESULT")
-        return result
+        return pvarScope
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarFile 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_QueryFile(pvarFile) {
+    get_QueryFile() {
+        pvarFile := VARIANT()
         result := ComCall(11, this, "ptr", pvarFile, "HRESULT")
-        return result
+        return pvarFile
     }
 }

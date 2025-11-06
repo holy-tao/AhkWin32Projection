@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Graphics\Printing\IPrinterQueue.ahk
+#Include ..\..\..\Graphics\Printing\IPrinterPropertyBag.ahk
 #Include ..\..\Com\IUnknown.ahk
 
 /**
@@ -30,31 +32,28 @@ class IPrintWorkflowConfigurationNative extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IPrinterQueue>} value 
-     * @returns {HRESULT} 
+     * @returns {IPrinterQueue} 
      */
-    get_PrinterQueue(value) {
-        result := ComCall(3, this, "ptr*", value, "HRESULT")
-        return result
+    get_PrinterQueue() {
+        result := ComCall(3, this, "ptr*", &value := 0, "HRESULT")
+        return IPrinterQueue(value)
     }
 
     /**
      * 
-     * @param {Pointer<IPrinterPropertyBag>} value 
-     * @returns {HRESULT} 
+     * @returns {IPrinterPropertyBag} 
      */
-    get_DriverProperties(value) {
-        result := ComCall(4, this, "ptr*", value, "HRESULT")
-        return result
+    get_DriverProperties() {
+        result := ComCall(4, this, "ptr*", &value := 0, "HRESULT")
+        return IPrinterPropertyBag(value)
     }
 
     /**
      * 
-     * @param {Pointer<IPrinterPropertyBag>} value 
-     * @returns {HRESULT} 
+     * @returns {IPrinterPropertyBag} 
      */
-    get_UserProperties(value) {
-        result := ComCall(5, this, "ptr*", value, "HRESULT")
-        return result
+    get_UserProperties() {
+        result := ComCall(5, this, "ptr*", &value := 0, "HRESULT")
+        return IPrinterPropertyBag(value)
     }
 }

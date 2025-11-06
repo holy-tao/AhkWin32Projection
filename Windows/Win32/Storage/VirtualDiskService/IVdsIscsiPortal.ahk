@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\VDS_ISCSI_PORTAL_PROP.ahk
+#Include .\IVdsSubSystem.ahk
+#Include .\IEnumVdsObject.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,35 +35,33 @@ class IVdsIscsiPortal extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VDS_ISCSI_PORTAL_PROP>} pPortalProp 
-     * @returns {HRESULT} 
+     * @returns {VDS_ISCSI_PORTAL_PROP} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsiscsiportal-getproperties
      */
-    GetProperties(pPortalProp) {
+    GetProperties() {
+        pPortalProp := VDS_ISCSI_PORTAL_PROP()
         result := ComCall(3, this, "ptr", pPortalProp, "HRESULT")
-        return result
+        return pPortalProp
     }
 
     /**
      * 
-     * @param {Pointer<IVdsSubSystem>} ppSubSystem 
-     * @returns {HRESULT} 
+     * @returns {IVdsSubSystem} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsiscsiportal-getsubsystem
      */
-    GetSubSystem(ppSubSystem) {
-        result := ComCall(4, this, "ptr*", ppSubSystem, "HRESULT")
-        return result
+    GetSubSystem() {
+        result := ComCall(4, this, "ptr*", &ppSubSystem := 0, "HRESULT")
+        return IVdsSubSystem(ppSubSystem)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumVdsObject>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumVdsObject} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsiscsiportal-queryassociatedportalgroups
      */
-    QueryAssociatedPortalGroups(ppEnum) {
-        result := ComCall(5, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    QueryAssociatedPortalGroups() {
+        result := ComCall(5, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumVdsObject(ppEnum)
     }
 
     /**
@@ -89,15 +90,12 @@ class IVdsIscsiPortal extends IUnknown{
     /**
      * 
      * @param {Pointer<VDS_IPADDRESS>} pInitiatorPortalAddress 
-     * @param {Pointer<Integer>} pullSecurityFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsiscsiportal-getipsecsecurity
      */
-    GetIpsecSecurity(pInitiatorPortalAddress, pullSecurityFlags) {
-        pullSecurityFlagsMarshal := pullSecurityFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, "ptr", pInitiatorPortalAddress, pullSecurityFlagsMarshal, pullSecurityFlags, "HRESULT")
-        return result
+    GetIpsecSecurity(pInitiatorPortalAddress) {
+        result := ComCall(8, this, "ptr", pInitiatorPortalAddress, "uint*", &pullSecurityFlags := 0, "HRESULT")
+        return pullSecurityFlags
     }
 
     /**

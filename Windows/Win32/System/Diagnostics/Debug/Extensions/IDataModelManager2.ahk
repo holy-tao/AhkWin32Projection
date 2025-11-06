@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IModelObject.ahk
 #Include .\IDataModelManager.ahk
 
 /**
@@ -34,16 +35,15 @@ class IDataModelManager2 extends IDataModelManager{
      * @param {PWSTR} subNamespaceModelName 
      * @param {PWSTR} accessName 
      * @param {IKeyStore} metadata 
-     * @param {Pointer<IModelObject>} namespaceModelObject 
-     * @returns {HRESULT} 
+     * @returns {IModelObject} 
      */
-    AcquireSubNamespace(modelName, subNamespaceModelName, accessName, metadata, namespaceModelObject) {
+    AcquireSubNamespace(modelName, subNamespaceModelName, accessName, metadata) {
         modelName := modelName is String ? StrPtr(modelName) : modelName
         subNamespaceModelName := subNamespaceModelName is String ? StrPtr(subNamespaceModelName) : subNamespaceModelName
         accessName := accessName is String ? StrPtr(accessName) : accessName
 
-        result := ComCall(23, this, "ptr", modelName, "ptr", subNamespaceModelName, "ptr", accessName, "ptr", metadata, "ptr*", namespaceModelObject, "HRESULT")
-        return result
+        result := ComCall(23, this, "ptr", modelName, "ptr", subNamespaceModelName, "ptr", accessName, "ptr", metadata, "ptr*", &namespaceModelObject := 0, "HRESULT")
+        return IModelObject(namespaceModelObject)
     }
 
     /**
@@ -51,11 +51,10 @@ class IDataModelManager2 extends IDataModelManager{
      * @param {IDebugHostContext} context 
      * @param {Pointer<VARIANT>} intrinsicData 
      * @param {IDebugHostType} type 
-     * @param {Pointer<IModelObject>} object 
-     * @returns {HRESULT} 
+     * @returns {IModelObject} 
      */
-    CreateTypedIntrinsicObjectEx(context, intrinsicData, type, object) {
-        result := ComCall(24, this, "ptr", context, "ptr", intrinsicData, "ptr", type, "ptr*", object, "HRESULT")
-        return result
+    CreateTypedIntrinsicObjectEx(context, intrinsicData, type) {
+        result := ComCall(24, this, "ptr", context, "ptr", intrinsicData, "ptr", type, "ptr*", &object := 0, "HRESULT")
+        return IModelObject(object)
     }
 }

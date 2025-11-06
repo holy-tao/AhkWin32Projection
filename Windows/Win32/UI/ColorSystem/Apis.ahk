@@ -968,7 +968,9 @@ class ColorSystem {
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-iscolorprofilevalid
      */
     static IsColorProfileValid(hProfile, pbValid) {
-        result := DllCall("mscms.dll\IsColorProfileValid", "ptr", hProfile, "ptr", pbValid, "int")
+        pbValidMarshal := pbValid is VarRef ? "int*" : "ptr"
+
+        result := DllCall("mscms.dll\IsColorProfileValid", "ptr", hProfile, pbValidMarshal, pbValid, "int")
         return result
     }
 
@@ -1066,7 +1068,9 @@ class ColorSystem {
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-iscolorprofiletagpresent
      */
     static IsColorProfileTagPresent(hProfile, tag, pbPresent) {
-        result := DllCall("mscms.dll\IsColorProfileTagPresent", "ptr", hProfile, "uint", tag, "ptr", pbPresent, "int")
+        pbPresentMarshal := pbPresent is VarRef ? "int*" : "ptr"
+
+        result := DllCall("mscms.dll\IsColorProfileTagPresent", "ptr", hProfile, "uint", tag, pbPresentMarshal, pbPresent, "int")
         return result
     }
 
@@ -1085,8 +1089,9 @@ class ColorSystem {
      */
     static GetColorProfileElement(hProfile, tag, dwOffset, pcbElement, pElement, pbReference) {
         pcbElementMarshal := pcbElement is VarRef ? "uint*" : "ptr"
+        pbReferenceMarshal := pbReference is VarRef ? "int*" : "ptr"
 
-        result := DllCall("mscms.dll\GetColorProfileElement", "ptr", hProfile, "uint", tag, "uint", dwOffset, pcbElementMarshal, pcbElement, "ptr", pElement, "ptr", pbReference, "int")
+        result := DllCall("mscms.dll\GetColorProfileElement", "ptr", hProfile, "uint", tag, "uint", dwOffset, pcbElementMarshal, pcbElement, "ptr", pElement, pbReferenceMarshal, pbReference, "int")
         return result
     }
 
@@ -1169,8 +1174,9 @@ class ColorSystem {
      */
     static GetPS2ColorSpaceArray(hProfile, dwIntent, dwCSAType, pPS2ColorSpaceArray, pcbPS2ColorSpaceArray, pbBinary) {
         pcbPS2ColorSpaceArrayMarshal := pcbPS2ColorSpaceArray is VarRef ? "uint*" : "ptr"
+        pbBinaryMarshal := pbBinary is VarRef ? "int*" : "ptr"
 
-        result := DllCall("mscms.dll\GetPS2ColorSpaceArray", "ptr", hProfile, "uint", dwIntent, "uint", dwCSAType, "ptr", pPS2ColorSpaceArray, pcbPS2ColorSpaceArrayMarshal, pcbPS2ColorSpaceArray, "ptr", pbBinary, "int")
+        result := DllCall("mscms.dll\GetPS2ColorSpaceArray", "ptr", hProfile, "uint", dwIntent, "uint", dwCSAType, "ptr", pPS2ColorSpaceArray, pcbPS2ColorSpaceArrayMarshal, pcbPS2ColorSpaceArray, pbBinaryMarshal, pbBinary, "int")
         return result
     }
 
@@ -1223,8 +1229,9 @@ class ColorSystem {
      */
     static GetPS2ColorRenderingDictionary(hProfile, dwIntent, pPS2ColorRenderingDictionary, pcbPS2ColorRenderingDictionary, pbBinary) {
         pcbPS2ColorRenderingDictionaryMarshal := pcbPS2ColorRenderingDictionary is VarRef ? "uint*" : "ptr"
+        pbBinaryMarshal := pbBinary is VarRef ? "int*" : "ptr"
 
-        result := DllCall("mscms.dll\GetPS2ColorRenderingDictionary", "ptr", hProfile, "uint", dwIntent, "ptr", pPS2ColorRenderingDictionary, pcbPS2ColorRenderingDictionaryMarshal, pcbPS2ColorRenderingDictionary, "ptr", pbBinary, "int")
+        result := DllCall("mscms.dll\GetPS2ColorRenderingDictionary", "ptr", hProfile, "uint", dwIntent, "ptr", pPS2ColorRenderingDictionary, pcbPS2ColorRenderingDictionaryMarshal, pcbPS2ColorRenderingDictionary, pbBinaryMarshal, pbBinary, "int")
         return result
     }
 
@@ -2073,7 +2080,9 @@ class ColorSystem {
     static WcsGetUsePerUserProfiles(pDeviceName, dwDeviceClass, pUsePerUserProfiles) {
         pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
 
-        result := DllCall("mscms.dll\WcsGetUsePerUserProfiles", "ptr", pDeviceName, "uint", dwDeviceClass, "ptr", pUsePerUserProfiles, "int")
+        pUsePerUserProfilesMarshal := pUsePerUserProfiles is VarRef ? "int*" : "ptr"
+
+        result := DllCall("mscms.dll\WcsGetUsePerUserProfiles", "ptr", pDeviceName, "uint", dwDeviceClass, pUsePerUserProfilesMarshal, pUsePerUserProfiles, "int")
         return result
     }
 
@@ -2559,7 +2568,9 @@ class ColorSystem {
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-cmisprofilevalid
      */
     static CMIsProfileValid(hProfile, lpbValid) {
-        result := DllCall("ICM32.dll\CMIsProfileValid", "ptr", hProfile, "ptr", lpbValid, "int")
+        lpbValidMarshal := lpbValid is VarRef ? "int*" : "ptr"
+
+        result := DllCall("ICM32.dll\CMIsProfileValid", "ptr", hProfile, lpbValidMarshal, lpbValid, "int")
         return result
     }
 
@@ -2677,7 +2688,9 @@ class ColorSystem {
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-wcsgetcalibrationmanagementstate
      */
     static WcsGetCalibrationManagementState(pbIsEnabled) {
-        result := DllCall("mscms.dll\WcsGetCalibrationManagementState", "ptr", pbIsEnabled, "int")
+        pbIsEnabledMarshal := pbIsEnabled is VarRef ? "int*" : "ptr"
+
+        result := DllCall("mscms.dll\WcsGetCalibrationManagementState", pbIsEnabledMarshal, pbIsEnabled, "int")
         return result
     }
 
@@ -2784,34 +2797,30 @@ class ColorSystem {
      * @param {Integer} sourceID An identifier assigned to the source of the display. See [Remarks](#remarks) for more details.
      * @param {Integer} profileType The type of color profile to return (currently only CPT_ICC is supported).
      * @param {Integer} profileSubType The subtype of the color profile to return.
-     * @param {Pointer<PWSTR>} profileName Receives a pointer to the default color profile name, which must be freed with [LocalFree](../winbase/nf-winbase-localfree.md).
-     * @returns {HRESULT} 
+     * @returns {PWSTR} Receives a pointer to the default color profile name, which must be freed with [LocalFree](../winbase/nf-winbase-localfree.md).
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-colorprofilegetdisplaydefault
      */
-    static ColorProfileGetDisplayDefault(scope, targetAdapterID, sourceID, profileType, profileSubType, profileName) {
-        result := DllCall("mscms.dll\ColorProfileGetDisplayDefault", "int", scope, "ptr", targetAdapterID, "uint", sourceID, "int", profileType, "int", profileSubType, "ptr", profileName, "int")
+    static ColorProfileGetDisplayDefault(scope, targetAdapterID, sourceID, profileType, profileSubType) {
+        result := DllCall("mscms.dll\ColorProfileGetDisplayDefault", "int", scope, "ptr", targetAdapterID, "uint", sourceID, "int", profileType, "int", profileSubType, "ptr*", &profileName := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return profileName
     }
 
     /**
      * 
      * @param {LUID} targetAdapterID An identifier assigned to the adapter (e.g. GPU) of the target display. See [Remarks](#remarks) for more details.
      * @param {Integer} sourceID An identifier assigned to the source of the display. See [Remarks](#remarks) for more details.
-     * @param {Pointer<Integer>} scope Returns the scope of the currently selected color profile - either the current user or system.
-     * @returns {HRESULT} **S_OK** for success, or a failure **HRESULT** value
+     * @returns {Integer} Returns the scope of the currently selected color profile - either the current user or system.
      * @see https://docs.microsoft.com/windows/win32/api//icm/nf-icm-colorprofilegetdisplayuserscope
      */
-    static ColorProfileGetDisplayUserScope(targetAdapterID, sourceID, scope) {
-        scopeMarshal := scope is VarRef ? "int*" : "ptr"
-
-        result := DllCall("mscms.dll\ColorProfileGetDisplayUserScope", "ptr", targetAdapterID, "uint", sourceID, scopeMarshal, scope, "int")
+    static ColorProfileGetDisplayUserScope(targetAdapterID, sourceID) {
+        result := DllCall("mscms.dll\ColorProfileGetDisplayUserScope", "ptr", targetAdapterID, "uint", sourceID, "int*", &scope := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return scope
     }
 
     /**
@@ -2820,17 +2829,14 @@ class ColorSystem {
      * @param {LUID} targetAdapterID 
      * @param {Integer} sourceID 
      * @param {Integer} capsType 
-     * @param {Pointer<Void>} outputCapabilities 
-     * @returns {HRESULT} 
+     * @returns {Void} 
      */
-    static ColorProfileGetDeviceCapabilities(scope, targetAdapterID, sourceID, capsType, outputCapabilities) {
-        outputCapabilitiesMarshal := outputCapabilities is VarRef ? "ptr" : "ptr"
-
-        result := DllCall("mscms.dll\ColorProfileGetDeviceCapabilities", "int", scope, "ptr", targetAdapterID, "uint", sourceID, "int", capsType, outputCapabilitiesMarshal, outputCapabilities, "int")
+    static ColorProfileGetDeviceCapabilities(scope, targetAdapterID, sourceID, capsType) {
+        result := DllCall("mscms.dll\ColorProfileGetDeviceCapabilities", "int", scope, "ptr", targetAdapterID, "uint", sourceID, "int", capsType, "ptr", &outputCapabilities := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return outputCapabilities
     }
 
 ;@endregion Methods

@@ -68,13 +68,12 @@ class IWMSecureChannel extends IWMAuthorizer{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfIsConnected 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsecure/nf-wmsecure-iwmsecurechannel-wmsc_isconnected
      */
-    WMSC_IsConnected(pfIsConnected) {
-        result := ComCall(9, this, "ptr", pfIsConnected, "HRESULT")
-        return result
+    WMSC_IsConnected() {
+        result := ComCall(9, this, "int*", &pfIsConnected := 0, "HRESULT")
+        return pfIsConnected
     }
 
     /**

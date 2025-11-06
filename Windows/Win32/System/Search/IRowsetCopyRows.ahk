@@ -60,14 +60,11 @@ class IRowsetCopyRows extends IUnknown{
      * @param {Pointer} hReserved 
      * @param {Pointer} cRows 
      * @param {Integer} bFlags 
-     * @param {Pointer<Pointer>} pcRowsCopied 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    CopyRows(hSourceID, hReserved, cRows, bFlags, pcRowsCopied) {
-        pcRowsCopiedMarshal := pcRowsCopied is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, "ushort", hSourceID, "ptr", hReserved, "ptr", cRows, "uint", bFlags, pcRowsCopiedMarshal, pcRowsCopied, "HRESULT")
-        return result
+    CopyRows(hSourceID, hReserved, cRows, bFlags) {
+        result := ComCall(5, this, "ushort", hSourceID, "ptr", hReserved, "ptr", cRows, "uint", bFlags, "ptr*", &pcRowsCopied := 0, "HRESULT")
+        return pcRowsCopied
     }
 
     /**
@@ -76,15 +73,13 @@ class IRowsetCopyRows extends IUnknown{
      * @param {Pointer} cColIds 
      * @param {Pointer<Pointer>} rgSourceColumns 
      * @param {Pointer<Pointer>} rgTargetColumns 
-     * @param {Pointer<Integer>} phSourceID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    DefineSource(pRowsetSource, cColIds, rgSourceColumns, rgTargetColumns, phSourceID) {
+    DefineSource(pRowsetSource, cColIds, rgSourceColumns, rgTargetColumns) {
         rgSourceColumnsMarshal := rgSourceColumns is VarRef ? "ptr*" : "ptr"
         rgTargetColumnsMarshal := rgTargetColumns is VarRef ? "ptr*" : "ptr"
-        phSourceIDMarshal := phSourceID is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pRowsetSource, "ptr", cColIds, rgSourceColumnsMarshal, rgSourceColumns, rgTargetColumnsMarshal, rgTargetColumns, phSourceIDMarshal, phSourceID, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", pRowsetSource, "ptr", cColIds, rgSourceColumnsMarshal, rgSourceColumns, rgTargetColumnsMarshal, rgTargetColumns, "ushort*", &phSourceID := 0, "HRESULT")
+        return phSourceID
     }
 }

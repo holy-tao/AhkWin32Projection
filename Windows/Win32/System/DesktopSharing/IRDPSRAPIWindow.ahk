@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRDPSRAPIApplication.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -38,37 +40,32 @@ class IRDPSRAPIWindow extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiwindow-get_id
      */
-    get_Id(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    get_Id() {
+        result := ComCall(7, this, "int*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
      * 
-     * @param {Pointer<IRDPSRAPIApplication>} pApplication 
-     * @returns {HRESULT} 
+     * @returns {IRDPSRAPIApplication} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiwindow-get_application
      */
-    get_Application(pApplication) {
-        result := ComCall(8, this, "ptr*", pApplication, "HRESULT")
-        return result
+    get_Application() {
+        result := ComCall(8, this, "ptr*", &pApplication := 0, "HRESULT")
+        return IRDPSRAPIApplication(pApplication)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiwindow-get_shared
      */
-    get_Shared(pRetVal) {
-        result := ComCall(9, this, "ptr", pRetVal, "HRESULT")
-        return result
+    get_Shared() {
+        result := ComCall(9, this, "short*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
@@ -84,13 +81,13 @@ class IRDPSRAPIWindow extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiwindow-get_name
      */
-    get_Name(pRetVal) {
+    get_Name() {
+        pRetVal := BSTR()
         result := ComCall(11, this, "ptr", pRetVal, "HRESULT")
-        return result
+        return pRetVal
     }
 
     /**
@@ -105,14 +102,11 @@ class IRDPSRAPIWindow extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiwindow-get_flags
      */
-    get_Flags(pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(13, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
-        return result
+    get_Flags() {
+        result := ComCall(13, this, "uint*", &pdwFlags := 0, "HRESULT")
+        return pdwFlags
     }
 }

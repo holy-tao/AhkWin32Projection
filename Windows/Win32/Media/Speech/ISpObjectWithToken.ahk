@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISpObjectToken.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -40,11 +41,10 @@ class ISpObjectWithToken extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ISpObjectToken>} ppToken 
-     * @returns {HRESULT} 
+     * @returns {ISpObjectToken} 
      */
-    GetObjectToken(ppToken) {
-        result := ComCall(4, this, "ptr*", ppToken, "HRESULT")
-        return result
+    GetObjectToken() {
+        result := ComCall(4, this, "ptr*", &ppToken := 0, "HRESULT")
+        return ISpObjectToken(ppToken)
     }
 }

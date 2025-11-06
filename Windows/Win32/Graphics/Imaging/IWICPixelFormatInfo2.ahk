@@ -32,25 +32,21 @@ class IWICPixelFormatInfo2 extends IWICPixelFormatInfo{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfSupportsTransparency 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpixelformatinfo2-supportstransparency
      */
-    SupportsTransparency(pfSupportsTransparency) {
-        result := ComCall(16, this, "ptr", pfSupportsTransparency, "HRESULT")
-        return result
+    SupportsTransparency() {
+        result := ComCall(16, this, "int*", &pfSupportsTransparency := 0, "HRESULT")
+        return pfSupportsTransparency
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pNumericRepresentation 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpixelformatinfo2-getnumericrepresentation
      */
-    GetNumericRepresentation(pNumericRepresentation) {
-        pNumericRepresentationMarshal := pNumericRepresentation is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, pNumericRepresentationMarshal, pNumericRepresentation, "HRESULT")
-        return result
+    GetNumericRepresentation() {
+        result := ComCall(17, this, "int*", &pNumericRepresentation := 0, "HRESULT")
+        return pNumericRepresentation
     }
 }

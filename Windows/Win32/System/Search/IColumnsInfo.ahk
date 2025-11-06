@@ -48,13 +48,10 @@ class IColumnsInfo extends IUnknown{
      * 
      * @param {Pointer} cColumnIDs 
      * @param {Pointer<DBID>} rgColumnIDs 
-     * @param {Pointer<Pointer>} rgColumns 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    MapColumnIDs(cColumnIDs, rgColumnIDs, rgColumns) {
-        rgColumnsMarshal := rgColumns is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "ptr", cColumnIDs, "ptr", rgColumnIDs, rgColumnsMarshal, rgColumns, "HRESULT")
-        return result
+    MapColumnIDs(cColumnIDs, rgColumnIDs) {
+        result := ComCall(4, this, "ptr", cColumnIDs, "ptr", rgColumnIDs, "ptr*", &rgColumns := 0, "HRESULT")
+        return rgColumns
     }
 }

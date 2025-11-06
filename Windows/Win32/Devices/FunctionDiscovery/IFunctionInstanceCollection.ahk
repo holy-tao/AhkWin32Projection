@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IFunctionInstance.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -42,44 +43,39 @@ class IFunctionInstanceCollection extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstancecollection-getcount
      */
-    GetCount(pdwCount) {
-        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pdwCountMarshal, pdwCount, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(3, this, "uint*", &pdwCount := 0, "HRESULT")
+        return pdwCount
     }
 
     /**
      * 
      * @param {PWSTR} pszInstanceIdentity 
      * @param {Pointer<Integer>} pdwIndex 
-     * @param {Pointer<IFunctionInstance>} ppIFunctionInstance 
-     * @returns {HRESULT} 
+     * @returns {IFunctionInstance} 
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstancecollection-get
      */
-    Get(pszInstanceIdentity, pdwIndex, ppIFunctionInstance) {
+    Get(pszInstanceIdentity, pdwIndex) {
         pszInstanceIdentity := pszInstanceIdentity is String ? StrPtr(pszInstanceIdentity) : pszInstanceIdentity
 
         pdwIndexMarshal := pdwIndex is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pszInstanceIdentity, pdwIndexMarshal, pdwIndex, "ptr*", ppIFunctionInstance, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pszInstanceIdentity, pdwIndexMarshal, pdwIndex, "ptr*", &ppIFunctionInstance := 0, "HRESULT")
+        return IFunctionInstance(ppIFunctionInstance)
     }
 
     /**
      * 
      * @param {Integer} dwIndex 
-     * @param {Pointer<IFunctionInstance>} ppIFunctionInstance 
-     * @returns {HRESULT} 
+     * @returns {IFunctionInstance} 
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstancecollection-item
      */
-    Item(dwIndex, ppIFunctionInstance) {
-        result := ComCall(5, this, "uint", dwIndex, "ptr*", ppIFunctionInstance, "HRESULT")
-        return result
+    Item(dwIndex) {
+        result := ComCall(5, this, "uint", dwIndex, "ptr*", &ppIFunctionInstance := 0, "HRESULT")
+        return IFunctionInstance(ppIFunctionInstance)
     }
 
     /**
@@ -96,13 +92,12 @@ class IFunctionInstanceCollection extends IUnknown{
     /**
      * 
      * @param {Integer} dwIndex 
-     * @param {Pointer<IFunctionInstance>} ppIFunctionInstance 
-     * @returns {HRESULT} 
+     * @returns {IFunctionInstance} 
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstancecollection-remove
      */
-    Remove(dwIndex, ppIFunctionInstance) {
-        result := ComCall(7, this, "uint", dwIndex, "ptr*", ppIFunctionInstance, "HRESULT")
-        return result
+    Remove(dwIndex) {
+        result := ComCall(7, this, "uint", dwIndex, "ptr*", &ppIFunctionInstance := 0, "HRESULT")
+        return IFunctionInstance(ppIFunctionInstance)
     }
 
     /**

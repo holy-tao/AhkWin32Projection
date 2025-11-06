@@ -2,6 +2,15 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IObjectId.ahk
+#Include .\IX509PublicKey.ahk
+#Include .\IX509PrivateKey.ahk
+#Include .\IX500DistinguishedName.ahk
+#Include .\ICspStatuses.ahk
+#Include .\IX509SignatureInformation.ahk
+#Include .\ICryptAttributes.ahk
+#Include .\IX509Extensions.ahk
+#Include .\IObjectIds.ahk
 #Include .\IX509CertificateRequest.ahk
 
 /**
@@ -118,91 +127,84 @@ class IX509CertificateRequestPkcs10 extends IX509CertificateRequest{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-issmartcard
      */
-    IsSmartCard(pValue) {
-        result := ComCall(38, this, "ptr", pValue, "HRESULT")
-        return result
+    IsSmartCard() {
+        result := ComCall(38, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<IObjectId>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IObjectId} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-get_templateobjectid
      */
-    get_TemplateObjectId(ppValue) {
-        result := ComCall(39, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_TemplateObjectId() {
+        result := ComCall(39, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IObjectId(ppValue)
     }
 
     /**
      * 
-     * @param {Pointer<IX509PublicKey>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IX509PublicKey} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-get_publickey
      */
-    get_PublicKey(ppValue) {
-        result := ComCall(40, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_PublicKey() {
+        result := ComCall(40, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IX509PublicKey(ppValue)
     }
 
     /**
      * 
-     * @param {Pointer<IX509PrivateKey>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IX509PrivateKey} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-get_privatekey
      */
-    get_PrivateKey(ppValue) {
-        result := ComCall(41, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_PrivateKey() {
+        result := ComCall(41, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IX509PrivateKey(ppValue)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-get_nullsigned
      */
-    get_NullSigned(pValue) {
-        result := ComCall(42, this, "ptr", pValue, "HRESULT")
-        return result
+    get_NullSigned() {
+        result := ComCall(42, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-get_reusekey
      */
-    get_ReuseKey(pValue) {
-        result := ComCall(43, this, "ptr", pValue, "HRESULT")
-        return result
+    get_ReuseKey() {
+        result := ComCall(43, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-get_oldcertificate
      */
-    get_OldCertificate(Encoding, pValue) {
+    get_OldCertificate(Encoding) {
+        pValue := BSTR()
         result := ComCall(44, this, "int", Encoding, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<IX500DistinguishedName>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IX500DistinguishedName} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-get_subject
      */
-    get_Subject(ppValue) {
-        result := ComCall(45, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_Subject() {
+        result := ComCall(45, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IX500DistinguishedName(ppValue)
     }
 
     /**
@@ -218,24 +220,22 @@ class IX509CertificateRequestPkcs10 extends IX509CertificateRequest{
 
     /**
      * 
-     * @param {Pointer<ICspStatuses>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {ICspStatuses} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-get_cspstatuses
      */
-    get_CspStatuses(ppValue) {
-        result := ComCall(47, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_CspStatuses() {
+        result := ComCall(47, this, "ptr*", &ppValue := 0, "HRESULT")
+        return ICspStatuses(ppValue)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-get_smimecapabilities
      */
-    get_SmimeCapabilities(pValue) {
-        result := ComCall(48, this, "ptr", pValue, "HRESULT")
-        return result
+    get_SmimeCapabilities() {
+        result := ComCall(48, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -251,24 +251,23 @@ class IX509CertificateRequestPkcs10 extends IX509CertificateRequest{
 
     /**
      * 
-     * @param {Pointer<IX509SignatureInformation>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IX509SignatureInformation} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-get_signatureinformation
      */
-    get_SignatureInformation(ppValue) {
-        result := ComCall(50, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_SignatureInformation() {
+        result := ComCall(50, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IX509SignatureInformation(ppValue)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-get_keycontainernameprefix
      */
-    get_KeyContainerNamePrefix(pValue) {
+    get_KeyContainerNamePrefix() {
+        pValue := BSTR()
         result := ComCall(51, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
@@ -286,81 +285,76 @@ class IX509CertificateRequestPkcs10 extends IX509CertificateRequest{
 
     /**
      * 
-     * @param {Pointer<ICryptAttributes>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {ICryptAttributes} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-get_cryptattributes
      */
-    get_CryptAttributes(ppValue) {
-        result := ComCall(53, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_CryptAttributes() {
+        result := ComCall(53, this, "ptr*", &ppValue := 0, "HRESULT")
+        return ICryptAttributes(ppValue)
     }
 
     /**
      * 
-     * @param {Pointer<IX509Extensions>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IX509Extensions} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-get_x509extensions
      */
-    get_X509Extensions(ppValue) {
-        result := ComCall(54, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_X509Extensions() {
+        result := ComCall(54, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IX509Extensions(ppValue)
     }
 
     /**
      * 
-     * @param {Pointer<IObjectIds>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IObjectIds} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-get_criticalextensions
      */
-    get_CriticalExtensions(ppValue) {
-        result := ComCall(55, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_CriticalExtensions() {
+        result := ComCall(55, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IObjectIds(ppValue)
     }
 
     /**
      * 
-     * @param {Pointer<IObjectIds>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IObjectIds} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-get_suppressoids
      */
-    get_SuppressOids(ppValue) {
-        result := ComCall(56, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_SuppressOids() {
+        result := ComCall(56, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IObjectIds(ppValue)
     }
 
     /**
      * 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-get_rawdatatobesigned
      */
-    get_RawDataToBeSigned(Encoding, pValue) {
+    get_RawDataToBeSigned(Encoding) {
+        pValue := BSTR()
         result := ComCall(57, this, "int", Encoding, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
      * 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-get_signature
      */
-    get_Signature(Encoding, pValue) {
+    get_Signature(Encoding) {
+        pValue := BSTR()
         result := ComCall(58, this, "int", Encoding, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
      * 
      * @param {Integer} KeySpec 
-     * @param {Pointer<ICspStatuses>} ppCspStatuses 
-     * @returns {HRESULT} 
+     * @returns {ICspStatuses} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-getcspstatuses
      */
-    GetCspStatuses(KeySpec, ppCspStatuses) {
-        result := ComCall(59, this, "int", KeySpec, "ptr*", ppCspStatuses, "HRESULT")
-        return result
+    GetCspStatuses(KeySpec) {
+        result := ComCall(59, this, "int", KeySpec, "ptr*", &ppCspStatuses := 0, "HRESULT")
+        return ICspStatuses(ppCspStatuses)
     }
 }

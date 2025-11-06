@@ -32,15 +32,12 @@ class IReferenceClock extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pTime 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/wmformat/ireferenceclock-gettime
      */
-    GetTime(pTime) {
-        pTimeMarshal := pTime is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(3, this, pTimeMarshal, pTime, "HRESULT")
-        return result
+    GetTime() {
+        result := ComCall(3, this, "int64*", &pTime := 0, "HRESULT")
+        return pTime
     }
 
     /**
@@ -48,17 +45,14 @@ class IReferenceClock extends IUnknown{
      * @param {Integer} baseTime 
      * @param {Integer} streamTime 
      * @param {HANDLE} hEvent 
-     * @param {Pointer<Pointer>} pdwAdviseCookie 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/wmformat/ireferenceclock-advisetime
      */
-    AdviseTime(baseTime, streamTime, hEvent, pdwAdviseCookie) {
+    AdviseTime(baseTime, streamTime, hEvent) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
-        pdwAdviseCookieMarshal := pdwAdviseCookie is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "int64", baseTime, "int64", streamTime, "ptr", hEvent, pdwAdviseCookieMarshal, pdwAdviseCookie, "HRESULT")
-        return result
+        result := ComCall(4, this, "int64", baseTime, "int64", streamTime, "ptr", hEvent, "ptr*", &pdwAdviseCookie := 0, "HRESULT")
+        return pdwAdviseCookie
     }
 
     /**
@@ -66,17 +60,14 @@ class IReferenceClock extends IUnknown{
      * @param {Integer} startTime 
      * @param {Integer} periodTime 
      * @param {HANDLE} hSemaphore 
-     * @param {Pointer<Pointer>} pdwAdviseCookie 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/wmformat/ireferenceclock-adviseperiodic
      */
-    AdvisePeriodic(startTime, periodTime, hSemaphore, pdwAdviseCookie) {
+    AdvisePeriodic(startTime, periodTime, hSemaphore) {
         hSemaphore := hSemaphore is Win32Handle ? NumGet(hSemaphore, "ptr") : hSemaphore
 
-        pdwAdviseCookieMarshal := pdwAdviseCookie is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, "int64", startTime, "int64", periodTime, "ptr", hSemaphore, pdwAdviseCookieMarshal, pdwAdviseCookie, "HRESULT")
-        return result
+        result := ComCall(5, this, "int64", startTime, "int64", periodTime, "ptr", hSemaphore, "ptr*", &pdwAdviseCookie := 0, "HRESULT")
+        return pdwAdviseCookie
     }
 
     /**

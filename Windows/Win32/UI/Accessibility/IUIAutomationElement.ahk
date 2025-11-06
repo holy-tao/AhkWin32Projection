@@ -1,7 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUIAutomationElement.ahk
+#Include .\IUIAutomationElementArray.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\RECT.ahk
 
 /**
  * Exposes methods and properties for a UI Automation element, which represents a UI item.
@@ -46,41 +52,36 @@ class IUIAutomationElement extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} runtimeId 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getruntimeid
      */
-    GetRuntimeId(runtimeId) {
-        runtimeIdMarshal := runtimeId is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, runtimeIdMarshal, runtimeId, "HRESULT")
-        return result
+    GetRuntimeId() {
+        result := ComCall(4, this, "ptr*", &runtimeId := 0, "HRESULT")
+        return runtimeId
     }
 
     /**
      * 
      * @param {Integer} scope 
      * @param {IUIAutomationCondition} condition 
-     * @param {Pointer<IUIAutomationElement>} found 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElement} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-findfirst
      */
-    FindFirst(scope, condition, found) {
-        result := ComCall(5, this, "int", scope, "ptr", condition, "ptr*", found, "HRESULT")
-        return result
+    FindFirst(scope, condition) {
+        result := ComCall(5, this, "int", scope, "ptr", condition, "ptr*", &found := 0, "HRESULT")
+        return IUIAutomationElement(found)
     }
 
     /**
      * 
      * @param {Integer} scope 
      * @param {IUIAutomationCondition} condition 
-     * @param {Pointer<IUIAutomationElementArray>} found 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElementArray} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-findall
      */
-    FindAll(scope, condition, found) {
-        result := ComCall(6, this, "int", scope, "ptr", condition, "ptr*", found, "HRESULT")
-        return result
+    FindAll(scope, condition) {
+        result := ComCall(6, this, "int", scope, "ptr", condition, "ptr*", &found := 0, "HRESULT")
+        return IUIAutomationElementArray(found)
     }
 
     /**
@@ -88,13 +89,12 @@ class IUIAutomationElement extends IUnknown{
      * @param {Integer} scope 
      * @param {IUIAutomationCondition} condition 
      * @param {IUIAutomationCacheRequest} cacheRequest 
-     * @param {Pointer<IUIAutomationElement>} found 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElement} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-findfirstbuildcache
      */
-    FindFirstBuildCache(scope, condition, cacheRequest, found) {
-        result := ComCall(7, this, "int", scope, "ptr", condition, "ptr", cacheRequest, "ptr*", found, "HRESULT")
-        return result
+    FindFirstBuildCache(scope, condition, cacheRequest) {
+        result := ComCall(7, this, "int", scope, "ptr", condition, "ptr", cacheRequest, "ptr*", &found := 0, "HRESULT")
+        return IUIAutomationElement(found)
     }
 
     /**
@@ -102,882 +102,819 @@ class IUIAutomationElement extends IUnknown{
      * @param {Integer} scope 
      * @param {IUIAutomationCondition} condition 
      * @param {IUIAutomationCacheRequest} cacheRequest 
-     * @param {Pointer<IUIAutomationElementArray>} found 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElementArray} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-findallbuildcache
      */
-    FindAllBuildCache(scope, condition, cacheRequest, found) {
-        result := ComCall(8, this, "int", scope, "ptr", condition, "ptr", cacheRequest, "ptr*", found, "HRESULT")
-        return result
+    FindAllBuildCache(scope, condition, cacheRequest) {
+        result := ComCall(8, this, "int", scope, "ptr", condition, "ptr", cacheRequest, "ptr*", &found := 0, "HRESULT")
+        return IUIAutomationElementArray(found)
     }
 
     /**
      * 
      * @param {IUIAutomationCacheRequest} cacheRequest 
-     * @param {Pointer<IUIAutomationElement>} updatedElement 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElement} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-buildupdatedcache
      */
-    BuildUpdatedCache(cacheRequest, updatedElement) {
-        result := ComCall(9, this, "ptr", cacheRequest, "ptr*", updatedElement, "HRESULT")
-        return result
+    BuildUpdatedCache(cacheRequest) {
+        result := ComCall(9, this, "ptr", cacheRequest, "ptr*", &updatedElement := 0, "HRESULT")
+        return IUIAutomationElement(updatedElement)
     }
 
     /**
      * 
      * @param {Integer} propertyId 
-     * @param {Pointer<VARIANT>} retVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcurrentpropertyvalue
      */
-    GetCurrentPropertyValue(propertyId, retVal) {
+    GetCurrentPropertyValue(propertyId) {
+        retVal := VARIANT()
         result := ComCall(10, this, "int", propertyId, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
      * @param {Integer} propertyId 
      * @param {BOOL} ignoreDefaultValue 
-     * @param {Pointer<VARIANT>} retVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcurrentpropertyvalueex
      */
-    GetCurrentPropertyValueEx(propertyId, ignoreDefaultValue, retVal) {
+    GetCurrentPropertyValueEx(propertyId, ignoreDefaultValue) {
+        retVal := VARIANT()
         result := ComCall(11, this, "int", propertyId, "int", ignoreDefaultValue, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
      * @param {Integer} propertyId 
-     * @param {Pointer<VARIANT>} retVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcachedpropertyvalue
      */
-    GetCachedPropertyValue(propertyId, retVal) {
+    GetCachedPropertyValue(propertyId) {
+        retVal := VARIANT()
         result := ComCall(12, this, "int", propertyId, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
      * @param {Integer} propertyId 
      * @param {BOOL} ignoreDefaultValue 
-     * @param {Pointer<VARIANT>} retVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcachedpropertyvalueex
      */
-    GetCachedPropertyValueEx(propertyId, ignoreDefaultValue, retVal) {
+    GetCachedPropertyValueEx(propertyId, ignoreDefaultValue) {
+        retVal := VARIANT()
         result := ComCall(13, this, "int", propertyId, "int", ignoreDefaultValue, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
      * @param {Integer} patternId 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} patternObject 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcurrentpatternas
      */
-    GetCurrentPatternAs(patternId, riid, patternObject) {
-        patternObjectMarshal := patternObject is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(14, this, "int", patternId, "ptr", riid, patternObjectMarshal, patternObject, "HRESULT")
-        return result
+    GetCurrentPatternAs(patternId, riid) {
+        result := ComCall(14, this, "int", patternId, "ptr", riid, "ptr*", &patternObject := 0, "HRESULT")
+        return patternObject
     }
 
     /**
      * 
      * @param {Integer} patternId 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} patternObject 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcachedpatternas
      */
-    GetCachedPatternAs(patternId, riid, patternObject) {
-        patternObjectMarshal := patternObject is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(15, this, "int", patternId, "ptr", riid, patternObjectMarshal, patternObject, "HRESULT")
-        return result
+    GetCachedPatternAs(patternId, riid) {
+        result := ComCall(15, this, "int", patternId, "ptr", riid, "ptr*", &patternObject := 0, "HRESULT")
+        return patternObject
     }
 
     /**
      * 
      * @param {Integer} patternId 
-     * @param {Pointer<IUnknown>} patternObject 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcurrentpattern
      */
-    GetCurrentPattern(patternId, patternObject) {
-        result := ComCall(16, this, "int", patternId, "ptr*", patternObject, "HRESULT")
-        return result
+    GetCurrentPattern(patternId) {
+        result := ComCall(16, this, "int", patternId, "ptr*", &patternObject := 0, "HRESULT")
+        return IUnknown(patternObject)
     }
 
     /**
      * 
      * @param {Integer} patternId 
-     * @param {Pointer<IUnknown>} patternObject 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcachedpattern
      */
-    GetCachedPattern(patternId, patternObject) {
-        result := ComCall(17, this, "int", patternId, "ptr*", patternObject, "HRESULT")
-        return result
+    GetCachedPattern(patternId) {
+        result := ComCall(17, this, "int", patternId, "ptr*", &patternObject := 0, "HRESULT")
+        return IUnknown(patternObject)
     }
 
     /**
      * 
-     * @param {Pointer<IUIAutomationElement>} parent 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElement} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcachedparent
      */
-    GetCachedParent(parent) {
-        result := ComCall(18, this, "ptr*", parent, "HRESULT")
-        return result
+    GetCachedParent() {
+        result := ComCall(18, this, "ptr*", &parent := 0, "HRESULT")
+        return IUIAutomationElement(parent)
     }
 
     /**
      * 
-     * @param {Pointer<IUIAutomationElementArray>} children 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElementArray} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcachedchildren
      */
-    GetCachedChildren(children) {
-        result := ComCall(19, this, "ptr*", children, "HRESULT")
-        return result
+    GetCachedChildren() {
+        result := ComCall(19, this, "ptr*", &children := 0, "HRESULT")
+        return IUIAutomationElementArray(children)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentprocessid
      */
-    get_CurrentProcessId(retVal) {
-        retValMarshal := retVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(20, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CurrentProcessId() {
+        result := ComCall(20, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentcontroltype
      */
-    get_CurrentControlType(retVal) {
-        retValMarshal := retVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(21, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CurrentControlType() {
+        result := ComCall(21, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentlocalizedcontroltype
      */
-    get_CurrentLocalizedControlType(retVal) {
+    get_CurrentLocalizedControlType() {
+        retVal := BSTR()
         result := ComCall(22, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentname
      */
-    get_CurrentName(retVal) {
+    get_CurrentName() {
+        retVal := BSTR()
         result := ComCall(23, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentacceleratorkey
      */
-    get_CurrentAcceleratorKey(retVal) {
+    get_CurrentAcceleratorKey() {
+        retVal := BSTR()
         result := ComCall(24, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentaccesskey
      */
-    get_CurrentAccessKey(retVal) {
+    get_CurrentAccessKey() {
+        retVal := BSTR()
         result := ComCall(25, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currenthaskeyboardfocus
      */
-    get_CurrentHasKeyboardFocus(retVal) {
-        result := ComCall(26, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CurrentHasKeyboardFocus() {
+        result := ComCall(26, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentiskeyboardfocusable
      */
-    get_CurrentIsKeyboardFocusable(retVal) {
-        result := ComCall(27, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CurrentIsKeyboardFocusable() {
+        result := ComCall(27, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentisenabled
      */
-    get_CurrentIsEnabled(retVal) {
-        result := ComCall(28, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CurrentIsEnabled() {
+        result := ComCall(28, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentautomationid
      */
-    get_CurrentAutomationId(retVal) {
+    get_CurrentAutomationId() {
+        retVal := BSTR()
         result := ComCall(29, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentclassname
      */
-    get_CurrentClassName(retVal) {
+    get_CurrentClassName() {
+        retVal := BSTR()
         result := ComCall(30, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currenthelptext
      */
-    get_CurrentHelpText(retVal) {
+    get_CurrentHelpText() {
+        retVal := BSTR()
         result := ComCall(31, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentculture
      */
-    get_CurrentCulture(retVal) {
-        retValMarshal := retVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(32, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CurrentCulture() {
+        result := ComCall(32, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentiscontrolelement
      */
-    get_CurrentIsControlElement(retVal) {
-        result := ComCall(33, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CurrentIsControlElement() {
+        result := ComCall(33, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentiscontentelement
      */
-    get_CurrentIsContentElement(retVal) {
-        result := ComCall(34, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CurrentIsContentElement() {
+        result := ComCall(34, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentispassword
      */
-    get_CurrentIsPassword(retVal) {
-        result := ComCall(35, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CurrentIsPassword() {
+        result := ComCall(35, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<HWND>} retVal 
-     * @returns {HRESULT} 
+     * @returns {HWND} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentnativewindowhandle
      */
-    get_CurrentNativeWindowHandle(retVal) {
+    get_CurrentNativeWindowHandle() {
+        retVal := HWND()
         result := ComCall(36, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentitemtype
      */
-    get_CurrentItemType(retVal) {
+    get_CurrentItemType() {
+        retVal := BSTR()
         result := ComCall(37, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentisoffscreen
      */
-    get_CurrentIsOffscreen(retVal) {
-        result := ComCall(38, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CurrentIsOffscreen() {
+        result := ComCall(38, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentorientation
      */
-    get_CurrentOrientation(retVal) {
-        retValMarshal := retVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(39, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CurrentOrientation() {
+        result := ComCall(39, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentframeworkid
      */
-    get_CurrentFrameworkId(retVal) {
+    get_CurrentFrameworkId() {
+        retVal := BSTR()
         result := ComCall(40, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentisrequiredforform
      */
-    get_CurrentIsRequiredForForm(retVal) {
-        result := ComCall(41, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CurrentIsRequiredForForm() {
+        result := ComCall(41, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentitemstatus
      */
-    get_CurrentItemStatus(retVal) {
+    get_CurrentItemStatus() {
+        retVal := BSTR()
         result := ComCall(42, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<RECT>} retVal 
-     * @returns {HRESULT} 
+     * @returns {RECT} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentboundingrectangle
      */
-    get_CurrentBoundingRectangle(retVal) {
+    get_CurrentBoundingRectangle() {
+        retVal := RECT()
         result := ComCall(43, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<IUIAutomationElement>} retVal 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElement} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentlabeledby
      */
-    get_CurrentLabeledBy(retVal) {
-        result := ComCall(44, this, "ptr*", retVal, "HRESULT")
-        return result
+    get_CurrentLabeledBy() {
+        result := ComCall(44, this, "ptr*", &retVal := 0, "HRESULT")
+        return IUIAutomationElement(retVal)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentariarole
      */
-    get_CurrentAriaRole(retVal) {
+    get_CurrentAriaRole() {
+        retVal := BSTR()
         result := ComCall(45, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentariaproperties
      */
-    get_CurrentAriaProperties(retVal) {
+    get_CurrentAriaProperties() {
+        retVal := BSTR()
         result := ComCall(46, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentisdatavalidforform
      */
-    get_CurrentIsDataValidForForm(retVal) {
-        result := ComCall(47, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CurrentIsDataValidForForm() {
+        result := ComCall(47, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<IUIAutomationElementArray>} retVal 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElementArray} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentcontrollerfor
      */
-    get_CurrentControllerFor(retVal) {
-        result := ComCall(48, this, "ptr*", retVal, "HRESULT")
-        return result
+    get_CurrentControllerFor() {
+        result := ComCall(48, this, "ptr*", &retVal := 0, "HRESULT")
+        return IUIAutomationElementArray(retVal)
     }
 
     /**
      * 
-     * @param {Pointer<IUIAutomationElementArray>} retVal 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElementArray} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentdescribedby
      */
-    get_CurrentDescribedBy(retVal) {
-        result := ComCall(49, this, "ptr*", retVal, "HRESULT")
-        return result
+    get_CurrentDescribedBy() {
+        result := ComCall(49, this, "ptr*", &retVal := 0, "HRESULT")
+        return IUIAutomationElementArray(retVal)
     }
 
     /**
      * 
-     * @param {Pointer<IUIAutomationElementArray>} retVal 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElementArray} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentflowsto
      */
-    get_CurrentFlowsTo(retVal) {
-        result := ComCall(50, this, "ptr*", retVal, "HRESULT")
-        return result
+    get_CurrentFlowsTo() {
+        result := ComCall(50, this, "ptr*", &retVal := 0, "HRESULT")
+        return IUIAutomationElementArray(retVal)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_currentproviderdescription
      */
-    get_CurrentProviderDescription(retVal) {
+    get_CurrentProviderDescription() {
+        retVal := BSTR()
         result := ComCall(51, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedprocessid
      */
-    get_CachedProcessId(retVal) {
-        retValMarshal := retVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(52, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CachedProcessId() {
+        result := ComCall(52, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedcontroltype
      */
-    get_CachedControlType(retVal) {
-        retValMarshal := retVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(53, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CachedControlType() {
+        result := ComCall(53, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedlocalizedcontroltype
      */
-    get_CachedLocalizedControlType(retVal) {
+    get_CachedLocalizedControlType() {
+        retVal := BSTR()
         result := ComCall(54, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedname
      */
-    get_CachedName(retVal) {
+    get_CachedName() {
+        retVal := BSTR()
         result := ComCall(55, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedacceleratorkey
      */
-    get_CachedAcceleratorKey(retVal) {
+    get_CachedAcceleratorKey() {
+        retVal := BSTR()
         result := ComCall(56, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedaccesskey
      */
-    get_CachedAccessKey(retVal) {
+    get_CachedAccessKey() {
+        retVal := BSTR()
         result := ComCall(57, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedhaskeyboardfocus
      */
-    get_CachedHasKeyboardFocus(retVal) {
-        result := ComCall(58, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CachedHasKeyboardFocus() {
+        result := ComCall(58, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachediskeyboardfocusable
      */
-    get_CachedIsKeyboardFocusable(retVal) {
-        result := ComCall(59, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CachedIsKeyboardFocusable() {
+        result := ComCall(59, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedisenabled
      */
-    get_CachedIsEnabled(retVal) {
-        result := ComCall(60, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CachedIsEnabled() {
+        result := ComCall(60, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedautomationid
      */
-    get_CachedAutomationId(retVal) {
+    get_CachedAutomationId() {
+        retVal := BSTR()
         result := ComCall(61, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedclassname
      */
-    get_CachedClassName(retVal) {
+    get_CachedClassName() {
+        retVal := BSTR()
         result := ComCall(62, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedhelptext
      */
-    get_CachedHelpText(retVal) {
+    get_CachedHelpText() {
+        retVal := BSTR()
         result := ComCall(63, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedculture
      */
-    get_CachedCulture(retVal) {
-        retValMarshal := retVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(64, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CachedCulture() {
+        result := ComCall(64, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachediscontrolelement
      */
-    get_CachedIsControlElement(retVal) {
-        result := ComCall(65, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CachedIsControlElement() {
+        result := ComCall(65, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachediscontentelement
      */
-    get_CachedIsContentElement(retVal) {
-        result := ComCall(66, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CachedIsContentElement() {
+        result := ComCall(66, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedispassword
      */
-    get_CachedIsPassword(retVal) {
-        result := ComCall(67, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CachedIsPassword() {
+        result := ComCall(67, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<HWND>} retVal 
-     * @returns {HRESULT} 
+     * @returns {HWND} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachednativewindowhandle
      */
-    get_CachedNativeWindowHandle(retVal) {
+    get_CachedNativeWindowHandle() {
+        retVal := HWND()
         result := ComCall(68, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cacheditemtype
      */
-    get_CachedItemType(retVal) {
+    get_CachedItemType() {
+        retVal := BSTR()
         result := ComCall(69, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedisoffscreen
      */
-    get_CachedIsOffscreen(retVal) {
-        result := ComCall(70, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CachedIsOffscreen() {
+        result := ComCall(70, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedorientation
      */
-    get_CachedOrientation(retVal) {
-        retValMarshal := retVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(71, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CachedOrientation() {
+        result := ComCall(71, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedframeworkid
      */
-    get_CachedFrameworkId(retVal) {
+    get_CachedFrameworkId() {
+        retVal := BSTR()
         result := ComCall(72, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedisrequiredforform
      */
-    get_CachedIsRequiredForForm(retVal) {
-        result := ComCall(73, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CachedIsRequiredForForm() {
+        result := ComCall(73, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cacheditemstatus
      */
-    get_CachedItemStatus(retVal) {
+    get_CachedItemStatus() {
+        retVal := BSTR()
         result := ComCall(74, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<RECT>} retVal 
-     * @returns {HRESULT} 
+     * @returns {RECT} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedboundingrectangle
      */
-    get_CachedBoundingRectangle(retVal) {
+    get_CachedBoundingRectangle() {
+        retVal := RECT()
         result := ComCall(75, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<IUIAutomationElement>} retVal 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElement} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedlabeledby
      */
-    get_CachedLabeledBy(retVal) {
-        result := ComCall(76, this, "ptr*", retVal, "HRESULT")
-        return result
+    get_CachedLabeledBy() {
+        result := ComCall(76, this, "ptr*", &retVal := 0, "HRESULT")
+        return IUIAutomationElement(retVal)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedariarole
      */
-    get_CachedAriaRole(retVal) {
+    get_CachedAriaRole() {
+        retVal := BSTR()
         result := ComCall(77, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedariaproperties
      */
-    get_CachedAriaProperties(retVal) {
+    get_CachedAriaProperties() {
+        retVal := BSTR()
         result := ComCall(78, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedisdatavalidforform
      */
-    get_CachedIsDataValidForForm(retVal) {
-        result := ComCall(79, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CachedIsDataValidForForm() {
+        result := ComCall(79, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<IUIAutomationElementArray>} retVal 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElementArray} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedcontrollerfor
      */
-    get_CachedControllerFor(retVal) {
-        result := ComCall(80, this, "ptr*", retVal, "HRESULT")
-        return result
+    get_CachedControllerFor() {
+        result := ComCall(80, this, "ptr*", &retVal := 0, "HRESULT")
+        return IUIAutomationElementArray(retVal)
     }
 
     /**
      * 
-     * @param {Pointer<IUIAutomationElementArray>} retVal 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElementArray} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cacheddescribedby
      */
-    get_CachedDescribedBy(retVal) {
-        result := ComCall(81, this, "ptr*", retVal, "HRESULT")
-        return result
+    get_CachedDescribedBy() {
+        result := ComCall(81, this, "ptr*", &retVal := 0, "HRESULT")
+        return IUIAutomationElementArray(retVal)
     }
 
     /**
      * 
-     * @param {Pointer<IUIAutomationElementArray>} retVal 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElementArray} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedflowsto
      */
-    get_CachedFlowsTo(retVal) {
-        result := ComCall(82, this, "ptr*", retVal, "HRESULT")
-        return result
+    get_CachedFlowsTo() {
+        result := ComCall(82, this, "ptr*", &retVal := 0, "HRESULT")
+        return IUIAutomationElementArray(retVal)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-get_cachedproviderdescription
      */
-    get_CachedProviderDescription(retVal) {
+    get_CachedProviderDescription() {
+        retVal := BSTR()
         result := ComCall(83, this, "ptr", retVal, "HRESULT")
-        return result
+        return retVal
     }
 
     /**
      * 
      * @param {Pointer<POINT>} clickable 
-     * @param {Pointer<BOOL>} gotClickable 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getclickablepoint
      */
-    GetClickablePoint(clickable, gotClickable) {
-        result := ComCall(84, this, "ptr", clickable, "ptr", gotClickable, "HRESULT")
-        return result
+    GetClickablePoint(clickable) {
+        result := ComCall(84, this, "ptr", clickable, "int*", &gotClickable := 0, "HRESULT")
+        return gotClickable
     }
 }

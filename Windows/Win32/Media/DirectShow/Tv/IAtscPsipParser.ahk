@@ -1,6 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IPAT.ahk
+#Include .\ICAT.ahk
+#Include .\IPMT.ahk
+#Include .\ITSDT.ahk
+#Include .\IATSC_MGT.ahk
+#Include .\IATSC_VCT.ahk
+#Include .\IATSC_EIT.ahk
+#Include .\IATSC_ETT.ahk
+#Include .\IATSC_STT.ahk
+#Include .\ISCTE_EAS.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -68,75 +78,69 @@ class IAtscPsipParser extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IPAT>} ppPAT 
-     * @returns {HRESULT} 
+     * @returns {IPAT} 
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatscpsipparser-getpat
      */
-    GetPAT(ppPAT) {
-        result := ComCall(4, this, "ptr*", ppPAT, "HRESULT")
-        return result
+    GetPAT() {
+        result := ComCall(4, this, "ptr*", &ppPAT := 0, "HRESULT")
+        return IPAT(ppPAT)
     }
 
     /**
      * 
      * @param {Integer} dwTimeout 
-     * @param {Pointer<ICAT>} ppCAT 
-     * @returns {HRESULT} 
+     * @returns {ICAT} 
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatscpsipparser-getcat
      */
-    GetCAT(dwTimeout, ppCAT) {
-        result := ComCall(5, this, "uint", dwTimeout, "ptr*", ppCAT, "HRESULT")
-        return result
+    GetCAT(dwTimeout) {
+        result := ComCall(5, this, "uint", dwTimeout, "ptr*", &ppCAT := 0, "HRESULT")
+        return ICAT(ppCAT)
     }
 
     /**
      * 
      * @param {Integer} pid 
      * @param {Pointer<Integer>} pwProgramNumber 
-     * @param {Pointer<IPMT>} ppPMT 
-     * @returns {HRESULT} 
+     * @returns {IPMT} 
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatscpsipparser-getpmt
      */
-    GetPMT(pid, pwProgramNumber, ppPMT) {
+    GetPMT(pid, pwProgramNumber) {
         pwProgramNumberMarshal := pwProgramNumber is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(6, this, "ushort", pid, pwProgramNumberMarshal, pwProgramNumber, "ptr*", ppPMT, "HRESULT")
-        return result
+        result := ComCall(6, this, "ushort", pid, pwProgramNumberMarshal, pwProgramNumber, "ptr*", &ppPMT := 0, "HRESULT")
+        return IPMT(ppPMT)
     }
 
     /**
      * 
-     * @param {Pointer<ITSDT>} ppTSDT 
-     * @returns {HRESULT} 
+     * @returns {ITSDT} 
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatscpsipparser-gettsdt
      */
-    GetTSDT(ppTSDT) {
-        result := ComCall(7, this, "ptr*", ppTSDT, "HRESULT")
-        return result
+    GetTSDT() {
+        result := ComCall(7, this, "ptr*", &ppTSDT := 0, "HRESULT")
+        return ITSDT(ppTSDT)
     }
 
     /**
      * 
-     * @param {Pointer<IATSC_MGT>} ppMGT 
-     * @returns {HRESULT} 
+     * @returns {IATSC_MGT} 
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatscpsipparser-getmgt
      */
-    GetMGT(ppMGT) {
-        result := ComCall(8, this, "ptr*", ppMGT, "HRESULT")
-        return result
+    GetMGT() {
+        result := ComCall(8, this, "ptr*", &ppMGT := 0, "HRESULT")
+        return IATSC_MGT(ppMGT)
     }
 
     /**
      * 
      * @param {Integer} tableId 
      * @param {BOOL} fGetNextTable 
-     * @param {Pointer<IATSC_VCT>} ppVCT 
-     * @returns {HRESULT} 
+     * @returns {IATSC_VCT} 
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatscpsipparser-getvct
      */
-    GetVCT(tableId, fGetNextTable, ppVCT) {
-        result := ComCall(9, this, "char", tableId, "int", fGetNextTable, "ptr*", ppVCT, "HRESULT")
-        return result
+    GetVCT(tableId, fGetNextTable) {
+        result := ComCall(9, this, "char", tableId, "int", fGetNextTable, "ptr*", &ppVCT := 0, "HRESULT")
+        return IATSC_VCT(ppVCT)
     }
 
     /**
@@ -144,15 +148,14 @@ class IAtscPsipParser extends IUnknown{
      * @param {Integer} pid 
      * @param {Pointer<Integer>} pwSourceId 
      * @param {Integer} dwTimeout 
-     * @param {Pointer<IATSC_EIT>} ppEIT 
-     * @returns {HRESULT} 
+     * @returns {IATSC_EIT} 
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatscpsipparser-geteit
      */
-    GetEIT(pid, pwSourceId, dwTimeout, ppEIT) {
+    GetEIT(pid, pwSourceId, dwTimeout) {
         pwSourceIdMarshal := pwSourceId is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(10, this, "ushort", pid, pwSourceIdMarshal, pwSourceId, "uint", dwTimeout, "ptr*", ppEIT, "HRESULT")
-        return result
+        result := ComCall(10, this, "ushort", pid, pwSourceIdMarshal, pwSourceId, "uint", dwTimeout, "ptr*", &ppEIT := 0, "HRESULT")
+        return IATSC_EIT(ppEIT)
     }
 
     /**
@@ -160,38 +163,35 @@ class IAtscPsipParser extends IUnknown{
      * @param {Integer} pid 
      * @param {Pointer<Integer>} wSourceId 
      * @param {Pointer<Integer>} pwEventId 
-     * @param {Pointer<IATSC_ETT>} ppETT 
-     * @returns {HRESULT} 
+     * @returns {IATSC_ETT} 
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatscpsipparser-getett
      */
-    GetETT(pid, wSourceId, pwEventId, ppETT) {
+    GetETT(pid, wSourceId, pwEventId) {
         wSourceIdMarshal := wSourceId is VarRef ? "ushort*" : "ptr"
         pwEventIdMarshal := pwEventId is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(11, this, "ushort", pid, wSourceIdMarshal, wSourceId, pwEventIdMarshal, pwEventId, "ptr*", ppETT, "HRESULT")
-        return result
+        result := ComCall(11, this, "ushort", pid, wSourceIdMarshal, wSourceId, pwEventIdMarshal, pwEventId, "ptr*", &ppETT := 0, "HRESULT")
+        return IATSC_ETT(ppETT)
     }
 
     /**
      * 
-     * @param {Pointer<IATSC_STT>} ppSTT 
-     * @returns {HRESULT} 
+     * @returns {IATSC_STT} 
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatscpsipparser-getstt
      */
-    GetSTT(ppSTT) {
-        result := ComCall(12, this, "ptr*", ppSTT, "HRESULT")
-        return result
+    GetSTT() {
+        result := ComCall(12, this, "ptr*", &ppSTT := 0, "HRESULT")
+        return IATSC_STT(ppSTT)
     }
 
     /**
      * 
      * @param {Integer} pid 
-     * @param {Pointer<ISCTE_EAS>} ppEAS 
-     * @returns {HRESULT} 
+     * @returns {ISCTE_EAS} 
      * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iatscpsipparser-geteas
      */
-    GetEAS(pid, ppEAS) {
-        result := ComCall(13, this, "ushort", pid, "ptr*", ppEAS, "HRESULT")
-        return result
+    GetEAS(pid) {
+        result := ComCall(13, this, "ushort", pid, "ptr*", &ppEAS := 0, "HRESULT")
+        return ISCTE_EAS(ppEAS)
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include ..\..\Foundation\SIZE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -46,37 +48,34 @@ class ISharedBitmap extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HBITMAP>} phbm 
-     * @returns {HRESULT} 
+     * @returns {HBITMAP} 
      * @see https://learn.microsoft.com/windows/win32/api/thumbcache/nf-thumbcache-isharedbitmap-getsharedbitmap
      */
-    GetSharedBitmap(phbm) {
+    GetSharedBitmap() {
+        phbm := HBITMAP()
         result := ComCall(3, this, "ptr", phbm, "HRESULT")
-        return result
+        return phbm
     }
 
     /**
      * 
-     * @param {Pointer<SIZE>} pSize 
-     * @returns {HRESULT} 
+     * @returns {SIZE} 
      * @see https://learn.microsoft.com/windows/win32/api/thumbcache/nf-thumbcache-isharedbitmap-getsize
      */
-    GetSize(pSize) {
+    GetSize() {
+        pSize := SIZE()
         result := ComCall(4, this, "ptr", pSize, "HRESULT")
-        return result
+        return pSize
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pat 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/thumbcache/nf-thumbcache-isharedbitmap-getformat
      */
-    GetFormat(pat) {
-        patMarshal := pat is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, patMarshal, pat, "HRESULT")
-        return result
+    GetFormat() {
+        result := ComCall(5, this, "int*", &pat := 0, "HRESULT")
+        return pat
     }
 
     /**
@@ -95,12 +94,12 @@ class ISharedBitmap extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HBITMAP>} phbm 
-     * @returns {HRESULT} 
+     * @returns {HBITMAP} 
      * @see https://learn.microsoft.com/windows/win32/api/thumbcache/nf-thumbcache-isharedbitmap-detach
      */
-    Detach(phbm) {
+    Detach() {
+        phbm := HBITMAP()
         result := ComCall(7, this, "ptr", phbm, "HRESULT")
-        return result
+        return phbm
     }
 }

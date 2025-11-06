@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IDataModelScriptProvider.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -39,11 +40,10 @@ class IDataModelScriptProviderEnumerator extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDataModelScriptProvider>} provider 
-     * @returns {HRESULT} 
+     * @returns {IDataModelScriptProvider} 
      */
-    GetNext(provider) {
-        result := ComCall(4, this, "ptr*", provider, "HRESULT")
-        return result
+    GetNext() {
+        result := ComCall(4, this, "ptr*", &provider := 0, "HRESULT")
+        return IDataModelScriptProvider(provider)
     }
 }

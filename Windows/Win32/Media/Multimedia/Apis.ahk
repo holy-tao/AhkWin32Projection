@@ -7,6 +7,8 @@
 #Include .\HIC.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Graphics\Gdi\HPALETTE.ahk
+#Include .\IAVIFile.ahk
+#Include .\IAVIStream.ahk
 #Include ..\..\Foundation\HWND.ahk
 
 /**
@@ -25805,9 +25807,10 @@ class Multimedia {
         static uiFlags := 0 ;Reserved parameters must always be NULL
 
         lpBitsMarshal := lpBits is VarRef ? "ptr" : "ptr"
+        pfKeyMarshal := pfKey is VarRef ? "int*" : "ptr"
         plSizeMarshal := plSize is VarRef ? "int*" : "ptr"
 
-        result := DllCall("MSVFW32.dll\ICSeqCompressFrame", "ptr", pc, "uint", uiFlags, lpBitsMarshal, lpBits, "ptr", pfKey, plSizeMarshal, plSize, "ptr")
+        result := DllCall("MSVFW32.dll\ICSeqCompressFrame", "ptr", pc, "uint", uiFlags, lpBitsMarshal, lpBits, pfKeyMarshal, pfKey, plSizeMarshal, plSize, "ptr")
         return result
     }
 
@@ -26239,7 +26242,6 @@ class Multimedia {
 
     /**
      * The AVIFileOpen function opens an AVI file and returns the address of a file interface used to access it.
-     * @param {Pointer<IAVIFile>} ppfile Pointer to a buffer that receives the new <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nn-vfw-iavifile">IAVIFile</a> interface pointer.
      * @param {PSTR} szFile Null-terminated string containing the name of the file to open.
      * @param {Integer} uMode Access mode to use when opening the file. The default access mode is OF_READ. The following access modes can be specified with <b>AVIFileOpen</b>.
      * 
@@ -26288,85 +26290,22 @@ class Multimedia {
      * </tr>
      * </table>
      * @param {Pointer<Guid>} lpHandler Pointer to a class identifier of the standard or custom handler you want to use. If the value is <b>NULL</b>, the system chooses a handler from the registry based on the file extension or the RIFF type specified in the file.
-     * @returns {HRESULT} Returns zero if successful or an error otherwise. Possible error values include the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>AVIERR_BADFORMAT</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The file couldn't be read, indicating a corrupt file or an unrecognized format.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>AVIERR_MEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The file could not be opened because of insufficient memory.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>AVIERR_FILEREAD</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * A disk error occurred while reading the file.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>AVIERR_FILEOPEN</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * A disk error occurred while opening the file.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>REGDB_E_CLASSNOTREG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * According to the registry, the type of file specified in <b>AVIFileOpen</b> does not have a handler to process it.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {IAVIFile} Pointer to a buffer that receives the new <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nn-vfw-iavifile">IAVIFile</a> interface pointer.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-avifileopena
      * @since windows5.0
      */
-    static AVIFileOpenA(ppfile, szFile, uMode, lpHandler) {
+    static AVIFileOpenA(szFile, uMode, lpHandler) {
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
-        result := DllCall("AVIFIL32.dll\AVIFileOpenA", "ptr*", ppfile, "ptr", szFile, "uint", uMode, "ptr", lpHandler, "int")
+        result := DllCall("AVIFIL32.dll\AVIFileOpenA", "ptr*", &ppfile := 0, "ptr", szFile, "uint", uMode, "ptr", lpHandler, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IAVIFile(ppfile)
     }
 
     /**
      * The AVIFileOpen function opens an AVI file and returns the address of a file interface used to access it.
-     * @param {Pointer<IAVIFile>} ppfile Pointer to a buffer that receives the new <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nn-vfw-iavifile">IAVIFile</a> interface pointer.
      * @param {PWSTR} szFile Null-terminated string containing the name of the file to open.
      * @param {Integer} uMode Access mode to use when opening the file. The default access mode is OF_READ. The following access modes can be specified with <b>AVIFileOpen</b>.
      * 
@@ -26415,80 +26354,18 @@ class Multimedia {
      * </tr>
      * </table>
      * @param {Pointer<Guid>} lpHandler Pointer to a class identifier of the standard or custom handler you want to use. If the value is <b>NULL</b>, the system chooses a handler from the registry based on the file extension or the RIFF type specified in the file.
-     * @returns {HRESULT} Returns zero if successful or an error otherwise. Possible error values include the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>AVIERR_BADFORMAT</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The file couldn't be read, indicating a corrupt file or an unrecognized format.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>AVIERR_MEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The file could not be opened because of insufficient memory.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>AVIERR_FILEREAD</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * A disk error occurred while reading the file.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>AVIERR_FILEOPEN</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * A disk error occurred while opening the file.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>REGDB_E_CLASSNOTREG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * According to the registry, the type of file specified in <b>AVIFileOpen</b> does not have a handler to process it.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {IAVIFile} Pointer to a buffer that receives the new <a href="https://docs.microsoft.com/windows/desktop/api/vfw/nn-vfw-iavifile">IAVIFile</a> interface pointer.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-avifileopenw
      * @since windows5.0
      */
-    static AVIFileOpenW(ppfile, szFile, uMode, lpHandler) {
+    static AVIFileOpenW(szFile, uMode, lpHandler) {
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
-        result := DllCall("AVIFIL32.dll\AVIFileOpenW", "ptr*", ppfile, "ptr", szFile, "uint", uMode, "ptr", lpHandler, "int")
+        result := DllCall("AVIFIL32.dll\AVIFileOpenW", "ptr*", &ppfile := 0, "ptr", szFile, "uint", uMode, "ptr", lpHandler, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IAVIFile(ppfile)
     }
 
     /**
@@ -26528,7 +26405,6 @@ class Multimedia {
     /**
      * The AVIFileGetStream function returns the address of a stream interface that is associated with a specified AVI file.
      * @param {IAVIFile} pfile Handle to an open AVI file.
-     * @param {Pointer<IAVIStream>} ppavi Pointer to the new stream interface.
      * @param {Integer} fccType Four-character code indicating the type of stream to open. Zero indicates any stream can be opened. The following definitions apply to the data commonly found in AVI streams.
      * 
      * <table>
@@ -26556,79 +26432,48 @@ class Multimedia {
      * </tr>
      * </table>
      * @param {Integer} lParam Count of the stream type. Identifies which occurrence of the specified stream type to access.
-     * @returns {HRESULT} Returns zero if successful or an error otherwise. Possible error values include the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>AVIERR_NODATA</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The file does not contain a stream corresponding to the values of <i>fccType</i> and <i>lParam</i>.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>AVIERR_MEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Not enough memory.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {IAVIStream} Pointer to the new stream interface.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-avifilegetstream
      * @since windows5.0
      */
-    static AVIFileGetStream(pfile, ppavi, fccType, lParam) {
-        result := DllCall("AVIFIL32.dll\AVIFileGetStream", "ptr", pfile, "ptr*", ppavi, "uint", fccType, "int", lParam, "int")
+    static AVIFileGetStream(pfile, fccType, lParam) {
+        result := DllCall("AVIFIL32.dll\AVIFileGetStream", "ptr", pfile, "ptr*", &ppavi := 0, "uint", fccType, "int", lParam, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IAVIStream(ppavi)
     }
 
     /**
      * The AVIFileCreateStream function creates a new stream in an existing file and creates an interface to the new stream.
      * @param {IAVIFile} pfile Handle to an open AVI file.
-     * @param {Pointer<IAVIStream>} ppavi Pointer to the new stream interface.
      * @param {Pointer<AVISTREAMINFOW>} psi Pointer to a structure containing information about the new stream, including the stream type and its sample rate.
-     * @returns {HRESULT} Returns zero if successful or an error otherwise. Unless the file has been opened with write permission, this function returns AVIERR_READONLY.
+     * @returns {IAVIStream} Pointer to the new stream interface.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-avifilecreatestreamw
      * @since windows5.0
      */
-    static AVIFileCreateStreamW(pfile, ppavi, psi) {
-        result := DllCall("AVIFIL32.dll\AVIFileCreateStreamW", "ptr", pfile, "ptr*", ppavi, "ptr", psi, "int")
+    static AVIFileCreateStreamW(pfile, psi) {
+        result := DllCall("AVIFIL32.dll\AVIFileCreateStreamW", "ptr", pfile, "ptr*", &ppavi := 0, "ptr", psi, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IAVIStream(ppavi)
     }
 
     /**
      * The AVIFileCreateStream function creates a new stream in an existing file and creates an interface to the new stream.
      * @param {IAVIFile} pfile Handle to an open AVI file.
-     * @param {Pointer<IAVIStream>} ppavi Pointer to the new stream interface.
      * @param {Pointer<AVISTREAMINFOA>} psi Pointer to a structure containing information about the new stream, including the stream type and its sample rate.
-     * @returns {HRESULT} Returns zero if successful or an error otherwise. Unless the file has been opened with write permission, this function returns AVIERR_READONLY.
+     * @returns {IAVIStream} Pointer to the new stream interface.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-avifilecreatestreama
      * @since windows5.0
      */
-    static AVIFileCreateStreamA(pfile, ppavi, psi) {
-        result := DllCall("AVIFIL32.dll\AVIFileCreateStreamA", "ptr", pfile, "ptr*", ppavi, "ptr", psi, "int")
+    static AVIFileCreateStreamA(pfile, psi) {
+        result := DllCall("AVIFIL32.dll\AVIFileCreateStreamA", "ptr", pfile, "ptr*", &ppavi := 0, "ptr", psi, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IAVIStream(ppavi)
     }
 
     /**
@@ -27109,7 +26954,6 @@ class Multimedia {
 
     /**
      * The AVIStreamOpenFromFile function opens a single stream from a file.
-     * @param {Pointer<IAVIStream>} ppavi Pointer to a buffer that receives the new stream handle.
      * @param {PSTR} szFile Null-terminated string containing the name of the file to open.
      * @param {Integer} fccType Four-character code indicating the type of stream to be opened. Zero indicates that any stream can be opened. The following definitions apply to the data commonly found in AVI streams:
      * 
@@ -27140,23 +26984,22 @@ class Multimedia {
      * @param {Integer} lParam Stream of the type specified in <i>fccType</i> to access. This parameter is zero-based; use zero to specify the first occurrence.
      * @param {Integer} mode Access mode to use when opening the file. This function can open only existing streams, so the OF_CREATE mode flag cannot be used. For more information about the available flags for the <i>mode</i> parameter, see the <b>OpenFile</b> function.
      * @param {Pointer<Guid>} pclsidHandler Pointer to a class identifier of the handler you want to use. If the value is <b>NULL</b>, the system chooses one from the registry based on the file extension or the file RIFF type.
-     * @returns {HRESULT} Returns zero if successful or an error otherwise.
+     * @returns {IAVIStream} Pointer to a buffer that receives the new stream handle.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-avistreamopenfromfilea
      * @since windows5.0
      */
-    static AVIStreamOpenFromFileA(ppavi, szFile, fccType, lParam, mode, pclsidHandler) {
+    static AVIStreamOpenFromFileA(szFile, fccType, lParam, mode, pclsidHandler) {
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
-        result := DllCall("AVIFIL32.dll\AVIStreamOpenFromFileA", "ptr*", ppavi, "ptr", szFile, "uint", fccType, "int", lParam, "uint", mode, "ptr", pclsidHandler, "int")
+        result := DllCall("AVIFIL32.dll\AVIStreamOpenFromFileA", "ptr*", &ppavi := 0, "ptr", szFile, "uint", fccType, "int", lParam, "uint", mode, "ptr", pclsidHandler, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IAVIStream(ppavi)
     }
 
     /**
      * The AVIStreamOpenFromFile function opens a single stream from a file.
-     * @param {Pointer<IAVIStream>} ppavi Pointer to a buffer that receives the new stream handle.
      * @param {PWSTR} szFile Null-terminated string containing the name of the file to open.
      * @param {Integer} fccType Four-character code indicating the type of stream to be opened. Zero indicates that any stream can be opened. The following definitions apply to the data commonly found in AVI streams:
      * 
@@ -27187,94 +27030,52 @@ class Multimedia {
      * @param {Integer} lParam Stream of the type specified in <i>fccType</i> to access. This parameter is zero-based; use zero to specify the first occurrence.
      * @param {Integer} mode Access mode to use when opening the file. This function can open only existing streams, so the OF_CREATE mode flag cannot be used. For more information about the available flags for the <i>mode</i> parameter, see the <b>OpenFile</b> function.
      * @param {Pointer<Guid>} pclsidHandler Pointer to a class identifier of the handler you want to use. If the value is <b>NULL</b>, the system chooses one from the registry based on the file extension or the file RIFF type.
-     * @returns {HRESULT} Returns zero if successful or an error otherwise.
+     * @returns {IAVIStream} Pointer to a buffer that receives the new stream handle.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-avistreamopenfromfilew
      * @since windows5.0
      */
-    static AVIStreamOpenFromFileW(ppavi, szFile, fccType, lParam, mode, pclsidHandler) {
+    static AVIStreamOpenFromFileW(szFile, fccType, lParam, mode, pclsidHandler) {
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
-        result := DllCall("AVIFIL32.dll\AVIStreamOpenFromFileW", "ptr*", ppavi, "ptr", szFile, "uint", fccType, "int", lParam, "uint", mode, "ptr", pclsidHandler, "int")
+        result := DllCall("AVIFIL32.dll\AVIStreamOpenFromFileW", "ptr*", &ppavi := 0, "ptr", szFile, "uint", fccType, "int", lParam, "uint", mode, "ptr", pclsidHandler, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IAVIStream(ppavi)
     }
 
     /**
      * The AVIStreamCreate function creates a stream not associated with any file.
-     * @param {Pointer<IAVIStream>} ppavi Pointer to a buffer that receives the new stream interface.
      * @param {Integer} lParam1 Stream-handler specific information.
      * @param {Integer} lParam2 Stream-handler specific information.
      * @param {Pointer<Guid>} pclsidHandler Pointer to the class identifier used for the stream.
-     * @returns {HRESULT} Returns zero if successful or an error otherwise.
+     * @returns {IAVIStream} Pointer to a buffer that receives the new stream interface.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-avistreamcreate
      * @since windows5.0
      */
-    static AVIStreamCreate(ppavi, lParam1, lParam2, pclsidHandler) {
-        result := DllCall("AVIFIL32.dll\AVIStreamCreate", "ptr*", ppavi, "int", lParam1, "int", lParam2, "ptr", pclsidHandler, "int")
+    static AVIStreamCreate(lParam1, lParam2, pclsidHandler) {
+        result := DllCall("AVIFIL32.dll\AVIStreamCreate", "ptr*", &ppavi := 0, "int", lParam1, "int", lParam2, "ptr", pclsidHandler, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IAVIStream(ppavi)
     }
 
     /**
      * The AVIMakeCompressedStream function creates a compressed stream from an uncompressed stream and a compression filter, and returns the address of a pointer to the compressed stream. This function supports audio and video compression.
-     * @param {Pointer<IAVIStream>} ppsCompressed Pointer to a buffer that receives the compressed stream pointer.
      * @param {IAVIStream} ppsSource Pointer to the stream to be compressed.
      * @param {Pointer<AVICOMPRESSOPTIONS>} lpOptions Pointer to a structure that identifies the type of compression to use and the options to apply. You can specify video compression by identifying an appropriate handler in the <a href="https://docs.microsoft.com/windows/desktop/api/vfw/ns-vfw-avicompressoptions">AVICOMPRESSOPTIONS</a> structure. For audio compression, specify the compressed data format.
      * @param {Pointer<Guid>} pclsidHandler Pointer to a class identifier used to create the stream.
-     * @returns {HRESULT} Returns AVIERR_OK if successful or an error otherwise. Possible error values include the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>AVIERR_NOCOMPRESSOR</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * A suitable compressor cannot be found.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>AVIERR_MEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * There is not enough memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>AVIERR_UNSUPPORTED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Compression is not supported for this type of data. This error might be returned if you try to compress data that is not audio or video.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {IAVIStream} Pointer to a buffer that receives the compressed stream pointer.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-avimakecompressedstream
      * @since windows5.0
      */
-    static AVIMakeCompressedStream(ppsCompressed, ppsSource, lpOptions, pclsidHandler) {
-        result := DllCall("AVIFIL32.dll\AVIMakeCompressedStream", "ptr*", ppsCompressed, "ptr", ppsSource, "ptr", lpOptions, "ptr", pclsidHandler, "int")
+    static AVIMakeCompressedStream(ppsSource, lpOptions, pclsidHandler) {
+        result := DllCall("AVIFIL32.dll\AVIMakeCompressedStream", "ptr*", &ppsCompressed := 0, "ptr", ppsSource, "ptr", lpOptions, "ptr", pclsidHandler, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IAVIStream(ppsCompressed)
     }
 
     /**
@@ -27526,38 +27327,36 @@ class Multimedia {
 
     /**
      * The AVIMakeFileFromStreams function constructs an AVIFile interface pointer from separate streams.
-     * @param {Pointer<IAVIFile>} ppfile Pointer to a buffer that receives the new file interface pointer.
      * @param {Integer} nStreams Count of the number of streams in the array of stream interface pointers referenced by papStreams.
      * @param {Pointer<IAVIStream>} papStreams Pointer to an array of stream interface pointers.
-     * @returns {HRESULT} Returns zero if successful or an error otherwise.
+     * @returns {IAVIFile} Pointer to a buffer that receives the new file interface pointer.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-avimakefilefromstreams
      * @since windows5.0
      */
-    static AVIMakeFileFromStreams(ppfile, nStreams, papStreams) {
-        result := DllCall("AVIFIL32.dll\AVIMakeFileFromStreams", "ptr*", ppfile, "int", nStreams, "ptr*", papStreams, "int")
+    static AVIMakeFileFromStreams(nStreams, papStreams) {
+        result := DllCall("AVIFIL32.dll\AVIMakeFileFromStreams", "ptr*", &ppfile := 0, "int", nStreams, "ptr*", papStreams, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IAVIFile(ppfile)
     }
 
     /**
      * The AVIMakeStreamFromClipboard function creates an editable stream from stream data on the clipboard.
      * @param {Integer} cfFormat Clipboard flag.
      * @param {HANDLE} hGlobal Handle to stream data on the clipboard.
-     * @param {Pointer<IAVIStream>} ppstream Handle to the created stream.
-     * @returns {HRESULT} Returns zero if successful or an error otherwise.
+     * @returns {IAVIStream} Handle to the created stream.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-avimakestreamfromclipboard
      * @since windows5.0
      */
-    static AVIMakeStreamFromClipboard(cfFormat, hGlobal, ppstream) {
+    static AVIMakeStreamFromClipboard(cfFormat, hGlobal) {
         hGlobal := hGlobal is Win32Handle ? NumGet(hGlobal, "ptr") : hGlobal
 
-        result := DllCall("AVIFIL32.dll\AVIMakeStreamFromClipboard", "uint", cfFormat, "ptr", hGlobal, "ptr*", ppstream, "int")
+        result := DllCall("AVIFIL32.dll\AVIMakeStreamFromClipboard", "uint", cfFormat, "ptr", hGlobal, "ptr*", &ppstream := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IAVIStream(ppstream)
     }
 
     /**
@@ -27577,17 +27376,16 @@ class Multimedia {
 
     /**
      * The AVIGetFromClipboard function copies an AVI file from the clipboard.
-     * @param {Pointer<IAVIFile>} lppf Pointer to the location used to return the handle created for the AVI file.
-     * @returns {HRESULT} Returns zero if successful or an error otherwise.
+     * @returns {IAVIFile} Pointer to the location used to return the handle created for the AVI file.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-avigetfromclipboard
      * @since windows5.0
      */
-    static AVIGetFromClipboard(lppf) {
-        result := DllCall("AVIFIL32.dll\AVIGetFromClipboard", "ptr*", lppf, "int")
+    static AVIGetFromClipboard() {
+        result := DllCall("AVIFIL32.dll\AVIGetFromClipboard", "ptr*", &lppf := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IAVIFile(lppf)
     }
 
     /**
@@ -27606,18 +27404,17 @@ class Multimedia {
 
     /**
      * The CreateEditableStream function creates an editable stream. Use this function before using other stream editing functions.
-     * @param {Pointer<IAVIStream>} ppsEditable Pointer to a buffer that receives the new stream handle.
      * @param {IAVIStream} psSource Handle to the stream supplying data for the new stream. Specify <b>NULL</b> to create an empty editable string that you can copy and paste data into.
-     * @returns {HRESULT} Returns zero if successful or an error otherwise.
+     * @returns {IAVIStream} Pointer to a buffer that receives the new stream handle.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-createeditablestream
      * @since windows5.0
      */
-    static CreateEditableStream(ppsEditable, psSource) {
-        result := DllCall("AVIFIL32.dll\CreateEditableStream", "ptr*", ppsEditable, "ptr", psSource, "int")
+    static CreateEditableStream(psSource) {
+        result := DllCall("AVIFIL32.dll\CreateEditableStream", "ptr*", &ppsEditable := 0, "ptr", psSource, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IAVIStream(ppsEditable)
     }
 
     /**
@@ -27625,20 +27422,19 @@ class Multimedia {
      * @param {IAVIStream} pavi Handle to the stream being edited.
      * @param {Pointer<Integer>} plStart Starting position of the data to cut from the stream referenced by <i>pavi</i>.
      * @param {Pointer<Integer>} plLength Amount of data to cut from the stream referenced by <i>pavi</i>.
-     * @param {Pointer<IAVIStream>} ppResult Pointer to the handle created for the new stream.
-     * @returns {HRESULT} Returns zero if successful or an error otherwise.
+     * @returns {IAVIStream} Pointer to the handle created for the new stream.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-editstreamcut
      * @since windows5.0
      */
-    static EditStreamCut(pavi, plStart, plLength, ppResult) {
+    static EditStreamCut(pavi, plStart, plLength) {
         plStartMarshal := plStart is VarRef ? "int*" : "ptr"
         plLengthMarshal := plLength is VarRef ? "int*" : "ptr"
 
-        result := DllCall("AVIFIL32.dll\EditStreamCut", "ptr", pavi, plStartMarshal, plStart, plLengthMarshal, plLength, "ptr*", ppResult, "int")
+        result := DllCall("AVIFIL32.dll\EditStreamCut", "ptr", pavi, plStartMarshal, plStart, plLengthMarshal, plLength, "ptr*", &ppResult := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IAVIStream(ppResult)
     }
 
     /**
@@ -27646,20 +27442,19 @@ class Multimedia {
      * @param {IAVIStream} pavi Handle to the stream being copied.
      * @param {Pointer<Integer>} plStart Starting position within the stream being copied. The starting position is returned.
      * @param {Pointer<Integer>} plLength Amount of data to copy from the stream referenced by <i>pavi</i>. The length of the copied data is returned.
-     * @param {Pointer<IAVIStream>} ppResult Pointer to a buffer that receives the handle created for the new stream.
-     * @returns {HRESULT} Returns zero if successful or an error otherwise.
+     * @returns {IAVIStream} Pointer to a buffer that receives the handle created for the new stream.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-editstreamcopy
      * @since windows5.0
      */
-    static EditStreamCopy(pavi, plStart, plLength, ppResult) {
+    static EditStreamCopy(pavi, plStart, plLength) {
         plStartMarshal := plStart is VarRef ? "int*" : "ptr"
         plLengthMarshal := plLength is VarRef ? "int*" : "ptr"
 
-        result := DllCall("AVIFIL32.dll\EditStreamCopy", "ptr", pavi, plStartMarshal, plStart, plLengthMarshal, plLength, "ptr*", ppResult, "int")
+        result := DllCall("AVIFIL32.dll\EditStreamCopy", "ptr", pavi, plStartMarshal, plStart, plLengthMarshal, plLength, "ptr*", &ppResult := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IAVIStream(ppResult)
     }
 
     /**
@@ -27688,17 +27483,16 @@ class Multimedia {
     /**
      * The EditStreamClone function creates a duplicate editable stream.
      * @param {IAVIStream} pavi Handle to an editable stream that will be copied.
-     * @param {Pointer<IAVIStream>} ppResult Pointer to a buffer that receives the new stream handle.
-     * @returns {HRESULT} Returns zero if successful or an error otherwise.
+     * @returns {IAVIStream} Pointer to a buffer that receives the new stream handle.
      * @see https://docs.microsoft.com/windows/win32/api//vfw/nf-vfw-editstreamclone
      * @since windows5.0
      */
-    static EditStreamClone(pavi, ppResult) {
-        result := DllCall("AVIFIL32.dll\EditStreamClone", "ptr", pavi, "ptr*", ppResult, "int")
+    static EditStreamClone(pavi) {
+        result := DllCall("AVIFIL32.dll\EditStreamClone", "ptr", pavi, "ptr*", &ppResult := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IAVIStream(ppResult)
     }
 
     /**

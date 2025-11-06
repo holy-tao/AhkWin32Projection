@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,13 +33,13 @@ class IInkRecognizerContext2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} UnicodeRanges 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizercontext2-get_enabledunicoderanges
      */
-    get_EnabledUnicodeRanges(UnicodeRanges) {
+    get_EnabledUnicodeRanges() {
+        UnicodeRanges := VARIANT()
         result := ComCall(7, this, "ptr", UnicodeRanges, "HRESULT")
-        return result
+        return UnicodeRanges
     }
 
     /**

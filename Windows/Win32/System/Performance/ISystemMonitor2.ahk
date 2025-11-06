@@ -47,12 +47,11 @@ class ISystemMonitor2 extends ISystemMonitor{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbState 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_EnableDigitGrouping(pbState) {
-        result := ComCall(80, this, "ptr", pbState, "HRESULT")
-        return result
+    get_EnableDigitGrouping() {
+        result := ComCall(80, this, "short*", &pbState := 0, "HRESULT")
+        return pbState
     }
 
     /**
@@ -67,12 +66,11 @@ class ISystemMonitor2 extends ISystemMonitor{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbState 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_EnableToolTips(pbState) {
-        result := ComCall(82, this, "ptr", pbState, "HRESULT")
-        return result
+    get_EnableToolTips() {
+        result := ComCall(82, this, "short*", &pbState := 0, "HRESULT")
+        return pbState
     }
 
     /**
@@ -87,12 +85,11 @@ class ISystemMonitor2 extends ISystemMonitor{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbState 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_ShowTimeAxisLabels(pbState) {
-        result := ComCall(84, this, "ptr", pbState, "HRESULT")
-        return result
+    get_ShowTimeAxisLabels() {
+        result := ComCall(84, this, "short*", &pbState := 0, "HRESULT")
+        return pbState
     }
 
     /**
@@ -107,12 +104,11 @@ class ISystemMonitor2 extends ISystemMonitor{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbScroll 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_ChartScroll(pbScroll) {
-        result := ComCall(86, this, "ptr", pbScroll, "HRESULT")
-        return result
+    get_ChartScroll() {
+        result := ComCall(86, this, "short*", &pbScroll := 0, "HRESULT")
+        return pbScroll
     }
 
     /**
@@ -127,14 +123,11 @@ class ISystemMonitor2 extends ISystemMonitor{
 
     /**
      * 
-     * @param {Pointer<Integer>} piDataPointCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_DataPointCount(piDataPointCount) {
-        piDataPointCountMarshal := piDataPointCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(88, this, piDataPointCountMarshal, piDataPointCount, "HRESULT")
-        return result
+    get_DataPointCount() {
+        result := ComCall(88, this, "int*", &piDataPointCount := 0, "HRESULT")
+        return piDataPointCount
     }
 
     /**
@@ -185,26 +178,20 @@ class ISystemMonitor2 extends ISystemMonitor{
 
     /**
      * 
-     * @param {Pointer<Float>} pDate 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_LogSourceStartTime(pDate) {
-        pDateMarshal := pDate is VarRef ? "double*" : "ptr"
-
-        result := ComCall(93, this, pDateMarshal, pDate, "HRESULT")
-        return result
+    get_LogSourceStartTime() {
+        result := ComCall(93, this, "double*", &pDate := 0, "HRESULT")
+        return pDate
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pDate 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_LogSourceStopTime(pDate) {
-        pDateMarshal := pDate is VarRef ? "double*" : "ptr"
-
-        result := ComCall(94, this, pDateMarshal, pDate, "HRESULT")
-        return result
+    get_LogSourceStopTime() {
+        result := ComCall(94, this, "double*", &pDate := 0, "HRESULT")
+        return pDate
     }
 
     /**

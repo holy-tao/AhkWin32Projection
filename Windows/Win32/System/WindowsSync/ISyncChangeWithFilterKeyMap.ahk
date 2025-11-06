@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISyncKnowledge.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -57,68 +58,31 @@ class ISyncChangeWithFilterKeyMap extends IUnknown{
      * @returns {HRESULT} 
      */
     GetAllChangeUnitsPresentFlag(pfAllChangeUnitsPresent) {
-        result := ComCall(5, this, "ptr", pfAllChangeUnitsPresent, "HRESULT")
+        pfAllChangeUnitsPresentMarshal := pfAllChangeUnitsPresent is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, pfAllChangeUnitsPresentMarshal, pfAllChangeUnitsPresent, "HRESULT")
         return result
     }
 
     /**
      * 
      * @param {Integer} dwFilterKey 
-     * @param {Pointer<ISyncKnowledge>} ppIFilterForgottenKnowledge 
-     * @returns {HRESULT} 
+     * @returns {ISyncKnowledge} 
      */
-    GetFilterForgottenKnowledge(dwFilterKey, ppIFilterForgottenKnowledge) {
-        result := ComCall(6, this, "uint", dwFilterKey, "ptr*", ppIFilterForgottenKnowledge, "HRESULT")
-        return result
+    GetFilterForgottenKnowledge(dwFilterKey) {
+        result := ComCall(6, this, "uint", dwFilterKey, "ptr*", &ppIFilterForgottenKnowledge := 0, "HRESULT")
+        return ISyncKnowledge(ppIFilterForgottenKnowledge)
     }
 
     /**
      * 
      * @param {ISyncKnowledge} pDestinationKnowledge 
      * @param {IEnumItemIds} pNewMoveins 
-     * @param {Pointer<ISyncKnowledge>} ppLearnedKnowledge 
-     * @returns {HRESULT} 
+     * @returns {ISyncKnowledge} 
      */
-    GetFilteredReplicaLearnedKnowledge(pDestinationKnowledge, pNewMoveins, ppLearnedKnowledge) {
-        result := ComCall(7, this, "ptr", pDestinationKnowledge, "ptr", pNewMoveins, "ptr*", ppLearnedKnowledge, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {ISyncKnowledge} pDestinationKnowledge 
-     * @param {IEnumItemIds} pNewMoveins 
-     * @param {Integer} dwFilterKey 
-     * @param {Pointer<ISyncKnowledge>} ppLearnedFilterForgottenKnowledge 
-     * @returns {HRESULT} 
-     */
-    GetLearnedFilterForgottenKnowledge(pDestinationKnowledge, pNewMoveins, dwFilterKey, ppLearnedFilterForgottenKnowledge) {
-        result := ComCall(8, this, "ptr", pDestinationKnowledge, "ptr", pNewMoveins, "uint", dwFilterKey, "ptr*", ppLearnedFilterForgottenKnowledge, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {ISyncKnowledge} pDestinationKnowledge 
-     * @param {IEnumItemIds} pNewMoveins 
-     * @param {Pointer<ISyncKnowledge>} ppLearnedForgottenKnowledge 
-     * @returns {HRESULT} 
-     */
-    GetFilteredReplicaLearnedForgottenKnowledge(pDestinationKnowledge, pNewMoveins, ppLearnedForgottenKnowledge) {
-        result := ComCall(9, this, "ptr", pDestinationKnowledge, "ptr", pNewMoveins, "ptr*", ppLearnedForgottenKnowledge, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {ISyncKnowledge} pDestinationKnowledge 
-     * @param {IEnumItemIds} pNewMoveins 
-     * @param {Pointer<ISyncKnowledge>} ppLearnedForgottenKnowledge 
-     * @returns {HRESULT} 
-     */
-    GetFilteredReplicaLearnedForgottenKnowledgeAfterRecoveryComplete(pDestinationKnowledge, pNewMoveins, ppLearnedForgottenKnowledge) {
-        result := ComCall(10, this, "ptr", pDestinationKnowledge, "ptr", pNewMoveins, "ptr*", ppLearnedForgottenKnowledge, "HRESULT")
-        return result
+    GetFilteredReplicaLearnedKnowledge(pDestinationKnowledge, pNewMoveins) {
+        result := ComCall(7, this, "ptr", pDestinationKnowledge, "ptr", pNewMoveins, "ptr*", &ppLearnedKnowledge := 0, "HRESULT")
+        return ISyncKnowledge(ppLearnedKnowledge)
     }
 
     /**
@@ -126,11 +90,44 @@ class ISyncChangeWithFilterKeyMap extends IUnknown{
      * @param {ISyncKnowledge} pDestinationKnowledge 
      * @param {IEnumItemIds} pNewMoveins 
      * @param {Integer} dwFilterKey 
-     * @param {Pointer<ISyncKnowledge>} ppLearnedFilterForgottenKnowledge 
-     * @returns {HRESULT} 
+     * @returns {ISyncKnowledge} 
      */
-    GetLearnedFilterForgottenKnowledgeAfterRecoveryComplete(pDestinationKnowledge, pNewMoveins, dwFilterKey, ppLearnedFilterForgottenKnowledge) {
-        result := ComCall(11, this, "ptr", pDestinationKnowledge, "ptr", pNewMoveins, "uint", dwFilterKey, "ptr*", ppLearnedFilterForgottenKnowledge, "HRESULT")
-        return result
+    GetLearnedFilterForgottenKnowledge(pDestinationKnowledge, pNewMoveins, dwFilterKey) {
+        result := ComCall(8, this, "ptr", pDestinationKnowledge, "ptr", pNewMoveins, "uint", dwFilterKey, "ptr*", &ppLearnedFilterForgottenKnowledge := 0, "HRESULT")
+        return ISyncKnowledge(ppLearnedFilterForgottenKnowledge)
+    }
+
+    /**
+     * 
+     * @param {ISyncKnowledge} pDestinationKnowledge 
+     * @param {IEnumItemIds} pNewMoveins 
+     * @returns {ISyncKnowledge} 
+     */
+    GetFilteredReplicaLearnedForgottenKnowledge(pDestinationKnowledge, pNewMoveins) {
+        result := ComCall(9, this, "ptr", pDestinationKnowledge, "ptr", pNewMoveins, "ptr*", &ppLearnedForgottenKnowledge := 0, "HRESULT")
+        return ISyncKnowledge(ppLearnedForgottenKnowledge)
+    }
+
+    /**
+     * 
+     * @param {ISyncKnowledge} pDestinationKnowledge 
+     * @param {IEnumItemIds} pNewMoveins 
+     * @returns {ISyncKnowledge} 
+     */
+    GetFilteredReplicaLearnedForgottenKnowledgeAfterRecoveryComplete(pDestinationKnowledge, pNewMoveins) {
+        result := ComCall(10, this, "ptr", pDestinationKnowledge, "ptr", pNewMoveins, "ptr*", &ppLearnedForgottenKnowledge := 0, "HRESULT")
+        return ISyncKnowledge(ppLearnedForgottenKnowledge)
+    }
+
+    /**
+     * 
+     * @param {ISyncKnowledge} pDestinationKnowledge 
+     * @param {IEnumItemIds} pNewMoveins 
+     * @param {Integer} dwFilterKey 
+     * @returns {ISyncKnowledge} 
+     */
+    GetLearnedFilterForgottenKnowledgeAfterRecoveryComplete(pDestinationKnowledge, pNewMoveins, dwFilterKey) {
+        result := ComCall(11, this, "ptr", pDestinationKnowledge, "ptr", pNewMoveins, "uint", dwFilterKey, "ptr*", &ppLearnedFilterForgottenKnowledge := 0, "HRESULT")
+        return ISyncKnowledge(ppLearnedFilterForgottenKnowledge)
     }
 }

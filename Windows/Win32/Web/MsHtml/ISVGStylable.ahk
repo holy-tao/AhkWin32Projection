@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISVGAnimatedString.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,11 +31,10 @@ class ISVGStylable extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedString>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedString} 
      */
-    get_className(p) {
-        result := ComCall(7, this, "ptr*", p, "HRESULT")
-        return result
+    get_className() {
+        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedString(p)
     }
 }

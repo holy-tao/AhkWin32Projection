@@ -77,14 +77,11 @@ class IMLangStringBufA extends IUnknown{
      * 
      * @param {Integer} cchOffset 
      * @param {Integer} cchMaxInsert 
-     * @param {Pointer<Integer>} pcchActual 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Insert(cchOffset, cchMaxInsert, pcchActual) {
-        pcchActualMarshal := pcchActual is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, "int", cchOffset, "int", cchMaxInsert, pcchActualMarshal, pcchActual, "HRESULT")
-        return result
+    Insert(cchOffset, cchMaxInsert) {
+        result := ComCall(6, this, "int", cchOffset, "int", cchMaxInsert, "int*", &pcchActual := 0, "HRESULT")
+        return pcchActual
     }
 
     /**

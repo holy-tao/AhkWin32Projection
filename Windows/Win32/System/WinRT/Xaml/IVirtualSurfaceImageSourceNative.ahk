@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\RECT.ahk
 #Include .\ISurfaceImageSourceNative.ahk
 
 /**
@@ -43,38 +44,35 @@ class IVirtualSurfaceImageSourceNative extends ISurfaceImageSourceNative{
 
     /**
      * 
-     * @param {Pointer<Integer>} count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.media.dxinterop/nf-windows-ui-xaml-media-dxinterop-ivirtualsurfaceimagesourcenative-getupdaterectcount
      */
-    GetUpdateRectCount(count) {
-        countMarshal := count is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, countMarshal, count, "HRESULT")
-        return result
+    GetUpdateRectCount() {
+        result := ComCall(7, this, "uint*", &count := 0, "HRESULT")
+        return count
     }
 
     /**
      * 
-     * @param {Pointer<RECT>} updates 
      * @param {Integer} count 
-     * @returns {HRESULT} 
+     * @returns {RECT} 
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.media.dxinterop/nf-windows-ui-xaml-media-dxinterop-ivirtualsurfaceimagesourcenative-getupdaterects
      */
-    GetUpdateRects(updates, count) {
+    GetUpdateRects(count) {
+        updates := RECT()
         result := ComCall(8, this, "ptr", updates, "uint", count, "HRESULT")
-        return result
+        return updates
     }
 
     /**
      * 
-     * @param {Pointer<RECT>} bounds 
-     * @returns {HRESULT} 
+     * @returns {RECT} 
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.media.dxinterop/nf-windows-ui-xaml-media-dxinterop-ivirtualsurfaceimagesourcenative-getvisiblebounds
      */
-    GetVisibleBounds(bounds) {
+    GetVisibleBounds() {
+        bounds := RECT()
         result := ComCall(9, this, "ptr", bounds, "HRESULT")
-        return result
+        return bounds
     }
 
     /**

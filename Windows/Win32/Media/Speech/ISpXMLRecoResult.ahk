@@ -30,13 +30,12 @@ class ISpXMLRecoResult extends ISpRecoResult{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszCoMemXMLResult 
      * @param {Integer} Options 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetXMLResult(ppszCoMemXMLResult, Options) {
-        result := ComCall(14, this, "ptr", ppszCoMemXMLResult, "int", Options, "HRESULT")
-        return result
+    GetXMLResult(Options) {
+        result := ComCall(14, this, "ptr*", &ppszCoMemXMLResult := 0, "int", Options, "HRESULT")
+        return ppszCoMemXMLResult
     }
 
     /**

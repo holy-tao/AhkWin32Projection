@@ -37,24 +37,21 @@ class IDOMMSTransitionEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_propertyName(p) {
+    get_propertyName() {
+        p := BSTR()
         result := ComCall(7, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_elapsedTime(p) {
-        pMarshal := p is VarRef ? "float*" : "ptr"
-
-        result := ComCall(8, this, pMarshal, p, "HRESULT")
-        return result
+    get_elapsedTime() {
+        result := ComCall(8, this, "float*", &p := 0, "HRESULT")
+        return p
     }
 
     /**

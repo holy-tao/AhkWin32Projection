@@ -35,16 +35,13 @@ class ID3D12PipelineLibrary1 extends ID3D12PipelineLibrary{
      * @param {PWSTR} pName 
      * @param {Pointer<D3D12_PIPELINE_STATE_STREAM_DESC>} pDesc 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppPipelineState 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12pipelinelibrary1-loadpipeline
      */
-    LoadPipeline(pName, pDesc, riid, ppPipelineState) {
+    LoadPipeline(pName, pDesc, riid) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        ppPipelineStateMarshal := ppPipelineState is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(13, this, "ptr", pName, "ptr", pDesc, "ptr", riid, ppPipelineStateMarshal, ppPipelineState, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", pName, "ptr", pDesc, "ptr", riid, "ptr*", &ppPipelineState := 0, "HRESULT")
+        return ppPipelineState
     }
 }

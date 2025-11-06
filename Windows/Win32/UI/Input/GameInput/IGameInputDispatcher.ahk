@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -40,11 +41,11 @@ class IGameInputDispatcher extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HANDLE>} waitHandle 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      */
-    OpenWaitHandle(waitHandle) {
+    OpenWaitHandle() {
+        waitHandle := HANDLE()
         result := ComCall(4, this, "ptr", waitHandle, "HRESULT")
-        return result
+        return waitHandle
     }
 }

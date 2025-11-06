@@ -2757,7 +2757,9 @@ class RemoteManagement {
      * @since windows8.0
      */
     static WSManInitialize(flags, apiHandle) {
-        result := DllCall("WsmSvc.dll\WSManInitialize", "uint", flags, "ptr", apiHandle, "uint")
+        apiHandleMarshal := apiHandle is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WsmSvc.dll\WSManInitialize", "uint", flags, apiHandleMarshal, apiHandle, "uint")
         return result
     }
 
@@ -2866,7 +2868,9 @@ class RemoteManagement {
     static WSManCreateSession(apiHandle, connection, flags, serverAuthenticationCredentials, proxyInfo, session) {
         connection := connection is String ? StrPtr(connection) : connection
 
-        result := DllCall("WsmSvc.dll\WSManCreateSession", "ptr", apiHandle, "ptr", connection, "uint", flags, "ptr", serverAuthenticationCredentials, "ptr", proxyInfo, "ptr", session, "uint")
+        sessionMarshal := session is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("WsmSvc.dll\WSManCreateSession", "ptr", apiHandle, "ptr", connection, "uint", flags, "ptr", serverAuthenticationCredentials, "ptr", proxyInfo, sessionMarshal, session, "uint")
         return result
     }
 
@@ -2965,7 +2969,9 @@ class RemoteManagement {
     static WSManCreateShell(session, flags, resourceUri, startupInfo, options, createXml, async, shell) {
         resourceUri := resourceUri is String ? StrPtr(resourceUri) : resourceUri
 
-        DllCall("WsmSvc.dll\WSManCreateShell", "ptr", session, "uint", flags, "ptr", resourceUri, "ptr", startupInfo, "ptr", options, "ptr", createXml, "ptr", async, "ptr", shell)
+        shellMarshal := shell is VarRef ? "ptr*" : "ptr"
+
+        DllCall("WsmSvc.dll\WSManCreateShell", "ptr", session, "uint", flags, "ptr", resourceUri, "ptr", startupInfo, "ptr", options, "ptr", createXml, "ptr", async, shellMarshal, shell)
     }
 
     /**
@@ -2984,7 +2990,9 @@ class RemoteManagement {
     static WSManRunShellCommand(shell, flags, commandLine, args, options, async, command) {
         commandLine := commandLine is String ? StrPtr(commandLine) : commandLine
 
-        DllCall("WsmSvc.dll\WSManRunShellCommand", "ptr", shell, "uint", flags, "ptr", commandLine, "ptr", args, "ptr", options, "ptr", async, "ptr", command)
+        commandMarshal := command is VarRef ? "ptr*" : "ptr"
+
+        DllCall("WsmSvc.dll\WSManRunShellCommand", "ptr", shell, "uint", flags, "ptr", commandLine, "ptr", args, "ptr", options, "ptr", async, commandMarshal, command)
     }
 
     /**
@@ -3003,7 +3011,9 @@ class RemoteManagement {
     static WSManSignalShell(shell, command, flags, code, async, signalOperation) {
         code := code is String ? StrPtr(code) : code
 
-        DllCall("WsmSvc.dll\WSManSignalShell", "ptr", shell, "ptr", command, "uint", flags, "ptr", code, "ptr", async, "ptr", signalOperation)
+        signalOperationMarshal := signalOperation is VarRef ? "ptr*" : "ptr"
+
+        DllCall("WsmSvc.dll\WSManSignalShell", "ptr", shell, "ptr", command, "uint", flags, "ptr", code, "ptr", async, signalOperationMarshal, signalOperation)
     }
 
     /**
@@ -3019,7 +3029,9 @@ class RemoteManagement {
      * @since windows6.1
      */
     static WSManReceiveShellOutput(shell, command, flags, desiredStreamSet, async, receiveOperation) {
-        DllCall("WsmSvc.dll\WSManReceiveShellOutput", "ptr", shell, "ptr", command, "uint", flags, "ptr", desiredStreamSet, "ptr", async, "ptr", receiveOperation)
+        receiveOperationMarshal := receiveOperation is VarRef ? "ptr*" : "ptr"
+
+        DllCall("WsmSvc.dll\WSManReceiveShellOutput", "ptr", shell, "ptr", command, "uint", flags, "ptr", desiredStreamSet, "ptr", async, receiveOperationMarshal, receiveOperation)
     }
 
     /**
@@ -3039,7 +3051,9 @@ class RemoteManagement {
     static WSManSendShellInput(shell, command, flags, streamId, streamData, endOfStream, async, sendOperation) {
         streamId := streamId is String ? StrPtr(streamId) : streamId
 
-        DllCall("WsmSvc.dll\WSManSendShellInput", "ptr", shell, "ptr", command, "uint", flags, "ptr", streamId, "ptr", streamData, "int", endOfStream, "ptr", async, "ptr", sendOperation)
+        sendOperationMarshal := sendOperation is VarRef ? "ptr*" : "ptr"
+
+        DllCall("WsmSvc.dll\WSManSendShellInput", "ptr", shell, "ptr", command, "uint", flags, "ptr", streamId, "ptr", streamData, "int", endOfStream, "ptr", async, sendOperationMarshal, sendOperation)
     }
 
     /**
@@ -3088,7 +3102,9 @@ class RemoteManagement {
         resourceUri := resourceUri is String ? StrPtr(resourceUri) : resourceUri
         shellId := shellId is String ? StrPtr(shellId) : shellId
 
-        DllCall("WsmSvc.dll\WSManCreateShellEx", "ptr", session, "uint", flags, "ptr", resourceUri, "ptr", shellId, "ptr", startupInfo, "ptr", options, "ptr", createXml, "ptr", async, "ptr", shell)
+        shellMarshal := shell is VarRef ? "ptr*" : "ptr"
+
+        DllCall("WsmSvc.dll\WSManCreateShellEx", "ptr", session, "uint", flags, "ptr", resourceUri, "ptr", shellId, "ptr", startupInfo, "ptr", options, "ptr", createXml, "ptr", async, shellMarshal, shell)
     }
 
     /**
@@ -3109,7 +3125,9 @@ class RemoteManagement {
         commandId := commandId is String ? StrPtr(commandId) : commandId
         commandLine := commandLine is String ? StrPtr(commandLine) : commandLine
 
-        DllCall("WsmSvc.dll\WSManRunShellCommandEx", "ptr", shell, "uint", flags, "ptr", commandId, "ptr", commandLine, "ptr", args, "ptr", options, "ptr", async, "ptr", command)
+        commandMarshal := command is VarRef ? "ptr*" : "ptr"
+
+        DllCall("WsmSvc.dll\WSManRunShellCommandEx", "ptr", shell, "uint", flags, "ptr", commandId, "ptr", commandLine, "ptr", args, "ptr", options, "ptr", async, commandMarshal, command)
     }
 
     /**
@@ -3215,7 +3233,9 @@ class RemoteManagement {
         resourceUri := resourceUri is String ? StrPtr(resourceUri) : resourceUri
         shellID := shellID is String ? StrPtr(shellID) : shellID
 
-        DllCall("WsmSvc.dll\WSManConnectShell", "ptr", session, "uint", flags, "ptr", resourceUri, "ptr", shellID, "ptr", options, "ptr", connectXml, "ptr", async, "ptr", shell)
+        shellMarshal := shell is VarRef ? "ptr*" : "ptr"
+
+        DllCall("WsmSvc.dll\WSManConnectShell", "ptr", session, "uint", flags, "ptr", resourceUri, "ptr", shellID, "ptr", options, "ptr", connectXml, "ptr", async, shellMarshal, shell)
     }
 
     /**
@@ -3234,7 +3254,9 @@ class RemoteManagement {
     static WSManConnectShellCommand(shell, flags, commandID, options, connectXml, async, command) {
         commandID := commandID is String ? StrPtr(commandID) : commandID
 
-        DllCall("WsmSvc.dll\WSManConnectShellCommand", "ptr", shell, "uint", flags, "ptr", commandID, "ptr", options, "ptr", connectXml, "ptr", async, "ptr", command)
+        commandMarshal := command is VarRef ? "ptr*" : "ptr"
+
+        DllCall("WsmSvc.dll\WSManConnectShellCommand", "ptr", shell, "uint", flags, "ptr", commandID, "ptr", options, "ptr", connectXml, "ptr", async, commandMarshal, command)
     }
 
     /**

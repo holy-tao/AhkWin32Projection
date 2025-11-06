@@ -33,13 +33,10 @@ class ISoftwareBitmapNative extends IInspectable{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetData(riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetData(riid) {
+        result := ComCall(6, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 }

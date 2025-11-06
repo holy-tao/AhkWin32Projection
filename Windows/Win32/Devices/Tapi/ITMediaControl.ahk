@@ -62,14 +62,11 @@ class ITMediaControl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pTerminalMediaState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itmediacontrol-get_mediastate
      */
-    get_MediaState(pTerminalMediaState) {
-        pTerminalMediaStateMarshal := pTerminalMediaState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, pTerminalMediaStateMarshal, pTerminalMediaState, "HRESULT")
-        return result
+    get_MediaState() {
+        result := ComCall(10, this, "int*", &pTerminalMediaState := 0, "HRESULT")
+        return pTerminalMediaState
     }
 }

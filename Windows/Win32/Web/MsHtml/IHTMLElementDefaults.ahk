@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IHTMLStyle.ahk
+#Include .\IHTMLDocument.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -31,12 +33,11 @@ class IHTMLElementDefaults extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IHTMLStyle>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLStyle} 
      */
-    get_style(p) {
-        result := ComCall(7, this, "ptr*", p, "HRESULT")
-        return result
+    get_style() {
+        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLStyle(p)
     }
 
     /**
@@ -51,12 +52,11 @@ class IHTMLElementDefaults extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_tabStop(p) {
-        result := ComCall(9, this, "ptr", p, "HRESULT")
-        return result
+    get_tabStop() {
+        result := ComCall(9, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -71,12 +71,11 @@ class IHTMLElementDefaults extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_viewInheritStyle(p) {
-        result := ComCall(11, this, "ptr", p, "HRESULT")
-        return result
+    get_viewInheritStyle() {
+        result := ComCall(11, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -91,12 +90,11 @@ class IHTMLElementDefaults extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_viewMasterTab(p) {
-        result := ComCall(13, this, "ptr", p, "HRESULT")
-        return result
+    get_viewMasterTab() {
+        result := ComCall(13, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -111,14 +109,11 @@ class IHTMLElementDefaults extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_scrollSegmentX(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, pMarshal, p, "HRESULT")
-        return result
+    get_scrollSegmentX() {
+        result := ComCall(15, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -133,14 +128,11 @@ class IHTMLElementDefaults extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_scrollSegmentY(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, pMarshal, p, "HRESULT")
-        return result
+    get_scrollSegmentY() {
+        result := ComCall(17, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -155,12 +147,11 @@ class IHTMLElementDefaults extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_isMultiLine(p) {
-        result := ComCall(19, this, "ptr", p, "HRESULT")
-        return result
+    get_isMultiLine() {
+        result := ComCall(19, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -177,12 +168,12 @@ class IHTMLElementDefaults extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_contentEditable(p) {
+    get_contentEditable() {
+        p := BSTR()
         result := ComCall(21, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -197,12 +188,11 @@ class IHTMLElementDefaults extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_canHaveHTML(p) {
-        result := ComCall(23, this, "ptr", p, "HRESULT")
-        return result
+    get_canHaveHTML() {
+        result := ComCall(23, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -217,12 +207,11 @@ class IHTMLElementDefaults extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IHTMLDocument>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDocument} 
      */
-    get_viewLink(p) {
-        result := ComCall(25, this, "ptr*", p, "HRESULT")
-        return result
+    get_viewLink() {
+        result := ComCall(25, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLDocument(p)
     }
 
     /**
@@ -237,11 +226,10 @@ class IHTMLElementDefaults extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_frozen(p) {
-        result := ComCall(27, this, "ptr", p, "HRESULT")
-        return result
+    get_frozen() {
+        result := ComCall(27, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 }

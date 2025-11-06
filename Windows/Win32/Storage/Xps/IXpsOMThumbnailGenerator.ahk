@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsOMImageResource.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -80,12 +81,11 @@ class IXpsOMThumbnailGenerator extends IUnknown{
      * @param {Integer} thumbnailType 
      * @param {Integer} thumbnailSize 
      * @param {IOpcPartUri} imageResourcePartName 
-     * @param {Pointer<IXpsOMImageResource>} imageResource 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMImageResource} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomthumbnailgenerator-generatethumbnail
      */
-    GenerateThumbnail(page, thumbnailType, thumbnailSize, imageResourcePartName, imageResource) {
-        result := ComCall(3, this, "ptr", page, "int", thumbnailType, "int", thumbnailSize, "ptr", imageResourcePartName, "ptr*", imageResource, "HRESULT")
-        return result
+    GenerateThumbnail(page, thumbnailType, thumbnailSize, imageResourcePartName) {
+        result := ComCall(3, this, "ptr", page, "int", thumbnailType, "int", thumbnailSize, "ptr", imageResourcePartName, "ptr*", &imageResource := 0, "HRESULT")
+        return IXpsOMImageResource(imageResource)
     }
 }

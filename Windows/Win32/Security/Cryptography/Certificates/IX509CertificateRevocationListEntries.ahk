@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IX509CertificateRevocationListEntry.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,34 +34,29 @@ class IX509CertificateRevocationListEntries extends IDispatch{
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<IX509CertificateRevocationListEntry>} pVal 
-     * @returns {HRESULT} 
+     * @returns {IX509CertificateRevocationListEntry} 
      */
-    get_ItemByIndex(Index, pVal) {
-        result := ComCall(7, this, "int", Index, "ptr*", pVal, "HRESULT")
-        return result
+    get_ItemByIndex(Index) {
+        result := ComCall(7, this, "int", Index, "ptr*", &pVal := 0, "HRESULT")
+        return IX509CertificateRevocationListEntry(pVal)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Count(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(8, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} pVal 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__NewEnum(pVal) {
-        result := ComCall(9, this, "ptr*", pVal, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(9, this, "ptr*", &pVal := 0, "HRESULT")
+        return IUnknown(pVal)
     }
 
     /**
@@ -95,16 +92,13 @@ class IX509CertificateRevocationListEntries extends IDispatch{
      * 
      * @param {Integer} Encoding 
      * @param {BSTR} SerialNumber 
-     * @param {Pointer<Integer>} pIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_IndexBySerialNumber(Encoding, SerialNumber, pIndex) {
+    get_IndexBySerialNumber(Encoding, SerialNumber) {
         SerialNumber := SerialNumber is String ? BSTR.Alloc(SerialNumber).Value : SerialNumber
 
-        pIndexMarshal := pIndex is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, "int", Encoding, "ptr", SerialNumber, pIndexMarshal, pIndex, "HRESULT")
-        return result
+        result := ComCall(13, this, "int", Encoding, "ptr", SerialNumber, "int*", &pIndex := 0, "HRESULT")
+        return pIndex
     }
 
     /**

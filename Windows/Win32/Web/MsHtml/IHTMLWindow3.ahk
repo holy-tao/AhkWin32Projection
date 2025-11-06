@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IHTMLDataTransfer.ahk
+#Include .\IHTMLWindow2.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -31,40 +34,33 @@ class IHTMLWindow3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_screenLeft(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pMarshal, p, "HRESULT")
-        return result
+    get_screenLeft() {
+        result := ComCall(7, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_screenTop(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pMarshal, p, "HRESULT")
-        return result
+    get_screenTop() {
+        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
      * @param {BSTR} event 
      * @param {IDispatch} pDisp 
-     * @param {Pointer<VARIANT_BOOL>} pfResult 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    attachEvent(event, pDisp, pfResult) {
+    attachEvent(event, pDisp) {
         event := event is String ? BSTR.Alloc(event).Value : event
 
-        result := ComCall(9, this, "ptr", event, "ptr", pDisp, "ptr", pfResult, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", event, "ptr", pDisp, "short*", &pfResult := 0, "HRESULT")
+        return pfResult
     }
 
     /**
@@ -85,14 +81,11 @@ class IHTMLWindow3 extends IDispatch{
      * @param {Pointer<VARIANT>} expression 
      * @param {Integer} msec 
      * @param {Pointer<VARIANT>} language 
-     * @param {Pointer<Integer>} timerID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    setTimeout(expression, msec, language, timerID) {
-        timerIDMarshal := timerID is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, "ptr", expression, "int", msec, "ptr", language, timerIDMarshal, timerID, "HRESULT")
-        return result
+    setTimeout(expression, msec, language) {
+        result := ComCall(11, this, "ptr", expression, "int", msec, "ptr", language, "int*", &timerID := 0, "HRESULT")
+        return timerID
     }
 
     /**
@@ -100,14 +93,11 @@ class IHTMLWindow3 extends IDispatch{
      * @param {Pointer<VARIANT>} expression 
      * @param {Integer} msec 
      * @param {Pointer<VARIANT>} language 
-     * @param {Pointer<Integer>} timerID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    setInterval(expression, msec, language, timerID) {
-        timerIDMarshal := timerID is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, "ptr", expression, "int", msec, "ptr", language, timerIDMarshal, timerID, "HRESULT")
-        return result
+    setInterval(expression, msec, language) {
+        result := ComCall(12, this, "ptr", expression, "int", msec, "ptr", language, "int*", &timerID := 0, "HRESULT")
+        return timerID
     }
 
     /**
@@ -131,12 +121,12 @@ class IHTMLWindow3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onbeforeprint(p) {
+    get_onbeforeprint() {
+        p := VARIANT()
         result := ComCall(15, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -151,22 +141,21 @@ class IHTMLWindow3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onafterprint(p) {
+    get_onafterprint() {
+        p := VARIANT()
         result := ComCall(17, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLDataTransfer>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDataTransfer} 
      */
-    get_clipboardData(p) {
-        result := ComCall(18, this, "ptr*", p, "HRESULT")
-        return result
+    get_clipboardData() {
+        result := ComCall(18, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLDataTransfer(p)
     }
 
     /**
@@ -174,13 +163,12 @@ class IHTMLWindow3 extends IDispatch{
      * @param {BSTR} url 
      * @param {Pointer<VARIANT>} varArgIn 
      * @param {Pointer<VARIANT>} options 
-     * @param {Pointer<IHTMLWindow2>} pDialog 
-     * @returns {HRESULT} 
+     * @returns {IHTMLWindow2} 
      */
-    showModelessDialog(url, varArgIn, options, pDialog) {
+    showModelessDialog(url, varArgIn, options) {
         url := url is String ? BSTR.Alloc(url).Value : url
 
-        result := ComCall(19, this, "ptr", url, "ptr", varArgIn, "ptr", options, "ptr*", pDialog, "HRESULT")
-        return result
+        result := ComCall(19, this, "ptr", url, "ptr", varArgIn, "ptr", options, "ptr*", &pDialog := 0, "HRESULT")
+        return IHTMLWindow2(pDialog)
     }
 }

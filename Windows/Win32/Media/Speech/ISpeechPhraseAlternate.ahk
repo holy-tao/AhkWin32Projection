@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISpeechRecoResult.ahk
+#Include .\ISpeechPhraseInfo.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,46 +32,38 @@ class ISpeechPhraseAlternate extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISpeechRecoResult>} RecoResult 
-     * @returns {HRESULT} 
+     * @returns {ISpeechRecoResult} 
      */
-    get_RecoResult(RecoResult) {
-        result := ComCall(7, this, "ptr*", RecoResult, "HRESULT")
-        return result
+    get_RecoResult() {
+        result := ComCall(7, this, "ptr*", &RecoResult := 0, "HRESULT")
+        return ISpeechRecoResult(RecoResult)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} StartElement 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_StartElementInResult(StartElement) {
-        StartElementMarshal := StartElement is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, StartElementMarshal, StartElement, "HRESULT")
-        return result
+    get_StartElementInResult() {
+        result := ComCall(8, this, "int*", &StartElement := 0, "HRESULT")
+        return StartElement
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} NumberOfElements 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_NumberOfElementsInResult(NumberOfElements) {
-        NumberOfElementsMarshal := NumberOfElements is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, NumberOfElementsMarshal, NumberOfElements, "HRESULT")
-        return result
+    get_NumberOfElementsInResult() {
+        result := ComCall(9, this, "int*", &NumberOfElements := 0, "HRESULT")
+        return NumberOfElements
     }
 
     /**
      * 
-     * @param {Pointer<ISpeechPhraseInfo>} PhraseInfo 
-     * @returns {HRESULT} 
+     * @returns {ISpeechPhraseInfo} 
      */
-    get_PhraseInfo(PhraseInfo) {
-        result := ComCall(10, this, "ptr*", PhraseInfo, "HRESULT")
-        return result
+    get_PhraseInfo() {
+        result := ComCall(10, this, "ptr*", &PhraseInfo := 0, "HRESULT")
+        return ISpeechPhraseInfo(PhraseInfo)
     }
 
     /**

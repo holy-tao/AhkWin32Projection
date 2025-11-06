@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IADsMembers.ahk
 #Include .\IADs.ahk
 
 /**
@@ -185,82 +187,67 @@ class IADsUser extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_BadLoginAddress(retval) {
+    get_BadLoginAddress() {
+        retval := BSTR()
         result := ComCall(20, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_BadLoginCount(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(21, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_BadLoginCount() {
+        result := ComCall(21, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<Float>} retval 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_LastLogin(retval) {
-        retvalMarshal := retval is VarRef ? "double*" : "ptr"
-
-        result := ComCall(22, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_LastLogin() {
+        result := ComCall(22, this, "double*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<Float>} retval 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_LastLogoff(retval) {
-        retvalMarshal := retval is VarRef ? "double*" : "ptr"
-
-        result := ComCall(23, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_LastLogoff() {
+        result := ComCall(23, this, "double*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<Float>} retval 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_LastFailedLogin(retval) {
-        retvalMarshal := retval is VarRef ? "double*" : "ptr"
-
-        result := ComCall(24, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_LastFailedLogin() {
+        result := ComCall(24, this, "double*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<Float>} retval 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_PasswordLastChanged(retval) {
-        retvalMarshal := retval is VarRef ? "double*" : "ptr"
-
-        result := ComCall(25, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_PasswordLastChanged() {
+        result := ComCall(25, this, "double*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Description(retval) {
+    get_Description() {
+        retval := BSTR()
         result := ComCall(26, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -277,12 +264,12 @@ class IADsUser extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Division(retval) {
+    get_Division() {
+        retval := BSTR()
         result := ComCall(28, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -299,12 +286,12 @@ class IADsUser extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Department(retval) {
+    get_Department() {
+        retval := BSTR()
         result := ComCall(30, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -321,12 +308,12 @@ class IADsUser extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_EmployeeID(retval) {
+    get_EmployeeID() {
+        retval := BSTR()
         result := ComCall(32, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -343,12 +330,12 @@ class IADsUser extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_FullName(retval) {
+    get_FullName() {
+        retval := BSTR()
         result := ComCall(34, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -365,12 +352,12 @@ class IADsUser extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_FirstName(retval) {
+    get_FirstName() {
+        retval := BSTR()
         result := ComCall(36, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -387,12 +374,12 @@ class IADsUser extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_LastName(retval) {
+    get_LastName() {
+        retval := BSTR()
         result := ComCall(38, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -409,12 +396,12 @@ class IADsUser extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_OtherName(retval) {
+    get_OtherName() {
+        retval := BSTR()
         result := ComCall(40, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -431,12 +418,12 @@ class IADsUser extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_NamePrefix(retval) {
+    get_NamePrefix() {
+        retval := BSTR()
         result := ComCall(42, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -453,12 +440,12 @@ class IADsUser extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_NameSuffix(retval) {
+    get_NameSuffix() {
+        retval := BSTR()
         result := ComCall(44, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -475,12 +462,12 @@ class IADsUser extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Title(retval) {
+    get_Title() {
+        retval := BSTR()
         result := ComCall(46, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -497,12 +484,12 @@ class IADsUser extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Manager(retval) {
+    get_Manager() {
+        retval := BSTR()
         result := ComCall(48, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -519,12 +506,12 @@ class IADsUser extends IADs{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_TelephoneHome(retval) {
+    get_TelephoneHome() {
+        retval := VARIANT()
         result := ComCall(50, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -539,12 +526,12 @@ class IADsUser extends IADs{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_TelephoneMobile(retval) {
+    get_TelephoneMobile() {
+        retval := VARIANT()
         result := ComCall(52, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -559,12 +546,12 @@ class IADsUser extends IADs{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_TelephoneNumber(retval) {
+    get_TelephoneNumber() {
+        retval := VARIANT()
         result := ComCall(54, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -579,12 +566,12 @@ class IADsUser extends IADs{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_TelephonePager(retval) {
+    get_TelephonePager() {
+        retval := VARIANT()
         result := ComCall(56, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -599,12 +586,12 @@ class IADsUser extends IADs{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_FaxNumber(retval) {
+    get_FaxNumber() {
+        retval := VARIANT()
         result := ComCall(58, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -619,12 +606,12 @@ class IADsUser extends IADs{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_OfficeLocations(retval) {
+    get_OfficeLocations() {
+        retval := VARIANT()
         result := ComCall(60, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -639,12 +626,12 @@ class IADsUser extends IADs{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_PostalAddresses(retval) {
+    get_PostalAddresses() {
+        retval := VARIANT()
         result := ComCall(62, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -659,12 +646,12 @@ class IADsUser extends IADs{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_PostalCodes(retval) {
+    get_PostalCodes() {
+        retval := VARIANT()
         result := ComCall(64, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -679,12 +666,12 @@ class IADsUser extends IADs{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_SeeAlso(retval) {
+    get_SeeAlso() {
+        retval := VARIANT()
         result := ComCall(66, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -699,12 +686,11 @@ class IADsUser extends IADs{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_AccountDisabled(retval) {
-        result := ComCall(68, this, "ptr", retval, "HRESULT")
-        return result
+    get_AccountDisabled() {
+        result := ComCall(68, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -719,14 +705,11 @@ class IADsUser extends IADs{
 
     /**
      * 
-     * @param {Pointer<Float>} retval 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_AccountExpirationDate(retval) {
-        retvalMarshal := retval is VarRef ? "double*" : "ptr"
-
-        result := ComCall(70, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_AccountExpirationDate() {
+        result := ComCall(70, this, "double*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -741,14 +724,11 @@ class IADsUser extends IADs{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_GraceLoginsAllowed(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(72, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_GraceLoginsAllowed() {
+        result := ComCall(72, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -763,14 +743,11 @@ class IADsUser extends IADs{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_GraceLoginsRemaining(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(74, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_GraceLoginsRemaining() {
+        result := ComCall(74, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -785,12 +762,11 @@ class IADsUser extends IADs{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_IsAccountLocked(retval) {
-        result := ComCall(76, this, "ptr", retval, "HRESULT")
-        return result
+    get_IsAccountLocked() {
+        result := ComCall(76, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -805,12 +781,12 @@ class IADsUser extends IADs{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_LoginHours(retval) {
+    get_LoginHours() {
+        retval := VARIANT()
         result := ComCall(78, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -825,12 +801,12 @@ class IADsUser extends IADs{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_LoginWorkstations(retval) {
+    get_LoginWorkstations() {
+        retval := VARIANT()
         result := ComCall(80, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -845,14 +821,11 @@ class IADsUser extends IADs{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_MaxLogins(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(82, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_MaxLogins() {
+        result := ComCall(82, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -867,14 +840,11 @@ class IADsUser extends IADs{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_MaxStorage(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(84, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_MaxStorage() {
+        result := ComCall(84, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -889,14 +859,11 @@ class IADsUser extends IADs{
 
     /**
      * 
-     * @param {Pointer<Float>} retval 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_PasswordExpirationDate(retval) {
-        retvalMarshal := retval is VarRef ? "double*" : "ptr"
-
-        result := ComCall(86, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_PasswordExpirationDate() {
+        result := ComCall(86, this, "double*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -911,14 +878,11 @@ class IADsUser extends IADs{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_PasswordMinimumLength(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(88, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_PasswordMinimumLength() {
+        result := ComCall(88, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -933,12 +897,11 @@ class IADsUser extends IADs{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_PasswordRequired(retval) {
-        result := ComCall(90, this, "ptr", retval, "HRESULT")
-        return result
+    get_PasswordRequired() {
+        result := ComCall(90, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -953,12 +916,11 @@ class IADsUser extends IADs{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_RequireUniquePassword(retval) {
-        result := ComCall(92, this, "ptr", retval, "HRESULT")
-        return result
+    get_RequireUniquePassword() {
+        result := ComCall(92, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -973,12 +935,12 @@ class IADsUser extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_EmailAddress(retval) {
+    get_EmailAddress() {
+        retval := BSTR()
         result := ComCall(94, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -995,12 +957,12 @@ class IADsUser extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_HomeDirectory(retval) {
+    get_HomeDirectory() {
+        retval := BSTR()
         result := ComCall(96, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -1017,12 +979,12 @@ class IADsUser extends IADs{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_Languages(retval) {
+    get_Languages() {
+        retval := VARIANT()
         result := ComCall(98, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -1037,12 +999,12 @@ class IADsUser extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Profile(retval) {
+    get_Profile() {
+        retval := BSTR()
         result := ComCall(100, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -1059,12 +1021,12 @@ class IADsUser extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_LoginScript(retval) {
+    get_LoginScript() {
+        retval := BSTR()
         result := ComCall(102, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -1081,12 +1043,12 @@ class IADsUser extends IADs{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_Picture(retval) {
+    get_Picture() {
+        retval := VARIANT()
         result := ComCall(104, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -1101,12 +1063,12 @@ class IADsUser extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_HomePage(retval) {
+    get_HomePage() {
+        retval := BSTR()
         result := ComCall(106, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -1123,13 +1085,12 @@ class IADsUser extends IADs{
 
     /**
      * 
-     * @param {Pointer<IADsMembers>} ppGroups 
-     * @returns {HRESULT} 
+     * @returns {IADsMembers} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsuser-groups
      */
-    Groups(ppGroups) {
-        result := ComCall(108, this, "ptr*", ppGroups, "HRESULT")
-        return result
+    Groups() {
+        result := ComCall(108, this, "ptr*", &ppGroups := 0, "HRESULT")
+        return IADsMembers(ppGroups)
     }
 
     /**

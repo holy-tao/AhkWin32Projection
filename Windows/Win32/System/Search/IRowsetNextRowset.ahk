@@ -32,11 +32,10 @@ class IRowsetNextRowset extends IUnknown{
      * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppNextRowset 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    GetNextRowset(pUnkOuter, riid, ppNextRowset) {
-        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", riid, "ptr*", ppNextRowset, "HRESULT")
-        return result
+    GetNextRowset(pUnkOuter, riid) {
+        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", riid, "ptr*", &ppNextRowset := 0, "HRESULT")
+        return IUnknown(ppNextRowset)
     }
 }

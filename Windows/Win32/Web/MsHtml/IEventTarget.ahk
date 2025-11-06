@@ -60,11 +60,10 @@ class IEventTarget extends IDispatch{
     /**
      * 
      * @param {IDOMEvent} evt 
-     * @param {Pointer<VARIANT_BOOL>} pfResult 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    dispatchEvent(evt, pfResult) {
-        result := ComCall(9, this, "ptr", evt, "ptr", pfResult, "HRESULT")
-        return result
+    dispatchEvent(evt) {
+        result := ComCall(9, this, "ptr", evt, "short*", &pfResult := 0, "HRESULT")
+        return pfResult
     }
 }

@@ -108,7 +108,9 @@ class IAMNetworkStatus extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetworkstatus-get_isbroadcast
      */
     get_IsBroadcast(pIsBroadcast) {
-        result := ComCall(12, this, "ptr", pIsBroadcast, "HRESULT")
+        pIsBroadcastMarshal := pIsBroadcast is VarRef ? "short*" : "ptr"
+
+        result := ComCall(12, this, pIsBroadcastMarshal, pIsBroadcast, "HRESULT")
         return result
     }
 

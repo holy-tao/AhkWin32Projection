@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IRTCSession2.ahk
 #Include .\IRTCClient.ahk
 
 /**
@@ -43,14 +44,11 @@ class IRTCClient2 extends IRTCClient{
     /**
      * 
      * @param {Integer} enType 
-     * @param {Pointer<Integer>} penMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_AnswerMode(enType, penMode) {
-        penModeMarshal := penMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(46, this, "int", enType, penModeMarshal, penMode, "HRESULT")
-        return result
+    get_AnswerMode(enType) {
+        result := ComCall(46, this, "int", enType, "int*", &penMode := 0, "HRESULT")
+        return penMode
     }
 
     /**
@@ -67,14 +65,11 @@ class IRTCClient2 extends IRTCClient{
 
     /**
      * 
-     * @param {Pointer<Integer>} plVersion 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Version(plVersion) {
-        plVersionMarshal := plVersion is VarRef ? "int*" : "ptr"
-
-        result := ComCall(48, this, plVersionMarshal, plVersion, "HRESULT")
-        return result
+    get_Version() {
+        result := ComCall(48, this, "int*", &plVersion := 0, "HRESULT")
+        return plVersion
     }
 
     /**
@@ -117,15 +112,14 @@ class IRTCClient2 extends IRTCClient{
      * @param {BSTR} bstrSessionDescription 
      * @param {IRTCProfile} pProfile 
      * @param {Integer} lFlags 
-     * @param {Pointer<IRTCSession2>} ppSession2 
-     * @returns {HRESULT} 
+     * @returns {IRTCSession2} 
      */
-    CreateSessionWithDescription(bstrContentType, bstrSessionDescription, pProfile, lFlags, ppSession2) {
+    CreateSessionWithDescription(bstrContentType, bstrSessionDescription, pProfile, lFlags) {
         bstrContentType := bstrContentType is String ? BSTR.Alloc(bstrContentType).Value : bstrContentType
         bstrSessionDescription := bstrSessionDescription is String ? BSTR.Alloc(bstrSessionDescription).Value : bstrSessionDescription
 
-        result := ComCall(52, this, "ptr", bstrContentType, "ptr", bstrSessionDescription, "ptr", pProfile, "int", lFlags, "ptr*", ppSession2, "HRESULT")
-        return result
+        result := ComCall(52, this, "ptr", bstrContentType, "ptr", bstrSessionDescription, "ptr", pProfile, "int", lFlags, "ptr*", &ppSession2 := 0, "HRESULT")
+        return IRTCSession2(ppSession2)
     }
 
     /**
@@ -152,14 +146,11 @@ class IRTCClient2 extends IRTCClient{
     /**
      * 
      * @param {Integer} enSecurityType 
-     * @param {Pointer<Integer>} penSecurityLevel 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_PreferredSecurityLevel(enSecurityType, penSecurityLevel) {
-        penSecurityLevelMarshal := penSecurityLevel is VarRef ? "int*" : "ptr"
-
-        result := ComCall(55, this, "int", enSecurityType, penSecurityLevelMarshal, penSecurityLevel, "HRESULT")
-        return result
+    get_PreferredSecurityLevel(enSecurityType) {
+        result := ComCall(55, this, "int", enSecurityType, "int*", &penSecurityLevel := 0, "HRESULT")
+        return penSecurityLevel
     }
 
     /**
@@ -176,13 +167,10 @@ class IRTCClient2 extends IRTCClient{
     /**
      * 
      * @param {Integer} lTransport 
-     * @param {Pointer<Integer>} penListenMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_AllowedPorts(lTransport, penListenMode) {
-        penListenModeMarshal := penListenMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(57, this, "int", lTransport, penListenModeMarshal, penListenMode, "HRESULT")
-        return result
+    get_AllowedPorts(lTransport) {
+        result := ComCall(57, this, "int", lTransport, "int*", &penListenMode := 0, "HRESULT")
+        return penListenMode
     }
 }

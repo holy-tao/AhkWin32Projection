@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -48,89 +50,76 @@ class IMSMQManagement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrFormatName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_FormatName(pbstrFormatName) {
+    get_FormatName() {
+        pbstrFormatName := BSTR()
         result := ComCall(8, this, "ptr", pbstrFormatName, "HRESULT")
-        return result
+        return pbstrFormatName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrMachine 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Machine(pbstrMachine) {
+    get_Machine() {
+        pbstrMachine := BSTR()
         result := ComCall(9, this, "ptr", pbstrMachine, "HRESULT")
-        return result
+        return pbstrMachine
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plMessageCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_MessageCount(plMessageCount) {
-        plMessageCountMarshal := plMessageCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, plMessageCountMarshal, plMessageCount, "HRESULT")
-        return result
+    get_MessageCount() {
+        result := ComCall(10, this, "int*", &plMessageCount := 0, "HRESULT")
+        return plMessageCount
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plForeignStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ForeignStatus(plForeignStatus) {
-        plForeignStatusMarshal := plForeignStatus is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, plForeignStatusMarshal, plForeignStatus, "HRESULT")
-        return result
+    get_ForeignStatus() {
+        result := ComCall(11, this, "int*", &plForeignStatus := 0, "HRESULT")
+        return plForeignStatus
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plQueueType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_QueueType(plQueueType) {
-        plQueueTypeMarshal := plQueueType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, plQueueTypeMarshal, plQueueType, "HRESULT")
-        return result
+    get_QueueType() {
+        result := ComCall(12, this, "int*", &plQueueType := 0, "HRESULT")
+        return plQueueType
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pfIsLocal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_IsLocal(pfIsLocal) {
-        result := ComCall(13, this, "ptr", pfIsLocal, "HRESULT")
-        return result
+    get_IsLocal() {
+        result := ComCall(13, this, "short*", &pfIsLocal := 0, "HRESULT")
+        return pfIsLocal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plTransactionalStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_TransactionalStatus(plTransactionalStatus) {
-        plTransactionalStatusMarshal := plTransactionalStatus is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, plTransactionalStatusMarshal, plTransactionalStatus, "HRESULT")
-        return result
+    get_TransactionalStatus() {
+        result := ComCall(14, this, "int*", &plTransactionalStatus := 0, "HRESULT")
+        return plTransactionalStatus
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvBytesInQueue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_BytesInQueue(pvBytesInQueue) {
+    get_BytesInQueue() {
+        pvBytesInQueue := VARIANT()
         result := ComCall(15, this, "ptr", pvBytesInQueue, "HRESULT")
-        return result
+        return pvBytesInQueue
     }
 }

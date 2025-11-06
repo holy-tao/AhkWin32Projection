@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -34,15 +35,15 @@ class ICatalogObject extends IDispatch{
     /**
      * 
      * @param {BSTR} bstrPropName 
-     * @param {Pointer<VARIANT>} pvarRetVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icatalogobject-get_value
      */
-    get_Value(bstrPropName, pvarRetVal) {
+    get_Value(bstrPropName) {
         bstrPropName := bstrPropName is String ? BSTR.Alloc(bstrPropName).Value : bstrPropName
 
+        pvarRetVal := VARIANT()
         result := ComCall(7, this, "ptr", bstrPropName, "ptr", pvarRetVal, "HRESULT")
-        return result
+        return pvarRetVal
     }
 
     /**
@@ -61,62 +62,59 @@ class ICatalogObject extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarRetVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icatalogobject-get_key
      */
-    get_Key(pvarRetVal) {
+    get_Key() {
+        pvarRetVal := VARIANT()
         result := ComCall(9, this, "ptr", pvarRetVal, "HRESULT")
-        return result
+        return pvarRetVal
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarRetVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icatalogobject-get_name
      */
-    get_Name(pvarRetVal) {
+    get_Name() {
+        pvarRetVal := VARIANT()
         result := ComCall(10, this, "ptr", pvarRetVal, "HRESULT")
-        return result
+        return pvarRetVal
     }
 
     /**
      * 
      * @param {BSTR} bstrPropName 
-     * @param {Pointer<VARIANT_BOOL>} pbRetVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icatalogobject-ispropertyreadonly
      */
-    IsPropertyReadOnly(bstrPropName, pbRetVal) {
+    IsPropertyReadOnly(bstrPropName) {
         bstrPropName := bstrPropName is String ? BSTR.Alloc(bstrPropName).Value : bstrPropName
 
-        result := ComCall(11, this, "ptr", bstrPropName, "ptr", pbRetVal, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", bstrPropName, "short*", &pbRetVal := 0, "HRESULT")
+        return pbRetVal
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbRetVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icatalogobject-get_valid
      */
-    get_Valid(pbRetVal) {
-        result := ComCall(12, this, "ptr", pbRetVal, "HRESULT")
-        return result
+    get_Valid() {
+        result := ComCall(12, this, "short*", &pbRetVal := 0, "HRESULT")
+        return pbRetVal
     }
 
     /**
      * 
      * @param {BSTR} bstrPropName 
-     * @param {Pointer<VARIANT_BOOL>} pbRetVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icatalogobject-ispropertywriteonly
      */
-    IsPropertyWriteOnly(bstrPropName, pbRetVal) {
+    IsPropertyWriteOnly(bstrPropName) {
         bstrPropName := bstrPropName is String ? BSTR.Alloc(bstrPropName).Value : bstrPropName
 
-        result := ComCall(13, this, "ptr", bstrPropName, "ptr", pbRetVal, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", bstrPropName, "short*", &pbRetVal := 0, "HRESULT")
+        return pbRetVal
     }
 }

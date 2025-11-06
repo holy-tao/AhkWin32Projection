@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDirectDrawVideoPort.ahk
+#Include .\DDVIDEOPORTCONNECT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,13 +34,12 @@ class IDDVideoPortContainer extends IUnknown{
      * 
      * @param {Integer} param0 
      * @param {Pointer<DDVIDEOPORTDESC>} param1 
-     * @param {Pointer<IDirectDrawVideoPort>} param2 
      * @param {IUnknown} param3 
-     * @returns {HRESULT} 
+     * @returns {IDirectDrawVideoPort} 
      */
-    CreateVideoPort(param0, param1, param2, param3) {
-        result := ComCall(3, this, "uint", param0, "ptr", param1, "ptr*", param2, "ptr", param3, "HRESULT")
-        return result
+    CreateVideoPort(param0, param1, param3) {
+        result := ComCall(3, this, "uint", param0, "ptr", param1, "ptr*", &param2 := 0, "ptr", param3, "HRESULT")
+        return IDirectDrawVideoPort(param2)
     }
 
     /**
@@ -60,14 +61,14 @@ class IDDVideoPortContainer extends IUnknown{
      * 
      * @param {Integer} param0 
      * @param {Pointer<Integer>} pcInfo 
-     * @param {Pointer<DDVIDEOPORTCONNECT>} param2 
-     * @returns {HRESULT} 
+     * @returns {DDVIDEOPORTCONNECT} 
      */
-    GetVideoPortConnectInfo(param0, pcInfo, param2) {
+    GetVideoPortConnectInfo(param0, pcInfo) {
         pcInfoMarshal := pcInfo is VarRef ? "uint*" : "ptr"
 
+        param2 := DDVIDEOPORTCONNECT()
         result := ComCall(5, this, "uint", param0, pcInfoMarshal, pcInfo, "ptr", param2, "HRESULT")
-        return result
+        return param2
     }
 
     /**

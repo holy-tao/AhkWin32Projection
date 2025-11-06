@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITPhone.ahk
 #Include .\ITTAPIObjectEvent.ahk
 
 /**
@@ -32,12 +33,11 @@ class ITTAPIObjectEvent2 extends ITTAPIObjectEvent{
 
     /**
      * 
-     * @param {Pointer<ITPhone>} ppPhone 
-     * @returns {HRESULT} 
+     * @returns {ITPhone} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittapiobjectevent2-get_phone
      */
-    get_Phone(ppPhone) {
-        result := ComCall(11, this, "ptr*", ppPhone, "HRESULT")
-        return result
+    get_Phone() {
+        result := ComCall(11, this, "ptr*", &ppPhone := 0, "HRESULT")
+        return ITPhone(ppPhone)
     }
 }

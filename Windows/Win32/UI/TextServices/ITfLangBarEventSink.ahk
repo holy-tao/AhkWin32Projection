@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -92,12 +93,12 @@ class ITfLangBarEventSink extends IUnknown{
      * 
      * @param {Integer} dwThreadId 
      * @param {Pointer<Guid>} rguid 
-     * @param {Pointer<RECT>} prc 
-     * @returns {HRESULT} 
+     * @returns {RECT} 
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbareventsink-getitemfloatingrect
      */
-    GetItemFloatingRect(dwThreadId, rguid, prc) {
+    GetItemFloatingRect(dwThreadId, rguid) {
+        prc := RECT()
         result := ComCall(8, this, "uint", dwThreadId, "ptr", rguid, "ptr", prc, "HRESULT")
-        return result
+        return prc
     }
 }

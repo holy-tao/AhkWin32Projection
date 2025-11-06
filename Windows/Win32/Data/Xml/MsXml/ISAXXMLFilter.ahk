@@ -30,12 +30,11 @@ class ISAXXMLFilter extends ISAXXMLReader{
 
     /**
      * 
-     * @param {Pointer<ISAXXMLReader>} ppReader 
-     * @returns {HRESULT} 
+     * @returns {ISAXXMLReader} 
      */
-    getParent(ppReader) {
-        result := ComCall(21, this, "ptr*", ppReader, "HRESULT")
-        return result
+    getParent() {
+        result := ComCall(21, this, "ptr*", &ppReader := 0, "HRESULT")
+        return ISAXXMLReader(ppReader)
     }
 
     /**

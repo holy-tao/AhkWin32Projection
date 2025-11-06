@@ -32,27 +32,21 @@ class IUpdate5 extends IUpdate4{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate5-get_autoselection
      */
-    get_AutoSelection(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(58, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_AutoSelection() {
+        result := ComCall(58, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate5-get_autodownload
      */
-    get_AutoDownload(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(59, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_AutoDownload() {
+        result := ComCall(59, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 }

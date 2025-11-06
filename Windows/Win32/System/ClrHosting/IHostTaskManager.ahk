@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IHostTask.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -30,12 +31,11 @@ class IHostTaskManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IHostTask>} pTask 
-     * @returns {HRESULT} 
+     * @returns {IHostTask} 
      */
-    GetCurrentTask(pTask) {
-        result := ComCall(3, this, "ptr*", pTask, "HRESULT")
-        return result
+    GetCurrentTask() {
+        result := ComCall(3, this, "ptr*", &pTask := 0, "HRESULT")
+        return IHostTask(pTask)
     }
 
     /**
@@ -43,14 +43,13 @@ class IHostTaskManager extends IUnknown{
      * @param {Integer} dwStackSize 
      * @param {Pointer<LPTHREAD_START_ROUTINE>} pStartAddress 
      * @param {Pointer<Void>} pParameter 
-     * @param {Pointer<IHostTask>} ppTask 
-     * @returns {HRESULT} 
+     * @returns {IHostTask} 
      */
-    CreateTask(dwStackSize, pStartAddress, pParameter, ppTask) {
+    CreateTask(dwStackSize, pStartAddress, pParameter) {
         pParameterMarshal := pParameter is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "uint", dwStackSize, "ptr", pStartAddress, pParameterMarshal, pParameter, "ptr*", ppTask, "HRESULT")
-        return result
+        result := ComCall(4, this, "uint", dwStackSize, "ptr", pStartAddress, pParameterMarshal, pParameter, "ptr*", &ppTask := 0, "HRESULT")
+        return IHostTask(ppTask)
     }
 
     /**
@@ -129,12 +128,11 @@ class IHostTaskManager extends IUnknown{
     /**
      * 
      * @param {Pointer} target 
-     * @param {Pointer<BOOL>} pbCallNeedsHostHook 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    CallNeedsHostHook(target, pbCallNeedsHostHook) {
-        result := ComCall(9, this, "ptr", target, "ptr", pbCallNeedsHostHook, "HRESULT")
-        return result
+    CallNeedsHostHook(target) {
+        result := ComCall(9, this, "ptr", target, "int*", &pbCallNeedsHostHook := 0, "HRESULT")
+        return pbCallNeedsHostHook
     }
 
     /**
@@ -222,14 +220,11 @@ class IHostTaskManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pGuarantee 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetStackGuarantee(pGuarantee) {
-        pGuaranteeMarshal := pGuarantee is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(19, this, pGuaranteeMarshal, pGuarantee, "HRESULT")
-        return result
+    GetStackGuarantee() {
+        result := ComCall(19, this, "uint*", &pGuarantee := 0, "HRESULT")
+        return pGuarantee
     }
 
     /**

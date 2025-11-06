@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMILBitmapEffectInputConnector.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,12 +33,11 @@ class IMILBitmapEffectInteriorInputConnector extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IMILBitmapEffectInputConnector>} pInputConnector 
-     * @returns {HRESULT} 
+     * @returns {IMILBitmapEffectInputConnector} 
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectinteriorinputconnector-getinputconnector
      */
-    GetInputConnector(pInputConnector) {
-        result := ComCall(3, this, "ptr*", pInputConnector, "HRESULT")
-        return result
+    GetInputConnector() {
+        result := ComCall(3, this, "ptr*", &pInputConnector := 0, "HRESULT")
+        return IMILBitmapEffectInputConnector(pInputConnector)
     }
 }

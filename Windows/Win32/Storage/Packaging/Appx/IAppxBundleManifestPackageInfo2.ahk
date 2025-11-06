@@ -32,34 +32,31 @@ class IAppxBundleManifestPackageInfo2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} isPackageReference 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfo2-getispackagereference
      */
-    GetIsPackageReference(isPackageReference) {
-        result := ComCall(3, this, "ptr", isPackageReference, "HRESULT")
-        return result
+    GetIsPackageReference() {
+        result := ComCall(3, this, "int*", &isPackageReference := 0, "HRESULT")
+        return isPackageReference
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} isNonQualifiedResourcePackage 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfo2-getisnonqualifiedresourcepackage
      */
-    GetIsNonQualifiedResourcePackage(isNonQualifiedResourcePackage) {
-        result := ComCall(4, this, "ptr", isNonQualifiedResourcePackage, "HRESULT")
-        return result
+    GetIsNonQualifiedResourcePackage() {
+        result := ComCall(4, this, "int*", &isNonQualifiedResourcePackage := 0, "HRESULT")
+        return isNonQualifiedResourcePackage
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} isDefaultApplicablePackage 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfo2-getisdefaultapplicablepackage
      */
-    GetIsDefaultApplicablePackage(isDefaultApplicablePackage) {
-        result := ComCall(5, this, "ptr", isDefaultApplicablePackage, "HRESULT")
-        return result
+    GetIsDefaultApplicablePackage() {
+        result := ComCall(5, this, "int*", &isDefaultApplicablePackage := 0, "HRESULT")
+        return isDefaultApplicablePackage
     }
 }

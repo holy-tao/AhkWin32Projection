@@ -32,50 +32,38 @@ class IADsPrintJobOperations extends IADs{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Status(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(20, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_Status() {
+        result := ComCall(20, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_TimeElapsed(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(21, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_TimeElapsed() {
+        result := ComCall(21, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_PagesPrinted(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(22, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_PagesPrinted() {
+        result := ComCall(22, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Position(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(23, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_Position() {
+        result := ComCall(23, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**

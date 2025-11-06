@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumDiscMasterFormats.ahk
+#Include .\IEnumDiscRecorders.ahk
+#Include .\IDiscRecorder.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -42,60 +45,54 @@ class IDiscMaster extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumDiscMasterFormats>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumDiscMasterFormats} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscmaster-enumdiscmasterformats
      */
-    EnumDiscMasterFormats(ppEnum) {
-        result := ComCall(4, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumDiscMasterFormats() {
+        result := ComCall(4, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumDiscMasterFormats(ppEnum)
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} lpiid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscmaster-getactivediscmasterformat
      */
-    GetActiveDiscMasterFormat(lpiid) {
+    GetActiveDiscMasterFormat() {
+        lpiid := Guid()
         result := ComCall(5, this, "ptr", lpiid, "HRESULT")
-        return result
+        return lpiid
     }
 
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscmaster-setactivediscmasterformat
      */
-    SetActiveDiscMasterFormat(riid, ppUnk) {
-        ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", riid, ppUnkMarshal, ppUnk, "HRESULT")
-        return result
+    SetActiveDiscMasterFormat(riid) {
+        result := ComCall(6, this, "ptr", riid, "ptr*", &ppUnk := 0, "HRESULT")
+        return ppUnk
     }
 
     /**
      * 
-     * @param {Pointer<IEnumDiscRecorders>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumDiscRecorders} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscmaster-enumdiscrecorders
      */
-    EnumDiscRecorders(ppEnum) {
-        result := ComCall(7, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumDiscRecorders() {
+        result := ComCall(7, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumDiscRecorders(ppEnum)
     }
 
     /**
      * 
-     * @param {Pointer<IDiscRecorder>} ppRecorder 
-     * @returns {HRESULT} 
+     * @returns {IDiscRecorder} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscmaster-getactivediscrecorder
      */
-    GetActiveDiscRecorder(ppRecorder) {
-        result := ComCall(8, this, "ptr*", ppRecorder, "HRESULT")
-        return result
+    GetActiveDiscRecorder() {
+        result := ComCall(8, this, "ptr*", &ppRecorder := 0, "HRESULT")
+        return IDiscRecorder(ppRecorder)
     }
 
     /**
@@ -122,15 +119,12 @@ class IDiscMaster extends IUnknown{
     /**
      * 
      * @param {IDiscMasterProgressEvents} pEvents 
-     * @param {Pointer<Pointer>} pvCookie 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-idiscmaster-progressadvise
      */
-    ProgressAdvise(pEvents, pvCookie) {
-        pvCookieMarshal := pvCookie is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(11, this, "ptr", pEvents, pvCookieMarshal, pvCookie, "HRESULT")
-        return result
+    ProgressAdvise(pEvents) {
+        result := ComCall(11, this, "ptr", pEvents, "ptr*", &pvCookie := 0, "HRESULT")
+        return pvCookie
     }
 
     /**

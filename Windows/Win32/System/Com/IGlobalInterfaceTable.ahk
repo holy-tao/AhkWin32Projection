@@ -44,15 +44,12 @@ class IGlobalInterfaceTable extends IUnknown{
      * 
      * @param {IUnknown} pUnk 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Integer>} pdwCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-iglobalinterfacetable-registerinterfaceinglobal
      */
-    RegisterInterfaceInGlobal(pUnk, riid, pdwCookie) {
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pUnk, "ptr", riid, pdwCookieMarshal, pdwCookie, "HRESULT")
-        return result
+    RegisterInterfaceInGlobal(pUnk, riid) {
+        result := ComCall(3, this, "ptr", pUnk, "ptr", riid, "uint*", &pdwCookie := 0, "HRESULT")
+        return pdwCookie
     }
 
     /**
@@ -70,14 +67,11 @@ class IGlobalInterfaceTable extends IUnknown{
      * 
      * @param {Integer} dwCookie 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-iglobalinterfacetable-getinterfacefromglobal
      */
-    GetInterfaceFromGlobal(dwCookie, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, "uint", dwCookie, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetInterfaceFromGlobal(dwCookie, riid) {
+        result := ComCall(5, this, "uint", dwCookie, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 }

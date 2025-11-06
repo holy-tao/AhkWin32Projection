@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\CATEGORY_INFO.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -48,28 +49,26 @@ class ICategorizer extends IUnknown{
      * 
      * @param {Integer} cidl 
      * @param {Pointer<Pointer<ITEMIDLIST>>} apidl 
-     * @param {Pointer<Integer>} rgCategoryIds 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icategorizer-getcategory
      */
-    GetCategory(cidl, apidl, rgCategoryIds) {
+    GetCategory(cidl, apidl) {
         apidlMarshal := apidl is VarRef ? "ptr*" : "ptr"
-        rgCategoryIdsMarshal := rgCategoryIds is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", cidl, apidlMarshal, apidl, rgCategoryIdsMarshal, rgCategoryIds, "HRESULT")
-        return result
+        result := ComCall(4, this, "uint", cidl, apidlMarshal, apidl, "uint*", &rgCategoryIds := 0, "HRESULT")
+        return rgCategoryIds
     }
 
     /**
      * 
      * @param {Integer} dwCategoryId 
-     * @param {Pointer<CATEGORY_INFO>} pci 
-     * @returns {HRESULT} 
+     * @returns {CATEGORY_INFO} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icategorizer-getcategoryinfo
      */
-    GetCategoryInfo(dwCategoryId, pci) {
+    GetCategoryInfo(dwCategoryId) {
+        pci := CATEGORY_INFO()
         result := ComCall(5, this, "uint", dwCategoryId, "ptr", pci, "HRESULT")
-        return result
+        return pci
     }
 
     /**

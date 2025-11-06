@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IFaxConfiguration.ahk
+#Include .\IFaxAccount.ahk
+#Include .\IFaxAccountSet.ahk
+#Include .\IFaxSecurity2.ahk
 #Include .\IFaxServer.ahk
 
 /**
@@ -36,45 +40,41 @@ class IFaxServer2 extends IFaxServer{
 
     /**
      * 
-     * @param {Pointer<IFaxConfiguration>} ppFaxConfiguration 
-     * @returns {HRESULT} 
+     * @returns {IFaxConfiguration} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver2-get_configuration
      */
-    get_Configuration(ppFaxConfiguration) {
-        result := ComCall(33, this, "ptr*", ppFaxConfiguration, "HRESULT")
-        return result
+    get_Configuration() {
+        result := ComCall(33, this, "ptr*", &ppFaxConfiguration := 0, "HRESULT")
+        return IFaxConfiguration(ppFaxConfiguration)
     }
 
     /**
      * 
-     * @param {Pointer<IFaxAccount>} ppCurrentAccount 
-     * @returns {HRESULT} 
+     * @returns {IFaxAccount} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver2-get_currentaccount
      */
-    get_CurrentAccount(ppCurrentAccount) {
-        result := ComCall(34, this, "ptr*", ppCurrentAccount, "HRESULT")
-        return result
+    get_CurrentAccount() {
+        result := ComCall(34, this, "ptr*", &ppCurrentAccount := 0, "HRESULT")
+        return IFaxAccount(ppCurrentAccount)
     }
 
     /**
      * 
-     * @param {Pointer<IFaxAccountSet>} ppFaxAccountSet 
-     * @returns {HRESULT} 
+     * @returns {IFaxAccountSet} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver2-get_faxaccountset
      */
-    get_FaxAccountSet(ppFaxAccountSet) {
-        result := ComCall(35, this, "ptr*", ppFaxAccountSet, "HRESULT")
-        return result
+    get_FaxAccountSet() {
+        result := ComCall(35, this, "ptr*", &ppFaxAccountSet := 0, "HRESULT")
+        return IFaxAccountSet(ppFaxAccountSet)
     }
 
     /**
      * 
-     * @param {Pointer<IFaxSecurity2>} ppFaxSecurity2 
-     * @returns {HRESULT} 
+     * @returns {IFaxSecurity2} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver2-get_security2
      */
-    get_Security2(ppFaxSecurity2) {
-        result := ComCall(36, this, "ptr*", ppFaxSecurity2, "HRESULT")
-        return result
+    get_Security2() {
+        result := ComCall(36, this, "ptr*", &ppFaxSecurity2 := 0, "HRESULT")
+        return IFaxSecurity2(ppFaxSecurity2)
     }
 }

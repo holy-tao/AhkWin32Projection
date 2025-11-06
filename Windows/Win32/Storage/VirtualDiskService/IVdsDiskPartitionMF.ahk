@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\VDS_FILE_SYSTEM_PROP.ahk
+#Include .\IVdsAsync.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,25 +35,24 @@ class IVdsDiskPartitionMF extends IUnknown{
     /**
      * 
      * @param {Integer} ullOffset 
-     * @param {Pointer<VDS_FILE_SYSTEM_PROP>} pFileSystemProp 
-     * @returns {HRESULT} 
+     * @returns {VDS_FILE_SYSTEM_PROP} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsdiskpartitionmf-getpartitionfilesystemproperties
      */
-    GetPartitionFileSystemProperties(ullOffset, pFileSystemProp) {
+    GetPartitionFileSystemProperties(ullOffset) {
+        pFileSystemProp := VDS_FILE_SYSTEM_PROP()
         result := ComCall(3, this, "uint", ullOffset, "ptr", pFileSystemProp, "HRESULT")
-        return result
+        return pFileSystemProp
     }
 
     /**
      * 
      * @param {Integer} ullOffset 
-     * @param {Pointer<PWSTR>} ppwszFileSystemTypeName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsdiskpartitionmf-getpartitionfilesystemtypename
      */
-    GetPartitionFileSystemTypeName(ullOffset, ppwszFileSystemTypeName) {
-        result := ComCall(4, this, "uint", ullOffset, "ptr", ppwszFileSystemTypeName, "HRESULT")
-        return result
+    GetPartitionFileSystemTypeName(ullOffset) {
+        result := ComCall(4, this, "uint", ullOffset, "ptr*", &ppwszFileSystemTypeName := 0, "HRESULT")
+        return ppwszFileSystemTypeName
     }
 
     /**
@@ -80,15 +81,14 @@ class IVdsDiskPartitionMF extends IUnknown{
      * @param {BOOL} bForce 
      * @param {BOOL} bQuickFormat 
      * @param {BOOL} bEnableCompression 
-     * @param {Pointer<IVdsAsync>} ppAsync 
-     * @returns {HRESULT} 
+     * @returns {IVdsAsync} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsdiskpartitionmf-formatpartitionex
      */
-    FormatPartitionEx(ullOffset, pwszFileSystemTypeName, usFileSystemRevision, ulDesiredUnitAllocationSize, pwszLabel, bForce, bQuickFormat, bEnableCompression, ppAsync) {
+    FormatPartitionEx(ullOffset, pwszFileSystemTypeName, usFileSystemRevision, ulDesiredUnitAllocationSize, pwszLabel, bForce, bQuickFormat, bEnableCompression) {
         pwszFileSystemTypeName := pwszFileSystemTypeName is String ? StrPtr(pwszFileSystemTypeName) : pwszFileSystemTypeName
         pwszLabel := pwszLabel is String ? StrPtr(pwszLabel) : pwszLabel
 
-        result := ComCall(6, this, "uint", ullOffset, "ptr", pwszFileSystemTypeName, "ushort", usFileSystemRevision, "uint", ulDesiredUnitAllocationSize, "ptr", pwszLabel, "int", bForce, "int", bQuickFormat, "int", bEnableCompression, "ptr*", ppAsync, "HRESULT")
-        return result
+        result := ComCall(6, this, "uint", ullOffset, "ptr", pwszFileSystemTypeName, "ushort", usFileSystemRevision, "uint", ulDesiredUnitAllocationSize, "ptr", pwszLabel, "int", bForce, "int", bQuickFormat, "int", bEnableCompression, "ptr*", &ppAsync := 0, "HRESULT")
+        return IVdsAsync(ppAsync)
     }
 }

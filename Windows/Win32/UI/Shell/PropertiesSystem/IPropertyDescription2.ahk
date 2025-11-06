@@ -45,12 +45,11 @@ class IPropertyDescription2 extends IPropertyDescription{
     /**
      * 
      * @param {Pointer<PROPVARIANT>} propvar 
-     * @param {Pointer<PWSTR>} ppszImageRes 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription2-getimagereferenceforvalue
      */
-    GetImageReferenceForValue(propvar, ppszImageRes) {
-        result := ComCall(24, this, "ptr", propvar, "ptr", ppszImageRes, "HRESULT")
-        return result
+    GetImageReferenceForValue(propvar) {
+        result := ComCall(24, this, "ptr", propvar, "ptr*", &ppszImageRes := 0, "HRESULT")
+        return ppszImageRes
     }
 }

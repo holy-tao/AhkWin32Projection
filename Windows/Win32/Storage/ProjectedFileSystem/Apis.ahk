@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT.ahk
 
 /**
  * @namespace Windows.Win32.Storage.ProjectedFileSystem
@@ -19,22 +20,22 @@ class ProjectedFileSystem {
      * @param {Pointer<PRJ_CALLBACKS>} callbacks Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/projectedfslib/ns-projectedfslib-prj_callbacks">PRJ_CALLBACKS</a> structure that has been initialized with PrjCommandCallbacksInit and filled in with pointers to the provider's callback functions.
      * @param {Pointer<Void>} instanceContext Pointer to context information defined by the provider for each instance. This parameter is optional and can be NULL. If it is specified, ProjFS will return it in the InstanceContext member of <a href="https://docs.microsoft.com/windows/desktop/api/projectedfslib/ns-projectedfslib-prj_callback_data">PRJ_CALLBACK_DATA</a> when invoking provider callback routines.
      * @param {Pointer<PRJ_STARTVIRTUALIZING_OPTIONS>} options An optional pointer to a  <a href="https://docs.microsoft.com/windows/desktop/api/projectedfslib/ns-projectedfslib-prj_startvirtualizing_options">PRJ_STARTVIRTUALIZING_OPTIONS</a>.
-     * @param {Pointer<PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT>} namespaceVirtualizationContext On success returns an opaque handle to the ProjFS virtualization instance. 
+     * @returns {PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT} On success returns an opaque handle to the ProjFS virtualization instance. 
      * The provider passes this value when calling functions that require a PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT as input.
-     * @returns {HRESULT} The error, HRESULT_FROM_WIN32(ERROR_REPARSE_TAG_MISMATCH), indicates that virtualizationRootPath has not been configured as a virtualization root.
      * @see https://docs.microsoft.com/windows/win32/api//projectedfslib/nf-projectedfslib-prjstartvirtualizing
      * @since windows10.0.17763
      */
-    static PrjStartVirtualizing(virtualizationRootPath, callbacks, instanceContext, options, namespaceVirtualizationContext) {
+    static PrjStartVirtualizing(virtualizationRootPath, callbacks, instanceContext, options) {
         virtualizationRootPath := virtualizationRootPath is String ? StrPtr(virtualizationRootPath) : virtualizationRootPath
 
         instanceContextMarshal := instanceContext is VarRef ? "ptr" : "ptr"
 
+        namespaceVirtualizationContext := PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT()
         result := DllCall("PROJECTEDFSLIB.dll\PrjStartVirtualizing", "ptr", virtualizationRootPath, "ptr", callbacks, instanceContextMarshal, instanceContext, "ptr", options, "ptr", namespaceVirtualizationContext, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return namespaceVirtualizationContext
     }
 
     /**
@@ -53,21 +54,18 @@ class ProjectedFileSystem {
     /**
      * Purges the virtualization instance's negative path cache, if it is active.
      * @param {PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT} namespaceVirtualizationContext Opaque handle for the virtualization instance.
-     * @param {Pointer<Integer>} totalEntryNumber Optional pointer to a variable that receives the number of paths that were in the cache before it was purged.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @returns {Integer} Optional pointer to a variable that receives the number of paths that were in the cache before it was purged.
      * @see https://docs.microsoft.com/windows/win32/api//projectedfslib/nf-projectedfslib-prjclearnegativepathcache
      * @since windows10.0.17763
      */
-    static PrjClearNegativePathCache(namespaceVirtualizationContext, totalEntryNumber) {
+    static PrjClearNegativePathCache(namespaceVirtualizationContext) {
         namespaceVirtualizationContext := namespaceVirtualizationContext is Win32Handle ? NumGet(namespaceVirtualizationContext, "ptr") : namespaceVirtualizationContext
 
-        totalEntryNumberMarshal := totalEntryNumber is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("PROJECTEDFSLIB.dll\PrjClearNegativePathCache", "ptr", namespaceVirtualizationContext, totalEntryNumberMarshal, totalEntryNumber, "int")
+        result := DllCall("PROJECTEDFSLIB.dll\PrjClearNegativePathCache", "ptr", namespaceVirtualizationContext, "uint*", &totalEntryNumber := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return totalEntryNumber
     }
 
     /**
@@ -176,22 +174,19 @@ class ProjectedFileSystem {
      * @param {Integer} updateFlags Flags to control updates.
      * 
      * If the item is a dirty placeholder, full file, or tombstone, and the provider does not specify the appropriate flag(s), this routine will fail to update the placeholder
-     * @param {Pointer<Integer>} failureReason Optional pointer to receive a code describing the reason an update failed.
-     * @returns {HRESULT} If an HRESULT_FROM_WIN32(ERROR_FILE_SYSTEM_VIRTUALIZATION_INVALID_OPERATION) error is returned, the update failed due to the item's state and the value of updateFlags. failureReason, if specified, will describe the reason for the failure.
+     * @returns {Integer} Optional pointer to receive a code describing the reason an update failed.
      * @see https://docs.microsoft.com/windows/win32/api//projectedfslib/nf-projectedfslib-prjupdatefileifneeded
      * @since windows10.0.17763
      */
-    static PrjUpdateFileIfNeeded(namespaceVirtualizationContext, destinationFileName, placeholderInfo, placeholderInfoSize, updateFlags, failureReason) {
+    static PrjUpdateFileIfNeeded(namespaceVirtualizationContext, destinationFileName, placeholderInfo, placeholderInfoSize, updateFlags) {
         namespaceVirtualizationContext := namespaceVirtualizationContext is Win32Handle ? NumGet(namespaceVirtualizationContext, "ptr") : namespaceVirtualizationContext
         destinationFileName := destinationFileName is String ? StrPtr(destinationFileName) : destinationFileName
 
-        failureReasonMarshal := failureReason is VarRef ? "int*" : "ptr"
-
-        result := DllCall("PROJECTEDFSLIB.dll\PrjUpdateFileIfNeeded", "ptr", namespaceVirtualizationContext, "ptr", destinationFileName, "ptr", placeholderInfo, "uint", placeholderInfoSize, "int", updateFlags, failureReasonMarshal, failureReason, "int")
+        result := DllCall("PROJECTEDFSLIB.dll\PrjUpdateFileIfNeeded", "ptr", namespaceVirtualizationContext, "ptr", destinationFileName, "ptr", placeholderInfo, "uint", placeholderInfoSize, "int", updateFlags, "int*", &failureReason := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return failureReason
     }
 
     /**
@@ -199,22 +194,19 @@ class ProjectedFileSystem {
      * @param {PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT} namespaceVirtualizationContext An opaque handle for the virtualization instance.
      * @param {PWSTR} destinationFileName A null-terminated Unicode string specifying the path, relative to the virtualization root, to the file or directory to be deleted.
      * @param {Integer} updateFlags Flags to control the delete operation should be allowed given the state of the file.
-     * @param {Pointer<Integer>} failureReason Optional pointer to receive a code describing the reason a delete failed.
-     * @returns {HRESULT} If an HRESULT_FROM_WIN32(ERROR_FILE_SYSTEM_VIRTUALIZATION_INVALID_OPERATION) error is returned, the update failed due to the item's state and the value of updateFlags. failureReason, if specified, will describe the reason for the failure.
+     * @returns {Integer} Optional pointer to receive a code describing the reason a delete failed.
      * @see https://docs.microsoft.com/windows/win32/api//projectedfslib/nf-projectedfslib-prjdeletefile
      * @since windows10.0.17763
      */
-    static PrjDeleteFile(namespaceVirtualizationContext, destinationFileName, updateFlags, failureReason) {
+    static PrjDeleteFile(namespaceVirtualizationContext, destinationFileName, updateFlags) {
         namespaceVirtualizationContext := namespaceVirtualizationContext is Win32Handle ? NumGet(namespaceVirtualizationContext, "ptr") : namespaceVirtualizationContext
         destinationFileName := destinationFileName is String ? StrPtr(destinationFileName) : destinationFileName
 
-        failureReasonMarshal := failureReason is VarRef ? "int*" : "ptr"
-
-        result := DllCall("PROJECTEDFSLIB.dll\PrjDeleteFile", "ptr", namespaceVirtualizationContext, "ptr", destinationFileName, "int", updateFlags, failureReasonMarshal, failureReason, "int")
+        result := DllCall("PROJECTEDFSLIB.dll\PrjDeleteFile", "ptr", namespaceVirtualizationContext, "ptr", destinationFileName, "int", updateFlags, "int*", &failureReason := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return failureReason
     }
 
     /**
@@ -247,21 +239,18 @@ class ProjectedFileSystem {
     /**
      * Gets the on-disk file state for a file or directory.
      * @param {PWSTR} destinationFileName A null-terminated Unicode string specifying the full path to the file whose state is to be queried.
-     * @param {Pointer<Integer>} fileState This is a combination of one or more PRJ_FILE_STATE values describing the file state.
-     * @returns {HRESULT} HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND) indicates destinationFileName does not exist. HRESULT_FROM_WIN32(ERROR_PATH_NOT_FOUND) indicates that an intermediate component of the path to destinationFileName does not exist.
+     * @returns {Integer} This is a combination of one or more PRJ_FILE_STATE values describing the file state.
      * @see https://docs.microsoft.com/windows/win32/api//projectedfslib/nf-projectedfslib-prjgetondiskfilestate
      * @since windows10.0.17763
      */
-    static PrjGetOnDiskFileState(destinationFileName, fileState) {
+    static PrjGetOnDiskFileState(destinationFileName) {
         destinationFileName := destinationFileName is String ? StrPtr(destinationFileName) : destinationFileName
 
-        fileStateMarshal := fileState is VarRef ? "int*" : "ptr"
-
-        result := DllCall("PROJECTEDFSLIB.dll\PrjGetOnDiskFileState", "ptr", destinationFileName, fileStateMarshal, fileState, "int")
+        result := DllCall("PROJECTEDFSLIB.dll\PrjGetOnDiskFileState", "ptr", destinationFileName, "int*", &fileState := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return fileState
     }
 
     /**

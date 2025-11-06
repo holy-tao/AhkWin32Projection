@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -31,14 +32,11 @@ class ISpeechPhoneConverter extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} LanguageId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_LanguageId(LanguageId) {
-        LanguageIdMarshal := LanguageId is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, LanguageIdMarshal, LanguageId, "HRESULT")
-        return result
+    get_LanguageId() {
+        result := ComCall(7, this, "int*", &LanguageId := 0, "HRESULT")
+        return LanguageId
     }
 
     /**
@@ -54,24 +52,24 @@ class ISpeechPhoneConverter extends IDispatch{
     /**
      * 
      * @param {BSTR} Phonemes 
-     * @param {Pointer<VARIANT>} IdArray 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    PhoneToId(Phonemes, IdArray) {
+    PhoneToId(Phonemes) {
         Phonemes := Phonemes is String ? BSTR.Alloc(Phonemes).Value : Phonemes
 
+        IdArray := VARIANT()
         result := ComCall(9, this, "ptr", Phonemes, "ptr", IdArray, "HRESULT")
-        return result
+        return IdArray
     }
 
     /**
      * 
      * @param {VARIANT} IdArray 
-     * @param {Pointer<BSTR>} Phonemes 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    IdToPhone(IdArray, Phonemes) {
+    IdToPhone(IdArray) {
+        Phonemes := BSTR()
         result := ComCall(10, this, "ptr", IdArray, "ptr", Phonemes, "HRESULT")
-        return result
+        return Phonemes
     }
 }

@@ -33,13 +33,12 @@ class IUIAutomationPatternHandler extends IUnknown{
     /**
      * 
      * @param {IUIAutomationPatternInstance} pPatternInstance 
-     * @param {Pointer<IUnknown>} pClientWrapper 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iuiautomationpatternhandler-createclientwrapper
      */
-    CreateClientWrapper(pPatternInstance, pClientWrapper) {
-        result := ComCall(3, this, "ptr", pPatternInstance, "ptr*", pClientWrapper, "HRESULT")
-        return result
+    CreateClientWrapper(pPatternInstance) {
+        result := ComCall(3, this, "ptr", pPatternInstance, "ptr*", &pClientWrapper := 0, "HRESULT")
+        return IUnknown(pClientWrapper)
     }
 
     /**

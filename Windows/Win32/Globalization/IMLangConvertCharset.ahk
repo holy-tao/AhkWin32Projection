@@ -53,38 +53,29 @@ class IMLangConvertCharset extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} puiSrcCodePage 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetSourceCodePage(puiSrcCodePage) {
-        puiSrcCodePageMarshal := puiSrcCodePage is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, puiSrcCodePageMarshal, puiSrcCodePage, "HRESULT")
-        return result
+    GetSourceCodePage() {
+        result := ComCall(4, this, "uint*", &puiSrcCodePage := 0, "HRESULT")
+        return puiSrcCodePage
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} puiDstCodePage 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetDestinationCodePage(puiDstCodePage) {
-        puiDstCodePageMarshal := puiDstCodePage is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, puiDstCodePageMarshal, puiDstCodePage, "HRESULT")
-        return result
+    GetDestinationCodePage() {
+        result := ComCall(5, this, "uint*", &puiDstCodePage := 0, "HRESULT")
+        return puiDstCodePage
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwProperty 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetProperty(pdwProperty) {
-        pdwPropertyMarshal := pdwProperty is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pdwPropertyMarshal, pdwProperty, "HRESULT")
-        return result
+    GetProperty() {
+        result := ComCall(6, this, "uint*", &pdwProperty := 0, "HRESULT")
+        return pdwProperty
     }
 
     /**

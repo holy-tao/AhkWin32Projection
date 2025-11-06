@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Audio\ISpatialAudioMetadataItems.ahk
 #Include .\IMFMediaBuffer.ahk
 
 /**
@@ -48,15 +49,12 @@ class IMFSpatialAudioObjectBuffer extends IMFMediaBuffer{
 
     /**
      * 
-     * @param {Pointer<Integer>} pu32ID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfspatialaudio/nf-mfspatialaudio-imfspatialaudioobjectbuffer-getid
      */
-    GetID(pu32ID) {
-        pu32IDMarshal := pu32ID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, pu32IDMarshal, pu32ID, "HRESULT")
-        return result
+    GetID() {
+        result := ComCall(9, this, "uint*", &pu32ID := 0, "HRESULT")
+        return pu32ID
     }
 
     /**
@@ -72,25 +70,21 @@ class IMFSpatialAudioObjectBuffer extends IMFMediaBuffer{
 
     /**
      * 
-     * @param {Pointer<Integer>} pType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfspatialaudio/nf-mfspatialaudio-imfspatialaudioobjectbuffer-gettype
      */
-    GetType(pType) {
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, pTypeMarshal, pType, "HRESULT")
-        return result
+    GetType() {
+        result := ComCall(11, this, "int*", &pType := 0, "HRESULT")
+        return pType
     }
 
     /**
      * 
-     * @param {Pointer<ISpatialAudioMetadataItems>} ppMetadataItems 
-     * @returns {HRESULT} 
+     * @returns {ISpatialAudioMetadataItems} 
      * @see https://learn.microsoft.com/windows/win32/api/mfspatialaudio/nf-mfspatialaudio-imfspatialaudioobjectbuffer-getmetadataitems
      */
-    GetMetadataItems(ppMetadataItems) {
-        result := ComCall(12, this, "ptr*", ppMetadataItems, "HRESULT")
-        return result
+    GetMetadataItems() {
+        result := ComCall(12, this, "ptr*", &ppMetadataItems := 0, "HRESULT")
+        return ISpatialAudioMetadataItems(ppMetadataItems)
     }
 }

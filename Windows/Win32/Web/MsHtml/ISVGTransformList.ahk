@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISVGTransform.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -46,14 +47,11 @@ class ISVGTransformList extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_numberOfItems(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pMarshal, p, "HRESULT")
-        return result
+    get_numberOfItems() {
+        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -68,89 +66,81 @@ class ISVGTransformList extends IDispatch{
     /**
      * 
      * @param {ISVGTransform} newItem 
-     * @param {Pointer<ISVGTransform>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGTransform} 
      */
-    initialize(newItem, ppResult) {
-        result := ComCall(10, this, "ptr", newItem, "ptr*", ppResult, "HRESULT")
-        return result
+    initialize(newItem) {
+        result := ComCall(10, this, "ptr", newItem, "ptr*", &ppResult := 0, "HRESULT")
+        return ISVGTransform(ppResult)
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<ISVGTransform>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGTransform} 
      */
-    getItem(index, ppResult) {
-        result := ComCall(11, this, "int", index, "ptr*", ppResult, "HRESULT")
-        return result
+    getItem(index) {
+        result := ComCall(11, this, "int", index, "ptr*", &ppResult := 0, "HRESULT")
+        return ISVGTransform(ppResult)
     }
 
     /**
      * 
      * @param {ISVGTransform} newItem 
      * @param {Integer} index 
-     * @param {Pointer<ISVGTransform>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGTransform} 
      */
-    insertItemBefore(newItem, index, ppResult) {
-        result := ComCall(12, this, "ptr", newItem, "int", index, "ptr*", ppResult, "HRESULT")
-        return result
+    insertItemBefore(newItem, index) {
+        result := ComCall(12, this, "ptr", newItem, "int", index, "ptr*", &ppResult := 0, "HRESULT")
+        return ISVGTransform(ppResult)
     }
 
     /**
      * 
      * @param {ISVGTransform} newItem 
      * @param {Integer} index 
-     * @param {Pointer<ISVGTransform>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGTransform} 
      */
-    replaceItem(newItem, index, ppResult) {
-        result := ComCall(13, this, "ptr", newItem, "int", index, "ptr*", ppResult, "HRESULT")
-        return result
+    replaceItem(newItem, index) {
+        result := ComCall(13, this, "ptr", newItem, "int", index, "ptr*", &ppResult := 0, "HRESULT")
+        return ISVGTransform(ppResult)
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<ISVGTransform>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGTransform} 
      */
-    removeItem(index, ppResult) {
-        result := ComCall(14, this, "int", index, "ptr*", ppResult, "HRESULT")
-        return result
+    removeItem(index) {
+        result := ComCall(14, this, "int", index, "ptr*", &ppResult := 0, "HRESULT")
+        return ISVGTransform(ppResult)
     }
 
     /**
      * 
      * @param {ISVGTransform} newItem 
-     * @param {Pointer<ISVGTransform>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGTransform} 
      */
-    appendItem(newItem, ppResult) {
-        result := ComCall(15, this, "ptr", newItem, "ptr*", ppResult, "HRESULT")
-        return result
+    appendItem(newItem) {
+        result := ComCall(15, this, "ptr", newItem, "ptr*", &ppResult := 0, "HRESULT")
+        return ISVGTransform(ppResult)
     }
 
     /**
      * 
      * @param {ISVGMatrix} newItem 
-     * @param {Pointer<ISVGTransform>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGTransform} 
      */
-    createSVGTransformFromMatrix(newItem, ppResult) {
-        result := ComCall(16, this, "ptr", newItem, "ptr*", ppResult, "HRESULT")
-        return result
+    createSVGTransformFromMatrix(newItem) {
+        result := ComCall(16, this, "ptr", newItem, "ptr*", &ppResult := 0, "HRESULT")
+        return ISVGTransform(ppResult)
     }
 
     /**
      * 
-     * @param {Pointer<ISVGTransform>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGTransform} 
      */
-    consolidate(ppResult) {
-        result := ComCall(17, this, "ptr*", ppResult, "HRESULT")
-        return result
+    consolidate() {
+        result := ComCall(17, this, "ptr*", &ppResult := 0, "HRESULT")
+        return ISVGTransform(ppResult)
     }
 }

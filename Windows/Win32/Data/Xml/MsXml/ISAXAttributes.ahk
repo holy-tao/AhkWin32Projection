@@ -30,14 +30,11 @@ class ISAXAttributes extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pnLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    getLength(pnLength) {
-        pnLengthMarshal := pnLength is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, pnLengthMarshal, pnLength, "HRESULT")
-        return result
+    getLength() {
+        result := ComCall(3, this, "int*", &pnLength := 0, "HRESULT")
+        return pnLength
     }
 
     /**
@@ -114,33 +111,27 @@ class ISAXAttributes extends IUnknown{
      * @param {Integer} cchUri 
      * @param {PWSTR} pwchLocalName 
      * @param {Integer} cchLocalName 
-     * @param {Pointer<Integer>} pnIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    getIndexFromName(pwchUri, cchUri, pwchLocalName, cchLocalName, pnIndex) {
+    getIndexFromName(pwchUri, cchUri, pwchLocalName, cchLocalName) {
         pwchUri := pwchUri is String ? StrPtr(pwchUri) : pwchUri
         pwchLocalName := pwchLocalName is String ? StrPtr(pwchLocalName) : pwchLocalName
 
-        pnIndexMarshal := pnIndex is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, "ptr", pwchUri, "int", cchUri, "ptr", pwchLocalName, "int", cchLocalName, pnIndexMarshal, pnIndex, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", pwchUri, "int", cchUri, "ptr", pwchLocalName, "int", cchLocalName, "int*", &pnIndex := 0, "HRESULT")
+        return pnIndex
     }
 
     /**
      * 
      * @param {PWSTR} pwchQName 
      * @param {Integer} cchQName 
-     * @param {Pointer<Integer>} pnIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    getIndexFromQName(pwchQName, cchQName, pnIndex) {
+    getIndexFromQName(pwchQName, cchQName) {
         pwchQName := pwchQName is String ? StrPtr(pwchQName) : pwchQName
 
-        pnIndexMarshal := pnIndex is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, "ptr", pwchQName, "int", cchQName, pnIndexMarshal, pnIndex, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", pwchQName, "int", cchQName, "int*", &pnIndex := 0, "HRESULT")
+        return pnIndex
     }
 
     /**

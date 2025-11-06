@@ -1,7 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Ole\IOleInPlaceSite.ahk
+#Include ..\..\System\Ole\IOleObject.ahk
+#Include .\ITravelLog.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Graphics\Gdi\HPALETTE.ahk
 
 /**
  * Deprecated.
@@ -36,13 +41,12 @@ class IBrowserService extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IOleInPlaceSite>} ppipsite 
-     * @returns {HRESULT} 
+     * @returns {IOleInPlaceSite} 
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-getparentsite
      */
-    GetParentSite(ppipsite) {
-        result := ComCall(3, this, "ptr*", ppipsite, "HRESULT")
-        return result
+    GetParentSite() {
+        result := ComCall(3, this, "ptr*", &ppipsite := 0, "HRESULT")
+        return IOleInPlaceSite(ppipsite)
     }
 
     /**
@@ -76,24 +80,22 @@ class IBrowserService extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IOleObject>} ppobjv 
-     * @returns {HRESULT} 
+     * @returns {IOleObject} 
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-getoleobject
      */
-    GetOleObject(ppobjv) {
-        result := ComCall(6, this, "ptr*", ppobjv, "HRESULT")
-        return result
+    GetOleObject() {
+        result := ComCall(6, this, "ptr*", &ppobjv := 0, "HRESULT")
+        return IOleObject(ppobjv)
     }
 
     /**
      * 
-     * @param {Pointer<ITravelLog>} pptl 
-     * @returns {HRESULT} 
+     * @returns {ITravelLog} 
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-gettravellog
      */
-    GetTravelLog(pptl) {
-        result := ComCall(7, this, "ptr*", pptl, "HRESULT")
-        return result
+    GetTravelLog() {
+        result := ComCall(7, this, "ptr*", &pptl := 0, "HRESULT")
+        return ITravelLog(pptl)
     }
 
     /**
@@ -111,13 +113,12 @@ class IBrowserService extends IUnknown{
     /**
      * 
      * @param {Integer} id 
-     * @param {Pointer<BOOL>} pfShown 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-iscontrolwindowshown
      */
-    IsControlWindowShown(id, pfShown) {
-        result := ComCall(9, this, "uint", id, "ptr", pfShown, "HRESULT")
-        return result
+    IsControlWindowShown(id) {
+        result := ComCall(9, this, "uint", id, "int*", &pfShown := 0, "HRESULT")
+        return pfShown
     }
 
     /**
@@ -139,17 +140,14 @@ class IBrowserService extends IUnknown{
      * 
      * @param {Integer} uiCP 
      * @param {PWSTR} pwszPath 
-     * @param {Pointer<Pointer<ITEMIDLIST>>} ppidlOut 
-     * @returns {HRESULT} 
+     * @returns {Pointer<ITEMIDLIST>} 
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-ieparsedisplayname
      */
-    IEParseDisplayName(uiCP, pwszPath, ppidlOut) {
+    IEParseDisplayName(uiCP, pwszPath) {
         pwszPath := pwszPath is String ? StrPtr(pwszPath) : pwszPath
 
-        ppidlOutMarshal := ppidlOut is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(11, this, "uint", uiCP, "ptr", pwszPath, ppidlOutMarshal, ppidlOut, "HRESULT")
-        return result
+        result := ComCall(11, this, "uint", uiCP, "ptr", pwszPath, "ptr*", &ppidlOut := 0, "HRESULT")
+        return ppidlOut
     }
 
     /**
@@ -191,28 +189,24 @@ class IBrowserService extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pbnstate 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-getnavigatestate
      */
-    GetNavigateState(pbnstate) {
-        pbnstateMarshal := pbnstate is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, pbnstateMarshal, pbnstate, "HRESULT")
-        return result
+    GetNavigateState() {
+        result := ComCall(15, this, "int*", &pbnstate := 0, "HRESULT")
+        return pbnstate
     }
 
     /**
      * 
      * @param {IShellView} psv 
      * @param {Pointer<ITEMIDLIST>} pidl 
-     * @param {Pointer<BOOL>} pfDidBrowse 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-notifyredirect
      */
-    NotifyRedirect(psv, pidl, pfDidBrowse) {
-        result := ComCall(16, this, "ptr", psv, "ptr", pidl, "ptr", pfDidBrowse, "HRESULT")
-        return result
+    NotifyRedirect(psv, pidl) {
+        result := ComCall(16, this, "ptr", psv, "ptr", pidl, "int*", &pfDidBrowse := 0, "HRESULT")
+        return pfDidBrowse
     }
 
     /**
@@ -403,15 +397,12 @@ class IBrowserService extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-getflags
      */
-    GetFlags(pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(20, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
-        return result
+    GetFlags() {
+        result := ComCall(20, this, "uint*", &pdwFlags := 0, "HRESULT")
+        return pdwFlags
     }
 
     /**
@@ -426,15 +417,12 @@ class IBrowserService extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<ITEMIDLIST>>} ppidl 
-     * @returns {HRESULT} 
+     * @returns {Pointer<ITEMIDLIST>} 
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-getpidl
      */
-    GetPidl(ppidl) {
-        ppidlMarshal := ppidl is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(22, this, ppidlMarshal, ppidl, "HRESULT")
-        return result
+    GetPidl() {
+        result := ComCall(22, this, "ptr*", &ppidl := 0, "HRESULT")
+        return ppidl
     }
 
     /**
@@ -461,13 +449,12 @@ class IBrowserService extends IUnknown{
     /**
      * 
      * @param {Integer} dwID 
-     * @param {Pointer<IUnknown>} ppunk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-getbrowserbyindex
      */
-    GetBrowserByIndex(dwID, ppunk) {
-        result := ComCall(25, this, "uint", dwID, "ptr*", ppunk, "HRESULT")
-        return result
+    GetBrowserByIndex(dwID) {
+        result := ComCall(25, this, "uint", dwID, "ptr*", &ppunk := 0, "HRESULT")
+        return IUnknown(ppunk)
     }
 
     /**
@@ -509,13 +496,13 @@ class IBrowserService extends IUnknown{
     /**
      * 
      * @param {Pointer<VARIANT>} pvarIn 
-     * @param {Pointer<VARIANT>} pvarOut 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-getsetcodepage
      */
-    GetSetCodePage(pvarIn, pvarOut) {
+    GetSetCodePage(pvarIn) {
+        pvarOut := VARIANT()
         result := ComCall(29, this, "ptr", pvarIn, "ptr", pvarOut, "HRESULT")
-        return result
+        return pvarOut
     }
 
     /**
@@ -523,24 +510,24 @@ class IBrowserService extends IUnknown{
      * @param {IShellView} psv 
      * @param {BOOL} fDone 
      * @param {Pointer<VARIANT>} pvarargIn 
-     * @param {Pointer<VARIANT>} pvarargOut 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-onhttpequiv
      */
-    OnHttpEquiv(psv, fDone, pvarargIn, pvarargOut) {
+    OnHttpEquiv(psv, fDone, pvarargIn) {
+        pvarargOut := VARIANT()
         result := ComCall(30, this, "ptr", psv, "int", fDone, "ptr", pvarargIn, "ptr", pvarargOut, "HRESULT")
-        return result
+        return pvarargOut
     }
 
     /**
      * 
-     * @param {Pointer<HPALETTE>} hpal 
-     * @returns {HRESULT} 
+     * @returns {HPALETTE} 
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-getpalette
      */
-    GetPalette(hpal) {
+    GetPalette() {
+        hpal := HPALETTE()
         result := ComCall(31, this, "ptr", hpal, "HRESULT")
-        return result
+        return hpal
     }
 
     /**

@@ -31,11 +31,10 @@ class IHTMLDOMChildrenCollection2 extends IDispatch{
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<IDispatch>} ppItem 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    item(index, ppItem) {
-        result := ComCall(7, this, "int", index, "ptr*", ppItem, "HRESULT")
-        return result
+    item(index) {
+        result := ComCall(7, this, "int", index, "ptr*", &ppItem := 0, "HRESULT")
+        return IDispatch(ppItem)
     }
 }

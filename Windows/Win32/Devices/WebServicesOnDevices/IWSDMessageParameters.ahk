@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWSDAddress.ahk
+#Include .\IWSDMessageParameters.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -38,13 +40,12 @@ class IWSDMessageParameters extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IWSDAddress>} ppAddress 
-     * @returns {HRESULT} 
+     * @returns {IWSDAddress} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdmessageparameters-getlocaladdress
      */
-    GetLocalAddress(ppAddress) {
-        result := ComCall(3, this, "ptr*", ppAddress, "HRESULT")
-        return result
+    GetLocalAddress() {
+        result := ComCall(3, this, "ptr*", &ppAddress := 0, "HRESULT")
+        return IWSDAddress(ppAddress)
     }
 
     /**
@@ -60,13 +61,12 @@ class IWSDMessageParameters extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IWSDAddress>} ppAddress 
-     * @returns {HRESULT} 
+     * @returns {IWSDAddress} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdmessageparameters-getremoteaddress
      */
-    GetRemoteAddress(ppAddress) {
-        result := ComCall(5, this, "ptr*", ppAddress, "HRESULT")
-        return result
+    GetRemoteAddress() {
+        result := ComCall(5, this, "ptr*", &ppAddress := 0, "HRESULT")
+        return IWSDAddress(ppAddress)
     }
 
     /**
@@ -82,12 +82,11 @@ class IWSDMessageParameters extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IWSDMessageParameters>} ppTxParams 
-     * @returns {HRESULT} 
+     * @returns {IWSDMessageParameters} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdmessageparameters-getlowerparameters
      */
-    GetLowerParameters(ppTxParams) {
-        result := ComCall(7, this, "ptr*", ppTxParams, "HRESULT")
-        return result
+    GetLowerParameters() {
+        result := ComCall(7, this, "ptr*", &ppTxParams := 0, "HRESULT")
+        return IWSDMessageParameters(ppTxParams)
     }
 }

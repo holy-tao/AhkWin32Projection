@@ -119,169 +119,147 @@ class IDiscRecorder2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} value 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2-get_activediscrecorder
      */
-    get_ActiveDiscRecorder(value) {
+    get_ActiveDiscRecorder() {
+        value := BSTR()
         result := ComCall(14, this, "ptr", value, "HRESULT")
-        return result
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} value 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2-get_vendorid
      */
-    get_VendorId(value) {
+    get_VendorId() {
+        value := BSTR()
         result := ComCall(15, this, "ptr", value, "HRESULT")
-        return result
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} value 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2-get_productid
      */
-    get_ProductId(value) {
+    get_ProductId() {
+        value := BSTR()
         result := ComCall(16, this, "ptr", value, "HRESULT")
-        return result
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} value 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2-get_productrevision
      */
-    get_ProductRevision(value) {
+    get_ProductRevision() {
+        value := BSTR()
         result := ComCall(17, this, "ptr", value, "HRESULT")
-        return result
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} value 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2-get_volumename
      */
-    get_VolumeName(value) {
+    get_VolumeName() {
+        value := BSTR()
         result := ComCall(18, this, "ptr", value, "HRESULT")
-        return result
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} value 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2-get_volumepathnames
      */
-    get_VolumePathNames(value) {
-        valueMarshal := value is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(19, this, valueMarshal, value, "HRESULT")
-        return result
+    get_VolumePathNames() {
+        result := ComCall(19, this, "ptr*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2-get_devicecanloadmedia
      */
-    get_DeviceCanLoadMedia(value) {
-        result := ComCall(20, this, "ptr", value, "HRESULT")
-        return result
+    get_DeviceCanLoadMedia() {
+        result := ComCall(20, this, "short*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} legacyDeviceNumber 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2-get_legacydevicenumber
      */
-    get_LegacyDeviceNumber(legacyDeviceNumber) {
-        legacyDeviceNumberMarshal := legacyDeviceNumber is VarRef ? "int*" : "ptr"
-
-        result := ComCall(21, this, legacyDeviceNumberMarshal, legacyDeviceNumber, "HRESULT")
-        return result
+    get_LegacyDeviceNumber() {
+        result := ComCall(21, this, "int*", &legacyDeviceNumber := 0, "HRESULT")
+        return legacyDeviceNumber
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} value 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2-get_supportedfeaturepages
      */
-    get_SupportedFeaturePages(value) {
-        valueMarshal := value is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(22, this, valueMarshal, value, "HRESULT")
-        return result
+    get_SupportedFeaturePages() {
+        result := ComCall(22, this, "ptr*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} value 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2-get_currentfeaturepages
      */
-    get_CurrentFeaturePages(value) {
-        valueMarshal := value is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(23, this, valueMarshal, value, "HRESULT")
-        return result
+    get_CurrentFeaturePages() {
+        result := ComCall(23, this, "ptr*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} value 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2-get_supportedprofiles
      */
-    get_SupportedProfiles(value) {
-        valueMarshal := value is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(24, this, valueMarshal, value, "HRESULT")
-        return result
+    get_SupportedProfiles() {
+        result := ComCall(24, this, "ptr*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} value 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2-get_currentprofiles
      */
-    get_CurrentProfiles(value) {
-        valueMarshal := value is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(25, this, valueMarshal, value, "HRESULT")
-        return result
+    get_CurrentProfiles() {
+        result := ComCall(25, this, "ptr*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} value 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2-get_supportedmodepages
      */
-    get_SupportedModePages(value) {
-        valueMarshal := value is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(26, this, valueMarshal, value, "HRESULT")
-        return result
+    get_SupportedModePages() {
+        result := ComCall(26, this, "ptr*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} value 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscrecorder2-get_exclusiveaccessowner
      */
-    get_ExclusiveAccessOwner(value) {
+    get_ExclusiveAccessOwner() {
+        value := BSTR()
         result := ComCall(27, this, "ptr", value, "HRESULT")
-        return result
+        return value
     }
 }

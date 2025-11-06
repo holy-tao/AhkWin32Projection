@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IHTMLFormElement.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -47,12 +48,11 @@ class IHTMLOptionElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_selected(p) {
-        result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+    get_selected() {
+        result := ComCall(8, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -69,12 +69,12 @@ class IHTMLOptionElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_value(p) {
+    get_value() {
+        p := BSTR()
         result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -89,12 +89,11 @@ class IHTMLOptionElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_defaultSelected(p) {
-        result := ComCall(12, this, "ptr", p, "HRESULT")
-        return result
+    get_defaultSelected() {
+        result := ComCall(12, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -109,14 +108,11 @@ class IHTMLOptionElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_index(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, pMarshal, p, "HRESULT")
-        return result
+    get_index() {
+        result := ComCall(14, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -133,21 +129,20 @@ class IHTMLOptionElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_text(p) {
+    get_text() {
+        p := BSTR()
         result := ComCall(16, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLFormElement>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLFormElement} 
      */
-    get_form(p) {
-        result := ComCall(17, this, "ptr*", p, "HRESULT")
-        return result
+    get_form() {
+        result := ComCall(17, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLFormElement(p)
     }
 }

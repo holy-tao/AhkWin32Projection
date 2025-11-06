@@ -30,13 +30,10 @@ class IShellUIHelper9 extends IShellUIHelper8{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwResult 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetOSSku(pdwResult) {
-        pdwResultMarshal := pdwResult is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(104, this, pdwResultMarshal, pdwResult, "HRESULT")
-        return result
+    GetOSSku() {
+        result := ComCall(104, this, "uint*", &pdwResult := 0, "HRESULT")
+        return pdwResult
     }
 }

@@ -8152,11 +8152,12 @@ class Dhcp {
     static DhcpAuditLogGetParams(ServerIpAddress, Flags, AuditLogDir, DiskCheckInterval, MaxLogFilesSize, MinSpaceOnDisk) {
         ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
+        AuditLogDirMarshal := AuditLogDir is VarRef ? "ptr*" : "ptr"
         DiskCheckIntervalMarshal := DiskCheckInterval is VarRef ? "uint*" : "ptr"
         MaxLogFilesSizeMarshal := MaxLogFilesSize is VarRef ? "uint*" : "ptr"
         MinSpaceOnDiskMarshal := MinSpaceOnDisk is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("DHCPSAPI.dll\DhcpAuditLogGetParams", "ptr", ServerIpAddress, "uint", Flags, "ptr", AuditLogDir, DiskCheckIntervalMarshal, DiskCheckInterval, MaxLogFilesSizeMarshal, MaxLogFilesSize, MinSpaceOnDiskMarshal, MinSpaceOnDisk, "uint")
+        result := DllCall("DHCPSAPI.dll\DhcpAuditLogGetParams", "ptr", ServerIpAddress, "uint", Flags, AuditLogDirMarshal, AuditLogDir, DiskCheckIntervalMarshal, DiskCheckInterval, MaxLogFilesSizeMarshal, MaxLogFilesSize, MinSpaceOnDiskMarshal, MinSpaceOnDisk, "uint")
         return result
     }
 
@@ -11729,7 +11730,9 @@ class Dhcp {
     static DhcpV4QueryPolicyEnforcement(ServerIpAddress, fGlobalPolicy, SubnetAddress, Enabled) {
         ServerIpAddress := ServerIpAddress is String ? StrPtr(ServerIpAddress) : ServerIpAddress
 
-        result := DllCall("DHCPSAPI.dll\DhcpV4QueryPolicyEnforcement", "ptr", ServerIpAddress, "int", fGlobalPolicy, "uint", SubnetAddress, "ptr", Enabled, "uint")
+        EnabledMarshal := Enabled is VarRef ? "int*" : "ptr"
+
+        result := DllCall("DHCPSAPI.dll\DhcpV4QueryPolicyEnforcement", "ptr", ServerIpAddress, "int", fGlobalPolicy, "uint", SubnetAddress, EnabledMarshal, Enabled, "uint")
         return result
     }
 

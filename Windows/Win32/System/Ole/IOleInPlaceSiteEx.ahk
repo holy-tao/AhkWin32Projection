@@ -32,14 +32,13 @@ class IOleInPlaceSiteEx extends IOleInPlaceSite{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfNoRedraw 
      * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleinplacesiteex-oninplaceactivateex
      */
-    OnInPlaceActivateEx(pfNoRedraw, dwFlags) {
-        result := ComCall(15, this, "ptr", pfNoRedraw, "uint", dwFlags, "HRESULT")
-        return result
+    OnInPlaceActivateEx(dwFlags) {
+        result := ComCall(15, this, "int*", &pfNoRedraw := 0, "uint", dwFlags, "HRESULT")
+        return pfNoRedraw
     }
 
     /**

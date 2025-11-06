@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\HLBWINFO.ahk
+#Include .\IEnumHLITEM.ahk
+#Include .\IHlink.ahk
 
 /**
  * @namespace Windows.Win32.UI.Shell
@@ -33,31 +36,23 @@ class IHlinkBrowseContext extends IUnknown{
      * @param {Integer} reserved 
      * @param {IUnknown} piunk 
      * @param {IMoniker} pimk 
-     * @param {Pointer<Integer>} pdwRegister 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Register(reserved, piunk, pimk, pdwRegister) {
-        pdwRegisterMarshal := pdwRegister is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "uint", reserved, "ptr", piunk, "ptr", pimk, pdwRegisterMarshal, pdwRegister, "HRESULT")
-        return result
+    Register(reserved, piunk, pimk) {
+        result := ComCall(3, this, "uint", reserved, "ptr", piunk, "ptr", pimk, "uint*", &pdwRegister := 0, "HRESULT")
+        return pdwRegister
     }
 
     /**
      * The GetObject function retrieves information for the specified graphics object.
      * @param {IMoniker} pimk 
      * @param {BOOL} fBindIfRootRegistered 
-     * @param {Pointer<IUnknown>} ppiunk 
-     * @returns {HRESULT} If the function succeeds, and <i>lpvObject</i> is a valid pointer, the return value is the number of bytes stored into the buffer.
-     * 
-     * If the function succeeds, and <i>lpvObject</i> is <b>NULL</b>, the return value is the number of bytes required to hold the information the function would store into the buffer.
-     * 
-     * If the function fails, the return value is zero.
+     * @returns {IUnknown} 
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getobject
      */
-    GetObject(pimk, fBindIfRootRegistered, ppiunk) {
-        result := ComCall(4, this, "ptr", pimk, "int", fBindIfRootRegistered, "ptr*", ppiunk, "HRESULT")
-        return result
+    GetObject(pimk, fBindIfRootRegistered) {
+        result := ComCall(4, this, "ptr", pimk, "int", fBindIfRootRegistered, "ptr*", &ppiunk := 0, "HRESULT")
+        return IUnknown(ppiunk)
     }
 
     /**
@@ -82,12 +77,12 @@ class IHlinkBrowseContext extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HLBWINFO>} phlbwi 
-     * @returns {HRESULT} 
+     * @returns {HLBWINFO} 
      */
-    GetBrowseWindowInfo(phlbwi) {
+    GetBrowseWindowInfo() {
+        phlbwi := HLBWINFO()
         result := ComCall(7, this, "ptr", phlbwi, "HRESULT")
-        return result
+        return phlbwi
     }
 
     /**
@@ -111,17 +106,14 @@ class IHlinkBrowseContext extends IUnknown{
      * @param {IMoniker} pimkTarget 
      * @param {PWSTR} pwzLocation 
      * @param {PWSTR} pwzFriendlyName 
-     * @param {Pointer<Integer>} puHLID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    OnNavigateHlink(grfHLNF, pimkTarget, pwzLocation, pwzFriendlyName, puHLID) {
+    OnNavigateHlink(grfHLNF, pimkTarget, pwzLocation, pwzFriendlyName) {
         pwzLocation := pwzLocation is String ? StrPtr(pwzLocation) : pwzLocation
         pwzFriendlyName := pwzFriendlyName is String ? StrPtr(pwzFriendlyName) : pwzFriendlyName
 
-        puHLIDMarshal := puHLID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, "uint", grfHLNF, "ptr", pimkTarget, "ptr", pwzLocation, "ptr", pwzFriendlyName, puHLIDMarshal, puHLID, "HRESULT")
-        return result
+        result := ComCall(9, this, "uint", grfHLNF, "ptr", pimkTarget, "ptr", pwzLocation, "ptr", pwzFriendlyName, "uint*", &puHLID := 0, "HRESULT")
+        return puHLID
     }
 
     /**
@@ -144,12 +136,11 @@ class IHlinkBrowseContext extends IUnknown{
      * 
      * @param {Integer} dwReserved 
      * @param {Integer} grfHLFNAMEF 
-     * @param {Pointer<IEnumHLITEM>} ppienumhlitem 
-     * @returns {HRESULT} 
+     * @returns {IEnumHLITEM} 
      */
-    EnumNavigationStack(dwReserved, grfHLFNAMEF, ppienumhlitem) {
-        result := ComCall(11, this, "uint", dwReserved, "uint", grfHLFNAMEF, "ptr*", ppienumhlitem, "HRESULT")
-        return result
+    EnumNavigationStack(dwReserved, grfHLFNAMEF) {
+        result := ComCall(11, this, "uint", dwReserved, "uint", grfHLFNAMEF, "ptr*", &ppienumhlitem := 0, "HRESULT")
+        return IEnumHLITEM(ppienumhlitem)
     }
 
     /**
@@ -166,12 +157,11 @@ class IHlinkBrowseContext extends IUnknown{
     /**
      * 
      * @param {Integer} uHLID 
-     * @param {Pointer<IHlink>} ppihl 
-     * @returns {HRESULT} 
+     * @returns {IHlink} 
      */
-    GetHlink(uHLID, ppihl) {
-        result := ComCall(13, this, "uint", uHLID, "ptr*", ppihl, "HRESULT")
-        return result
+    GetHlink(uHLID) {
+        result := ComCall(13, this, "uint", uHLID, "ptr*", &ppihl := 0, "HRESULT")
+        return IHlink(ppihl)
     }
 
     /**
@@ -188,12 +178,11 @@ class IHlinkBrowseContext extends IUnknown{
      * 
      * @param {IUnknown} piunkOuter 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppiunkObj 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    Clone(piunkOuter, riid, ppiunkObj) {
-        result := ComCall(15, this, "ptr", piunkOuter, "ptr", riid, "ptr*", ppiunkObj, "HRESULT")
-        return result
+    Clone(piunkOuter, riid) {
+        result := ComCall(15, this, "ptr", piunkOuter, "ptr", riid, "ptr*", &ppiunkObj := 0, "HRESULT")
+        return IUnknown(ppiunkObj)
     }
 
     /**

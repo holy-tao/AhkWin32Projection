@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ICommand.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -32,25 +33,22 @@ class IDBSchemaCommand extends IUnknown{
      * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer<Guid>} rguidSchema 
-     * @param {Pointer<ICommand>} ppCommand 
-     * @returns {HRESULT} 
+     * @returns {ICommand} 
      */
-    GetCommand(pUnkOuter, rguidSchema, ppCommand) {
-        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", rguidSchema, "ptr*", ppCommand, "HRESULT")
-        return result
+    GetCommand(pUnkOuter, rguidSchema) {
+        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", rguidSchema, "ptr*", &ppCommand := 0, "HRESULT")
+        return ICommand(ppCommand)
     }
 
     /**
      * 
      * @param {Pointer<Integer>} pcSchemas 
-     * @param {Pointer<Pointer<Guid>>} prgSchemas 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Guid>} 
      */
-    GetSchemas(pcSchemas, prgSchemas) {
+    GetSchemas(pcSchemas) {
         pcSchemasMarshal := pcSchemas is VarRef ? "uint*" : "ptr"
-        prgSchemasMarshal := prgSchemas is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, pcSchemasMarshal, pcSchemas, prgSchemasMarshal, prgSchemas, "HRESULT")
-        return result
+        result := ComCall(4, this, pcSchemasMarshal, pcSchemas, "ptr*", &prgSchemas := 0, "HRESULT")
+        return prgSchemas
     }
 }

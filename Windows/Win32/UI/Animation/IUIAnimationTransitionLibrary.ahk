@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUIAnimationTransition.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -47,25 +48,23 @@ class IUIAnimationTransitionLibrary extends IUnknown{
     /**
      * 
      * @param {Float} finalValue 
-     * @param {Pointer<IUIAnimationTransition>} transition 
-     * @returns {HRESULT} 
+     * @returns {IUIAnimationTransition} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary-createinstantaneoustransition
      */
-    CreateInstantaneousTransition(finalValue, transition) {
-        result := ComCall(3, this, "double", finalValue, "ptr*", transition, "HRESULT")
-        return result
+    CreateInstantaneousTransition(finalValue) {
+        result := ComCall(3, this, "double", finalValue, "ptr*", &transition := 0, "HRESULT")
+        return IUIAnimationTransition(transition)
     }
 
     /**
      * 
      * @param {Float} duration 
-     * @param {Pointer<IUIAnimationTransition>} transition 
-     * @returns {HRESULT} 
+     * @returns {IUIAnimationTransition} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary-createconstanttransition
      */
-    CreateConstantTransition(duration, transition) {
-        result := ComCall(4, this, "double", duration, "ptr*", transition, "HRESULT")
-        return result
+    CreateConstantTransition(duration) {
+        result := ComCall(4, this, "double", duration, "ptr*", &transition := 0, "HRESULT")
+        return IUIAnimationTransition(transition)
     }
 
     /**
@@ -73,52 +72,48 @@ class IUIAnimationTransitionLibrary extends IUnknown{
      * @param {Float} delay 
      * @param {Float} finalValue 
      * @param {Float} hold 
-     * @param {Pointer<IUIAnimationTransition>} transition 
-     * @returns {HRESULT} 
+     * @returns {IUIAnimationTransition} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary-creatediscretetransition
      */
-    CreateDiscreteTransition(delay, finalValue, hold, transition) {
-        result := ComCall(5, this, "double", delay, "double", finalValue, "double", hold, "ptr*", transition, "HRESULT")
-        return result
+    CreateDiscreteTransition(delay, finalValue, hold) {
+        result := ComCall(5, this, "double", delay, "double", finalValue, "double", hold, "ptr*", &transition := 0, "HRESULT")
+        return IUIAnimationTransition(transition)
     }
 
     /**
      * 
      * @param {Float} duration 
      * @param {Float} finalValue 
-     * @param {Pointer<IUIAnimationTransition>} transition 
-     * @returns {HRESULT} 
+     * @returns {IUIAnimationTransition} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary-createlineartransition
      */
-    CreateLinearTransition(duration, finalValue, transition) {
-        result := ComCall(6, this, "double", duration, "double", finalValue, "ptr*", transition, "HRESULT")
-        return result
+    CreateLinearTransition(duration, finalValue) {
+        result := ComCall(6, this, "double", duration, "double", finalValue, "ptr*", &transition := 0, "HRESULT")
+        return IUIAnimationTransition(transition)
     }
 
     /**
      * 
      * @param {Float} speed 
      * @param {Float} finalValue 
-     * @param {Pointer<IUIAnimationTransition>} transition 
-     * @returns {HRESULT} 
+     * @returns {IUIAnimationTransition} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary-createlineartransitionfromspeed
      */
-    CreateLinearTransitionFromSpeed(speed, finalValue, transition) {
-        result := ComCall(7, this, "double", speed, "double", finalValue, "ptr*", transition, "HRESULT")
-        return result
+    CreateLinearTransitionFromSpeed(speed, finalValue) {
+        result := ComCall(7, this, "double", speed, "double", finalValue, "ptr*", &transition := 0, "HRESULT")
+        return IUIAnimationTransition(transition)
     }
 
     /**
      * 
      * @param {Float} duration 
      * @param {Float} period 
-     * @param {Pointer<IUIAnimationTransition>} transition 
-     * @returns {HRESULT} 
+     * @returns {IUIAnimationTransition} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary-createsinusoidaltransitionfromvelocity
      */
-    CreateSinusoidalTransitionFromVelocity(duration, period, transition) {
-        result := ComCall(8, this, "double", duration, "double", period, "ptr*", transition, "HRESULT")
-        return result
+    CreateSinusoidalTransitionFromVelocity(duration, period) {
+        result := ComCall(8, this, "double", duration, "double", period, "ptr*", &transition := 0, "HRESULT")
+        return IUIAnimationTransition(transition)
     }
 
     /**
@@ -128,13 +123,12 @@ class IUIAnimationTransitionLibrary extends IUnknown{
      * @param {Float} maximumValue 
      * @param {Float} period 
      * @param {Integer} slope 
-     * @param {Pointer<IUIAnimationTransition>} transition 
-     * @returns {HRESULT} 
+     * @returns {IUIAnimationTransition} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary-createsinusoidaltransitionfromrange
      */
-    CreateSinusoidalTransitionFromRange(duration, minimumValue, maximumValue, period, slope, transition) {
-        result := ComCall(9, this, "double", duration, "double", minimumValue, "double", maximumValue, "double", period, "int", slope, "ptr*", transition, "HRESULT")
-        return result
+    CreateSinusoidalTransitionFromRange(duration, minimumValue, maximumValue, period, slope) {
+        result := ComCall(9, this, "double", duration, "double", minimumValue, "double", maximumValue, "double", period, "int", slope, "ptr*", &transition := 0, "HRESULT")
+        return IUIAnimationTransition(transition)
     }
 
     /**
@@ -143,25 +137,23 @@ class IUIAnimationTransitionLibrary extends IUnknown{
      * @param {Float} finalValue 
      * @param {Float} accelerationRatio 
      * @param {Float} decelerationRatio 
-     * @param {Pointer<IUIAnimationTransition>} transition 
-     * @returns {HRESULT} 
+     * @returns {IUIAnimationTransition} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary-createacceleratedeceleratetransition
      */
-    CreateAccelerateDecelerateTransition(duration, finalValue, accelerationRatio, decelerationRatio, transition) {
-        result := ComCall(10, this, "double", duration, "double", finalValue, "double", accelerationRatio, "double", decelerationRatio, "ptr*", transition, "HRESULT")
-        return result
+    CreateAccelerateDecelerateTransition(duration, finalValue, accelerationRatio, decelerationRatio) {
+        result := ComCall(10, this, "double", duration, "double", finalValue, "double", accelerationRatio, "double", decelerationRatio, "ptr*", &transition := 0, "HRESULT")
+        return IUIAnimationTransition(transition)
     }
 
     /**
      * 
      * @param {Float} duration 
-     * @param {Pointer<IUIAnimationTransition>} transition 
-     * @returns {HRESULT} 
+     * @returns {IUIAnimationTransition} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary-createreversaltransition
      */
-    CreateReversalTransition(duration, transition) {
-        result := ComCall(11, this, "double", duration, "ptr*", transition, "HRESULT")
-        return result
+    CreateReversalTransition(duration) {
+        result := ComCall(11, this, "double", duration, "ptr*", &transition := 0, "HRESULT")
+        return IUIAnimationTransition(transition)
     }
 
     /**
@@ -169,26 +161,24 @@ class IUIAnimationTransitionLibrary extends IUnknown{
      * @param {Float} duration 
      * @param {Float} finalValue 
      * @param {Float} finalVelocity 
-     * @param {Pointer<IUIAnimationTransition>} transition 
-     * @returns {HRESULT} 
+     * @returns {IUIAnimationTransition} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary-createcubictransition
      */
-    CreateCubicTransition(duration, finalValue, finalVelocity, transition) {
-        result := ComCall(12, this, "double", duration, "double", finalValue, "double", finalVelocity, "ptr*", transition, "HRESULT")
-        return result
+    CreateCubicTransition(duration, finalValue, finalVelocity) {
+        result := ComCall(12, this, "double", duration, "double", finalValue, "double", finalVelocity, "ptr*", &transition := 0, "HRESULT")
+        return IUIAnimationTransition(transition)
     }
 
     /**
      * 
      * @param {Float} maximumDuration 
      * @param {Float} finalValue 
-     * @param {Pointer<IUIAnimationTransition>} transition 
-     * @returns {HRESULT} 
+     * @returns {IUIAnimationTransition} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary-createsmoothstoptransition
      */
-    CreateSmoothStopTransition(maximumDuration, finalValue, transition) {
-        result := ComCall(13, this, "double", maximumDuration, "double", finalValue, "ptr*", transition, "HRESULT")
-        return result
+    CreateSmoothStopTransition(maximumDuration, finalValue) {
+        result := ComCall(13, this, "double", maximumDuration, "double", finalValue, "ptr*", &transition := 0, "HRESULT")
+        return IUIAnimationTransition(transition)
     }
 
     /**
@@ -196,12 +186,11 @@ class IUIAnimationTransitionLibrary extends IUnknown{
      * @param {Float} finalValue 
      * @param {Float} finalVelocity 
      * @param {Float} acceleration 
-     * @param {Pointer<IUIAnimationTransition>} transition 
-     * @returns {HRESULT} 
+     * @returns {IUIAnimationTransition} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationtransitionlibrary-createparabolictransitionfromacceleration
      */
-    CreateParabolicTransitionFromAcceleration(finalValue, finalVelocity, acceleration, transition) {
-        result := ComCall(14, this, "double", finalValue, "double", finalVelocity, "double", acceleration, "ptr*", transition, "HRESULT")
-        return result
+    CreateParabolicTransitionFromAcceleration(finalValue, finalVelocity, acceleration) {
+        result := ComCall(14, this, "double", finalValue, "double", finalVelocity, "double", acceleration, "ptr*", &transition := 0, "HRESULT")
+        return IUIAnimationTransition(transition)
     }
 }

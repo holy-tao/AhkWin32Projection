@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFCollection.ahk
 #Include .\IMFAttributes.ahk
 
 /**
@@ -36,36 +37,32 @@ class IMFOutputPolicy extends IMFAttributes{
      * @param {Guid} guidOutputSubType 
      * @param {Pointer<Guid>} rgGuidProtectionSchemasSupported 
      * @param {Integer} cProtectionSchemasSupported 
-     * @param {Pointer<IMFCollection>} ppRequiredProtectionSchemas 
-     * @returns {HRESULT} 
+     * @returns {IMFCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfoutputpolicy-generaterequiredschemas
      */
-    GenerateRequiredSchemas(dwAttributes, guidOutputSubType, rgGuidProtectionSchemasSupported, cProtectionSchemasSupported, ppRequiredProtectionSchemas) {
-        result := ComCall(33, this, "uint", dwAttributes, "ptr", guidOutputSubType, "ptr", rgGuidProtectionSchemasSupported, "uint", cProtectionSchemasSupported, "ptr*", ppRequiredProtectionSchemas, "HRESULT")
-        return result
+    GenerateRequiredSchemas(dwAttributes, guidOutputSubType, rgGuidProtectionSchemasSupported, cProtectionSchemasSupported) {
+        result := ComCall(33, this, "uint", dwAttributes, "ptr", guidOutputSubType, "ptr", rgGuidProtectionSchemasSupported, "uint", cProtectionSchemasSupported, "ptr*", &ppRequiredProtectionSchemas := 0, "HRESULT")
+        return IMFCollection(ppRequiredProtectionSchemas)
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} pguidOriginatorID 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfoutputpolicy-getoriginatorid
      */
-    GetOriginatorID(pguidOriginatorID) {
+    GetOriginatorID() {
+        pguidOriginatorID := Guid()
         result := ComCall(34, this, "ptr", pguidOriginatorID, "HRESULT")
-        return result
+        return pguidOriginatorID
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwMinimumGRLVersion 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfoutputpolicy-getminimumgrlversion
      */
-    GetMinimumGRLVersion(pdwMinimumGRLVersion) {
-        pdwMinimumGRLVersionMarshal := pdwMinimumGRLVersion is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(35, this, pdwMinimumGRLVersionMarshal, pdwMinimumGRLVersion, "HRESULT")
-        return result
+    GetMinimumGRLVersion() {
+        result := ComCall(35, this, "uint*", &pdwMinimumGRLVersion := 0, "HRESULT")
+        return pdwMinimumGRLVersion
     }
 }

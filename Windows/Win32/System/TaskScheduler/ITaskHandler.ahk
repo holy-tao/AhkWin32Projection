@@ -47,13 +47,12 @@ class ITaskHandler extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HRESULT>} pRetCode 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskhandler-stop
      */
-    Stop(pRetCode) {
-        result := ComCall(4, this, "ptr", pRetCode, "HRESULT")
-        return result
+    Stop() {
+        result := ComCall(4, this, "int*", &pRetCode := 0, "HRESULT")
+        return pRetCode
     }
 
     /**

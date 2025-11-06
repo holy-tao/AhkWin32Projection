@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\FolderItem.ahk
 
 /**
@@ -53,14 +54,14 @@ class FolderItem2 extends FolderItem{
      * This structure is used by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/hh437294(v=vs.85)">IUIAutomationStylesPattern::GetCachedExtendedPropertiesArray</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/hh437295(v=vs.85)">GetCurrentExtendedPropertiesArray</a> methods.
      * 
      * @param {BSTR} bstrPropName 
-     * @param {Pointer<VARIANT>} pvRet 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/ns-uiautomationclient-extendedproperty
      */
-    ExtendedProperty(bstrPropName, pvRet) {
+    ExtendedProperty(bstrPropName) {
         bstrPropName := bstrPropName is String ? BSTR.Alloc(bstrPropName).Value : bstrPropName
 
+        pvRet := VARIANT()
         result := ComCall(25, this, "ptr", bstrPropName, "ptr", pvRet, "HRESULT")
-        return result
+        return pvRet
     }
 }

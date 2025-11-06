@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -33,12 +34,12 @@ class ICertGetConfig extends IDispatch{
     /**
      * 
      * @param {Integer} Flags 
-     * @param {Pointer<BSTR>} pstrOut 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertgetconfig-getconfig
      */
-    GetConfig(Flags, pstrOut) {
+    GetConfig(Flags) {
+        pstrOut := BSTR()
         result := ComCall(7, this, "int", Flags, "ptr", pstrOut, "HRESULT")
-        return result
+        return pstrOut
     }
 }

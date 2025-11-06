@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -36,113 +37,95 @@ class IMbnRegistration extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} registerState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnregistration-getregisterstate
      */
-    GetRegisterState(registerState) {
-        registerStateMarshal := registerState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, registerStateMarshal, registerState, "HRESULT")
-        return result
+    GetRegisterState() {
+        result := ComCall(3, this, "int*", &registerState := 0, "HRESULT")
+        return registerState
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} registerMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnregistration-getregistermode
      */
-    GetRegisterMode(registerMode) {
-        registerModeMarshal := registerMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, registerModeMarshal, registerMode, "HRESULT")
-        return result
+    GetRegisterMode() {
+        result := ComCall(4, this, "int*", &registerMode := 0, "HRESULT")
+        return registerMode
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} providerID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnregistration-getproviderid
      */
-    GetProviderID(providerID) {
+    GetProviderID() {
+        providerID := BSTR()
         result := ComCall(5, this, "ptr", providerID, "HRESULT")
-        return result
+        return providerID
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} providerName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnregistration-getprovidername
      */
-    GetProviderName(providerName) {
+    GetProviderName() {
+        providerName := BSTR()
         result := ComCall(6, this, "ptr", providerName, "HRESULT")
-        return result
+        return providerName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} roamingText 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnregistration-getroamingtext
      */
-    GetRoamingText(roamingText) {
+    GetRoamingText() {
+        roamingText := BSTR()
         result := ComCall(7, this, "ptr", roamingText, "HRESULT")
-        return result
+        return roamingText
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} availableDataClasses 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnregistration-getavailabledataclasses
      */
-    GetAvailableDataClasses(availableDataClasses) {
-        availableDataClassesMarshal := availableDataClasses is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, availableDataClassesMarshal, availableDataClasses, "HRESULT")
-        return result
+    GetAvailableDataClasses() {
+        result := ComCall(8, this, "uint*", &availableDataClasses := 0, "HRESULT")
+        return availableDataClasses
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} currentDataClass 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnregistration-getcurrentdataclass
      */
-    GetCurrentDataClass(currentDataClass) {
-        currentDataClassMarshal := currentDataClass is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, currentDataClassMarshal, currentDataClass, "HRESULT")
-        return result
+    GetCurrentDataClass() {
+        result := ComCall(9, this, "uint*", &currentDataClass := 0, "HRESULT")
+        return currentDataClass
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} registrationNetworkError 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnregistration-getregistrationnetworkerror
      */
-    GetRegistrationNetworkError(registrationNetworkError) {
-        registrationNetworkErrorMarshal := registrationNetworkError is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, registrationNetworkErrorMarshal, registrationNetworkError, "HRESULT")
-        return result
+    GetRegistrationNetworkError() {
+        result := ComCall(10, this, "uint*", &registrationNetworkError := 0, "HRESULT")
+        return registrationNetworkError
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} packetAttachNetworkError 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnregistration-getpacketattachnetworkerror
      */
-    GetPacketAttachNetworkError(packetAttachNetworkError) {
-        packetAttachNetworkErrorMarshal := packetAttachNetworkError is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, packetAttachNetworkErrorMarshal, packetAttachNetworkError, "HRESULT")
-        return result
+    GetPacketAttachNetworkError() {
+        result := ComCall(11, this, "uint*", &packetAttachNetworkError := 0, "HRESULT")
+        return packetAttachNetworkError
     }
 
     /**
@@ -150,16 +133,13 @@ class IMbnRegistration extends IUnknown{
      * @param {Integer} registerMode 
      * @param {PWSTR} providerID 
      * @param {Integer} dataClass 
-     * @param {Pointer<Integer>} requestID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnregistration-setregistermode
      */
-    SetRegisterMode(registerMode, providerID, dataClass, requestID) {
+    SetRegisterMode(registerMode, providerID, dataClass) {
         providerID := providerID is String ? StrPtr(providerID) : providerID
 
-        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, "int", registerMode, "ptr", providerID, "uint", dataClass, requestIDMarshal, requestID, "HRESULT")
-        return result
+        result := ComCall(12, this, "int", registerMode, "ptr", providerID, "uint", dataClass, "uint*", &requestID := 0, "HRESULT")
+        return requestID
     }
 }

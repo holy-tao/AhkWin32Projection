@@ -33,14 +33,11 @@ class ICorProfilerInfo12 extends ICorProfilerInfo11{
      * @param {Integer} cProviderConfigs 
      * @param {Pointer<COR_PRF_EVENTPIPE_PROVIDER_CONFIG>} pProviderConfigs 
      * @param {BOOL} requestRundown 
-     * @param {Pointer<Integer>} pSession 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    EventPipeStartSession(cProviderConfigs, pProviderConfigs, requestRundown, pSession) {
-        pSessionMarshal := pSession is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(101, this, "uint", cProviderConfigs, "ptr", pProviderConfigs, "int", requestRundown, pSessionMarshal, pSession, "HRESULT")
-        return result
+    EventPipeStartSession(cProviderConfigs, pProviderConfigs, requestRundown) {
+        result := ComCall(101, this, "uint", cProviderConfigs, "ptr", pProviderConfigs, "int", requestRundown, "uint*", &pSession := 0, "HRESULT")
+        return pSession
     }
 
     /**
@@ -67,33 +64,27 @@ class ICorProfilerInfo12 extends ICorProfilerInfo11{
     /**
      * 
      * @param {PWSTR} providerName 
-     * @param {Pointer<Pointer>} pProvider 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    EventPipeCreateProvider(providerName, pProvider) {
+    EventPipeCreateProvider(providerName) {
         providerName := providerName is String ? StrPtr(providerName) : providerName
 
-        pProviderMarshal := pProvider is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(104, this, "ptr", providerName, pProviderMarshal, pProvider, "HRESULT")
-        return result
+        result := ComCall(104, this, "ptr", providerName, "ptr*", &pProvider := 0, "HRESULT")
+        return pProvider
     }
 
     /**
      * 
      * @param {Pointer} provider 
      * @param {Integer} cchName 
-     * @param {Pointer<Integer>} pcchName 
      * @param {PWSTR} providerName 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    EventPipeGetProviderInfo(provider, cchName, pcchName, providerName) {
+    EventPipeGetProviderInfo(provider, cchName, providerName) {
         providerName := providerName is String ? StrPtr(providerName) : providerName
 
-        pcchNameMarshal := pcchName is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(105, this, "ptr", provider, "uint", cchName, pcchNameMarshal, pcchName, "ptr", providerName, "HRESULT")
-        return result
+        result := ComCall(105, this, "ptr", provider, "uint", cchName, "uint*", &pcchName := 0, "ptr", providerName, "HRESULT")
+        return pcchName
     }
 
     /**
@@ -108,16 +99,13 @@ class ICorProfilerInfo12 extends ICorProfilerInfo11{
      * @param {BOOL} needStack 
      * @param {Integer} cParamDescs 
      * @param {Pointer<COR_PRF_EVENTPIPE_PARAM_DESC>} pParamDescs 
-     * @param {Pointer<Pointer>} pEvent 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    EventPipeDefineEvent(provider, eventName, eventID, keywords, eventVersion, level, opcode, needStack, cParamDescs, pParamDescs, pEvent) {
+    EventPipeDefineEvent(provider, eventName, eventID, keywords, eventVersion, level, opcode, needStack, cParamDescs, pParamDescs) {
         eventName := eventName is String ? StrPtr(eventName) : eventName
 
-        pEventMarshal := pEvent is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(106, this, "ptr", provider, "ptr", eventName, "uint", eventID, "uint", keywords, "uint", eventVersion, "uint", level, "char", opcode, "int", needStack, "uint", cParamDescs, "ptr", pParamDescs, pEventMarshal, pEvent, "HRESULT")
-        return result
+        result := ComCall(106, this, "ptr", provider, "ptr", eventName, "uint", eventID, "uint", keywords, "uint", eventVersion, "uint", level, "char", opcode, "int", needStack, "uint", cParamDescs, "ptr", pParamDescs, "ptr*", &pEvent := 0, "HRESULT")
+        return pEvent
     }
 
     /**

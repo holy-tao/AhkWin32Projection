@@ -59,7 +59,10 @@ class AsyncIFtpAuthenticationProvider extends IUnknown{
      * @returns {HRESULT} 
      */
     Finish_AuthenticateUser(ppszCanonicalUserName, pfAuthenticated) {
-        result := ComCall(4, this, "ptr", ppszCanonicalUserName, "ptr", pfAuthenticated, "HRESULT")
+        ppszCanonicalUserNameMarshal := ppszCanonicalUserName is VarRef ? "ptr*" : "ptr"
+        pfAuthenticatedMarshal := pfAuthenticated is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, ppszCanonicalUserNameMarshal, ppszCanonicalUserName, pfAuthenticatedMarshal, pfAuthenticated, "HRESULT")
         return result
     }
 }

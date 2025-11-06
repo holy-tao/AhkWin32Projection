@@ -793,7 +793,9 @@ class Shutdown {
      * @returns {Integer} 
      */
     static CheckForHiberboot(pHiberboot, bClearFlag) {
-        result := DllCall("ADVAPI32.dll\CheckForHiberboot", "ptr", pHiberboot, "char", bClearFlag, "uint")
+        pHiberbootMarshal := pHiberboot is VarRef ? "char*" : "ptr"
+
+        result := DllCall("ADVAPI32.dll\CheckForHiberboot", pHiberbootMarshal, pHiberboot, "char", bClearFlag, "uint")
         return result
     }
 

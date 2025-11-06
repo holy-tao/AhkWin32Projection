@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFDXGIDeviceManager.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,12 +33,11 @@ class IMFDXGIDeviceManagerSource extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IMFDXGIDeviceManager>} ppManager 
-     * @returns {HRESULT} 
+     * @returns {IMFDXGIDeviceManager} 
      * @see https://learn.microsoft.com/windows/win32/medfound/imfdxgidevicemanagersource-getmanager
      */
-    GetManager(ppManager) {
-        result := ComCall(3, this, "ptr*", ppManager, "HRESULT")
-        return result
+    GetManager() {
+        result := ComCall(3, this, "ptr*", &ppManager := 0, "HRESULT")
+        return IMFDXGIDeviceManager(ppManager)
     }
 }

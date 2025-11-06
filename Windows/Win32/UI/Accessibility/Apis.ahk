@@ -1,5 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include .\IAccessible.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IRawElementProviderSimple.ahk
 #Include .\HWINEVENTHOOK.ahk
 
 /**
@@ -2753,116 +2757,36 @@ class Accessibility {
      * @param {WPARAM} wParam Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">WPARAM</a></b>
      * 
      * Value sent by the associated <a href="https://docs.microsoft.com/windows/desktop/WinAuto/wm-getobject">WM_GETOBJECT</a> message in its <i>wParam</i> parameter.
-     * @param {Pointer<Pointer<Void>>} ppvObject Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * Receives the address of the <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> interface on the object that corresponds to the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/wm-getobject">WM_GETOBJECT</a> message.
-     * @returns {HRESULT} Type: <b>STDAPI</b>
-     * 
-     * If successful, returns S_OK.
-     * 
-     * If not successful, returns one of the following standard <a href="/windows/desktop/WinAuto/return-values">COM error codes</a>.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more arguments are not valid. This occurs when the <i>lResult</i> parameter specified is not a value obtained by a call to <a href="/windows/desktop/api/oleacc/nf-oleacc-lresultfromobject">LresultFromObject</a>, or when <i>lResult</i> is a value used on a previous call to <a href="/windows/desktop/api/oleacc/nf-oleacc-objectfromlresult">ObjectFromLresult</a>.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_NOINTERFACE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The object specified in the <i>ppvObject</i> parameter does not support the interface specified by the <i>riid</i> parameter.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to store the object reference.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_UNEXPECTED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An unexpected error occurred.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//oleacc/nf-oleacc-objectfromlresult
      * @since windows5.1.2600
      */
-    static ObjectFromLresult(lResult, riid, wParam, ppvObject) {
-        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("OLEACC.dll\ObjectFromLresult", "ptr", lResult, "ptr", riid, "ptr", wParam, ppvObjectMarshal, ppvObject, "int")
+    static ObjectFromLresult(lResult, riid, wParam) {
+        result := DllCall("OLEACC.dll\ObjectFromLresult", "ptr", lResult, "ptr", riid, "ptr", wParam, "ptr*", &ppvObject := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppvObject
     }
 
     /**
      * Retrieves the window handle that corresponds to a particular instance of an IAccessible interface.
      * @param {IAccessible} param0 
-     * @param {Pointer<HWND>} phwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a>*</b>
+     * @returns {HWND} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a>*</b>
      * 
      * Address of a variable that receives a handle to the window containing the object specified in <i>pacc</i>. If this value is <b>NULL</b> after the call, the object is not contained within a window; for example, the mouse pointer is not contained within a window.
-     * @returns {HRESULT} Type: <b>STDAPI</b>
-     * 
-     * If successful, returns S_OK.
-     * 
-     * If not successful, returns the following or another standard <a href="/windows/desktop/WinAuto/return-values">COM error code</a>.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An argument is not valid.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//oleacc/nf-oleacc-windowfromaccessibleobject
      * @since windows5.0
      */
-    static WindowFromAccessibleObject(param0, phwnd) {
+    static WindowFromAccessibleObject(param0) {
+        phwnd := HWND()
         result := DllCall("OLEACC.dll\WindowFromAccessibleObject", "ptr", param0, "ptr", phwnd, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return phwnd
     }
 
     /**
@@ -2876,56 +2800,20 @@ class Accessibility {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Specifies the reference identifier of the requested interface. This value is either IID_IAccessible or IID_IDispatch, but it can also be IID_IUnknown, or the IID of any interface that the object is expected to support.
-     * @param {Pointer<Pointer<Void>>} ppvObject Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * Address of a pointer variable that receives the address of the specified interface.
-     * @returns {HRESULT} Type: <b>STDAPI</b>
-     * 
-     * If successful, returns S_OK.
-     * 
-     * If not successful, returns one of the following or another standard <a href="/windows/desktop/WinAuto/return-values">COM error code</a>.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An argument is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_NOINTERFACE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The requested interface is not supported.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//oleacc/nf-oleacc-accessibleobjectfromwindow
      * @since windows5.0
      */
-    static AccessibleObjectFromWindow(hwnd, dwId, riid, ppvObject) {
+    static AccessibleObjectFromWindow(hwnd, dwId, riid) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("OLEACC.dll\AccessibleObjectFromWindow", "ptr", hwnd, "uint", dwId, "ptr", riid, ppvObjectMarshal, ppvObject, "int")
+        result := DllCall("OLEACC.dll\AccessibleObjectFromWindow", "ptr", hwnd, "uint", dwId, "ptr", riid, "ptr*", &ppvObject := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppvObject
     }
 
     /**
@@ -2939,83 +2827,39 @@ class Accessibility {
      * @param {Integer} dwChildId Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Specifies whether the event was triggered by an object or one of its child elements. If the object triggered the event, <i>dwChildID</i> is CHILDID_SELF. If a child element triggered the event, <i>dwChildID</i> is the element's child ID. This value must be the child ID that is sent to the event hook function.
-     * @param {Pointer<IAccessible>} ppacc Type: <b>IAccessible**</b>
-     * 
-     * Address of a pointer variable that receives the address of an <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> interface. The interface is either for the object that generated the event, or for the parent of the element that generated the event.
      * @param {Pointer<VARIANT>} pvarChild Type: <b>VARIANT*</b>
      * 
      * Address of a <a href="https://docs.microsoft.com/windows/desktop/WinAuto/variant-structure">VARIANT structure</a> that specifies the child ID that can be used to access information about the UI element.
-     * @returns {HRESULT} Type: <b>STDAPI</b>
+     * @returns {IAccessible} Type: <b>IAccessible**</b>
      * 
-     * If successful, returns S_OK.
-     * 
-     * If not successful, returns one of the following or another standard <a href="/windows/desktop/WinAuto/return-values">COM error code</a>.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An argument is not valid.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * Address of a pointer variable that receives the address of an <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> interface. The interface is either for the object that generated the event, or for the parent of the element that generated the event.
      * @see https://docs.microsoft.com/windows/win32/api//oleacc/nf-oleacc-accessibleobjectfromevent
      * @since windows5.0
      */
-    static AccessibleObjectFromEvent(hwnd, dwId, dwChildId, ppacc, pvarChild) {
+    static AccessibleObjectFromEvent(hwnd, dwId, dwChildId, pvarChild) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("OLEACC.dll\AccessibleObjectFromEvent", "ptr", hwnd, "uint", dwId, "uint", dwChildId, "ptr*", ppacc, "ptr", pvarChild, "int")
+        result := DllCall("OLEACC.dll\AccessibleObjectFromEvent", "ptr", hwnd, "uint", dwId, "uint", dwChildId, "ptr*", &ppacc := 0, "ptr", pvarChild, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IAccessible(ppacc)
     }
 
     /**
      * Retrieves the address of the IAccessible interface pointer for the object displayed at a specified point on the screen.
      * @param {POINT} ptScreen Specifies, in physical screen coordinates, the point that is examined.
-     * @param {Pointer<IAccessible>} ppacc Address of a pointer variable that receives the address of the object's <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> interface.
      * @param {Pointer<VARIANT>} pvarChild Address of a <a href="https://docs.microsoft.com/windows/desktop/WinAuto/variant-structure">VARIANT</a> structure that specifies whether the <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> interface pointer that is returned in <i>ppacc</i> belongs to the object displayed at the specified point, or to the parent of the element at the specified point. The <b>vt</b> member of the <b>VARIANT</b> is always VT_I4. If the <b>lVal</b> member is CHILDID_SELF, then the <b>IAccessible</b> interface pointer at <i>ppacc</i> belongs to the object at the point. If the <b>lVal</b> member is not CHILDID_SELF, <i>ppacc</i> is the address of the <b>IAccessible</b> interface of the child element's parent object. Clients must call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-variantclear">VariantClear</a> on the retrieved <b>VARIANT</b> parameter when finished using it.
-     * @returns {HRESULT} If successful, returns S_OK.
-     * 
-     * If not successful, returns one of the following or another standard <a href="/windows/desktop/WinAuto/return-values">COM error code</a>.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An argument is not valid.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {IAccessible} Address of a pointer variable that receives the address of the object's <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> interface.
      * @see https://docs.microsoft.com/windows/win32/api//oleacc/nf-oleacc-accessibleobjectfrompoint
      * @since windows5.0
      */
-    static AccessibleObjectFromPoint(ptScreen, ppacc, pvarChild) {
-        result := DllCall("OLEACC.dll\AccessibleObjectFromPoint", "ptr", ptScreen, "ptr*", ppacc, "ptr", pvarChild, "int")
+    static AccessibleObjectFromPoint(ptScreen, pvarChild) {
+        result := DllCall("OLEACC.dll\AccessibleObjectFromPoint", "ptr", ptScreen, "ptr*", &ppacc := 0, "ptr", pvarChild, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IAccessible(ppacc)
     }
 
     /**
@@ -3032,54 +2876,18 @@ class Accessibility {
      * @param {Pointer<VARIANT>} rgvarChildren Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinAuto/variant-structure">VARIANT</a>*</b>
      * 
      * Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/WinAuto/variant-structure">VARIANT</a> structures that receives information about the container's children. If the <b>vt</b> member of an array element is VT_I4, then the <b>lVal</b> member for that element is the child ID. If the <b>vt</b> member of an array element is VT_DISPATCH, then the <b>pdispVal</b> member for that element is the address of the child object's <a href="https://docs.microsoft.com/windows/desktop/WinAuto/idispatch-interface">IDispatch</a> interface.
-     * @param {Pointer<Integer>} pcObtained Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LONG</a>*</b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LONG</a>*</b>
      * 
      * Address of a variable that receives the number of elements in the <i>rgvarChildren</i> array that is populated by the <b>AccessibleChildren</b> function. This value is the same as that of the <i>cChildren</i> parameter; however, if you request more children than exist, this value will be less than that of <i>cChildren</i>.
-     * @returns {HRESULT} Type: <b>STDAPI</b>
-     * 
-     * If successful, returns S_OK.
-     * 
-     * If not successful, returns one of the following or another standard <a href="/windows/desktop/WinAuto/return-values">COM error code</a>.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An argument is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_FALSE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function succeeded, but there are fewer elements in the <i>rgvarChildren</i> array than there are children requested in <i>cChildren</i>.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//oleacc/nf-oleacc-accessiblechildren
      * @since windows5.0
      */
-    static AccessibleChildren(paccContainer, iChildStart, cChildren, rgvarChildren, pcObtained) {
-        pcObtainedMarshal := pcObtained is VarRef ? "int*" : "ptr"
-
-        result := DllCall("OLEACC.dll\AccessibleChildren", "ptr", paccContainer, "int", iChildStart, "int", cChildren, "ptr", rgvarChildren, pcObtainedMarshal, pcObtained, "int")
+    static AccessibleChildren(paccContainer, iChildStart, cChildren, rgvarChildren) {
+        result := DllCall("OLEACC.dll\AccessibleChildren", "ptr", paccContainer, "int", iChildStart, "int", cChildren, "ptr", rgvarChildren, "int*", &pcObtained := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pcObtained
     }
 
     /**
@@ -3240,27 +3048,20 @@ class Accessibility {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference identifier of the requested interface. This value is one of the following: IID_IAccessible, IID_IDispatch, IID_IEnumVARIANT, or IID_IUnknown.
-     * @param {Pointer<Pointer<Void>>} ppvObject Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * Address of a pointer variable that receives the address of the specified interface.
-     * @returns {HRESULT} Type: <b>STDAPI</b>
-     * 
-     * If successful, returns S_OK.
-     * 
-     * If not successful, returns a standard <a href="/windows/desktop/WinAuto/return-values">COM error code</a>.
      * @see https://docs.microsoft.com/windows/win32/api//oleacc/nf-oleacc-createstdaccessibleobject
      * @since windows5.0
      */
-    static CreateStdAccessibleObject(hwnd, idObject, riid, ppvObject) {
+    static CreateStdAccessibleObject(hwnd, idObject, riid) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("OLEACC.dll\CreateStdAccessibleObject", "ptr", hwnd, "int", idObject, "ptr", riid, ppvObjectMarshal, ppvObject, "int")
+        result := DllCall("OLEACC.dll\CreateStdAccessibleObject", "ptr", hwnd, "int", idObject, "ptr", riid, "ptr*", &ppvObject := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppvObject
     }
 
     /**
@@ -3277,28 +3078,21 @@ class Accessibility {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference identifier of the interface requested. This value is one of the following: IID_IAccessible, IID_IDispatch, IID_IEnumVARIANT, or IID_IUnknown.
-     * @param {Pointer<Pointer<Void>>} ppvObject Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * Address of a pointer variable that receives the address of the specified interface.
-     * @returns {HRESULT} Type: <b>STDAPI</b>
-     * 
-     * If successful, returns S_OK.
-     * 
-     * If not successful, returns a standard <a href="/windows/desktop/WinAuto/return-values">COM error code</a>.
      * @see https://docs.microsoft.com/windows/win32/api//oleacc/nf-oleacc-createstdaccessibleproxya
      * @since windows5.0
      */
-    static CreateStdAccessibleProxyA(hwnd, pClassName, idObject, riid, ppvObject) {
+    static CreateStdAccessibleProxyA(hwnd, pClassName, idObject, riid) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         pClassName := pClassName is String ? StrPtr(pClassName) : pClassName
 
-        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("OLEACC.dll\CreateStdAccessibleProxyA", "ptr", hwnd, "ptr", pClassName, "int", idObject, "ptr", riid, ppvObjectMarshal, ppvObject, "int")
+        result := DllCall("OLEACC.dll\CreateStdAccessibleProxyA", "ptr", hwnd, "ptr", pClassName, "int", idObject, "ptr", riid, "ptr*", &ppvObject := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppvObject
     }
 
     /**
@@ -3315,28 +3109,21 @@ class Accessibility {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference identifier of the interface requested. This value is one of the following: IID_IAccessible, IID_IDispatch, IID_IEnumVARIANT, or IID_IUnknown.
-     * @param {Pointer<Pointer<Void>>} ppvObject Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * Address of a pointer variable that receives the address of the specified interface.
-     * @returns {HRESULT} Type: <b>STDAPI</b>
-     * 
-     * If successful, returns S_OK.
-     * 
-     * If not successful, returns a standard <a href="/windows/desktop/WinAuto/return-values">COM error code</a>.
      * @see https://docs.microsoft.com/windows/win32/api//oleacc/nf-oleacc-createstdaccessibleproxyw
      * @since windows5.0
      */
-    static CreateStdAccessibleProxyW(hwnd, pClassName, idObject, riid, ppvObject) {
+    static CreateStdAccessibleProxyW(hwnd, pClassName, idObject, riid) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         pClassName := pClassName is String ? StrPtr(pClassName) : pClassName
 
-        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("OLEACC.dll\CreateStdAccessibleProxyW", "ptr", hwnd, "ptr", pClassName, "int", idObject, "ptr", riid, ppvObjectMarshal, ppvObject, "int")
+        result := DllCall("OLEACC.dll\CreateStdAccessibleProxyW", "ptr", hwnd, "ptr", pClassName, "int", idObject, "ptr", riid, "ptr*", &ppvObject := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppvObject
     }
 
     /**
@@ -3880,44 +3667,38 @@ class Accessibility {
 
     /**
      * Retrieves a reserved value indicating that a Microsoft UI Automation property or a text attribute is not supported.
-     * @param {Pointer<IUnknown>} punkNotSupportedValue Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
+     * @returns {IUnknown} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
      * 
      * Receives the object representing the value.
      *     This parameter is passed uninitialized.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiagetreservednotsupportedvalue
      * @since windows5.1.2600
      */
-    static UiaGetReservedNotSupportedValue(punkNotSupportedValue) {
-        result := DllCall("UIAutomationCore.dll\UiaGetReservedNotSupportedValue", "ptr*", punkNotSupportedValue, "int")
+    static UiaGetReservedNotSupportedValue() {
+        result := DllCall("UIAutomationCore.dll\UiaGetReservedNotSupportedValue", "ptr*", &punkNotSupportedValue := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IUnknown(punkNotSupportedValue)
     }
 
     /**
      * Retrieves a reserved value indicating that the value of a Microsoft UI Automation text attribute varies within a text range.
-     * @param {Pointer<IUnknown>} punkMixedAttributeValue Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
+     * @returns {IUnknown} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
      * 
      * Receives 
      *     a reserved value specifying that 
      *     an attribute varies over a text range.
      *     This parameter is passed uninitialized.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiagetreservedmixedattributevalue
      * @since windows5.1.2600
      */
-    static UiaGetReservedMixedAttributeValue(punkMixedAttributeValue) {
-        result := DllCall("UIAutomationCore.dll\UiaGetReservedMixedAttributeValue", "ptr*", punkMixedAttributeValue, "int")
+    static UiaGetReservedMixedAttributeValue() {
+        result := DllCall("UIAutomationCore.dll\UiaGetReservedMixedAttributeValue", "ptr*", &punkMixedAttributeValue := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IUnknown(punkMixedAttributeValue)
     }
 
     /**
@@ -4771,7 +4552,9 @@ class Accessibility {
     static WindowPattern_WaitForInputIdle(hobj, milliseconds, pResult) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\WindowPattern_WaitForInputIdle", "ptr", hobj, "int", milliseconds, "ptr", pResult, "int")
+        pResultMarshal := pResult is VarRef ? "int*" : "ptr"
+
+        result := DllCall("UIAutomationCore.dll\WindowPattern_WaitForInputIdle", "ptr", hobj, "int", milliseconds, pResultMarshal, pResult, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -4992,7 +4775,9 @@ class Accessibility {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
         range := range is Win32Handle ? NumGet(range, "ptr") : range
 
-        result := DllCall("UIAutomationCore.dll\TextRange_Compare", "ptr", hobj, "ptr", range, "ptr", pRetVal, "int")
+        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
+
+        result := DllCall("UIAutomationCore.dll\TextRange_Compare", "ptr", hobj, "ptr", range, pRetValMarshal, pRetVal, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -5574,23 +5359,20 @@ class Accessibility {
      * @param {HUIAPATTERNOBJECT} hobj Type: <b>HUIAPATTERNOBJECT</b>
      * 
      * A control pattern object.
-     * @param {Pointer<IAccessible>} pAccessible Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a>**</b>
+     * @returns {IAccessible} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a>**</b>
      * 
      * The address of a variable that receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> interface for the accessible object.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
-     * 
-     * Returns S_OK if successful or an error value otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-legacyiaccessiblepattern_getiaccessible
      * @since windows6.1
      */
-    static LegacyIAccessiblePattern_GetIAccessible(hobj, pAccessible) {
+    static LegacyIAccessiblePattern_GetIAccessible(hobj) {
         hobj := hobj is Win32Handle ? NumGet(hobj, "ptr") : hobj
 
-        result := DllCall("UIAutomationCore.dll\LegacyIAccessiblePattern_GetIAccessible", "ptr", hobj, "ptr*", pAccessible, "int")
+        result := DllCall("UIAutomationCore.dll\LegacyIAccessiblePattern_GetIAccessible", "ptr", hobj, "ptr*", &pAccessible := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IAccessible(pAccessible)
     }
 
     /**
@@ -5729,23 +5511,20 @@ class Accessibility {
      * @param {HWND} hwnd Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HWND</a></b>
      * 
      * The window containing the element served by the provider.
-     * @param {Pointer<IRawElementProviderSimple>} ppProvider Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>**</b>
+     * @returns {IRawElementProviderSimple} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>**</b>
      * 
      * The host provider for the window.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiahostproviderfromhwnd
      * @since windows5.1.2600
      */
-    static UiaHostProviderFromHwnd(hwnd, ppProvider) {
+    static UiaHostProviderFromHwnd(hwnd) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("UIAutomationCore.dll\UiaHostProviderFromHwnd", "ptr", hwnd, "ptr*", ppProvider, "int")
+        result := DllCall("UIAutomationCore.dll\UiaHostProviderFromHwnd", "ptr", hwnd, "ptr*", &ppProvider := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IRawElementProviderSimple(ppProvider)
     }
 
     /**
@@ -5759,23 +5538,20 @@ class Accessibility {
      * @param {Integer} idChild Type: <b>long</b>
      * 
      * The child identifier of the non-client control.
-     * @param {Pointer<IRawElementProviderSimple>} ppProvider Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>**</b>
+     * @returns {IRawElementProviderSimple} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>**</b>
      * 
      * Receives the provider for the non-client area or non-client control.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
-     * 
-     * Returns S_OK if successful or an error value otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiaproviderfornonclient
      * @since windows8.0
      */
-    static UiaProviderForNonClient(hwnd, idObject, idChild, ppProvider) {
+    static UiaProviderForNonClient(hwnd, idObject, idChild) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("UIAutomationCore.dll\UiaProviderForNonClient", "ptr", hwnd, "int", idObject, "int", idChild, "ptr*", ppProvider, "int")
+        result := DllCall("UIAutomationCore.dll\UiaProviderForNonClient", "ptr", hwnd, "int", idObject, "int", idChild, "ptr*", &ppProvider := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IRawElementProviderSimple(ppProvider)
     }
 
     /**
@@ -5784,24 +5560,21 @@ class Accessibility {
      * 
      * A pointer to the UI Automation object.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
-     * @param {Pointer<IAccessible>} ppAccessible Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a>**</b>
-     * 
-     * Receives the pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> implementation for the provider.
      * @param {Pointer<VARIANT>} pvarChild Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinAuto/variant-structure">VARIANT</a>*</b>
      * 
      * Receives the child identifier of the accessible element in the <b>lVal</b> member.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {IAccessible} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a>**</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * Receives the pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> implementation for the provider.
      * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiaiaccessiblefromprovider
      * @since windows8.0
      */
-    static UiaIAccessibleFromProvider(pProvider, dwFlags, ppAccessible, pvarChild) {
-        result := DllCall("UIAutomationCore.dll\UiaIAccessibleFromProvider", "ptr", pProvider, "uint", dwFlags, "ptr*", ppAccessible, "ptr", pvarChild, "int")
+    static UiaIAccessibleFromProvider(pProvider, dwFlags, pvarChild) {
+        result := DllCall("UIAutomationCore.dll\UiaIAccessibleFromProvider", "ptr", pProvider, "uint", dwFlags, "ptr*", &ppAccessible := 0, "ptr", pvarChild, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IAccessible(ppAccessible)
     }
 
     /**
@@ -5813,21 +5586,18 @@ class Accessibility {
      * 
      * The child ID of the Microsoft Active Accessibility object.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
-     * @param {Pointer<IRawElementProviderSimple>} ppProvider Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>**</b>
+     * @returns {IRawElementProviderSimple} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>**</b>
      * 
      * The new UI Automation provider.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//uiautomationcoreapi/nf-uiautomationcoreapi-uiaproviderfromiaccessible
      * @since windows8.0
      */
-    static UiaProviderFromIAccessible(pAccessible, idChild, dwFlags, ppProvider) {
-        result := DllCall("UIAutomationCore.dll\UiaProviderFromIAccessible", "ptr", pAccessible, "int", idChild, "uint", dwFlags, "ptr*", ppProvider, "int")
+    static UiaProviderFromIAccessible(pAccessible, idChild, dwFlags) {
+        result := DllCall("UIAutomationCore.dll\UiaProviderFromIAccessible", "ptr", pAccessible, "int", idChild, "uint", dwFlags, "ptr*", &ppProvider := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IRawElementProviderSimple(ppProvider)
     }
 
     /**

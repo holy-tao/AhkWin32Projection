@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteFontFaceReference.ahk
+#Include .\IDWriteLocalizedStrings.ahk
 #Include .\IDWriteFontFace2.ahk
 
 /**
@@ -32,13 +34,12 @@ class IDWriteFontFace3 extends IDWriteFontFace2{
 
     /**
      * 
-     * @param {Pointer<IDWriteFontFaceReference>} fontFaceReference 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontFaceReference} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface3-getfontfacereference
      */
-    GetFontFaceReference(fontFaceReference) {
-        result := ComCall(35, this, "ptr*", fontFaceReference, "HRESULT")
-        return result
+    GetFontFaceReference() {
+        result := ComCall(35, this, "ptr*", &fontFaceReference := 0, "HRESULT")
+        return IDWriteFontFaceReference(fontFaceReference)
     }
 
     /**
@@ -83,24 +84,22 @@ class IDWriteFontFace3 extends IDWriteFontFace2{
 
     /**
      * 
-     * @param {Pointer<IDWriteLocalizedStrings>} names 
-     * @returns {HRESULT} 
+     * @returns {IDWriteLocalizedStrings} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface3-getfamilynames
      */
-    GetFamilyNames(names) {
-        result := ComCall(40, this, "ptr*", names, "HRESULT")
-        return result
+    GetFamilyNames() {
+        result := ComCall(40, this, "ptr*", &names := 0, "HRESULT")
+        return IDWriteLocalizedStrings(names)
     }
 
     /**
      * 
-     * @param {Pointer<IDWriteLocalizedStrings>} names 
-     * @returns {HRESULT} 
+     * @returns {IDWriteLocalizedStrings} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface3-getfacenames
      */
-    GetFaceNames(names) {
-        result := ComCall(41, this, "ptr*", names, "HRESULT")
-        return result
+    GetFaceNames() {
+        result := ComCall(41, this, "ptr*", &names := 0, "HRESULT")
+        return IDWriteLocalizedStrings(names)
     }
 
     /**
@@ -112,7 +111,9 @@ class IDWriteFontFace3 extends IDWriteFontFace2{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface3-getinformationalstrings
      */
     GetInformationalStrings(informationalStringID, informationalStrings, exists) {
-        result := ComCall(42, this, "int", informationalStringID, "ptr*", informationalStrings, "ptr", exists, "HRESULT")
+        existsMarshal := exists is VarRef ? "int*" : "ptr"
+
+        result := ComCall(42, this, "int", informationalStringID, "ptr*", informationalStrings, existsMarshal, exists, "HRESULT")
         return result
     }
 
@@ -177,15 +178,14 @@ class IDWriteFontFace3 extends IDWriteFontFace2{
      * @param {PWSTR} characters 
      * @param {Integer} characterCount 
      * @param {BOOL} enqueueIfNotLocal 
-     * @param {Pointer<BOOL>} isLocal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface3-arecharacterslocal
      */
-    AreCharactersLocal(characters, characterCount, enqueueIfNotLocal, isLocal) {
+    AreCharactersLocal(characters, characterCount, enqueueIfNotLocal) {
         characters := characters is String ? StrPtr(characters) : characters
 
-        result := ComCall(47, this, "ptr", characters, "uint", characterCount, "int", enqueueIfNotLocal, "ptr", isLocal, "HRESULT")
-        return result
+        result := ComCall(47, this, "ptr", characters, "uint", characterCount, "int", enqueueIfNotLocal, "int*", &isLocal := 0, "HRESULT")
+        return isLocal
     }
 
     /**
@@ -193,14 +193,13 @@ class IDWriteFontFace3 extends IDWriteFontFace2{
      * @param {Pointer<Integer>} glyphIndices 
      * @param {Integer} glyphCount 
      * @param {BOOL} enqueueIfNotLocal 
-     * @param {Pointer<BOOL>} isLocal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface3-areglyphslocal
      */
-    AreGlyphsLocal(glyphIndices, glyphCount, enqueueIfNotLocal, isLocal) {
+    AreGlyphsLocal(glyphIndices, glyphCount, enqueueIfNotLocal) {
         glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(48, this, glyphIndicesMarshal, glyphIndices, "uint", glyphCount, "int", enqueueIfNotLocal, "ptr", isLocal, "HRESULT")
-        return result
+        result := ComCall(48, this, glyphIndicesMarshal, glyphIndices, "uint", glyphCount, "int", enqueueIfNotLocal, "int*", &isLocal := 0, "HRESULT")
+        return isLocal
     }
 }

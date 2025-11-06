@@ -2,6 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ITTAPI.ahk
+#Include .\ITBasicCallControl.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IEnumCall.ahk
+#Include .\ITForwardInformation.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -33,48 +38,44 @@ class ITAddress extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pAddressState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress-get_state
      */
-    get_State(pAddressState) {
-        pAddressStateMarshal := pAddressState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pAddressStateMarshal, pAddressState, "HRESULT")
-        return result
+    get_State() {
+        result := ComCall(7, this, "int*", &pAddressState := 0, "HRESULT")
+        return pAddressState
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} ppName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress-get_addressname
      */
-    get_AddressName(ppName) {
+    get_AddressName() {
+        ppName := BSTR()
         result := ComCall(8, this, "ptr", ppName, "HRESULT")
-        return result
+        return ppName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} ppName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress-get_serviceprovidername
      */
-    get_ServiceProviderName(ppName) {
+    get_ServiceProviderName() {
+        ppName := BSTR()
         result := ComCall(9, this, "ptr", ppName, "HRESULT")
-        return result
+        return ppName
     }
 
     /**
      * 
-     * @param {Pointer<ITTAPI>} ppTapiObject 
-     * @returns {HRESULT} 
+     * @returns {ITTAPI} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress-get_tapiobject
      */
-    get_TAPIObject(ppTapiObject) {
-        result := ComCall(10, this, "ptr*", ppTapiObject, "HRESULT")
-        return result
+    get_TAPIObject() {
+        result := ComCall(10, this, "ptr*", &ppTapiObject := 0, "HRESULT")
+        return ITTAPI(ppTapiObject)
     }
 
     /**
@@ -82,59 +83,56 @@ class ITAddress extends IDispatch{
      * @param {BSTR} pDestAddress 
      * @param {Integer} lAddressType 
      * @param {Integer} lMediaTypes 
-     * @param {Pointer<ITBasicCallControl>} ppCall 
-     * @returns {HRESULT} 
+     * @returns {ITBasicCallControl} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress-createcall
      */
-    CreateCall(pDestAddress, lAddressType, lMediaTypes, ppCall) {
+    CreateCall(pDestAddress, lAddressType, lMediaTypes) {
         pDestAddress := pDestAddress is String ? BSTR.Alloc(pDestAddress).Value : pDestAddress
 
-        result := ComCall(11, this, "ptr", pDestAddress, "int", lAddressType, "int", lMediaTypes, "ptr*", ppCall, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", pDestAddress, "int", lAddressType, "int", lMediaTypes, "ptr*", &ppCall := 0, "HRESULT")
+        return ITBasicCallControl(ppCall)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pVariant 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress-get_calls
      */
-    get_Calls(pVariant) {
+    get_Calls() {
+        pVariant := VARIANT()
         result := ComCall(12, this, "ptr", pVariant, "HRESULT")
-        return result
+        return pVariant
     }
 
     /**
      * 
-     * @param {Pointer<IEnumCall>} ppCallEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumCall} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress-enumeratecalls
      */
-    EnumerateCalls(ppCallEnum) {
-        result := ComCall(13, this, "ptr*", ppCallEnum, "HRESULT")
-        return result
+    EnumerateCalls() {
+        result := ComCall(13, this, "ptr*", &ppCallEnum := 0, "HRESULT")
+        return IEnumCall(ppCallEnum)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pDialableAddress 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress-get_dialableaddress
      */
-    get_DialableAddress(pDialableAddress) {
+    get_DialableAddress() {
+        pDialableAddress := BSTR()
         result := ComCall(14, this, "ptr", pDialableAddress, "HRESULT")
-        return result
+        return pDialableAddress
     }
 
     /**
      * 
-     * @param {Pointer<ITForwardInformation>} ppForwardInfo 
-     * @returns {HRESULT} 
+     * @returns {ITForwardInformation} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress-createforwardinfoobject
      */
-    CreateForwardInfoObject(ppForwardInfo) {
-        result := ComCall(15, this, "ptr*", ppForwardInfo, "HRESULT")
-        return result
+    CreateForwardInfoObject() {
+        result := ComCall(15, this, "ptr*", &ppForwardInfo := 0, "HRESULT")
+        return ITForwardInformation(ppForwardInfo)
     }
 
     /**
@@ -151,13 +149,12 @@ class ITAddress extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ITForwardInformation>} ppForwardInfo 
-     * @returns {HRESULT} 
+     * @returns {ITForwardInformation} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress-get_currentforwardinfo
      */
-    get_CurrentForwardInfo(ppForwardInfo) {
-        result := ComCall(17, this, "ptr*", ppForwardInfo, "HRESULT")
-        return result
+    get_CurrentForwardInfo() {
+        result := ComCall(17, this, "ptr*", &ppForwardInfo := 0, "HRESULT")
+        return ITForwardInformation(ppForwardInfo)
     }
 
     /**
@@ -173,13 +170,12 @@ class ITAddress extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pfMessageWaiting 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress-get_messagewaiting
      */
-    get_MessageWaiting(pfMessageWaiting) {
-        result := ComCall(19, this, "ptr", pfMessageWaiting, "HRESULT")
-        return result
+    get_MessageWaiting() {
+        result := ComCall(19, this, "short*", &pfMessageWaiting := 0, "HRESULT")
+        return pfMessageWaiting
     }
 
     /**
@@ -195,12 +191,11 @@ class ITAddress extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pfDoNotDisturb 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress-get_donotdisturb
      */
-    get_DoNotDisturb(pfDoNotDisturb) {
-        result := ComCall(21, this, "ptr", pfDoNotDisturb, "HRESULT")
-        return result
+    get_DoNotDisturb() {
+        result := ComCall(21, this, "short*", &pfDoNotDisturb := 0, "HRESULT")
+        return pfDoNotDisturb
     }
 }

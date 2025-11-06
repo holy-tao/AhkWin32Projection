@@ -32,14 +32,11 @@ class IVdsHwProviderType2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdshwprovidertype2-getprovidertype2
      */
-    GetProviderType2(pType) {
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, pTypeMarshal, pType, "HRESULT")
-        return result
+    GetProviderType2() {
+        result := ComCall(3, this, "int*", &pType := 0, "HRESULT")
+        return pType
     }
 }

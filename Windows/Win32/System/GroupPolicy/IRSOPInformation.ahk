@@ -64,16 +64,15 @@ class IRSOPInformation extends IUnknown{
      * @param {PWSTR} pszEventLogName 
      * @param {PWSTR} pszEventTime 
      * @param {Integer} dwEventID 
-     * @param {Pointer<PWSTR>} ppszText 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-irsopinformation-geteventlogentrytext
      */
-    GetEventLogEntryText(pszEventSource, pszEventLogName, pszEventTime, dwEventID, ppszText) {
+    GetEventLogEntryText(pszEventSource, pszEventLogName, pszEventTime, dwEventID) {
         pszEventSource := pszEventSource is String ? StrPtr(pszEventSource) : pszEventSource
         pszEventLogName := pszEventLogName is String ? StrPtr(pszEventLogName) : pszEventLogName
         pszEventTime := pszEventTime is String ? StrPtr(pszEventTime) : pszEventTime
 
-        result := ComCall(5, this, "ptr", pszEventSource, "ptr", pszEventLogName, "ptr", pszEventTime, "uint", dwEventID, "ptr", ppszText, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", pszEventSource, "ptr", pszEventLogName, "ptr", pszEventTime, "uint", dwEventID, "ptr*", &ppszText := 0, "HRESULT")
+        return ppszText
     }
 }

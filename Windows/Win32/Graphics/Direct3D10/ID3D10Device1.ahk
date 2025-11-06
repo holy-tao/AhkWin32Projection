@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID3D10ShaderResourceView1.ahk
+#Include .\ID3D10BlendState1.ahk
 #Include .\ID3D10Device.ahk
 
 /**
@@ -41,25 +43,23 @@ class ID3D10Device1 extends ID3D10Device{
      * 
      * @param {ID3D10Resource} pResource 
      * @param {Pointer<D3D10_SHADER_RESOURCE_VIEW_DESC1>} pDesc 
-     * @param {Pointer<ID3D10ShaderResourceView1>} ppSRView 
-     * @returns {HRESULT} 
+     * @returns {ID3D10ShaderResourceView1} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10_1/nf-d3d10_1-id3d10device1-createshaderresourceview1
      */
-    CreateShaderResourceView1(pResource, pDesc, ppSRView) {
-        result := ComCall(98, this, "ptr", pResource, "ptr", pDesc, "ptr*", ppSRView, "HRESULT")
-        return result
+    CreateShaderResourceView1(pResource, pDesc) {
+        result := ComCall(98, this, "ptr", pResource, "ptr", pDesc, "ptr*", &ppSRView := 0, "HRESULT")
+        return ID3D10ShaderResourceView1(ppSRView)
     }
 
     /**
      * 
      * @param {Pointer<D3D10_BLEND_DESC1>} pBlendStateDesc 
-     * @param {Pointer<ID3D10BlendState1>} ppBlendState 
-     * @returns {HRESULT} 
+     * @returns {ID3D10BlendState1} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10_1/nf-d3d10_1-id3d10device1-createblendstate1
      */
-    CreateBlendState1(pBlendStateDesc, ppBlendState) {
-        result := ComCall(99, this, "ptr", pBlendStateDesc, "ptr*", ppBlendState, "HRESULT")
-        return result
+    CreateBlendState1(pBlendStateDesc) {
+        result := ComCall(99, this, "ptr", pBlendStateDesc, "ptr*", &ppBlendState := 0, "HRESULT")
+        return ID3D10BlendState1(ppBlendState)
     }
 
     /**

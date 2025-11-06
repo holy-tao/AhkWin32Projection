@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
 #Include .\IOleInPlaceSiteEx.ahk
 
 /**
@@ -96,15 +97,13 @@ class IOleInPlaceSiteWindowless extends IOleInPlaceSiteEx{
      * The GetDC function retrieves a handle to a device context (DC) for the client area of a specified window or for the entire screen.
      * @param {Pointer<RECT>} pRect 
      * @param {Integer} grfFlags 
-     * @param {Pointer<HDC>} phDC 
-     * @returns {HRESULT} If the function succeeds, the return value is a handle to the DC for the specified window's client area.
-     * 
-     * If the function fails, the return value is <b>NULL</b>.
+     * @returns {HDC} 
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getdc
      */
-    GetDC(pRect, grfFlags, phDC) {
+    GetDC(pRect, grfFlags) {
+        phDC := HDC()
         result := ComCall(23, this, "ptr", pRect, "uint", grfFlags, "ptr", phDC, "HRESULT")
-        return result
+        return phDC
     }
 
     /**
@@ -180,12 +179,11 @@ class IOleInPlaceSiteWindowless extends IOleInPlaceSiteEx{
      * @param {Integer} msg 
      * @param {WPARAM} wParam 
      * @param {LPARAM} lParam 
-     * @param {Pointer<LRESULT>} plResult 
-     * @returns {HRESULT} 
+     * @returns {LRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleinplacesitewindowless-ondefwindowmessage
      */
-    OnDefWindowMessage(msg, wParam, lParam, plResult) {
-        result := ComCall(29, this, "uint", msg, "ptr", wParam, "ptr", lParam, "ptr", plResult, "HRESULT")
-        return result
+    OnDefWindowMessage(msg, wParam, lParam) {
+        result := ComCall(29, this, "uint", msg, "ptr", wParam, "ptr", lParam, "ptr*", &plResult := 0, "HRESULT")
+        return plResult
     }
 }

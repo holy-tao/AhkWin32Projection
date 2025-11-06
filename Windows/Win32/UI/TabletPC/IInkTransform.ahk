@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Graphics\Gdi\XFORM.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -142,15 +143,12 @@ class IInkTransform extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} Value 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktransform-get_em11
      */
-    get_eM11(Value) {
-        ValueMarshal := Value is VarRef ? "float*" : "ptr"
-
-        result := ComCall(15, this, ValueMarshal, Value, "HRESULT")
-        return result
+    get_eM11() {
+        result := ComCall(15, this, "float*", &Value := 0, "HRESULT")
+        return Value
     }
 
     /**
@@ -166,15 +164,12 @@ class IInkTransform extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} Value 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktransform-get_em12
      */
-    get_eM12(Value) {
-        ValueMarshal := Value is VarRef ? "float*" : "ptr"
-
-        result := ComCall(17, this, ValueMarshal, Value, "HRESULT")
-        return result
+    get_eM12() {
+        result := ComCall(17, this, "float*", &Value := 0, "HRESULT")
+        return Value
     }
 
     /**
@@ -190,15 +185,12 @@ class IInkTransform extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} Value 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktransform-get_em21
      */
-    get_eM21(Value) {
-        ValueMarshal := Value is VarRef ? "float*" : "ptr"
-
-        result := ComCall(19, this, ValueMarshal, Value, "HRESULT")
-        return result
+    get_eM21() {
+        result := ComCall(19, this, "float*", &Value := 0, "HRESULT")
+        return Value
     }
 
     /**
@@ -214,15 +206,12 @@ class IInkTransform extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} Value 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktransform-get_em22
      */
-    get_eM22(Value) {
-        ValueMarshal := Value is VarRef ? "float*" : "ptr"
-
-        result := ComCall(21, this, ValueMarshal, Value, "HRESULT")
-        return result
+    get_eM22() {
+        result := ComCall(21, this, "float*", &Value := 0, "HRESULT")
+        return Value
     }
 
     /**
@@ -238,15 +227,12 @@ class IInkTransform extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} Value 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktransform-get_edx
      */
-    get_eDx(Value) {
-        ValueMarshal := Value is VarRef ? "float*" : "ptr"
-
-        result := ComCall(23, this, ValueMarshal, Value, "HRESULT")
-        return result
+    get_eDx() {
+        result := ComCall(23, this, "float*", &Value := 0, "HRESULT")
+        return Value
     }
 
     /**
@@ -262,15 +248,12 @@ class IInkTransform extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} Value 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktransform-get_edy
      */
-    get_eDy(Value) {
-        ValueMarshal := Value is VarRef ? "float*" : "ptr"
-
-        result := ComCall(25, this, ValueMarshal, Value, "HRESULT")
-        return result
+    get_eDy() {
+        result := ComCall(25, this, "float*", &Value := 0, "HRESULT")
+        return Value
     }
 
     /**
@@ -286,13 +269,13 @@ class IInkTransform extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<XFORM>} XForm 
-     * @returns {HRESULT} 
+     * @returns {XFORM} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinktransform-get_data
      */
-    get_Data(XForm) {
+    get_Data() {
+        XForm := XFORM()
         result := ComCall(27, this, "ptr", XForm, "HRESULT")
-        return result
+        return XForm
     }
 
     /**

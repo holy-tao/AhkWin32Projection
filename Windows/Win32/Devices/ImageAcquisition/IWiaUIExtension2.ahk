@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\UI\WindowsAndMessaging\HICON.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -45,15 +46,15 @@ class IWiaUIExtension2 extends IUnknown{
     /**
      * 
      * @param {BSTR} bstrDeviceId 
-     * @param {Pointer<HICON>} phIcon 
      * @param {Integer} nSize 
-     * @returns {HRESULT} 
+     * @returns {HICON} 
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiauiextension2-getdeviceicon
      */
-    GetDeviceIcon(bstrDeviceId, phIcon, nSize) {
+    GetDeviceIcon(bstrDeviceId, nSize) {
         bstrDeviceId := bstrDeviceId is String ? BSTR.Alloc(bstrDeviceId).Value : bstrDeviceId
 
+        phIcon := HICON()
         result := ComCall(4, this, "ptr", bstrDeviceId, "ptr", phIcon, "uint", nSize, "HRESULT")
-        return result
+        return phIcon
     }
 }

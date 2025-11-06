@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IXAudio2.ahk
+#Include .\IXAPO.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.XAudio2
@@ -1134,104 +1137,70 @@ class XAudio2 {
     /**
      * Creates an instance of the requested XAPOFX effect.
      * @param {Pointer<Guid>} clsid ID of the effect to create. Use the <b>__uuidof</b> on the effect class name to get the CLSID for an effect. For example, <b>__uuidof</b>(FXReverb) would provide the CLSID for the FXReverb effect. For a list of effects provided by XAPOFX, see <a href="https://docs.microsoft.com/windows/desktop/xaudio2/xapofx-overview">XAPOFX Overview</a>. For an example of retrieving the CLSID for an effect, see <a href="https://docs.microsoft.com/windows/desktop/xaudio2/how-to--use-xapofx-in-xaudio2">How to: Use XAPOFX in XAudio2</a>.
-     * @param {Pointer<IUnknown>} pEffect Receives a pointer to the created XAPO instance. If <b>CreateFX</b> fails, <i>pEffect </i> is untouched.
      * @param {Pointer} pInitDat 
      * @param {Integer} InitDataByteSize Size of <i>pInitData</i> in bytes. This is zero if <i>pInitData</i> is <b>NULL</b>.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @returns {IUnknown} Receives a pointer to the created XAPO instance. If <b>CreateFX</b> fails, <i>pEffect </i> is untouched.
      * @see https://docs.microsoft.com/windows/win32/api//xapofx/nf-xapofx-createfx
      */
-    static CreateFX(clsid, pEffect, pInitDat, InitDataByteSize) {
-        result := DllCall("XAudio2_8.dll\CreateFX", "ptr", clsid, "ptr*", pEffect, "ptr", pInitDat, "uint", InitDataByteSize, "CDecl int")
+    static CreateFX(clsid, pInitDat, InitDataByteSize) {
+        result := DllCall("XAudio2_8.dll\CreateFX", "ptr", clsid, "ptr*", &pEffect := 0, "ptr", pInitDat, "uint", InitDataByteSize, "CDecl int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IUnknown(pEffect)
     }
 
     /**
      * 
-     * @param {Pointer<IXAudio2>} ppXAudio2 
      * @param {Integer} Flags 
      * @param {Integer} XAudio2Processor 
      * @param {Integer} ntddiVersion 
-     * @returns {HRESULT} 
+     * @returns {IXAudio2} 
      */
-    static XAudio2CreateWithVersionInfo(ppXAudio2, Flags, XAudio2Processor, ntddiVersion) {
-        result := DllCall("XAudio2_8.dll\XAudio2CreateWithVersionInfo", "ptr*", ppXAudio2, "uint", Flags, "uint", XAudio2Processor, "uint", ntddiVersion, "int")
+    static XAudio2CreateWithVersionInfo(Flags, XAudio2Processor, ntddiVersion) {
+        result := DllCall("XAudio2_8.dll\XAudio2CreateWithVersionInfo", "ptr*", &ppXAudio2 := 0, "uint", Flags, "uint", XAudio2Processor, "uint", ntddiVersion, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IXAudio2(ppXAudio2)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppApo 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    static CreateAudioVolumeMeter(ppApo) {
-        result := DllCall("XAudio2_8.dll\CreateAudioVolumeMeter", "ptr*", ppApo, "int")
+    static CreateAudioVolumeMeter() {
+        result := DllCall("XAudio2_8.dll\CreateAudioVolumeMeter", "ptr*", &ppApo := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IUnknown(ppApo)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppApo 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    static CreateAudioReverb(ppApo) {
-        result := DllCall("XAudio2_8.dll\CreateAudioReverb", "ptr*", ppApo, "int")
+    static CreateAudioReverb() {
+        result := DllCall("XAudio2_8.dll\CreateAudioReverb", "ptr*", &ppApo := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IUnknown(ppApo)
     }
 
     /**
      * Creates an instance of the IXAPO interface for head-related transfer function (HRTF) processing.
      * @param {Pointer<HrtfApoInit>} init Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/hrtfapoapi/ns-hrtfapoapi-hrtfapoinit">HrtfApoInit</a> struct. Specifies parameters for XAPO interface initialization.
-     * @param {Pointer<IXAPO>} xApo The new instance of the <a href="https://docs.microsoft.com/windows/desktop/api/xapo/nn-xapo-ixapo">IXAPO</a> interface.
-     * @returns {HRESULT} This function can return the following values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An instance of the XAPO object was created successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_NOTIMPL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * HRTF is not supported on the current platform. 
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {IXAPO} The new instance of the <a href="https://docs.microsoft.com/windows/desktop/api/xapo/nn-xapo-ixapo">IXAPO</a> interface.
      * @see https://docs.microsoft.com/windows/win32/api//hrtfapoapi/nf-hrtfapoapi-createhrtfapo
      */
-    static CreateHrtfApo(init, xApo) {
-        result := DllCall("HrtfApo.dll\CreateHrtfApo", "ptr", init, "ptr*", xApo, "int")
+    static CreateHrtfApo(init) {
+        result := DllCall("HrtfApo.dll\CreateHrtfApo", "ptr", init, "ptr*", &xApo := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IXAPO(xApo)
     }
 
 ;@endregion Methods

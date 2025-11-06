@@ -48,14 +48,11 @@ class ITfSystemDeviceTypeLangBarItem extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itfsystemdevicetypelangbaritem-geticonmode
      */
-    GetIconMode(pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
-        return result
+    GetIconMode() {
+        result := ComCall(4, this, "uint*", &pdwFlags := 0, "HRESULT")
+        return pdwFlags
     }
 }

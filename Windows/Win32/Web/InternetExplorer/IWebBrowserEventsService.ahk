@@ -30,12 +30,11 @@ class IWebBrowserEventsService extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pfCancel 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    FireBeforeNavigate2Event(pfCancel) {
-        result := ComCall(3, this, "ptr", pfCancel, "HRESULT")
-        return result
+    FireBeforeNavigate2Event() {
+        result := ComCall(3, this, "short*", &pfCancel := 0, "HRESULT")
+        return pfCancel
     }
 
     /**

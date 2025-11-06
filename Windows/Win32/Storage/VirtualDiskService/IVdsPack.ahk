@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\VDS_PACK_PROP.ahk
+#Include .\IVdsProvider.ahk
+#Include .\IEnumVdsObject.ahk
+#Include .\IVdsAsync.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,46 +36,43 @@ class IVdsPack extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VDS_PACK_PROP>} pPackProp 
-     * @returns {HRESULT} 
+     * @returns {VDS_PACK_PROP} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdspack-getproperties
      */
-    GetProperties(pPackProp) {
+    GetProperties() {
+        pPackProp := VDS_PACK_PROP()
         result := ComCall(3, this, "ptr", pPackProp, "HRESULT")
-        return result
+        return pPackProp
     }
 
     /**
      * 
-     * @param {Pointer<IVdsProvider>} ppProvider 
-     * @returns {HRESULT} 
+     * @returns {IVdsProvider} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdspack-getprovider
      */
-    GetProvider(ppProvider) {
-        result := ComCall(4, this, "ptr*", ppProvider, "HRESULT")
-        return result
+    GetProvider() {
+        result := ComCall(4, this, "ptr*", &ppProvider := 0, "HRESULT")
+        return IVdsProvider(ppProvider)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumVdsObject>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumVdsObject} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdspack-queryvolumes
      */
-    QueryVolumes(ppEnum) {
-        result := ComCall(5, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    QueryVolumes() {
+        result := ComCall(5, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumVdsObject(ppEnum)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumVdsObject>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumVdsObject} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdspack-querydisks
      */
-    QueryDisks(ppEnum) {
-        result := ComCall(6, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    QueryDisks() {
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumVdsObject(ppEnum)
     }
 
     /**
@@ -80,13 +81,12 @@ class IVdsPack extends IUnknown{
      * @param {Pointer<VDS_INPUT_DISK>} pInputDiskArray 
      * @param {Integer} lNumberOfDisks 
      * @param {Integer} ulStripeSize 
-     * @param {Pointer<IVdsAsync>} ppAsync 
-     * @returns {HRESULT} 
+     * @returns {IVdsAsync} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdspack-createvolume
      */
-    CreateVolume(type, pInputDiskArray, lNumberOfDisks, ulStripeSize, ppAsync) {
-        result := ComCall(7, this, "int", type, "ptr", pInputDiskArray, "int", lNumberOfDisks, "uint", ulStripeSize, "ptr*", ppAsync, "HRESULT")
-        return result
+    CreateVolume(type, pInputDiskArray, lNumberOfDisks, ulStripeSize) {
+        result := ComCall(7, this, "int", type, "ptr", pInputDiskArray, "int", lNumberOfDisks, "uint", ulStripeSize, "ptr*", &ppAsync := 0, "HRESULT")
+        return IVdsAsync(ppAsync)
     }
 
     /**
@@ -115,7 +115,10 @@ class IVdsPack extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdspack-migratedisks
      */
     MigrateDisks(pDiskArray, lNumberOfDisks, TargetPack, bForce, bQueryOnly, pResults, pbRebootNeeded) {
-        result := ComCall(9, this, "ptr", pDiskArray, "int", lNumberOfDisks, "ptr", TargetPack, "int", bForce, "int", bQueryOnly, "ptr", pResults, "ptr", pbRebootNeeded, "HRESULT")
+        pResultsMarshal := pResults is VarRef ? "int*" : "ptr"
+        pbRebootNeededMarshal := pbRebootNeeded is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, "ptr", pDiskArray, "int", lNumberOfDisks, "ptr", TargetPack, "int", bForce, "int", bQueryOnly, pResultsMarshal, pResults, pbRebootNeededMarshal, pbRebootNeeded, "HRESULT")
         return result
     }
 
@@ -123,13 +126,12 @@ class IVdsPack extends IUnknown{
      * 
      * @param {Guid} OldDiskId 
      * @param {Guid} NewDiskId 
-     * @param {Pointer<IVdsAsync>} ppAsync 
-     * @returns {HRESULT} 
+     * @returns {IVdsAsync} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdspack-replacedisk
      */
-    ReplaceDisk(OldDiskId, NewDiskId, ppAsync) {
-        result := ComCall(10, this, "ptr", OldDiskId, "ptr", NewDiskId, "ptr*", ppAsync, "HRESULT")
-        return result
+    ReplaceDisk(OldDiskId, NewDiskId) {
+        result := ComCall(10, this, "ptr", OldDiskId, "ptr", NewDiskId, "ptr*", &ppAsync := 0, "HRESULT")
+        return IVdsAsync(ppAsync)
     }
 
     /**
@@ -145,12 +147,11 @@ class IVdsPack extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IVdsAsync>} ppAsync 
-     * @returns {HRESULT} 
+     * @returns {IVdsAsync} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdspack-recover
      */
-    Recover(ppAsync) {
-        result := ComCall(12, this, "ptr*", ppAsync, "HRESULT")
-        return result
+    Recover() {
+        result := ComCall(12, this, "ptr*", &ppAsync := 0, "HRESULT")
+        return IVdsAsync(ppAsync)
     }
 }

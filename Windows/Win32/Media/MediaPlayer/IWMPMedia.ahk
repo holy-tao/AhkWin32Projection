@@ -39,7 +39,9 @@ class IWMPMedia extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-get_isidentical
      */
     get_isIdentical(pIWMPMedia, pvbool) {
-        result := ComCall(7, this, "ptr", pIWMPMedia, "ptr", pvbool, "HRESULT")
+        pvboolMarshal := pvbool is VarRef ? "short*" : "ptr"
+
+        result := ComCall(7, this, "ptr", pIWMPMedia, pvboolMarshal, pvbool, "HRESULT")
         return result
     }
 
@@ -241,7 +243,9 @@ class IWMPMedia extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-ismemberof
      */
     isMemberOf(pPlaylist, pvarfIsMemberOf) {
-        result := ComCall(23, this, "ptr", pPlaylist, "ptr", pvarfIsMemberOf, "HRESULT")
+        pvarfIsMemberOfMarshal := pvarfIsMemberOf is VarRef ? "short*" : "ptr"
+
+        result := ComCall(23, this, "ptr", pPlaylist, pvarfIsMemberOfMarshal, pvarfIsMemberOf, "HRESULT")
         return result
     }
 
@@ -255,7 +259,9 @@ class IWMPMedia extends IDispatch{
     isReadOnlyItem(bstrItemName, pvarfIsReadOnly) {
         bstrItemName := bstrItemName is String ? BSTR.Alloc(bstrItemName).Value : bstrItemName
 
-        result := ComCall(24, this, "ptr", bstrItemName, "ptr", pvarfIsReadOnly, "HRESULT")
+        pvarfIsReadOnlyMarshal := pvarfIsReadOnly is VarRef ? "short*" : "ptr"
+
+        result := ComCall(24, this, "ptr", bstrItemName, pvarfIsReadOnlyMarshal, pvarfIsReadOnly, "HRESULT")
         return result
     }
 }

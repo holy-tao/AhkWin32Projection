@@ -73,12 +73,12 @@ class ICertPropertyRenewal extends ICertProperty{
     /**
      * 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyrenewal-get_renewal
      */
-    get_Renewal(Encoding, pValue) {
+    get_Renewal(Encoding) {
+        pValue := BSTR()
         result := ComCall(16, this, "int", Encoding, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 }

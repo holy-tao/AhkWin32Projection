@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Ole\IPictureDisp.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -59,13 +60,12 @@ class IMathInputControl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pvbShown 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/micaut/nf-micaut-imathinputcontrol-isvisible
      */
-    IsVisible(pvbShown) {
-        result := ComCall(9, this, "ptr", pvbShown, "HRESULT")
-        return result
+    IsVisible() {
+        result := ComCall(9, this, "short*", &pvbShown := 0, "HRESULT")
+        return pvbShown
     }
 
     /**
@@ -171,15 +171,12 @@ class IMathInputControl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} Height 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/micaut/nf-micaut-imathinputcontrol-getpreviewheight
      */
-    GetPreviewHeight(Height) {
-        HeightMarshal := Height is VarRef ? "int*" : "ptr"
-
-        result := ComCall(18, this, HeightMarshal, Height, "HRESULT")
-        return result
+    GetPreviewHeight() {
+        result := ComCall(18, this, "int*", &Height := 0, "HRESULT")
+        return Height
     }
 
     /**
@@ -232,12 +229,11 @@ class IMathInputControl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IPictureDisp>} HoverImage 
-     * @returns {HRESULT} 
+     * @returns {IPictureDisp} 
      * @see https://learn.microsoft.com/windows/win32/api/micaut/nf-micaut-imathinputcontrol-gethovericon
      */
-    GetHoverIcon(HoverImage) {
-        result := ComCall(23, this, "ptr*", HoverImage, "HRESULT")
-        return result
+    GetHoverIcon() {
+        result := ComCall(23, this, "ptr*", &HoverImage := 0, "HRESULT")
+        return IPictureDisp(HoverImage)
     }
 }

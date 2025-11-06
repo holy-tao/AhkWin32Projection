@@ -47,25 +47,21 @@ class ISearchBoxInfo extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-isearchboxinfo-getcondition
      */
-    GetCondition(riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetCondition(riid) {
+        result := ComCall(3, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppsz 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-isearchboxinfo-gettext
      */
-    GetText(ppsz) {
-        result := ComCall(4, this, "ptr", ppsz, "HRESULT")
-        return result
+    GetText() {
+        result := ComCall(4, this, "ptr*", &ppsz := 0, "HRESULT")
+        return ppsz
     }
 }

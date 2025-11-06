@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D11_VIDEO_SAMPLE_DESC.ahk
 #Include .\ID3D11VideoDevice.ahk
 
 /**
@@ -61,15 +62,12 @@ class ID3D11VideoDevice1 extends ID3D11VideoDevice{
      * @param {Pointer<DXGI_RATIONAL>} pFrameRate 
      * @param {Integer} BitRate 
      * @param {Pointer<Guid>} pCryptoType 
-     * @param {Pointer<Integer>} pDecoderCaps 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videodevice1-getvideodecodercaps
      */
-    GetVideoDecoderCaps(pDecoderProfile, SampleWidth, SampleHeight, pFrameRate, BitRate, pCryptoType, pDecoderCaps) {
-        pDecoderCapsMarshal := pDecoderCaps is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(21, this, "ptr", pDecoderProfile, "uint", SampleWidth, "uint", SampleHeight, "ptr", pFrameRate, "uint", BitRate, "ptr", pCryptoType, pDecoderCapsMarshal, pDecoderCaps, "HRESULT")
-        return result
+    GetVideoDecoderCaps(pDecoderProfile, SampleWidth, SampleHeight, pFrameRate, BitRate, pCryptoType) {
+        result := ComCall(21, this, "ptr", pDecoderProfile, "uint", SampleWidth, "uint", SampleHeight, "ptr", pFrameRate, "uint", BitRate, "ptr", pCryptoType, "uint*", &pDecoderCaps := 0, "HRESULT")
+        return pDecoderCaps
     }
 
     /**
@@ -85,7 +83,10 @@ class ID3D11VideoDevice1 extends ID3D11VideoDevice{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videodevice1-checkvideodecoderdownsampling
      */
     CheckVideoDecoderDownsampling(pInputDesc, InputColorSpace, pInputConfig, pFrameRate, pOutputDesc, pSupported, pRealTimeHint) {
-        result := ComCall(22, this, "ptr", pInputDesc, "int", InputColorSpace, "ptr", pInputConfig, "ptr", pFrameRate, "ptr", pOutputDesc, "ptr", pSupported, "ptr", pRealTimeHint, "HRESULT")
+        pSupportedMarshal := pSupported is VarRef ? "int*" : "ptr"
+        pRealTimeHintMarshal := pRealTimeHint is VarRef ? "int*" : "ptr"
+
+        result := ComCall(22, this, "ptr", pInputDesc, "int", InputColorSpace, "ptr", pInputConfig, "ptr", pFrameRate, "ptr", pOutputDesc, pSupportedMarshal, pSupported, pRealTimeHintMarshal, pRealTimeHint, "HRESULT")
         return result
     }
 
@@ -95,12 +96,12 @@ class ID3D11VideoDevice1 extends ID3D11VideoDevice{
      * @param {Integer} InputColorSpace 
      * @param {Pointer<D3D11_VIDEO_DECODER_CONFIG>} pInputConfig 
      * @param {Pointer<DXGI_RATIONAL>} pFrameRate 
-     * @param {Pointer<D3D11_VIDEO_SAMPLE_DESC>} pRecommendedOutputDesc 
-     * @returns {HRESULT} 
+     * @returns {D3D11_VIDEO_SAMPLE_DESC} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videodevice1-recommendvideodecoderdownsampleparameters
      */
-    RecommendVideoDecoderDownsampleParameters(pInputDesc, InputColorSpace, pInputConfig, pFrameRate, pRecommendedOutputDesc) {
+    RecommendVideoDecoderDownsampleParameters(pInputDesc, InputColorSpace, pInputConfig, pFrameRate) {
+        pRecommendedOutputDesc := D3D11_VIDEO_SAMPLE_DESC()
         result := ComCall(23, this, "ptr", pInputDesc, "int", InputColorSpace, "ptr", pInputConfig, "ptr", pFrameRate, "ptr", pRecommendedOutputDesc, "HRESULT")
-        return result
+        return pRecommendedOutputDesc
     }
 }

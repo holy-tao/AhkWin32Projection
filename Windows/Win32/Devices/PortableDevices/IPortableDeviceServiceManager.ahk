@@ -42,23 +42,23 @@ class IPortableDeviceServiceManager extends IUnknown{
     GetDeviceServices(pszPnPDeviceID, guidServiceCategory, pServices, pcServices) {
         pszPnPDeviceID := pszPnPDeviceID is String ? StrPtr(pszPnPDeviceID) : pszPnPDeviceID
 
+        pServicesMarshal := pServices is VarRef ? "ptr*" : "ptr"
         pcServicesMarshal := pcServices is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pszPnPDeviceID, "ptr", guidServiceCategory, "ptr", pServices, pcServicesMarshal, pcServices, "HRESULT")
+        result := ComCall(3, this, "ptr", pszPnPDeviceID, "ptr", guidServiceCategory, pServicesMarshal, pServices, pcServicesMarshal, pcServices, "HRESULT")
         return result
     }
 
     /**
      * 
      * @param {PWSTR} pszPnPServiceID 
-     * @param {Pointer<PWSTR>} ppszPnPDeviceID 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceservicemanager-getdeviceforservice
      */
-    GetDeviceForService(pszPnPServiceID, ppszPnPDeviceID) {
+    GetDeviceForService(pszPnPServiceID) {
         pszPnPServiceID := pszPnPServiceID is String ? StrPtr(pszPnPServiceID) : pszPnPServiceID
 
-        result := ComCall(4, this, "ptr", pszPnPServiceID, "ptr", ppszPnPDeviceID, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pszPnPServiceID, "ptr*", &ppszPnPDeviceID := 0, "HRESULT")
+        return ppszPnPDeviceID
     }
 }

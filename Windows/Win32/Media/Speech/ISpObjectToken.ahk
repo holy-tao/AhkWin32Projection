@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISpObjectTokenCategory.ahk
 #Include .\ISpDataKey.ahk
 
 /**
@@ -51,22 +52,20 @@ class ISpObjectToken extends ISpDataKey{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszCoMemTokenId 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetId(ppszCoMemTokenId) {
-        result := ComCall(16, this, "ptr", ppszCoMemTokenId, "HRESULT")
-        return result
+    GetId() {
+        result := ComCall(16, this, "ptr*", &ppszCoMemTokenId := 0, "HRESULT")
+        return ppszCoMemTokenId
     }
 
     /**
      * 
-     * @param {Pointer<ISpObjectTokenCategory>} ppTokenCategory 
-     * @returns {HRESULT} 
+     * @returns {ISpObjectTokenCategory} 
      */
-    GetCategory(ppTokenCategory) {
-        result := ComCall(17, this, "ptr*", ppTokenCategory, "HRESULT")
-        return result
+    GetCategory() {
+        result := ComCall(17, this, "ptr*", &ppTokenCategory := 0, "HRESULT")
+        return ISpObjectTokenCategory(ppTokenCategory)
     }
 
     /**
@@ -90,15 +89,14 @@ class ISpObjectToken extends ISpDataKey{
      * @param {PWSTR} pszValueName 
      * @param {PWSTR} pszFileNameSpecifier 
      * @param {Integer} nFolder 
-     * @param {Pointer<PWSTR>} ppszFilePath 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetStorageFileName(clsidCaller, pszValueName, pszFileNameSpecifier, nFolder, ppszFilePath) {
+    GetStorageFileName(clsidCaller, pszValueName, pszFileNameSpecifier, nFolder) {
         pszValueName := pszValueName is String ? StrPtr(pszValueName) : pszValueName
         pszFileNameSpecifier := pszFileNameSpecifier is String ? StrPtr(pszFileNameSpecifier) : pszFileNameSpecifier
 
-        result := ComCall(19, this, "ptr", clsidCaller, "ptr", pszValueName, "ptr", pszFileNameSpecifier, "uint", nFolder, "ptr", ppszFilePath, "HRESULT")
-        return result
+        result := ComCall(19, this, "ptr", clsidCaller, "ptr", pszValueName, "ptr", pszFileNameSpecifier, "uint", nFolder, "ptr*", &ppszFilePath := 0, "HRESULT")
+        return ppszFilePath
     }
 
     /**
@@ -138,8 +136,9 @@ class ISpObjectToken extends ISpDataKey{
         pszTypeOfUI := pszTypeOfUI is String ? StrPtr(pszTypeOfUI) : pszTypeOfUI
 
         pvExtraDataMarshal := pvExtraData is VarRef ? "ptr" : "ptr"
+        pfSupportedMarshal := pfSupported is VarRef ? "int*" : "ptr"
 
-        result := ComCall(22, this, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, "uint", cbExtraData, "ptr", punkObject, "ptr", pfSupported, "HRESULT")
+        result := ComCall(22, this, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, "uint", cbExtraData, "ptr", punkObject, pfSupportedMarshal, pfSupported, "HRESULT")
         return result
     }
 
@@ -173,7 +172,9 @@ class ISpObjectToken extends ISpDataKey{
     MatchesAttributes(pszAttributes, pfMatches) {
         pszAttributes := pszAttributes is String ? StrPtr(pszAttributes) : pszAttributes
 
-        result := ComCall(24, this, "ptr", pszAttributes, "ptr", pfMatches, "HRESULT")
+        pfMatchesMarshal := pfMatches is VarRef ? "int*" : "ptr"
+
+        result := ComCall(24, this, "ptr", pszAttributes, pfMatchesMarshal, pfMatches, "HRESULT")
         return result
     }
 }

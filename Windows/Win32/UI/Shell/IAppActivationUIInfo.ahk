@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Graphics\Gdi\HMONITOR.ahk
+#Include ..\..\Foundation\POINT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,63 +32,49 @@ class IAppActivationUIInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HMONITOR>} value 
-     * @returns {HRESULT} 
+     * @returns {HMONITOR} 
      */
-    GetMonitor(value) {
+    GetMonitor() {
+        value := HMONITOR()
         result := ComCall(3, this, "ptr", value, "HRESULT")
-        return result
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<POINT>} value 
-     * @returns {HRESULT} 
+     * @returns {POINT} 
      */
-    GetInvokePoint(value) {
+    GetInvokePoint() {
+        value := POINT()
         result := ComCall(4, this, "ptr", value, "HRESULT")
-        return result
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetShowCommand(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, valueMarshal, value, "HRESULT")
-        return result
+    GetShowCommand() {
+        result := ComCall(5, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} value 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    GetShowUI(value) {
-        result := ComCall(6, this, "ptr", value, "HRESULT")
-        return result
+    GetShowUI() {
+        result := ComCall(6, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * Retrieves the status of the specified virtual key. The status specifies whether the key is up, down, or toggled (on, off�alternating each time the key is pressed).
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} Type: <b>SHORT</b>
-     * 
-     * The return value specifies the status of the specified virtual key, as follows:
-     * 
-     * <ul>
-     * <li>If the high-order bit is 1, the key is down; otherwise, it is up.</li>
-     * <li>If the low-order bit is 1, the key is toggled. A key, such as the CAPS LOCK key, is toggled if it is turned on. The key is off and untoggled if the low-order bit is 0. A toggle key's indicator light (if any) on the keyboard will be on when the key is toggled, and off when the key is untoggled.</li>
-     * </ul>
+     * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getkeystate
      */
-    GetKeyState(value) {
-        valueMarshal := value is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, valueMarshal, value, "HRESULT")
-        return result
+    GetKeyState() {
+        result := ComCall(7, this, "uint*", &value := 0, "HRESULT")
+        return value
     }
 }

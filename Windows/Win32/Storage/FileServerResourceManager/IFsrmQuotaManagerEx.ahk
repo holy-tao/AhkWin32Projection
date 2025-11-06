@@ -35,14 +35,13 @@ class IFsrmQuotaManagerEx extends IFsrmQuotaManager{
      * 
      * @param {BSTR} path 
      * @param {Integer} options 
-     * @param {Pointer<VARIANT_BOOL>} affected 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotamanagerex-isaffectedbyquota
      */
-    IsAffectedByQuota(path, options, affected) {
+    IsAffectedByQuota(path, options) {
         path := path is String ? BSTR.Alloc(path).Value : path
 
-        result := ComCall(19, this, "ptr", path, "int", options, "ptr", affected, "HRESULT")
-        return result
+        result := ComCall(19, this, "ptr", path, "int", options, "short*", &affected := 0, "HRESULT")
+        return affected
     }
 }

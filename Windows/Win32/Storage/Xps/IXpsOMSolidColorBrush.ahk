@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsOMColorProfileResource.ahk
+#Include .\IXpsOMSolidColorBrush.ahk
 #Include .\IXpsOMBrush.ahk
 
 /**
@@ -80,13 +82,12 @@ class IXpsOMSolidColorBrush extends IXpsOMBrush{
     /**
      * 
      * @param {Pointer<XPS_COLOR>} color 
-     * @param {Pointer<IXpsOMColorProfileResource>} colorProfile 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMColorProfileResource} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomsolidcolorbrush-getcolor
      */
-    GetColor(color, colorProfile) {
-        result := ComCall(7, this, "ptr", color, "ptr*", colorProfile, "HRESULT")
-        return result
+    GetColor(color) {
+        result := ComCall(7, this, "ptr", color, "ptr*", &colorProfile := 0, "HRESULT")
+        return IXpsOMColorProfileResource(colorProfile)
     }
 
     /**
@@ -103,12 +104,11 @@ class IXpsOMSolidColorBrush extends IXpsOMBrush{
 
     /**
      * 
-     * @param {Pointer<IXpsOMSolidColorBrush>} solidColorBrush 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMSolidColorBrush} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomsolidcolorbrush-clone
      */
-    Clone(solidColorBrush) {
-        result := ComCall(9, this, "ptr*", solidColorBrush, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(9, this, "ptr*", &solidColorBrush := 0, "HRESULT")
+        return IXpsOMSolidColorBrush(solidColorBrush)
     }
 }

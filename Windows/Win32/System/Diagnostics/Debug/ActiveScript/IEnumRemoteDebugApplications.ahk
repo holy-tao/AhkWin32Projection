@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IEnumRemoteDebugApplications.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -63,11 +64,10 @@ class IEnumRemoteDebugApplications extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumRemoteDebugApplications>} ppessd 
-     * @returns {HRESULT} 
+     * @returns {IEnumRemoteDebugApplications} 
      */
-    Clone(ppessd) {
-        result := ComCall(6, this, "ptr*", ppessd, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppessd := 0, "HRESULT")
+        return IEnumRemoteDebugApplications(ppessd)
     }
 }

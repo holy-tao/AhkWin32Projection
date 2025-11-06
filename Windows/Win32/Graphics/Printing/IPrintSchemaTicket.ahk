@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IPrintSchemaFeature.ahk
+#Include .\IPrintSchemaAsyncOperation.ahk
+#Include .\IPrintSchemaCapabilities.ahk
 #Include .\IPrintSchemaElement.ahk
 
 /**
@@ -32,50 +35,46 @@ class IPrintSchemaTicket extends IPrintSchemaElement{
     /**
      * 
      * @param {BSTR} bstrKeyName 
-     * @param {Pointer<IPrintSchemaFeature>} ppFeature 
-     * @returns {HRESULT} 
+     * @returns {IPrintSchemaFeature} 
      */
-    GetFeatureByKeyName(bstrKeyName, ppFeature) {
+    GetFeatureByKeyName(bstrKeyName) {
         bstrKeyName := bstrKeyName is String ? BSTR.Alloc(bstrKeyName).Value : bstrKeyName
 
-        result := ComCall(10, this, "ptr", bstrKeyName, "ptr*", ppFeature, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", bstrKeyName, "ptr*", &ppFeature := 0, "HRESULT")
+        return IPrintSchemaFeature(ppFeature)
     }
 
     /**
      * 
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrNamespaceUri 
-     * @param {Pointer<IPrintSchemaFeature>} ppFeature 
-     * @returns {HRESULT} 
+     * @returns {IPrintSchemaFeature} 
      */
-    GetFeature(bstrName, bstrNamespaceUri, ppFeature) {
+    GetFeature(bstrName, bstrNamespaceUri) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
         bstrNamespaceUri := bstrNamespaceUri is String ? BSTR.Alloc(bstrNamespaceUri).Value : bstrNamespaceUri
 
-        result := ComCall(11, this, "ptr", bstrName, "ptr", bstrNamespaceUri, "ptr*", ppFeature, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", bstrName, "ptr", bstrNamespaceUri, "ptr*", &ppFeature := 0, "HRESULT")
+        return IPrintSchemaFeature(ppFeature)
     }
 
     /**
      * 
-     * @param {Pointer<IPrintSchemaAsyncOperation>} ppAsyncOperation 
-     * @returns {HRESULT} 
+     * @returns {IPrintSchemaAsyncOperation} 
      */
-    ValidateAsync(ppAsyncOperation) {
-        result := ComCall(12, this, "ptr*", ppAsyncOperation, "HRESULT")
-        return result
+    ValidateAsync() {
+        result := ComCall(12, this, "ptr*", &ppAsyncOperation := 0, "HRESULT")
+        return IPrintSchemaAsyncOperation(ppAsyncOperation)
     }
 
     /**
      * 
      * @param {IPrintSchemaTicket} pPrintTicketCommit 
-     * @param {Pointer<IPrintSchemaAsyncOperation>} ppAsyncOperation 
-     * @returns {HRESULT} 
+     * @returns {IPrintSchemaAsyncOperation} 
      */
-    CommitAsync(pPrintTicketCommit, ppAsyncOperation) {
-        result := ComCall(13, this, "ptr", pPrintTicketCommit, "ptr*", ppAsyncOperation, "HRESULT")
-        return result
+    CommitAsync(pPrintTicketCommit) {
+        result := ComCall(13, this, "ptr", pPrintTicketCommit, "ptr*", &ppAsyncOperation := 0, "HRESULT")
+        return IPrintSchemaAsyncOperation(ppAsyncOperation)
     }
 
     /**
@@ -89,24 +88,20 @@ class IPrintSchemaTicket extends IPrintSchemaElement{
 
     /**
      * 
-     * @param {Pointer<IPrintSchemaCapabilities>} ppCapabilities 
-     * @returns {HRESULT} 
+     * @returns {IPrintSchemaCapabilities} 
      */
-    GetCapabilities(ppCapabilities) {
-        result := ComCall(15, this, "ptr*", ppCapabilities, "HRESULT")
-        return result
+    GetCapabilities() {
+        result := ComCall(15, this, "ptr*", &ppCapabilities := 0, "HRESULT")
+        return IPrintSchemaCapabilities(ppCapabilities)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pulJobCopiesAllDocuments 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_JobCopiesAllDocuments(pulJobCopiesAllDocuments) {
-        pulJobCopiesAllDocumentsMarshal := pulJobCopiesAllDocuments is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(16, this, pulJobCopiesAllDocumentsMarshal, pulJobCopiesAllDocuments, "HRESULT")
-        return result
+    get_JobCopiesAllDocuments() {
+        result := ComCall(16, this, "uint*", &pulJobCopiesAllDocuments := 0, "HRESULT")
+        return pulJobCopiesAllDocuments
     }
 
     /**

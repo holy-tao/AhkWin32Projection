@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IFaxAccounts.ahk
+#Include .\IFaxAccount.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -43,41 +45,38 @@ class IFaxAccountSet extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IFaxAccounts>} ppFaxAccounts 
-     * @returns {HRESULT} 
+     * @returns {IFaxAccounts} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxaccountset-getaccounts
      */
-    GetAccounts(ppFaxAccounts) {
-        result := ComCall(7, this, "ptr*", ppFaxAccounts, "HRESULT")
-        return result
+    GetAccounts() {
+        result := ComCall(7, this, "ptr*", &ppFaxAccounts := 0, "HRESULT")
+        return IFaxAccounts(ppFaxAccounts)
     }
 
     /**
      * 
      * @param {BSTR} bstrAccountName 
-     * @param {Pointer<IFaxAccount>} pFaxAccount 
-     * @returns {HRESULT} 
+     * @returns {IFaxAccount} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxaccountset-getaccount
      */
-    GetAccount(bstrAccountName, pFaxAccount) {
+    GetAccount(bstrAccountName) {
         bstrAccountName := bstrAccountName is String ? BSTR.Alloc(bstrAccountName).Value : bstrAccountName
 
-        result := ComCall(8, this, "ptr", bstrAccountName, "ptr*", pFaxAccount, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", bstrAccountName, "ptr*", &pFaxAccount := 0, "HRESULT")
+        return IFaxAccount(pFaxAccount)
     }
 
     /**
      * 
      * @param {BSTR} bstrAccountName 
-     * @param {Pointer<IFaxAccount>} pFaxAccount 
-     * @returns {HRESULT} 
+     * @returns {IFaxAccount} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxaccountset-addaccount
      */
-    AddAccount(bstrAccountName, pFaxAccount) {
+    AddAccount(bstrAccountName) {
         bstrAccountName := bstrAccountName is String ? BSTR.Alloc(bstrAccountName).Value : bstrAccountName
 
-        result := ComCall(9, this, "ptr", bstrAccountName, "ptr*", pFaxAccount, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", bstrAccountName, "ptr*", &pFaxAccount := 0, "HRESULT")
+        return IFaxAccount(pFaxAccount)
     }
 
     /**

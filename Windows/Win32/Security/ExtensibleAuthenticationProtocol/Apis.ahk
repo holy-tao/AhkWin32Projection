@@ -1391,10 +1391,11 @@ class ExtensibleAuthenticationProtocol {
         pUserDataMarshal := pUserData is VarRef ? "char*" : "ptr"
         pdwSizeOfUserDataOutMarshal := pdwSizeOfUserDataOut is VarRef ? "uint*" : "ptr"
         ppUserDataOutMarshal := ppUserDataOut is VarRef ? "ptr*" : "ptr"
+        ppwszIdentityMarshal := ppwszIdentity is VarRef ? "ptr*" : "ptr"
         ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : "ptr"
         ppvReservedMarshal := ppvReserved is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("eappcfg.dll\EapHostPeerInvokeIdentityUI", "uint", dwVersion, "ptr", eapMethodType, "uint", dwFlags, "ptr", hwndParent, "uint", dwSizeofConnectionData, pConnectionDataMarshal, pConnectionData, "uint", dwSizeofUserData, pUserDataMarshal, pUserData, pdwSizeOfUserDataOutMarshal, pdwSizeOfUserDataOut, ppUserDataOutMarshal, ppUserDataOut, "ptr", ppwszIdentity, ppEapErrorMarshal, ppEapError, ppvReservedMarshal, ppvReserved, "uint")
+        result := DllCall("eappcfg.dll\EapHostPeerInvokeIdentityUI", "uint", dwVersion, "ptr", eapMethodType, "uint", dwFlags, "ptr", hwndParent, "uint", dwSizeofConnectionData, pConnectionDataMarshal, pConnectionData, "uint", dwSizeofUserData, pUserDataMarshal, pUserData, pdwSizeOfUserDataOutMarshal, pdwSizeOfUserDataOut, ppUserDataOutMarshal, ppUserDataOut, ppwszIdentityMarshal, ppwszIdentity, ppEapErrorMarshal, ppEapError, ppvReservedMarshal, ppvReserved, "uint")
         return result
     }
 
@@ -1986,8 +1987,9 @@ class ExtensibleAuthenticationProtocol {
     static EapHostPeerGetDataToUnplumbCredentials(pConnectionIdThatLastSavedCreds, phCredentialImpersonationToken, sessionHandle, ppEapError, fSaveToCredMan) {
         phCredentialImpersonationTokenMarshal := phCredentialImpersonationToken is VarRef ? "ptr*" : "ptr"
         ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : "ptr"
+        fSaveToCredManMarshal := fSaveToCredMan is VarRef ? "int*" : "ptr"
 
-        result := DllCall("eappprxy.dll\EapHostPeerGetDataToUnplumbCredentials", "ptr", pConnectionIdThatLastSavedCreds, phCredentialImpersonationTokenMarshal, phCredentialImpersonationToken, "uint", sessionHandle, ppEapErrorMarshal, ppEapError, "ptr", fSaveToCredMan, "uint")
+        result := DllCall("eappprxy.dll\EapHostPeerGetDataToUnplumbCredentials", "ptr", pConnectionIdThatLastSavedCreds, phCredentialImpersonationTokenMarshal, phCredentialImpersonationToken, "uint", sessionHandle, ppEapErrorMarshal, ppEapError, fSaveToCredManMarshal, fSaveToCredMan, "uint")
         return result
     }
 
@@ -2049,12 +2051,14 @@ class ExtensibleAuthenticationProtocol {
 
         pConnectionDataMarshal := pConnectionData is VarRef ? "char*" : "ptr"
         pUserDataMarshal := pUserData is VarRef ? "char*" : "ptr"
+        pfInvokeUIMarshal := pfInvokeUI is VarRef ? "int*" : "ptr"
         pdwSizeOfUserDataOutMarshal := pdwSizeOfUserDataOut is VarRef ? "uint*" : "ptr"
         ppUserDataOutMarshal := ppUserDataOut is VarRef ? "ptr*" : "ptr"
+        ppwszIdentityMarshal := ppwszIdentity is VarRef ? "ptr*" : "ptr"
         ppEapErrorMarshal := ppEapError is VarRef ? "ptr*" : "ptr"
         ppvReservedMarshal := ppvReserved is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("eappprxy.dll\EapHostPeerGetIdentity", "uint", dwVersion, "uint", dwFlags, "ptr", eapMethodType, "uint", dwSizeofConnectionData, pConnectionDataMarshal, pConnectionData, "uint", dwSizeofUserData, pUserDataMarshal, pUserData, "ptr", hTokenImpersonateUser, "ptr", pfInvokeUI, pdwSizeOfUserDataOutMarshal, pdwSizeOfUserDataOut, ppUserDataOutMarshal, ppUserDataOut, "ptr", ppwszIdentity, ppEapErrorMarshal, ppEapError, ppvReservedMarshal, ppvReserved, "uint")
+        result := DllCall("eappprxy.dll\EapHostPeerGetIdentity", "uint", dwVersion, "uint", dwFlags, "ptr", eapMethodType, "uint", dwSizeofConnectionData, pConnectionDataMarshal, pConnectionData, "uint", dwSizeofUserData, pUserDataMarshal, pUserData, "ptr", hTokenImpersonateUser, pfInvokeUIMarshal, pfInvokeUI, pdwSizeOfUserDataOutMarshal, pdwSizeOfUserDataOut, ppUserDataOutMarshal, ppUserDataOut, ppwszIdentityMarshal, ppwszIdentity, ppEapErrorMarshal, ppEapError, ppvReservedMarshal, ppvReserved, "uint")
         return result
     }
 
@@ -2066,7 +2070,9 @@ class ExtensibleAuthenticationProtocol {
      * @returns {Integer} 
      */
     static EapHostPeerGetEncryptedPassword(dwSizeofPassword, szPassword, ppszEncPassword) {
-        result := DllCall("eappprxy.dll\EapHostPeerGetEncryptedPassword", "uint", dwSizeofPassword, "ptr", szPassword, "ptr", ppszEncPassword, "uint")
+        ppszEncPasswordMarshal := ppszEncPassword is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("eappprxy.dll\EapHostPeerGetEncryptedPassword", "uint", dwSizeofPassword, "ptr", szPassword, ppszEncPasswordMarshal, ppszEncPassword, "uint")
         return result
     }
 

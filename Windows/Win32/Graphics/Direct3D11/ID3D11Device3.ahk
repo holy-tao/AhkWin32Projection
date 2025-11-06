@@ -1,6 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID3D11Texture2D1.ahk
+#Include .\ID3D11Texture3D1.ahk
+#Include .\ID3D11RasterizerState2.ahk
+#Include .\ID3D11ShaderResourceView1.ahk
+#Include .\ID3D11UnorderedAccessView1.ahk
+#Include .\ID3D11RenderTargetView1.ahk
+#Include .\ID3D11Query1.ahk
+#Include .\ID3D11DeviceContext3.ahk
 #Include .\ID3D11Device2.ahk
 
 /**
@@ -34,89 +42,82 @@ class ID3D11Device3 extends ID3D11Device2{
      * 
      * @param {Pointer<D3D11_TEXTURE2D_DESC1>} pDesc1 
      * @param {Pointer<D3D11_SUBRESOURCE_DATA>} pInitialData 
-     * @param {Pointer<ID3D11Texture2D1>} ppTexture2D 
-     * @returns {HRESULT} 
+     * @returns {ID3D11Texture2D1} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/nf-d3d11_3-id3d11device3-createtexture2d1
      */
-    CreateTexture2D1(pDesc1, pInitialData, ppTexture2D) {
-        result := ComCall(54, this, "ptr", pDesc1, "ptr", pInitialData, "ptr*", ppTexture2D, "HRESULT")
-        return result
+    CreateTexture2D1(pDesc1, pInitialData) {
+        result := ComCall(54, this, "ptr", pDesc1, "ptr", pInitialData, "ptr*", &ppTexture2D := 0, "HRESULT")
+        return ID3D11Texture2D1(ppTexture2D)
     }
 
     /**
      * 
      * @param {Pointer<D3D11_TEXTURE3D_DESC1>} pDesc1 
      * @param {Pointer<D3D11_SUBRESOURCE_DATA>} pInitialData 
-     * @param {Pointer<ID3D11Texture3D1>} ppTexture3D 
-     * @returns {HRESULT} 
+     * @returns {ID3D11Texture3D1} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/nf-d3d11_3-id3d11device3-createtexture3d1
      */
-    CreateTexture3D1(pDesc1, pInitialData, ppTexture3D) {
-        result := ComCall(55, this, "ptr", pDesc1, "ptr", pInitialData, "ptr*", ppTexture3D, "HRESULT")
-        return result
+    CreateTexture3D1(pDesc1, pInitialData) {
+        result := ComCall(55, this, "ptr", pDesc1, "ptr", pInitialData, "ptr*", &ppTexture3D := 0, "HRESULT")
+        return ID3D11Texture3D1(ppTexture3D)
     }
 
     /**
      * 
      * @param {Pointer<D3D11_RASTERIZER_DESC2>} pRasterizerDesc 
-     * @param {Pointer<ID3D11RasterizerState2>} ppRasterizerState 
-     * @returns {HRESULT} 
+     * @returns {ID3D11RasterizerState2} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/nf-d3d11_3-id3d11device3-createrasterizerstate2
      */
-    CreateRasterizerState2(pRasterizerDesc, ppRasterizerState) {
-        result := ComCall(56, this, "ptr", pRasterizerDesc, "ptr*", ppRasterizerState, "HRESULT")
-        return result
+    CreateRasterizerState2(pRasterizerDesc) {
+        result := ComCall(56, this, "ptr", pRasterizerDesc, "ptr*", &ppRasterizerState := 0, "HRESULT")
+        return ID3D11RasterizerState2(ppRasterizerState)
     }
 
     /**
      * 
      * @param {ID3D11Resource} pResource 
      * @param {Pointer<D3D11_SHADER_RESOURCE_VIEW_DESC1>} pDesc1 
-     * @param {Pointer<ID3D11ShaderResourceView1>} ppSRView1 
-     * @returns {HRESULT} 
+     * @returns {ID3D11ShaderResourceView1} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/nf-d3d11_3-id3d11device3-createshaderresourceview1
      */
-    CreateShaderResourceView1(pResource, pDesc1, ppSRView1) {
-        result := ComCall(57, this, "ptr", pResource, "ptr", pDesc1, "ptr*", ppSRView1, "HRESULT")
-        return result
+    CreateShaderResourceView1(pResource, pDesc1) {
+        result := ComCall(57, this, "ptr", pResource, "ptr", pDesc1, "ptr*", &ppSRView1 := 0, "HRESULT")
+        return ID3D11ShaderResourceView1(ppSRView1)
     }
 
     /**
      * 
      * @param {ID3D11Resource} pResource 
      * @param {Pointer<D3D11_UNORDERED_ACCESS_VIEW_DESC1>} pDesc1 
-     * @param {Pointer<ID3D11UnorderedAccessView1>} ppUAView1 
-     * @returns {HRESULT} 
+     * @returns {ID3D11UnorderedAccessView1} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/nf-d3d11_3-id3d11device3-createunorderedaccessview1
      */
-    CreateUnorderedAccessView1(pResource, pDesc1, ppUAView1) {
-        result := ComCall(58, this, "ptr", pResource, "ptr", pDesc1, "ptr*", ppUAView1, "HRESULT")
-        return result
+    CreateUnorderedAccessView1(pResource, pDesc1) {
+        result := ComCall(58, this, "ptr", pResource, "ptr", pDesc1, "ptr*", &ppUAView1 := 0, "HRESULT")
+        return ID3D11UnorderedAccessView1(ppUAView1)
     }
 
     /**
      * 
      * @param {ID3D11Resource} pResource 
      * @param {Pointer<D3D11_RENDER_TARGET_VIEW_DESC1>} pDesc1 
-     * @param {Pointer<ID3D11RenderTargetView1>} ppRTView1 
-     * @returns {HRESULT} 
+     * @returns {ID3D11RenderTargetView1} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/nf-d3d11_3-id3d11device3-createrendertargetview1
      */
-    CreateRenderTargetView1(pResource, pDesc1, ppRTView1) {
-        result := ComCall(59, this, "ptr", pResource, "ptr", pDesc1, "ptr*", ppRTView1, "HRESULT")
-        return result
+    CreateRenderTargetView1(pResource, pDesc1) {
+        result := ComCall(59, this, "ptr", pResource, "ptr", pDesc1, "ptr*", &ppRTView1 := 0, "HRESULT")
+        return ID3D11RenderTargetView1(ppRTView1)
     }
 
     /**
      * 
      * @param {Pointer<D3D11_QUERY_DESC1>} pQueryDesc1 
-     * @param {Pointer<ID3D11Query1>} ppQuery1 
-     * @returns {HRESULT} 
+     * @returns {ID3D11Query1} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/nf-d3d11_3-id3d11device3-createquery1
      */
-    CreateQuery1(pQueryDesc1, ppQuery1) {
-        result := ComCall(60, this, "ptr", pQueryDesc1, "ptr*", ppQuery1, "HRESULT")
-        return result
+    CreateQuery1(pQueryDesc1) {
+        result := ComCall(60, this, "ptr", pQueryDesc1, "ptr*", &ppQuery1 := 0, "HRESULT")
+        return ID3D11Query1(ppQuery1)
     }
 
     /**
@@ -132,13 +133,12 @@ class ID3D11Device3 extends ID3D11Device2{
     /**
      * 
      * @param {Integer} ContextFlags 
-     * @param {Pointer<ID3D11DeviceContext3>} ppDeferredContext 
-     * @returns {HRESULT} 
+     * @returns {ID3D11DeviceContext3} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_3/nf-d3d11_3-id3d11device3-createdeferredcontext3
      */
-    CreateDeferredContext3(ContextFlags, ppDeferredContext) {
-        result := ComCall(62, this, "uint", ContextFlags, "ptr*", ppDeferredContext, "HRESULT")
-        return result
+    CreateDeferredContext3(ContextFlags) {
+        result := ComCall(62, this, "uint", ContextFlags, "ptr*", &ppDeferredContext := 0, "HRESULT")
+        return ID3D11DeviceContext3(ppDeferredContext)
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IVssCreateExpressWriterMetadata.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -38,15 +39,14 @@ class IVssExpressWriter extends IUnknown{
      * @param {Integer} versionMajor 
      * @param {Integer} versionMinor 
      * @param {Integer} reserved 
-     * @param {Pointer<IVssCreateExpressWriterMetadata>} ppMetadata 
-     * @returns {HRESULT} 
+     * @returns {IVssCreateExpressWriterMetadata} 
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivssexpresswriter-createmetadata
      */
-    CreateMetadata(writerId, writerName, usageType, versionMajor, versionMinor, reserved, ppMetadata) {
+    CreateMetadata(writerId, writerName, usageType, versionMajor, versionMinor, reserved) {
         writerName := writerName is String ? StrPtr(writerName) : writerName
 
-        result := ComCall(3, this, "ptr", writerId, "ptr", writerName, "int", usageType, "uint", versionMajor, "uint", versionMinor, "uint", reserved, "ptr*", ppMetadata, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", writerId, "ptr", writerName, "int", usageType, "uint", versionMajor, "uint", versionMinor, "uint", reserved, "ptr*", &ppMetadata := 0, "HRESULT")
+        return IVssCreateExpressWriterMetadata(ppMetadata)
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUIAutomationElement.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,12 +34,11 @@ class IUIAutomationCustomNavigationPattern extends IUnknown{
     /**
      * 
      * @param {Integer} direction 
-     * @param {Pointer<IUIAutomationElement>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElement} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationcustomnavigationpattern-navigate
      */
-    Navigate(direction, pRetVal) {
-        result := ComCall(3, this, "int", direction, "ptr*", pRetVal, "HRESULT")
-        return result
+    Navigate(direction) {
+        result := ComCall(3, this, "int", direction, "ptr*", &pRetVal := 0, "HRESULT")
+        return IUIAutomationElement(pRetVal)
     }
 }

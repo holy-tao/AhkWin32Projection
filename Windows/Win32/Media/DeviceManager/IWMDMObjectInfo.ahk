@@ -32,15 +32,12 @@ class IWMDMObjectInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmobjectinfo-getplaylength
      */
-    GetPlayLength(pdwLength) {
-        pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pdwLengthMarshal, pdwLength, "HRESULT")
-        return result
+    GetPlayLength() {
+        result := ComCall(3, this, "uint*", &pdwLength := 0, "HRESULT")
+        return pdwLength
     }
 
     /**
@@ -56,15 +53,12 @@ class IWMDMObjectInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwOffset 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmobjectinfo-getplayoffset
      */
-    GetPlayOffset(pdwOffset) {
-        pdwOffsetMarshal := pdwOffset is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pdwOffsetMarshal, pdwOffset, "HRESULT")
-        return result
+    GetPlayOffset() {
+        result := ComCall(5, this, "uint*", &pdwOffset := 0, "HRESULT")
+        return pdwOffset
     }
 
     /**
@@ -80,40 +74,31 @@ class IWMDMObjectInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmobjectinfo-gettotallength
      */
-    GetTotalLength(pdwLength) {
-        pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pdwLengthMarshal, pdwLength, "HRESULT")
-        return result
+    GetTotalLength() {
+        result := ComCall(7, this, "uint*", &pdwLength := 0, "HRESULT")
+        return pdwLength
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwLastPos 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmobjectinfo-getlastplayposition
      */
-    GetLastPlayPosition(pdwLastPos) {
-        pdwLastPosMarshal := pdwLastPos is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pdwLastPosMarshal, pdwLastPos, "HRESULT")
-        return result
+    GetLastPlayPosition() {
+        result := ComCall(8, this, "uint*", &pdwLastPos := 0, "HRESULT")
+        return pdwLastPos
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwLongestPos 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmobjectinfo-getlongestplayposition
      */
-    GetLongestPlayPosition(pdwLongestPos) {
-        pdwLongestPosMarshal := pdwLongestPos is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, pdwLongestPosMarshal, pdwLongestPos, "HRESULT")
-        return result
+    GetLongestPlayPosition() {
+        result := ComCall(9, this, "uint*", &pdwLongestPos := 0, "HRESULT")
+        return pdwLongestPos
     }
 }

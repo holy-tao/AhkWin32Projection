@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IGPMResult.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -39,86 +40,80 @@ class IGPMStarterGPOBackup extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrBackupDir 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_BackupDir(pbstrBackupDir) {
+    get_BackupDir() {
+        pbstrBackupDir := BSTR()
         result := ComCall(7, this, "ptr", pbstrBackupDir, "HRESULT")
-        return result
+        return pbstrBackupDir
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrComment 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Comment(pbstrComment) {
+    get_Comment() {
+        pbstrComment := BSTR()
         result := ComCall(8, this, "ptr", pbstrComment, "HRESULT")
-        return result
+        return pbstrComment
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrDisplayName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_DisplayName(pbstrDisplayName) {
+    get_DisplayName() {
+        pbstrDisplayName := BSTR()
         result := ComCall(9, this, "ptr", pbstrDisplayName, "HRESULT")
-        return result
+        return pbstrDisplayName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrTemplateDomain 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Domain(pbstrTemplateDomain) {
+    get_Domain() {
+        pbstrTemplateDomain := BSTR()
         result := ComCall(10, this, "ptr", pbstrTemplateDomain, "HRESULT")
-        return result
+        return pbstrTemplateDomain
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrTemplateID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_StarterGPOID(pbstrTemplateID) {
+    get_StarterGPOID() {
+        pbstrTemplateID := BSTR()
         result := ComCall(11, this, "ptr", pbstrTemplateID, "HRESULT")
-        return result
+        return pbstrTemplateID
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ID(pbstrID) {
+    get_ID() {
+        pbstrID := BSTR()
         result := ComCall(12, this, "ptr", pbstrID, "HRESULT")
-        return result
+        return pbstrID
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pTimestamp 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_Timestamp(pTimestamp) {
-        pTimestampMarshal := pTimestamp is VarRef ? "double*" : "ptr"
-
-        result := ComCall(13, this, pTimestampMarshal, pTimestamp, "HRESULT")
-        return result
+    get_Timestamp() {
+        result := ComCall(13, this, "double*", &pTimestamp := 0, "HRESULT")
+        return pTimestamp
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Type(pType) {
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, pTypeMarshal, pType, "HRESULT")
-        return result
+    get_Type() {
+        result := ComCall(14, this, "int*", &pType := 0, "HRESULT")
+        return pType
     }
 
     /**
@@ -136,27 +131,25 @@ class IGPMStarterGPOBackup extends IDispatch{
      * @param {Integer} gpmReportType 
      * @param {Pointer<VARIANT>} pvarGPMProgress 
      * @param {Pointer<VARIANT>} pvarGPMCancel 
-     * @param {Pointer<IGPMResult>} ppIGPMResult 
-     * @returns {HRESULT} 
+     * @returns {IGPMResult} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmstartergpobackup-generatereport
      */
-    GenerateReport(gpmReportType, pvarGPMProgress, pvarGPMCancel, ppIGPMResult) {
-        result := ComCall(16, this, "int", gpmReportType, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", ppIGPMResult, "HRESULT")
-        return result
+    GenerateReport(gpmReportType, pvarGPMProgress, pvarGPMCancel) {
+        result := ComCall(16, this, "int", gpmReportType, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
+        return IGPMResult(ppIGPMResult)
     }
 
     /**
      * 
      * @param {Integer} gpmReportType 
      * @param {BSTR} bstrTargetFilePath 
-     * @param {Pointer<IGPMResult>} ppIGPMResult 
-     * @returns {HRESULT} 
+     * @returns {IGPMResult} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmstartergpobackup-generatereporttofile
      */
-    GenerateReportToFile(gpmReportType, bstrTargetFilePath, ppIGPMResult) {
+    GenerateReportToFile(gpmReportType, bstrTargetFilePath) {
         bstrTargetFilePath := bstrTargetFilePath is String ? BSTR.Alloc(bstrTargetFilePath).Value : bstrTargetFilePath
 
-        result := ComCall(17, this, "int", gpmReportType, "ptr", bstrTargetFilePath, "ptr*", ppIGPMResult, "HRESULT")
-        return result
+        result := ComCall(17, this, "int", gpmReportType, "ptr", bstrTargetFilePath, "ptr*", &ppIGPMResult := 0, "HRESULT")
+        return IGPMResult(ppIGPMResult)
     }
 }

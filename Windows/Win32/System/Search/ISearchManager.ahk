@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISearchCatalogManager.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -36,13 +37,12 @@ class ISearchManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszVersionString 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchmanager-getindexerversionstr
      */
-    GetIndexerVersionStr(ppszVersionString) {
-        result := ComCall(3, this, "ptr", ppszVersionString, "HRESULT")
-        return result
+    GetIndexerVersionStr() {
+        result := ComCall(3, this, "ptr*", &ppszVersionString := 0, "HRESULT")
+        return ppszVersionString
     }
 
     /**
@@ -63,17 +63,14 @@ class ISearchManager extends IUnknown{
     /**
      * 
      * @param {PWSTR} pszName 
-     * @param {Pointer<Pointer<PROPVARIANT>>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {Pointer<PROPVARIANT>} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchmanager-getparameter
      */
-    GetParameter(pszName, ppValue) {
+    GetParameter(pszName) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        ppValueMarshal := ppValue is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, "ptr", pszName, ppValueMarshal, ppValue, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", pszName, "ptr*", &ppValue := 0, "HRESULT")
+        return ppValue
     }
 
     /**
@@ -92,24 +89,22 @@ class ISearchManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszProxyName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchmanager-get_proxyname
      */
-    get_ProxyName(ppszProxyName) {
-        result := ComCall(7, this, "ptr", ppszProxyName, "HRESULT")
-        return result
+    get_ProxyName() {
+        result := ComCall(7, this, "ptr*", &ppszProxyName := 0, "HRESULT")
+        return ppszProxyName
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszBypassList 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchmanager-get_bypasslist
      */
-    get_BypassList(ppszBypassList) {
-        result := ComCall(8, this, "ptr", ppszBypassList, "HRESULT")
-        return result
+    get_BypassList() {
+        result := ComCall(8, this, "ptr*", &ppszBypassList := 0, "HRESULT")
+        return ppszBypassList
     }
 
     /**
@@ -133,26 +128,24 @@ class ISearchManager extends IUnknown{
     /**
      * 
      * @param {PWSTR} pszCatalog 
-     * @param {Pointer<ISearchCatalogManager>} ppCatalogManager 
-     * @returns {HRESULT} 
+     * @returns {ISearchCatalogManager} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchmanager-getcatalog
      */
-    GetCatalog(pszCatalog, ppCatalogManager) {
+    GetCatalog(pszCatalog) {
         pszCatalog := pszCatalog is String ? StrPtr(pszCatalog) : pszCatalog
 
-        result := ComCall(10, this, "ptr", pszCatalog, "ptr*", ppCatalogManager, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", pszCatalog, "ptr*", &ppCatalogManager := 0, "HRESULT")
+        return ISearchCatalogManager(ppCatalogManager)
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszUserAgent 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchmanager-get_useragent
      */
-    get_UserAgent(ppszUserAgent) {
-        result := ComCall(11, this, "ptr", ppszUserAgent, "HRESULT")
-        return result
+    get_UserAgent() {
+        result := ComCall(11, this, "ptr*", &ppszUserAgent := 0, "HRESULT")
+        return ppszUserAgent
     }
 
     /**
@@ -170,38 +163,31 @@ class ISearchManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pUseProxy 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchmanager-get_useproxy
      */
-    get_UseProxy(pUseProxy) {
-        pUseProxyMarshal := pUseProxy is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, pUseProxyMarshal, pUseProxy, "HRESULT")
-        return result
+    get_UseProxy() {
+        result := ComCall(13, this, "int*", &pUseProxy := 0, "HRESULT")
+        return pUseProxy
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfLocalBypass 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchmanager-get_localbypass
      */
-    get_LocalBypass(pfLocalBypass) {
-        result := ComCall(14, this, "ptr", pfLocalBypass, "HRESULT")
-        return result
+    get_LocalBypass() {
+        result := ComCall(14, this, "int*", &pfLocalBypass := 0, "HRESULT")
+        return pfLocalBypass
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwPortNumber 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchmanager-get_portnumber
      */
-    get_PortNumber(pdwPortNumber) {
-        pdwPortNumberMarshal := pdwPortNumber is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(15, this, pdwPortNumberMarshal, pdwPortNumber, "HRESULT")
-        return result
+    get_PortNumber() {
+        result := ComCall(15, this, "uint*", &pdwPortNumber := 0, "HRESULT")
+        return pdwPortNumber
     }
 }

@@ -40,29 +40,23 @@ class IExplorerCommandProvider extends IUnknown{
      * 
      * @param {IUnknown} punkSite 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorercommandprovider-getcommands
      */
-    GetCommands(punkSite, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", punkSite, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetCommands(punkSite, riid) {
+        result := ComCall(3, this, "ptr", punkSite, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * 
      * @param {Pointer<Guid>} rguidCommandId 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorercommandprovider-getcommand
      */
-    GetCommand(rguidCommandId, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "ptr", rguidCommandId, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetCommand(rguidCommandId, riid) {
+        result := ComCall(4, this, "ptr", rguidCommandId, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 }

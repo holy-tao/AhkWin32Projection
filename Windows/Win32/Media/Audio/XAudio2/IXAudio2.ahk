@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IXAudio2SourceVoice.ahk
+#Include .\IXAudio2SubmixVoice.ahk
+#Include .\IXAudio2MasteringVoice.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -53,55 +56,52 @@ class IXAudio2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IXAudio2SourceVoice>} ppSourceVoice 
      * @param {Pointer<WAVEFORMATEX>} pSourceFormat 
      * @param {Integer} Flags 
      * @param {Float} MaxFrequencyRatio 
      * @param {IXAudio2VoiceCallback} pCallback 
      * @param {Pointer<XAUDIO2_VOICE_SENDS>} pSendList 
      * @param {Pointer<XAUDIO2_EFFECT_CHAIN>} pEffectChain 
-     * @returns {HRESULT} 
+     * @returns {IXAudio2SourceVoice} 
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2-createsourcevoice
      */
-    CreateSourceVoice(ppSourceVoice, pSourceFormat, Flags, MaxFrequencyRatio, pCallback, pSendList, pEffectChain) {
-        result := ComCall(5, this, "ptr*", ppSourceVoice, "ptr", pSourceFormat, "uint", Flags, "float", MaxFrequencyRatio, "ptr", pCallback, "ptr", pSendList, "ptr", pEffectChain, "HRESULT")
-        return result
+    CreateSourceVoice(pSourceFormat, Flags, MaxFrequencyRatio, pCallback, pSendList, pEffectChain) {
+        result := ComCall(5, this, "ptr*", &ppSourceVoice := 0, "ptr", pSourceFormat, "uint", Flags, "float", MaxFrequencyRatio, "ptr", pCallback, "ptr", pSendList, "ptr", pEffectChain, "HRESULT")
+        return IXAudio2SourceVoice(ppSourceVoice)
     }
 
     /**
      * 
-     * @param {Pointer<IXAudio2SubmixVoice>} ppSubmixVoice 
      * @param {Integer} InputChannels 
      * @param {Integer} InputSampleRate 
      * @param {Integer} Flags 
      * @param {Integer} ProcessingStage 
      * @param {Pointer<XAUDIO2_VOICE_SENDS>} pSendList 
      * @param {Pointer<XAUDIO2_EFFECT_CHAIN>} pEffectChain 
-     * @returns {HRESULT} 
+     * @returns {IXAudio2SubmixVoice} 
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2-createsubmixvoice
      */
-    CreateSubmixVoice(ppSubmixVoice, InputChannels, InputSampleRate, Flags, ProcessingStage, pSendList, pEffectChain) {
-        result := ComCall(6, this, "ptr*", ppSubmixVoice, "uint", InputChannels, "uint", InputSampleRate, "uint", Flags, "uint", ProcessingStage, "ptr", pSendList, "ptr", pEffectChain, "HRESULT")
-        return result
+    CreateSubmixVoice(InputChannels, InputSampleRate, Flags, ProcessingStage, pSendList, pEffectChain) {
+        result := ComCall(6, this, "ptr*", &ppSubmixVoice := 0, "uint", InputChannels, "uint", InputSampleRate, "uint", Flags, "uint", ProcessingStage, "ptr", pSendList, "ptr", pEffectChain, "HRESULT")
+        return IXAudio2SubmixVoice(ppSubmixVoice)
     }
 
     /**
      * 
-     * @param {Pointer<IXAudio2MasteringVoice>} ppMasteringVoice 
      * @param {Integer} InputChannels 
      * @param {Integer} InputSampleRate 
      * @param {Integer} Flags 
      * @param {PWSTR} szDeviceId 
      * @param {Pointer<XAUDIO2_EFFECT_CHAIN>} pEffectChain 
      * @param {Integer} StreamCategory 
-     * @returns {HRESULT} 
+     * @returns {IXAudio2MasteringVoice} 
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2-createmasteringvoice
      */
-    CreateMasteringVoice(ppMasteringVoice, InputChannels, InputSampleRate, Flags, szDeviceId, pEffectChain, StreamCategory) {
+    CreateMasteringVoice(InputChannels, InputSampleRate, Flags, szDeviceId, pEffectChain, StreamCategory) {
         szDeviceId := szDeviceId is String ? StrPtr(szDeviceId) : szDeviceId
 
-        result := ComCall(7, this, "ptr*", ppMasteringVoice, "uint", InputChannels, "uint", InputSampleRate, "uint", Flags, "ptr", szDeviceId, "ptr", pEffectChain, "int", StreamCategory, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr*", &ppMasteringVoice := 0, "uint", InputChannels, "uint", InputSampleRate, "uint", Flags, "ptr", szDeviceId, "ptr", pEffectChain, "int", StreamCategory, "HRESULT")
+        return IXAudio2MasteringVoice(ppMasteringVoice)
     }
 
     /**

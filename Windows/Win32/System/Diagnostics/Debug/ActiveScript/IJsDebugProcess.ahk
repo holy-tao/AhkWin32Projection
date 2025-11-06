@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IJsDebugStackWalker.ahk
+#Include .\IJsDebugBreakPoint.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -31,12 +33,11 @@ class IJsDebugProcess extends IUnknown{
     /**
      * 
      * @param {Integer} threadId 
-     * @param {Pointer<IJsDebugStackWalker>} ppStackWalker 
-     * @returns {HRESULT} 
+     * @returns {IJsDebugStackWalker} 
      */
-    CreateStackWalker(threadId, ppStackWalker) {
-        result := ComCall(3, this, "uint", threadId, "ptr*", ppStackWalker, "HRESULT")
-        return result
+    CreateStackWalker(threadId) {
+        result := ComCall(3, this, "uint", threadId, "ptr*", &ppStackWalker := 0, "HRESULT")
+        return IJsDebugStackWalker(ppStackWalker)
     }
 
     /**
@@ -45,12 +46,11 @@ class IJsDebugProcess extends IUnknown{
      * @param {Integer} characterOffset 
      * @param {Integer} characterCount 
      * @param {BOOL} isEnabled 
-     * @param {Pointer<IJsDebugBreakPoint>} ppDebugBreakPoint 
-     * @returns {HRESULT} 
+     * @returns {IJsDebugBreakPoint} 
      */
-    CreateBreakPoint(documentId, characterOffset, characterCount, isEnabled, ppDebugBreakPoint) {
-        result := ComCall(4, this, "uint", documentId, "uint", characterOffset, "uint", characterCount, "int", isEnabled, "ptr*", ppDebugBreakPoint, "HRESULT")
-        return result
+    CreateBreakPoint(documentId, characterOffset, characterCount, isEnabled) {
+        result := ComCall(4, this, "uint", documentId, "uint", characterOffset, "uint", characterCount, "int", isEnabled, "ptr*", &ppDebugBreakPoint := 0, "HRESULT")
+        return IJsDebugBreakPoint(ppDebugBreakPoint)
     }
 
     /**
@@ -65,13 +65,10 @@ class IJsDebugProcess extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pCodeAddress 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetExternalStepAddress(pCodeAddress) {
-        pCodeAddressMarshal := pCodeAddress is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pCodeAddressMarshal, pCodeAddress, "HRESULT")
-        return result
+    GetExternalStepAddress() {
+        result := ComCall(6, this, "uint*", &pCodeAddress := 0, "HRESULT")
+        return pCodeAddress
     }
 }

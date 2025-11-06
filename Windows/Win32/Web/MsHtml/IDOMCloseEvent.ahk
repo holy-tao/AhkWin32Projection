@@ -37,12 +37,11 @@ class IDOMCloseEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_wasClean(p) {
-        result := ComCall(7, this, "ptr", p, "HRESULT")
-        return result
+    get_wasClean() {
+        result := ComCall(7, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**

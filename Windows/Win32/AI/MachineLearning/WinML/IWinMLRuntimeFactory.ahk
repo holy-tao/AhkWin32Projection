@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IWinMLRuntime.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,12 +34,11 @@ class IWinMLRuntimeFactory extends IUnknown{
     /**
      * 
      * @param {Integer} RuntimeType 
-     * @param {Pointer<IWinMLRuntime>} ppRuntime 
-     * @returns {HRESULT} 
+     * @returns {IWinMLRuntime} 
      * @see https://learn.microsoft.com/windows/win32/api/winml/nf-winml-iwinmlruntimefactory-createruntime
      */
-    CreateRuntime(RuntimeType, ppRuntime) {
-        result := ComCall(3, this, "int", RuntimeType, "ptr*", ppRuntime, "HRESULT")
-        return result
+    CreateRuntime(RuntimeType) {
+        result := ComCall(3, this, "int", RuntimeType, "ptr*", &ppRuntime := 0, "HRESULT")
+        return IWinMLRuntime(ppRuntime)
     }
 }

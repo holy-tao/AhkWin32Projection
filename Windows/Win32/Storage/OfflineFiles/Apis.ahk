@@ -510,7 +510,9 @@ class OfflineFiles {
      * @since windows6.0.6000
      */
     static OfflineFilesEnable(bEnable, pbRebootRequired) {
-        result := DllCall("CSCAPI.dll\OfflineFilesEnable", "int", bEnable, "ptr", pbRebootRequired, "uint")
+        pbRebootRequiredMarshal := pbRebootRequired is VarRef ? "int*" : "ptr"
+
+        result := DllCall("CSCAPI.dll\OfflineFilesEnable", "int", bEnable, pbRebootRequiredMarshal, pbRebootRequired, "uint")
         return result
     }
 
@@ -534,7 +536,10 @@ class OfflineFiles {
      * @since windows6.0.6000
      */
     static OfflineFilesQueryStatus(pbActive, pbEnabled) {
-        result := DllCall("CSCAPI.dll\OfflineFilesQueryStatus", "ptr", pbActive, "ptr", pbEnabled, "uint")
+        pbActiveMarshal := pbActive is VarRef ? "int*" : "ptr"
+        pbEnabledMarshal := pbEnabled is VarRef ? "int*" : "ptr"
+
+        result := DllCall("CSCAPI.dll\OfflineFilesQueryStatus", pbActiveMarshal, pbActive, pbEnabledMarshal, pbEnabled, "uint")
         return result
     }
 
@@ -548,7 +553,11 @@ class OfflineFiles {
      * @since windows8.0
      */
     static OfflineFilesQueryStatusEx(pbActive, pbEnabled, pbAvailable) {
-        result := DllCall("CSCAPI.dll\OfflineFilesQueryStatusEx", "ptr", pbActive, "ptr", pbEnabled, "ptr", pbAvailable, "uint")
+        pbActiveMarshal := pbActive is VarRef ? "int*" : "ptr"
+        pbEnabledMarshal := pbEnabled is VarRef ? "int*" : "ptr"
+        pbAvailableMarshal := pbAvailable is VarRef ? "int*" : "ptr"
+
+        result := DllCall("CSCAPI.dll\OfflineFilesQueryStatusEx", pbActiveMarshal, pbActive, pbEnabledMarshal, pbEnabled, pbAvailableMarshal, pbAvailable, "uint")
         return result
     }
 

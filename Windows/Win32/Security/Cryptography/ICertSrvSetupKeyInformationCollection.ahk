@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,38 +34,34 @@ class ICertSrvSetupKeyInformationCollection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppVal 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertsrvsetupkeyinformationcollection-get__newenum
      */
-    get__NewEnum(ppVal) {
-        result := ComCall(7, this, "ptr*", ppVal, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(7, this, "ptr*", &ppVal := 0, "HRESULT")
+        return IUnknown(ppVal)
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<VARIANT>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertsrvsetupkeyinformationcollection-get_item
      */
-    get_Item(Index, pVal) {
+    get_Item(Index) {
+        pVal := VARIANT()
         result := ComCall(8, this, "int", Index, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertsrvsetupkeyinformationcollection-get_count
      */
-    get_Count(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(9, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**

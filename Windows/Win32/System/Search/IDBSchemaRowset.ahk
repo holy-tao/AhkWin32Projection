@@ -37,12 +37,11 @@ class IDBSchemaRowset extends IUnknown{
      * @param {Pointer<Guid>} riid 
      * @param {Integer} cPropertySets 
      * @param {Pointer<DBPROPSET>} rgPropertySets 
-     * @param {Pointer<IUnknown>} ppRowset 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    GetRowset(pUnkOuter, rguidSchema, cRestrictions, rgRestrictions, riid, cPropertySets, rgPropertySets, ppRowset) {
-        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", rguidSchema, "uint", cRestrictions, "ptr", rgRestrictions, "ptr", riid, "uint", cPropertySets, "ptr", rgPropertySets, "ptr*", ppRowset, "HRESULT")
-        return result
+    GetRowset(pUnkOuter, rguidSchema, cRestrictions, rgRestrictions, riid, cPropertySets, rgPropertySets) {
+        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", rguidSchema, "uint", cRestrictions, "ptr", rgRestrictions, "ptr", riid, "uint", cPropertySets, "ptr", rgPropertySets, "ptr*", &ppRowset := 0, "HRESULT")
+        return IUnknown(ppRowset)
     }
 
     /**

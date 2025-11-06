@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\INSSBuffer.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -43,25 +44,23 @@ class IWMWriterSink extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfRealTime 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwritersink-isrealtime
      */
-    IsRealTime(pfRealTime) {
-        result := ComCall(4, this, "ptr", pfRealTime, "HRESULT")
-        return result
+    IsRealTime() {
+        result := ComCall(4, this, "int*", &pfRealTime := 0, "HRESULT")
+        return pfRealTime
     }
 
     /**
      * 
      * @param {Integer} cbDataUnit 
-     * @param {Pointer<INSSBuffer>} ppDataUnit 
-     * @returns {HRESULT} 
+     * @returns {INSSBuffer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwritersink-allocatedataunit
      */
-    AllocateDataUnit(cbDataUnit, ppDataUnit) {
-        result := ComCall(5, this, "uint", cbDataUnit, "ptr*", ppDataUnit, "HRESULT")
-        return result
+    AllocateDataUnit(cbDataUnit) {
+        result := ComCall(5, this, "uint", cbDataUnit, "ptr*", &ppDataUnit := 0, "HRESULT")
+        return INSSBuffer(ppDataUnit)
     }
 
     /**

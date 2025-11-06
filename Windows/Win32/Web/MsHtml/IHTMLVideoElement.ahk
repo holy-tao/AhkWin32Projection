@@ -47,14 +47,11 @@ class IHTMLVideoElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_width(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pMarshal, p, "HRESULT")
-        return result
+    get_width() {
+        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -69,38 +66,29 @@ class IHTMLVideoElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_height(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, pMarshal, p, "HRESULT")
-        return result
+    get_height() {
+        result := ComCall(10, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_videoWidth(p) {
-        pMarshal := p is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, pMarshal, p, "HRESULT")
-        return result
+    get_videoWidth() {
+        result := ComCall(11, this, "uint*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_videoHeight(p) {
-        pMarshal := p is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, pMarshal, p, "HRESULT")
-        return result
+    get_videoHeight() {
+        result := ComCall(12, this, "uint*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -117,11 +105,11 @@ class IHTMLVideoElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_poster(p) {
+    get_poster() {
+        p := BSTR()
         result := ComCall(14, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 }

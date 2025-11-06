@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Foundation\BSTR.ahk
+#Include .\IModelObject.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -30,32 +32,30 @@ class IModelKeyReference extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} keyName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetKeyName(keyName) {
+    GetKeyName() {
+        keyName := BSTR()
         result := ComCall(3, this, "ptr", keyName, "HRESULT")
-        return result
+        return keyName
     }
 
     /**
      * 
-     * @param {Pointer<IModelObject>} originalObject 
-     * @returns {HRESULT} 
+     * @returns {IModelObject} 
      */
-    GetOriginalObject(originalObject) {
-        result := ComCall(4, this, "ptr*", originalObject, "HRESULT")
-        return result
+    GetOriginalObject() {
+        result := ComCall(4, this, "ptr*", &originalObject := 0, "HRESULT")
+        return IModelObject(originalObject)
     }
 
     /**
      * 
-     * @param {Pointer<IModelObject>} containingObject 
-     * @returns {HRESULT} 
+     * @returns {IModelObject} 
      */
-    GetContextObject(containingObject) {
-        result := ComCall(5, this, "ptr*", containingObject, "HRESULT")
-        return result
+    GetContextObject() {
+        result := ComCall(5, this, "ptr*", &containingObject := 0, "HRESULT")
+        return IModelObject(containingObject)
     }
 
     /**

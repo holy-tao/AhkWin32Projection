@@ -55,15 +55,12 @@ class IPrintDocumentPackageTarget extends IUnknown{
      * 
      * @param {Pointer<Guid>} guidTargetType 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvTarget 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/documenttarget/nf-documenttarget-iprintdocumentpackagetarget-getpackagetarget
      */
-    GetPackageTarget(guidTargetType, riid, ppvTarget) {
-        ppvTargetMarshal := ppvTarget is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "ptr", guidTargetType, "ptr", riid, ppvTargetMarshal, ppvTarget, "HRESULT")
-        return result
+    GetPackageTarget(guidTargetType, riid) {
+        result := ComCall(4, this, "ptr", guidTargetType, "ptr", riid, "ptr*", &ppvTarget := 0, "HRESULT")
+        return ppvTarget
     }
 
     /**

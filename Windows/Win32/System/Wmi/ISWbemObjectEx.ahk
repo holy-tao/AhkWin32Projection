@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ISWbemPropertySet.ahk
 #Include .\ISWbemObject.ahk
 
 /**
@@ -48,12 +49,11 @@ class ISWbemObjectEx extends ISWbemObject{
 
     /**
      * 
-     * @param {Pointer<ISWbemPropertySet>} objWbemPropertySet 
-     * @returns {HRESULT} 
+     * @returns {ISWbemPropertySet} 
      */
-    get_SystemProperties_(objWbemPropertySet) {
-        result := ComCall(33, this, "ptr*", objWbemPropertySet, "HRESULT")
-        return result
+    get_SystemProperties_() {
+        result := ComCall(33, this, "ptr*", &objWbemPropertySet := 0, "HRESULT")
+        return ISWbemPropertySet(objWbemPropertySet)
     }
 
     /**
@@ -61,12 +61,12 @@ class ISWbemObjectEx extends ISWbemObject{
      * @param {Integer} iObjectTextFormat 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
-     * @param {Pointer<BSTR>} bsText 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetText_(iObjectTextFormat, iFlags, objWbemNamedValueSet, bsText) {
+    GetText_(iObjectTextFormat, iFlags, objWbemNamedValueSet) {
+        bsText := BSTR()
         result := ComCall(34, this, "int", iObjectTextFormat, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr", bsText, "HRESULT")
-        return result
+        return bsText
     }
 
     /**

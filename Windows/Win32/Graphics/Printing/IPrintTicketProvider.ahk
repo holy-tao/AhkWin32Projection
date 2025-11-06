@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Data\Xml\MsXml\IXMLDOMDocument2.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -109,12 +110,11 @@ class IPrintTicketProvider extends IUnknown{
     /**
      * 
      * @param {IXMLDOMDocument2} pPrintTicket 
-     * @param {Pointer<IXMLDOMDocument2>} ppCapabilities 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMDocument2} 
      */
-    GetPrintCapabilities(pPrintTicket, ppCapabilities) {
-        result := ComCall(8, this, "ptr", pPrintTicket, "ptr*", ppCapabilities, "HRESULT")
-        return result
+    GetPrintCapabilities(pPrintTicket) {
+        result := ComCall(8, this, "ptr", pPrintTicket, "ptr*", &ppCapabilities := 0, "HRESULT")
+        return IXMLDOMDocument2(ppCapabilities)
     }
 
     /**

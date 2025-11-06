@@ -127,7 +127,9 @@ class IObjectContext extends IUnknown{
     IsCallerInRole(bstrRole, pfIsInRole) {
         bstrRole := bstrRole is String ? BSTR.Alloc(bstrRole).Value : bstrRole
 
-        result := ComCall(10, this, "ptr", bstrRole, "ptr", pfIsInRole, "HRESULT")
+        pfIsInRoleMarshal := pfIsInRole is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, "ptr", bstrRole, pfIsInRoleMarshal, pfIsInRole, "HRESULT")
         return result
     }
 }

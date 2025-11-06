@@ -56,16 +56,14 @@ class ICLRStrongName2 extends IUnknown{
      * @param {BOOLEAN} fForceVerification 
      * @param {Pointer<Integer>} pbEcmaPublicKey 
      * @param {Integer} cbEcmaPublicKey 
-     * @param {Pointer<Integer>} pfWasVerified 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    StrongNameSignatureVerificationEx2(wszFilePath, fForceVerification, pbEcmaPublicKey, cbEcmaPublicKey, pfWasVerified) {
+    StrongNameSignatureVerificationEx2(wszFilePath, fForceVerification, pbEcmaPublicKey, cbEcmaPublicKey) {
         wszFilePath := wszFilePath is String ? StrPtr(wszFilePath) : wszFilePath
 
         pbEcmaPublicKeyMarshal := pbEcmaPublicKey is VarRef ? "char*" : "ptr"
-        pfWasVerifiedMarshal := pfWasVerified is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, "ptr", wszFilePath, "char", fForceVerification, pbEcmaPublicKeyMarshal, pbEcmaPublicKey, "uint", cbEcmaPublicKey, pfWasVerifiedMarshal, pfWasVerified, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", wszFilePath, "char", fForceVerification, pbEcmaPublicKeyMarshal, pbEcmaPublicKey, "uint", cbEcmaPublicKey, "char*", &pfWasVerified := 0, "HRESULT")
+        return pfWasVerified
     }
 }

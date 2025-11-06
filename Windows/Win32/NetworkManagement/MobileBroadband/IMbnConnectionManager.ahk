@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMbnConnection.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -79,27 +80,23 @@ class IMbnConnectionManager extends IUnknown{
     /**
      * 
      * @param {PWSTR} connectionID 
-     * @param {Pointer<IMbnConnection>} mbnConnection 
-     * @returns {HRESULT} 
+     * @returns {IMbnConnection} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnectionmanager-getconnection
      */
-    GetConnection(connectionID, mbnConnection) {
+    GetConnection(connectionID) {
         connectionID := connectionID is String ? StrPtr(connectionID) : connectionID
 
-        result := ComCall(3, this, "ptr", connectionID, "ptr*", mbnConnection, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", connectionID, "ptr*", &mbnConnection := 0, "HRESULT")
+        return IMbnConnection(mbnConnection)
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} mbnConnections 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnectionmanager-getconnections
      */
-    GetConnections(mbnConnections) {
-        mbnConnectionsMarshal := mbnConnections is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, mbnConnectionsMarshal, mbnConnections, "HRESULT")
-        return result
+    GetConnections() {
+        result := ComCall(4, this, "ptr*", &mbnConnections := 0, "HRESULT")
+        return mbnConnections
     }
 }

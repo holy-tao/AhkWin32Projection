@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IWindowsMediaLibrarySharingDeviceProperties.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -37,26 +39,23 @@ class IWindowsMediaLibrarySharingDevice extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} deviceID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdevice-get_deviceid
      */
-    get_DeviceID(deviceID) {
+    get_DeviceID() {
+        deviceID := BSTR()
         result := ComCall(7, this, "ptr", deviceID, "HRESULT")
-        return result
+        return deviceID
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} authorization 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdevice-get_authorization
      */
-    get_Authorization(authorization) {
-        authorizationMarshal := authorization is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, authorizationMarshal, authorization, "HRESULT")
-        return result
+    get_Authorization() {
+        result := ComCall(8, this, "int*", &authorization := 0, "HRESULT")
+        return authorization
     }
 
     /**
@@ -72,12 +71,11 @@ class IWindowsMediaLibrarySharingDevice extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IWindowsMediaLibrarySharingDeviceProperties>} deviceProperties 
-     * @returns {HRESULT} 
+     * @returns {IWindowsMediaLibrarySharingDeviceProperties} 
      * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdevice-get_properties
      */
-    get_Properties(deviceProperties) {
-        result := ComCall(10, this, "ptr*", deviceProperties, "HRESULT")
-        return result
+    get_Properties() {
+        result := ComCall(10, this, "ptr*", &deviceProperties := 0, "HRESULT")
+        return IWindowsMediaLibrarySharingDeviceProperties(deviceProperties)
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Direct3D\ID3DBlob.ahk
 #Include .\ID3D12DeviceTools.ahk
 
 /**
@@ -30,12 +31,11 @@ class ID3D12DeviceTools1 extends ID3D12DeviceTools{
 
     /**
      * 
-     * @param {Pointer<ID3DBlob>} ppBlob 
-     * @returns {HRESULT} 
+     * @returns {ID3DBlob} 
      */
-    GetApplicationSpecificDriverState(ppBlob) {
-        result := ComCall(4, this, "ptr*", ppBlob, "HRESULT")
-        return result
+    GetApplicationSpecificDriverState() {
+        result := ComCall(4, this, "ptr*", &ppBlob := 0, "HRESULT")
+        return ID3DBlob(ppBlob)
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D11_AUTHENTICATED_CONFIGURE_OUTPUT.ahk
 #Include .\ID3D11DeviceChild.ahk
 
 /**
@@ -237,7 +238,9 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetoutputtargetrect
      */
     VideoProcessorGetOutputTargetRect(pVideoProcessor, Enabled, pRect) {
-        ComCall(20, this, "ptr", pVideoProcessor, "ptr", Enabled, "ptr", pRect)
+        EnabledMarshal := Enabled is VarRef ? "int*" : "ptr"
+
+        ComCall(20, this, "ptr", pVideoProcessor, EnabledMarshal, Enabled, "ptr", pRect)
     }
 
     /**
@@ -249,7 +252,9 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetoutputbackgroundcolor
      */
     VideoProcessorGetOutputBackgroundColor(pVideoProcessor, pYCbCr, pColor) {
-        ComCall(21, this, "ptr", pVideoProcessor, "ptr", pYCbCr, "ptr", pColor)
+        pYCbCrMarshal := pYCbCr is VarRef ? "int*" : "ptr"
+
+        ComCall(21, this, "ptr", pVideoProcessor, pYCbCrMarshal, pYCbCr, "ptr", pColor)
     }
 
     /**
@@ -287,7 +292,9 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetoutputconstriction
      */
     VideoProcessorGetOutputConstriction(pVideoProcessor, pEnabled, pSize) {
-        ComCall(24, this, "ptr", pVideoProcessor, "ptr", pEnabled, "ptr", pSize)
+        pEnabledMarshal := pEnabled is VarRef ? "int*" : "ptr"
+
+        ComCall(24, this, "ptr", pVideoProcessor, pEnabledMarshal, pEnabled, "ptr", pSize)
     }
 
     /**
@@ -298,7 +305,9 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetoutputstereomode
      */
     VideoProcessorGetOutputStereoMode(pVideoProcessor, pEnabled) {
-        ComCall(25, this, "ptr", pVideoProcessor, "ptr", pEnabled)
+        pEnabledMarshal := pEnabled is VarRef ? "int*" : "ptr"
+
+        ComCall(25, this, "ptr", pVideoProcessor, pEnabledMarshal, pEnabled)
     }
 
     /**
@@ -533,8 +542,9 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      */
     VideoProcessorGetStreamOutputRate(pVideoProcessor, StreamIndex, pOutputRate, pRepeatFrame, pCustomRate) {
         pOutputRateMarshal := pOutputRate is VarRef ? "int*" : "ptr"
+        pRepeatFrameMarshal := pRepeatFrame is VarRef ? "int*" : "ptr"
 
-        ComCall(42, this, "ptr", pVideoProcessor, "uint", StreamIndex, pOutputRateMarshal, pOutputRate, "ptr", pRepeatFrame, "ptr", pCustomRate)
+        ComCall(42, this, "ptr", pVideoProcessor, "uint", StreamIndex, pOutputRateMarshal, pOutputRate, pRepeatFrameMarshal, pRepeatFrame, "ptr", pCustomRate)
     }
 
     /**
@@ -547,7 +557,9 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetstreamsourcerect
      */
     VideoProcessorGetStreamSourceRect(pVideoProcessor, StreamIndex, pEnabled, pRect) {
-        ComCall(43, this, "ptr", pVideoProcessor, "uint", StreamIndex, "ptr", pEnabled, "ptr", pRect)
+        pEnabledMarshal := pEnabled is VarRef ? "int*" : "ptr"
+
+        ComCall(43, this, "ptr", pVideoProcessor, "uint", StreamIndex, pEnabledMarshal, pEnabled, "ptr", pRect)
     }
 
     /**
@@ -560,7 +572,9 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetstreamdestrect
      */
     VideoProcessorGetStreamDestRect(pVideoProcessor, StreamIndex, pEnabled, pRect) {
-        ComCall(44, this, "ptr", pVideoProcessor, "uint", StreamIndex, "ptr", pEnabled, "ptr", pRect)
+        pEnabledMarshal := pEnabled is VarRef ? "int*" : "ptr"
+
+        ComCall(44, this, "ptr", pVideoProcessor, "uint", StreamIndex, pEnabledMarshal, pEnabled, "ptr", pRect)
     }
 
     /**
@@ -573,9 +587,10 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetstreamalpha
      */
     VideoProcessorGetStreamAlpha(pVideoProcessor, StreamIndex, pEnabled, pAlpha) {
+        pEnabledMarshal := pEnabled is VarRef ? "int*" : "ptr"
         pAlphaMarshal := pAlpha is VarRef ? "float*" : "ptr"
 
-        ComCall(45, this, "ptr", pVideoProcessor, "uint", StreamIndex, "ptr", pEnabled, pAlphaMarshal, pAlpha)
+        ComCall(45, this, "ptr", pVideoProcessor, "uint", StreamIndex, pEnabledMarshal, pEnabled, pAlphaMarshal, pAlpha)
     }
 
     /**
@@ -604,7 +619,9 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetstreampixelaspectratio
      */
     VideoProcessorGetStreamPixelAspectRatio(pVideoProcessor, StreamIndex, pEnabled, pSourceAspectRatio, pDestinationAspectRatio) {
-        ComCall(47, this, "ptr", pVideoProcessor, "uint", StreamIndex, "ptr", pEnabled, "ptr", pSourceAspectRatio, "ptr", pDestinationAspectRatio)
+        pEnabledMarshal := pEnabled is VarRef ? "int*" : "ptr"
+
+        ComCall(47, this, "ptr", pVideoProcessor, "uint", StreamIndex, pEnabledMarshal, pEnabled, "ptr", pSourceAspectRatio, "ptr", pDestinationAspectRatio)
     }
 
     /**
@@ -618,10 +635,11 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetstreamlumakey
      */
     VideoProcessorGetStreamLumaKey(pVideoProcessor, StreamIndex, pEnabled, pLower, pUpper) {
+        pEnabledMarshal := pEnabled is VarRef ? "int*" : "ptr"
         pLowerMarshal := pLower is VarRef ? "float*" : "ptr"
         pUpperMarshal := pUpper is VarRef ? "float*" : "ptr"
 
-        ComCall(48, this, "ptr", pVideoProcessor, "uint", StreamIndex, "ptr", pEnabled, pLowerMarshal, pLower, pUpperMarshal, pUpper)
+        ComCall(48, this, "ptr", pVideoProcessor, "uint", StreamIndex, pEnabledMarshal, pEnabled, pLowerMarshal, pLower, pUpperMarshal, pUpper)
     }
 
     /**
@@ -638,11 +656,14 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetstreamstereoformat
      */
     VideoProcessorGetStreamStereoFormat(pVideoProcessor, StreamIndex, pEnable, pFormat, pLeftViewFrame0, pBaseViewFrame0, pFlipMode, MonoOffset) {
+        pEnableMarshal := pEnable is VarRef ? "int*" : "ptr"
         pFormatMarshal := pFormat is VarRef ? "int*" : "ptr"
+        pLeftViewFrame0Marshal := pLeftViewFrame0 is VarRef ? "int*" : "ptr"
+        pBaseViewFrame0Marshal := pBaseViewFrame0 is VarRef ? "int*" : "ptr"
         pFlipModeMarshal := pFlipMode is VarRef ? "int*" : "ptr"
         MonoOffsetMarshal := MonoOffset is VarRef ? "int*" : "ptr"
 
-        ComCall(49, this, "ptr", pVideoProcessor, "uint", StreamIndex, "ptr", pEnable, pFormatMarshal, pFormat, "ptr", pLeftViewFrame0, "ptr", pBaseViewFrame0, pFlipModeMarshal, pFlipMode, MonoOffsetMarshal, MonoOffset)
+        ComCall(49, this, "ptr", pVideoProcessor, "uint", StreamIndex, pEnableMarshal, pEnable, pFormatMarshal, pFormat, pLeftViewFrame0Marshal, pLeftViewFrame0, pBaseViewFrame0Marshal, pBaseViewFrame0, pFlipModeMarshal, pFlipMode, MonoOffsetMarshal, MonoOffset)
     }
 
     /**
@@ -654,7 +675,9 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetstreamautoprocessingmode
      */
     VideoProcessorGetStreamAutoProcessingMode(pVideoProcessor, StreamIndex, pEnabled) {
-        ComCall(50, this, "ptr", pVideoProcessor, "uint", StreamIndex, "ptr", pEnabled)
+        pEnabledMarshal := pEnabled is VarRef ? "int*" : "ptr"
+
+        ComCall(50, this, "ptr", pVideoProcessor, "uint", StreamIndex, pEnabledMarshal, pEnabled)
     }
 
     /**
@@ -668,9 +691,10 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetstreamfilter
      */
     VideoProcessorGetStreamFilter(pVideoProcessor, StreamIndex, Filter, pEnabled, pLevel) {
+        pEnabledMarshal := pEnabled is VarRef ? "int*" : "ptr"
         pLevelMarshal := pLevel is VarRef ? "int*" : "ptr"
 
-        ComCall(51, this, "ptr", pVideoProcessor, "uint", StreamIndex, "int", Filter, "ptr", pEnabled, pLevelMarshal, pLevel)
+        ComCall(51, this, "ptr", pVideoProcessor, "uint", StreamIndex, "int", Filter, pEnabledMarshal, pEnabled, pLevelMarshal, pLevel)
     }
 
     /**
@@ -815,13 +839,13 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * @param {ID3D11AuthenticatedChannel} pChannel 
      * @param {Integer} InputSize 
      * @param {Pointer} pInput 
-     * @param {Pointer<D3D11_AUTHENTICATED_CONFIGURE_OUTPUT>} pOutput 
-     * @returns {HRESULT} 
+     * @returns {D3D11_AUTHENTICATED_CONFIGURE_OUTPUT} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-configureauthenticatedchannel
      */
-    ConfigureAuthenticatedChannel(pChannel, InputSize, pInput, pOutput) {
+    ConfigureAuthenticatedChannel(pChannel, InputSize, pInput) {
+        pOutput := D3D11_AUTHENTICATED_CONFIGURE_OUTPUT()
         result := ComCall(62, this, "ptr", pChannel, "uint", InputSize, "ptr", pInput, "ptr", pOutput, "HRESULT")
-        return result
+        return pOutput
     }
 
     /**
@@ -847,8 +871,9 @@ class ID3D11VideoContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videocontext-videoprocessorgetstreamrotation
      */
     VideoProcessorGetStreamRotation(pVideoProcessor, StreamIndex, pEnable, pRotation) {
+        pEnableMarshal := pEnable is VarRef ? "int*" : "ptr"
         pRotationMarshal := pRotation is VarRef ? "int*" : "ptr"
 
-        ComCall(64, this, "ptr", pVideoProcessor, "uint", StreamIndex, "ptr", pEnable, pRotationMarshal, pRotation)
+        ComCall(64, this, "ptr", pVideoProcessor, "uint", StreamIndex, pEnableMarshal, pEnable, pRotationMarshal, pRotation)
     }
 }

@@ -88,7 +88,9 @@ class IXAudio2Voice extends Win32ComInterface{
      * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2voice-geteffectstate
      */
     GetEffectState(EffectIndex, pEnabled) {
-        ComCall(5, this, "uint", EffectIndex, "ptr", pEnabled)
+        pEnabledMarshal := pEnabled is VarRef ? "int*" : "ptr"
+
+        ComCall(5, this, "uint", EffectIndex, pEnabledMarshal, pEnabled)
     }
 
     /**

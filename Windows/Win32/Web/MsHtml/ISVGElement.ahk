@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ISVGSVGElement.ahk
+#Include .\ISVGElement.ahk
+#Include .\ISVGAnimatedEnumeration.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -49,12 +52,12 @@ class ISVGElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_xmlbase(p) {
+    get_xmlbase() {
+        p := BSTR()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -69,12 +72,11 @@ class ISVGElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGSVGElement>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGSVGElement} 
      */
-    get_ownerSVGElement(p) {
-        result := ComCall(10, this, "ptr*", p, "HRESULT")
-        return result
+    get_ownerSVGElement() {
+        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGSVGElement(p)
     }
 
     /**
@@ -89,12 +91,11 @@ class ISVGElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGElement>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGElement} 
      */
-    get_viewportElement(p) {
-        result := ComCall(12, this, "ptr*", p, "HRESULT")
-        return result
+    get_viewportElement() {
+        result := ComCall(12, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGElement(p)
     }
 
     /**
@@ -109,11 +110,10 @@ class ISVGElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedEnumeration>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedEnumeration} 
      */
-    get_focusable(p) {
-        result := ComCall(14, this, "ptr*", p, "HRESULT")
-        return result
+    get_focusable() {
+        result := ComCall(14, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedEnumeration(p)
     }
 }

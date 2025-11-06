@@ -49,11 +49,12 @@ class ISBE2GlobalEvent2 extends ISBE2GlobalEvent{
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-isbe2globalevent2-geteventex
      */
     GetEventEx(idEvt, param1, param2, param3, param4, pSpanning, pcb, pb, pStreamTime) {
+        pSpanningMarshal := pSpanning is VarRef ? "int*" : "ptr"
         pcbMarshal := pcb is VarRef ? "uint*" : "ptr"
         pbMarshal := pb is VarRef ? "char*" : "ptr"
         pStreamTimeMarshal := pStreamTime is VarRef ? "int64*" : "ptr"
 
-        result := ComCall(4, this, "ptr", idEvt, "uint", param1, "uint", param2, "uint", param3, "uint", param4, "ptr", pSpanning, pcbMarshal, pcb, pbMarshal, pb, pStreamTimeMarshal, pStreamTime, "HRESULT")
+        result := ComCall(4, this, "ptr", idEvt, "uint", param1, "uint", param2, "uint", param3, "uint", param4, pSpanningMarshal, pSpanning, pcbMarshal, pcb, pbMarshal, pb, pStreamTimeMarshal, pStreamTime, "HRESULT")
         return result
     }
 }

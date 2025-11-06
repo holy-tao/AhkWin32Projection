@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsOMGradientStop.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -37,27 +38,23 @@ class IXpsOMGradientStopCollection extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientstopcollection-getcount
      */
-    GetCount(count) {
-        countMarshal := count is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, countMarshal, count, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(3, this, "uint*", &count := 0, "HRESULT")
+        return count
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<IXpsOMGradientStop>} stop 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMGradientStop} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientstopcollection-getat
      */
-    GetAt(index, stop) {
-        result := ComCall(4, this, "uint", index, "ptr*", stop, "HRESULT")
-        return result
+    GetAt(index) {
+        result := ComCall(4, this, "uint", index, "ptr*", &stop := 0, "HRESULT")
+        return IXpsOMGradientStop(stop)
     }
 
     /**

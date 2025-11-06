@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DWRITE_TEXT_RANGE.ahk
+#Include .\DWRITE_TEXT_METRICS.ahk
+#Include .\DWRITE_OVERHANG_METRICS.ahk
 #Include .\IDWriteTextFormat.ahk
 
 /**
@@ -330,15 +333,15 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * @param {Integer} currentPosition 
      * @param {PWSTR} fontFamilyName 
      * @param {Integer} nameSize 
-     * @param {Pointer<DWRITE_TEXT_RANGE>} textRange 
-     * @returns {HRESULT} 
+     * @returns {DWRITE_TEXT_RANGE} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-getfontfamilyname
      */
-    GetFontFamilyName(currentPosition, fontFamilyName, nameSize, textRange) {
+    GetFontFamilyName(currentPosition, fontFamilyName, nameSize) {
         fontFamilyName := fontFamilyName is String ? StrPtr(fontFamilyName) : fontFamilyName
 
+        textRange := DWRITE_TEXT_RANGE()
         result := ComCall(46, this, "uint", currentPosition, "ptr", fontFamilyName, "uint", nameSize, "ptr", textRange, "HRESULT")
-        return result
+        return textRange
     }
 
     /**
@@ -410,7 +413,9 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-getunderline
      */
     GetUnderline(currentPosition, hasUnderline, textRange) {
-        result := ComCall(51, this, "uint", currentPosition, "ptr", hasUnderline, "ptr", textRange, "HRESULT")
+        hasUnderlineMarshal := hasUnderline is VarRef ? "int*" : "ptr"
+
+        result := ComCall(51, this, "uint", currentPosition, hasUnderlineMarshal, hasUnderline, "ptr", textRange, "HRESULT")
         return result
     }
 
@@ -423,7 +428,9 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-getstrikethrough
      */
     GetStrikethrough(currentPosition, hasStrikethrough, textRange) {
-        result := ComCall(52, this, "uint", currentPosition, "ptr", hasStrikethrough, "ptr", textRange, "HRESULT")
+        hasStrikethroughMarshal := hasStrikethrough is VarRef ? "int*" : "ptr"
+
+        result := ComCall(52, this, "uint", currentPosition, hasStrikethroughMarshal, hasStrikethrough, "ptr", textRange, "HRESULT")
         return result
     }
 
@@ -486,15 +493,15 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * @param {Integer} currentPosition 
      * @param {PWSTR} localeName 
      * @param {Integer} nameSize 
-     * @param {Pointer<DWRITE_TEXT_RANGE>} textRange 
-     * @returns {HRESULT} 
+     * @returns {DWRITE_TEXT_RANGE} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-getlocalename
      */
-    GetLocaleName(currentPosition, localeName, nameSize, textRange) {
+    GetLocaleName(currentPosition, localeName, nameSize) {
         localeName := localeName is String ? StrPtr(localeName) : localeName
 
+        textRange := DWRITE_TEXT_RANGE()
         result := ComCall(57, this, "uint", currentPosition, "ptr", localeName, "uint", nameSize, "ptr", textRange, "HRESULT")
-        return result
+        return textRange
     }
 
     /**
@@ -530,24 +537,24 @@ class IDWriteTextLayout extends IDWriteTextFormat{
 
     /**
      * 
-     * @param {Pointer<DWRITE_TEXT_METRICS>} textMetrics 
-     * @returns {HRESULT} 
+     * @returns {DWRITE_TEXT_METRICS} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-getmetrics
      */
-    GetMetrics(textMetrics) {
+    GetMetrics() {
+        textMetrics := DWRITE_TEXT_METRICS()
         result := ComCall(60, this, "ptr", textMetrics, "HRESULT")
-        return result
+        return textMetrics
     }
 
     /**
      * 
-     * @param {Pointer<DWRITE_OVERHANG_METRICS>} overhangs 
-     * @returns {HRESULT} 
+     * @returns {DWRITE_OVERHANG_METRICS} 
      * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritetextlayout-getoverhangmetrics
      */
-    GetOverhangMetrics(overhangs) {
+    GetOverhangMetrics() {
+        overhangs := DWRITE_OVERHANG_METRICS()
         result := ComCall(61, this, "ptr", overhangs, "HRESULT")
-        return result
+        return overhangs
     }
 
     /**
@@ -567,15 +574,12 @@ class IDWriteTextLayout extends IDWriteTextFormat{
 
     /**
      * 
-     * @param {Pointer<Float>} minWidth 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritetextlayout-determineminwidth
      */
-    DetermineMinWidth(minWidth) {
-        minWidthMarshal := minWidth is VarRef ? "float*" : "ptr"
-
-        result := ComCall(63, this, minWidthMarshal, minWidth, "HRESULT")
-        return result
+    DetermineMinWidth() {
+        result := ComCall(63, this, "float*", &minWidth := 0, "HRESULT")
+        return minWidth
     }
 
     /**
@@ -589,7 +593,10 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-hittestpoint
      */
     HitTestPoint(pointX, pointY, isTrailingHit, isInside, hitTestMetrics) {
-        result := ComCall(64, this, "float", pointX, "float", pointY, "ptr", isTrailingHit, "ptr", isInside, "ptr", hitTestMetrics, "HRESULT")
+        isTrailingHitMarshal := isTrailingHit is VarRef ? "int*" : "ptr"
+        isInsideMarshal := isInside is VarRef ? "int*" : "ptr"
+
+        result := ComCall(64, this, "float", pointX, "float", pointY, isTrailingHitMarshal, isTrailingHit, isInsideMarshal, isInside, "ptr", hitTestMetrics, "HRESULT")
         return result
     }
 

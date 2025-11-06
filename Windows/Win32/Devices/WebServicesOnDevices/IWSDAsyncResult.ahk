@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\WSD_EVENT.ahk
+#Include .\IWSDEndpointProxy.ahk
 
 /**
  * Represents an asynchronous operation.
@@ -77,13 +79,12 @@ class IWSDAsyncResult extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppAsyncState 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdasyncresult-getasyncstate
      */
-    GetAsyncState(ppAsyncState) {
-        result := ComCall(6, this, "ptr*", ppAsyncState, "HRESULT")
-        return result
+    GetAsyncState() {
+        result := ComCall(6, this, "ptr*", &ppAsyncState := 0, "HRESULT")
+        return IUnknown(ppAsyncState)
     }
 
     /**
@@ -98,23 +99,22 @@ class IWSDAsyncResult extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<WSD_EVENT>} pEvent 
-     * @returns {HRESULT} 
+     * @returns {WSD_EVENT} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdasyncresult-getevent
      */
-    GetEvent(pEvent) {
+    GetEvent() {
+        pEvent := WSD_EVENT()
         result := ComCall(8, this, "ptr", pEvent, "HRESULT")
-        return result
+        return pEvent
     }
 
     /**
      * 
-     * @param {Pointer<IWSDEndpointProxy>} ppEndpoint 
-     * @returns {HRESULT} 
+     * @returns {IWSDEndpointProxy} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdasyncresult-getendpointproxy
      */
-    GetEndpointProxy(ppEndpoint) {
-        result := ComCall(9, this, "ptr*", ppEndpoint, "HRESULT")
-        return result
+    GetEndpointProxy() {
+        result := ComCall(9, this, "ptr*", &ppEndpoint := 0, "HRESULT")
+        return IWSDEndpointProxy(ppEndpoint)
     }
 }

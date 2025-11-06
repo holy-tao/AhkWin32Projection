@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -53,15 +54,12 @@ class IMFTimecodeTranslate extends IUnknown{
     /**
      * 
      * @param {IMFAsyncResult} pResult 
-     * @param {Pointer<Integer>} phnsTime 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftimecodetranslate-endconverttimecodetohns
      */
-    EndConvertTimecodeToHNS(pResult, phnsTime) {
-        phnsTimeMarshal := phnsTime is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(4, this, "ptr", pResult, phnsTimeMarshal, phnsTime, "HRESULT")
-        return result
+    EndConvertTimecodeToHNS(pResult) {
+        result := ComCall(4, this, "ptr", pResult, "int64*", &phnsTime := 0, "HRESULT")
+        return phnsTime
     }
 
     /**
@@ -80,12 +78,12 @@ class IMFTimecodeTranslate extends IUnknown{
     /**
      * 
      * @param {IMFAsyncResult} pResult 
-     * @param {Pointer<PROPVARIANT>} pPropVarTimecode 
-     * @returns {HRESULT} 
+     * @returns {PROPVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftimecodetranslate-endconverthnstotimecode
      */
-    EndConvertHNSToTimecode(pResult, pPropVarTimecode) {
+    EndConvertHNSToTimecode(pResult) {
+        pPropVarTimecode := PROPVARIANT()
         result := ComCall(6, this, "ptr", pResult, "ptr", pPropVarTimecode, "HRESULT")
-        return result
+        return pPropVarTimecode
     }
 }

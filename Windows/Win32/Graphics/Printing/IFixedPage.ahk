@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IPartPrintTicket.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IPrintWriteStream.ahk
+#Include .\IXpsPartIterator.ahk
 #Include .\IPartBase.ahk
 
 /**
@@ -30,35 +34,32 @@ class IFixedPage extends IPartBase{
 
     /**
      * 
-     * @param {Pointer<IPartPrintTicket>} ppPrintTicket 
-     * @returns {HRESULT} 
+     * @returns {IPartPrintTicket} 
      */
-    GetPrintTicket(ppPrintTicket) {
-        result := ComCall(7, this, "ptr*", ppPrintTicket, "HRESULT")
-        return result
+    GetPrintTicket() {
+        result := ComCall(7, this, "ptr*", &ppPrintTicket := 0, "HRESULT")
+        return IPartPrintTicket(ppPrintTicket)
     }
 
     /**
      * 
      * @param {PWSTR} uri 
-     * @param {Pointer<IUnknown>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    GetPagePart(uri, ppUnk) {
+    GetPagePart(uri) {
         uri := uri is String ? StrPtr(uri) : uri
 
-        result := ComCall(8, this, "ptr", uri, "ptr*", ppUnk, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", uri, "ptr*", &ppUnk := 0, "HRESULT")
+        return IUnknown(ppUnk)
     }
 
     /**
      * 
-     * @param {Pointer<IPrintWriteStream>} ppWriteStream 
-     * @returns {HRESULT} 
+     * @returns {IPrintWriteStream} 
      */
-    GetWriteStream(ppWriteStream) {
-        result := ComCall(9, this, "ptr*", ppWriteStream, "HRESULT")
-        return result
+    GetWriteStream() {
+        result := ComCall(9, this, "ptr*", &ppWriteStream := 0, "HRESULT")
+        return IPrintWriteStream(ppWriteStream)
     }
 
     /**
@@ -95,11 +96,10 @@ class IFixedPage extends IPartBase{
 
     /**
      * 
-     * @param {Pointer<IXpsPartIterator>} pXpsPartIt 
-     * @returns {HRESULT} 
+     * @returns {IXpsPartIterator} 
      */
-    GetXpsPartIterator(pXpsPartIt) {
-        result := ComCall(13, this, "ptr*", pXpsPartIt, "HRESULT")
-        return result
+    GetXpsPartIterator() {
+        result := ComCall(13, this, "ptr*", &pXpsPartIt := 0, "HRESULT")
+        return IXpsPartIterator(pXpsPartIt)
     }
 }

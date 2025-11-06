@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\JChColorF.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -62,12 +63,12 @@ class IGamutMapModelPlugIn extends IUnknown{
      * 
      * @param {Integer} cColors 
      * @param {Pointer<JChColorF>} pInputColors 
-     * @param {Pointer<JChColorF>} pOutputColors 
-     * @returns {HRESULT} 
+     * @returns {JChColorF} 
      * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/nf-wcsplugin-igamutmapmodelplugin-sourcetodestinationappearancecolors
      */
-    SourceToDestinationAppearanceColors(cColors, pInputColors, pOutputColors) {
+    SourceToDestinationAppearanceColors(cColors, pInputColors) {
+        pOutputColors := JChColorF()
         result := ComCall(4, this, "uint", cColors, "ptr", pInputColors, "ptr", pOutputColors, "HRESULT")
-        return result
+        return pOutputColors
     }
 }

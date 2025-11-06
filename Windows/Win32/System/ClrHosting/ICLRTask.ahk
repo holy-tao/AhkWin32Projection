@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\COR_GC_THREAD_STATS.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -51,12 +52,12 @@ class ICLRTask extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<COR_GC_THREAD_STATS>} memUsage 
-     * @returns {HRESULT} 
+     * @returns {COR_GC_THREAD_STATS} 
      */
-    GetMemStats(memUsage) {
+    GetMemStats() {
+        memUsage := COR_GC_THREAD_STATS()
         result := ComCall(5, this, "ptr", memUsage, "HRESULT")
-        return result
+        return memUsage
     }
 
     /**
@@ -98,12 +99,11 @@ class ICLRTask extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbNeedsPriorityScheduling 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    NeedsPriorityScheduling(pbNeedsPriorityScheduling) {
-        result := ComCall(10, this, "ptr", pbNeedsPriorityScheduling, "HRESULT")
-        return result
+    NeedsPriorityScheduling() {
+        result := ComCall(10, this, "int*", &pbNeedsPriorityScheduling := 0, "HRESULT")
+        return pbNeedsPriorityScheduling
     }
 
     /**
@@ -117,14 +117,11 @@ class ICLRTask extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer>} pLockCount 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    LocksHeld(pLockCount) {
-        pLockCountMarshal := pLockCount is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(12, this, pLockCountMarshal, pLockCount, "HRESULT")
-        return result
+    LocksHeld() {
+        result := ComCall(12, this, "ptr*", &pLockCount := 0, "HRESULT")
+        return pLockCount
     }
 
     /**

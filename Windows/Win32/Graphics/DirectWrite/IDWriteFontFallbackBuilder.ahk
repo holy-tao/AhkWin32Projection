@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteFontFallback.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -66,12 +67,11 @@ class IDWriteFontFallbackBuilder extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDWriteFontFallback>} fontFallback 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontFallback} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritefontfallbackbuilder-createfontfallback
      */
-    CreateFontFallback(fontFallback) {
-        result := ComCall(5, this, "ptr*", fontFallback, "HRESULT")
-        return result
+    CreateFontFallback() {
+        result := ComCall(5, this, "ptr*", &fontFallback := 0, "HRESULT")
+        return IDWriteFontFallback(fontFallback)
     }
 }

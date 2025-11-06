@@ -57,14 +57,11 @@ class IExpandCollapseProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iexpandcollapseprovider-get_expandcollapsestate
      */
-    get_ExpandCollapseState(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    get_ExpandCollapseState() {
+        result := ComCall(5, this, "int*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -38,61 +40,54 @@ class ContextInfo extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbIsInTx 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-contextinfo-isintransaction
      */
-    IsInTransaction(pbIsInTx) {
-        result := ComCall(7, this, "ptr", pbIsInTx, "HRESULT")
-        return result
+    IsInTransaction() {
+        result := ComCall(7, this, "short*", &pbIsInTx := 0, "HRESULT")
+        return pbIsInTx
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppTx 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-contextinfo-gettransaction
      */
-    GetTransaction(ppTx) {
-        result := ComCall(8, this, "ptr*", ppTx, "HRESULT")
-        return result
+    GetTransaction() {
+        result := ComCall(8, this, "ptr*", &ppTx := 0, "HRESULT")
+        return IUnknown(ppTx)
     }
 
     /**
      * Obtains the identifier (ID) for the specified transaction.
-     * @param {Pointer<BSTR>} pbstrTxId 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is 0 (zero). To get extended error information, call the <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * 
-     * 
-     * The following list identifies the possible error codes:
+     * @returns {BSTR} 
      * @see https://docs.microsoft.com/windows/win32/api//ktmw32/nf-ktmw32-gettransactionid
      */
-    GetTransactionId(pbstrTxId) {
+    GetTransactionId() {
+        pbstrTxId := BSTR()
         result := ComCall(9, this, "ptr", pbstrTxId, "HRESULT")
-        return result
+        return pbstrTxId
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrActivityId 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-contextinfo-getactivityid
      */
-    GetActivityId(pbstrActivityId) {
+    GetActivityId() {
+        pbstrActivityId := BSTR()
         result := ComCall(10, this, "ptr", pbstrActivityId, "HRESULT")
-        return result
+        return pbstrActivityId
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrCtxId 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-contextinfo-getcontextid
      */
-    GetContextId(pbstrCtxId) {
+    GetContextId() {
+        pbstrCtxId := BSTR()
         result := ComCall(11, this, "ptr", pbstrCtxId, "HRESULT")
-        return result
+        return pbstrCtxId
     }
 }

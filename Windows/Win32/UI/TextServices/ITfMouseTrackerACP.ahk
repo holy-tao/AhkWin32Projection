@@ -34,15 +34,12 @@ class ITfMouseTrackerACP extends IUnknown{
      * 
      * @param {ITfRangeACP} range 
      * @param {ITfMouseSink} pSink 
-     * @param {Pointer<Integer>} pdwCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfmousetrackeracp-advisemousesink
      */
-    AdviseMouseSink(range, pSink, pdwCookie) {
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", range, "ptr", pSink, pdwCookieMarshal, pdwCookie, "HRESULT")
-        return result
+    AdviseMouseSink(range, pSink) {
+        result := ComCall(3, this, "ptr", range, "ptr", pSink, "uint*", &pdwCookie := 0, "HRESULT")
+        return pdwCookie
     }
 
     /**

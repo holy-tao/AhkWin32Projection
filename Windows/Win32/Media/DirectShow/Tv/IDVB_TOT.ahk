@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\MPEG_DATE_AND_TIME.ahk
+#Include .\IGenericDescriptor.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -53,52 +55,47 @@ class IDVB_TOT extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<MPEG_DATE_AND_TIME>} pmdtVal 
-     * @returns {HRESULT} 
+     * @returns {MPEG_DATE_AND_TIME} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_tot-getutctime
      */
-    GetUTCTime(pmdtVal) {
+    GetUTCTime() {
+        pmdtVal := MPEG_DATE_AND_TIME()
         result := ComCall(4, this, "ptr", pmdtVal, "HRESULT")
-        return result
+        return pmdtVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_tot-getcountoftabledescriptors
      */
-    GetCountOfTableDescriptors(pdwVal) {
-        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pdwValMarshal, pdwVal, "HRESULT")
-        return result
+    GetCountOfTableDescriptors() {
+        result := ComCall(5, this, "uint*", &pdwVal := 0, "HRESULT")
+        return pdwVal
     }
 
     /**
      * 
      * @param {Integer} dwIndex 
-     * @param {Pointer<IGenericDescriptor>} ppDescriptor 
-     * @returns {HRESULT} 
+     * @returns {IGenericDescriptor} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_tot-gettabledescriptorbyindex
      */
-    GetTableDescriptorByIndex(dwIndex, ppDescriptor) {
-        result := ComCall(6, this, "uint", dwIndex, "ptr*", ppDescriptor, "HRESULT")
-        return result
+    GetTableDescriptorByIndex(dwIndex) {
+        result := ComCall(6, this, "uint", dwIndex, "ptr*", &ppDescriptor := 0, "HRESULT")
+        return IGenericDescriptor(ppDescriptor)
     }
 
     /**
      * 
      * @param {Integer} bTag 
      * @param {Pointer<Integer>} pdwCookie 
-     * @param {Pointer<IGenericDescriptor>} ppDescriptor 
-     * @returns {HRESULT} 
+     * @returns {IGenericDescriptor} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_tot-gettabledescriptorbytag
      */
-    GetTableDescriptorByTag(bTag, pdwCookie, ppDescriptor) {
+    GetTableDescriptorByTag(bTag, pdwCookie) {
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", ppDescriptor, "HRESULT")
-        return result
+        result := ComCall(7, this, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
+        return IGenericDescriptor(ppDescriptor)
     }
 }

@@ -43,7 +43,9 @@ class ITaskSettings2 extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings2-get_disallowstartonremoteappsession
      */
     get_DisallowStartOnRemoteAppSession(pDisallowStart) {
-        result := ComCall(7, this, "ptr", pDisallowStart, "HRESULT")
+        pDisallowStartMarshal := pDisallowStart is VarRef ? "short*" : "ptr"
+
+        result := ComCall(7, this, pDisallowStartMarshal, pDisallowStart, "HRESULT")
         return result
     }
 
@@ -65,7 +67,9 @@ class ITaskSettings2 extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itasksettings2-get_useunifiedschedulingengine
      */
     get_UseUnifiedSchedulingEngine(pUseUnifiedEngine) {
-        result := ComCall(9, this, "ptr", pUseUnifiedEngine, "HRESULT")
+        pUseUnifiedEngineMarshal := pUseUnifiedEngine is VarRef ? "short*" : "ptr"
+
+        result := ComCall(9, this, pUseUnifiedEngineMarshal, pUseUnifiedEngine, "HRESULT")
         return result
     }
 

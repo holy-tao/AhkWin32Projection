@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\XPS_JOB_STATUS.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -42,12 +43,12 @@ class IXpsPrintJob extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<XPS_JOB_STATUS>} jobStatus 
-     * @returns {HRESULT} 
+     * @returns {XPS_JOB_STATUS} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsprint/nf-xpsprint-ixpsprintjob-getjobstatus
      */
-    GetJobStatus(jobStatus) {
+    GetJobStatus() {
+        jobStatus := XPS_JOB_STATUS()
         result := ComCall(4, this, "ptr", jobStatus, "HRESULT")
-        return result
+        return jobStatus
     }
 }

@@ -79,14 +79,11 @@ class IRpcOptions extends IUnknown{
      * 
      * @param {IUnknown} pPrx 
      * @param {Integer} dwProperty 
-     * @param {Pointer<Pointer>} pdwValue 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-irpcoptions-query
      */
-    Query(pPrx, dwProperty, pdwValue) {
-        pdwValueMarshal := pdwValue is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "ptr", pPrx, "int", dwProperty, pdwValueMarshal, pdwValue, "HRESULT")
-        return result
+    Query(pPrx, dwProperty) {
+        result := ComCall(4, this, "ptr", pPrx, "int", dwProperty, "ptr*", &pdwValue := 0, "HRESULT")
+        return pdwValue
     }
 }

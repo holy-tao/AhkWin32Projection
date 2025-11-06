@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IFolderAction.ahk
+#Include ..\Com\IUnknown.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -36,38 +38,33 @@ class IFolderActionCollection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} Count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ifolderactioncollection-get_count
      */
-    get_Count(Count) {
-        CountMarshal := Count is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, CountMarshal, Count, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "uint*", &Count := 0, "HRESULT")
+        return Count
     }
 
     /**
      * 
      * @param {VARIANT} Index 
-     * @param {Pointer<IFolderAction>} Action 
-     * @returns {HRESULT} 
+     * @returns {IFolderAction} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ifolderactioncollection-get_item
      */
-    get_Item(Index, Action) {
-        result := ComCall(8, this, "ptr", Index, "ptr*", Action, "HRESULT")
-        return result
+    get_Item(Index) {
+        result := ComCall(8, this, "ptr", Index, "ptr*", &Action := 0, "HRESULT")
+        return IFolderAction(Action)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} Enum 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ifolderactioncollection-get__newenum
      */
-    get__NewEnum(Enum) {
-        result := ComCall(9, this, "ptr*", Enum, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(9, this, "ptr*", &Enum := 0, "HRESULT")
+        return IUnknown(Enum)
     }
 
     /**
@@ -115,12 +112,11 @@ class IFolderActionCollection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IFolderAction>} FolderAction 
-     * @returns {HRESULT} 
+     * @returns {IFolderAction} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ifolderactioncollection-createfolderaction
      */
-    CreateFolderAction(FolderAction) {
-        result := ComCall(14, this, "ptr*", FolderAction, "HRESULT")
-        return result
+    CreateFolderAction() {
+        result := ComCall(14, this, "ptr*", &FolderAction := 0, "HRESULT")
+        return IFolderAction(FolderAction)
     }
 }

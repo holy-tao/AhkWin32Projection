@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\IUpdateException.ahk
 
 /**
@@ -32,12 +33,12 @@ class IInvalidProductLicenseException extends IUpdateException{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinvalidproductlicenseexception-get_product
      */
-    get_Product(retval) {
+    get_Product() {
+        retval := BSTR()
         result := ComCall(10, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 }

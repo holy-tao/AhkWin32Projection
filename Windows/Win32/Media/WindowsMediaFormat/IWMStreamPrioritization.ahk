@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\WM_STREAM_PRIORITY_RECORD.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,16 +33,16 @@ class IWMStreamPrioritization extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<WM_STREAM_PRIORITY_RECORD>} pRecordArray 
      * @param {Pointer<Integer>} pcRecords 
-     * @returns {HRESULT} 
+     * @returns {WM_STREAM_PRIORITY_RECORD} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstreamprioritization-getpriorityrecords
      */
-    GetPriorityRecords(pRecordArray, pcRecords) {
+    GetPriorityRecords(pcRecords) {
         pcRecordsMarshal := pcRecords is VarRef ? "ushort*" : "ptr"
 
+        pRecordArray := WM_STREAM_PRIORITY_RECORD()
         result := ComCall(3, this, "ptr", pRecordArray, pcRecordsMarshal, pcRecords, "HRESULT")
-        return result
+        return pRecordArray
     }
 
     /**

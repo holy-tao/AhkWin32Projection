@@ -35,16 +35,14 @@ class IRowsetLocate extends IRowset{
      * @param {Pointer<Integer>} pBookmark1 
      * @param {Pointer} cbBookmark2 
      * @param {Pointer<Integer>} pBookmark2 
-     * @param {Pointer<Integer>} pComparison 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Compare(hReserved, cbBookmark1, pBookmark1, cbBookmark2, pBookmark2, pComparison) {
+    Compare(hReserved, cbBookmark1, pBookmark1, cbBookmark2, pBookmark2) {
         pBookmark1Marshal := pBookmark1 is VarRef ? "char*" : "ptr"
         pBookmark2Marshal := pBookmark2 is VarRef ? "char*" : "ptr"
-        pComparisonMarshal := pComparison is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "ptr", hReserved, "ptr", cbBookmark1, pBookmark1Marshal, pBookmark1, "ptr", cbBookmark2, pBookmark2Marshal, pBookmark2, pComparisonMarshal, pComparison, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", hReserved, "ptr", cbBookmark1, pBookmark1Marshal, pBookmark1, "ptr", cbBookmark2, pBookmark2Marshal, pBookmark2, "uint*", &pComparison := 0, "HRESULT")
+        return pComparison
     }
 
     /**

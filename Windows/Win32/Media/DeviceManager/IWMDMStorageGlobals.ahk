@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\WMDMID.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,29 +33,26 @@ class IWMDMStorageGlobals extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwCapabilities 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorageglobals-getcapabilities
      */
-    GetCapabilities(pdwCapabilities) {
-        pdwCapabilitiesMarshal := pdwCapabilities is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pdwCapabilitiesMarshal, pdwCapabilities, "HRESULT")
-        return result
+    GetCapabilities() {
+        result := ComCall(3, this, "uint*", &pdwCapabilities := 0, "HRESULT")
+        return pdwCapabilities
     }
 
     /**
      * 
-     * @param {Pointer<WMDMID>} pSerialNum 
      * @param {Pointer<Integer>} abMac 
-     * @returns {HRESULT} 
+     * @returns {WMDMID} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorageglobals-getserialnumber
      */
-    GetSerialNumber(pSerialNum, abMac) {
+    GetSerialNumber(abMac) {
         abMacMarshal := abMac is VarRef ? "char*" : "ptr"
 
+        pSerialNum := WMDMID()
         result := ComCall(4, this, "ptr", pSerialNum, abMacMarshal, abMac, "HRESULT")
-        return result
+        return pSerialNum
     }
 
     /**
@@ -104,15 +102,12 @@ class IWMDMStorageGlobals extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorageglobals-getstatus
      */
-    GetStatus(pdwStatus) {
-        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pdwStatusMarshal, pdwStatus, "HRESULT")
-        return result
+    GetStatus() {
+        result := ComCall(8, this, "uint*", &pdwStatus := 0, "HRESULT")
+        return pdwStatus
     }
 
     /**

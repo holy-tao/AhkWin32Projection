@@ -152,17 +152,14 @@ class ICLRStrongName extends IUnknown{
      * 
      * @param {PWSTR} pwzAssembly1 
      * @param {PWSTR} pwzAssembly2 
-     * @param {Pointer<Integer>} pdwResult 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    StrongNameCompareAssemblies(pwzAssembly1, pwzAssembly2, pdwResult) {
+    StrongNameCompareAssemblies(pwzAssembly1, pwzAssembly2) {
         pwzAssembly1 := pwzAssembly1 is String ? StrPtr(pwzAssembly1) : pwzAssembly1
         pwzAssembly2 := pwzAssembly2 is String ? StrPtr(pwzAssembly2) : pwzAssembly2
 
-        pdwResultMarshal := pdwResult is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, "ptr", pwzAssembly1, "ptr", pwzAssembly2, pdwResultMarshal, pdwResult, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", pwzAssembly1, "ptr", pwzAssembly2, "uint*", &pdwResult := 0, "HRESULT")
+        return pdwResult
     }
 
     /**
@@ -198,17 +195,15 @@ class ICLRStrongName extends IUnknown{
      * 
      * @param {Pointer<Integer>} pbBase 
      * @param {Integer} dwLength 
-     * @param {Pointer<Integer>} pbBlob 
      * @param {Pointer<Integer>} pcbBlob 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    StrongNameGetBlobFromImage(pbBase, dwLength, pbBlob, pcbBlob) {
+    StrongNameGetBlobFromImage(pbBase, dwLength, pcbBlob) {
         pbBaseMarshal := pbBase is VarRef ? "char*" : "ptr"
-        pbBlobMarshal := pbBlob is VarRef ? "char*" : "ptr"
         pcbBlobMarshal := pcbBlob is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, pbBaseMarshal, pbBase, "uint", dwLength, pbBlobMarshal, pbBlob, pcbBlobMarshal, pcbBlob, "HRESULT")
-        return result
+        result := ComCall(12, this, pbBaseMarshal, pbBase, "uint", dwLength, "char*", &pbBlob := 0, pcbBlobMarshal, pcbBlob, "HRESULT")
+        return pbBlob
     }
 
     /**
@@ -234,14 +229,11 @@ class ICLRStrongName extends IUnknown{
     /**
      * 
      * @param {Integer} ulHashAlg 
-     * @param {Pointer<Integer>} pcbSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    StrongNameHashSize(ulHashAlg, pcbSize) {
-        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, "uint", ulHashAlg, pcbSizeMarshal, pcbSize, "HRESULT")
-        return result
+    StrongNameHashSize(ulHashAlg) {
+        result := ComCall(14, this, "uint", ulHashAlg, "uint*", &pcbSize := 0, "HRESULT")
+        return pcbSize
     }
 
     /**
@@ -373,32 +365,26 @@ class ICLRStrongName extends IUnknown{
      * 
      * @param {PWSTR} pwzFilePath 
      * @param {Integer} dwInFlags 
-     * @param {Pointer<Integer>} pdwOutFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    StrongNameSignatureVerification(pwzFilePath, dwInFlags, pdwOutFlags) {
+    StrongNameSignatureVerification(pwzFilePath, dwInFlags) {
         pwzFilePath := pwzFilePath is String ? StrPtr(pwzFilePath) : pwzFilePath
 
-        pdwOutFlagsMarshal := pdwOutFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(22, this, "ptr", pwzFilePath, "uint", dwInFlags, pdwOutFlagsMarshal, pdwOutFlags, "HRESULT")
-        return result
+        result := ComCall(22, this, "ptr", pwzFilePath, "uint", dwInFlags, "uint*", &pdwOutFlags := 0, "HRESULT")
+        return pdwOutFlags
     }
 
     /**
      * 
      * @param {PWSTR} pwzFilePath 
      * @param {BOOLEAN} fForceVerification 
-     * @param {Pointer<Integer>} pfWasVerified 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    StrongNameSignatureVerificationEx(pwzFilePath, fForceVerification, pfWasVerified) {
+    StrongNameSignatureVerificationEx(pwzFilePath, fForceVerification) {
         pwzFilePath := pwzFilePath is String ? StrPtr(pwzFilePath) : pwzFilePath
 
-        pfWasVerifiedMarshal := pfWasVerified is VarRef ? "char*" : "ptr"
-
-        result := ComCall(23, this, "ptr", pwzFilePath, "char", fForceVerification, pfWasVerifiedMarshal, pfWasVerified, "HRESULT")
-        return result
+        result := ComCall(23, this, "ptr", pwzFilePath, "char", fForceVerification, "char*", &pfWasVerified := 0, "HRESULT")
+        return pfWasVerified
     }
 
     /**
@@ -406,15 +392,13 @@ class ICLRStrongName extends IUnknown{
      * @param {Pointer<Integer>} pbBase 
      * @param {Integer} dwLength 
      * @param {Integer} dwInFlags 
-     * @param {Pointer<Integer>} pdwOutFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    StrongNameSignatureVerificationFromImage(pbBase, dwLength, dwInFlags, pdwOutFlags) {
+    StrongNameSignatureVerificationFromImage(pbBase, dwLength, dwInFlags) {
         pbBaseMarshal := pbBase is VarRef ? "char*" : "ptr"
-        pdwOutFlagsMarshal := pdwOutFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(24, this, pbBaseMarshal, pbBase, "uint", dwLength, "uint", dwInFlags, pdwOutFlagsMarshal, pdwOutFlags, "HRESULT")
-        return result
+        result := ComCall(24, this, pbBaseMarshal, pbBase, "uint", dwLength, "uint", dwInFlags, "uint*", &pdwOutFlags := 0, "HRESULT")
+        return pdwOutFlags
     }
 
     /**

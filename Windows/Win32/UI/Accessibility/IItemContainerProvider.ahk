@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRawElementProviderSimple.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -43,12 +44,11 @@ class IItemContainerProvider extends IUnknown{
      * @param {IRawElementProviderSimple} pStartAfter 
      * @param {Integer} propertyId 
      * @param {VARIANT} value 
-     * @param {Pointer<IRawElementProviderSimple>} pFound 
-     * @returns {HRESULT} 
+     * @returns {IRawElementProviderSimple} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iitemcontainerprovider-finditembyproperty
      */
-    FindItemByProperty(pStartAfter, propertyId, value, pFound) {
-        result := ComCall(3, this, "ptr", pStartAfter, "int", propertyId, "ptr", value, "ptr*", pFound, "HRESULT")
-        return result
+    FindItemByProperty(pStartAfter, propertyId, value) {
+        result := ComCall(3, this, "ptr", pStartAfter, "int", propertyId, "ptr", value, "ptr*", &pFound := 0, "HRESULT")
+        return IRawElementProviderSimple(pFound)
     }
 }

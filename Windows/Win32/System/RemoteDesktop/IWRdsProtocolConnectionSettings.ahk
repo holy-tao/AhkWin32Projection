@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\WTS_PROPERTY_VALUE.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -42,11 +43,11 @@ class IWRdsProtocolConnectionSettings extends IUnknown{
     /**
      * 
      * @param {Guid} PropertyID 
-     * @param {Pointer<WTS_PROPERTY_VALUE>} pPropertyEntriesOut 
-     * @returns {HRESULT} 
+     * @returns {WTS_PROPERTY_VALUE} 
      */
-    GetConnectionSetting(PropertyID, pPropertyEntriesOut) {
+    GetConnectionSetting(PropertyID) {
+        pPropertyEntriesOut := WTS_PROPERTY_VALUE()
         result := ComCall(4, this, "ptr", PropertyID, "ptr", pPropertyEntriesOut, "HRESULT")
-        return result
+        return pPropertyEntriesOut
     }
 }

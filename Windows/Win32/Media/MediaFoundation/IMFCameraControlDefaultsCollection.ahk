@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFCameraControlDefaults.ahk
 #Include .\IMFAttributes.ahk
 
 /**
@@ -43,13 +44,12 @@ class IMFCameraControlDefaultsCollection extends IMFAttributes{
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<IMFCameraControlDefaults>} configuration 
-     * @returns {HRESULT} 
+     * @returns {IMFCameraControlDefaults} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcameracontroldefaultscollection-getcontrol
      */
-    GetControl(index, configuration) {
-        result := ComCall(34, this, "uint", index, "ptr*", configuration, "HRESULT")
-        return result
+    GetControl(index) {
+        result := ComCall(34, this, "uint", index, "ptr*", &configuration := 0, "HRESULT")
+        return IMFCameraControlDefaults(configuration)
     }
 
     /**
@@ -58,13 +58,12 @@ class IMFCameraControlDefaultsCollection extends IMFAttributes{
      * @param {Integer} constrolId 
      * @param {Integer} streamId 
      * @param {Integer} dataSize 
-     * @param {Pointer<IMFCameraControlDefaults>} defaults 
-     * @returns {HRESULT} 
+     * @returns {IMFCameraControlDefaults} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcameracontroldefaultscollection-getoraddextendedcontrol
      */
-    GetOrAddExtendedControl(configType, constrolId, streamId, dataSize, defaults) {
-        result := ComCall(35, this, "int", configType, "uint", constrolId, "uint", streamId, "uint", dataSize, "ptr*", defaults, "HRESULT")
-        return result
+    GetOrAddExtendedControl(configType, constrolId, streamId, dataSize) {
+        result := ComCall(35, this, "int", configType, "uint", constrolId, "uint", streamId, "uint", dataSize, "ptr*", &defaults := 0, "HRESULT")
+        return IMFCameraControlDefaults(defaults)
     }
 
     /**
@@ -74,13 +73,12 @@ class IMFCameraControlDefaultsCollection extends IMFAttributes{
      * @param {Integer} constrolId 
      * @param {Integer} controlSize 
      * @param {Integer} dataSize 
-     * @param {Pointer<IMFCameraControlDefaults>} defaults 
-     * @returns {HRESULT} 
+     * @returns {IMFCameraControlDefaults} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcameracontroldefaultscollection-getoraddcontrol
      */
-    GetOrAddControl(configType, controlSet, constrolId, controlSize, dataSize, defaults) {
-        result := ComCall(36, this, "int", configType, "ptr", controlSet, "uint", constrolId, "uint", controlSize, "uint", dataSize, "ptr*", defaults, "HRESULT")
-        return result
+    GetOrAddControl(configType, controlSet, constrolId, controlSize, dataSize) {
+        result := ComCall(36, this, "int", configType, "ptr", controlSet, "uint", constrolId, "uint", controlSize, "uint", dataSize, "ptr*", &defaults := 0, "HRESULT")
+        return IMFCameraControlDefaults(defaults)
     }
 
     /**

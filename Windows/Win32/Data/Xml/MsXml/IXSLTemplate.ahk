@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IXMLDOMNode.ahk
+#Include .\IXSLProcessor.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -40,21 +42,19 @@ class IXSLTemplate extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IXMLDOMNode>} stylesheet 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMNode} 
      */
-    get_stylesheet(stylesheet) {
-        result := ComCall(8, this, "ptr*", stylesheet, "HRESULT")
-        return result
+    get_stylesheet() {
+        result := ComCall(8, this, "ptr*", &stylesheet := 0, "HRESULT")
+        return IXMLDOMNode(stylesheet)
     }
 
     /**
      * 
-     * @param {Pointer<IXSLProcessor>} ppProcessor 
-     * @returns {HRESULT} 
+     * @returns {IXSLProcessor} 
      */
-    createProcessor(ppProcessor) {
-        result := ComCall(9, this, "ptr*", ppProcessor, "HRESULT")
-        return result
+    createProcessor() {
+        result := ComCall(9, this, "ptr*", &ppProcessor := 0, "HRESULT")
+        return IXSLProcessor(ppProcessor)
     }
 }

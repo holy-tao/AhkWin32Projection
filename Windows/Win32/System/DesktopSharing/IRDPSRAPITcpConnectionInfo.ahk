@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -38,62 +39,53 @@ class IRDPSRAPITcpConnectionInfo extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plProtocol 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapitcpconnectioninfo-get_protocol
      */
-    get_Protocol(plProtocol) {
-        plProtocolMarshal := plProtocol is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, plProtocolMarshal, plProtocol, "HRESULT")
-        return result
+    get_Protocol() {
+        result := ComCall(7, this, "int*", &plProtocol := 0, "HRESULT")
+        return plProtocol
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plPort 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapitcpconnectioninfo-get_localport
      */
-    get_LocalPort(plPort) {
-        plPortMarshal := plPort is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, plPortMarshal, plPort, "HRESULT")
-        return result
+    get_LocalPort() {
+        result := ComCall(8, this, "int*", &plPort := 0, "HRESULT")
+        return plPort
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbsrLocalIP 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapitcpconnectioninfo-get_localip
      */
-    get_LocalIP(pbsrLocalIP) {
+    get_LocalIP() {
+        pbsrLocalIP := BSTR()
         result := ComCall(9, this, "ptr", pbsrLocalIP, "HRESULT")
-        return result
+        return pbsrLocalIP
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plPort 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapitcpconnectioninfo-get_peerport
      */
-    get_PeerPort(plPort) {
-        plPortMarshal := plPort is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, plPortMarshal, plPort, "HRESULT")
-        return result
+    get_PeerPort() {
+        result := ComCall(10, this, "int*", &plPort := 0, "HRESULT")
+        return plPort
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrIP 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapitcpconnectioninfo-get_peerip
      */
-    get_PeerIP(pbstrIP) {
+    get_PeerIP() {
+        pbstrIP := BSTR()
         result := ComCall(11, this, "ptr", pbstrIP, "HRESULT")
-        return result
+        return pbstrIP
     }
 }

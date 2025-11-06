@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IObjectId.ahk
 #Include .\IX509Attribute.ahk
 
 /**
@@ -65,36 +66,32 @@ class IX509AttributeArchiveKey extends IX509Attribute{
     /**
      * 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributearchivekey-get_encryptedkeyblob
      */
-    get_EncryptedKeyBlob(Encoding, pValue) {
+    get_EncryptedKeyBlob(Encoding) {
+        pValue := BSTR()
         result := ComCall(12, this, "int", Encoding, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<IObjectId>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IObjectId} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributearchivekey-get_encryptionalgorithm
      */
-    get_EncryptionAlgorithm(ppValue) {
-        result := ComCall(13, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_EncryptionAlgorithm() {
+        result := ComCall(13, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IObjectId(ppValue)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributearchivekey-get_encryptionstrength
      */
-    get_EncryptionStrength(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_EncryptionStrength() {
+        result := ComCall(14, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ICorProfilerModuleEnum.ahk
 #Include ..\..\Com\IUnknown.ahk
 
 /**
@@ -49,24 +50,20 @@ class ICorProfilerModuleEnum extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ICorProfilerModuleEnum>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {ICorProfilerModuleEnum} 
      */
-    Clone(ppEnum) {
-        result := ComCall(5, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(5, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return ICorProfilerModuleEnum(ppEnum)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pcelt 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetCount(pcelt) {
-        pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pceltMarshal, pcelt, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(6, this, "uint*", &pcelt := 0, "HRESULT")
+        return pcelt
     }
 
     /**

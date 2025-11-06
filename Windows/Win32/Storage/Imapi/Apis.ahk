@@ -1455,7 +1455,9 @@ class Imapi {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/openimsgsession
      */
     static OpenIMsgSession(lpMalloc, ulFlags, lppMsgSess) {
-        result := DllCall("MAPI32.dll\OpenIMsgSession", "ptr", lpMalloc, "uint", ulFlags, "ptr", lppMsgSess, "int")
+        lppMsgSessMarshal := lppMsgSess is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("MAPI32.dll\OpenIMsgSession", "ptr", lpMalloc, "uint", ulFlags, lppMsgSessMarshal, lppMsgSess, "int")
         return result
     }
 

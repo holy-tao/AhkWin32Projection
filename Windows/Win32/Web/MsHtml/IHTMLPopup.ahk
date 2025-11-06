@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IHTMLDocument.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -59,21 +60,19 @@ class IHTMLPopup extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IHTMLDocument>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDocument} 
      */
-    get_document(p) {
-        result := ComCall(9, this, "ptr*", p, "HRESULT")
-        return result
+    get_document() {
+        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLDocument(p)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_isOpen(p) {
-        result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+    get_isOpen() {
+        result := ComCall(10, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 }

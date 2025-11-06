@@ -38,7 +38,10 @@ class IOfflineFilesSuspendInfo extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessuspendinfo-issuspended
      */
     IsSuspended(pbSuspended, pbSuspendedRoot) {
-        result := ComCall(3, this, "ptr", pbSuspended, "ptr", pbSuspendedRoot, "HRESULT")
+        pbSuspendedMarshal := pbSuspended is VarRef ? "int*" : "ptr"
+        pbSuspendedRootMarshal := pbSuspendedRoot is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, pbSuspendedMarshal, pbSuspended, pbSuspendedRootMarshal, pbSuspendedRoot, "HRESULT")
         return result
     }
 }

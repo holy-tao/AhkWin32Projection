@@ -40,17 +40,14 @@ class IFhReassociation extends IUnknown{
     /**
      * 
      * @param {BSTR} TargetUrl 
-     * @param {Pointer<Integer>} ValidationResult 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhreassociation-validatetarget
      */
-    ValidateTarget(TargetUrl, ValidationResult) {
+    ValidateTarget(TargetUrl) {
         TargetUrl := TargetUrl is String ? BSTR.Alloc(TargetUrl).Value : TargetUrl
 
-        ValidationResultMarshal := ValidationResult is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, "ptr", TargetUrl, ValidationResultMarshal, ValidationResult, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", TargetUrl, "int*", &ValidationResult := 0, "HRESULT")
+        return ValidationResult
     }
 
     /**

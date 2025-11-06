@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IPMBackgroundServiceAgentInfo.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -30,11 +31,10 @@ class IPMBackgroundServiceAgentInfoEnumerator extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IPMBackgroundServiceAgentInfo>} ppBSAInfo 
-     * @returns {HRESULT} 
+     * @returns {IPMBackgroundServiceAgentInfo} 
      */
-    get_Next(ppBSAInfo) {
-        result := ComCall(3, this, "ptr*", ppBSAInfo, "HRESULT")
-        return result
+    get_Next() {
+        result := ComCall(3, this, "ptr*", &ppBSAInfo := 0, "HRESULT")
+        return IPMBackgroundServiceAgentInfo(ppBSAInfo)
     }
 }

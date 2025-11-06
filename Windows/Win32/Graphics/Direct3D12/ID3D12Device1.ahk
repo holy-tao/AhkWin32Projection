@@ -40,16 +40,14 @@ class ID3D12Device1 extends ID3D12Device{
      * @param {Pointer<Void>} pLibraryBlob 
      * @param {Pointer} BlobLength 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppPipelineLibrary 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device1-createpipelinelibrary
      */
-    CreatePipelineLibrary(pLibraryBlob, BlobLength, riid, ppPipelineLibrary) {
+    CreatePipelineLibrary(pLibraryBlob, BlobLength, riid) {
         pLibraryBlobMarshal := pLibraryBlob is VarRef ? "ptr" : "ptr"
-        ppPipelineLibraryMarshal := ppPipelineLibrary is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(44, this, pLibraryBlobMarshal, pLibraryBlob, "ptr", BlobLength, "ptr", riid, ppPipelineLibraryMarshal, ppPipelineLibrary, "HRESULT")
-        return result
+        result := ComCall(44, this, pLibraryBlobMarshal, pLibraryBlob, "ptr", BlobLength, "ptr", riid, "ptr*", &ppPipelineLibrary := 0, "HRESULT")
+        return ppPipelineLibrary
     }
 
     /**

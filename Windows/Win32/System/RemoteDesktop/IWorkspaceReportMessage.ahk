@@ -50,16 +50,15 @@ class IWorkspaceReportMessage extends IUnknown{
      * @param {Integer} dwErrorType 
      * @param {BSTR} bstrErrorMessageType 
      * @param {Integer} dwErrorCode 
-     * @param {Pointer<VARIANT_BOOL>} pfErrorExist 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/workspaceruntime/nf-workspaceruntime-iworkspacereportmessage-iserrormessageregistered
      */
-    IsErrorMessageRegistered(bstrWkspId, dwErrorType, bstrErrorMessageType, dwErrorCode, pfErrorExist) {
+    IsErrorMessageRegistered(bstrWkspId, dwErrorType, bstrErrorMessageType, dwErrorCode) {
         bstrWkspId := bstrWkspId is String ? BSTR.Alloc(bstrWkspId).Value : bstrWkspId
         bstrErrorMessageType := bstrErrorMessageType is String ? BSTR.Alloc(bstrErrorMessageType).Value : bstrErrorMessageType
 
-        result := ComCall(4, this, "ptr", bstrWkspId, "uint", dwErrorType, "ptr", bstrErrorMessageType, "uint", dwErrorCode, "ptr", pfErrorExist, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", bstrWkspId, "uint", dwErrorType, "ptr", bstrErrorMessageType, "uint", dwErrorCode, "short*", &pfErrorExist := 0, "HRESULT")
+        return pfErrorExist
     }
 
     /**

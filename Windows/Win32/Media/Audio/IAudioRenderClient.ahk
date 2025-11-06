@@ -33,15 +33,12 @@ class IAudioRenderClient extends IUnknown{
     /**
      * 
      * @param {Integer} NumFramesRequested 
-     * @param {Pointer<Pointer<Integer>>} ppData 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudiorenderclient-getbuffer
      */
-    GetBuffer(NumFramesRequested, ppData) {
-        ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "uint", NumFramesRequested, ppDataMarshal, ppData, "HRESULT")
-        return result
+    GetBuffer(NumFramesRequested) {
+        result := ComCall(3, this, "uint", NumFramesRequested, "ptr*", &ppData := 0, "HRESULT")
+        return ppData
     }
 
     /**

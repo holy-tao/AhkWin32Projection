@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Ole\IEnumVARIANT.ahk
+#Include .\IMSVidOutputDevice.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -43,38 +45,33 @@ class IMSVidOutputDevices extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} lCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidoutputdevices-get_count
      */
-    get_Count(lCount) {
-        lCountMarshal := lCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, lCountMarshal, lCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &lCount := 0, "HRESULT")
+        return lCount
     }
 
     /**
      * 
-     * @param {Pointer<IEnumVARIANT>} pD 
-     * @returns {HRESULT} 
+     * @returns {IEnumVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidoutputdevices-get__newenum
      */
-    get__NewEnum(pD) {
-        result := ComCall(8, this, "ptr*", pD, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(8, this, "ptr*", &pD := 0, "HRESULT")
+        return IEnumVARIANT(pD)
     }
 
     /**
      * 
      * @param {VARIANT} v 
-     * @param {Pointer<IMSVidOutputDevice>} pDB 
-     * @returns {HRESULT} 
+     * @returns {IMSVidOutputDevice} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidoutputdevices-get_item
      */
-    get_Item(v, pDB) {
-        result := ComCall(9, this, "ptr", v, "ptr*", pDB, "HRESULT")
-        return result
+    get_Item(v) {
+        result := ComCall(9, this, "ptr", v, "ptr*", &pDB := 0, "HRESULT")
+        return IMSVidOutputDevice(pDB)
     }
 
     /**

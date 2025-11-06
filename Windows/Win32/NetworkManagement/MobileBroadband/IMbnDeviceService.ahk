@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -36,154 +37,128 @@ class IMbnDeviceService extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} requestID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-querysupportedcommands
      */
-    QuerySupportedCommands(requestID) {
-        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, requestIDMarshal, requestID, "HRESULT")
-        return result
+    QuerySupportedCommands() {
+        result := ComCall(3, this, "uint*", &requestID := 0, "HRESULT")
+        return requestID
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} requestID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-opencommandsession
      */
-    OpenCommandSession(requestID) {
-        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, requestIDMarshal, requestID, "HRESULT")
-        return result
+    OpenCommandSession() {
+        result := ComCall(4, this, "uint*", &requestID := 0, "HRESULT")
+        return requestID
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} requestID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-closecommandsession
      */
-    CloseCommandSession(requestID) {
-        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, requestIDMarshal, requestID, "HRESULT")
-        return result
+    CloseCommandSession() {
+        result := ComCall(5, this, "uint*", &requestID := 0, "HRESULT")
+        return requestID
     }
 
     /**
      * 
      * @param {Integer} commandID 
      * @param {Pointer<SAFEARRAY>} deviceServiceData 
-     * @param {Pointer<Integer>} requestID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-setcommand
      */
-    SetCommand(commandID, deviceServiceData, requestID) {
-        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, "uint", commandID, "ptr", deviceServiceData, requestIDMarshal, requestID, "HRESULT")
-        return result
+    SetCommand(commandID, deviceServiceData) {
+        result := ComCall(6, this, "uint", commandID, "ptr", deviceServiceData, "uint*", &requestID := 0, "HRESULT")
+        return requestID
     }
 
     /**
      * 
      * @param {Integer} commandID 
      * @param {Pointer<SAFEARRAY>} deviceServiceData 
-     * @param {Pointer<Integer>} requestID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-querycommand
      */
-    QueryCommand(commandID, deviceServiceData, requestID) {
-        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, "uint", commandID, "ptr", deviceServiceData, requestIDMarshal, requestID, "HRESULT")
-        return result
+    QueryCommand(commandID, deviceServiceData) {
+        result := ComCall(7, this, "uint", commandID, "ptr", deviceServiceData, "uint*", &requestID := 0, "HRESULT")
+        return requestID
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} requestID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-opendatasession
      */
-    OpenDataSession(requestID) {
-        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, requestIDMarshal, requestID, "HRESULT")
-        return result
+    OpenDataSession() {
+        result := ComCall(8, this, "uint*", &requestID := 0, "HRESULT")
+        return requestID
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} requestID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-closedatasession
      */
-    CloseDataSession(requestID) {
-        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, requestIDMarshal, requestID, "HRESULT")
-        return result
+    CloseDataSession() {
+        result := ComCall(9, this, "uint*", &requestID := 0, "HRESULT")
+        return requestID
     }
 
     /**
      * 
      * @param {Pointer<SAFEARRAY>} deviceServiceData 
-     * @param {Pointer<Integer>} requestID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-writedata
      */
-    WriteData(deviceServiceData, requestID) {
-        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, "ptr", deviceServiceData, requestIDMarshal, requestID, "HRESULT")
-        return result
+    WriteData(deviceServiceData) {
+        result := ComCall(10, this, "ptr", deviceServiceData, "uint*", &requestID := 0, "HRESULT")
+        return requestID
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} InterfaceID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-get_interfaceid
      */
-    get_InterfaceID(InterfaceID) {
+    get_InterfaceID() {
+        InterfaceID := BSTR()
         result := ComCall(11, this, "ptr", InterfaceID, "HRESULT")
-        return result
+        return InterfaceID
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} DeviceServiceID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-get_deviceserviceid
      */
-    get_DeviceServiceID(DeviceServiceID) {
+    get_DeviceServiceID() {
+        DeviceServiceID := BSTR()
         result := ComCall(12, this, "ptr", DeviceServiceID, "HRESULT")
-        return result
+        return DeviceServiceID
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} value 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-get_iscommandsessionopen
      */
-    get_IsCommandSessionOpen(value) {
-        result := ComCall(13, this, "ptr", value, "HRESULT")
-        return result
+    get_IsCommandSessionOpen() {
+        result := ComCall(13, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} value 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservice-get_isdatasessionopen
      */
-    get_IsDataSessionOpen(value) {
-        result := ComCall(14, this, "ptr", value, "HRESULT")
-        return result
+    get_IsDataSessionOpen() {
+        result := ComCall(14, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 }

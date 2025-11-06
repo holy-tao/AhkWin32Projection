@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\Direct3D9\IDirect3D9Ex.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct3D9on12
@@ -21,15 +22,14 @@ class Direct3D9on12 {
      * @param {Integer} SDKVersion 
      * @param {Pointer<D3D9ON12_ARGS>} pOverrideList 
      * @param {Integer} NumOverrideEntries 
-     * @param {Pointer<IDirect3D9Ex>} ppOutputInterface 
-     * @returns {HRESULT} 
+     * @returns {IDirect3D9Ex} 
      */
-    static Direct3DCreate9On12Ex(SDKVersion, pOverrideList, NumOverrideEntries, ppOutputInterface) {
-        result := DllCall("d3d9.dll\Direct3DCreate9On12Ex", "uint", SDKVersion, "ptr", pOverrideList, "uint", NumOverrideEntries, "ptr*", ppOutputInterface, "int")
+    static Direct3DCreate9On12Ex(SDKVersion, pOverrideList, NumOverrideEntries) {
+        result := DllCall("d3d9.dll\Direct3DCreate9On12Ex", "uint", SDKVersion, "ptr", pOverrideList, "uint", NumOverrideEntries, "ptr*", &ppOutputInterface := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IDirect3D9Ex(ppOutputInterface)
     }
 
     /**

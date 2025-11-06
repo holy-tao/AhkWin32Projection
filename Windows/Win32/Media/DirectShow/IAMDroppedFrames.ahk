@@ -41,28 +41,22 @@ class IAMDroppedFrames extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} plDropped 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamdroppedframes-getnumdropped
      */
-    GetNumDropped(plDropped) {
-        plDroppedMarshal := plDropped is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, plDroppedMarshal, plDropped, "HRESULT")
-        return result
+    GetNumDropped() {
+        result := ComCall(3, this, "int*", &plDropped := 0, "HRESULT")
+        return plDropped
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plNotDropped 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamdroppedframes-getnumnotdropped
      */
-    GetNumNotDropped(plNotDropped) {
-        plNotDroppedMarshal := plNotDropped is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, plNotDroppedMarshal, plNotDropped, "HRESULT")
-        return result
+    GetNumNotDropped() {
+        result := ComCall(4, this, "int*", &plNotDropped := 0, "HRESULT")
+        return plNotDropped
     }
 
     /**
@@ -83,14 +77,11 @@ class IAMDroppedFrames extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} plAverageSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamdroppedframes-getaverageframesize
      */
-    GetAverageFrameSize(plAverageSize) {
-        plAverageSizeMarshal := plAverageSize is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, plAverageSizeMarshal, plAverageSize, "HRESULT")
-        return result
+    GetAverageFrameSize() {
+        result := ComCall(6, this, "int*", &plAverageSize := 0, "HRESULT")
+        return plAverageSize
     }
 }

@@ -1,6 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\ICategoryCollection.ahk
+#Include .\IImageInformation.ahk
+#Include .\ICategory.ahk
+#Include .\IUpdateCollection.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -32,102 +37,95 @@ class ICategory extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-icategory-get_name
      */
-    get_Name(retval) {
+    get_Name() {
+        retval := BSTR()
         result := ComCall(7, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-icategory-get_categoryid
      */
-    get_CategoryID(retval) {
+    get_CategoryID() {
+        retval := BSTR()
         result := ComCall(8, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<ICategoryCollection>} retval 
-     * @returns {HRESULT} 
+     * @returns {ICategoryCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-icategory-get_children
      */
-    get_Children(retval) {
-        result := ComCall(9, this, "ptr*", retval, "HRESULT")
-        return result
+    get_Children() {
+        result := ComCall(9, this, "ptr*", &retval := 0, "HRESULT")
+        return ICategoryCollection(retval)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-icategory-get_description
      */
-    get_Description(retval) {
+    get_Description() {
+        retval := BSTR()
         result := ComCall(10, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<IImageInformation>} retval 
-     * @returns {HRESULT} 
+     * @returns {IImageInformation} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-icategory-get_image
      */
-    get_Image(retval) {
-        result := ComCall(11, this, "ptr*", retval, "HRESULT")
-        return result
+    get_Image() {
+        result := ComCall(11, this, "ptr*", &retval := 0, "HRESULT")
+        return IImageInformation(retval)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-icategory-get_order
      */
-    get_Order(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_Order() {
+        result := ComCall(12, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<ICategory>} retval 
-     * @returns {HRESULT} 
+     * @returns {ICategory} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-icategory-get_parent
      */
-    get_Parent(retval) {
-        result := ComCall(13, this, "ptr*", retval, "HRESULT")
-        return result
+    get_Parent() {
+        result := ComCall(13, this, "ptr*", &retval := 0, "HRESULT")
+        return ICategory(retval)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-icategory-get_type
      */
-    get_Type(retval) {
+    get_Type() {
+        retval := BSTR()
         result := ComCall(14, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<IUpdateCollection>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUpdateCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-icategory-get_updates
      */
-    get_Updates(retval) {
-        result := ComCall(15, this, "ptr*", retval, "HRESULT")
-        return result
+    get_Updates() {
+        result := ComCall(15, this, "ptr*", &retval := 0, "HRESULT")
+        return IUpdateCollection(retval)
     }
 }

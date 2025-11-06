@@ -32,28 +32,22 @@ class IWMDMDeviceControl extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmdevicecontrol-getstatus
      */
-    GetStatus(pdwStatus) {
-        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pdwStatusMarshal, pdwStatus, "HRESULT")
-        return result
+    GetStatus() {
+        result := ComCall(3, this, "uint*", &pdwStatus := 0, "HRESULT")
+        return pdwStatus
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwCapabilitiesMask 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmdevicecontrol-getcapabilities
      */
-    GetCapabilities(pdwCapabilitiesMask) {
-        pdwCapabilitiesMaskMarshal := pdwCapabilitiesMask is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pdwCapabilitiesMaskMarshal, pdwCapabilitiesMask, "HRESULT")
-        return result
+    GetCapabilities() {
+        result := ComCall(4, this, "uint*", &pdwCapabilitiesMask := 0, "HRESULT")
+        return pdwCapabilitiesMask
     }
 
     /**

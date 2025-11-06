@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\System\Registry\HKEY.ahk
 
 /**
  * @namespace Windows.Win32.Security.Isolation
@@ -47,60 +48,56 @@ class Isolation {
     /**
      * 
      * @param {Pointer<Void>} Reserved 
-     * @param {Pointer<BOOL>} isProcessInWDAGContainer 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @deprecated
      */
-    static IsProcessInWDAGContainer(Reserved, isProcessInWDAGContainer) {
+    static IsProcessInWDAGContainer(Reserved) {
         ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("api-ms-win-security-isolatedcontainer-l1-1-1.dll\IsProcessInWDAGContainer", ReservedMarshal, Reserved, "ptr", isProcessInWDAGContainer, "int")
+        result := DllCall("api-ms-win-security-isolatedcontainer-l1-1-1.dll\IsProcessInWDAGContainer", ReservedMarshal, Reserved, "int*", &isProcessInWDAGContainer := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return isProcessInWDAGContainer
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} isProcessInIsolatedContainer 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @deprecated
      */
-    static IsProcessInIsolatedContainer(isProcessInIsolatedContainer) {
-        result := DllCall("api-ms-win-security-isolatedcontainer-l1-1-0.dll\IsProcessInIsolatedContainer", "ptr", isProcessInIsolatedContainer, "int")
+    static IsProcessInIsolatedContainer() {
+        result := DllCall("api-ms-win-security-isolatedcontainer-l1-1-0.dll\IsProcessInIsolatedContainer", "int*", &isProcessInIsolatedContainer := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return isProcessInIsolatedContainer
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} isProcessInIsolatedWindowsEnvironment 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/isolatedwindowsenvironmentutils/nf-isolatedwindowsenvironmentutils-isprocessinisolatedwindowsenvironment
      */
-    static IsProcessInIsolatedWindowsEnvironment(isProcessInIsolatedWindowsEnvironment) {
-        result := DllCall("IsolatedWindowsEnvironmentUtils.dll\IsProcessInIsolatedWindowsEnvironment", "ptr", isProcessInIsolatedWindowsEnvironment, "int")
+    static IsProcessInIsolatedWindowsEnvironment() {
+        result := DllCall("IsolatedWindowsEnvironmentUtils.dll\IsProcessInIsolatedWindowsEnvironment", "int*", &isProcessInIsolatedWindowsEnvironment := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return isProcessInIsolatedWindowsEnvironment
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} isCrossIsolatedEnvironmentClipboardContent 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/isolatedwindowsenvironmentutils/nf-isolatedwindowsenvironmentutils-iscrossisolatedenvironmentclipboardcontent
      */
-    static IsCrossIsolatedEnvironmentClipboardContent(isCrossIsolatedEnvironmentClipboardContent) {
-        result := DllCall("IsolatedWindowsEnvironmentUtils.dll\IsCrossIsolatedEnvironmentClipboardContent", "ptr", isCrossIsolatedEnvironmentClipboardContent, "int")
+    static IsCrossIsolatedEnvironmentClipboardContent() {
+        result := DllCall("IsolatedWindowsEnvironmentUtils.dll\IsCrossIsolatedEnvironmentClipboardContent", "int*", &isCrossIsolatedEnvironmentClipboardContent := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return isCrossIsolatedEnvironmentClipboardContent
     }
 
     /**
@@ -110,72 +107,20 @@ class Isolation {
      * @param {PWSTR} pszDescription A description for the app container. This string can be up to 2048 characters in length.
      * @param {Pointer<SID_AND_ATTRIBUTES>} pCapabilities The SIDs that define the requested capabilities.
      * @param {Integer} dwCapabilityCount The number of SIDs in <i>pCapabilities</i>.
-     * @param {Pointer<PSID>} ppSidAppContainerSid The SID for the profile. This buffer must be freed using the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-freesid">FreeSid</a> function.
-     * @returns {HRESULT} If this function succeeds, it returns a standard HRESULT code, including the following:
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data store was created successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_ACCESSDENIED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The caller does not have permission to create the profile.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>HRESULT_FROM_WIN32(ERROR_ALREADY_EXISTS)</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The application data store already exists.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The container name   is <b>NULL</b>,  or the container name,   the display name, or the description strings exceed their specified respective limits for length.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {PSID} The SID for the profile. This buffer must be freed using the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-freesid">FreeSid</a> function.
      * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-createappcontainerprofile
      * @since windows8.0
      */
-    static CreateAppContainerProfile(pszAppContainerName, pszDisplayName, pszDescription, pCapabilities, dwCapabilityCount, ppSidAppContainerSid) {
+    static CreateAppContainerProfile(pszAppContainerName, pszDisplayName, pszDescription, pCapabilities, dwCapabilityCount) {
         pszAppContainerName := pszAppContainerName is String ? StrPtr(pszAppContainerName) : pszAppContainerName
         pszDisplayName := pszDisplayName is String ? StrPtr(pszDisplayName) : pszDisplayName
         pszDescription := pszDescription is String ? StrPtr(pszDescription) : pszDescription
 
-        result := DllCall("USERENV.dll\CreateAppContainerProfile", "ptr", pszAppContainerName, "ptr", pszDisplayName, "ptr", pszDescription, "ptr", pCapabilities, "uint", dwCapabilityCount, "ptr", ppSidAppContainerSid, "int")
+        result := DllCall("USERENV.dll\CreateAppContainerProfile", "ptr", pszAppContainerName, "ptr", pszDisplayName, "ptr", pszDescription, "ptr", pCapabilities, "uint", dwCapabilityCount, "ptr*", &ppSidAppContainerSid := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppSidAppContainerSid
     }
 
     /**
@@ -240,163 +185,71 @@ class Isolation {
      * @param {Integer} desiredAccess Type: <b><a href="https://docs.microsoft.com/windows/desktop/shell/messages">REGSAM</a></b>
      * 
      * The desired registry access.
-     * @param {Pointer<HKEY>} phAppContainerKey Type: <b>PHKEY</b>
+     * @returns {HKEY} Type: <b>PHKEY</b>
      * 
      * A pointer to an HKEY that, when this function returns successfully, receives the registry storage location for the current profile.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * This function returns an <b>HRESULT</b> code, including but not limited to the following:
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation completed successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The caller is not running as or impersonating a user who can access this profile.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-getappcontainerregistrylocation
      * @since windows8.0
      */
-    static GetAppContainerRegistryLocation(desiredAccess, phAppContainerKey) {
+    static GetAppContainerRegistryLocation(desiredAccess) {
+        phAppContainerKey := HKEY()
         result := DllCall("USERENV.dll\GetAppContainerRegistryLocation", "uint", desiredAccess, "ptr", phAppContainerKey, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return phAppContainerKey
     }
 
     /**
      * Gets the path of the local app data folder for the specified app container.
      * @param {PWSTR} pszAppContainerSid A pointer to the SID of the app container.
-     * @param {Pointer<PWSTR>} ppszPath The address of a pointer to a string that, when this function returns successfully, receives the path of the local folder. It is the responsibility of the caller to free this string when it is no longer needed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
-     * @returns {HRESULT} This function returns an <b>HRESULT</b> code, including but not limited to the following:
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation completed successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <i>pszAppContainerSid</i> or <i>ppszPath</i> parameter is <b>NULL</b>.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {PWSTR} The address of a pointer to a string that, when this function returns successfully, receives the path of the local folder. It is the responsibility of the caller to free this string when it is no longer needed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
      * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-getappcontainerfolderpath
      * @since windows8.0
      */
-    static GetAppContainerFolderPath(pszAppContainerSid, ppszPath) {
+    static GetAppContainerFolderPath(pszAppContainerSid) {
         pszAppContainerSid := pszAppContainerSid is String ? StrPtr(pszAppContainerSid) : pszAppContainerSid
 
-        result := DllCall("USERENV.dll\GetAppContainerFolderPath", "ptr", pszAppContainerSid, "ptr", ppszPath, "int")
+        result := DllCall("USERENV.dll\GetAppContainerFolderPath", "ptr", pszAppContainerSid, "ptr*", &ppszPath := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppszPath
     }
 
     /**
      * DeriveRestrictedAppContainerSidFromAppContainerSidAndRestrictedName is reserved for future use.
      * @param {PSID} psidAppContainerSid Reserved.
      * @param {PWSTR} pszRestrictedAppContainerName Reserved.
-     * @param {Pointer<PSID>} ppsidRestrictedAppContainerSid Reserved.
-     * @returns {HRESULT} Reserved.
+     * @returns {PSID} Reserved.
      * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-deriverestrictedappcontainersidfromappcontainersidandrestrictedname
      * @since windows10.0.10240
      */
-    static DeriveRestrictedAppContainerSidFromAppContainerSidAndRestrictedName(psidAppContainerSid, pszRestrictedAppContainerName, ppsidRestrictedAppContainerSid) {
+    static DeriveRestrictedAppContainerSidFromAppContainerSidAndRestrictedName(psidAppContainerSid, pszRestrictedAppContainerName) {
         pszRestrictedAppContainerName := pszRestrictedAppContainerName is String ? StrPtr(pszRestrictedAppContainerName) : pszRestrictedAppContainerName
 
-        result := DllCall("USERENV.dll\DeriveRestrictedAppContainerSidFromAppContainerSidAndRestrictedName", "ptr", psidAppContainerSid, "ptr", pszRestrictedAppContainerName, "ptr", ppsidRestrictedAppContainerSid, "int")
+        result := DllCall("USERENV.dll\DeriveRestrictedAppContainerSidFromAppContainerSidAndRestrictedName", "ptr", psidAppContainerSid, "ptr", pszRestrictedAppContainerName, "ptr*", &ppsidRestrictedAppContainerSid := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppsidRestrictedAppContainerSid
     }
 
     /**
      * Gets the SID of the specified profile.
      * @param {PWSTR} pszAppContainerName The name of the profile.
-     * @param {Pointer<PSID>} ppsidAppContainerSid The SID for the profile. This buffer must be freed using the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-freesid">FreeSid</a> function.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation completed successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <i>pszAppContainerName</i> parameter, or the  <i>ppsidAppContainerSid</i> parameter is either <b>NULL</b> or not valid.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {PSID} The SID for the profile. This buffer must be freed using the <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-freesid">FreeSid</a> function.
      * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-deriveappcontainersidfromappcontainername
      * @since windows8.0
      */
-    static DeriveAppContainerSidFromAppContainerName(pszAppContainerName, ppsidAppContainerSid) {
+    static DeriveAppContainerSidFromAppContainerName(pszAppContainerName) {
         pszAppContainerName := pszAppContainerName is String ? StrPtr(pszAppContainerName) : pszAppContainerName
 
-        result := DllCall("USERENV.dll\DeriveAppContainerSidFromAppContainerName", "ptr", pszAppContainerName, "ptr", ppsidAppContainerSid, "int")
+        result := DllCall("USERENV.dll\DeriveAppContainerSidFromAppContainerName", "ptr", pszAppContainerName, "ptr*", &ppsidAppContainerSid := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppsidAppContainerSid
     }
 
 ;@endregion Methods

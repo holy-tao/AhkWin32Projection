@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDownloadProgress.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -32,12 +33,11 @@ class IDownloadProgressChangedCallbackArgs extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDownloadProgress>} retval 
-     * @returns {HRESULT} 
+     * @returns {IDownloadProgress} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-idownloadprogresschangedcallbackargs-get_progress
      */
-    get_Progress(retval) {
-        result := ComCall(7, this, "ptr*", retval, "HRESULT")
-        return result
+    get_Progress() {
+        result := ComCall(7, this, "ptr*", &retval := 0, "HRESULT")
+        return IDownloadProgress(retval)
     }
 }

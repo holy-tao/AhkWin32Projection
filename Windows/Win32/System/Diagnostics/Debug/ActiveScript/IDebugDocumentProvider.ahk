@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IDebugDocument.ahk
 #Include .\IDebugDocumentInfo.ahk
 
 /**
@@ -30,11 +31,10 @@ class IDebugDocumentProvider extends IDebugDocumentInfo{
 
     /**
      * 
-     * @param {Pointer<IDebugDocument>} ppssd 
-     * @returns {HRESULT} 
+     * @returns {IDebugDocument} 
      */
-    GetDocument(ppssd) {
-        result := ComCall(5, this, "ptr*", ppssd, "HRESULT")
-        return result
+    GetDocument() {
+        result := ComCall(5, this, "ptr*", &ppssd := 0, "HRESULT")
+        return IDebugDocument(ppssd)
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IAdvancedMediaCaptureSettings.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,12 +33,11 @@ class IAdvancedMediaCapture extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IAdvancedMediaCaptureSettings>} value 
-     * @returns {HRESULT} 
+     * @returns {IAdvancedMediaCaptureSettings} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediacapture/nf-mfmediacapture-iadvancedmediacapture-getadvancedmediacapturesettings
      */
-    GetAdvancedMediaCaptureSettings(value) {
-        result := ComCall(3, this, "ptr*", value, "HRESULT")
-        return result
+    GetAdvancedMediaCaptureSettings() {
+        result := ComCall(3, this, "ptr*", &value := 0, "HRESULT")
+        return IAdvancedMediaCaptureSettings(value)
     }
 }

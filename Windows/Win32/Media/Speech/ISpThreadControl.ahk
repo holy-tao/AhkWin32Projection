@@ -1,8 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
-#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include .\ISpNotifySink.ahk
 
 /**
@@ -33,24 +33,23 @@ class ISpThreadControl extends ISpNotifySink{
     /**
      * 
      * @param {Integer} dwFlags 
-     * @param {Pointer<HWND>} phwnd 
-     * @returns {HRESULT} 
+     * @returns {HWND} 
      */
-    StartThread(dwFlags, phwnd) {
+    StartThread(dwFlags) {
+        phwnd := HWND()
         result := ComCall(4, this, "uint", dwFlags, "ptr", phwnd, "HRESULT")
-        return result
+        return phwnd
     }
 
     /**
      * 
      * @param {BOOL} fForceStop 
-     * @param {Pointer<HRESULT>} phrThreadResult 
      * @param {Integer} msTimeOut 
      * @returns {HRESULT} 
      */
-    WaitForThreadDone(fForceStop, phrThreadResult, msTimeOut) {
-        result := ComCall(5, this, "int", fForceStop, "ptr", phrThreadResult, "uint", msTimeOut, "HRESULT")
-        return result
+    WaitForThreadDone(fForceStop, msTimeOut) {
+        result := ComCall(5, this, "int", fForceStop, "int*", &phrThreadResult := 0, "uint", msTimeOut, "HRESULT")
+        return phrThreadResult
     }
 
     /**
@@ -72,7 +71,7 @@ class ISpThreadControl extends ISpNotifySink{
      */
     ThreadHandle() {
         result := ComCall(7, this, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
@@ -90,7 +89,7 @@ class ISpThreadControl extends ISpNotifySink{
      */
     NotifyEvent() {
         result := ComCall(9, this, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
@@ -99,7 +98,7 @@ class ISpThreadControl extends ISpNotifySink{
      */
     WindowHandle() {
         result := ComCall(10, this, "ptr")
-        return result
+        return HWND({Value: result}, True)
     }
 
     /**
@@ -108,7 +107,7 @@ class ISpThreadControl extends ISpNotifySink{
      */
     ThreadCompleteEvent() {
         result := ComCall(11, this, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
@@ -117,6 +116,6 @@ class ISpThreadControl extends ISpNotifySink{
      */
     ExitThreadEvent() {
         result := ComCall(12, this, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\ITsSbEnvironmentPropertySet.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -32,37 +34,33 @@ class ITsSbEnvironment extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbenvironment-get_name
      */
-    get_Name(pVal) {
+    get_Name() {
+        pVal := BSTR()
         result := ComCall(3, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbenvironment-get_serverweight
      */
-    get_ServerWeight(pVal) {
-        pValMarshal := pVal is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_ServerWeight() {
+        result := ComCall(4, this, "uint*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<ITsSbEnvironmentPropertySet>} ppPropertySet 
-     * @returns {HRESULT} 
+     * @returns {ITsSbEnvironmentPropertySet} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbenvironment-get_environmentpropertyset
      */
-    get_EnvironmentPropertySet(ppPropertySet) {
-        result := ComCall(5, this, "ptr*", ppPropertySet, "HRESULT")
-        return result
+    get_EnvironmentPropertySet() {
+        result := ComCall(5, this, "ptr*", &ppPropertySet := 0, "HRESULT")
+        return ITsSbEnvironmentPropertySet(ppPropertySet)
     }
 
     /**

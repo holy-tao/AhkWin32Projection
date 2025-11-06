@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMarkupContainer.ahk
 #Include .\IMarkupServices.ahk
 
 /**
@@ -33,16 +34,15 @@ class IMarkupServices2 extends IMarkupServices{
      * @param {HGLOBAL} hglobalHTML 
      * @param {Integer} dwFlags 
      * @param {IMarkupContainer} pContext 
-     * @param {Pointer<IMarkupContainer>} ppContainerResult 
      * @param {IMarkupPointer} pPointerStart 
      * @param {IMarkupPointer} pPointerFinish 
-     * @returns {HRESULT} 
+     * @returns {IMarkupContainer} 
      */
-    ParseGlobalEx(hglobalHTML, dwFlags, pContext, ppContainerResult, pPointerStart, pPointerFinish) {
+    ParseGlobalEx(hglobalHTML, dwFlags, pContext, pPointerStart, pPointerFinish) {
         hglobalHTML := hglobalHTML is Win32Handle ? NumGet(hglobalHTML, "ptr") : hglobalHTML
 
-        result := ComCall(23, this, "ptr", hglobalHTML, "uint", dwFlags, "ptr", pContext, "ptr*", ppContainerResult, "ptr", pPointerStart, "ptr", pPointerFinish, "HRESULT")
-        return result
+        result := ComCall(23, this, "ptr", hglobalHTML, "uint", dwFlags, "ptr", pContext, "ptr*", &ppContainerResult := 0, "ptr", pPointerStart, "ptr", pPointerFinish, "HRESULT")
+        return IMarkupContainer(ppContainerResult)
     }
 
     /**

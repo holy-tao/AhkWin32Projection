@@ -33,13 +33,13 @@ class ITDirectoryObjectUser extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} ppName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectoryobjectuser-get_ipphoneprimary
      */
-    get_IPPhonePrimary(ppName) {
+    get_IPPhonePrimary() {
+        ppName := BSTR()
         result := ComCall(7, this, "ptr", ppName, "HRESULT")
-        return result
+        return ppName
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D2D1_GRADIENT_MESH_PATCH.ahk
 #Include .\ID2D1Resource.ahk
 
 /**
@@ -43,13 +44,13 @@ class ID2D1GradientMesh extends ID2D1Resource{
     /**
      * 
      * @param {Integer} startIndex 
-     * @param {Pointer<D2D1_GRADIENT_MESH_PATCH>} patches 
      * @param {Integer} patchesCount 
-     * @returns {HRESULT} 
+     * @returns {D2D1_GRADIENT_MESH_PATCH} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1gradientmesh-getpatches
      */
-    GetPatches(startIndex, patches, patchesCount) {
+    GetPatches(startIndex, patchesCount) {
+        patches := D2D1_GRADIENT_MESH_PATCH()
         result := ComCall(5, this, "uint", startIndex, "ptr", patches, "uint", patchesCount, "HRESULT")
-        return result
+        return patches
     }
 }

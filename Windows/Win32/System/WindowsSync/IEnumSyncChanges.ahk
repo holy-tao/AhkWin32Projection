@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISyncChange.ahk
+#Include .\IEnumSyncChanges.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -33,16 +35,15 @@ class IEnumSyncChanges extends IUnknown{
     /**
      * 
      * @param {Integer} cChanges 
-     * @param {Pointer<ISyncChange>} ppChange 
      * @param {Pointer<Integer>} pcFetched 
-     * @returns {HRESULT} 
+     * @returns {ISyncChange} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumsyncchanges-next
      */
-    Next(cChanges, ppChange, pcFetched) {
+    Next(cChanges, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cChanges, "ptr*", ppChange, pcFetchedMarshal, pcFetched, "HRESULT")
-        return result
+        result := ComCall(3, this, "uint", cChanges, "ptr*", &ppChange := 0, pcFetchedMarshal, pcFetched, "HRESULT")
+        return ISyncChange(ppChange)
     }
 
     /**
@@ -68,12 +69,11 @@ class IEnumSyncChanges extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumSyncChanges>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumSyncChanges} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumsyncchanges-clone
      */
-    Clone(ppEnum) {
-        result := ComCall(6, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumSyncChanges(ppEnum)
     }
 }

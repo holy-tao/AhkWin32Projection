@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IFaxDocument.ahk
 
 /**
@@ -38,24 +39,24 @@ class IFaxDocument2 extends IFaxDocument{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrSubmissionId 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument2-get_submissionid
      */
-    get_SubmissionId(pbstrSubmissionId) {
+    get_SubmissionId() {
+        pbstrSubmissionId := BSTR()
         result := ComCall(41, this, "ptr", pbstrSubmissionId, "HRESULT")
-        return result
+        return pbstrSubmissionId
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvBodies 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument2-get_bodies
      */
-    get_Bodies(pvBodies) {
+    get_Bodies() {
+        pvBodies := VARIANT()
         result := ComCall(42, this, "ptr", pvBodies, "HRESULT")
-        return result
+        return pvBodies
     }
 
     /**

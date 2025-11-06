@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\INamedModelsEnumerator.ahk
 #Include .\IDataModelManager2.ahk
 
 /**
@@ -50,11 +51,10 @@ class IDataModelManager3 extends IDataModelManager2{
 
     /**
      * 
-     * @param {Pointer<INamedModelsEnumerator>} ppEnumerator 
-     * @returns {HRESULT} 
+     * @returns {INamedModelsEnumerator} 
      */
-    EnumerateNamedModels(ppEnumerator) {
-        result := ComCall(26, this, "ptr*", ppEnumerator, "HRESULT")
-        return result
+    EnumerateNamedModels() {
+        result := ComCall(26, this, "ptr*", &ppEnumerator := 0, "HRESULT")
+        return INamedModelsEnumerator(ppEnumerator)
     }
 }

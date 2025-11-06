@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include .\IFullScreenVideo.ahk
 
 /**
@@ -47,14 +48,14 @@ class IFullScreenVideoEx extends IFullScreenVideo{
 
     /**
      * 
-     * @param {Pointer<HWND>} phwnd 
      * @param {Pointer<HACCEL>} phAccel 
-     * @returns {HRESULT} 
+     * @returns {HWND} 
      * @see https://learn.microsoft.com/windows/win32/api/amvideo/nf-amvideo-ifullscreenvideoex-getacceleratortable
      */
-    GetAcceleratorTable(phwnd, phAccel) {
+    GetAcceleratorTable(phAccel) {
+        phwnd := HWND()
         result := ComCall(21, this, "ptr", phwnd, "ptr", phAccel, "HRESULT")
-        return result
+        return phwnd
     }
 
     /**
@@ -70,14 +71,11 @@ class IFullScreenVideoEx extends IFullScreenVideo{
 
     /**
      * 
-     * @param {Pointer<Integer>} pKeepAspect 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/amvideo/nf-amvideo-ifullscreenvideoex-iskeeppixelaspectratio
      */
-    IsKeepPixelAspectRatio(pKeepAspect) {
-        pKeepAspectMarshal := pKeepAspect is VarRef ? "int*" : "ptr"
-
-        result := ComCall(23, this, pKeepAspectMarshal, pKeepAspect, "HRESULT")
-        return result
+    IsKeepPixelAspectRatio() {
+        result := ComCall(23, this, "int*", &pKeepAspect := 0, "HRESULT")
+        return pKeepAspect
     }
 }

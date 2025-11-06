@@ -44,7 +44,9 @@ class IActivateAudioInterfaceAsyncOperation extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-iactivateaudiointerfaceasyncoperation-getactivateresult
      */
     GetActivateResult(activateResult, activatedInterface) {
-        result := ComCall(3, this, "ptr", activateResult, "ptr*", activatedInterface, "HRESULT")
+        activateResultMarshal := activateResult is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, activateResultMarshal, activateResult, "ptr*", activatedInterface, "HRESULT")
         return result
     }
 }

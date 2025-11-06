@@ -33,15 +33,14 @@ class IFtpHomeDirectoryProvider extends IUnknown{
      * @param {PWSTR} pszSessionId 
      * @param {PWSTR} pszSiteName 
      * @param {PWSTR} pszUserName 
-     * @param {Pointer<PWSTR>} ppszHomeDirectoryData 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetUserHomeDirectoryData(pszSessionId, pszSiteName, pszUserName, ppszHomeDirectoryData) {
+    GetUserHomeDirectoryData(pszSessionId, pszSiteName, pszUserName) {
         pszSessionId := pszSessionId is String ? StrPtr(pszSessionId) : pszSessionId
         pszSiteName := pszSiteName is String ? StrPtr(pszSiteName) : pszSiteName
         pszUserName := pszUserName is String ? StrPtr(pszUserName) : pszUserName
 
-        result := ComCall(3, this, "ptr", pszSessionId, "ptr", pszSiteName, "ptr", pszUserName, "ptr", ppszHomeDirectoryData, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pszSessionId, "ptr", pszSiteName, "ptr", pszUserName, "ptr*", &ppszHomeDirectoryData := 0, "HRESULT")
+        return ppszHomeDirectoryData
     }
 }

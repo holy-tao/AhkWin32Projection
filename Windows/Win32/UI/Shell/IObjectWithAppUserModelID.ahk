@@ -60,12 +60,11 @@ class IObjectWithAppUserModelID extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszAppID 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iobjectwithappusermodelid-getappid
      */
-    GetAppID(ppszAppID) {
-        result := ComCall(4, this, "ptr", ppszAppID, "HRESULT")
-        return result
+    GetAppID() {
+        result := ComCall(4, this, "ptr*", &ppszAppID := 0, "HRESULT")
+        return ppszAppID
     }
 }

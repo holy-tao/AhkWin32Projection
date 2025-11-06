@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDropTarget.ahk
 #Include .\IOleInPlaceObject.ahk
 
 /**
@@ -35,23 +36,21 @@ class IOleInPlaceObjectWindowless extends IOleInPlaceObject{
      * @param {Integer} msg 
      * @param {WPARAM} wParam 
      * @param {LPARAM} lParam 
-     * @param {Pointer<LRESULT>} plResult 
-     * @returns {HRESULT} 
+     * @returns {LRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleinplaceobjectwindowless-onwindowmessage
      */
-    OnWindowMessage(msg, wParam, lParam, plResult) {
-        result := ComCall(9, this, "uint", msg, "ptr", wParam, "ptr", lParam, "ptr", plResult, "HRESULT")
-        return result
+    OnWindowMessage(msg, wParam, lParam) {
+        result := ComCall(9, this, "uint", msg, "ptr", wParam, "ptr", lParam, "ptr*", &plResult := 0, "HRESULT")
+        return plResult
     }
 
     /**
      * 
-     * @param {Pointer<IDropTarget>} ppDropTarget 
-     * @returns {HRESULT} 
+     * @returns {IDropTarget} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleinplaceobjectwindowless-getdroptarget
      */
-    GetDropTarget(ppDropTarget) {
-        result := ComCall(10, this, "ptr*", ppDropTarget, "HRESULT")
-        return result
+    GetDropTarget() {
+        result := ComCall(10, this, "ptr*", &ppDropTarget := 0, "HRESULT")
+        return IDropTarget(ppDropTarget)
     }
 }

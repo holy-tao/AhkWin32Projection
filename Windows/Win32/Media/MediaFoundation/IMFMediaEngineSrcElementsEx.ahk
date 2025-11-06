@@ -53,12 +53,12 @@ class IMFMediaEngineSrcElementsEx extends IMFMediaEngineSrcElements{
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<BSTR>} pType 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaenginesrcelementsex-getkeysystem
      */
-    GetKeySystem(index, pType) {
+    GetKeySystem(index) {
+        pType := BSTR()
         result := ComCall(10, this, "uint", index, "ptr", pType, "HRESULT")
-        return result
+        return pType
     }
 }

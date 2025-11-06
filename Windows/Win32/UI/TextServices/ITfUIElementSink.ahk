@@ -42,7 +42,9 @@ class ITfUIElementSink extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfuielementsink-beginuielement
      */
     BeginUIElement(dwUIElementId, pbShow) {
-        result := ComCall(3, this, "uint", dwUIElementId, "ptr", pbShow, "HRESULT")
+        pbShowMarshal := pbShow is VarRef ? "int*" : "ptr"
+
+        result := ComCall(3, this, "uint", dwUIElementId, pbShowMarshal, pbShow, "HRESULT")
         return result
     }
 

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IVBSAXXMLReader.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,12 +31,11 @@ class IVBSAXXMLFilter extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IVBSAXXMLReader>} oReader 
-     * @returns {HRESULT} 
+     * @returns {IVBSAXXMLReader} 
      */
-    get_parent(oReader) {
-        result := ComCall(7, this, "ptr*", oReader, "HRESULT")
-        return result
+    get_parent() {
+        result := ComCall(7, this, "ptr*", &oReader := 0, "HRESULT")
+        return IVBSAXXMLReader(oReader)
     }
 
     /**

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -41,12 +42,12 @@ class IHTMLElement7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onmspointerdown(p) {
+    get_onmspointerdown() {
+        p := VARIANT()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -61,12 +62,12 @@ class IHTMLElement7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onmspointermove(p) {
+    get_onmspointermove() {
+        p := VARIANT()
         result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -81,12 +82,12 @@ class IHTMLElement7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onmspointerup(p) {
+    get_onmspointerup() {
+        p := VARIANT()
         result := ComCall(12, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -101,12 +102,12 @@ class IHTMLElement7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onmspointerover(p) {
+    get_onmspointerover() {
+        p := VARIANT()
         result := ComCall(14, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -121,12 +122,12 @@ class IHTMLElement7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onmspointerout(p) {
+    get_onmspointerout() {
+        p := VARIANT()
         result := ComCall(16, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -141,12 +142,12 @@ class IHTMLElement7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onmspointercancel(p) {
+    get_onmspointercancel() {
+        p := VARIANT()
         result := ComCall(18, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -161,12 +162,12 @@ class IHTMLElement7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onmspointerhover(p) {
+    get_onmspointerhover() {
+        p := VARIANT()
         result := ComCall(20, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -181,12 +182,12 @@ class IHTMLElement7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onmslostpointercapture(p) {
+    get_onmslostpointercapture() {
+        p := VARIANT()
         result := ComCall(22, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -201,12 +202,12 @@ class IHTMLElement7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onmsgotpointercapture(p) {
+    get_onmsgotpointercapture() {
+        p := VARIANT()
         result := ComCall(24, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -221,12 +222,12 @@ class IHTMLElement7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onmsgesturestart(p) {
+    get_onmsgesturestart() {
+        p := VARIANT()
         result := ComCall(26, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -241,12 +242,12 @@ class IHTMLElement7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onmsgesturechange(p) {
+    get_onmsgesturechange() {
+        p := VARIANT()
         result := ComCall(28, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -261,12 +262,12 @@ class IHTMLElement7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onmsgestureend(p) {
+    get_onmsgestureend() {
+        p := VARIANT()
         result := ComCall(30, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -281,12 +282,12 @@ class IHTMLElement7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onmsgesturehold(p) {
+    get_onmsgesturehold() {
+        p := VARIANT()
         result := ComCall(32, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -301,12 +302,12 @@ class IHTMLElement7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onmsgesturetap(p) {
+    get_onmsgesturetap() {
+        p := VARIANT()
         result := ComCall(34, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -321,12 +322,12 @@ class IHTMLElement7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onmsgesturedoubletap(p) {
+    get_onmsgesturedoubletap() {
+        p := VARIANT()
         result := ComCall(36, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -341,12 +342,12 @@ class IHTMLElement7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onmsinertiastart(p) {
+    get_onmsinertiastart() {
+        p := VARIANT()
         result := ComCall(38, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -381,12 +382,12 @@ class IHTMLElement7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onmstransitionstart(p) {
+    get_onmstransitionstart() {
+        p := VARIANT()
         result := ComCall(42, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -401,12 +402,12 @@ class IHTMLElement7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onmstransitionend(p) {
+    get_onmstransitionend() {
+        p := VARIANT()
         result := ComCall(44, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -421,12 +422,12 @@ class IHTMLElement7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onmsanimationstart(p) {
+    get_onmsanimationstart() {
+        p := VARIANT()
         result := ComCall(46, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -441,12 +442,12 @@ class IHTMLElement7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onmsanimationend(p) {
+    get_onmsanimationend() {
+        p := VARIANT()
         result := ComCall(48, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -461,12 +462,12 @@ class IHTMLElement7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onmsanimationiteration(p) {
+    get_onmsanimationiteration() {
+        p := VARIANT()
         result := ComCall(50, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -481,12 +482,12 @@ class IHTMLElement7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_oninvalid(p) {
+    get_oninvalid() {
+        p := VARIANT()
         result := ComCall(52, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -503,12 +504,12 @@ class IHTMLElement7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_xmsAcceleratorKey(p) {
+    get_xmsAcceleratorKey() {
+        p := BSTR()
         result := ComCall(54, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -523,12 +524,12 @@ class IHTMLElement7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_spellcheck(p) {
+    get_spellcheck() {
+        p := VARIANT()
         result := ComCall(56, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -543,12 +544,12 @@ class IHTMLElement7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onmsmanipulationstatechanged(p) {
+    get_onmsmanipulationstatechanged() {
+        p := VARIANT()
         result := ComCall(58, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -563,11 +564,11 @@ class IHTMLElement7 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_oncuechange(p) {
+    get_oncuechange() {
+        p := VARIANT()
         result := ComCall(60, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 }

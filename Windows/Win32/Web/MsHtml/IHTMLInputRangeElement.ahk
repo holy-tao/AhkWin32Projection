@@ -41,22 +41,21 @@ class IHTMLInputRangeElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_disabled(p) {
-        result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+    get_disabled() {
+        result := ComCall(8, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_type(p) {
+    get_type() {
+        p := BSTR()
         result := ComCall(9, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -73,12 +72,12 @@ class IHTMLInputRangeElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_alt(p) {
+    get_alt() {
+        p := BSTR()
         result := ComCall(11, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -95,12 +94,12 @@ class IHTMLInputRangeElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_name(p) {
+    get_name() {
+        p := BSTR()
         result := ComCall(13, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -117,12 +116,12 @@ class IHTMLInputRangeElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_value(p) {
+    get_value() {
+        p := BSTR()
         result := ComCall(15, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -139,12 +138,12 @@ class IHTMLInputRangeElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_min(p) {
+    get_min() {
+        p := BSTR()
         result := ComCall(17, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -161,12 +160,12 @@ class IHTMLInputRangeElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_max(p) {
+    get_max() {
+        p := BSTR()
         result := ComCall(19, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -183,12 +182,12 @@ class IHTMLInputRangeElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_step(p) {
+    get_step() {
+        p := BSTR()
         result := ComCall(21, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -203,14 +202,11 @@ class IHTMLInputRangeElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} p 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_valueAsNumber(p) {
-        pMarshal := p is VarRef ? "double*" : "ptr"
-
-        result := ComCall(23, this, pMarshal, p, "HRESULT")
-        return result
+    get_valueAsNumber() {
+        result := ComCall(23, this, "double*", &p := 0, "HRESULT")
+        return p
     }
 
     /**

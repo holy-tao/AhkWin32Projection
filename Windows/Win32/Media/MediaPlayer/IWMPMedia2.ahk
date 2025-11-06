@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWMPErrorItem.ahk
 #Include .\IWMPMedia.ahk
 
 /**
@@ -32,12 +33,11 @@ class IWMPMedia2 extends IWMPMedia{
 
     /**
      * 
-     * @param {Pointer<IWMPErrorItem>} ppIWMPErrorItem 
-     * @returns {HRESULT} 
+     * @returns {IWMPErrorItem} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia2-get_error
      */
-    get_error(ppIWMPErrorItem) {
-        result := ComCall(25, this, "ptr*", ppIWMPErrorItem, "HRESULT")
-        return result
+    get_error() {
+        result := ComCall(25, this, "ptr*", &ppIWMPErrorItem := 0, "HRESULT")
+        return IWMPErrorItem(ppIWMPErrorItem)
     }
 }

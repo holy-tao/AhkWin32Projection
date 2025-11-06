@@ -30,27 +30,21 @@ class IXFeedsEnum extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} puiCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Count(puiCount) {
-        puiCountMarshal := puiCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, puiCountMarshal, puiCount, "HRESULT")
-        return result
+    Count() {
+        result := ComCall(3, this, "uint*", &puiCount := 0, "HRESULT")
+        return puiCount
     }
 
     /**
      * 
      * @param {Integer} uiIndex 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    Item(uiIndex, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "uint", uiIndex, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    Item(uiIndex, riid) {
+        result := ComCall(4, this, "uint", uiIndex, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 }

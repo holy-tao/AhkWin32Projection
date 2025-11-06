@@ -39,14 +39,11 @@ class INameSpaceTreeControlFolderCapabilities extends IUnknown{
     /**
      * 
      * @param {Integer} nfcMask 
-     * @param {Pointer<Integer>} pnfcValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inamespacetreecontrolfoldercapabilities-getfoldercapabilities
      */
-    GetFolderCapabilities(nfcMask, pnfcValue) {
-        pnfcValueMarshal := pnfcValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, "int", nfcMask, pnfcValueMarshal, pnfcValue, "HRESULT")
-        return result
+    GetFolderCapabilities(nfcMask) {
+        result := ComCall(3, this, "int", nfcMask, "int*", &pnfcValue := 0, "HRESULT")
+        return pnfcValue
     }
 }

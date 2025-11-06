@@ -31,11 +31,10 @@ class IHTMLElementCollection2 extends IDispatch{
     /**
      * 
      * @param {VARIANT} urn 
-     * @param {Pointer<IDispatch>} pdisp 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    urns(urn, pdisp) {
-        result := ComCall(7, this, "ptr", urn, "ptr*", pdisp, "HRESULT")
-        return result
+    urns(urn) {
+        result := ComCall(7, this, "ptr", urn, "ptr*", &pdisp := 0, "HRESULT")
+        return IDispatch(pdisp)
     }
 }

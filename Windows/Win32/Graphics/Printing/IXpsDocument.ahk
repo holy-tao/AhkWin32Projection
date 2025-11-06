@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IPartThumbnail.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,12 +31,11 @@ class IXpsDocument extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IPartThumbnail>} ppThumbnail 
-     * @returns {HRESULT} 
+     * @returns {IPartThumbnail} 
      */
-    GetThumbnail(ppThumbnail) {
-        result := ComCall(3, this, "ptr*", ppThumbnail, "HRESULT")
-        return result
+    GetThumbnail() {
+        result := ComCall(3, this, "ptr*", &ppThumbnail := 0, "HRESULT")
+        return IPartThumbnail(ppThumbnail)
     }
 
     /**

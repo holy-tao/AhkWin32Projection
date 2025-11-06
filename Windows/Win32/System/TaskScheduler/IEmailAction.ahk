@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ITaskNamedValueCollection.ahk
 #Include .\IAction.ahk
 
 /**
@@ -211,13 +212,12 @@ class IEmailAction extends IAction{
 
     /**
      * 
-     * @param {Pointer<ITaskNamedValueCollection>} ppHeaderFields 
-     * @returns {HRESULT} 
+     * @returns {ITaskNamedValueCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iemailaction-get_headerfields
      */
-    get_HeaderFields(ppHeaderFields) {
-        result := ComCall(24, this, "ptr*", ppHeaderFields, "HRESULT")
-        return result
+    get_HeaderFields() {
+        result := ComCall(24, this, "ptr*", &ppHeaderFields := 0, "HRESULT")
+        return ITaskNamedValueCollection(ppHeaderFields)
     }
 
     /**

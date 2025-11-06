@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\XYZColorF.ahk
+#Include .\PrimaryXYZColors.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -58,15 +60,12 @@ class IDeviceModelPlugIn extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pNumChannels 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/nf-wcsplugin-idevicemodelplugin-getnumchannels
      */
-    GetNumChannels(pNumChannels) {
-        pNumChannelsMarshal := pNumChannels is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pNumChannelsMarshal, pNumChannels, "HRESULT")
-        return result
+    GetNumChannels() {
+        result := ComCall(4, this, "uint*", &pNumChannels := 0, "HRESULT")
+        return pNumChannels
     }
 
     /**
@@ -74,15 +73,15 @@ class IDeviceModelPlugIn extends IUnknown{
      * @param {Integer} cColors 
      * @param {Integer} cChannels 
      * @param {Pointer<Float>} pDeviceValues 
-     * @param {Pointer<XYZColorF>} pXYZColors 
-     * @returns {HRESULT} 
+     * @returns {XYZColorF} 
      * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/nf-wcsplugin-idevicemodelplugin-devicetocolorimetriccolors
      */
-    DeviceToColorimetricColors(cColors, cChannels, pDeviceValues, pXYZColors) {
+    DeviceToColorimetricColors(cColors, cChannels, pDeviceValues) {
         pDeviceValuesMarshal := pDeviceValues is VarRef ? "float*" : "ptr"
 
+        pXYZColors := XYZColorF()
         result := ComCall(5, this, "uint", cColors, "uint", cChannels, pDeviceValuesMarshal, pDeviceValues, "ptr", pXYZColors, "HRESULT")
-        return result
+        return pXYZColors
     }
 
     /**
@@ -90,15 +89,12 @@ class IDeviceModelPlugIn extends IUnknown{
      * @param {Integer} cColors 
      * @param {Integer} cChannels 
      * @param {Pointer<XYZColorF>} pXYZColors 
-     * @param {Pointer<Float>} pDeviceValues 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/nf-wcsplugin-idevicemodelplugin-colorimetrictodevicecolors
      */
-    ColorimetricToDeviceColors(cColors, cChannels, pXYZColors, pDeviceValues) {
-        pDeviceValuesMarshal := pDeviceValues is VarRef ? "float*" : "ptr"
-
-        result := ComCall(6, this, "uint", cColors, "uint", cChannels, "ptr", pXYZColors, pDeviceValuesMarshal, pDeviceValues, "HRESULT")
-        return result
+    ColorimetricToDeviceColors(cColors, cChannels, pXYZColors) {
+        result := ComCall(6, this, "uint", cColors, "uint", cChannels, "ptr", pXYZColors, "float*", &pDeviceValues := 0, "HRESULT")
+        return pDeviceValues
     }
 
     /**
@@ -107,15 +103,12 @@ class IDeviceModelPlugIn extends IUnknown{
      * @param {Integer} cChannels 
      * @param {Pointer<XYZColorF>} pXYZColors 
      * @param {Pointer<BlackInformation>} pBlackInformation 
-     * @param {Pointer<Float>} pDeviceValues 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/nf-wcsplugin-idevicemodelplugin-colorimetrictodevicecolorswithblack
      */
-    ColorimetricToDeviceColorsWithBlack(cColors, cChannels, pXYZColors, pBlackInformation, pDeviceValues) {
-        pDeviceValuesMarshal := pDeviceValues is VarRef ? "float*" : "ptr"
-
-        result := ComCall(7, this, "uint", cColors, "uint", cChannels, "ptr", pXYZColors, "ptr", pBlackInformation, pDeviceValuesMarshal, pDeviceValues, "HRESULT")
-        return result
+    ColorimetricToDeviceColorsWithBlack(cColors, cChannels, pXYZColors, pBlackInformation) {
+        result := ComCall(7, this, "uint", cColors, "uint", cChannels, "ptr", pXYZColors, "ptr", pBlackInformation, "float*", &pDeviceValues := 0, "HRESULT")
+        return pDeviceValues
     }
 
     /**
@@ -132,13 +125,13 @@ class IDeviceModelPlugIn extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PrimaryXYZColors>} pPrimaryColor 
-     * @returns {HRESULT} 
+     * @returns {PrimaryXYZColors} 
      * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/nf-wcsplugin-idevicemodelplugin-getprimarysamples
      */
-    GetPrimarySamples(pPrimaryColor) {
+    GetPrimarySamples() {
+        pPrimaryColor := PrimaryXYZColors()
         result := ComCall(9, this, "ptr", pPrimaryColor, "HRESULT")
-        return result
+        return pPrimaryColor
     }
 
     /**
@@ -175,26 +168,23 @@ class IDeviceModelPlugIn extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcColors 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/nf-wcsplugin-idevicemodelplugin-getneutralaxissize
      */
-    GetNeutralAxisSize(pcColors) {
-        pcColorsMarshal := pcColors is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, pcColorsMarshal, pcColors, "HRESULT")
-        return result
+    GetNeutralAxisSize() {
+        result := ComCall(12, this, "uint*", &pcColors := 0, "HRESULT")
+        return pcColors
     }
 
     /**
      * 
      * @param {Integer} cColors 
-     * @param {Pointer<XYZColorF>} pXYZColors 
-     * @returns {HRESULT} 
+     * @returns {XYZColorF} 
      * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/nf-wcsplugin-idevicemodelplugin-getneutralaxis
      */
-    GetNeutralAxis(cColors, pXYZColors) {
+    GetNeutralAxis(cColors) {
+        pXYZColors := XYZColorF()
         result := ComCall(13, this, "uint", cColors, "ptr", pXYZColors, "HRESULT")
-        return result
+        return pXYZColors
     }
 }

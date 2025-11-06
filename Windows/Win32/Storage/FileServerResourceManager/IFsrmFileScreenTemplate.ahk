@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IFsrmDerivedObjectsResult.ahk
 #Include .\IFsrmFileScreenBase.ahk
 
 /**
@@ -33,13 +34,13 @@ class IFsrmFileScreenTemplate extends IFsrmFileScreenBase{
 
     /**
      * 
-     * @param {Pointer<BSTR>} name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreentemplate-get_name
      */
-    get_Name(name) {
+    get_Name() {
+        name := BSTR()
         result := ComCall(18, this, "ptr", name, "HRESULT")
-        return result
+        return name
     }
 
     /**
@@ -72,12 +73,11 @@ class IFsrmFileScreenTemplate extends IFsrmFileScreenBase{
      * 
      * @param {Integer} commitOptions 
      * @param {Integer} applyOptions 
-     * @param {Pointer<IFsrmDerivedObjectsResult>} derivedObjectsResult 
-     * @returns {HRESULT} 
+     * @returns {IFsrmDerivedObjectsResult} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreentemplate-commitandupdatederived
      */
-    CommitAndUpdateDerived(commitOptions, applyOptions, derivedObjectsResult) {
-        result := ComCall(21, this, "int", commitOptions, "int", applyOptions, "ptr*", derivedObjectsResult, "HRESULT")
-        return result
+    CommitAndUpdateDerived(commitOptions, applyOptions) {
+        result := ComCall(21, this, "int", commitOptions, "int", applyOptions, "ptr*", &derivedObjectsResult := 0, "HRESULT")
+        return IFsrmDerivedObjectsResult(derivedObjectsResult)
     }
 }

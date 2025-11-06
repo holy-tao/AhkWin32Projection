@@ -30,29 +30,25 @@ class IInternetBindInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} grfBINDF 
      * @param {Pointer<BINDINFO>} pbindinfo 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetBindInfo(grfBINDF, pbindinfo) {
-        grfBINDFMarshal := grfBINDF is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, grfBINDFMarshal, grfBINDF, "ptr", pbindinfo, "HRESULT")
-        return result
+    GetBindInfo(pbindinfo) {
+        result := ComCall(3, this, "uint*", &grfBINDF := 0, "ptr", pbindinfo, "HRESULT")
+        return grfBINDF
     }
 
     /**
      * 
      * @param {Integer} ulStringType 
-     * @param {Pointer<PWSTR>} ppwzStr 
      * @param {Integer} cEl 
      * @param {Pointer<Integer>} pcElFetched 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetBindString(ulStringType, ppwzStr, cEl, pcElFetched) {
+    GetBindString(ulStringType, cEl, pcElFetched) {
         pcElFetchedMarshal := pcElFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", ulStringType, "ptr", ppwzStr, "uint", cEl, pcElFetchedMarshal, pcElFetched, "HRESULT")
-        return result
+        result := ComCall(4, this, "uint", ulStringType, "ptr*", &ppwzStr := 0, "uint", cEl, pcElFetchedMarshal, pcElFetched, "HRESULT")
+        return ppwzStr
     }
 }

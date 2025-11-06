@@ -43,14 +43,11 @@ class IMemAllocatorCallbackTemp extends IMemAllocator{
 
     /**
      * 
-     * @param {Pointer<Integer>} plBuffersFree 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imemallocatorcallbacktemp-getfreecount
      */
-    GetFreeCount(plBuffersFree) {
-        plBuffersFreeMarshal := plBuffersFree is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, plBuffersFreeMarshal, plBuffersFree, "HRESULT")
-        return result
+    GetFreeCount() {
+        result := ComCall(10, this, "int*", &plBuffersFree := 0, "HRESULT")
+        return plBuffersFree
     }
 }

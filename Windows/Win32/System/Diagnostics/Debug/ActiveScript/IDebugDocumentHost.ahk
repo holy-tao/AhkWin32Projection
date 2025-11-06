@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Com\IUnknown.ahk
+#Include ..\..\..\..\Foundation\BSTR.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.ActiveScript
@@ -68,12 +69,11 @@ class IDebugDocumentHost extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppunkOuter 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    OnCreateDocumentContext(ppunkOuter) {
-        result := ComCall(5, this, "ptr*", ppunkOuter, "HRESULT")
-        return result
+    OnCreateDocumentContext() {
+        result := ComCall(5, this, "ptr*", &ppunkOuter := 0, "HRESULT")
+        return IUnknown(ppunkOuter)
     }
 
     /**
@@ -83,18 +83,20 @@ class IDebugDocumentHost extends IUnknown{
      * @returns {HRESULT} 
      */
     GetPathName(pbstrLongName, pfIsOriginalFile) {
-        result := ComCall(6, this, "ptr", pbstrLongName, "ptr", pfIsOriginalFile, "HRESULT")
+        pfIsOriginalFileMarshal := pfIsOriginalFile is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pbstrLongName, pfIsOriginalFileMarshal, pfIsOriginalFile, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrShortName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetFileName(pbstrShortName) {
+    GetFileName() {
+        pbstrShortName := BSTR()
         result := ComCall(7, this, "ptr", pbstrShortName, "HRESULT")
-        return result
+        return pbstrShortName
     }
 
     /**

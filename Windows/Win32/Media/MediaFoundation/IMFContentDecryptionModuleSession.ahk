@@ -37,26 +37,22 @@ class IMFContentDecryptionModuleSession extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} sessionId 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mfcontentdecryptionmodule/nf-mfcontentdecryptionmodule-imfcontentdecryptionmodulesession-getsessionid
      */
-    GetSessionId(sessionId) {
-        result := ComCall(3, this, "ptr", sessionId, "HRESULT")
-        return result
+    GetSessionId() {
+        result := ComCall(3, this, "ptr*", &sessionId := 0, "HRESULT")
+        return sessionId
     }
 
     /**
      * 
-     * @param {Pointer<Float>} expiration 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/mfcontentdecryptionmodule/nf-mfcontentdecryptionmodule-imfcontentdecryptionmodulesession-getexpiration
      */
-    GetExpiration(expiration) {
-        expirationMarshal := expiration is VarRef ? "double*" : "ptr"
-
-        result := ComCall(4, this, expirationMarshal, expiration, "HRESULT")
-        return result
+    GetExpiration() {
+        result := ComCall(4, this, "double*", &expiration := 0, "HRESULT")
+        return expiration
     }
 
     /**
@@ -77,15 +73,14 @@ class IMFContentDecryptionModuleSession extends IUnknown{
     /**
      * 
      * @param {PWSTR} sessionId 
-     * @param {Pointer<BOOL>} loaded 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mfcontentdecryptionmodule/nf-mfcontentdecryptionmodule-imfcontentdecryptionmodulesession-load
      */
-    Load(sessionId, loaded) {
+    Load(sessionId) {
         sessionId := sessionId is String ? StrPtr(sessionId) : sessionId
 
-        result := ComCall(6, this, "ptr", sessionId, "ptr", loaded, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", sessionId, "int*", &loaded := 0, "HRESULT")
+        return loaded
     }
 
     /**

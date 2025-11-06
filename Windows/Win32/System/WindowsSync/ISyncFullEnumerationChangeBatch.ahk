@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISyncKnowledge.ahk
 #Include .\ISyncChangeBatchBase.ahk
 
 /**
@@ -32,13 +33,12 @@ class ISyncFullEnumerationChangeBatch extends ISyncChangeBatchBase{
 
     /**
      * 
-     * @param {Pointer<ISyncKnowledge>} ppLearnedKnowledgeAfterRecoveryComplete 
-     * @returns {HRESULT} 
+     * @returns {ISyncKnowledge} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncfullenumerationchangebatch-getlearnedknowledgeafterrecoverycomplete
      */
-    GetLearnedKnowledgeAfterRecoveryComplete(ppLearnedKnowledgeAfterRecoveryComplete) {
-        result := ComCall(17, this, "ptr*", ppLearnedKnowledgeAfterRecoveryComplete, "HRESULT")
-        return result
+    GetLearnedKnowledgeAfterRecoveryComplete() {
+        result := ComCall(17, this, "ptr*", &ppLearnedKnowledgeAfterRecoveryComplete := 0, "HRESULT")
+        return ISyncKnowledge(ppLearnedKnowledgeAfterRecoveryComplete)
     }
 
     /**

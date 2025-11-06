@@ -42,15 +42,12 @@ class IFaxEventLogging extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pInitEventLevel 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxeventlogging-get_initeventslevel
      */
-    get_InitEventsLevel(pInitEventLevel) {
-        pInitEventLevelMarshal := pInitEventLevel is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pInitEventLevelMarshal, pInitEventLevel, "HRESULT")
-        return result
+    get_InitEventsLevel() {
+        result := ComCall(7, this, "int*", &pInitEventLevel := 0, "HRESULT")
+        return pInitEventLevel
     }
 
     /**
@@ -66,15 +63,12 @@ class IFaxEventLogging extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pInboundEventLevel 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxeventlogging-get_inboundeventslevel
      */
-    get_InboundEventsLevel(pInboundEventLevel) {
-        pInboundEventLevelMarshal := pInboundEventLevel is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pInboundEventLevelMarshal, pInboundEventLevel, "HRESULT")
-        return result
+    get_InboundEventsLevel() {
+        result := ComCall(9, this, "int*", &pInboundEventLevel := 0, "HRESULT")
+        return pInboundEventLevel
     }
 
     /**
@@ -90,15 +84,12 @@ class IFaxEventLogging extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pOutboundEventLevel 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxeventlogging-get_outboundeventslevel
      */
-    get_OutboundEventsLevel(pOutboundEventLevel) {
-        pOutboundEventLevelMarshal := pOutboundEventLevel is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, pOutboundEventLevelMarshal, pOutboundEventLevel, "HRESULT")
-        return result
+    get_OutboundEventsLevel() {
+        result := ComCall(11, this, "int*", &pOutboundEventLevel := 0, "HRESULT")
+        return pOutboundEventLevel
     }
 
     /**
@@ -114,15 +105,12 @@ class IFaxEventLogging extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pGeneralEventLevel 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxeventlogging-get_generaleventslevel
      */
-    get_GeneralEventsLevel(pGeneralEventLevel) {
-        pGeneralEventLevelMarshal := pGeneralEventLevel is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, pGeneralEventLevelMarshal, pGeneralEventLevel, "HRESULT")
-        return result
+    get_GeneralEventsLevel() {
+        result := ComCall(13, this, "int*", &pGeneralEventLevel := 0, "HRESULT")
+        return pGeneralEventLevel
     }
 
     /**

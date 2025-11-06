@@ -43,15 +43,12 @@ class ID3D10Buffer extends ID3D10Resource{
      * 
      * @param {Integer} MapType 
      * @param {Integer} MapFlags 
-     * @param {Pointer<Pointer<Void>>} ppData 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10buffer-map
      */
-    Map(MapType, MapFlags, ppData) {
-        ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(10, this, "int", MapType, "uint", MapFlags, ppDataMarshal, ppData, "HRESULT")
-        return result
+    Map(MapType, MapFlags) {
+        result := ComCall(10, this, "int", MapType, "uint", MapFlags, "ptr*", &ppData := 0, "HRESULT")
+        return ppData
     }
 
     /**

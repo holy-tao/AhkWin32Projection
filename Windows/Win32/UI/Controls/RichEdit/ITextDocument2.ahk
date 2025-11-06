@@ -1,6 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ITextDisplays.ahk
+#Include .\ITextFont2.ahk
+#Include .\ITextPara2.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include .\ITextSelection2.ahk
+#Include .\ITextStoryRanges2.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\ITextStrings.ahk
+#Include .\ITextRange2.ahk
+#Include .\ITextStory.ahk
 #Include .\ITextDocument.ahk
 
 /**
@@ -32,15 +42,12 @@ class ITextDocument2 extends ITextDocument{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getcarettype
      */
-    GetCaretType(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(26, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetCaretType() {
+        result := ComCall(26, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -56,24 +63,22 @@ class ITextDocument2 extends ITextDocument{
 
     /**
      * 
-     * @param {Pointer<ITextDisplays>} ppDisplays 
-     * @returns {HRESULT} 
+     * @returns {ITextDisplays} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getdisplays
      */
-    GetDisplays(ppDisplays) {
-        result := ComCall(28, this, "ptr*", ppDisplays, "HRESULT")
-        return result
+    GetDisplays() {
+        result := ComCall(28, this, "ptr*", &ppDisplays := 0, "HRESULT")
+        return ITextDisplays(ppDisplays)
     }
 
     /**
      * 
-     * @param {Pointer<ITextFont2>} ppFont 
-     * @returns {HRESULT} 
+     * @returns {ITextFont2} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getdocumentfont
      */
-    GetDocumentFont(ppFont) {
-        result := ComCall(29, this, "ptr*", ppFont, "HRESULT")
-        return result
+    GetDocumentFont() {
+        result := ComCall(29, this, "ptr*", &ppFont := 0, "HRESULT")
+        return ITextFont2(ppFont)
     }
 
     /**
@@ -89,13 +94,12 @@ class ITextDocument2 extends ITextDocument{
 
     /**
      * 
-     * @param {Pointer<ITextPara2>} ppPara 
-     * @returns {HRESULT} 
+     * @returns {ITextPara2} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getdocumentpara
      */
-    GetDocumentPara(ppPara) {
-        result := ComCall(31, this, "ptr*", ppPara, "HRESULT")
-        return result
+    GetDocumentPara() {
+        result := ComCall(31, this, "ptr*", &ppPara := 0, "HRESULT")
+        return ITextPara2(ppPara)
     }
 
     /**
@@ -111,26 +115,23 @@ class ITextDocument2 extends ITextDocument{
 
     /**
      * 
-     * @param {Pointer<Integer>} pFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-geteastasianflags
      */
-    GetEastAsianFlags(pFlags) {
-        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(33, this, pFlagsMarshal, pFlags, "HRESULT")
-        return result
+    GetEastAsianFlags() {
+        result := ComCall(33, this, "int*", &pFlags := 0, "HRESULT")
+        return pFlags
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getgenerator
      */
-    GetGenerator(pbstr) {
+    GetGenerator() {
+        pbstr := BSTR()
         result := ComCall(34, this, "ptr", pbstr, "HRESULT")
-        return result
+        return pbstr
     }
 
     /**
@@ -146,15 +147,12 @@ class ITextDocument2 extends ITextDocument{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getnotificationmode
      */
-    GetNotificationMode(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(36, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetNotificationMode() {
+        result := ComCall(36, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -170,67 +168,52 @@ class ITextDocument2 extends ITextDocument{
 
     /**
      * 
-     * @param {Pointer<ITextSelection2>} ppSel 
-     * @returns {HRESULT} 
+     * @returns {ITextSelection2} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getselection2
      */
-    GetSelection2(ppSel) {
-        result := ComCall(38, this, "ptr*", ppSel, "HRESULT")
-        return result
+    GetSelection2() {
+        result := ComCall(38, this, "ptr*", &ppSel := 0, "HRESULT")
+        return ITextSelection2(ppSel)
     }
 
     /**
      * 
-     * @param {Pointer<ITextStoryRanges2>} ppStories 
-     * @returns {HRESULT} 
+     * @returns {ITextStoryRanges2} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getstoryranges2
      */
-    GetStoryRanges2(ppStories) {
-        result := ComCall(39, this, "ptr*", ppStories, "HRESULT")
-        return result
+    GetStoryRanges2() {
+        result := ComCall(39, this, "ptr*", &ppStories := 0, "HRESULT")
+        return ITextStoryRanges2(ppStories)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pOptions 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-gettypographyoptions
      */
-    GetTypographyOptions(pOptions) {
-        pOptionsMarshal := pOptions is VarRef ? "int*" : "ptr"
-
-        result := ComCall(40, this, pOptionsMarshal, pOptions, "HRESULT")
-        return result
+    GetTypographyOptions() {
+        result := ComCall(40, this, "int*", &pOptions := 0, "HRESULT")
+        return pOptions
     }
 
     /**
      * With the release of Windows 8.1, the behavior of the GetVersion API has changed in the value it will return for the operating system version. The value returned by the GetVersion function now depends on how the application is manifested.
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} If the function succeeds, the return value includes the major and minor version numbers of the operating system in the low-order word, and information about the operating system platform in the high-order word.
-     * 
-     * For all platforms, the low-order word contains the version number of the operating system. The low-order byte of this word specifies the major version number, in hexadecimal notation. The high-order byte specifies the minor version (revision) number, in hexadecimal notation. The  high-order bit is zero, the next 7 bits represent the build number, and the low-order byte is 5.
+     * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//sysinfoapi/nf-sysinfoapi-getversion
      */
-    GetVersion(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(41, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetVersion() {
+        result := ComCall(41, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * Retrieves a handle to a window that has the specified relationship (Z-Order or owner) to the specified window.
-     * @param {Pointer<Integer>} pHwnd 
-     * @returns {HRESULT} Type: <b>HWND</b>
-     * 
-     * If the function succeeds, the return value is a window handle. If no window exists with the specified relationship to the specified window, the return value is <b>NULL</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getwindow
      */
-    GetWindow(pHwnd) {
-        pHwndMarshal := pHwnd is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(42, this, pHwndMarshal, pHwnd, "HRESULT")
-        return result
+    GetWindow() {
+        result := ComCall(42, this, "int64*", &pHwnd := 0, "HRESULT")
+        return pHwnd
     }
 
     /**
@@ -260,13 +243,12 @@ class ITextDocument2 extends ITextDocument{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppVoid 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getcallmanager
      */
-    GetCallManager(ppVoid) {
-        result := ComCall(45, this, "ptr*", ppVoid, "HRESULT")
-        return result
+    GetCallManager() {
+        result := ComCall(45, this, "ptr*", &ppVoid := 0, "HRESULT")
+        return IUnknown(ppVoid)
     }
 
     /**
@@ -296,28 +278,22 @@ class ITextDocument2 extends ITextDocument{
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-geteffectcolor
      */
-    GetEffectColor(Index, pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(47, this, "int", Index, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetEffectColor(Index) {
+        result := ComCall(47, this, "int", Index, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pContext 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getimmcontext
      */
-    GetImmContext(pContext) {
-        pContextMarshal := pContext is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(48, this, pContextMarshal, pContext, "HRESULT")
-        return result
+    GetImmContext() {
+        result := ComCall(48, this, "int64*", &pContext := 0, "HRESULT")
+        return pContext
     }
 
     /**
@@ -344,26 +320,22 @@ class ITextDocument2 extends ITextDocument{
     /**
      * 
      * @param {Integer} Type 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getproperty
      */
-    GetProperty(Type, pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(50, this, "int", Type, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetProperty(Type) {
+        result := ComCall(50, this, "int", Type, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<ITextStrings>} ppStrs 
-     * @returns {HRESULT} 
+     * @returns {ITextStrings} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getstrings
      */
-    GetStrings(ppStrs) {
-        result := ComCall(51, this, "ptr*", ppStrs, "HRESULT")
-        return result
+    GetStrings() {
+        result := ComCall(51, this, "ptr*", &ppStrs := 0, "HRESULT")
+        return ITextStrings(ppStrs)
     }
 
     /**
@@ -381,13 +353,12 @@ class ITextDocument2 extends ITextDocument{
      * 
      * @param {Integer} cpActive 
      * @param {Integer} cpAnchor 
-     * @param {Pointer<ITextRange2>} ppRange 
-     * @returns {HRESULT} 
+     * @returns {ITextRange2} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-range2
      */
-    Range2(cpActive, cpAnchor, ppRange) {
-        result := ComCall(53, this, "int", cpActive, "int", cpAnchor, "ptr*", ppRange, "HRESULT")
-        return result
+    Range2(cpActive, cpAnchor) {
+        result := ComCall(53, this, "int", cpActive, "int", cpAnchor, "ptr*", &ppRange := 0, "HRESULT")
+        return ITextRange2(ppRange)
     }
 
     /**
@@ -395,13 +366,12 @@ class ITextDocument2 extends ITextDocument{
      * @param {Integer} x 
      * @param {Integer} y 
      * @param {Integer} Type 
-     * @param {Pointer<ITextRange2>} ppRange 
-     * @returns {HRESULT} 
+     * @returns {ITextRange2} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-rangefrompoint2
      */
-    RangeFromPoint2(x, y, Type, ppRange) {
-        result := ComCall(54, this, "int", x, "int", y, "int", Type, "ptr*", ppRange, "HRESULT")
-        return result
+    RangeFromPoint2(x, y, Type) {
+        result := ComCall(54, this, "int", x, "int", y, "int", Type, "ptr*", &ppRange := 0, "HRESULT")
+        return ITextRange2(ppRange)
     }
 
     /**
@@ -497,15 +467,12 @@ class ITextDocument2 extends ITextDocument{
 
     /**
      * 
-     * @param {Pointer<Integer>} pOptions 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getmathproperties
      */
-    GetMathProperties(pOptions) {
-        pOptionsMarshal := pOptions is VarRef ? "int*" : "ptr"
-
-        result := ComCall(63, this, pOptionsMarshal, pOptions, "HRESULT")
-        return result
+    GetMathProperties() {
+        result := ComCall(63, this, "int*", &pOptions := 0, "HRESULT")
+        return pOptions
     }
 
     /**
@@ -522,13 +489,12 @@ class ITextDocument2 extends ITextDocument{
 
     /**
      * 
-     * @param {Pointer<ITextStory>} ppStory 
-     * @returns {HRESULT} 
+     * @returns {ITextStory} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getactivestory
      */
-    GetActiveStory(ppStory) {
-        result := ComCall(65, this, "ptr*", ppStory, "HRESULT")
-        return result
+    GetActiveStory() {
+        result := ComCall(65, this, "ptr*", &ppStory := 0, "HRESULT")
+        return ITextStory(ppStory)
     }
 
     /**
@@ -544,35 +510,32 @@ class ITextDocument2 extends ITextDocument{
 
     /**
      * 
-     * @param {Pointer<ITextStory>} ppStory 
-     * @returns {HRESULT} 
+     * @returns {ITextStory} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getmainstory
      */
-    GetMainStory(ppStory) {
-        result := ComCall(67, this, "ptr*", ppStory, "HRESULT")
-        return result
+    GetMainStory() {
+        result := ComCall(67, this, "ptr*", &ppStory := 0, "HRESULT")
+        return ITextStory(ppStory)
     }
 
     /**
      * 
-     * @param {Pointer<ITextStory>} ppStory 
-     * @returns {HRESULT} 
+     * @returns {ITextStory} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getnewstory
      */
-    GetNewStory(ppStory) {
-        result := ComCall(68, this, "ptr*", ppStory, "HRESULT")
-        return result
+    GetNewStory() {
+        result := ComCall(68, this, "ptr*", &ppStory := 0, "HRESULT")
+        return ITextStory(ppStory)
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<ITextStory>} ppStory 
-     * @returns {HRESULT} 
+     * @returns {ITextStory} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getstory
      */
-    GetStory(Index, ppStory) {
-        result := ComCall(69, this, "int", Index, "ptr*", ppStory, "HRESULT")
-        return result
+    GetStory(Index) {
+        result := ComCall(69, this, "int", Index, "ptr*", &ppStory := 0, "HRESULT")
+        return ITextStory(ppStory)
     }
 }

@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISearchPersistentItemsChangedSink.ahk
+#Include ..\Com\IEnumString.ahk
+#Include .\ISearchQueryHelper.ahk
+#Include .\ISearchCrawlScopeManager.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -32,29 +36,25 @@ class ISearchCatalogManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pszName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchcatalogmanager-get_name
      */
-    get_Name(pszName) {
-        result := ComCall(3, this, "ptr", pszName, "HRESULT")
-        return result
+    get_Name() {
+        result := ComCall(3, this, "ptr*", &pszName := 0, "HRESULT")
+        return pszName
     }
 
     /**
      * 
      * @param {PWSTR} pszName 
-     * @param {Pointer<Pointer<PROPVARIANT>>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {Pointer<PROPVARIANT>} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchcatalogmanager-getparameter
      */
-    GetParameter(pszName, ppValue) {
+    GetParameter(pszName) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        ppValueMarshal := ppValue is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "ptr", pszName, ppValueMarshal, ppValue, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pszName, "ptr*", &ppValue := 0, "HRESULT")
+        return ppValue
     }
 
     /**
@@ -145,15 +145,12 @@ class ISearchCatalogManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwConnectTimeout 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchcatalogmanager-get_connecttimeout
      */
-    get_ConnectTimeout(pdwConnectTimeout) {
-        pdwConnectTimeoutMarshal := pdwConnectTimeout is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, pdwConnectTimeoutMarshal, pdwConnectTimeout, "HRESULT")
-        return result
+    get_ConnectTimeout() {
+        result := ComCall(12, this, "uint*", &pdwConnectTimeout := 0, "HRESULT")
+        return pdwConnectTimeout
     }
 
     /**
@@ -169,28 +166,22 @@ class ISearchCatalogManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwDataTimeout 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchcatalogmanager-get_datatimeout
      */
-    get_DataTimeout(pdwDataTimeout) {
-        pdwDataTimeoutMarshal := pdwDataTimeout is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, pdwDataTimeoutMarshal, pdwDataTimeout, "HRESULT")
-        return result
+    get_DataTimeout() {
+        result := ComCall(14, this, "uint*", &pdwDataTimeout := 0, "HRESULT")
+        return pdwDataTimeout
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchcatalogmanager-numberofitems
      */
-    NumberOfItems(plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, plCountMarshal, plCount, "HRESULT")
-        return result
+    NumberOfItems() {
+        result := ComCall(15, this, "int*", &plCount := 0, "HRESULT")
+        return plCount
     }
 
     /**
@@ -212,57 +203,49 @@ class ISearchCatalogManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pszUrl 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchcatalogmanager-urlbeingindexed
      */
-    URLBeingIndexed(pszUrl) {
-        result := ComCall(17, this, "ptr", pszUrl, "HRESULT")
-        return result
+    URLBeingIndexed() {
+        result := ComCall(17, this, "ptr*", &pszUrl := 0, "HRESULT")
+        return pszUrl
     }
 
     /**
      * 
      * @param {PWSTR} pszURL 
-     * @param {Pointer<Integer>} pdwState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchcatalogmanager-geturlindexingstate
      */
-    GetURLIndexingState(pszURL, pdwState) {
+    GetURLIndexingState(pszURL) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
-        pdwStateMarshal := pdwState is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(18, this, "ptr", pszURL, pdwStateMarshal, pdwState, "HRESULT")
-        return result
+        result := ComCall(18, this, "ptr", pszURL, "uint*", &pdwState := 0, "HRESULT")
+        return pdwState
     }
 
     /**
      * 
-     * @param {Pointer<ISearchPersistentItemsChangedSink>} ppISearchPersistentItemsChangedSink 
-     * @returns {HRESULT} 
+     * @returns {ISearchPersistentItemsChangedSink} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchcatalogmanager-getpersistentitemschangedsink
      */
-    GetPersistentItemsChangedSink(ppISearchPersistentItemsChangedSink) {
-        result := ComCall(19, this, "ptr*", ppISearchPersistentItemsChangedSink, "HRESULT")
-        return result
+    GetPersistentItemsChangedSink() {
+        result := ComCall(19, this, "ptr*", &ppISearchPersistentItemsChangedSink := 0, "HRESULT")
+        return ISearchPersistentItemsChangedSink(ppISearchPersistentItemsChangedSink)
     }
 
     /**
      * 
      * @param {PWSTR} pszView 
      * @param {ISearchViewChangedSink} pViewChangedSink 
-     * @param {Pointer<Integer>} pdwCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchcatalogmanager-registerviewfornotification
      */
-    RegisterViewForNotification(pszView, pViewChangedSink, pdwCookie) {
+    RegisterViewForNotification(pszView, pViewChangedSink) {
         pszView := pszView is String ? StrPtr(pszView) : pszView
 
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(20, this, "ptr", pszView, "ptr", pViewChangedSink, pdwCookieMarshal, pdwCookie, "HRESULT")
-        return result
+        result := ComCall(20, this, "ptr", pszView, "ptr", pViewChangedSink, "uint*", &pdwCookie := 0, "HRESULT")
+        return pdwCookie
     }
 
     /**
@@ -311,24 +294,22 @@ class ISearchCatalogManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumString>} ppExtensions 
-     * @returns {HRESULT} 
+     * @returns {IEnumString} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchcatalogmanager-enumerateexcludedextensions
      */
-    EnumerateExcludedExtensions(ppExtensions) {
-        result := ComCall(24, this, "ptr*", ppExtensions, "HRESULT")
-        return result
+    EnumerateExcludedExtensions() {
+        result := ComCall(24, this, "ptr*", &ppExtensions := 0, "HRESULT")
+        return IEnumString(ppExtensions)
     }
 
     /**
      * 
-     * @param {Pointer<ISearchQueryHelper>} ppSearchQueryHelper 
-     * @returns {HRESULT} 
+     * @returns {ISearchQueryHelper} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchcatalogmanager-getqueryhelper
      */
-    GetQueryHelper(ppSearchQueryHelper) {
-        result := ComCall(25, this, "ptr*", ppSearchQueryHelper, "HRESULT")
-        return result
+    GetQueryHelper() {
+        result := ComCall(25, this, "ptr*", &ppSearchQueryHelper := 0, "HRESULT")
+        return ISearchQueryHelper(ppSearchQueryHelper)
     }
 
     /**
@@ -344,23 +325,21 @@ class ISearchCatalogManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfDiacriticSensitive 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchcatalogmanager-get_diacriticsensitivity
      */
-    get_DiacriticSensitivity(pfDiacriticSensitive) {
-        result := ComCall(27, this, "ptr", pfDiacriticSensitive, "HRESULT")
-        return result
+    get_DiacriticSensitivity() {
+        result := ComCall(27, this, "int*", &pfDiacriticSensitive := 0, "HRESULT")
+        return pfDiacriticSensitive
     }
 
     /**
      * 
-     * @param {Pointer<ISearchCrawlScopeManager>} ppCrawlScopeManager 
-     * @returns {HRESULT} 
+     * @returns {ISearchCrawlScopeManager} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchcatalogmanager-getcrawlscopemanager
      */
-    GetCrawlScopeManager(ppCrawlScopeManager) {
-        result := ComCall(28, this, "ptr*", ppCrawlScopeManager, "HRESULT")
-        return result
+    GetCrawlScopeManager() {
+        result := ComCall(28, this, "ptr*", &ppCrawlScopeManager := 0, "HRESULT")
+        return ISearchCrawlScopeManager(ppCrawlScopeManager)
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWICMetadataWriter.ahk
 #Include .\IWICMetadataHandlerInfo.ahk
 
 /**
@@ -35,25 +36,21 @@ class IWICMetadataWriterInfo extends IWICMetadataHandlerInfo{
      * @param {Pointer<Guid>} guidContainerFormat 
      * @param {Integer} cbSize 
      * @param {Pointer} pHeader 
-     * @param {Pointer<Integer>} pcbActual 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatawriterinfo-getheader
      */
-    GetHeader(guidContainerFormat, cbSize, pHeader, pcbActual) {
-        pcbActualMarshal := pcbActual is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(18, this, "ptr", guidContainerFormat, "uint", cbSize, "ptr", pHeader, pcbActualMarshal, pcbActual, "HRESULT")
-        return result
+    GetHeader(guidContainerFormat, cbSize, pHeader) {
+        result := ComCall(18, this, "ptr", guidContainerFormat, "uint", cbSize, "ptr", pHeader, "uint*", &pcbActual := 0, "HRESULT")
+        return pcbActual
     }
 
     /**
      * 
-     * @param {Pointer<IWICMetadataWriter>} ppIWriter 
-     * @returns {HRESULT} 
+     * @returns {IWICMetadataWriter} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatawriterinfo-createinstance
      */
-    CreateInstance(ppIWriter) {
-        result := ComCall(19, this, "ptr*", ppIWriter, "HRESULT")
-        return result
+    CreateInstance() {
+        result := ComCall(19, this, "ptr*", &ppIWriter := 0, "HRESULT")
+        return IWICMetadataWriter(ppIWriter)
     }
 }

@@ -39,13 +39,12 @@ class IAMAsyncReaderTimestampScaling extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfRaw 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamasyncreadertimestampscaling-gettimestampmode
      */
-    GetTimestampMode(pfRaw) {
-        result := ComCall(3, this, "ptr", pfRaw, "HRESULT")
-        return result
+    GetTimestampMode() {
+        result := ComCall(3, this, "int*", &pfRaw := 0, "HRESULT")
+        return pfRaw
     }
 
     /**

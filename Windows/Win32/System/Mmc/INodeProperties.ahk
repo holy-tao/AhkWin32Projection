@@ -35,14 +35,14 @@ class INodeProperties extends IUnknown{
      * 
      * @param {IDataObject} pDataObject 
      * @param {BSTR} szPropertyName 
-     * @param {Pointer<BSTR>} pbstrProperty 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-inodeproperties-getproperty
      */
-    GetProperty(pDataObject, szPropertyName, pbstrProperty) {
+    GetProperty(pDataObject, szPropertyName) {
         szPropertyName := szPropertyName is String ? BSTR.Alloc(szPropertyName).Value : szPropertyName
 
+        pbstrProperty := BSTR()
         result := ComCall(3, this, "ptr", pDataObject, "ptr", szPropertyName, "ptr", pbstrProperty, "HRESULT")
-        return result
+        return pbstrProperty
     }
 }

@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IGameInputReading.ahk
+#Include .\IGameInputDispatcher.ahk
+#Include .\IGameInputDevice.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -41,12 +44,11 @@ class IGameInput extends IUnknown{
      * 
      * @param {Integer} inputKind 
      * @param {IGameInputDevice} device 
-     * @param {Pointer<IGameInputReading>} reading 
-     * @returns {HRESULT} 
+     * @returns {IGameInputReading} 
      */
-    GetCurrentReading(inputKind, device, reading) {
-        result := ComCall(4, this, "int", inputKind, "ptr", device, "ptr*", reading, "HRESULT")
-        return result
+    GetCurrentReading(inputKind, device) {
+        result := ComCall(4, this, "int", inputKind, "ptr", device, "ptr*", &reading := 0, "HRESULT")
+        return IGameInputReading(reading)
     }
 
     /**
@@ -54,12 +56,11 @@ class IGameInput extends IUnknown{
      * @param {IGameInputReading} referenceReading 
      * @param {Integer} inputKind 
      * @param {IGameInputDevice} device 
-     * @param {Pointer<IGameInputReading>} reading 
-     * @returns {HRESULT} 
+     * @returns {IGameInputReading} 
      */
-    GetNextReading(referenceReading, inputKind, device, reading) {
-        result := ComCall(5, this, "ptr", referenceReading, "int", inputKind, "ptr", device, "ptr*", reading, "HRESULT")
-        return result
+    GetNextReading(referenceReading, inputKind, device) {
+        result := ComCall(5, this, "ptr", referenceReading, "int", inputKind, "ptr", device, "ptr*", &reading := 0, "HRESULT")
+        return IGameInputReading(reading)
     }
 
     /**
@@ -67,24 +68,22 @@ class IGameInput extends IUnknown{
      * @param {IGameInputReading} referenceReading 
      * @param {Integer} inputKind 
      * @param {IGameInputDevice} device 
-     * @param {Pointer<IGameInputReading>} reading 
-     * @returns {HRESULT} 
+     * @returns {IGameInputReading} 
      */
-    GetPreviousReading(referenceReading, inputKind, device, reading) {
-        result := ComCall(6, this, "ptr", referenceReading, "int", inputKind, "ptr", device, "ptr*", reading, "HRESULT")
-        return result
+    GetPreviousReading(referenceReading, inputKind, device) {
+        result := ComCall(6, this, "ptr", referenceReading, "int", inputKind, "ptr", device, "ptr*", &reading := 0, "HRESULT")
+        return IGameInputReading(reading)
     }
 
     /**
      * 
      * @param {Integer} timestamp 
      * @param {IGameInputDevice} device 
-     * @param {Pointer<IGameInputReading>} reading 
-     * @returns {HRESULT} 
+     * @returns {IGameInputReading} 
      */
-    GetTemporalReading(timestamp, device, reading) {
-        result := ComCall(7, this, "uint", timestamp, "ptr", device, "ptr*", reading, "HRESULT")
-        return result
+    GetTemporalReading(timestamp, device) {
+        result := ComCall(7, this, "uint", timestamp, "ptr", device, "ptr*", &reading := 0, "HRESULT")
+        return IGameInputReading(reading)
     }
 
     /**
@@ -94,15 +93,13 @@ class IGameInput extends IUnknown{
      * @param {Float} analogThreshold 
      * @param {Pointer<Void>} context 
      * @param {Pointer<GameInputReadingCallback>} callbackFunc 
-     * @param {Pointer<Integer>} callbackToken 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    RegisterReadingCallback(device, inputKind, analogThreshold, context, callbackFunc, callbackToken) {
+    RegisterReadingCallback(device, inputKind, analogThreshold, context, callbackFunc) {
         contextMarshal := context is VarRef ? "ptr" : "ptr"
-        callbackTokenMarshal := callbackToken is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "ptr", device, "int", inputKind, "float", analogThreshold, contextMarshal, context, "ptr", callbackFunc, callbackTokenMarshal, callbackToken, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", device, "int", inputKind, "float", analogThreshold, contextMarshal, context, "ptr", callbackFunc, "uint*", &callbackToken := 0, "HRESULT")
+        return callbackToken
     }
 
     /**
@@ -113,15 +110,13 @@ class IGameInput extends IUnknown{
      * @param {Integer} enumerationKind 
      * @param {Pointer<Void>} context 
      * @param {Pointer<GameInputDeviceCallback>} callbackFunc 
-     * @param {Pointer<Integer>} callbackToken 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    RegisterDeviceCallback(device, inputKind, statusFilter, enumerationKind, context, callbackFunc, callbackToken) {
+    RegisterDeviceCallback(device, inputKind, statusFilter, enumerationKind, context, callbackFunc) {
         contextMarshal := context is VarRef ? "ptr" : "ptr"
-        callbackTokenMarshal := callbackToken is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "ptr", device, "int", inputKind, "int", statusFilter, "int", enumerationKind, contextMarshal, context, "ptr", callbackFunc, callbackTokenMarshal, callbackToken, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", device, "int", inputKind, "int", statusFilter, "int", enumerationKind, contextMarshal, context, "ptr", callbackFunc, "uint*", &callbackToken := 0, "HRESULT")
+        return callbackToken
     }
 
     /**
@@ -130,15 +125,13 @@ class IGameInput extends IUnknown{
      * @param {Integer} buttonFilter 
      * @param {Pointer<Void>} context 
      * @param {Pointer<GameInputSystemButtonCallback>} callbackFunc 
-     * @param {Pointer<Integer>} callbackToken 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    RegisterSystemButtonCallback(device, buttonFilter, context, callbackFunc, callbackToken) {
+    RegisterSystemButtonCallback(device, buttonFilter, context, callbackFunc) {
         contextMarshal := context is VarRef ? "ptr" : "ptr"
-        callbackTokenMarshal := callbackToken is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, "ptr", device, "int", buttonFilter, contextMarshal, context, "ptr", callbackFunc, callbackTokenMarshal, callbackToken, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", device, "int", buttonFilter, contextMarshal, context, "ptr", callbackFunc, "uint*", &callbackToken := 0, "HRESULT")
+        return callbackToken
     }
 
     /**
@@ -146,15 +139,13 @@ class IGameInput extends IUnknown{
      * @param {IGameInputDevice} device 
      * @param {Pointer<Void>} context 
      * @param {Pointer<GameInputKeyboardLayoutCallback>} callbackFunc 
-     * @param {Pointer<Integer>} callbackToken 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    RegisterKeyboardLayoutCallback(device, context, callbackFunc, callbackToken) {
+    RegisterKeyboardLayoutCallback(device, context, callbackFunc) {
         contextMarshal := context is VarRef ? "ptr" : "ptr"
-        callbackTokenMarshal := callbackToken is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "ptr", device, contextMarshal, context, "ptr", callbackFunc, callbackTokenMarshal, callbackToken, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", device, contextMarshal, context, "ptr", callbackFunc, "uint*", &callbackToken := 0, "HRESULT")
+        return callbackToken
     }
 
     /**
@@ -179,71 +170,65 @@ class IGameInput extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IGameInputDispatcher>} dispatcher 
-     * @returns {HRESULT} 
+     * @returns {IGameInputDispatcher} 
      */
-    CreateDispatcher(dispatcher) {
-        result := ComCall(14, this, "ptr*", dispatcher, "HRESULT")
-        return result
+    CreateDispatcher() {
+        result := ComCall(14, this, "ptr*", &dispatcher := 0, "HRESULT")
+        return IGameInputDispatcher(dispatcher)
     }
 
     /**
      * 
      * @param {Integer} inputKind 
-     * @param {Pointer<IGameInputDevice>} device 
-     * @returns {HRESULT} 
+     * @returns {IGameInputDevice} 
      */
-    CreateAggregateDevice(inputKind, device) {
-        result := ComCall(15, this, "int", inputKind, "ptr*", device, "HRESULT")
-        return result
+    CreateAggregateDevice(inputKind) {
+        result := ComCall(15, this, "int", inputKind, "ptr*", &device := 0, "HRESULT")
+        return IGameInputDevice(device)
     }
 
     /**
      * 
      * @param {Pointer<APP_LOCAL_DEVICE_ID>} value 
-     * @param {Pointer<IGameInputDevice>} device 
-     * @returns {HRESULT} 
+     * @returns {IGameInputDevice} 
      */
-    FindDeviceFromId(value, device) {
-        result := ComCall(16, this, "ptr", value, "ptr*", device, "HRESULT")
-        return result
+    FindDeviceFromId(value) {
+        result := ComCall(16, this, "ptr", value, "ptr*", &device := 0, "HRESULT")
+        return IGameInputDevice(device)
     }
 
     /**
      * 
      * @param {IUnknown} value 
-     * @param {Pointer<IGameInputDevice>} device 
-     * @returns {HRESULT} 
+     * @returns {IGameInputDevice} 
      */
-    FindDeviceFromObject(value, device) {
-        result := ComCall(17, this, "ptr", value, "ptr*", device, "HRESULT")
-        return result
+    FindDeviceFromObject(value) {
+        result := ComCall(17, this, "ptr", value, "ptr*", &device := 0, "HRESULT")
+        return IGameInputDevice(device)
     }
 
     /**
      * 
      * @param {HANDLE} value 
-     * @param {Pointer<IGameInputDevice>} device 
-     * @returns {HRESULT} 
+     * @returns {IGameInputDevice} 
      */
-    FindDeviceFromPlatformHandle(value, device) {
+    FindDeviceFromPlatformHandle(value) {
         value := value is Win32Handle ? NumGet(value, "ptr") : value
 
-        result := ComCall(18, this, "ptr", value, "ptr*", device, "HRESULT")
-        return result
+        result := ComCall(18, this, "ptr", value, "ptr*", &device := 0, "HRESULT")
+        return IGameInputDevice(device)
     }
 
     /**
      * 
      * @param {PWSTR} value 
-     * @param {Pointer<IGameInputDevice>} device 
-     * @returns {HRESULT} 
+     * @returns {IGameInputDevice} 
      */
-    FindDeviceFromPlatformString(value, device) {
+    FindDeviceFromPlatformString(value) {
         value := value is String ? StrPtr(value) : value
 
-        result := ComCall(19, this, "ptr", value, "ptr*", device, "HRESULT")
-        return result
+        result := ComCall(19, this, "ptr", value, "ptr*", &device := 0, "HRESULT")
+        return IGameInputDevice(device)
     }
 
     /**

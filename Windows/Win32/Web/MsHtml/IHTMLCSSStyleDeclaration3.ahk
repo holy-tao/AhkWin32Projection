@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -43,12 +44,12 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_flex(p) {
+    get_flex() {
+        p := BSTR()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -65,12 +66,12 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_flexDirection(p) {
+    get_flexDirection() {
+        p := BSTR()
         result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -87,12 +88,12 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_flexWrap(p) {
+    get_flexWrap() {
+        p := BSTR()
         result := ComCall(12, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -109,12 +110,12 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_flexFlow(p) {
+    get_flexFlow() {
+        p := BSTR()
         result := ComCall(14, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -129,12 +130,12 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_flexGrow(p) {
+    get_flexGrow() {
+        p := VARIANT()
         result := ComCall(16, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -149,12 +150,12 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_flexShrink(p) {
+    get_flexShrink() {
+        p := VARIANT()
         result := ComCall(18, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -169,12 +170,12 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_flexBasis(p) {
+    get_flexBasis() {
+        p := VARIANT()
         result := ComCall(20, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -191,12 +192,12 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_justifyContent(p) {
+    get_justifyContent() {
+        p := BSTR()
         result := ComCall(22, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -213,12 +214,12 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_alignItems(p) {
+    get_alignItems() {
+        p := BSTR()
         result := ComCall(24, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -235,12 +236,12 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_alignSelf(p) {
+    get_alignSelf() {
+        p := BSTR()
         result := ComCall(26, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -257,12 +258,12 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_alignContent(p) {
+    get_alignContent() {
+        p := BSTR()
         result := ComCall(28, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -279,12 +280,12 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_borderImage(p) {
+    get_borderImage() {
+        p := BSTR()
         result := ComCall(30, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -301,12 +302,12 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_borderImageSource(p) {
+    get_borderImageSource() {
+        p := BSTR()
         result := ComCall(32, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -323,12 +324,12 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_borderImageSlice(p) {
+    get_borderImageSlice() {
+        p := BSTR()
         result := ComCall(34, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -345,12 +346,12 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_borderImageWidth(p) {
+    get_borderImageWidth() {
+        p := BSTR()
         result := ComCall(36, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -367,12 +368,12 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_borderImageOutset(p) {
+    get_borderImageOutset() {
+        p := BSTR()
         result := ComCall(38, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -389,12 +390,12 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_borderImageRepeat(p) {
+    get_borderImageRepeat() {
+        p := BSTR()
         result := ComCall(40, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -411,12 +412,12 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_msImeAlign(p) {
+    get_msImeAlign() {
+        p := BSTR()
         result := ComCall(42, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -433,12 +434,12 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_msTextCombineHorizontal(p) {
+    get_msTextCombineHorizontal() {
+        p := BSTR()
         result := ComCall(44, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -455,11 +456,11 @@ class IHTMLCSSStyleDeclaration3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_touchAction(p) {
+    get_touchAction() {
+        p := BSTR()
         result := ComCall(46, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 }

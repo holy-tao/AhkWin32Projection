@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\IMILBitmapEffectGroup.ahk
+#Include .\IMILBitmapEffect.ahk
 
 /**
  * Exposes methods that define an enumeration of effects.
@@ -32,48 +34,42 @@ class IMILBitmapEffects extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppiuReturn 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffects-_newenum
      */
-    _NewEnum(ppiuReturn) {
-        result := ComCall(3, this, "ptr*", ppiuReturn, "HRESULT")
-        return result
+    _NewEnum() {
+        result := ComCall(3, this, "ptr*", &ppiuReturn := 0, "HRESULT")
+        return IUnknown(ppiuReturn)
     }
 
     /**
      * 
-     * @param {Pointer<IMILBitmapEffectGroup>} ppEffect 
-     * @returns {HRESULT} 
+     * @returns {IMILBitmapEffectGroup} 
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffects-get_parent
      */
-    get_Parent(ppEffect) {
-        result := ComCall(4, this, "ptr*", ppEffect, "HRESULT")
-        return result
+    get_Parent() {
+        result := ComCall(4, this, "ptr*", &ppEffect := 0, "HRESULT")
+        return IMILBitmapEffectGroup(ppEffect)
     }
 
     /**
      * 
      * @param {Integer} uindex 
-     * @param {Pointer<IMILBitmapEffect>} ppEffect 
-     * @returns {HRESULT} 
+     * @returns {IMILBitmapEffect} 
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffects-item
      */
-    Item(uindex, ppEffect) {
-        result := ComCall(5, this, "uint", uindex, "ptr*", ppEffect, "HRESULT")
-        return result
+    Item(uindex) {
+        result := ComCall(5, this, "uint", uindex, "ptr*", &ppEffect := 0, "HRESULT")
+        return IMILBitmapEffect(ppEffect)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} puiCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffects-get_count
      */
-    get_Count(puiCount) {
-        puiCountMarshal := puiCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, puiCountMarshal, puiCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(6, this, "uint*", &puiCount := 0, "HRESULT")
+        return puiCount
     }
 }

@@ -31,13 +31,10 @@ class IActiveScriptSiteUIControl extends IUnknown{
     /**
      * 
      * @param {Integer} UicItem 
-     * @param {Pointer<Integer>} pUicHandling 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetUIBehavior(UicItem, pUicHandling) {
-        pUicHandlingMarshal := pUicHandling is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, "int", UicItem, pUicHandlingMarshal, pUicHandling, "HRESULT")
-        return result
+    GetUIBehavior(UicItem) {
+        result := ComCall(3, this, "int", UicItem, "int*", &pUicHandling := 0, "HRESULT")
+        return pUicHandling
     }
 }

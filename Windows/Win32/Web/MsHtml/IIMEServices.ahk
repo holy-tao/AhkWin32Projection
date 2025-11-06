@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\UI\Input\Ime\IActiveIMMApp.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,11 +31,10 @@ class IIMEServices extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IActiveIMMApp>} ppActiveIMM 
-     * @returns {HRESULT} 
+     * @returns {IActiveIMMApp} 
      */
-    GetActiveIMM(ppActiveIMM) {
-        result := ComCall(3, this, "ptr*", ppActiveIMM, "HRESULT")
-        return result
+    GetActiveIMM() {
+        result := ComCall(3, this, "ptr*", &ppActiveIMM := 0, "HRESULT")
+        return IActiveIMMApp(ppActiveIMM)
     }
 }

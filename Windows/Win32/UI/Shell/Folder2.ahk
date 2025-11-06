@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\FolderItem.ahk
 #Include .\Folder.ahk
 
 /**
@@ -38,24 +39,20 @@ class Folder2 extends Folder{
 
     /**
      * 
-     * @param {Pointer<FolderItem>} ppfi 
-     * @returns {HRESULT} 
+     * @returns {FolderItem} 
      */
-    get_Self(ppfi) {
-        result := ComCall(17, this, "ptr*", ppfi, "HRESULT")
-        return result
+    get_Self() {
+        result := ComCall(17, this, "ptr*", &ppfi := 0, "HRESULT")
+        return FolderItem(ppfi)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pul 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_OfflineStatus(pul) {
-        pulMarshal := pul is VarRef ? "int*" : "ptr"
-
-        result := ComCall(18, this, pulMarshal, pul, "HRESULT")
-        return result
+    get_OfflineStatus() {
+        result := ComCall(18, this, "int*", &pul := 0, "HRESULT")
+        return pul
     }
 
     /**
@@ -70,12 +67,11 @@ class Folder2 extends Folder{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbHaveToShowWebViewBarricade 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_HaveToShowWebViewBarricade(pbHaveToShowWebViewBarricade) {
-        result := ComCall(20, this, "ptr", pbHaveToShowWebViewBarricade, "HRESULT")
-        return result
+    get_HaveToShowWebViewBarricade() {
+        result := ComCall(20, this, "short*", &pbHaveToShowWebViewBarricade := 0, "HRESULT")
+        return pbHaveToShowWebViewBarricade
     }
 
     /**

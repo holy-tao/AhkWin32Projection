@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,12 +31,11 @@ class IHTMLEventObj3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_contentOverflow(p) {
-        result := ComCall(7, this, "ptr", p, "HRESULT")
-        return result
+    get_contentOverflow() {
+        result := ComCall(7, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -50,12 +50,11 @@ class IHTMLEventObj3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_shiftLeft(p) {
-        result := ComCall(9, this, "ptr", p, "HRESULT")
-        return result
+    get_shiftLeft() {
+        result := ComCall(9, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -70,12 +69,11 @@ class IHTMLEventObj3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_altLeft(p) {
-        result := ComCall(11, this, "ptr", p, "HRESULT")
-        return result
+    get_altLeft() {
+        result := ComCall(11, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -90,117 +88,92 @@ class IHTMLEventObj3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_ctrlLeft(p) {
-        result := ComCall(13, this, "ptr", p, "HRESULT")
-        return result
+    get_ctrlLeft() {
+        result := ComCall(13, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Pointer>} p 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    get_imeCompositionChange(p) {
-        pMarshal := p is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(14, this, pMarshal, p, "HRESULT")
-        return result
+    get_imeCompositionChange() {
+        result := ComCall(14, this, "ptr*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Pointer>} p 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    get_imeNotifyCommand(p) {
-        pMarshal := p is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(15, this, pMarshal, p, "HRESULT")
-        return result
+    get_imeNotifyCommand() {
+        result := ComCall(15, this, "ptr*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Pointer>} p 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    get_imeNotifyData(p) {
-        pMarshal := p is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(16, this, pMarshal, p, "HRESULT")
-        return result
+    get_imeNotifyData() {
+        result := ComCall(16, this, "ptr*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Pointer>} p 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    get_imeRequest(p) {
-        pMarshal := p is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(17, this, pMarshal, p, "HRESULT")
-        return result
+    get_imeRequest() {
+        result := ComCall(17, this, "ptr*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Pointer>} p 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    get_imeRequestData(p) {
-        pMarshal := p is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(18, this, pMarshal, p, "HRESULT")
-        return result
+    get_imeRequestData() {
+        result := ComCall(18, this, "ptr*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Pointer>} p 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    get_keyboardLayout(p) {
-        pMarshal := p is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(19, this, pMarshal, p, "HRESULT")
-        return result
+    get_keyboardLayout() {
+        result := ComCall(19, this, "ptr*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_behaviorCookie(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(20, this, pMarshal, p, "HRESULT")
-        return result
+    get_behaviorCookie() {
+        result := ComCall(20, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_behaviorPart(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(21, this, pMarshal, p, "HRESULT")
-        return result
+    get_behaviorPart() {
+        result := ComCall(21, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_nextPage(p) {
+    get_nextPage() {
+        p := BSTR()
         result := ComCall(22, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 }

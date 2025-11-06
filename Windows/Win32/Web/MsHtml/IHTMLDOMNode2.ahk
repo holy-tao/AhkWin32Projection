@@ -30,11 +30,10 @@ class IHTMLDOMNode2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_ownerDocument(p) {
-        result := ComCall(7, this, "ptr*", p, "HRESULT")
-        return result
+    get_ownerDocument() {
+        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 }

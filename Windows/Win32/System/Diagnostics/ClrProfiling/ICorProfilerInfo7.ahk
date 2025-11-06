@@ -41,14 +41,11 @@ class ICorProfilerInfo7 extends ICorProfilerInfo6{
     /**
      * 
      * @param {Pointer} moduleId 
-     * @param {Pointer<Integer>} pCountSymbolBytes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetInMemorySymbolsLength(moduleId, pCountSymbolBytes) {
-        pCountSymbolBytesMarshal := pCountSymbolBytes is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(85, this, "ptr", moduleId, pCountSymbolBytesMarshal, pCountSymbolBytes, "HRESULT")
-        return result
+    GetInMemorySymbolsLength(moduleId) {
+        result := ComCall(85, this, "ptr", moduleId, "uint*", &pCountSymbolBytes := 0, "HRESULT")
+        return pCountSymbolBytes
     }
 
     /**

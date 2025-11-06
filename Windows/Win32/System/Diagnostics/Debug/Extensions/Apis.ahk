@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32Handle.ahk
+#Include .\IDataModelManager.ahk
 
 /**
  * @namespace Windows.Win32.System.Diagnostics.Debug.Extensions
@@ -4630,85 +4631,72 @@ class Extensions {
      * 
      * @param {PSTR} RemoteOptions 
      * @param {Pointer<Guid>} InterfaceId 
-     * @param {Pointer<Pointer<Void>>} Interface 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    static DebugConnect(RemoteOptions, InterfaceId, Interface) {
+    static DebugConnect(RemoteOptions, InterfaceId) {
         RemoteOptions := RemoteOptions is String ? StrPtr(RemoteOptions) : RemoteOptions
 
-        InterfaceMarshal := Interface is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("dbgeng.dll\DebugConnect", "ptr", RemoteOptions, "ptr", InterfaceId, InterfaceMarshal, Interface, "int")
+        result := DllCall("dbgeng.dll\DebugConnect", "ptr", RemoteOptions, "ptr", InterfaceId, "ptr*", &Interface := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return Interface
     }
 
     /**
      * 
      * @param {PWSTR} RemoteOptions 
      * @param {Pointer<Guid>} InterfaceId 
-     * @param {Pointer<Pointer<Void>>} Interface 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    static DebugConnectWide(RemoteOptions, InterfaceId, Interface) {
+    static DebugConnectWide(RemoteOptions, InterfaceId) {
         RemoteOptions := RemoteOptions is String ? StrPtr(RemoteOptions) : RemoteOptions
 
-        InterfaceMarshal := Interface is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("dbgeng.dll\DebugConnectWide", "ptr", RemoteOptions, "ptr", InterfaceId, InterfaceMarshal, Interface, "int")
+        result := DllCall("dbgeng.dll\DebugConnectWide", "ptr", RemoteOptions, "ptr", InterfaceId, "ptr*", &Interface := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return Interface
     }
 
     /**
      * 
      * @param {Pointer<Guid>} InterfaceId 
-     * @param {Pointer<Pointer<Void>>} Interface 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    static DebugCreate(InterfaceId, Interface) {
-        InterfaceMarshal := Interface is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("dbgeng.dll\DebugCreate", "ptr", InterfaceId, InterfaceMarshal, Interface, "int")
+    static DebugCreate(InterfaceId) {
+        result := DllCall("dbgeng.dll\DebugCreate", "ptr", InterfaceId, "ptr*", &Interface := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return Interface
     }
 
     /**
      * 
      * @param {Pointer<Guid>} InterfaceId 
      * @param {Integer} DbgEngOptions 
-     * @param {Pointer<Pointer<Void>>} Interface 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    static DebugCreateEx(InterfaceId, DbgEngOptions, Interface) {
-        InterfaceMarshal := Interface is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("dbgeng.dll\DebugCreateEx", "ptr", InterfaceId, "uint", DbgEngOptions, InterfaceMarshal, Interface, "int")
+    static DebugCreateEx(InterfaceId, DbgEngOptions) {
+        result := DllCall("dbgeng.dll\DebugCreateEx", "ptr", InterfaceId, "uint", DbgEngOptions, "ptr*", &Interface := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return Interface
     }
 
     /**
      * 
      * @param {IDebugHost} debugHost 
-     * @param {Pointer<IDataModelManager>} manager 
-     * @returns {HRESULT} 
+     * @returns {IDataModelManager} 
      */
-    static CreateDataModelManager(debugHost, manager) {
-        result := DllCall("dbgmodel.dll\CreateDataModelManager", "ptr", debugHost, "ptr*", manager, "int")
+    static CreateDataModelManager(debugHost) {
+        result := DllCall("dbgmodel.dll\CreateDataModelManager", "ptr", debugHost, "ptr*", &manager := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IDataModelManager(manager)
     }
 
 ;@endregion Methods

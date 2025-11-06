@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IWdsTransportNamespace.ahk
+#Include .\IWdsTransportCollection.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -39,39 +41,33 @@ class IWdsTransportNamespace extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_type
      */
-    get_Type(pType) {
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pTypeMarshal, pType, "HRESULT")
-        return result
+    get_Type() {
+        result := ComCall(7, this, "int*", &pType := 0, "HRESULT")
+        return pType
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pulId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_id
      */
-    get_Id(pulId) {
-        pulIdMarshal := pulId is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pulIdMarshal, pulId, "HRESULT")
-        return result
+    get_Id() {
+        result := ComCall(8, this, "uint*", &pulId := 0, "HRESULT")
+        return pulId
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbszName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_name
      */
-    get_Name(pbszName) {
+    get_Name() {
+        pbszName := BSTR()
         result := ComCall(9, this, "ptr", pbszName, "HRESULT")
-        return result
+        return pbszName
     }
 
     /**
@@ -89,13 +85,13 @@ class IWdsTransportNamespace extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbszFriendlyName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_friendlyname
      */
-    get_FriendlyName(pbszFriendlyName) {
+    get_FriendlyName() {
+        pbszFriendlyName := BSTR()
         result := ComCall(11, this, "ptr", pbszFriendlyName, "HRESULT")
-        return result
+        return pbszFriendlyName
     }
 
     /**
@@ -113,13 +109,13 @@ class IWdsTransportNamespace extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbszDescription 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_description
      */
-    get_Description(pbszDescription) {
+    get_Description() {
+        pbszDescription := BSTR()
         result := ComCall(13, this, "ptr", pbszDescription, "HRESULT")
-        return result
+        return pbszDescription
     }
 
     /**
@@ -137,13 +133,13 @@ class IWdsTransportNamespace extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbszContentProvider 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_contentprovider
      */
-    get_ContentProvider(pbszContentProvider) {
+    get_ContentProvider() {
+        pbszContentProvider := BSTR()
         result := ComCall(15, this, "ptr", pbszContentProvider, "HRESULT")
-        return result
+        return pbszContentProvider
     }
 
     /**
@@ -161,13 +157,13 @@ class IWdsTransportNamespace extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbszConfiguration 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_configuration
      */
-    get_Configuration(pbszConfiguration) {
+    get_Configuration() {
+        pbszConfiguration := BSTR()
         result := ComCall(17, this, "ptr", pbszConfiguration, "HRESULT")
-        return result
+        return pbszConfiguration
     }
 
     /**
@@ -185,48 +181,42 @@ class IWdsTransportNamespace extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbRegistered 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_registered
      */
-    get_Registered(pbRegistered) {
-        result := ComCall(19, this, "ptr", pbRegistered, "HRESULT")
-        return result
+    get_Registered() {
+        result := ComCall(19, this, "short*", &pbRegistered := 0, "HRESULT")
+        return pbRegistered
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbTombstoned 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_tombstoned
      */
-    get_Tombstoned(pbTombstoned) {
-        result := ComCall(20, this, "ptr", pbTombstoned, "HRESULT")
-        return result
+    get_Tombstoned() {
+        result := ComCall(20, this, "short*", &pbTombstoned := 0, "HRESULT")
+        return pbTombstoned
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pTombstoneTime 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_tombstonetime
      */
-    get_TombstoneTime(pTombstoneTime) {
-        pTombstoneTimeMarshal := pTombstoneTime is VarRef ? "double*" : "ptr"
-
-        result := ComCall(21, this, pTombstoneTimeMarshal, pTombstoneTime, "HRESULT")
-        return result
+    get_TombstoneTime() {
+        result := ComCall(21, this, "double*", &pTombstoneTime := 0, "HRESULT")
+        return pTombstoneTime
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbTransmissionStarted 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-get_transmissionstarted
      */
-    get_TransmissionStarted(pbTransmissionStarted) {
-        result := ComCall(22, this, "ptr", pbTransmissionStarted, "HRESULT")
-        return result
+    get_TransmissionStarted() {
+        result := ComCall(22, this, "short*", &pbTransmissionStarted := 0, "HRESULT")
+        return pbTransmissionStarted
     }
 
     /**
@@ -252,13 +242,12 @@ class IWdsTransportNamespace extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IWdsTransportNamespace>} ppWdsTransportNamespaceClone 
-     * @returns {HRESULT} 
+     * @returns {IWdsTransportNamespace} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-clone
      */
-    Clone(ppWdsTransportNamespaceClone) {
-        result := ComCall(25, this, "ptr*", ppWdsTransportNamespaceClone, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(25, this, "ptr*", &ppWdsTransportNamespaceClone := 0, "HRESULT")
+        return IWdsTransportNamespace(ppWdsTransportNamespaceClone)
     }
 
     /**
@@ -273,12 +262,11 @@ class IWdsTransportNamespace extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IWdsTransportCollection>} ppWdsTransportContents 
-     * @returns {HRESULT} 
+     * @returns {IWdsTransportCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespace-retrievecontents
      */
-    RetrieveContents(ppWdsTransportContents) {
-        result := ComCall(27, this, "ptr*", ppWdsTransportContents, "HRESULT")
-        return result
+    RetrieveContents() {
+        result := ComCall(27, this, "ptr*", &ppWdsTransportContents := 0, "HRESULT")
+        return IWdsTransportCollection(ppWdsTransportContents)
     }
 }

@@ -31,24 +31,20 @@ class IPrinterScriptableSequentialStream extends IDispatch{
     /**
      * 
      * @param {Integer} cbRead 
-     * @param {Pointer<IDispatch>} ppArray 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    Read(cbRead, ppArray) {
-        result := ComCall(7, this, "int", cbRead, "ptr*", ppArray, "HRESULT")
-        return result
+    Read(cbRead) {
+        result := ComCall(7, this, "int", cbRead, "ptr*", &ppArray := 0, "HRESULT")
+        return IDispatch(ppArray)
     }
 
     /**
      * 
      * @param {IDispatch} pArray 
-     * @param {Pointer<Integer>} pcbWritten 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Write(pArray, pcbWritten) {
-        pcbWrittenMarshal := pcbWritten is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, "ptr", pArray, pcbWrittenMarshal, pcbWritten, "HRESULT")
-        return result
+    Write(pArray) {
+        result := ComCall(8, this, "ptr", pArray, "int*", &pcbWritten := 0, "HRESULT")
+        return pcbWritten
     }
 }

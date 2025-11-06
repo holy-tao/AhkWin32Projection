@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISCPSecureExchange.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -80,18 +81,17 @@ class ISCPSecureQuery extends IUnknown{
      * @param {Pointer<Integer>} pbSPSessionKey 
      * @param {Integer} dwSessionKeyLen 
      * @param {IMDSPStorageGlobals} pStorageGlobals 
-     * @param {Pointer<ISCPSecureExchange>} ppExchange 
      * @param {Pointer<Integer>} abMac 
-     * @returns {HRESULT} 
+     * @returns {ISCPSecureExchange} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iscpsecurequery-makedecision
      */
-    MakeDecision(fuFlags, pData, dwSize, dwAppSec, pbSPSessionKey, dwSessionKeyLen, pStorageGlobals, ppExchange, abMac) {
+    MakeDecision(fuFlags, pData, dwSize, dwAppSec, pbSPSessionKey, dwSessionKeyLen, pStorageGlobals, abMac) {
         pDataMarshal := pData is VarRef ? "char*" : "ptr"
         pbSPSessionKeyMarshal := pbSPSessionKey is VarRef ? "char*" : "ptr"
         abMacMarshal := abMac is VarRef ? "char*" : "ptr"
 
-        result := ComCall(5, this, "uint", fuFlags, pDataMarshal, pData, "uint", dwSize, "uint", dwAppSec, pbSPSessionKeyMarshal, pbSPSessionKey, "uint", dwSessionKeyLen, "ptr", pStorageGlobals, "ptr*", ppExchange, abMacMarshal, abMac, "HRESULT")
-        return result
+        result := ComCall(5, this, "uint", fuFlags, pDataMarshal, pData, "uint", dwSize, "uint", dwAppSec, pbSPSessionKeyMarshal, pbSPSessionKey, "uint", dwSessionKeyLen, "ptr", pStorageGlobals, "ptr*", &ppExchange := 0, abMacMarshal, abMac, "HRESULT")
+        return ISCPSecureExchange(ppExchange)
     }
 
     /**

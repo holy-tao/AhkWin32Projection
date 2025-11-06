@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -97,13 +98,13 @@ class IPreviewHandler extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HWND>} phwnd 
-     * @returns {HRESULT} 
+     * @returns {HWND} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipreviewhandler-queryfocus
      */
-    QueryFocus(phwnd) {
+    QueryFocus() {
+        phwnd := HWND()
         result := ComCall(8, this, "ptr", phwnd, "HRESULT")
-        return result
+        return phwnd
     }
 
     /**

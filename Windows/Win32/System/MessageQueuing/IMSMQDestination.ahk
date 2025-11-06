@@ -55,22 +55,20 @@ class IMSMQDestination extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pfIsOpen 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_IsOpen(pfIsOpen) {
-        result := ComCall(9, this, "ptr", pfIsOpen, "HRESULT")
-        return result
+    get_IsOpen() {
+        result := ComCall(9, this, "short*", &pfIsOpen := 0, "HRESULT")
+        return pfIsOpen
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppIADs 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_IADs(ppIADs) {
-        result := ComCall(10, this, "ptr*", ppIADs, "HRESULT")
-        return result
+    get_IADs() {
+        result := ComCall(10, this, "ptr*", &ppIADs := 0, "HRESULT")
+        return IDispatch(ppIADs)
     }
 
     /**
@@ -85,12 +83,12 @@ class IMSMQDestination extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrADsPath 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ADsPath(pbstrADsPath) {
+    get_ADsPath() {
+        pbstrADsPath := BSTR()
         result := ComCall(12, this, "ptr", pbstrADsPath, "HRESULT")
-        return result
+        return pbstrADsPath
     }
 
     /**
@@ -107,12 +105,12 @@ class IMSMQDestination extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrPathName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_PathName(pbstrPathName) {
+    get_PathName() {
+        pbstrPathName := BSTR()
         result := ComCall(14, this, "ptr", pbstrPathName, "HRESULT")
-        return result
+        return pbstrPathName
     }
 
     /**
@@ -129,12 +127,12 @@ class IMSMQDestination extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrFormatName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_FormatName(pbstrFormatName) {
+    get_FormatName() {
+        pbstrFormatName := BSTR()
         result := ComCall(16, this, "ptr", pbstrFormatName, "HRESULT")
-        return result
+        return pbstrFormatName
     }
 
     /**
@@ -151,12 +149,11 @@ class IMSMQDestination extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppDestinations 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Destinations(ppDestinations) {
-        result := ComCall(18, this, "ptr*", ppDestinations, "HRESULT")
-        return result
+    get_Destinations() {
+        result := ComCall(18, this, "ptr*", &ppDestinations := 0, "HRESULT")
+        return IDispatch(ppDestinations)
     }
 
     /**
@@ -171,11 +168,10 @@ class IMSMQDestination extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppcolProperties 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Properties(ppcolProperties) {
-        result := ComCall(20, this, "ptr*", ppcolProperties, "HRESULT")
-        return result
+    get_Properties() {
+        result := ComCall(20, this, "ptr*", &ppcolProperties := 0, "HRESULT")
+        return IDispatch(ppcolProperties)
     }
 }

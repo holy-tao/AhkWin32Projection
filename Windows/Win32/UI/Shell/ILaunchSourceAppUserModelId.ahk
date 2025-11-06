@@ -32,12 +32,11 @@ class ILaunchSourceAppUserModelId extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} launchingApp 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ilaunchsourceappusermodelid-getappusermodelid
      */
-    GetAppUserModelId(launchingApp) {
-        result := ComCall(3, this, "ptr", launchingApp, "HRESULT")
-        return result
+    GetAppUserModelId() {
+        result := ComCall(3, this, "ptr*", &launchingApp := 0, "HRESULT")
+        return launchingApp
     }
 }

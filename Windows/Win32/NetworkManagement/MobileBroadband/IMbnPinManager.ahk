@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMbnPin.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -36,39 +37,32 @@ class IMbnPinManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} pinList 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpinmanager-getpinlist
      */
-    GetPinList(pinList) {
-        pinListMarshal := pinList is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, pinListMarshal, pinList, "HRESULT")
-        return result
+    GetPinList() {
+        result := ComCall(3, this, "ptr*", &pinList := 0, "HRESULT")
+        return pinList
     }
 
     /**
      * 
      * @param {Integer} pinType 
-     * @param {Pointer<IMbnPin>} pin 
-     * @returns {HRESULT} 
+     * @returns {IMbnPin} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpinmanager-getpin
      */
-    GetPin(pinType, pin) {
-        result := ComCall(4, this, "int", pinType, "ptr*", pin, "HRESULT")
-        return result
+    GetPin(pinType) {
+        result := ComCall(4, this, "int", pinType, "ptr*", &pin := 0, "HRESULT")
+        return IMbnPin(pin)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} requestID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnpinmanager-getpinstate
      */
-    GetPinState(requestID) {
-        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, requestIDMarshal, requestID, "HRESULT")
-        return result
+    GetPinState() {
+        result := ComCall(5, this, "uint*", &requestID := 0, "HRESULT")
+        return requestID
     }
 }

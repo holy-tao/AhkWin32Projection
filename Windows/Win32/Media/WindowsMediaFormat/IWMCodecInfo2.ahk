@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWMStreamConfig.ahk
 #Include .\IWMCodecInfo.ahk
 
 /**
@@ -53,18 +54,17 @@ class IWMCodecInfo2 extends IWMCodecInfo{
      * @param {Pointer<Guid>} guidType 
      * @param {Integer} dwCodecIndex 
      * @param {Integer} dwFormatIndex 
-     * @param {Pointer<IWMStreamConfig>} ppIStreamConfig 
      * @param {PWSTR} wszDesc 
      * @param {Pointer<Integer>} pcchDesc 
-     * @returns {HRESULT} 
+     * @returns {IWMStreamConfig} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmcodecinfo2-getcodecformatdesc
      */
-    GetCodecFormatDesc(guidType, dwCodecIndex, dwFormatIndex, ppIStreamConfig, wszDesc, pcchDesc) {
+    GetCodecFormatDesc(guidType, dwCodecIndex, dwFormatIndex, wszDesc, pcchDesc) {
         wszDesc := wszDesc is String ? StrPtr(wszDesc) : wszDesc
 
         pcchDescMarshal := pcchDesc is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "ptr", guidType, "uint", dwCodecIndex, "uint", dwFormatIndex, "ptr*", ppIStreamConfig, "ptr", wszDesc, pcchDescMarshal, pcchDesc, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", guidType, "uint", dwCodecIndex, "uint", dwFormatIndex, "ptr*", &ppIStreamConfig := 0, "ptr", wszDesc, pcchDescMarshal, pcchDesc, "HRESULT")
+        return IWMStreamConfig(ppIStreamConfig)
     }
 }

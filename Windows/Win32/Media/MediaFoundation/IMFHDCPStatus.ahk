@@ -36,8 +36,9 @@ class IMFHDCPStatus extends IUnknown{
      */
     Query(pStatus, pfStatus) {
         pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
+        pfStatusMarshal := pfStatus is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, pStatusMarshal, pStatus, "ptr", pfStatus, "HRESULT")
+        result := ComCall(3, this, pStatusMarshal, pStatus, pfStatusMarshal, pfStatus, "HRESULT")
         return result
     }
 

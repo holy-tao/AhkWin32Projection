@@ -84,9 +84,11 @@ class IBackgroundCopyJobHttpOptions extends IUnknown{
      */
     GetClientCertificate(pStoreLocation, pStoreName, ppCertHashBlob, pSubjectName) {
         pStoreLocationMarshal := pStoreLocation is VarRef ? "int*" : "ptr"
+        pStoreNameMarshal := pStoreName is VarRef ? "ptr*" : "ptr"
         ppCertHashBlobMarshal := ppCertHashBlob is VarRef ? "ptr*" : "ptr"
+        pSubjectNameMarshal := pSubjectName is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, pStoreLocationMarshal, pStoreLocation, "ptr", pStoreName, ppCertHashBlobMarshal, ppCertHashBlob, "ptr", pSubjectName, "HRESULT")
+        result := ComCall(6, this, pStoreLocationMarshal, pStoreLocation, pStoreNameMarshal, pStoreName, ppCertHashBlobMarshal, ppCertHashBlob, pSubjectNameMarshal, pSubjectName, "HRESULT")
         return result
     }
 
@@ -105,13 +107,12 @@ class IBackgroundCopyJobHttpOptions extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pRequestHeaders 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/bits2_5/nf-bits2_5-ibackgroundcopyjobhttpoptions-getcustomheaders
      */
-    GetCustomHeaders(pRequestHeaders) {
-        result := ComCall(8, this, "ptr", pRequestHeaders, "HRESULT")
-        return result
+    GetCustomHeaders() {
+        result := ComCall(8, this, "ptr*", &pRequestHeaders := 0, "HRESULT")
+        return pRequestHeaders
     }
 
     /**
@@ -127,14 +128,11 @@ class IBackgroundCopyJobHttpOptions extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/bits2_5/nf-bits2_5-ibackgroundcopyjobhttpoptions-getsecurityflags
      */
-    GetSecurityFlags(pFlags) {
-        pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, pFlagsMarshal, pFlags, "HRESULT")
-        return result
+    GetSecurityFlags() {
+        result := ComCall(10, this, "uint*", &pFlags := 0, "HRESULT")
+        return pFlags
     }
 }

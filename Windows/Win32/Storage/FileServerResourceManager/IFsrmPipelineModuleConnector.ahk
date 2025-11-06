@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IFsrmPipelineModuleImplementation.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -57,48 +59,44 @@ class IFsrmPipelineModuleConnector extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IFsrmPipelineModuleImplementation>} pipelineModuleImplementation 
-     * @returns {HRESULT} 
+     * @returns {IFsrmPipelineModuleImplementation} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleconnector-get_moduleimplementation
      */
-    get_ModuleImplementation(pipelineModuleImplementation) {
-        result := ComCall(7, this, "ptr*", pipelineModuleImplementation, "HRESULT")
-        return result
+    get_ModuleImplementation() {
+        result := ComCall(7, this, "ptr*", &pipelineModuleImplementation := 0, "HRESULT")
+        return IFsrmPipelineModuleImplementation(pipelineModuleImplementation)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} userName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleconnector-get_modulename
      */
-    get_ModuleName(userName) {
+    get_ModuleName() {
+        userName := BSTR()
         result := ComCall(8, this, "ptr", userName, "HRESULT")
-        return result
+        return userName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} userAccount 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleconnector-get_hostinguseraccount
      */
-    get_HostingUserAccount(userAccount) {
+    get_HostingUserAccount() {
+        userAccount := BSTR()
         result := ComCall(9, this, "ptr", userAccount, "HRESULT")
-        return result
+        return userAccount
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pid 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpipelinemoduleconnector-get_hostingprocesspid
      */
-    get_HostingProcessPid(pid) {
-        pidMarshal := pid is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, pidMarshal, pid, "HRESULT")
-        return result
+    get_HostingProcessPid() {
+        result := ComCall(10, this, "int*", &pid := 0, "HRESULT")
+        return pid
     }
 
     /**

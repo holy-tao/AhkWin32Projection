@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IEnumTerminal.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,39 +35,33 @@ class ITStream extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plMediaType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itstream-get_mediatype
      */
-    get_MediaType(plMediaType) {
-        plMediaTypeMarshal := plMediaType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, plMediaTypeMarshal, plMediaType, "HRESULT")
-        return result
+    get_MediaType() {
+        result := ComCall(7, this, "int*", &plMediaType := 0, "HRESULT")
+        return plMediaType
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pTD 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itstream-get_direction
      */
-    get_Direction(pTD) {
-        pTDMarshal := pTD is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pTDMarshal, pTD, "HRESULT")
-        return result
+    get_Direction() {
+        result := ComCall(8, this, "int*", &pTD := 0, "HRESULT")
+        return pTD
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} ppName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itstream-get_name
      */
-    get_Name(ppName) {
+    get_Name() {
+        ppName := BSTR()
         result := ComCall(9, this, "ptr", ppName, "HRESULT")
-        return result
+        return ppName
     }
 
     /**
@@ -121,23 +118,22 @@ class ITStream extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IEnumTerminal>} ppEnumTerminal 
-     * @returns {HRESULT} 
+     * @returns {IEnumTerminal} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itstream-enumerateterminals
      */
-    EnumerateTerminals(ppEnumTerminal) {
-        result := ComCall(15, this, "ptr*", ppEnumTerminal, "HRESULT")
-        return result
+    EnumerateTerminals() {
+        result := ComCall(15, this, "ptr*", &ppEnumTerminal := 0, "HRESULT")
+        return IEnumTerminal(ppEnumTerminal)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pTerminals 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itstream-get_terminals
      */
-    get_Terminals(pTerminals) {
+    get_Terminals() {
+        pTerminals := VARIANT()
         result := ComCall(16, this, "ptr", pTerminals, "HRESULT")
-        return result
+        return pTerminals
     }
 }

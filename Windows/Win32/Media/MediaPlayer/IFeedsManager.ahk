@@ -37,90 +37,83 @@ class IFeedsManager extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} disp 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_RootFolder(disp) {
-        result := ComCall(7, this, "ptr*", disp, "HRESULT")
-        return result
+    get_RootFolder() {
+        result := ComCall(7, this, "ptr*", &disp := 0, "HRESULT")
+        return IDispatch(disp)
     }
 
     /**
      * 
      * @param {BSTR} feedUrl 
-     * @param {Pointer<VARIANT_BOOL>} subscribed 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    IsSubscribed(feedUrl, subscribed) {
+    IsSubscribed(feedUrl) {
         feedUrl := feedUrl is String ? BSTR.Alloc(feedUrl).Value : feedUrl
 
-        result := ComCall(8, this, "ptr", feedUrl, "ptr", subscribed, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", feedUrl, "short*", &subscribed := 0, "HRESULT")
+        return subscribed
     }
 
     /**
      * 
      * @param {BSTR} feedPath 
-     * @param {Pointer<VARIANT_BOOL>} exists 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    ExistsFeed(feedPath, exists) {
+    ExistsFeed(feedPath) {
         feedPath := feedPath is String ? BSTR.Alloc(feedPath).Value : feedPath
 
-        result := ComCall(9, this, "ptr", feedPath, "ptr", exists, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", feedPath, "short*", &exists := 0, "HRESULT")
+        return exists
     }
 
     /**
      * 
      * @param {BSTR} feedPath 
-     * @param {Pointer<IDispatch>} disp 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    GetFeed(feedPath, disp) {
+    GetFeed(feedPath) {
         feedPath := feedPath is String ? BSTR.Alloc(feedPath).Value : feedPath
 
-        result := ComCall(10, this, "ptr", feedPath, "ptr*", disp, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", feedPath, "ptr*", &disp := 0, "HRESULT")
+        return IDispatch(disp)
     }
 
     /**
      * 
      * @param {BSTR} feedUrl 
-     * @param {Pointer<IDispatch>} disp 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    GetFeedByUrl(feedUrl, disp) {
+    GetFeedByUrl(feedUrl) {
         feedUrl := feedUrl is String ? BSTR.Alloc(feedUrl).Value : feedUrl
 
-        result := ComCall(11, this, "ptr", feedUrl, "ptr*", disp, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", feedUrl, "ptr*", &disp := 0, "HRESULT")
+        return IDispatch(disp)
     }
 
     /**
      * 
      * @param {BSTR} folderPath 
-     * @param {Pointer<VARIANT_BOOL>} exists 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    ExistsFolder(folderPath, exists) {
+    ExistsFolder(folderPath) {
         folderPath := folderPath is String ? BSTR.Alloc(folderPath).Value : folderPath
 
-        result := ComCall(12, this, "ptr", folderPath, "ptr", exists, "HRESULT")
-        return result
+        result := ComCall(12, this, "ptr", folderPath, "short*", &exists := 0, "HRESULT")
+        return exists
     }
 
     /**
      * 
      * @param {BSTR} folderPath 
-     * @param {Pointer<IDispatch>} disp 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    GetFolder(folderPath, disp) {
+    GetFolder(folderPath) {
         folderPath := folderPath is String ? BSTR.Alloc(folderPath).Value : folderPath
 
-        result := ComCall(13, this, "ptr", folderPath, "ptr*", disp, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", folderPath, "ptr*", &disp := 0, "HRESULT")
+        return IDispatch(disp)
     }
 
     /**
@@ -159,26 +152,20 @@ class IFeedsManager extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} status 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_BackgroundSyncStatus(status) {
-        statusMarshal := status is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, statusMarshal, status, "HRESULT")
-        return result
+    get_BackgroundSyncStatus() {
+        result := ComCall(17, this, "int*", &status := 0, "HRESULT")
+        return status
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} minutes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_DefaultInterval(minutes) {
-        minutesMarshal := minutes is VarRef ? "int*" : "ptr"
-
-        result := ComCall(18, this, minutesMarshal, minutes, "HRESULT")
-        return result
+    get_DefaultInterval() {
+        result := ComCall(18, this, "int*", &minutes := 0, "HRESULT")
+        return minutes
     }
 
     /**
@@ -203,25 +190,22 @@ class IFeedsManager extends IDispatch{
     /**
      * 
      * @param {BSTR} feedXmlIn 
-     * @param {Pointer<BSTR>} feedXmlOut 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    Normalize(feedXmlIn, feedXmlOut) {
+    Normalize(feedXmlIn) {
         feedXmlIn := feedXmlIn is String ? BSTR.Alloc(feedXmlIn).Value : feedXmlIn
 
+        feedXmlOut := BSTR()
         result := ComCall(21, this, "ptr", feedXmlIn, "ptr", feedXmlOut, "HRESULT")
-        return result
+        return feedXmlOut
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} itemCountLimit 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ItemCountLimit(itemCountLimit) {
-        itemCountLimitMarshal := itemCountLimit is VarRef ? "int*" : "ptr"
-
-        result := ComCall(22, this, itemCountLimitMarshal, itemCountLimit, "HRESULT")
-        return result
+    get_ItemCountLimit() {
+        result := ComCall(22, this, "int*", &itemCountLimit := 0, "HRESULT")
+        return itemCountLimit
     }
 }

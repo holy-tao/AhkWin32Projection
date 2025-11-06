@@ -65,56 +65,44 @@ class IUIAnimationInterpolator extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} duration 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator-getduration
      */
-    GetDuration(duration) {
-        durationMarshal := duration is VarRef ? "double*" : "ptr"
-
-        result := ComCall(5, this, durationMarshal, duration, "HRESULT")
-        return result
+    GetDuration() {
+        result := ComCall(5, this, "double*", &duration := 0, "HRESULT")
+        return duration
     }
 
     /**
      * 
-     * @param {Pointer<Float>} value 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator-getfinalvalue
      */
-    GetFinalValue(value) {
-        valueMarshal := value is VarRef ? "double*" : "ptr"
-
-        result := ComCall(6, this, valueMarshal, value, "HRESULT")
-        return result
+    GetFinalValue() {
+        result := ComCall(6, this, "double*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
      * @param {Float} offset 
-     * @param {Pointer<Float>} value 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator-interpolatevalue
      */
-    InterpolateValue(offset, value) {
-        valueMarshal := value is VarRef ? "double*" : "ptr"
-
-        result := ComCall(7, this, "double", offset, valueMarshal, value, "HRESULT")
-        return result
+    InterpolateValue(offset) {
+        result := ComCall(7, this, "double", offset, "double*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
      * @param {Float} offset 
-     * @param {Pointer<Float>} velocity 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator-interpolatevelocity
      */
-    InterpolateVelocity(offset, velocity) {
-        velocityMarshal := velocity is VarRef ? "double*" : "ptr"
-
-        result := ComCall(8, this, "double", offset, velocityMarshal, velocity, "HRESULT")
-        return result
+    InterpolateVelocity(offset) {
+        result := ComCall(8, this, "double", offset, "double*", &velocity := 0, "HRESULT")
+        return velocity
     }
 
     /**

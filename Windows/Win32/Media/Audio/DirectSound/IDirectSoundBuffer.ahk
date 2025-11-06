@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\DSBCAPS.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,12 +31,12 @@ class IDirectSoundBuffer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<DSBCAPS>} pDSBufferCaps 
-     * @returns {HRESULT} 
+     * @returns {DSBCAPS} 
      */
-    GetCaps(pDSBufferCaps) {
+    GetCaps() {
+        pDSBufferCaps := DSBCAPS()
         result := ComCall(3, this, "ptr", pDSBufferCaps, "HRESULT")
-        return result
+        return pDSBufferCaps
     }
 
     /**
@@ -56,62 +57,47 @@ class IDirectSoundBuffer extends IUnknown{
      * 
      * @param {Pointer} pwfxFormat 
      * @param {Integer} dwSizeAllocated 
-     * @param {Pointer<Integer>} pdwSizeWritten 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetFormat(pwfxFormat, dwSizeAllocated, pdwSizeWritten) {
-        pdwSizeWrittenMarshal := pdwSizeWritten is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, "ptr", pwfxFormat, "uint", dwSizeAllocated, pdwSizeWrittenMarshal, pdwSizeWritten, "HRESULT")
-        return result
+    GetFormat(pwfxFormat, dwSizeAllocated) {
+        result := ComCall(5, this, "ptr", pwfxFormat, "uint", dwSizeAllocated, "uint*", &pdwSizeWritten := 0, "HRESULT")
+        return pdwSizeWritten
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plVolume 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetVolume(plVolume) {
-        plVolumeMarshal := plVolume is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, plVolumeMarshal, plVolume, "HRESULT")
-        return result
+    GetVolume() {
+        result := ComCall(6, this, "int*", &plVolume := 0, "HRESULT")
+        return plVolume
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plPan 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetPan(plPan) {
-        plPanMarshal := plPan is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, plPanMarshal, plPan, "HRESULT")
-        return result
+    GetPan() {
+        result := ComCall(7, this, "int*", &plPan := 0, "HRESULT")
+        return plPan
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwFrequency 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetFrequency(pdwFrequency) {
-        pdwFrequencyMarshal := pdwFrequency is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pdwFrequencyMarshal, pdwFrequency, "HRESULT")
-        return result
+    GetFrequency() {
+        result := ComCall(8, this, "uint*", &pdwFrequency := 0, "HRESULT")
+        return pdwFrequency
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetStatus(pdwStatus) {
-        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, pdwStatusMarshal, pdwStatus, "HRESULT")
-        return result
+    GetStatus() {
+        result := ComCall(9, this, "uint*", &pdwStatus := 0, "HRESULT")
+        return pdwStatus
     }
 
     /**

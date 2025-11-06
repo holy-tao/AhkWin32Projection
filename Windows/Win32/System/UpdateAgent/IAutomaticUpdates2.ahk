@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IAutomaticUpdatesResults.ahk
 #Include .\IAutomaticUpdates.ahk
 
 /**
@@ -38,12 +39,11 @@ class IAutomaticUpdates2 extends IAutomaticUpdates{
 
     /**
      * 
-     * @param {Pointer<IAutomaticUpdatesResults>} retval 
-     * @returns {HRESULT} 
+     * @returns {IAutomaticUpdatesResults} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iautomaticupdates2-get_results
      */
-    get_Results(retval) {
-        result := ComCall(14, this, "ptr*", retval, "HRESULT")
-        return result
+    get_Results() {
+        result := ComCall(14, this, "ptr*", &retval := 0, "HRESULT")
+        return IAutomaticUpdatesResults(retval)
     }
 }

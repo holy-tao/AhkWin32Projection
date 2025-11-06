@@ -40,11 +40,11 @@ class IInterfaceRelated extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} piid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    GetIID(piid) {
+    GetIID() {
+        piid := Guid()
         result := ComCall(4, this, "ptr", piid, "HRESULT")
-        return result
+        return piid
     }
 }

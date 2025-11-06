@@ -37,7 +37,9 @@ class ID3D10EffectVectorVariable extends ID3D10EffectVariable{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-setboolvector
      */
     SetBoolVector(pData) {
-        result := ComCall(25, this, "ptr", pData, "HRESULT")
+        pDataMarshal := pData is VarRef ? "int*" : "ptr"
+
+        result := ComCall(25, this, pDataMarshal, pData, "HRESULT")
         return result
     }
 
@@ -74,7 +76,9 @@ class ID3D10EffectVectorVariable extends ID3D10EffectVariable{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-getboolvector
      */
     GetBoolVector(pData) {
-        result := ComCall(28, this, "ptr", pData, "HRESULT")
+        pDataMarshal := pData is VarRef ? "int*" : "ptr"
+
+        result := ComCall(28, this, pDataMarshal, pData, "HRESULT")
         return result
     }
 
@@ -113,7 +117,9 @@ class ID3D10EffectVectorVariable extends ID3D10EffectVariable{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-setboolvectorarray
      */
     SetBoolVectorArray(pData, Offset, Count) {
-        result := ComCall(31, this, "ptr", pData, "uint", Offset, "uint", Count, "HRESULT")
+        pDataMarshal := pData is VarRef ? "int*" : "ptr"
+
+        result := ComCall(31, this, pDataMarshal, pData, "uint", Offset, "uint", Count, "HRESULT")
         return result
     }
 
@@ -156,7 +162,9 @@ class ID3D10EffectVectorVariable extends ID3D10EffectVariable{
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-getboolvectorarray
      */
     GetBoolVectorArray(pData, Offset, Count) {
-        result := ComCall(34, this, "ptr", pData, "uint", Offset, "uint", Count, "HRESULT")
+        pDataMarshal := pData is VarRef ? "int*" : "ptr"
+
+        result := ComCall(34, this, pDataMarshal, pData, "uint", Offset, "uint", Count, "HRESULT")
         return result
     }
 

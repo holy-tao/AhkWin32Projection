@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IClassFactory.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -126,7 +127,9 @@ class IServicePoolConfig extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iservicepoolconfig-get_transactionaffinity
      */
     get_TransactionAffinity(pfTxAffinity) {
-        result := ComCall(10, this, "ptr", pfTxAffinity, "HRESULT")
+        pfTxAffinityMarshal := pfTxAffinity is VarRef ? "int*" : "ptr"
+
+        result := ComCall(10, this, pfTxAffinityMarshal, pfTxAffinity, "HRESULT")
         return result
     }
 
@@ -143,12 +146,11 @@ class IServicePoolConfig extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IClassFactory>} pFactory 
-     * @returns {HRESULT} 
+     * @returns {IClassFactory} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iservicepoolconfig-get_classfactory
      */
-    get_ClassFactory(pFactory) {
-        result := ComCall(12, this, "ptr*", pFactory, "HRESULT")
-        return result
+    get_ClassFactory() {
+        result := ComCall(12, this, "ptr*", &pFactory := 0, "HRESULT")
+        return IClassFactory(pFactory)
     }
 }

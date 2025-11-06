@@ -56,13 +56,13 @@ class IPerformanceCounterDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<BSTR>} dsn 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iperformancecounterdatacollector-get_datasourcename
      */
-    get_DataSourceName(dsn) {
+    get_DataSourceName() {
+        dsn := BSTR()
         result := ComCall(32, this, "ptr", dsn, "HRESULT")
-        return result
+        return dsn
     }
 
     /**
@@ -80,15 +80,12 @@ class IPerformanceCounterDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} counters 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iperformancecounterdatacollector-get_performancecounters
      */
-    get_PerformanceCounters(counters) {
-        countersMarshal := counters is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(34, this, countersMarshal, counters, "HRESULT")
-        return result
+    get_PerformanceCounters() {
+        result := ComCall(34, this, "ptr*", &counters := 0, "HRESULT")
+        return counters
     }
 
     /**
@@ -104,15 +101,12 @@ class IPerformanceCounterDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<Integer>} format 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iperformancecounterdatacollector-get_logfileformat
      */
-    get_LogFileFormat(format) {
-        formatMarshal := format is VarRef ? "int*" : "ptr"
-
-        result := ComCall(36, this, formatMarshal, format, "HRESULT")
-        return result
+    get_LogFileFormat() {
+        result := ComCall(36, this, "int*", &format := 0, "HRESULT")
+        return format
     }
 
     /**
@@ -128,15 +122,12 @@ class IPerformanceCounterDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<Integer>} interval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iperformancecounterdatacollector-get_sampleinterval
      */
-    get_SampleInterval(interval) {
-        intervalMarshal := interval is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(38, this, intervalMarshal, interval, "HRESULT")
-        return result
+    get_SampleInterval() {
+        result := ComCall(38, this, "uint*", &interval := 0, "HRESULT")
+        return interval
     }
 
     /**
@@ -152,15 +143,12 @@ class IPerformanceCounterDataCollector extends IDataCollector{
 
     /**
      * 
-     * @param {Pointer<Integer>} records 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-iperformancecounterdatacollector-get_segmentmaxrecords
      */
-    get_SegmentMaxRecords(records) {
-        recordsMarshal := records is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(40, this, recordsMarshal, records, "HRESULT")
-        return result
+    get_SegmentMaxRecords() {
+        result := ComCall(40, this, "uint*", &records := 0, "HRESULT")
+        return records
     }
 
     /**

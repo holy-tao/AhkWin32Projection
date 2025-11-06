@@ -1,6 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID2D1Effect.ahk
+#Include .\ID2D1TransformNode.ahk
+#Include .\ID2D1BlendTransform.ahk
+#Include .\ID2D1BorderTransform.ahk
+#Include .\ID2D1OffsetTransform.ahk
+#Include .\ID2D1BoundsAdjustmentTransform.ahk
+#Include .\ID2D1ResourceTexture.ahk
+#Include .\ID2D1VertexBuffer.ahk
+#Include .\ID2D1ColorContext.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -54,91 +63,83 @@ class ID2D1EffectContext extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} effectId 
-     * @param {Pointer<ID2D1Effect>} effect 
-     * @returns {HRESULT} 
+     * @returns {ID2D1Effect} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-createeffect
      */
-    CreateEffect(effectId, effect) {
-        result := ComCall(4, this, "ptr", effectId, "ptr*", effect, "HRESULT")
-        return result
+    CreateEffect(effectId) {
+        result := ComCall(4, this, "ptr", effectId, "ptr*", &effect := 0, "HRESULT")
+        return ID2D1Effect(effect)
     }
 
     /**
      * 
      * @param {Pointer<Integer>} featureLevels 
      * @param {Integer} featureLevelsCount 
-     * @param {Pointer<Integer>} maximumSupportedFeatureLevel 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-getmaximumsupportedfeaturelevel
      */
-    GetMaximumSupportedFeatureLevel(featureLevels, featureLevelsCount, maximumSupportedFeatureLevel) {
+    GetMaximumSupportedFeatureLevel(featureLevels, featureLevelsCount) {
         featureLevelsMarshal := featureLevels is VarRef ? "int*" : "ptr"
-        maximumSupportedFeatureLevelMarshal := maximumSupportedFeatureLevel is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, featureLevelsMarshal, featureLevels, "uint", featureLevelsCount, maximumSupportedFeatureLevelMarshal, maximumSupportedFeatureLevel, "HRESULT")
-        return result
+        result := ComCall(5, this, featureLevelsMarshal, featureLevels, "uint", featureLevelsCount, "int*", &maximumSupportedFeatureLevel := 0, "HRESULT")
+        return maximumSupportedFeatureLevel
     }
 
     /**
      * 
      * @param {ID2D1Effect} effect 
-     * @param {Pointer<ID2D1TransformNode>} transformNode 
-     * @returns {HRESULT} 
+     * @returns {ID2D1TransformNode} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-createtransformnodefromeffect
      */
-    CreateTransformNodeFromEffect(effect, transformNode) {
-        result := ComCall(6, this, "ptr", effect, "ptr*", transformNode, "HRESULT")
-        return result
+    CreateTransformNodeFromEffect(effect) {
+        result := ComCall(6, this, "ptr", effect, "ptr*", &transformNode := 0, "HRESULT")
+        return ID2D1TransformNode(transformNode)
     }
 
     /**
      * 
      * @param {Integer} numInputs 
      * @param {Pointer<D2D1_BLEND_DESCRIPTION>} blendDescription 
-     * @param {Pointer<ID2D1BlendTransform>} transform 
-     * @returns {HRESULT} 
+     * @returns {ID2D1BlendTransform} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-createblendtransform
      */
-    CreateBlendTransform(numInputs, blendDescription, transform) {
-        result := ComCall(7, this, "uint", numInputs, "ptr", blendDescription, "ptr*", transform, "HRESULT")
-        return result
+    CreateBlendTransform(numInputs, blendDescription) {
+        result := ComCall(7, this, "uint", numInputs, "ptr", blendDescription, "ptr*", &transform := 0, "HRESULT")
+        return ID2D1BlendTransform(transform)
     }
 
     /**
      * 
      * @param {Integer} extendModeX 
      * @param {Integer} extendModeY 
-     * @param {Pointer<ID2D1BorderTransform>} transform 
-     * @returns {HRESULT} 
+     * @returns {ID2D1BorderTransform} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-createbordertransform
      */
-    CreateBorderTransform(extendModeX, extendModeY, transform) {
-        result := ComCall(8, this, "int", extendModeX, "int", extendModeY, "ptr*", transform, "HRESULT")
-        return result
+    CreateBorderTransform(extendModeX, extendModeY) {
+        result := ComCall(8, this, "int", extendModeX, "int", extendModeY, "ptr*", &transform := 0, "HRESULT")
+        return ID2D1BorderTransform(transform)
     }
 
     /**
      * 
      * @param {POINT} offset 
-     * @param {Pointer<ID2D1OffsetTransform>} transform 
-     * @returns {HRESULT} 
+     * @returns {ID2D1OffsetTransform} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-createoffsettransform
      */
-    CreateOffsetTransform(offset, transform) {
-        result := ComCall(9, this, "ptr", offset, "ptr*", transform, "HRESULT")
-        return result
+    CreateOffsetTransform(offset) {
+        result := ComCall(9, this, "ptr", offset, "ptr*", &transform := 0, "HRESULT")
+        return ID2D1OffsetTransform(transform)
     }
 
     /**
      * 
      * @param {Pointer<RECT>} outputRectangle 
-     * @param {Pointer<ID2D1BoundsAdjustmentTransform>} transform 
-     * @returns {HRESULT} 
+     * @returns {ID2D1BoundsAdjustmentTransform} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-createboundsadjustmenttransform
      */
-    CreateBoundsAdjustmentTransform(outputRectangle, transform) {
-        result := ComCall(10, this, "ptr", outputRectangle, "ptr*", transform, "HRESULT")
-        return result
+    CreateBoundsAdjustmentTransform(outputRectangle) {
+        result := ComCall(10, this, "ptr", outputRectangle, "ptr*", &transform := 0, "HRESULT")
+        return ID2D1BoundsAdjustmentTransform(transform)
     }
 
     /**
@@ -204,28 +205,26 @@ class ID2D1EffectContext extends IUnknown{
      * @param {Pointer<Integer>} data 
      * @param {Pointer<Integer>} strides 
      * @param {Integer} dataSize 
-     * @param {Pointer<ID2D1ResourceTexture>} resourceTexture 
-     * @returns {HRESULT} 
+     * @returns {ID2D1ResourceTexture} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-createresourcetexture
      */
-    CreateResourceTexture(resourceId, resourceTextureProperties, data, strides, dataSize, resourceTexture) {
+    CreateResourceTexture(resourceId, resourceTextureProperties, data, strides, dataSize) {
         dataMarshal := data is VarRef ? "char*" : "ptr"
         stridesMarshal := strides is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, "ptr", resourceId, "ptr", resourceTextureProperties, dataMarshal, data, stridesMarshal, strides, "uint", dataSize, "ptr*", resourceTexture, "HRESULT")
-        return result
+        result := ComCall(15, this, "ptr", resourceId, "ptr", resourceTextureProperties, dataMarshal, data, stridesMarshal, strides, "uint", dataSize, "ptr*", &resourceTexture := 0, "HRESULT")
+        return ID2D1ResourceTexture(resourceTexture)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} resourceId 
-     * @param {Pointer<ID2D1ResourceTexture>} resourceTexture 
-     * @returns {HRESULT} 
+     * @returns {ID2D1ResourceTexture} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-findresourcetexture
      */
-    FindResourceTexture(resourceId, resourceTexture) {
-        result := ComCall(16, this, "ptr", resourceId, "ptr*", resourceTexture, "HRESULT")
-        return result
+    FindResourceTexture(resourceId) {
+        result := ComCall(16, this, "ptr", resourceId, "ptr*", &resourceTexture := 0, "HRESULT")
+        return ID2D1ResourceTexture(resourceTexture)
     }
 
     /**
@@ -233,25 +232,23 @@ class ID2D1EffectContext extends IUnknown{
      * @param {Pointer<D2D1_VERTEX_BUFFER_PROPERTIES>} vertexBufferProperties 
      * @param {Pointer<Guid>} resourceId 
      * @param {Pointer<D2D1_CUSTOM_VERTEX_BUFFER_PROPERTIES>} customVertexBufferProperties 
-     * @param {Pointer<ID2D1VertexBuffer>} buffer 
-     * @returns {HRESULT} 
+     * @returns {ID2D1VertexBuffer} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-createvertexbuffer
      */
-    CreateVertexBuffer(vertexBufferProperties, resourceId, customVertexBufferProperties, buffer) {
-        result := ComCall(17, this, "ptr", vertexBufferProperties, "ptr", resourceId, "ptr", customVertexBufferProperties, "ptr*", buffer, "HRESULT")
-        return result
+    CreateVertexBuffer(vertexBufferProperties, resourceId, customVertexBufferProperties) {
+        result := ComCall(17, this, "ptr", vertexBufferProperties, "ptr", resourceId, "ptr", customVertexBufferProperties, "ptr*", &buffer := 0, "HRESULT")
+        return ID2D1VertexBuffer(buffer)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} resourceId 
-     * @param {Pointer<ID2D1VertexBuffer>} buffer 
-     * @returns {HRESULT} 
+     * @returns {ID2D1VertexBuffer} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-findvertexbuffer
      */
-    FindVertexBuffer(resourceId, buffer) {
-        result := ComCall(18, this, "ptr", resourceId, "ptr*", buffer, "HRESULT")
-        return result
+    FindVertexBuffer(resourceId) {
+        result := ComCall(18, this, "ptr", resourceId, "ptr*", &buffer := 0, "HRESULT")
+        return ID2D1VertexBuffer(buffer)
     }
 
     /**
@@ -259,41 +256,38 @@ class ID2D1EffectContext extends IUnknown{
      * @param {Integer} space 
      * @param {Pointer<Integer>} profile 
      * @param {Integer} profileSize 
-     * @param {Pointer<ID2D1ColorContext>} colorContext 
-     * @returns {HRESULT} 
+     * @returns {ID2D1ColorContext} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-createcolorcontext
      */
-    CreateColorContext(space, profile, profileSize, colorContext) {
+    CreateColorContext(space, profile, profileSize) {
         profileMarshal := profile is VarRef ? "char*" : "ptr"
 
-        result := ComCall(19, this, "int", space, profileMarshal, profile, "uint", profileSize, "ptr*", colorContext, "HRESULT")
-        return result
+        result := ComCall(19, this, "int", space, profileMarshal, profile, "uint", profileSize, "ptr*", &colorContext := 0, "HRESULT")
+        return ID2D1ColorContext(colorContext)
     }
 
     /**
      * 
      * @param {PWSTR} filename 
-     * @param {Pointer<ID2D1ColorContext>} colorContext 
-     * @returns {HRESULT} 
+     * @returns {ID2D1ColorContext} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-createcolorcontextfromfilename
      */
-    CreateColorContextFromFilename(filename, colorContext) {
+    CreateColorContextFromFilename(filename) {
         filename := filename is String ? StrPtr(filename) : filename
 
-        result := ComCall(20, this, "ptr", filename, "ptr*", colorContext, "HRESULT")
-        return result
+        result := ComCall(20, this, "ptr", filename, "ptr*", &colorContext := 0, "HRESULT")
+        return ID2D1ColorContext(colorContext)
     }
 
     /**
      * 
      * @param {IWICColorContext} wicColorContext 
-     * @param {Pointer<ID2D1ColorContext>} colorContext 
-     * @returns {HRESULT} 
+     * @returns {ID2D1ColorContext} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectcontext-createcolorcontextfromwiccolorcontext
      */
-    CreateColorContextFromWicColorContext(wicColorContext, colorContext) {
-        result := ComCall(21, this, "ptr", wicColorContext, "ptr*", colorContext, "HRESULT")
-        return result
+    CreateColorContextFromWicColorContext(wicColorContext) {
+        result := ComCall(21, this, "ptr", wicColorContext, "ptr*", &colorContext := 0, "HRESULT")
+        return ID2D1ColorContext(colorContext)
     }
 
     /**

@@ -50,16 +50,14 @@ class IADsExtension extends IUnknown{
      * @param {Pointer<Pointer<Integer>>} rgszNames 
      * @param {Integer} cNames 
      * @param {Integer} lcid 
-     * @param {Pointer<Integer>} rgDispid 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsextension-privategetidsofnames
      */
-    PrivateGetIDsOfNames(riid, rgszNames, cNames, lcid, rgDispid) {
+    PrivateGetIDsOfNames(riid, rgszNames, cNames, lcid) {
         rgszNamesMarshal := rgszNames is VarRef ? "ptr*" : "ptr"
-        rgDispidMarshal := rgDispid is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", riid, rgszNamesMarshal, rgszNames, "uint", cNames, "uint", lcid, rgDispidMarshal, rgDispid, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", riid, rgszNamesMarshal, rgszNames, "uint", cNames, "uint", lcid, "int*", &rgDispid := 0, "HRESULT")
+        return rgDispid
     }
 
     /**

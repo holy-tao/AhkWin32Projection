@@ -47,13 +47,10 @@ class IDxcVersionInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetFlags(pFlags) {
-        pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pFlagsMarshal, pFlags, "HRESULT")
-        return result
+    GetFlags() {
+        result := ComCall(4, this, "uint*", &pFlags := 0, "HRESULT")
+        return pFlags
     }
 }

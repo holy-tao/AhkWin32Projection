@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -34,12 +35,12 @@ class IThumbnailCapture extends IUnknown{
      * 
      * @param {Pointer<SIZE>} pMaxSize 
      * @param {IUnknown} pHTMLDoc2 
-     * @param {Pointer<HBITMAP>} phbmThumbnail 
-     * @returns {HRESULT} 
+     * @returns {HBITMAP} 
      * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-ithumbnailcapture-capturethumbnail
      */
-    CaptureThumbnail(pMaxSize, pHTMLDoc2, phbmThumbnail) {
+    CaptureThumbnail(pMaxSize, pHTMLDoc2) {
+        phbmThumbnail := HBITMAP()
         result := ComCall(3, this, "ptr", pMaxSize, "ptr", pHTMLDoc2, "ptr", phbmThumbnail, "HRESULT")
-        return result
+        return phbmThumbnail
     }
 }

@@ -35,15 +35,14 @@ class ICoCreateLocally extends IUnknown{
      * @param {Pointer<Guid>} rclsid 
      * @param {Integer} dwClsContext 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} punk 
      * @param {Pointer<Guid>} riidParam 
      * @param {IUnknown} punkParam 
      * @param {VARIANT} varParam 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-icocreatelocally-cocreatelocally
      */
-    CoCreateLocally(rclsid, dwClsContext, riid, punk, riidParam, punkParam, varParam) {
-        result := ComCall(3, this, "ptr", rclsid, "uint", dwClsContext, "ptr", riid, "ptr*", punk, "ptr", riidParam, "ptr", punkParam, "ptr", varParam, "HRESULT")
-        return result
+    CoCreateLocally(rclsid, dwClsContext, riid, riidParam, punkParam, varParam) {
+        result := ComCall(3, this, "ptr", rclsid, "uint", dwClsContext, "ptr", riid, "ptr*", &punk := 0, "ptr", riidParam, "ptr", punkParam, "ptr", varParam, "HRESULT")
+        return IUnknown(punk)
     }
 }

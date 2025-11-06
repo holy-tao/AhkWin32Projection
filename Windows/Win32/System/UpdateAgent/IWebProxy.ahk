@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IStringCollection.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -46,13 +47,13 @@ class IWebProxy extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwebproxy-get_address
      */
-    get_Address(retval) {
+    get_Address() {
+        retval := BSTR()
         result := ComCall(7, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -70,13 +71,12 @@ class IWebProxy extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IStringCollection>} retval 
-     * @returns {HRESULT} 
+     * @returns {IStringCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwebproxy-get_bypasslist
      */
-    get_BypassList(retval) {
-        result := ComCall(9, this, "ptr*", retval, "HRESULT")
-        return result
+    get_BypassList() {
+        result := ComCall(9, this, "ptr*", &retval := 0, "HRESULT")
+        return IStringCollection(retval)
     }
 
     /**
@@ -92,13 +92,12 @@ class IWebProxy extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwebproxy-get_bypassproxyonlocal
      */
-    get_BypassProxyOnLocal(retval) {
-        result := ComCall(11, this, "ptr", retval, "HRESULT")
-        return result
+    get_BypassProxyOnLocal() {
+        result := ComCall(11, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -114,24 +113,23 @@ class IWebProxy extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwebproxy-get_readonly
      */
-    get_ReadOnly(retval) {
-        result := ComCall(13, this, "ptr", retval, "HRESULT")
-        return result
+    get_ReadOnly() {
+        result := ComCall(13, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwebproxy-get_username
      */
-    get_UserName(retval) {
+    get_UserName() {
+        retval := BSTR()
         result := ComCall(14, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -191,13 +189,12 @@ class IWebProxy extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwebproxy-get_autodetect
      */
-    get_AutoDetect(retval) {
-        result := ComCall(19, this, "ptr", retval, "HRESULT")
-        return result
+    get_AutoDetect() {
+        result := ComCall(19, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**

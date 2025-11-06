@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISensorCollection.ahk
+#Include .\ISensor.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -46,37 +48,34 @@ class ISensorManager extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} sensorCategory 
-     * @param {Pointer<ISensorCollection>} ppSensorsFound 
-     * @returns {HRESULT} 
+     * @returns {ISensorCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensormanager-getsensorsbycategory
      */
-    GetSensorsByCategory(sensorCategory, ppSensorsFound) {
-        result := ComCall(3, this, "ptr", sensorCategory, "ptr*", ppSensorsFound, "HRESULT")
-        return result
+    GetSensorsByCategory(sensorCategory) {
+        result := ComCall(3, this, "ptr", sensorCategory, "ptr*", &ppSensorsFound := 0, "HRESULT")
+        return ISensorCollection(ppSensorsFound)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} sensorType 
-     * @param {Pointer<ISensorCollection>} ppSensorsFound 
-     * @returns {HRESULT} 
+     * @returns {ISensorCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensormanager-getsensorsbytype
      */
-    GetSensorsByType(sensorType, ppSensorsFound) {
-        result := ComCall(4, this, "ptr", sensorType, "ptr*", ppSensorsFound, "HRESULT")
-        return result
+    GetSensorsByType(sensorType) {
+        result := ComCall(4, this, "ptr", sensorType, "ptr*", &ppSensorsFound := 0, "HRESULT")
+        return ISensorCollection(ppSensorsFound)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} sensorID 
-     * @param {Pointer<ISensor>} ppSensor 
-     * @returns {HRESULT} 
+     * @returns {ISensor} 
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensormanager-getsensorbyid
      */
-    GetSensorByID(sensorID, ppSensor) {
-        result := ComCall(5, this, "ptr", sensorID, "ptr*", ppSensor, "HRESULT")
-        return result
+    GetSensorByID(sensorID) {
+        result := ComCall(5, this, "ptr", sensorID, "ptr*", &ppSensor := 0, "HRESULT")
+        return ISensor(ppSensor)
     }
 
     /**

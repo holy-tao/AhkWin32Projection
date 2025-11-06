@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMAGE_INFO.ahk
 #Include .\IFilter.ahk
 
 /**
@@ -30,12 +31,12 @@ class IPixelFilter extends IFilter{
 
     /**
      * 
-     * @param {Pointer<IMAGE_INFO>} imageInfo 
-     * @returns {HRESULT} 
+     * @returns {IMAGE_INFO} 
      */
-    GetImageInfo(imageInfo) {
+    GetImageInfo() {
+        imageInfo := IMAGE_INFO()
         result := ComCall(8, this, "ptr", imageInfo, "HRESULT")
-        return result
+        return imageInfo
     }
 
     /**

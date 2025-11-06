@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFActivate.ahk
+#Include .\IMFOutputPolicy.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,39 +35,34 @@ class IMFInputTrustAuthority extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfinputtrustauthority-getdecrypter
      */
-    GetDecrypter(riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetDecrypter(riid) {
+        result := ComCall(3, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * 
      * @param {Integer} Action 
-     * @param {Pointer<IMFActivate>} ppContentEnablerActivate 
-     * @returns {HRESULT} 
+     * @returns {IMFActivate} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfinputtrustauthority-requestaccess
      */
-    RequestAccess(Action, ppContentEnablerActivate) {
-        result := ComCall(4, this, "int", Action, "ptr*", ppContentEnablerActivate, "HRESULT")
-        return result
+    RequestAccess(Action) {
+        result := ComCall(4, this, "int", Action, "ptr*", &ppContentEnablerActivate := 0, "HRESULT")
+        return IMFActivate(ppContentEnablerActivate)
     }
 
     /**
      * 
      * @param {Integer} Action 
-     * @param {Pointer<IMFOutputPolicy>} ppPolicy 
-     * @returns {HRESULT} 
+     * @returns {IMFOutputPolicy} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfinputtrustauthority-getpolicy
      */
-    GetPolicy(Action, ppPolicy) {
-        result := ComCall(5, this, "int", Action, "ptr*", ppPolicy, "HRESULT")
-        return result
+    GetPolicy(Action) {
+        result := ComCall(5, this, "int", Action, "ptr*", &ppPolicy := 0, "HRESULT")
+        return IMFOutputPolicy(ppPolicy)
     }
 
     /**

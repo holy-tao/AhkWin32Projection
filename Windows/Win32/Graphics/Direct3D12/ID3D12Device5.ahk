@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D12_META_COMMAND_DESC.ahk
 #Include .\ID3D12Device4.ahk
 
 /**
@@ -34,15 +35,12 @@ class ID3D12Device5 extends ID3D12Device4{
      * 
      * @param {ID3D12LifetimeOwner} pOwner 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvTracker 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device5-createlifetimetracker
      */
-    CreateLifetimeTracker(pOwner, riid, ppvTracker) {
-        ppvTrackerMarshal := ppvTracker is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(57, this, "ptr", pOwner, "ptr", riid, ppvTrackerMarshal, ppvTracker, "HRESULT")
-        return result
+    CreateLifetimeTracker(pOwner, riid) {
+        result := ComCall(57, this, "ptr", pOwner, "ptr", riid, "ptr*", &ppvTracker := 0, "HRESULT")
+        return ppvTracker
     }
 
     /**
@@ -57,15 +55,15 @@ class ID3D12Device5 extends ID3D12Device4{
     /**
      * 
      * @param {Pointer<Integer>} pNumMetaCommands 
-     * @param {Pointer<D3D12_META_COMMAND_DESC>} pDescs 
-     * @returns {HRESULT} 
+     * @returns {D3D12_META_COMMAND_DESC} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device5-enumeratemetacommands
      */
-    EnumerateMetaCommands(pNumMetaCommands, pDescs) {
+    EnumerateMetaCommands(pNumMetaCommands) {
         pNumMetaCommandsMarshal := pNumMetaCommands is VarRef ? "uint*" : "ptr"
 
+        pDescs := D3D12_META_COMMAND_DESC()
         result := ComCall(59, this, pNumMetaCommandsMarshal, pNumMetaCommands, "ptr", pDescs, "HRESULT")
-        return result
+        return pDescs
     }
 
     /**
@@ -93,30 +91,24 @@ class ID3D12Device5 extends ID3D12Device4{
      * @param {Pointer} pCreationParametersData 
      * @param {Pointer} CreationParametersDataSizeInBytes 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppMetaCommand 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device5-createmetacommand
      */
-    CreateMetaCommand(CommandId, NodeMask, pCreationParametersData, CreationParametersDataSizeInBytes, riid, ppMetaCommand) {
-        ppMetaCommandMarshal := ppMetaCommand is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(61, this, "ptr", CommandId, "uint", NodeMask, "ptr", pCreationParametersData, "ptr", CreationParametersDataSizeInBytes, "ptr", riid, ppMetaCommandMarshal, ppMetaCommand, "HRESULT")
-        return result
+    CreateMetaCommand(CommandId, NodeMask, pCreationParametersData, CreationParametersDataSizeInBytes, riid) {
+        result := ComCall(61, this, "ptr", CommandId, "uint", NodeMask, "ptr", pCreationParametersData, "ptr", CreationParametersDataSizeInBytes, "ptr", riid, "ptr*", &ppMetaCommand := 0, "HRESULT")
+        return ppMetaCommand
     }
 
     /**
      * 
      * @param {Pointer<D3D12_STATE_OBJECT_DESC>} pDesc 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppStateObject 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device5-createstateobject
      */
-    CreateStateObject(pDesc, riid, ppStateObject) {
-        ppStateObjectMarshal := ppStateObject is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(62, this, "ptr", pDesc, "ptr", riid, ppStateObjectMarshal, ppStateObject, "HRESULT")
-        return result
+    CreateStateObject(pDesc, riid) {
+        result := ComCall(62, this, "ptr", pDesc, "ptr", riid, "ptr*", &ppStateObject := 0, "HRESULT")
+        return ppStateObject
     }
 
     /**

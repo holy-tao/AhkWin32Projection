@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
+#Include .\IWinMLRuntime.ahk
+#Include .\IMLOperatorRegistry.ahk
 
 /**
  * @namespace Windows.Win32.AI.MachineLearning.WinML
@@ -18,28 +20,26 @@ class WinML {
 ;@region Methods
     /**
      * 
-     * @param {Pointer<IWinMLRuntime>} runtime 
-     * @returns {HRESULT} 
+     * @returns {IWinMLRuntime} 
      */
-    static WinMLCreateRuntime(runtime) {
-        result := DllCall("winml.dll\WinMLCreateRuntime", "ptr*", runtime, "int")
+    static WinMLCreateRuntime() {
+        result := DllCall("winml.dll\WinMLCreateRuntime", "ptr*", &runtime := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IWinMLRuntime(runtime)
     }
 
     /**
      * 
-     * @param {Pointer<IMLOperatorRegistry>} registry 
-     * @returns {HRESULT} 
+     * @returns {IMLOperatorRegistry} 
      */
-    static MLCreateOperatorRegistry(registry) {
-        result := DllCall("windows.ai.machinelearning.dll\MLCreateOperatorRegistry", "ptr*", registry, "int")
+    static MLCreateOperatorRegistry() {
+        result := DllCall("windows.ai.machinelearning.dll\MLCreateOperatorRegistry", "ptr*", &registry := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IMLOperatorRegistry(registry)
     }
 
 ;@endregion Methods

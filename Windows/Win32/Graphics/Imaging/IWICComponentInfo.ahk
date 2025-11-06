@@ -32,119 +32,99 @@ class IWICComponentInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwiccomponentinfo-getcomponenttype
      */
-    GetComponentType(pType) {
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, pTypeMarshal, pType, "HRESULT")
-        return result
+    GetComponentType() {
+        result := ComCall(3, this, "int*", &pType := 0, "HRESULT")
+        return pType
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} pclsid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwiccomponentinfo-getclsid
      */
-    GetCLSID(pclsid) {
+    GetCLSID() {
+        pclsid := Guid()
         result := ComCall(4, this, "ptr", pclsid, "HRESULT")
-        return result
+        return pclsid
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwiccomponentinfo-getsigningstatus
      */
-    GetSigningStatus(pStatus) {
-        pStatusMarshal := pStatus is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pStatusMarshal, pStatus, "HRESULT")
-        return result
+    GetSigningStatus() {
+        result := ComCall(5, this, "uint*", &pStatus := 0, "HRESULT")
+        return pStatus
     }
 
     /**
      * 
      * @param {Integer} cchAuthor 
      * @param {PWSTR} wzAuthor 
-     * @param {Pointer<Integer>} pcchActual 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwiccomponentinfo-getauthor
      */
-    GetAuthor(cchAuthor, wzAuthor, pcchActual) {
+    GetAuthor(cchAuthor, wzAuthor) {
         wzAuthor := wzAuthor is String ? StrPtr(wzAuthor) : wzAuthor
 
-        pcchActualMarshal := pcchActual is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, "uint", cchAuthor, "ptr", wzAuthor, pcchActualMarshal, pcchActual, "HRESULT")
-        return result
+        result := ComCall(6, this, "uint", cchAuthor, "ptr", wzAuthor, "uint*", &pcchActual := 0, "HRESULT")
+        return pcchActual
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} pguidVendor 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwiccomponentinfo-getvendorguid
      */
-    GetVendorGUID(pguidVendor) {
+    GetVendorGUID() {
+        pguidVendor := Guid()
         result := ComCall(7, this, "ptr", pguidVendor, "HRESULT")
-        return result
+        return pguidVendor
     }
 
     /**
      * With the release of Windows 8.1, the behavior of the GetVersion API has changed in the value it will return for the operating system version. The value returned by the GetVersion function now depends on how the application is manifested.
      * @param {Integer} cchVersion 
      * @param {PWSTR} wzVersion 
-     * @param {Pointer<Integer>} pcchActual 
-     * @returns {HRESULT} If the function succeeds, the return value includes the major and minor version numbers of the operating system in the low-order word, and information about the operating system platform in the high-order word.
-     * 
-     * For all platforms, the low-order word contains the version number of the operating system. The low-order byte of this word specifies the major version number, in hexadecimal notation. The high-order byte specifies the minor version (revision) number, in hexadecimal notation. The  high-order bit is zero, the next 7 bits represent the build number, and the low-order byte is 5.
+     * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//sysinfoapi/nf-sysinfoapi-getversion
      */
-    GetVersion(cchVersion, wzVersion, pcchActual) {
+    GetVersion(cchVersion, wzVersion) {
         wzVersion := wzVersion is String ? StrPtr(wzVersion) : wzVersion
 
-        pcchActualMarshal := pcchActual is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, "uint", cchVersion, "ptr", wzVersion, pcchActualMarshal, pcchActual, "HRESULT")
-        return result
+        result := ComCall(8, this, "uint", cchVersion, "ptr", wzVersion, "uint*", &pcchActual := 0, "HRESULT")
+        return pcchActual
     }
 
     /**
      * 
      * @param {Integer} cchSpecVersion 
      * @param {PWSTR} wzSpecVersion 
-     * @param {Pointer<Integer>} pcchActual 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwiccomponentinfo-getspecversion
      */
-    GetSpecVersion(cchSpecVersion, wzSpecVersion, pcchActual) {
+    GetSpecVersion(cchSpecVersion, wzSpecVersion) {
         wzSpecVersion := wzSpecVersion is String ? StrPtr(wzSpecVersion) : wzSpecVersion
 
-        pcchActualMarshal := pcchActual is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, "uint", cchSpecVersion, "ptr", wzSpecVersion, pcchActualMarshal, pcchActual, "HRESULT")
-        return result
+        result := ComCall(9, this, "uint", cchSpecVersion, "ptr", wzSpecVersion, "uint*", &pcchActual := 0, "HRESULT")
+        return pcchActual
     }
 
     /**
      * 
      * @param {Integer} cchFriendlyName 
      * @param {PWSTR} wzFriendlyName 
-     * @param {Pointer<Integer>} pcchActual 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwiccomponentinfo-getfriendlyname
      */
-    GetFriendlyName(cchFriendlyName, wzFriendlyName, pcchActual) {
+    GetFriendlyName(cchFriendlyName, wzFriendlyName) {
         wzFriendlyName := wzFriendlyName is String ? StrPtr(wzFriendlyName) : wzFriendlyName
 
-        pcchActualMarshal := pcchActual is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, "uint", cchFriendlyName, "ptr", wzFriendlyName, pcchActualMarshal, pcchActual, "HRESULT")
-        return result
+        result := ComCall(10, this, "uint", cchFriendlyName, "ptr", wzFriendlyName, "uint*", &pcchActual := 0, "HRESULT")
+        return pcchActual
     }
 }

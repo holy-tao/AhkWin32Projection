@@ -2,6 +2,13 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\Views.ahk
+#Include .\SnapIns.ahk
+#Include .\View.ahk
+#Include .\Node.ahk
+#Include .\ScopeNamespace.ahk
+#Include .\Properties.ahk
+#Include .\_Application.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -68,42 +75,39 @@ class Document extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Views>} Views 
-     * @returns {HRESULT} 
+     * @returns {Views} 
      */
-    get_Views(Views) {
-        result := ComCall(10, this, "ptr*", Views, "HRESULT")
-        return result
+    get_Views() {
+        result := ComCall(10, this, "ptr*", &Views := 0, "HRESULT")
+        return Views(Views)
     }
 
     /**
      * 
-     * @param {Pointer<SnapIns>} SnapIns 
-     * @returns {HRESULT} 
+     * @returns {SnapIns} 
      */
-    get_SnapIns(SnapIns) {
-        result := ComCall(11, this, "ptr*", SnapIns, "HRESULT")
-        return result
+    get_SnapIns() {
+        result := ComCall(11, this, "ptr*", &SnapIns := 0, "HRESULT")
+        return SnapIns(SnapIns)
     }
 
     /**
      * 
-     * @param {Pointer<View>} View 
-     * @returns {HRESULT} 
+     * @returns {View} 
      */
-    get_ActiveView(View) {
-        result := ComCall(12, this, "ptr*", View, "HRESULT")
-        return result
+    get_ActiveView() {
+        result := ComCall(12, this, "ptr*", &View := 0, "HRESULT")
+        return View(View)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} Name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Name(Name) {
+    get_Name() {
+        Name := BSTR()
         result := ComCall(13, this, "ptr", Name, "HRESULT")
-        return result
+        return Name
     }
 
     /**
@@ -120,34 +124,30 @@ class Document extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} Location 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Location(Location) {
+    get_Location() {
+        Location := BSTR()
         result := ComCall(15, this, "ptr", Location, "HRESULT")
-        return result
+        return Location
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} IsSaved 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_IsSaved(IsSaved) {
-        result := ComCall(16, this, "ptr", IsSaved, "HRESULT")
-        return result
+    get_IsSaved() {
+        result := ComCall(16, this, "int*", &IsSaved := 0, "HRESULT")
+        return IsSaved
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Mode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Mode(Mode) {
-        ModeMarshal := Mode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, ModeMarshal, Mode, "HRESULT")
-        return result
+    get_Mode() {
+        result := ComCall(17, this, "int*", &Mode := 0, "HRESULT")
+        return Mode
     }
 
     /**
@@ -162,41 +162,37 @@ class Document extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Node>} Node 
-     * @returns {HRESULT} 
+     * @returns {Node} 
      */
-    get_RootNode(Node) {
-        result := ComCall(19, this, "ptr*", Node, "HRESULT")
-        return result
+    get_RootNode() {
+        result := ComCall(19, this, "ptr*", &Node := 0, "HRESULT")
+        return Node(Node)
     }
 
     /**
      * 
-     * @param {Pointer<ScopeNamespace>} ScopeNamespace 
-     * @returns {HRESULT} 
+     * @returns {ScopeNamespace} 
      */
-    get_ScopeNamespace(ScopeNamespace) {
-        result := ComCall(20, this, "ptr*", ScopeNamespace, "HRESULT")
-        return result
+    get_ScopeNamespace() {
+        result := ComCall(20, this, "ptr*", &ScopeNamespace := 0, "HRESULT")
+        return ScopeNamespace(ScopeNamespace)
     }
 
     /**
      * 
-     * @param {Pointer<Properties>} Properties 
-     * @returns {HRESULT} 
+     * @returns {Properties} 
      */
-    CreateProperties(Properties) {
-        result := ComCall(21, this, "ptr*", Properties, "HRESULT")
-        return result
+    CreateProperties() {
+        result := ComCall(21, this, "ptr*", &Properties := 0, "HRESULT")
+        return Properties(Properties)
     }
 
     /**
      * 
-     * @param {Pointer<_Application>} Application 
-     * @returns {HRESULT} 
+     * @returns {_Application} 
      */
-    get_Application(Application) {
-        result := ComCall(22, this, "ptr*", Application, "HRESULT")
-        return result
+    get_Application() {
+        result := ComCall(22, this, "ptr*", &Application := 0, "HRESULT")
+        return _Application(Application)
     }
 }

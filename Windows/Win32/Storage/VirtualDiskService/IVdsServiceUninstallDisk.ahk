@@ -33,13 +33,13 @@ class IVdsServiceUninstallDisk extends IUnknown{
     /**
      * 
      * @param {Pointer<VDS_LUN_INFORMATION>} pLunInfo 
-     * @param {Pointer<Guid>} pDiskId 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsserviceuninstalldisk-getdiskidfromluninfo
      */
-    GetDiskIdFromLunInfo(pLunInfo, pDiskId) {
+    GetDiskIdFromLunInfo(pLunInfo) {
+        pDiskId := Guid()
         result := ComCall(3, this, "ptr", pLunInfo, "ptr", pDiskId, "HRESULT")
-        return result
+        return pDiskId
     }
 
     /**
@@ -54,8 +54,9 @@ class IVdsServiceUninstallDisk extends IUnknown{
      */
     UninstallDisks(pDiskIdArray, ulCount, bForce, pbReboot, pResults) {
         pbRebootMarshal := pbReboot is VarRef ? "char*" : "ptr"
+        pResultsMarshal := pResults is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pDiskIdArray, "uint", ulCount, "char", bForce, pbRebootMarshal, pbReboot, "ptr", pResults, "HRESULT")
+        result := ComCall(4, this, "ptr", pDiskIdArray, "uint", ulCount, "char", bForce, pbRebootMarshal, pbReboot, pResultsMarshal, pResults, "HRESULT")
         return result
     }
 }

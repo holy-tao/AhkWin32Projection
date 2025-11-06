@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IHTMLDocumentCompatibleInfoCollection.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IHTMLElement2.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -31,22 +34,21 @@ class IHTMLDocument6 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IHTMLDocumentCompatibleInfoCollection>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDocumentCompatibleInfoCollection} 
      */
-    get_compatible(p) {
-        result := ComCall(7, this, "ptr*", p, "HRESULT")
-        return result
+    get_compatible() {
+        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLDocumentCompatibleInfoCollection(p)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_documentMode(p) {
+    get_documentMode() {
+        p := VARIANT()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -61,12 +63,12 @@ class IHTMLDocument6 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onstorage(p) {
+    get_onstorage() {
+        p := VARIANT()
         result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -81,25 +83,24 @@ class IHTMLDocument6 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onstoragecommit(p) {
+    get_onstoragecommit() {
+        p := VARIANT()
         result := ComCall(12, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
      * @param {BSTR} bstrId 
-     * @param {Pointer<IHTMLElement2>} ppRetElement 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElement2} 
      */
-    getElementById(bstrId, ppRetElement) {
+    getElementById(bstrId) {
         bstrId := bstrId is String ? BSTR.Alloc(bstrId).Value : bstrId
 
-        result := ComCall(13, this, "ptr", bstrId, "ptr*", ppRetElement, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", bstrId, "ptr*", &ppRetElement := 0, "HRESULT")
+        return IHTMLElement2(ppRetElement)
     }
 
     /**

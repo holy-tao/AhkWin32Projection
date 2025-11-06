@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\IUPnPService.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -39,39 +41,34 @@ class IUPnPServices extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpservices-get_count
      */
-    get_Count(plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, plCountMarshal, plCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &plCount := 0, "HRESULT")
+        return plCount
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppunk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpservices-get__newenum
      */
-    get__NewEnum(ppunk) {
-        result := ComCall(8, this, "ptr*", ppunk, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(8, this, "ptr*", &ppunk := 0, "HRESULT")
+        return IUnknown(ppunk)
     }
 
     /**
      * 
      * @param {BSTR} bstrServiceId 
-     * @param {Pointer<IUPnPService>} ppService 
-     * @returns {HRESULT} 
+     * @returns {IUPnPService} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpservices-get_item
      */
-    get_Item(bstrServiceId, ppService) {
+    get_Item(bstrServiceId) {
         bstrServiceId := bstrServiceId is String ? BSTR.Alloc(bstrServiceId).Value : bstrServiceId
 
-        result := ComCall(9, this, "ptr", bstrServiceId, "ptr*", ppService, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", bstrServiceId, "ptr*", &ppService := 0, "HRESULT")
+        return IUPnPService(ppService)
     }
 }

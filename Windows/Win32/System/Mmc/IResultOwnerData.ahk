@@ -33,15 +33,12 @@ class IResultOwnerData extends IUnknown{
     /**
      * 
      * @param {Pointer<RESULTFINDINFO>} pFindInfo 
-     * @param {Pointer<Integer>} pnFoundIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iresultownerdata-finditem
      */
-    FindItem(pFindInfo, pnFoundIndex) {
-        pnFoundIndexMarshal := pnFoundIndex is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pFindInfo, pnFoundIndexMarshal, pnFoundIndex, "HRESULT")
-        return result
+    FindItem(pFindInfo) {
+        result := ComCall(3, this, "ptr", pFindInfo, "int*", &pnFoundIndex := 0, "HRESULT")
+        return pnFoundIndex
     }
 
     /**

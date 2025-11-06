@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Variant\VARIANT.ahk
 #Include .\ICounterItem.ahk
 
 /**
@@ -46,12 +47,11 @@ class ICounterItem2 extends ICounterItem{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbState 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_Selected(pbState) {
-        result := ComCall(16, this, "ptr", pbState, "HRESULT")
-        return result
+    get_Selected() {
+        result := ComCall(16, this, "short*", &pbState := 0, "HRESULT")
+        return pbState
     }
 
     /**
@@ -66,23 +66,22 @@ class ICounterItem2 extends ICounterItem{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbState 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_Visible(pbState) {
-        result := ComCall(18, this, "ptr", pbState, "HRESULT")
-        return result
+    get_Visible() {
+        result := ComCall(18, this, "short*", &pbState := 0, "HRESULT")
+        return pbState
     }
 
     /**
      * 
      * @param {Integer} iIndex 
      * @param {Integer} iWhich 
-     * @param {Pointer<VARIANT>} pVariant 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    GetDataAt(iIndex, iWhich, pVariant) {
+    GetDataAt(iIndex, iWhich) {
+        pVariant := VARIANT()
         result := ComCall(19, this, "int", iIndex, "int", iWhich, "ptr", pVariant, "HRESULT")
-        return result
+        return pVariant
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -36,12 +37,11 @@ class ISWbemPrivilege extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} bIsEnabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_IsEnabled(bIsEnabled) {
-        result := ComCall(7, this, "ptr", bIsEnabled, "HRESULT")
-        return result
+    get_IsEnabled() {
+        result := ComCall(7, this, "short*", &bIsEnabled := 0, "HRESULT")
+        return bIsEnabled
     }
 
     /**
@@ -56,33 +56,30 @@ class ISWbemPrivilege extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} strDisplayName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Name(strDisplayName) {
+    get_Name() {
+        strDisplayName := BSTR()
         result := ComCall(9, this, "ptr", strDisplayName, "HRESULT")
-        return result
+        return strDisplayName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} strDisplayName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_DisplayName(strDisplayName) {
+    get_DisplayName() {
+        strDisplayName := BSTR()
         result := ComCall(10, this, "ptr", strDisplayName, "HRESULT")
-        return result
+        return strDisplayName
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} iPrivilege 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Identifier(iPrivilege) {
-        iPrivilegeMarshal := iPrivilege is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, iPrivilegeMarshal, iPrivilege, "HRESULT")
-        return result
+    get_Identifier() {
+        result := ComCall(11, this, "int*", &iPrivilege := 0, "HRESULT")
+        return iPrivilege
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumResources.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,28 +33,22 @@ class IShellItemResources extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwAttributes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemresources-getattributes
      */
-    GetAttributes(pdwAttributes) {
-        pdwAttributesMarshal := pdwAttributes is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pdwAttributesMarshal, pdwAttributes, "HRESULT")
-        return result
+    GetAttributes() {
+        result := ComCall(3, this, "uint*", &pdwAttributes := 0, "HRESULT")
+        return pdwAttributes
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pullSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemresources-getsize
      */
-    GetSize(pullSize) {
-        pullSizeMarshal := pullSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pullSizeMarshal, pullSize, "HRESULT")
-        return result
+    GetSize() {
+        result := ComCall(4, this, "uint*", &pullSize := 0, "HRESULT")
+        return pullSize
     }
 
     /**
@@ -85,24 +80,22 @@ class IShellItemResources extends IUnknown{
     /**
      * 
      * @param {Pointer<SHELL_ITEM_RESOURCE>} pcsir 
-     * @param {Pointer<PWSTR>} ppszDescription 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemresources-getresourcedescription
      */
-    GetResourceDescription(pcsir, ppszDescription) {
-        result := ComCall(7, this, "ptr", pcsir, "ptr", ppszDescription, "HRESULT")
-        return result
+    GetResourceDescription(pcsir) {
+        result := ComCall(7, this, "ptr", pcsir, "ptr*", &ppszDescription := 0, "HRESULT")
+        return ppszDescription
     }
 
     /**
      * 
-     * @param {Pointer<IEnumResources>} ppenumr 
-     * @returns {HRESULT} 
+     * @returns {IEnumResources} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemresources-enumresources
      */
-    EnumResources(ppenumr) {
-        result := ComCall(8, this, "ptr*", ppenumr, "HRESULT")
-        return result
+    EnumResources() {
+        result := ComCall(8, this, "ptr*", &ppenumr := 0, "HRESULT")
+        return IEnumResources(ppenumr)
     }
 
     /**
@@ -120,30 +113,24 @@ class IShellItemResources extends IUnknown{
      * 
      * @param {Pointer<SHELL_ITEM_RESOURCE>} pcsir 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemresources-openresource
      */
-    OpenResource(pcsir, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(10, this, "ptr", pcsir, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    OpenResource(pcsir, riid) {
+        result := ComCall(10, this, "ptr", pcsir, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * 
      * @param {Pointer<SHELL_ITEM_RESOURCE>} pcsir 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemresources-createresource
      */
-    CreateResource(pcsir, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(11, this, "ptr", pcsir, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    CreateResource(pcsir, riid) {
+        result := ComCall(11, this, "ptr", pcsir, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**

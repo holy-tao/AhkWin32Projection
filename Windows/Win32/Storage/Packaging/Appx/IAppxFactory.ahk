@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IAppxPackageWriter.ahk
+#Include .\IAppxPackageReader.ahk
+#Include .\IAppxManifestReader.ahk
+#Include .\IAppxBlockMapReader.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -46,63 +50,58 @@ class IAppxFactory extends IUnknown{
      * 
      * @param {IStream} outputStream 
      * @param {Pointer<APPX_PACKAGE_SETTINGS>} settings 
-     * @param {Pointer<IAppxPackageWriter>} packageWriter 
-     * @returns {HRESULT} 
+     * @returns {IAppxPackageWriter} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxfactory-createpackagewriter
      */
-    CreatePackageWriter(outputStream, settings, packageWriter) {
-        result := ComCall(3, this, "ptr", outputStream, "ptr", settings, "ptr*", packageWriter, "HRESULT")
-        return result
+    CreatePackageWriter(outputStream, settings) {
+        result := ComCall(3, this, "ptr", outputStream, "ptr", settings, "ptr*", &packageWriter := 0, "HRESULT")
+        return IAppxPackageWriter(packageWriter)
     }
 
     /**
      * 
      * @param {IStream} inputStream 
-     * @param {Pointer<IAppxPackageReader>} packageReader 
-     * @returns {HRESULT} 
+     * @returns {IAppxPackageReader} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxfactory-createpackagereader
      */
-    CreatePackageReader(inputStream, packageReader) {
-        result := ComCall(4, this, "ptr", inputStream, "ptr*", packageReader, "HRESULT")
-        return result
+    CreatePackageReader(inputStream) {
+        result := ComCall(4, this, "ptr", inputStream, "ptr*", &packageReader := 0, "HRESULT")
+        return IAppxPackageReader(packageReader)
     }
 
     /**
      * 
      * @param {IStream} inputStream 
-     * @param {Pointer<IAppxManifestReader>} manifestReader 
-     * @returns {HRESULT} 
+     * @returns {IAppxManifestReader} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxfactory-createmanifestreader
      */
-    CreateManifestReader(inputStream, manifestReader) {
-        result := ComCall(5, this, "ptr", inputStream, "ptr*", manifestReader, "HRESULT")
-        return result
+    CreateManifestReader(inputStream) {
+        result := ComCall(5, this, "ptr", inputStream, "ptr*", &manifestReader := 0, "HRESULT")
+        return IAppxManifestReader(manifestReader)
     }
 
     /**
      * 
      * @param {IStream} inputStream 
-     * @param {Pointer<IAppxBlockMapReader>} blockMapReader 
-     * @returns {HRESULT} 
+     * @returns {IAppxBlockMapReader} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxfactory-createblockmapreader
      */
-    CreateBlockMapReader(inputStream, blockMapReader) {
-        result := ComCall(6, this, "ptr", inputStream, "ptr*", blockMapReader, "HRESULT")
-        return result
+    CreateBlockMapReader(inputStream) {
+        result := ComCall(6, this, "ptr", inputStream, "ptr*", &blockMapReader := 0, "HRESULT")
+        return IAppxBlockMapReader(blockMapReader)
     }
 
     /**
      * 
      * @param {IStream} blockMapStream 
      * @param {PWSTR} signatureFileName 
-     * @param {Pointer<IAppxBlockMapReader>} blockMapReader 
-     * @returns {HRESULT} 
+     * @returns {IAppxBlockMapReader} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxfactory-createvalidatedblockmapreader
      */
-    CreateValidatedBlockMapReader(blockMapStream, signatureFileName, blockMapReader) {
+    CreateValidatedBlockMapReader(blockMapStream, signatureFileName) {
         signatureFileName := signatureFileName is String ? StrPtr(signatureFileName) : signatureFileName
 
-        result := ComCall(7, this, "ptr", blockMapStream, "ptr", signatureFileName, "ptr*", blockMapReader, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", blockMapStream, "ptr", signatureFileName, "ptr*", &blockMapReader := 0, "HRESULT")
+        return IAppxBlockMapReader(blockMapReader)
     }
 }

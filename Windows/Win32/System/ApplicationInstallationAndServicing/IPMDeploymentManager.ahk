@@ -314,14 +314,11 @@ class IPMDeploymentManager extends IUnknown{
     /**
      * 
      * @param {Integer} RequiredMaintenanceOperations 
-     * @param {Pointer<Integer>} pcApplications 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    SetApplicationsNeedMaintenance(RequiredMaintenanceOperations, pcApplications) {
-        pcApplicationsMarshal := pcApplications is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(25, this, "uint", RequiredMaintenanceOperations, pcApplicationsMarshal, pcApplications, "HRESULT")
-        return result
+    SetApplicationsNeedMaintenance(RequiredMaintenanceOperations) {
+        result := ComCall(25, this, "uint", RequiredMaintenanceOperations, "uint*", &pcApplications := 0, "HRESULT")
+        return pcApplications
     }
 
     /**
@@ -338,14 +335,13 @@ class IPMDeploymentManager extends IUnknown{
      * 
      * @param {Guid} productId 
      * @param {PWSTR} publisherName 
-     * @param {Pointer<BOOL>} pIsAllowed 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    EnterprisePolicyIsApplicationAllowed(productId, publisherName, pIsAllowed) {
+    EnterprisePolicyIsApplicationAllowed(productId, publisherName) {
         publisherName := publisherName is String ? StrPtr(publisherName) : publisherName
 
-        result := ComCall(27, this, "ptr", productId, "ptr", publisherName, "ptr", pIsAllowed, "HRESULT")
-        return result
+        result := ComCall(27, this, "ptr", productId, "ptr", publisherName, "int*", &pIsAllowed := 0, "HRESULT")
+        return pIsAllowed
     }
 
     /**

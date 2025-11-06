@@ -1,6 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISClusProperties.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\ISCluster.ahk
+#Include .\ISClusResTypeResources.ahk
+#Include .\ISClusResTypePossibleOwnerNodes.ahk
+#Include .\ISClusDisks.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,52 +36,48 @@ class ISClusResType extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISClusProperties>} ppProperties 
-     * @returns {HRESULT} 
+     * @returns {ISClusProperties} 
      */
-    get_CommonProperties(ppProperties) {
-        result := ComCall(7, this, "ptr*", ppProperties, "HRESULT")
-        return result
+    get_CommonProperties() {
+        result := ComCall(7, this, "ptr*", &ppProperties := 0, "HRESULT")
+        return ISClusProperties(ppProperties)
     }
 
     /**
      * 
-     * @param {Pointer<ISClusProperties>} ppProperties 
-     * @returns {HRESULT} 
+     * @returns {ISClusProperties} 
      */
-    get_PrivateProperties(ppProperties) {
-        result := ComCall(8, this, "ptr*", ppProperties, "HRESULT")
-        return result
+    get_PrivateProperties() {
+        result := ComCall(8, this, "ptr*", &ppProperties := 0, "HRESULT")
+        return ISClusProperties(ppProperties)
     }
 
     /**
      * 
-     * @param {Pointer<ISClusProperties>} ppProperties 
-     * @returns {HRESULT} 
+     * @returns {ISClusProperties} 
      */
-    get_CommonROProperties(ppProperties) {
-        result := ComCall(9, this, "ptr*", ppProperties, "HRESULT")
-        return result
+    get_CommonROProperties() {
+        result := ComCall(9, this, "ptr*", &ppProperties := 0, "HRESULT")
+        return ISClusProperties(ppProperties)
     }
 
     /**
      * 
-     * @param {Pointer<ISClusProperties>} ppProperties 
-     * @returns {HRESULT} 
+     * @returns {ISClusProperties} 
      */
-    get_PrivateROProperties(ppProperties) {
-        result := ComCall(10, this, "ptr*", ppProperties, "HRESULT")
-        return result
+    get_PrivateROProperties() {
+        result := ComCall(10, this, "ptr*", &ppProperties := 0, "HRESULT")
+        return ISClusProperties(ppProperties)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Name(pbstrName) {
+    get_Name() {
+        pbstrName := BSTR()
         result := ComCall(11, this, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 
     /**
@@ -89,41 +91,37 @@ class ISClusResType extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISCluster>} ppCluster 
-     * @returns {HRESULT} 
+     * @returns {ISCluster} 
      */
-    get_Cluster(ppCluster) {
-        result := ComCall(13, this, "ptr*", ppCluster, "HRESULT")
-        return result
+    get_Cluster() {
+        result := ComCall(13, this, "ptr*", &ppCluster := 0, "HRESULT")
+        return ISCluster(ppCluster)
     }
 
     /**
      * 
-     * @param {Pointer<ISClusResTypeResources>} ppClusterResTypeResources 
-     * @returns {HRESULT} 
+     * @returns {ISClusResTypeResources} 
      */
-    get_Resources(ppClusterResTypeResources) {
-        result := ComCall(14, this, "ptr*", ppClusterResTypeResources, "HRESULT")
-        return result
+    get_Resources() {
+        result := ComCall(14, this, "ptr*", &ppClusterResTypeResources := 0, "HRESULT")
+        return ISClusResTypeResources(ppClusterResTypeResources)
     }
 
     /**
      * 
-     * @param {Pointer<ISClusResTypePossibleOwnerNodes>} ppOwnerNodes 
-     * @returns {HRESULT} 
+     * @returns {ISClusResTypePossibleOwnerNodes} 
      */
-    get_PossibleOwnerNodes(ppOwnerNodes) {
-        result := ComCall(15, this, "ptr*", ppOwnerNodes, "HRESULT")
-        return result
+    get_PossibleOwnerNodes() {
+        result := ComCall(15, this, "ptr*", &ppOwnerNodes := 0, "HRESULT")
+        return ISClusResTypePossibleOwnerNodes(ppOwnerNodes)
     }
 
     /**
      * 
-     * @param {Pointer<ISClusDisks>} ppAvailableDisks 
-     * @returns {HRESULT} 
+     * @returns {ISClusDisks} 
      */
-    get_AvailableDisks(ppAvailableDisks) {
-        result := ComCall(16, this, "ptr*", ppAvailableDisks, "HRESULT")
-        return result
+    get_AvailableDisks() {
+        result := ComCall(16, this, "ptr*", &ppAvailableDisks := 0, "HRESULT")
+        return ISClusDisks(ppAvailableDisks)
     }
 }

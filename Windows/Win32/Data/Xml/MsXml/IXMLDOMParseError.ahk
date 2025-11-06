@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,79 +31,67 @@ class IXMLDOMParseError extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} errorCode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_errorCode(errorCode) {
-        errorCodeMarshal := errorCode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, errorCodeMarshal, errorCode, "HRESULT")
-        return result
+    get_errorCode() {
+        result := ComCall(7, this, "int*", &errorCode := 0, "HRESULT")
+        return errorCode
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} urlString 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_url(urlString) {
+    get_url() {
+        urlString := BSTR()
         result := ComCall(8, this, "ptr", urlString, "HRESULT")
-        return result
+        return urlString
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} reasonString 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_reason(reasonString) {
+    get_reason() {
+        reasonString := BSTR()
         result := ComCall(9, this, "ptr", reasonString, "HRESULT")
-        return result
+        return reasonString
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} sourceString 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_srcText(sourceString) {
+    get_srcText() {
+        sourceString := BSTR()
         result := ComCall(10, this, "ptr", sourceString, "HRESULT")
-        return result
+        return sourceString
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} lineNumber 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_line(lineNumber) {
-        lineNumberMarshal := lineNumber is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, lineNumberMarshal, lineNumber, "HRESULT")
-        return result
+    get_line() {
+        result := ComCall(11, this, "int*", &lineNumber := 0, "HRESULT")
+        return lineNumber
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} linePosition 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_linepos(linePosition) {
-        linePositionMarshal := linePosition is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, linePositionMarshal, linePosition, "HRESULT")
-        return result
+    get_linepos() {
+        result := ComCall(12, this, "int*", &linePosition := 0, "HRESULT")
+        return linePosition
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} filePosition 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_filepos(filePosition) {
-        filePositionMarshal := filePosition is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, filePositionMarshal, filePosition, "HRESULT")
-        return result
+    get_filepos() {
+        result := ComCall(13, this, "int*", &filePosition := 0, "HRESULT")
+        return filePosition
     }
 }

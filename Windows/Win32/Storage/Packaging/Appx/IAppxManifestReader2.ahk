@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IAppxManifestQualifiedResourcesEnumerator.ahk
 #Include .\IAppxManifestReader.ahk
 
 /**
@@ -38,12 +39,11 @@ class IAppxManifestReader2 extends IAppxManifestReader{
 
     /**
      * 
-     * @param {Pointer<IAppxManifestQualifiedResourcesEnumerator>} resources 
-     * @returns {HRESULT} 
+     * @returns {IAppxManifestQualifiedResourcesEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestreader2-getqualifiedresources
      */
-    GetQualifiedResources(resources) {
-        result := ComCall(12, this, "ptr*", resources, "HRESULT")
-        return result
+    GetQualifiedResources() {
+        result := ComCall(12, this, "ptr*", &resources := 0, "HRESULT")
+        return IAppxManifestQualifiedResourcesEnumerator(resources)
     }
 }

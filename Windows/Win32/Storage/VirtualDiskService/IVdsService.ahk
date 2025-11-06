@@ -1,7 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\VDS_SERVICE_PROP.ahk
+#Include .\IEnumVdsObject.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include .\VDS_DRIVE_LETTER_PROP.ahk
 
 /**
  * Provides methods to query and interact with VDS.
@@ -52,77 +55,69 @@ class IVdsService extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VDS_SERVICE_PROP>} pServiceProp 
-     * @returns {HRESULT} 
+     * @returns {VDS_SERVICE_PROP} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsservice-getproperties
      */
-    GetProperties(pServiceProp) {
+    GetProperties() {
+        pServiceProp := VDS_SERVICE_PROP()
         result := ComCall(5, this, "ptr", pServiceProp, "HRESULT")
-        return result
+        return pServiceProp
     }
 
     /**
      * 
      * @param {Integer} masks 
-     * @param {Pointer<IEnumVdsObject>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumVdsObject} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsservice-queryproviders
      */
-    QueryProviders(masks, ppEnum) {
-        result := ComCall(6, this, "uint", masks, "ptr*", ppEnum, "HRESULT")
-        return result
+    QueryProviders(masks) {
+        result := ComCall(6, this, "uint", masks, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumVdsObject(ppEnum)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumVdsObject>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumVdsObject} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsservice-querymaskeddisks
      */
-    QueryMaskedDisks(ppEnum) {
-        result := ComCall(7, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    QueryMaskedDisks() {
+        result := ComCall(7, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumVdsObject(ppEnum)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumVdsObject>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumVdsObject} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsservice-queryunallocateddisks
      */
-    QueryUnallocatedDisks(ppEnum) {
-        result := ComCall(8, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    QueryUnallocatedDisks() {
+        result := ComCall(8, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumVdsObject(ppEnum)
     }
 
     /**
      * The GetObject function retrieves information for the specified graphics object.
      * @param {Guid} ObjectId 
      * @param {Integer} type 
-     * @param {Pointer<IUnknown>} ppObjectUnk 
-     * @returns {HRESULT} If the function succeeds, and <i>lpvObject</i> is a valid pointer, the return value is the number of bytes stored into the buffer.
-     * 
-     * If the function succeeds, and <i>lpvObject</i> is <b>NULL</b>, the return value is the number of bytes required to hold the information the function would store into the buffer.
-     * 
-     * If the function fails, the return value is zero.
+     * @returns {IUnknown} 
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getobject
      */
-    GetObject(ObjectId, type, ppObjectUnk) {
-        result := ComCall(9, this, "ptr", ObjectId, "int", type, "ptr*", ppObjectUnk, "HRESULT")
-        return result
+    GetObject(ObjectId, type) {
+        result := ComCall(9, this, "ptr", ObjectId, "int", type, "ptr*", &ppObjectUnk := 0, "HRESULT")
+        return IUnknown(ppObjectUnk)
     }
 
     /**
      * 
      * @param {Integer} wcFirstLetter 
      * @param {Integer} count 
-     * @param {Pointer<VDS_DRIVE_LETTER_PROP>} pDriveLetterPropArray 
-     * @returns {HRESULT} 
+     * @returns {VDS_DRIVE_LETTER_PROP} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsservice-querydriveletters
      */
-    QueryDriveLetters(wcFirstLetter, count, pDriveLetterPropArray) {
+    QueryDriveLetters(wcFirstLetter, count) {
+        pDriveLetterPropArray := VDS_DRIVE_LETTER_PROP()
         result := ComCall(10, this, "char", wcFirstLetter, "uint", count, "ptr", pDriveLetterPropArray, "HRESULT")
-        return result
+        return pDriveLetterPropArray
     }
 
     /**
@@ -173,15 +168,12 @@ class IVdsService extends IUnknown{
     /**
      * 
      * @param {IVdsAdviseSink} pSink 
-     * @param {Pointer<Integer>} pdwCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsservice-advise
      */
-    Advise(pSink, pdwCookie) {
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(15, this, "ptr", pSink, pdwCookieMarshal, pdwCookie, "HRESULT")
-        return result
+    Advise(pSink) {
+        result := ComCall(15, this, "ptr", pSink, "uint*", &pdwCookie := 0, "HRESULT")
+        return pdwCookie
     }
 
     /**

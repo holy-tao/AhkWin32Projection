@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ICLRTask.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -30,22 +31,20 @@ class ICLRTaskManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ICLRTask>} pTask 
-     * @returns {HRESULT} 
+     * @returns {ICLRTask} 
      */
-    CreateTask(pTask) {
-        result := ComCall(3, this, "ptr*", pTask, "HRESULT")
-        return result
+    CreateTask() {
+        result := ComCall(3, this, "ptr*", &pTask := 0, "HRESULT")
+        return ICLRTask(pTask)
     }
 
     /**
      * 
-     * @param {Pointer<ICLRTask>} pTask 
-     * @returns {HRESULT} 
+     * @returns {ICLRTask} 
      */
-    GetCurrentTask(pTask) {
-        result := ComCall(4, this, "ptr*", pTask, "HRESULT")
-        return result
+    GetCurrentTask() {
+        result := ComCall(4, this, "ptr*", &pTask := 0, "HRESULT")
+        return ICLRTask(pTask)
     }
 
     /**
@@ -70,13 +69,10 @@ class ICLRTaskManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pTaskType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetCurrentTaskType(pTaskType) {
-        pTaskTypeMarshal := pTaskType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pTaskTypeMarshal, pTaskType, "HRESULT")
-        return result
+    GetCurrentTaskType() {
+        result := ComCall(7, this, "int*", &pTaskType := 0, "HRESULT")
+        return pTaskType
     }
 }

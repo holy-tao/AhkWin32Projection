@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DXGI_MODE_DESC1.ahk
+#Include .\IDXGIOutputDuplication.ahk
 #Include .\IDXGIOutput.ahk
 
 /**
@@ -40,28 +42,28 @@ class IDXGIOutput1 extends IDXGIOutput{
      * @param {Integer} EnumFormat 
      * @param {Integer} Flags 
      * @param {Pointer<Integer>} pNumModes 
-     * @param {Pointer<DXGI_MODE_DESC1>} pDesc 
-     * @returns {HRESULT} 
+     * @returns {DXGI_MODE_DESC1} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgioutput1-getdisplaymodelist1
      */
-    GetDisplayModeList1(EnumFormat, Flags, pNumModes, pDesc) {
+    GetDisplayModeList1(EnumFormat, Flags, pNumModes) {
         pNumModesMarshal := pNumModes is VarRef ? "uint*" : "ptr"
 
+        pDesc := DXGI_MODE_DESC1()
         result := ComCall(19, this, "int", EnumFormat, "uint", Flags, pNumModesMarshal, pNumModes, "ptr", pDesc, "HRESULT")
-        return result
+        return pDesc
     }
 
     /**
      * 
      * @param {Pointer<DXGI_MODE_DESC1>} pModeToMatch 
-     * @param {Pointer<DXGI_MODE_DESC1>} pClosestMatch 
      * @param {IUnknown} pConcernedDevice 
-     * @returns {HRESULT} 
+     * @returns {DXGI_MODE_DESC1} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgioutput1-findclosestmatchingmode1
      */
-    FindClosestMatchingMode1(pModeToMatch, pClosestMatch, pConcernedDevice) {
+    FindClosestMatchingMode1(pModeToMatch, pConcernedDevice) {
+        pClosestMatch := DXGI_MODE_DESC1()
         result := ComCall(20, this, "ptr", pModeToMatch, "ptr", pClosestMatch, "ptr", pConcernedDevice, "HRESULT")
-        return result
+        return pClosestMatch
     }
 
     /**
@@ -78,12 +80,11 @@ class IDXGIOutput1 extends IDXGIOutput{
     /**
      * 
      * @param {IUnknown} pDevice 
-     * @param {Pointer<IDXGIOutputDuplication>} ppOutputDuplication 
-     * @returns {HRESULT} 
+     * @returns {IDXGIOutputDuplication} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgioutput1-duplicateoutput
      */
-    DuplicateOutput(pDevice, ppOutputDuplication) {
-        result := ComCall(22, this, "ptr", pDevice, "ptr*", ppOutputDuplication, "HRESULT")
-        return result
+    DuplicateOutput(pDevice) {
+        result := ComCall(22, this, "ptr", pDevice, "ptr*", &ppOutputDuplication := 0, "HRESULT")
+        return IDXGIOutputDuplication(ppOutputDuplication)
     }
 }

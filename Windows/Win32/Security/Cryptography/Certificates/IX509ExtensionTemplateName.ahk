@@ -60,12 +60,12 @@ class IX509ExtensionTemplateName extends IX509Extension{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509extensiontemplatename-get_templatename
      */
-    get_TemplateName(pValue) {
+    get_TemplateName() {
+        pValue := BSTR()
         result := ComCall(14, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 }

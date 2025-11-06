@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUpdateIdentity.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IStringCollection.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -32,167 +35,147 @@ class IUpdateHistoryEntry extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatehistoryentry-get_operation
      */
-    get_Operation(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_Operation() {
+        result := ComCall(7, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatehistoryentry-get_resultcode
      */
-    get_ResultCode(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_ResultCode() {
+        result := ComCall(8, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatehistoryentry-get_hresult
      */
-    get_HResult(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_HResult() {
+        result := ComCall(9, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<Float>} retval 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatehistoryentry-get_date
      */
-    get_Date(retval) {
-        retvalMarshal := retval is VarRef ? "double*" : "ptr"
-
-        result := ComCall(10, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_Date() {
+        result := ComCall(10, this, "double*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<IUpdateIdentity>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUpdateIdentity} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatehistoryentry-get_updateidentity
      */
-    get_UpdateIdentity(retval) {
-        result := ComCall(11, this, "ptr*", retval, "HRESULT")
-        return result
+    get_UpdateIdentity() {
+        result := ComCall(11, this, "ptr*", &retval := 0, "HRESULT")
+        return IUpdateIdentity(retval)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatehistoryentry-get_title
      */
-    get_Title(retval) {
+    get_Title() {
+        retval := BSTR()
         result := ComCall(12, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatehistoryentry-get_description
      */
-    get_Description(retval) {
+    get_Description() {
+        retval := BSTR()
         result := ComCall(13, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatehistoryentry-get_unmappedresultcode
      */
-    get_UnmappedResultCode(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_UnmappedResultCode() {
+        result := ComCall(14, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatehistoryentry-get_clientapplicationid
      */
-    get_ClientApplicationID(retval) {
+    get_ClientApplicationID() {
+        retval := BSTR()
         result := ComCall(15, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatehistoryentry-get_serverselection
      */
-    get_ServerSelection(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_ServerSelection() {
+        result := ComCall(16, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatehistoryentry-get_serviceid
      */
-    get_ServiceID(retval) {
+    get_ServiceID() {
+        retval := BSTR()
         result := ComCall(17, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<IStringCollection>} retval 
-     * @returns {HRESULT} 
+     * @returns {IStringCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatehistoryentry-get_uninstallationsteps
      */
-    get_UninstallationSteps(retval) {
-        result := ComCall(18, this, "ptr*", retval, "HRESULT")
-        return result
+    get_UninstallationSteps() {
+        result := ComCall(18, this, "ptr*", &retval := 0, "HRESULT")
+        return IStringCollection(retval)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatehistoryentry-get_uninstallationnotes
      */
-    get_UninstallationNotes(retval) {
+    get_UninstallationNotes() {
+        retval := BSTR()
         result := ComCall(19, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatehistoryentry-get_supporturl
      */
-    get_SupportUrl(retval) {
+    get_SupportUrl() {
+        retval := BSTR()
         result := ComCall(20, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\Location.ahk
 #Include .\IDebugHostMemory2.ahk
 
 /**
@@ -32,11 +33,11 @@ class IDebugHostMemory3 extends IDebugHostMemory2{
      * 
      * @param {IDebugHostContext} context 
      * @param {Location} location 
-     * @param {Pointer<Location>} pCanonicalizedLocation 
-     * @returns {HRESULT} 
+     * @returns {Location} 
      */
-    CanonicalizeLocation(context, location, pCanonicalizedLocation) {
+    CanonicalizeLocation(context, location) {
+        pCanonicalizedLocation := Location()
         result := ComCall(9, this, "ptr", context, "ptr", location, "ptr", pCanonicalizedLocation, "HRESULT")
-        return result
+        return pCanonicalizedLocation
     }
 }

@@ -32,13 +32,12 @@ class IMFMediaEngineSupportsSourceTransfer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfShouldTransfer 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaenginesupportssourcetransfer-shouldtransfersource
      */
-    ShouldTransferSource(pfShouldTransfer) {
-        result := ComCall(3, this, "ptr", pfShouldTransfer, "HRESULT")
-        return result
+    ShouldTransferSource() {
+        result := ComCall(3, this, "int*", &pfShouldTransfer := 0, "HRESULT")
+        return pfShouldTransfer
     }
 
     /**

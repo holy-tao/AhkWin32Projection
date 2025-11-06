@@ -23869,7 +23869,9 @@ class HumanInterfaceDevice {
     static HidD_GetPreparsedData(HidDeviceObject, PreparsedData) {
         HidDeviceObject := HidDeviceObject is Win32Handle ? NumGet(HidDeviceObject, "ptr") : HidDeviceObject
 
-        result := DllCall("HID.dll\HidD_GetPreparsedData", "ptr", HidDeviceObject, "ptr", PreparsedData, "char")
+        PreparsedDataMarshal := PreparsedData is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("HID.dll\HidD_GetPreparsedData", "ptr", HidDeviceObject, PreparsedDataMarshal, PreparsedData, "char")
         return result
     }
 

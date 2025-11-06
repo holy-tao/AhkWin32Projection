@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D2D1_SVG_LENGTH.ahk
 #Include .\ID2D1SvgAttribute.ahk
 
 /**
@@ -71,30 +72,27 @@ class ID2D1SvgStrokeDashArray extends ID2D1SvgAttribute{
 
     /**
      * 
-     * @param {Pointer<D2D1_SVG_LENGTH>} dashes 
      * @param {Integer} dashesCount 
      * @param {Integer} startIndex 
-     * @returns {HRESULT} 
+     * @returns {D2D1_SVG_LENGTH} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1svgstrokedasharray-getdashes-overload
      */
-    GetDashes(dashes, dashesCount, startIndex) {
+    GetDashes(dashesCount, startIndex) {
+        dashes := D2D1_SVG_LENGTH()
         result := ComCall(9, this, "ptr", dashes, "uint", dashesCount, "uint", startIndex, "HRESULT")
-        return result
+        return dashes
     }
 
     /**
      * 
-     * @param {Pointer<Float>} dashes 
      * @param {Integer} dashesCount 
      * @param {Integer} startIndex 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1svgstrokedasharray-getdashes-overload
      */
-    GetDashes1(dashes, dashesCount, startIndex) {
-        dashesMarshal := dashes is VarRef ? "float*" : "ptr"
-
-        result := ComCall(10, this, dashesMarshal, dashes, "uint", dashesCount, "uint", startIndex, "HRESULT")
-        return result
+    GetDashes1(dashesCount, startIndex) {
+        result := ComCall(10, this, "float*", &dashes := 0, "uint", dashesCount, "uint", startIndex, "HRESULT")
+        return dashes
     }
 
     /**

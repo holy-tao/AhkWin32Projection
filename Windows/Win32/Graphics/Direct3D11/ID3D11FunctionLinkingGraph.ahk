@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID3D11LinkingNode.ahk
+#Include ..\Direct3D\ID3DBlob.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -56,26 +58,24 @@ class ID3D11FunctionLinkingGraph extends IUnknown{
      * 
      * @param {Pointer<D3D11_PARAMETER_DESC>} pInputParameters 
      * @param {Integer} cInputParameters 
-     * @param {Pointer<ID3D11LinkingNode>} ppInputNode 
-     * @returns {HRESULT} 
+     * @returns {ID3D11LinkingNode} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11functionlinkinggraph-setinputsignature
      */
-    SetInputSignature(pInputParameters, cInputParameters, ppInputNode) {
-        result := ComCall(4, this, "ptr", pInputParameters, "uint", cInputParameters, "ptr*", ppInputNode, "HRESULT")
-        return result
+    SetInputSignature(pInputParameters, cInputParameters) {
+        result := ComCall(4, this, "ptr", pInputParameters, "uint", cInputParameters, "ptr*", &ppInputNode := 0, "HRESULT")
+        return ID3D11LinkingNode(ppInputNode)
     }
 
     /**
      * 
      * @param {Pointer<D3D11_PARAMETER_DESC>} pOutputParameters 
      * @param {Integer} cOutputParameters 
-     * @param {Pointer<ID3D11LinkingNode>} ppOutputNode 
-     * @returns {HRESULT} 
+     * @returns {ID3D11LinkingNode} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11functionlinkinggraph-setoutputsignature
      */
-    SetOutputSignature(pOutputParameters, cOutputParameters, ppOutputNode) {
-        result := ComCall(5, this, "ptr", pOutputParameters, "uint", cOutputParameters, "ptr*", ppOutputNode, "HRESULT")
-        return result
+    SetOutputSignature(pOutputParameters, cOutputParameters) {
+        result := ComCall(5, this, "ptr", pOutputParameters, "uint", cOutputParameters, "ptr*", &ppOutputNode := 0, "HRESULT")
+        return ID3D11LinkingNode(ppOutputNode)
     }
 
     /**
@@ -83,16 +83,15 @@ class ID3D11FunctionLinkingGraph extends IUnknown{
      * @param {PSTR} pModuleInstanceNamespace 
      * @param {ID3D11Module} pModuleWithFunctionPrototype 
      * @param {PSTR} pFunctionName 
-     * @param {Pointer<ID3D11LinkingNode>} ppCallNode 
-     * @returns {HRESULT} 
+     * @returns {ID3D11LinkingNode} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11functionlinkinggraph-callfunction
      */
-    CallFunction(pModuleInstanceNamespace, pModuleWithFunctionPrototype, pFunctionName, ppCallNode) {
+    CallFunction(pModuleInstanceNamespace, pModuleWithFunctionPrototype, pFunctionName) {
         pModuleInstanceNamespace := pModuleInstanceNamespace is String ? StrPtr(pModuleInstanceNamespace) : pModuleInstanceNamespace
         pFunctionName := pFunctionName is String ? StrPtr(pFunctionName) : pFunctionName
 
-        result := ComCall(6, this, "ptr", pModuleInstanceNamespace, "ptr", pModuleWithFunctionPrototype, "ptr", pFunctionName, "ptr*", ppCallNode, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", pModuleInstanceNamespace, "ptr", pModuleWithFunctionPrototype, "ptr", pFunctionName, "ptr*", &ppCallNode := 0, "HRESULT")
+        return ID3D11LinkingNode(ppCallNode)
     }
 
     /**
@@ -130,26 +129,22 @@ class ID3D11FunctionLinkingGraph extends IUnknown{
 
     /**
      * Retrieves the calling thread's last-error code value.
-     * @param {Pointer<ID3DBlob>} ppErrorBuffer 
-     * @returns {HRESULT} The return value is the calling thread's last-error code.
-     * 
-     * The Return Value section of the documentation for each function that sets the last-error code notes the conditions under which the function sets the last-error code. Most functions that set the thread's last-error code set it when they fail. However, some functions also set the last-error code when they succeed. If the function is not documented to set the last-error code, the value returned by this function is simply the most recent last-error code to have been set; some functions set the last-error code to 0 on success and others do not.
+     * @returns {ID3DBlob} 
      * @see https://docs.microsoft.com/windows/win32/api//errhandlingapi/nf-errhandlingapi-getlasterror
      */
-    GetLastError(ppErrorBuffer) {
-        result := ComCall(9, this, "ptr*", ppErrorBuffer, "HRESULT")
-        return result
+    GetLastError() {
+        result := ComCall(9, this, "ptr*", &ppErrorBuffer := 0, "HRESULT")
+        return ID3DBlob(ppErrorBuffer)
     }
 
     /**
      * 
      * @param {Integer} uFlags 
-     * @param {Pointer<ID3DBlob>} ppBuffer 
-     * @returns {HRESULT} 
+     * @returns {ID3DBlob} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11functionlinkinggraph-generatehlsl
      */
-    GenerateHlsl(uFlags, ppBuffer) {
-        result := ComCall(10, this, "uint", uFlags, "ptr*", ppBuffer, "HRESULT")
-        return result
+    GenerateHlsl(uFlags) {
+        result := ComCall(10, this, "uint", uFlags, "ptr*", &ppBuffer := 0, "HRESULT")
+        return ID3DBlob(ppBuffer)
     }
 }

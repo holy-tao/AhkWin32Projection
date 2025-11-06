@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IXMLDOMDocument.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -36,12 +37,11 @@ class IXMLDSOControl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IXMLDOMDocument>} ppDoc 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMDocument} 
      */
-    get_XMLDocument(ppDoc) {
-        result := ComCall(7, this, "ptr*", ppDoc, "HRESULT")
-        return result
+    get_XMLDocument() {
+        result := ComCall(7, this, "ptr*", &ppDoc := 0, "HRESULT")
+        return IXMLDOMDocument(ppDoc)
     }
 
     /**
@@ -56,12 +56,11 @@ class IXMLDSOControl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BOOL>} fJavaDSOCompatible 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_JavaDSOCompatible(fJavaDSOCompatible) {
-        result := ComCall(9, this, "ptr", fJavaDSOCompatible, "HRESULT")
-        return result
+    get_JavaDSOCompatible() {
+        result := ComCall(9, this, "int*", &fJavaDSOCompatible := 0, "HRESULT")
+        return fJavaDSOCompatible
     }
 
     /**
@@ -76,13 +75,10 @@ class IXMLDSOControl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} state 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_readyState(state) {
-        stateMarshal := state is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, stateMarshal, state, "HRESULT")
-        return result
+    get_readyState() {
+        result := ComCall(11, this, "int*", &state := 0, "HRESULT")
+        return state
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\MFVideoNormalizedRect.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -45,15 +46,12 @@ class IMFVideoMixerControl extends IUnknown{
     /**
      * 
      * @param {Integer} dwStreamID 
-     * @param {Pointer<Integer>} pdwZ 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideomixercontrol-getstreamzorder
      */
-    GetStreamZOrder(dwStreamID, pdwZ) {
-        pdwZMarshal := pdwZ is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, "uint", dwStreamID, pdwZMarshal, pdwZ, "HRESULT")
-        return result
+    GetStreamZOrder(dwStreamID) {
+        result := ComCall(4, this, "uint", dwStreamID, "uint*", &pdwZ := 0, "HRESULT")
+        return pdwZ
     }
 
     /**
@@ -71,12 +69,12 @@ class IMFVideoMixerControl extends IUnknown{
     /**
      * 
      * @param {Integer} dwStreamID 
-     * @param {Pointer<MFVideoNormalizedRect>} pnrcOutput 
-     * @returns {HRESULT} 
+     * @returns {MFVideoNormalizedRect} 
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideomixercontrol-getstreamoutputrect
      */
-    GetStreamOutputRect(dwStreamID, pnrcOutput) {
+    GetStreamOutputRect(dwStreamID) {
+        pnrcOutput := MFVideoNormalizedRect()
         result := ComCall(6, this, "uint", dwStreamID, "ptr", pnrcOutput, "HRESULT")
-        return result
+        return pnrcOutput
     }
 }

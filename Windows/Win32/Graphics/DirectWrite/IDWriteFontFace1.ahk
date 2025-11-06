@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DWRITE_FONT_METRICS1.ahk
 #Include .\IDWriteFontFace.ahk
 
 /**
@@ -45,13 +46,13 @@ class IDWriteFontFace1 extends IDWriteFontFace{
      * @param {Float} emSize 
      * @param {Float} pixelsPerDip 
      * @param {Pointer<DWRITE_MATRIX>} transform 
-     * @param {Pointer<DWRITE_FONT_METRICS1>} fontMetrics 
-     * @returns {HRESULT} 
+     * @returns {DWRITE_FONT_METRICS1} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefontface1-getgdicompatiblemetrics
      */
-    GetGdiCompatibleMetrics(emSize, pixelsPerDip, transform, fontMetrics) {
+    GetGdiCompatibleMetrics(emSize, pixelsPerDip, transform) {
+        fontMetrics := DWRITE_FONT_METRICS1()
         result := ComCall(19, this, "float", emSize, "float", pixelsPerDip, "ptr", transform, "ptr", fontMetrics, "HRESULT")
-        return result
+        return fontMetrics
     }
 
     /**
@@ -166,17 +167,15 @@ class IDWriteFontFace1 extends IDWriteFontFace{
      * 
      * @param {Integer} glyphCount 
      * @param {Pointer<Integer>} glyphIndices 
-     * @param {Pointer<Integer>} glyphAdvances 
      * @param {BOOL} isSideways 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefontface1-getdesignglyphadvances
      */
-    GetDesignGlyphAdvances(glyphCount, glyphIndices, glyphAdvances, isSideways) {
+    GetDesignGlyphAdvances(glyphCount, glyphIndices, isSideways) {
         glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
-        glyphAdvancesMarshal := glyphAdvances is VarRef ? "int*" : "ptr"
 
-        result := ComCall(23, this, "uint", glyphCount, glyphIndicesMarshal, glyphIndices, glyphAdvancesMarshal, glyphAdvances, "int", isSideways, "HRESULT")
-        return result
+        result := ComCall(23, this, "uint", glyphCount, glyphIndicesMarshal, glyphIndices, "int*", &glyphAdvances := 0, "int", isSideways, "HRESULT")
+        return glyphAdvances
     }
 
     /**
@@ -188,32 +187,28 @@ class IDWriteFontFace1 extends IDWriteFontFace{
      * @param {BOOL} isSideways 
      * @param {Integer} glyphCount 
      * @param {Pointer<Integer>} glyphIndices 
-     * @param {Pointer<Integer>} glyphAdvances 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefontface1-getgdicompatibleglyphadvances
      */
-    GetGdiCompatibleGlyphAdvances(emSize, pixelsPerDip, transform, useGdiNatural, isSideways, glyphCount, glyphIndices, glyphAdvances) {
+    GetGdiCompatibleGlyphAdvances(emSize, pixelsPerDip, transform, useGdiNatural, isSideways, glyphCount, glyphIndices) {
         glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
-        glyphAdvancesMarshal := glyphAdvances is VarRef ? "int*" : "ptr"
 
-        result := ComCall(24, this, "float", emSize, "float", pixelsPerDip, "ptr", transform, "int", useGdiNatural, "int", isSideways, "uint", glyphCount, glyphIndicesMarshal, glyphIndices, glyphAdvancesMarshal, glyphAdvances, "HRESULT")
-        return result
+        result := ComCall(24, this, "float", emSize, "float", pixelsPerDip, "ptr", transform, "int", useGdiNatural, "int", isSideways, "uint", glyphCount, glyphIndicesMarshal, glyphIndices, "int*", &glyphAdvances := 0, "HRESULT")
+        return glyphAdvances
     }
 
     /**
      * 
      * @param {Integer} glyphCount 
      * @param {Pointer<Integer>} glyphIndices 
-     * @param {Pointer<Integer>} glyphAdvanceAdjustments 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefontface1-getkerningpairadjustments
      */
-    GetKerningPairAdjustments(glyphCount, glyphIndices, glyphAdvanceAdjustments) {
+    GetKerningPairAdjustments(glyphCount, glyphIndices) {
         glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
-        glyphAdvanceAdjustmentsMarshal := glyphAdvanceAdjustments is VarRef ? "int*" : "ptr"
 
-        result := ComCall(25, this, "uint", glyphCount, glyphIndicesMarshal, glyphIndices, glyphAdvanceAdjustmentsMarshal, glyphAdvanceAdjustments, "HRESULT")
-        return result
+        result := ComCall(25, this, "uint", glyphCount, glyphIndicesMarshal, glyphIndices, "int*", &glyphAdvanceAdjustments := 0, "HRESULT")
+        return glyphAdvanceAdjustments
     }
 
     /**
@@ -235,31 +230,26 @@ class IDWriteFontFace1 extends IDWriteFontFace{
      * @param {BOOL} isSideways 
      * @param {Integer} outlineThreshold 
      * @param {Integer} measuringMode 
-     * @param {Pointer<Integer>} renderingMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefontface1-getrecommendedrenderingmode
      */
-    GetRecommendedRenderingMode(fontEmSize, dpiX, dpiY, transform, isSideways, outlineThreshold, measuringMode, renderingMode) {
-        renderingModeMarshal := renderingMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(27, this, "float", fontEmSize, "float", dpiX, "float", dpiY, "ptr", transform, "int", isSideways, "int", outlineThreshold, "int", measuringMode, renderingModeMarshal, renderingMode, "HRESULT")
-        return result
+    GetRecommendedRenderingMode(fontEmSize, dpiX, dpiY, transform, isSideways, outlineThreshold, measuringMode) {
+        result := ComCall(27, this, "float", fontEmSize, "float", dpiX, "float", dpiY, "ptr", transform, "int", isSideways, "int", outlineThreshold, "int", measuringMode, "int*", &renderingMode := 0, "HRESULT")
+        return renderingMode
     }
 
     /**
      * 
      * @param {Integer} glyphCount 
      * @param {Pointer<Integer>} nominalGlyphIndices 
-     * @param {Pointer<Integer>} verticalGlyphIndices 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefontface1-getverticalglyphvariants
      */
-    GetVerticalGlyphVariants(glyphCount, nominalGlyphIndices, verticalGlyphIndices) {
+    GetVerticalGlyphVariants(glyphCount, nominalGlyphIndices) {
         nominalGlyphIndicesMarshal := nominalGlyphIndices is VarRef ? "ushort*" : "ptr"
-        verticalGlyphIndicesMarshal := verticalGlyphIndices is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(28, this, "uint", glyphCount, nominalGlyphIndicesMarshal, nominalGlyphIndices, verticalGlyphIndicesMarshal, verticalGlyphIndices, "HRESULT")
-        return result
+        result := ComCall(28, this, "uint", glyphCount, nominalGlyphIndicesMarshal, nominalGlyphIndices, "ushort*", &verticalGlyphIndices := 0, "HRESULT")
+        return verticalGlyphIndices
     }
 
     /**

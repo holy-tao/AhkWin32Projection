@@ -31,166 +31,142 @@ class IClientCaps extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_javaEnabled(p) {
-        result := ComCall(7, this, "ptr", p, "HRESULT")
-        return result
+    get_javaEnabled() {
+        result := ComCall(7, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_cookieEnabled(p) {
-        result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+    get_cookieEnabled() {
+        result := ComCall(8, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_cpuClass(p) {
+    get_cpuClass() {
+        p := BSTR()
         result := ComCall(9, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_systemLanguage(p) {
+    get_systemLanguage() {
+        p := BSTR()
         result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_userLanguage(p) {
+    get_userLanguage() {
+        p := BSTR()
         result := ComCall(11, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_platform(p) {
+    get_platform() {
+        p := BSTR()
         result := ComCall(12, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_connectionSpeed(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, pMarshal, p, "HRESULT")
-        return result
+    get_connectionSpeed() {
+        result := ComCall(13, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_onLine(p) {
-        result := ComCall(14, this, "ptr", p, "HRESULT")
-        return result
+    get_onLine() {
+        result := ComCall(14, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_colorDepth(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, pMarshal, p, "HRESULT")
-        return result
+    get_colorDepth() {
+        result := ComCall(15, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_bufferDepth(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, pMarshal, p, "HRESULT")
-        return result
+    get_bufferDepth() {
+        result := ComCall(16, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_width(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, pMarshal, p, "HRESULT")
-        return result
+    get_width() {
+        result := ComCall(17, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_height(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(18, this, pMarshal, p, "HRESULT")
-        return result
+    get_height() {
+        result := ComCall(18, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_availHeight(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(19, this, pMarshal, p, "HRESULT")
-        return result
+    get_availHeight() {
+        result := ComCall(19, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_availWidth(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(20, this, pMarshal, p, "HRESULT")
-        return result
+    get_availWidth() {
+        result := ComCall(20, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_connectionType(p) {
+    get_connectionType() {
+        p := BSTR()
         result := ComCall(21, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -198,48 +174,44 @@ class IClientCaps extends IDispatch{
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrUrl 
      * @param {BSTR} bStrVer 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    isComponentInstalled(bstrName, bstrUrl, bStrVer, p) {
+    isComponentInstalled(bstrName, bstrUrl, bStrVer) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
         bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
         bStrVer := bStrVer is String ? BSTR.Alloc(bStrVer).Value : bStrVer
 
-        result := ComCall(22, this, "ptr", bstrName, "ptr", bstrUrl, "ptr", bStrVer, "ptr", p, "HRESULT")
-        return result
+        result := ComCall(22, this, "ptr", bstrName, "ptr", bstrUrl, "ptr", bStrVer, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrUrl 
-     * @param {Pointer<BSTR>} pbstrVer 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    getComponentVersion(bstrName, bstrUrl, pbstrVer) {
+    getComponentVersion(bstrName, bstrUrl) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
         bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
 
+        pbstrVer := BSTR()
         result := ComCall(23, this, "ptr", bstrName, "ptr", bstrUrl, "ptr", pbstrVer, "HRESULT")
-        return result
+        return pbstrVer
     }
 
     /**
      * 
      * @param {BSTR} bstrVer1 
      * @param {BSTR} bstrVer2 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    compareVersions(bstrVer1, bstrVer2, p) {
+    compareVersions(bstrVer1, bstrVer2) {
         bstrVer1 := bstrVer1 is String ? BSTR.Alloc(bstrVer1).Value : bstrVer1
         bstrVer2 := bstrVer2 is String ? BSTR.Alloc(bstrVer2).Value : bstrVer2
 
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(24, this, "ptr", bstrVer1, "ptr", bstrVer2, pMarshal, p, "HRESULT")
-        return result
+        result := ComCall(24, this, "ptr", bstrVer1, "ptr", bstrVer2, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -260,12 +232,11 @@ class IClientCaps extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    doComponentRequest(p) {
-        result := ComCall(26, this, "ptr", p, "HRESULT")
-        return result
+    doComponentRequest() {
+        result := ComCall(26, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**

@@ -1,5 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\IMessageFilter.ahk
+#Include .\IActivateAudioInterfaceAsyncOperation.ahk
+#Include .\IAudioStateMonitor.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio
@@ -2301,17 +2304,16 @@ class Audio {
      * @param {IMessageFilter} lpMessageFilter A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imessagefilter">IMessageFilter</a> interface on the message filter. This message filter should be registered on the current thread, replacing the previous message filter (if any). This parameter can be <b>NULL</b>, indicating that no message filter should be registered on the current thread.
      * 
      * Note that this function calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the interface pointer to the message filter.
-     * @param {Pointer<IMessageFilter>} lplpMessageFilter Address of the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imessagefilter">IMessageFilter</a>* pointer variable that receives the interface pointer to the previously registered message filter. If there was no previously registered message filter for the current thread, the value of *<i>lplpMessageFilter</i> is <b>NULL</b>.
-     * @returns {HRESULT} If the instance was registered or revoked successfully, the return value is S_OK; otherwise, it is S_FALSE.
+     * @returns {IMessageFilter} Address of the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imessagefilter">IMessageFilter</a>* pointer variable that receives the interface pointer to the previously registered message filter. If there was no previously registered message filter for the current thread, the value of *<i>lplpMessageFilter</i> is <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//objbase/nf-objbase-coregistermessagefilter
      * @since windows5.0
      */
-    static CoRegisterMessageFilter(lpMessageFilter, lplpMessageFilter) {
-        result := DllCall("OLE32.dll\CoRegisterMessageFilter", "ptr", lpMessageFilter, "ptr*", lplpMessageFilter, "int")
+    static CoRegisterMessageFilter(lpMessageFilter) {
+        result := DllCall("OLE32.dll\CoRegisterMessageFilter", "ptr", lpMessageFilter, "ptr*", &lplpMessageFilter := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IMessageFilter(lplpMessageFilter)
     }
 
     /**
@@ -8660,166 +8662,128 @@ class Audio {
      * 
      * Starting with TBD, you can specify [AUDIOCLIENT_ACTIVATION_PARAMS](/windows/desktop/api/audioclientactivationparams/ns-audioclientactivationparams-audioclient_activation_params) to activate the interface to include or exclude audio streams associated with a specified process ID.
      * @param {IActivateAudioInterfaceCompletionHandler} completionHandler An interface implemented by the caller that is called by Windows when the result of the activation procedure is available.
-     * @param {Pointer<IActivateAudioInterfaceAsyncOperation>} activationOperation Returns an <a href="https://docs.microsoft.com/windows/desktop/api/mmdeviceapi/nn-mmdeviceapi-iactivateaudiointerfaceasyncoperation">IActivateAudioInterfaceAsyncOperation</a> interface that represents the asynchronous operation of activating the requested <b>WASAPI</b> interface.
-     * @returns {HRESULT} The function returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The underlying object and asynchronous operation were created successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_ILLEGAL_METHOD_CALL </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * On versions of Windows previous to Windows 10, this error may result if the function is called from an incorrect COM apartment, or if the passed <a href="/windows/desktop/api/mmdeviceapi/nn-mmdeviceapi-iactivateaudiointerfacecompletionhandler">IActivateAudioInterfaceCompletionHandler</a> is not implemented on an agile object (aggregating a free-threaded marshaler).
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {IActivateAudioInterfaceAsyncOperation} Returns an <a href="https://docs.microsoft.com/windows/desktop/api/mmdeviceapi/nn-mmdeviceapi-iactivateaudiointerfaceasyncoperation">IActivateAudioInterfaceAsyncOperation</a> interface that represents the asynchronous operation of activating the requested <b>WASAPI</b> interface.
      * @see https://docs.microsoft.com/windows/win32/api//mmdeviceapi/nf-mmdeviceapi-activateaudiointerfaceasync
      * @since windows8.0
      */
-    static ActivateAudioInterfaceAsync(deviceInterfacePath, riid, activationParams, completionHandler, activationOperation) {
+    static ActivateAudioInterfaceAsync(deviceInterfacePath, riid, activationParams, completionHandler) {
         deviceInterfacePath := deviceInterfacePath is String ? StrPtr(deviceInterfacePath) : deviceInterfacePath
 
-        result := DllCall("MMDevAPI.dll\ActivateAudioInterfaceAsync", "ptr", deviceInterfacePath, "ptr", riid, "ptr", activationParams, "ptr", completionHandler, "ptr*", activationOperation, "int")
+        result := DllCall("MMDevAPI.dll\ActivateAudioInterfaceAsync", "ptr", deviceInterfacePath, "ptr", riid, "ptr", activationParams, "ptr", completionHandler, "ptr*", &activationOperation := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IActivateAudioInterfaceAsyncOperation(activationOperation)
     }
 
     /**
      * 
-     * @param {Pointer<IAudioStateMonitor>} audioStateMonitor 
-     * @returns {HRESULT} 
+     * @returns {IAudioStateMonitor} 
      */
-    static CreateRenderAudioStateMonitor(audioStateMonitor) {
-        result := DllCall("Windows.Media.MediaControl.dll\CreateRenderAudioStateMonitor", "ptr*", audioStateMonitor, "int")
+    static CreateRenderAudioStateMonitor() {
+        result := DllCall("Windows.Media.MediaControl.dll\CreateRenderAudioStateMonitor", "ptr*", &audioStateMonitor := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IAudioStateMonitor(audioStateMonitor)
     }
 
     /**
      * 
      * @param {Integer} category 
-     * @param {Pointer<IAudioStateMonitor>} audioStateMonitor 
-     * @returns {HRESULT} 
+     * @returns {IAudioStateMonitor} 
      */
-    static CreateRenderAudioStateMonitorForCategory(category, audioStateMonitor) {
-        result := DllCall("Windows.Media.MediaControl.dll\CreateRenderAudioStateMonitorForCategory", "int", category, "ptr*", audioStateMonitor, "int")
+    static CreateRenderAudioStateMonitorForCategory(category) {
+        result := DllCall("Windows.Media.MediaControl.dll\CreateRenderAudioStateMonitorForCategory", "int", category, "ptr*", &audioStateMonitor := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IAudioStateMonitor(audioStateMonitor)
     }
 
     /**
      * 
      * @param {Integer} category 
      * @param {Integer} role 
-     * @param {Pointer<IAudioStateMonitor>} audioStateMonitor 
-     * @returns {HRESULT} 
+     * @returns {IAudioStateMonitor} 
      */
-    static CreateRenderAudioStateMonitorForCategoryAndDeviceRole(category, role, audioStateMonitor) {
-        result := DllCall("Windows.Media.MediaControl.dll\CreateRenderAudioStateMonitorForCategoryAndDeviceRole", "int", category, "int", role, "ptr*", audioStateMonitor, "int")
+    static CreateRenderAudioStateMonitorForCategoryAndDeviceRole(category, role) {
+        result := DllCall("Windows.Media.MediaControl.dll\CreateRenderAudioStateMonitorForCategoryAndDeviceRole", "int", category, "int", role, "ptr*", &audioStateMonitor := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IAudioStateMonitor(audioStateMonitor)
     }
 
     /**
      * 
      * @param {Integer} category 
      * @param {PWSTR} deviceId 
-     * @param {Pointer<IAudioStateMonitor>} audioStateMonitor 
-     * @returns {HRESULT} 
+     * @returns {IAudioStateMonitor} 
      */
-    static CreateRenderAudioStateMonitorForCategoryAndDeviceId(category, deviceId, audioStateMonitor) {
+    static CreateRenderAudioStateMonitorForCategoryAndDeviceId(category, deviceId) {
         deviceId := deviceId is String ? StrPtr(deviceId) : deviceId
 
-        result := DllCall("Windows.Media.MediaControl.dll\CreateRenderAudioStateMonitorForCategoryAndDeviceId", "int", category, "ptr", deviceId, "ptr*", audioStateMonitor, "int")
+        result := DllCall("Windows.Media.MediaControl.dll\CreateRenderAudioStateMonitorForCategoryAndDeviceId", "int", category, "ptr", deviceId, "ptr*", &audioStateMonitor := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IAudioStateMonitor(audioStateMonitor)
     }
 
     /**
      * 
-     * @param {Pointer<IAudioStateMonitor>} audioStateMonitor 
-     * @returns {HRESULT} 
+     * @returns {IAudioStateMonitor} 
      */
-    static CreateCaptureAudioStateMonitor(audioStateMonitor) {
-        result := DllCall("Windows.Media.MediaControl.dll\CreateCaptureAudioStateMonitor", "ptr*", audioStateMonitor, "int")
+    static CreateCaptureAudioStateMonitor() {
+        result := DllCall("Windows.Media.MediaControl.dll\CreateCaptureAudioStateMonitor", "ptr*", &audioStateMonitor := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IAudioStateMonitor(audioStateMonitor)
     }
 
     /**
      * 
      * @param {Integer} category 
-     * @param {Pointer<IAudioStateMonitor>} audioStateMonitor 
-     * @returns {HRESULT} 
+     * @returns {IAudioStateMonitor} 
      */
-    static CreateCaptureAudioStateMonitorForCategory(category, audioStateMonitor) {
-        result := DllCall("Windows.Media.MediaControl.dll\CreateCaptureAudioStateMonitorForCategory", "int", category, "ptr*", audioStateMonitor, "int")
+    static CreateCaptureAudioStateMonitorForCategory(category) {
+        result := DllCall("Windows.Media.MediaControl.dll\CreateCaptureAudioStateMonitorForCategory", "int", category, "ptr*", &audioStateMonitor := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IAudioStateMonitor(audioStateMonitor)
     }
 
     /**
      * 
      * @param {Integer} category 
      * @param {Integer} role 
-     * @param {Pointer<IAudioStateMonitor>} audioStateMonitor 
-     * @returns {HRESULT} 
+     * @returns {IAudioStateMonitor} 
      */
-    static CreateCaptureAudioStateMonitorForCategoryAndDeviceRole(category, role, audioStateMonitor) {
-        result := DllCall("Windows.Media.MediaControl.dll\CreateCaptureAudioStateMonitorForCategoryAndDeviceRole", "int", category, "int", role, "ptr*", audioStateMonitor, "int")
+    static CreateCaptureAudioStateMonitorForCategoryAndDeviceRole(category, role) {
+        result := DllCall("Windows.Media.MediaControl.dll\CreateCaptureAudioStateMonitorForCategoryAndDeviceRole", "int", category, "int", role, "ptr*", &audioStateMonitor := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IAudioStateMonitor(audioStateMonitor)
     }
 
     /**
      * 
      * @param {Integer} category 
      * @param {PWSTR} deviceId 
-     * @param {Pointer<IAudioStateMonitor>} audioStateMonitor 
-     * @returns {HRESULT} 
+     * @returns {IAudioStateMonitor} 
      */
-    static CreateCaptureAudioStateMonitorForCategoryAndDeviceId(category, deviceId, audioStateMonitor) {
+    static CreateCaptureAudioStateMonitorForCategoryAndDeviceId(category, deviceId) {
         deviceId := deviceId is String ? StrPtr(deviceId) : deviceId
 
-        result := DllCall("Windows.Media.MediaControl.dll\CreateCaptureAudioStateMonitorForCategoryAndDeviceId", "int", category, "ptr", deviceId, "ptr*", audioStateMonitor, "int")
+        result := DllCall("Windows.Media.MediaControl.dll\CreateCaptureAudioStateMonitorForCategoryAndDeviceId", "int", category, "ptr", deviceId, "ptr*", &audioStateMonitor := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IAudioStateMonitor(audioStateMonitor)
     }
 
     /**

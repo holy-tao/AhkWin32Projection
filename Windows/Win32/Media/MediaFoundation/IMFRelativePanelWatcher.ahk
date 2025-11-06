@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFRelativePanelReport.ahk
 #Include .\IMFShutdown.ahk
 
 /**
@@ -50,23 +51,21 @@ class IMFRelativePanelWatcher extends IMFShutdown{
     /**
      * 
      * @param {IMFAsyncResult} pResult 
-     * @param {Pointer<IMFRelativePanelReport>} ppRelativePanelReport 
-     * @returns {HRESULT} 
+     * @returns {IMFRelativePanelReport} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfrelativepanelwatcher-endgetreport
      */
-    EndGetReport(pResult, ppRelativePanelReport) {
-        result := ComCall(6, this, "ptr", pResult, "ptr*", ppRelativePanelReport, "HRESULT")
-        return result
+    EndGetReport(pResult) {
+        result := ComCall(6, this, "ptr", pResult, "ptr*", &ppRelativePanelReport := 0, "HRESULT")
+        return IMFRelativePanelReport(ppRelativePanelReport)
     }
 
     /**
      * 
-     * @param {Pointer<IMFRelativePanelReport>} ppRelativePanelReport 
-     * @returns {HRESULT} 
+     * @returns {IMFRelativePanelReport} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfrelativepanelwatcher-getreport
      */
-    GetReport(ppRelativePanelReport) {
-        result := ComCall(7, this, "ptr*", ppRelativePanelReport, "HRESULT")
-        return result
+    GetReport() {
+        result := ComCall(7, this, "ptr*", &ppRelativePanelReport := 0, "HRESULT")
+        return IMFRelativePanelReport(ppRelativePanelReport)
     }
 }

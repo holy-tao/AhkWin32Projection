@@ -31,12 +31,11 @@ class IHTMLIFrameElement3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_contentDocument(p) {
-        result := ComCall(7, this, "ptr*", p, "HRESULT")
-        return result
+    get_contentDocument() {
+        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
@@ -53,12 +52,12 @@ class IHTMLIFrameElement3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_src(p) {
+    get_src() {
+        p := BSTR()
         result := ComCall(9, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -75,12 +74,12 @@ class IHTMLIFrameElement3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_longDesc(p) {
+    get_longDesc() {
+        p := BSTR()
         result := ComCall(11, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -97,11 +96,11 @@ class IHTMLIFrameElement3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_frameBorder(p) {
+    get_frameBorder() {
+        p := BSTR()
         result := ComCall(13, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 }

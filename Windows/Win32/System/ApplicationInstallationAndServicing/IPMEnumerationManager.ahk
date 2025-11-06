@@ -2,6 +2,18 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IPMApplicationInfoEnumerator.ahk
+#Include .\IPMTileInfoEnumerator.ahk
+#Include .\IPMTaskInfoEnumerator.ahk
+#Include .\IPMExtensionInfoEnumerator.ahk
+#Include .\IPMBackgroundServiceAgentInfoEnumerator.ahk
+#Include .\IPMBackgroundWorkerInfoEnumerator.ahk
+#Include .\IPMApplicationInfo.ahk
+#Include .\IPMTileInfo.ahk
+#Include .\IPMTaskInfo.ahk
+#Include .\IPMBackgroundServiceAgentInfo.ahk
+#Include .\IPMLiveTileJobInfoEnumerator.ahk
+#Include .\IPMLiveTileJobInfo.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -31,142 +43,130 @@ class IPMEnumerationManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IPMApplicationInfoEnumerator>} ppAppEnum 
      * @param {PM_ENUM_FILTER} Filter 
-     * @returns {HRESULT} 
+     * @returns {IPMApplicationInfoEnumerator} 
      */
-    get_AllApplications(ppAppEnum, Filter) {
-        result := ComCall(3, this, "ptr*", ppAppEnum, "ptr", Filter, "HRESULT")
-        return result
+    get_AllApplications(Filter) {
+        result := ComCall(3, this, "ptr*", &ppAppEnum := 0, "ptr", Filter, "HRESULT")
+        return IPMApplicationInfoEnumerator(ppAppEnum)
     }
 
     /**
      * 
-     * @param {Pointer<IPMTileInfoEnumerator>} ppTileEnum 
      * @param {PM_ENUM_FILTER} Filter 
-     * @returns {HRESULT} 
+     * @returns {IPMTileInfoEnumerator} 
      */
-    get_AllTiles(ppTileEnum, Filter) {
-        result := ComCall(4, this, "ptr*", ppTileEnum, "ptr", Filter, "HRESULT")
-        return result
+    get_AllTiles(Filter) {
+        result := ComCall(4, this, "ptr*", &ppTileEnum := 0, "ptr", Filter, "HRESULT")
+        return IPMTileInfoEnumerator(ppTileEnum)
     }
 
     /**
      * 
-     * @param {Pointer<IPMTaskInfoEnumerator>} ppTaskEnum 
      * @param {PM_ENUM_FILTER} Filter 
-     * @returns {HRESULT} 
+     * @returns {IPMTaskInfoEnumerator} 
      */
-    get_AllTasks(ppTaskEnum, Filter) {
-        result := ComCall(5, this, "ptr*", ppTaskEnum, "ptr", Filter, "HRESULT")
-        return result
+    get_AllTasks(Filter) {
+        result := ComCall(5, this, "ptr*", &ppTaskEnum := 0, "ptr", Filter, "HRESULT")
+        return IPMTaskInfoEnumerator(ppTaskEnum)
     }
 
     /**
      * 
-     * @param {Pointer<IPMExtensionInfoEnumerator>} ppExtensionEnum 
      * @param {PM_ENUM_FILTER} Filter 
-     * @returns {HRESULT} 
+     * @returns {IPMExtensionInfoEnumerator} 
      */
-    get_AllExtensions(ppExtensionEnum, Filter) {
-        result := ComCall(6, this, "ptr*", ppExtensionEnum, "ptr", Filter, "HRESULT")
-        return result
+    get_AllExtensions(Filter) {
+        result := ComCall(6, this, "ptr*", &ppExtensionEnum := 0, "ptr", Filter, "HRESULT")
+        return IPMExtensionInfoEnumerator(ppExtensionEnum)
     }
 
     /**
      * 
-     * @param {Pointer<IPMBackgroundServiceAgentInfoEnumerator>} ppBSAEnum 
      * @param {PM_ENUM_FILTER} Filter 
-     * @returns {HRESULT} 
+     * @returns {IPMBackgroundServiceAgentInfoEnumerator} 
      */
-    get_AllBackgroundServiceAgents(ppBSAEnum, Filter) {
-        result := ComCall(7, this, "ptr*", ppBSAEnum, "ptr", Filter, "HRESULT")
-        return result
+    get_AllBackgroundServiceAgents(Filter) {
+        result := ComCall(7, this, "ptr*", &ppBSAEnum := 0, "ptr", Filter, "HRESULT")
+        return IPMBackgroundServiceAgentInfoEnumerator(ppBSAEnum)
     }
 
     /**
      * 
-     * @param {Pointer<IPMBackgroundWorkerInfoEnumerator>} ppBSWEnum 
      * @param {PM_ENUM_FILTER} Filter 
-     * @returns {HRESULT} 
+     * @returns {IPMBackgroundWorkerInfoEnumerator} 
      */
-    get_AllBackgroundWorkers(ppBSWEnum, Filter) {
-        result := ComCall(8, this, "ptr*", ppBSWEnum, "ptr", Filter, "HRESULT")
-        return result
+    get_AllBackgroundWorkers(Filter) {
+        result := ComCall(8, this, "ptr*", &ppBSWEnum := 0, "ptr", Filter, "HRESULT")
+        return IPMBackgroundWorkerInfoEnumerator(ppBSWEnum)
     }
 
     /**
      * 
      * @param {Guid} ProductID 
-     * @param {Pointer<IPMApplicationInfo>} ppAppInfo 
-     * @returns {HRESULT} 
+     * @returns {IPMApplicationInfo} 
      */
-    get_ApplicationInfo(ProductID, ppAppInfo) {
-        result := ComCall(9, this, "ptr", ProductID, "ptr*", ppAppInfo, "HRESULT")
-        return result
+    get_ApplicationInfo(ProductID) {
+        result := ComCall(9, this, "ptr", ProductID, "ptr*", &ppAppInfo := 0, "HRESULT")
+        return IPMApplicationInfo(ppAppInfo)
     }
 
     /**
      * 
      * @param {Guid} ProductID 
      * @param {BSTR} TileID 
-     * @param {Pointer<IPMTileInfo>} ppTileInfo 
-     * @returns {HRESULT} 
+     * @returns {IPMTileInfo} 
      */
-    get_TileInfo(ProductID, TileID, ppTileInfo) {
+    get_TileInfo(ProductID, TileID) {
         TileID := TileID is String ? BSTR.Alloc(TileID).Value : TileID
 
-        result := ComCall(10, this, "ptr", ProductID, "ptr", TileID, "ptr*", ppTileInfo, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", ProductID, "ptr", TileID, "ptr*", &ppTileInfo := 0, "HRESULT")
+        return IPMTileInfo(ppTileInfo)
     }
 
     /**
      * 
      * @param {Guid} ProductID 
      * @param {BSTR} TaskID 
-     * @param {Pointer<IPMTaskInfo>} ppTaskInfo 
-     * @returns {HRESULT} 
+     * @returns {IPMTaskInfo} 
      */
-    get_TaskInfo(ProductID, TaskID, ppTaskInfo) {
+    get_TaskInfo(ProductID, TaskID) {
         TaskID := TaskID is String ? BSTR.Alloc(TaskID).Value : TaskID
 
-        result := ComCall(11, this, "ptr", ProductID, "ptr", TaskID, "ptr*", ppTaskInfo, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", ProductID, "ptr", TaskID, "ptr*", &ppTaskInfo := 0, "HRESULT")
+        return IPMTaskInfo(ppTaskInfo)
     }
 
     /**
      * 
      * @param {Guid} ProductID 
      * @param {PWSTR} TaskID 
-     * @param {Pointer<IPMTaskInfo>} ppTaskInfo 
-     * @returns {HRESULT} 
+     * @returns {IPMTaskInfo} 
      */
-    get_TaskInfoEx(ProductID, TaskID, ppTaskInfo) {
+    get_TaskInfoEx(ProductID, TaskID) {
         TaskID := TaskID is String ? StrPtr(TaskID) : TaskID
 
-        result := ComCall(12, this, "ptr", ProductID, "ptr", TaskID, "ptr*", ppTaskInfo, "HRESULT")
-        return result
+        result := ComCall(12, this, "ptr", ProductID, "ptr", TaskID, "ptr*", &ppTaskInfo := 0, "HRESULT")
+        return IPMTaskInfo(ppTaskInfo)
     }
 
     /**
      * 
      * @param {Integer} BSAID 
-     * @param {Pointer<IPMBackgroundServiceAgentInfo>} ppTaskInfo 
-     * @returns {HRESULT} 
+     * @returns {IPMBackgroundServiceAgentInfo} 
      */
-    get_BackgroundServiceAgentInfo(BSAID, ppTaskInfo) {
-        result := ComCall(13, this, "uint", BSAID, "ptr*", ppTaskInfo, "HRESULT")
-        return result
+    get_BackgroundServiceAgentInfo(BSAID) {
+        result := ComCall(13, this, "uint", BSAID, "ptr*", &ppTaskInfo := 0, "HRESULT")
+        return IPMBackgroundServiceAgentInfo(ppTaskInfo)
     }
 
     /**
      * 
-     * @param {Pointer<IPMLiveTileJobInfoEnumerator>} ppLiveTileJobEnum 
-     * @returns {HRESULT} 
+     * @returns {IPMLiveTileJobInfoEnumerator} 
      */
-    get_AllLiveTileJobs(ppLiveTileJobEnum) {
-        result := ComCall(14, this, "ptr*", ppLiveTileJobEnum, "HRESULT")
-        return result
+    get_AllLiveTileJobs() {
+        result := ComCall(14, this, "ptr*", &ppLiveTileJobEnum := 0, "HRESULT")
+        return IPMLiveTileJobInfoEnumerator(ppLiveTileJobEnum)
     }
 
     /**
@@ -174,25 +174,23 @@ class IPMEnumerationManager extends IUnknown{
      * @param {Guid} ProductID 
      * @param {BSTR} TileID 
      * @param {Integer} RecurrenceType 
-     * @param {Pointer<IPMLiveTileJobInfo>} ppLiveTileJobInfo 
-     * @returns {HRESULT} 
+     * @returns {IPMLiveTileJobInfo} 
      */
-    get_LiveTileJob(ProductID, TileID, RecurrenceType, ppLiveTileJobInfo) {
+    get_LiveTileJob(ProductID, TileID, RecurrenceType) {
         TileID := TileID is String ? BSTR.Alloc(TileID).Value : TileID
 
-        result := ComCall(15, this, "ptr", ProductID, "ptr", TileID, "int", RecurrenceType, "ptr*", ppLiveTileJobInfo, "HRESULT")
-        return result
+        result := ComCall(15, this, "ptr", ProductID, "ptr", TileID, "int", RecurrenceType, "ptr*", &ppLiveTileJobInfo := 0, "HRESULT")
+        return IPMLiveTileJobInfo(ppLiveTileJobInfo)
     }
 
     /**
      * 
      * @param {Guid} ProductID 
-     * @param {Pointer<IPMApplicationInfo>} ppAppInfo 
-     * @returns {HRESULT} 
+     * @returns {IPMApplicationInfo} 
      */
-    get_ApplicationInfoExternal(ProductID, ppAppInfo) {
-        result := ComCall(16, this, "ptr", ProductID, "ptr*", ppAppInfo, "HRESULT")
-        return result
+    get_ApplicationInfoExternal(ProductID) {
+        result := ComCall(16, this, "ptr", ProductID, "ptr*", &ppAppInfo := 0, "HRESULT")
+        return IPMApplicationInfo(ppAppInfo)
     }
 
     /**
@@ -213,15 +211,14 @@ class IPMEnumerationManager extends IUnknown{
      * 
      * @param {BSTR} SysAppID0 
      * @param {BSTR} SysAppID1 
-     * @param {Pointer<IPMApplicationInfo>} ppAppInfo 
-     * @returns {HRESULT} 
+     * @returns {IPMApplicationInfo} 
      */
-    get_ApplicationInfoFromAccessClaims(SysAppID0, SysAppID1, ppAppInfo) {
+    get_ApplicationInfoFromAccessClaims(SysAppID0, SysAppID1) {
         SysAppID0 := SysAppID0 is String ? BSTR.Alloc(SysAppID0).Value : SysAppID0
         SysAppID1 := SysAppID1 is String ? BSTR.Alloc(SysAppID1).Value : SysAppID1
 
-        result := ComCall(18, this, "ptr", SysAppID0, "ptr", SysAppID1, "ptr*", ppAppInfo, "HRESULT")
-        return result
+        result := ComCall(18, this, "ptr", SysAppID0, "ptr", SysAppID1, "ptr*", &ppAppInfo := 0, "HRESULT")
+        return IPMApplicationInfo(ppAppInfo)
     }
 
     /**

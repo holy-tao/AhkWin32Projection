@@ -46,12 +46,11 @@ class ICeeGen extends IUnknown{
     /**
      * 
      * @param {Integer} RVA 
-     * @param {Pointer<PWSTR>} lpString 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetString(RVA, lpString) {
-        result := ComCall(4, this, "uint", RVA, "ptr", lpString, "HRESULT")
-        return result
+    GetString(RVA) {
+        result := ComCall(4, this, "uint", RVA, "ptr*", &lpString := 0, "HRESULT")
+        return lpString
     }
 
     /**
@@ -84,12 +83,11 @@ class ICeeGen extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} pIMapToken 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    GetIMapTokenIface(pIMapToken) {
-        result := ComCall(7, this, "ptr*", pIMapToken, "HRESULT")
-        return result
+    GetIMapTokenIface() {
+        result := ComCall(7, this, "ptr*", &pIMapToken := 0, "HRESULT")
+        return IUnknown(pIMapToken)
     }
 
     /**

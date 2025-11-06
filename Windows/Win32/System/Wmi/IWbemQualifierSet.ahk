@@ -88,15 +88,12 @@ class IWbemQualifierSet extends IUnknown{
     /**
      * 
      * @param {Integer} lFlags 
-     * @param {Pointer<Pointer<SAFEARRAY>>} pNames 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemqualifierset-getnames
      */
-    GetNames(lFlags, pNames) {
-        pNamesMarshal := pNames is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "int", lFlags, pNamesMarshal, pNames, "HRESULT")
-        return result
+    GetNames(lFlags) {
+        result := ComCall(6, this, "int", lFlags, "ptr*", &pNames := 0, "HRESULT")
+        return pNames
     }
 
     /**

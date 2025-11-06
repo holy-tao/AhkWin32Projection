@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IEnumSTATPROPSTG.ahk
 #Include ..\IUnknown.ahk
 
 /**
@@ -68,12 +69,11 @@ class IEnumSTATPROPSTG extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumSTATPROPSTG>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IEnumSTATPROPSTG} 
      * @see https://learn.microsoft.com/windows/win32/api/propidlbase/nf-propidlbase-ienumstatpropstg-clone
      */
-    Clone(ppenum) {
-        result := ComCall(6, this, "ptr*", ppenum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")
+        return IEnumSTATPROPSTG(ppenum)
     }
 }

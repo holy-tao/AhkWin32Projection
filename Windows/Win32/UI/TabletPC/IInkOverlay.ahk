@@ -1,6 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IInkDrawingAttributes.ahk
+#Include .\IInkRenderer.ahk
+#Include .\IInkDisp.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\System\Ole\IPictureDisp.ahk
+#Include .\IInkStrokes.ahk
+#Include .\IInkCursors.ahk
+#Include .\IInkTablet.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -37,15 +45,12 @@ class IInkOverlay extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Pointer>} CurrentWindow 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_hwnd
      */
-    get_hWnd(CurrentWindow) {
-        CurrentWindowMarshal := CurrentWindow is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, CurrentWindowMarshal, CurrentWindow, "HRESULT")
-        return result
+    get_hWnd() {
+        result := ComCall(7, this, "ptr*", &CurrentWindow := 0, "HRESULT")
+        return CurrentWindow
     }
 
     /**
@@ -61,13 +66,12 @@ class IInkOverlay extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} Collecting 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_enabled
      */
-    get_Enabled(Collecting) {
-        result := ComCall(9, this, "ptr", Collecting, "HRESULT")
-        return result
+    get_Enabled() {
+        result := ComCall(9, this, "short*", &Collecting := 0, "HRESULT")
+        return Collecting
     }
 
     /**
@@ -83,13 +87,12 @@ class IInkOverlay extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IInkDrawingAttributes>} CurrentAttributes 
-     * @returns {HRESULT} 
+     * @returns {IInkDrawingAttributes} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_defaultdrawingattributes
      */
-    get_DefaultDrawingAttributes(CurrentAttributes) {
-        result := ComCall(11, this, "ptr*", CurrentAttributes, "HRESULT")
-        return result
+    get_DefaultDrawingAttributes() {
+        result := ComCall(11, this, "ptr*", &CurrentAttributes := 0, "HRESULT")
+        return IInkDrawingAttributes(CurrentAttributes)
     }
 
     /**
@@ -104,13 +107,12 @@ class IInkOverlay extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IInkRenderer>} CurrentInkRenderer 
-     * @returns {HRESULT} 
+     * @returns {IInkRenderer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_renderer
      */
-    get_Renderer(CurrentInkRenderer) {
-        result := ComCall(13, this, "ptr*", CurrentInkRenderer, "HRESULT")
-        return result
+    get_Renderer() {
+        result := ComCall(13, this, "ptr*", &CurrentInkRenderer := 0, "HRESULT")
+        return IInkRenderer(CurrentInkRenderer)
     }
 
     /**
@@ -125,13 +127,12 @@ class IInkOverlay extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IInkDisp>} Ink 
-     * @returns {HRESULT} 
+     * @returns {IInkDisp} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_ink
      */
-    get_Ink(Ink) {
-        result := ComCall(15, this, "ptr*", Ink, "HRESULT")
-        return result
+    get_Ink() {
+        result := ComCall(15, this, "ptr*", &Ink := 0, "HRESULT")
+        return IInkDisp(Ink)
     }
 
     /**
@@ -146,13 +147,12 @@ class IInkOverlay extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} AutoRedraw 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_autoredraw
      */
-    get_AutoRedraw(AutoRedraw) {
-        result := ComCall(17, this, "ptr", AutoRedraw, "HRESULT")
-        return result
+    get_AutoRedraw() {
+        result := ComCall(17, this, "short*", &AutoRedraw := 0, "HRESULT")
+        return AutoRedraw
     }
 
     /**
@@ -168,26 +168,22 @@ class IInkOverlay extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} Collecting 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_collectingink
      */
-    get_CollectingInk(Collecting) {
-        result := ComCall(19, this, "ptr", Collecting, "HRESULT")
-        return result
+    get_CollectingInk() {
+        result := ComCall(19, this, "short*", &Collecting := 0, "HRESULT")
+        return Collecting
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Mode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_collectionmode
      */
-    get_CollectionMode(Mode) {
-        ModeMarshal := Mode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(20, this, ModeMarshal, Mode, "HRESULT")
-        return result
+    get_CollectionMode() {
+        result := ComCall(20, this, "int*", &Mode := 0, "HRESULT")
+        return Mode
     }
 
     /**
@@ -203,13 +199,12 @@ class IInkOverlay extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} Enabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_dynamicrendering
      */
-    get_DynamicRendering(Enabled) {
-        result := ComCall(22, this, "ptr", Enabled, "HRESULT")
-        return result
+    get_DynamicRendering() {
+        result := ComCall(22, this, "short*", &Enabled := 0, "HRESULT")
+        return Enabled
     }
 
     /**
@@ -225,13 +220,13 @@ class IInkOverlay extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} PacketGuids 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_desiredpacketdescription
      */
-    get_DesiredPacketDescription(PacketGuids) {
+    get_DesiredPacketDescription() {
+        PacketGuids := VARIANT()
         result := ComCall(24, this, "ptr", PacketGuids, "HRESULT")
-        return result
+        return PacketGuids
     }
 
     /**
@@ -247,13 +242,12 @@ class IInkOverlay extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IPictureDisp>} MouseIcon 
-     * @returns {HRESULT} 
+     * @returns {IPictureDisp} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_mouseicon
      */
-    get_MouseIcon(MouseIcon) {
-        result := ComCall(26, this, "ptr*", MouseIcon, "HRESULT")
-        return result
+    get_MouseIcon() {
+        result := ComCall(26, this, "ptr*", &MouseIcon := 0, "HRESULT")
+        return IPictureDisp(MouseIcon)
     }
 
     /**
@@ -279,15 +273,12 @@ class IInkOverlay extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} MousePointer 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_mousepointer
      */
-    get_MousePointer(MousePointer) {
-        MousePointerMarshal := MousePointer is VarRef ? "int*" : "ptr"
-
-        result := ComCall(29, this, MousePointerMarshal, MousePointer, "HRESULT")
-        return result
+    get_MousePointer() {
+        result := ComCall(29, this, "int*", &MousePointer := 0, "HRESULT")
+        return MousePointer
     }
 
     /**
@@ -303,15 +294,12 @@ class IInkOverlay extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} EditingMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_editingmode
      */
-    get_EditingMode(EditingMode) {
-        EditingModeMarshal := EditingMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(31, this, EditingModeMarshal, EditingMode, "HRESULT")
-        return result
+    get_EditingMode() {
+        result := ComCall(31, this, "int*", &EditingMode := 0, "HRESULT")
+        return EditingMode
     }
 
     /**
@@ -327,13 +315,12 @@ class IInkOverlay extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IInkStrokes>} Selection 
-     * @returns {HRESULT} 
+     * @returns {IInkStrokes} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_selection
      */
-    get_Selection(Selection) {
-        result := ComCall(33, this, "ptr*", Selection, "HRESULT")
-        return result
+    get_Selection() {
+        result := ComCall(33, this, "ptr*", &Selection := 0, "HRESULT")
+        return IInkStrokes(Selection)
     }
 
     /**
@@ -349,15 +336,12 @@ class IInkOverlay extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} EraserMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_erasermode
      */
-    get_EraserMode(EraserMode) {
-        EraserModeMarshal := EraserMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(35, this, EraserModeMarshal, EraserMode, "HRESULT")
-        return result
+    get_EraserMode() {
+        result := ComCall(35, this, "int*", &EraserMode := 0, "HRESULT")
+        return EraserMode
     }
 
     /**
@@ -373,15 +357,12 @@ class IInkOverlay extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} EraserWidth 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_eraserwidth
      */
-    get_EraserWidth(EraserWidth) {
-        EraserWidthMarshal := EraserWidth is VarRef ? "int*" : "ptr"
-
-        result := ComCall(37, this, EraserWidthMarshal, EraserWidth, "HRESULT")
-        return result
+    get_EraserWidth() {
+        result := ComCall(37, this, "int*", &EraserWidth := 0, "HRESULT")
+        return EraserWidth
     }
 
     /**
@@ -397,15 +378,12 @@ class IInkOverlay extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} AttachMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_attachmode
      */
-    get_AttachMode(AttachMode) {
-        AttachModeMarshal := AttachMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(39, this, AttachModeMarshal, AttachMode, "HRESULT")
-        return result
+    get_AttachMode() {
+        result := ComCall(39, this, "int*", &AttachMode := 0, "HRESULT")
+        return AttachMode
     }
 
     /**
@@ -421,26 +399,22 @@ class IInkOverlay extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IInkCursors>} Cursors 
-     * @returns {HRESULT} 
+     * @returns {IInkCursors} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_cursors
      */
-    get_Cursors(Cursors) {
-        result := ComCall(41, this, "ptr*", Cursors, "HRESULT")
-        return result
+    get_Cursors() {
+        result := ComCall(41, this, "ptr*", &Cursors := 0, "HRESULT")
+        return IInkCursors(Cursors)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} MarginX 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_marginx
      */
-    get_MarginX(MarginX) {
-        MarginXMarshal := MarginX is VarRef ? "int*" : "ptr"
-
-        result := ComCall(42, this, MarginXMarshal, MarginX, "HRESULT")
-        return result
+    get_MarginX() {
+        result := ComCall(42, this, "int*", &MarginX := 0, "HRESULT")
+        return MarginX
     }
 
     /**
@@ -456,15 +430,12 @@ class IInkOverlay extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} MarginY 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_marginy
      */
-    get_MarginY(MarginY) {
-        MarginYMarshal := MarginY is VarRef ? "int*" : "ptr"
-
-        result := ComCall(44, this, MarginYMarshal, MarginY, "HRESULT")
-        return result
+    get_MarginY() {
+        result := ComCall(44, this, "int*", &MarginY := 0, "HRESULT")
+        return MarginY
     }
 
     /**
@@ -480,24 +451,22 @@ class IInkOverlay extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IInkTablet>} SingleTablet 
-     * @returns {HRESULT} 
+     * @returns {IInkTablet} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_tablet
      */
-    get_Tablet(SingleTablet) {
-        result := ComCall(46, this, "ptr*", SingleTablet, "HRESULT")
-        return result
+    get_Tablet() {
+        result := ComCall(46, this, "ptr*", &SingleTablet := 0, "HRESULT")
+        return IInkTablet(SingleTablet)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} Support 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_supporthighcontrastink
      */
-    get_SupportHighContrastInk(Support) {
-        result := ComCall(47, this, "ptr", Support, "HRESULT")
-        return result
+    get_SupportHighContrastInk() {
+        result := ComCall(47, this, "short*", &Support := 0, "HRESULT")
+        return Support
     }
 
     /**
@@ -513,13 +482,12 @@ class IInkOverlay extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} Support 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-get_supporthighcontrastselectionui
      */
-    get_SupportHighContrastSelectionUI(Support) {
-        result := ComCall(49, this, "ptr", Support, "HRESULT")
-        return result
+    get_SupportHighContrastSelectionUI() {
+        result := ComCall(49, this, "short*", &Support := 0, "HRESULT")
+        return Support
     }
 
     /**
@@ -537,15 +505,12 @@ class IInkOverlay extends IDispatch{
      * 
      * @param {Integer} x 
      * @param {Integer} y 
-     * @param {Pointer<Integer>} SelArea 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-hittestselection
      */
-    HitTestSelection(x, y, SelArea) {
-        SelAreaMarshal := SelArea is VarRef ? "int*" : "ptr"
-
-        result := ComCall(51, this, "int", x, "int", y, SelAreaMarshal, SelArea, "HRESULT")
-        return result
+    HitTestSelection(x, y) {
+        result := ComCall(51, this, "int", x, "int", y, "int*", &SelArea := 0, "HRESULT")
+        return SelArea
     }
 
     /**
@@ -574,13 +539,12 @@ class IInkOverlay extends IDispatch{
     /**
      * 
      * @param {Integer} Gesture 
-     * @param {Pointer<VARIANT_BOOL>} Listening 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-getgesturestatus
      */
-    GetGestureStatus(Gesture, Listening) {
-        result := ComCall(54, this, "int", Gesture, "ptr", Listening, "HRESULT")
-        return result
+    GetGestureStatus(Gesture) {
+        result := ComCall(54, this, "int", Gesture, "short*", &Listening := 0, "HRESULT")
+        return Listening
     }
 
     /**
@@ -630,13 +594,12 @@ class IInkOverlay extends IDispatch{
     /**
      * 
      * @param {Integer} EventId 
-     * @param {Pointer<VARIANT_BOOL>} Listen 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkoverlay-geteventinterest
      */
-    GetEventInterest(EventId, Listen) {
-        result := ComCall(59, this, "int", EventId, "ptr", Listen, "HRESULT")
-        return result
+    GetEventInterest(EventId) {
+        result := ComCall(59, this, "int", EventId, "short*", &Listen := 0, "HRESULT")
+        return Listen
     }
 
     /**

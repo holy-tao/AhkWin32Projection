@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\SimilarityData.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -48,12 +49,12 @@ class IRdcSimilarityGenerator extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<SimilarityData>} similarityData 
-     * @returns {HRESULT} 
+     * @returns {SimilarityData} 
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcsimilaritygenerator-results
      */
-    Results(similarityData) {
+    Results() {
+        similarityData := SimilarityData()
         result := ComCall(4, this, "ptr", similarityData, "HRESULT")
-        return result
+        return similarityData
     }
 }

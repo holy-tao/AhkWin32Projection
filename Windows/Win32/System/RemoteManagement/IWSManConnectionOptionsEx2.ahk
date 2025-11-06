@@ -50,92 +50,71 @@ class IWSManConnectionOptionsEx2 extends IWSManConnectionOptionsEx{
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanconnectionoptionsex2-proxyieconfig
      */
-    ProxyIEConfig(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, valueMarshal, value, "HRESULT")
-        return result
+    ProxyIEConfig() {
+        result := ComCall(13, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanconnectionoptionsex2-proxywinhttpconfig
      */
-    ProxyWinHttpConfig(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, valueMarshal, value, "HRESULT")
-        return result
+    ProxyWinHttpConfig() {
+        result := ComCall(14, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanconnectionoptionsex2-proxyautodetect
      */
-    ProxyAutoDetect(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, valueMarshal, value, "HRESULT")
-        return result
+    ProxyAutoDetect() {
+        result := ComCall(15, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanconnectionoptionsex2-proxynoproxyserver
      */
-    ProxyNoProxyServer(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, valueMarshal, value, "HRESULT")
-        return result
+    ProxyNoProxyServer() {
+        result := ComCall(16, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanconnectionoptionsex2-proxyauthenticationusenegotiate
      */
-    ProxyAuthenticationUseNegotiate(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, valueMarshal, value, "HRESULT")
-        return result
+    ProxyAuthenticationUseNegotiate() {
+        result := ComCall(17, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanconnectionoptionsex2-proxyauthenticationusebasic
      */
-    ProxyAuthenticationUseBasic(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(18, this, valueMarshal, value, "HRESULT")
-        return result
+    ProxyAuthenticationUseBasic() {
+        result := ComCall(18, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanconnectionoptionsex2-proxyauthenticationusedigest
      */
-    ProxyAuthenticationUseDigest(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(19, this, valueMarshal, value, "HRESULT")
-        return result
+    ProxyAuthenticationUseDigest() {
+        result := ComCall(19, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 }

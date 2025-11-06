@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IHTMLWindow2.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,12 +33,11 @@ class IHTMLFrameBase2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IHTMLWindow2>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLWindow2} 
      */
-    get_contentWindow(p) {
-        result := ComCall(7, this, "ptr*", p, "HRESULT")
-        return result
+    get_contentWindow() {
+        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLWindow2(p)
     }
 
     /**
@@ -50,12 +52,12 @@ class IHTMLFrameBase2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onload(p) {
+    get_onload() {
+        p := VARIANT()
         result := ComCall(9, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -70,22 +72,22 @@ class IHTMLFrameBase2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onreadystatechange(p) {
+    get_onreadystatechange() {
+        p := VARIANT()
         result := ComCall(11, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_readyState(p) {
+    get_readyState() {
+        p := BSTR()
         result := ComCall(12, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -100,11 +102,10 @@ class IHTMLFrameBase2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_allowTransparency(p) {
-        result := ComCall(14, this, "ptr", p, "HRESULT")
-        return result
+    get_allowTransparency() {
+        result := ComCall(14, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 }

@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IDataModelNameBinder.ahk
+#Include .\IDataModelScriptProvider.ahk
+#Include .\IDataModelScriptProviderEnumerator.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -30,12 +33,11 @@ class IDataModelScriptManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDataModelNameBinder>} ppNameBinder 
-     * @returns {HRESULT} 
+     * @returns {IDataModelNameBinder} 
      */
-    GetDefaultNameBinder(ppNameBinder) {
-        result := ComCall(3, this, "ptr*", ppNameBinder, "HRESULT")
-        return result
+    GetDefaultNameBinder() {
+        result := ComCall(3, this, "ptr*", &ppNameBinder := 0, "HRESULT")
+        return IDataModelNameBinder(ppNameBinder)
     }
 
     /**
@@ -61,36 +63,33 @@ class IDataModelScriptManager extends IUnknown{
     /**
      * 
      * @param {PWSTR} scriptType 
-     * @param {Pointer<IDataModelScriptProvider>} provider 
-     * @returns {HRESULT} 
+     * @returns {IDataModelScriptProvider} 
      */
-    FindProviderForScriptType(scriptType, provider) {
+    FindProviderForScriptType(scriptType) {
         scriptType := scriptType is String ? StrPtr(scriptType) : scriptType
 
-        result := ComCall(6, this, "ptr", scriptType, "ptr*", provider, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", scriptType, "ptr*", &provider := 0, "HRESULT")
+        return IDataModelScriptProvider(provider)
     }
 
     /**
      * 
      * @param {PWSTR} scriptExtension 
-     * @param {Pointer<IDataModelScriptProvider>} provider 
-     * @returns {HRESULT} 
+     * @returns {IDataModelScriptProvider} 
      */
-    FindProviderForScriptExtension(scriptExtension, provider) {
+    FindProviderForScriptExtension(scriptExtension) {
         scriptExtension := scriptExtension is String ? StrPtr(scriptExtension) : scriptExtension
 
-        result := ComCall(7, this, "ptr", scriptExtension, "ptr*", provider, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", scriptExtension, "ptr*", &provider := 0, "HRESULT")
+        return IDataModelScriptProvider(provider)
     }
 
     /**
      * 
-     * @param {Pointer<IDataModelScriptProviderEnumerator>} enumerator 
-     * @returns {HRESULT} 
+     * @returns {IDataModelScriptProviderEnumerator} 
      */
-    EnumerateScriptProviders(enumerator) {
-        result := ComCall(8, this, "ptr*", enumerator, "HRESULT")
-        return result
+    EnumerateScriptProviders() {
+        result := ComCall(8, this, "ptr*", &enumerator := 0, "HRESULT")
+        return IDataModelScriptProviderEnumerator(enumerator)
     }
 }

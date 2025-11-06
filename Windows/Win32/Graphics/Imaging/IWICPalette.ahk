@@ -95,28 +95,22 @@ class IWICPalette extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pePaletteType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpalette-gettype
      */
-    GetType(pePaletteType) {
-        pePaletteTypeMarshal := pePaletteType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pePaletteTypeMarshal, pePaletteType, "HRESULT")
-        return result
+    GetType() {
+        result := ComCall(7, this, "int*", &pePaletteType := 0, "HRESULT")
+        return pePaletteType
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pcCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpalette-getcolorcount
      */
-    GetColorCount(pcCount) {
-        pcCountMarshal := pcCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pcCountMarshal, pcCount, "HRESULT")
-        return result
+    GetColorCount() {
+        result := ComCall(8, this, "uint*", &pcCount := 0, "HRESULT")
+        return pcCount
     }
 
     /**
@@ -137,34 +131,31 @@ class IWICPalette extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfIsBlackWhite 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpalette-isblackwhite
      */
-    IsBlackWhite(pfIsBlackWhite) {
-        result := ComCall(10, this, "ptr", pfIsBlackWhite, "HRESULT")
-        return result
+    IsBlackWhite() {
+        result := ComCall(10, this, "int*", &pfIsBlackWhite := 0, "HRESULT")
+        return pfIsBlackWhite
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfIsGrayscale 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpalette-isgrayscale
      */
-    IsGrayscale(pfIsGrayscale) {
-        result := ComCall(11, this, "ptr", pfIsGrayscale, "HRESULT")
-        return result
+    IsGrayscale() {
+        result := ComCall(11, this, "int*", &pfIsGrayscale := 0, "HRESULT")
+        return pfIsGrayscale
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfHasAlpha 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicpalette-hasalpha
      */
-    HasAlpha(pfHasAlpha) {
-        result := ComCall(12, this, "ptr", pfHasAlpha, "HRESULT")
-        return result
+    HasAlpha() {
+        result := ComCall(12, this, "int*", &pfHasAlpha := 0, "HRESULT")
+        return pfHasAlpha
     }
 }

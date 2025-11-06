@@ -94,15 +94,12 @@ class ISectionList extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2data/nf-mpeg2data-isectionlist-getnumberofsections
      */
-    GetNumberOfSections(pCount) {
-        pCountMarshal := pCount is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(6, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    GetNumberOfSections() {
+        result := ComCall(6, this, "ushort*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**

@@ -40,72 +40,63 @@ class ICOMAdminCatalog extends IDispatch{
     /**
      * 
      * @param {BSTR} bstrCollName 
-     * @param {Pointer<IDispatch>} ppCatalogCollection 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog-getcollection
      */
-    GetCollection(bstrCollName, ppCatalogCollection) {
+    GetCollection(bstrCollName) {
         bstrCollName := bstrCollName is String ? BSTR.Alloc(bstrCollName).Value : bstrCollName
 
-        result := ComCall(7, this, "ptr", bstrCollName, "ptr*", ppCatalogCollection, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", bstrCollName, "ptr*", &ppCatalogCollection := 0, "HRESULT")
+        return IDispatch(ppCatalogCollection)
     }
 
     /**
      * 
      * @param {BSTR} bstrCatalogServerName 
-     * @param {Pointer<IDispatch>} ppCatalogCollection 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog-connect
      */
-    Connect(bstrCatalogServerName, ppCatalogCollection) {
+    Connect(bstrCatalogServerName) {
         bstrCatalogServerName := bstrCatalogServerName is String ? BSTR.Alloc(bstrCatalogServerName).Value : bstrCatalogServerName
 
-        result := ComCall(8, this, "ptr", bstrCatalogServerName, "ptr*", ppCatalogCollection, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", bstrCatalogServerName, "ptr*", &ppCatalogCollection := 0, "HRESULT")
+        return IDispatch(ppCatalogCollection)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plMajorVersion 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog-get_majorversion
      */
-    get_MajorVersion(plMajorVersion) {
-        plMajorVersionMarshal := plMajorVersion is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, plMajorVersionMarshal, plMajorVersion, "HRESULT")
-        return result
+    get_MajorVersion() {
+        result := ComCall(9, this, "int*", &plMajorVersion := 0, "HRESULT")
+        return plMajorVersion
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plMinorVersion 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog-get_minorversion
      */
-    get_MinorVersion(plMinorVersion) {
-        plMinorVersionMarshal := plMinorVersion is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, plMinorVersionMarshal, plMinorVersion, "HRESULT")
-        return result
+    get_MinorVersion() {
+        result := ComCall(10, this, "int*", &plMinorVersion := 0, "HRESULT")
+        return plMinorVersion
     }
 
     /**
      * 
      * @param {BSTR} bstrCollName 
      * @param {Pointer<Pointer<SAFEARRAY>>} ppsaVarQuery 
-     * @param {Pointer<IDispatch>} ppCatalogCollection 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog-getcollectionbyquery
      */
-    GetCollectionByQuery(bstrCollName, ppsaVarQuery, ppCatalogCollection) {
+    GetCollectionByQuery(bstrCollName, ppsaVarQuery) {
         bstrCollName := bstrCollName is String ? BSTR.Alloc(bstrCollName).Value : bstrCollName
 
         ppsaVarQueryMarshal := ppsaVarQuery is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(11, this, "ptr", bstrCollName, ppsaVarQueryMarshal, ppsaVarQuery, "ptr*", ppCatalogCollection, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", bstrCollName, ppsaVarQueryMarshal, ppsaVarQuery, "ptr*", &ppCatalogCollection := 0, "HRESULT")
+        return IDispatch(ppCatalogCollection)
     }
 
     /**
@@ -336,9 +327,11 @@ class ICOMAdminCatalog extends IDispatch{
     QueryApplicationFile(bstrApplicationFile, pbstrApplicationName, pbstrApplicationDescription, pbHasUsers, pbIsProxy, ppsaVarFileNames) {
         bstrApplicationFile := bstrApplicationFile is String ? BSTR.Alloc(bstrApplicationFile).Value : bstrApplicationFile
 
+        pbHasUsersMarshal := pbHasUsers is VarRef ? "short*" : "ptr"
+        pbIsProxyMarshal := pbIsProxy is VarRef ? "short*" : "ptr"
         ppsaVarFileNamesMarshal := ppsaVarFileNames is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(27, this, "ptr", bstrApplicationFile, "ptr", pbstrApplicationName, "ptr", pbstrApplicationDescription, "ptr", pbHasUsers, "ptr", pbIsProxy, ppsaVarFileNamesMarshal, ppsaVarFileNames, "HRESULT")
+        result := ComCall(27, this, "ptr", bstrApplicationFile, "ptr", pbstrApplicationName, "ptr", pbstrApplicationDescription, pbHasUsersMarshal, pbHasUsers, pbIsProxyMarshal, pbIsProxy, ppsaVarFileNamesMarshal, ppsaVarFileNames, "HRESULT")
         return result
     }
 
@@ -358,15 +351,12 @@ class ICOMAdminCatalog extends IDispatch{
     /**
      * 
      * @param {Integer} lService 
-     * @param {Pointer<Integer>} plStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icomadmincatalog-servicecheck
      */
-    ServiceCheck(lService, plStatus) {
-        plStatusMarshal := plStatus is VarRef ? "int*" : "ptr"
-
-        result := ComCall(29, this, "int", lService, plStatusMarshal, plStatus, "HRESULT")
-        return result
+    ServiceCheck(lService) {
+        result := ComCall(29, this, "int", lService, "int*", &plStatus := 0, "HRESULT")
+        return plStatus
     }
 
     /**

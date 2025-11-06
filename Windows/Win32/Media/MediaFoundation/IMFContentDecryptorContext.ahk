@@ -34,15 +34,13 @@ class IMFContentDecryptorContext extends IUnknown{
      * 
      * @param {Integer} InputPrivateDataByteCount 
      * @param {Pointer<Void>} InputPrivateData 
-     * @param {Pointer<Integer>} OutputPrivateData 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcontentdecryptorcontext-initializehardwarekey
      */
-    InitializeHardwareKey(InputPrivateDataByteCount, InputPrivateData, OutputPrivateData) {
+    InitializeHardwareKey(InputPrivateDataByteCount, InputPrivateData) {
         InputPrivateDataMarshal := InputPrivateData is VarRef ? "ptr" : "ptr"
-        OutputPrivateDataMarshal := OutputPrivateData is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", InputPrivateDataByteCount, InputPrivateDataMarshal, InputPrivateData, OutputPrivateDataMarshal, OutputPrivateData, "HRESULT")
-        return result
+        result := ComCall(3, this, "uint", InputPrivateDataByteCount, InputPrivateDataMarshal, InputPrivateData, "uint*", &OutputPrivateData := 0, "HRESULT")
+        return OutputPrivateData
     }
 }

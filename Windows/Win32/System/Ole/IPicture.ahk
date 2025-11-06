@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\OLE_HANDLE.ahk
+#Include ..\..\Graphics\Gdi\HDC.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -109,63 +111,54 @@ class IPicture extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<OLE_HANDLE>} pHandle 
-     * @returns {HRESULT} 
+     * @returns {OLE_HANDLE} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipicture-get_handle
      */
-    get_Handle(pHandle) {
+    get_Handle() {
+        pHandle := OLE_HANDLE()
         result := ComCall(3, this, "ptr", pHandle, "HRESULT")
-        return result
+        return pHandle
     }
 
     /**
      * 
-     * @param {Pointer<OLE_HANDLE>} phPal 
-     * @returns {HRESULT} 
+     * @returns {OLE_HANDLE} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipicture-get_hpal
      */
-    get_hPal(phPal) {
+    get_hPal() {
+        phPal := OLE_HANDLE()
         result := ComCall(4, this, "ptr", phPal, "HRESULT")
-        return result
+        return phPal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipicture-get_type
      */
-    get_Type(pType) {
-        pTypeMarshal := pType is VarRef ? "short*" : "ptr"
-
-        result := ComCall(5, this, pTypeMarshal, pType, "HRESULT")
-        return result
+    get_Type() {
+        result := ComCall(5, this, "short*", &pType := 0, "HRESULT")
+        return pType
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pWidth 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipicture-get_width
      */
-    get_Width(pWidth) {
-        pWidthMarshal := pWidth is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, pWidthMarshal, pWidth, "HRESULT")
-        return result
+    get_Width() {
+        result := ComCall(6, this, "int*", &pWidth := 0, "HRESULT")
+        return pWidth
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pHeight 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipicture-get_height
      */
-    get_Height(pHeight) {
-        pHeightMarshal := pHeight is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pHeightMarshal, pHeight, "HRESULT")
-        return result
+    get_Height() {
+        result := ComCall(7, this, "int*", &pHeight := 0, "HRESULT")
+        return pHeight
     }
 
     /**
@@ -205,13 +198,13 @@ class IPicture extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HDC>} phDC 
-     * @returns {HRESULT} 
+     * @returns {HDC} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipicture-get_curdc
      */
-    get_CurDC(phDC) {
+    get_CurDC() {
+        phDC := HDC()
         result := ComCall(10, this, "ptr", phDC, "HRESULT")
-        return result
+        return phDC
     }
 
     /**
@@ -231,13 +224,12 @@ class IPicture extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pKeep 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipicture-get_keeporiginalformat
      */
-    get_KeepOriginalFormat(pKeep) {
-        result := ComCall(12, this, "ptr", pKeep, "HRESULT")
-        return result
+    get_KeepOriginalFormat() {
+        result := ComCall(12, this, "int*", &pKeep := 0, "HRESULT")
+        return pKeep
     }
 
     /**
@@ -265,27 +257,21 @@ class IPicture extends IUnknown{
      * 
      * @param {IStream} pStream 
      * @param {BOOL} fSaveMemCopy 
-     * @param {Pointer<Integer>} pCbSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipicture-saveasfile
      */
-    SaveAsFile(pStream, fSaveMemCopy, pCbSize) {
-        pCbSizeMarshal := pCbSize is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, "ptr", pStream, "int", fSaveMemCopy, pCbSizeMarshal, pCbSize, "HRESULT")
-        return result
+    SaveAsFile(pStream, fSaveMemCopy) {
+        result := ComCall(15, this, "ptr", pStream, "int", fSaveMemCopy, "int*", &pCbSize := 0, "HRESULT")
+        return pCbSize
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pDwAttr 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipicture-get_attributes
      */
-    get_Attributes(pDwAttr) {
-        pDwAttrMarshal := pDwAttr is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(16, this, pDwAttrMarshal, pDwAttr, "HRESULT")
-        return result
+    get_Attributes() {
+        result := ComCall(16, this, "uint*", &pDwAttr := 0, "HRESULT")
+        return pDwAttr
     }
 }

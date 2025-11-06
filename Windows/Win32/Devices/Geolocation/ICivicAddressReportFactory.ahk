@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDispCivicAddressReport.ahk
 #Include .\ILocationReportFactory.ahk
 
 /**
@@ -36,11 +37,10 @@ class ICivicAddressReportFactory extends ILocationReportFactory{
 
     /**
      * 
-     * @param {Pointer<IDispCivicAddressReport>} pVal 
-     * @returns {HRESULT} 
+     * @returns {IDispCivicAddressReport} 
      */
-    get_CivicAddressReport(pVal) {
-        result := ComCall(15, this, "ptr*", pVal, "HRESULT")
-        return result
+    get_CivicAddressReport() {
+        result := ComCall(15, this, "ptr*", &pVal := 0, "HRESULT")
+        return IDispCivicAddressReport(pVal)
     }
 }

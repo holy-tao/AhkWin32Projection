@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -46,12 +47,12 @@ class IWindowsUpdateAgentInfo extends IDispatch{
     /**
      * 
      * @param {VARIANT} varInfoIdentifier 
-     * @param {Pointer<VARIANT>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsupdateagentinfo-getinfo
      */
-    GetInfo(varInfoIdentifier, retval) {
+    GetInfo(varInfoIdentifier) {
+        retval := VARIANT()
         result := ComCall(7, this, "ptr", varInfoIdentifier, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 }

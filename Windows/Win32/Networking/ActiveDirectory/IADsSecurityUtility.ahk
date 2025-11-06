@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -48,13 +49,13 @@ class IADsSecurityUtility extends IDispatch{
      * @param {VARIANT} varPath 
      * @param {Integer} lPathFormat 
      * @param {Integer} lFormat 
-     * @param {Pointer<VARIANT>} pVariant 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadssecurityutility-getsecuritydescriptor
      */
-    GetSecurityDescriptor(varPath, lPathFormat, lFormat, pVariant) {
+    GetSecurityDescriptor(varPath, lPathFormat, lFormat) {
+        pVariant := VARIANT()
         result := ComCall(7, this, "ptr", varPath, "int", lPathFormat, "int", lFormat, "ptr", pVariant, "HRESULT")
-        return result
+        return pVariant
     }
 
     /**
@@ -76,26 +77,23 @@ class IADsSecurityUtility extends IDispatch{
      * @param {VARIANT} varSD 
      * @param {Integer} lDataFormat 
      * @param {Integer} lOutFormat 
-     * @param {Pointer<VARIANT>} pResult 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadssecurityutility-convertsecuritydescriptor
      */
-    ConvertSecurityDescriptor(varSD, lDataFormat, lOutFormat, pResult) {
+    ConvertSecurityDescriptor(varSD, lDataFormat, lOutFormat) {
+        pResult := VARIANT()
         result := ComCall(9, this, "ptr", varSD, "int", lDataFormat, "int", lOutFormat, "ptr", pResult, "HRESULT")
-        return result
+        return pResult
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadssecurityutility-get_securitymask
      */
-    get_SecurityMask(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_SecurityMask() {
+        result := ComCall(10, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**

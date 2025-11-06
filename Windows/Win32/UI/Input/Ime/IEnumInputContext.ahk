@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IEnumInputContext.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,12 +31,11 @@ class IEnumInputContext extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumInputContext>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumInputContext} 
      */
-    Clone(ppEnum) {
-        result := ComCall(3, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(3, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumInputContext(ppEnum)
     }
 
     /**

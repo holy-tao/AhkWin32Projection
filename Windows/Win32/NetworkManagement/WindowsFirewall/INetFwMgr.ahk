@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\INetFwPolicy.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -50,26 +51,22 @@ class INetFwMgr extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<INetFwPolicy>} localPolicy 
-     * @returns {HRESULT} 
+     * @returns {INetFwPolicy} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwmgr-get_localpolicy
      */
-    get_LocalPolicy(localPolicy) {
-        result := ComCall(7, this, "ptr*", localPolicy, "HRESULT")
-        return result
+    get_LocalPolicy() {
+        result := ComCall(7, this, "ptr*", &localPolicy := 0, "HRESULT")
+        return INetFwPolicy(localPolicy)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} profileType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwmgr-get_currentprofiletype
      */
-    get_CurrentProfileType(profileType) {
-        profileTypeMarshal := profileType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, profileTypeMarshal, profileType, "HRESULT")
-        return result
+    get_CurrentProfileType() {
+        result := ComCall(8, this, "int*", &profileType := 0, "HRESULT")
+        return profileType
     }
 
     /**

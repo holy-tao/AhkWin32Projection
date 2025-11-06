@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISCPSession.ahk
 #Include .\ISCPSecureAuthenticate.ahk
 
 /**
@@ -32,12 +33,11 @@ class ISCPSecureAuthenticate2 extends ISCPSecureAuthenticate{
 
     /**
      * 
-     * @param {Pointer<ISCPSession>} ppSCPSession 
-     * @returns {HRESULT} 
+     * @returns {ISCPSession} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iscpsecureauthenticate2-getscpsession
      */
-    GetSCPSession(ppSCPSession) {
-        result := ComCall(4, this, "ptr*", ppSCPSession, "HRESULT")
-        return result
+    GetSCPSession() {
+        result := ComCall(4, this, "ptr*", &ppSCPSession := 0, "HRESULT")
+        return ISCPSession(ppSCPSession)
     }
 }

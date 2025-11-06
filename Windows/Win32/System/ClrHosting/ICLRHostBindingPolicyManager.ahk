@@ -35,20 +35,18 @@ class ICLRHostBindingPolicyManager extends IUnknown{
      * @param {Pointer<Integer>} pbApplicationPolicy 
      * @param {Integer} cbAppPolicySize 
      * @param {Integer} dwPolicyModifyFlags 
-     * @param {Pointer<Integer>} pbNewApplicationPolicy 
      * @param {Pointer<Integer>} pcbNewAppPolicySize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    ModifyApplicationPolicy(pwzSourceAssemblyIdentity, pwzTargetAssemblyIdentity, pbApplicationPolicy, cbAppPolicySize, dwPolicyModifyFlags, pbNewApplicationPolicy, pcbNewAppPolicySize) {
+    ModifyApplicationPolicy(pwzSourceAssemblyIdentity, pwzTargetAssemblyIdentity, pbApplicationPolicy, cbAppPolicySize, dwPolicyModifyFlags, pcbNewAppPolicySize) {
         pwzSourceAssemblyIdentity := pwzSourceAssemblyIdentity is String ? StrPtr(pwzSourceAssemblyIdentity) : pwzSourceAssemblyIdentity
         pwzTargetAssemblyIdentity := pwzTargetAssemblyIdentity is String ? StrPtr(pwzTargetAssemblyIdentity) : pwzTargetAssemblyIdentity
 
         pbApplicationPolicyMarshal := pbApplicationPolicy is VarRef ? "char*" : "ptr"
-        pbNewApplicationPolicyMarshal := pbNewApplicationPolicy is VarRef ? "char*" : "ptr"
         pcbNewAppPolicySizeMarshal := pcbNewAppPolicySize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pwzSourceAssemblyIdentity, "ptr", pwzTargetAssemblyIdentity, pbApplicationPolicyMarshal, pbApplicationPolicy, "uint", cbAppPolicySize, "uint", dwPolicyModifyFlags, pbNewApplicationPolicyMarshal, pbNewApplicationPolicy, pcbNewAppPolicySizeMarshal, pcbNewAppPolicySize, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pwzSourceAssemblyIdentity, "ptr", pwzTargetAssemblyIdentity, pbApplicationPolicyMarshal, pbApplicationPolicy, "uint", cbAppPolicySize, "uint", dwPolicyModifyFlags, "char*", &pbNewApplicationPolicy := 0, pcbNewAppPolicySizeMarshal, pcbNewAppPolicySize, "HRESULT")
+        return pbNewApplicationPolicy
     }
 
     /**
@@ -58,18 +56,16 @@ class ICLRHostBindingPolicyManager extends IUnknown{
      * @param {Integer} cbAppPolicySize 
      * @param {PWSTR} pwzPostPolicyReferenceIdentity 
      * @param {Pointer<Integer>} pcchPostPolicyReferenceIdentity 
-     * @param {Pointer<Integer>} pdwPoliciesApplied 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    EvaluatePolicy(pwzReferenceIdentity, pbApplicationPolicy, cbAppPolicySize, pwzPostPolicyReferenceIdentity, pcchPostPolicyReferenceIdentity, pdwPoliciesApplied) {
+    EvaluatePolicy(pwzReferenceIdentity, pbApplicationPolicy, cbAppPolicySize, pwzPostPolicyReferenceIdentity, pcchPostPolicyReferenceIdentity) {
         pwzReferenceIdentity := pwzReferenceIdentity is String ? StrPtr(pwzReferenceIdentity) : pwzReferenceIdentity
         pwzPostPolicyReferenceIdentity := pwzPostPolicyReferenceIdentity is String ? StrPtr(pwzPostPolicyReferenceIdentity) : pwzPostPolicyReferenceIdentity
 
         pbApplicationPolicyMarshal := pbApplicationPolicy is VarRef ? "char*" : "ptr"
         pcchPostPolicyReferenceIdentityMarshal := pcchPostPolicyReferenceIdentity is VarRef ? "uint*" : "ptr"
-        pdwPoliciesAppliedMarshal := pdwPoliciesApplied is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pwzReferenceIdentity, pbApplicationPolicyMarshal, pbApplicationPolicy, "uint", cbAppPolicySize, "ptr", pwzPostPolicyReferenceIdentity, pcchPostPolicyReferenceIdentityMarshal, pcchPostPolicyReferenceIdentity, pdwPoliciesAppliedMarshal, pdwPoliciesApplied, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pwzReferenceIdentity, pbApplicationPolicyMarshal, pbApplicationPolicy, "uint", cbAppPolicySize, "ptr", pwzPostPolicyReferenceIdentity, pcchPostPolicyReferenceIdentityMarshal, pcchPostPolicyReferenceIdentity, "uint*", &pdwPoliciesApplied := 0, "HRESULT")
+        return pdwPoliciesApplied
     }
 }

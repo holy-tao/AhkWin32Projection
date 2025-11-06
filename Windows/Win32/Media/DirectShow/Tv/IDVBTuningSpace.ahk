@@ -43,15 +43,12 @@ class IDVBTuningSpace extends ITuningSpace{
 
     /**
      * 
-     * @param {Pointer<Integer>} SysType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtuningspace-get_systemtype
      */
-    get_SystemType(SysType) {
-        SysTypeMarshal := SysType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(26, this, SysTypeMarshal, SysType, "HRESULT")
-        return result
+    get_SystemType() {
+        result := ComCall(26, this, "int*", &SysType := 0, "HRESULT")
+        return SysType
     }
 
     /**

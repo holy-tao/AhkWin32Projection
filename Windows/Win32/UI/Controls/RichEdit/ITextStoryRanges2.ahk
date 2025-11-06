@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ITextRange2.ahk
 #Include .\ITextStoryRanges.ahk
 
 /**
@@ -33,12 +34,11 @@ class ITextStoryRanges2 extends ITextStoryRanges{
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<ITextRange2>} ppRange 
-     * @returns {HRESULT} 
+     * @returns {ITextRange2} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstoryranges2-item2
      */
-    Item2(Index, ppRange) {
-        result := ComCall(10, this, "int", Index, "ptr*", ppRange, "HRESULT")
-        return result
+    Item2(Index) {
+        result := ComCall(10, this, "int", Index, "ptr*", &ppRange := 0, "HRESULT")
+        return ITextRange2(ppRange)
     }
 }

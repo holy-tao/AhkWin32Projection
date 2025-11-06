@@ -33,59 +33,52 @@ class IDiscFormat2 extends IDispatch{
     /**
      * 
      * @param {IDiscRecorder2} recorder 
-     * @param {Pointer<VARIANT_BOOL>} value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2-isrecordersupported
      */
-    IsRecorderSupported(recorder, value) {
-        result := ComCall(7, this, "ptr", recorder, "ptr", value, "HRESULT")
-        return result
+    IsRecorderSupported(recorder) {
+        result := ComCall(7, this, "ptr", recorder, "short*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
      * @param {IDiscRecorder2} recorder 
-     * @param {Pointer<VARIANT_BOOL>} value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2-iscurrentmediasupported
      */
-    IsCurrentMediaSupported(recorder, value) {
-        result := ComCall(8, this, "ptr", recorder, "ptr", value, "HRESULT")
-        return result
+    IsCurrentMediaSupported(recorder) {
+        result := ComCall(8, this, "ptr", recorder, "short*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2-get_mediaphysicallyblank
      */
-    get_MediaPhysicallyBlank(value) {
-        result := ComCall(9, this, "ptr", value, "HRESULT")
-        return result
+    get_MediaPhysicallyBlank() {
+        result := ComCall(9, this, "short*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2-get_mediaheuristicallyblank
      */
-    get_MediaHeuristicallyBlank(value) {
-        result := ComCall(10, this, "ptr", value, "HRESULT")
-        return result
+    get_MediaHeuristicallyBlank() {
+        result := ComCall(10, this, "short*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} value 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2-get_supportedmediatypes
      */
-    get_SupportedMediaTypes(value) {
-        valueMarshal := value is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(11, this, valueMarshal, value, "HRESULT")
-        return result
+    get_SupportedMediaTypes() {
+        result := ComCall(11, this, "ptr*", &value := 0, "HRESULT")
+        return value
     }
 }

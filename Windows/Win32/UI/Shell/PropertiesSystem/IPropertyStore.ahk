@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\PROPERTYKEY.ahk
+#Include ..\..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,39 +34,36 @@ class IPropertyStore extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} cProps 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertystore-getcount
      */
-    GetCount(cProps) {
-        cPropsMarshal := cProps is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, cPropsMarshal, cProps, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(3, this, "uint*", &cProps := 0, "HRESULT")
+        return cProps
     }
 
     /**
      * 
      * @param {Integer} iProp 
-     * @param {Pointer<PROPERTYKEY>} pkey 
-     * @returns {HRESULT} 
+     * @returns {PROPERTYKEY} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertystore-getat
      */
-    GetAt(iProp, pkey) {
+    GetAt(iProp) {
+        pkey := PROPERTYKEY()
         result := ComCall(4, this, "uint", iProp, "ptr", pkey, "HRESULT")
-        return result
+        return pkey
     }
 
     /**
      * 
      * @param {Pointer<PROPERTYKEY>} key 
-     * @param {Pointer<PROPVARIANT>} pv 
-     * @returns {HRESULT} 
+     * @returns {PROPVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertystore-getvalue
      */
-    GetValue(key, pv) {
+    GetValue(key) {
+        pv := PROPVARIANT()
         result := ComCall(5, this, "ptr", key, "ptr", pv, "HRESULT")
-        return result
+        return pv
     }
 
     /**

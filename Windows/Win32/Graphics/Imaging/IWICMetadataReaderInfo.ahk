@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWICMetadataReader.ahk
 #Include .\IWICMetadataHandlerInfo.ahk
 
 /**
@@ -52,23 +53,21 @@ class IWICMetadataReaderInfo extends IWICMetadataHandlerInfo{
      * 
      * @param {Pointer<Guid>} guidContainerFormat 
      * @param {IStream} pIStream 
-     * @param {Pointer<BOOL>} pfMatches 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatareaderinfo-matchespattern
      */
-    MatchesPattern(guidContainerFormat, pIStream, pfMatches) {
-        result := ComCall(19, this, "ptr", guidContainerFormat, "ptr", pIStream, "ptr", pfMatches, "HRESULT")
-        return result
+    MatchesPattern(guidContainerFormat, pIStream) {
+        result := ComCall(19, this, "ptr", guidContainerFormat, "ptr", pIStream, "int*", &pfMatches := 0, "HRESULT")
+        return pfMatches
     }
 
     /**
      * 
-     * @param {Pointer<IWICMetadataReader>} ppIReader 
-     * @returns {HRESULT} 
+     * @returns {IWICMetadataReader} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatareaderinfo-createinstance
      */
-    CreateInstance(ppIReader) {
-        result := ComCall(20, this, "ptr*", ppIReader, "HRESULT")
-        return result
+    CreateInstance() {
+        result := ComCall(20, this, "ptr*", &ppIReader := 0, "HRESULT")
+        return IWICMetadataReader(ppIReader)
     }
 }

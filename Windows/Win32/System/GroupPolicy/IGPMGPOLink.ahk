@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IGPMSOM.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -38,32 +40,31 @@ class IGPMGPOLink extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_GPOID(pVal) {
+    get_GPOID() {
+        pVal := BSTR()
         result := ComCall(7, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_GPODomain(pVal) {
+    get_GPODomain() {
+        pVal := BSTR()
         result := ComCall(8, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_Enabled(pVal) {
-        result := ComCall(9, this, "ptr", pVal, "HRESULT")
-        return result
+    get_Enabled() {
+        result := ComCall(9, this, "short*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -78,12 +79,11 @@ class IGPMGPOLink extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_Enforced(pVal) {
-        result := ComCall(11, this, "ptr", pVal, "HRESULT")
-        return result
+    get_Enforced() {
+        result := ComCall(11, this, "short*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -98,24 +98,20 @@ class IGPMGPOLink extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} lVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_SOMLinkOrder(lVal) {
-        lValMarshal := lVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, lValMarshal, lVal, "HRESULT")
-        return result
+    get_SOMLinkOrder() {
+        result := ComCall(13, this, "int*", &lVal := 0, "HRESULT")
+        return lVal
     }
 
     /**
      * 
-     * @param {Pointer<IGPMSOM>} ppIGPMSOM 
-     * @returns {HRESULT} 
+     * @returns {IGPMSOM} 
      */
-    get_SOM(ppIGPMSOM) {
-        result := ComCall(14, this, "ptr*", ppIGPMSOM, "HRESULT")
-        return result
+    get_SOM() {
+        result := ComCall(14, this, "ptr*", &ppIGPMSOM := 0, "HRESULT")
+        return IGPMSOM(ppIGPMSOM)
     }
 
     /**

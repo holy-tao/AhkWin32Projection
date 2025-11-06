@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumWorkItems.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -69,12 +70,11 @@ class IEnumWorkItems extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumWorkItems>} ppEnumWorkItems 
-     * @returns {HRESULT} 
+     * @returns {IEnumWorkItems} 
      * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ienumworkitems-clone
      */
-    Clone(ppEnumWorkItems) {
-        result := ComCall(6, this, "ptr*", ppEnumWorkItems, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppEnumWorkItems := 0, "HRESULT")
+        return IEnumWorkItems(ppEnumWorkItems)
     }
 }

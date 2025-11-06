@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITPhone.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\ITCallInfo.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,112 +35,92 @@ class ITPhoneEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ITPhone>} ppPhone 
-     * @returns {HRESULT} 
+     * @returns {ITPhone} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphoneevent-get_phone
      */
-    get_Phone(ppPhone) {
-        result := ComCall(7, this, "ptr*", ppPhone, "HRESULT")
-        return result
+    get_Phone() {
+        result := ComCall(7, this, "ptr*", &ppPhone := 0, "HRESULT")
+        return ITPhone(ppPhone)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pEvent 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphoneevent-get_event
      */
-    get_Event(pEvent) {
-        pEventMarshal := pEvent is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pEventMarshal, pEvent, "HRESULT")
-        return result
+    get_Event() {
+        result := ComCall(8, this, "int*", &pEvent := 0, "HRESULT")
+        return pEvent
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphoneevent-get_buttonstate
      */
-    get_ButtonState(pState) {
-        pStateMarshal := pState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pStateMarshal, pState, "HRESULT")
-        return result
+    get_ButtonState() {
+        result := ComCall(9, this, "int*", &pState := 0, "HRESULT")
+        return pState
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphoneevent-get_hookswitchstate
      */
-    get_HookSwitchState(pState) {
-        pStateMarshal := pState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, pStateMarshal, pState, "HRESULT")
-        return result
+    get_HookSwitchState() {
+        result := ComCall(10, this, "int*", &pState := 0, "HRESULT")
+        return pState
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pDevice 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphoneevent-get_hookswitchdevice
      */
-    get_HookSwitchDevice(pDevice) {
-        pDeviceMarshal := pDevice is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, pDeviceMarshal, pDevice, "HRESULT")
-        return result
+    get_HookSwitchDevice() {
+        result := ComCall(11, this, "int*", &pDevice := 0, "HRESULT")
+        return pDevice
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plRingMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphoneevent-get_ringmode
      */
-    get_RingMode(plRingMode) {
-        plRingModeMarshal := plRingMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, plRingModeMarshal, plRingMode, "HRESULT")
-        return result
+    get_RingMode() {
+        result := ComCall(12, this, "int*", &plRingMode := 0, "HRESULT")
+        return plRingMode
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plButtonLampId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphoneevent-get_buttonlampid
      */
-    get_ButtonLampId(plButtonLampId) {
-        plButtonLampIdMarshal := plButtonLampId is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, plButtonLampIdMarshal, plButtonLampId, "HRESULT")
-        return result
+    get_ButtonLampId() {
+        result := ComCall(13, this, "int*", &plButtonLampId := 0, "HRESULT")
+        return plButtonLampId
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} ppNumber 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphoneevent-get_numbergathered
      */
-    get_NumberGathered(ppNumber) {
+    get_NumberGathered() {
+        ppNumber := BSTR()
         result := ComCall(14, this, "ptr", ppNumber, "HRESULT")
-        return result
+        return ppNumber
     }
 
     /**
      * 
-     * @param {Pointer<ITCallInfo>} ppCallInfo 
-     * @returns {HRESULT} 
+     * @returns {ITCallInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphoneevent-get_call
      */
-    get_Call(ppCallInfo) {
-        result := ComCall(15, this, "ptr*", ppCallInfo, "HRESULT")
-        return result
+    get_Call() {
+        result := ComCall(15, this, "ptr*", &ppCallInfo := 0, "HRESULT")
+        return ITCallInfo(ppCallInfo)
     }
 }

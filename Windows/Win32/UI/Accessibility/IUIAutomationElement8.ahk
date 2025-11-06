@@ -32,27 +32,21 @@ class IUIAutomationElement8 extends IUIAutomationElement7{
 
     /**
      * 
-     * @param {Pointer<Integer>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement8-get_currentheadinglevel
      */
-    get_CurrentHeadingLevel(retVal) {
-        retValMarshal := retVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(115, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CurrentHeadingLevel() {
+        result := ComCall(115, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement8-get_cachedheadinglevel
      */
-    get_CachedHeadingLevel(retVal) {
-        retValMarshal := retVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(116, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CachedHeadingLevel() {
+        result := ComCall(116, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 }

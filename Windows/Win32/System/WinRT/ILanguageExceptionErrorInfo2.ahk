@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ILanguageExceptionErrorInfo2.ahk
 #Include .\ILanguageExceptionErrorInfo.ahk
 
 /**
@@ -32,13 +33,12 @@ class ILanguageExceptionErrorInfo2 extends ILanguageExceptionErrorInfo{
 
     /**
      * 
-     * @param {Pointer<ILanguageExceptionErrorInfo2>} previousLanguageExceptionErrorInfo 
-     * @returns {HRESULT} 
+     * @returns {ILanguageExceptionErrorInfo2} 
      * @see https://learn.microsoft.com/windows/win32/api/restrictederrorinfo/nf-restrictederrorinfo-ilanguageexceptionerrorinfo2-getpreviouslanguageexceptionerrorinfo
      */
-    GetPreviousLanguageExceptionErrorInfo(previousLanguageExceptionErrorInfo) {
-        result := ComCall(4, this, "ptr*", previousLanguageExceptionErrorInfo, "HRESULT")
-        return result
+    GetPreviousLanguageExceptionErrorInfo() {
+        result := ComCall(4, this, "ptr*", &previousLanguageExceptionErrorInfo := 0, "HRESULT")
+        return ILanguageExceptionErrorInfo2(previousLanguageExceptionErrorInfo)
     }
 
     /**
@@ -54,12 +54,11 @@ class ILanguageExceptionErrorInfo2 extends ILanguageExceptionErrorInfo{
 
     /**
      * 
-     * @param {Pointer<ILanguageExceptionErrorInfo2>} propagatedLanguageExceptionErrorInfoHead 
-     * @returns {HRESULT} 
+     * @returns {ILanguageExceptionErrorInfo2} 
      * @see https://learn.microsoft.com/windows/win32/api/restrictederrorinfo/nf-restrictederrorinfo-ilanguageexceptionerrorinfo2-getpropagationcontexthead
      */
-    GetPropagationContextHead(propagatedLanguageExceptionErrorInfoHead) {
-        result := ComCall(6, this, "ptr*", propagatedLanguageExceptionErrorInfoHead, "HRESULT")
-        return result
+    GetPropagationContextHead() {
+        result := ComCall(6, this, "ptr*", &propagatedLanguageExceptionErrorInfoHead := 0, "HRESULT")
+        return ILanguageExceptionErrorInfo2(propagatedLanguageExceptionErrorInfoHead)
     }
 }

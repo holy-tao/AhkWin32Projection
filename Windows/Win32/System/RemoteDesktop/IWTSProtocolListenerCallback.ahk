@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWTSProtocolConnectionCallback.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -33,12 +34,11 @@ class IWTSProtocolListenerCallback extends IUnknown{
     /**
      * 
      * @param {IWTSProtocolConnection} pConnection 
-     * @param {Pointer<IWTSProtocolConnectionCallback>} pCallback 
-     * @returns {HRESULT} 
+     * @returns {IWTSProtocolConnectionCallback} 
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwtsprotocollistenercallback-onconnected
      */
-    OnConnected(pConnection, pCallback) {
-        result := ComCall(3, this, "ptr", pConnection, "ptr*", pCallback, "HRESULT")
-        return result
+    OnConnected(pConnection) {
+        result := ComCall(3, this, "ptr", pConnection, "ptr*", &pCallback := 0, "HRESULT")
+        return IWTSProtocolConnectionCallback(pCallback)
     }
 }

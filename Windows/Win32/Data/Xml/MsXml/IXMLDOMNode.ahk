@@ -2,6 +2,11 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
+#Include .\IXMLDOMNode.ahk
+#Include .\IXMLDOMNodeList.ahk
+#Include .\IXMLDOMNamedNodeMap.ahk
+#Include .\IXMLDOMDocument.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -31,22 +36,22 @@ class IXMLDOMNode extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_nodeName(name) {
+    get_nodeName() {
+        name := BSTR()
         result := ComCall(7, this, "ptr", name, "HRESULT")
-        return result
+        return name
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_nodeValue(value) {
+    get_nodeValue() {
+        value := VARIANT()
         result := ComCall(8, this, "ptr", value, "HRESULT")
-        return result
+        return value
     }
 
     /**
@@ -61,181 +66,164 @@ class IXMLDOMNode extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} type 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_nodeType(type) {
-        typeMarshal := type is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, typeMarshal, type, "HRESULT")
-        return result
+    get_nodeType() {
+        result := ComCall(10, this, "int*", &type := 0, "HRESULT")
+        return type
     }
 
     /**
      * 
-     * @param {Pointer<IXMLDOMNode>} parent 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMNode} 
      */
-    get_parentNode(parent) {
-        result := ComCall(11, this, "ptr*", parent, "HRESULT")
-        return result
+    get_parentNode() {
+        result := ComCall(11, this, "ptr*", &parent := 0, "HRESULT")
+        return IXMLDOMNode(parent)
     }
 
     /**
      * 
-     * @param {Pointer<IXMLDOMNodeList>} childList 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMNodeList} 
      */
-    get_childNodes(childList) {
-        result := ComCall(12, this, "ptr*", childList, "HRESULT")
-        return result
+    get_childNodes() {
+        result := ComCall(12, this, "ptr*", &childList := 0, "HRESULT")
+        return IXMLDOMNodeList(childList)
     }
 
     /**
      * 
-     * @param {Pointer<IXMLDOMNode>} firstChild 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMNode} 
      */
-    get_firstChild(firstChild) {
-        result := ComCall(13, this, "ptr*", firstChild, "HRESULT")
-        return result
+    get_firstChild() {
+        result := ComCall(13, this, "ptr*", &firstChild := 0, "HRESULT")
+        return IXMLDOMNode(firstChild)
     }
 
     /**
      * 
-     * @param {Pointer<IXMLDOMNode>} lastChild 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMNode} 
      */
-    get_lastChild(lastChild) {
-        result := ComCall(14, this, "ptr*", lastChild, "HRESULT")
-        return result
+    get_lastChild() {
+        result := ComCall(14, this, "ptr*", &lastChild := 0, "HRESULT")
+        return IXMLDOMNode(lastChild)
     }
 
     /**
      * 
-     * @param {Pointer<IXMLDOMNode>} previousSibling 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMNode} 
      */
-    get_previousSibling(previousSibling) {
-        result := ComCall(15, this, "ptr*", previousSibling, "HRESULT")
-        return result
+    get_previousSibling() {
+        result := ComCall(15, this, "ptr*", &previousSibling := 0, "HRESULT")
+        return IXMLDOMNode(previousSibling)
     }
 
     /**
      * 
-     * @param {Pointer<IXMLDOMNode>} nextSibling 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMNode} 
      */
-    get_nextSibling(nextSibling) {
-        result := ComCall(16, this, "ptr*", nextSibling, "HRESULT")
-        return result
+    get_nextSibling() {
+        result := ComCall(16, this, "ptr*", &nextSibling := 0, "HRESULT")
+        return IXMLDOMNode(nextSibling)
     }
 
     /**
      * 
-     * @param {Pointer<IXMLDOMNamedNodeMap>} attributeMap 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMNamedNodeMap} 
      */
-    get_attributes(attributeMap) {
-        result := ComCall(17, this, "ptr*", attributeMap, "HRESULT")
-        return result
+    get_attributes() {
+        result := ComCall(17, this, "ptr*", &attributeMap := 0, "HRESULT")
+        return IXMLDOMNamedNodeMap(attributeMap)
     }
 
     /**
      * 
      * @param {IXMLDOMNode} newChild 
      * @param {VARIANT} refChild 
-     * @param {Pointer<IXMLDOMNode>} outNewChild 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMNode} 
      */
-    insertBefore(newChild, refChild, outNewChild) {
-        result := ComCall(18, this, "ptr", newChild, "ptr", refChild, "ptr*", outNewChild, "HRESULT")
-        return result
+    insertBefore(newChild, refChild) {
+        result := ComCall(18, this, "ptr", newChild, "ptr", refChild, "ptr*", &outNewChild := 0, "HRESULT")
+        return IXMLDOMNode(outNewChild)
     }
 
     /**
      * 
      * @param {IXMLDOMNode} newChild 
      * @param {IXMLDOMNode} oldChild 
-     * @param {Pointer<IXMLDOMNode>} outOldChild 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMNode} 
      */
-    replaceChild(newChild, oldChild, outOldChild) {
-        result := ComCall(19, this, "ptr", newChild, "ptr", oldChild, "ptr*", outOldChild, "HRESULT")
-        return result
+    replaceChild(newChild, oldChild) {
+        result := ComCall(19, this, "ptr", newChild, "ptr", oldChild, "ptr*", &outOldChild := 0, "HRESULT")
+        return IXMLDOMNode(outOldChild)
     }
 
     /**
      * 
      * @param {IXMLDOMNode} childNode 
-     * @param {Pointer<IXMLDOMNode>} oldChild 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMNode} 
      */
-    removeChild(childNode, oldChild) {
-        result := ComCall(20, this, "ptr", childNode, "ptr*", oldChild, "HRESULT")
-        return result
+    removeChild(childNode) {
+        result := ComCall(20, this, "ptr", childNode, "ptr*", &oldChild := 0, "HRESULT")
+        return IXMLDOMNode(oldChild)
     }
 
     /**
      * 
      * @param {IXMLDOMNode} newChild 
-     * @param {Pointer<IXMLDOMNode>} outNewChild 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMNode} 
      */
-    appendChild(newChild, outNewChild) {
-        result := ComCall(21, this, "ptr", newChild, "ptr*", outNewChild, "HRESULT")
-        return result
+    appendChild(newChild) {
+        result := ComCall(21, this, "ptr", newChild, "ptr*", &outNewChild := 0, "HRESULT")
+        return IXMLDOMNode(outNewChild)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} hasChild 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    hasChildNodes(hasChild) {
-        result := ComCall(22, this, "ptr", hasChild, "HRESULT")
-        return result
+    hasChildNodes() {
+        result := ComCall(22, this, "short*", &hasChild := 0, "HRESULT")
+        return hasChild
     }
 
     /**
      * 
-     * @param {Pointer<IXMLDOMDocument>} XMLDOMDocument 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMDocument} 
      */
-    get_ownerDocument(XMLDOMDocument) {
-        result := ComCall(23, this, "ptr*", XMLDOMDocument, "HRESULT")
-        return result
+    get_ownerDocument() {
+        result := ComCall(23, this, "ptr*", &XMLDOMDocument := 0, "HRESULT")
+        return IXMLDOMDocument(XMLDOMDocument)
     }
 
     /**
      * 
      * @param {VARIANT_BOOL} deep 
-     * @param {Pointer<IXMLDOMNode>} cloneRoot 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMNode} 
      */
-    cloneNode(deep, cloneRoot) {
-        result := ComCall(24, this, "short", deep, "ptr*", cloneRoot, "HRESULT")
-        return result
+    cloneNode(deep) {
+        result := ComCall(24, this, "short", deep, "ptr*", &cloneRoot := 0, "HRESULT")
+        return IXMLDOMNode(cloneRoot)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} nodeType 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_nodeTypeString(nodeType) {
+    get_nodeTypeString() {
+        nodeType := BSTR()
         result := ComCall(25, this, "ptr", nodeType, "HRESULT")
-        return result
+        return nodeType
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} text 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_text(text) {
+    get_text() {
+        text := BSTR()
         result := ComCall(26, this, "ptr", text, "HRESULT")
-        return result
+        return text
     }
 
     /**
@@ -252,32 +240,30 @@ class IXMLDOMNode extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} isSpecified 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_specified(isSpecified) {
-        result := ComCall(28, this, "ptr", isSpecified, "HRESULT")
-        return result
+    get_specified() {
+        result := ComCall(28, this, "short*", &isSpecified := 0, "HRESULT")
+        return isSpecified
     }
 
     /**
      * 
-     * @param {Pointer<IXMLDOMNode>} definitionNode 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMNode} 
      */
-    get_definition(definitionNode) {
-        result := ComCall(29, this, "ptr*", definitionNode, "HRESULT")
-        return result
+    get_definition() {
+        result := ComCall(29, this, "ptr*", &definitionNode := 0, "HRESULT")
+        return IXMLDOMNode(definitionNode)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} typedValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_nodeTypedValue(typedValue) {
+    get_nodeTypedValue() {
+        typedValue := VARIANT()
         result := ComCall(30, this, "ptr", typedValue, "HRESULT")
-        return result
+        return typedValue
     }
 
     /**
@@ -292,12 +278,12 @@ class IXMLDOMNode extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} dataTypeName 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_dataType(dataTypeName) {
+    get_dataType() {
+        dataTypeName := VARIANT()
         result := ComCall(32, this, "ptr", dataTypeName, "HRESULT")
-        return result
+        return dataTypeName
     }
 
     /**
@@ -314,89 +300,86 @@ class IXMLDOMNode extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} xmlString 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_xml(xmlString) {
+    get_xml() {
+        xmlString := BSTR()
         result := ComCall(34, this, "ptr", xmlString, "HRESULT")
-        return result
+        return xmlString
     }
 
     /**
      * 
      * @param {IXMLDOMNode} stylesheet 
-     * @param {Pointer<BSTR>} xmlString 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    transformNode(stylesheet, xmlString) {
+    transformNode(stylesheet) {
+        xmlString := BSTR()
         result := ComCall(35, this, "ptr", stylesheet, "ptr", xmlString, "HRESULT")
-        return result
+        return xmlString
     }
 
     /**
      * 
      * @param {BSTR} queryString 
-     * @param {Pointer<IXMLDOMNodeList>} resultList 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMNodeList} 
      */
-    selectNodes(queryString, resultList) {
+    selectNodes(queryString) {
         queryString := queryString is String ? BSTR.Alloc(queryString).Value : queryString
 
-        result := ComCall(36, this, "ptr", queryString, "ptr*", resultList, "HRESULT")
-        return result
+        result := ComCall(36, this, "ptr", queryString, "ptr*", &resultList := 0, "HRESULT")
+        return IXMLDOMNodeList(resultList)
     }
 
     /**
      * 
      * @param {BSTR} queryString 
-     * @param {Pointer<IXMLDOMNode>} resultNode 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMNode} 
      */
-    selectSingleNode(queryString, resultNode) {
+    selectSingleNode(queryString) {
         queryString := queryString is String ? BSTR.Alloc(queryString).Value : queryString
 
-        result := ComCall(37, this, "ptr", queryString, "ptr*", resultNode, "HRESULT")
-        return result
+        result := ComCall(37, this, "ptr", queryString, "ptr*", &resultNode := 0, "HRESULT")
+        return IXMLDOMNode(resultNode)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} isParsed 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_parsed(isParsed) {
-        result := ComCall(38, this, "ptr", isParsed, "HRESULT")
-        return result
+    get_parsed() {
+        result := ComCall(38, this, "short*", &isParsed := 0, "HRESULT")
+        return isParsed
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} namespaceURI 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_namespaceURI(namespaceURI) {
+    get_namespaceURI() {
+        namespaceURI := BSTR()
         result := ComCall(39, this, "ptr", namespaceURI, "HRESULT")
-        return result
+        return namespaceURI
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} prefixString 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_prefix(prefixString) {
+    get_prefix() {
+        prefixString := BSTR()
         result := ComCall(40, this, "ptr", prefixString, "HRESULT")
-        return result
+        return prefixString
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} nameString 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_baseName(nameString) {
+    get_baseName() {
+        nameString := BSTR()
         result := ComCall(41, this, "ptr", nameString, "HRESULT")
-        return result
+        return nameString
     }
 
     /**

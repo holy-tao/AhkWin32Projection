@@ -38,9 +38,10 @@ class IOfflineFilesEventsFilter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefileseventsfilter-getpathfilter
      */
     GetPathFilter(ppszFilter, pMatch) {
+        ppszFilterMarshal := ppszFilter is VarRef ? "ptr*" : "ptr"
         pMatchMarshal := pMatch is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", ppszFilter, pMatchMarshal, pMatch, "HRESULT")
+        result := ComCall(3, this, ppszFilterMarshal, ppszFilter, pMatchMarshal, pMatch, "HRESULT")
         return result
     }
 

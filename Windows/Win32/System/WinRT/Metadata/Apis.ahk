@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
+#Include .\ROPARAMIIDHANDLE.ahk
 
 /**
  * @namespace Windows.Win32.System.WinRT.Metadata
@@ -979,23 +980,18 @@ class Metadata {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * The interface to implement. This parameter can be either <b>IID_IMetaDataDispenser</b> or <b>IID_IMetaDataDispenserEx</b>.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>LPVOID*</b>
+     * @returns {Pointer<Void>} Type: <b>LPVOID*</b>
      * 
      * The dispenser class. The class implements <b>IMetaDataDispenser</b> or <b>IMetaDataDispenserEx.</b>
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//rometadata/nf-rometadata-metadatagetdispenser
      * @since windows8.0
      */
-    static MetaDataGetDispenser(rclsid, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("RoMetadata.dll\MetaDataGetDispenser", "ptr", rclsid, "ptr", riid, ppvMarshal, ppv, "int")
+    static MetaDataGetDispenser(rclsid, riid) {
+        result := DllCall("RoMetadata.dll\MetaDataGetDispenser", "ptr", rclsid, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -1275,60 +1271,20 @@ class Metadata {
      * @param {Integer} minorVersion Type: <b>UINT16</b>
      * 
      * The minor version number of the API contract.
-     * @param {Pointer<BOOL>} present Type: <b>BOOL*</b>
+     * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * True if the specified API contract is present; otherwise, false.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The specified API contract is valid and is present.
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>RO_E_METADATA_NAME_NOT_FOUND</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input string is not an API contract defined in any examined .winmd file.
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>RO_E_METADATA_NAME_IS_NAMESPACE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input string is an existing namespace rather than an API contract name.
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//rometadataresolution/nf-rometadataresolution-roisapicontractpresent
      * @since windows10.0.10240
      */
-    static RoIsApiContractPresent(name, majorVersion, minorVersion, present) {
+    static RoIsApiContractPresent(name, majorVersion, minorVersion) {
         name := name is String ? StrPtr(name) : name
 
-        result := DllCall("api-ms-win-ro-typeresolution-l1-1-1.dll\RoIsApiContractPresent", "ptr", name, "ushort", majorVersion, "ushort", minorVersion, "ptr", present, "int")
+        result := DllCall("api-ms-win-ro-typeresolution-l1-1-1.dll\RoIsApiContractPresent", "ptr", name, "ushort", majorVersion, "ushort", minorVersion, "int*", &present := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return present
     }
 
     /**
@@ -1339,86 +1295,44 @@ class Metadata {
      * @param {Integer} majorVersion Type: <b>UINT16</b>
      * 
      * The major version number of the API contract.
-     * @param {Pointer<BOOL>} present Type: <b>BOOL*</b>
+     * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * True if the specified API contract is present; otherwise, false.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The specified API contract is valid and is present.
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>RO_E_METADATA_NAME_NOT_FOUND</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input string is not an API contract defined in any examined .winmd file.
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>RO_E_METADATA_NAME_IS_NAMESPACE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input string is an existing namespace rather than an API contract name.
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//rometadataresolution/nf-rometadataresolution-roisapicontractmajorversionpresent
      * @since windows10.0.10240
      */
-    static RoIsApiContractMajorVersionPresent(name, majorVersion, present) {
+    static RoIsApiContractMajorVersionPresent(name, majorVersion) {
         name := name is String ? StrPtr(name) : name
 
-        result := DllCall("api-ms-win-ro-typeresolution-l1-1-1.dll\RoIsApiContractMajorVersionPresent", "ptr", name, "ushort", majorVersion, "ptr", present, "int")
+        result := DllCall("api-ms-win-ro-typeresolution-l1-1-1.dll\RoIsApiContractMajorVersionPresent", "ptr", name, "ushort", majorVersion, "int*", &present := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return present
     }
 
     /**
      * 
-     * @param {Pointer<IPropertySet>} ppPropertySet 
-     * @returns {HRESULT} 
+     * @returns {Pointer<IPropertySet>} 
      */
-    static RoCreateNonAgilePropertySet(ppPropertySet) {
-        result := DllCall("api-ms-win-ro-typeresolution-l1-1-1.dll\RoCreateNonAgilePropertySet", "ptr*", ppPropertySet, "int")
+    static RoCreateNonAgilePropertySet() {
+        result := DllCall("api-ms-win-ro-typeresolution-l1-1-1.dll\RoCreateNonAgilePropertySet", "ptr*", &ppPropertySet := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppPropertySet
     }
 
     /**
      * 
-     * @param {Pointer<IPropertySetSerializer>} ppPropertySetSerializer 
-     * @returns {HRESULT} 
+     * @returns {Pointer<IPropertySetSerializer>} 
      */
-    static RoCreatePropertySetSerializer(ppPropertySetSerializer) {
-        result := DllCall("api-ms-win-ro-typeresolution-l1-1-1.dll\RoCreatePropertySetSerializer", "ptr*", ppPropertySetSerializer, "int")
+    static RoCreatePropertySetSerializer() {
+        result := DllCall("api-ms-win-ro-typeresolution-l1-1-1.dll\RoCreatePropertySetSerializer", "ptr*", &ppPropertySetSerializer := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppPropertySetSerializer
     }
 
     /**
@@ -1438,62 +1352,21 @@ class Metadata {
      * @param {Pointer<Guid>} iid Type: <b>GUID*</b>
      * 
      * The IID of the interface or delegate that corresponds with <i>nameElements</i>.
-     * @param {Pointer<ROPARAMIIDHANDLE>} pExtra Type: <b>ROPARAMIIDHANDLE*</b>
+     * @returns {ROPARAMIIDHANDLE} Type: <b>ROPARAMIIDHANDLE*</b>
      * 
      * Handle to the IID that corresponds with <i>nameElements</i>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The call was successful.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory available to complete the task.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The wrong number of type arguments are provided for a parameterized type.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * A failure may also occur if a type is inappropriate for the context in which it appears.
      * @see https://docs.microsoft.com/windows/win32/api//roparameterizediid/nf-roparameterizediid-rogetparameterizedtypeinstanceiid
      * @since windows8.0
      */
-    static RoGetParameterizedTypeInstanceIID(nameElementCount, nameElements, metaDataLocator, iid, pExtra) {
-        result := DllCall("api-ms-win-core-winrt-roparameterizediid-l1-1-0.dll\RoGetParameterizedTypeInstanceIID", "uint", nameElementCount, "ptr", nameElements, "ptr", metaDataLocator, "ptr", iid, "ptr", pExtra, "int")
+    static RoGetParameterizedTypeInstanceIID(nameElementCount, nameElements, metaDataLocator, iid) {
+        nameElementsMarshal := nameElements is VarRef ? "ptr*" : "ptr"
+
+        pExtra := ROPARAMIIDHANDLE()
+        result := DllCall("api-ms-win-core-winrt-roparameterizediid-l1-1-0.dll\RoGetParameterizedTypeInstanceIID", "uint", nameElementCount, nameElementsMarshal, nameElements, "ptr", metaDataLocator, "ptr", iid, "ptr", pExtra, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pExtra
     }
 
     /**
@@ -1525,7 +1398,7 @@ class Metadata {
     static RoParameterizedTypeExtraGetTypeSignature(extra) {
         extra := extra is Win32Handle ? NumGet(extra, "ptr") : extra
 
-        result := DllCall("api-ms-win-core-winrt-roparameterizediid-l1-1-0.dll\RoParameterizedTypeExtraGetTypeSignature", "ptr", extra, "char*")
+        result := DllCall("api-ms-win-core-winrt-roparameterizediid-l1-1-0.dll\RoParameterizedTypeExtraGetTypeSignature", "ptr", extra, "ptr")
         return result
     }
 

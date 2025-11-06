@@ -48,12 +48,11 @@ class ISpStreamFormatConverter extends ISpStreamFormat{
 
     /**
      * 
-     * @param {Pointer<ISpStreamFormat>} ppStream 
-     * @returns {HRESULT} 
+     * @returns {ISpStreamFormat} 
      */
-    GetBaseStream(ppStream) {
-        result := ComCall(16, this, "ptr*", ppStream, "HRESULT")
-        return result
+    GetBaseStream() {
+        result := ComCall(16, this, "ptr*", &ppStream := 0, "HRESULT")
+        return ISpStreamFormat(ppStream)
     }
 
     /**
@@ -79,26 +78,20 @@ class ISpStreamFormatConverter extends ISpStreamFormat{
     /**
      * 
      * @param {Integer} ullOffsetConvertedStream 
-     * @param {Pointer<Integer>} pullOffsetBaseStream 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    ScaleConvertedToBaseOffset(ullOffsetConvertedStream, pullOffsetBaseStream) {
-        pullOffsetBaseStreamMarshal := pullOffsetBaseStream is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(19, this, "uint", ullOffsetConvertedStream, pullOffsetBaseStreamMarshal, pullOffsetBaseStream, "HRESULT")
-        return result
+    ScaleConvertedToBaseOffset(ullOffsetConvertedStream) {
+        result := ComCall(19, this, "uint", ullOffsetConvertedStream, "uint*", &pullOffsetBaseStream := 0, "HRESULT")
+        return pullOffsetBaseStream
     }
 
     /**
      * 
      * @param {Integer} ullOffsetBaseStream 
-     * @param {Pointer<Integer>} pullOffsetConvertedStream 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    ScaleBaseToConvertedOffset(ullOffsetBaseStream, pullOffsetConvertedStream) {
-        pullOffsetConvertedStreamMarshal := pullOffsetConvertedStream is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(20, this, "uint", ullOffsetBaseStream, pullOffsetConvertedStreamMarshal, pullOffsetConvertedStream, "HRESULT")
-        return result
+    ScaleBaseToConvertedOffset(ullOffsetBaseStream) {
+        result := ComCall(20, this, "uint", ullOffsetBaseStream, "uint*", &pullOffsetConvertedStream := 0, "HRESULT")
+        return pullOffsetConvertedStream
     }
 }

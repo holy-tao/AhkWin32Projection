@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IObjectId.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -47,48 +48,44 @@ class IPolicyQualifier extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IObjectId>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IObjectId} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ipolicyqualifier-get_objectid
      */
-    get_ObjectId(ppValue) {
-        result := ComCall(8, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_ObjectId() {
+        result := ComCall(8, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IObjectId(ppValue)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ipolicyqualifier-get_qualifier
      */
-    get_Qualifier(pValue) {
+    get_Qualifier() {
+        pValue := BSTR()
         result := ComCall(9, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ipolicyqualifier-get_type
      */
-    get_Type(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_Type() {
+        result := ComCall(10, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ipolicyqualifier-get_rawdata
      */
-    get_RawData(Encoding, pValue) {
+    get_RawData(Encoding) {
+        pValue := BSTR()
         result := ComCall(11, this, "int", Encoding, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 }

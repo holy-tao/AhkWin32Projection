@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDirect3DSurface9.ahk
 #Include .\IDirect3DBaseTexture9.ahk
 
 /**
@@ -66,13 +67,12 @@ class IDirect3DTexture9 extends IDirect3DBaseTexture9{
     /**
      * 
      * @param {Integer} Level 
-     * @param {Pointer<IDirect3DSurface9>} ppSurfaceLevel 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DSurface9} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dtexture9-getsurfacelevel
      */
-    GetSurfaceLevel(Level, ppSurfaceLevel) {
-        result := ComCall(18, this, "uint", Level, "ptr*", ppSurfaceLevel, "HRESULT")
-        return result
+    GetSurfaceLevel(Level) {
+        result := ComCall(18, this, "uint", Level, "ptr*", &ppSurfaceLevel := 0, "HRESULT")
+        return IDirect3DSurface9(ppSurfaceLevel)
     }
 
     /**

@@ -54,7 +54,9 @@ class IAMNetShowPreroll extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowpreroll-get_preroll
      */
     get_Preroll(pfPreroll) {
-        result := ComCall(8, this, "ptr", pfPreroll, "HRESULT")
+        pfPrerollMarshal := pfPreroll is VarRef ? "short*" : "ptr"
+
+        result := ComCall(8, this, pfPrerollMarshal, pfPreroll, "HRESULT")
         return result
     }
 }

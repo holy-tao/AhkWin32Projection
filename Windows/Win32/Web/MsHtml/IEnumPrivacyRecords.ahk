@@ -39,24 +39,20 @@ class IEnumPrivacyRecords extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetSize(pSize) {
-        pSizeMarshal := pSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pSizeMarshal, pSize, "HRESULT")
-        return result
+    GetSize() {
+        result := ComCall(4, this, "uint*", &pSize := 0, "HRESULT")
+        return pSize
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pState 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    GetPrivacyImpacted(pState) {
-        result := ComCall(5, this, "ptr", pState, "HRESULT")
-        return result
+    GetPrivacyImpacted() {
+        result := ComCall(5, this, "int*", &pState := 0, "HRESULT")
+        return pState
     }
 
     /**

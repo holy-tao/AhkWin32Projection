@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\IUpdate.ahk
 
 /**
@@ -37,95 +38,86 @@ class IWindowsDriverUpdate extends IUpdate{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate-get_driverclass
      */
-    get_DriverClass(retval) {
+    get_DriverClass() {
+        retval := BSTR()
         result := ComCall(52, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate-get_driverhardwareid
      */
-    get_DriverHardwareID(retval) {
+    get_DriverHardwareID() {
+        retval := BSTR()
         result := ComCall(53, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate-get_drivermanufacturer
      */
-    get_DriverManufacturer(retval) {
+    get_DriverManufacturer() {
+        retval := BSTR()
         result := ComCall(54, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate-get_drivermodel
      */
-    get_DriverModel(retval) {
+    get_DriverModel() {
+        retval := BSTR()
         result := ComCall(55, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate-get_driverprovider
      */
-    get_DriverProvider(retval) {
+    get_DriverProvider() {
+        retval := BSTR()
         result := ComCall(56, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<Float>} retval 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate-get_driververdate
      */
-    get_DriverVerDate(retval) {
-        retvalMarshal := retval is VarRef ? "double*" : "ptr"
-
-        result := ComCall(57, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_DriverVerDate() {
+        result := ComCall(57, this, "double*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate-get_deviceproblemnumber
      */
-    get_DeviceProblemNumber(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(58, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_DeviceProblemNumber() {
+        result := ComCall(58, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate-get_devicestatus
      */
-    get_DeviceStatus(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(59, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_DeviceStatus() {
+        result := ComCall(59, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 }

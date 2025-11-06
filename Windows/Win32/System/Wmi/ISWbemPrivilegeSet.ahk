@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\ISWbemPrivilege.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -37,47 +39,41 @@ class ISWbemPrivilegeSet extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} pUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__NewEnum(pUnk) {
-        result := ComCall(7, this, "ptr*", pUnk, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(7, this, "ptr*", &pUnk := 0, "HRESULT")
+        return IUnknown(pUnk)
     }
 
     /**
      * 
      * @param {Integer} iPrivilege 
-     * @param {Pointer<ISWbemPrivilege>} objWbemPrivilege 
-     * @returns {HRESULT} 
+     * @returns {ISWbemPrivilege} 
      */
-    Item(iPrivilege, objWbemPrivilege) {
-        result := ComCall(8, this, "int", iPrivilege, "ptr*", objWbemPrivilege, "HRESULT")
-        return result
+    Item(iPrivilege) {
+        result := ComCall(8, this, "int", iPrivilege, "ptr*", &objWbemPrivilege := 0, "HRESULT")
+        return ISWbemPrivilege(objWbemPrivilege)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} iCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Count(iCount) {
-        iCountMarshal := iCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, iCountMarshal, iCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(9, this, "int*", &iCount := 0, "HRESULT")
+        return iCount
     }
 
     /**
      * 
      * @param {Integer} iPrivilege 
      * @param {VARIANT_BOOL} bIsEnabled 
-     * @param {Pointer<ISWbemPrivilege>} objWbemPrivilege 
-     * @returns {HRESULT} 
+     * @returns {ISWbemPrivilege} 
      */
-    Add(iPrivilege, bIsEnabled, objWbemPrivilege) {
-        result := ComCall(10, this, "int", iPrivilege, "short", bIsEnabled, "ptr*", objWbemPrivilege, "HRESULT")
-        return result
+    Add(iPrivilege, bIsEnabled) {
+        result := ComCall(10, this, "int", iPrivilege, "short", bIsEnabled, "ptr*", &objWbemPrivilege := 0, "HRESULT")
+        return ISWbemPrivilege(objWbemPrivilege)
     }
 
     /**
@@ -103,13 +99,12 @@ class ISWbemPrivilegeSet extends IDispatch{
      * 
      * @param {BSTR} strPrivilege 
      * @param {VARIANT_BOOL} bIsEnabled 
-     * @param {Pointer<ISWbemPrivilege>} objWbemPrivilege 
-     * @returns {HRESULT} 
+     * @returns {ISWbemPrivilege} 
      */
-    AddAsString(strPrivilege, bIsEnabled, objWbemPrivilege) {
+    AddAsString(strPrivilege, bIsEnabled) {
         strPrivilege := strPrivilege is String ? BSTR.Alloc(strPrivilege).Value : strPrivilege
 
-        result := ComCall(13, this, "ptr", strPrivilege, "short", bIsEnabled, "ptr*", objWbemPrivilege, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", strPrivilege, "short", bIsEnabled, "ptr*", &objWbemPrivilege := 0, "HRESULT")
+        return ISWbemPrivilege(objWbemPrivilege)
     }
 }

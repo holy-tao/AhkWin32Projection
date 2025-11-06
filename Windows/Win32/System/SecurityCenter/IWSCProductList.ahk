@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWscProduct.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -59,26 +60,22 @@ class IWSCProductList extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/iwscapi/nf-iwscapi-iwscproductlist-get_count
      */
-    get_Count(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(8, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<IWscProduct>} pVal 
-     * @returns {HRESULT} 
+     * @returns {IWscProduct} 
      * @see https://learn.microsoft.com/windows/win32/api/iwscapi/nf-iwscapi-iwscproductlist-get_item
      */
-    get_Item(index, pVal) {
-        result := ComCall(9, this, "uint", index, "ptr*", pVal, "HRESULT")
-        return result
+    get_Item(index) {
+        result := ComCall(9, this, "uint", index, "ptr*", &pVal := 0, "HRESULT")
+        return IWscProduct(pVal)
     }
 }

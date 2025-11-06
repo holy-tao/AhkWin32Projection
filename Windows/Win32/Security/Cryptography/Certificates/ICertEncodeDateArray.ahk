@@ -46,29 +46,23 @@ class ICertEncodeDateArray extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodedatearray-getcount
      */
-    GetCount(pCount) {
-        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(8, this, "int*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<Float>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodedatearray-getvalue
      */
-    GetValue(Index, pValue) {
-        pValueMarshal := pValue is VarRef ? "double*" : "ptr"
-
-        result := ComCall(9, this, "int", Index, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetValue(Index) {
+        result := ComCall(9, this, "int", Index, "double*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -96,12 +90,12 @@ class ICertEncodeDateArray extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pstrBinary 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodedatearray-encode
      */
-    Encode(pstrBinary) {
+    Encode() {
+        pstrBinary := BSTR()
         result := ComCall(12, this, "ptr", pstrBinary, "HRESULT")
-        return result
+        return pstrBinary
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Variant\VARIANT.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -32,12 +33,12 @@ class IActiveScriptProperty extends IUnknown{
      * 
      * @param {Integer} dwProperty 
      * @param {Pointer<VARIANT>} pvarIndex 
-     * @param {Pointer<VARIANT>} pvarValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    GetProperty(dwProperty, pvarIndex, pvarValue) {
+    GetProperty(dwProperty, pvarIndex) {
+        pvarValue := VARIANT()
         result := ComCall(3, this, "uint", dwProperty, "ptr", pvarIndex, "ptr", pvarValue, "HRESULT")
-        return result
+        return pvarValue
     }
 
     /**

@@ -106,14 +106,11 @@ class IApplicationDesignModeSettings2 extends IApplicationDesignModeSettings{
     /**
      * 
      * @param {SIZE} applicationSizePixels 
-     * @param {Pointer<Integer>} viewOrientation 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationdesignmodesettings2-getapplicationvieworientation
      */
-    GetApplicationViewOrientation(applicationSizePixels, viewOrientation) {
-        viewOrientationMarshal := viewOrientation is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, "ptr", applicationSizePixels, viewOrientationMarshal, viewOrientation, "HRESULT")
-        return result
+    GetApplicationViewOrientation(applicationSizePixels) {
+        result := ComCall(15, this, "ptr", applicationSizePixels, "int*", &viewOrientation := 0, "HRESULT")
+        return viewOrientation
     }
 }

@@ -34,16 +34,13 @@ class IMFMediaEngineClassFactory4 extends IUnknown{
      * 
      * @param {PWSTR} keySystem 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvObject 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineclassfactory4-createcontentdecryptionmodulefactory
      */
-    CreateContentDecryptionModuleFactory(keySystem, riid, ppvObject) {
+    CreateContentDecryptionModuleFactory(keySystem, riid) {
         keySystem := keySystem is String ? StrPtr(keySystem) : keySystem
 
-        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", keySystem, "ptr", riid, ppvObjectMarshal, ppvObject, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", keySystem, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
+        return ppvObject
     }
 }

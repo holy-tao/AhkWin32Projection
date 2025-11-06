@@ -42,11 +42,10 @@ class IMFMediaEngineAudioEndpointId extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszEndpointId 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetAudioEndpointId(ppszEndpointId) {
-        result := ComCall(4, this, "ptr", ppszEndpointId, "HRESULT")
-        return result
+    GetAudioEndpointId() {
+        result := ComCall(4, this, "ptr*", &ppszEndpointId := 0, "HRESULT")
+        return ppszEndpointId
     }
 }

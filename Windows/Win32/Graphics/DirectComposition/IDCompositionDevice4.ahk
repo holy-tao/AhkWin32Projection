@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDCompositionTexture.ahk
 #Include .\IDCompositionDevice3.ahk
 
 /**
@@ -31,22 +32,20 @@ class IDCompositionDevice4 extends IDCompositionDevice3{
     /**
      * 
      * @param {IUnknown} renderingDevice 
-     * @param {Pointer<BOOL>} supportsCompositionTextures 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    CheckCompositionTextureSupport(renderingDevice, supportsCompositionTextures) {
-        result := ComCall(37, this, "ptr", renderingDevice, "ptr", supportsCompositionTextures, "HRESULT")
-        return result
+    CheckCompositionTextureSupport(renderingDevice) {
+        result := ComCall(37, this, "ptr", renderingDevice, "int*", &supportsCompositionTextures := 0, "HRESULT")
+        return supportsCompositionTextures
     }
 
     /**
      * 
      * @param {IUnknown} d3dTexture 
-     * @param {Pointer<IDCompositionTexture>} compositionTexture 
-     * @returns {HRESULT} 
+     * @returns {IDCompositionTexture} 
      */
-    CreateCompositionTexture(d3dTexture, compositionTexture) {
-        result := ComCall(38, this, "ptr", d3dTexture, "ptr*", compositionTexture, "HRESULT")
-        return result
+    CreateCompositionTexture(d3dTexture) {
+        result := ComCall(38, this, "ptr", d3dTexture, "ptr*", &compositionTexture := 0, "HRESULT")
+        return IDCompositionTexture(compositionTexture)
     }
 }

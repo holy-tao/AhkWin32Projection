@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Web\MsHtml\IHTMLDocument2.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -43,13 +44,12 @@ class IWebApplicationHost extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IHTMLDocument2>} htmlDocument 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDocument2} 
      * @see https://learn.microsoft.com/windows/win32/api/webapplication/nf-webapplication-iwebapplicationhost-get_document
      */
-    get_Document(htmlDocument) {
-        result := ComCall(4, this, "ptr*", htmlDocument, "HRESULT")
-        return result
+    get_Document() {
+        result := ComCall(4, this, "ptr*", &htmlDocument := 0, "HRESULT")
+        return IHTMLDocument2(htmlDocument)
     }
 
     /**

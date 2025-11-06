@@ -40,17 +40,14 @@ class IDirectManipulationUpdateManager extends IUnknown{
      * 
      * @param {HANDLE} handle 
      * @param {IDirectManipulationUpdateHandler} eventHandler 
-     * @param {Pointer<Integer>} cookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationupdatemanager-registerwaithandlecallback
      */
-    RegisterWaitHandleCallback(handle, eventHandler, cookie) {
+    RegisterWaitHandleCallback(handle, eventHandler) {
         handle := handle is Win32Handle ? NumGet(handle, "ptr") : handle
 
-        cookieMarshal := cookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", handle, "ptr", eventHandler, cookieMarshal, cookie, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", handle, "ptr", eventHandler, "uint*", &cookie := 0, "HRESULT")
+        return cookie
     }
 
     /**

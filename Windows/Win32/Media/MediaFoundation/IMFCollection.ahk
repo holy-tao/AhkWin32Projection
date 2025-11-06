@@ -37,27 +37,23 @@ class IMFCollection extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcElements 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfcollection-getelementcount
      */
-    GetElementCount(pcElements) {
-        pcElementsMarshal := pcElements is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pcElementsMarshal, pcElements, "HRESULT")
-        return result
+    GetElementCount() {
+        result := ComCall(3, this, "uint*", &pcElements := 0, "HRESULT")
+        return pcElements
     }
 
     /**
      * 
      * @param {Integer} dwElementIndex 
-     * @param {Pointer<IUnknown>} ppUnkElement 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfcollection-getelement
      */
-    GetElement(dwElementIndex, ppUnkElement) {
-        result := ComCall(4, this, "uint", dwElementIndex, "ptr*", ppUnkElement, "HRESULT")
-        return result
+    GetElement(dwElementIndex) {
+        result := ComCall(4, this, "uint", dwElementIndex, "ptr*", &ppUnkElement := 0, "HRESULT")
+        return IUnknown(ppUnkElement)
     }
 
     /**
@@ -74,13 +70,12 @@ class IMFCollection extends IUnknown{
     /**
      * 
      * @param {Integer} dwElementIndex 
-     * @param {Pointer<IUnknown>} ppUnkElement 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfcollection-removeelement
      */
-    RemoveElement(dwElementIndex, ppUnkElement) {
-        result := ComCall(6, this, "uint", dwElementIndex, "ptr*", ppUnkElement, "HRESULT")
-        return result
+    RemoveElement(dwElementIndex) {
+        result := ComCall(6, this, "uint", dwElementIndex, "ptr*", &ppUnkElement := 0, "HRESULT")
+        return IUnknown(ppUnkElement)
     }
 
     /**

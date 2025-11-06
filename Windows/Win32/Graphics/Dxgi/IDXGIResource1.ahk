@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDXGISurface2.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include .\IDXGIResource.ahk
 
 /**
@@ -54,13 +56,12 @@ class IDXGIResource1 extends IDXGIResource{
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<IDXGISurface2>} ppSurface 
-     * @returns {HRESULT} 
+     * @returns {IDXGISurface2} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgiresource1-createsubresourcesurface
      */
-    CreateSubresourceSurface(index, ppSurface) {
-        result := ComCall(12, this, "uint", index, "ptr*", ppSurface, "HRESULT")
-        return result
+    CreateSubresourceSurface(index) {
+        result := ComCall(12, this, "uint", index, "ptr*", &ppSurface := 0, "HRESULT")
+        return IDXGISurface2(ppSurface)
     }
 
     /**
@@ -68,14 +69,14 @@ class IDXGIResource1 extends IDXGIResource{
      * @param {Pointer<SECURITY_ATTRIBUTES>} pAttributes 
      * @param {Integer} dwAccess 
      * @param {PWSTR} lpName 
-     * @param {Pointer<HANDLE>} pHandle 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgiresource1-createsharedhandle
      */
-    CreateSharedHandle(pAttributes, dwAccess, lpName, pHandle) {
+    CreateSharedHandle(pAttributes, dwAccess, lpName) {
         lpName := lpName is String ? StrPtr(lpName) : lpName
 
+        pHandle := HANDLE()
         result := ComCall(13, this, "ptr", pAttributes, "uint", dwAccess, "ptr", lpName, "ptr", pHandle, "HRESULT")
-        return result
+        return pHandle
     }
 }

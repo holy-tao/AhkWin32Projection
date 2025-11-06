@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IADsCollection.ahk
 #Include .\IADs.ahk
 
 /**
@@ -32,25 +33,21 @@ class IADsPrintQueueOperations extends IADs{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Status(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(20, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_Status() {
+        result := ComCall(20, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<IADsCollection>} pObject 
-     * @returns {HRESULT} 
+     * @returns {IADsCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsprintqueueoperations-printjobs
      */
-    PrintJobs(pObject) {
-        result := ComCall(21, this, "ptr*", pObject, "HRESULT")
-        return result
+    PrintJobs() {
+        result := ComCall(21, this, "ptr*", &pObject := 0, "HRESULT")
+        return IADsCollection(pObject)
     }
 
     /**

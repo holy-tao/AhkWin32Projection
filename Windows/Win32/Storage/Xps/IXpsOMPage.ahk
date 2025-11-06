@@ -1,6 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsOMPageReference.ahk
+#Include .\IXpsOMVisualCollection.ahk
+#Include .\XPS_SIZE.ahk
+#Include .\XPS_RECT.ahk
+#Include .\IXpsOMDictionary.ahk
+#Include .\IXpsOMRemoteDictionaryResource.ahk
+#Include .\IXpsOMPage.ahk
 #Include .\IXpsOMPart.ahk
 
 /**
@@ -88,35 +95,33 @@ class IXpsOMPage extends IXpsOMPart{
 
     /**
      * 
-     * @param {Pointer<IXpsOMPageReference>} pageReference 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMPageReference} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getowner
      */
-    GetOwner(pageReference) {
-        result := ComCall(5, this, "ptr*", pageReference, "HRESULT")
-        return result
+    GetOwner() {
+        result := ComCall(5, this, "ptr*", &pageReference := 0, "HRESULT")
+        return IXpsOMPageReference(pageReference)
     }
 
     /**
      * 
-     * @param {Pointer<IXpsOMVisualCollection>} visuals 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMVisualCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getvisuals
      */
-    GetVisuals(visuals) {
-        result := ComCall(6, this, "ptr*", visuals, "HRESULT")
-        return result
+    GetVisuals() {
+        result := ComCall(6, this, "ptr*", &visuals := 0, "HRESULT")
+        return IXpsOMVisualCollection(visuals)
     }
 
     /**
      * 
-     * @param {Pointer<XPS_SIZE>} pageDimensions 
-     * @returns {HRESULT} 
+     * @returns {XPS_SIZE} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getpagedimensions
      */
-    GetPageDimensions(pageDimensions) {
+    GetPageDimensions() {
+        pageDimensions := XPS_SIZE()
         result := ComCall(7, this, "ptr", pageDimensions, "HRESULT")
-        return result
+        return pageDimensions
     }
 
     /**
@@ -132,13 +137,13 @@ class IXpsOMPage extends IXpsOMPart{
 
     /**
      * 
-     * @param {Pointer<XPS_RECT>} contentBox 
-     * @returns {HRESULT} 
+     * @returns {XPS_RECT} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getcontentbox
      */
-    GetContentBox(contentBox) {
+    GetContentBox() {
+        contentBox := XPS_RECT()
         result := ComCall(9, this, "ptr", contentBox, "HRESULT")
-        return result
+        return contentBox
     }
 
     /**
@@ -154,13 +159,13 @@ class IXpsOMPage extends IXpsOMPart{
 
     /**
      * 
-     * @param {Pointer<XPS_RECT>} bleedBox 
-     * @returns {HRESULT} 
+     * @returns {XPS_RECT} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getbleedbox
      */
-    GetBleedBox(bleedBox) {
+    GetBleedBox() {
+        bleedBox := XPS_RECT()
         result := ComCall(11, this, "ptr", bleedBox, "HRESULT")
-        return result
+        return bleedBox
     }
 
     /**
@@ -176,13 +181,12 @@ class IXpsOMPage extends IXpsOMPart{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} language 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getlanguage
      */
-    GetLanguage(language) {
-        result := ComCall(13, this, "ptr", language, "HRESULT")
-        return result
+    GetLanguage() {
+        result := ComCall(13, this, "ptr*", &language := 0, "HRESULT")
+        return language
     }
 
     /**
@@ -200,13 +204,12 @@ class IXpsOMPage extends IXpsOMPart{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} name 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getname
      */
-    GetName(name) {
-        result := ComCall(15, this, "ptr", name, "HRESULT")
-        return result
+    GetName() {
+        result := ComCall(15, this, "ptr*", &name := 0, "HRESULT")
+        return name
     }
 
     /**
@@ -224,13 +227,12 @@ class IXpsOMPage extends IXpsOMPart{
 
     /**
      * 
-     * @param {Pointer<BOOL>} isHyperlinkTarget 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getishyperlinktarget
      */
-    GetIsHyperlinkTarget(isHyperlinkTarget) {
-        result := ComCall(17, this, "ptr", isHyperlinkTarget, "HRESULT")
-        return result
+    GetIsHyperlinkTarget() {
+        result := ComCall(17, this, "int*", &isHyperlinkTarget := 0, "HRESULT")
+        return isHyperlinkTarget
     }
 
     /**
@@ -246,24 +248,22 @@ class IXpsOMPage extends IXpsOMPart{
 
     /**
      * 
-     * @param {Pointer<IXpsOMDictionary>} resourceDictionary 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMDictionary} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getdictionary
      */
-    GetDictionary(resourceDictionary) {
-        result := ComCall(19, this, "ptr*", resourceDictionary, "HRESULT")
-        return result
+    GetDictionary() {
+        result := ComCall(19, this, "ptr*", &resourceDictionary := 0, "HRESULT")
+        return IXpsOMDictionary(resourceDictionary)
     }
 
     /**
      * 
-     * @param {Pointer<IXpsOMDictionary>} resourceDictionary 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMDictionary} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getdictionarylocal
      */
-    GetDictionaryLocal(resourceDictionary) {
-        result := ComCall(20, this, "ptr*", resourceDictionary, "HRESULT")
-        return result
+    GetDictionaryLocal() {
+        result := ComCall(20, this, "ptr*", &resourceDictionary := 0, "HRESULT")
+        return IXpsOMDictionary(resourceDictionary)
     }
 
     /**
@@ -279,13 +279,12 @@ class IXpsOMPage extends IXpsOMPart{
 
     /**
      * 
-     * @param {Pointer<IXpsOMRemoteDictionaryResource>} remoteDictionaryResource 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMRemoteDictionaryResource} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-getdictionaryresource
      */
-    GetDictionaryResource(remoteDictionaryResource) {
-        result := ComCall(22, this, "ptr*", remoteDictionaryResource, "HRESULT")
-        return result
+    GetDictionaryResource() {
+        result := ComCall(22, this, "ptr*", &remoteDictionaryResource := 0, "HRESULT")
+        return IXpsOMRemoteDictionaryResource(remoteDictionaryResource)
     }
 
     /**
@@ -314,23 +313,21 @@ class IXpsOMPage extends IXpsOMPart{
     /**
      * 
      * @param {Integer} type 
-     * @param {Pointer<PWSTR>} key 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-generateunusedlookupkey
      */
-    GenerateUnusedLookupKey(type, key) {
-        result := ComCall(25, this, "int", type, "ptr", key, "HRESULT")
-        return result
+    GenerateUnusedLookupKey(type) {
+        result := ComCall(25, this, "int", type, "ptr*", &key := 0, "HRESULT")
+        return key
     }
 
     /**
      * 
-     * @param {Pointer<IXpsOMPage>} page 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMPage} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompage-clone
      */
-    Clone(page) {
-        result := ComCall(26, this, "ptr*", page, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(26, this, "ptr*", &page := 0, "HRESULT")
+        return IXpsOMPage(page)
     }
 }

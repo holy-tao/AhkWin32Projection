@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\WM_CLIENT_PROPERTIES.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,26 +33,23 @@ class IWMClientConnections extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcClients 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmclientconnections-getclientcount
      */
-    GetClientCount(pcClients) {
-        pcClientsMarshal := pcClients is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pcClientsMarshal, pcClients, "HRESULT")
-        return result
+    GetClientCount() {
+        result := ComCall(3, this, "uint*", &pcClients := 0, "HRESULT")
+        return pcClients
     }
 
     /**
      * 
      * @param {Integer} dwClientNum 
-     * @param {Pointer<WM_CLIENT_PROPERTIES>} pClientProperties 
-     * @returns {HRESULT} 
+     * @returns {WM_CLIENT_PROPERTIES} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmclientconnections-getclientproperties
      */
-    GetClientProperties(dwClientNum, pClientProperties) {
+    GetClientProperties(dwClientNum) {
+        pClientProperties := WM_CLIENT_PROPERTIES()
         result := ComCall(4, this, "uint", dwClientNum, "ptr", pClientProperties, "HRESULT")
-        return result
+        return pClientProperties
     }
 }

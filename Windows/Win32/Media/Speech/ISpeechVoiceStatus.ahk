@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,143 +31,110 @@ class ISpeechVoiceStatus extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} StreamNumber 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_CurrentStreamNumber(StreamNumber) {
-        StreamNumberMarshal := StreamNumber is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, StreamNumberMarshal, StreamNumber, "HRESULT")
-        return result
+    get_CurrentStreamNumber() {
+        result := ComCall(7, this, "int*", &StreamNumber := 0, "HRESULT")
+        return StreamNumber
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} StreamNumber 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_LastStreamNumberQueued(StreamNumber) {
-        StreamNumberMarshal := StreamNumber is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, StreamNumberMarshal, StreamNumber, "HRESULT")
-        return result
+    get_LastStreamNumberQueued() {
+        result := ComCall(8, this, "int*", &StreamNumber := 0, "HRESULT")
+        return StreamNumber
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} HResult 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_LastHResult(HResult) {
-        HResultMarshal := HResult is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, HResultMarshal, HResult, "HRESULT")
-        return result
+    get_LastHResult() {
+        result := ComCall(9, this, "int*", &HResult := 0, "HRESULT")
+        return HResult
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} State 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_RunningState(State) {
-        StateMarshal := State is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, StateMarshal, State, "HRESULT")
-        return result
+    get_RunningState() {
+        result := ComCall(10, this, "int*", &State := 0, "HRESULT")
+        return State
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Position 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_InputWordPosition(Position) {
-        PositionMarshal := Position is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, PositionMarshal, Position, "HRESULT")
-        return result
+    get_InputWordPosition() {
+        result := ComCall(11, this, "int*", &Position := 0, "HRESULT")
+        return Position
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Length 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_InputWordLength(Length) {
-        LengthMarshal := Length is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, LengthMarshal, Length, "HRESULT")
-        return result
+    get_InputWordLength() {
+        result := ComCall(12, this, "int*", &Length := 0, "HRESULT")
+        return Length
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Position 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_InputSentencePosition(Position) {
-        PositionMarshal := Position is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, PositionMarshal, Position, "HRESULT")
-        return result
+    get_InputSentencePosition() {
+        result := ComCall(13, this, "int*", &Position := 0, "HRESULT")
+        return Position
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Length 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_InputSentenceLength(Length) {
-        LengthMarshal := Length is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, LengthMarshal, Length, "HRESULT")
-        return result
+    get_InputSentenceLength() {
+        result := ComCall(14, this, "int*", &Length := 0, "HRESULT")
+        return Length
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} Bookmark 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_LastBookmark(Bookmark) {
+    get_LastBookmark() {
+        Bookmark := BSTR()
         result := ComCall(15, this, "ptr", Bookmark, "HRESULT")
-        return result
+        return Bookmark
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} BookmarkId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_LastBookmarkId(BookmarkId) {
-        BookmarkIdMarshal := BookmarkId is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, BookmarkIdMarshal, BookmarkId, "HRESULT")
-        return result
+    get_LastBookmarkId() {
+        result := ComCall(16, this, "int*", &BookmarkId := 0, "HRESULT")
+        return BookmarkId
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} PhoneId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_PhonemeId(PhoneId) {
-        PhoneIdMarshal := PhoneId is VarRef ? "short*" : "ptr"
-
-        result := ComCall(17, this, PhoneIdMarshal, PhoneId, "HRESULT")
-        return result
+    get_PhonemeId() {
+        result := ComCall(17, this, "short*", &PhoneId := 0, "HRESULT")
+        return PhoneId
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} VisemeId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_VisemeId(VisemeId) {
-        VisemeIdMarshal := VisemeId is VarRef ? "short*" : "ptr"
-
-        result := ComCall(18, this, VisemeIdMarshal, VisemeId, "HRESULT")
-        return result
+    get_VisemeId() {
+        result := ComCall(18, this, "short*", &VisemeId := 0, "HRESULT")
+        return VisemeId
     }
 }

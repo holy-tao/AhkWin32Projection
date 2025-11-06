@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -38,48 +39,45 @@ class IRDPSRAPIInvitation extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitation-get_connectionstring
      */
-    get_ConnectionString(pbstrVal) {
+    get_ConnectionString() {
+        pbstrVal := BSTR()
         result := ComCall(7, this, "ptr", pbstrVal, "HRESULT")
-        return result
+        return pbstrVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitation-get_groupname
      */
-    get_GroupName(pbstrVal) {
+    get_GroupName() {
+        pbstrVal := BSTR()
         result := ComCall(8, this, "ptr", pbstrVal, "HRESULT")
-        return result
+        return pbstrVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitation-get_password
      */
-    get_Password(pbstrVal) {
+    get_Password() {
+        pbstrVal := BSTR()
         result := ComCall(9, this, "ptr", pbstrVal, "HRESULT")
-        return result
+        return pbstrVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitation-get_attendeelimit
      */
-    get_AttendeeLimit(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    get_AttendeeLimit() {
+        result := ComCall(10, this, "int*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
@@ -95,13 +93,12 @@ class IRDPSRAPIInvitation extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitation-get_revoked
      */
-    get_Revoked(pRetVal) {
-        result := ComCall(12, this, "ptr", pRetVal, "HRESULT")
-        return result
+    get_Revoked() {
+        result := ComCall(12, this, "short*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**

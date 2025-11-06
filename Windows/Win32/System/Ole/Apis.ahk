@@ -1,7 +1,20 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\IRecordInfo.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\ITypeLib.ahk
+#Include .\ICreateTypeLib.ahk
+#Include .\ICreateTypeLib2.ahk
+#Include ..\Com\ITypeInfo.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\ICreateErrorInfo.ahk
+#Include ..\Com\IDataObject.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\IOleAdviseHolder.ahk
 #Include ..\..\Foundation\HGLOBAL.ahk
+#Include ..\Com\IEnumFORMATETC.ahk
+#Include .\IEnumOLEVERB.ahk
+#Include ..\Com\IDispatch.ahk
 #Include ..\..\UI\WindowsAndMessaging\HCURSOR.ahk
 
 /**
@@ -2397,105 +2410,30 @@ class Ole {
     /**
      * Allocates memory for a safe array descriptor.
      * @param {Integer} cDims The number of dimensions of the array.
-     * @param {Pointer<Pointer<SAFEARRAY>>} ppsaOut The safe array descriptor.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument <i>psa</i> was not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_UNEXPECTED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The array could not be locked.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<SAFEARRAY>} The safe array descriptor.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-safearrayallocdescriptor
      */
-    static SafeArrayAllocDescriptor(cDims, ppsaOut) {
-        ppsaOutMarshal := ppsaOut is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\SafeArrayAllocDescriptor", "uint", cDims, ppsaOutMarshal, ppsaOut, "int")
+    static SafeArrayAllocDescriptor(cDims) {
+        result := DllCall("OLEAUT32.dll\SafeArrayAllocDescriptor", "uint", cDims, "ptr*", &ppsaOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppsaOut
     }
 
     /**
      * Creates a safe array descriptor for an array of any valid variant type, including VT_RECORD, without allocating the array data.
      * @param {Integer} vt The variant type.
      * @param {Integer} cDims The number of dimensions in the array.
-     * @param {Pointer<Pointer<SAFEARRAY>>} ppsaOut The safe array descriptor.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument <i>psa</i> was not valid.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<SAFEARRAY>} The safe array descriptor.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-safearrayallocdescriptorex
      */
-    static SafeArrayAllocDescriptorEx(vt, cDims, ppsaOut) {
-        ppsaOutMarshal := ppsaOut is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\SafeArrayAllocDescriptorEx", "ushort", vt, "uint", cDims, ppsaOutMarshal, ppsaOut, "int")
+    static SafeArrayAllocDescriptorEx(vt, cDims) {
+        result := DllCall("OLEAUT32.dll\SafeArrayAllocDescriptorEx", "ushort", vt, "uint", cDims, "ptr*", &ppsaOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppsaOut
     }
 
     /**
@@ -2781,19 +2719,16 @@ class Ole {
     /**
      * Increases the pinning reference count of the descriptor for the specified safe array by one, and may increase the pinning reference count of the data for the specified safe array by one if that data was dynamically allocated, as determined by the descriptor of the safe array.
      * @param {Pointer<SAFEARRAY>} psa The safe array for which the pinning reference count of the descriptor should increase. While that count remains greater than 0, the memory for the descriptor is prevented from being freed by calls to the <a href="https://docs.microsoft.com/windows/desktop/api/oleauto/nf-oleauto-safearraydestroy">SafeArrayDestroy</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-safearraydestroydescriptor">SafeArrayDestroyDescriptor</a> functions.
-     * @param {Pointer<Pointer<Void>>} ppDataToRelease Returns the safe array data for which a pinning reference was added, if <b>SafeArrayAddRef</b> also added  a pinning reference for the  safe array data.  This parameter is NULL if <b>SafeArrayAddRef</b> did not add a pinning reference for the safe array data. <b>SafeArrayAddRef</b> does not add a pinning reference for the safe array data if that safe array data was not dynamically allocated.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @returns {Pointer<Void>} Returns the safe array data for which a pinning reference was added, if <b>SafeArrayAddRef</b> also added  a pinning reference for the  safe array data.  This parameter is NULL if <b>SafeArrayAddRef</b> did not add a pinning reference for the safe array data. <b>SafeArrayAddRef</b> does not add a pinning reference for the safe array data if that safe array data was not dynamically allocated.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-safearrayaddref
      * @since windows5.1.2600
      */
-    static SafeArrayAddRef(psa, ppDataToRelease) {
-        ppDataToReleaseMarshal := ppDataToRelease is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\SafeArrayAddRef", "ptr", psa, ppDataToReleaseMarshal, ppDataToRelease, "int")
+    static SafeArrayAddRef(psa) {
+        result := DllCall("OLEAUT32.dll\SafeArrayAddRef", "ptr", psa, "ptr*", &ppDataToRelease := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppDataToRelease
     }
 
     /**
@@ -2931,127 +2866,30 @@ class Ole {
      * Gets the upper bound for any dimension of the specified safe array.
      * @param {Pointer<SAFEARRAY>} psa An array descriptor created by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-safearraycreate">SafeArrayCreate</a>.
      * @param {Integer} nDim The array dimension for which to get the upper bound.
-     * @param {Pointer<Integer>} plUbound The upper bound.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADINDEX</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The specified index is out of bounds.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Overflow occurred while computing the upper bound.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The upper bound.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-safearraygetubound
      */
-    static SafeArrayGetUBound(psa, nDim, plUbound) {
-        plUboundMarshal := plUbound is VarRef ? "int*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\SafeArrayGetUBound", "ptr", psa, "uint", nDim, plUboundMarshal, plUbound, "int")
+    static SafeArrayGetUBound(psa, nDim) {
+        result := DllCall("OLEAUT32.dll\SafeArrayGetUBound", "ptr", psa, "uint", nDim, "int*", &plUbound := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return plUbound
     }
 
     /**
      * Gets the lower bound for any dimension of the specified safe array.
      * @param {Pointer<SAFEARRAY>} psa An array descriptor created by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-safearraycreate">SafeArrayCreate</a>.
      * @param {Integer} nDim The array dimension for which to get the lower bound.
-     * @param {Pointer<Integer>} plLbound The lower bound.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADINDEX</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The specified index is out of bounds.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The lower bound.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-safearraygetlbound
      */
-    static SafeArrayGetLBound(psa, nDim, plLbound) {
-        plLboundMarshal := plLbound is VarRef ? "int*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\SafeArrayGetLBound", "ptr", psa, "uint", nDim, plLboundMarshal, plLbound, "int")
+    static SafeArrayGetLBound(psa, nDim) {
+        result := DllCall("OLEAUT32.dll\SafeArrayGetLBound", "ptr", psa, "uint", nDim, "int*", &plLbound := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return plLbound
     }
 
     /**
@@ -3165,58 +3003,15 @@ class Ole {
     /**
      * Increments the lock count of an array, and retrieves a pointer to the array data.
      * @param {Pointer<SAFEARRAY>} psa An array descriptor created by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-safearraycreate">SafeArrayCreate</a>.
-     * @param {Pointer<Pointer<Void>>} ppvData The array data.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument <i>psa</i> is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_UNEXPECTED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The array could not be locked.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Void>} The array data.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-safearrayaccessdata
      */
-    static SafeArrayAccessData(psa, ppvData) {
-        ppvDataMarshal := ppvData is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\SafeArrayAccessData", "ptr", psa, ppvDataMarshal, ppvData, "int")
+    static SafeArrayAccessData(psa) {
+        result := DllCall("OLEAUT32.dll\SafeArrayAccessData", "ptr", psa, "ptr*", &ppvData := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppvData
     }
 
     /**
@@ -3277,70 +3072,17 @@ class Ole {
      * Retrieves a single element of the array.
      * @param {Pointer<SAFEARRAY>} psa An array descriptor created by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-safearraycreate">SafeArrayCreate</a>.
      * @param {Pointer<Integer>} rgIndices A vector of indexes for each dimension of the array. The right-most (least significant) dimension is rgIndices[0]. The left-most dimension is stored at <c>rgIndices[psa-&gt;cDims – 1]</c>.
-     * @param {Pointer<Void>} pv The element of the array.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADINDEX</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The specified index is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Memory could not be allocated for the element.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Void} The element of the array.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-safearraygetelement
      */
-    static SafeArrayGetElement(psa, rgIndices, pv) {
+    static SafeArrayGetElement(psa, rgIndices) {
         rgIndicesMarshal := rgIndices is VarRef ? "int*" : "ptr"
-        pvMarshal := pv is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("OLEAUT32.dll\SafeArrayGetElement", "ptr", psa, rgIndicesMarshal, rgIndices, pvMarshal, pv, "int")
+        result := DllCall("OLEAUT32.dll\SafeArrayGetElement", "ptr", psa, rgIndicesMarshal, rgIndices, "ptr", &pv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pv
     }
 
     /**
@@ -3416,117 +3158,32 @@ class Ole {
     /**
      * Creates a copy of an existing safe array.
      * @param {Pointer<SAFEARRAY>} psa A safe array descriptor created by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-safearraycreate">SafeArrayCreate</a>.
-     * @param {Pointer<Pointer<SAFEARRAY>>} ppsaOut The safe array descriptor.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument <i>psa</i> was not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<SAFEARRAY>} The safe array descriptor.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-safearraycopy
      */
-    static SafeArrayCopy(psa, ppsaOut) {
-        ppsaOutMarshal := ppsaOut is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\SafeArrayCopy", "ptr", psa, ppsaOutMarshal, ppsaOut, "int")
+    static SafeArrayCopy(psa) {
+        result := DllCall("OLEAUT32.dll\SafeArrayCopy", "ptr", psa, "ptr*", &ppsaOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppsaOut
     }
 
     /**
      * Gets a pointer to an array element.
      * @param {Pointer<SAFEARRAY>} psa An array descriptor created by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-safearraycreate">SafeArrayCreate</a>.
      * @param {Pointer<Integer>} rgIndices An array of index values that identify an element of the array. All indexes for the element must be specified.
-     * @param {Pointer<Pointer<Void>>} ppvData The array element.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADINDEX</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The specified index is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Void>} The array element.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-safearrayptrofindex
      */
-    static SafeArrayPtrOfIndex(psa, rgIndices, ppvData) {
+    static SafeArrayPtrOfIndex(psa, rgIndices) {
         rgIndicesMarshal := rgIndices is VarRef ? "int*" : "ptr"
-        ppvDataMarshal := ppvData is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("OLEAUT32.dll\SafeArrayPtrOfIndex", "ptr", psa, rgIndicesMarshal, rgIndices, ppvDataMarshal, ppvData, "int")
+        result := DllCall("OLEAUT32.dll\SafeArrayPtrOfIndex", "ptr", psa, rgIndicesMarshal, rgIndices, "ptr*", &ppvData := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppvData
     }
 
     /**
@@ -3576,45 +3233,15 @@ class Ole {
     /**
      * Retrieves the IRecordInfo interface of the UDT contained in the specified safe array.
      * @param {Pointer<SAFEARRAY>} psa An array descriptor created by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-safearraycreate">SafeArrayCreate</a>.
-     * @param {Pointer<IRecordInfo>} prinfo The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-irecordinfo">IRecordInfo</a> interface.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument <i>psa</i> is null or the array descriptor does not have the FADF_RECORD flag set.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {IRecordInfo} The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-irecordinfo">IRecordInfo</a> interface.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-safearraygetrecordinfo
      */
-    static SafeArrayGetRecordInfo(psa, prinfo) {
-        result := DllCall("OLEAUT32.dll\SafeArrayGetRecordInfo", "ptr", psa, "ptr*", prinfo, "int")
+    static SafeArrayGetRecordInfo(psa) {
+        result := DllCall("OLEAUT32.dll\SafeArrayGetRecordInfo", "ptr", psa, "ptr*", &prinfo := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IRecordInfo(prinfo)
     }
 
     /**
@@ -3708,47 +3335,15 @@ class Ole {
     /**
      * Gets the VARTYPE stored in the specified safe array.
      * @param {Pointer<SAFEARRAY>} psa An array descriptor created by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-safearraycreate">SafeArrayCreate</a>.
-     * @param {Pointer<Integer>} pvt The VARTYPE.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The VARTYPE.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-safearraygetvartype
      */
-    static SafeArrayGetVartype(psa, pvt) {
-        pvtMarshal := pvt is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\SafeArrayGetVartype", "ptr", psa, pvtMarshal, pvt, "int")
+    static SafeArrayGetVartype(psa) {
+        result := DllCall("OLEAUT32.dll\SafeArrayGetVartype", "ptr", psa, "ushort*", &pvt := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pvt
     }
 
     /**
@@ -3783,776 +3378,130 @@ class Ole {
     /**
      * Returns a vector, assigning each character in the BSTR to an element of the vector.
      * @param {BSTR} bstr The BSTR to be converted to a vector.
-     * @param {Pointer<Pointer<SAFEARRAY>>} ppsa A one-dimensional safearray containing the characters in the BSTR.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Out of memory.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <i>bstr</i> parameter is null.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<SAFEARRAY>} A one-dimensional safearray containing the characters in the BSTR.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vectorfrombstr
      */
-    static VectorFromBstr(bstr, ppsa) {
+    static VectorFromBstr(bstr) {
         bstr := bstr is Win32Handle ? NumGet(bstr, "ptr") : bstr
 
-        ppsaMarshal := ppsa is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VectorFromBstr", "ptr", bstr, ppsaMarshal, ppsa, "int")
+        result := DllCall("OLEAUT32.dll\VectorFromBstr", "ptr", bstr, "ptr*", &ppsa := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppsa
     }
 
     /**
      * Returns a BSTR, assigning each element of the vector to a character in the BSTR.
      * @param {Pointer<SAFEARRAY>} psa The vector to be converted to a BSTR.
-     * @param {Pointer<BSTR>} pbstr A BSTR, each character of which is assigned to an element from the vector.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Out of memory.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <i>psa</i> parameter is null.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument <i>psa</i> is not a vector (not an array of bytes).
-     * 
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {BSTR} A BSTR, each character of which is assigned to an element from the vector.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-bstrfromvector
      */
-    static BstrFromVector(psa, pbstr) {
+    static BstrFromVector(psa) {
+        pbstr := BSTR()
         result := DllCall("OLEAUT32.dll\BstrFromVector", "ptr", psa, "ptr", pbstr, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbstr
     }
 
     /**
      * Converts a short value to an unsigned char value.
      * @param {Integer} sIn The value to convert.
-     * @param {Pointer<Integer>} pbOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui1fromi2
      */
-    static VarUI1FromI2(sIn, pbOut) {
-        pbOutMarshal := pbOut is VarRef ? "char*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI1FromI2", "short", sIn, pbOutMarshal, pbOut, "int")
+    static VarUI1FromI2(sIn) {
+        result := DllCall("OLEAUT32.dll\VarUI1FromI2", "short", sIn, "char*", &pbOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbOut
     }
 
     /**
      * Converts a long value to an unsigned char value.
      * @param {Integer} lIn The value to convert.
-     * @param {Pointer<Integer>} pbOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui1fromi4
      */
-    static VarUI1FromI4(lIn, pbOut) {
-        pbOutMarshal := pbOut is VarRef ? "char*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI1FromI4", "int", lIn, pbOutMarshal, pbOut, "int")
+    static VarUI1FromI4(lIn) {
+        result := DllCall("OLEAUT32.dll\VarUI1FromI4", "int", lIn, "char*", &pbOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbOut
     }
 
     /**
      * Converts an 8-byte integer value to a byte value.
      * @param {Integer} i64In The value to convert.
-     * @param {Pointer<Integer>} pbOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui1fromi8
      */
-    static VarUI1FromI8(i64In, pbOut) {
-        pbOutMarshal := pbOut is VarRef ? "char*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI1FromI8", "int64", i64In, pbOutMarshal, pbOut, "int")
+    static VarUI1FromI8(i64In) {
+        result := DllCall("OLEAUT32.dll\VarUI1FromI8", "int64", i64In, "char*", &pbOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbOut
     }
 
     /**
      * Converts a float value to an unsigned char value.
      * @param {Float} fltIn The value to convert.
-     * @param {Pointer<Integer>} pbOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui1fromr4
      */
-    static VarUI1FromR4(fltIn, pbOut) {
-        pbOutMarshal := pbOut is VarRef ? "char*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI1FromR4", "float", fltIn, pbOutMarshal, pbOut, "int")
+    static VarUI1FromR4(fltIn) {
+        result := DllCall("OLEAUT32.dll\VarUI1FromR4", "float", fltIn, "char*", &pbOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbOut
     }
 
     /**
      * Converts a double value to an unsigned char value.
      * @param {Float} dblIn The value to convert.
-     * @param {Pointer<Integer>} pbOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui1fromr8
      */
-    static VarUI1FromR8(dblIn, pbOut) {
-        pbOutMarshal := pbOut is VarRef ? "char*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI1FromR8", "double", dblIn, pbOutMarshal, pbOut, "int")
+    static VarUI1FromR8(dblIn) {
+        result := DllCall("OLEAUT32.dll\VarUI1FromR8", "double", dblIn, "char*", &pbOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbOut
     }
 
     /**
      * Converts a currency value to an unsigned char value.
      * @param {CY} cyIn The value to convert.
-     * @param {Pointer<Integer>} pbOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui1fromcy
      */
-    static VarUI1FromCy(cyIn, pbOut) {
-        pbOutMarshal := pbOut is VarRef ? "char*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI1FromCy", "ptr", cyIn, pbOutMarshal, pbOut, "int")
+    static VarUI1FromCy(cyIn) {
+        result := DllCall("OLEAUT32.dll\VarUI1FromCy", "ptr", cyIn, "char*", &pbOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbOut
     }
 
     /**
      * Converts a date value to an unsigned char value.
      * @param {Float} dateIn The value to convert.
-     * @param {Pointer<Integer>} pbOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui1fromdate
      */
-    static VarUI1FromDate(dateIn, pbOut) {
-        pbOutMarshal := pbOut is VarRef ? "char*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI1FromDate", "double", dateIn, pbOutMarshal, pbOut, "int")
+    static VarUI1FromDate(dateIn) {
+        result := DllCall("OLEAUT32.dll\VarUI1FromDate", "double", dateIn, "char*", &pbOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbOut
     }
 
     /**
@@ -4577,1200 +3526,186 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Integer>} pbOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui1fromstr
      */
-    static VarUI1FromStr(strIn, lcid, dwFlags, pbOut) {
+    static VarUI1FromStr(strIn, lcid, dwFlags) {
         strIn := strIn is String ? StrPtr(strIn) : strIn
 
-        pbOutMarshal := pbOut is VarRef ? "char*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI1FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, pbOutMarshal, pbOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI1FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "char*", &pbOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbOut
     }
 
     /**
      * Converts the default property of an IDispatch instance to an unsigned char value.
      * @param {IDispatch} pdispIn The value to convert.
      * @param {Integer} lcid The locale identifier.
-     * @param {Pointer<Integer>} pbOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui1fromdisp
      */
-    static VarUI1FromDisp(pdispIn, lcid, pbOut) {
-        pbOutMarshal := pbOut is VarRef ? "char*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI1FromDisp", "ptr", pdispIn, "uint", lcid, pbOutMarshal, pbOut, "int")
+    static VarUI1FromDisp(pdispIn, lcid) {
+        result := DllCall("OLEAUT32.dll\VarUI1FromDisp", "ptr", pdispIn, "uint", lcid, "char*", &pbOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbOut
     }
 
     /**
      * Converts a Boolean value to an unsigned char value.
      * @param {VARIANT_BOOL} boolIn The value to convert.
-     * @param {Pointer<Integer>} pbOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui1frombool
      */
-    static VarUI1FromBool(boolIn, pbOut) {
-        pbOutMarshal := pbOut is VarRef ? "char*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI1FromBool", "short", boolIn, pbOutMarshal, pbOut, "int")
+    static VarUI1FromBool(boolIn) {
+        result := DllCall("OLEAUT32.dll\VarUI1FromBool", "short", boolIn, "char*", &pbOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbOut
     }
 
     /**
      * Converts a char value to an unsigned char value.
      * @param {CHAR} cIn The value to convert.
-     * @param {Pointer<Integer>} pbOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui1fromi1
      */
-    static VarUI1FromI1(cIn, pbOut) {
-        pbOutMarshal := pbOut is VarRef ? "char*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI1FromI1", "char", cIn, pbOutMarshal, pbOut, "int")
+    static VarUI1FromI1(cIn) {
+        result := DllCall("OLEAUT32.dll\VarUI1FromI1", "char", cIn, "char*", &pbOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbOut
     }
 
     /**
      * Converts an unsigned short value to an unsigned char value.
      * @param {Integer} uiIn The value to convert.
-     * @param {Pointer<Integer>} pbOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui1fromui2
      */
-    static VarUI1FromUI2(uiIn, pbOut) {
-        pbOutMarshal := pbOut is VarRef ? "char*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI1FromUI2", "ushort", uiIn, pbOutMarshal, pbOut, "int")
+    static VarUI1FromUI2(uiIn) {
+        result := DllCall("OLEAUT32.dll\VarUI1FromUI2", "ushort", uiIn, "char*", &pbOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbOut
     }
 
     /**
      * Converts an unsigned long value to an unsigned char value.
      * @param {Integer} ulIn The value to convert.
-     * @param {Pointer<Integer>} pbOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui1fromui4
      */
-    static VarUI1FromUI4(ulIn, pbOut) {
-        pbOutMarshal := pbOut is VarRef ? "char*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI1FromUI4", "uint", ulIn, pbOutMarshal, pbOut, "int")
+    static VarUI1FromUI4(ulIn) {
+        result := DllCall("OLEAUT32.dll\VarUI1FromUI4", "uint", ulIn, "char*", &pbOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbOut
     }
 
     /**
      * Converts an 8-byte unsigned integer value to a byte value.
      * @param {Integer} ui64In The value to convert.
-     * @param {Pointer<Integer>} pbOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui1fromui8
      */
-    static VarUI1FromUI8(ui64In, pbOut) {
-        pbOutMarshal := pbOut is VarRef ? "char*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI1FromUI8", "uint", ui64In, pbOutMarshal, pbOut, "int")
+    static VarUI1FromUI8(ui64In) {
+        result := DllCall("OLEAUT32.dll\VarUI1FromUI8", "uint", ui64In, "char*", &pbOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbOut
     }
 
     /**
      * Converts a decimal value to an unsigned char value.
      * @param {Pointer<DECIMAL>} pdecIn The value to convert.
-     * @param {Pointer<Integer>} pbOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui1fromdec
      */
-    static VarUI1FromDec(pdecIn, pbOut) {
-        pbOutMarshal := pbOut is VarRef ? "char*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI1FromDec", "ptr", pdecIn, pbOutMarshal, pbOut, "int")
+    static VarUI1FromDec(pdecIn) {
+        result := DllCall("OLEAUT32.dll\VarUI1FromDec", "ptr", pdecIn, "char*", &pbOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbOut
     }
 
     /**
      * Converts an unsigned char value to a short value.
      * @param {Integer} bIn The value to convert.
-     * @param {Pointer<Integer>} psOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari2fromui1
      */
-    static VarI2FromUI1(bIn, psOut) {
-        psOutMarshal := psOut is VarRef ? "short*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI2FromUI1", "char", bIn, psOutMarshal, psOut, "int")
+    static VarI2FromUI1(bIn) {
+        result := DllCall("OLEAUT32.dll\VarI2FromUI1", "char", bIn, "short*", &psOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return psOut
     }
 
     /**
      * Converts a long value to a short value.
      * @param {Integer} lIn The value to convert.
-     * @param {Pointer<Integer>} psOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari2fromi4
      */
-    static VarI2FromI4(lIn, psOut) {
-        psOutMarshal := psOut is VarRef ? "short*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI2FromI4", "int", lIn, psOutMarshal, psOut, "int")
+    static VarI2FromI4(lIn) {
+        result := DllCall("OLEAUT32.dll\VarI2FromI4", "int", lIn, "short*", &psOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return psOut
     }
 
     /**
      * Converts an 8-byte integer value to a short value.
      * @param {Integer} i64In The value to convert.
-     * @param {Pointer<Integer>} psOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari2fromi8
      */
-    static VarI2FromI8(i64In, psOut) {
-        psOutMarshal := psOut is VarRef ? "short*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI2FromI8", "int64", i64In, psOutMarshal, psOut, "int")
+    static VarI2FromI8(i64In) {
+        result := DllCall("OLEAUT32.dll\VarI2FromI8", "int64", i64In, "short*", &psOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return psOut
     }
 
     /**
      * Converts a float value to a short value.
      * @param {Float} fltIn The value to convert.
-     * @param {Pointer<Integer>} psOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari2fromr4
      */
-    static VarI2FromR4(fltIn, psOut) {
-        psOutMarshal := psOut is VarRef ? "short*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI2FromR4", "float", fltIn, psOutMarshal, psOut, "int")
+    static VarI2FromR4(fltIn) {
+        result := DllCall("OLEAUT32.dll\VarI2FromR4", "float", fltIn, "short*", &psOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return psOut
     }
 
     /**
      * Converts a double value to a short value.
      * @param {Float} dblIn The value to convert.
-     * @param {Pointer<Integer>} psOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari2fromr8
      */
-    static VarI2FromR8(dblIn, psOut) {
-        psOutMarshal := psOut is VarRef ? "short*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI2FromR8", "double", dblIn, psOutMarshal, psOut, "int")
+    static VarI2FromR8(dblIn) {
+        result := DllCall("OLEAUT32.dll\VarI2FromR8", "double", dblIn, "short*", &psOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return psOut
     }
 
     /**
@@ -5868,93 +3803,15 @@ class Ole {
     /**
      * Converts a date value to a short value.
      * @param {Float} dateIn The value to convert.
-     * @param {Pointer<Integer>} psOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari2fromdate
      */
-    static VarI2FromDate(dateIn, psOut) {
-        psOutMarshal := psOut is VarRef ? "short*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI2FromDate", "double", dateIn, psOutMarshal, psOut, "int")
+    static VarI2FromDate(dateIn) {
+        result := DllCall("OLEAUT32.dll\VarI2FromDate", "double", dateIn, "short*", &psOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return psOut
     }
 
     /**
@@ -5999,1384 +3856,214 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Integer>} psOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari2fromstr
      */
-    static VarI2FromStr(strIn, lcid, dwFlags, psOut) {
+    static VarI2FromStr(strIn, lcid, dwFlags) {
         strIn := strIn is String ? StrPtr(strIn) : strIn
 
-        psOutMarshal := psOut is VarRef ? "short*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI2FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, psOutMarshal, psOut, "int")
+        result := DllCall("OLEAUT32.dll\VarI2FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "short*", &psOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return psOut
     }
 
     /**
      * Converts the default property of an IDispatch instance to a short value.
      * @param {IDispatch} pdispIn The value to convert.
      * @param {Integer} lcid The locale identifier.
-     * @param {Pointer<Integer>} psOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari2fromdisp
      */
-    static VarI2FromDisp(pdispIn, lcid, psOut) {
-        psOutMarshal := psOut is VarRef ? "short*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI2FromDisp", "ptr", pdispIn, "uint", lcid, psOutMarshal, psOut, "int")
+    static VarI2FromDisp(pdispIn, lcid) {
+        result := DllCall("OLEAUT32.dll\VarI2FromDisp", "ptr", pdispIn, "uint", lcid, "short*", &psOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return psOut
     }
 
     /**
      * Converts a Boolean value to a short value.
      * @param {VARIANT_BOOL} boolIn The value to convert.
-     * @param {Pointer<Integer>} psOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari2frombool
      */
-    static VarI2FromBool(boolIn, psOut) {
-        psOutMarshal := psOut is VarRef ? "short*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI2FromBool", "short", boolIn, psOutMarshal, psOut, "int")
+    static VarI2FromBool(boolIn) {
+        result := DllCall("OLEAUT32.dll\VarI2FromBool", "short", boolIn, "short*", &psOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return psOut
     }
 
     /**
      * Converts a char value to a short value.
      * @param {CHAR} cIn The value to convert.
-     * @param {Pointer<Integer>} psOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari2fromi1
      */
-    static VarI2FromI1(cIn, psOut) {
-        psOutMarshal := psOut is VarRef ? "short*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI2FromI1", "char", cIn, psOutMarshal, psOut, "int")
+    static VarI2FromI1(cIn) {
+        result := DllCall("OLEAUT32.dll\VarI2FromI1", "char", cIn, "short*", &psOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return psOut
     }
 
     /**
      * Converts an unsigned short value to a short value.
      * @param {Integer} uiIn The value to convert.
-     * @param {Pointer<Integer>} psOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari2fromui2
      */
-    static VarI2FromUI2(uiIn, psOut) {
-        psOutMarshal := psOut is VarRef ? "short*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI2FromUI2", "ushort", uiIn, psOutMarshal, psOut, "int")
+    static VarI2FromUI2(uiIn) {
+        result := DllCall("OLEAUT32.dll\VarI2FromUI2", "ushort", uiIn, "short*", &psOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return psOut
     }
 
     /**
      * Converts an unsigned long value to a short value.
      * @param {Integer} ulIn The value to convert.
-     * @param {Pointer<Integer>} psOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari2fromui4
      */
-    static VarI2FromUI4(ulIn, psOut) {
-        psOutMarshal := psOut is VarRef ? "short*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI2FromUI4", "uint", ulIn, psOutMarshal, psOut, "int")
+    static VarI2FromUI4(ulIn) {
+        result := DllCall("OLEAUT32.dll\VarI2FromUI4", "uint", ulIn, "short*", &psOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return psOut
     }
 
     /**
      * Converts an 8-byte unsigned integer value to a short value.
      * @param {Integer} ui64In The value to convert.
-     * @param {Pointer<Integer>} psOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari2fromui8
      */
-    static VarI2FromUI8(ui64In, psOut) {
-        psOutMarshal := psOut is VarRef ? "short*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI2FromUI8", "uint", ui64In, psOutMarshal, psOut, "int")
+    static VarI2FromUI8(ui64In) {
+        result := DllCall("OLEAUT32.dll\VarI2FromUI8", "uint", ui64In, "short*", &psOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return psOut
     }
 
     /**
      * Converts a decimal value to a short value.
      * @param {Pointer<DECIMAL>} pdecIn The value to convert.
-     * @param {Pointer<Integer>} psOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari2fromdec
      */
-    static VarI2FromDec(pdecIn, psOut) {
-        psOutMarshal := psOut is VarRef ? "short*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI2FromDec", "ptr", pdecIn, psOutMarshal, psOut, "int")
+    static VarI2FromDec(pdecIn) {
+        result := DllCall("OLEAUT32.dll\VarI2FromDec", "ptr", pdecIn, "short*", &psOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return psOut
     }
 
     /**
      * Converts an unsigned char value to a long value.
      * @param {Integer} bIn The value to convert.
-     * @param {Pointer<Integer>} plOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari4fromui1
      */
-    static VarI4FromUI1(bIn, plOut) {
-        plOutMarshal := plOut is VarRef ? "int*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI4FromUI1", "char", bIn, plOutMarshal, plOut, "int")
+    static VarI4FromUI1(bIn) {
+        result := DllCall("OLEAUT32.dll\VarI4FromUI1", "char", bIn, "int*", &plOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return plOut
     }
 
     /**
      * Converts a short value to a long value.
      * @param {Integer} sIn The value to convert.
-     * @param {Pointer<Integer>} plOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari4fromi2
      */
-    static VarI4FromI2(sIn, plOut) {
-        plOutMarshal := plOut is VarRef ? "int*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI4FromI2", "short", sIn, plOutMarshal, plOut, "int")
+    static VarI4FromI2(sIn) {
+        result := DllCall("OLEAUT32.dll\VarI4FromI2", "short", sIn, "int*", &plOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return plOut
     }
 
     /**
      * Converts an 8-byte integer value to a long value.
      * @param {Integer} i64In The value to convert.
-     * @param {Pointer<Integer>} plOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari4fromi8
      */
-    static VarI4FromI8(i64In, plOut) {
-        plOutMarshal := plOut is VarRef ? "int*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI4FromI8", "int64", i64In, plOutMarshal, plOut, "int")
+    static VarI4FromI8(i64In) {
+        result := DllCall("OLEAUT32.dll\VarI4FromI8", "int64", i64In, "int*", &plOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return plOut
     }
 
     /**
      * Converts a float value to a long value.
      * @param {Float} fltIn The value to convert.
-     * @param {Pointer<Integer>} plOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari4fromr4
      */
-    static VarI4FromR4(fltIn, plOut) {
-        plOutMarshal := plOut is VarRef ? "int*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI4FromR4", "float", fltIn, plOutMarshal, plOut, "int")
+    static VarI4FromR4(fltIn) {
+        result := DllCall("OLEAUT32.dll\VarI4FromR4", "float", fltIn, "int*", &plOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return plOut
     }
 
     /**
      * Converts a double value to a long value.
      * @param {Float} dblIn The value to convert.
-     * @param {Pointer<Integer>} plOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari4fromr8
      */
-    static VarI4FromR8(dblIn, plOut) {
-        plOutMarshal := plOut is VarRef ? "int*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI4FromR8", "double", dblIn, plOutMarshal, plOut, "int")
+    static VarI4FromR8(dblIn) {
+        result := DllCall("OLEAUT32.dll\VarI4FromR8", "double", dblIn, "int*", &plOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return plOut
     }
 
     /**
      * Converts a currency value to a long value.
      * @param {CY} cyIn The value to convert.
-     * @param {Pointer<Integer>} plOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari4fromcy
      */
-    static VarI4FromCy(cyIn, plOut) {
-        plOutMarshal := plOut is VarRef ? "int*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI4FromCy", "ptr", cyIn, plOutMarshal, plOut, "int")
+    static VarI4FromCy(cyIn) {
+        result := DllCall("OLEAUT32.dll\VarI4FromCy", "ptr", cyIn, "int*", &plOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return plOut
     }
 
     /**
      * Converts a date value to a long value.
      * @param {Float} dateIn The value to convert.
-     * @param {Pointer<Integer>} plOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari4fromdate
      */
-    static VarI4FromDate(dateIn, plOut) {
-        plOutMarshal := plOut is VarRef ? "int*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI4FromDate", "double", dateIn, plOutMarshal, plOut, "int")
+    static VarI4FromDate(dateIn) {
+        result := DllCall("OLEAUT32.dll\VarI4FromDate", "double", dateIn, "int*", &plOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return plOut
     }
 
     /**
@@ -7421,1292 +4108,200 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Integer>} plOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari4fromstr
      */
-    static VarI4FromStr(strIn, lcid, dwFlags, plOut) {
+    static VarI4FromStr(strIn, lcid, dwFlags) {
         strIn := strIn is String ? StrPtr(strIn) : strIn
 
-        plOutMarshal := plOut is VarRef ? "int*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI4FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, plOutMarshal, plOut, "int")
+        result := DllCall("OLEAUT32.dll\VarI4FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "int*", &plOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return plOut
     }
 
     /**
      * Converts the default property of an IDispatch instance to a long value.
      * @param {IDispatch} pdispIn The value to convert.
      * @param {Integer} lcid The locale identifier.
-     * @param {Pointer<Integer>} plOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari4fromdisp
      */
-    static VarI4FromDisp(pdispIn, lcid, plOut) {
-        plOutMarshal := plOut is VarRef ? "int*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI4FromDisp", "ptr", pdispIn, "uint", lcid, plOutMarshal, plOut, "int")
+    static VarI4FromDisp(pdispIn, lcid) {
+        result := DllCall("OLEAUT32.dll\VarI4FromDisp", "ptr", pdispIn, "uint", lcid, "int*", &plOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return plOut
     }
 
     /**
      * Converts a Boolean value to a long value.
      * @param {VARIANT_BOOL} boolIn The value to convert.
-     * @param {Pointer<Integer>} plOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari4frombool
      */
-    static VarI4FromBool(boolIn, plOut) {
-        plOutMarshal := plOut is VarRef ? "int*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI4FromBool", "short", boolIn, plOutMarshal, plOut, "int")
+    static VarI4FromBool(boolIn) {
+        result := DllCall("OLEAUT32.dll\VarI4FromBool", "short", boolIn, "int*", &plOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return plOut
     }
 
     /**
      * Converts a char value to a long value.
      * @param {CHAR} cIn The value to convert.
-     * @param {Pointer<Integer>} plOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari4fromi1
      */
-    static VarI4FromI1(cIn, plOut) {
-        plOutMarshal := plOut is VarRef ? "int*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI4FromI1", "char", cIn, plOutMarshal, plOut, "int")
+    static VarI4FromI1(cIn) {
+        result := DllCall("OLEAUT32.dll\VarI4FromI1", "char", cIn, "int*", &plOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return plOut
     }
 
     /**
      * Converts an unsigned short value to a long value.
      * @param {Integer} uiIn The value to convert.
-     * @param {Pointer<Integer>} plOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari4fromui2
      */
-    static VarI4FromUI2(uiIn, plOut) {
-        plOutMarshal := plOut is VarRef ? "int*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI4FromUI2", "ushort", uiIn, plOutMarshal, plOut, "int")
+    static VarI4FromUI2(uiIn) {
+        result := DllCall("OLEAUT32.dll\VarI4FromUI2", "ushort", uiIn, "int*", &plOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return plOut
     }
 
     /**
      * Converts an unsigned long value to a long value.
      * @param {Integer} ulIn The value to convert.
-     * @param {Pointer<Integer>} plOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari4fromui4
      */
-    static VarI4FromUI4(ulIn, plOut) {
-        plOutMarshal := plOut is VarRef ? "int*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI4FromUI4", "uint", ulIn, plOutMarshal, plOut, "int")
+    static VarI4FromUI4(ulIn) {
+        result := DllCall("OLEAUT32.dll\VarI4FromUI4", "uint", ulIn, "int*", &plOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return plOut
     }
 
     /**
      * Converts an 8-byte unsigned integer value to a long.
      * @param {Integer} ui64In The value to convert.
-     * @param {Pointer<Integer>} plOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari4fromui8
      */
-    static VarI4FromUI8(ui64In, plOut) {
-        plOutMarshal := plOut is VarRef ? "int*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI4FromUI8", "uint", ui64In, plOutMarshal, plOut, "int")
+    static VarI4FromUI8(ui64In) {
+        result := DllCall("OLEAUT32.dll\VarI4FromUI8", "uint", ui64In, "int*", &plOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return plOut
     }
 
     /**
      * Converts a decimal value to a long value.
      * @param {Pointer<DECIMAL>} pdecIn The value to convert.
-     * @param {Pointer<Integer>} plOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari4fromdec
      */
-    static VarI4FromDec(pdecIn, plOut) {
-        plOutMarshal := plOut is VarRef ? "int*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI4FromDec", "ptr", pdecIn, plOutMarshal, plOut, "int")
+    static VarI4FromDec(pdecIn) {
+        result := DllCall("OLEAUT32.dll\VarI4FromDec", "ptr", pdecIn, "int*", &plOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return plOut
     }
 
     /**
      * Onverts an unsigned byte value to an 8-byte integer value.
      * @param {Integer} bIn The value to convert.
-     * @param {Pointer<Integer>} pi64Out The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari8fromui1
      */
-    static VarI8FromUI1(bIn, pi64Out) {
-        pi64OutMarshal := pi64Out is VarRef ? "int64*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI8FromUI1", "char", bIn, pi64OutMarshal, pi64Out, "int")
+    static VarI8FromUI1(bIn) {
+        result := DllCall("OLEAUT32.dll\VarI8FromUI1", "char", bIn, "int64*", &pi64Out := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pi64Out
     }
 
     /**
      * Converts a short value to an 8-byte integer value.
      * @param {Integer} sIn The value to convert.
-     * @param {Pointer<Integer>} pi64Out The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari8fromi2
      */
-    static VarI8FromI2(sIn, pi64Out) {
-        pi64OutMarshal := pi64Out is VarRef ? "int64*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI8FromI2", "short", sIn, pi64OutMarshal, pi64Out, "int")
+    static VarI8FromI2(sIn) {
+        result := DllCall("OLEAUT32.dll\VarI8FromI2", "short", sIn, "int64*", &pi64Out := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pi64Out
     }
 
     /**
      * Converts a float value to an 8-byte integer value.
      * @param {Float} fltIn The value to convert.
-     * @param {Pointer<Integer>} pi64Out The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari8fromr4
      */
-    static VarI8FromR4(fltIn, pi64Out) {
-        pi64OutMarshal := pi64Out is VarRef ? "int64*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI8FromR4", "float", fltIn, pi64OutMarshal, pi64Out, "int")
+    static VarI8FromR4(fltIn) {
+        result := DllCall("OLEAUT32.dll\VarI8FromR4", "float", fltIn, "int64*", &pi64Out := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pi64Out
     }
 
     /**
      * Converts a double value to an 8-byte integer value.
      * @param {Float} dblIn The value to convert.
-     * @param {Pointer<Integer>} pi64Out The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari8fromr8
      */
-    static VarI8FromR8(dblIn, pi64Out) {
-        pi64OutMarshal := pi64Out is VarRef ? "int64*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI8FromR8", "double", dblIn, pi64OutMarshal, pi64Out, "int")
+    static VarI8FromR8(dblIn) {
+        result := DllCall("OLEAUT32.dll\VarI8FromR8", "double", dblIn, "int64*", &pi64Out := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pi64Out
     }
 
     /**
      * Converts a currency value to an 8-byte integer value.
      * @param {CY} cyIn The value to convert.
-     * @param {Pointer<Integer>} pi64Out The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari8fromcy
      */
-    static VarI8FromCy(cyIn, pi64Out) {
-        pi64OutMarshal := pi64Out is VarRef ? "int64*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI8FromCy", "ptr", cyIn, pi64OutMarshal, pi64Out, "int")
+    static VarI8FromCy(cyIn) {
+        result := DllCall("OLEAUT32.dll\VarI8FromCy", "ptr", cyIn, "int64*", &pi64Out := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pi64Out
     }
 
     /**
      * Converts a date value to an 8-byte integer value.
      * @param {Float} dateIn The value to convert.
-     * @param {Pointer<Integer>} pi64Out The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari8fromdate
      */
-    static VarI8FromDate(dateIn, pi64Out) {
-        pi64OutMarshal := pi64Out is VarRef ? "int64*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI8FromDate", "double", dateIn, pi64OutMarshal, pi64Out, "int")
+    static VarI8FromDate(dateIn) {
+        result := DllCall("OLEAUT32.dll\VarI8FromDate", "double", dateIn, "int64*", &pi64Out := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pi64Out
     }
 
     /**
@@ -8731,1200 +4326,186 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Integer>} pi64Out The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari8fromstr
      */
-    static VarI8FromStr(strIn, lcid, dwFlags, pi64Out) {
+    static VarI8FromStr(strIn, lcid, dwFlags) {
         strIn := strIn is String ? StrPtr(strIn) : strIn
 
-        pi64OutMarshal := pi64Out is VarRef ? "int64*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI8FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, pi64OutMarshal, pi64Out, "int")
+        result := DllCall("OLEAUT32.dll\VarI8FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "int64*", &pi64Out := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pi64Out
     }
 
     /**
      * Converts the default property of an IDispatch instance to an 8-byte integer value.
      * @param {IDispatch} pdispIn The value to convert.
      * @param {Integer} lcid The locale identifier.
-     * @param {Pointer<Integer>} pi64Out The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari8fromdisp
      */
-    static VarI8FromDisp(pdispIn, lcid, pi64Out) {
-        pi64OutMarshal := pi64Out is VarRef ? "int64*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI8FromDisp", "ptr", pdispIn, "uint", lcid, pi64OutMarshal, pi64Out, "int")
+    static VarI8FromDisp(pdispIn, lcid) {
+        result := DllCall("OLEAUT32.dll\VarI8FromDisp", "ptr", pdispIn, "uint", lcid, "int64*", &pi64Out := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pi64Out
     }
 
     /**
      * Converts a Boolean value to an 8-byte integer value.
      * @param {VARIANT_BOOL} boolIn The value to convert.
-     * @param {Pointer<Integer>} pi64Out The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari8frombool
      */
-    static VarI8FromBool(boolIn, pi64Out) {
-        pi64OutMarshal := pi64Out is VarRef ? "int64*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI8FromBool", "short", boolIn, pi64OutMarshal, pi64Out, "int")
+    static VarI8FromBool(boolIn) {
+        result := DllCall("OLEAUT32.dll\VarI8FromBool", "short", boolIn, "int64*", &pi64Out := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pi64Out
     }
 
     /**
      * Converts a char value to an 8-byte integer value.
      * @param {CHAR} cIn The value to convert.
-     * @param {Pointer<Integer>} pi64Out The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari8fromi1
      */
-    static VarI8FromI1(cIn, pi64Out) {
-        pi64OutMarshal := pi64Out is VarRef ? "int64*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI8FromI1", "char", cIn, pi64OutMarshal, pi64Out, "int")
+    static VarI8FromI1(cIn) {
+        result := DllCall("OLEAUT32.dll\VarI8FromI1", "char", cIn, "int64*", &pi64Out := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pi64Out
     }
 
     /**
      * Converts an unsigned short value to an 8-byte integer value.
      * @param {Integer} uiIn The value to convert.
-     * @param {Pointer<Integer>} pi64Out The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari8fromui2
      */
-    static VarI8FromUI2(uiIn, pi64Out) {
-        pi64OutMarshal := pi64Out is VarRef ? "int64*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI8FromUI2", "ushort", uiIn, pi64OutMarshal, pi64Out, "int")
+    static VarI8FromUI2(uiIn) {
+        result := DllCall("OLEAUT32.dll\VarI8FromUI2", "ushort", uiIn, "int64*", &pi64Out := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pi64Out
     }
 
     /**
      * Converts an unsigned long value to an 8-byte integer value.
      * @param {Integer} ulIn The value to convert.
-     * @param {Pointer<Integer>} pi64Out The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari8fromui4
      */
-    static VarI8FromUI4(ulIn, pi64Out) {
-        pi64OutMarshal := pi64Out is VarRef ? "int64*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI8FromUI4", "uint", ulIn, pi64OutMarshal, pi64Out, "int")
+    static VarI8FromUI4(ulIn) {
+        result := DllCall("OLEAUT32.dll\VarI8FromUI4", "uint", ulIn, "int64*", &pi64Out := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pi64Out
     }
 
     /**
      * Converts an unsigned 8-byte integer value to an 8-byte integer value.
      * @param {Integer} ui64In The value to convert.
-     * @param {Pointer<Integer>} pi64Out The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari8fromui8
      */
-    static VarI8FromUI8(ui64In, pi64Out) {
-        pi64OutMarshal := pi64Out is VarRef ? "int64*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI8FromUI8", "uint", ui64In, pi64OutMarshal, pi64Out, "int")
+    static VarI8FromUI8(ui64In) {
+        result := DllCall("OLEAUT32.dll\VarI8FromUI8", "uint", ui64In, "int64*", &pi64Out := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pi64Out
     }
 
     /**
      * Converts a decimal value to an 8-byte integer value.
      * @param {Pointer<DECIMAL>} pdecIn The value to convert.
-     * @param {Pointer<Integer>} pi64Out The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vari8fromdec
      */
-    static VarI8FromDec(pdecIn, pi64Out) {
-        pi64OutMarshal := pi64Out is VarRef ? "int64*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarI8FromDec", "ptr", pdecIn, pi64OutMarshal, pi64Out, "int")
+    static VarI8FromDec(pdecIn) {
+        result := DllCall("OLEAUT32.dll\VarI8FromDec", "ptr", pdecIn, "int64*", &pi64Out := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pi64Out
     }
 
     /**
      * Converts an unsigned char value to a float value.
      * @param {Integer} bIn The value to convert.
-     * @param {Pointer<Float>} pfltOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr4fromui1
      */
-    static VarR4FromUI1(bIn, pfltOut) {
-        pfltOutMarshal := pfltOut is VarRef ? "float*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarR4FromUI1", "char", bIn, pfltOutMarshal, pfltOut, "int")
+    static VarR4FromUI1(bIn) {
+        result := DllCall("OLEAUT32.dll\VarR4FromUI1", "char", bIn, "float*", &pfltOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pfltOut
     }
 
     /**
      * Converts a short value to a float value.
      * @param {Integer} sIn The value to convert.
-     * @param {Pointer<Float>} pfltOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr4fromi2
      */
-    static VarR4FromI2(sIn, pfltOut) {
-        pfltOutMarshal := pfltOut is VarRef ? "float*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarR4FromI2", "short", sIn, pfltOutMarshal, pfltOut, "int")
+    static VarR4FromI2(sIn) {
+        result := DllCall("OLEAUT32.dll\VarR4FromI2", "short", sIn, "float*", &pfltOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pfltOut
     }
 
     /**
      * Converts a long value to a float value.
      * @param {Integer} lIn The value to convert.
-     * @param {Pointer<Float>} pfltOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr4fromi4
      */
-    static VarR4FromI4(lIn, pfltOut) {
-        pfltOutMarshal := pfltOut is VarRef ? "float*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarR4FromI4", "int", lIn, pfltOutMarshal, pfltOut, "int")
+    static VarR4FromI4(lIn) {
+        result := DllCall("OLEAUT32.dll\VarR4FromI4", "int", lIn, "float*", &pfltOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pfltOut
     }
 
     /**
      * Converts an 8-byte integer value to a float value.
      * @param {Integer} i64In The value to convert.
-     * @param {Pointer<Float>} pfltOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr4fromi8
      */
-    static VarR4FromI8(i64In, pfltOut) {
-        pfltOutMarshal := pfltOut is VarRef ? "float*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarR4FromI8", "int64", i64In, pfltOutMarshal, pfltOut, "int")
+    static VarR4FromI8(i64In) {
+        result := DllCall("OLEAUT32.dll\VarR4FromI8", "int64", i64In, "float*", &pfltOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pfltOut
     }
 
     /**
      * Converts a double value to a float value.
      * @param {Float} dblIn The value to convert.
-     * @param {Pointer<Float>} pfltOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr4fromr8
      */
-    static VarR4FromR8(dblIn, pfltOut) {
-        pfltOutMarshal := pfltOut is VarRef ? "float*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarR4FromR8", "double", dblIn, pfltOutMarshal, pfltOut, "int")
+    static VarR4FromR8(dblIn) {
+        result := DllCall("OLEAUT32.dll\VarR4FromR8", "double", dblIn, "float*", &pfltOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pfltOut
     }
 
     /**
@@ -10022,93 +4603,15 @@ class Ole {
     /**
      * Converts a date value to a float value.
      * @param {Float} dateIn The value to convert.
-     * @param {Pointer<Float>} pfltOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr4fromdate
      */
-    static VarR4FromDate(dateIn, pfltOut) {
-        pfltOutMarshal := pfltOut is VarRef ? "float*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarR4FromDate", "double", dateIn, pfltOutMarshal, pfltOut, "int")
+    static VarR4FromDate(dateIn) {
+        result := DllCall("OLEAUT32.dll\VarR4FromDate", "double", dateIn, "float*", &pfltOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pfltOut
     }
 
     /**
@@ -10153,1200 +4656,186 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Float>} pfltOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr4fromstr
      */
-    static VarR4FromStr(strIn, lcid, dwFlags, pfltOut) {
+    static VarR4FromStr(strIn, lcid, dwFlags) {
         strIn := strIn is String ? StrPtr(strIn) : strIn
 
-        pfltOutMarshal := pfltOut is VarRef ? "float*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarR4FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, pfltOutMarshal, pfltOut, "int")
+        result := DllCall("OLEAUT32.dll\VarR4FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "float*", &pfltOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pfltOut
     }
 
     /**
      * Converts the default property of an IDispatch instance to a float value.
      * @param {IDispatch} pdispIn The value to convert.
      * @param {Integer} lcid The locale identifier.
-     * @param {Pointer<Float>} pfltOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr4fromdisp
      */
-    static VarR4FromDisp(pdispIn, lcid, pfltOut) {
-        pfltOutMarshal := pfltOut is VarRef ? "float*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarR4FromDisp", "ptr", pdispIn, "uint", lcid, pfltOutMarshal, pfltOut, "int")
+    static VarR4FromDisp(pdispIn, lcid) {
+        result := DllCall("OLEAUT32.dll\VarR4FromDisp", "ptr", pdispIn, "uint", lcid, "float*", &pfltOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pfltOut
     }
 
     /**
      * Converts a Boolean value to a float value.
      * @param {VARIANT_BOOL} boolIn The value to convert.
-     * @param {Pointer<Float>} pfltOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr4frombool
      */
-    static VarR4FromBool(boolIn, pfltOut) {
-        pfltOutMarshal := pfltOut is VarRef ? "float*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarR4FromBool", "short", boolIn, pfltOutMarshal, pfltOut, "int")
+    static VarR4FromBool(boolIn) {
+        result := DllCall("OLEAUT32.dll\VarR4FromBool", "short", boolIn, "float*", &pfltOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pfltOut
     }
 
     /**
      * Onverts a char value to a float value.
      * @param {CHAR} cIn The value to convert.
-     * @param {Pointer<Float>} pfltOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr4fromi1
      */
-    static VarR4FromI1(cIn, pfltOut) {
-        pfltOutMarshal := pfltOut is VarRef ? "float*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarR4FromI1", "char", cIn, pfltOutMarshal, pfltOut, "int")
+    static VarR4FromI1(cIn) {
+        result := DllCall("OLEAUT32.dll\VarR4FromI1", "char", cIn, "float*", &pfltOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pfltOut
     }
 
     /**
      * Converts an unsigned short value to a float value.
      * @param {Integer} uiIn The value to convert.
-     * @param {Pointer<Float>} pfltOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr4fromui2
      */
-    static VarR4FromUI2(uiIn, pfltOut) {
-        pfltOutMarshal := pfltOut is VarRef ? "float*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarR4FromUI2", "ushort", uiIn, pfltOutMarshal, pfltOut, "int")
+    static VarR4FromUI2(uiIn) {
+        result := DllCall("OLEAUT32.dll\VarR4FromUI2", "ushort", uiIn, "float*", &pfltOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pfltOut
     }
 
     /**
      * Converts an unsigned long value to a float value.
      * @param {Integer} ulIn The value to convert.
-     * @param {Pointer<Float>} pfltOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr4fromui4
      */
-    static VarR4FromUI4(ulIn, pfltOut) {
-        pfltOutMarshal := pfltOut is VarRef ? "float*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarR4FromUI4", "uint", ulIn, pfltOutMarshal, pfltOut, "int")
+    static VarR4FromUI4(ulIn) {
+        result := DllCall("OLEAUT32.dll\VarR4FromUI4", "uint", ulIn, "float*", &pfltOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pfltOut
     }
 
     /**
      * Converts an unsigned 8-byte integer value to a float value.
      * @param {Integer} ui64In The value to convert.
-     * @param {Pointer<Float>} pfltOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr4fromui8
      */
-    static VarR4FromUI8(ui64In, pfltOut) {
-        pfltOutMarshal := pfltOut is VarRef ? "float*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarR4FromUI8", "uint", ui64In, pfltOutMarshal, pfltOut, "int")
+    static VarR4FromUI8(ui64In) {
+        result := DllCall("OLEAUT32.dll\VarR4FromUI8", "uint", ui64In, "float*", &pfltOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pfltOut
     }
 
     /**
      * Converts a decimal value to a float value.
      * @param {Pointer<DECIMAL>} pdecIn The value to convert.
-     * @param {Pointer<Float>} pfltOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr4fromdec
      */
-    static VarR4FromDec(pdecIn, pfltOut) {
-        pfltOutMarshal := pfltOut is VarRef ? "float*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarR4FromDec", "ptr", pdecIn, pfltOutMarshal, pfltOut, "int")
+    static VarR4FromDec(pdecIn) {
+        result := DllCall("OLEAUT32.dll\VarR4FromDec", "ptr", pdecIn, "float*", &pfltOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pfltOut
     }
 
     /**
      * Converts an unsigned char value to a double value.
      * @param {Integer} bIn The value to convert.
-     * @param {Pointer<Float>} pdblOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr8fromui1
      */
-    static VarR8FromUI1(bIn, pdblOut) {
-        pdblOutMarshal := pdblOut is VarRef ? "double*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarR8FromUI1", "char", bIn, pdblOutMarshal, pdblOut, "int")
+    static VarR8FromUI1(bIn) {
+        result := DllCall("OLEAUT32.dll\VarR8FromUI1", "char", bIn, "double*", &pdblOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdblOut
     }
 
     /**
      * Converts a short value to a double value.
      * @param {Integer} sIn The value to convert.
-     * @param {Pointer<Float>} pdblOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr8fromi2
      */
-    static VarR8FromI2(sIn, pdblOut) {
-        pdblOutMarshal := pdblOut is VarRef ? "double*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarR8FromI2", "short", sIn, pdblOutMarshal, pdblOut, "int")
+    static VarR8FromI2(sIn) {
+        result := DllCall("OLEAUT32.dll\VarR8FromI2", "short", sIn, "double*", &pdblOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdblOut
     }
 
     /**
      * Converts a long value to a double value.
      * @param {Integer} lIn The value to convert.
-     * @param {Pointer<Float>} pdblOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr8fromi4
      */
-    static VarR8FromI4(lIn, pdblOut) {
-        pdblOutMarshal := pdblOut is VarRef ? "double*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarR8FromI4", "int", lIn, pdblOutMarshal, pdblOut, "int")
+    static VarR8FromI4(lIn) {
+        result := DllCall("OLEAUT32.dll\VarR8FromI4", "int", lIn, "double*", &pdblOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdblOut
     }
 
     /**
      * Converts an 8-byte integer value to a double value.
      * @param {Integer} i64In The value to convert.
-     * @param {Pointer<Float>} pdblOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr8fromi8
      */
-    static VarR8FromI8(i64In, pdblOut) {
-        pdblOutMarshal := pdblOut is VarRef ? "double*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarR8FromI8", "int64", i64In, pdblOutMarshal, pdblOut, "int")
+    static VarR8FromI8(i64In) {
+        result := DllCall("OLEAUT32.dll\VarR8FromI8", "int64", i64In, "double*", &pdblOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdblOut
     }
 
     /**
      * Converts a float value to a double value.
      * @param {Float} fltIn The value to convert.
-     * @param {Pointer<Float>} pdblOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr8fromr4
      */
-    static VarR8FromR4(fltIn, pdblOut) {
-        pdblOutMarshal := pdblOut is VarRef ? "double*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarR8FromR4", "float", fltIn, pdblOutMarshal, pdblOut, "int")
+    static VarR8FromR4(fltIn) {
+        result := DllCall("OLEAUT32.dll\VarR8FromR4", "float", fltIn, "double*", &pdblOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdblOut
     }
 
     /**
@@ -11444,93 +4933,15 @@ class Ole {
     /**
      * Converts a date value to a double value.
      * @param {Float} dateIn The value to convert.
-     * @param {Pointer<Float>} pdblOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr8fromdate
      */
-    static VarR8FromDate(dateIn, pdblOut) {
-        pdblOutMarshal := pdblOut is VarRef ? "double*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarR8FromDate", "double", dateIn, pdblOutMarshal, pdblOut, "int")
+    static VarR8FromDate(dateIn) {
+        result := DllCall("OLEAUT32.dll\VarR8FromDate", "double", dateIn, "double*", &pdblOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdblOut
     }
 
     /**
@@ -11575,280 +4986,46 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Float>} pdblOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr8fromstr
      */
-    static VarR8FromStr(strIn, lcid, dwFlags, pdblOut) {
+    static VarR8FromStr(strIn, lcid, dwFlags) {
         strIn := strIn is String ? StrPtr(strIn) : strIn
 
-        pdblOutMarshal := pdblOut is VarRef ? "double*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarR8FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, pdblOutMarshal, pdblOut, "int")
+        result := DllCall("OLEAUT32.dll\VarR8FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "double*", &pdblOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdblOut
     }
 
     /**
      * Converts the default property of an IDispatch instance to a double value.
      * @param {IDispatch} pdispIn The value to convert.
      * @param {Integer} lcid The locale identifier.
-     * @param {Pointer<Float>} pdblOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr8fromdisp
      */
-    static VarR8FromDisp(pdispIn, lcid, pdblOut) {
-        pdblOutMarshal := pdblOut is VarRef ? "double*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarR8FromDisp", "ptr", pdispIn, "uint", lcid, pdblOutMarshal, pdblOut, "int")
+    static VarR8FromDisp(pdispIn, lcid) {
+        result := DllCall("OLEAUT32.dll\VarR8FromDisp", "ptr", pdispIn, "uint", lcid, "double*", &pdblOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdblOut
     }
 
     /**
      * Converts a Boolean value to a double value.
      * @param {VARIANT_BOOL} boolIn The value to convert.
-     * @param {Pointer<Float>} pdblOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr8frombool
      */
-    static VarR8FromBool(boolIn, pdblOut) {
-        pdblOutMarshal := pdblOut is VarRef ? "double*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarR8FromBool", "short", boolIn, pdblOutMarshal, pdblOut, "int")
+    static VarR8FromBool(boolIn) {
+        result := DllCall("OLEAUT32.dll\VarR8FromBool", "short", boolIn, "double*", &pdblOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdblOut
     }
 
     /**
@@ -11946,1013 +5123,155 @@ class Ole {
     /**
      * Converts an unsigned short value to a double value.
      * @param {Integer} uiIn The value to convert.
-     * @param {Pointer<Float>} pdblOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr8fromui2
      */
-    static VarR8FromUI2(uiIn, pdblOut) {
-        pdblOutMarshal := pdblOut is VarRef ? "double*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarR8FromUI2", "ushort", uiIn, pdblOutMarshal, pdblOut, "int")
+    static VarR8FromUI2(uiIn) {
+        result := DllCall("OLEAUT32.dll\VarR8FromUI2", "ushort", uiIn, "double*", &pdblOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdblOut
     }
 
     /**
      * Converts an unsigned long value to a double value.
      * @param {Integer} ulIn The value to convert.
-     * @param {Pointer<Float>} pdblOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr8fromui4
      */
-    static VarR8FromUI4(ulIn, pdblOut) {
-        pdblOutMarshal := pdblOut is VarRef ? "double*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarR8FromUI4", "uint", ulIn, pdblOutMarshal, pdblOut, "int")
+    static VarR8FromUI4(ulIn) {
+        result := DllCall("OLEAUT32.dll\VarR8FromUI4", "uint", ulIn, "double*", &pdblOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdblOut
     }
 
     /**
      * Converts an 8-byte unsigned integer value to a double value.
      * @param {Integer} ui64In The value to convert.
-     * @param {Pointer<Float>} pdblOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr8fromui8
      */
-    static VarR8FromUI8(ui64In, pdblOut) {
-        pdblOutMarshal := pdblOut is VarRef ? "double*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarR8FromUI8", "uint", ui64In, pdblOutMarshal, pdblOut, "int")
+    static VarR8FromUI8(ui64In) {
+        result := DllCall("OLEAUT32.dll\VarR8FromUI8", "uint", ui64In, "double*", &pdblOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdblOut
     }
 
     /**
      * Converts a decimal value to a double value.
      * @param {Pointer<DECIMAL>} pdecIn The value to convert.
-     * @param {Pointer<Float>} pdblOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr8fromdec
      */
-    static VarR8FromDec(pdecIn, pdblOut) {
-        pdblOutMarshal := pdblOut is VarRef ? "double*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarR8FromDec", "ptr", pdecIn, pdblOutMarshal, pdblOut, "int")
+    static VarR8FromDec(pdecIn) {
+        result := DllCall("OLEAUT32.dll\VarR8FromDec", "ptr", pdecIn, "double*", &pdblOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdblOut
     }
 
     /**
      * Converts an unsigned char value to a date value.
      * @param {Integer} bIn The value to convert.
-     * @param {Pointer<Float>} pdateOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vardatefromui1
      */
-    static VarDateFromUI1(bIn, pdateOut) {
-        pdateOutMarshal := pdateOut is VarRef ? "double*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarDateFromUI1", "char", bIn, pdateOutMarshal, pdateOut, "int")
+    static VarDateFromUI1(bIn) {
+        result := DllCall("OLEAUT32.dll\VarDateFromUI1", "char", bIn, "double*", &pdateOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdateOut
     }
 
     /**
      * Converts a short value to a date value.
      * @param {Integer} sIn The value to convert.
-     * @param {Pointer<Float>} pdateOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vardatefromi2
      */
-    static VarDateFromI2(sIn, pdateOut) {
-        pdateOutMarshal := pdateOut is VarRef ? "double*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarDateFromI2", "short", sIn, pdateOutMarshal, pdateOut, "int")
+    static VarDateFromI2(sIn) {
+        result := DllCall("OLEAUT32.dll\VarDateFromI2", "short", sIn, "double*", &pdateOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdateOut
     }
 
     /**
      * Converts a long value to a date value.
      * @param {Integer} lIn The value to convert.
-     * @param {Pointer<Float>} pdateOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vardatefromi4
      */
-    static VarDateFromI4(lIn, pdateOut) {
-        pdateOutMarshal := pdateOut is VarRef ? "double*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarDateFromI4", "int", lIn, pdateOutMarshal, pdateOut, "int")
+    static VarDateFromI4(lIn) {
+        result := DllCall("OLEAUT32.dll\VarDateFromI4", "int", lIn, "double*", &pdateOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdateOut
     }
 
     /**
      * Converts an 8-byte unsigned integer value to a date value.
      * @param {Integer} i64In The value to convert.
-     * @param {Pointer<Float>} pdateOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vardatefromi8
      */
-    static VarDateFromI8(i64In, pdateOut) {
-        pdateOutMarshal := pdateOut is VarRef ? "double*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarDateFromI8", "int64", i64In, pdateOutMarshal, pdateOut, "int")
+    static VarDateFromI8(i64In) {
+        result := DllCall("OLEAUT32.dll\VarDateFromI8", "int64", i64In, "double*", &pdateOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdateOut
     }
 
     /**
      * Converts a float value to a date value.
      * @param {Float} fltIn The value to convert.
-     * @param {Pointer<Float>} pdateOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vardatefromr4
      */
-    static VarDateFromR4(fltIn, pdateOut) {
-        pdateOutMarshal := pdateOut is VarRef ? "double*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarDateFromR4", "float", fltIn, pdateOutMarshal, pdateOut, "int")
+    static VarDateFromR4(fltIn) {
+        result := DllCall("OLEAUT32.dll\VarDateFromR4", "float", fltIn, "double*", &pdateOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdateOut
     }
 
     /**
      * Converts a double value to a date value.
      * @param {Float} dblIn The value to convert.
-     * @param {Pointer<Float>} pdateOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vardatefromr8
      */
-    static VarDateFromR8(dblIn, pdateOut) {
-        pdateOutMarshal := pdateOut is VarRef ? "double*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarDateFromR8", "double", dblIn, pdateOutMarshal, pdateOut, "int")
+    static VarDateFromR8(dblIn) {
+        result := DllCall("OLEAUT32.dll\VarDateFromR8", "double", dblIn, "double*", &pdateOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdateOut
     }
 
     /**
      * Converts a currency value to a date value.
      * @param {CY} cyIn The value to convert.
-     * @param {Pointer<Float>} pdateOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vardatefromcy
      */
-    static VarDateFromCy(cyIn, pdateOut) {
-        pdateOutMarshal := pdateOut is VarRef ? "double*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarDateFromCy", "ptr", cyIn, pdateOutMarshal, pdateOut, "int")
+    static VarDateFromCy(cyIn) {
+        result := DllCall("OLEAUT32.dll\VarDateFromCy", "ptr", cyIn, "double*", &pdateOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdateOut
     }
 
     /**
@@ -13008,740 +5327,116 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Float>} pdateOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vardatefromstr
      */
-    static VarDateFromStr(strIn, lcid, dwFlags, pdateOut) {
+    static VarDateFromStr(strIn, lcid, dwFlags) {
         strIn := strIn is String ? StrPtr(strIn) : strIn
 
-        pdateOutMarshal := pdateOut is VarRef ? "double*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarDateFromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, pdateOutMarshal, pdateOut, "int")
+        result := DllCall("OLEAUT32.dll\VarDateFromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "double*", &pdateOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdateOut
     }
 
     /**
      * Converts the default property of an IDispatch instance to a date value.
      * @param {IDispatch} pdispIn The value to convert.
      * @param {Integer} lcid The locale identifier.
-     * @param {Pointer<Float>} pdateOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vardatefromdisp
      */
-    static VarDateFromDisp(pdispIn, lcid, pdateOut) {
-        pdateOutMarshal := pdateOut is VarRef ? "double*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarDateFromDisp", "ptr", pdispIn, "uint", lcid, pdateOutMarshal, pdateOut, "int")
+    static VarDateFromDisp(pdispIn, lcid) {
+        result := DllCall("OLEAUT32.dll\VarDateFromDisp", "ptr", pdispIn, "uint", lcid, "double*", &pdateOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdateOut
     }
 
     /**
      * Converts a Boolean value to a date value.
      * @param {VARIANT_BOOL} boolIn The value to convert.
-     * @param {Pointer<Float>} pdateOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vardatefrombool
      */
-    static VarDateFromBool(boolIn, pdateOut) {
-        pdateOutMarshal := pdateOut is VarRef ? "double*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarDateFromBool", "short", boolIn, pdateOutMarshal, pdateOut, "int")
+    static VarDateFromBool(boolIn) {
+        result := DllCall("OLEAUT32.dll\VarDateFromBool", "short", boolIn, "double*", &pdateOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdateOut
     }
 
     /**
      * Converts a char value to a date value.
      * @param {CHAR} cIn The value to convert.
-     * @param {Pointer<Float>} pdateOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vardatefromi1
      */
-    static VarDateFromI1(cIn, pdateOut) {
-        pdateOutMarshal := pdateOut is VarRef ? "double*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarDateFromI1", "char", cIn, pdateOutMarshal, pdateOut, "int")
+    static VarDateFromI1(cIn) {
+        result := DllCall("OLEAUT32.dll\VarDateFromI1", "char", cIn, "double*", &pdateOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdateOut
     }
 
     /**
      * Converts an unsigned short value to a date value.
      * @param {Integer} uiIn The value to convert.
-     * @param {Pointer<Float>} pdateOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vardatefromui2
      */
-    static VarDateFromUI2(uiIn, pdateOut) {
-        pdateOutMarshal := pdateOut is VarRef ? "double*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarDateFromUI2", "ushort", uiIn, pdateOutMarshal, pdateOut, "int")
+    static VarDateFromUI2(uiIn) {
+        result := DllCall("OLEAUT32.dll\VarDateFromUI2", "ushort", uiIn, "double*", &pdateOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdateOut
     }
 
     /**
      * Converts an unsigned long value to a date value.
      * @param {Integer} ulIn The value to convert.
-     * @param {Pointer<Float>} pdateOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vardatefromui4
      */
-    static VarDateFromUI4(ulIn, pdateOut) {
-        pdateOutMarshal := pdateOut is VarRef ? "double*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarDateFromUI4", "uint", ulIn, pdateOutMarshal, pdateOut, "int")
+    static VarDateFromUI4(ulIn) {
+        result := DllCall("OLEAUT32.dll\VarDateFromUI4", "uint", ulIn, "double*", &pdateOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdateOut
     }
 
     /**
      * Converts an 8-byte unsigned value to a date value.
      * @param {Integer} ui64In The value to convert.
-     * @param {Pointer<Float>} pdateOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vardatefromui8
      */
-    static VarDateFromUI8(ui64In, pdateOut) {
-        pdateOutMarshal := pdateOut is VarRef ? "double*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarDateFromUI8", "uint", ui64In, pdateOutMarshal, pdateOut, "int")
+    static VarDateFromUI8(ui64In) {
+        result := DllCall("OLEAUT32.dll\VarDateFromUI8", "uint", ui64In, "double*", &pdateOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdateOut
     }
 
     /**
      * Converts a decimal value to a date value.
      * @param {Pointer<DECIMAL>} pdecIn The value to convert.
-     * @param {Pointer<Float>} pdateOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vardatefromdec
      */
-    static VarDateFromDec(pdecIn, pdateOut) {
-        pdateOutMarshal := pdateOut is VarRef ? "double*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarDateFromDec", "ptr", pdecIn, pdateOutMarshal, pdateOut, "int")
+    static VarDateFromDec(pdecIn) {
+        result := DllCall("OLEAUT32.dll\VarDateFromDec", "ptr", pdecIn, "double*", &pdateOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdateOut
     }
 
     /**
@@ -15158,91 +6853,16 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<BSTR>} pbstrOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {BSTR} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varbstrfromui1
      */
-    static VarBstrFromUI1(bVal, lcid, dwFlags, pbstrOut) {
+    static VarBstrFromUI1(bVal, lcid, dwFlags) {
+        pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarBstrFromUI1", "char", bVal, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbstrOut
     }
 
     /**
@@ -15250,91 +6870,16 @@ class Ole {
      * @param {Integer} iVal The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags Reserved. Set to zero.
-     * @param {Pointer<BSTR>} pbstrOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {BSTR} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varbstrfromi2
      */
-    static VarBstrFromI2(iVal, lcid, dwFlags, pbstrOut) {
+    static VarBstrFromI2(iVal, lcid, dwFlags) {
+        pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarBstrFromI2", "short", iVal, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbstrOut
     }
 
     /**
@@ -15342,91 +6887,16 @@ class Ole {
      * @param {Integer} lIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags Reserved. Set to zero.
-     * @param {Pointer<BSTR>} pbstrOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {BSTR} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varbstrfromi4
      */
-    static VarBstrFromI4(lIn, lcid, dwFlags, pbstrOut) {
+    static VarBstrFromI4(lIn, lcid, dwFlags) {
+        pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarBstrFromI4", "int", lIn, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbstrOut
     }
 
     /**
@@ -15434,91 +6904,16 @@ class Ole {
      * @param {Integer} i64In The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags Reserved. Set to zero.
-     * @param {Pointer<BSTR>} pbstrOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {BSTR} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varbstrfromi8
      */
-    static VarBstrFromI8(i64In, lcid, dwFlags, pbstrOut) {
+    static VarBstrFromI8(i64In, lcid, dwFlags) {
+        pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarBstrFromI8", "int64", i64In, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbstrOut
     }
 
     /**
@@ -15543,91 +6938,16 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<BSTR>} pbstrOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {BSTR} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varbstrfromr4
      */
-    static VarBstrFromR4(fltIn, lcid, dwFlags, pbstrOut) {
+    static VarBstrFromR4(fltIn, lcid, dwFlags) {
+        pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarBstrFromR4", "float", fltIn, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbstrOut
     }
 
     /**
@@ -15652,91 +6972,16 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<BSTR>} pbstrOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {BSTR} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varbstrfromr8
      */
-    static VarBstrFromR8(dblIn, lcid, dwFlags, pbstrOut) {
+    static VarBstrFromR8(dblIn, lcid, dwFlags) {
+        pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarBstrFromR8", "double", dblIn, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbstrOut
     }
 
     /**
@@ -15771,91 +7016,16 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<BSTR>} pbstrOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {BSTR} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varbstrfromcy
      */
-    static VarBstrFromCy(cyIn, lcid, dwFlags, pbstrOut) {
+    static VarBstrFromCy(cyIn, lcid, dwFlags) {
+        pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarBstrFromCy", "ptr", cyIn, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbstrOut
     }
 
     /**
@@ -15943,91 +7113,16 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<BSTR>} pbstrOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {BSTR} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varbstrfromdate
      */
-    static VarBstrFromDate(dateIn, lcid, dwFlags, pbstrOut) {
+    static VarBstrFromDate(dateIn, lcid, dwFlags) {
+        pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarBstrFromDate", "double", dateIn, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbstrOut
     }
 
     /**
@@ -16035,91 +7130,16 @@ class Ole {
      * @param {IDispatch} pdispIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags Reserved. Set to zero.
-     * @param {Pointer<BSTR>} pbstrOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {BSTR} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varbstrfromdisp
      */
-    static VarBstrFromDisp(pdispIn, lcid, dwFlags, pbstrOut) {
+    static VarBstrFromDisp(pdispIn, lcid, dwFlags) {
+        pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarBstrFromDisp", "ptr", pdispIn, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbstrOut
     }
 
     /**
@@ -16154,91 +7174,16 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<BSTR>} pbstrOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {BSTR} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varbstrfrombool
      */
-    static VarBstrFromBool(boolIn, lcid, dwFlags, pbstrOut) {
+    static VarBstrFromBool(boolIn, lcid, dwFlags) {
+        pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarBstrFromBool", "short", boolIn, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbstrOut
     }
 
     /**
@@ -16246,91 +7191,16 @@ class Ole {
      * @param {CHAR} cIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags Reserved. Set to zero.
-     * @param {Pointer<BSTR>} pbstrOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {BSTR} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varbstrfromi1
      */
-    static VarBstrFromI1(cIn, lcid, dwFlags, pbstrOut) {
+    static VarBstrFromI1(cIn, lcid, dwFlags) {
+        pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarBstrFromI1", "char", cIn, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbstrOut
     }
 
     /**
@@ -16355,91 +7225,16 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<BSTR>} pbstrOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {BSTR} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varbstrfromui2
      */
-    static VarBstrFromUI2(uiIn, lcid, dwFlags, pbstrOut) {
+    static VarBstrFromUI2(uiIn, lcid, dwFlags) {
+        pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarBstrFromUI2", "ushort", uiIn, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbstrOut
     }
 
     /**
@@ -16447,91 +7242,16 @@ class Ole {
      * @param {Integer} ulIn The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags Reserved. Set to zero.
-     * @param {Pointer<BSTR>} pbstrOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {BSTR} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varbstrfromui4
      */
-    static VarBstrFromUI4(ulIn, lcid, dwFlags, pbstrOut) {
+    static VarBstrFromUI4(ulIn, lcid, dwFlags) {
+        pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarBstrFromUI4", "uint", ulIn, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbstrOut
     }
 
     /**
@@ -16539,91 +7259,16 @@ class Ole {
      * @param {Integer} ui64In The value to convert.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags Reserved. Set to zero.
-     * @param {Pointer<BSTR>} pbstrOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {BSTR} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varbstrfromui8
      */
-    static VarBstrFromUI8(ui64In, lcid, dwFlags, pbstrOut) {
+    static VarBstrFromUI8(ui64In, lcid, dwFlags) {
+        pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarBstrFromUI8", "uint", ui64In, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbstrOut
     }
 
     /**
@@ -16670,811 +7315,128 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<BSTR>} pbstrOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {BSTR} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varbstrfromdec
      */
-    static VarBstrFromDec(pdecIn, lcid, dwFlags, pbstrOut) {
+    static VarBstrFromDec(pdecIn, lcid, dwFlags) {
+        pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarBstrFromDec", "ptr", pdecIn, "uint", lcid, "uint", dwFlags, "ptr", pbstrOut, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbstrOut
     }
 
     /**
      * Converts an unsigned char value to a Boolean value.
      * @param {Integer} bIn The value to convert.
-     * @param {Pointer<VARIANT_BOOL>} pboolOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {VARIANT_BOOL} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varboolfromui1
      */
-    static VarBoolFromUI1(bIn, pboolOut) {
-        result := DllCall("OLEAUT32.dll\VarBoolFromUI1", "char", bIn, "ptr", pboolOut, "int")
+    static VarBoolFromUI1(bIn) {
+        result := DllCall("OLEAUT32.dll\VarBoolFromUI1", "char", bIn, "short*", &pboolOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pboolOut
     }
 
     /**
      * Converts a short value to a Boolean value.
      * @param {Integer} sIn The value to convert.
-     * @param {Pointer<VARIANT_BOOL>} pboolOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {VARIANT_BOOL} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varboolfromi2
      */
-    static VarBoolFromI2(sIn, pboolOut) {
-        result := DllCall("OLEAUT32.dll\VarBoolFromI2", "short", sIn, "ptr", pboolOut, "int")
+    static VarBoolFromI2(sIn) {
+        result := DllCall("OLEAUT32.dll\VarBoolFromI2", "short", sIn, "short*", &pboolOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pboolOut
     }
 
     /**
      * Converts a long value to a Boolean value.
      * @param {Integer} lIn The value to convert.
-     * @param {Pointer<VARIANT_BOOL>} pboolOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {VARIANT_BOOL} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varboolfromi4
      */
-    static VarBoolFromI4(lIn, pboolOut) {
-        result := DllCall("OLEAUT32.dll\VarBoolFromI4", "int", lIn, "ptr", pboolOut, "int")
+    static VarBoolFromI4(lIn) {
+        result := DllCall("OLEAUT32.dll\VarBoolFromI4", "int", lIn, "short*", &pboolOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pboolOut
     }
 
     /**
      * Converts an 8-byte integer value to a Boolean value.
      * @param {Integer} i64In The value to convert.
-     * @param {Pointer<VARIANT_BOOL>} pboolOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {VARIANT_BOOL} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varboolfromi8
      */
-    static VarBoolFromI8(i64In, pboolOut) {
-        result := DllCall("OLEAUT32.dll\VarBoolFromI8", "int64", i64In, "ptr", pboolOut, "int")
+    static VarBoolFromI8(i64In) {
+        result := DllCall("OLEAUT32.dll\VarBoolFromI8", "int64", i64In, "short*", &pboolOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pboolOut
     }
 
     /**
      * Converts a float value to a Boolean value.
      * @param {Float} fltIn The value to convert.
-     * @param {Pointer<VARIANT_BOOL>} pboolOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {VARIANT_BOOL} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varboolfromr4
      */
-    static VarBoolFromR4(fltIn, pboolOut) {
-        result := DllCall("OLEAUT32.dll\VarBoolFromR4", "float", fltIn, "ptr", pboolOut, "int")
+    static VarBoolFromR4(fltIn) {
+        result := DllCall("OLEAUT32.dll\VarBoolFromR4", "float", fltIn, "short*", &pboolOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pboolOut
     }
 
     /**
      * Converts a double value to a Boolean value.
      * @param {Float} dblIn The value to convert.
-     * @param {Pointer<VARIANT_BOOL>} pboolOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {VARIANT_BOOL} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varboolfromr8
      */
-    static VarBoolFromR8(dblIn, pboolOut) {
-        result := DllCall("OLEAUT32.dll\VarBoolFromR8", "double", dblIn, "ptr", pboolOut, "int")
+    static VarBoolFromR8(dblIn) {
+        result := DllCall("OLEAUT32.dll\VarBoolFromR8", "double", dblIn, "short*", &pboolOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pboolOut
     }
 
     /**
      * Converts a date value to a Boolean value.
      * @param {Float} dateIn The value to convert.
-     * @param {Pointer<VARIANT_BOOL>} pboolOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {VARIANT_BOOL} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varboolfromdate
      */
-    static VarBoolFromDate(dateIn, pboolOut) {
-        result := DllCall("OLEAUT32.dll\VarBoolFromDate", "double", dateIn, "ptr", pboolOut, "int")
+    static VarBoolFromDate(dateIn) {
+        result := DllCall("OLEAUT32.dll\VarBoolFromDate", "double", dateIn, "short*", &pboolOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pboolOut
     }
 
     /**
      * Converts a currency value to a Boolean value.
      * @param {CY} cyIn The value to convert.
-     * @param {Pointer<VARIANT_BOOL>} pboolOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {VARIANT_BOOL} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varboolfromcy
      */
-    static VarBoolFromCy(cyIn, pboolOut) {
-        result := DllCall("OLEAUT32.dll\VarBoolFromCy", "ptr", cyIn, "ptr", pboolOut, "int")
+    static VarBoolFromCy(cyIn) {
+        result := DllCall("OLEAUT32.dll\VarBoolFromCy", "ptr", cyIn, "short*", &pboolOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pboolOut
     }
 
     /**
@@ -17509,634 +7471,102 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<VARIANT_BOOL>} pboolOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {VARIANT_BOOL} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varboolfromstr
      */
-    static VarBoolFromStr(strIn, lcid, dwFlags, pboolOut) {
+    static VarBoolFromStr(strIn, lcid, dwFlags) {
         strIn := strIn is String ? StrPtr(strIn) : strIn
 
-        result := DllCall("OLEAUT32.dll\VarBoolFromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", pboolOut, "int")
+        result := DllCall("OLEAUT32.dll\VarBoolFromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "short*", &pboolOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pboolOut
     }
 
     /**
      * Converts the default property of an IDispatch instance to a Boolean value.
      * @param {IDispatch} pdispIn The value to convert.
      * @param {Integer} lcid The locale identifier.
-     * @param {Pointer<VARIANT_BOOL>} pboolOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {VARIANT_BOOL} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varboolfromdisp
      */
-    static VarBoolFromDisp(pdispIn, lcid, pboolOut) {
-        result := DllCall("OLEAUT32.dll\VarBoolFromDisp", "ptr", pdispIn, "uint", lcid, "ptr", pboolOut, "int")
+    static VarBoolFromDisp(pdispIn, lcid) {
+        result := DllCall("OLEAUT32.dll\VarBoolFromDisp", "ptr", pdispIn, "uint", lcid, "short*", &pboolOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pboolOut
     }
 
     /**
      * Converts a char value to a Boolean value.
      * @param {CHAR} cIn The value to convert.
-     * @param {Pointer<VARIANT_BOOL>} pboolOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {VARIANT_BOOL} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varboolfromi1
      */
-    static VarBoolFromI1(cIn, pboolOut) {
-        result := DllCall("OLEAUT32.dll\VarBoolFromI1", "char", cIn, "ptr", pboolOut, "int")
+    static VarBoolFromI1(cIn) {
+        result := DllCall("OLEAUT32.dll\VarBoolFromI1", "char", cIn, "short*", &pboolOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pboolOut
     }
 
     /**
      * Converts an unsigned short value to a Boolean value.
      * @param {Integer} uiIn The value to convert.
-     * @param {Pointer<VARIANT_BOOL>} pboolOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {VARIANT_BOOL} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varboolfromui2
      */
-    static VarBoolFromUI2(uiIn, pboolOut) {
-        result := DllCall("OLEAUT32.dll\VarBoolFromUI2", "ushort", uiIn, "ptr", pboolOut, "int")
+    static VarBoolFromUI2(uiIn) {
+        result := DllCall("OLEAUT32.dll\VarBoolFromUI2", "ushort", uiIn, "short*", &pboolOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pboolOut
     }
 
     /**
      * Converts an unsigned long value to a Boolean value.
      * @param {Integer} ulIn The value to convert.
-     * @param {Pointer<VARIANT_BOOL>} pboolOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {VARIANT_BOOL} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varboolfromui4
      */
-    static VarBoolFromUI4(ulIn, pboolOut) {
-        result := DllCall("OLEAUT32.dll\VarBoolFromUI4", "uint", ulIn, "ptr", pboolOut, "int")
+    static VarBoolFromUI4(ulIn) {
+        result := DllCall("OLEAUT32.dll\VarBoolFromUI4", "uint", ulIn, "short*", &pboolOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pboolOut
     }
 
     /**
      * Converts an 8-byte unsigned integer value to a Boolean value.
      * @param {Integer} i64In The value to convert.
-     * @param {Pointer<VARIANT_BOOL>} pboolOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {VARIANT_BOOL} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varboolfromui8
      */
-    static VarBoolFromUI8(i64In, pboolOut) {
-        result := DllCall("OLEAUT32.dll\VarBoolFromUI8", "uint", i64In, "ptr", pboolOut, "int")
+    static VarBoolFromUI8(i64In) {
+        result := DllCall("OLEAUT32.dll\VarBoolFromUI8", "uint", i64In, "short*", &pboolOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pboolOut
     }
 
     /**
      * Converts a decimal value to a Boolean value.
      * @param {Pointer<DECIMAL>} pdecIn The value to convert.
-     * @param {Pointer<VARIANT_BOOL>} pboolOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {VARIANT_BOOL} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varboolfromdec
      */
-    static VarBoolFromDec(pdecIn, pboolOut) {
-        result := DllCall("OLEAUT32.dll\VarBoolFromDec", "ptr", pdecIn, "ptr", pboolOut, "int")
+    static VarBoolFromDec(pdecIn) {
+        result := DllCall("OLEAUT32.dll\VarBoolFromDec", "ptr", pdecIn, "short*", &pboolOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pboolOut
     }
 
     /**
@@ -19543,461 +8973,71 @@ class Ole {
     /**
      * Converts an unsigned char value to an unsigned short value.
      * @param {Integer} bIn The value to convert.
-     * @param {Pointer<Integer>} puiOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui2fromui1
      */
-    static VarUI2FromUI1(bIn, puiOut) {
-        puiOutMarshal := puiOut is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI2FromUI1", "char", bIn, puiOutMarshal, puiOut, "int")
+    static VarUI2FromUI1(bIn) {
+        result := DllCall("OLEAUT32.dll\VarUI2FromUI1", "char", bIn, "ushort*", &puiOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return puiOut
     }
 
     /**
      * Converts a short value to an unsigned short value.
      * @param {Integer} uiIn The value to convert.
-     * @param {Pointer<Integer>} puiOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui2fromi2
      */
-    static VarUI2FromI2(uiIn, puiOut) {
-        puiOutMarshal := puiOut is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI2FromI2", "short", uiIn, puiOutMarshal, puiOut, "int")
+    static VarUI2FromI2(uiIn) {
+        result := DllCall("OLEAUT32.dll\VarUI2FromI2", "short", uiIn, "ushort*", &puiOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return puiOut
     }
 
     /**
      * Converts a long value to an unsigned short value.
      * @param {Integer} lIn The value to convert.
-     * @param {Pointer<Integer>} puiOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui2fromi4
      */
-    static VarUI2FromI4(lIn, puiOut) {
-        puiOutMarshal := puiOut is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI2FromI4", "int", lIn, puiOutMarshal, puiOut, "int")
+    static VarUI2FromI4(lIn) {
+        result := DllCall("OLEAUT32.dll\VarUI2FromI4", "int", lIn, "ushort*", &puiOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return puiOut
     }
 
     /**
      * Converts an 8-byte integer value to an unsigned short value.
      * @param {Integer} i64In The value to convert.
-     * @param {Pointer<Integer>} puiOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui2fromi8
      */
-    static VarUI2FromI8(i64In, puiOut) {
-        puiOutMarshal := puiOut is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI2FromI8", "int64", i64In, puiOutMarshal, puiOut, "int")
+    static VarUI2FromI8(i64In) {
+        result := DllCall("OLEAUT32.dll\VarUI2FromI8", "int64", i64In, "ushort*", &puiOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return puiOut
     }
 
     /**
      * Converts a float value to an unsigned short value.
      * @param {Float} fltIn The value to convert.
-     * @param {Pointer<Integer>} puiOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui2fromr4
      */
-    static VarUI2FromR4(fltIn, puiOut) {
-        puiOutMarshal := puiOut is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI2FromR4", "float", fltIn, puiOutMarshal, puiOut, "int")
+    static VarUI2FromR4(fltIn) {
+        result := DllCall("OLEAUT32.dll\VarUI2FromR4", "float", fltIn, "ushort*", &puiOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return puiOut
     }
 
     /**
@@ -20095,185 +9135,29 @@ class Ole {
     /**
      * Converts a date value to an unsigned short value.
      * @param {Float} dateIn The value to convert.
-     * @param {Pointer<Integer>} puiOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui2fromdate
      */
-    static VarUI2FromDate(dateIn, puiOut) {
-        puiOutMarshal := puiOut is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI2FromDate", "double", dateIn, puiOutMarshal, puiOut, "int")
+    static VarUI2FromDate(dateIn) {
+        result := DllCall("OLEAUT32.dll\VarUI2FromDate", "double", dateIn, "ushort*", &puiOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return puiOut
     }
 
     /**
      * Converts a currency value to an unsigned short value.
      * @param {CY} cyIn The value to convert.
-     * @param {Pointer<Integer>} puiOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui2fromcy
      */
-    static VarUI2FromCy(cyIn, puiOut) {
-        puiOutMarshal := puiOut is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI2FromCy", "ptr", cyIn, puiOutMarshal, puiOut, "int")
+    static VarUI2FromCy(cyIn) {
+        result := DllCall("OLEAUT32.dll\VarUI2FromCy", "ptr", cyIn, "ushort*", &puiOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return puiOut
     }
 
     /**
@@ -20318,1384 +9202,214 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Integer>} puiOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui2fromstr
      */
-    static VarUI2FromStr(strIn, lcid, dwFlags, puiOut) {
+    static VarUI2FromStr(strIn, lcid, dwFlags) {
         strIn := strIn is String ? StrPtr(strIn) : strIn
 
-        puiOutMarshal := puiOut is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI2FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, puiOutMarshal, puiOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI2FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ushort*", &puiOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return puiOut
     }
 
     /**
      * Converts the default property of an IDispatch instance to an unsigned short value.
      * @param {IDispatch} pdispIn The value to convert.
      * @param {Integer} lcid The locale identifier.
-     * @param {Pointer<Integer>} puiOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui2fromdisp
      */
-    static VarUI2FromDisp(pdispIn, lcid, puiOut) {
-        puiOutMarshal := puiOut is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI2FromDisp", "ptr", pdispIn, "uint", lcid, puiOutMarshal, puiOut, "int")
+    static VarUI2FromDisp(pdispIn, lcid) {
+        result := DllCall("OLEAUT32.dll\VarUI2FromDisp", "ptr", pdispIn, "uint", lcid, "ushort*", &puiOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return puiOut
     }
 
     /**
      * Converts a Boolean value to an unsigned short value.
      * @param {VARIANT_BOOL} boolIn The value to convert.
-     * @param {Pointer<Integer>} puiOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui2frombool
      */
-    static VarUI2FromBool(boolIn, puiOut) {
-        puiOutMarshal := puiOut is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI2FromBool", "short", boolIn, puiOutMarshal, puiOut, "int")
+    static VarUI2FromBool(boolIn) {
+        result := DllCall("OLEAUT32.dll\VarUI2FromBool", "short", boolIn, "ushort*", &puiOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return puiOut
     }
 
     /**
      * Converts a char value to an unsigned short value.
      * @param {CHAR} cIn The value to convert.
-     * @param {Pointer<Integer>} puiOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui2fromi1
      */
-    static VarUI2FromI1(cIn, puiOut) {
-        puiOutMarshal := puiOut is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI2FromI1", "char", cIn, puiOutMarshal, puiOut, "int")
+    static VarUI2FromI1(cIn) {
+        result := DllCall("OLEAUT32.dll\VarUI2FromI1", "char", cIn, "ushort*", &puiOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return puiOut
     }
 
     /**
      * Converts an unsigned long value to an unsigned short value.
      * @param {Integer} ulIn The value to convert.
-     * @param {Pointer<Integer>} puiOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui2fromui4
      */
-    static VarUI2FromUI4(ulIn, puiOut) {
-        puiOutMarshal := puiOut is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI2FromUI4", "uint", ulIn, puiOutMarshal, puiOut, "int")
+    static VarUI2FromUI4(ulIn) {
+        result := DllCall("OLEAUT32.dll\VarUI2FromUI4", "uint", ulIn, "ushort*", &puiOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return puiOut
     }
 
     /**
      * Converts an 8-byte unsigned integer value to an unsigned short value.
      * @param {Integer} i64In The value to convert.
-     * @param {Pointer<Integer>} puiOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui2fromui8
      */
-    static VarUI2FromUI8(i64In, puiOut) {
-        puiOutMarshal := puiOut is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI2FromUI8", "uint", i64In, puiOutMarshal, puiOut, "int")
+    static VarUI2FromUI8(i64In) {
+        result := DllCall("OLEAUT32.dll\VarUI2FromUI8", "uint", i64In, "ushort*", &puiOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return puiOut
     }
 
     /**
      * Converts a decimal value to an unsigned short value.
      * @param {Pointer<DECIMAL>} pdecIn The value to convert.
-     * @param {Pointer<Integer>} puiOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui2fromdec
      */
-    static VarUI2FromDec(pdecIn, puiOut) {
-        puiOutMarshal := puiOut is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI2FromDec", "ptr", pdecIn, puiOutMarshal, puiOut, "int")
+    static VarUI2FromDec(pdecIn) {
+        result := DllCall("OLEAUT32.dll\VarUI2FromDec", "ptr", pdecIn, "ushort*", &puiOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return puiOut
     }
 
     /**
      * Converts an unsigned char value to an unsigned long value.
      * @param {Integer} bIn The value to convert.
-     * @param {Pointer<Integer>} pulOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui4fromui1
      */
-    static VarUI4FromUI1(bIn, pulOut) {
-        pulOutMarshal := pulOut is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI4FromUI1", "char", bIn, pulOutMarshal, pulOut, "int")
+    static VarUI4FromUI1(bIn) {
+        result := DllCall("OLEAUT32.dll\VarUI4FromUI1", "char", bIn, "uint*", &pulOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pulOut
     }
 
     /**
      * Converts a short value to an unsigned long value.
      * @param {Integer} uiIn The value to convert.
-     * @param {Pointer<Integer>} pulOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui4fromi2
      */
-    static VarUI4FromI2(uiIn, pulOut) {
-        pulOutMarshal := pulOut is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI4FromI2", "short", uiIn, pulOutMarshal, pulOut, "int")
+    static VarUI4FromI2(uiIn) {
+        result := DllCall("OLEAUT32.dll\VarUI4FromI2", "short", uiIn, "uint*", &pulOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pulOut
     }
 
     /**
      * Converts a long value to an unsigned long value.
      * @param {Integer} lIn The value to convert.
-     * @param {Pointer<Integer>} pulOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui4fromi4
      */
-    static VarUI4FromI4(lIn, pulOut) {
-        pulOutMarshal := pulOut is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI4FromI4", "int", lIn, pulOutMarshal, pulOut, "int")
+    static VarUI4FromI4(lIn) {
+        result := DllCall("OLEAUT32.dll\VarUI4FromI4", "int", lIn, "uint*", &pulOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pulOut
     }
 
     /**
      * Converts an 8-byte integer value to an unsigned long value.
      * @param {Integer} i64In The value to convert.
-     * @param {Pointer<Integer>} plOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui4fromi8
      */
-    static VarUI4FromI8(i64In, plOut) {
-        plOutMarshal := plOut is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI4FromI8", "int64", i64In, plOutMarshal, plOut, "int")
+    static VarUI4FromI8(i64In) {
+        result := DllCall("OLEAUT32.dll\VarUI4FromI8", "int64", i64In, "uint*", &plOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return plOut
     }
 
     /**
      * Converts a float value to an unsigned long value.
      * @param {Float} fltIn The value to convert.
-     * @param {Pointer<Integer>} pulOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui4fromr4
      */
-    static VarUI4FromR4(fltIn, pulOut) {
-        pulOutMarshal := pulOut is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI4FromR4", "float", fltIn, pulOutMarshal, pulOut, "int")
+    static VarUI4FromR4(fltIn) {
+        result := DllCall("OLEAUT32.dll\VarUI4FromR4", "float", fltIn, "uint*", &pulOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pulOut
     }
 
     /**
      * Converts a double value to an unsigned long value.
      * @param {Float} dblIn The value to convert.
-     * @param {Pointer<Integer>} pulOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui4fromr8
      */
-    static VarUI4FromR8(dblIn, pulOut) {
-        pulOutMarshal := pulOut is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI4FromR8", "double", dblIn, pulOutMarshal, pulOut, "int")
+    static VarUI4FromR8(dblIn) {
+        result := DllCall("OLEAUT32.dll\VarUI4FromR8", "double", dblIn, "uint*", &pulOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pulOut
     }
 
     /**
      * Converts a date value to an unsigned long value.
      * @param {Float} dateIn The value to convert.
-     * @param {Pointer<Integer>} pulOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui4fromdate
      */
-    static VarUI4FromDate(dateIn, pulOut) {
-        pulOutMarshal := pulOut is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI4FromDate", "double", dateIn, pulOutMarshal, pulOut, "int")
+    static VarUI4FromDate(dateIn) {
+        result := DllCall("OLEAUT32.dll\VarUI4FromDate", "double", dateIn, "uint*", &pulOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pulOut
     }
 
     /**
      * Converts a currency value to an unsigned long value.
      * @param {CY} cyIn The value to convert.
-     * @param {Pointer<Integer>} pulOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui4fromcy
      */
-    static VarUI4FromCy(cyIn, pulOut) {
-        pulOutMarshal := pulOut is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI4FromCy", "ptr", cyIn, pulOutMarshal, pulOut, "int")
+    static VarUI4FromCy(cyIn) {
+        result := DllCall("OLEAUT32.dll\VarUI4FromCy", "ptr", cyIn, "uint*", &pulOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pulOut
     }
 
     /**
@@ -21740,1292 +9454,200 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Integer>} pulOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui4fromstr
      */
-    static VarUI4FromStr(strIn, lcid, dwFlags, pulOut) {
+    static VarUI4FromStr(strIn, lcid, dwFlags) {
         strIn := strIn is String ? StrPtr(strIn) : strIn
 
-        pulOutMarshal := pulOut is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI4FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, pulOutMarshal, pulOut, "int")
+        result := DllCall("OLEAUT32.dll\VarUI4FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "uint*", &pulOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pulOut
     }
 
     /**
      * Converts the default property of an IDispatch instance to an unsigned long value.
      * @param {IDispatch} pdispIn The value to convert.
      * @param {Integer} lcid The locale identifier.
-     * @param {Pointer<Integer>} pulOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui4fromdisp
      */
-    static VarUI4FromDisp(pdispIn, lcid, pulOut) {
-        pulOutMarshal := pulOut is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI4FromDisp", "ptr", pdispIn, "uint", lcid, pulOutMarshal, pulOut, "int")
+    static VarUI4FromDisp(pdispIn, lcid) {
+        result := DllCall("OLEAUT32.dll\VarUI4FromDisp", "ptr", pdispIn, "uint", lcid, "uint*", &pulOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pulOut
     }
 
     /**
      * Converts a Boolean value to an unsigned long value.
      * @param {VARIANT_BOOL} boolIn The value to convert.
-     * @param {Pointer<Integer>} pulOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui4frombool
      */
-    static VarUI4FromBool(boolIn, pulOut) {
-        pulOutMarshal := pulOut is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI4FromBool", "short", boolIn, pulOutMarshal, pulOut, "int")
+    static VarUI4FromBool(boolIn) {
+        result := DllCall("OLEAUT32.dll\VarUI4FromBool", "short", boolIn, "uint*", &pulOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pulOut
     }
 
     /**
      * Converts a char value to an unsigned long value.
      * @param {CHAR} cIn The value to convert.
-     * @param {Pointer<Integer>} pulOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui4fromi1
      */
-    static VarUI4FromI1(cIn, pulOut) {
-        pulOutMarshal := pulOut is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI4FromI1", "char", cIn, pulOutMarshal, pulOut, "int")
+    static VarUI4FromI1(cIn) {
+        result := DllCall("OLEAUT32.dll\VarUI4FromI1", "char", cIn, "uint*", &pulOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pulOut
     }
 
     /**
      * Converts an unsigned short value to an unsigned long value.
      * @param {Integer} uiIn The value to convert.
-     * @param {Pointer<Integer>} pulOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui4fromui2
      */
-    static VarUI4FromUI2(uiIn, pulOut) {
-        pulOutMarshal := pulOut is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI4FromUI2", "ushort", uiIn, pulOutMarshal, pulOut, "int")
+    static VarUI4FromUI2(uiIn) {
+        result := DllCall("OLEAUT32.dll\VarUI4FromUI2", "ushort", uiIn, "uint*", &pulOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pulOut
     }
 
     /**
      * Converts an 8-byte unsigned integer value to an unsigned long value.
      * @param {Integer} ui64In The value to convert.
-     * @param {Pointer<Integer>} plOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui4fromui8
      */
-    static VarUI4FromUI8(ui64In, plOut) {
-        plOutMarshal := plOut is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI4FromUI8", "uint", ui64In, plOutMarshal, plOut, "int")
+    static VarUI4FromUI8(ui64In) {
+        result := DllCall("OLEAUT32.dll\VarUI4FromUI8", "uint", ui64In, "uint*", &plOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return plOut
     }
 
     /**
      * Converts a decimal value to an unsigned long value.
      * @param {Pointer<DECIMAL>} pdecIn The value to convert.
-     * @param {Pointer<Integer>} pulOut The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui4fromdec
      */
-    static VarUI4FromDec(pdecIn, pulOut) {
-        pulOutMarshal := pulOut is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI4FromDec", "ptr", pdecIn, pulOutMarshal, pulOut, "int")
+    static VarUI4FromDec(pdecIn) {
+        result := DllCall("OLEAUT32.dll\VarUI4FromDec", "ptr", pdecIn, "uint*", &pulOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pulOut
     }
 
     /**
      * Converts a byte value to an 8-byte unsigned integer value.
      * @param {Integer} bIn The value to convert.
-     * @param {Pointer<Integer>} pi64Out The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui8fromui1
      */
-    static VarUI8FromUI1(bIn, pi64Out) {
-        pi64OutMarshal := pi64Out is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI8FromUI1", "char", bIn, pi64OutMarshal, pi64Out, "int")
+    static VarUI8FromUI1(bIn) {
+        result := DllCall("OLEAUT32.dll\VarUI8FromUI1", "char", bIn, "uint*", &pi64Out := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pi64Out
     }
 
     /**
      * Converts a short value to an 8-byte unsigned integer value.
      * @param {Integer} sIn The value to convert.
-     * @param {Pointer<Integer>} pi64Out The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui8fromi2
      */
-    static VarUI8FromI2(sIn, pi64Out) {
-        pi64OutMarshal := pi64Out is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI8FromI2", "short", sIn, pi64OutMarshal, pi64Out, "int")
+    static VarUI8FromI2(sIn) {
+        result := DllCall("OLEAUT32.dll\VarUI8FromI2", "short", sIn, "uint*", &pi64Out := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pi64Out
     }
 
     /**
      * Converts an 8-byte integer value to an 8-byte unsigned integer value.
      * @param {Integer} ui64In The value to convert.
-     * @param {Pointer<Integer>} pi64Out The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui8fromi8
      */
-    static VarUI8FromI8(ui64In, pi64Out) {
-        pi64OutMarshal := pi64Out is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI8FromI8", "int64", ui64In, pi64OutMarshal, pi64Out, "int")
+    static VarUI8FromI8(ui64In) {
+        result := DllCall("OLEAUT32.dll\VarUI8FromI8", "int64", ui64In, "uint*", &pi64Out := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pi64Out
     }
 
     /**
      * Converts a float value to an 8-byte unsigned integer value.
      * @param {Float} fltIn The value to convert.
-     * @param {Pointer<Integer>} pi64Out The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui8fromr4
      */
-    static VarUI8FromR4(fltIn, pi64Out) {
-        pi64OutMarshal := pi64Out is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI8FromR4", "float", fltIn, pi64OutMarshal, pi64Out, "int")
+    static VarUI8FromR4(fltIn) {
+        result := DllCall("OLEAUT32.dll\VarUI8FromR4", "float", fltIn, "uint*", &pi64Out := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pi64Out
     }
 
     /**
      * Converts a double value to an 8-byte unsigned integer value.
      * @param {Float} dblIn The value to convert.
-     * @param {Pointer<Integer>} pi64Out The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui8fromr8
      */
-    static VarUI8FromR8(dblIn, pi64Out) {
-        pi64OutMarshal := pi64Out is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI8FromR8", "double", dblIn, pi64OutMarshal, pi64Out, "int")
+    static VarUI8FromR8(dblIn) {
+        result := DllCall("OLEAUT32.dll\VarUI8FromR8", "double", dblIn, "uint*", &pi64Out := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pi64Out
     }
 
     /**
      * Converts a currency value to an 8-byte unsigned integer value.
      * @param {CY} cyIn The value to convert.
-     * @param {Pointer<Integer>} pi64Out The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui8fromcy
      */
-    static VarUI8FromCy(cyIn, pi64Out) {
-        pi64OutMarshal := pi64Out is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI8FromCy", "ptr", cyIn, pi64OutMarshal, pi64Out, "int")
+    static VarUI8FromCy(cyIn) {
+        result := DllCall("OLEAUT32.dll\VarUI8FromCy", "ptr", cyIn, "uint*", &pi64Out := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pi64Out
     }
 
     /**
      * Converts a date value to an 8-byte unsigned integer value.
      * @param {Float} dateIn The value to convert.
-     * @param {Pointer<Integer>} pi64Out The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui8fromdate
      */
-    static VarUI8FromDate(dateIn, pi64Out) {
-        pi64OutMarshal := pi64Out is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI8FromDate", "double", dateIn, pi64OutMarshal, pi64Out, "int")
+    static VarUI8FromDate(dateIn) {
+        result := DllCall("OLEAUT32.dll\VarUI8FromDate", "double", dateIn, "uint*", &pi64Out := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pi64Out
     }
 
     /**
@@ -23050,648 +9672,102 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Integer>} pi64Out The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui8fromstr
      */
-    static VarUI8FromStr(strIn, lcid, dwFlags, pi64Out) {
+    static VarUI8FromStr(strIn, lcid, dwFlags) {
         strIn := strIn is String ? StrPtr(strIn) : strIn
 
-        pi64OutMarshal := pi64Out is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI8FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, pi64OutMarshal, pi64Out, "int")
+        result := DllCall("OLEAUT32.dll\VarUI8FromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "uint*", &pi64Out := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pi64Out
     }
 
     /**
      * Converts the default property of an IDispatch instance to an 8-byte unsigned integer value.
      * @param {IDispatch} pdispIn The value to convert.
      * @param {Integer} lcid The locale identifier.
-     * @param {Pointer<Integer>} pi64Out The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui8fromdisp
      */
-    static VarUI8FromDisp(pdispIn, lcid, pi64Out) {
-        pi64OutMarshal := pi64Out is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI8FromDisp", "ptr", pdispIn, "uint", lcid, pi64OutMarshal, pi64Out, "int")
+    static VarUI8FromDisp(pdispIn, lcid) {
+        result := DllCall("OLEAUT32.dll\VarUI8FromDisp", "ptr", pdispIn, "uint", lcid, "uint*", &pi64Out := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pi64Out
     }
 
     /**
      * Converts a VARIANT_BOOL value to an 8-byte unsigned integer value.
      * @param {VARIANT_BOOL} boolIn The value to convert.
-     * @param {Pointer<Integer>} pi64Out The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui8frombool
      */
-    static VarUI8FromBool(boolIn, pi64Out) {
-        pi64OutMarshal := pi64Out is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI8FromBool", "short", boolIn, pi64OutMarshal, pi64Out, "int")
+    static VarUI8FromBool(boolIn) {
+        result := DllCall("OLEAUT32.dll\VarUI8FromBool", "short", boolIn, "uint*", &pi64Out := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pi64Out
     }
 
     /**
      * Converts a char value to an 8-byte unsigned integer value.
      * @param {CHAR} cIn The value to convert.
-     * @param {Pointer<Integer>} pi64Out The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui8fromi1
      */
-    static VarUI8FromI1(cIn, pi64Out) {
-        pi64OutMarshal := pi64Out is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI8FromI1", "char", cIn, pi64OutMarshal, pi64Out, "int")
+    static VarUI8FromI1(cIn) {
+        result := DllCall("OLEAUT32.dll\VarUI8FromI1", "char", cIn, "uint*", &pi64Out := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pi64Out
     }
 
     /**
      * Converts an unsigned short value to an 8-byte unsigned integer value.
      * @param {Integer} uiIn The value to convert.
-     * @param {Pointer<Integer>} pi64Out The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui8fromui2
      */
-    static VarUI8FromUI2(uiIn, pi64Out) {
-        pi64OutMarshal := pi64Out is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI8FromUI2", "ushort", uiIn, pi64OutMarshal, pi64Out, "int")
+    static VarUI8FromUI2(uiIn) {
+        result := DllCall("OLEAUT32.dll\VarUI8FromUI2", "ushort", uiIn, "uint*", &pi64Out := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pi64Out
     }
 
     /**
      * Converts an unsigned long value to an 8-byte unsigned integer value.
      * @param {Integer} ulIn The value to convert.
-     * @param {Pointer<Integer>} pi64Out The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui8fromui4
      */
-    static VarUI8FromUI4(ulIn, pi64Out) {
-        pi64OutMarshal := pi64Out is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI8FromUI4", "uint", ulIn, pi64OutMarshal, pi64Out, "int")
+    static VarUI8FromUI4(ulIn) {
+        result := DllCall("OLEAUT32.dll\VarUI8FromUI4", "uint", ulIn, "uint*", &pi64Out := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pi64Out
     }
 
     /**
      * Converts a decimal value to an 8-byte unsigned integer value.
      * @param {Pointer<DECIMAL>} pdecIn The value to convert.
-     * @param {Pointer<Integer>} pi64Out The resulting value.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input parameter is not a valid type of variant.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data pointed to by the output parameter does not fit in the destination type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The resulting value.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varui8fromdec
      */
-    static VarUI8FromDec(pdecIn, pi64Out) {
-        pi64OutMarshal := pi64Out is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarUI8FromDec", "ptr", pdecIn, pi64OutMarshal, pi64Out, "int")
+    static VarUI8FromDec(pdecIn) {
+        result := DllCall("OLEAUT32.dll\VarUI8FromDec", "ptr", pdecIn, "uint*", &pi64Out := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pi64Out
     }
 
     /**
@@ -25092,74 +11168,17 @@ class Ole {
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags Enables the caller to control parsing, therefore defining the acceptable syntax of a number. If this field is set to zero, the input string must contain nothing but decimal digits. Setting each defined flag bit enables parsing of that syntactic feature. Standard Automation parsing (for example, as used by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-vari2fromstr">VarI2FromStr</a>) has all flags set (NUMPRS_STD).
      * @param {Pointer<NUMPARSE>} pnumprs The parsed results.
-     * @param {Pointer<Integer>} rgbDig The values for the digits in the range 0–7, 0–9, or 0–15, depending on whether the number is octal, decimal, or hexadecimal. All leading zeros have been stripped off. For decimal numbers, trailing zeros are also stripped off, unless the number is zero, in which case a single zero digit will be present.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Internal memory allocation failed. (Used for DBCS only to create a copy with all wide characters mapped narrow.)
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * There is no valid number in the string, or there is no closing parenthesis to match an opening one. In the former case, cDig and cchUsed in the NUMPARSE structure will be zero. In the latter, the NUMPARSE structure and digit array are fully updated, as if the closing parenthesis was present.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * For hexadecimal and octal digits, there are more digits than will fit into the array. For decimal, the exponent exceeds the maximum possible. In both cases, the NUMPARSE structure and digit array are fully updated (for decimal, the cchUsed field excludes the entire exponent).
-     * 
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} The values for the digits in the range 0–7, 0–9, or 0–15, depending on whether the number is octal, decimal, or hexadecimal. All leading zeros have been stripped off. For decimal numbers, trailing zeros are also stripped off, unless the number is zero, in which case a single zero digit will be present.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varparsenumfromstr
      */
-    static VarParseNumFromStr(strIn, lcid, dwFlags, pnumprs, rgbDig) {
+    static VarParseNumFromStr(strIn, lcid, dwFlags, pnumprs) {
         strIn := strIn is String ? StrPtr(strIn) : strIn
 
-        rgbDigMarshal := rgbDig is VarRef ? "char*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarParseNumFromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", pnumprs, rgbDigMarshal, rgbDig, "int")
+        result := DllCall("OLEAUT32.dll\VarParseNumFromStr", "ptr", strIn, "uint", lcid, "uint", dwFlags, "ptr", pnumprs, "char*", &rgbDig := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return rgbDig
     }
 
     /**
@@ -26242,19 +12261,19 @@ class Ole {
      * Concatenates two variants of type BSTR and returns the resulting BSTR.
      * @param {BSTR} bstrLeft The first variant.
      * @param {BSTR} bstrRight The second variant.
-     * @param {Pointer<BSTR>} pbstrResult The result.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @returns {BSTR} The result.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varbstrcat
      */
-    static VarBstrCat(bstrLeft, bstrRight, pbstrResult) {
+    static VarBstrCat(bstrLeft, bstrRight) {
         bstrLeft := bstrLeft is Win32Handle ? NumGet(bstrLeft, "ptr") : bstrLeft
         bstrRight := bstrRight is Win32Handle ? NumGet(bstrRight, "ptr") : bstrRight
 
+        pbstrResult := BSTR()
         result := DllCall("OLEAUT32.dll\VarBstrCat", "ptr", bstrLeft, "ptr", bstrRight, "ptr", pbstrResult, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbstrResult
     }
 
     /**
@@ -26397,18 +12416,15 @@ class Ole {
      * Performs the power function for variants of type double.
      * @param {Float} dblLeft The first variant.
      * @param {Float} dblRight The second variant.
-     * @param {Pointer<Float>} pdblResult The result.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @returns {Float} The result.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr8pow
      */
-    static VarR8Pow(dblLeft, dblRight, pdblResult) {
-        pdblResultMarshal := pdblResult is VarRef ? "double*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarR8Pow", "double", dblLeft, "double", dblRight, pdblResultMarshal, pdblResult, "int")
+    static VarR8Pow(dblLeft, dblRight) {
+        result := DllCall("OLEAUT32.dll\VarR8Pow", "double", dblLeft, "double", dblRight, "double*", &pdblResult := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdblResult
     }
 
     /**
@@ -26484,76 +12500,30 @@ class Ole {
      * Rounds a variant of type double to the specified number of decimal places.
      * @param {Float} dblIn The variant.
      * @param {Integer} cDecimals The number of decimal places.
-     * @param {Pointer<Float>} pdblResult The result.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @returns {Float} The result.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varr8round
      */
-    static VarR8Round(dblIn, cDecimals, pdblResult) {
-        pdblResultMarshal := pdblResult is VarRef ? "double*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarR8Round", "double", dblIn, "int", cDecimals, pdblResultMarshal, pdblResult, "int")
+    static VarR8Round(dblIn, cDecimals) {
+        result := DllCall("OLEAUT32.dll\VarR8Round", "double", dblIn, "int", cDecimals, "double*", &pdblResult := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdblResult
     }
 
     /**
      * Converts a time and date converted from MS-DOS format to variant format.
      * @param {Pointer<UDATE>} pudateIn The unpacked date.
      * @param {Integer} dwFlags VAR_VALIDDATE if the date is valid.
-     * @param {Pointer<Float>} pdateOut The packed date.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The packed date.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vardatefromudate
      */
-    static VarDateFromUdate(pudateIn, dwFlags, pdateOut) {
-        pdateOutMarshal := pdateOut is VarRef ? "double*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarDateFromUdate", "ptr", pudateIn, "uint", dwFlags, pdateOutMarshal, pdateOut, "int")
+    static VarDateFromUdate(pudateIn, dwFlags) {
+        result := DllCall("OLEAUT32.dll\VarDateFromUdate", "ptr", pudateIn, "uint", dwFlags, "double*", &pdateOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdateOut
     }
 
     /**
@@ -26561,58 +12531,15 @@ class Ole {
      * @param {Pointer<UDATE>} pudateIn The unpacked date.
      * @param {Integer} lcid The locale identifier.
      * @param {Integer} dwFlags VAR_VALIDDATE if the date is valid.
-     * @param {Pointer<Float>} pdateOut The packed date.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Float} The packed date.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-vardatefromudateex
      */
-    static VarDateFromUdateEx(pudateIn, lcid, dwFlags, pdateOut) {
-        pdateOutMarshal := pdateOut is VarRef ? "double*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\VarDateFromUdateEx", "ptr", pudateIn, "uint", lcid, "uint", dwFlags, pdateOutMarshal, pdateOut, "int")
+    static VarDateFromUdateEx(pudateIn, lcid, dwFlags) {
+        result := DllCall("OLEAUT32.dll\VarDateFromUdateEx", "ptr", pudateIn, "uint", lcid, "uint", dwFlags, "double*", &pdateOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdateOut
     }
 
     /**
@@ -26674,18 +12601,15 @@ class Ole {
     /**
      * Retrieves the secondary (alternate) month names.
      * @param {Integer} lcid The locale identifier to be used in retrieving the alternate month names.
-     * @param {Pointer<Pointer<PWSTR>>} prgp An array of pointers to strings containing the alternate month names.
-     * @returns {HRESULT} The function returns TRUE on success and FALSE otherwise.
+     * @returns {Pointer<PWSTR>} An array of pointers to strings containing the alternate month names.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-getaltmonthnames
      */
-    static GetAltMonthNames(lcid, prgp) {
-        prgpMarshal := prgp is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\GetAltMonthNames", "uint", lcid, prgpMarshal, prgp, "int")
+    static GetAltMonthNames(lcid) {
+        result := DllCall("OLEAUT32.dll\GetAltMonthNames", "uint", lcid, "ptr*", &prgp := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return prgp
     }
 
     /**
@@ -26843,47 +12767,18 @@ class Ole {
      * </tr>
      * </table>
      * @param {Integer} dwFlags Flags that control the formatting process. The only flags that can be set are VAR_CALENDAR_HIJRI or VAR_FORMAT_NOSUBSTITUTE.
-     * @param {Pointer<BSTR>} pbstrOut The formatted string that represents the variant.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {BSTR} The formatted string that represents the variant.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varformat
      */
-    static VarFormat(pvarIn, pstrFormat, iFirstDay, iFirstWeek, dwFlags, pbstrOut) {
+    static VarFormat(pvarIn, pstrFormat, iFirstDay, iFirstWeek, dwFlags) {
         pstrFormat := pstrFormat is String ? StrPtr(pstrFormat) : pstrFormat
 
+        pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarFormat", "ptr", pvarIn, "ptr", pstrFormat, "int", iFirstDay, "int", iFirstWeek, "uint", dwFlags, "ptr", pbstrOut, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbstrOut
     }
 
     /**
@@ -26953,45 +12848,16 @@ class Ole {
      * </tr>
      * </table>
      * @param {Integer} dwFlags VAR_CALENDAR_HIJRI is the only flag that can be set.
-     * @param {Pointer<BSTR>} pbstrOut Receives the formatted string that represents the variant.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {BSTR} Receives the formatted string that represents the variant.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varformatdatetime
      */
-    static VarFormatDateTime(pvarIn, iNamedFormat, dwFlags, pbstrOut) {
+    static VarFormatDateTime(pvarIn, iNamedFormat, dwFlags) {
+        pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarFormatDateTime", "ptr", pvarIn, "int", iNamedFormat, "uint", dwFlags, "ptr", pbstrOut, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbstrOut
     }
 
     /**
@@ -27124,45 +12990,16 @@ class Ole {
      * </tr>
      * </table>
      * @param {Integer} dwFlags VAR_CALENDAR_HIJRI is the only flag that can be set.
-     * @param {Pointer<BSTR>} pbstrOut Points to the formatted string that represents the variant.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {BSTR} Points to the formatted string that represents the variant.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varformatnumber
      */
-    static VarFormatNumber(pvarIn, iNumDig, iIncLead, iUseParens, iGroup, dwFlags, pbstrOut) {
+    static VarFormatNumber(pvarIn, iNumDig, iIncLead, iUseParens, iGroup, dwFlags) {
+        pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarFormatNumber", "ptr", pvarIn, "int", iNumDig, "int", iIncLead, "int", iUseParens, "int", iGroup, "uint", dwFlags, "ptr", pbstrOut, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbstrOut
     }
 
     /**
@@ -27295,45 +13132,16 @@ class Ole {
      * </tr>
      * </table>
      * @param {Integer} dwFlags VAR_CALENDAR_HIJRI is the only flag that can be set.
-     * @param {Pointer<BSTR>} pbstrOut Receives the formatted string that represents the variant.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {BSTR} Receives the formatted string that represents the variant.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varformatpercent
      */
-    static VarFormatPercent(pvarIn, iNumDig, iIncLead, iUseParens, iGroup, dwFlags, pbstrOut) {
+    static VarFormatPercent(pvarIn, iNumDig, iIncLead, iUseParens, iGroup, dwFlags) {
+        pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarFormatPercent", "ptr", pvarIn, "int", iNumDig, "int", iIncLead, "int", iUseParens, "int", iGroup, "uint", dwFlags, "ptr", pbstrOut, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbstrOut
     }
 
     /**
@@ -27466,45 +13274,16 @@ class Ole {
      * </tr>
      * </table>
      * @param {Integer} dwFlags VAR_CALENDAR_HIJRI is the only flag that can be set.
-     * @param {Pointer<BSTR>} pbstrOut The formatted string that represents the variant.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {BSTR} The formatted string that represents the variant.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varformatcurrency
      */
-    static VarFormatCurrency(pvarIn, iNumDig, iIncLead, iUseParens, iGroup, dwFlags, pbstrOut) {
+    static VarFormatCurrency(pvarIn, iNumDig, iIncLead, iUseParens, iGroup, dwFlags) {
+        pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarFormatCurrency", "ptr", pvarIn, "int", iNumDig, "int", iIncLead, "int", iUseParens, "int", iGroup, "uint", dwFlags, "ptr", pbstrOut, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbstrOut
     }
 
     /**
@@ -27704,57 +13483,16 @@ class Ole {
      * </tr>
      * </table>
      * @param {Integer} dwFlags VAR_CALENDAR_HIJRI is the only flag that can be set.
-     * @param {Pointer<BSTR>} pbstrOut Receives the formatted string that represents the variant.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Out of memory.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {BSTR} Receives the formatted string that represents the variant.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varweekdayname
      */
-    static VarWeekdayName(iWeekday, fAbbrev, iFirstDay, dwFlags, pbstrOut) {
+    static VarWeekdayName(iWeekday, fAbbrev, iFirstDay, dwFlags) {
+        pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarWeekdayName", "int", iWeekday, "int", fAbbrev, "int", iFirstDay, "uint", dwFlags, "ptr", pbstrOut, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbstrOut
     }
 
     /**
@@ -27762,45 +13500,16 @@ class Ole {
      * @param {Integer} iMonth Represents the month, as a number from 1 to 12.
      * @param {Integer} fAbbrev If zero then the full (non-abbreviated) month name is used. If non-zero, then the abbreviation for the month name is used.
      * @param {Integer} dwFlags VAR_CALENDAR_HIJRI is the only flag that can be set.
-     * @param {Pointer<BSTR>} pbstrOut Receives the formatted string that represents the variant.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {BSTR} Receives the formatted string that represents the variant.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varmonthname
      */
-    static VarMonthName(iMonth, fAbbrev, dwFlags, pbstrOut) {
+    static VarMonthName(iMonth, fAbbrev, dwFlags) {
+        pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarMonthName", "int", iMonth, "int", fAbbrev, "uint", dwFlags, "ptr", pbstrOut, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbstrOut
     }
 
     /**
@@ -27809,75 +13518,21 @@ class Ole {
      * @param {PWSTR} pstrFormat The original format string.
      * @param {Pointer<Integer>} pbTokCur The tokenized format string from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-vartokenizeformatstring">VarTokenizeFormatString</a>.
      * @param {Integer} dwFlags The only flags that can be set are VAR_CALENDAR_HIJRI or VAR_FORMAT_NOSUBSTITUTE.
-     * @param {Pointer<BSTR>} pbstrOut The formatted output string.
      * @param {Integer} lcid The locale to use for the formatted output string.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Out of memory.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more of the arguments is not valid.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {BSTR} The formatted output string.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-varformatfromtokens
      */
-    static VarFormatFromTokens(pvarIn, pstrFormat, pbTokCur, dwFlags, pbstrOut, lcid) {
+    static VarFormatFromTokens(pvarIn, pstrFormat, pbTokCur, dwFlags, lcid) {
         pstrFormat := pstrFormat is String ? StrPtr(pstrFormat) : pstrFormat
 
         pbTokCurMarshal := pbTokCur is VarRef ? "char*" : "ptr"
 
+        pbstrOut := BSTR()
         result := DllCall("OLEAUT32.dll\VarFormatFromTokens", "ptr", pvarIn, "ptr", pstrFormat, pbTokCurMarshal, pbTokCur, "uint", dwFlags, "ptr", pbstrOut, "uint", lcid, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbstrOut
     }
 
     /**
@@ -28127,248 +13782,34 @@ class Ole {
     /**
      * Loads and registers a type library.
      * @param {PWSTR} szFile The name of the file from which the method should attempt to load a type library.
-     * @param {Pointer<ITypeLib>} pptlib The loaded type library.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>TYPE_E_IOERROR
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function could not write to the file.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>TYPE_E_INVALIDSTATE
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The type library could not be opened.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>TYPE_E_INVDATAREAD
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function could not read from the file.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>TYPE_E_UNSUPFORMAT
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The type library has an older format.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>TYPE_E_UNKNOWNLCID
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The LCID could not be found in the OLE-supported DLLs.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>TYPE_E_CANTLOADLIBRARY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The type library or DLL could not be loaded.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {ITypeLib} The loaded type library.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-loadtypelib
      */
-    static LoadTypeLib(szFile, pptlib) {
+    static LoadTypeLib(szFile) {
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
-        result := DllCall("OLEAUT32.dll\LoadTypeLib", "ptr", szFile, "ptr*", pptlib, "int")
+        result := DllCall("OLEAUT32.dll\LoadTypeLib", "ptr", szFile, "ptr*", &pptlib := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ITypeLib(pptlib)
     }
 
     /**
      * Loads a type library and (optionally) registers it in the system registry.  .
      * @param {PWSTR} szFile The type library file.
      * @param {Integer} regkind Identifies the kind of registration to perform for the type library based on the following flags: DEFAULT, REGISTER and NONE. REGKIND_DEFAULT simply calls LoadTypeLib and registration occurs based on the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-loadtypelib">LoadTypeLib</a> registration rules. REGKIND_NONE calls <b>LoadTypeLib</b> without the registration process enabled. REGKIND_REGISTER calls <b>LoadTypeLib</b> followed by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-registertypelib">RegisterTypeLib</a>, which registers the type library. To unregister the type library, use <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-unregistertypelib">UnRegisterTypeLib</a>.
-     * @param {Pointer<ITypeLib>} pptlib The type library.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>TYPE_E_IOERROR
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function could not write to the file.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>TYPE_E_REGISTRYACCESS
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The system registration database could not be opened.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>TYPE_E_INVALIDSTATE
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The type library could not be opened.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>TYPE_E_CANTLOADLIBRARY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The type library or DLL could not be loaded.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {ITypeLib} The type library.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-loadtypelibex
      */
-    static LoadTypeLibEx(szFile, regkind, pptlib) {
+    static LoadTypeLibEx(szFile, regkind) {
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
-        result := DllCall("OLEAUT32.dll\LoadTypeLibEx", "ptr", szFile, "int", regkind, "ptr*", pptlib, "int")
+        result := DllCall("OLEAUT32.dll\LoadTypeLibEx", "ptr", szFile, "int", regkind, "ptr*", &pptlib := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ITypeLib(pptlib)
     }
 
     /**
@@ -28377,135 +13818,15 @@ class Ole {
      * @param {Integer} wVerMajor The major version of the library.
      * @param {Integer} wVerMinor The minor version of the library.
      * @param {Integer} lcid The national language code of the library.
-     * @param {Pointer<ITypeLib>} pptlib The loaded type library.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>TYPE_E_IOERROR
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function could not write to the file.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>TYPE_E_INVALIDSTATE
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The type library could not be opened.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>TYPE_E_INVDATAREAD
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function could not read from the file.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>TYPE_E_UNSUPFORMAT
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The type library has an older format.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>TYPE_E_UNKNOWNLCID
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The LCID could not be found in the OLE-supported DLLs.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>TYPE_E_CANTLOADLIBRARY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The type library or DLL could not be loaded.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {ITypeLib} The loaded type library.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-loadregtypelib
      */
-    static LoadRegTypeLib(rguid, wVerMajor, wVerMinor, lcid, pptlib) {
-        result := DllCall("OLEAUT32.dll\LoadRegTypeLib", "ptr", rguid, "ushort", wVerMajor, "ushort", wVerMinor, "uint", lcid, "ptr*", pptlib, "int")
+    static LoadRegTypeLib(rguid, wVerMajor, wVerMinor, lcid) {
+        result := DllCall("OLEAUT32.dll\LoadRegTypeLib", "ptr", rguid, "ushort", wVerMajor, "ushort", wVerMinor, "uint", lcid, "ptr*", &pptlib := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ITypeLib(pptlib)
     }
 
     /**
@@ -28514,16 +13835,16 @@ class Ole {
      * @param {Integer} wMaj The major version number of the library.
      * @param {Integer} wMin The minor version number of the library.
      * @param {Integer} lcid The national language code for the library.
-     * @param {Pointer<BSTR>} lpbstrPathName The type library name.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @returns {BSTR} The type library name.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-querypathofregtypelib
      */
-    static QueryPathOfRegTypeLib(guid, wMaj, wMin, lcid, lpbstrPathName) {
+    static QueryPathOfRegTypeLib(guid, wMaj, wMin, lcid) {
+        lpbstrPathName := BSTR()
         result := DllCall("OLEAUT32.dll\QueryPathOfRegTypeLib", "ptr", guid, "ushort", wMaj, "ushort", wMin, "uint", lcid, "ptr", lpbstrPathName, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return lpbstrPathName
     }
 
     /**
@@ -28932,104 +14253,34 @@ class Ole {
      * Provides access to a new object instance that supports the ICreateTypeLib interface.
      * @param {Integer} syskind The target operating system for which to create a type library.
      * @param {PWSTR} szFile The name of the file to create.
-     * @param {Pointer<ICreateTypeLib>} ppctlib The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-icreatetypelib">ICreateTypeLib</a> interface.
-     * @returns {HRESULT} <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more of the arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>STG_E_INSUFFICIENTMEMORY
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>TYPE_E_IOERROR</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function could not create the file.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * This method can also return the FACILITY_STORAGE errors.
+     * @returns {ICreateTypeLib} The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-icreatetypelib">ICreateTypeLib</a> interface.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-createtypelib
      */
-    static CreateTypeLib(syskind, szFile, ppctlib) {
+    static CreateTypeLib(syskind, szFile) {
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
-        result := DllCall("OLEAUT32.dll\CreateTypeLib", "int", syskind, "ptr", szFile, "ptr*", ppctlib, "int")
+        result := DllCall("OLEAUT32.dll\CreateTypeLib", "int", syskind, "ptr", szFile, "ptr*", &ppctlib := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ICreateTypeLib(ppctlib)
     }
 
     /**
      * Creates a type library in the current file format.
      * @param {Integer} syskind The target operating system for which to create a type library.
      * @param {PWSTR} szFile The name of the file to create.
-     * @param {Pointer<ICreateTypeLib2>} ppctlib The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-icreatetypelib2">ICreateTypeLib2</a> interface.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @returns {ICreateTypeLib2} The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-icreatetypelib2">ICreateTypeLib2</a> interface.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-createtypelib2
      */
-    static CreateTypeLib2(syskind, szFile, ppctlib) {
+    static CreateTypeLib2(syskind, szFile) {
         szFile := szFile is String ? StrPtr(szFile) : szFile
 
-        result := DllCall("OLEAUT32.dll\CreateTypeLib2", "int", syskind, "ptr", szFile, "ptr*", ppctlib, "int")
+        result := DllCall("OLEAUT32.dll\CreateTypeLib2", "int", syskind, "ptr", szFile, "ptr*", &ppctlib := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ICreateTypeLib2(ppctlib)
     }
 
     /**
@@ -29038,107 +14289,15 @@ class Ole {
      * @param {Integer} position The position of the parameter in the parameter list. <b>DispGetParam</b> starts at the end of the array, so if position is 0, the last parameter in the array is returned.
      * @param {Integer} vtTarg The type the argument should be coerced to.
      * @param {Pointer<VARIANT>} pvarResult the variant to pass the parameter into.
-     * @param {Pointer<Integer>} puArgErr On return, the index of the argument that caused a DISP_E_TYPEMISMATCH error. This pointer is returned to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nf-oaidl-idispatch-invoke">Invoke</a> to indicate the position of the argument in DISPPARAMS that caused the error.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_BADVARTYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The variant type <i>vtTarg</i> is not supported.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_OVERFLOW</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The retrieved parameter could not be coerced to the specified type.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_PARAMNOTFOUND</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The parameter indicated by <i>position</i> could not be found.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_TYPEMISMATCH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The argument could not be coerced to the specified type.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the parameters is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} On return, the index of the argument that caused a DISP_E_TYPEMISMATCH error. This pointer is returned to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nf-oaidl-idispatch-invoke">Invoke</a> to indicate the position of the argument in DISPPARAMS that caused the error.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-dispgetparam
      */
-    static DispGetParam(pdispparams, position, vtTarg, pvarResult, puArgErr) {
-        puArgErrMarshal := puArgErr is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\DispGetParam", "ptr", pdispparams, "uint", position, "ushort", vtTarg, "ptr", pvarResult, puArgErrMarshal, puArgErr, "int")
+    static DispGetParam(pdispparams, position, vtTarg, pvarResult) {
+        result := DllCall("OLEAUT32.dll\DispGetParam", "ptr", pdispparams, "uint", position, "ushort", vtTarg, "ptr", pvarResult, "uint*", &puArgErr := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return puArgErr
     }
 
     /**
@@ -29146,61 +14305,17 @@ class Ole {
      * @param {ITypeInfo} ptinfo The type information for an interface. This type information is specific to one interface and language code, so it is not necessary to pass an interface identifier (IID) or LCID to this function.
      * @param {Pointer<PWSTR>} rgszNames An array of name strings that can be the same array passed to DispInvoke in the DISPPARAMS structure. If <i>cNames</i> is greater than 1, the first name is interpreted as a method name, and subsequent names are interpreted as parameters to that method.
      * @param {Integer} cNames The number of elements in <i>rgszNames</i>.
-     * @param {Pointer<Integer>} rgdispid An array of DISPIDs to be filled in by this function. The first ID corresponds to the method name. Subsequent IDs are interpreted as parameters to the method.
-     * @returns {HRESULT} <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The interface is supported.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the parameters is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_UNKNOWNNAME
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more of the specified names were not known. The returned array of DISPIDs contains DISPID_UNKNOWN for each entry that corresponds to an unknown name.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * Any of the <b>ITypeInfo::Invoke</b> errors can also be returned.
+     * @returns {Integer} An array of DISPIDs to be filled in by this function. The first ID corresponds to the method name. Subsequent IDs are interpreted as parameters to the method.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-dispgetidsofnames
      */
-    static DispGetIDsOfNames(ptinfo, rgszNames, cNames, rgdispid) {
-        rgdispidMarshal := rgdispid is VarRef ? "int*" : "ptr"
+    static DispGetIDsOfNames(ptinfo, rgszNames, cNames) {
+        rgszNamesMarshal := rgszNames is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("OLEAUT32.dll\DispGetIDsOfNames", "ptr", ptinfo, "ptr", rgszNames, "uint", cNames, rgdispidMarshal, rgdispid, "int")
+        result := DllCall("OLEAUT32.dll\DispGetIDsOfNames", "ptr", ptinfo, rgszNamesMarshal, rgszNames, "uint", cNames, "int*", &rgdispid := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return rgdispid
     }
 
     /**
@@ -29430,59 +14545,15 @@ class Ole {
      * Creates simplified type information for use in an implementation of IDispatch.
      * @param {Pointer<INTERFACEDATA>} pidata The interface description that this type information describes.
      * @param {Integer} lcid The locale identifier for the names used in the type information.
-     * @param {Pointer<ITypeInfo>} pptinfo On return, pointer to a type information implementation for use in <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-dispgetidsofnames">DispGetIDsOfNames</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-dispinvoke">DispInvoke</a>.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The interface is supported.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Either the interface description or the LCID is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {ITypeInfo} On return, pointer to a type information implementation for use in <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-dispgetidsofnames">DispGetIDsOfNames</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-dispinvoke">DispInvoke</a>.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-createdisptypeinfo
      */
-    static CreateDispTypeInfo(pidata, lcid, pptinfo) {
-        result := DllCall("OLEAUT32.dll\CreateDispTypeInfo", "ptr", pidata, "uint", lcid, "ptr*", pptinfo, "int")
+    static CreateDispTypeInfo(pidata, lcid) {
+        result := DllCall("OLEAUT32.dll\CreateDispTypeInfo", "ptr", pidata, "uint", lcid, "ptr*", &pptinfo := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ITypeInfo(pptinfo)
     }
 
     /**
@@ -29490,61 +14561,17 @@ class Ole {
      * @param {IUnknown} punkOuter The object's <b>IUnknown</b> implementation.
      * @param {Pointer<Void>} pvThis The object to expose.
      * @param {ITypeInfo} ptinfo The type information that describes the exposed object.
-     * @param {Pointer<IUnknown>} ppunkStdDisp The private unknown for the object that implements the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> interface QueryInterface call. This pointer is null if the function fails.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the first three arguments is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * There was insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {IUnknown} The private unknown for the object that implements the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> interface QueryInterface call. This pointer is null if the function fails.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-createstddispatch
      */
-    static CreateStdDispatch(punkOuter, pvThis, ptinfo, ppunkStdDisp) {
+    static CreateStdDispatch(punkOuter, pvThis, ptinfo) {
         pvThisMarshal := pvThis is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("OLEAUT32.dll\CreateStdDispatch", "ptr", punkOuter, pvThisMarshal, pvThis, "ptr", ptinfo, "ptr*", ppunkStdDisp, "int")
+        result := DllCall("OLEAUT32.dll\CreateStdDispatch", "ptr", punkOuter, pvThisMarshal, pvThis, "ptr", ptinfo, "ptr*", &ppunkStdDisp := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IUnknown(ppunkStdDisp)
     }
 
     /**
@@ -29610,133 +14637,44 @@ class Ole {
     /**
      * Retrieves a pointer to a running object that has been registered with OLE.
      * @param {Pointer<Guid>} rclsid The class identifier (CLSID) of the active object from the OLE registration database.
-     * @param {Pointer<IUnknown>} ppunk The requested active object.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @returns {IUnknown} The requested active object.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-getactiveobject
      */
-    static GetActiveObject(rclsid, ppunk) {
+    static GetActiveObject(rclsid) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
-        result := DllCall("OLEAUT32.dll\GetActiveObject", "ptr", rclsid, "ptr", pvReserved, "ptr*", ppunk, "int")
+        result := DllCall("OLEAUT32.dll\GetActiveObject", "ptr", rclsid, "ptr", pvReserved, "ptr*", &ppunk := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IUnknown(ppunk)
     }
 
     /**
      * Creates an instance of a generic error object.
-     * @param {Pointer<ICreateErrorInfo>} pperrinfo A system-implemented generic error object.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Could not create the error object.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {ICreateErrorInfo} A system-implemented generic error object.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-createerrorinfo
      */
-    static CreateErrorInfo(pperrinfo) {
-        result := DllCall("OLEAUT32.dll\CreateErrorInfo", "ptr*", pperrinfo, "int")
+    static CreateErrorInfo() {
+        result := DllCall("OLEAUT32.dll\CreateErrorInfo", "ptr*", &pperrinfo := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ICreateErrorInfo(pperrinfo)
     }
 
     /**
      * Returns a pointer to the IRecordInfo interface of the UDT by passing its type information.
      * @param {ITypeInfo} pTypeInfo The type information of a record.
-     * @param {Pointer<IRecordInfo>} ppRecInfo The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-irecordinfo">IRecordInfo</a> interface.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Out of memory.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more of the arguments is not valid.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>TYPE_E_UNSUPFORMAT
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The type is not an interface.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {IRecordInfo} The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-irecordinfo">IRecordInfo</a> interface.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-getrecordinfofromtypeinfo
      */
-    static GetRecordInfoFromTypeInfo(pTypeInfo, ppRecInfo) {
-        result := DllCall("OLEAUT32.dll\GetRecordInfoFromTypeInfo", "ptr", pTypeInfo, "ptr*", ppRecInfo, "int")
+    static GetRecordInfoFromTypeInfo(pTypeInfo) {
+        result := DllCall("OLEAUT32.dll\GetRecordInfoFromTypeInfo", "ptr", pTypeInfo, "ptr*", &ppRecInfo := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IRecordInfo(ppRecInfo)
     }
 
     /**
@@ -29746,47 +14684,15 @@ class Ole {
      * @param {Integer} uVerMinor The minor version number of the type library of the UDT.
      * @param {Integer} lcid The locale ID of the caller.
      * @param {Pointer<Guid>} rGuidTypeInfo The GUID of the typeinfo that describes the UDT.
-     * @param {Pointer<IRecordInfo>} ppRecInfo The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-irecordinfo">IRecordInfo</a> interface.
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG
-     * </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more of the arguments is not valid.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {IRecordInfo} The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-irecordinfo">IRecordInfo</a> interface.
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-getrecordinfofromguids
      */
-    static GetRecordInfoFromGuids(rGuidTypeLib, uVerMajor, uVerMinor, lcid, rGuidTypeInfo, ppRecInfo) {
-        result := DllCall("OLEAUT32.dll\GetRecordInfoFromGuids", "ptr", rGuidTypeLib, "uint", uVerMajor, "uint", uVerMinor, "uint", lcid, "ptr", rGuidTypeInfo, "ptr*", ppRecInfo, "int")
+    static GetRecordInfoFromGuids(rGuidTypeLib, uVerMajor, uVerMinor, lcid, rGuidTypeInfo) {
+        result := DllCall("OLEAUT32.dll\GetRecordInfoFromGuids", "ptr", rGuidTypeLib, "uint", uVerMajor, "uint", uVerMinor, "uint", lcid, "ptr", rGuidTypeInfo, "ptr*", &ppRecInfo := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IRecordInfo(ppRecInfo)
     }
 
     /**
@@ -30012,37 +14918,16 @@ class Ole {
      * @param {Pointer<FORMATETC>} pFormatEtc Depending on which of the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> flags is used as the value of renderopt, pointer to one of the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> enumeration values. Refer to the <b>OLERENDER</b> enumeration for restrictions. This parameter, along with the <i>renderopt</i> parameter, specifies what the new object can cache initially.
      * @param {IOleClientSite} pClientSite If you want <b>OleCreate</b> to call <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-setclientsite">IOleObject::SetClientSite</a>, pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleclientsite">IOleClientSite</a> interface on the container. The value may be <b>NULL</b>, in which case you must specifically call <b>IOleObject::SetClientSite</b> before attempting operations.
      * @param {IStorage} pStg Pointer to an instance of the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface on the storage object. This parameter may not be <b>NULL</b>.
-     * @param {Pointer<Pointer<Void>>} ppvObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObject</i> contains the requested interface pointer.
-     * @returns {HRESULT} This function returns S_OK on success and supports the standard return value E_OUTOFMEMORY.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory for the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Void>} Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObject</i> contains the requested interface pointer.
      * @see https://docs.microsoft.com/windows/win32/api//ole2/nf-ole2-olecreate
      * @since windows5.0
      */
-    static OleCreate(rclsid, riid, renderopt, pFormatEtc, pClientSite, pStg, ppvObj) {
-        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("OLE32.dll\OleCreate", "ptr", rclsid, "ptr", riid, "uint", renderopt, "ptr", pFormatEtc, "ptr", pClientSite, "ptr", pStg, ppvObjMarshal, ppvObj, "int")
+    static OleCreate(rclsid, riid, renderopt, pFormatEtc, pClientSite, pStg) {
+        result := DllCall("OLE32.dll\OleCreate", "ptr", rclsid, "ptr", riid, "uint", renderopt, "ptr", pFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr*", &ppvObj := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppvObj
     }
 
     /**
@@ -30101,48 +14986,16 @@ class Ole {
      * @param {Pointer<FORMATETC>} pFormatEtc Pointer to a value from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> that indicates the locally cached drawing or data-retrieval capabilities the newly created object is to have. The <b>OLERENDER</b> value chosen affects the possible values for the <i>pFormatEtc</i> parameter.
      * @param {IOleClientSite} pClientSite Pointer to an instance of <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleclientsite">IOleClientSite</a>, the primary interface through which the object will request services from its container. This parameter can be <b>NULL</b>.
      * @param {IStorage} pStg Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface on the storage object. This parameter may not be <b>NULL</b>.
-     * @param {Pointer<Pointer<Void>>} ppvObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created object.
-     * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>OLE_E_STATIC</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Indicates OLE can create only a static object.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DV_E_FORMATETC</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * No acceptable formats are available for object creation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Void>} Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created object.
      * @see https://docs.microsoft.com/windows/win32/api//ole2/nf-ole2-olecreatefromdata
      * @since windows5.0
      */
-    static OleCreateFromData(pSrcDataObj, riid, renderopt, pFormatEtc, pClientSite, pStg, ppvObj) {
-        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("OLE32.dll\OleCreateFromData", "ptr", pSrcDataObj, "ptr", riid, "uint", renderopt, "ptr", pFormatEtc, "ptr", pClientSite, "ptr", pStg, ppvObjMarshal, ppvObj, "int")
+    static OleCreateFromData(pSrcDataObj, riid, renderopt, pFormatEtc, pClientSite, pStg) {
+        result := DllCall("OLE32.dll\OleCreateFromData", "ptr", pSrcDataObj, "ptr", riid, "uint", renderopt, "ptr", pFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr*", &ppvObj := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppvObj
     }
 
     /**
@@ -30212,60 +15065,16 @@ class Ole {
      * @param {Pointer<FORMATETC>} pFormatEtc Pointer to a value from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> that indicates the locally cached drawing or data-retrieval capabilities the newly created object is to have. The <b>OLERENDER</b> value chosen affects the possible values for the <i>pFormatEtc</i> parameter.
      * @param {IOleClientSite} pClientSite Pointer to an instance of <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleclientsite">IOleClientSite</a>, the primary interface through which the object will request services from its container. This parameter can be <b>NULL</b>.
      * @param {IStorage} pStg Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface on the storage object. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Pointer<Void>>} ppvObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return,   <i>ppvObj</i> contains the requested interface pointer on the newly created object.
-     * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>CLIPBRD_E_CANT_OPEN</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Not able to open the clipboard.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>OLE_E_CANT_GETMONIKER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Not able to extract the object's moniker.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>OLE_E_CANT_BINDTOSOURCE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Not able to bind to source. Binding is necessary to get the cache's initialization data.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Void>} Address of pointer variable that receives the interface pointer requested in riid. Upon successful return,   <i>ppvObj</i> contains the requested interface pointer on the newly created object.
      * @see https://docs.microsoft.com/windows/win32/api//ole2/nf-ole2-olecreatelinkfromdata
      * @since windows5.0
      */
-    static OleCreateLinkFromData(pSrcDataObj, riid, renderopt, pFormatEtc, pClientSite, pStg, ppvObj) {
-        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("OLE32.dll\OleCreateLinkFromData", "ptr", pSrcDataObj, "ptr", riid, "uint", renderopt, "ptr", pFormatEtc, "ptr", pClientSite, "ptr", pStg, ppvObjMarshal, ppvObj, "int")
+    static OleCreateLinkFromData(pSrcDataObj, riid, renderopt, pFormatEtc, pClientSite, pStg) {
+        result := DllCall("OLE32.dll\OleCreateLinkFromData", "ptr", pSrcDataObj, "ptr", riid, "uint", renderopt, "ptr", pFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr*", &ppvObj := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppvObj
     }
 
     /**
@@ -30281,50 +15090,19 @@ class Ole {
      * @param {Pointer<Integer>} rgdwConnection Location to return the array of <i>dwConnection</i> values returned when the <i>pAdviseSink</i> interface is registered for each advisory connection using <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-dadvise">IDataObject::DAdvise</a>, or <b>NULL</b> if the returned advisory connections are not needed. This parameter must be <b>NULL</b> if <i>pAdviseSink</i> is <b>NULL</b>.
      * @param {IOleClientSite} pClientSite Pointer to the primary interface through which the object will request services from its container. This parameter can be <b>NULL</b>, in which case it is the caller's responsibility to establish the client site as soon as possible using <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleobject-setclientsite">IOleObject::SetClientSite</a>.
      * @param {IStorage} pStg Pointer to the storage to use for the object and any default data or presentation caching established for it.
-     * @param {Pointer<Pointer<Void>>} ppvObj Address of output pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created object.
-     * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_NOINTERFACE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The provided interface identifier is invalid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more parameters are invalid.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Void>} Address of output pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created object.
      * @see https://docs.microsoft.com/windows/win32/api//ole2/nf-ole2-olecreatelinkfromdataex
      * @since windows5.0
      */
-    static OleCreateLinkFromDataEx(pSrcDataObj, riid, dwFlags, renderopt, cFormats, rgAdvf, rgFormatEtc, lpAdviseSink, rgdwConnection, pClientSite, pStg, ppvObj) {
+    static OleCreateLinkFromDataEx(pSrcDataObj, riid, dwFlags, renderopt, cFormats, rgAdvf, rgFormatEtc, lpAdviseSink, rgdwConnection, pClientSite, pStg) {
         rgAdvfMarshal := rgAdvf is VarRef ? "uint*" : "ptr"
         rgdwConnectionMarshal := rgdwConnection is VarRef ? "uint*" : "ptr"
-        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ole32.dll\OleCreateLinkFromDataEx", "ptr", pSrcDataObj, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, rgAdvfMarshal, rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, ppvObjMarshal, ppvObj, "int")
+        result := DllCall("ole32.dll\OleCreateLinkFromDataEx", "ptr", pSrcDataObj, "ptr", riid, "uint", dwFlags, "uint", renderopt, "uint", cFormats, rgAdvfMarshal, rgAdvf, "ptr", rgFormatEtc, "ptr", lpAdviseSink, rgdwConnectionMarshal, rgdwConnection, "ptr", pClientSite, "ptr", pStg, "ptr*", &ppvObj := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppvObj
     }
 
     /**
@@ -30335,19 +15113,16 @@ class Ole {
      * @param {Pointer<FORMATETC>} pFormatEtc Depending on which of the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> flags is used as the value of <i>renderopt</i>, may be a pointer to one of the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> enumeration values. Refer to the <b>OLERENDER</b> enumeration for restrictions.
      * @param {IOleClientSite} pClientSite Pointer to an instance of <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleclientsite">IOleClientSite</a>, the primary interface through which the object will request services from its container. This parameter can be <b>NULL</b>.
      * @param {IStorage} pStg Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface for storage for the object. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Pointer<Void>>} ppvObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created object.
-     * @returns {HRESULT} This function returns S_OK on success.
+     * @returns {Pointer<Void>} Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created object.
      * @see https://docs.microsoft.com/windows/win32/api//ole2/nf-ole2-olecreatestaticfromdata
      * @since windows5.0
      */
-    static OleCreateStaticFromData(pSrcDataObj, iid, renderopt, pFormatEtc, pClientSite, pStg, ppvObj) {
-        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("OLE32.dll\OleCreateStaticFromData", "ptr", pSrcDataObj, "ptr", iid, "uint", renderopt, "ptr", pFormatEtc, "ptr", pClientSite, "ptr", pStg, ppvObjMarshal, ppvObj, "int")
+    static OleCreateStaticFromData(pSrcDataObj, iid, renderopt, pFormatEtc, pClientSite, pStg) {
+        result := DllCall("OLE32.dll\OleCreateStaticFromData", "ptr", pSrcDataObj, "ptr", iid, "uint", renderopt, "ptr", pFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr*", &ppvObj := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppvObj
     }
 
     /**
@@ -30358,37 +15133,16 @@ class Ole {
      * @param {Pointer<FORMATETC>} lpFormatEtc Pointer to a value from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> that indicates the locally cached drawing or data-retrieval capabilities the newly created object is to have. The <b>OLERENDER</b> value chosen affects the possible values for the <i>lpFormatEtc</i> parameter.
      * @param {IOleClientSite} pClientSite Pointer to an instance of <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleclientsite">IOleClientSite</a>, the primary interface through which the object will request services from its container. This parameter can be <b>NULL</b>.
      * @param {IStorage} pStg Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface on the storage object. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Pointer<Void>>} ppvObj Address of pointer variable that receives the interface pointer requested in <i>riid</i>. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created object.
-     * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>OLE_E_CANT_BINDTOSOURCE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Not able to bind to source.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Void>} Address of pointer variable that receives the interface pointer requested in <i>riid</i>. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created object.
      * @see https://docs.microsoft.com/windows/win32/api//ole2/nf-ole2-olecreatelink
      * @since windows5.0
      */
-    static OleCreateLink(pmkLinkSrc, riid, renderopt, lpFormatEtc, pClientSite, pStg, ppvObj) {
-        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("ole32.dll\OleCreateLink", "ptr", pmkLinkSrc, "ptr", riid, "uint", renderopt, "ptr", lpFormatEtc, "ptr", pClientSite, "ptr", pStg, ppvObjMarshal, ppvObj, "int")
+    static OleCreateLink(pmkLinkSrc, riid, renderopt, lpFormatEtc, pClientSite, pStg) {
+        result := DllCall("ole32.dll\OleCreateLink", "ptr", pmkLinkSrc, "ptr", riid, "uint", renderopt, "ptr", lpFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr*", &ppvObj := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppvObj
     }
 
     /**
@@ -30458,50 +15212,18 @@ class Ole {
      * @param {Pointer<FORMATETC>} lpFormatEtc Pointer to a value from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> that indicates the locally cached drawing or data-retrieval capabilities the newly created object is to have. The <b>OLERENDER</b> value chosen affects the possible values for the <i>pFormatEtc</i> parameter.
      * @param {IOleClientSite} pClientSite Pointer to an instance of <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleclientsite">IOleClientSite</a>, the primary interface through which the object will request services from its container. This parameter can be <b>NULL</b>.
      * @param {IStorage} pStg Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface on the storage object. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Pointer<Void>>} ppvObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created object.
-     * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>STG_E_FILENOTFOUND</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The file name is invalid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>OLE_E_CANT_BINDTOSOURCE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Not able to bind to source.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Void>} Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created object.
      * @see https://docs.microsoft.com/windows/win32/api//ole2/nf-ole2-olecreatelinktofile
      * @since windows5.0
      */
-    static OleCreateLinkToFile(lpszFileName, riid, renderopt, lpFormatEtc, pClientSite, pStg, ppvObj) {
+    static OleCreateLinkToFile(lpszFileName, riid, renderopt, lpFormatEtc, pClientSite, pStg) {
         lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
-        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("OLE32.dll\OleCreateLinkToFile", "ptr", lpszFileName, "ptr", riid, "uint", renderopt, "ptr", lpFormatEtc, "ptr", pClientSite, "ptr", pStg, ppvObjMarshal, ppvObj, "int")
+        result := DllCall("OLE32.dll\OleCreateLinkToFile", "ptr", lpszFileName, "ptr", riid, "uint", renderopt, "ptr", lpFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr*", &ppvObj := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppvObj
     }
 
     /**
@@ -30574,94 +15296,18 @@ class Ole {
      * @param {Pointer<FORMATETC>} lpFormatEtc Depending on which of the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-olerender">OLERENDER</a> flags is used as the value of <i>renderopt</i>, pointer to one of the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> enumeration values. Refer also to the <b>OLERENDER</b> enumeration for restrictions.
      * @param {IOleClientSite} pClientSite Pointer to an instance of <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleclientsite">IOleClientSite</a>, the primary interface through which the object will request services from its container. This parameter can be <b>NULL</b>.
      * @param {IStorage} pStg Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface on the storage object. This parameter cannot be <b>NULL</b>.
-     * @param {Pointer<Pointer<Void>>} ppvObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created object.
-     * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>STG_E_FILENOTFOUND </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * File not bound.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>OLE_E_CANT_BINDTOSOURCE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Not able to bind to source.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>STG_E_MEDIUMFULL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The medium is full.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DV_E_TYMED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Invalid <a href="/windows/desktop/api/objidl/ne-objidl-tymed">TYMED</a>.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DV_E_LINDEX</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Invalid LINDEX.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DV_E_FORMATETC</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Invalid <a href="/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> structure.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Void>} Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created object.
      * @see https://docs.microsoft.com/windows/win32/api//ole2/nf-ole2-olecreatefromfile
      * @since windows5.0
      */
-    static OleCreateFromFile(rclsid, lpszFileName, riid, renderopt, lpFormatEtc, pClientSite, pStg, ppvObj) {
+    static OleCreateFromFile(rclsid, lpszFileName, riid, renderopt, lpFormatEtc, pClientSite, pStg) {
         lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
 
-        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("OLE32.dll\OleCreateFromFile", "ptr", rclsid, "ptr", lpszFileName, "ptr", riid, "uint", renderopt, "ptr", lpFormatEtc, "ptr", pClientSite, "ptr", pStg, ppvObjMarshal, ppvObj, "int")
+        result := DllCall("OLE32.dll\OleCreateFromFile", "ptr", rclsid, "ptr", lpszFileName, "ptr", riid, "uint", renderopt, "ptr", lpFormatEtc, "ptr", pClientSite, "ptr", pStg, "ptr*", &ppvObj := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppvObj
     }
 
     /**
@@ -30731,40 +15377,16 @@ class Ole {
      * @param {IStorage} pStg Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface on the storage object from which to load the specified object.
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface that the caller wants to use to communicate with the object after it is loaded.
      * @param {IOleClientSite} pClientSite Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleclientsite">IOleClientSite</a> interface on the client site object being loaded.
-     * @param {Pointer<Pointer<Void>>} ppvObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly loaded object.
-     * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_NOINTERFACE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The object does not support the specified interface.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * Additionally, this function can return any of the error values returned by the <a href="/windows/desktop/api/objidl/nf-objidl-ipersiststorage-load">IPersistStorage::Load</a> method.
+     * @returns {Pointer<Void>} Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly loaded object.
      * @see https://docs.microsoft.com/windows/win32/api//ole2/nf-ole2-oleload
      * @since windows5.0
      */
-    static OleLoad(pStg, riid, pClientSite, ppvObj) {
-        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("OLE32.dll\OleLoad", "ptr", pStg, "ptr", riid, "ptr", pClientSite, ppvObjMarshal, ppvObj, "int")
+    static OleLoad(pStg, riid, pClientSite) {
+        result := DllCall("OLE32.dll\OleLoad", "ptr", pStg, "ptr", riid, "ptr", pClientSite, "ptr*", &ppvObj := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppvObj
     }
 
     /**
@@ -30808,51 +15430,16 @@ class Ole {
      * Loads an object from the stream.
      * @param {IStream} pStm Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface on the stream from which the object is to be loaded.
      * @param {Pointer<Guid>} iidInterface Interface identifier (IID) the caller wants to use to communicate with the object after it is loaded.
-     * @param {Pointer<Pointer<Void>>} ppvObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly loaded object.
-     * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory for the operation.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_NOINTERFACE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The object does not support the specified interface.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     * This function can also return any of the error values returned by the <a href="/windows/desktop/api/coml2api/nf-coml2api-readclassstm">ReadClassStm</a> and <a href="/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a> functions, and the <a href="/windows/desktop/api/objidl/nf-objidl-ipersiststream-load">IPersistStream::Load</a> method.
+     * @returns {Pointer<Void>} Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly loaded object.
      * @see https://docs.microsoft.com/windows/win32/api//ole2/nf-ole2-oleloadfromstream
      * @since windows5.0
      */
-    static OleLoadFromStream(pStm, iidInterface, ppvObj) {
-        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("OLE32.dll\OleLoadFromStream", "ptr", pStm, "ptr", iidInterface, ppvObjMarshal, ppvObj, "int")
+    static OleLoadFromStream(pStm, iidInterface) {
+        result := DllCall("OLE32.dll\OleLoadFromStream", "ptr", pStm, "ptr", iidInterface, "ptr*", &ppvObj := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppvObj
     }
 
     /**
@@ -31139,56 +15726,13 @@ class Ole {
      * @param {IDataObject} pDataObj Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface on a data object that contains the data being dragged.
      * @param {IDropSource} pDropSource Pointer to an implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-idropsource">IDropSource</a> interface, which is used to communicate with the source during the drag operation.
      * @param {Integer} dwOKEffects Effects the source allows in the OLE drag-and-drop operation. Most significant is whether it permits a move. The <i>dwOKEffect</i> and <i>pdwEffect</i> parameters obtain values from the <a href="https://docs.microsoft.com/windows/desktop/com/dropeffect-constants">DROPEFFECT</a> enumeration. For a list of values, see <b>DROPEFFECT</b>.
-     * @param {Pointer<Integer>} pdwEffect Pointer to a value that indicates how the OLE drag-and-drop operation affected the source data. The <i>pdwEffect</i> parameter is set only if the operation is not canceled.
-     * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DRAGDROP_S_DROP</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The OLE drag-and-drop operation was successful.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DRAGDROP_S_CANCEL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The OLE drag-and-drop operation was canceled. 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_UNSPEC</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Unexpected error occurred.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} Pointer to a value that indicates how the OLE drag-and-drop operation affected the source data. The <i>pdwEffect</i> parameter is set only if the operation is not canceled.
      * @see https://docs.microsoft.com/windows/win32/api//ole2/nf-ole2-dodragdrop
      * @since windows5.0
      */
-    static DoDragDrop(pDataObj, pDropSource, dwOKEffects, pdwEffect) {
-        pdwEffectMarshal := pdwEffect is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("OLE32.dll\DoDragDrop", "ptr", pDataObj, "ptr", pDropSource, "uint", dwOKEffects, pdwEffectMarshal, pdwEffect, "int")
-        return result
+    static DoDragDrop(pDataObj, pDropSource, dwOKEffects) {
+        result := DllCall("OLE32.dll\DoDragDrop", "ptr", pDataObj, "ptr", pDropSource, "uint", dwOKEffects, "uint*", &pdwEffect := 0, "int")
+        return pdwEffect
     }
 
     /**
@@ -31259,46 +15803,16 @@ class Ole {
 
     /**
      * Retrieves a data object that you can use to access the contents of the clipboard.
-     * @param {Pointer<IDataObject>} ppDataObj Address of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> pointer variable that receives the interface pointer to the clipboard data object.
-     * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>CLIPBRD_E_CANT_OPEN</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <a href="/windows/desktop/api/winuser/nf-winuser-openclipboard">OpenClipboard</a> function used within <a href="/windows/desktop/api/ole2/nf-ole2-oleflushclipboard">OleFlushClipboard</a> failed.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>CLIPBRD_E_CANT_CLOSE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <a href="/windows/desktop/api/winuser/nf-winuser-closeclipboard">CloseClipboard</a> function used within <a href="/windows/desktop/api/ole2/nf-ole2-oleflushclipboard">OleFlushClipboard</a> failed.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {IDataObject} Address of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> pointer variable that receives the interface pointer to the clipboard data object.
      * @see https://docs.microsoft.com/windows/win32/api//ole2/nf-ole2-olegetclipboard
      * @since windows5.0
      */
-    static OleGetClipboard(ppDataObj) {
-        result := DllCall("OLE32.dll\OleGetClipboard", "ptr*", ppDataObj, "int")
+    static OleGetClipboard() {
+        result := DllCall("OLE32.dll\OleGetClipboard", "ptr*", &ppDataObj := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IDataObject(ppDataObj)
     }
 
     /**
@@ -31343,7 +15857,12 @@ class Ole {
      * @since windows10.0.10240
      */
     static OleGetClipboardWithEnterpriseInfo(dataObject, dataEnterpriseId, sourceDescription, targetDescription, dataDescription) {
-        result := DllCall("ole32.dll\OleGetClipboardWithEnterpriseInfo", "ptr*", dataObject, "ptr", dataEnterpriseId, "ptr", sourceDescription, "ptr", targetDescription, "ptr", dataDescription, "int")
+        dataEnterpriseIdMarshal := dataEnterpriseId is VarRef ? "ptr*" : "ptr"
+        sourceDescriptionMarshal := sourceDescription is VarRef ? "ptr*" : "ptr"
+        targetDescriptionMarshal := targetDescription is VarRef ? "ptr*" : "ptr"
+        dataDescriptionMarshal := dataDescription is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("ole32.dll\OleGetClipboardWithEnterpriseInfo", "ptr*", dataObject, dataEnterpriseIdMarshal, dataEnterpriseId, sourceDescriptionMarshal, sourceDescription, targetDescriptionMarshal, targetDescription, dataDescriptionMarshal, dataDescription, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -31835,17 +16354,16 @@ class Ole {
 
     /**
      * Creates an advise holder object for managing compound document notifications. It returns a pointer to the object's OLE implementation of the IOleAdviseHolder interface.
-     * @param {Pointer<IOleAdviseHolder>} ppOAHolder Address of <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleadviseholder">IOleAdviseHolder</a> pointer variable that receives the interface pointer to the new advise holder object.
-     * @returns {HRESULT} This function returns S_OK on success and supports the standard return value E_OUTOFMEMORY.
+     * @returns {IOleAdviseHolder} Address of <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleadviseholder">IOleAdviseHolder</a> pointer variable that receives the interface pointer to the new advise holder object.
      * @see https://docs.microsoft.com/windows/win32/api//ole2/nf-ole2-createoleadviseholder
      * @since windows5.0
      */
-    static CreateOleAdviseHolder(ppOAHolder) {
-        result := DllCall("OLE32.dll\CreateOleAdviseHolder", "ptr*", ppOAHolder, "int")
+    static CreateOleAdviseHolder() {
+        result := DllCall("OLE32.dll\CreateOleAdviseHolder", "ptr*", &ppOAHolder := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IOleAdviseHolder(ppOAHolder)
     }
 
     /**
@@ -31853,19 +16371,16 @@ class Ole {
      * @param {Pointer<Guid>} clsid CLSID identifying the OLE server to be loaded when the embedded object enters the running state.
      * @param {IUnknown} pUnkOuter Pointer to the controlling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface if the handler is to be aggregated; <b>NULL</b> if it is not to be aggregated.
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface, usually IID_IOleObject, through which the caller will communicate with the handler.
-     * @param {Pointer<Pointer<Void>>} lplpObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created handler.
-     * @returns {HRESULT} This function returns NOERROR on success and supports the standard return value E_OUTOFMEMORY.
+     * @returns {Pointer<Void>} Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created handler.
      * @see https://docs.microsoft.com/windows/win32/api//ole2/nf-ole2-olecreatedefaulthandler
      * @since windows5.0
      */
-    static OleCreateDefaultHandler(clsid, pUnkOuter, riid, lplpObj) {
-        lplpObjMarshal := lplpObj is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("ole32.dll\OleCreateDefaultHandler", "ptr", clsid, "ptr", pUnkOuter, "ptr", riid, lplpObjMarshal, lplpObj, "int")
+    static OleCreateDefaultHandler(clsid, pUnkOuter, riid) {
+        result := DllCall("ole32.dll\OleCreateDefaultHandler", "ptr", clsid, "ptr", pUnkOuter, "ptr", riid, "ptr*", &lplpObj := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return lplpObj
     }
 
     /**
@@ -31875,70 +16390,16 @@ class Ole {
      * @param {Integer} flags DWORD containing flags that specify the role and creation context for the embedding helper. For legal values, see the following Remarks section.
      * @param {IClassFactory} pCF Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwnbase/nn-unknwnbase-iclassfactory">IClassFactory</a> interface on the class object the function uses to create the secondary object. In some situations, this value may be <b>NULL</b>. For more information, see the following Remarks section.
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface desired by the caller.
-     * @param {Pointer<Pointer<Void>>} lplpObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created embedding helper.
-     * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory for the operation.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more parameters are invalid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_UNEXPECTED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An unexpected error has occurred.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_NOINTERFACE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The provided interface identifier is invalid.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Void>} Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the newly created embedding helper.
      * @see https://docs.microsoft.com/windows/win32/api//ole2/nf-ole2-olecreateembeddinghelper
      * @since windows5.0
      */
-    static OleCreateEmbeddingHelper(clsid, pUnkOuter, flags, pCF, riid, lplpObj) {
-        lplpObjMarshal := lplpObj is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("OLE32.dll\OleCreateEmbeddingHelper", "ptr", clsid, "ptr", pUnkOuter, "uint", flags, "ptr", pCF, "ptr", riid, lplpObjMarshal, lplpObj, "int")
+    static OleCreateEmbeddingHelper(clsid, pUnkOuter, flags, pCF, riid) {
+        result := DllCall("OLE32.dll\OleCreateEmbeddingHelper", "ptr", clsid, "ptr", pUnkOuter, "uint", flags, "ptr", pCF, "ptr", riid, "ptr*", &lplpObj := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return lplpObj
     }
 
     /**
@@ -32021,277 +16482,63 @@ class Ole {
      * Gets the user type of the specified class from the registry.
      * @param {Pointer<Guid>} clsid The CLSID of the class for which the user type is to be requested.
      * @param {Integer} dwFormOfType The form of the user-presentable string. Possible values are taken from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/ne-oleidl-userclasstype">USERCLASSTYPE</a>.
-     * @param {Pointer<PWSTR>} pszUserType A pointer to a string that receives the user type.
-     * @returns {HRESULT} This function can return the standard return value E_OUTOFMEMORY, as well as the following values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The user type was returned successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>REGDB_E_CLASSNOTREG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * No CLSID is registered for the class object.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>REGDB_E_READREGDB</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * There was an error reading from the registry.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>OLE_E_REGDB_KEY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The  <b>ProgID</b> = <i>MainUserTypeName</i> and <b>CLSID</b> = <i>MainUserTypeName</i> keys  are missing from the registry.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {PWSTR} A pointer to a string that receives the user type.
      * @see https://docs.microsoft.com/windows/win32/api//ole2/nf-ole2-olereggetusertype
      * @since windows5.0
      */
-    static OleRegGetUserType(clsid, dwFormOfType, pszUserType) {
-        result := DllCall("OLE32.dll\OleRegGetUserType", "ptr", clsid, "uint", dwFormOfType, "ptr", pszUserType, "int")
+    static OleRegGetUserType(clsid, dwFormOfType) {
+        result := DllCall("OLE32.dll\OleRegGetUserType", "ptr", clsid, "uint", dwFormOfType, "ptr*", &pszUserType := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pszUserType
     }
 
     /**
      * Returns miscellaneous information about the presentation and behaviors supported by the specified CLSID from the registry.
      * @param {Pointer<Guid>} clsid The CLSID of the class for which status information is to be requested.
      * @param {Integer} dwAspect The presentation aspect of the class for which information is requested. Possible values are taken from the <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ne-wtypes-dvaspect">DVASPECT</a> enumeration.
-     * @param {Pointer<Integer>} pdwStatus A pointer to the variable that receives the status information.
-     * @returns {HRESULT} This function can return the standard return value E_OUTOFMEMORY, as well as the following values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The status information was returned successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>REGDB_E_CLASSNOTREG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * No CLSID is registered for the class object.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>REGDB_E_READREGDB</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * There was an error reading from the registry.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>OLE_E_REGDB_KEY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <b>GetMiscStatus</b> key is missing from the registry.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} A pointer to the variable that receives the status information.
      * @see https://docs.microsoft.com/windows/win32/api//ole2/nf-ole2-olereggetmiscstatus
      * @since windows5.0
      */
-    static OleRegGetMiscStatus(clsid, dwAspect, pdwStatus) {
-        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("OLE32.dll\OleRegGetMiscStatus", "ptr", clsid, "uint", dwAspect, pdwStatusMarshal, pdwStatus, "int")
+    static OleRegGetMiscStatus(clsid, dwAspect) {
+        result := DllCall("OLE32.dll\OleRegGetMiscStatus", "ptr", clsid, "uint", dwAspect, "uint*", &pdwStatus := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdwStatus
     }
 
     /**
      * Creates an enumeration object that can be used to enumerate data formats that an OLE object server has registered in the system registry.
      * @param {Pointer<Guid>} clsid CLSID of the class whose formats are being requested.
      * @param {Integer} dwDirection Indicates whether to enumerate formats that can be passed to <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-getdata">IDataObject::GetData</a> or formats that can be passed to <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-idataobject-setdata">IDataObject::SetData</a>. Possible values are taken from the enumeration <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-datadir">DATADIR</a>.
-     * @param {Pointer<IEnumFORMATETC>} ppenum Address of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumformatetc">IEnumFORMATETC</a> pointer variable that receives the interface pointer to the enumeration object.
-     * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory for the operation.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>REGDB_E_CLASSNOTREG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * There is no CLSID registered for the class object.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>REGDB_E_READREGDB</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * There was an error reading the registry.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>OLE_E_REGDB_KEY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The DataFormats/GetSet key is missing from the registry.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {IEnumFORMATETC} Address of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumformatetc">IEnumFORMATETC</a> pointer variable that receives the interface pointer to the enumeration object.
      * @see https://docs.microsoft.com/windows/win32/api//ole2/nf-ole2-oleregenumformatetc
      * @since windows5.0
      */
-    static OleRegEnumFormatEtc(clsid, dwDirection, ppenum) {
-        result := DllCall("ole32.dll\OleRegEnumFormatEtc", "ptr", clsid, "uint", dwDirection, "ptr*", ppenum, "int")
+    static OleRegEnumFormatEtc(clsid, dwDirection) {
+        result := DllCall("ole32.dll\OleRegEnumFormatEtc", "ptr", clsid, "uint", dwDirection, "ptr*", &ppenum := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IEnumFORMATETC(ppenum)
     }
 
     /**
      * Supplies an enumeration of the registered verbs for the specified class. Developers of custom DLL object applications use this function to emulate the behavior of the default object handler.
      * @param {Pointer<Guid>} clsid Class identifier whose verbs are being requested.
-     * @param {Pointer<IEnumOLEVERB>} ppenum Address of <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ienumoleverb">IEnumOLEVERB</a>* pointer variable that receives the interface pointer to the new enumeration object.
-     * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>OLEOBJ_E_NOVERBS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * No verbs are registered for the class.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>REGDB_E_CLASSNOTREG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * No CLSID is registered for the class object.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>REGDB_E_READREGDB</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An error occurred reading the registry.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>OLE_E_REGDB_KEY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The DataFormats/GetSet key is missing from the registry.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {IEnumOLEVERB} Address of <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ienumoleverb">IEnumOLEVERB</a>* pointer variable that receives the interface pointer to the new enumeration object.
      * @see https://docs.microsoft.com/windows/win32/api//ole2/nf-ole2-oleregenumverbs
      * @since windows5.0
      */
-    static OleRegEnumVerbs(clsid, ppenum) {
-        result := DllCall("OLE32.dll\OleRegEnumVerbs", "ptr", clsid, "ptr*", ppenum, "int")
+    static OleRegEnumVerbs(clsid) {
+        result := DllCall("OLE32.dll\OleRegEnumVerbs", "ptr", clsid, "ptr*", &ppenum := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IEnumOLEVERB(ppenum)
     }
 
     /**
@@ -32561,7 +16808,7 @@ class Ole {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLE32.dll\HRGN_UserMarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLE32.dll\HRGN_UserMarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -32576,7 +16823,7 @@ class Ole {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLE32.dll\HRGN_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLE32.dll\HRGN_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -32617,7 +16864,7 @@ class Ole {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("api-ms-win-core-marshal-l1-1-0.dll\HRGN_UserMarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("api-ms-win-core-marshal-l1-1-0.dll\HRGN_UserMarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -32632,7 +16879,7 @@ class Ole {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("api-ms-win-core-marshal-l1-1-0.dll\HRGN_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("api-ms-win-core-marshal-l1-1-0.dll\HRGN_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -32753,118 +17000,34 @@ class Ole {
      * Converts an OLE_COLOR type to a COLORREF.
      * @param {Integer} clr The OLE color to be converted into a <b>COLORREF</b>.
      * @param {HPALETTE} hpal Palette used as a basis for the conversion.
-     * @param {Pointer<COLORREF>} lpcolorref Pointer to the caller's variable that receives the converted <b>COLORREF</b> result. This parameter can be <b>NULL</b>, indicating that the caller wants only to verify that a converted color exists.
-     * @returns {HRESULT} This function supports the standard return values E_INVALIDARG and E_UNEXPECTED, as well as the following value.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The color was translated successfully.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {COLORREF} Pointer to the caller's variable that receives the converted <b>COLORREF</b> result. This parameter can be <b>NULL</b>, indicating that the caller wants only to verify that a converted color exists.
      * @see https://docs.microsoft.com/windows/win32/api//olectl/nf-olectl-oletranslatecolor
      * @since windows5.0
      */
-    static OleTranslateColor(clr, hpal, lpcolorref) {
+    static OleTranslateColor(clr, hpal) {
         hpal := hpal is Win32Handle ? NumGet(hpal, "ptr") : hpal
 
-        result := DllCall("OLEAUT32.dll\OleTranslateColor", "uint", clr, "ptr", hpal, "ptr", lpcolorref, "int")
+        result := DllCall("OLEAUT32.dll\OleTranslateColor", "uint", clr, "ptr", hpal, "uint*", &lpcolorref := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return lpcolorref
     }
 
     /**
      * Creates and initializes a standard font object using an initial description of the font's properties in a FONTDESC structure.
      * @param {Pointer<FONTDESC>} lpFontDesc Address of a caller-allocated, <a href="https://docs.microsoft.com/windows/desktop/api/olectl/ns-olectl-fontdesc">FONTDESC</a> structure containing the initial state of the font. This value must not be <b>NULL</b>.
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface describing the type of interface pointer to return in <i>lplpvObj</i>.
-     * @param {Pointer<Pointer<Void>>} lplpvObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, this parameter contains the requested interface pointer on the newly created font object. If successful, the caller is responsible to call Release through this interface pointer when the new object is no longer needed. If unsuccessful, the value of is set to <b>NULL</b>.
-     * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_NOINTERFACE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The provided interface identifier is invalid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_UNEXPECTED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An unexpected error has occurred.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory for the operation.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG </b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more parameters are invalid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_POINTER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The address in <i>pFontDesc</i> or <i>ppvObj</i> is not valid. Note that if <i>pFontDesc</i> is set to <b>NULL</b>, the function returns NO_ERROR.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Void>} Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, this parameter contains the requested interface pointer on the newly created font object. If successful, the caller is responsible to call Release through this interface pointer when the new object is no longer needed. If unsuccessful, the value of is set to <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//olectl/nf-olectl-olecreatefontindirect
      * @since windows5.0
      */
-    static OleCreateFontIndirect(lpFontDesc, riid, lplpvObj) {
-        lplpvObjMarshal := lplpvObj is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\OleCreateFontIndirect", "ptr", lpFontDesc, "ptr", riid, lplpvObjMarshal, lplpvObj, "int")
+    static OleCreateFontIndirect(lpFontDesc, riid) {
+        result := DllCall("OLEAUT32.dll\OleCreateFontIndirect", "ptr", lpFontDesc, "ptr", riid, "ptr*", &lplpvObj := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return lplpvObj
     }
 
     /**
@@ -32872,49 +17035,16 @@ class Ole {
      * @param {Pointer<PICTDESC>} lpPictDesc Pointer to a caller-allocated structure containing the initial state of the picture. The specified structure can be <b>NULL</b> to create an uninitialized object, in the event the picture needs to initialize via <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-ipersiststream-load">IPersistStream::Load</a>.
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface describing the type of interface pointer to return in <i>lplpvObj</i>.
      * @param {BOOL} fOwn If <b>TRUE</b>, the picture object is to destroy its picture when the object is destroyed. If <b>FALSE</b>, the caller is responsible for destroying the picture.
-     * @param {Pointer<Pointer<Void>>} lplpvObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, this parameter contains the requested interface pointer on the newly created object. If the call is successful, the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> through this interface pointer when the new object is no longer needed. If the call fails, the value is set to <b>NULL</b>.
-     * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_NOINTERFACE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The object does not support the interface specified in riid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_POINTER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The address in <i>pPictDesc</i> or <i>lplpvObj</i> is not valid. For example, it may be <b>NULL</b>.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Void>} Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, this parameter contains the requested interface pointer on the newly created object. If the call is successful, the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> through this interface pointer when the new object is no longer needed. If the call fails, the value is set to <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//olectl/nf-olectl-olecreatepictureindirect
      * @since windows5.0
      */
-    static OleCreatePictureIndirect(lpPictDesc, riid, fOwn, lplpvObj) {
-        lplpvObjMarshal := lplpvObj is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\OleCreatePictureIndirect", "ptr", lpPictDesc, "ptr", riid, "int", fOwn, lplpvObjMarshal, lplpvObj, "int")
+    static OleCreatePictureIndirect(lpPictDesc, riid, fOwn) {
+        result := DllCall("OLEAUT32.dll\OleCreatePictureIndirect", "ptr", lpPictDesc, "ptr", riid, "int", fOwn, "ptr*", &lplpvObj := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return lplpvObj
     }
 
     /**
@@ -32923,49 +17053,16 @@ class Ole {
      * @param {Integer} lSize The number of bytes that should be read from the stream, or zero if the entire stream should be read.
      * @param {BOOL} fRunmode The opposite of the initial value of the <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ipicture-get_keeporiginalformat">KeepOriginalFormat</a> property. If <b>TRUE</b>, <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ipicture-put_keeporiginalformat">KeepOriginalFormat</a> is set to <b>FALSE</b> and vice-versa.
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface describing the type of interface pointer to return in <i>ppvObj</i>.
-     * @param {Pointer<Pointer<Void>>} lplpvObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the storage of the object identified by the moniker. If *<i>ppvObj</i> is non-<b>NULL</b>, this function calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">IUnknown::AddRef</a> on the interface; it is the caller's responsibility to call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a>. If an error occurs, *<i>ppvObj</i> is set to <b>NULL</b>.
-     * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_NOINTERFACE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The object does not support the specified interface.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_POINTER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The stream is not valid. For example, it may be <b>NULL</b>.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Void>} Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the storage of the object identified by the moniker. If *<i>ppvObj</i> is non-<b>NULL</b>, this function calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">IUnknown::AddRef</a> on the interface; it is the caller's responsibility to call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a>. If an error occurs, *<i>ppvObj</i> is set to <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//olectl/nf-olectl-oleloadpicture
      * @since windows5.0
      */
-    static OleLoadPicture(lpstream, lSize, fRunmode, riid, lplpvObj) {
-        lplpvObjMarshal := lplpvObj is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\OleLoadPicture", "ptr", lpstream, "int", lSize, "int", fRunmode, "ptr", riid, lplpvObjMarshal, lplpvObj, "int")
+    static OleLoadPicture(lpstream, lSize, fRunmode, riid) {
+        result := DllCall("OLEAUT32.dll\OleLoadPicture", "ptr", lpstream, "int", lSize, "int", fRunmode, "ptr", riid, "ptr*", &lplpvObj := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return lplpvObj
     }
 
     /**
@@ -32977,49 +17074,16 @@ class Ole {
      * @param {Integer} xSizeDesired Desired width of icon or cursor. Valid values are 16, 32, and 48. Pass LP_DEFAULT to both size parameters to use system default size.
      * @param {Integer} ySizeDesired Desired height of icon or cursor. Valid values are 16, 32, and 48. Pass LP_DEFAULT to both size parameters to use system default size.
      * @param {Integer} dwFlags Desired color depth for icon or cursor. Values are LP_MONOCHROME (monochrome), LP_VGACOLOR (16 colors), LP_COLOR (256 colors), or LP_DEFAULT (selects best depth for current display).
-     * @param {Pointer<Pointer<Void>>} lplpvObj Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the storage of the object identified by the moniker. If *<i>ppvObj</i> is non-<b>NULL</b>, this function calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">IUnknown::AddRef</a> on the interface; it is the caller's responsibility to call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a>. If an error occurs, *<i>ppvObj</i> is set to <b>NULL</b>.
-     * @returns {HRESULT} This function returns S_OK on success. Other possible values include the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_NOINTERFACE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The object does not support the interface specified in riid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_POINTER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The address in <i>pPictDesc</i> or <i>ppvObj</i> is not valid. For example, it may be <b>NULL</b>.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Void>} Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer on the storage of the object identified by the moniker. If *<i>ppvObj</i> is non-<b>NULL</b>, this function calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">IUnknown::AddRef</a> on the interface; it is the caller's responsibility to call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a>. If an error occurs, *<i>ppvObj</i> is set to <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//olectl/nf-olectl-oleloadpictureex
      * @since windows5.0
      */
-    static OleLoadPictureEx(lpstream, lSize, fRunmode, riid, xSizeDesired, ySizeDesired, dwFlags, lplpvObj) {
-        lplpvObjMarshal := lplpvObj is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\OleLoadPictureEx", "ptr", lpstream, "int", lSize, "int", fRunmode, "ptr", riid, "uint", xSizeDesired, "uint", ySizeDesired, "uint", dwFlags, lplpvObjMarshal, lplpvObj, "int")
+    static OleLoadPictureEx(lpstream, lSize, fRunmode, riid, xSizeDesired, ySizeDesired, dwFlags) {
+        result := DllCall("OLEAUT32.dll\OleLoadPictureEx", "ptr", lpstream, "int", lSize, "int", fRunmode, "ptr", riid, "uint", xSizeDesired, "uint", ySizeDesired, "uint", dwFlags, "ptr*", &lplpvObj := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return lplpvObj
     }
 
     /**
@@ -33028,123 +17092,34 @@ class Ole {
      * @param {IUnknown} punkCaller Points to <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> for COM aggregation.
      * @param {Integer} clrReserved The color you want to reserve to be transparent.
      * @param {Pointer<Guid>} riid Reference to the identifier of the interface describing the type of interface pointer to return in ppvRet.
-     * @param {Pointer<Pointer<Void>>} ppvRet Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvRet</i> contains the requested interface pointer on the storage of the object identified by the moniker. If *<i>ppvRet</i> is non-<b>NULL</b>, this function calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">IUnknown::AddRef</a> on the interface; it is the caller's responsibility to call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a>. If an error occurs, *<i>ppvRet</i> is set to <b>NULL</b>.
-     * @returns {HRESULT} This function supports the standard return values E_OUTOFMEMORY and E_UNEXPECTED, as well as the following: 
-     * 
-     * 
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The dialog box was created successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_FAIL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Unable to load picture stream.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_POINTER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The address in <i>ppvRet</i> is <b>NULL</b>.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_NOINTERFACE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The object does not support the interface specified in <i>riid</i>. 
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Void>} Address of pointer variable that receives the interface pointer requested in riid. Upon successful return, *<i>ppvRet</i> contains the requested interface pointer on the storage of the object identified by the moniker. If *<i>ppvRet</i> is non-<b>NULL</b>, this function calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">IUnknown::AddRef</a> on the interface; it is the caller's responsibility to call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a>. If an error occurs, *<i>ppvRet</i> is set to <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//olectl/nf-olectl-oleloadpicturepath
      * @since windows5.0
      */
-    static OleLoadPicturePath(szURLorPath, punkCaller, clrReserved, riid, ppvRet) {
+    static OleLoadPicturePath(szURLorPath, punkCaller, clrReserved, riid) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
         szURLorPath := szURLorPath is String ? StrPtr(szURLorPath) : szURLorPath
 
-        ppvRetMarshal := ppvRet is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("OLEAUT32.dll\OleLoadPicturePath", "ptr", szURLorPath, "ptr", punkCaller, "uint", dwReserved, "uint", clrReserved, "ptr", riid, ppvRetMarshal, ppvRet, "int")
+        result := DllCall("OLEAUT32.dll\OleLoadPicturePath", "ptr", szURLorPath, "ptr", punkCaller, "uint", dwReserved, "uint", clrReserved, "ptr", riid, "ptr*", &ppvRet := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppvRet
     }
 
     /**
      * Creates an IPictureDisp object from a picture file on disk.
      * @param {VARIANT} varFileName The path and name of the picture file to load.
-     * @param {Pointer<IDispatch>} lplpdispPicture The location that receives a pointer to the <b>IPictureDisp</b> object.
-     * @returns {HRESULT} This method returns standard COM error codes in addition to the following values.
-     * 
-     * 
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The method completed successfully.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>CTL_E_INVALIDPICTURE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Invalid picture file.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {IDispatch} The location that receives a pointer to the <b>IPictureDisp</b> object.
      * @see https://docs.microsoft.com/windows/win32/api//olectl/nf-olectl-oleloadpicturefile
      */
-    static OleLoadPictureFile(varFileName, lplpdispPicture) {
-        result := DllCall("OLEAUT32.dll\OleLoadPictureFile", "ptr", varFileName, "ptr*", lplpdispPicture, "int")
+    static OleLoadPictureFile(varFileName) {
+        result := DllCall("OLEAUT32.dll\OleLoadPictureFile", "ptr", varFileName, "ptr*", &lplpdispPicture := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IDispatch(lplpdispPicture)
     }
 
     /**
@@ -33204,48 +17179,15 @@ class Ole {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<IDispatch>} lplpdispPicture The location that receives a pointer to the picture.
-     * @returns {HRESULT} This method returns standard COM error codes in addition to the following values.
-     * 
-     * 
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The method completed successfully.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DISP_E_PARAMNOTFOUND</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * <i>varFileName</i> is not valid.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {IDispatch} The location that receives a pointer to the picture.
      * @see https://docs.microsoft.com/windows/win32/api//olectl/nf-olectl-oleloadpicturefileex
      */
-    static OleLoadPictureFileEx(varFileName, xSizeDesired, ySizeDesired, dwFlags, lplpdispPicture) {
-        result := DllCall("OLEAUT32.dll\OleLoadPictureFileEx", "ptr", varFileName, "uint", xSizeDesired, "uint", ySizeDesired, "uint", dwFlags, "ptr*", lplpdispPicture, "int")
+    static OleLoadPictureFileEx(varFileName, xSizeDesired, ySizeDesired, dwFlags) {
+        result := DllCall("OLEAUT32.dll\OleLoadPictureFileEx", "ptr", varFileName, "uint", xSizeDesired, "uint", ySizeDesired, "uint", dwFlags, "ptr*", &lplpdispPicture := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IDispatch(lplpdispPicture)
     }
 
     /**

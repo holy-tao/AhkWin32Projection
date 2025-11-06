@@ -2,6 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
+#Include .\IOCSPCAConfiguration.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -33,67 +36,62 @@ class IOCSPCAConfigurationCollection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} pVal 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfigurationcollection-get__newenum
      */
-    get__NewEnum(pVal) {
-        result := ComCall(7, this, "ptr*", pVal, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(7, this, "ptr*", &pVal := 0, "HRESULT")
+        return IUnknown(pVal)
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<VARIANT>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfigurationcollection-get_item
      */
-    get_Item(Index, pVal) {
+    get_Item(Index) {
+        pVal := VARIANT()
         result := ComCall(8, this, "int", Index, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfigurationcollection-get_count
      */
-    get_Count(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(9, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
      * @param {BSTR} bstrIdentifier 
-     * @param {Pointer<VARIANT>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfigurationcollection-get_itembyname
      */
-    get_ItemByName(bstrIdentifier, pVal) {
+    get_ItemByName(bstrIdentifier) {
         bstrIdentifier := bstrIdentifier is String ? BSTR.Alloc(bstrIdentifier).Value : bstrIdentifier
 
+        pVal := VARIANT()
         result := ComCall(10, this, "ptr", bstrIdentifier, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
      * @param {BSTR} bstrIdentifier 
      * @param {VARIANT} varCACert 
-     * @param {Pointer<IOCSPCAConfiguration>} ppVal 
-     * @returns {HRESULT} 
+     * @returns {IOCSPCAConfiguration} 
      * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfigurationcollection-createcaconfiguration
      */
-    CreateCAConfiguration(bstrIdentifier, varCACert, ppVal) {
+    CreateCAConfiguration(bstrIdentifier, varCACert) {
         bstrIdentifier := bstrIdentifier is String ? BSTR.Alloc(bstrIdentifier).Value : bstrIdentifier
 
-        result := ComCall(11, this, "ptr", bstrIdentifier, "ptr", varCACert, "ptr*", ppVal, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", bstrIdentifier, "ptr", varCACert, "ptr*", &ppVal := 0, "HRESULT")
+        return IOCSPCAConfiguration(ppVal)
     }
 
     /**

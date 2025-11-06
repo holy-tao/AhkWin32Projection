@@ -63,8 +63,9 @@ class INetCfgComponentPropertyUi extends IUnknown{
         pdwDefPagesMarshal := pdwDefPages is VarRef ? "uint*" : "ptr"
         pahpspPrivateMarshal := pahpspPrivate is VarRef ? "ptr*" : "ptr"
         pcPagesMarshal := pcPages is VarRef ? "uint*" : "ptr"
+        pszStartPageMarshal := pszStartPage is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, pdwDefPagesMarshal, pdwDefPages, pahpspPrivateMarshal, pahpspPrivate, pcPagesMarshal, pcPages, "ptr", hwndParent, "ptr", pszStartPage, "HRESULT")
+        result := ComCall(5, this, pdwDefPagesMarshal, pdwDefPages, pahpspPrivateMarshal, pahpspPrivate, pcPagesMarshal, pcPages, "ptr", hwndParent, pszStartPageMarshal, pszStartPage, "HRESULT")
         return result
     }
 

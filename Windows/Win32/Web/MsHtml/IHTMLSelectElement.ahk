@@ -3,6 +3,9 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IHTMLFormElement.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -47,14 +50,11 @@ class IHTMLSelectElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_size(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pMarshal, p, "HRESULT")
-        return result
+    get_size() {
+        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -69,12 +69,11 @@ class IHTMLSelectElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_multiple(p) {
-        result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+    get_multiple() {
+        result := ComCall(10, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -91,22 +90,21 @@ class IHTMLSelectElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_name(p) {
+    get_name() {
+        p := BSTR()
         result := ComCall(12, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_options(p) {
-        result := ComCall(13, this, "ptr*", p, "HRESULT")
-        return result
+    get_options() {
+        result := ComCall(13, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
@@ -121,12 +119,12 @@ class IHTMLSelectElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onchange(p) {
+    get_onchange() {
+        p := VARIANT()
         result := ComCall(15, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -141,24 +139,21 @@ class IHTMLSelectElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_selectedIndex(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, pMarshal, p, "HRESULT")
-        return result
+    get_selectedIndex() {
+        result := ComCall(17, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_type(p) {
+    get_type() {
+        p := BSTR()
         result := ComCall(18, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -175,12 +170,12 @@ class IHTMLSelectElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_value(p) {
+    get_value() {
+        p := BSTR()
         result := ComCall(20, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -195,22 +190,20 @@ class IHTMLSelectElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_disabled(p) {
-        result := ComCall(22, this, "ptr", p, "HRESULT")
-        return result
+    get_disabled() {
+        result := ComCall(22, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLFormElement>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLFormElement} 
      */
-    get_form(p) {
-        result := ComCall(23, this, "ptr*", p, "HRESULT")
-        return result
+    get_form() {
+        result := ComCall(23, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLFormElement(p)
     }
 
     /**
@@ -246,46 +239,40 @@ class IHTMLSelectElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_length(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(27, this, pMarshal, p, "HRESULT")
-        return result
+    get_length() {
+        result := ComCall(27, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} p 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__newEnum(p) {
-        result := ComCall(28, this, "ptr*", p, "HRESULT")
-        return result
+    get__newEnum() {
+        result := ComCall(28, this, "ptr*", &p := 0, "HRESULT")
+        return IUnknown(p)
     }
 
     /**
      * 
      * @param {VARIANT} name 
      * @param {VARIANT} index 
-     * @param {Pointer<IDispatch>} pdisp 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    item(name, index, pdisp) {
-        result := ComCall(29, this, "ptr", name, "ptr", index, "ptr*", pdisp, "HRESULT")
-        return result
+    item(name, index) {
+        result := ComCall(29, this, "ptr", name, "ptr", index, "ptr*", &pdisp := 0, "HRESULT")
+        return IDispatch(pdisp)
     }
 
     /**
      * 
      * @param {VARIANT} tagName 
-     * @param {Pointer<IDispatch>} pdisp 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    tags(tagName, pdisp) {
-        result := ComCall(30, this, "ptr", tagName, "ptr*", pdisp, "HRESULT")
-        return result
+    tags(tagName) {
+        result := ComCall(30, this, "ptr", tagName, "ptr*", &pdisp := 0, "HRESULT")
+        return IDispatch(pdisp)
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUIAutomationTextRange.ahk
+#Include .\IUIAutomationTextRangeArray.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,70 +35,62 @@ class IUIAutomationTextPattern extends IUnknown{
     /**
      * 
      * @param {POINT} pt 
-     * @param {Pointer<IUIAutomationTextRange>} range 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationTextRange} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextpattern-rangefrompoint
      */
-    RangeFromPoint(pt, range) {
-        result := ComCall(3, this, "ptr", pt, "ptr*", range, "HRESULT")
-        return result
+    RangeFromPoint(pt) {
+        result := ComCall(3, this, "ptr", pt, "ptr*", &range := 0, "HRESULT")
+        return IUIAutomationTextRange(range)
     }
 
     /**
      * 
      * @param {IUIAutomationElement} child 
-     * @param {Pointer<IUIAutomationTextRange>} range 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationTextRange} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextpattern-rangefromchild
      */
-    RangeFromChild(child, range) {
-        result := ComCall(4, this, "ptr", child, "ptr*", range, "HRESULT")
-        return result
+    RangeFromChild(child) {
+        result := ComCall(4, this, "ptr", child, "ptr*", &range := 0, "HRESULT")
+        return IUIAutomationTextRange(range)
     }
 
     /**
      * 
-     * @param {Pointer<IUIAutomationTextRangeArray>} ranges 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationTextRangeArray} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextpattern-getselection
      */
-    GetSelection(ranges) {
-        result := ComCall(5, this, "ptr*", ranges, "HRESULT")
-        return result
+    GetSelection() {
+        result := ComCall(5, this, "ptr*", &ranges := 0, "HRESULT")
+        return IUIAutomationTextRangeArray(ranges)
     }
 
     /**
      * 
-     * @param {Pointer<IUIAutomationTextRangeArray>} ranges 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationTextRangeArray} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextpattern-getvisibleranges
      */
-    GetVisibleRanges(ranges) {
-        result := ComCall(6, this, "ptr*", ranges, "HRESULT")
-        return result
+    GetVisibleRanges() {
+        result := ComCall(6, this, "ptr*", &ranges := 0, "HRESULT")
+        return IUIAutomationTextRangeArray(ranges)
     }
 
     /**
      * 
-     * @param {Pointer<IUIAutomationTextRange>} range 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationTextRange} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextpattern-get_documentrange
      */
-    get_DocumentRange(range) {
-        result := ComCall(7, this, "ptr*", range, "HRESULT")
-        return result
+    get_DocumentRange() {
+        result := ComCall(7, this, "ptr*", &range := 0, "HRESULT")
+        return IUIAutomationTextRange(range)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} supportedTextSelection 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextpattern-get_supportedtextselection
      */
-    get_SupportedTextSelection(supportedTextSelection) {
-        supportedTextSelectionMarshal := supportedTextSelection is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, supportedTextSelectionMarshal, supportedTextSelection, "HRESULT")
-        return result
+    get_SupportedTextSelection() {
+        result := ComCall(8, this, "int*", &supportedTextSelection := 0, "HRESULT")
+        return supportedTextSelection
     }
 }

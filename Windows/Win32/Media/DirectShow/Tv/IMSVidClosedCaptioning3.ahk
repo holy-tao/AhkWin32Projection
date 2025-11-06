@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IMSVidClosedCaptioning2.ahk
 
 /**
@@ -37,12 +38,11 @@ class IMSVidClosedCaptioning3 extends IMSVidClosedCaptioning2{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} punkTTFilter 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidclosedcaptioning3-get_teletextfilter
      */
-    get_TeleTextFilter(punkTTFilter) {
-        result := ComCall(20, this, "ptr*", punkTTFilter, "HRESULT")
-        return result
+    get_TeleTextFilter() {
+        result := ComCall(20, this, "ptr*", &punkTTFilter := 0, "HRESULT")
+        return IUnknown(punkTTFilter)
     }
 }

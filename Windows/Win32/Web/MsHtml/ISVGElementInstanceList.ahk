@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISVGElementInstance.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -36,24 +37,20 @@ class ISVGElementInstanceList extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_length(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pMarshal, p, "HRESULT")
-        return result
+    get_length() {
+        result := ComCall(7, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<ISVGElementInstance>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGElementInstance} 
      */
-    item(index, ppResult) {
-        result := ComCall(8, this, "int", index, "ptr*", ppResult, "HRESULT")
-        return result
+    item(index) {
+        result := ComCall(8, this, "int", index, "ptr*", &ppResult := 0, "HRESULT")
+        return ISVGElementInstance(ppResult)
     }
 }

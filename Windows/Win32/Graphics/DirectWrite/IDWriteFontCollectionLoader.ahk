@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteFontFileEnumerator.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -40,12 +41,11 @@ class IDWriteFontCollectionLoader extends IUnknown{
      * @param {IDWriteFactory} factory 
      * @param {Pointer} collectionKey 
      * @param {Integer} collectionKeySize 
-     * @param {Pointer<IDWriteFontFileEnumerator>} fontFileEnumerator 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontFileEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontcollectionloader-createenumeratorfromkey
      */
-    CreateEnumeratorFromKey(factory, collectionKey, collectionKeySize, fontFileEnumerator) {
-        result := ComCall(3, this, "ptr", factory, "ptr", collectionKey, "uint", collectionKeySize, "ptr*", fontFileEnumerator, "HRESULT")
-        return result
+    CreateEnumeratorFromKey(factory, collectionKey, collectionKeySize) {
+        result := ComCall(3, this, "ptr", factory, "ptr", collectionKey, "uint", collectionKeySize, "ptr*", &fontFileEnumerator := 0, "HRESULT")
+        return IDWriteFontFileEnumerator(fontFileEnumerator)
     }
 }

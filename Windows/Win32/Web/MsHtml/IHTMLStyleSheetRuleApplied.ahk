@@ -30,26 +30,20 @@ class IHTMLStyleSheetRuleApplied extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_msSpecificity(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pMarshal, p, "HRESULT")
-        return result
+    get_msSpecificity() {
+        result := ComCall(7, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    msGetSpecificity(index, p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, "int", index, pMarshal, p, "HRESULT")
-        return result
+    msGetSpecificity(index) {
+        result := ComCall(8, this, "int", index, "int*", &p := 0, "HRESULT")
+        return p
     }
 }

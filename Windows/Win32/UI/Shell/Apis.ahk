@@ -2,11 +2,26 @@
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\Foundation\Apis.ahk
 #Include ..\..\System\LibraryLoader\Apis.ahk
+#Include .\IShellItemArray.ahk
+#Include .\IEnumAssocHandlers.ahk
+#Include .\IFileOperation.ahk
+#Include ..\..\System\Com\IMalloc.ahk
+#Include .\IShellItem.ahk
+#Include .\IShellFolder.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\IDataObject.ahk
+#Include ..\..\System\Com\IEnumFORMATETC.ahk
+#Include .\IShellView.ahk
+#Include .\IContextMenu.ahk
 #Include .\HPSXA.ahk
+#Include ..\..\System\Com\IMoniker.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
 #Include ..\WindowsAndMessaging\HICON.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Registry\HKEY.ahk
+#Include ..\..\System\Com\IStream.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Graphics\Gdi\HPALETTE.ahk
 
 /**
@@ -8972,24 +8987,19 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the requested interface.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in riid.  This will typically be <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> or 
      *         <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem2">IShellItem2</a>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-shcreateitemfromidlist
      * @since windows6.0.6000
      */
-    static SHCreateItemFromIDList(pidl, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SHELL32.dll\SHCreateItemFromIDList", "ptr", pidl, "ptr", riid, ppvMarshal, ppv, "int")
+    static SHCreateItemFromIDList(pidl, riid) {
+        result := DllCall("SHELL32.dll\SHCreateItemFromIDList", "ptr", pidl, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -9010,25 +9020,20 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the interface to retrieve through <i>ppv</i>, typically <b>IID_IShellItem</b> or <b>IID_IShellItem2</b>.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this method returns successfully, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem2">IShellItem2</a>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-shcreateitemfromparsingname
      * @since windows6.0.6000
      */
-    static SHCreateItemFromParsingName(pszPath, pbc, riid, ppv) {
+    static SHCreateItemFromParsingName(pszPath, pbc, riid) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SHELL32.dll\SHCreateItemFromParsingName", "ptr", pszPath, "ptr", pbc, "ptr", riid, ppvMarshal, ppv, "int")
+        result := DllCall("SHELL32.dll\SHCreateItemFromParsingName", "ptr", pszPath, "ptr", pbc, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -9045,24 +9050,19 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to an interface ID.
-     * @param {Pointer<Pointer<Void>>} ppvItem Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in riid.  This will typically be <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> or 
      *         <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem2">IShellItem2</a>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-shcreateitemwithparent
      * @since windows6.0.6000
      */
-    static SHCreateItemWithParent(pidlParent, psfParent, pidl, riid, ppvItem) {
-        ppvItemMarshal := ppvItem is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SHELL32.dll\SHCreateItemWithParent", "ptr", pidlParent, "ptr", psfParent, "ptr", pidl, "ptr", riid, ppvItemMarshal, ppvItem, "int")
+    static SHCreateItemWithParent(pidlParent, psfParent, pidl, riid) {
+        result := DllCall("SHELL32.dll\SHCreateItemWithParent", "ptr", pidlParent, "ptr", psfParent, "ptr", pidl, "ptr", riid, "ptr*", &ppvItem := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppvItem
     }
 
     /**
@@ -9079,26 +9079,21 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to an interface ID.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in riid.  This will usually be <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> or 
      *         <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem2">IShellItem2</a>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-shcreateitemfromrelativename
      * @since windows6.0.6000
      */
-    static SHCreateItemFromRelativeName(psiParent, pszName, pbc, riid, ppv) {
+    static SHCreateItemFromRelativeName(psiParent, pszName, pbc, riid) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SHELL32.dll\SHCreateItemFromRelativeName", "ptr", psiParent, "ptr", pszName, "ptr", pbc, "ptr", riid, ppvMarshal, ppv, "int")
+        result := DllCall("SHELL32.dll\SHCreateItemFromRelativeName", "ptr", psiParent, "ptr", pszName, "ptr", pbc, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -9115,25 +9110,20 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the interface that represents the item, retrieved through <i>ppv</i>. This value is typically IID_IShellItem or IID_IShellItem2.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this function returns successfully, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem2">IShellItem2</a>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-shcreateiteminknownfolder
      * @since windows6.0.6000
      */
-    static SHCreateItemInKnownFolder(kfid, dwKFFlags, pszItem, riid, ppv) {
+    static SHCreateItemInKnownFolder(kfid, dwKFFlags, pszItem, riid) {
         pszItem := pszItem is String ? StrPtr(pszItem) : pszItem
 
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SHELL32.dll\SHCreateItemInKnownFolder", "ptr", kfid, "uint", dwKFFlags, "ptr", pszItem, "ptr", riid, ppvMarshal, ppv, "int")
+        result := DllCall("SHELL32.dll\SHCreateItemInKnownFolder", "ptr", kfid, "uint", dwKFFlags, "ptr", pszItem, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -9141,23 +9131,18 @@ class Shell {
      * @param {IUnknown} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> of the object from which to get the PIDL.
-     * @param {Pointer<Pointer<ITEMIDLIST>>} ppidl Type: <b>PIDLIST_ABSOLUTE*</b>
+     * @returns {Pointer<ITEMIDLIST>} Type: <b>PIDLIST_ABSOLUTE*</b>
      * 
      * When this function returns, contains a pointer to the PIDL of the given object.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-shgetidlistfromobject
      * @since windows6.0.6000
      */
-    static SHGetIDListFromObject(punk, ppidl) {
-        ppidlMarshal := ppidl is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SHELL32.dll\SHGetIDListFromObject", "ptr", punk, ppidlMarshal, ppidl, "int")
+    static SHGetIDListFromObject(punk) {
+        result := DllCall("SHELL32.dll\SHGetIDListFromObject", "ptr", punk, "ptr*", &ppidl := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppidl
     }
 
     /**
@@ -9168,23 +9153,18 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the desired IID.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> or a related interface.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-shgetitemfromobject
      * @since windows6.1
      */
-    static SHGetItemFromObject(punk, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SHELL32.dll\SHGetItemFromObject", "ptr", punk, "ptr", riid, ppvMarshal, ppv, "int")
+    static SHGetItemFromObject(punk, riid) {
+        result := DllCall("SHELL32.dll\SHGetItemFromObject", "ptr", punk, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -9195,21 +9175,18 @@ class Shell {
      * @param {Integer} sigdnName Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-sigdn">SIGDN</a></b>
      * 
      * A value from the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-sigdn">SIGDN</a> enumeration that specifies the type of display name to retrieve.
-     * @param {Pointer<PWSTR>} ppszName Type: <b>PWSTR*</b>
+     * @returns {PWSTR} Type: <b>PWSTR*</b>
      * 
      * A value that, when this function returns successfully, receives the address of a pointer to the retrieved display name.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-shgetnamefromidlist
      * @since windows6.0.6000
      */
-    static SHGetNameFromIDList(pidl, sigdnName, ppszName) {
-        result := DllCall("SHELL32.dll\SHGetNameFromIDList", "ptr", pidl, "int", sigdnName, "ptr", ppszName, "int")
+    static SHGetNameFromIDList(pidl, sigdnName) {
+        result := DllCall("SHELL32.dll\SHGetNameFromIDList", "ptr", pidl, "int", sigdnName, "ptr*", &ppszName := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppszName
     }
 
     /**
@@ -9223,23 +9200,18 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the interface to retrieve through <i>ppv</i>, typically IID_IShellItem.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-shgetitemfromdataobject
      * @since windows6.1
      */
-    static SHGetItemFromDataObject(pdtobj, dwFlags, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SHELL32.dll\SHGetItemFromDataObject", "ptr", pdtobj, "int", dwFlags, "ptr", riid, ppvMarshal, ppv, "int")
+    static SHGetItemFromDataObject(pdtobj, dwFlags, riid) {
+        result := DllCall("SHELL32.dll\SHGetItemFromDataObject", "ptr", pdtobj, "int", dwFlags, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -9256,23 +9228,20 @@ class Shell {
      * @param {Pointer<Pointer<ITEMIDLIST>>} ppidl Type: <b>PCUITEMID_CHILD_ARRAY</b>
      * 
      * The list of child item IDs for which the array is being created. This value can be <b>NULL</b>.
-     * @param {Pointer<IShellItemArray>} ppsiItemArray Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>**</b>
+     * @returns {IShellItemArray} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>**</b>
      * 
      * When this function returns, contains the address of an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a> interface pointer.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-shcreateshellitemarray
      * @since windows6.0.6000
      */
-    static SHCreateShellItemArray(pidlParent, psf, cidl, ppidl, ppsiItemArray) {
+    static SHCreateShellItemArray(pidlParent, psf, cidl, ppidl) {
         ppidlMarshal := ppidl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("SHELL32.dll\SHCreateShellItemArray", "ptr", pidlParent, "ptr", psf, "uint", cidl, ppidlMarshal, ppidl, "ptr*", ppsiItemArray, "int")
+        result := DllCall("SHELL32.dll\SHCreateShellItemArray", "ptr", pidlParent, "ptr", psf, "uint", cidl, ppidlMarshal, ppidl, "ptr*", &ppsiItemArray := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IShellItemArray(ppsiItemArray)
     }
 
     /**
@@ -9283,23 +9252,18 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the desired interface ID.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-shcreateshellitemarrayfromdataobject
      * @since windows6.0.6000
      */
-    static SHCreateShellItemArrayFromDataObject(pdo, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SHELL32.dll\SHCreateShellItemArrayFromDataObject", "ptr", pdo, "ptr", riid, ppvMarshal, ppv, "int")
+    static SHCreateShellItemArrayFromDataObject(pdo, riid) {
+        result := DllCall("SHELL32.dll\SHCreateShellItemArrayFromDataObject", "ptr", pdo, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -9310,23 +9274,20 @@ class Shell {
      * @param {Pointer<Pointer<ITEMIDLIST>>} rgpidl Type: <b>PCIDLIST_ABSOLUTE_ARRAY</b>
      * 
      * A list of <i>cidl</i> constant pointers to <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structures.
-     * @param {Pointer<IShellItemArray>} ppsiItemArray Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>**</b>
+     * @returns {IShellItemArray} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>**</b>
      * 
      * When this function returns, contains an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a> interface pointer.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-shcreateshellitemarrayfromidlists
      * @since windows6.0.6000
      */
-    static SHCreateShellItemArrayFromIDLists(cidl, rgpidl, ppsiItemArray) {
+    static SHCreateShellItemArrayFromIDLists(cidl, rgpidl) {
         rgpidlMarshal := rgpidl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("SHELL32.dll\SHCreateShellItemArrayFromIDLists", "uint", cidl, rgpidlMarshal, rgpidl, "ptr*", ppsiItemArray, "int")
+        result := DllCall("SHELL32.dll\SHCreateShellItemArrayFromIDLists", "uint", cidl, rgpidlMarshal, rgpidl, "ptr*", &ppsiItemArray := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IShellItemArray(ppsiItemArray)
     }
 
     /**
@@ -9337,23 +9298,18 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the interface to retrieve through <i>ppv</i>, typically IID_IShellItemArray.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is typically a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-shcreateshellitemarrayfromshellitem
      * @since windows6.0.6000
      */
-    static SHCreateShellItemArrayFromShellItem(psi, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SHELL32.dll\SHCreateShellItemArrayFromShellItem", "ptr", psi, "ptr", riid, ppvMarshal, ppv, "int")
+    static SHCreateShellItemArrayFromShellItem(psi, riid) {
+        result := DllCall("SHELL32.dll\SHCreateShellItemArrayFromShellItem", "ptr", psi, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -9361,23 +9317,18 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the requested interface.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this function returns, contains the address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iapplicationassociationregistration">IApplicationAssociationRegistration</a> object.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-shcreateassociationregistration
      * @since windows6.0.6000
      */
-    static SHCreateAssociationRegistration(riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SHELL32.dll\SHCreateAssociationRegistration", "ptr", riid, ppvMarshal, ppv, "int")
+    static SHCreateAssociationRegistration(riid) {
+        result := DllCall("SHELL32.dll\SHCreateAssociationRegistration", "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -9385,23 +9336,18 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to interface ID.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * The address of <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-idefaultextracticoninit">IDefaultExtractIconInit</a> interface pointer.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-shcreatedefaultextracticon
      * @since windows6.0.6000
      */
-    static SHCreateDefaultExtractIcon(riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SHELL32.dll\SHCreateDefaultExtractIcon", "ptr", riid, ppvMarshal, ppv, "int")
+    static SHCreateDefaultExtractIcon(riid) {
+        result := DllCall("SHELL32.dll\SHCreateDefaultExtractIcon", "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -9427,21 +9373,18 @@ class Shell {
 
     /**
      * Retrieves the application-defined, explicit Application User Model ID (AppUserModelID) for the current process.
-     * @param {Pointer<PWSTR>} AppID Type: <b>PWSTR*</b>
+     * @returns {PWSTR} Type: <b>PWSTR*</b>
      * 
      * A pointer that receives the address of the AppUserModelID assigned to the process. The caller is responsible for freeing this string with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> when it is no longer needed.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-getcurrentprocessexplicitappusermodelid
      * @since windows6.1
      */
-    static GetCurrentProcessExplicitAppUserModelID(AppID) {
-        result := DllCall("SHELL32.dll\GetCurrentProcessExplicitAppUserModelID", "ptr", AppID, "int")
+    static GetCurrentProcessExplicitAppUserModelID() {
+        result := DllCall("SHELL32.dll\GetCurrentProcessExplicitAppUserModelID", "ptr*", &AppID := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return AppID
     }
 
     /**
@@ -9554,23 +9497,20 @@ class Shell {
      * 
      * A pointer to a null-terminated buffer that contains a single file type extension, for instance ".jpg". Only handlers associated with the given extension are enumerated. This parameter may not be **NULL**.
      * @param {Integer} afFilter Type: <b>ASSOC_FILTER</b>
-     * @param {Pointer<IEnumAssocHandlers>} ppEnumHandler Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ienumassochandlers">IEnumAssocHandlers</a>**</b>
+     * @returns {IEnumAssocHandlers} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ienumassochandlers">IEnumAssocHandlers</a>**</b>
      * 
      * When this method returns, contains the address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ienumassochandlers">IEnumAssocHandlers</a> object.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-shassocenumhandlers
      * @since windows6.0.6000
      */
-    static SHAssocEnumHandlers(pszExtra, afFilter, ppEnumHandler) {
+    static SHAssocEnumHandlers(pszExtra, afFilter) {
         pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra
 
-        result := DllCall("SHELL32.dll\SHAssocEnumHandlers", "ptr", pszExtra, "int", afFilter, "ptr*", ppEnumHandler, "int")
+        result := DllCall("SHELL32.dll\SHAssocEnumHandlers", "ptr", pszExtra, "int", afFilter, "ptr*", &ppEnumHandler := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IEnumAssocHandlers(ppEnumHandler)
     }
 
     /**
@@ -9581,25 +9521,20 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the interface to retrieve through <i>enumHandlers</i>, typically IID_IEnumAssocHandlers.
-     * @param {Pointer<Pointer<Void>>} enumHandlers Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ienumassochandlers">IEnumAssocHandlers</a>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-shassocenumhandlersforprotocolbyapplication
      * @since windows6.1
      */
-    static SHAssocEnumHandlersForProtocolByApplication(protocol, riid, enumHandlers) {
+    static SHAssocEnumHandlersForProtocolByApplication(protocol, riid) {
         protocol := protocol is String ? StrPtr(protocol) : protocol
 
-        enumHandlersMarshal := enumHandlers is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SHELL32.dll\SHAssocEnumHandlersForProtocolByApplication", "ptr", protocol, "ptr", riid, enumHandlersMarshal, enumHandlers, "int")
+        result := DllCall("SHELL32.dll\SHAssocEnumHandlersForProtocolByApplication", "ptr", protocol, "ptr", riid, "ptr*", &enumHandlers := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return enumHandlers
     }
 
     /**
@@ -9627,7 +9562,7 @@ class Shell {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLE32.dll\HMONITOR_UserMarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLE32.dll\HMONITOR_UserMarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -9642,7 +9577,7 @@ class Shell {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLE32.dll\HMONITOR_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLE32.dll\HMONITOR_UserUnmarshal", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -9683,7 +9618,7 @@ class Shell {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLE32.dll\HMONITOR_UserMarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLE32.dll\HMONITOR_UserMarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -9698,7 +9633,7 @@ class Shell {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
         param1Marshal := param1 is VarRef ? "char*" : "ptr"
 
-        result := DllCall("OLE32.dll\HMONITOR_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "char*")
+        result := DllCall("OLE32.dll\HMONITOR_UserUnmarshal64", param0Marshal, param0, param1Marshal, param1, "ptr", param2, "ptr")
         return result
     }
 
@@ -9719,21 +9654,18 @@ class Shell {
      * @param {IShellItem} psi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
      * A pointer to the source shell item. See <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>.
-     * @param {Pointer<IFileOperation>} ppFileOp Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperation">IFileOperation</a>**</b>
+     * @returns {IFileOperation} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperation">IFileOperation</a>**</b>
      * 
      * The address of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperation">IFileOperation</a> interface pointer.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-shcreatedefaultpropertiesop
      * @since windows6.0.6000
      */
-    static SHCreateDefaultPropertiesOp(psi, ppFileOp) {
-        result := DllCall("SHELL32.dll\SHCreateDefaultPropertiesOp", "ptr", psi, "ptr*", ppFileOp, "int")
+    static SHCreateDefaultPropertiesOp(psi) {
+        result := DllCall("SHELL32.dll\SHCreateDefaultPropertiesOp", "ptr", psi, "ptr*", &ppFileOp := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IFileOperation(ppFileOp)
     }
 
     /**
@@ -9768,21 +9700,18 @@ class Shell {
 
     /**
      * Retrieves a pointer to the Shell's IMalloc interface.
-     * @param {Pointer<IMalloc>} ppMalloc Type: <b>LPMALLOC*</b>
+     * @returns {IMalloc} Type: <b>LPMALLOC*</b>
      * 
      * The address of a pointer that receives the Shell's <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imalloc">IMalloc</a> interface pointer.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-shgetmalloc
      * @since windows5.1.2600
      */
-    static SHGetMalloc(ppMalloc) {
-        result := DllCall("SHELL32.dll\SHGetMalloc", "ptr*", ppMalloc, "int")
+    static SHGetMalloc() {
+        result := DllCall("SHELL32.dll\SHGetMalloc", "ptr*", &ppMalloc := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IMalloc(ppMalloc)
     }
 
     /**
@@ -10085,25 +10014,20 @@ class Shell {
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface from which the absolute 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> loads.
-     * @param {Pointer<Pointer<ITEMIDLIST>>} pidl Type: <b>PIDLIST_ABSOLUTE*</b>
+     * @returns {Pointer<ITEMIDLIST>} Type: <b>PIDLIST_ABSOLUTE*</b>
      * 
      * When this method returns and succeeds, contains the resulting absolute 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a>. If it fails, contains 
      *       <b>NULL</b>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-illoadfromstreamex
      * @since windows6.0.6000
      */
-    static ILLoadFromStreamEx(pstm, pidl) {
-        pidlMarshal := pidl is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SHELL32.dll\ILLoadFromStreamEx", "ptr", pstm, pidlMarshal, pidl, "int")
+    static ILLoadFromStreamEx(pstm) {
+        result := DllCall("SHELL32.dll\ILLoadFromStreamEx", "ptr", pstm, "ptr*", &pidl := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pidl
     }
 
     /**
@@ -10147,29 +10071,25 @@ class Shell {
      * @param {PWSTR} pszPath Type: <b>PCWSTR</b>
      * 
      * A pointer to a null-terminated string of maximum length MAX_PATH containing the path to be converted.
-     * @param {Pointer<Pointer<ITEMIDLIST>>} ppidl Type: <b>PIDLIST_ABSOLUTE*</b>
-     * 
-     * The path in <i>pszPath</i> expressed as a PIDL.
      * @param {Pointer<Integer>} rgfInOut Type: <b>DWORD*</b>
      * 
      * A pointer to a <b>DWORD</b> value that, on entry, indicates any attributes of the folder named in <i>pszPath</i> that the calling application would like to retrieve along with the PIDL. On exit, this value contains those requested attributes. For a list of possible attribute flags for this parameter, see <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellfolder-getattributesof">IShellFolder::GetAttributesOf</a>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * @returns {Pointer<ITEMIDLIST>} Type: <b>PIDLIST_ABSOLUTE*</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * The path in <i>pszPath</i> expressed as a PIDL.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-shilcreatefrompath
      * @since windows5.1.2600
      */
-    static SHILCreateFromPath(pszPath, ppidl, rgfInOut) {
+    static SHILCreateFromPath(pszPath, rgfInOut) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        ppidlMarshal := ppidl is VarRef ? "ptr*" : "ptr"
         rgfInOutMarshal := rgfInOut is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SHELL32.dll\SHILCreateFromPath", "ptr", pszPath, ppidlMarshal, ppidl, rgfInOutMarshal, rgfInOut, "int")
+        result := DllCall("SHELL32.dll\SHILCreateFromPath", "ptr", pszPath, "ptr*", &ppidl := 0, rgfInOutMarshal, rgfInOut, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppidl
     }
 
     /**
@@ -10588,21 +10508,18 @@ class Shell {
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
      * 
      * A PIDL to the requested item. If parent information is not included in <i>pidlParent</i> or <i>psfParent</i>, this must be an absolute PIDL.
-     * @param {Pointer<IShellItem>} ppsi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>**</b>
+     * @returns {IShellItem} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>**</b>
      * 
      * When this method returns, contains the interface pointer to the new <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-shcreateshellitem
      * @since windows5.1.2600
      */
-    static SHCreateShellItem(pidlParent, psfParent, pidl, ppsi) {
-        result := DllCall("SHELL32.dll\SHCreateShellItem", "ptr", pidlParent, "ptr", psfParent, "ptr", pidl, "ptr*", ppsi, "int")
+    static SHCreateShellItem(pidlParent, psfParent, pidl) {
+        result := DllCall("SHELL32.dll\SHCreateShellItem", "ptr", pidlParent, "ptr", psfParent, "ptr", pidl, "ptr*", &ppsi := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IShellItem(ppsi)
     }
 
     /**
@@ -10610,27 +10527,20 @@ class Shell {
      * @param {Integer} csidl Type: <b>int</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/shell/csidl">CSIDL</a> value that identifies the folder of interest.
-     * @param {Pointer<Pointer<ITEMIDLIST>>} ppidl Type: <b>PIDLIST_ABSOLUTE*</b>
+     * @returns {Pointer<ITEMIDLIST>} Type: <b>PIDLIST_ABSOLUTE*</b>
      * 
      * A PIDL specifying the folder's location relative to the root of the namespace (the desktop). It is the responsibility of the calling application to free the returned IDList by using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-shgetspecialfolderlocation
      * @since windows5.0
      */
-    static SHGetSpecialFolderLocation(csidl, ppidl) {
+    static SHGetSpecialFolderLocation(csidl) {
         static hwnd := 0 ;Reserved parameters must always be NULL
 
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
-
-        ppidlMarshal := ppidl is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SHELL32.dll\SHGetSpecialFolderLocation", "ptr", hwnd, "int", csidl, ppidlMarshal, ppidl, "int")
+        result := DllCall("SHELL32.dll\SHGetSpecialFolderLocation", "ptr", hwnd, "int", csidl, "ptr*", &ppidl := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppidl
     }
 
     /**
@@ -10649,8 +10559,6 @@ class Shell {
      */
     static SHCloneSpecialIDList(csidl, fCreate) {
         static hwnd := 0 ;Reserved parameters must always be NULL
-
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         result := DllCall("SHELL32.dll\SHCloneSpecialIDList", "ptr", hwnd, "int", csidl, "int", fCreate, "ptr")
         return result
@@ -10676,7 +10584,6 @@ class Shell {
     static SHGetSpecialFolderPathA(pszPath, csidl, fCreate) {
         static hwnd := 0 ;Reserved parameters must always be NULL
 
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHGetSpecialFolderPathA", "ptr", hwnd, "ptr", pszPath, "int", csidl, "int", fCreate, "int")
@@ -10703,7 +10610,6 @@ class Shell {
     static SHGetSpecialFolderPathW(pszPath, csidl, fCreate) {
         static hwnd := 0 ;Reserved parameters must always be NULL
 
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
         result := DllCall("SHELL32.dll\SHGetSpecialFolderPathW", "ptr", hwnd, "ptr", pszPath, "int", csidl, "int", fCreate, "int")
@@ -10770,7 +10676,6 @@ class Shell {
     static SHGetFolderPathA(csidl, hToken, dwFlags, pszPath) {
         static hwnd := 0 ;Reserved parameters must always be NULL
 
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
@@ -10822,7 +10727,6 @@ class Shell {
     static SHGetFolderPathW(csidl, hToken, dwFlags, pszPath) {
         static hwnd := 0 ;Reserved parameters must always be NULL
 
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
@@ -10846,57 +10750,22 @@ class Shell {
      * 
      * Assigning the <i>hToken</i> parameter a value of -1 indicates the Default User. This allows clients of <b>SHGetFolderLocation</b> to find folder locations (such as the Desktop folder) for the Default User. The Default User user profile is duplicated when any new user account is created, and includes special folders such as <b>My Documents</b> and <b>Desktop</b>. Any items added to the Default User folder also appear in any new user account.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
-     * @param {Pointer<Pointer<ITEMIDLIST>>} ppidl Type: <b>PIDLIST_ABSOLUTE*</b>
+     * @returns {Pointer<ITEMIDLIST>} Type: <b>PIDLIST_ABSOLUTE*</b>
      * 
      * The address of a pointer to an item identifier list structure that specifies the folder's location relative to the root of the namespace (the desktop). The <i>ppidl</i> parameter is set to <b>NULL</b> on failure. The calling application is responsible for freeing this resource by calling <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-ilfree">ILFree</a>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * Returns S_OK if successful, or an error value otherwise, including the following:
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND)</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <a href="/windows/desktop/shell/csidl">CSIDL</a> in <i>nFolder</i> is valid but the folder does not exist.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <a href="/windows/desktop/shell/csidl">CSIDL</a> in <i>nFolder</i> is not valid.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-shgetfolderlocation
      * @since windows5.0
      */
-    static SHGetFolderLocation(csidl, hToken, dwFlags, ppidl) {
+    static SHGetFolderLocation(csidl, hToken, dwFlags) {
         static hwnd := 0 ;Reserved parameters must always be NULL
 
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
-        ppidlMarshal := ppidl is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SHELL32.dll\SHGetFolderLocation", "ptr", hwnd, "int", csidl, "ptr", hToken, "uint", dwFlags, ppidlMarshal, ppidl, "int")
+        result := DllCall("SHELL32.dll\SHGetFolderLocation", "ptr", hwnd, "int", csidl, "ptr", hToken, "uint", dwFlags, "ptr*", &ppidl := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppidl
     }
 
     /**
@@ -11071,7 +10940,6 @@ class Shell {
     static SHGetFolderPathAndSubDirA(csidl, hToken, dwFlags, pszSubDir, pszPath) {
         static hwnd := 0 ;Reserved parameters must always be NULL
 
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
         pszSubDir := pszSubDir is String ? StrPtr(pszSubDir) : pszSubDir
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
@@ -11109,7 +10977,6 @@ class Shell {
     static SHGetFolderPathAndSubDirW(csidl, hToken, dwFlags, pszSubDir, pszPath) {
         static hwnd := 0 ;Reserved parameters must always be NULL
 
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
         hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
         pszSubDir := pszSubDir is String ? StrPtr(pszSubDir) : pszSubDir
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
@@ -11136,43 +11003,20 @@ class Shell {
      * The calling application is responsible for correct impersonation when <i>hToken</i> is non-null. It must have appropriate security privileges for the particular user, including TOKEN_QUERY and TOKEN_IMPERSONATE, and the user's registry hive must be currently mounted. See <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control">Access Control</a> for further discussion of access control issues.
      * 
      * Assigning the <i>hToken</i> parameter a value of -1 indicates the Default User. This allows clients of <b>SHGetKnownFolderIDList</b> to find folder locations (such as the <b>Desktop</b> folder) for the Default User. The Default User user profile is duplicated when any new user account is created, and includes special folders such as <b>Documents</b> and <b>Desktop</b>. Any items added to the Default User folder also appear in any new user account. Note that access to the Default User folders requires administrator privileges.
-     * @param {Pointer<Pointer<ITEMIDLIST>>} ppidl Type: <b>PIDLIST_ABSOLUTE*</b>
+     * @returns {Pointer<ITEMIDLIST>} Type: <b>PIDLIST_ABSOLUTE*</b>
      * 
      * When this method returns, contains a pointer to the PIDL of the folder. This parameter is passed uninitialized. The caller is responsible for freeing the returned PIDL when it is no longer needed by calling <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-ilfree">ILFree</a>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * Returns S_OK if successful, or an error value otherwise, including the following:
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Among other things, this value can indicate that the <i>rfid</i> parameter references a <a href="/windows/desktop/shell/knownfolderid">KNOWNFOLDERID</a> that is not present on the system. Not all <b>KNOWNFOLDERID</b> values are present on all systems. Use <a href="/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iknownfoldermanager-getfolderids">IKnownFolderManager::GetFolderIds</a> to retrieve the set of <b>KNOWNFOLDERID</b> values for the current system.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-shgetknownfolderidlist
      * @since windows6.0.6000
      */
-    static SHGetKnownFolderIDList(rfid, dwFlags, hToken, ppidl) {
+    static SHGetKnownFolderIDList(rfid, dwFlags, hToken) {
         hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
-        ppidlMarshal := ppidl is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SHELL32.dll\SHGetKnownFolderIDList", "ptr", rfid, "uint", dwFlags, "ptr", hToken, ppidlMarshal, ppidl, "int")
+        result := DllCall("SHELL32.dll\SHGetKnownFolderIDList", "ptr", rfid, "uint", dwFlags, "ptr", hToken, "ptr*", &ppidl := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppidl
     }
 
     /**
@@ -11247,52 +11091,20 @@ class Shell {
      * Request a specific user's folder by passing the <i>hToken</i> of that user. This is typically done in the context of a service that has sufficient privileges to retrieve the token of a given user. That token must be opened with <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-rights-for-access-token-objects">TOKEN_QUERY</a> and <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-rights-for-access-token-objects">TOKEN_IMPERSONATE</a> rights. In some cases, you also need to include <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-rights-for-access-token-objects">TOKEN_DUPLICATE</a>. In addition to passing the user's <i>hToken</i>, the registry hive of that specific user must be mounted. See <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/access-control">Access Control</a> for further discussion of access control issues.
      * 
      * Assigning the <i>hToken</i> parameter a value of -1 indicates the Default User. This allows clients of <b>SHGetKnownFolderPath</b> to find folder locations (such as the <b>Desktop</b> folder) for the Default User. The Default User user profile is duplicated when any new user account is created, and includes special folders such as <b>Documents</b> and <b>Desktop</b>. Any items added to the Default User folder also appear in any new user account. Note that access to the Default User folders requires administrator privileges.
-     * @param {Pointer<PWSTR>} ppszPath Type: <b>PWSTR*</b>
+     * @returns {PWSTR} Type: <b>PWSTR*</b>
      * 
      * When this method returns, contains the address of a pointer to a null-terminated Unicode string that specifies the path of the known folder. The calling process is responsible for freeing this resource once it is no longer needed by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>, whether <b>SHGetKnownFolderPath</b> succeeds or not. The returned path does not include a trailing backslash. For example, "C:\Users" is returned rather than "C:\Users\\".
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * Returns S_OK if successful, or an error value otherwise, including the following:
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_FAIL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Among other things, this value can indicate that the <i>rfid</i> parameter references a <a href="/windows/desktop/shell/knownfolderid">KNOWNFOLDERID</a> which does not have a path (such as a folder marked as <a href="/windows/desktop/api/shobjidl_core/ne-shobjidl_core-kf_category">KF_CATEGORY_VIRTUAL</a>).
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Among other things, this value can indicate that the <i>rfid</i> parameter references a <a href="/windows/desktop/shell/knownfolderid">KNOWNFOLDERID</a> that is not present on the system. Not all <b>KNOWNFOLDERID</b> values are present on all systems. Use <a href="/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iknownfoldermanager-getfolderids">IKnownFolderManager::GetFolderIds</a> to retrieve the set of <b>KNOWNFOLDERID</b> values for the current system.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-shgetknownfolderpath
      * @since windows6.0.6000
      */
-    static SHGetKnownFolderPath(rfid, dwFlags, hToken, ppszPath) {
+    static SHGetKnownFolderPath(rfid, dwFlags, hToken) {
         hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
-        result := DllCall("SHELL32.dll\SHGetKnownFolderPath", "ptr", rfid, "uint", dwFlags, "ptr", hToken, "ptr", ppszPath, "int")
+        result := DllCall("SHELL32.dll\SHGetKnownFolderPath", "ptr", rfid, "uint", dwFlags, "ptr", hToken, "ptr*", &ppszPath := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppszPath
     }
 
     /**
@@ -11315,43 +11127,20 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the interface that represents the item, usually IID_IShellItem or IID_IShellItem2.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * Returns S_OK if successful, or an error value otherwise, including the following:
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Among other things, this value can indicate that the <i>rfid</i> parameter references a <a href="/windows/desktop/shell/knownfolderid">KNOWNFOLDERID</a> that is not present on the system. Not all <b>KNOWNFOLDERID</b> values are present on all systems. Use <a href="/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iknownfoldermanager-getfolderids">IKnownFolderManager::GetFolderIds</a> to retrieve the set of <b>KNOWNFOLDERID</b> values for the current system.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-shgetknownfolderitem
      * @since windows6.1
      */
-    static SHGetKnownFolderItem(rfid, flags, hToken, riid, ppv) {
+    static SHGetKnownFolderItem(rfid, flags, hToken, riid) {
         hToken := hToken is Win32Handle ? NumGet(hToken, "ptr") : hToken
 
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SHELL32.dll\SHGetKnownFolderItem", "ptr", rfid, "int", flags, "ptr", hToken, "ptr", riid, ppvMarshal, ppv, "int")
+        result := DllCall("SHELL32.dll\SHGetKnownFolderItem", "ptr", rfid, "int", flags, "ptr", hToken, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -11440,21 +11229,18 @@ class Shell {
 
     /**
      * Retrieves the IShellFolder interface for the desktop folder, which is the root of the Shell's namespace.
-     * @param {Pointer<IShellFolder>} ppshf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>**</b>
+     * @returns {IShellFolder} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>**</b>
      * 
      * When this method returns, receives an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> interface pointer for the desktop folder. The calling application is responsible for eventually freeing the interface by calling its <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-shgetdesktopfolder
      * @since windows5.1.2600
      */
-    static SHGetDesktopFolder(ppshf) {
-        result := DllCall("SHELL32.dll\SHGetDesktopFolder", "ptr*", ppshf, "int")
+    static SHGetDesktopFolder() {
+        result := DllCall("SHELL32.dll\SHGetDesktopFolder", "ptr*", &ppshf := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IShellFolder(ppshf)
     }
 
     /**
@@ -11805,42 +11591,34 @@ class Shell {
      * @param {Pointer<ITEMIDLIST>} pidlSimple Type: <b>PCUITEMID_CHILD</b>
      * 
      * The simple PIDL to be converted.
-     * @param {Pointer<Pointer<ITEMIDLIST>>} ppidlReal Type: <b>PITEMID_CHILD*</b>
+     * @returns {Pointer<ITEMIDLIST>} Type: <b>PITEMID_CHILD*</b>
      * 
      * When this method returns, contains a pointer to the full converted PIDL. If the function fails, this parameter is set to <b>NULL</b>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-shgetrealidl
      * @since windows5.1.2600
      */
-    static SHGetRealIDL(psf, pidlSimple, ppidlReal) {
-        ppidlRealMarshal := ppidlReal is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SHELL32.dll\SHGetRealIDL", "ptr", psf, "ptr", pidlSimple, ppidlRealMarshal, ppidlReal, "int")
+    static SHGetRealIDL(psf, pidlSimple) {
+        result := DllCall("SHELL32.dll\SHGetRealIDL", "ptr", psf, "ptr", pidlSimple, "ptr*", &ppidlReal := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppidlReal
     }
 
     /**
      * Retrieves an interface that allows hosted Shell extensions and other components to prevent their host process from closing prematurely.
-     * @param {Pointer<IUnknown>} ppunk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
+     * @returns {IUnknown} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
      * 
      * When this function returns successfully, contains the address of the host process' <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface pointer. This is a free-threaded interface used to prevent the host process from terminating. If the function call fails, this value is set to <b>NULL</b>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-shgetinstanceexplorer
      * @since windows5.1.2600
      */
-    static SHGetInstanceExplorer(ppunk) {
-        result := DllCall("SHELL32.dll\SHGetInstanceExplorer", "ptr*", ppunk, "int")
+    static SHGetInstanceExplorer() {
+        result := DllCall("SHELL32.dll\SHGetInstanceExplorer", "ptr*", &ppunk := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IUnknown(ppunk)
     }
 
     /**
@@ -11976,25 +11754,20 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the interface to retrieve through <i>ppv</i>.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this function returns successfully, receives the interface pointer requested in <i>riid</i>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-shcocreateinstance
      * @since windows5.1.2600
      */
-    static SHCoCreateInstance(pszCLSID, pclsid, pUnkOuter, riid, ppv) {
+    static SHCoCreateInstance(pszCLSID, pclsid, pUnkOuter, riid) {
         pszCLSID := pszCLSID is String ? StrPtr(pszCLSID) : pszCLSID
 
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SHELL32.dll\SHCoCreateInstance", "ptr", pszCLSID, "ptr", pclsid, "ptr", pUnkOuter, "ptr", riid, ppvMarshal, ppv, "int")
+        result := DllCall("SHELL32.dll\SHCoCreateInstance", "ptr", pszCLSID, "ptr", pclsid, "ptr", pUnkOuter, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -12014,24 +11787,20 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the interface to retrieve through <i>ppv</i>. This must be IID_IDataObject.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this method returns successfully, contains the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface pointer requested in <i>riid</i>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-shcreatedataobject
      * @since windows6.0.6000
      */
-    static SHCreateDataObject(pidlFolder, cidl, apidl, pdtInner, riid, ppv) {
+    static SHCreateDataObject(pidlFolder, cidl, apidl, pdtInner, riid) {
         apidlMarshal := apidl is VarRef ? "ptr*" : "ptr"
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("SHELL32.dll\SHCreateDataObject", "ptr", pidlFolder, "uint", cidl, apidlMarshal, apidl, "ptr", pdtInner, "ptr", riid, ppvMarshal, ppv, "int")
+        result := DllCall("SHELL32.dll\SHCreateDataObject", "ptr", pidlFolder, "uint", cidl, apidlMarshal, apidl, "ptr", pdtInner, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -12045,23 +11814,20 @@ class Shell {
      * @param {Pointer<Pointer<ITEMIDLIST>>} apidl Type: <b>PCUIDLIST_RELATIVE_ARRAY</b>
      * 
      * The array of item IDs relative to <i>pidlFolder</i>. Typically, <i>apidl</i> is an array of child IDs and <i>pidlFolder</i> is a full PIDL for those items. However, <i>pidlFolder</i> can be a null PIDL (desktop IDLISTs). In that case, <i>apidl</i> can contain fully qualified ID lists.
-     * @param {Pointer<IDataObject>} ppdtobj Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>**</b>
+     * @returns {IDataObject} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>**</b>
      * 
      * The address to a pointer to the object that implements <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-cidldata_createfromidarray
      * @since windows5.0
      */
-    static CIDLData_CreateFromIDArray(pidlFolder, cidl, apidl, ppdtobj) {
+    static CIDLData_CreateFromIDArray(pidlFolder, cidl, apidl) {
         apidlMarshal := apidl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("SHELL32.dll\CIDLData_CreateFromIDArray", "ptr", pidlFolder, "uint", cidl, apidlMarshal, apidl, "ptr*", ppdtobj, "int")
+        result := DllCall("SHELL32.dll\CIDLData_CreateFromIDArray", "ptr", pidlFolder, "uint", cidl, apidlMarshal, apidl, "ptr*", &ppdtobj := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IDataObject(ppdtobj)
     }
 
     /**
@@ -12072,21 +11838,18 @@ class Shell {
      * @param {Pointer<FORMATETC>} afmt Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a>[]</b>
      * 
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-formatetc">FORMATETC</a> structures that specifies the clipboard formats of interest.
-     * @param {Pointer<IEnumFORMATETC>} ppenumFormatEtc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumformatetc">IEnumFORMATETC</a>**</b>
+     * @returns {IEnumFORMATETC} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumformatetc">IEnumFORMATETC</a>**</b>
      * 
      * When this function returns successfully, receives an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumformatetc">IEnumFORMATETC</a> interface pointer. Receives <b>NULL</b> on failure.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-shcreatestdenumfmtetc
      * @since windows5.1.2600
      */
-    static SHCreateStdEnumFmtEtc(cfmt, afmt, ppenumFormatEtc) {
-        result := DllCall("SHELL32.dll\SHCreateStdEnumFmtEtc", "uint", cfmt, "ptr", afmt, "ptr*", ppenumFormatEtc, "int")
+    static SHCreateStdEnumFmtEtc(cfmt, afmt) {
+        result := DllCall("SHELL32.dll\SHCreateStdEnumFmtEtc", "uint", cfmt, "ptr", afmt, "ptr*", &ppenumFormatEtc := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IEnumFORMATETC(ppenumFormatEtc)
     }
 
     /**
@@ -12107,65 +11870,20 @@ class Shell {
      * @param {Integer} dwEffect Type: <b>DWORD</b>
      * 
      * The effects that the source allows in the drag-and-drop operation. The most significant effect is whether the drag-and-drop operation permits a move. For a list of possible values, see <a href="https://docs.microsoft.com/windows/desktop/com/dropeffect-constants">DROPEFFECT</a>.
-     * @param {Pointer<Integer>} pdwEffect Type: <b>DWORD*</b>
+     * @returns {Integer} Type: <b>DWORD*</b>
      * 
      * A pointer to a value that indicates how the drag-and-drop operation affected the source data. The <i>pdwEffect</i> parameter is set only if the operation is not canceled. For a list of possible values, see <a href="https://docs.microsoft.com/windows/desktop/com/dropeffect-constants">DROPEFFECT</a>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * This function supports the standard return value E_OUTOFMEMORY, as well as the following values:
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DRAGDROP_S_DROP</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The drag-and-drop operation was successful.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>DRAGDROP_S_CANCEL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The drag-and-drop operation was canceled.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_UNSPEC</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Unexpected error occurred.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-shdodragdrop
      * @since windows5.1.2600
      */
-    static SHDoDragDrop(hwnd, pdata, pdsrc, dwEffect, pdwEffect) {
+    static SHDoDragDrop(hwnd, pdata, pdsrc, dwEffect) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        pdwEffectMarshal := pdwEffect is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("SHELL32.dll\SHDoDragDrop", "ptr", hwnd, "ptr", pdata, "ptr", pdsrc, "uint", dwEffect, pdwEffectMarshal, pdwEffect, "int")
+        result := DllCall("SHELL32.dll\SHDoDragDrop", "ptr", hwnd, "ptr", pdata, "ptr", pdsrc, "uint", dwEffect, "uint*", &pdwEffect := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdwEffect
     }
 
     /**
@@ -13165,21 +12883,18 @@ class Shell {
      * @param {Pointer<VARIANT>} pv Type: <b>VARIANT*</b>
      * 
      * When this function returns, contains the details of the given property key.
-     * @param {Pointer<BOOL>} pfFoundPropKey Type: <b>BOOL*</b>
+     * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * When this function returns, contains a flag that is <b>TRUE</b> if the property key was found, otherwise <b>FALSE</b>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-assocgetdetailsofpropkey
      * @since windows6.0.6000
      */
-    static AssocGetDetailsOfPropKey(psf, pidl, pkey, pv, pfFoundPropKey) {
-        result := DllCall("SHELL32.dll\AssocGetDetailsOfPropKey", "ptr", psf, "ptr", pidl, "ptr", pkey, "ptr", pv, "ptr", pfFoundPropKey, "int")
+    static AssocGetDetailsOfPropKey(psf, pidl, pkey, pv) {
+        result := DllCall("SHELL32.dll\AssocGetDetailsOfPropKey", "ptr", psf, "ptr", pidl, "ptr", pkey, "ptr", pv, "int*", &pfFoundPropKey := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pfFoundPropKey
     }
 
     /**
@@ -13613,21 +13328,18 @@ class Shell {
      * @param {Pointer<SFV_CREATE>} pcsfv Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-sfv_create">SFV_CREATE</a>*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-sfv_create">SFV_CREATE</a> structure that describes the particulars used in creating this instance of the Shell folder view object.
-     * @param {Pointer<IShellView>} ppsv Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a>**</b>
+     * @returns {IShellView} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a>**</b>
      * 
      * When this function returns successfully, contains an interface pointer to the new <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a> object. On failure, this value is <b>NULL</b>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-shcreateshellfolderview
      * @since windows5.0
      */
-    static SHCreateShellFolderView(pcsfv, ppsv) {
-        result := DllCall("SHELL32.dll\SHCreateShellFolderView", "ptr", pcsfv, "ptr*", ppsv, "int")
+    static SHCreateShellFolderView(pcsfv) {
+        result := DllCall("SHELL32.dll\SHCreateShellFolderView", "ptr", pcsfv, "ptr*", &ppsv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IShellView(ppsv)
     }
 
     /**
@@ -13661,25 +13373,22 @@ class Shell {
      * @param {Pointer<HKEY>} ahkeys Type: <b>const HKEY*</b>
      * 
      * A pointer to an array of registry keys that specify the context menu handlers used with the menu's entries. For more information on context menu handlers, see <a href="https://docs.microsoft.com/windows/desktop/shell/context-menu-handlers">Creating Context Menu Handlers</a>. This array can contain a maximum of 16 registry keys.
-     * @param {Pointer<IContextMenu>} ppcm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icontextmenu">IContextMenu</a>**</b>
+     * @returns {IContextMenu} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icontextmenu">IContextMenu</a>**</b>
      * 
      * The address of an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icontextmenu">IContextMenu</a> interface pointer that, when this function returns successfully, points to the <b>IContextMenu</b> object that represents the context menu.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-cdeffoldermenu_create2
      * @since windows5.0
      */
-    static CDefFolderMenu_Create2(pidlFolder, hwnd, cidl, apidl, psf, pfn, nKeys, ahkeys, ppcm) {
+    static CDefFolderMenu_Create2(pidlFolder, hwnd, cidl, apidl, psf, pfn, nKeys, ahkeys) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         apidlMarshal := apidl is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("SHELL32.dll\CDefFolderMenu_Create2", "ptr", pidlFolder, "ptr", hwnd, "uint", cidl, apidlMarshal, apidl, "ptr", psf, "ptr", pfn, "uint", nKeys, "ptr", ahkeys, "ptr*", ppcm, "int")
+        result := DllCall("SHELL32.dll\CDefFolderMenu_Create2", "ptr", pidlFolder, "ptr", hwnd, "uint", cidl, apidlMarshal, apidl, "ptr", psf, "ptr", pfn, "uint", nKeys, "ptr", ahkeys, "ptr*", &ppcm := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IContextMenu(ppcm)
     }
 
     /**
@@ -13690,23 +13399,18 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the interface ID of the interface on which to base the object. This is typically the IID of <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icontextmenu">IContextMenu</a>, <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icontextmenu2">IContextMenu2</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-icontextmenu3">IContextMenu3</a>.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-shcreatedefaultcontextmenu
      * @since windows6.0.6000
      */
-    static SHCreateDefaultContextMenu(pdcm, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SHELL32.dll\SHCreateDefaultContextMenu", "ptr", pdcm, "ptr", riid, ppvMarshal, ppv, "int")
+    static SHCreateDefaultContextMenu(pdcm, riid) {
+        result := DllCall("SHELL32.dll\SHCreateDefaultContextMenu", "ptr", pdcm, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -13742,21 +13446,18 @@ class Shell {
      * @param {Pointer<CSFV>} pcsfv Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-csfv">CSFV</a>*</b>
      * 
      * Pointer to a structure that describes the details used in creating this instance of the Shell folder view object.
-     * @param {Pointer<IShellView>} ppsv Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a>**</b>
+     * @returns {IShellView} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a>**</b>
      * 
      * The address of an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a> interface pointer that, when this function returns successfully, points to the new view object. On failure, this value is <b>NULL</b>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-shcreateshellfolderviewex
      * @since windows5.0
      */
-    static SHCreateShellFolderViewEx(pcsfv, ppsv) {
-        result := DllCall("SHELL32.dll\SHCreateShellFolderViewEx", "ptr", pcsfv, "ptr*", ppsv, "int")
+    static SHCreateShellFolderViewEx(pcsfv) {
+        result := DllCall("SHELL32.dll\SHCreateShellFolderViewEx", "ptr", pcsfv, "ptr*", &ppsv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IShellView(ppsv)
     }
 
     /**
@@ -13914,23 +13615,18 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Identifier of the interface to return.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer as specified in <i>riid</i> to the bound object. If an error occurs, contains a <b>NULL</b> pointer.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-shbindtoobject
      * @since windows6.0.6000
      */
-    static SHBindToObject(psf, pidl, pbc, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SHELL32.dll\SHBindToObject", "ptr", psf, "ptr", pidl, "ptr", pbc, "ptr", riid, ppvMarshal, ppv, "int")
+    static SHBindToObject(psf, pidl, pbc, riid) {
+        result := DllCall("SHELL32.dll\SHBindToObject", "ptr", psf, "ptr", pidl, "ptr", pbc, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -14038,25 +13734,20 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the desired interface ID of the icon extractor interface to create. This must be either IID_IExtractIconA or IID_IExtractIconW.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this function returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nn-shlobj_core-iextracticona">IExtractIcon</a>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-shcreatefileextracticonw
      * @since windows5.1.2600
      */
-    static SHCreateFileExtractIconW(pszFile, dwFileAttributes, riid, ppv) {
+    static SHCreateFileExtractIconW(pszFile, dwFileAttributes, riid) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SHELL32.dll\SHCreateFileExtractIconW", "ptr", pszFile, "uint", dwFileAttributes, "ptr", riid, ppvMarshal, ppv, "int")
+        result := DllCall("SHELL32.dll\SHCreateFileExtractIconW", "ptr", pszFile, "uint", dwFileAttributes, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -14232,25 +13923,20 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the interface to retrieve through <i>ppv</i>, typically IID_IStorage or IID_IStream.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> or <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-stgmakeuniquename
      * @since windows6.1
      */
-    static StgMakeUniqueName(pstgParent, pszFileSpec, grfMode, riid, ppv) {
+    static StgMakeUniqueName(pstgParent, pszFileSpec, grfMode, riid) {
         pszFileSpec := pszFileSpec is String ? StrPtr(pszFileSpec) : pszFileSpec
 
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SHELL32.dll\StgMakeUniqueName", "ptr", pstgParent, "ptr", pszFileSpec, "uint", grfMode, "ptr", riid, ppvMarshal, ppv, "int")
+        result := DllCall("SHELL32.dll\StgMakeUniqueName", "ptr", pstgParent, "ptr", pszFileSpec, "uint", grfMode, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -14497,21 +14183,18 @@ class Shell {
 
     /**
      * Deprecated. Creates a QueryCancelAutoPlay class moniker, which can then be used to register the IQueryCancelAutoPlay handler in the running object table (ROT).
-     * @param {Pointer<IMoniker>} ppmoniker Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>**</b>
+     * @returns {IMoniker} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>**</b>
      * 
      * The address of a <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a> interface pointer that, when this function returns successfully, receives the <b>QueryCancelAutoPlay</b> class moniker. If this function call fails, this value is <b>NULL</b>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shlobj/nf-shlobj-shcreatequerycancelautoplaymoniker
      * @since windows5.1.2600
      */
-    static SHCreateQueryCancelAutoPlayMoniker(ppmoniker) {
-        result := DllCall("SHELL32.dll\SHCreateQueryCancelAutoPlayMoniker", "ptr*", ppmoniker, "int")
+    static SHCreateQueryCancelAutoPlayMoniker() {
+        result := DllCall("SHELL32.dll\SHCreateQueryCancelAutoPlayMoniker", "ptr*", &ppmoniker := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IMoniker(ppmoniker)
     }
 
     /**
@@ -14524,7 +14207,10 @@ class Shell {
     static ImportPrivacySettings(pszFilename, pfParsePrivacyPreferences, pfParsePerSiteRules) {
         pszFilename := pszFilename is String ? StrPtr(pszFilename) : pszFilename
 
-        result := DllCall("SHDOCVW.dll\ImportPrivacySettings", "ptr", pszFilename, "ptr", pfParsePrivacyPreferences, "ptr", pfParsePerSiteRules, "int")
+        pfParsePrivacyPreferencesMarshal := pfParsePrivacyPreferences is VarRef ? "int*" : "ptr"
+        pfParsePerSiteRulesMarshal := pfParsePerSiteRules is VarRef ? "int*" : "ptr"
+
+        result := DllCall("SHDOCVW.dll\ImportPrivacySettings", "ptr", pszFilename, pfParsePrivacyPreferencesMarshal, pfParsePrivacyPreferences, pfParsePerSiteRulesMarshal, pfParsePerSiteRules, "int")
         return result
     }
 
@@ -14598,25 +14284,20 @@ class Shell {
      * @param {Integer} uMsgNotify Type: <b>UINT</b>
      * 
      * An application-defined message that is passed to the window specified by <i>hwndNotify</i> when scaling information changes.  Typically, this should be set to <a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-app">WM_APP</a>+<i>x</i>, where <i>x</i> is an integer value.
-     * @param {Pointer<Integer>} pdwCookie Type: <b>DWORD*</b>
+     * @returns {Integer} Type: <b>DWORD*</b>
      * 
      * Pointer to a value that, when this function returns successfully, receives a registration token. This token is used to revoke notifications by calling <a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/nf-shellscalingapi-revokescalechangenotifications">RevokeScaleChangeNotifications</a>.
-     * @returns {HRESULT} Type: <b>STDAPI</b>
-     * 
-     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shellscalingapi/nf-shellscalingapi-registerscalechangenotifications
      * @since windows8.0
      */
-    static RegisterScaleChangeNotifications(displayDevice, hwndNotify, uMsgNotify, pdwCookie) {
+    static RegisterScaleChangeNotifications(displayDevice, hwndNotify, uMsgNotify) {
         hwndNotify := hwndNotify is Win32Handle ? NumGet(hwndNotify, "ptr") : hwndNotify
 
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("api-ms-win-shcore-scaling-l1-1-0.dll\RegisterScaleChangeNotifications", "int", displayDevice, "ptr", hwndNotify, "uint", uMsgNotify, pdwCookieMarshal, pdwCookie, "int")
+        result := DllCall("api-ms-win-shcore-scaling-l1-1-0.dll\RegisterScaleChangeNotifications", "int", displayDevice, "ptr", hwndNotify, "uint", uMsgNotify, "uint*", &pdwCookie := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdwCookie
     }
 
     /**
@@ -14644,44 +14325,38 @@ class Shell {
     /**
      * Gets the scale factor of a specific monitor. This function replaces GetScaleFactorForDevice.
      * @param {HMONITOR} hMon The monitor's handle.
-     * @param {Pointer<Integer>} pScale When this function returns successfully, this value points to one of the <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ne-shtypes-device_scale_factor">DEVICE_SCALE_FACTOR</a> values that specify the scale factor of the specified monitor.
+     * @returns {Integer} When this function returns successfully, this value points to one of the <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ne-shtypes-device_scale_factor">DEVICE_SCALE_FACTOR</a> values that specify the scale factor of the specified monitor.
      *                         
      * 
      * If the function call fails, this value points to a valid scale factor so that apps can opt to continue on with incorrectly sized resources.
-     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shellscalingapi/nf-shellscalingapi-getscalefactorformonitor
      * @since windows8.1
      */
-    static GetScaleFactorForMonitor(hMon, pScale) {
+    static GetScaleFactorForMonitor(hMon) {
         hMon := hMon is Win32Handle ? NumGet(hMon, "ptr") : hMon
 
-        pScaleMarshal := pScale is VarRef ? "int*" : "ptr"
-
-        result := DllCall("api-ms-win-shcore-scaling-l1-1-1.dll\GetScaleFactorForMonitor", "ptr", hMon, pScaleMarshal, pScale, "int")
+        result := DllCall("api-ms-win-shcore-scaling-l1-1-1.dll\GetScaleFactorForMonitor", "ptr", hMon, "int*", &pScale := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pScale
     }
 
     /**
      * Registers for an event that is triggered when the scale has possibly changed. This function replaces RegisterScaleChangeNotifications.
      * @param {HANDLE} hEvent Handle of the event to register for scale change notifications.
-     * @param {Pointer<Pointer>} pdwCookie When this function returns successfully, this value receives the address of a pointer to a cookie that can be used later to unregister for the scale change notifications through <a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/nf-shellscalingapi-unregisterscalechangeevent">UnregisterScaleChangeEvent</a>.
-     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @returns {Pointer} When this function returns successfully, this value receives the address of a pointer to a cookie that can be used later to unregister for the scale change notifications through <a href="https://docs.microsoft.com/windows/desktop/api/shellscalingapi/nf-shellscalingapi-unregisterscalechangeevent">UnregisterScaleChangeEvent</a>.
      * @see https://docs.microsoft.com/windows/win32/api//shellscalingapi/nf-shellscalingapi-registerscalechangeevent
      * @since windows8.1
      */
-    static RegisterScaleChangeEvent(hEvent, pdwCookie) {
+    static RegisterScaleChangeEvent(hEvent) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
-        pdwCookieMarshal := pdwCookie is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("api-ms-win-shcore-scaling-l1-1-1.dll\RegisterScaleChangeEvent", "ptr", hEvent, pdwCookieMarshal, pdwCookie, "int")
+        result := DllCall("api-ms-win-shcore-scaling-l1-1-1.dll\RegisterScaleChangeEvent", "ptr", hEvent, "ptr*", &pdwCookie := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdwCookie
     }
 
     /**
@@ -15567,7 +15242,6 @@ class Shell {
     static DuplicateIcon(hIcon) {
         static hInst := 0 ;Reserved parameters must always be NULL
 
-        hInst := hInst is Win32Handle ? NumGet(hInst, "ptr") : hInst
         hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
 
         result := DllCall("SHELL32.dll\DuplicateIcon", "ptr", hInst, "ptr", hIcon, "ptr")
@@ -15603,7 +15277,6 @@ class Shell {
     static ExtractAssociatedIconA(pszIconPath, piIcon) {
         static hInst := 0 ;Reserved parameters must always be NULL
 
-        hInst := hInst is Win32Handle ? NumGet(hInst, "ptr") : hInst
         pszIconPath := pszIconPath is String ? StrPtr(pszIconPath) : pszIconPath
 
         piIconMarshal := piIcon is VarRef ? "ushort*" : "ptr"
@@ -15641,7 +15314,6 @@ class Shell {
     static ExtractAssociatedIconW(pszIconPath, piIcon) {
         static hInst := 0 ;Reserved parameters must always be NULL
 
-        hInst := hInst is Win32Handle ? NumGet(hInst, "ptr") : hInst
         pszIconPath := pszIconPath is String ? StrPtr(pszIconPath) : pszIconPath
 
         piIconMarshal := piIcon is VarRef ? "ushort*" : "ptr"
@@ -15682,7 +15354,6 @@ class Shell {
     static ExtractAssociatedIconExA(pszIconPath, piIconIndex, piIconId) {
         static hInst := 0 ;Reserved parameters must always be NULL
 
-        hInst := hInst is Win32Handle ? NumGet(hInst, "ptr") : hInst
         pszIconPath := pszIconPath is String ? StrPtr(pszIconPath) : pszIconPath
 
         piIconIndexMarshal := piIconIndex is VarRef ? "ushort*" : "ptr"
@@ -15724,7 +15395,6 @@ class Shell {
     static ExtractAssociatedIconExW(pszIconPath, piIconIndex, piIconId) {
         static hInst := 0 ;Reserved parameters must always be NULL
 
-        hInst := hInst is Win32Handle ? NumGet(hInst, "ptr") : hInst
         pszIconPath := pszIconPath is String ? StrPtr(pszIconPath) : pszIconPath
 
         piIconIndexMarshal := piIconIndex is VarRef ? "ushort*" : "ptr"
@@ -15757,7 +15427,6 @@ class Shell {
     static ExtractIconA(pszExeFileName, nIconIndex) {
         static hInst := 0 ;Reserved parameters must always be NULL
 
-        hInst := hInst is Win32Handle ? NumGet(hInst, "ptr") : hInst
         pszExeFileName := pszExeFileName is String ? StrPtr(pszExeFileName) : pszExeFileName
 
         result := DllCall("SHELL32.dll\ExtractIconA", "ptr", hInst, "ptr", pszExeFileName, "uint", nIconIndex, "ptr")
@@ -15787,7 +15456,6 @@ class Shell {
     static ExtractIconW(pszExeFileName, nIconIndex) {
         static hInst := 0 ;Reserved parameters must always be NULL
 
-        hInst := hInst is Win32Handle ? NumGet(hInst, "ptr") : hInst
         pszExeFileName := pszExeFileName is String ? StrPtr(pszExeFileName) : pszExeFileName
 
         result := DllCall("SHELL32.dll\ExtractIconW", "ptr", hInst, "ptr", pszExeFileName, "uint", nIconIndex, "ptr")
@@ -16418,7 +16086,11 @@ class Shell {
     static SHEvaluateSystemCommandTemplate(pszCmdTemplate, ppszApplication, ppszCommandLine, ppszParameters) {
         pszCmdTemplate := pszCmdTemplate is String ? StrPtr(pszCmdTemplate) : pszCmdTemplate
 
-        result := DllCall("SHELL32.dll\SHEvaluateSystemCommandTemplate", "ptr", pszCmdTemplate, "ptr", ppszApplication, "ptr", ppszCommandLine, "ptr", ppszParameters, "int")
+        ppszApplicationMarshal := ppszApplication is VarRef ? "ptr*" : "ptr"
+        ppszCommandLineMarshal := ppszCommandLine is VarRef ? "ptr*" : "ptr"
+        ppszParametersMarshal := ppszParameters is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHELL32.dll\SHEvaluateSystemCommandTemplate", "ptr", pszCmdTemplate, ppszApplicationMarshal, ppszApplication, ppszCommandLineMarshal, ppszCommandLine, ppszParametersMarshal, ppszParameters, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -16436,23 +16108,18 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the desired IID, normally IID_IQueryAssociations.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is normally <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nn-shlwapi-iqueryassociations">IQueryAssociations</a>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shellapi/nf-shellapi-assoccreateforclasses
      * @since windows6.0.6000
      */
-    static AssocCreateForClasses(rgClasses, cClasses, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SHELL32.dll\AssocCreateForClasses", "ptr", rgClasses, "uint", cClasses, "ptr", riid, ppvMarshal, ppv, "int")
+    static AssocCreateForClasses(rgClasses, cClasses, riid) {
+        result := DllCall("SHELL32.dll\AssocCreateForClasses", "ptr", rgClasses, "uint", cClasses, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -16557,23 +16224,18 @@ class Shell {
 
     /**
      * Checks the state of the computer for the current user to determine whether sending a notification is appropriate.
-     * @param {Pointer<Integer>} pquns Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ne-shellapi-query_user_notification_state">QUERY_USER_NOTIFICATION_STATE</a>*</b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ne-shellapi-query_user_notification_state">QUERY_USER_NOTIFICATION_STATE</a>*</b>
      * 
      * When this function returns, contains a pointer to one of the values of the <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/ne-shellapi-query_user_notification_state">QUERY_USER_NOTIFICATION_STATE</a> enumeration.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shellapi/nf-shellapi-shqueryusernotificationstate
      * @since windows6.0.6000
      */
-    static SHQueryUserNotificationState(pquns) {
-        pqunsMarshal := pquns is VarRef ? "int*" : "ptr"
-
-        result := DllCall("SHELL32.dll\SHQueryUserNotificationState", pqunsMarshal, pquns, "int")
+    static SHQueryUserNotificationState() {
+        result := DllCall("SHELL32.dll\SHQueryUserNotificationState", "int*", &pquns := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pquns
     }
 
     /**
@@ -16931,7 +16593,9 @@ class Shell {
         pszDir := pszDir is String ? StrPtr(pszDir) : pszDir
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := DllCall("SHELL32.dll\SHGetNewLinkInfoA", "ptr", pszLinkTo, "ptr", pszDir, "ptr", pszName, "ptr", pfMustCopy, "uint", uFlags, "int")
+        pfMustCopyMarshal := pfMustCopy is VarRef ? "int*" : "ptr"
+
+        result := DllCall("SHELL32.dll\SHGetNewLinkInfoA", "ptr", pszLinkTo, "ptr", pszDir, "ptr", pszName, pfMustCopyMarshal, pfMustCopy, "uint", uFlags, "int")
         return result
     }
 
@@ -16961,7 +16625,9 @@ class Shell {
         pszDir := pszDir is String ? StrPtr(pszDir) : pszDir
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := DllCall("SHELL32.dll\SHGetNewLinkInfoW", "ptr", pszLinkTo, "ptr", pszDir, "ptr", pszName, "ptr", pfMustCopy, "uint", uFlags, "int")
+        pfMustCopyMarshal := pfMustCopy is VarRef ? "int*" : "ptr"
+
+        result := DllCall("SHELL32.dll\SHGetNewLinkInfoW", "ptr", pszLinkTo, "ptr", pszDir, "ptr", pszName, pfMustCopyMarshal, pfMustCopy, "uint", uFlags, "int")
         return result
     }
 
@@ -17046,65 +16712,20 @@ class Shell {
      * @param {PWSTR} pwszPath Type: <b>PCWSTR</b>
      * 
      * A pointer to a string value that specifies the full path to a network file or directory. This path does not need to be in UNC form. If <i>pszPath</i> is not a network path, the function returns E_INVALIDARG.
-     * @param {Pointer<Integer>} pdwStatus Type: <b>LPDWORD</b>
+     * @returns {Integer} Type: <b>LPDWORD</b>
      * 
      * A pointer to a variable of type <b>DWORD</b> that receives one or more of the following flags if the function succeeds.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The file or directory is cached.  It is available offline unless <b>OFFLINE_STATUS_INCOMPLETE</b> is set.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The path is invalid or not a network path. The file or directory is not cached.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_FAIL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The file or directory is not cached.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//shellapi/nf-shellapi-shisfileavailableoffline
      * @since windows5.0
      */
-    static SHIsFileAvailableOffline(pwszPath, pdwStatus) {
+    static SHIsFileAvailableOffline(pwszPath) {
         pwszPath := pwszPath is String ? StrPtr(pwszPath) : pwszPath
 
-        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("SHELL32.dll\SHIsFileAvailableOffline", "ptr", pwszPath, pdwStatusMarshal, pdwStatus, "int")
+        result := DllCall("SHELL32.dll\SHIsFileAvailableOffline", "ptr", pwszPath, "uint*", &pdwStatus := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdwStatus
     }
 
     /**
@@ -17167,26 +16788,21 @@ class Shell {
      * @param {Integer} cch Type: <b>UINT</b>
      * 
      * When this function returns, contains the size of the string, in <b>WCHARs</b>, at <i>pszResModule</i>.
-     * @param {Pointer<Integer>} pidsRes Type: <b>int*</b>
+     * @returns {Integer} Type: <b>int*</b>
      * 
      * When this function returns, contains a pointer to the ID of the localized file name in the resource file.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shellapi/nf-shellapi-shgetlocalizedname
      * @since windows6.0.6000
      */
-    static SHGetLocalizedName(pszPath, pszResModule, cch, pidsRes) {
+    static SHGetLocalizedName(pszPath, pszResModule, cch) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
         pszResModule := pszResModule is String ? StrPtr(pszResModule) : pszResModule
 
-        pidsResMarshal := pidsRes is VarRef ? "int*" : "ptr"
-
-        result := DllCall("SHELL32.dll\SHGetLocalizedName", "ptr", pszPath, "ptr", pszResModule, "uint", cch, pidsResMarshal, pidsRes, "int")
+        result := DllCall("SHELL32.dll\SHGetLocalizedName", "ptr", pszPath, "ptr", pszResModule, "uint", cch, "int*", &pidsRes := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pidsRes
     }
 
     /**
@@ -17336,9 +16952,6 @@ class Shell {
      * @param {PWSTR} pszMailAddress Type: <b>LPCTSTR</b>
      * 
      * A pointer to a string in Unicode that specifies the email address of an account belonging to the specified user. When this parameter is <b>NULL</b>, <i>pdwCount</i> returns the total count of unread messages for all accounts owned by the designated user.
-     * @param {Pointer<Integer>} pdwCount Type: <b>DWORD*</b>
-     * 
-     * Pointer to a DWORD value which receives the unread message count.
      * @param {Pointer<FILETIME>} pFileTime Type: <b>FILETIME*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure.  The use of this parameter is determined by whether <i>pszMailAddress</i> is <b>NULL</b>. If <i>pszMailAddress</i> is <b>NULL</b>, then this parameter is treated as an [in] parameter, which specifies a filter, so that only unread mail newer than the specified time appears. If <i>pszMailAddress</i> is not <b>NULL</b>, then this parameter is treated as an [out] parameter, which points to a <b>FILETIME</b> structure into which the function places the <b>timestamp</b> of the last <a href="https://docs.microsoft.com/windows/desktop/api/shellapi/nf-shellapi-shsetunreadmailcountw">SHSetUnreadMailCount</a> call for the specified user and email account.
@@ -17348,24 +16961,22 @@ class Shell {
      * @param {Integer} cchShellExecuteCommand Type: <b>int</b>
      * 
      * The maximum size, in characters, of the ShellExecute command buffer pointed to by <i>pszShellExecuteCommand</i>. This parameter must be zero for total counts when <i>pszMailAddress</i> is <b>NULL</b>. It can also be <b>NULL</b> whenever the ShellExecute command string is not required.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * @returns {Integer} Type: <b>DWORD*</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * Pointer to a DWORD value which receives the unread message count.
      * @see https://docs.microsoft.com/windows/win32/api//shellapi/nf-shellapi-shgetunreadmailcountw
      * @since windows5.1.2600
      */
-    static SHGetUnreadMailCountW(hKeyUser, pszMailAddress, pdwCount, pFileTime, pszShellExecuteCommand, cchShellExecuteCommand) {
+    static SHGetUnreadMailCountW(hKeyUser, pszMailAddress, pFileTime, pszShellExecuteCommand, cchShellExecuteCommand) {
         hKeyUser := hKeyUser is Win32Handle ? NumGet(hKeyUser, "ptr") : hKeyUser
         pszMailAddress := pszMailAddress is String ? StrPtr(pszMailAddress) : pszMailAddress
         pszShellExecuteCommand := pszShellExecuteCommand is String ? StrPtr(pszShellExecuteCommand) : pszShellExecuteCommand
 
-        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("SHELL32.dll\SHGetUnreadMailCountW", "ptr", hKeyUser, "ptr", pszMailAddress, pdwCountMarshal, pdwCount, "ptr", pFileTime, "ptr", pszShellExecuteCommand, "int", cchShellExecuteCommand, "int")
+        result := DllCall("SHELL32.dll\SHGetUnreadMailCountW", "ptr", hKeyUser, "ptr", pszMailAddress, "uint*", &pdwCount := 0, "ptr", pFileTime, "ptr", pszShellExecuteCommand, "int", cchShellExecuteCommand, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdwCount
     }
 
     /**
@@ -17463,23 +17074,18 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the image list interface identifier, normally IID_IImageList.
-     * @param {Pointer<Pointer<Void>>} ppvObj Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/commoncontrols/nn-commoncontrols-iimagelist">IImageList</a>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shellapi/nf-shellapi-shgetimagelist
      * @since windows5.1.2600
      */
-    static SHGetImageList(iImageList, riid, ppvObj) {
-        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SHELL32.dll\SHGetImageList", "int", iImageList, "ptr", riid, ppvObjMarshal, ppvObj, "int")
+    static SHGetImageList(iImageList, riid) {
+        result := DllCall("SHELL32.dll\SHGetImageList", "int", iImageList, "ptr", riid, "ptr*", &ppvObj := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppvObj
     }
 
     /**
@@ -17500,25 +17106,20 @@ class Shell {
      * @param {PWSTR} pszDrive Type: <b>PCWSTR</b>
      * 
      * The drive in which to check the media type.
-     * @param {Pointer<Integer>} pdwMediaContent Type: <b>DWORD*</b>
+     * @returns {Integer} Type: <b>DWORD*</b>
      * 
      * A pointer to the type of media in the given drive. A combination of <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/nf-shobjidl-iquerycancelautoplay-allowautoplay">ARCONTENT</a> flags.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shellapi/nf-shellapi-shgetdrivemedia
      * @since windows6.0.6000
      */
-    static SHGetDriveMedia(pszDrive, pdwMediaContent) {
+    static SHGetDriveMedia(pszDrive) {
         pszDrive := pszDrive is String ? StrPtr(pszDrive) : pszDrive
 
-        pdwMediaContentMarshal := pdwMediaContent is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("SHELL32.dll\SHGetDriveMedia", "ptr", pszDrive, pdwMediaContentMarshal, pdwMediaContent, "int")
+        result := DllCall("SHELL32.dll\SHGetDriveMedia", "ptr", pszDrive, "uint*", &pdwMediaContent := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdwMediaContent
     }
 
     /**
@@ -17538,7 +17139,7 @@ class Shell {
     static StrChrA(pszStart, wMatch) {
         pszStart := pszStart is String ? StrPtr(pszStart) : pszStart
 
-        result := DllCall("SHLWAPI.dll\StrChrA", "ptr", pszStart, "ushort", wMatch, "char*")
+        result := DllCall("SHLWAPI.dll\StrChrA", "ptr", pszStart, "ushort", wMatch, "ptr")
         return result
     }
 
@@ -17559,7 +17160,7 @@ class Shell {
     static StrChrW(pszStart, wMatch) {
         pszStart := pszStart is String ? StrPtr(pszStart) : pszStart
 
-        result := DllCall("SHLWAPI.dll\StrChrW", "ptr", pszStart, "char", wMatch, "char*")
+        result := DllCall("SHLWAPI.dll\StrChrW", "ptr", pszStart, "char", wMatch, "ptr")
         return result
     }
 
@@ -17580,7 +17181,7 @@ class Shell {
     static StrChrIA(pszStart, wMatch) {
         pszStart := pszStart is String ? StrPtr(pszStart) : pszStart
 
-        result := DllCall("SHLWAPI.dll\StrChrIA", "ptr", pszStart, "ushort", wMatch, "char*")
+        result := DllCall("SHLWAPI.dll\StrChrIA", "ptr", pszStart, "ushort", wMatch, "ptr")
         return result
     }
 
@@ -17601,7 +17202,7 @@ class Shell {
     static StrChrIW(pszStart, wMatch) {
         pszStart := pszStart is String ? StrPtr(pszStart) : pszStart
 
-        result := DllCall("SHLWAPI.dll\StrChrIW", "ptr", pszStart, "char", wMatch, "char*")
+        result := DllCall("SHLWAPI.dll\StrChrIW", "ptr", pszStart, "char", wMatch, "ptr")
         return result
     }
 
@@ -17625,7 +17226,7 @@ class Shell {
     static StrChrNW(pszStart, wMatch, cchMax) {
         pszStart := pszStart is String ? StrPtr(pszStart) : pszStart
 
-        result := DllCall("SHLWAPI.dll\StrChrNW", "ptr", pszStart, "char", wMatch, "uint", cchMax, "char*")
+        result := DllCall("SHLWAPI.dll\StrChrNW", "ptr", pszStart, "char", wMatch, "uint", cchMax, "ptr")
         return result
     }
 
@@ -17649,7 +17250,7 @@ class Shell {
     static StrChrNIW(pszStart, wMatch, cchMax) {
         pszStart := pszStart is String ? StrPtr(pszStart) : pszStart
 
-        result := DllCall("SHLWAPI.dll\StrChrNIW", "ptr", pszStart, "char", wMatch, "uint", cchMax, "char*")
+        result := DllCall("SHLWAPI.dll\StrChrNIW", "ptr", pszStart, "char", wMatch, "uint", cchMax, "ptr")
         return result
     }
 
@@ -17855,7 +17456,7 @@ class Shell {
     static StrDupA(pszSrch) {
         pszSrch := pszSrch is String ? StrPtr(pszSrch) : pszSrch
 
-        result := DllCall("SHLWAPI.dll\StrDupA", "ptr", pszSrch, "char*")
+        result := DllCall("SHLWAPI.dll\StrDupA", "ptr", pszSrch, "ptr")
         return result
     }
 
@@ -17873,7 +17474,7 @@ class Shell {
     static StrDupW(pszSrch) {
         pszSrch := pszSrch is String ? StrPtr(pszSrch) : pszSrch
 
-        result := DllCall("SHLWAPI.dll\StrDupW", "ptr", pszSrch, "char*")
+        result := DllCall("SHLWAPI.dll\StrDupW", "ptr", pszSrch, "ptr")
         return result
     }
 
@@ -17927,7 +17528,7 @@ class Shell {
     static StrFormatByteSizeA(dw, pszBuf, cchBuf) {
         pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
 
-        result := DllCall("SHLWAPI.dll\StrFormatByteSizeA", "uint", dw, "ptr", pszBuf, "uint", cchBuf, "char*")
+        result := DllCall("SHLWAPI.dll\StrFormatByteSizeA", "uint", dw, "ptr", pszBuf, "uint", cchBuf, "ptr")
         return result
     }
 
@@ -17951,7 +17552,7 @@ class Shell {
     static StrFormatByteSize64A(qdw, pszBuf, cchBuf) {
         pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
 
-        result := DllCall("SHLWAPI.dll\StrFormatByteSize64A", "int64", qdw, "ptr", pszBuf, "uint", cchBuf, "char*")
+        result := DllCall("SHLWAPI.dll\StrFormatByteSize64A", "int64", qdw, "ptr", pszBuf, "uint", cchBuf, "ptr")
         return result
     }
 
@@ -17975,7 +17576,7 @@ class Shell {
     static StrFormatByteSizeW(qdw, pszBuf, cchBuf) {
         pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
 
-        result := DllCall("SHLWAPI.dll\StrFormatByteSizeW", "int64", qdw, "ptr", pszBuf, "uint", cchBuf, "char*")
+        result := DllCall("SHLWAPI.dll\StrFormatByteSizeW", "int64", qdw, "ptr", pszBuf, "uint", cchBuf, "ptr")
         return result
     }
 
@@ -17999,7 +17600,7 @@ class Shell {
     static StrFormatKBSizeW(qdw, pszBuf, cchBuf) {
         pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
 
-        result := DllCall("SHLWAPI.dll\StrFormatKBSizeW", "int64", qdw, "ptr", pszBuf, "uint", cchBuf, "char*")
+        result := DllCall("SHLWAPI.dll\StrFormatKBSizeW", "int64", qdw, "ptr", pszBuf, "uint", cchBuf, "ptr")
         return result
     }
 
@@ -18023,7 +17624,7 @@ class Shell {
     static StrFormatKBSizeA(qdw, pszBuf, cchBuf) {
         pszBuf := pszBuf is String ? StrPtr(pszBuf) : pszBuf
 
-        result := DllCall("SHLWAPI.dll\StrFormatKBSizeA", "int64", qdw, "ptr", pszBuf, "uint", cchBuf, "char*")
+        result := DllCall("SHLWAPI.dll\StrFormatKBSizeA", "int64", qdw, "ptr", pszBuf, "uint", cchBuf, "ptr")
         return result
     }
 
@@ -18240,7 +17841,7 @@ class Shell {
         psz1 := psz1 is String ? StrPtr(psz1) : psz1
         psz2 := psz2 is String ? StrPtr(psz2) : psz2
 
-        result := DllCall("SHLWAPI.dll\StrNCatA", "ptr", psz1, "ptr", psz2, "int", cchMax, "char*")
+        result := DllCall("SHLWAPI.dll\StrNCatA", "ptr", psz1, "ptr", psz2, "int", cchMax, "ptr")
         return result
     }
 
@@ -18265,7 +17866,7 @@ class Shell {
         psz1 := psz1 is String ? StrPtr(psz1) : psz1
         psz2 := psz2 is String ? StrPtr(psz2) : psz2
 
-        result := DllCall("SHLWAPI.dll\StrNCatW", "ptr", psz1, "ptr", psz2, "int", cchMax, "char*")
+        result := DllCall("SHLWAPI.dll\StrNCatW", "ptr", psz1, "ptr", psz2, "int", cchMax, "ptr")
         return result
     }
 
@@ -18287,7 +17888,7 @@ class Shell {
         psz := psz is String ? StrPtr(psz) : psz
         pszSet := pszSet is String ? StrPtr(pszSet) : pszSet
 
-        result := DllCall("SHLWAPI.dll\StrPBrkA", "ptr", psz, "ptr", pszSet, "char*")
+        result := DllCall("SHLWAPI.dll\StrPBrkA", "ptr", psz, "ptr", pszSet, "ptr")
         return result
     }
 
@@ -18309,7 +17910,7 @@ class Shell {
         psz := psz is String ? StrPtr(psz) : psz
         pszSet := pszSet is String ? StrPtr(pszSet) : pszSet
 
-        result := DllCall("SHLWAPI.dll\StrPBrkW", "ptr", psz, "ptr", pszSet, "char*")
+        result := DllCall("SHLWAPI.dll\StrPBrkW", "ptr", psz, "ptr", pszSet, "ptr")
         return result
     }
 
@@ -18334,7 +17935,7 @@ class Shell {
         pszStart := pszStart is String ? StrPtr(pszStart) : pszStart
         pszEnd := pszEnd is String ? StrPtr(pszEnd) : pszEnd
 
-        result := DllCall("SHLWAPI.dll\StrRChrA", "ptr", pszStart, "ptr", pszEnd, "ushort", wMatch, "char*")
+        result := DllCall("SHLWAPI.dll\StrRChrA", "ptr", pszStart, "ptr", pszEnd, "ushort", wMatch, "ptr")
         return result
     }
 
@@ -18359,7 +17960,7 @@ class Shell {
         pszStart := pszStart is String ? StrPtr(pszStart) : pszStart
         pszEnd := pszEnd is String ? StrPtr(pszEnd) : pszEnd
 
-        result := DllCall("SHLWAPI.dll\StrRChrW", "ptr", pszStart, "ptr", pszEnd, "char", wMatch, "char*")
+        result := DllCall("SHLWAPI.dll\StrRChrW", "ptr", pszStart, "ptr", pszEnd, "char", wMatch, "ptr")
         return result
     }
 
@@ -18384,7 +17985,7 @@ class Shell {
         pszStart := pszStart is String ? StrPtr(pszStart) : pszStart
         pszEnd := pszEnd is String ? StrPtr(pszEnd) : pszEnd
 
-        result := DllCall("SHLWAPI.dll\StrRChrIA", "ptr", pszStart, "ptr", pszEnd, "ushort", wMatch, "char*")
+        result := DllCall("SHLWAPI.dll\StrRChrIA", "ptr", pszStart, "ptr", pszEnd, "ushort", wMatch, "ptr")
         return result
     }
 
@@ -18409,7 +18010,7 @@ class Shell {
         pszStart := pszStart is String ? StrPtr(pszStart) : pszStart
         pszEnd := pszEnd is String ? StrPtr(pszEnd) : pszEnd
 
-        result := DllCall("SHLWAPI.dll\StrRChrIW", "ptr", pszStart, "ptr", pszEnd, "char", wMatch, "char*")
+        result := DllCall("SHLWAPI.dll\StrRChrIW", "ptr", pszStart, "ptr", pszEnd, "char", wMatch, "ptr")
         return result
     }
 
@@ -18435,7 +18036,7 @@ class Shell {
         pszLast := pszLast is String ? StrPtr(pszLast) : pszLast
         pszSrch := pszSrch is String ? StrPtr(pszSrch) : pszSrch
 
-        result := DllCall("SHLWAPI.dll\StrRStrIA", "ptr", pszSource, "ptr", pszLast, "ptr", pszSrch, "char*")
+        result := DllCall("SHLWAPI.dll\StrRStrIA", "ptr", pszSource, "ptr", pszLast, "ptr", pszSrch, "ptr")
         return result
     }
 
@@ -18461,7 +18062,7 @@ class Shell {
         pszLast := pszLast is String ? StrPtr(pszLast) : pszLast
         pszSrch := pszSrch is String ? StrPtr(pszSrch) : pszSrch
 
-        result := DllCall("SHLWAPI.dll\StrRStrIW", "ptr", pszSource, "ptr", pszLast, "ptr", pszSrch, "char*")
+        result := DllCall("SHLWAPI.dll\StrRStrIW", "ptr", pszSource, "ptr", pszLast, "ptr", pszSrch, "ptr")
         return result
     }
 
@@ -18527,7 +18128,7 @@ class Shell {
         pszFirst := pszFirst is String ? StrPtr(pszFirst) : pszFirst
         pszSrch := pszSrch is String ? StrPtr(pszSrch) : pszSrch
 
-        result := DllCall("SHLWAPI.dll\StrStrA", "ptr", pszFirst, "ptr", pszSrch, "char*")
+        result := DllCall("SHLWAPI.dll\StrStrA", "ptr", pszFirst, "ptr", pszSrch, "ptr")
         return result
     }
 
@@ -18549,7 +18150,7 @@ class Shell {
         pszFirst := pszFirst is String ? StrPtr(pszFirst) : pszFirst
         pszSrch := pszSrch is String ? StrPtr(pszSrch) : pszSrch
 
-        result := DllCall("SHLWAPI.dll\StrStrW", "ptr", pszFirst, "ptr", pszSrch, "char*")
+        result := DllCall("SHLWAPI.dll\StrStrW", "ptr", pszFirst, "ptr", pszSrch, "ptr")
         return result
     }
 
@@ -18571,7 +18172,7 @@ class Shell {
         pszFirst := pszFirst is String ? StrPtr(pszFirst) : pszFirst
         pszSrch := pszSrch is String ? StrPtr(pszSrch) : pszSrch
 
-        result := DllCall("SHLWAPI.dll\StrStrIA", "ptr", pszFirst, "ptr", pszSrch, "char*")
+        result := DllCall("SHLWAPI.dll\StrStrIA", "ptr", pszFirst, "ptr", pszSrch, "ptr")
         return result
     }
 
@@ -18593,7 +18194,7 @@ class Shell {
         pszFirst := pszFirst is String ? StrPtr(pszFirst) : pszFirst
         pszSrch := pszSrch is String ? StrPtr(pszSrch) : pszSrch
 
-        result := DllCall("SHLWAPI.dll\StrStrIW", "ptr", pszFirst, "ptr", pszSrch, "char*")
+        result := DllCall("SHLWAPI.dll\StrStrIW", "ptr", pszFirst, "ptr", pszSrch, "ptr")
         return result
     }
 
@@ -18618,7 +18219,7 @@ class Shell {
         pszFirst := pszFirst is String ? StrPtr(pszFirst) : pszFirst
         pszSrch := pszSrch is String ? StrPtr(pszSrch) : pszSrch
 
-        result := DllCall("SHLWAPI.dll\StrStrNW", "ptr", pszFirst, "ptr", pszSrch, "uint", cchMax, "char*")
+        result := DllCall("SHLWAPI.dll\StrStrNW", "ptr", pszFirst, "ptr", pszSrch, "uint", cchMax, "ptr")
         return result
     }
 
@@ -18643,7 +18244,7 @@ class Shell {
         pszFirst := pszFirst is String ? StrPtr(pszFirst) : pszFirst
         pszSrch := pszSrch is String ? StrPtr(pszSrch) : pszSrch
 
-        result := DllCall("SHLWAPI.dll\StrStrNIW", "ptr", pszFirst, "ptr", pszSrch, "uint", cchMax, "char*")
+        result := DllCall("SHLWAPI.dll\StrStrNIW", "ptr", pszFirst, "ptr", pszSrch, "uint", cchMax, "ptr")
         return result
     }
 
@@ -18875,7 +18476,7 @@ class Shell {
         psz1 := psz1 is String ? StrPtr(psz1) : psz1
         psz2 := psz2 is String ? StrPtr(psz2) : psz2
 
-        result := DllCall("SHLWAPI.dll\StrCatW", "ptr", psz1, "ptr", psz2, "char*")
+        result := DllCall("SHLWAPI.dll\StrCatW", "ptr", psz1, "ptr", psz2, "ptr")
         return result
     }
 
@@ -18941,7 +18542,7 @@ class Shell {
         psz1 := psz1 is String ? StrPtr(psz1) : psz1
         psz2 := psz2 is String ? StrPtr(psz2) : psz2
 
-        result := DllCall("SHLWAPI.dll\StrCpyW", "ptr", psz1, "ptr", psz2, "char*")
+        result := DllCall("SHLWAPI.dll\StrCpyW", "ptr", psz1, "ptr", psz2, "ptr")
         return result
     }
 
@@ -18966,7 +18567,7 @@ class Shell {
         pszDst := pszDst is String ? StrPtr(pszDst) : pszDst
         pszSrc := pszSrc is String ? StrPtr(pszSrc) : pszSrc
 
-        result := DllCall("SHLWAPI.dll\StrCpyNW", "ptr", pszDst, "ptr", pszSrc, "int", cchMax, "char*")
+        result := DllCall("SHLWAPI.dll\StrCpyNW", "ptr", pszDst, "ptr", pszSrc, "int", cchMax, "ptr")
         return result
     }
 
@@ -18991,7 +18592,7 @@ class Shell {
         pszDest := pszDest is String ? StrPtr(pszDest) : pszDest
         pszSrc := pszSrc is String ? StrPtr(pszSrc) : pszSrc
 
-        result := DllCall("SHLWAPI.dll\StrCatBuffW", "ptr", pszDest, "ptr", pszSrc, "int", cchDestBuffSize, "char*")
+        result := DllCall("SHLWAPI.dll\StrCatBuffW", "ptr", pszDest, "ptr", pszSrc, "int", cchDestBuffSize, "ptr")
         return result
     }
 
@@ -19016,7 +18617,7 @@ class Shell {
         pszDest := pszDest is String ? StrPtr(pszDest) : pszDest
         pszSrc := pszSrc is String ? StrPtr(pszSrc) : pszSrc
 
-        result := DllCall("SHLWAPI.dll\StrCatBuffA", "ptr", pszDest, "ptr", pszSrc, "int", cchDestBuffSize, "char*")
+        result := DllCall("SHLWAPI.dll\StrCatBuffA", "ptr", pszDest, "ptr", pszSrc, "int", cchDestBuffSize, "ptr")
         return result
     }
 
@@ -19176,21 +18777,18 @@ class Shell {
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
      * 
      * A pointer to the item's <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure. This value can be <b>NULL</b>.
-     * @param {Pointer<PSTR>} ppsz Type: <b>LPTSTR*</b>
+     * @returns {PSTR} Type: <b>LPTSTR*</b>
      * 
      * A pointer to an allocated string containing the result. <b>StrRetToStr</b> allocates memory for this string with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a>. You should free the string with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> when it is no longer needed.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strrettostra
      * @since windows5.0
      */
-    static StrRetToStrA(pstr, pidl, ppsz) {
-        result := DllCall("SHLWAPI.dll\StrRetToStrA", "ptr", pstr, "ptr", pidl, "ptr", ppsz, "int")
+    static StrRetToStrA(pstr, pidl) {
+        result := DllCall("SHLWAPI.dll\StrRetToStrA", "ptr", pstr, "ptr", pidl, "ptr*", &ppsz := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppsz
     }
 
     /**
@@ -19201,21 +18799,18 @@ class Shell {
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
      * 
      * A pointer to the item's <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure. This value can be <b>NULL</b>.
-     * @param {Pointer<PWSTR>} ppsz Type: <b>LPTSTR*</b>
+     * @returns {PWSTR} Type: <b>LPTSTR*</b>
      * 
      * A pointer to an allocated string containing the result. <b>StrRetToStr</b> allocates memory for this string with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a>. You should free the string with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> when it is no longer needed.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strrettostrw
      * @since windows5.0
      */
-    static StrRetToStrW(pstr, pidl, ppsz) {
-        result := DllCall("SHLWAPI.dll\StrRetToStrW", "ptr", pstr, "ptr", pidl, "ptr", ppsz, "int")
+    static StrRetToStrW(pstr, pidl) {
+        result := DllCall("SHLWAPI.dll\StrRetToStrW", "ptr", pstr, "ptr", pidl, "ptr*", &ppsz := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppsz
     }
 
     /**
@@ -19283,27 +18878,24 @@ class Shell {
      * @param {PSTR} psz Type: <b>LPCTSTR</b>
      * 
      * A pointer to the null-terminated string to be copied.
-     * @param {Pointer<PWSTR>} ppwsz Type: <b>LPTSTR*</b>
+     * @returns {PWSTR} Type: <b>LPTSTR*</b>
      * 
      * A pointer to an allocated Unicode string that contains the result. <b>SHStrDup</b> allocates memory for this string with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a>. You should free the string with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> when it is no longer needed.
      * 
      *                     
      * 
      * In the case of failure, this value is NULL.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * Returns S_OK if successful, or a COM error value otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-shstrdupa
      * @since windows5.0
      */
-    static SHStrDupA(psz, ppwsz) {
+    static SHStrDupA(psz) {
         psz := psz is String ? StrPtr(psz) : psz
 
-        result := DllCall("SHLWAPI.dll\SHStrDupA", "ptr", psz, "ptr", ppwsz, "int")
+        result := DllCall("SHLWAPI.dll\SHStrDupA", "ptr", psz, "ptr*", &ppwsz := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppwsz
     }
 
     /**
@@ -19311,27 +18903,24 @@ class Shell {
      * @param {PWSTR} psz Type: <b>LPCTSTR</b>
      * 
      * A pointer to the null-terminated string to be copied.
-     * @param {Pointer<PWSTR>} ppwsz Type: <b>LPTSTR*</b>
+     * @returns {PWSTR} Type: <b>LPTSTR*</b>
      * 
      * A pointer to an allocated Unicode string that contains the result. <b>SHStrDup</b> allocates memory for this string with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a>. You should free the string with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> when it is no longer needed.
      * 
      *                     
      * 
      * In the case of failure, this value is NULL.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * Returns S_OK if successful, or a COM error value otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-shstrdupw
      * @since windows5.0
      */
-    static SHStrDupW(psz, ppwsz) {
+    static SHStrDupW(psz) {
         psz := psz is String ? StrPtr(psz) : psz
 
-        result := DllCall("SHLWAPI.dll\SHStrDupW", "ptr", psz, "ptr", ppwsz, "int")
+        result := DllCall("SHLWAPI.dll\SHStrDupW", "ptr", psz, "ptr*", &ppwsz := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppwsz
     }
 
     /**
@@ -19396,21 +18985,19 @@ class Shell {
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> that uniquely identifies a file object or subfolder relative to the parent folder. This value can be <b>NULL</b>.
-     * @param {Pointer<BSTR>} pbstr Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a>*</b>
+     * @returns {BSTR} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a>*</b>
      * 
      * A pointer to a variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a> that receives the converted string.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-strrettobstr
      * @since windows5.1.2600
      */
-    static StrRetToBSTR(pstr, pidl, pbstr) {
+    static StrRetToBSTR(pstr, pidl) {
+        pbstr := BSTR()
         result := DllCall("SHLWAPI.dll\StrRetToBSTR", "ptr", pstr, "ptr", pidl, "ptr", pbstr, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pbstr
     }
 
     /**
@@ -19733,7 +19320,7 @@ class Shell {
     static PathAddBackslashA(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathAddBackslashA", "ptr", pszPath, "char*")
+        result := DllCall("SHLWAPI.dll\PathAddBackslashA", "ptr", pszPath, "ptr")
         return result
     }
 
@@ -19751,7 +19338,7 @@ class Shell {
     static PathAddBackslashW(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathAddBackslashW", "ptr", pszPath, "char*")
+        result := DllCall("SHLWAPI.dll\PathAddBackslashW", "ptr", pszPath, "ptr")
         return result
     }
 
@@ -19860,7 +19447,7 @@ class Shell {
     static PathBuildRootA(pszRoot, iDrive) {
         pszRoot := pszRoot is String ? StrPtr(pszRoot) : pszRoot
 
-        result := DllCall("SHLWAPI.dll\PathBuildRootA", "ptr", pszRoot, "int", iDrive, "char*")
+        result := DllCall("SHLWAPI.dll\PathBuildRootA", "ptr", pszRoot, "int", iDrive, "ptr")
         return result
     }
 
@@ -19881,7 +19468,7 @@ class Shell {
     static PathBuildRootW(pszRoot, iDrive) {
         pszRoot := pszRoot is String ? StrPtr(pszRoot) : pszRoot
 
-        result := DllCall("SHLWAPI.dll\PathBuildRootW", "ptr", pszRoot, "int", iDrive, "char*")
+        result := DllCall("SHLWAPI.dll\PathBuildRootW", "ptr", pszRoot, "int", iDrive, "ptr")
         return result
     }
 
@@ -19961,7 +19548,7 @@ class Shell {
         pszDir := pszDir is String ? StrPtr(pszDir) : pszDir
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        result := DllCall("SHLWAPI.dll\PathCombineA", "ptr", pszDest, "ptr", pszDir, "ptr", pszFile, "char*")
+        result := DllCall("SHLWAPI.dll\PathCombineA", "ptr", pszDest, "ptr", pszDir, "ptr", pszFile, "ptr")
         return result
     }
 
@@ -19987,7 +19574,7 @@ class Shell {
         pszDir := pszDir is String ? StrPtr(pszDir) : pszDir
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        result := DllCall("SHLWAPI.dll\PathCombineW", "ptr", pszDest, "ptr", pszDir, "ptr", pszFile, "char*")
+        result := DllCall("SHLWAPI.dll\PathCombineW", "ptr", pszDest, "ptr", pszDir, "ptr", pszFile, "ptr")
         return result
     }
 
@@ -20205,7 +19792,7 @@ class Shell {
     static PathFindExtensionA(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathFindExtensionA", "ptr", pszPath, "char*")
+        result := DllCall("SHLWAPI.dll\PathFindExtensionA", "ptr", pszPath, "ptr")
         return result
     }
 
@@ -20223,7 +19810,7 @@ class Shell {
     static PathFindExtensionW(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathFindExtensionW", "ptr", pszPath, "char*")
+        result := DllCall("SHLWAPI.dll\PathFindExtensionW", "ptr", pszPath, "ptr")
         return result
     }
 
@@ -20241,7 +19828,7 @@ class Shell {
     static PathFindFileNameA(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathFindFileNameA", "ptr", pszPath, "char*")
+        result := DllCall("SHLWAPI.dll\PathFindFileNameA", "ptr", pszPath, "ptr")
         return result
     }
 
@@ -20259,7 +19846,7 @@ class Shell {
     static PathFindFileNameW(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathFindFileNameW", "ptr", pszPath, "char*")
+        result := DllCall("SHLWAPI.dll\PathFindFileNameW", "ptr", pszPath, "ptr")
         return result
     }
 
@@ -20281,7 +19868,7 @@ class Shell {
     static PathFindNextComponentA(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathFindNextComponentA", "ptr", pszPath, "char*")
+        result := DllCall("SHLWAPI.dll\PathFindNextComponentA", "ptr", pszPath, "ptr")
         return result
     }
 
@@ -20303,7 +19890,7 @@ class Shell {
     static PathFindNextComponentW(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathFindNextComponentW", "ptr", pszPath, "char*")
+        result := DllCall("SHLWAPI.dll\PathFindNextComponentW", "ptr", pszPath, "ptr")
         return result
     }
 
@@ -20373,7 +19960,9 @@ class Shell {
     static PathFindSuffixArrayA(pszPath, apszSuffix, iArraySize) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathFindSuffixArrayA", "ptr", pszPath, "ptr", apszSuffix, "int", iArraySize, "char*")
+        apszSuffixMarshal := apszSuffix is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHLWAPI.dll\PathFindSuffixArrayA", "ptr", pszPath, apszSuffixMarshal, apszSuffix, "int", iArraySize, "ptr")
         return result
     }
 
@@ -20397,7 +19986,9 @@ class Shell {
     static PathFindSuffixArrayW(pszPath, apszSuffix, iArraySize) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathFindSuffixArrayW", "ptr", pszPath, "ptr", apszSuffix, "int", iArraySize, "char*")
+        apszSuffixMarshal := apszSuffix is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("SHLWAPI.dll\PathFindSuffixArrayW", "ptr", pszPath, apszSuffixMarshal, apszSuffix, "int", iArraySize, "ptr")
         return result
     }
 
@@ -20421,7 +20012,7 @@ class Shell {
     static PathGetArgsA(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathGetArgsA", "ptr", pszPath, "char*")
+        result := DllCall("SHLWAPI.dll\PathGetArgsA", "ptr", pszPath, "ptr")
         return result
     }
 
@@ -20445,7 +20036,7 @@ class Shell {
     static PathGetArgsW(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathGetArgsW", "ptr", pszPath, "char*")
+        result := DllCall("SHLWAPI.dll\PathGetArgsW", "ptr", pszPath, "ptr")
         return result
     }
 
@@ -21555,7 +21146,7 @@ class Shell {
     static PathRemoveBackslashA(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathRemoveBackslashA", "ptr", pszPath, "char*")
+        result := DllCall("SHLWAPI.dll\PathRemoveBackslashA", "ptr", pszPath, "ptr")
         return result
     }
 
@@ -21573,7 +21164,7 @@ class Shell {
     static PathRemoveBackslashW(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathRemoveBackslashW", "ptr", pszPath, "char*")
+        result := DllCall("SHLWAPI.dll\PathRemoveBackslashW", "ptr", pszPath, "ptr")
         return result
     }
 
@@ -21857,7 +21448,7 @@ class Shell {
     static PathSkipRootA(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathSkipRootA", "ptr", pszPath, "char*")
+        result := DllCall("SHLWAPI.dll\PathSkipRootA", "ptr", pszPath, "ptr")
         return result
     }
 
@@ -21875,7 +21466,7 @@ class Shell {
     static PathSkipRootW(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHLWAPI.dll\PathSkipRootW", "ptr", pszPath, "char*")
+        result := DllCall("SHLWAPI.dll\PathSkipRootW", "ptr", pszPath, "ptr")
         return result
     }
 
@@ -22575,7 +22166,7 @@ class Shell {
     static UrlGetLocationA(pszURL) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
-        result := DllCall("SHLWAPI.dll\UrlGetLocationA", "ptr", pszURL, "char*")
+        result := DllCall("SHLWAPI.dll\UrlGetLocationA", "ptr", pszURL, "ptr")
         return result
     }
 
@@ -22593,7 +22184,7 @@ class Shell {
     static UrlGetLocationW(pszURL) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
-        result := DllCall("SHLWAPI.dll\UrlGetLocationW", "ptr", pszURL, "char*")
+        result := DllCall("SHLWAPI.dll\UrlGetLocationW", "ptr", pszURL, "ptr")
         return result
     }
 
@@ -22874,26 +22465,23 @@ class Shell {
      * @param {PWSTR} pszIn Type: <b>PCWSTR</b>
      * 
      * A pointer to the URL of a file, represented as a null-terminated, Unicode string.
-     * @param {Pointer<PWSTR>} ppszOut Type: <b>PWSTR*</b>
-     * 
-     * The address of a pointer to a buffer of length MAX_PATH that, when this function returns successfully, receives the file path.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * Reserved, must be 0.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * @returns {PWSTR} Type: <b>PWSTR*</b>
      * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * The address of a pointer to a buffer of length MAX_PATH that, when this function returns successfully, receives the file path.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-pathcreatefromurlalloc
      * @since windows6.0.6000
      */
-    static PathCreateFromUrlAlloc(pszIn, ppszOut, dwFlags) {
+    static PathCreateFromUrlAlloc(pszIn, dwFlags) {
         pszIn := pszIn is String ? StrPtr(pszIn) : pszIn
 
-        result := DllCall("SHLWAPI.dll\PathCreateFromUrlAlloc", "ptr", pszIn, "ptr", ppszOut, "uint", dwFlags, "int")
+        result := DllCall("SHLWAPI.dll\PathCreateFromUrlAlloc", "ptr", pszIn, "ptr*", &ppszOut := 0, "uint", dwFlags, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppszOut
     }
 
     /**
@@ -25124,23 +24712,18 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the IID IID_IQueryAssociations, which is defined in Shlguid.h.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void*</b>
+     * @returns {Pointer<Void>} Type: <b>void*</b>
      * 
      * When this method returns, contains the <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nn-shlwapi-iqueryassociations">IQueryAssociations</a> interface pointer requested in <i>riid</i>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-assoccreate
      * @since windows5.0
      */
-    static AssocCreate(clsid, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SHLWAPI.dll\AssocCreate", "ptr", clsid, "ptr", riid, ppvMarshal, ppv, "int")
+    static AssocCreate(clsid, riid) {
+        result := DllCall("SHLWAPI.dll\AssocCreate", "ptr", clsid, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -25409,24 +24992,22 @@ class Shell {
      * @param {PSTR} pszExtra Type: <b>LPCTSTR</b>
      * 
      * A pointer to an optional null-terminated string with additional information about the location of the string. It is normally set to a Shell verb such as <b>open</b>. Set this parameter to <b>NULL</b> if it is not used.
-     * @param {Pointer<HKEY>} phkeyOut Type: <b>HKEY*</b>
+     * @returns {HKEY} Type: <b>HKEY*</b>
      * 
      * A pointer to the key's HKEY value.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * Returns S_OK if successful, or a COM error value otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-assocquerykeya
      * @since windows5.0
      */
-    static AssocQueryKeyA(flags, key, pszAssoc, pszExtra, phkeyOut) {
+    static AssocQueryKeyA(flags, key, pszAssoc, pszExtra) {
         pszAssoc := pszAssoc is String ? StrPtr(pszAssoc) : pszAssoc
         pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra
 
+        phkeyOut := HKEY()
         result := DllCall("SHLWAPI.dll\AssocQueryKeyA", "uint", flags, "int", key, "ptr", pszAssoc, "ptr", pszExtra, "ptr", phkeyOut, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return phkeyOut
     }
 
     /**
@@ -25443,24 +25024,22 @@ class Shell {
      * @param {PWSTR} pszExtra Type: <b>LPCTSTR</b>
      * 
      * A pointer to an optional null-terminated string with additional information about the location of the string. It is normally set to a Shell verb such as <b>open</b>. Set this parameter to <b>NULL</b> if it is not used.
-     * @param {Pointer<HKEY>} phkeyOut Type: <b>HKEY*</b>
+     * @returns {HKEY} Type: <b>HKEY*</b>
      * 
      * A pointer to the key's HKEY value.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * Returns S_OK if successful, or a COM error value otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-assocquerykeyw
      * @since windows5.0
      */
-    static AssocQueryKeyW(flags, key, pszAssoc, pszExtra, phkeyOut) {
+    static AssocQueryKeyW(flags, key, pszAssoc, pszExtra) {
         pszAssoc := pszAssoc is String ? StrPtr(pszAssoc) : pszAssoc
         pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra
 
+        phkeyOut := HKEY()
         result := DllCall("SHLWAPI.dll\AssocQueryKeyW", "uint", flags, "int", key, "ptr", pszAssoc, "ptr", pszExtra, "ptr", phkeyOut, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return phkeyOut
     }
 
     /**
@@ -25504,8 +25083,9 @@ class Shell {
 
         ptypeMarshal := ptype is VarRef ? "int*" : "ptr"
         pflagMarshal := pflag is VarRef ? "uint*" : "ptr"
+        ppszTypeMarshal := ppszType is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("SHLWAPI.dll\AssocGetPerceivedType", "ptr", pszExt, ptypeMarshal, ptype, pflagMarshal, pflag, "ptr", ppszType, "int")
+        result := DllCall("SHLWAPI.dll\AssocGetPerceivedType", "ptr", pszExt, ptypeMarshal, ptype, pflagMarshal, pflag, ppszTypeMarshal, ppszType, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -25638,23 +25218,20 @@ class Shell {
      * @param {Integer} grfMode Type: <b>DWORD</b>
      * 
      * One or more <a href="https://docs.microsoft.com/windows/desktop/Stg/stgm-constants">STGM</a> values that are used to specify the file access mode and how the object that exposes the stream is created and deleted.
-     * @param {Pointer<IStream>} ppstm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>**</b>
+     * @returns {IStream} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>**</b>
      * 
      * Receives an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface pointer for the stream associated with the file.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-shcreatestreamonfilea
      * @since windows5.1.2600
      */
-    static SHCreateStreamOnFileA(pszFile, grfMode, ppstm) {
+    static SHCreateStreamOnFileA(pszFile, grfMode) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        result := DllCall("SHLWAPI.dll\SHCreateStreamOnFileA", "ptr", pszFile, "uint", grfMode, "ptr*", ppstm, "int")
+        result := DllCall("SHLWAPI.dll\SHCreateStreamOnFileA", "ptr", pszFile, "uint", grfMode, "ptr*", &ppstm := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IStream(ppstm)
     }
 
     /**
@@ -25665,23 +25242,20 @@ class Shell {
      * @param {Integer} grfMode Type: <b>DWORD</b>
      * 
      * One or more <a href="https://docs.microsoft.com/windows/desktop/Stg/stgm-constants">STGM</a> values that are used to specify the file access mode and how the object that exposes the stream is created and deleted.
-     * @param {Pointer<IStream>} ppstm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>**</b>
+     * @returns {IStream} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>**</b>
      * 
      * Receives an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface pointer for the stream associated with the file.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-shcreatestreamonfilew
      * @since windows5.1.2600
      */
-    static SHCreateStreamOnFileW(pszFile, grfMode, ppstm) {
+    static SHCreateStreamOnFileW(pszFile, grfMode) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        result := DllCall("SHLWAPI.dll\SHCreateStreamOnFileW", "ptr", pszFile, "uint", grfMode, "ptr*", ppstm, "int")
+        result := DllCall("SHLWAPI.dll\SHCreateStreamOnFileW", "ptr", pszFile, "uint", grfMode, "ptr*", &ppstm := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IStream(ppstm)
     }
 
     /**
@@ -25701,23 +25275,20 @@ class Shell {
      * @param {IStream} pstmTemplate Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * Reserved.
-     * @param {Pointer<IStream>} ppstm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>**</b>
+     * @returns {IStream} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>**</b>
      * 
      * Receives an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface pointer for the stream associated with the file.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-shcreatestreamonfileex
      * @since windows5.1.2600
      */
-    static SHCreateStreamOnFileEx(pszFile, grfMode, dwAttributes, fCreate, pstmTemplate, ppstm) {
+    static SHCreateStreamOnFileEx(pszFile, grfMode, dwAttributes, fCreate, pstmTemplate) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
 
-        result := DllCall("SHLWAPI.dll\SHCreateStreamOnFileEx", "ptr", pszFile, "uint", grfMode, "uint", dwAttributes, "int", fCreate, "ptr", pstmTemplate, "ptr*", ppstm, "int")
+        result := DllCall("SHLWAPI.dll\SHCreateStreamOnFileEx", "ptr", pszFile, "uint", grfMode, "uint", dwAttributes, "int", fCreate, "ptr", pstmTemplate, "ptr*", &ppstm := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IStream(ppstm)
     }
 
     /**
@@ -25858,21 +25429,19 @@ class Shell {
      * @param {IUnknown} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to the COM object from which this function will attempt to obtain a window handle.
-     * @param {Pointer<HWND>} phwnd Type: <b>HWND*</b>
+     * @returns {HWND} Type: <b>HWND*</b>
      * 
      * A pointer to a HWND that, when this function returns successfully, receives the window handle. If a window handle was not obtained, this parameter is set to <b>NULL</b>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * Returns S_OK if a window handle was successfully returned, or a COM error code otherwise. If no suitable interface was found, the function returns E_NOINTERFACE. Otherwise, the function returns the <b>HRESULT</b> returned by the corresponding interface's <b>GetWindow</b> method.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-iunknown_getwindow
      * @since windows5.0
      */
-    static IUnknown_GetWindow(punk, phwnd) {
+    static IUnknown_GetWindow(punk) {
+        phwnd := HWND()
         result := DllCall("SHLWAPI.dll\IUnknown_GetWindow", "ptr", punk, "ptr", phwnd, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return phwnd
     }
 
     /**
@@ -25905,23 +25474,18 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * The IID of the interface pointer that should be returned in <i>ppvSite</i>.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>VOID**</b>
+     * @returns {Pointer<Void>} Type: <b>VOID**</b>
      * 
      * The address of the pointer to receive the requested interface pointer. If the function call is successful, <i>ppvSite</i> will contain the requested interface pointer. If no site is available or the requested interface is not supported, <i>ppvSite</i> is set to <b>NULL</b> and the function returns a COM error code.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * Returns <b>S_OK</b> if the site was successfully retrieved or a COM error code otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-iunknown_getsite
      * @since windows5.0
      */
-    static IUnknown_GetSite(punk, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SHLWAPI.dll\IUnknown_GetSite", "ptr", punk, "ptr", riid, ppvMarshal, ppv, "int")
+    static IUnknown_GetSite(punk, riid) {
+        result := DllCall("SHLWAPI.dll\IUnknown_GetSite", "ptr", punk, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -25935,23 +25499,18 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * The IID of the desired service interface.
-     * @param {Pointer<Pointer<Void>>} ppvOut Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested <i>riid</i>. If successful, the calling application is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> using this value when the service is no longer needed. In the case of failure, this value is <b>NULL</b>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * Returns <b>S_OK</b> if successful. Returns <b>E_FAIL</b> if the object does not support <a href="/previous-versions/windows/internet-explorer/ie-developer/platform-apis/cc678965(v=vs.85)">IServiceProvider</a>. Otherwise, the function returns the <b>HRESULT</b> returned by the object's <a href="/previous-versions/windows/internet-explorer/ie-developer/platform-apis/cc678966(v=vs.85)">QueryService</a> method.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-iunknown_queryservice
      * @since windows5.0
      */
-    static IUnknown_QueryService(punk, guidService, riid, ppvOut) {
-        ppvOutMarshal := ppvOut is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SHLWAPI.dll\IUnknown_QueryService", "ptr", punk, "ptr", guidService, "ptr", riid, ppvOutMarshal, ppvOut, "int")
+    static IUnknown_QueryService(punk, guidService, riid) {
+        result := DllCall("SHLWAPI.dll\IUnknown_QueryService", "ptr", punk, "ptr", guidService, "ptr", riid, "ptr*", &ppvOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppvOut
     }
 
     /**
@@ -26028,23 +25587,18 @@ class Shell {
      * @param {IStream} pstm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface of the stream whose size is to be determined.
-     * @param {Pointer<Integer>} pui Type: <b><a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-ularge_integer~r1">ULARGE_INTEGER</a>*</b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-ularge_integer~r1">ULARGE_INTEGER</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/winnt/ns-winnt-ularge_integer~r1">ULARGE_INTEGER</a> structure to receive the size of the stream.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * Returns <b>S_OK</b> on success or a COM failure code otherwise. See <a href="/windows/desktop/api/objidl/nf-objidl-istream-stat">IStream::Stat</a> for further discussion of possible error codes.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-istream_size
      * @since windows5.0
      */
-    static IStream_Size(pstm, pui) {
-        puiMarshal := pui is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("SHLWAPI.dll\IStream_Size", "ptr", pstm, puiMarshal, pui, "int")
+    static IStream_Size(pstm) {
+        result := DllCall("SHLWAPI.dll\IStream_Size", "ptr", pstm, "uint*", &pui := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pui
     }
 
     /**
@@ -26088,23 +25642,18 @@ class Shell {
      * @param {IStream} pstm Type: <b>IStream*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> from which the PIDL is read.
-     * @param {Pointer<Pointer<ITEMIDLIST>>} ppidlOut Type: <b>PIDLIST_RELATIVE*</b>
+     * @returns {Pointer<ITEMIDLIST>} Type: <b>PIDLIST_RELATIVE*</b>
      * 
      * A pointer to the resulting PIDL.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-istream_readpidl
      * @since windows6.0.6000
      */
-    static IStream_ReadPidl(pstm, ppidlOut) {
-        ppidlOutMarshal := ppidlOut is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SHLWAPI.dll\IStream_ReadPidl", "ptr", pstm, ppidlOutMarshal, ppidlOut, "int")
+    static IStream_ReadPidl(pstm) {
+        result := DllCall("SHLWAPI.dll\IStream_ReadPidl", "ptr", pstm, "ptr*", &ppidlOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppidlOut
     }
 
     /**
@@ -26134,21 +25683,18 @@ class Shell {
      * @param {IStream} pstm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
      * A pointer to the stream from which to read.
-     * @param {Pointer<PWSTR>} ppsz Type: <b>PWSTR*</b>
+     * @returns {PWSTR} Type: <b>PWSTR*</b>
      * 
      * A pointer to the null-terminated, Unicode string into which the stream is written.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-istream_readstr
      * @since windows6.0.6000
      */
-    static IStream_ReadStr(pstm, ppsz) {
-        result := DllCall("SHLWAPI.dll\IStream_ReadStr", "ptr", pstm, "ptr", ppsz, "int")
+    static IStream_ReadStr(pstm) {
+        result := DllCall("SHLWAPI.dll\IStream_ReadStr", "ptr", pstm, "ptr*", &ppsz := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppsz
     }
 
     /**
@@ -26217,25 +25763,20 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the interface to retrieve through <i>ppv</i>.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this method returns successfully, contains the interface pointer requested in <i>riid</i>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-shgetviewstatepropertybag
      * @since windows5.1.2600
      */
-    static SHGetViewStatePropertyBag(pidl, pszBagName, dwFlags, riid, ppv) {
+    static SHGetViewStatePropertyBag(pidl, pszBagName, dwFlags, riid) {
         pszBagName := pszBagName is String ? StrPtr(pszBagName) : pszBagName
 
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SHLWAPI.dll\SHGetViewStatePropertyBag", "ptr", pidl, "ptr", pszBagName, "uint", dwFlags, "ptr", riid, ppvMarshal, ppv, "int")
+        result := DllCall("SHLWAPI.dll\SHGetViewStatePropertyBag", "ptr", pidl, "ptr", pszBagName, "uint", dwFlags, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -26801,24 +26342,20 @@ class Shell {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the interface to retrieve through <i>ppv</i>.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this method returns successfully, contains the interface pointer requested in <i>riid</i>.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * Returns S_OK if the requested interface was found in the table or if the requested interface was IUnknown. Returns E_NOINTERFACE if the requested interface was not found.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-qisearch
      * @since windows5.0
      */
-    static QISearch(that, pqit, riid, ppv) {
+    static QISearch(that, pqit, riid) {
         thatMarshal := that is VarRef ? "ptr" : "ptr"
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("SHLWAPI.dll\QISearch", thatMarshal, that, "ptr", pqit, "ptr", riid, ppvMarshal, ppv, "int")
+        result := DllCall("SHLWAPI.dll\QISearch", thatMarshal, that, "ptr", pqit, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -26912,23 +26449,20 @@ class Shell {
      * @param {Pointer<Integer>} pcRef Type: <b>LONG*</b>
      * 
      * A pointer to a value, usually a local variable in the thread's <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms686736(v=vs.85)">ThreadProc</a>, that is used by the interface in <i>ppunk</i> as a reference counter.
-     * @param {Pointer<IUnknown>} ppunk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
+     * @returns {IUnknown} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
      * 
      * The address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface. If successful, this parameter holds the thread's <b>IUnknown</b> pointer on return. Your application is responsible for freeing the pointer when it is finished.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-shcreatethreadref
      * @since windows5.1.2600
      */
-    static SHCreateThreadRef(pcRef, ppunk) {
+    static SHCreateThreadRef(pcRef) {
         pcRefMarshal := pcRef is VarRef ? "int*" : "ptr"
 
-        result := DllCall("SHLWAPI.dll\SHCreateThreadRef", pcRefMarshal, pcRef, "ptr*", ppunk, "int")
+        result := DllCall("SHLWAPI.dll\SHCreateThreadRef", pcRefMarshal, pcRef, "ptr*", &ppunk := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IUnknown(ppunk)
     }
 
     /**
@@ -26952,21 +26486,18 @@ class Shell {
 
     /**
      * Retrieves the per-thread object reference set by SHSetThreadRef.
-     * @param {Pointer<IUnknown>} ppunk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
+     * @returns {IUnknown} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
      * 
      * The address of a pointer that, when this function returns successfully, points to the object whose reference is stored. Your application is responsible for freeing this resource when it is no longer needed.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * Returns S_OK if the object reference exists, or <b>E_NOINTERFACE</b> otherwise.
      * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-shgetthreadref
      * @since windows5.0
      */
-    static SHGetThreadRef(ppunk) {
-        result := DllCall("SHLWAPI.dll\SHGetThreadRef", "ptr*", ppunk, "int")
+    static SHGetThreadRef() {
+        result := DllCall("SHLWAPI.dll\SHGetThreadRef", "ptr*", &ppunk := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IUnknown(ppunk)
     }
 
     /**
@@ -27201,20 +26732,17 @@ class Shell {
      * @param {Integer} dwSiteData 
      * @param {IUnknown} piunkOuter 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvObj 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    static HlinkCreateFromMoniker(pimkTrgt, pwzLocation, pwzFriendlyName, pihlsite, dwSiteData, piunkOuter, riid, ppvObj) {
+    static HlinkCreateFromMoniker(pimkTrgt, pwzLocation, pwzFriendlyName, pihlsite, dwSiteData, piunkOuter, riid) {
         pwzLocation := pwzLocation is String ? StrPtr(pwzLocation) : pwzLocation
         pwzFriendlyName := pwzFriendlyName is String ? StrPtr(pwzFriendlyName) : pwzFriendlyName
 
-        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("hlink.dll\HlinkCreateFromMoniker", "ptr", pimkTrgt, "ptr", pwzLocation, "ptr", pwzFriendlyName, "ptr", pihlsite, "uint", dwSiteData, "ptr", piunkOuter, "ptr", riid, ppvObjMarshal, ppvObj, "int")
+        result := DllCall("hlink.dll\HlinkCreateFromMoniker", "ptr", pimkTrgt, "ptr", pwzLocation, "ptr", pwzFriendlyName, "ptr", pihlsite, "uint", dwSiteData, "ptr", piunkOuter, "ptr", riid, "ptr*", &ppvObj := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppvObj
     }
 
     /**
@@ -27226,21 +26754,18 @@ class Shell {
      * @param {Integer} dwSiteData 
      * @param {IUnknown} piunkOuter 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvObj 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    static HlinkCreateFromString(pwzTarget, pwzLocation, pwzFriendlyName, pihlsite, dwSiteData, piunkOuter, riid, ppvObj) {
+    static HlinkCreateFromString(pwzTarget, pwzLocation, pwzFriendlyName, pihlsite, dwSiteData, piunkOuter, riid) {
         pwzTarget := pwzTarget is String ? StrPtr(pwzTarget) : pwzTarget
         pwzLocation := pwzLocation is String ? StrPtr(pwzLocation) : pwzLocation
         pwzFriendlyName := pwzFriendlyName is String ? StrPtr(pwzFriendlyName) : pwzFriendlyName
 
-        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("hlink.dll\HlinkCreateFromString", "ptr", pwzTarget, "ptr", pwzLocation, "ptr", pwzFriendlyName, "ptr", pihlsite, "uint", dwSiteData, "ptr", piunkOuter, "ptr", riid, ppvObjMarshal, ppvObj, "int")
+        result := DllCall("hlink.dll\HlinkCreateFromString", "ptr", pwzTarget, "ptr", pwzLocation, "ptr", pwzFriendlyName, "ptr", pihlsite, "uint", dwSiteData, "ptr", piunkOuter, "ptr", riid, "ptr*", &ppvObj := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppvObj
     }
 
     /**
@@ -27250,17 +26775,14 @@ class Shell {
      * @param {Integer} dwSiteData 
      * @param {IUnknown} piunkOuter 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvObj 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    static HlinkCreateFromData(piDataObj, pihlsite, dwSiteData, piunkOuter, riid, ppvObj) {
-        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("hlink.dll\HlinkCreateFromData", "ptr", piDataObj, "ptr", pihlsite, "uint", dwSiteData, "ptr", piunkOuter, "ptr", riid, ppvObjMarshal, ppvObj, "int")
+    static HlinkCreateFromData(piDataObj, pihlsite, dwSiteData, piunkOuter, riid) {
+        result := DllCall("hlink.dll\HlinkCreateFromData", "ptr", piDataObj, "ptr", pihlsite, "uint", dwSiteData, "ptr", piunkOuter, "ptr", riid, "ptr*", &ppvObj := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppvObj
     }
 
     /**
@@ -27282,34 +26804,28 @@ class Shell {
      * @param {Pointer<Guid>} riid 
      * @param {IHlinkSite} pihlsiteForClone 
      * @param {Integer} dwSiteData 
-     * @param {Pointer<Pointer<Void>>} ppvObj 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    static HlinkClone(pihl, riid, pihlsiteForClone, dwSiteData, ppvObj) {
-        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("hlink.dll\HlinkClone", "ptr", pihl, "ptr", riid, "ptr", pihlsiteForClone, "uint", dwSiteData, ppvObjMarshal, ppvObj, "int")
+    static HlinkClone(pihl, riid, pihlsiteForClone, dwSiteData) {
+        result := DllCall("hlink.dll\HlinkClone", "ptr", pihl, "ptr", riid, "ptr", pihlsiteForClone, "uint", dwSiteData, "ptr*", &ppvObj := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppvObj
     }
 
     /**
      * 
      * @param {IUnknown} piunkOuter 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvObj 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    static HlinkCreateBrowseContext(piunkOuter, riid, ppvObj) {
-        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("hlink.dll\HlinkCreateBrowseContext", "ptr", piunkOuter, "ptr", riid, ppvObjMarshal, ppvObj, "int")
+    static HlinkCreateBrowseContext(piunkOuter, riid) {
+        result := DllCall("hlink.dll\HlinkCreateBrowseContext", "ptr", piunkOuter, "ptr", riid, "ptr*", &ppvObj := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppvObj
     }
 
     /**
@@ -27461,19 +26977,18 @@ class Shell {
      * @param {PWSTR} pwzDisplayName 
      * @param {BOOL} fNoForceAbs 
      * @param {Pointer<Integer>} pcchEaten 
-     * @param {Pointer<IMoniker>} ppimk 
-     * @returns {HRESULT} 
+     * @returns {IMoniker} 
      */
-    static HlinkParseDisplayName(pibc, pwzDisplayName, fNoForceAbs, pcchEaten, ppimk) {
+    static HlinkParseDisplayName(pibc, pwzDisplayName, fNoForceAbs, pcchEaten) {
         pwzDisplayName := pwzDisplayName is String ? StrPtr(pwzDisplayName) : pwzDisplayName
 
         pcchEatenMarshal := pcchEaten is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("hlink.dll\HlinkParseDisplayName", "ptr", pibc, "ptr", pwzDisplayName, "int", fNoForceAbs, pcchEatenMarshal, pcchEaten, "ptr*", ppimk, "int")
+        result := DllCall("hlink.dll\HlinkParseDisplayName", "ptr", pibc, "ptr", pwzDisplayName, "int", fNoForceAbs, pcchEatenMarshal, pcchEaten, "ptr*", &ppimk := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IMoniker(ppimk)
     }
 
     /**
@@ -27484,37 +26999,33 @@ class Shell {
      * @param {PWSTR} pszPassword 
      * @param {IUnknown} piunkOuter 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvObj 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    static HlinkCreateExtensionServices(pwzAdditionalHeaders, phwnd, pszUsername, pszPassword, piunkOuter, riid, ppvObj) {
+    static HlinkCreateExtensionServices(pwzAdditionalHeaders, phwnd, pszUsername, pszPassword, piunkOuter, riid) {
         pwzAdditionalHeaders := pwzAdditionalHeaders is String ? StrPtr(pwzAdditionalHeaders) : pwzAdditionalHeaders
         phwnd := phwnd is Win32Handle ? NumGet(phwnd, "ptr") : phwnd
         pszUsername := pszUsername is String ? StrPtr(pszUsername) : pszUsername
         pszPassword := pszPassword is String ? StrPtr(pszPassword) : pszPassword
 
-        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("hlink.dll\HlinkCreateExtensionServices", "ptr", pwzAdditionalHeaders, "ptr", phwnd, "ptr", pszUsername, "ptr", pszPassword, "ptr", piunkOuter, "ptr", riid, ppvObjMarshal, ppvObj, "int")
+        result := DllCall("hlink.dll\HlinkCreateExtensionServices", "ptr", pwzAdditionalHeaders, "ptr", phwnd, "ptr", pszUsername, "ptr", pszPassword, "ptr", piunkOuter, "ptr", riid, "ptr*", &ppvObj := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppvObj
     }
 
     /**
      * 
      * @param {IBindCtx} pibc 
      * @param {IMoniker} pimkIn 
-     * @param {Pointer<IMoniker>} ppimkOut 
-     * @returns {HRESULT} 
+     * @returns {IMoniker} 
      */
-    static HlinkPreprocessMoniker(pibc, pimkIn, ppimkOut) {
-        result := DllCall("hlink.dll\HlinkPreprocessMoniker", "ptr", pibc, "ptr", pimkIn, "ptr*", ppimkOut, "int")
+    static HlinkPreprocessMoniker(pibc, pimkIn) {
+        result := DllCall("hlink.dll\HlinkPreprocessMoniker", "ptr", pibc, "ptr", pimkIn, "ptr*", &ppimkOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IMoniker(ppimkOut)
     }
 
     /**
@@ -27551,15 +27062,14 @@ class Shell {
     /**
      * 
      * @param {Integer} uReference 
-     * @param {Pointer<PWSTR>} ppwzReference 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    static HlinkGetSpecialReference(uReference, ppwzReference) {
-        result := DllCall("hlink.dll\HlinkGetSpecialReference", "uint", uReference, "ptr", ppwzReference, "int")
+    static HlinkGetSpecialReference(uReference) {
+        result := DllCall("hlink.dll\HlinkGetSpecialReference", "uint", uReference, "ptr*", &ppwzReference := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppwzReference
     }
 
     /**
@@ -27568,19 +27078,18 @@ class Shell {
      * @param {IHlink} pihl 
      * @param {PWSTR} pwzDir 
      * @param {PWSTR} pwzFileName 
-     * @param {Pointer<PWSTR>} ppwzShortcutFile 
      * @param {Integer} dwReserved 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    static HlinkCreateShortcut(grfHLSHORTCUTF, pihl, pwzDir, pwzFileName, ppwzShortcutFile, dwReserved) {
+    static HlinkCreateShortcut(grfHLSHORTCUTF, pihl, pwzDir, pwzFileName, dwReserved) {
         pwzDir := pwzDir is String ? StrPtr(pwzDir) : pwzDir
         pwzFileName := pwzFileName is String ? StrPtr(pwzFileName) : pwzFileName
 
-        result := DllCall("hlink.dll\HlinkCreateShortcut", "uint", grfHLSHORTCUTF, "ptr", pihl, "ptr", pwzDir, "ptr", pwzFileName, "ptr", ppwzShortcutFile, "uint", dwReserved, "int")
+        result := DllCall("hlink.dll\HlinkCreateShortcut", "uint", grfHLSHORTCUTF, "ptr", pihl, "ptr", pwzDir, "ptr", pwzFileName, "ptr*", &ppwzShortcutFile := 0, "uint", dwReserved, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppwzShortcutFile
     }
 
     /**
@@ -27590,20 +27099,19 @@ class Shell {
      * @param {PWSTR} pwzLocation 
      * @param {PWSTR} pwzDir 
      * @param {PWSTR} pwzFileName 
-     * @param {Pointer<PWSTR>} ppwzShortcutFile 
      * @param {Integer} dwReserved 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    static HlinkCreateShortcutFromMoniker(grfHLSHORTCUTF, pimkTarget, pwzLocation, pwzDir, pwzFileName, ppwzShortcutFile, dwReserved) {
+    static HlinkCreateShortcutFromMoniker(grfHLSHORTCUTF, pimkTarget, pwzLocation, pwzDir, pwzFileName, dwReserved) {
         pwzLocation := pwzLocation is String ? StrPtr(pwzLocation) : pwzLocation
         pwzDir := pwzDir is String ? StrPtr(pwzDir) : pwzDir
         pwzFileName := pwzFileName is String ? StrPtr(pwzFileName) : pwzFileName
 
-        result := DllCall("hlink.dll\HlinkCreateShortcutFromMoniker", "uint", grfHLSHORTCUTF, "ptr", pimkTarget, "ptr", pwzLocation, "ptr", pwzDir, "ptr", pwzFileName, "ptr", ppwzShortcutFile, "uint", dwReserved, "int")
+        result := DllCall("hlink.dll\HlinkCreateShortcutFromMoniker", "uint", grfHLSHORTCUTF, "ptr", pimkTarget, "ptr", pwzLocation, "ptr", pwzDir, "ptr", pwzFileName, "ptr*", &ppwzShortcutFile := 0, "uint", dwReserved, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppwzShortcutFile
     }
 
     /**
@@ -27613,21 +27121,20 @@ class Shell {
      * @param {PWSTR} pwzLocation 
      * @param {PWSTR} pwzDir 
      * @param {PWSTR} pwzFileName 
-     * @param {Pointer<PWSTR>} ppwzShortcutFile 
      * @param {Integer} dwReserved 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    static HlinkCreateShortcutFromString(grfHLSHORTCUTF, pwzTarget, pwzLocation, pwzDir, pwzFileName, ppwzShortcutFile, dwReserved) {
+    static HlinkCreateShortcutFromString(grfHLSHORTCUTF, pwzTarget, pwzLocation, pwzDir, pwzFileName, dwReserved) {
         pwzTarget := pwzTarget is String ? StrPtr(pwzTarget) : pwzTarget
         pwzLocation := pwzLocation is String ? StrPtr(pwzLocation) : pwzLocation
         pwzDir := pwzDir is String ? StrPtr(pwzDir) : pwzDir
         pwzFileName := pwzFileName is String ? StrPtr(pwzFileName) : pwzFileName
 
-        result := DllCall("hlink.dll\HlinkCreateShortcutFromString", "uint", grfHLSHORTCUTF, "ptr", pwzTarget, "ptr", pwzLocation, "ptr", pwzDir, "ptr", pwzFileName, "ptr", ppwzShortcutFile, "uint", dwReserved, "int")
+        result := DllCall("hlink.dll\HlinkCreateShortcutFromString", "uint", grfHLSHORTCUTF, "ptr", pwzTarget, "ptr", pwzLocation, "ptr", pwzDir, "ptr", pwzFileName, "ptr*", &ppwzShortcutFile := 0, "uint", dwReserved, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppwzShortcutFile
     }
 
     /**
@@ -27662,7 +27169,9 @@ class Shell {
     static HlinkResolveShortcutToMoniker(pwzShortcutFileName, ppimkTarget, ppwzLocation) {
         pwzShortcutFileName := pwzShortcutFileName is String ? StrPtr(pwzShortcutFileName) : pwzShortcutFileName
 
-        result := DllCall("hlink.dll\HlinkResolveShortcutToMoniker", "ptr", pwzShortcutFileName, "ptr*", ppimkTarget, "ptr", ppwzLocation, "int")
+        ppwzLocationMarshal := ppwzLocation is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("hlink.dll\HlinkResolveShortcutToMoniker", "ptr", pwzShortcutFileName, "ptr*", ppimkTarget, ppwzLocationMarshal, ppwzLocation, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27679,7 +27188,10 @@ class Shell {
     static HlinkResolveShortcutToString(pwzShortcutFileName, ppwzTarget, ppwzLocation) {
         pwzShortcutFileName := pwzShortcutFileName is String ? StrPtr(pwzShortcutFileName) : pwzShortcutFileName
 
-        result := DllCall("hlink.dll\HlinkResolveShortcutToString", "ptr", pwzShortcutFileName, "ptr", ppwzTarget, "ptr", ppwzLocation, "int")
+        ppwzTargetMarshal := ppwzTarget is VarRef ? "ptr*" : "ptr"
+        ppwzLocationMarshal := ppwzLocation is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("hlink.dll\HlinkResolveShortcutToString", "ptr", pwzShortcutFileName, ppwzTargetMarshal, ppwzTarget, ppwzLocationMarshal, ppwzLocation, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27705,35 +27217,33 @@ class Shell {
      * 
      * @param {PWSTR} pwzParams 
      * @param {PWSTR} pwzName 
-     * @param {Pointer<PWSTR>} ppwzValue 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    static HlinkGetValueFromParams(pwzParams, pwzName, ppwzValue) {
+    static HlinkGetValueFromParams(pwzParams, pwzName) {
         pwzParams := pwzParams is String ? StrPtr(pwzParams) : pwzParams
         pwzName := pwzName is String ? StrPtr(pwzName) : pwzName
 
-        result := DllCall("hlink.dll\HlinkGetValueFromParams", "ptr", pwzParams, "ptr", pwzName, "ptr", ppwzValue, "int")
+        result := DllCall("hlink.dll\HlinkGetValueFromParams", "ptr", pwzParams, "ptr", pwzName, "ptr*", &ppwzValue := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppwzValue
     }
 
     /**
      * 
      * @param {PWSTR} pwzURL 
      * @param {Integer} grfFlags 
-     * @param {Pointer<PWSTR>} ppwzTranslatedURL 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    static HlinkTranslateURL(pwzURL, grfFlags, ppwzTranslatedURL) {
+    static HlinkTranslateURL(pwzURL, grfFlags) {
         pwzURL := pwzURL is String ? StrPtr(pwzURL) : pwzURL
 
-        result := DllCall("hlink.dll\HlinkTranslateURL", "ptr", pwzURL, "uint", grfFlags, "ptr", ppwzTranslatedURL, "int")
+        result := DllCall("hlink.dll\HlinkTranslateURL", "ptr", pwzURL, "uint", grfFlags, "ptr*", &ppwzTranslatedURL := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppwzTranslatedURL
     }
 
     /**
@@ -27747,7 +27257,9 @@ class Shell {
     static PathIsUNCEx(pszPath, ppszServer) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathIsUNCEx", "ptr", pszPath, "ptr", ppszServer, "int")
+        ppszServerMarshal := ppszServer is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathIsUNCEx", "ptr", pszPath, ppszServerMarshal, ppszServer, "int")
         return result
     }
 
@@ -27778,9 +27290,10 @@ class Shell {
     static PathCchAddBackslashEx(pszPath, cchPath, ppszEnd, pcchRemaining) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
+        ppszEndMarshal := ppszEnd is VarRef ? "ptr*" : "ptr"
         pcchRemainingMarshal := pcchRemaining is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchAddBackslashEx", "ptr", pszPath, "ptr", cchPath, "ptr", ppszEnd, pcchRemainingMarshal, pcchRemaining, "int")
+        result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchAddBackslashEx", "ptr", pszPath, "ptr", cchPath, ppszEndMarshal, ppszEnd, pcchRemainingMarshal, pcchRemaining, "int")
         return result
     }
 
@@ -27812,9 +27325,10 @@ class Shell {
     static PathCchRemoveBackslashEx(pszPath, cchPath, ppszEnd, pcchRemaining) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
+        ppszEndMarshal := ppszEnd is VarRef ? "ptr*" : "ptr"
         pcchRemainingMarshal := pcchRemaining is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchRemoveBackslashEx", "ptr", pszPath, "ptr", cchPath, "ptr", ppszEnd, pcchRemainingMarshal, pcchRemaining, "int")
+        result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchRemoveBackslashEx", "ptr", pszPath, "ptr", cchPath, ppszEndMarshal, ppszEnd, pcchRemainingMarshal, pcchRemaining, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -27839,19 +27353,18 @@ class Shell {
     /**
      * Retrieves a pointer to the first character in a path following the drive letter or Universal Naming Convention (UNC) server/share path elements.This function differs from PathSkipRoot in that it accepts paths with &quot;\\&quot;, &quot;\\?\&quot; and &quot;\\?\UNC\&quot; prefixes.
      * @param {PWSTR} pszPath A pointer to the path string.
-     * @param {Pointer<PWSTR>} ppszRootEnd The address of a pointer that, when this function returns successfully, points to the first character in a path following the drive letter or UNC server/share path elements. If the path consists of only a root, this value will point to the string's terminating null character.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @returns {PWSTR} The address of a pointer that, when this function returns successfully, points to the first character in a path following the drive letter or UNC server/share path elements. If the path consists of only a root, this value will point to the string's terminating null character.
      * @see https://docs.microsoft.com/windows/win32/api//pathcch/nf-pathcch-pathcchskiproot
      * @since windows8.0
      */
-    static PathCchSkipRoot(pszPath, ppszRootEnd) {
+    static PathCchSkipRoot(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchSkipRoot", "ptr", pszPath, "ptr", ppszRootEnd, "int")
+        result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchSkipRoot", "ptr", pszPath, "ptr*", &ppszRootEnd := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppszRootEnd
     }
 
     /**
@@ -27891,19 +27404,18 @@ class Shell {
      * Searches a path to find its file name extension, such as &quot;.exe&quot; or &quot;.ini&quot;.
      * @param {PWSTR} pszPath A pointer to the path to search.
      * @param {Pointer} cchPath The size of the buffer pointed to by <i>pszPath</i>, in characters.
-     * @param {Pointer<PWSTR>} ppszExt The address of a pointer that, when this function returns successfully, points to the "." character that precedes the extension within <i>pszPath</i>. If no extension is found, it points to the string's terminating null character.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @returns {PWSTR} The address of a pointer that, when this function returns successfully, points to the "." character that precedes the extension within <i>pszPath</i>. If no extension is found, it points to the string's terminating null character.
      * @see https://docs.microsoft.com/windows/win32/api//pathcch/nf-pathcch-pathcchfindextension
      * @since windows8.0
      */
-    static PathCchFindExtension(pszPath, cchPath, ppszExt) {
+    static PathCchFindExtension(pszPath, cchPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchFindExtension", "ptr", pszPath, "ptr", cchPath, "ptr", ppszExt, "int")
+        result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathCchFindExtension", "ptr", pszPath, "ptr", cchPath, "ptr*", &ppszExt := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppszExt
     }
 
     /**
@@ -28707,20 +28219,19 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<PWSTR>} ppszPathOut The address of a pointer to a buffer that, when this function returns successfully, receives the combined path string. It is the responsibility of the caller to free this resource, when it is no longer needed, by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function. This value cannot be <b>NULL</b>.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @returns {PWSTR} The address of a pointer to a buffer that, when this function returns successfully, receives the combined path string. It is the responsibility of the caller to free this resource, when it is no longer needed, by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function. This value cannot be <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//pathcch/nf-pathcch-pathalloccombine
      * @since windows8.0
      */
-    static PathAllocCombine(pszPathIn, pszMore, dwFlags, ppszPathOut) {
+    static PathAllocCombine(pszPathIn, pszMore, dwFlags) {
         pszPathIn := pszPathIn is String ? StrPtr(pszPathIn) : pszPathIn
         pszMore := pszMore is String ? StrPtr(pszMore) : pszMore
 
-        result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathAllocCombine", "ptr", pszPathIn, "ptr", pszMore, "uint", dwFlags, "ptr", ppszPathOut, "int")
+        result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathAllocCombine", "ptr", pszPathIn, "ptr", pszMore, "uint", dwFlags, "ptr*", &ppszPathOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppszPathOut
     }
 
     /**
@@ -28807,19 +28318,18 @@ class Shell {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<PWSTR>} ppszPathOut The address of a pointer to a buffer that, when this function returns successfully, receives the canonicalized path string. It is the responsibility of the caller to free this resource, when it is no longer needed, by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function. This value cannot be <b>NULL</b>.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @returns {PWSTR} The address of a pointer to a buffer that, when this function returns successfully, receives the canonicalized path string. It is the responsibility of the caller to free this resource, when it is no longer needed, by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function. This value cannot be <b>NULL</b>.
      * @see https://docs.microsoft.com/windows/win32/api//pathcch/nf-pathcch-pathalloccanonicalize
      * @since windows8.0
      */
-    static PathAllocCanonicalize(pszPathIn, dwFlags, ppszPathOut) {
+    static PathAllocCanonicalize(pszPathIn, dwFlags) {
         pszPathIn := pszPathIn is String ? StrPtr(pszPathIn) : pszPathIn
 
-        result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathAllocCanonicalize", "ptr", pszPathIn, "uint", dwFlags, "ptr", ppszPathOut, "int")
+        result := DllCall("api-ms-win-core-path-l1-1-0.dll\PathAllocCanonicalize", "ptr", pszPathIn, "uint", dwFlags, "ptr*", &ppszPathOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppszPathOut
     }
 
     /**
@@ -28832,8 +28342,9 @@ class Shell {
      */
     static RegisterAppStateChangeNotification(Routine, Context, Registration) {
         ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+        RegistrationMarshal := Registration is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("api-ms-win-core-psm-appnotify-l1-1-0.dll\RegisterAppStateChangeNotification", "ptr", Routine, ContextMarshal, Context, "ptr", Registration, "uint")
+        result := DllCall("api-ms-win-core-psm-appnotify-l1-1-0.dll\RegisterAppStateChangeNotification", "ptr", Routine, ContextMarshal, Context, RegistrationMarshal, Registration, "uint")
         return result
     }
 
@@ -28856,8 +28367,9 @@ class Shell {
      */
     static RegisterAppConstrainedChangeNotification(Routine, Context, Registration) {
         ContextMarshal := Context is VarRef ? "ptr" : "ptr"
+        RegistrationMarshal := Registration is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("api-ms-win-core-psm-appnotify-l1-1-1.dll\RegisterAppConstrainedChangeNotification", "ptr", Routine, ContextMarshal, Context, "ptr", Registration, "uint")
+        result := DllCall("api-ms-win-core-psm-appnotify-l1-1-1.dll\RegisterAppConstrainedChangeNotification", "ptr", Routine, ContextMarshal, Context, RegistrationMarshal, Registration, "uint")
         return result
     }
 

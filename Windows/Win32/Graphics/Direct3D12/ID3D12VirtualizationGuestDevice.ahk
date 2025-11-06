@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,27 +34,24 @@ class ID3D12VirtualizationGuestDevice extends IUnknown{
     /**
      * 
      * @param {ID3D12DeviceChild} pObject 
-     * @param {Pointer<HANDLE>} pHandle 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12virtualizationguestdevice-sharewithhost
      */
-    ShareWithHost(pObject, pHandle) {
+    ShareWithHost(pObject) {
+        pHandle := HANDLE()
         result := ComCall(3, this, "ptr", pObject, "ptr", pHandle, "HRESULT")
-        return result
+        return pHandle
     }
 
     /**
      * 
      * @param {ID3D12Fence} pFence 
      * @param {Integer} FenceValue 
-     * @param {Pointer<Integer>} pFenceFd 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12virtualizationguestdevice-createfencefd
      */
-    CreateFenceFd(pFence, FenceValue, pFenceFd) {
-        pFenceFdMarshal := pFenceFd is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, "ptr", pFence, "uint", FenceValue, pFenceFdMarshal, pFenceFd, "HRESULT")
-        return result
+    CreateFenceFd(pFence, FenceValue) {
+        result := ComCall(4, this, "ptr", pFence, "uint", FenceValue, "int*", &pFenceFd := 0, "HRESULT")
+        return pFenceFd
     }
 }

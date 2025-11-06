@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Graphics\DirectDraw\IDirectDrawSurface7.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -35,15 +36,14 @@ class IVMRSurfaceAllocator extends IUnknown{
      * @param {Pointer} dwUserID 
      * @param {Pointer<VMRALLOCATIONINFO>} lpAllocInfo 
      * @param {Pointer<Integer>} lpdwActualBuffers 
-     * @param {Pointer<IDirectDrawSurface7>} lplpSurface 
-     * @returns {HRESULT} 
+     * @returns {IDirectDrawSurface7} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrsurfaceallocator-allocatesurface
      */
-    AllocateSurface(dwUserID, lpAllocInfo, lpdwActualBuffers, lplpSurface) {
+    AllocateSurface(dwUserID, lpAllocInfo, lpdwActualBuffers) {
         lpdwActualBuffersMarshal := lpdwActualBuffers is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", dwUserID, "ptr", lpAllocInfo, lpdwActualBuffersMarshal, lpdwActualBuffers, "ptr*", lplpSurface, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", dwUserID, "ptr", lpAllocInfo, lpdwActualBuffersMarshal, lpdwActualBuffers, "ptr*", &lplpSurface := 0, "HRESULT")
+        return IDirectDrawSurface7(lplpSurface)
     }
 
     /**

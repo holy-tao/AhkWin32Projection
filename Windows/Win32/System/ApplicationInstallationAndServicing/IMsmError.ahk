@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMsmStrings.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -80,13 +81,12 @@ class IMsmError extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IMsmStrings>} ErrorKeys 
-     * @returns {HRESULT} 
+     * @returns {IMsmStrings} 
      * @see https://learn.microsoft.com/windows/win32/api/mergemod/nf-mergemod-imsmerror-get_databasekeys
      */
-    get_DatabaseKeys(ErrorKeys) {
-        result := ComCall(11, this, "ptr*", ErrorKeys, "HRESULT")
-        return result
+    get_DatabaseKeys() {
+        result := ComCall(11, this, "ptr*", &ErrorKeys := 0, "HRESULT")
+        return IMsmStrings(ErrorKeys)
     }
 
     /**
@@ -102,12 +102,11 @@ class IMsmError extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IMsmStrings>} ErrorKeys 
-     * @returns {HRESULT} 
+     * @returns {IMsmStrings} 
      * @see https://learn.microsoft.com/windows/win32/api/mergemod/nf-mergemod-imsmerror-get_modulekeys
      */
-    get_ModuleKeys(ErrorKeys) {
-        result := ComCall(13, this, "ptr*", ErrorKeys, "HRESULT")
-        return result
+    get_ModuleKeys() {
+        result := ComCall(13, this, "ptr*", &ErrorKeys := 0, "HRESULT")
+        return IMsmStrings(ErrorKeys)
     }
 }

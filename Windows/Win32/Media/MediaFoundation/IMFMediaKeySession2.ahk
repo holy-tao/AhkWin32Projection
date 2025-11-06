@@ -46,14 +46,13 @@ class IMFMediaKeySession2 extends IMFMediaKeySession{
     /**
      * 
      * @param {BSTR} bstrSessionId 
-     * @param {Pointer<BOOL>} pfLoaded 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    Load(bstrSessionId, pfLoaded) {
+    Load(bstrSessionId) {
         bstrSessionId := bstrSessionId is String ? BSTR.Alloc(bstrSessionId).Value : bstrSessionId
 
-        result := ComCall(9, this, "ptr", bstrSessionId, "ptr", pfLoaded, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", bstrSessionId, "int*", &pfLoaded := 0, "HRESULT")
+        return pfLoaded
     }
 
     /**
@@ -72,14 +71,11 @@ class IMFMediaKeySession2 extends IMFMediaKeySession{
 
     /**
      * 
-     * @param {Pointer<Float>} dblExpiration 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_Expiration(dblExpiration) {
-        dblExpirationMarshal := dblExpiration is VarRef ? "double*" : "ptr"
-
-        result := ComCall(11, this, dblExpirationMarshal, dblExpiration, "HRESULT")
-        return result
+    get_Expiration() {
+        result := ComCall(11, this, "double*", &dblExpiration := 0, "HRESULT")
+        return dblExpiration
     }
 
     /**

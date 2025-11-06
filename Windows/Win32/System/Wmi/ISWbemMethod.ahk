@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\ISWbemObject.ahk
+#Include .\ISWbemQualifierSet.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -36,51 +39,48 @@ class ISWbemMethod extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} strName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Name(strName) {
+    get_Name() {
+        strName := BSTR()
         result := ComCall(7, this, "ptr", strName, "HRESULT")
-        return result
+        return strName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} strOrigin 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Origin(strOrigin) {
+    get_Origin() {
+        strOrigin := BSTR()
         result := ComCall(8, this, "ptr", strOrigin, "HRESULT")
-        return result
+        return strOrigin
     }
 
     /**
      * 
-     * @param {Pointer<ISWbemObject>} objWbemInParameters 
-     * @returns {HRESULT} 
+     * @returns {ISWbemObject} 
      */
-    get_InParameters(objWbemInParameters) {
-        result := ComCall(9, this, "ptr*", objWbemInParameters, "HRESULT")
-        return result
+    get_InParameters() {
+        result := ComCall(9, this, "ptr*", &objWbemInParameters := 0, "HRESULT")
+        return ISWbemObject(objWbemInParameters)
     }
 
     /**
      * 
-     * @param {Pointer<ISWbemObject>} objWbemOutParameters 
-     * @returns {HRESULT} 
+     * @returns {ISWbemObject} 
      */
-    get_OutParameters(objWbemOutParameters) {
-        result := ComCall(10, this, "ptr*", objWbemOutParameters, "HRESULT")
-        return result
+    get_OutParameters() {
+        result := ComCall(10, this, "ptr*", &objWbemOutParameters := 0, "HRESULT")
+        return ISWbemObject(objWbemOutParameters)
     }
 
     /**
      * 
-     * @param {Pointer<ISWbemQualifierSet>} objWbemQualifierSet 
-     * @returns {HRESULT} 
+     * @returns {ISWbemQualifierSet} 
      */
-    get_Qualifiers_(objWbemQualifierSet) {
-        result := ComCall(11, this, "ptr*", objWbemQualifierSet, "HRESULT")
-        return result
+    get_Qualifiers_() {
+        result := ComCall(11, this, "ptr*", &objWbemQualifierSet := 0, "HRESULT")
+        return ISWbemQualifierSet(objWbemQualifierSet)
     }
 }

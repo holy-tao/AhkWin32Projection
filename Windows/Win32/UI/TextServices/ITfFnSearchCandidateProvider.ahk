@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ITfCandidateList.ahk
 #Include .\ITfFunction.ahk
 
 /**
@@ -44,16 +45,15 @@ class ITfFnSearchCandidateProvider extends ITfFunction{
      * 
      * @param {BSTR} bstrQuery 
      * @param {BSTR} bstrApplicationId 
-     * @param {Pointer<ITfCandidateList>} pplist 
-     * @returns {HRESULT} 
+     * @returns {ITfCandidateList} 
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnsearchcandidateprovider-getsearchcandidates
      */
-    GetSearchCandidates(bstrQuery, bstrApplicationId, pplist) {
+    GetSearchCandidates(bstrQuery, bstrApplicationId) {
         bstrQuery := bstrQuery is String ? BSTR.Alloc(bstrQuery).Value : bstrQuery
         bstrApplicationId := bstrApplicationId is String ? BSTR.Alloc(bstrApplicationId).Value : bstrApplicationId
 
-        result := ComCall(4, this, "ptr", bstrQuery, "ptr", bstrApplicationId, "ptr*", pplist, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", bstrQuery, "ptr", bstrApplicationId, "ptr*", &pplist := 0, "HRESULT")
+        return ITfCandidateList(pplist)
     }
 
     /**

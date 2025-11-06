@@ -2254,7 +2254,9 @@ class Performance {
         hQuery := hQuery is Win32Handle ? NumGet(hQuery, "ptr") : hQuery
         szFullCounterPath := szFullCounterPath is String ? StrPtr(szFullCounterPath) : szFullCounterPath
 
-        result := DllCall("pdh.dll\PdhAddCounterW", "ptr", hQuery, "ptr", szFullCounterPath, "ptr", dwUserData, "ptr", phCounter, "uint")
+        phCounterMarshal := phCounter is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("pdh.dll\PdhAddCounterW", "ptr", hQuery, "ptr", szFullCounterPath, "ptr", dwUserData, phCounterMarshal, phCounter, "uint")
         return result
     }
 
@@ -2385,7 +2387,9 @@ class Performance {
         hQuery := hQuery is Win32Handle ? NumGet(hQuery, "ptr") : hQuery
         szFullCounterPath := szFullCounterPath is String ? StrPtr(szFullCounterPath) : szFullCounterPath
 
-        result := DllCall("pdh.dll\PdhAddCounterA", "ptr", hQuery, "ptr", szFullCounterPath, "ptr", dwUserData, "ptr", phCounter, "uint")
+        phCounterMarshal := phCounter is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("pdh.dll\PdhAddCounterA", "ptr", hQuery, "ptr", szFullCounterPath, "ptr", dwUserData, phCounterMarshal, phCounter, "uint")
         return result
     }
 
@@ -2516,7 +2520,9 @@ class Performance {
         hQuery := hQuery is Win32Handle ? NumGet(hQuery, "ptr") : hQuery
         szFullCounterPath := szFullCounterPath is String ? StrPtr(szFullCounterPath) : szFullCounterPath
 
-        result := DllCall("pdh.dll\PdhAddEnglishCounterW", "ptr", hQuery, "ptr", szFullCounterPath, "ptr", dwUserData, "ptr", phCounter, "uint")
+        phCounterMarshal := phCounter is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("pdh.dll\PdhAddEnglishCounterW", "ptr", hQuery, "ptr", szFullCounterPath, "ptr", dwUserData, phCounterMarshal, phCounter, "uint")
         return result
     }
 
@@ -2647,7 +2653,9 @@ class Performance {
         hQuery := hQuery is Win32Handle ? NumGet(hQuery, "ptr") : hQuery
         szFullCounterPath := szFullCounterPath is String ? StrPtr(szFullCounterPath) : szFullCounterPath
 
-        result := DllCall("pdh.dll\PdhAddEnglishCounterA", "ptr", hQuery, "ptr", szFullCounterPath, "ptr", dwUserData, "ptr", phCounter, "uint")
+        phCounterMarshal := phCounter is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("pdh.dll\PdhAddEnglishCounterA", "ptr", hQuery, "ptr", szFullCounterPath, "ptr", dwUserData, phCounterMarshal, phCounter, "uint")
         return result
     }
 

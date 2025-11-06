@@ -5604,7 +5604,6 @@ class Bluetooth {
      * @param {HANDLE} hDevice Handle to the Bluetooth device from which to obtain the list of primary services.
      * @param {Integer} ServicesBufferCount The number of elements allocated for the <i>ServicesBuffer</i> parameter.
      * @param {Pointer<BTH_LE_GATT_SERVICE>} ServicesBuffer Pointer to buffer containing a <a href="https://docs.microsoft.com/windows/desktop/api/bthledef/ns-bthledef-bth_le_gatt_service">BTH_LE_GATT_SERVICE</a> structure into which to return services.
-     * @param {Pointer<Integer>} ServicesBufferActual Pointer to buffer into which the actual number of services were returned in the <i>ServicesBuffer</i> parameter.
      * @param {Integer} Flags Flags to modify the behavior of <b>BluetoothGATTGetServices</b>:
      * 
      * <table>
@@ -5623,123 +5622,18 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @returns {HRESULT} This function returns the following values:
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation completed successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_MORE_DATA</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The buffer parameter is NULL and the number of items available is being returned instead.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_ACCESS_DENIED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Returned if both a parent service and a service handle are provided and the service hierarchy does not roll up to the provided parent service handle.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INVALID_PARAMETER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the following conditions occurred:
-     * 
-     * <ul>
-     * <li><i>ServicesBuffer</i> is <b>NULL</b>, and <i>ServicesBufferCount</i> is 0</li>
-     * <li><i>ServicesBuffer</i> is non-<b>NULL</b>, but <i>ServicesBufferCount</i> is <b>NULL</b></li>
-     * <li><i>ServicesBuffer</i> is non-<b>NULL</b>, and <i>ServicesBufferCount</i> is 0</li>
-     * </ul>
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INVALID_USER_BUFFER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * A buffer is specified, but the buffer count
-     *             size is smaller than what is required, in bytes.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INVALID_FUNCTION</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Services were specified to be retrieved from
-     *             the cache, but no services are present in the cache.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_BAD_COMMAND</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The current data in the cache appears to be
-     *             inconsistent, and is leading to internal errors.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_NO_SYSTEM_RESOURCES</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation ran out of memory.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} Pointer to buffer into which the actual number of services were returned in the <i>ServicesBuffer</i> parameter.
      * @see https://docs.microsoft.com/windows/win32/api//bluetoothleapis/nf-bluetoothleapis-bluetoothgattgetservices
      * @since windows8.0
      */
-    static BluetoothGATTGetServices(hDevice, ServicesBufferCount, ServicesBuffer, ServicesBufferActual, Flags) {
+    static BluetoothGATTGetServices(hDevice, ServicesBufferCount, ServicesBuffer, Flags) {
         hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
 
-        ServicesBufferActualMarshal := ServicesBufferActual is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("BluetoothApis.dll\BluetoothGATTGetServices", "ptr", hDevice, "ushort", ServicesBufferCount, "ptr", ServicesBuffer, ServicesBufferActualMarshal, ServicesBufferActual, "uint", Flags, "int")
+        result := DllCall("BluetoothApis.dll\BluetoothGATTGetServices", "ptr", hDevice, "ushort", ServicesBufferCount, "ptr", ServicesBuffer, "ushort*", &ServicesBufferActual := 0, "uint", Flags, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ServicesBufferActual
     }
 
     /**
@@ -5748,7 +5642,6 @@ class Bluetooth {
      * @param {Pointer<BTH_LE_GATT_SERVICE>} ParentService Address of a <a href="https://docs.microsoft.com/windows/desktop/api/bthledef/ns-bthledef-bth_le_gatt_service">BTH_LE_GATT_SERVICE</a> structure that contains the parent service of the included services to be retrieved. This parameter is required if a device handle is passed to <i>hDevice</i>. This parameter is optional if a service handle was passed to <i>hDevice</i>, in which case the service specified by the service handle will be treated as the parent.
      * @param {Integer} IncludedServicesBufferCount The number of elements allocated for the <i>IncludedServicesBuffer</i> parameter.
      * @param {Pointer<BTH_LE_GATT_SERVICE>} IncludedServicesBuffer Address of a buffer containing a <a href="https://docs.microsoft.com/windows/desktop/api/bthledef/ns-bthledef-bth_le_gatt_service">BTH_LE_GATT_SERVICE</a> structure into which to return included services.
-     * @param {Pointer<Integer>} IncludedServicesBufferActual Pointer to buffer into which the actual number of included services were returned in the <i>IncludedServicesBuffer</i> parameter.
      * @param {Integer} Flags Flags to modify the behavior of <b>BluetoothGATTGetIncludedServices</b>:
      * 
      * <table>
@@ -5767,123 +5660,18 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @returns {HRESULT} This function returns the following values:
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation completed successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_MORE_DATA</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The buffer parameter is <b>NULL</b> and the number of items available is being returned instead.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_ACCESS_DENIED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Returned if both a parent service and a service handle are provided and the service hierarchy does not roll up to the provided parent service handle.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INVALID_PARAMETER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the following conditions occurred:
-     * 
-     * <ul>
-     * <li><i>IncludedServicesBuffer</i> is <b>NULL</b>, and <i>IncludedServicesBufferCount</i> is 0.</li>
-     * <li><i>IncludedServicesBuffer</i> is non-<b>NULL</b>, but <i>IncludedServicesBufferCount</i> is <b>NULL</b>.</li>
-     * <li><i>IncludedServicesBuffer</i> is non-<b>NULL</b>, and <i>IncludedServicesBufferCount</i> is 0.</li>
-     * </ul>
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INVALID_USER_BUFFER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * A buffer is specified, but the buffer count
-     *             size is smaller than what is required, in bytes.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INVALID_FUNCTION</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Services were specified to be retrieved from
-     *             the cache, but no services are present in the cache.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_BAD_COMMAND</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The current data in the cache appears to be
-     *             inconsistent, and is leading to internal errors.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_NO_SYSTEM_RESOURCES</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation ran out of memory.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} Pointer to buffer into which the actual number of included services were returned in the <i>IncludedServicesBuffer</i> parameter.
      * @see https://docs.microsoft.com/windows/win32/api//bluetoothleapis/nf-bluetoothleapis-bluetoothgattgetincludedservices
      * @since windows8.0
      */
-    static BluetoothGATTGetIncludedServices(hDevice, ParentService, IncludedServicesBufferCount, IncludedServicesBuffer, IncludedServicesBufferActual, Flags) {
+    static BluetoothGATTGetIncludedServices(hDevice, ParentService, IncludedServicesBufferCount, IncludedServicesBuffer, Flags) {
         hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
 
-        IncludedServicesBufferActualMarshal := IncludedServicesBufferActual is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("BluetoothApis.dll\BluetoothGATTGetIncludedServices", "ptr", hDevice, "ptr", ParentService, "ushort", IncludedServicesBufferCount, "ptr", IncludedServicesBuffer, IncludedServicesBufferActualMarshal, IncludedServicesBufferActual, "uint", Flags, "int")
+        result := DllCall("BluetoothApis.dll\BluetoothGATTGetIncludedServices", "ptr", hDevice, "ptr", ParentService, "ushort", IncludedServicesBufferCount, "ptr", IncludedServicesBuffer, "ushort*", &IncludedServicesBufferActual := 0, "uint", Flags, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IncludedServicesBufferActual
     }
 
     /**
@@ -5892,7 +5680,6 @@ class Bluetooth {
      * @param {Pointer<BTH_LE_GATT_SERVICE>} Service Address of a <a href="https://docs.microsoft.com/windows/desktop/api/bthledef/ns-bthledef-bth_le_gatt_service">BTH_LE_GATT_SERVICE</a> structure containing the parent service of the included services to be retrieved. This parameter is required if a device handle is passed to <i>hDevice</i>. This parameter is optional if a service handle was passed to <i>hDevice</i>, in which case the service specified by the service handle will be treated as the parent.
      * @param {Integer} CharacteristicsBufferCount The number of elements allocated for the <i>CharacteristicsBuffer</i> parameter.
      * @param {Pointer<BTH_LE_GATT_CHARACTERISTIC>} CharacteristicsBuffer Pointer to buffer into which to return characteristics in a <a href="https://docs.microsoft.com/windows/desktop/api/bthledef/ns-bthledef-bth_le_gatt_service">BTH_LE_GATT_SERVICE</a> structure.
-     * @param {Pointer<Integer>} CharacteristicsBufferActual Pointer to buffer into which the actual number of characteristics were returned in the <i>CharacteristicsBuffer</i> parameter.
      * @param {Integer} Flags Flags to modify the behavior of <b>BluetoothGATTGetCharacteristics</b>:
      * 
      * <table>
@@ -5911,111 +5698,18 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @returns {HRESULT} This function returns the following values:
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation completed successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_MORE_DATA</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The buffer parameter is <b>NULL</b> and the number of items available is being returned instead.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_ACCESS_DENIED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Returned if both a parent service and a service handle are provided and the service hierarchy does not roll up to the provided parent service handle.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INVALID_PARAMETER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the following conditions occurred:
-     * 
-     * <ul>
-     * <li><i>CharacteristicsBuffer</i> is <b>NULL</b>, and <i>CharacteristicsBufferCount</i> is 0</li>
-     * <li><i>CharacteristicsBuffer</i> is non-<b>NULL</b>, but <i>CharacteristicsBufferCount</i> is <b>NULL</b></li>
-     * <li><i>CharacteristicsBuffer</i> is non-<b>NULL</b>, and <i>CharacteristicsBufferCount</i> is 0</li>
-     * </ul>
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INVALID_USER_BUFFER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * A buffer is specified, but the buffer count
-     *             size is smaller than what is required, in bytes.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_BAD_COMMAND</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The current data in the cache appears to be
-     *             inconsistent, and is leading to internal errors.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_NO_SYSTEM_RESOURCES</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation ran out of memory.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} Pointer to buffer into which the actual number of characteristics were returned in the <i>CharacteristicsBuffer</i> parameter.
      * @see https://docs.microsoft.com/windows/win32/api//bluetoothleapis/nf-bluetoothleapis-bluetoothgattgetcharacteristics
      * @since windows8.0
      */
-    static BluetoothGATTGetCharacteristics(hDevice, Service, CharacteristicsBufferCount, CharacteristicsBuffer, CharacteristicsBufferActual, Flags) {
+    static BluetoothGATTGetCharacteristics(hDevice, Service, CharacteristicsBufferCount, CharacteristicsBuffer, Flags) {
         hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
 
-        CharacteristicsBufferActualMarshal := CharacteristicsBufferActual is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("BluetoothApis.dll\BluetoothGATTGetCharacteristics", "ptr", hDevice, "ptr", Service, "ushort", CharacteristicsBufferCount, "ptr", CharacteristicsBuffer, CharacteristicsBufferActualMarshal, CharacteristicsBufferActual, "uint", Flags, "int")
+        result := DllCall("BluetoothApis.dll\BluetoothGATTGetCharacteristics", "ptr", hDevice, "ptr", Service, "ushort", CharacteristicsBufferCount, "ptr", CharacteristicsBuffer, "ushort*", &CharacteristicsBufferActual := 0, "uint", Flags, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return CharacteristicsBufferActual
     }
 
     /**
@@ -6024,7 +5718,6 @@ class Bluetooth {
      * @param {Pointer<BTH_LE_GATT_CHARACTERISTIC>} Characteristic Pointer to <a href="https://docs.microsoft.com/windows/desktop/api/bthledef/ns-bthledef-bth_le_gatt_characteristic">BTH_LE_GATT_CHARACTERISTIC</a> structure containing the parent characteristic of the descriptors to be retrieved.
      * @param {Integer} DescriptorsBufferCount The number of elements allocated for the <i>DescriptorsBuffer</i> parameter.
      * @param {Pointer<BTH_LE_GATT_DESCRIPTOR>} DescriptorsBuffer Pointer to buffer containing a <a href="https://docs.microsoft.com/windows/desktop/api/bthledef/ns-bthledef-bth_le_gatt_descriptor">BTH_LE_GATT_DESCRIPTOR</a> structure into which to return descriptors.
-     * @param {Pointer<Integer>} DescriptorsBufferActual Pointer to buffer into which the actual number of descriptors were returned in the <i>DescriptorsBuffer</i> parameter.
      * @param {Integer} Flags Flags to modify the behavior of <b>BluetoothGATTGetDescriptors</b>:
      * 
      * <table>
@@ -6043,111 +5736,18 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @returns {HRESULT} This function returns the following values:
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation completed successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_MORE_DATA</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The buffer parameter is NULL and the number of items available is being returned instead.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_ACCESS_DENIED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Returned if both a parent service and a service handle are provided and the service hierarchy does not roll up to the provided parent service handle.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INVALID_PARAMETER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the following conditions occurred: 
-     * 
-     * <ul>
-     * <li><i>DescriptorsBuffer</i> is <b>NULL</b>, and <i>DescriptorsBufferCount</i> is 0.</li>
-     * <li><i>DescriptorsBuffer</i> is non-<b>NULL</b>, but <i>DescriptorsBufferCount</i> is <b>NULL</b>.</li>
-     * <li><i>DescriptorsBuffer</i> is non-<b>NULL</b>, and <i>DescriptorsBufferCount</i> is 0.</li>
-     * </ul>
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INVALID_USER_BUFFER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * A buffer is specified, but the buffer count
-     *             size is smaller than what is required, in bytes.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_BAD_COMMAND</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The current data in the cache appears to be
-     *             inconsistent, and is leading to internal errors.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_NO_SYSTEM_RESOURCES</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation ran out of memory.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} Pointer to buffer into which the actual number of descriptors were returned in the <i>DescriptorsBuffer</i> parameter.
      * @see https://docs.microsoft.com/windows/win32/api//bluetoothleapis/nf-bluetoothleapis-bluetoothgattgetdescriptors
      * @since windows8.0
      */
-    static BluetoothGATTGetDescriptors(hDevice, Characteristic, DescriptorsBufferCount, DescriptorsBuffer, DescriptorsBufferActual, Flags) {
+    static BluetoothGATTGetDescriptors(hDevice, Characteristic, DescriptorsBufferCount, DescriptorsBuffer, Flags) {
         hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
 
-        DescriptorsBufferActualMarshal := DescriptorsBufferActual is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("BluetoothApis.dll\BluetoothGATTGetDescriptors", "ptr", hDevice, "ptr", Characteristic, "ushort", DescriptorsBufferCount, "ptr", DescriptorsBuffer, DescriptorsBufferActualMarshal, DescriptorsBufferActual, "uint", Flags, "int")
+        result := DllCall("BluetoothApis.dll\BluetoothGATTGetDescriptors", "ptr", hDevice, "ptr", Characteristic, "ushort", DescriptorsBufferCount, "ptr", DescriptorsBuffer, "ushort*", &DescriptorsBufferActual := 0, "uint", Flags, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return DescriptorsBufferActual
     }
 
     /**
@@ -6156,7 +5756,6 @@ class Bluetooth {
      * @param {Pointer<BTH_LE_GATT_CHARACTERISTIC>} Characteristic Pointer to the parent characteristic of the characteristic value to be retrieved.
      * @param {Integer} CharacteristicValueDataSize The number of bytes allocated for the <i>CharacteristicValue</i> parameter.
      * @param {Pointer<BTH_LE_GATT_CHARACTERISTIC_VALUE>} CharacteristicValue Pointer to buffer into which to return the characteristic value.
-     * @param {Pointer<Integer>} CharacteristicValueSizeRequired Pointer to buffer into which to store the number of bytes needed to return data in the buffer pointed to by <i>CharacteristicValue</i>.
      * @param {Integer} Flags Flags to modify the behavior of <b>BluetoothGATTGetCharacteristicValue</b>:
      * 
      * <table>
@@ -6215,338 +5814,18 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @returns {HRESULT} The <b>BluetoothGATTGetCharacteristicValue</b> function returns the following values:
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation completed successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_MORE_DATA</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The buffer parameter is NULL and the number of items available is being returned instead.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_ACCESS_DENIED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Returned if both a parent service and a service handle are provided and the service hierarchy does not roll up to the provided parent service handle.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INVALID_PARAMETER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Both <i>CharacteristicValue</i> and <i>CharacteristicValueSizeRequired</i> are 0.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INVALID_USER_BUFFER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * A buffer is specified, but the buffer count size is smaller than what is required, in bytes.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_BAD_COMMAND</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The current data in the cache appears to be
-     *             inconsistent, and is leading to internal errors.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_BAD_NET_RESP</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The target server did not provide an
-     *             appropriate network response.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_SEM_TIMEOUT</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The request timed-out.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_PRIVILEGE_NOT_HELD</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The characteristic value is not readable as
-     *             dictated by the characteristic properties.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_NO_SYSTEM_RESOURCES</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation ran out of memory.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_BLUETOOTH_ATT_INVALID_HANDLE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The attribute handle given was not valid on this server.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_BLUETOOTH_ATT_READ_NOT_PERMITTED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The attribute cannot be read.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_BLUETOOTH_ATT_WRITE_NOT_PERMITTED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The attribute cannot be written.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_BLUETOOTH_ATT_INVALID_PDU</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The attribute PDU was invalid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_BLUETOOTH_ATT_INSUFFICIENT_AUTHENTICATION</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The attribute requires authentication before it can be read or written.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_BLUETOOTH_ATT_REQUEST_NOT_SUPPORTED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Attribute server does not support the request received from the client.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_BLUETOOTH_ATT_INVALID_OFFSET</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Offset specified was past the end of the attribute.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_BLUETOOTH_ATT_INSUFFICIENT_AUTHORIZATION</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The attribute requires authorization before it can be read or written.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_BLUETOOTH_ATT_PREPARE_QUEUE_FULL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Too many prepare writes have been queued.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_BLUETOOTH_ATT_ATTRIBUTE_NOT_FOUND</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * No attribute found within the given attribute handle range.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_BLUETOOTH_ATT_ATTRIBUTE_NOT_LONG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The attribute cannot be read or written using the Read Blob Request.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_BLUETOOTH_ATT_INSUFFICIENT_ENCRYPTION_KEY_SIZE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The Encryption Key Size used for encrypting this link is insufficient.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_BLUETOOTH_ATT_INVALID_ATTRIBUTE_VALUE_LENGTH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The attribute value length is invalid for the operation.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_BLUETOOTH_ATT_UNLIKELY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The attribute request that was requested has encountered an error that was unlikely, and therefore could not be completed as requested.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_BLUETOOTH_ATT_INSUFFICIENT_ENCRYPTION</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The attribute requires encryption before it can be read or written.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_BLUETOOTH_ATT_UNSUPPORTED_GROUP_TYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The attribute type is not a supported grouping attribute as defined by a higher layer specification.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_BLUETOOTH_ATT_INSUFFICIENT_RESOURCES</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient Resources to complete the request.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_BLUETOOTH_ATT_UNKNOWN_ERROR</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An error that lies in the reserved range has been received.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} Pointer to buffer into which to store the number of bytes needed to return data in the buffer pointed to by <i>CharacteristicValue</i>.
      * @see https://docs.microsoft.com/windows/win32/api//bluetoothleapis/nf-bluetoothleapis-bluetoothgattgetcharacteristicvalue
      * @since windows8.0
      */
-    static BluetoothGATTGetCharacteristicValue(hDevice, Characteristic, CharacteristicValueDataSize, CharacteristicValue, CharacteristicValueSizeRequired, Flags) {
+    static BluetoothGATTGetCharacteristicValue(hDevice, Characteristic, CharacteristicValueDataSize, CharacteristicValue, Flags) {
         hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
 
-        CharacteristicValueSizeRequiredMarshal := CharacteristicValueSizeRequired is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("BluetoothApis.dll\BluetoothGATTGetCharacteristicValue", "ptr", hDevice, "ptr", Characteristic, "uint", CharacteristicValueDataSize, "ptr", CharacteristicValue, CharacteristicValueSizeRequiredMarshal, CharacteristicValueSizeRequired, "uint", Flags, "int")
+        result := DllCall("BluetoothApis.dll\BluetoothGATTGetCharacteristicValue", "ptr", hDevice, "ptr", Characteristic, "uint", CharacteristicValueDataSize, "ptr", CharacteristicValue, "ushort*", &CharacteristicValueSizeRequired := 0, "uint", Flags, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return CharacteristicValueSizeRequired
     }
 
     /**
@@ -6555,7 +5834,6 @@ class Bluetooth {
      * @param {Pointer<BTH_LE_GATT_DESCRIPTOR>} Descriptor Pointer to <a href="https://docs.microsoft.com/windows/desktop/api/bthledef/ns-bthledef-bth_le_gatt_descriptor">BTH_LE_GATT_DESCRIPTOR</a> structure containing the parent descriptor of the descriptor value to be retrieved.
      * @param {Integer} DescriptorValueDataSize The number of bytes allocated for the <i>DescriptorValue</i> parameter.
      * @param {Pointer<BTH_LE_GATT_DESCRIPTOR_VALUE>} DescriptorValue Pointer to <a href="https://docs.microsoft.com/windows/desktop/api/bthledef/ns-bthledef-bth_le_gatt_descriptor_value">BTH_LE_GATT_DESCRIPTOR_VALUE</a> structure into which to return the descriptor value.
-     * @param {Pointer<Integer>} DescriptorValueSizeRequired Pointer to buffer into which to store the number of additional bytes needed to return data in the buffer pointed to by <i>DescriptorValue</i>.
      * @param {Integer} Flags Flags to modify the behavior of <b>BluetoothGATTGetDescriptorValue</b>:
      * 
      * <table>
@@ -6614,345 +5892,23 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @returns {HRESULT} The <b>BluetoothGATTGetDescriptorValue</b> function returns the following values:
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation completed successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_MORE_DATA</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The buffer parameter is <b>NULL</b> and the number of items available is being returned instead.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_ACCESS_DENIED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Returned if both a parent service and a service handle are provided and the service hierarchy does not roll up to the provided parent service handle.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INVALID_PARAMETER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Both <i>DescriptorValue</i> and <i>DescriptorValueSizeRequired</i> are 0.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INVALID_USER_BUFFER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * A buffer is specified, but the buffer count
-     *             size is smaller than what is required, in bytes.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INVALID_FUNCTION</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * A descriptor value was specified to be retrieved from
-     *             the cache, but the descriptor value is not present in the cache.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_BAD_COMMAND</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The current data in the cache appears to be
-     *             inconsistent, and is leading to internal errors.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_BAD_NET_RESP</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The target server did not provide an
-     *             appropriate network response.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_SEM_TIMEOUT</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The request timed-out.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_NO_SYSTEM_RESOURCES</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation ran out of memory.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_BLUETOOTH_ATT_INVALID_HANDLE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The attribute handle given was not valid on this server.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_BLUETOOTH_ATT_READ_NOT_PERMITTED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The attribute cannot be read.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_BLUETOOTH_ATT_WRITE_NOT_PERMITTED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The attribute cannot be written.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_BLUETOOTH_ATT_INVALID_PDU</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The attribute PDU was invalid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_BLUETOOTH_ATT_INSUFFICIENT_AUTHENTICATION</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The attribute requires authentication before it can be read or written.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_BLUETOOTH_ATT_REQUEST_NOT_SUPPORTED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Attribute server does not support the request received from the client.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_BLUETOOTH_ATT_INVALID_OFFSET</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Offset specified was past the end of the attribute.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_BLUETOOTH_ATT_INSUFFICIENT_AUTHORIZATION</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The attribute requires authorization before it can be read or written.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_BLUETOOTH_ATT_PREPARE_QUEUE_FULL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Too many prepare writes have been queued.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_BLUETOOTH_ATT_ATTRIBUTE_NOT_FOUND</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * No attribute found within the given attribute handle range.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_BLUETOOTH_ATT_ATTRIBUTE_NOT_LONG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The attribute cannot be read or written using the Read Blob Request.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_BLUETOOTH_ATT_INSUFFICIENT_ENCRYPTION_KEY_SIZE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The Encryption Key Size used for encrypting this link is insufficient.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_BLUETOOTH_ATT_INVALID_ATTRIBUTE_VALUE_LENGTH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The attribute value length is invalid for the operation.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_BLUETOOTH_ATT_UNLIKELY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The attribute request that was requested has encountered an error that was unlikely, and therefore could not be completed as requested.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_BLUETOOTH_ATT_INSUFFICIENT_ENCRYPTION</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The attribute requires encryption before it can be read or written.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_BLUETOOTH_ATT_UNSUPPORTED_GROUP_TYPE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The attribute type is not a supported grouping attribute as defined by a higher layer specification.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_BLUETOOTH_ATT_INSUFFICIENT_RESOURCES</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient Resources to complete the request.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_BLUETOOTH_ATT_UNKNOWN_ERROR</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An error that lies in the reserved range has been received.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} Pointer to buffer into which to store the number of additional bytes needed to return data in the buffer pointed to by <i>DescriptorValue</i>.
      * @see https://docs.microsoft.com/windows/win32/api//bluetoothleapis/nf-bluetoothleapis-bluetoothgattgetdescriptorvalue
      * @since windows8.0
      */
-    static BluetoothGATTGetDescriptorValue(hDevice, Descriptor, DescriptorValueDataSize, DescriptorValue, DescriptorValueSizeRequired, Flags) {
+    static BluetoothGATTGetDescriptorValue(hDevice, Descriptor, DescriptorValueDataSize, DescriptorValue, Flags) {
         hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
 
-        DescriptorValueSizeRequiredMarshal := DescriptorValueSizeRequired is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("BluetoothApis.dll\BluetoothGATTGetDescriptorValue", "ptr", hDevice, "ptr", Descriptor, "uint", DescriptorValueDataSize, "ptr", DescriptorValue, DescriptorValueSizeRequiredMarshal, DescriptorValueSizeRequired, "uint", Flags, "int")
+        result := DllCall("BluetoothApis.dll\BluetoothGATTGetDescriptorValue", "ptr", hDevice, "ptr", Descriptor, "uint", DescriptorValueDataSize, "ptr", DescriptorValue, "ushort*", &DescriptorValueSizeRequired := 0, "uint", Flags, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return DescriptorValueSizeRequired
     }
 
     /**
      * The BluetoothGATTBeginReliableWrite function specifies that reliable writes are about to begin.
      * @param {HANDLE} hDevice Handle to the service.
-     * @param {Pointer<Integer>} ReliableWriteContext Address of a <b>BTH_LE_GATT_RELIABLE_WRITE_CONTEXT</b> structure containing the context describing the reliable write operation.
      * @param {Integer} Flags Flags to modify the behavior of <b>BluetoothGATTBeginReliableWrite</b>:
      * 
      * <table>
@@ -6971,60 +5927,18 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @returns {HRESULT} The <b>BluetoothGATTBeginReliableWrite</b> function returns the following values:
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation completed successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_ACCESS_DENIED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Returned if both a parent service and a service handle are provided and the service hierarchy does not roll up to the provided parent service handle.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INVALID_FUNCTION</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * A reliable write operation is already presently underway.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} Address of a <b>BTH_LE_GATT_RELIABLE_WRITE_CONTEXT</b> structure containing the context describing the reliable write operation.
      * @see https://docs.microsoft.com/windows/win32/api//bluetoothleapis/nf-bluetoothleapis-bluetoothgattbeginreliablewrite
      * @since windows8.0
      */
-    static BluetoothGATTBeginReliableWrite(hDevice, ReliableWriteContext, Flags) {
+    static BluetoothGATTBeginReliableWrite(hDevice, Flags) {
         hDevice := hDevice is Win32Handle ? NumGet(hDevice, "ptr") : hDevice
 
-        ReliableWriteContextMarshal := ReliableWriteContext is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("BluetoothApis.dll\BluetoothGATTBeginReliableWrite", "ptr", hDevice, ReliableWriteContextMarshal, ReliableWriteContext, "uint", Flags, "int")
+        result := DllCall("BluetoothApis.dll\BluetoothGATTBeginReliableWrite", "ptr", hDevice, "uint*", &ReliableWriteContext := 0, "uint", Flags, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ReliableWriteContext
     }
 
     /**
@@ -8340,7 +7254,6 @@ class Bluetooth {
      * @param {Pointer<Void>} EventParameterIn Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/bthledef/ns-bthledef-bluetooth_gatt_value_changed_event_registration">BLUETOOTH_GATT_VALUE_CHANGED_EVENT_REGISTRATION</a> structure to pass when the event is triggered.
      * @param {Pointer<PFNBLUETOOTH_GATT_EVENT_CALLBACK>} Callback The routine to call when the Characteristic value changes.
      * @param {Pointer<Void>} CallbackContext Context to pass to <i>Callback</i>.
-     * @param {Pointer<Pointer>} pEventHandle Pointer to buffer to receive a handle for the registration.  Profile drivers must pass this handle when calling <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothleapis/nf-bluetoothleapis-bluetoothgattunregisterevent">BluetoothGATTUnregisterEvent</a>.
      * @param {Integer} Flags Flags to modify the behavior of <b>BluetoothGATTRegisterEvent</b>:
      * 
      * <table>
@@ -8359,62 +7272,21 @@ class Bluetooth {
      * </td>
      * </tr>
      * </table>
-     * @returns {HRESULT} <b>BluetoothGATTRegisterEvent</b> returns the following values:
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation completed successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_ACCESS_DENIED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Returned if both a parent service and a service handle are provided and the service hierarchy does not roll up to the provided parent service handle.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INVALID_PARAMETER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * A parameter was invalid.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer} Pointer to buffer to receive a handle for the registration.  Profile drivers must pass this handle when calling <a href="https://docs.microsoft.com/windows/desktop/api/bluetoothleapis/nf-bluetoothleapis-bluetoothgattunregisterevent">BluetoothGATTUnregisterEvent</a>.
      * @see https://docs.microsoft.com/windows/win32/api//bluetoothleapis/nf-bluetoothleapis-bluetoothgattregisterevent
      * @since windows8.0
      */
-    static BluetoothGATTRegisterEvent(hService, EventType, EventParameterIn, Callback, CallbackContext, pEventHandle, Flags) {
+    static BluetoothGATTRegisterEvent(hService, EventType, EventParameterIn, Callback, CallbackContext, Flags) {
         hService := hService is Win32Handle ? NumGet(hService, "ptr") : hService
 
         EventParameterInMarshal := EventParameterIn is VarRef ? "ptr" : "ptr"
         CallbackContextMarshal := CallbackContext is VarRef ? "ptr" : "ptr"
-        pEventHandleMarshal := pEventHandle is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("BluetoothApis.dll\BluetoothGATTRegisterEvent", "ptr", hService, "int", EventType, EventParameterInMarshal, EventParameterIn, "ptr", Callback, CallbackContextMarshal, CallbackContext, pEventHandleMarshal, pEventHandle, "uint", Flags, "int")
+        result := DllCall("BluetoothApis.dll\BluetoothGATTRegisterEvent", "ptr", hService, "int", EventType, EventParameterInMarshal, EventParameterIn, "ptr", Callback, CallbackContextMarshal, CallbackContext, "ptr*", &pEventHandle := 0, "uint", Flags, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pEventHandle
     }
 
     /**

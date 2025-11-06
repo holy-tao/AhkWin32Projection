@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,82 +33,76 @@ class ITPluggableTerminalClassInfo extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itpluggableterminalclassinfo-get_name
      */
-    get_Name(pName) {
+    get_Name() {
+        pName := BSTR()
         result := ComCall(7, this, "ptr", pName, "HRESULT")
-        return result
+        return pName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pCompany 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itpluggableterminalclassinfo-get_company
      */
-    get_Company(pCompany) {
+    get_Company() {
+        pCompany := BSTR()
         result := ComCall(8, this, "ptr", pCompany, "HRESULT")
-        return result
+        return pCompany
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVersion 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itpluggableterminalclassinfo-get_version
      */
-    get_Version(pVersion) {
+    get_Version() {
+        pVersion := BSTR()
         result := ComCall(9, this, "ptr", pVersion, "HRESULT")
-        return result
+        return pVersion
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pTerminalClass 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itpluggableterminalclassinfo-get_terminalclass
      */
-    get_TerminalClass(pTerminalClass) {
+    get_TerminalClass() {
+        pTerminalClass := BSTR()
         result := ComCall(10, this, "ptr", pTerminalClass, "HRESULT")
-        return result
+        return pTerminalClass
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pCLSID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itpluggableterminalclassinfo-get_clsid
      */
-    get_CLSID(pCLSID) {
+    get_CLSID() {
+        pCLSID := BSTR()
         result := ComCall(11, this, "ptr", pCLSID, "HRESULT")
-        return result
+        return pCLSID
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pDirection 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itpluggableterminalclassinfo-get_direction
      */
-    get_Direction(pDirection) {
-        pDirectionMarshal := pDirection is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, pDirectionMarshal, pDirection, "HRESULT")
-        return result
+    get_Direction() {
+        result := ComCall(12, this, "int*", &pDirection := 0, "HRESULT")
+        return pDirection
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pMediaTypes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itpluggableterminalclassinfo-get_mediatypes
      */
-    get_MediaTypes(pMediaTypes) {
-        pMediaTypesMarshal := pMediaTypes is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, pMediaTypesMarshal, pMediaTypes, "HRESULT")
-        return result
+    get_MediaTypes() {
+        result := ComCall(13, this, "int*", &pMediaTypes := 0, "HRESULT")
+        return pMediaTypes
     }
 }

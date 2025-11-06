@@ -47,14 +47,11 @@ class IWebBrowser2 extends IWebBrowserApp{
     /**
      * 
      * @param {Integer} cmdID 
-     * @param {Pointer<Integer>} pcmdf 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    QueryStatusWB(cmdID, pcmdf) {
-        pcmdfMarshal := pcmdf is VarRef ? "int*" : "ptr"
-
-        result := ComCall(53, this, "int", cmdID, pcmdfMarshal, pcmdf, "HRESULT")
-        return result
+    QueryStatusWB(cmdID) {
+        result := ComCall(53, this, "int", cmdID, "int*", &pcmdf := 0, "HRESULT")
+        return pcmdf
     }
 
     /**
@@ -84,24 +81,20 @@ class IWebBrowser2 extends IWebBrowserApp{
 
     /**
      * 
-     * @param {Pointer<Integer>} plReadyState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ReadyState(plReadyState) {
-        plReadyStateMarshal := plReadyState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(56, this, plReadyStateMarshal, plReadyState, "HRESULT")
-        return result
+    get_ReadyState() {
+        result := ComCall(56, this, "int*", &plReadyState := 0, "HRESULT")
+        return plReadyState
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbOffline 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_Offline(pbOffline) {
-        result := ComCall(57, this, "ptr", pbOffline, "HRESULT")
-        return result
+    get_Offline() {
+        result := ComCall(57, this, "short*", &pbOffline := 0, "HRESULT")
+        return pbOffline
     }
 
     /**
@@ -116,12 +109,11 @@ class IWebBrowser2 extends IWebBrowserApp{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbSilent 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_Silent(pbSilent) {
-        result := ComCall(59, this, "ptr", pbSilent, "HRESULT")
-        return result
+    get_Silent() {
+        result := ComCall(59, this, "short*", &pbSilent := 0, "HRESULT")
+        return pbSilent
     }
 
     /**
@@ -136,12 +128,11 @@ class IWebBrowser2 extends IWebBrowserApp{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbRegister 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_RegisterAsBrowser(pbRegister) {
-        result := ComCall(61, this, "ptr", pbRegister, "HRESULT")
-        return result
+    get_RegisterAsBrowser() {
+        result := ComCall(61, this, "short*", &pbRegister := 0, "HRESULT")
+        return pbRegister
     }
 
     /**
@@ -156,12 +147,11 @@ class IWebBrowser2 extends IWebBrowserApp{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbRegister 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_RegisterAsDropTarget(pbRegister) {
-        result := ComCall(63, this, "ptr", pbRegister, "HRESULT")
-        return result
+    get_RegisterAsDropTarget() {
+        result := ComCall(63, this, "short*", &pbRegister := 0, "HRESULT")
+        return pbRegister
     }
 
     /**
@@ -176,13 +166,12 @@ class IWebBrowser2 extends IWebBrowserApp{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbRegister 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-iwebbrowser2-get_theatermode
      */
-    get_TheaterMode(pbRegister) {
-        result := ComCall(65, this, "ptr", pbRegister, "HRESULT")
-        return result
+    get_TheaterMode() {
+        result := ComCall(65, this, "short*", &pbRegister := 0, "HRESULT")
+        return pbRegister
     }
 
     /**
@@ -198,12 +187,11 @@ class IWebBrowser2 extends IWebBrowserApp{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} Value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_AddressBar(Value) {
-        result := ComCall(67, this, "ptr", Value, "HRESULT")
-        return result
+    get_AddressBar() {
+        result := ComCall(67, this, "short*", &Value := 0, "HRESULT")
+        return Value
     }
 
     /**
@@ -218,12 +206,11 @@ class IWebBrowser2 extends IWebBrowserApp{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} Value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_Resizable(Value) {
-        result := ComCall(69, this, "ptr", Value, "HRESULT")
-        return result
+    get_Resizable() {
+        result := ComCall(69, this, "short*", &Value := 0, "HRESULT")
+        return Value
     }
 
     /**

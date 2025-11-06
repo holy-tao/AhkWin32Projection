@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,13 +34,13 @@ class IUIAutomationMultipleViewPattern extends IUnknown{
     /**
      * 
      * @param {Integer} view 
-     * @param {Pointer<BSTR>} name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationmultipleviewpattern-getviewname
      */
-    GetViewName(view, name) {
+    GetViewName(view) {
+        name := BSTR()
         result := ComCall(3, this, "int", view, "ptr", name, "HRESULT")
-        return result
+        return name
     }
 
     /**
@@ -55,53 +56,41 @@ class IUIAutomationMultipleViewPattern extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationmultipleviewpattern-get_currentcurrentview
      */
-    get_CurrentCurrentView(retVal) {
-        retValMarshal := retVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CurrentCurrentView() {
+        result := ComCall(5, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationmultipleviewpattern-getcurrentsupportedviews
      */
-    GetCurrentSupportedViews(retVal) {
-        retValMarshal := retVal is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, retValMarshal, retVal, "HRESULT")
-        return result
+    GetCurrentSupportedViews() {
+        result := ComCall(6, this, "ptr*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationmultipleviewpattern-get_cachedcurrentview
      */
-    get_CachedCurrentView(retVal) {
-        retValMarshal := retVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CachedCurrentView() {
+        result := ComCall(7, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationmultipleviewpattern-getcachedsupportedviews
      */
-    GetCachedSupportedViews(retVal) {
-        retValMarshal := retVal is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(8, this, retValMarshal, retVal, "HRESULT")
-        return result
+    GetCachedSupportedViews() {
+        result := ComCall(8, this, "ptr*", &retVal := 0, "HRESULT")
+        return retVal
     }
 }

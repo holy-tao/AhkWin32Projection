@@ -37,54 +37,50 @@ class IDOMMutationEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_relatedNode(p) {
-        result := ComCall(7, this, "ptr*", p, "HRESULT")
-        return result
+    get_relatedNode() {
+        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_prevValue(p) {
+    get_prevValue() {
+        p := BSTR()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_newValue(p) {
+    get_newValue() {
+        p := BSTR()
         result := ComCall(9, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_attrName(p) {
+    get_attrName() {
+        p := BSTR()
         result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_attrChange(p) {
-        pMarshal := p is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(11, this, pMarshal, p, "HRESULT")
-        return result
+    get_attrChange() {
+        result := ComCall(11, this, "ushort*", &p := 0, "HRESULT")
+        return p
     }
 
     /**

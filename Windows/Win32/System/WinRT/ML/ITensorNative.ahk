@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Graphics\Direct3D12\ID3D12Resource.ahk
 #Include ..\..\Com\IUnknown.ahk
 
 /**
@@ -44,11 +45,10 @@ class ITensorNative extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ID3D12Resource>} result 
-     * @returns {HRESULT} 
+     * @returns {ID3D12Resource} 
      */
-    GetD3D12Resource(result) {
-        result := ComCall(4, this, "ptr*", result, "HRESULT")
-        return result
+    GetD3D12Resource() {
+        result := ComCall(4, this, "ptr*", &result := 0, "HRESULT")
+        return ID3D12Resource(result)
     }
 }

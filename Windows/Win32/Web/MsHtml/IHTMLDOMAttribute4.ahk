@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IHTMLDOMNode.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -41,32 +43,32 @@ class IHTMLDOMAttribute4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_nodeValue(p) {
+    get_nodeValue() {
+        p := VARIANT()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_nodeName(p) {
+    get_nodeName() {
+        p := BSTR()
         result := ComCall(9, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_name(p) {
+    get_name() {
+        p := BSTR()
         result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -83,62 +85,57 @@ class IHTMLDOMAttribute4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_value(p) {
+    get_value() {
+        p := BSTR()
         result := ComCall(12, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLDOMNode>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMNode} 
      */
-    get_firstChild(p) {
-        result := ComCall(13, this, "ptr*", p, "HRESULT")
-        return result
+    get_firstChild() {
+        result := ComCall(13, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLDOMNode(p)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLDOMNode>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMNode} 
      */
-    get_lastChild(p) {
-        result := ComCall(14, this, "ptr*", p, "HRESULT")
-        return result
+    get_lastChild() {
+        result := ComCall(14, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLDOMNode(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_childNodes(p) {
-        result := ComCall(15, this, "ptr*", p, "HRESULT")
-        return result
+    get_childNodes() {
+        result := ComCall(15, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pfHasAttributes 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    hasAttributes(pfHasAttributes) {
-        result := ComCall(16, this, "ptr", pfHasAttributes, "HRESULT")
-        return result
+    hasAttributes() {
+        result := ComCall(16, this, "short*", &pfHasAttributes := 0, "HRESULT")
+        return pfHasAttributes
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} fChildren 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    hasChildNodes(fChildren) {
-        result := ComCall(17, this, "ptr", fChildren, "HRESULT")
-        return result
+    hasChildNodes() {
+        result := ComCall(17, this, "short*", &fChildren := 0, "HRESULT")
+        return fChildren
     }
 
     /**
@@ -152,11 +149,10 @@ class IHTMLDOMAttribute4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_specified(p) {
-        result := ComCall(19, this, "ptr", p, "HRESULT")
-        return result
+    get_specified() {
+        result := ComCall(19, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 }

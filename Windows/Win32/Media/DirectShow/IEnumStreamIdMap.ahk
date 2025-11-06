@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumStreamIdMap.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -68,12 +69,11 @@ class IEnumStreamIdMap extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumStreamIdMap>} ppIEnumStreamIdMap 
-     * @returns {HRESULT} 
+     * @returns {IEnumStreamIdMap} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ienumstreamidmap-clone
      */
-    Clone(ppIEnumStreamIdMap) {
-        result := ComCall(6, this, "ptr*", ppIEnumStreamIdMap, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppIEnumStreamIdMap := 0, "HRESULT")
+        return IEnumStreamIdMap(ppIEnumStreamIdMap)
     }
 }

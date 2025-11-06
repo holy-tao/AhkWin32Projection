@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFAttributes.ahk
+#Include .\IMFDeviceTransform.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,12 +34,11 @@ class IMFSensorTransformFactory extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IMFAttributes>} ppAttributes 
-     * @returns {HRESULT} 
+     * @returns {IMFAttributes} 
      */
-    GetFactoryAttributes(ppAttributes) {
-        result := ComCall(3, this, "ptr*", ppAttributes, "HRESULT")
-        return result
+    GetFactoryAttributes() {
+        result := ComCall(3, this, "ptr*", &ppAttributes := 0, "HRESULT")
+        return IMFAttributes(ppAttributes)
     }
 
     /**
@@ -55,15 +56,12 @@ class IMFSensorTransformFactory extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensortransformfactory-gettransformcount
      */
-    GetTransformCount(pdwCount) {
-        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pdwCountMarshal, pdwCount, "HRESULT")
-        return result
+    GetTransformCount() {
+        result := ComCall(5, this, "uint*", &pdwCount := 0, "HRESULT")
+        return pdwCount
     }
 
     /**
@@ -84,12 +82,11 @@ class IMFSensorTransformFactory extends IUnknown{
      * 
      * @param {Pointer<Guid>} guidSensorTransformID 
      * @param {IMFAttributes} pAttributes 
-     * @param {Pointer<IMFDeviceTransform>} ppDeviceMFT 
-     * @returns {HRESULT} 
+     * @returns {IMFDeviceTransform} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensortransformfactory-createtransform
      */
-    CreateTransform(guidSensorTransformID, pAttributes, ppDeviceMFT) {
-        result := ComCall(7, this, "ptr", guidSensorTransformID, "ptr", pAttributes, "ptr*", ppDeviceMFT, "HRESULT")
-        return result
+    CreateTransform(guidSensorTransformID, pAttributes) {
+        result := ComCall(7, this, "ptr", guidSensorTransformID, "ptr", pAttributes, "ptr*", &ppDeviceMFT := 0, "HRESULT")
+        return IMFDeviceTransform(ppDeviceMFT)
     }
 }

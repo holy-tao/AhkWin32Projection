@@ -2,6 +2,18 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ISClusProperties.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\ISClusResPossibleOwnerNodes.ahk
+#Include .\ISClusResDependencies.ahk
+#Include .\ISClusResDependents.ahk
+#Include .\ISClusResGroup.ahk
+#Include .\ISClusNode.ahk
+#Include .\ISCluster.ahk
+#Include .\ISClusDisk.ahk
+#Include .\ISClusRegistryKeys.ahk
+#Include .\ISClusCryptoKeys.ahk
+#Include .\ISClusResType.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -31,64 +43,57 @@ class ISClusResource extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISClusProperties>} ppProperties 
-     * @returns {HRESULT} 
+     * @returns {ISClusProperties} 
      */
-    get_CommonProperties(ppProperties) {
-        result := ComCall(7, this, "ptr*", ppProperties, "HRESULT")
-        return result
+    get_CommonProperties() {
+        result := ComCall(7, this, "ptr*", &ppProperties := 0, "HRESULT")
+        return ISClusProperties(ppProperties)
     }
 
     /**
      * 
-     * @param {Pointer<ISClusProperties>} ppProperties 
-     * @returns {HRESULT} 
+     * @returns {ISClusProperties} 
      */
-    get_PrivateProperties(ppProperties) {
-        result := ComCall(8, this, "ptr*", ppProperties, "HRESULT")
-        return result
+    get_PrivateProperties() {
+        result := ComCall(8, this, "ptr*", &ppProperties := 0, "HRESULT")
+        return ISClusProperties(ppProperties)
     }
 
     /**
      * 
-     * @param {Pointer<ISClusProperties>} ppProperties 
-     * @returns {HRESULT} 
+     * @returns {ISClusProperties} 
      */
-    get_CommonROProperties(ppProperties) {
-        result := ComCall(9, this, "ptr*", ppProperties, "HRESULT")
-        return result
+    get_CommonROProperties() {
+        result := ComCall(9, this, "ptr*", &ppProperties := 0, "HRESULT")
+        return ISClusProperties(ppProperties)
     }
 
     /**
      * 
-     * @param {Pointer<ISClusProperties>} ppProperties 
-     * @returns {HRESULT} 
+     * @returns {ISClusProperties} 
      */
-    get_PrivateROProperties(ppProperties) {
-        result := ComCall(10, this, "ptr*", ppProperties, "HRESULT")
-        return result
+    get_PrivateROProperties() {
+        result := ComCall(10, this, "ptr*", &ppProperties := 0, "HRESULT")
+        return ISClusProperties(ppProperties)
     }
 
     /**
      * 
-     * @param {Pointer<Pointer>} phandle 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    get_Handle(phandle) {
-        phandleMarshal := phandle is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(11, this, phandleMarshal, phandle, "HRESULT")
-        return result
+    get_Handle() {
+        result := ComCall(11, this, "ptr*", &phandle := 0, "HRESULT")
+        return phandle
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Name(pbstrName) {
+    get_Name() {
+        pbstrName := BSTR()
         result := ComCall(12, this, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 
     /**
@@ -105,26 +110,20 @@ class ISClusResource extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} dwState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_State(dwState) {
-        dwStateMarshal := dwState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, dwStateMarshal, dwState, "HRESULT")
-        return result
+    get_State() {
+        result := ComCall(14, this, "int*", &dwState := 0, "HRESULT")
+        return dwState
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} dwCoreFlag 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_CoreFlag(dwCoreFlag) {
-        dwCoreFlagMarshal := dwCoreFlag is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, dwCoreFlagMarshal, dwCoreFlag, "HRESULT")
-        return result
+    get_CoreFlag() {
+        result := ComCall(15, this, "int*", &dwCoreFlag := 0, "HRESULT")
+        return dwCoreFlag
     }
 
     /**
@@ -161,23 +160,23 @@ class ISClusResource extends IDispatch{
     /**
      * 
      * @param {Integer} nTimeout 
-     * @param {Pointer<VARIANT>} pvarPending 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    Online(nTimeout, pvarPending) {
+    Online(nTimeout) {
+        pvarPending := VARIANT()
         result := ComCall(19, this, "int", nTimeout, "ptr", pvarPending, "HRESULT")
-        return result
+        return pvarPending
     }
 
     /**
      * 
      * @param {Integer} nTimeout 
-     * @param {Pointer<VARIANT>} pvarPending 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    Offline(nTimeout, pvarPending) {
+    Offline(nTimeout) {
+        pvarPending := VARIANT()
         result := ComCall(20, this, "int", nTimeout, "ptr", pvarPending, "HRESULT")
-        return result
+        return pvarPending
     }
 
     /**
@@ -213,172 +212,131 @@ class ISClusResource extends IDispatch{
     /**
      * Determines if one resource can be dependent upon another resource.
      * @param {ISClusResource} pResource 
-     * @param {Pointer<VARIANT>} pvarDependent 
-     * @returns {HRESULT} <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>TRUE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The resource identified by <i>hResource</i> can depend on the resource identified by <i>hResourceDependent</i>.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>FALSE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The resource identified by <i>hResource</i> cannot depend on the resource identified by <i>hResourceDependent</i>.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {VARIANT} 
      * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-canresourcebedependent
      */
-    CanResourceBeDependent(pResource, pvarDependent) {
+    CanResourceBeDependent(pResource) {
+        pvarDependent := VARIANT()
         result := ComCall(24, this, "ptr", pResource, "ptr", pvarDependent, "HRESULT")
-        return result
+        return pvarDependent
     }
 
     /**
      * 
-     * @param {Pointer<ISClusResPossibleOwnerNodes>} ppOwnerNodes 
-     * @returns {HRESULT} 
+     * @returns {ISClusResPossibleOwnerNodes} 
      */
-    get_PossibleOwnerNodes(ppOwnerNodes) {
-        result := ComCall(25, this, "ptr*", ppOwnerNodes, "HRESULT")
-        return result
+    get_PossibleOwnerNodes() {
+        result := ComCall(25, this, "ptr*", &ppOwnerNodes := 0, "HRESULT")
+        return ISClusResPossibleOwnerNodes(ppOwnerNodes)
     }
 
     /**
      * 
-     * @param {Pointer<ISClusResDependencies>} ppResDependencies 
-     * @returns {HRESULT} 
+     * @returns {ISClusResDependencies} 
      */
-    get_Dependencies(ppResDependencies) {
-        result := ComCall(26, this, "ptr*", ppResDependencies, "HRESULT")
-        return result
+    get_Dependencies() {
+        result := ComCall(26, this, "ptr*", &ppResDependencies := 0, "HRESULT")
+        return ISClusResDependencies(ppResDependencies)
     }
 
     /**
      * 
-     * @param {Pointer<ISClusResDependents>} ppResDependents 
-     * @returns {HRESULT} 
+     * @returns {ISClusResDependents} 
      */
-    get_Dependents(ppResDependents) {
-        result := ComCall(27, this, "ptr*", ppResDependents, "HRESULT")
-        return result
+    get_Dependents() {
+        result := ComCall(27, this, "ptr*", &ppResDependents := 0, "HRESULT")
+        return ISClusResDependents(ppResDependents)
     }
 
     /**
      * 
-     * @param {Pointer<ISClusResGroup>} ppResGroup 
-     * @returns {HRESULT} 
+     * @returns {ISClusResGroup} 
      */
-    get_Group(ppResGroup) {
-        result := ComCall(28, this, "ptr*", ppResGroup, "HRESULT")
-        return result
+    get_Group() {
+        result := ComCall(28, this, "ptr*", &ppResGroup := 0, "HRESULT")
+        return ISClusResGroup(ppResGroup)
     }
 
     /**
      * 
-     * @param {Pointer<ISClusNode>} ppOwnerNode 
-     * @returns {HRESULT} 
+     * @returns {ISClusNode} 
      */
-    get_OwnerNode(ppOwnerNode) {
-        result := ComCall(29, this, "ptr*", ppOwnerNode, "HRESULT")
-        return result
+    get_OwnerNode() {
+        result := ComCall(29, this, "ptr*", &ppOwnerNode := 0, "HRESULT")
+        return ISClusNode(ppOwnerNode)
     }
 
     /**
      * 
-     * @param {Pointer<ISCluster>} ppCluster 
-     * @returns {HRESULT} 
+     * @returns {ISCluster} 
      */
-    get_Cluster(ppCluster) {
-        result := ComCall(30, this, "ptr*", ppCluster, "HRESULT")
-        return result
+    get_Cluster() {
+        result := ComCall(30, this, "ptr*", &ppCluster := 0, "HRESULT")
+        return ISCluster(ppCluster)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} prcClassInfo 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ClassInfo(prcClassInfo) {
-        prcClassInfoMarshal := prcClassInfo is VarRef ? "int*" : "ptr"
-
-        result := ComCall(31, this, prcClassInfoMarshal, prcClassInfo, "HRESULT")
-        return result
+    get_ClassInfo() {
+        result := ComCall(31, this, "int*", &prcClassInfo := 0, "HRESULT")
+        return prcClassInfo
     }
 
     /**
      * 
-     * @param {Pointer<ISClusDisk>} ppDisk 
-     * @returns {HRESULT} 
+     * @returns {ISClusDisk} 
      */
-    get_Disk(ppDisk) {
-        result := ComCall(32, this, "ptr*", ppDisk, "HRESULT")
-        return result
+    get_Disk() {
+        result := ComCall(32, this, "ptr*", &ppDisk := 0, "HRESULT")
+        return ISClusDisk(ppDisk)
     }
 
     /**
      * 
-     * @param {Pointer<ISClusRegistryKeys>} ppRegistryKeys 
-     * @returns {HRESULT} 
+     * @returns {ISClusRegistryKeys} 
      */
-    get_RegistryKeys(ppRegistryKeys) {
-        result := ComCall(33, this, "ptr*", ppRegistryKeys, "HRESULT")
-        return result
+    get_RegistryKeys() {
+        result := ComCall(33, this, "ptr*", &ppRegistryKeys := 0, "HRESULT")
+        return ISClusRegistryKeys(ppRegistryKeys)
     }
 
     /**
      * 
-     * @param {Pointer<ISClusCryptoKeys>} ppCryptoKeys 
-     * @returns {HRESULT} 
+     * @returns {ISClusCryptoKeys} 
      */
-    get_CryptoKeys(ppCryptoKeys) {
-        result := ComCall(34, this, "ptr*", ppCryptoKeys, "HRESULT")
-        return result
+    get_CryptoKeys() {
+        result := ComCall(34, this, "ptr*", &ppCryptoKeys := 0, "HRESULT")
+        return ISClusCryptoKeys(ppCryptoKeys)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrTypeName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_TypeName(pbstrTypeName) {
+    get_TypeName() {
+        pbstrTypeName := BSTR()
         result := ComCall(35, this, "ptr", pbstrTypeName, "HRESULT")
-        return result
+        return pbstrTypeName
     }
 
     /**
      * 
-     * @param {Pointer<ISClusResType>} ppResourceType 
-     * @returns {HRESULT} 
+     * @returns {ISClusResType} 
      */
-    get_Type(ppResourceType) {
-        result := ComCall(36, this, "ptr*", ppResourceType, "HRESULT")
-        return result
+    get_Type() {
+        result := ComCall(36, this, "ptr*", &ppResourceType := 0, "HRESULT")
+        return ISClusResType(ppResourceType)
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbMaintenanceMode 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_MaintenanceMode(pbMaintenanceMode) {
-        result := ComCall(37, this, "ptr", pbMaintenanceMode, "HRESULT")
-        return result
+    get_MaintenanceMode() {
+        result := ComCall(37, this, "int*", &pbMaintenanceMode := 0, "HRESULT")
+        return pbMaintenanceMode
     }
 
     /**

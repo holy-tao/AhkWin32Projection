@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IModelObject.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -41,11 +42,10 @@ class IDataModelScriptHostContext extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IModelObject>} namespaceObject 
-     * @returns {HRESULT} 
+     * @returns {IModelObject} 
      */
-    GetNamespaceObject(namespaceObject) {
-        result := ComCall(4, this, "ptr*", namespaceObject, "HRESULT")
-        return result
+    GetNamespaceObject() {
+        result := ComCall(4, this, "ptr*", &namespaceObject := 0, "HRESULT")
+        return IModelObject(namespaceObject)
     }
 }

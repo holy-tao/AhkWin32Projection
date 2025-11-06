@@ -30,12 +30,11 @@ class IWebAppDiagnosticsSetup extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    DiagnosticsSupported(pRetVal) {
-        result := ComCall(3, this, "ptr", pRetVal, "HRESULT")
-        return result
+    DiagnosticsSupported() {
+        result := ComCall(3, this, "short*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**

@@ -32,15 +32,12 @@ class ITDetectTone extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plAppSpecific 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdetecttone-get_appspecific
      */
-    get_AppSpecific(plAppSpecific) {
-        plAppSpecificMarshal := plAppSpecific is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, plAppSpecificMarshal, plAppSpecific, "HRESULT")
-        return result
+    get_AppSpecific() {
+        result := ComCall(7, this, "int*", &plAppSpecific := 0, "HRESULT")
+        return plAppSpecific
     }
 
     /**
@@ -56,15 +53,12 @@ class ITDetectTone extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plDuration 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdetecttone-get_duration
      */
-    get_Duration(plDuration) {
-        plDurationMarshal := plDuration is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, plDurationMarshal, plDuration, "HRESULT")
-        return result
+    get_Duration() {
+        result := ComCall(9, this, "int*", &plDuration := 0, "HRESULT")
+        return plDuration
     }
 
     /**
@@ -81,15 +75,12 @@ class ITDetectTone extends IDispatch{
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<Integer>} plFrequency 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdetecttone-get_frequency
      */
-    get_Frequency(Index, plFrequency) {
-        plFrequencyMarshal := plFrequency is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, "int", Index, plFrequencyMarshal, plFrequency, "HRESULT")
-        return result
+    get_Frequency(Index) {
+        result := ComCall(11, this, "int", Index, "int*", &plFrequency := 0, "HRESULT")
+        return plFrequency
     }
 
     /**

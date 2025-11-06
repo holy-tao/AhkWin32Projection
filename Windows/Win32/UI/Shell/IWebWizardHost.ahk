@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -76,12 +77,12 @@ class IWebWizardHost extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrCaption 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Caption(pbstrCaption) {
+    get_Caption() {
+        pbstrCaption := BSTR()
         result := ComCall(11, this, "ptr", pbstrCaption, "HRESULT")
-        return result
+        return pbstrCaption
     }
 
     /**
@@ -100,14 +101,14 @@ class IWebWizardHost extends IDispatch{
     /**
      * 
      * @param {BSTR} bstrPropertyName 
-     * @param {Pointer<VARIANT>} pvProperty 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_Property(bstrPropertyName, pvProperty) {
+    get_Property(bstrPropertyName) {
         bstrPropertyName := bstrPropertyName is String ? BSTR.Alloc(bstrPropertyName).Value : bstrPropertyName
 
+        pvProperty := VARIANT()
         result := ComCall(13, this, "ptr", bstrPropertyName, "ptr", pvProperty, "HRESULT")
-        return result
+        return pvProperty
     }
 
     /**

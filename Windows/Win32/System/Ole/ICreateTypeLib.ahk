@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ICreateTypeInfo.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -34,15 +35,14 @@ class ICreateTypeLib extends IUnknown{
      * 
      * @param {PWSTR} szName 
      * @param {Integer} tkind 
-     * @param {Pointer<ICreateTypeInfo>} ppCTInfo 
-     * @returns {HRESULT} 
+     * @returns {ICreateTypeInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypelib-createtypeinfo
      */
-    CreateTypeInfo(szName, tkind, ppCTInfo) {
+    CreateTypeInfo(szName, tkind) {
         szName := szName is String ? StrPtr(szName) : szName
 
-        result := ComCall(3, this, "ptr", szName, "int", tkind, "ptr*", ppCTInfo, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", szName, "int", tkind, "ptr*", &ppCTInfo := 0, "HRESULT")
+        return ICreateTypeInfo(ppCTInfo)
     }
 
     /**

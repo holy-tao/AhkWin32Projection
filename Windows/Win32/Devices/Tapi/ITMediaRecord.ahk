@@ -46,12 +46,12 @@ class ITMediaRecord extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrFileName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itmediarecord-get_filename
      */
-    get_FileName(pbstrFileName) {
+    get_FileName() {
+        pbstrFileName := BSTR()
         result := ComCall(8, this, "ptr", pbstrFileName, "HRESULT")
-        return result
+        return pbstrFileName
     }
 }

@@ -105,6 +105,6 @@ class ISpNotifyTranslator extends ISpNotifySink{
      */
     GetEventHandle() {
         result := ComCall(9, this, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 }

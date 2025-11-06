@@ -36,62 +36,47 @@ class IGameStatistics extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} cch 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetMaxCategoryLength(cch) {
-        cchMarshal := cch is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, cchMarshal, cch, "HRESULT")
-        return result
+    GetMaxCategoryLength() {
+        result := ComCall(3, this, "uint*", &cch := 0, "HRESULT")
+        return cch
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} cch 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetMaxNameLength(cch) {
-        cchMarshal := cch is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, cchMarshal, cch, "HRESULT")
-        return result
+    GetMaxNameLength() {
+        result := ComCall(4, this, "uint*", &cch := 0, "HRESULT")
+        return cch
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} cch 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetMaxValueLength(cch) {
-        cchMarshal := cch is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, cchMarshal, cch, "HRESULT")
-        return result
+    GetMaxValueLength() {
+        result := ComCall(5, this, "uint*", &cch := 0, "HRESULT")
+        return cch
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pMax 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetMaxCategories(pMax) {
-        pMaxMarshal := pMax is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(6, this, pMaxMarshal, pMax, "HRESULT")
-        return result
+    GetMaxCategories() {
+        result := ComCall(6, this, "ushort*", &pMax := 0, "HRESULT")
+        return pMax
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pMax 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetMaxStatsPerCategory(pMax) {
-        pMaxMarshal := pMax is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(7, this, pMaxMarshal, pMax, "HRESULT")
-        return result
+    GetMaxStatsPerCategory() {
+        result := ComCall(7, this, "ushort*", &pMax := 0, "HRESULT")
+        return pMax
     }
 
     /**
@@ -110,12 +95,11 @@ class IGameStatistics extends IUnknown{
     /**
      * 
      * @param {Integer} categoryIndex 
-     * @param {Pointer<PWSTR>} pTitle 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetCategoryTitle(categoryIndex, pTitle) {
-        result := ComCall(9, this, "ushort", categoryIndex, "ptr", pTitle, "HRESULT")
-        return result
+    GetCategoryTitle(categoryIndex) {
+        result := ComCall(9, this, "ushort", categoryIndex, "ptr*", &pTitle := 0, "HRESULT")
+        return pTitle
     }
 
     /**
@@ -127,7 +111,10 @@ class IGameStatistics extends IUnknown{
      * @returns {HRESULT} 
      */
     GetStatistic(categoryIndex, statIndex, pName, pValue) {
-        result := ComCall(10, this, "ushort", categoryIndex, "ushort", statIndex, "ptr", pName, "ptr", pValue, "HRESULT")
+        pNameMarshal := pName is VarRef ? "ptr*" : "ptr"
+        pValueMarshal := pValue is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(10, this, "ushort", categoryIndex, "ushort", statIndex, pNameMarshal, pName, pValueMarshal, pValue, "HRESULT")
         return result
     }
 
@@ -169,13 +156,10 @@ class IGameStatistics extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pCategoryIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetLastPlayedCategory(pCategoryIndex) {
-        pCategoryIndexMarshal := pCategoryIndex is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, pCategoryIndexMarshal, pCategoryIndex, "HRESULT")
-        return result
+    GetLastPlayedCategory() {
+        result := ComCall(14, this, "uint*", &pCategoryIndex := 0, "HRESULT")
+        return pCategoryIndex
     }
 }

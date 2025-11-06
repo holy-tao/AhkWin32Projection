@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IFsrmFileScreenTemplate.ahk
+#Include .\IFsrmCommittableCollection.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -47,65 +49,61 @@ class IFsrmFileScreenTemplateManager extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IFsrmFileScreenTemplate>} fileScreenTemplate 
-     * @returns {HRESULT} 
+     * @returns {IFsrmFileScreenTemplate} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreentemplatemanager-createtemplate
      */
-    CreateTemplate(fileScreenTemplate) {
-        result := ComCall(7, this, "ptr*", fileScreenTemplate, "HRESULT")
-        return result
+    CreateTemplate() {
+        result := ComCall(7, this, "ptr*", &fileScreenTemplate := 0, "HRESULT")
+        return IFsrmFileScreenTemplate(fileScreenTemplate)
     }
 
     /**
      * 
      * @param {BSTR} name 
-     * @param {Pointer<IFsrmFileScreenTemplate>} fileScreenTemplate 
-     * @returns {HRESULT} 
+     * @returns {IFsrmFileScreenTemplate} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreentemplatemanager-gettemplate
      */
-    GetTemplate(name, fileScreenTemplate) {
+    GetTemplate(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(8, this, "ptr", name, "ptr*", fileScreenTemplate, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", name, "ptr*", &fileScreenTemplate := 0, "HRESULT")
+        return IFsrmFileScreenTemplate(fileScreenTemplate)
     }
 
     /**
      * 
      * @param {Integer} options 
-     * @param {Pointer<IFsrmCommittableCollection>} fileScreenTemplates 
-     * @returns {HRESULT} 
+     * @returns {IFsrmCommittableCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreentemplatemanager-enumtemplates
      */
-    EnumTemplates(options, fileScreenTemplates) {
-        result := ComCall(9, this, "int", options, "ptr*", fileScreenTemplates, "HRESULT")
-        return result
+    EnumTemplates(options) {
+        result := ComCall(9, this, "int", options, "ptr*", &fileScreenTemplates := 0, "HRESULT")
+        return IFsrmCommittableCollection(fileScreenTemplates)
     }
 
     /**
      * Export templates.
      * @param {Pointer<VARIANT>} fileScreenTemplateNamesArray 
-     * @param {Pointer<BSTR>} serializedFileScreenTemplates 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509enrollmentpolicyserver-export
      */
-    ExportTemplates(fileScreenTemplateNamesArray, serializedFileScreenTemplates) {
+    ExportTemplates(fileScreenTemplateNamesArray) {
+        serializedFileScreenTemplates := BSTR()
         result := ComCall(10, this, "ptr", fileScreenTemplateNamesArray, "ptr", serializedFileScreenTemplates, "HRESULT")
-        return result
+        return serializedFileScreenTemplates
     }
 
     /**
      * 
      * @param {BSTR} serializedFileScreenTemplates 
      * @param {Pointer<VARIANT>} fileScreenTemplateNamesArray 
-     * @param {Pointer<IFsrmCommittableCollection>} fileScreenTemplates 
-     * @returns {HRESULT} 
+     * @returns {IFsrmCommittableCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreentemplatemanager-importtemplates
      */
-    ImportTemplates(serializedFileScreenTemplates, fileScreenTemplateNamesArray, fileScreenTemplates) {
+    ImportTemplates(serializedFileScreenTemplates, fileScreenTemplateNamesArray) {
         serializedFileScreenTemplates := serializedFileScreenTemplates is String ? BSTR.Alloc(serializedFileScreenTemplates).Value : serializedFileScreenTemplates
 
-        result := ComCall(11, this, "ptr", serializedFileScreenTemplates, "ptr", fileScreenTemplateNamesArray, "ptr*", fileScreenTemplates, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", serializedFileScreenTemplates, "ptr", fileScreenTemplateNamesArray, "ptr*", &fileScreenTemplates := 0, "HRESULT")
+        return IFsrmCommittableCollection(fileScreenTemplates)
     }
 }

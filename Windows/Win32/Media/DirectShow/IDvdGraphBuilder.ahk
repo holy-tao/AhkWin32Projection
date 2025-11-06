@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IGraphBuilder.ahk
+#Include .\AM_DVD_RENDERSTATUS.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,41 +34,37 @@ class IDvdGraphBuilder extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IGraphBuilder>} ppGB 
-     * @returns {HRESULT} 
+     * @returns {IGraphBuilder} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdgraphbuilder-getfiltergraph
      */
-    GetFiltergraph(ppGB) {
-        result := ComCall(3, this, "ptr*", ppGB, "HRESULT")
-        return result
+    GetFiltergraph() {
+        result := ComCall(3, this, "ptr*", &ppGB := 0, "HRESULT")
+        return IGraphBuilder(ppGB)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvIF 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdgraphbuilder-getdvdinterface
      */
-    GetDvdInterface(riid, ppvIF) {
-        ppvIFMarshal := ppvIF is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "ptr", riid, ppvIFMarshal, ppvIF, "HRESULT")
-        return result
+    GetDvdInterface(riid) {
+        result := ComCall(4, this, "ptr", riid, "ptr*", &ppvIF := 0, "HRESULT")
+        return ppvIF
     }
 
     /**
      * 
      * @param {PWSTR} lpcwszPathName 
      * @param {Integer} dwFlags 
-     * @param {Pointer<AM_DVD_RENDERSTATUS>} pStatus 
-     * @returns {HRESULT} 
+     * @returns {AM_DVD_RENDERSTATUS} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdgraphbuilder-renderdvdvideovolume
      */
-    RenderDvdVideoVolume(lpcwszPathName, dwFlags, pStatus) {
+    RenderDvdVideoVolume(lpcwszPathName, dwFlags) {
         lpcwszPathName := lpcwszPathName is String ? StrPtr(lpcwszPathName) : lpcwszPathName
 
+        pStatus := AM_DVD_RENDERSTATUS()
         result := ComCall(5, this, "ptr", lpcwszPathName, "uint", dwFlags, "ptr", pStatus, "HRESULT")
-        return result
+        return pStatus
     }
 }

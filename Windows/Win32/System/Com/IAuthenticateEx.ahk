@@ -37,7 +37,10 @@ class IAuthenticateEx extends IAuthenticate{
      * @returns {HRESULT} 
      */
     AuthenticateEx(phwnd, pszUsername, pszPassword, pauthinfo) {
-        result := ComCall(4, this, "ptr", phwnd, "ptr", pszUsername, "ptr", pszPassword, "ptr", pauthinfo, "HRESULT")
+        pszUsernameMarshal := pszUsername is VarRef ? "ptr*" : "ptr"
+        pszPasswordMarshal := pszPassword is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", phwnd, pszUsernameMarshal, pszUsername, pszPasswordMarshal, pszPassword, "ptr", pauthinfo, "HRESULT")
         return result
     }
 }

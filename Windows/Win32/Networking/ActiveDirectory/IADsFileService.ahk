@@ -38,12 +38,12 @@ class IADsFileService extends IADsService{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Description(retval) {
+    get_Description() {
+        retval := BSTR()
         result := ComCall(44, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -60,14 +60,11 @@ class IADsFileService extends IADsService{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_MaxUserCount(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(46, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_MaxUserCount() {
+        result := ComCall(46, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**

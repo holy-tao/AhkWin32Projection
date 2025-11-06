@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IDebugApplication32.ahk
+#Include .\IDebugDocumentHelper32.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -30,35 +32,30 @@ class IProcessDebugManager32 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDebugApplication32>} ppda 
-     * @returns {HRESULT} 
+     * @returns {IDebugApplication32} 
      */
-    CreateApplication(ppda) {
-        result := ComCall(3, this, "ptr*", ppda, "HRESULT")
-        return result
+    CreateApplication() {
+        result := ComCall(3, this, "ptr*", &ppda := 0, "HRESULT")
+        return IDebugApplication32(ppda)
     }
 
     /**
      * 
-     * @param {Pointer<IDebugApplication32>} ppda 
-     * @returns {HRESULT} 
+     * @returns {IDebugApplication32} 
      */
-    GetDefaultApplication(ppda) {
-        result := ComCall(4, this, "ptr*", ppda, "HRESULT")
-        return result
+    GetDefaultApplication() {
+        result := ComCall(4, this, "ptr*", &ppda := 0, "HRESULT")
+        return IDebugApplication32(ppda)
     }
 
     /**
      * 
      * @param {IDebugApplication32} pda 
-     * @param {Pointer<Integer>} pdwAppCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    AddApplication(pda, pdwAppCookie) {
-        pdwAppCookieMarshal := pdwAppCookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, "ptr", pda, pdwAppCookieMarshal, pdwAppCookie, "HRESULT")
-        return result
+    AddApplication(pda) {
+        result := ComCall(5, this, "ptr", pda, "uint*", &pdwAppCookie := 0, "HRESULT")
+        return pdwAppCookie
     }
 
     /**
@@ -74,11 +71,10 @@ class IProcessDebugManager32 extends IUnknown{
     /**
      * 
      * @param {IUnknown} punkOuter 
-     * @param {Pointer<IDebugDocumentHelper32>} pddh 
-     * @returns {HRESULT} 
+     * @returns {IDebugDocumentHelper32} 
      */
-    CreateDebugDocumentHelper(punkOuter, pddh) {
-        result := ComCall(7, this, "ptr", punkOuter, "ptr*", pddh, "HRESULT")
-        return result
+    CreateDebugDocumentHelper(punkOuter) {
+        result := ComCall(7, this, "ptr", punkOuter, "ptr*", &pddh := 0, "HRESULT")
+        return IDebugDocumentHelper32(pddh)
     }
 }

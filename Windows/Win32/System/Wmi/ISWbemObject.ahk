@@ -2,6 +2,14 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ISWbemObjectPath.ahk
+#Include .\ISWbemObjectSet.ahk
+#Include .\ISWbemObject.ahk
+#Include .\ISWbemQualifierSet.ahk
+#Include .\ISWbemPropertySet.ahk
+#Include .\ISWbemMethodSet.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include .\ISWbemSecurity.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -39,12 +47,11 @@ class ISWbemObject extends IDispatch{
      * 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
-     * @param {Pointer<ISWbemObjectPath>} objWbemObjectPath 
-     * @returns {HRESULT} 
+     * @returns {ISWbemObjectPath} 
      */
-    Put_(iFlags, objWbemNamedValueSet, objWbemObjectPath) {
-        result := ComCall(7, this, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", objWbemObjectPath, "HRESULT")
-        return result
+    Put_(iFlags, objWbemNamedValueSet) {
+        result := ComCall(7, this, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemObjectPath := 0, "HRESULT")
+        return ISWbemObjectPath(objWbemObjectPath)
     }
 
     /**
@@ -88,12 +95,11 @@ class ISWbemObject extends IDispatch{
      * 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
-     * @param {Pointer<ISWbemObjectSet>} objWbemObjectSet 
-     * @returns {HRESULT} 
+     * @returns {ISWbemObjectSet} 
      */
-    Instances_(iFlags, objWbemNamedValueSet, objWbemObjectSet) {
-        result := ComCall(11, this, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", objWbemObjectSet, "HRESULT")
-        return result
+    Instances_(iFlags, objWbemNamedValueSet) {
+        result := ComCall(11, this, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemObjectSet := 0, "HRESULT")
+        return ISWbemObjectSet(objWbemObjectSet)
     }
 
     /**
@@ -113,12 +119,11 @@ class ISWbemObject extends IDispatch{
      * 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
-     * @param {Pointer<ISWbemObjectSet>} objWbemObjectSet 
-     * @returns {HRESULT} 
+     * @returns {ISWbemObjectSet} 
      */
-    Subclasses_(iFlags, objWbemNamedValueSet, objWbemObjectSet) {
-        result := ComCall(13, this, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", objWbemObjectSet, "HRESULT")
-        return result
+    Subclasses_(iFlags, objWbemNamedValueSet) {
+        result := ComCall(13, this, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemObjectSet := 0, "HRESULT")
+        return ISWbemObjectSet(objWbemObjectSet)
     }
 
     /**
@@ -146,10 +151,9 @@ class ISWbemObject extends IDispatch{
      * @param {BSTR} strRequiredQualifier 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
-     * @param {Pointer<ISWbemObjectSet>} objWbemObjectSet 
-     * @returns {HRESULT} 
+     * @returns {ISWbemObjectSet} 
      */
-    Associators_(strAssocClass, strResultClass, strResultRole, strRole, bClassesOnly, bSchemaOnly, strRequiredAssocQualifier, strRequiredQualifier, iFlags, objWbemNamedValueSet, objWbemObjectSet) {
+    Associators_(strAssocClass, strResultClass, strResultRole, strRole, bClassesOnly, bSchemaOnly, strRequiredAssocQualifier, strRequiredQualifier, iFlags, objWbemNamedValueSet) {
         strAssocClass := strAssocClass is String ? BSTR.Alloc(strAssocClass).Value : strAssocClass
         strResultClass := strResultClass is String ? BSTR.Alloc(strResultClass).Value : strResultClass
         strResultRole := strResultRole is String ? BSTR.Alloc(strResultRole).Value : strResultRole
@@ -157,8 +161,8 @@ class ISWbemObject extends IDispatch{
         strRequiredAssocQualifier := strRequiredAssocQualifier is String ? BSTR.Alloc(strRequiredAssocQualifier).Value : strRequiredAssocQualifier
         strRequiredQualifier := strRequiredQualifier is String ? BSTR.Alloc(strRequiredQualifier).Value : strRequiredQualifier
 
-        result := ComCall(15, this, "ptr", strAssocClass, "ptr", strResultClass, "ptr", strResultRole, "ptr", strRole, "short", bClassesOnly, "short", bSchemaOnly, "ptr", strRequiredAssocQualifier, "ptr", strRequiredQualifier, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", objWbemObjectSet, "HRESULT")
-        return result
+        result := ComCall(15, this, "ptr", strAssocClass, "ptr", strResultClass, "ptr", strResultRole, "ptr", strRole, "short", bClassesOnly, "short", bSchemaOnly, "ptr", strRequiredAssocQualifier, "ptr", strRequiredQualifier, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemObjectSet := 0, "HRESULT")
+        return ISWbemObjectSet(objWbemObjectSet)
     }
 
     /**
@@ -198,16 +202,15 @@ class ISWbemObject extends IDispatch{
      * @param {BSTR} strRequiredQualifier 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
-     * @param {Pointer<ISWbemObjectSet>} objWbemObjectSet 
-     * @returns {HRESULT} 
+     * @returns {ISWbemObjectSet} 
      */
-    References_(strResultClass, strRole, bClassesOnly, bSchemaOnly, strRequiredQualifier, iFlags, objWbemNamedValueSet, objWbemObjectSet) {
+    References_(strResultClass, strRole, bClassesOnly, bSchemaOnly, strRequiredQualifier, iFlags, objWbemNamedValueSet) {
         strResultClass := strResultClass is String ? BSTR.Alloc(strResultClass).Value : strResultClass
         strRole := strRole is String ? BSTR.Alloc(strRole).Value : strRole
         strRequiredQualifier := strRequiredQualifier is String ? BSTR.Alloc(strRequiredQualifier).Value : strRequiredQualifier
 
-        result := ComCall(17, this, "ptr", strResultClass, "ptr", strRole, "short", bClassesOnly, "short", bSchemaOnly, "ptr", strRequiredQualifier, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", objWbemObjectSet, "HRESULT")
-        return result
+        result := ComCall(17, this, "ptr", strResultClass, "ptr", strRole, "short", bClassesOnly, "short", bSchemaOnly, "ptr", strRequiredQualifier, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemObjectSet := 0, "HRESULT")
+        return ISWbemObjectSet(objWbemObjectSet)
     }
 
     /**
@@ -238,14 +241,13 @@ class ISWbemObject extends IDispatch{
      * @param {IDispatch} objWbemInParameters 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
-     * @param {Pointer<ISWbemObject>} objWbemOutParameters 
-     * @returns {HRESULT} 
+     * @returns {ISWbemObject} 
      */
-    ExecMethod_(strMethodName, objWbemInParameters, iFlags, objWbemNamedValueSet, objWbemOutParameters) {
+    ExecMethod_(strMethodName, objWbemInParameters, iFlags, objWbemNamedValueSet) {
         strMethodName := strMethodName is String ? BSTR.Alloc(strMethodName).Value : strMethodName
 
-        result := ComCall(19, this, "ptr", strMethodName, "ptr", objWbemInParameters, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", objWbemOutParameters, "HRESULT")
-        return result
+        result := ComCall(19, this, "ptr", strMethodName, "ptr", objWbemInParameters, "int", iFlags, "ptr", objWbemNamedValueSet, "ptr*", &objWbemOutParameters := 0, "HRESULT")
+        return ISWbemObject(objWbemOutParameters)
     }
 
     /**
@@ -267,116 +269,107 @@ class ISWbemObject extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISWbemObject>} objWbemObject 
-     * @returns {HRESULT} 
+     * @returns {ISWbemObject} 
      */
-    Clone_(objWbemObject) {
-        result := ComCall(21, this, "ptr*", objWbemObject, "HRESULT")
-        return result
+    Clone_() {
+        result := ComCall(21, this, "ptr*", &objWbemObject := 0, "HRESULT")
+        return ISWbemObject(objWbemObject)
     }
 
     /**
      * 
      * @param {Integer} iFlags 
-     * @param {Pointer<BSTR>} strObjectText 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetObjectText_(iFlags, strObjectText) {
+    GetObjectText_(iFlags) {
+        strObjectText := BSTR()
         result := ComCall(22, this, "int", iFlags, "ptr", strObjectText, "HRESULT")
-        return result
+        return strObjectText
     }
 
     /**
      * 
      * @param {Integer} iFlags 
-     * @param {Pointer<ISWbemObject>} objWbemObject 
-     * @returns {HRESULT} 
+     * @returns {ISWbemObject} 
      */
-    SpawnDerivedClass_(iFlags, objWbemObject) {
-        result := ComCall(23, this, "int", iFlags, "ptr*", objWbemObject, "HRESULT")
-        return result
+    SpawnDerivedClass_(iFlags) {
+        result := ComCall(23, this, "int", iFlags, "ptr*", &objWbemObject := 0, "HRESULT")
+        return ISWbemObject(objWbemObject)
     }
 
     /**
      * 
      * @param {Integer} iFlags 
-     * @param {Pointer<ISWbemObject>} objWbemObject 
-     * @returns {HRESULT} 
+     * @returns {ISWbemObject} 
      */
-    SpawnInstance_(iFlags, objWbemObject) {
-        result := ComCall(24, this, "int", iFlags, "ptr*", objWbemObject, "HRESULT")
-        return result
+    SpawnInstance_(iFlags) {
+        result := ComCall(24, this, "int", iFlags, "ptr*", &objWbemObject := 0, "HRESULT")
+        return ISWbemObject(objWbemObject)
     }
 
     /**
      * 
      * @param {IDispatch} objWbemObject 
      * @param {Integer} iFlags 
-     * @param {Pointer<VARIANT_BOOL>} bResult 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    CompareTo_(objWbemObject, iFlags, bResult) {
-        result := ComCall(25, this, "ptr", objWbemObject, "int", iFlags, "ptr", bResult, "HRESULT")
-        return result
+    CompareTo_(objWbemObject, iFlags) {
+        result := ComCall(25, this, "ptr", objWbemObject, "int", iFlags, "short*", &bResult := 0, "HRESULT")
+        return bResult
     }
 
     /**
      * 
-     * @param {Pointer<ISWbemQualifierSet>} objWbemQualifierSet 
-     * @returns {HRESULT} 
+     * @returns {ISWbemQualifierSet} 
      */
-    get_Qualifiers_(objWbemQualifierSet) {
-        result := ComCall(26, this, "ptr*", objWbemQualifierSet, "HRESULT")
-        return result
+    get_Qualifiers_() {
+        result := ComCall(26, this, "ptr*", &objWbemQualifierSet := 0, "HRESULT")
+        return ISWbemQualifierSet(objWbemQualifierSet)
     }
 
     /**
      * 
-     * @param {Pointer<ISWbemPropertySet>} objWbemPropertySet 
-     * @returns {HRESULT} 
+     * @returns {ISWbemPropertySet} 
      */
-    get_Properties_(objWbemPropertySet) {
-        result := ComCall(27, this, "ptr*", objWbemPropertySet, "HRESULT")
-        return result
+    get_Properties_() {
+        result := ComCall(27, this, "ptr*", &objWbemPropertySet := 0, "HRESULT")
+        return ISWbemPropertySet(objWbemPropertySet)
     }
 
     /**
      * 
-     * @param {Pointer<ISWbemMethodSet>} objWbemMethodSet 
-     * @returns {HRESULT} 
+     * @returns {ISWbemMethodSet} 
      */
-    get_Methods_(objWbemMethodSet) {
-        result := ComCall(28, this, "ptr*", objWbemMethodSet, "HRESULT")
-        return result
+    get_Methods_() {
+        result := ComCall(28, this, "ptr*", &objWbemMethodSet := 0, "HRESULT")
+        return ISWbemMethodSet(objWbemMethodSet)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} strClassNameArray 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_Derivation_(strClassNameArray) {
+    get_Derivation_() {
+        strClassNameArray := VARIANT()
         result := ComCall(29, this, "ptr", strClassNameArray, "HRESULT")
-        return result
+        return strClassNameArray
     }
 
     /**
      * 
-     * @param {Pointer<ISWbemObjectPath>} objWbemObjectPath 
-     * @returns {HRESULT} 
+     * @returns {ISWbemObjectPath} 
      */
-    get_Path_(objWbemObjectPath) {
-        result := ComCall(30, this, "ptr*", objWbemObjectPath, "HRESULT")
-        return result
+    get_Path_() {
+        result := ComCall(30, this, "ptr*", &objWbemObjectPath := 0, "HRESULT")
+        return ISWbemObjectPath(objWbemObjectPath)
     }
 
     /**
      * 
-     * @param {Pointer<ISWbemSecurity>} objWbemSecurity 
-     * @returns {HRESULT} 
+     * @returns {ISWbemSecurity} 
      */
-    get_Security_(objWbemSecurity) {
-        result := ComCall(31, this, "ptr*", objWbemSecurity, "HRESULT")
-        return result
+    get_Security_() {
+        result := ComCall(31, this, "ptr*", &objWbemSecurity := 0, "HRESULT")
+        return ISWbemSecurity(objWbemSecurity)
     }
 }

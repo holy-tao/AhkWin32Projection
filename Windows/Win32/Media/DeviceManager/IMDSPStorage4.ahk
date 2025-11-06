@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMDSPStorage.ahk
 #Include .\IMDSPStorage3.ahk
 
 /**
@@ -63,15 +64,14 @@ class IMDSPStorage4 extends IMDSPStorage3{
      * @param {PWSTR} pwszName 
      * @param {IWMDMMetaData} pMetadata 
      * @param {Integer} qwFileSize 
-     * @param {Pointer<IMDSPStorage>} ppNewStorage 
-     * @returns {HRESULT} 
+     * @returns {IMDSPStorage} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorage4-createstoragewithmetadata
      */
-    CreateStorageWithMetadata(dwAttributes, pwszName, pMetadata, qwFileSize, ppNewStorage) {
+    CreateStorageWithMetadata(dwAttributes, pwszName, pMetadata, qwFileSize) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
 
-        result := ComCall(21, this, "uint", dwAttributes, "ptr", pwszName, "ptr", pMetadata, "uint", qwFileSize, "ptr*", ppNewStorage, "HRESULT")
-        return result
+        result := ComCall(21, this, "uint", dwAttributes, "ptr", pwszName, "ptr", pMetadata, "uint", qwFileSize, "ptr*", &ppNewStorage := 0, "HRESULT")
+        return IMDSPStorage(ppNewStorage)
     }
 
     /**
@@ -83,7 +83,9 @@ class IMDSPStorage4 extends IMDSPStorage3{
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorage4-getspecifiedmetadata
      */
     GetSpecifiedMetadata(cProperties, ppwszPropNames, pMetadata) {
-        result := ComCall(22, this, "uint", cProperties, "ptr", ppwszPropNames, "ptr", pMetadata, "HRESULT")
+        ppwszPropNamesMarshal := ppwszPropNames is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(22, this, "uint", cProperties, ppwszPropNamesMarshal, ppwszPropNames, "ptr", pMetadata, "HRESULT")
         return result
     }
 
@@ -91,37 +93,23 @@ class IMDSPStorage4 extends IMDSPStorage3{
      * 
      * @param {Integer} findScope 
      * @param {PWSTR} pwszUniqueID 
-     * @param {Pointer<IMDSPStorage>} ppStorage 
-     * @returns {HRESULT} 
+     * @returns {IMDSPStorage} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorage4-findstorage
      */
-    FindStorage(findScope, pwszUniqueID, ppStorage) {
+    FindStorage(findScope, pwszUniqueID) {
         pwszUniqueID := pwszUniqueID is String ? StrPtr(pwszUniqueID) : pwszUniqueID
 
-        result := ComCall(23, this, "int", findScope, "ptr", pwszUniqueID, "ptr*", ppStorage, "HRESULT")
-        return result
+        result := ComCall(23, this, "int", findScope, "ptr", pwszUniqueID, "ptr*", &ppStorage := 0, "HRESULT")
+        return IMDSPStorage(ppStorage)
     }
 
     /**
      * Retrieves a handle to the specified window's parent or owner.
-     * @param {Pointer<IMDSPStorage>} ppStorage 
-     * @returns {HRESULT} Type: <b>HWND</b>
-     * 
-     * If the window is a child window, the return value is a handle to the parent window. If the window is a top-level window with the <b>WS_POPUP</b> style, the return value is a handle to the owner window. 
-     * 
-     * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * 
-     * This function typically fails for one of the following reasons:
-     * 
-     * 
-     * <ul>
-     * <li>The window is a top-level window that is unowned or does not have the <b>WS_POPUP</b> style. </li>
-     * <li>The owner window has <b>WS_POPUP</b> style.</li>
-     * </ul>
+     * @returns {IMDSPStorage} 
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getparent
      */
-    GetParent(ppStorage) {
-        result := ComCall(24, this, "ptr*", ppStorage, "HRESULT")
-        return result
+    GetParent() {
+        result := ComCall(24, this, "ptr*", &ppStorage := 0, "HRESULT")
+        return IMDSPStorage(ppStorage)
     }
 }

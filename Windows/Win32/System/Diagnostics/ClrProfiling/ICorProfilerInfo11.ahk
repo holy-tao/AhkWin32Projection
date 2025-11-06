@@ -32,24 +32,16 @@ class ICorProfilerInfo11 extends ICorProfilerInfo10{
      * Retrieves the contents of the specified variable from the environment block of the calling process.
      * @param {PWSTR} szName 
      * @param {Integer} cchValue 
-     * @param {Pointer<Integer>} pcchValue 
      * @param {PWSTR} szValue 
-     * @returns {HRESULT} If the function succeeds, the return value is the number of characters stored in the buffer pointed to by *lpBuffer*, not including the terminating null character.
-     * 
-     * If *lpBuffer* is not large enough to hold the data, the return value is the buffer size, in characters, required to hold the string and its terminating null character and the contents of *lpBuffer* are undefined.
-     * 
-     * If the function fails, the return value is zero. If the specified environment variable was not found in the environment block, 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_ENVVAR_NOT_FOUND.
+     * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//processenv/nf-processenv-getenvironmentvariablea
      */
-    GetEnvironmentVariableA(szName, cchValue, pcchValue, szValue) {
+    GetEnvironmentVariableA(szName, cchValue, szValue) {
         szName := szName is String ? StrPtr(szName) : szName
         szValue := szValue is String ? StrPtr(szValue) : szValue
 
-        pcchValueMarshal := pcchValue is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(99, this, "ptr", szName, "uint", cchValue, pcchValueMarshal, pcchValue, "ptr", szValue, "HRESULT")
-        return result
+        result := ComCall(99, this, "ptr", szName, "uint", cchValue, "uint*", &pcchValue := 0, "ptr", szValue, "HRESULT")
+        return pcchValue
     }
 
     /**

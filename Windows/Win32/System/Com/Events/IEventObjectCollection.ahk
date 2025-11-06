@@ -2,6 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\IUnknown.ahk
+#Include ..\..\Variant\VARIANT.ahk
+#Include .\IEnumEventObject.ahk
 #Include ..\IDispatch.ahk
 
 /**
@@ -33,51 +36,46 @@ class IEventObjectCollection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppUnkEnum 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventobjectcollection-get__newenum
      */
-    get__NewEnum(ppUnkEnum) {
-        result := ComCall(7, this, "ptr*", ppUnkEnum, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(7, this, "ptr*", &ppUnkEnum := 0, "HRESULT")
+        return IUnknown(ppUnkEnum)
     }
 
     /**
      * 
      * @param {BSTR} objectID 
-     * @param {Pointer<VARIANT>} pItem 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventobjectcollection-get_item
      */
-    get_Item(objectID, pItem) {
+    get_Item(objectID) {
         objectID := objectID is String ? BSTR.Alloc(objectID).Value : objectID
 
+        pItem := VARIANT()
         result := ComCall(8, this, "ptr", objectID, "ptr", pItem, "HRESULT")
-        return result
+        return pItem
     }
 
     /**
      * 
-     * @param {Pointer<IEnumEventObject>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumEventObject} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventobjectcollection-get_newenum
      */
-    get_NewEnum(ppEnum) {
-        result := ComCall(9, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    get_NewEnum() {
+        result := ComCall(9, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumEventObject(ppEnum)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventobjectcollection-get_count
      */
-    get_Count(pCount) {
-        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(10, this, "int*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**

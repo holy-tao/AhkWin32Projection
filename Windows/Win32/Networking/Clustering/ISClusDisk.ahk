@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISClusScsiAddress.ahk
+#Include .\ISClusPartitions.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,45 +32,37 @@ class ISClusDisk extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plSignature 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Signature(plSignature) {
-        plSignatureMarshal := plSignature is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, plSignatureMarshal, plSignature, "HRESULT")
-        return result
+    get_Signature() {
+        result := ComCall(7, this, "int*", &plSignature := 0, "HRESULT")
+        return plSignature
     }
 
     /**
      * 
-     * @param {Pointer<ISClusScsiAddress>} ppScsiAddress 
-     * @returns {HRESULT} 
+     * @returns {ISClusScsiAddress} 
      */
-    get_ScsiAddress(ppScsiAddress) {
-        result := ComCall(8, this, "ptr*", ppScsiAddress, "HRESULT")
-        return result
+    get_ScsiAddress() {
+        result := ComCall(8, this, "ptr*", &ppScsiAddress := 0, "HRESULT")
+        return ISClusScsiAddress(ppScsiAddress)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plDiskNumber 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_DiskNumber(plDiskNumber) {
-        plDiskNumberMarshal := plDiskNumber is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, plDiskNumberMarshal, plDiskNumber, "HRESULT")
-        return result
+    get_DiskNumber() {
+        result := ComCall(9, this, "int*", &plDiskNumber := 0, "HRESULT")
+        return plDiskNumber
     }
 
     /**
      * 
-     * @param {Pointer<ISClusPartitions>} ppPartitions 
-     * @returns {HRESULT} 
+     * @returns {ISClusPartitions} 
      */
-    get_Partitions(ppPartitions) {
-        result := ComCall(10, this, "ptr*", ppPartitions, "HRESULT")
-        return result
+    get_Partitions() {
+        result := ComCall(10, this, "ptr*", &ppPartitions := 0, "HRESULT")
+        return ISClusPartitions(ppPartitions)
     }
 }

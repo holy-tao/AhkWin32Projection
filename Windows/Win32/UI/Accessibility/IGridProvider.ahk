@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRawElementProviderSimple.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -47,38 +48,31 @@ class IGridProvider extends IUnknown{
      * 
      * @param {Integer} row 
      * @param {Integer} column 
-     * @param {Pointer<IRawElementProviderSimple>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {IRawElementProviderSimple} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-igridprovider-getitem
      */
-    GetItem(row, column, pRetVal) {
-        result := ComCall(3, this, "int", row, "int", column, "ptr*", pRetVal, "HRESULT")
-        return result
+    GetItem(row, column) {
+        result := ComCall(3, this, "int", row, "int", column, "ptr*", &pRetVal := 0, "HRESULT")
+        return IRawElementProviderSimple(pRetVal)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-igridprovider-get_rowcount
      */
-    get_RowCount(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    get_RowCount() {
+        result := ComCall(4, this, "int*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-igridprovider-get_columncount
      */
-    get_ColumnCount(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    get_ColumnCount() {
+        result := ComCall(5, this, "int*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 }

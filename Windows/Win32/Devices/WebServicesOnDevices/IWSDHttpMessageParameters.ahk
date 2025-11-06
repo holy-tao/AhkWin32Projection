@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IWSDMessageParameters.ahk
 
 /**
@@ -45,13 +46,12 @@ class IWSDHttpMessageParameters extends IWSDMessageParameters{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszHeaders 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdhttpmessageparameters-getinboundhttpheaders
      */
-    GetInboundHttpHeaders(ppszHeaders) {
-        result := ComCall(9, this, "ptr", ppszHeaders, "HRESULT")
-        return result
+    GetInboundHttpHeaders() {
+        result := ComCall(9, this, "ptr*", &ppszHeaders := 0, "HRESULT")
+        return ppszHeaders
     }
 
     /**
@@ -69,13 +69,12 @@ class IWSDHttpMessageParameters extends IWSDMessageParameters{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszHeaders 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdhttpmessageparameters-getoutboundhttpheaders
      */
-    GetOutboundHttpHeaders(ppszHeaders) {
-        result := ComCall(11, this, "ptr", ppszHeaders, "HRESULT")
-        return result
+    GetOutboundHttpHeaders() {
+        result := ComCall(11, this, "ptr*", &ppszHeaders := 0, "HRESULT")
+        return ppszHeaders
     }
 
     /**
@@ -93,13 +92,12 @@ class IWSDHttpMessageParameters extends IWSDMessageParameters{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszId 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdhttpmessageparameters-getid
      */
-    GetID(ppszId) {
-        result := ComCall(13, this, "ptr", ppszId, "HRESULT")
-        return result
+    GetID() {
+        result := ComCall(13, this, "ptr*", &ppszId := 0, "HRESULT")
+        return ppszId
     }
 
     /**
@@ -115,13 +113,12 @@ class IWSDHttpMessageParameters extends IWSDMessageParameters{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppContext 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdhttpmessageparameters-getcontext
      */
-    GetContext(ppContext) {
-        result := ComCall(15, this, "ptr*", ppContext, "HRESULT")
-        return result
+    GetContext() {
+        result := ComCall(15, this, "ptr*", &ppContext := 0, "HRESULT")
+        return IUnknown(ppContext)
     }
 
     /**

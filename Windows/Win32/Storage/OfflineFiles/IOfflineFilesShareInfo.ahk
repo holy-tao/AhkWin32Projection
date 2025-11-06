@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IOfflineFilesShareItem.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,36 +33,31 @@ class IOfflineFilesShareInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IOfflineFilesShareItem>} ppShareItem 
-     * @returns {HRESULT} 
+     * @returns {IOfflineFilesShareItem} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesshareinfo-getshareitem
      */
-    GetShareItem(ppShareItem) {
-        result := ComCall(3, this, "ptr*", ppShareItem, "HRESULT")
-        return result
+    GetShareItem() {
+        result := ComCall(3, this, "ptr*", &ppShareItem := 0, "HRESULT")
+        return IOfflineFilesShareItem(ppShareItem)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCachingMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesshareinfo-getsharecachingmode
      */
-    GetShareCachingMode(pCachingMode) {
-        pCachingModeMarshal := pCachingMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, pCachingModeMarshal, pCachingMode, "HRESULT")
-        return result
+    GetShareCachingMode() {
+        result := ComCall(4, this, "int*", &pCachingMode := 0, "HRESULT")
+        return pCachingMode
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbIsDfsJunction 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesshareinfo-issharedfsjunction
      */
-    IsShareDfsJunction(pbIsDfsJunction) {
-        result := ComCall(5, this, "ptr", pbIsDfsJunction, "HRESULT")
-        return result
+    IsShareDfsJunction() {
+        result := ComCall(5, this, "int*", &pbIsDfsJunction := 0, "HRESULT")
+        return pbIsDfsJunction
     }
 }

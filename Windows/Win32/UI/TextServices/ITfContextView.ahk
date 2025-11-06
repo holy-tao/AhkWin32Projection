@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITfRange.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -35,13 +38,12 @@ class ITfContextView extends IUnknown{
      * @param {Integer} ec 
      * @param {Pointer<POINT>} ppt 
      * @param {Integer} dwFlags 
-     * @param {Pointer<ITfRange>} ppRange 
-     * @returns {HRESULT} 
+     * @returns {ITfRange} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextview-getrangefrompoint
      */
-    GetRangeFromPoint(ec, ppt, dwFlags, ppRange) {
-        result := ComCall(3, this, "uint", ec, "ptr", ppt, "uint", dwFlags, "ptr*", ppRange, "HRESULT")
-        return result
+    GetRangeFromPoint(ec, ppt, dwFlags) {
+        result := ComCall(3, this, "uint", ec, "ptr", ppt, "uint", dwFlags, "ptr*", &ppRange := 0, "HRESULT")
+        return ITfRange(ppRange)
     }
 
     /**
@@ -54,29 +56,31 @@ class ITfContextView extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextview-gettextext
      */
     GetTextExt(ec, pRange, prc, pfClipped) {
-        result := ComCall(4, this, "uint", ec, "ptr", pRange, "ptr", prc, "ptr", pfClipped, "HRESULT")
+        pfClippedMarshal := pfClipped is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "uint", ec, "ptr", pRange, "ptr", prc, pfClippedMarshal, pfClipped, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<RECT>} prc 
-     * @returns {HRESULT} 
+     * @returns {RECT} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextview-getscreenext
      */
-    GetScreenExt(prc) {
+    GetScreenExt() {
+        prc := RECT()
         result := ComCall(5, this, "ptr", prc, "HRESULT")
-        return result
+        return prc
     }
 
     /**
      * 
-     * @param {Pointer<HWND>} phwnd 
-     * @returns {HRESULT} 
+     * @returns {HWND} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextview-getwnd
      */
-    GetWnd(phwnd) {
+    GetWnd() {
+        phwnd := HWND()
         result := ComCall(6, this, "ptr", phwnd, "HRESULT")
-        return result
+        return phwnd
     }
 }

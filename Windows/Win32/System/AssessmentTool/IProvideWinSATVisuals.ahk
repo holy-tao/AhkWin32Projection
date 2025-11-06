@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -35,12 +36,12 @@ class IProvideWinSATVisuals extends IUnknown{
      * @param {Integer} bitmapSize 
      * @param {Integer} state 
      * @param {Float} rating 
-     * @param {Pointer<HBITMAP>} pBitmap 
-     * @returns {HRESULT} 
+     * @returns {HBITMAP} 
      * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatvisuals-get_bitmap
      */
-    get_Bitmap(bitmapSize, state, rating, pBitmap) {
+    get_Bitmap(bitmapSize, state, rating) {
+        pBitmap := HBITMAP()
         result := ComCall(3, this, "int", bitmapSize, "int", state, "float", rating, "ptr", pBitmap, "HRESULT")
-        return result
+        return pBitmap
     }
 }

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IMFImageSharingEngine.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -34,14 +35,13 @@ class IMFImageSharingEngineClassFactory extends IUnknown{
     /**
      * 
      * @param {BSTR} pUniqueDeviceName 
-     * @param {Pointer<IMFImageSharingEngine>} ppEngine 
-     * @returns {HRESULT} 
+     * @returns {IMFImageSharingEngine} 
      * @see https://learn.microsoft.com/windows/win32/api/mfsharingengine/nf-mfsharingengine-imfimagesharingengineclassfactory-createinstancefromudn
      */
-    CreateInstanceFromUDN(pUniqueDeviceName, ppEngine) {
+    CreateInstanceFromUDN(pUniqueDeviceName) {
         pUniqueDeviceName := pUniqueDeviceName is String ? BSTR.Alloc(pUniqueDeviceName).Value : pUniqueDeviceName
 
-        result := ComCall(3, this, "ptr", pUniqueDeviceName, "ptr*", ppEngine, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pUniqueDeviceName, "ptr*", &ppEngine := 0, "HRESULT")
+        return IMFImageSharingEngine(ppEngine)
     }
 }

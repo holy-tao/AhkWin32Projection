@@ -36,73 +36,55 @@ class IDispLatLongReport extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_Latitude(pVal) {
-        pValMarshal := pVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(7, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_Latitude() {
+        result := ComCall(7, this, "double*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_Longitude(pVal) {
-        pValMarshal := pVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(8, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_Longitude() {
+        result := ComCall(8, this, "double*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_ErrorRadius(pVal) {
-        pValMarshal := pVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(9, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_ErrorRadius() {
+        result := ComCall(9, this, "double*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_Altitude(pVal) {
-        pValMarshal := pVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(10, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_Altitude() {
+        result := ComCall(10, this, "double*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_AltitudeError(pVal) {
-        pValMarshal := pVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(11, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_AltitudeError() {
+        result := ComCall(11, this, "double*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_Timestamp(pVal) {
-        pValMarshal := pVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(12, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_Timestamp() {
+        result := ComCall(12, this, "double*", &pVal := 0, "HRESULT")
+        return pVal
     }
 }

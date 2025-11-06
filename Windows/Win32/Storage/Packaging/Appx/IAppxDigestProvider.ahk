@@ -32,12 +32,11 @@ class IAppxDigestProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} digest 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxdigestprovider-getdigest
      */
-    GetDigest(digest) {
-        result := ComCall(3, this, "ptr", digest, "HRESULT")
-        return result
+    GetDigest() {
+        result := ComCall(3, this, "ptr*", &digest := 0, "HRESULT")
+        return digest
     }
 }

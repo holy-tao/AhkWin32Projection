@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMSMQQueueInfos3.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -39,22 +40,20 @@ class IMSMQQuery3 extends IDispatch{
      * @param {Pointer<VARIANT>} RelLabel 
      * @param {Pointer<VARIANT>} RelCreateTime 
      * @param {Pointer<VARIANT>} RelModifyTime 
-     * @param {Pointer<IMSMQQueueInfos3>} ppqinfos 
-     * @returns {HRESULT} 
+     * @returns {IMSMQQueueInfos3} 
      */
-    LookupQueue_v2(QueueGuid, ServiceTypeGuid, Label, CreateTime, ModifyTime, RelServiceType, RelLabel, RelCreateTime, RelModifyTime, ppqinfos) {
-        result := ComCall(7, this, "ptr", QueueGuid, "ptr", ServiceTypeGuid, "ptr", Label, "ptr", CreateTime, "ptr", ModifyTime, "ptr", RelServiceType, "ptr", RelLabel, "ptr", RelCreateTime, "ptr", RelModifyTime, "ptr*", ppqinfos, "HRESULT")
-        return result
+    LookupQueue_v2(QueueGuid, ServiceTypeGuid, Label, CreateTime, ModifyTime, RelServiceType, RelLabel, RelCreateTime, RelModifyTime) {
+        result := ComCall(7, this, "ptr", QueueGuid, "ptr", ServiceTypeGuid, "ptr", Label, "ptr", CreateTime, "ptr", ModifyTime, "ptr", RelServiceType, "ptr", RelLabel, "ptr", RelCreateTime, "ptr", RelModifyTime, "ptr*", &ppqinfos := 0, "HRESULT")
+        return IMSMQQueueInfos3(ppqinfos)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppcolProperties 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Properties(ppcolProperties) {
-        result := ComCall(8, this, "ptr*", ppcolProperties, "HRESULT")
-        return result
+    get_Properties() {
+        result := ComCall(8, this, "ptr*", &ppcolProperties := 0, "HRESULT")
+        return IDispatch(ppcolProperties)
     }
 
     /**
@@ -70,11 +69,10 @@ class IMSMQQuery3 extends IDispatch{
      * @param {Pointer<VARIANT>} RelModifyTime 
      * @param {Pointer<VARIANT>} MulticastAddress 
      * @param {Pointer<VARIANT>} RelMulticastAddress 
-     * @param {Pointer<IMSMQQueueInfos3>} ppqinfos 
-     * @returns {HRESULT} 
+     * @returns {IMSMQQueueInfos3} 
      */
-    LookupQueue(QueueGuid, ServiceTypeGuid, Label, CreateTime, ModifyTime, RelServiceType, RelLabel, RelCreateTime, RelModifyTime, MulticastAddress, RelMulticastAddress, ppqinfos) {
-        result := ComCall(9, this, "ptr", QueueGuid, "ptr", ServiceTypeGuid, "ptr", Label, "ptr", CreateTime, "ptr", ModifyTime, "ptr", RelServiceType, "ptr", RelLabel, "ptr", RelCreateTime, "ptr", RelModifyTime, "ptr", MulticastAddress, "ptr", RelMulticastAddress, "ptr*", ppqinfos, "HRESULT")
-        return result
+    LookupQueue(QueueGuid, ServiceTypeGuid, Label, CreateTime, ModifyTime, RelServiceType, RelLabel, RelCreateTime, RelModifyTime, MulticastAddress, RelMulticastAddress) {
+        result := ComCall(9, this, "ptr", QueueGuid, "ptr", ServiceTypeGuid, "ptr", Label, "ptr", CreateTime, "ptr", ModifyTime, "ptr", RelServiceType, "ptr", RelLabel, "ptr", RelCreateTime, "ptr", RelModifyTime, "ptr", MulticastAddress, "ptr", RelMulticastAddress, "ptr*", &ppqinfos := 0, "HRESULT")
+        return IMSMQQueueInfos3(ppqinfos)
     }
 }

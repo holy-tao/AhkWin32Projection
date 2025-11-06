@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -61,13 +62,13 @@ class IWiaItemExtras extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} bstrErrorText 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiaitemextras-getextendederrorinfo
      */
-    GetExtendedErrorInfo(bstrErrorText) {
+    GetExtendedErrorInfo() {
+        bstrErrorText := BSTR()
         result := ComCall(3, this, "ptr", bstrErrorText, "HRESULT")
-        return result
+        return bstrErrorText
     }
 
     /**

@@ -40,164 +40,88 @@ class IAppxManifestPackageId extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} name 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestpackageid-getname
      */
-    GetName(name) {
-        result := ComCall(3, this, "ptr", name, "HRESULT")
-        return result
+    GetName() {
+        result := ComCall(3, this, "ptr*", &name := 0, "HRESULT")
+        return name
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} architecture 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestpackageid-getarchitecture
      */
-    GetArchitecture(architecture) {
-        architectureMarshal := architecture is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, architectureMarshal, architecture, "HRESULT")
-        return result
+    GetArchitecture() {
+        result := ComCall(4, this, "int*", &architecture := 0, "HRESULT")
+        return architecture
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} publisher 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestpackageid-getpublisher
      */
-    GetPublisher(publisher) {
-        result := ComCall(5, this, "ptr", publisher, "HRESULT")
-        return result
+    GetPublisher() {
+        result := ComCall(5, this, "ptr*", &publisher := 0, "HRESULT")
+        return publisher
     }
 
     /**
      * With the release of Windows 8.1, the behavior of the GetVersion API has changed in the value it will return for the operating system version. The value returned by the GetVersion function now depends on how the application is manifested.
-     * @param {Pointer<Integer>} packageVersion 
-     * @returns {HRESULT} If the function succeeds, the return value includes the major and minor version numbers of the operating system in the low-order word, and information about the operating system platform in the high-order word.
-     * 
-     * For all platforms, the low-order word contains the version number of the operating system. The low-order byte of this word specifies the major version number, in hexadecimal notation. The high-order byte specifies the minor version (revision) number, in hexadecimal notation. The  high-order bit is zero, the next 7 bits represent the build number, and the low-order byte is 5.
+     * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//sysinfoapi/nf-sysinfoapi-getversion
      */
-    GetVersion(packageVersion) {
-        packageVersionMarshal := packageVersion is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, packageVersionMarshal, packageVersion, "HRESULT")
-        return result
+    GetVersion() {
+        result := ComCall(6, this, "uint*", &packageVersion := 0, "HRESULT")
+        return packageVersion
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} resourceId 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestpackageid-getresourceid
      */
-    GetResourceId(resourceId) {
-        result := ComCall(7, this, "ptr", resourceId, "HRESULT")
-        return result
+    GetResourceId() {
+        result := ComCall(7, this, "ptr*", &resourceId := 0, "HRESULT")
+        return resourceId
     }
 
     /**
      * 
      * @param {PWSTR} other 
-     * @param {Pointer<BOOL>} isSame 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestpackageid-comparepublisher
      */
-    ComparePublisher(other, isSame) {
+    ComparePublisher(other) {
         other := other is String ? StrPtr(other) : other
 
-        result := ComCall(8, this, "ptr", other, "ptr", isSame, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", other, "int*", &isSame := 0, "HRESULT")
+        return isSame
     }
 
     /**
      * Gets the package full name for the specified process.
-     * @param {Pointer<PWSTR>} packageFullName Type: <b>PWSTR</b>
+     * @returns {PWSTR} Type: <b>PWSTR</b>
      * 
      * The package full name.
-     * @returns {HRESULT} Type: <b>LONG</b>
-     * 
-     * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>APPMODEL_ERROR_NO_PACKAGE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The process has no package identity.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INSUFFICIENT_BUFFER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The buffer is not large enough to hold the data. The required size is specified  by <i>packageFullNameLength</i>.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getpackagefullname
      */
-    GetPackageFullName(packageFullName) {
-        result := ComCall(9, this, "ptr", packageFullName, "HRESULT")
-        return result
+    GetPackageFullName() {
+        result := ComCall(9, this, "ptr*", &packageFullName := 0, "HRESULT")
+        return packageFullName
     }
 
     /**
      * Gets the package family name for the specified process.
-     * @param {Pointer<PWSTR>} packageFamilyName Type: <b>PWSTR</b>
+     * @returns {PWSTR} Type: <b>PWSTR</b>
      * 
      * The package family name.
-     * @returns {HRESULT} Type: <b>LONG</b>
-     * 
-     * If the function succeeds it returns <b>ERROR_SUCCESS</b>. Otherwise, the function returns an error code. The possible error codes include the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>APPMODEL_ERROR_NO_PACKAGE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The process has no package identity.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INSUFFICIENT_BUFFER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The buffer is not large enough to hold the data. The required size is specified  by <i>packageFamilyNameLength</i>.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getpackagefamilyname
      */
-    GetPackageFamilyName(packageFamilyName) {
-        result := ComCall(10, this, "ptr", packageFamilyName, "HRESULT")
-        return result
+    GetPackageFamilyName() {
+        result := ComCall(10, this, "ptr*", &packageFamilyName := 0, "HRESULT")
+        return packageFamilyName
     }
 }

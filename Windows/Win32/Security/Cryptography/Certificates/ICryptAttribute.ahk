@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IObjectId.ahk
+#Include .\IX509Attributes.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -54,23 +56,21 @@ class ICryptAttribute extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IObjectId>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IObjectId} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icryptattribute-get_objectid
      */
-    get_ObjectId(ppValue) {
-        result := ComCall(9, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_ObjectId() {
+        result := ComCall(9, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IObjectId(ppValue)
     }
 
     /**
      * 
-     * @param {Pointer<IX509Attributes>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {IX509Attributes} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icryptattribute-get_values
      */
-    get_Values(ppValue) {
-        result := ComCall(10, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_Values() {
+        result := ComCall(10, this, "ptr*", &ppValue := 0, "HRESULT")
+        return IX509Attributes(ppValue)
     }
 }

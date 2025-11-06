@@ -57,7 +57,9 @@ class IWMPPlayerApplication extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayerapplication-get_playerdocked
      */
     get_playerDocked(pbPlayerDocked) {
-        result := ComCall(9, this, "ptr", pbPlayerDocked, "HRESULT")
+        pbPlayerDockedMarshal := pbPlayerDocked is VarRef ? "short*" : "ptr"
+
+        result := ComCall(9, this, pbPlayerDockedMarshal, pbPlayerDocked, "HRESULT")
         return result
     }
 
@@ -68,7 +70,9 @@ class IWMPPlayerApplication extends IDispatch{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayerapplication-get_hasdisplay
      */
     get_hasDisplay(pbHasDisplay) {
-        result := ComCall(10, this, "ptr", pbHasDisplay, "HRESULT")
+        pbHasDisplayMarshal := pbHasDisplay is VarRef ? "short*" : "ptr"
+
+        result := ComCall(10, this, pbHasDisplayMarshal, pbHasDisplay, "HRESULT")
         return result
     }
 }

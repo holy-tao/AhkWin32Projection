@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Graphics\Gdi\LOGFONTW.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,11 +31,11 @@ class IElementBehaviorSiteLayout2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<LOGFONTW>} plf 
-     * @returns {HRESULT} 
+     * @returns {LOGFONTW} 
      */
-    GetFontInfo(plf) {
+    GetFontInfo() {
+        plf := LOGFONTW()
         result := ComCall(3, this, "ptr", plf, "HRESULT")
-        return result
+        return plf
     }
 }

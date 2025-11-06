@@ -33,13 +33,13 @@ class IEventClass2 extends IEventClass{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrPublisherID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass2-get_publisherid
      */
-    get_PublisherID(pbstrPublisherID) {
+    get_PublisherID() {
+        pbstrPublisherID := BSTR()
         result := ComCall(21, this, "ptr", pbstrPublisherID, "HRESULT")
-        return result
+        return pbstrPublisherID
     }
 
     /**
@@ -57,13 +57,13 @@ class IEventClass2 extends IEventClass{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrPubFilCLSID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass2-get_multiinterfacepublisherfilterclsid
      */
-    get_MultiInterfacePublisherFilterCLSID(pbstrPubFilCLSID) {
+    get_MultiInterfacePublisherFilterCLSID() {
+        pbstrPubFilCLSID := BSTR()
         result := ComCall(23, this, "ptr", pbstrPubFilCLSID, "HRESULT")
-        return result
+        return pbstrPubFilCLSID
     }
 
     /**
@@ -81,13 +81,12 @@ class IEventClass2 extends IEventClass{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfAllowInprocActivation 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass2-get_allowinprocactivation
      */
-    get_AllowInprocActivation(pfAllowInprocActivation) {
-        result := ComCall(25, this, "ptr", pfAllowInprocActivation, "HRESULT")
-        return result
+    get_AllowInprocActivation() {
+        result := ComCall(25, this, "int*", &pfAllowInprocActivation := 0, "HRESULT")
+        return pfAllowInprocActivation
     }
 
     /**
@@ -103,13 +102,12 @@ class IEventClass2 extends IEventClass{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfFireInParallel 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass2-get_fireinparallel
      */
-    get_FireInParallel(pfFireInParallel) {
-        result := ComCall(27, this, "ptr", pfFireInParallel, "HRESULT")
-        return result
+    get_FireInParallel() {
+        result := ComCall(27, this, "int*", &pfFireInParallel := 0, "HRESULT")
+        return pfFireInParallel
     }
 
     /**

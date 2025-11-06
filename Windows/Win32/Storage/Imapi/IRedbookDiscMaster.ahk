@@ -32,67 +32,52 @@ class IRedbookDiscMaster extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pnTracks 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-iredbookdiscmaster-gettotalaudiotracks
      */
-    GetTotalAudioTracks(pnTracks) {
-        pnTracksMarshal := pnTracks is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, pnTracksMarshal, pnTracks, "HRESULT")
-        return result
+    GetTotalAudioTracks() {
+        result := ComCall(3, this, "int*", &pnTracks := 0, "HRESULT")
+        return pnTracks
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pnBlocks 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-iredbookdiscmaster-gettotalaudioblocks
      */
-    GetTotalAudioBlocks(pnBlocks) {
-        pnBlocksMarshal := pnBlocks is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, pnBlocksMarshal, pnBlocks, "HRESULT")
-        return result
+    GetTotalAudioBlocks() {
+        result := ComCall(4, this, "int*", &pnBlocks := 0, "HRESULT")
+        return pnBlocks
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pnBlocks 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-iredbookdiscmaster-getusedaudioblocks
      */
-    GetUsedAudioBlocks(pnBlocks) {
-        pnBlocksMarshal := pnBlocks is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, pnBlocksMarshal, pnBlocks, "HRESULT")
-        return result
+    GetUsedAudioBlocks() {
+        result := ComCall(5, this, "int*", &pnBlocks := 0, "HRESULT")
+        return pnBlocks
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pnBlocks 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-iredbookdiscmaster-getavailableaudiotrackblocks
      */
-    GetAvailableAudioTrackBlocks(pnBlocks) {
-        pnBlocksMarshal := pnBlocks is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, pnBlocksMarshal, pnBlocks, "HRESULT")
-        return result
+    GetAvailableAudioTrackBlocks() {
+        result := ComCall(6, this, "int*", &pnBlocks := 0, "HRESULT")
+        return pnBlocks
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pnBlockBytes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi/nf-imapi-iredbookdiscmaster-getaudioblocksize
      */
-    GetAudioBlockSize(pnBlockBytes) {
-        pnBlockBytesMarshal := pnBlockBytes is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pnBlockBytesMarshal, pnBlockBytes, "HRESULT")
-        return result
+    GetAudioBlockSize() {
+        result := ComCall(7, this, "int*", &pnBlockBytes := 0, "HRESULT")
+        return pnBlockBytes
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFExtendedCameraControl.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -37,12 +38,11 @@ class IMFExtendedCameraController extends IUnknown{
      * 
      * @param {Integer} dwStreamIndex 
      * @param {Integer} ulPropertyId 
-     * @param {Pointer<IMFExtendedCameraControl>} ppControl 
-     * @returns {HRESULT} 
+     * @returns {IMFExtendedCameraControl} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfextendedcameracontroller-getextendedcameracontrol
      */
-    GetExtendedCameraControl(dwStreamIndex, ulPropertyId, ppControl) {
-        result := ComCall(3, this, "uint", dwStreamIndex, "uint", ulPropertyId, "ptr*", ppControl, "HRESULT")
-        return result
+    GetExtendedCameraControl(dwStreamIndex, ulPropertyId) {
+        result := ComCall(3, this, "uint", dwStreamIndex, "uint", ulPropertyId, "ptr*", &ppControl := 0, "HRESULT")
+        return IMFExtendedCameraControl(ppControl)
     }
 }

@@ -56,11 +56,10 @@ class ICommand extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppSession 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    GetDBSession(riid, ppSession) {
-        result := ComCall(5, this, "ptr", riid, "ptr*", ppSession, "HRESULT")
-        return result
+    GetDBSession(riid) {
+        result := ComCall(5, this, "ptr", riid, "ptr*", &ppSession := 0, "HRESULT")
+        return IUnknown(ppSession)
     }
 }

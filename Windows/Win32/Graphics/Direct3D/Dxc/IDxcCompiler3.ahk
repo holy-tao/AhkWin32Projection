@@ -35,27 +35,23 @@ class IDxcCompiler3 extends IUnknown{
      * @param {Integer} argCount 
      * @param {IDxcIncludeHandler} pIncludeHandler 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    Compile(pSource, pArguments, argCount, pIncludeHandler, riid, ppResult) {
-        ppResultMarshal := ppResult is VarRef ? "ptr*" : "ptr"
+    Compile(pSource, pArguments, argCount, pIncludeHandler, riid) {
+        pArgumentsMarshal := pArguments is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pSource, "ptr", pArguments, "uint", argCount, "ptr", pIncludeHandler, "ptr", riid, ppResultMarshal, ppResult, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pSource, pArgumentsMarshal, pArguments, "uint", argCount, "ptr", pIncludeHandler, "ptr", riid, "ptr*", &ppResult := 0, "HRESULT")
+        return ppResult
     }
 
     /**
      * 
      * @param {Pointer<DxcBuffer>} pObject 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    Disassemble(pObject, riid, ppResult) {
-        ppResultMarshal := ppResult is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "ptr", pObject, "ptr", riid, ppResultMarshal, ppResult, "HRESULT")
-        return result
+    Disassemble(pObject, riid) {
+        result := ComCall(4, this, "ptr", pObject, "ptr", riid, "ptr*", &ppResult := 0, "HRESULT")
+        return ppResult
     }
 }

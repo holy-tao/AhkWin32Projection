@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DXGI_SURFACE_DESC.ahk
+#Include .\DXGI_MAPPED_RECT.ahk
 #Include .\IDXGIDeviceSubObject.ahk
 
 /**
@@ -39,25 +41,25 @@ class IDXGISurface extends IDXGIDeviceSubObject{
 
     /**
      * 
-     * @param {Pointer<DXGI_SURFACE_DESC>} pDesc 
-     * @returns {HRESULT} 
+     * @returns {DXGI_SURFACE_DESC} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgisurface-getdesc
      */
-    GetDesc(pDesc) {
+    GetDesc() {
+        pDesc := DXGI_SURFACE_DESC()
         result := ComCall(8, this, "ptr", pDesc, "HRESULT")
-        return result
+        return pDesc
     }
 
     /**
      * 
-     * @param {Pointer<DXGI_MAPPED_RECT>} pLockedRect 
      * @param {Integer} MapFlags 
-     * @returns {HRESULT} 
+     * @returns {DXGI_MAPPED_RECT} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgisurface-map
      */
-    Map(pLockedRect, MapFlags) {
+    Map(MapFlags) {
+        pLockedRect := DXGI_MAPPED_RECT()
         result := ComCall(9, this, "ptr", pLockedRect, "uint", MapFlags, "HRESULT")
-        return result
+        return pLockedRect
     }
 
     /**

@@ -31,12 +31,11 @@ class ISpRecoResult2 extends ISpRecoResult{
     /**
      * 
      * @param {ISpPhraseAlt} pPhraseAlt 
-     * @param {Pointer<ISpRecoResult>} ppNewResult 
-     * @returns {HRESULT} 
+     * @returns {ISpRecoResult} 
      */
-    CommitAlternate(pPhraseAlt, ppNewResult) {
-        result := ComCall(14, this, "ptr", pPhraseAlt, "ptr*", ppNewResult, "HRESULT")
-        return result
+    CommitAlternate(pPhraseAlt) {
+        result := ComCall(14, this, "ptr", pPhraseAlt, "ptr*", &ppNewResult := 0, "HRESULT")
+        return ISpRecoResult(ppNewResult)
     }
 
     /**

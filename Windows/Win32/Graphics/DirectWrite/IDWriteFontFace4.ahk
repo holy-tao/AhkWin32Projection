@@ -35,15 +35,12 @@ class IDWriteFontFace4 extends IDWriteFontFace3{
      * @param {Integer} glyphId 
      * @param {Integer} pixelsPerEmFirst 
      * @param {Integer} pixelsPerEmLast 
-     * @param {Pointer<Integer>} glyphImageFormats 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface4-getglyphimageformats
      */
-    GetGlyphImageFormats(glyphId, pixelsPerEmFirst, pixelsPerEmLast, glyphImageFormats) {
-        glyphImageFormatsMarshal := glyphImageFormats is VarRef ? "int*" : "ptr"
-
-        result := ComCall(49, this, "ushort", glyphId, "uint", pixelsPerEmFirst, "uint", pixelsPerEmLast, glyphImageFormatsMarshal, glyphImageFormats, "HRESULT")
-        return result
+    GetGlyphImageFormats(glyphId, pixelsPerEmFirst, pixelsPerEmLast) {
+        result := ComCall(49, this, "ushort", glyphId, "uint", pixelsPerEmFirst, "uint", pixelsPerEmLast, "int*", &glyphImageFormats := 0, "HRESULT")
+        return glyphImageFormats
     }
 
     /**

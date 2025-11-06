@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include .\TS_STATUS.ahk
+#Include ..\..\Foundation\HWND.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -34,15 +38,12 @@ class ITfContextOwner extends IUnknown{
      * 
      * @param {Pointer<POINT>} ptScreen 
      * @param {Integer} dwFlags 
-     * @param {Pointer<Integer>} pacp 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextowner-getacpfrompoint
      */
-    GetACPFromPoint(ptScreen, dwFlags, pacp) {
-        pacpMarshal := pacp is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, "ptr", ptScreen, "uint", dwFlags, pacpMarshal, pacp, "HRESULT")
-        return result
+    GetACPFromPoint(ptScreen, dwFlags) {
+        result := ComCall(3, this, "ptr", ptScreen, "uint", dwFlags, "int*", &pacp := 0, "HRESULT")
+        return pacp
     }
 
     /**
@@ -55,52 +56,54 @@ class ITfContextOwner extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextowner-gettextext
      */
     GetTextExt(acpStart, acpEnd, prc, pfClipped) {
-        result := ComCall(4, this, "int", acpStart, "int", acpEnd, "ptr", prc, "ptr", pfClipped, "HRESULT")
+        pfClippedMarshal := pfClipped is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "int", acpStart, "int", acpEnd, "ptr", prc, pfClippedMarshal, pfClipped, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<RECT>} prc 
-     * @returns {HRESULT} 
+     * @returns {RECT} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextowner-getscreenext
      */
-    GetScreenExt(prc) {
+    GetScreenExt() {
+        prc := RECT()
         result := ComCall(5, this, "ptr", prc, "HRESULT")
-        return result
+        return prc
     }
 
     /**
      * 
-     * @param {Pointer<TS_STATUS>} pdcs 
-     * @returns {HRESULT} 
+     * @returns {TS_STATUS} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextowner-getstatus
      */
-    GetStatus(pdcs) {
+    GetStatus() {
+        pdcs := TS_STATUS()
         result := ComCall(6, this, "ptr", pdcs, "HRESULT")
-        return result
+        return pdcs
     }
 
     /**
      * 
-     * @param {Pointer<HWND>} phwnd 
-     * @returns {HRESULT} 
+     * @returns {HWND} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextowner-getwnd
      */
-    GetWnd(phwnd) {
+    GetWnd() {
+        phwnd := HWND()
         result := ComCall(7, this, "ptr", phwnd, "HRESULT")
-        return result
+        return phwnd
     }
 
     /**
      * 
      * @param {Pointer<Guid>} rguidAttribute 
-     * @param {Pointer<VARIANT>} pvarValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextowner-getattribute
      */
-    GetAttribute(rguidAttribute, pvarValue) {
+    GetAttribute(rguidAttribute) {
+        pvarValue := VARIANT()
         result := ComCall(8, this, "ptr", rguidAttribute, "ptr", pvarValue, "HRESULT")
-        return result
+        return pvarValue
     }
 }

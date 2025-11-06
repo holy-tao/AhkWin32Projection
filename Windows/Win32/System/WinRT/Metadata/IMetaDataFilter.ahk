@@ -54,7 +54,9 @@ class IMetaDataFilter extends IUnknown{
      * @returns {HRESULT} 
      */
     IsTokenMarked(tk, pIsMarked) {
-        result := ComCall(5, this, "uint", tk, "ptr", pIsMarked, "HRESULT")
+        pIsMarkedMarshal := pIsMarked is VarRef ? "int*" : "ptr"
+
+        result := ComCall(5, this, "uint", tk, pIsMarkedMarshal, pIsMarked, "HRESULT")
         return result
     }
 }

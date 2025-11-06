@@ -32,13 +32,13 @@ class IWMMutualExclusion extends IWMStreamList{
 
     /**
      * 
-     * @param {Pointer<Guid>} pguidType 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmmutualexclusion-gettype
      */
-    GetType(pguidType) {
+    GetType() {
+        pguidType := Guid()
         result := ComCall(6, this, "ptr", pguidType, "HRESULT")
-        return result
+        return pguidType
     }
 
     /**

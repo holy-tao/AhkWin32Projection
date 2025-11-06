@@ -35,13 +35,13 @@ class IWSManSession extends IDispatch{
      * 
      * @param {VARIANT} resourceUri 
      * @param {Integer} flags 
-     * @param {Pointer<BSTR>} resource 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmansession-get
      */
-    Get(resourceUri, flags, resource) {
+    Get(resourceUri, flags) {
+        resource := BSTR()
         result := ComCall(7, this, "ptr", resourceUri, "int", flags, "ptr", resource, "HRESULT")
-        return result
+        return resource
     }
 
     /**
@@ -49,15 +49,15 @@ class IWSManSession extends IDispatch{
      * @param {VARIANT} resourceUri 
      * @param {BSTR} resource 
      * @param {Integer} flags 
-     * @param {Pointer<BSTR>} resultResource 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmansession-put
      */
-    Put(resourceUri, resource, flags, resultResource) {
+    Put(resourceUri, resource, flags) {
         resource := resource is String ? BSTR.Alloc(resource).Value : resource
 
+        resultResource := BSTR()
         result := ComCall(8, this, "ptr", resourceUri, "ptr", resource, "int", flags, "ptr", resultResource, "HRESULT")
-        return result
+        return resultResource
     }
 
     /**
@@ -65,15 +65,15 @@ class IWSManSession extends IDispatch{
      * @param {VARIANT} resourceUri 
      * @param {BSTR} resource 
      * @param {Integer} flags 
-     * @param {Pointer<BSTR>} newUri 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmansession-create
      */
-    Create(resourceUri, resource, flags, newUri) {
+    Create(resourceUri, resource, flags) {
         resource := resource is String ? BSTR.Alloc(resource).Value : resource
 
+        newUri := BSTR()
         result := ComCall(9, this, "ptr", resourceUri, "ptr", resource, "int", flags, "ptr", newUri, "HRESULT")
-        return result
+        return newUri
     }
 
     /**
@@ -94,14 +94,14 @@ class IWSManSession extends IDispatch{
      * @param {VARIANT} resourceUri 
      * @param {BSTR} parameters 
      * @param {Integer} flags 
-     * @param {Pointer<BSTR>} result 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmansession-invoke
      */
-    Invoke(actionUri, resourceUri, parameters, flags, result) {
+    Invoke(actionUri, resourceUri, parameters, flags) {
         actionUri := actionUri is String ? BSTR.Alloc(actionUri).Value : actionUri
         parameters := parameters is String ? BSTR.Alloc(parameters).Value : parameters
 
+        result := BSTR()
         result := ComCall(11, this, "ptr", actionUri, "ptr", resourceUri, "ptr", parameters, "int", flags, "ptr", result, "HRESULT")
         return result
     }
@@ -112,52 +112,48 @@ class IWSManSession extends IDispatch{
      * @param {BSTR} filter 
      * @param {BSTR} dialect 
      * @param {Integer} flags 
-     * @param {Pointer<IDispatch>} resultSet 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmansession-enumerate
      */
-    Enumerate(resourceUri, filter, dialect, flags, resultSet) {
+    Enumerate(resourceUri, filter, dialect, flags) {
         filter := filter is String ? BSTR.Alloc(filter).Value : filter
         dialect := dialect is String ? BSTR.Alloc(dialect).Value : dialect
 
-        result := ComCall(12, this, "ptr", resourceUri, "ptr", filter, "ptr", dialect, "int", flags, "ptr*", resultSet, "HRESULT")
-        return result
+        result := ComCall(12, this, "ptr", resourceUri, "ptr", filter, "ptr", dialect, "int", flags, "ptr*", &resultSet := 0, "HRESULT")
+        return IDispatch(resultSet)
     }
 
     /**
      * 
      * @param {Integer} flags 
-     * @param {Pointer<BSTR>} result 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmansession-identify
      */
-    Identify(flags, result) {
+    Identify(flags) {
+        result := BSTR()
         result := ComCall(13, this, "int", flags, "ptr", result, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} value 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmansession-get_error
      */
-    get_Error(value) {
+    get_Error() {
+        value := BSTR()
         result := ComCall(14, this, "ptr", value, "HRESULT")
-        return result
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmansession-get_batchitems
      */
-    get_BatchItems(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, valueMarshal, value, "HRESULT")
-        return result
+    get_BatchItems() {
+        result := ComCall(15, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
@@ -173,15 +169,12 @@ class IWSManSession extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmansession-get_timeout
      */
-    get_Timeout(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, valueMarshal, value, "HRESULT")
-        return result
+    get_Timeout() {
+        result := ComCall(17, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**

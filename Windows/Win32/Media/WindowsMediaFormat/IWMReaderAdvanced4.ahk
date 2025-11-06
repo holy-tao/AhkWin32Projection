@@ -33,15 +33,12 @@ class IWMReaderAdvanced4 extends IWMReaderAdvanced3{
     /**
      * 
      * @param {Integer} dwOutputNum 
-     * @param {Pointer<Integer>} pwLanguageCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced4-getlanguagecount
      */
-    GetLanguageCount(dwOutputNum, pwLanguageCount) {
-        pwLanguageCountMarshal := pwLanguageCount is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(40, this, "uint", dwOutputNum, pwLanguageCountMarshal, pwLanguageCount, "HRESULT")
-        return result
+    GetLanguageCount(dwOutputNum) {
+        result := ComCall(40, this, "uint", dwOutputNum, "ushort*", &pwLanguageCount := 0, "HRESULT")
+        return pwLanguageCount
     }
 
     /**
@@ -64,26 +61,22 @@ class IWMReaderAdvanced4 extends IWMReaderAdvanced3{
 
     /**
      * 
-     * @param {Pointer<Float>} pdblFactor 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced4-getmaxspeedfactor
      */
-    GetMaxSpeedFactor(pdblFactor) {
-        pdblFactorMarshal := pdblFactor is VarRef ? "double*" : "ptr"
-
-        result := ComCall(42, this, pdblFactorMarshal, pdblFactor, "HRESULT")
-        return result
+    GetMaxSpeedFactor() {
+        result := ComCall(42, this, "double*", &pdblFactor := 0, "HRESULT")
+        return pdblFactor
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfUsingFastCache 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced4-isusingfastcache
      */
-    IsUsingFastCache(pfUsingFastCache) {
-        result := ComCall(43, this, "ptr", pfUsingFastCache, "HRESULT")
-        return result
+    IsUsingFastCache() {
+        result := ComCall(43, this, "int*", &pfUsingFastCache := 0, "HRESULT")
+        return pfUsingFastCache
     }
 
     /**
@@ -115,13 +108,12 @@ class IWMReaderAdvanced4 extends IWMReaderAdvanced3{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfCanSave 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced4-cansavefileas
      */
-    CanSaveFileAs(pfCanSave) {
-        result := ComCall(46, this, "ptr", pfCanSave, "HRESULT")
-        return result
+    CanSaveFileAs() {
+        result := ComCall(46, this, "int*", &pfCanSave := 0, "HRESULT")
+        return pfCanSave
     }
 
     /**

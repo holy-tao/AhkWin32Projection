@@ -38,13 +38,12 @@ class IWMDMLogger extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfEnabled 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wmdmlog/nf-wmdmlog-iwmdmlogger-isenabled
      */
-    IsEnabled(pfEnabled) {
-        result := ComCall(3, this, "ptr", pfEnabled, "HRESULT")
-        return result
+    IsEnabled() {
+        result := ComCall(3, this, "int*", &pfEnabled := 0, "HRESULT")
+        return pfEnabled
     }
 
     /**

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -33,25 +34,22 @@ class IADsPropertyList extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_PropertyCount(plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, plCountMarshal, plCount, "HRESULT")
-        return result
+    get_PropertyCount() {
+        result := ComCall(7, this, "int*", &plCount := 0, "HRESULT")
+        return plCount
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pVariant 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadspropertylist-next
      */
-    Next(pVariant) {
+    Next() {
+        pVariant := VARIANT()
         result := ComCall(8, this, "ptr", pVariant, "int")
-        return result
+        return pVariant
     }
 
     /**
@@ -78,28 +76,28 @@ class IADsPropertyList extends IDispatch{
     /**
      * 
      * @param {VARIANT} varIndex 
-     * @param {Pointer<VARIANT>} pVariant 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadspropertylist-item
      */
-    Item(varIndex, pVariant) {
+    Item(varIndex) {
+        pVariant := VARIANT()
         result := ComCall(11, this, "ptr", varIndex, "ptr", pVariant, "HRESULT")
-        return result
+        return pVariant
     }
 
     /**
      * 
      * @param {BSTR} bstrName 
      * @param {Integer} lnADsType 
-     * @param {Pointer<VARIANT>} pVariant 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadspropertylist-getpropertyitem
      */
-    GetPropertyItem(bstrName, lnADsType, pVariant) {
+    GetPropertyItem(bstrName, lnADsType) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
+        pVariant := VARIANT()
         result := ComCall(12, this, "ptr", bstrName, "int", lnADsType, "ptr", pVariant, "HRESULT")
-        return result
+        return pVariant
     }
 
     /**

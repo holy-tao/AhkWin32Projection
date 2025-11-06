@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\WMDMID.ahk
+#Include .\IMDSPDevice.ahk
+#Include .\IMDSPStorage.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,29 +35,26 @@ class IMDSPStorageGlobals extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwCapabilities 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorageglobals-getcapabilities
      */
-    GetCapabilities(pdwCapabilities) {
-        pdwCapabilitiesMarshal := pdwCapabilities is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pdwCapabilitiesMarshal, pdwCapabilities, "HRESULT")
-        return result
+    GetCapabilities() {
+        result := ComCall(3, this, "uint*", &pdwCapabilities := 0, "HRESULT")
+        return pdwCapabilities
     }
 
     /**
      * 
-     * @param {Pointer<WMDMID>} pSerialNum 
      * @param {Pointer<Integer>} abMac 
-     * @returns {HRESULT} 
+     * @returns {WMDMID} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorageglobals-getserialnumber
      */
-    GetSerialNumber(pSerialNum, abMac) {
+    GetSerialNumber(abMac) {
         abMacMarshal := abMac is VarRef ? "char*" : "ptr"
 
+        pSerialNum := WMDMID()
         result := ComCall(4, this, "ptr", pSerialNum, abMacMarshal, abMac, "HRESULT")
-        return result
+        return pSerialNum
     }
 
     /**
@@ -104,15 +104,12 @@ class IMDSPStorageGlobals extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorageglobals-getstatus
      */
-    GetStatus(pdwStatus) {
-        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pdwStatusMarshal, pdwStatus, "HRESULT")
-        return result
+    GetStatus() {
+        result := ComCall(8, this, "uint*", &pdwStatus := 0, "HRESULT")
+        return pdwStatus
     }
 
     /**
@@ -139,23 +136,21 @@ class IMDSPStorageGlobals extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IMDSPDevice>} ppDevice 
-     * @returns {HRESULT} 
+     * @returns {IMDSPDevice} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorageglobals-getdevice
      */
-    GetDevice(ppDevice) {
-        result := ComCall(10, this, "ptr*", ppDevice, "HRESULT")
-        return result
+    GetDevice() {
+        result := ComCall(10, this, "ptr*", &ppDevice := 0, "HRESULT")
+        return IMDSPDevice(ppDevice)
     }
 
     /**
      * 
-     * @param {Pointer<IMDSPStorage>} ppRoot 
-     * @returns {HRESULT} 
+     * @returns {IMDSPStorage} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorageglobals-getrootstorage
      */
-    GetRootStorage(ppRoot) {
-        result := ComCall(11, this, "ptr*", ppRoot, "HRESULT")
-        return result
+    GetRootStorage() {
+        result := ComCall(11, this, "ptr*", &ppRoot := 0, "HRESULT")
+        return IMDSPStorage(ppRoot)
     }
 }

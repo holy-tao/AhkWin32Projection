@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -37,36 +39,33 @@ class IGuideDataProperty extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-iguidedataproperty-get_name
      */
-    get_Name(pbstrName) {
+    get_Name() {
+        pbstrName := BSTR()
         result := ComCall(3, this, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} idLang 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-iguidedataproperty-get_language
      */
-    get_Language(idLang) {
-        idLangMarshal := idLang is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, idLangMarshal, idLang, "HRESULT")
-        return result
+    get_Language() {
+        result := ComCall(4, this, "int*", &idLang := 0, "HRESULT")
+        return idLang
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvar 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-iguidedataproperty-get_value
      */
-    get_Value(pvar) {
+    get_Value() {
+        pvar := VARIANT()
         result := ComCall(5, this, "ptr", pvar, "HRESULT")
-        return result
+        return pvar
     }
 }

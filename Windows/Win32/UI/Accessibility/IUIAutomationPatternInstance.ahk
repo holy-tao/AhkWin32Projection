@@ -40,15 +40,12 @@ class IUIAutomationPatternInstance extends IUnknown{
      * @param {Integer} index 
      * @param {BOOL} cached 
      * @param {Integer} type 
-     * @param {Pointer<Void>} pPtr 
-     * @returns {HRESULT} 
+     * @returns {Void} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iuiautomationpatterninstance-getproperty
      */
-    GetProperty(index, cached, type, pPtr) {
-        pPtrMarshal := pPtr is VarRef ? "ptr" : "ptr"
-
-        result := ComCall(3, this, "uint", index, "int", cached, "int", type, pPtrMarshal, pPtr, "HRESULT")
-        return result
+    GetProperty(index, cached, type) {
+        result := ComCall(3, this, "uint", index, "int", cached, "int", type, "ptr", &pPtr := 0, "HRESULT")
+        return pPtr
     }
 
     /**

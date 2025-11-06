@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IEnumAddress.ahk
+#Include .\IEnumTerminal.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -54,88 +57,80 @@ class ITPhone extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pAddresses 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_addresses
      */
-    get_Addresses(pAddresses) {
+    get_Addresses() {
+        pAddresses := VARIANT()
         result := ComCall(9, this, "ptr", pAddresses, "HRESULT")
-        return result
+        return pAddresses
     }
 
     /**
      * 
-     * @param {Pointer<IEnumAddress>} ppEnumAddress 
-     * @returns {HRESULT} 
+     * @returns {IEnumAddress} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-enumerateaddresses
      */
-    EnumerateAddresses(ppEnumAddress) {
-        result := ComCall(10, this, "ptr*", ppEnumAddress, "HRESULT")
-        return result
+    EnumerateAddresses() {
+        result := ComCall(10, this, "ptr*", &ppEnumAddress := 0, "HRESULT")
+        return IEnumAddress(ppEnumAddress)
     }
 
     /**
      * 
      * @param {Integer} pclCap 
-     * @param {Pointer<Integer>} plCapability 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_phonecapslong
      */
-    get_PhoneCapsLong(pclCap, plCapability) {
-        plCapabilityMarshal := plCapability is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, "int", pclCap, plCapabilityMarshal, plCapability, "HRESULT")
-        return result
+    get_PhoneCapsLong(pclCap) {
+        result := ComCall(11, this, "int", pclCap, "int*", &plCapability := 0, "HRESULT")
+        return plCapability
     }
 
     /**
      * 
      * @param {Integer} pcsCap 
-     * @param {Pointer<BSTR>} ppCapability 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_phonecapsstring
      */
-    get_PhoneCapsString(pcsCap, ppCapability) {
+    get_PhoneCapsString(pcsCap) {
+        ppCapability := BSTR()
         result := ComCall(12, this, "int", pcsCap, "ptr", ppCapability, "HRESULT")
-        return result
+        return ppCapability
     }
 
     /**
      * 
      * @param {ITAddress} pAddress 
-     * @param {Pointer<VARIANT>} pTerminals 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_terminals
      */
-    get_Terminals(pAddress, pTerminals) {
+    get_Terminals(pAddress) {
+        pTerminals := VARIANT()
         result := ComCall(13, this, "ptr", pAddress, "ptr", pTerminals, "HRESULT")
-        return result
+        return pTerminals
     }
 
     /**
      * 
      * @param {ITAddress} pAddress 
-     * @param {Pointer<IEnumTerminal>} ppEnumTerminal 
-     * @returns {HRESULT} 
+     * @returns {IEnumTerminal} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-enumerateterminals
      */
-    EnumerateTerminals(pAddress, ppEnumTerminal) {
-        result := ComCall(14, this, "ptr", pAddress, "ptr*", ppEnumTerminal, "HRESULT")
-        return result
+    EnumerateTerminals(pAddress) {
+        result := ComCall(14, this, "ptr", pAddress, "ptr*", &ppEnumTerminal := 0, "HRESULT")
+        return IEnumTerminal(ppEnumTerminal)
     }
 
     /**
      * 
      * @param {Integer} lButtonID 
-     * @param {Pointer<Integer>} pButtonMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_buttonmode
      */
-    get_ButtonMode(lButtonID, pButtonMode) {
-        pButtonModeMarshal := pButtonMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, "int", lButtonID, pButtonModeMarshal, pButtonMode, "HRESULT")
-        return result
+    get_ButtonMode(lButtonID) {
+        result := ComCall(15, this, "int", lButtonID, "int*", &pButtonMode := 0, "HRESULT")
+        return pButtonMode
     }
 
     /**
@@ -153,15 +148,12 @@ class ITPhone extends IDispatch{
     /**
      * 
      * @param {Integer} lButtonID 
-     * @param {Pointer<Integer>} pButtonFunction 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_buttonfunction
      */
-    get_ButtonFunction(lButtonID, pButtonFunction) {
-        pButtonFunctionMarshal := pButtonFunction is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, "int", lButtonID, pButtonFunctionMarshal, pButtonFunction, "HRESULT")
-        return result
+    get_ButtonFunction(lButtonID) {
+        result := ComCall(17, this, "int", lButtonID, "int*", &pButtonFunction := 0, "HRESULT")
+        return pButtonFunction
     }
 
     /**
@@ -179,13 +171,13 @@ class ITPhone extends IDispatch{
     /**
      * 
      * @param {Integer} lButtonID 
-     * @param {Pointer<BSTR>} ppButtonText 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_buttontext
      */
-    get_ButtonText(lButtonID, ppButtonText) {
+    get_ButtonText(lButtonID) {
+        ppButtonText := BSTR()
         result := ComCall(19, this, "int", lButtonID, "ptr", ppButtonText, "HRESULT")
-        return result
+        return ppButtonText
     }
 
     /**
@@ -205,29 +197,23 @@ class ITPhone extends IDispatch{
     /**
      * 
      * @param {Integer} lButtonID 
-     * @param {Pointer<Integer>} pButtonState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_buttonstate
      */
-    get_ButtonState(lButtonID, pButtonState) {
-        pButtonStateMarshal := pButtonState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(21, this, "int", lButtonID, pButtonStateMarshal, pButtonState, "HRESULT")
-        return result
+    get_ButtonState(lButtonID) {
+        result := ComCall(21, this, "int", lButtonID, "int*", &pButtonState := 0, "HRESULT")
+        return pButtonState
     }
 
     /**
      * 
      * @param {Integer} HookSwitchDevice 
-     * @param {Pointer<Integer>} pHookSwitchState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_hookswitchstate
      */
-    get_HookSwitchState(HookSwitchDevice, pHookSwitchState) {
-        pHookSwitchStateMarshal := pHookSwitchState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(22, this, "int", HookSwitchDevice, pHookSwitchStateMarshal, pHookSwitchState, "HRESULT")
-        return result
+    get_HookSwitchState(HookSwitchDevice) {
+        result := ComCall(22, this, "int", HookSwitchDevice, "int*", &pHookSwitchState := 0, "HRESULT")
+        return pHookSwitchState
     }
 
     /**
@@ -255,15 +241,12 @@ class ITPhone extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plRingMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_ringmode
      */
-    get_RingMode(plRingMode) {
-        plRingModeMarshal := plRingMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(25, this, plRingModeMarshal, plRingMode, "HRESULT")
-        return result
+    get_RingMode() {
+        result := ComCall(25, this, "int*", &plRingMode := 0, "HRESULT")
+        return plRingMode
     }
 
     /**
@@ -279,28 +262,22 @@ class ITPhone extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plRingVolume 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_ringvolume
      */
-    get_RingVolume(plRingVolume) {
-        plRingVolumeMarshal := plRingVolume is VarRef ? "int*" : "ptr"
-
-        result := ComCall(27, this, plRingVolumeMarshal, plRingVolume, "HRESULT")
-        return result
+    get_RingVolume() {
+        result := ComCall(27, this, "int*", &plRingVolume := 0, "HRESULT")
+        return plRingVolume
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pPrivilege 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_privilege
      */
-    get_Privilege(pPrivilege) {
-        pPrivilegeMarshal := pPrivilege is VarRef ? "int*" : "ptr"
-
-        result := ComCall(28, this, pPrivilegeMarshal, pPrivilege, "HRESULT")
-        return result
+    get_Privilege() {
+        result := ComCall(28, this, "int*", &pPrivilege := 0, "HRESULT")
+        return pPrivilege
     }
 
     /**
@@ -322,27 +299,24 @@ class ITPhone extends IDispatch{
     /**
      * 
      * @param {Integer} pcbCaps 
-     * @param {Pointer<VARIANT>} pVarBuffer 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_phonecapsbuffer
      */
-    get_PhoneCapsBuffer(pcbCaps, pVarBuffer) {
+    get_PhoneCapsBuffer(pcbCaps) {
+        pVarBuffer := VARIANT()
         result := ComCall(30, this, "int", pcbCaps, "ptr", pVarBuffer, "HRESULT")
-        return result
+        return pVarBuffer
     }
 
     /**
      * 
      * @param {Integer} lLampID 
-     * @param {Pointer<Integer>} pLampMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_lampmode
      */
-    get_LampMode(lLampID, pLampMode) {
-        pLampModeMarshal := pLampMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(31, this, "int", lLampID, pLampModeMarshal, pLampMode, "HRESULT")
-        return result
+    get_LampMode(lLampID) {
+        result := ComCall(31, this, "int", lLampID, "int*", &pLampMode := 0, "HRESULT")
+        return pLampMode
     }
 
     /**
@@ -359,13 +333,13 @@ class ITPhone extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrDisplay 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_display
      */
-    get_Display(pbstrDisplay) {
+    get_Display() {
+        pbstrDisplay := BSTR()
         result := ComCall(33, this, "ptr", pbstrDisplay, "HRESULT")
-        return result
+        return pbstrDisplay
     }
 
     /**
@@ -385,24 +359,23 @@ class ITPhone extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pAddresses 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-get_preferredaddresses
      */
-    get_PreferredAddresses(pAddresses) {
+    get_PreferredAddresses() {
+        pAddresses := VARIANT()
         result := ComCall(35, this, "ptr", pAddresses, "HRESULT")
-        return result
+        return pAddresses
     }
 
     /**
      * 
-     * @param {Pointer<IEnumAddress>} ppEnumAddress 
-     * @returns {HRESULT} 
+     * @returns {IEnumAddress} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-enumeratepreferredaddresses
      */
-    EnumeratePreferredAddresses(ppEnumAddress) {
-        result := ComCall(36, this, "ptr*", ppEnumAddress, "HRESULT")
-        return result
+    EnumeratePreferredAddresses() {
+        result := ComCall(36, this, "ptr*", &ppEnumAddress := 0, "HRESULT")
+        return IEnumAddress(ppEnumAddress)
     }
 
     /**
@@ -434,14 +407,11 @@ class ITPhone extends IDispatch{
      * 
      * @param {Integer} lLowVersion 
      * @param {Integer} lHighVersion 
-     * @param {Pointer<Integer>} plExtVersion 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itphone-negotiateextversion
      */
-    NegotiateExtVersion(lLowVersion, lHighVersion, plExtVersion) {
-        plExtVersionMarshal := plExtVersion is VarRef ? "int*" : "ptr"
-
-        result := ComCall(39, this, "int", lLowVersion, "int", lHighVersion, plExtVersionMarshal, plExtVersion, "HRESULT")
-        return result
+    NegotiateExtVersion(lLowVersion, lHighVersion) {
+        result := ComCall(39, this, "int", lLowVersion, "int", lHighVersion, "int*", &plExtVersion := 0, "HRESULT")
+        return plExtVersion
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWMPErrorItem.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -56,13 +57,12 @@ class IWMPError extends IDispatch{
     /**
      * 
      * @param {Integer} dwIndex 
-     * @param {Pointer<IWMPErrorItem>} ppErrorItem 
-     * @returns {HRESULT} 
+     * @returns {IWMPErrorItem} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmperror-get_item
      */
-    get_item(dwIndex, ppErrorItem) {
-        result := ComCall(9, this, "int", dwIndex, "ptr*", ppErrorItem, "HRESULT")
-        return result
+    get_item(dwIndex) {
+        result := ComCall(9, this, "int", dwIndex, "ptr*", &ppErrorItem := 0, "HRESULT")
+        return IWMPErrorItem(ppErrorItem)
     }
 
     /**

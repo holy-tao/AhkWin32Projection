@@ -80,13 +80,12 @@ class IActionProgress extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfCancelled 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iactionprogress-querycancel
      */
-    QueryCancel(pfCancelled) {
-        result := ComCall(6, this, "ptr", pfCancelled, "HRESULT")
-        return result
+    QueryCancel() {
+        result := ComCall(6, this, "int*", &pfCancelled := 0, "HRESULT")
+        return pfCancelled
     }
 
     /**

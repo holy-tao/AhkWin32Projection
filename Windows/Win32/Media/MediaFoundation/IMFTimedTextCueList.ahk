@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFTimedTextCue.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -40,36 +41,33 @@ class IMFTimedTextCueList extends IUnknown{
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<IMFTimedTextCue>} cue 
-     * @returns {HRESULT} 
+     * @returns {IMFTimedTextCue} 
      */
-    GetCueByIndex(index, cue) {
-        result := ComCall(4, this, "uint", index, "ptr*", cue, "HRESULT")
-        return result
+    GetCueByIndex(index) {
+        result := ComCall(4, this, "uint", index, "ptr*", &cue := 0, "HRESULT")
+        return IMFTimedTextCue(cue)
     }
 
     /**
      * 
      * @param {Integer} id 
-     * @param {Pointer<IMFTimedTextCue>} cue 
-     * @returns {HRESULT} 
+     * @returns {IMFTimedTextCue} 
      */
-    GetCueById(id, cue) {
-        result := ComCall(5, this, "uint", id, "ptr*", cue, "HRESULT")
-        return result
+    GetCueById(id) {
+        result := ComCall(5, this, "uint", id, "ptr*", &cue := 0, "HRESULT")
+        return IMFTimedTextCue(cue)
     }
 
     /**
      * 
      * @param {PWSTR} originalId 
-     * @param {Pointer<IMFTimedTextCue>} cue 
-     * @returns {HRESULT} 
+     * @returns {IMFTimedTextCue} 
      */
-    GetCueByOriginalId(originalId, cue) {
+    GetCueByOriginalId(originalId) {
         originalId := originalId is String ? StrPtr(originalId) : originalId
 
-        result := ComCall(6, this, "ptr", originalId, "ptr*", cue, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", originalId, "ptr*", &cue := 0, "HRESULT")
+        return IMFTimedTextCue(cue)
     }
 
     /**
@@ -77,14 +75,13 @@ class IMFTimedTextCueList extends IUnknown{
      * @param {Float} start 
      * @param {Float} duration 
      * @param {PWSTR} text 
-     * @param {Pointer<IMFTimedTextCue>} cue 
-     * @returns {HRESULT} 
+     * @returns {IMFTimedTextCue} 
      */
-    AddTextCue(start, duration, text, cue) {
+    AddTextCue(start, duration, text) {
         text := text is String ? StrPtr(text) : text
 
-        result := ComCall(7, this, "double", start, "double", duration, "ptr", text, "ptr*", cue, "HRESULT")
-        return result
+        result := ComCall(7, this, "double", start, "double", duration, "ptr", text, "ptr*", &cue := 0, "HRESULT")
+        return IMFTimedTextCue(cue)
     }
 
     /**
@@ -93,12 +90,11 @@ class IMFTimedTextCueList extends IUnknown{
      * @param {Float} duration 
      * @param {Pointer} data 
      * @param {Integer} dataSize 
-     * @param {Pointer<IMFTimedTextCue>} cue 
-     * @returns {HRESULT} 
+     * @returns {IMFTimedTextCue} 
      */
-    AddDataCue(start, duration, data, dataSize, cue) {
-        result := ComCall(8, this, "double", start, "double", duration, "ptr", data, "uint", dataSize, "ptr*", cue, "HRESULT")
-        return result
+    AddDataCue(start, duration, data, dataSize) {
+        result := ComCall(8, this, "double", start, "double", duration, "ptr", data, "uint", dataSize, "ptr*", &cue := 0, "HRESULT")
+        return IMFTimedTextCue(cue)
     }
 
     /**

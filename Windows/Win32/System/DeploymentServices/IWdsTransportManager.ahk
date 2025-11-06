@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IWdsTransportServer.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -40,14 +41,13 @@ class IWdsTransportManager extends IDispatch{
     /**
      * 
      * @param {BSTR} bszServerName 
-     * @param {Pointer<IWdsTransportServer>} ppWdsTransportServer 
-     * @returns {HRESULT} 
+     * @returns {IWdsTransportServer} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportmanager-getwdstransportserver
      */
-    GetWdsTransportServer(bszServerName, ppWdsTransportServer) {
+    GetWdsTransportServer(bszServerName) {
         bszServerName := bszServerName is String ? BSTR.Alloc(bszServerName).Value : bszServerName
 
-        result := ComCall(7, this, "ptr", bszServerName, "ptr*", ppWdsTransportServer, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", bszServerName, "ptr*", &ppWdsTransportServer := 0, "HRESULT")
+        return IWdsTransportServer(ppWdsTransportServer)
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteFontFamily.ahk
+#Include .\IDWriteFont.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -69,13 +71,12 @@ class IDWriteFontCollection extends IUnknown{
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<IDWriteFontFamily>} fontFamily 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontFamily} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontcollection-getfontfamily
      */
-    GetFontFamily(index, fontFamily) {
-        result := ComCall(4, this, "uint", index, "ptr*", fontFamily, "HRESULT")
-        return result
+    GetFontFamily(index) {
+        result := ComCall(4, this, "uint", index, "ptr*", &fontFamily := 0, "HRESULT")
+        return IDWriteFontFamily(fontFamily)
     }
 
     /**
@@ -90,20 +91,20 @@ class IDWriteFontCollection extends IUnknown{
         familyName := familyName is String ? StrPtr(familyName) : familyName
 
         indexMarshal := index is VarRef ? "uint*" : "ptr"
+        existsMarshal := exists is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, "ptr", familyName, indexMarshal, index, "ptr", exists, "HRESULT")
+        result := ComCall(5, this, "ptr", familyName, indexMarshal, index, existsMarshal, exists, "HRESULT")
         return result
     }
 
     /**
      * 
      * @param {IDWriteFontFace} fontFace 
-     * @param {Pointer<IDWriteFont>} font 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFont} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontcollection-getfontfromfontface
      */
-    GetFontFromFontFace(fontFace, font) {
-        result := ComCall(6, this, "ptr", fontFace, "ptr*", font, "HRESULT")
-        return result
+    GetFontFromFontFace(fontFace) {
+        result := ComCall(6, this, "ptr", fontFace, "ptr*", &font := 0, "HRESULT")
+        return IDWriteFont(font)
     }
 }

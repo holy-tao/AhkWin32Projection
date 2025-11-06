@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsOMDocumentSequence.ahk
+#Include .\IXpsOMCoreProperties.ahk
+#Include ..\Packaging\Opc\IOpcPartUri.ahk
+#Include .\IXpsOMImageResource.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -75,13 +79,12 @@ class IXpsOMPackage extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IXpsOMDocumentSequence>} documentSequence 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMDocumentSequence} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompackage-getdocumentsequence
      */
-    GetDocumentSequence(documentSequence) {
-        result := ComCall(3, this, "ptr*", documentSequence, "HRESULT")
-        return result
+    GetDocumentSequence() {
+        result := ComCall(3, this, "ptr*", &documentSequence := 0, "HRESULT")
+        return IXpsOMDocumentSequence(documentSequence)
     }
 
     /**
@@ -97,13 +100,12 @@ class IXpsOMPackage extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IXpsOMCoreProperties>} coreProperties 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMCoreProperties} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompackage-getcoreproperties
      */
-    GetCoreProperties(coreProperties) {
-        result := ComCall(5, this, "ptr*", coreProperties, "HRESULT")
-        return result
+    GetCoreProperties() {
+        result := ComCall(5, this, "ptr*", &coreProperties := 0, "HRESULT")
+        return IXpsOMCoreProperties(coreProperties)
     }
 
     /**
@@ -119,13 +121,12 @@ class IXpsOMPackage extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IOpcPartUri>} discardControlPartUri 
-     * @returns {HRESULT} 
+     * @returns {IOpcPartUri} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompackage-getdiscardcontrolpartname
      */
-    GetDiscardControlPartName(discardControlPartUri) {
-        result := ComCall(7, this, "ptr*", discardControlPartUri, "HRESULT")
-        return result
+    GetDiscardControlPartName() {
+        result := ComCall(7, this, "ptr*", &discardControlPartUri := 0, "HRESULT")
+        return IOpcPartUri(discardControlPartUri)
     }
 
     /**
@@ -141,13 +142,12 @@ class IXpsOMPackage extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IXpsOMImageResource>} imageResource 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMImageResource} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompackage-getthumbnailresource
      */
-    GetThumbnailResource(imageResource) {
-        result := ComCall(9, this, "ptr*", imageResource, "HRESULT")
-        return result
+    GetThumbnailResource() {
+        result := ComCall(9, this, "ptr*", &imageResource := 0, "HRESULT")
+        return IXpsOMImageResource(imageResource)
     }
 
     /**

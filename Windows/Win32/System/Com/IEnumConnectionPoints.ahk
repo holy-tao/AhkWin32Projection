@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumConnectionPoints.ahk
 #Include .\IUnknown.ahk
 
 /**
@@ -86,12 +87,11 @@ class IEnumConnectionPoints extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumConnectionPoints>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumConnectionPoints} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ienumconnectionpoints-clone
      */
-    Clone(ppEnum) {
-        result := ComCall(6, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumConnectionPoints(ppEnum)
     }
 }

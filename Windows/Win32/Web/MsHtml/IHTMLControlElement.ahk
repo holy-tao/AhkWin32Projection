@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -41,14 +42,11 @@ class IHTMLControlElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_tabIndex(p) {
-        pMarshal := p is VarRef ? "short*" : "ptr"
-
-        result := ComCall(8, this, pMarshal, p, "HRESULT")
-        return result
+    get_tabIndex() {
+        result := ComCall(8, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -74,12 +72,12 @@ class IHTMLControlElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_accessKey(p) {
+    get_accessKey() {
+        p := BSTR()
         result := ComCall(11, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -94,12 +92,12 @@ class IHTMLControlElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onblur(p) {
+    get_onblur() {
+        p := VARIANT()
         result := ComCall(13, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -114,12 +112,12 @@ class IHTMLControlElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onfocus(p) {
+    get_onfocus() {
+        p := VARIANT()
         result := ComCall(15, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -134,12 +132,12 @@ class IHTMLControlElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onresize(p) {
+    get_onresize() {
+        p := VARIANT()
         result := ComCall(17, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -173,49 +171,37 @@ class IHTMLControlElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_clientHeight(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(21, this, pMarshal, p, "HRESULT")
-        return result
+    get_clientHeight() {
+        result := ComCall(21, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_clientWidth(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(22, this, pMarshal, p, "HRESULT")
-        return result
+    get_clientWidth() {
+        result := ComCall(22, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_clientTop(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(23, this, pMarshal, p, "HRESULT")
-        return result
+    get_clientTop() {
+        result := ComCall(23, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_clientLeft(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(24, this, pMarshal, p, "HRESULT")
-        return result
+    get_clientLeft() {
+        result := ComCall(24, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 }

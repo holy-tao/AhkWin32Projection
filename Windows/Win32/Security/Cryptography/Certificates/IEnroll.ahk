@@ -106,7 +106,7 @@ class IEnroll extends IUnknown{
      */
     getMyStore() {
         result := ComCall(8, this, "ptr")
-        return result
+        return HCERTSTORE({Value: result}, True)
     }
 
     /**
@@ -116,7 +116,7 @@ class IEnroll extends IUnknown{
      */
     getCAStore() {
         result := ComCall(9, this, "ptr")
-        return result
+        return HCERTSTORE({Value: result}, True)
     }
 
     /**
@@ -126,7 +126,7 @@ class IEnroll extends IUnknown{
      */
     getROOTHStore() {
         result := ComCall(10, this, "ptr")
-        return result
+        return HCERTSTORE({Value: result}, True)
     }
 
     /**
@@ -138,7 +138,9 @@ class IEnroll extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-enumproviderswstr
      */
     enumProvidersWStr(dwIndex, dwFlags, pbstrProvName) {
-        result := ComCall(11, this, "int", dwIndex, "int", dwFlags, "ptr", pbstrProvName, "HRESULT")
+        pbstrProvNameMarshal := pbstrProvName is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(11, this, "int", dwIndex, "int", dwFlags, pbstrProvNameMarshal, pbstrProvName, "HRESULT")
         return result
     }
 
@@ -150,7 +152,9 @@ class IEnroll extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-enumcontainerswstr
      */
     enumContainersWStr(dwIndex, pbstr) {
-        result := ComCall(12, this, "int", dwIndex, "ptr", pbstr, "HRESULT")
+        pbstrMarshal := pbstr is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(12, this, "int", dwIndex, pbstrMarshal, pbstr, "HRESULT")
         return result
     }
 
@@ -172,7 +176,9 @@ class IEnroll extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_mystorenamewstr
      */
     get_MyStoreNameWStr(szwName) {
-        result := ComCall(14, this, "ptr", szwName, "HRESULT")
+        szwNameMarshal := szwName is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(14, this, szwNameMarshal, szwName, "HRESULT")
         return result
     }
 
@@ -196,7 +202,9 @@ class IEnroll extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_mystoretypewstr
      */
     get_MyStoreTypeWStr(szwType) {
-        result := ComCall(16, this, "ptr", szwType, "HRESULT")
+        szwTypeMarshal := szwType is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(16, this, szwTypeMarshal, szwType, "HRESULT")
         return result
     }
 
@@ -244,7 +252,9 @@ class IEnroll extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_castorenamewstr
      */
     get_CAStoreNameWStr(szwName) {
-        result := ComCall(20, this, "ptr", szwName, "HRESULT")
+        szwNameMarshal := szwName is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(20, this, szwNameMarshal, szwName, "HRESULT")
         return result
     }
 
@@ -268,7 +278,9 @@ class IEnroll extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_castoretypewstr
      */
     get_CAStoreTypeWStr(szwType) {
-        result := ComCall(22, this, "ptr", szwType, "HRESULT")
+        szwTypeMarshal := szwType is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(22, this, szwTypeMarshal, szwType, "HRESULT")
         return result
     }
 
@@ -316,7 +328,9 @@ class IEnroll extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_rootstorenamewstr
      */
     get_RootStoreNameWStr(szwName) {
-        result := ComCall(26, this, "ptr", szwName, "HRESULT")
+        szwNameMarshal := szwName is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(26, this, szwNameMarshal, szwName, "HRESULT")
         return result
     }
 
@@ -340,7 +354,9 @@ class IEnroll extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_rootstoretypewstr
      */
     get_RootStoreTypeWStr(szwType) {
-        result := ComCall(28, this, "ptr", szwType, "HRESULT")
+        szwTypeMarshal := szwType is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(28, this, szwTypeMarshal, szwType, "HRESULT")
         return result
     }
 
@@ -388,7 +404,9 @@ class IEnroll extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_requeststorenamewstr
      */
     get_RequestStoreNameWStr(szwName) {
-        result := ComCall(32, this, "ptr", szwName, "HRESULT")
+        szwNameMarshal := szwName is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(32, this, szwNameMarshal, szwName, "HRESULT")
         return result
     }
 
@@ -412,7 +430,9 @@ class IEnroll extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_requeststoretypewstr
      */
     get_RequestStoreTypeWStr(szwType) {
-        result := ComCall(34, this, "ptr", szwType, "HRESULT")
+        szwTypeMarshal := szwType is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(34, this, szwTypeMarshal, szwType, "HRESULT")
         return result
     }
 
@@ -460,7 +480,9 @@ class IEnroll extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_containernamewstr
      */
     get_ContainerNameWStr(szwContainer) {
-        result := ComCall(38, this, "ptr", szwContainer, "HRESULT")
+        szwContainerMarshal := szwContainer is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(38, this, szwContainerMarshal, szwContainer, "HRESULT")
         return result
     }
 
@@ -484,7 +506,9 @@ class IEnroll extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_providernamewstr
      */
     get_ProviderNameWStr(szwProvider) {
-        result := ComCall(40, this, "ptr", szwProvider, "HRESULT")
+        szwProviderMarshal := szwProvider is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(40, this, szwProviderMarshal, szwProvider, "HRESULT")
         return result
     }
 
@@ -580,7 +604,9 @@ class IEnroll extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_useexistingkeyset
      */
     get_UseExistingKeySet(fUseExistingKeys) {
-        result := ComCall(48, this, "ptr", fUseExistingKeys, "HRESULT")
+        fUseExistingKeysMarshal := fUseExistingKeys is VarRef ? "int*" : "ptr"
+
+        result := ComCall(48, this, fUseExistingKeysMarshal, fUseExistingKeys, "HRESULT")
         return result
     }
 
@@ -626,7 +652,9 @@ class IEnroll extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_deleterequestcert
      */
     get_DeleteRequestCert(fDelete) {
-        result := ComCall(52, this, "ptr", fDelete, "HRESULT")
+        fDeleteMarshal := fDelete is VarRef ? "int*" : "ptr"
+
+        result := ComCall(52, this, fDeleteMarshal, fDelete, "HRESULT")
         return result
     }
 
@@ -648,7 +676,9 @@ class IEnroll extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_writecerttouserds
      */
     get_WriteCertToUserDS(fBool) {
-        result := ComCall(54, this, "ptr", fBool, "HRESULT")
+        fBoolMarshal := fBool is VarRef ? "int*" : "ptr"
+
+        result := ComCall(54, this, fBoolMarshal, fBool, "HRESULT")
         return result
     }
 
@@ -670,7 +700,9 @@ class IEnroll extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_enablet61dnencoding
      */
     get_EnableT61DNEncoding(fBool) {
-        result := ComCall(56, this, "ptr", fBool, "HRESULT")
+        fBoolMarshal := fBool is VarRef ? "int*" : "ptr"
+
+        result := ComCall(56, this, fBoolMarshal, fBool, "HRESULT")
         return result
     }
 
@@ -692,7 +724,9 @@ class IEnroll extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_writecerttocsp
      */
     get_WriteCertToCSP(fBool) {
-        result := ComCall(58, this, "ptr", fBool, "HRESULT")
+        fBoolMarshal := fBool is VarRef ? "int*" : "ptr"
+
+        result := ComCall(58, this, fBoolMarshal, fBool, "HRESULT")
         return result
     }
 
@@ -714,7 +748,9 @@ class IEnroll extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_spcfilenamewstr
      */
     get_SPCFileNameWStr(szw) {
-        result := ComCall(60, this, "ptr", szw, "HRESULT")
+        szwMarshal := szw is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(60, this, szwMarshal, szw, "HRESULT")
         return result
     }
 
@@ -738,7 +774,9 @@ class IEnroll extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_pvkfilenamewstr
      */
     get_PVKFileNameWStr(szw) {
-        result := ComCall(62, this, "ptr", szw, "HRESULT")
+        szwMarshal := szw is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(62, this, szwMarshal, szw, "HRESULT")
         return result
     }
 
@@ -762,7 +800,9 @@ class IEnroll extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll-get_hashalgorithmwstr
      */
     get_HashAlgorithmWStr(szw) {
-        result := ComCall(64, this, "ptr", szw, "HRESULT")
+        szwMarshal := szw is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(64, this, szwMarshal, szw, "HRESULT")
         return result
     }
 

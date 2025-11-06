@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include .\IMSVidVideoRenderer.ahk
 
 /**
@@ -43,15 +44,12 @@ class IMSVidVMR9 extends IMSVidVideoRenderer{
 
     /**
      * 
-     * @param {Pointer<Integer>} ID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvmr9-get_allocator_id
      */
-    get_Allocator_ID(ID) {
-        IDMarshal := ID is VarRef ? "int*" : "ptr"
-
-        result := ComCall(46, this, IDMarshal, ID, "HRESULT")
-        return result
+    get_Allocator_ID() {
+        result := ComCall(46, this, "int*", &ID := 0, "HRESULT")
+        return ID
     }
 
     /**
@@ -79,23 +77,21 @@ class IMSVidVMR9 extends IMSVidVideoRenderer{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} bSuppress 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvmr9-get_suppresseffects
      */
-    get_SuppressEffects(bSuppress) {
-        result := ComCall(49, this, "ptr", bSuppress, "HRESULT")
-        return result
+    get_SuppressEffects() {
+        result := ComCall(49, this, "short*", &bSuppress := 0, "HRESULT")
+        return bSuppress
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} AllocPresent 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvmr9-get_allocator
      */
-    get_Allocator(AllocPresent) {
-        result := ComCall(50, this, "ptr*", AllocPresent, "HRESULT")
-        return result
+    get_Allocator() {
+        result := ComCall(50, this, "ptr*", &AllocPresent := 0, "HRESULT")
+        return IUnknown(AllocPresent)
     }
 }

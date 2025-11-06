@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IShellUIHelper4.ahk
 
 /**
@@ -32,14 +33,14 @@ class IShellUIHelper5 extends IShellUIHelper4{
     /**
      * 
      * @param {BSTR} bstrProvisioningXml 
-     * @param {Pointer<VARIANT>} puiResult 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    msProvisionNetworks(bstrProvisioningXml, puiResult) {
+    msProvisionNetworks(bstrProvisioningXml) {
         bstrProvisioningXml := bstrProvisioningXml is String ? BSTR.Alloc(bstrProvisioningXml).Value : bstrProvisioningXml
 
+        puiResult := VARIANT()
         result := ComCall(67, this, "ptr", bstrProvisioningXml, "ptr", puiResult, "HRESULT")
-        return result
+        return puiResult
     }
 
     /**

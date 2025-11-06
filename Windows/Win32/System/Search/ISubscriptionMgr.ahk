@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\SUBSCRIPTIONINFO.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -72,38 +73,37 @@ class ISubscriptionMgr extends IUnknown{
     /**
      * 
      * @param {PWSTR} pwszURL 
-     * @param {Pointer<BOOL>} pfSubscribed 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsSubscribed(pwszURL, pfSubscribed) {
+    IsSubscribed(pwszURL) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
-        result := ComCall(6, this, "ptr", pwszURL, "ptr", pfSubscribed, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", pwszURL, "int*", &pfSubscribed := 0, "HRESULT")
+        return pfSubscribed
     }
 
     /**
      * 
      * @param {PWSTR} pwszURL 
-     * @param {Pointer<SUBSCRIPTIONINFO>} pInfo 
-     * @returns {HRESULT} 
+     * @returns {SUBSCRIPTIONINFO} 
      */
-    GetSubscriptionInfo(pwszURL, pInfo) {
+    GetSubscriptionInfo(pwszURL) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
+        pInfo := SUBSCRIPTIONINFO()
         result := ComCall(7, this, "ptr", pwszURL, "ptr", pInfo, "HRESULT")
-        return result
+        return pInfo
     }
 
     /**
      * 
      * @param {Integer} subType 
-     * @param {Pointer<SUBSCRIPTIONINFO>} pInfo 
-     * @returns {HRESULT} 
+     * @returns {SUBSCRIPTIONINFO} 
      */
-    GetDefaultInfo(subType, pInfo) {
+    GetDefaultInfo(subType) {
+        pInfo := SUBSCRIPTIONINFO()
         result := ComCall(8, this, "int", subType, "ptr", pInfo, "HRESULT")
-        return result
+        return pInfo
     }
 
     /**

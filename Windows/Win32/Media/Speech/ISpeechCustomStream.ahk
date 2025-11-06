@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\ISpeechBaseStream.ahk
 
 /**
@@ -30,12 +31,11 @@ class ISpeechCustomStream extends ISpeechBaseStream{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppUnkStream 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get_BaseStream(ppUnkStream) {
-        result := ComCall(12, this, "ptr*", ppUnkStream, "HRESULT")
-        return result
+    get_BaseStream() {
+        result := ComCall(12, this, "ptr*", &ppUnkStream := 0, "HRESULT")
+        return IUnknown(ppUnkStream)
     }
 
     /**

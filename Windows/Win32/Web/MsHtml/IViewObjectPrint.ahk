@@ -30,11 +30,10 @@ class IViewObjectPrint extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppPrintBitmap 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    GetPrintBitmap(ppPrintBitmap) {
-        result := ComCall(3, this, "ptr*", ppPrintBitmap, "HRESULT")
-        return result
+    GetPrintBitmap() {
+        result := ComCall(3, this, "ptr*", &ppPrintBitmap := 0, "HRESULT")
+        return IUnknown(ppPrintBitmap)
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include .\IInkDrawingAttributes.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -72,13 +74,12 @@ class IDynamicRenderer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} bEnabled 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-idynamicrenderer-get_enabled
      */
-    get_Enabled(bEnabled) {
-        result := ComCall(3, this, "ptr", bEnabled, "HRESULT")
-        return result
+    get_Enabled() {
+        result := ComCall(3, this, "int*", &bEnabled := 0, "HRESULT")
+        return bEnabled
     }
 
     /**
@@ -94,13 +95,12 @@ class IDynamicRenderer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HANDLE_PTR>} hwnd 
-     * @returns {HRESULT} 
+     * @returns {HANDLE_PTR} 
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-idynamicrenderer-get_hwnd
      */
-    get_HWND(hwnd) {
-        result := ComCall(5, this, "ptr", hwnd, "HRESULT")
-        return result
+    get_HWND() {
+        result := ComCall(5, this, "ptr*", &hwnd := 0, "HRESULT")
+        return hwnd
     }
 
     /**
@@ -116,13 +116,13 @@ class IDynamicRenderer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<RECT>} prcClipRect 
-     * @returns {HRESULT} 
+     * @returns {RECT} 
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-idynamicrenderer-get_cliprectangle
      */
-    get_ClipRectangle(prcClipRect) {
+    get_ClipRectangle() {
+        prcClipRect := RECT()
         result := ComCall(7, this, "ptr", prcClipRect, "HRESULT")
-        return result
+        return prcClipRect
     }
 
     /**
@@ -138,13 +138,12 @@ class IDynamicRenderer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HANDLE_PTR>} phClipRgn 
-     * @returns {HRESULT} 
+     * @returns {HANDLE_PTR} 
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-idynamicrenderer-get_clipregion
      */
-    get_ClipRegion(phClipRgn) {
-        result := ComCall(9, this, "ptr", phClipRgn, "HRESULT")
-        return result
+    get_ClipRegion() {
+        result := ComCall(9, this, "ptr*", &phClipRgn := 0, "HRESULT")
+        return phClipRgn
     }
 
     /**
@@ -160,13 +159,12 @@ class IDynamicRenderer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IInkDrawingAttributes>} ppiDA 
-     * @returns {HRESULT} 
+     * @returns {IInkDrawingAttributes} 
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-idynamicrenderer-get_drawingattributes
      */
-    get_DrawingAttributes(ppiDA) {
-        result := ComCall(11, this, "ptr*", ppiDA, "HRESULT")
-        return result
+    get_DrawingAttributes() {
+        result := ComCall(11, this, "ptr*", &ppiDA := 0, "HRESULT")
+        return IInkDrawingAttributes(ppiDA)
     }
 
     /**
@@ -181,13 +179,12 @@ class IDynamicRenderer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfCacheData 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-idynamicrenderer-get_datacacheenabled
      */
-    get_DataCacheEnabled(pfCacheData) {
-        result := ComCall(13, this, "ptr", pfCacheData, "HRESULT")
-        return result
+    get_DataCacheEnabled() {
+        result := ComCall(13, this, "int*", &pfCacheData := 0, "HRESULT")
+        return pfCacheData
     }
 
     /**

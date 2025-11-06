@@ -54,15 +54,13 @@ class IWICBitmapSource extends IUnknown{
 
     /**
      * The GetPixelFormat function obtains the index of the currently selected pixel format of the specified device context.
-     * @param {Pointer<Guid>} pPixelFormat 
-     * @returns {HRESULT} If the function succeeds, the return value is the currently selected pixel format index of the specified device context. This is a positive, one-based index value.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {Guid} 
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getpixelformat
      */
-    GetPixelFormat(pPixelFormat) {
+    GetPixelFormat() {
+        pPixelFormat := Guid()
         result := ComCall(4, this, "ptr", pPixelFormat, "HRESULT")
-        return result
+        return pPixelFormat
     }
 
     /**
@@ -96,14 +94,11 @@ class IWICBitmapSource extends IUnknown{
      * @param {Pointer<WICRect>} prc 
      * @param {Integer} cbStride 
      * @param {Integer} cbBufferSize 
-     * @param {Pointer<Integer>} pbBuffer 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapsource-copypixels
      */
-    CopyPixels(prc, cbStride, cbBufferSize, pbBuffer) {
-        pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
-
-        result := ComCall(7, this, "ptr", prc, "uint", cbStride, "uint", cbBufferSize, pbBufferMarshal, pbBuffer, "HRESULT")
-        return result
+    CopyPixels(prc, cbStride, cbBufferSize) {
+        result := ComCall(7, this, "ptr", prc, "uint", cbStride, "uint", cbBufferSize, "char*", &pbBuffer := 0, "HRESULT")
+        return pbBuffer
     }
 }

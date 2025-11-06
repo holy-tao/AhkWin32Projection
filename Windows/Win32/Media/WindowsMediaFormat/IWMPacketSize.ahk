@@ -32,15 +32,12 @@ class IWMPacketSize extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwMaxPacketSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmpacketsize-getmaxpacketsize
      */
-    GetMaxPacketSize(pdwMaxPacketSize) {
-        pdwMaxPacketSizeMarshal := pdwMaxPacketSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pdwMaxPacketSizeMarshal, pdwMaxPacketSize, "HRESULT")
-        return result
+    GetMaxPacketSize() {
+        result := ComCall(3, this, "uint*", &pdwMaxPacketSize := 0, "HRESULT")
+        return pdwMaxPacketSize
     }
 
     /**

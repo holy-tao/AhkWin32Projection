@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFMediaType.ahk
 #Include .\IMFVideoProcessorControl2.ahk
 
 /**
@@ -30,12 +31,11 @@ class IMFVideoProcessorControl3 extends IMFVideoProcessorControl2{
 
     /**
      * 
-     * @param {Pointer<IMFMediaType>} ppType 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaType} 
      */
-    GetNaturalOutputType(ppType) {
-        result := ComCall(12, this, "ptr*", ppType, "HRESULT")
-        return result
+    GetNaturalOutputType() {
+        result := ComCall(12, this, "ptr*", &ppType := 0, "HRESULT")
+        return IMFMediaType(ppType)
     }
 
     /**

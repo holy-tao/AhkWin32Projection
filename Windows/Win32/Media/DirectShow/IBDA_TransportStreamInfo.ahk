@@ -37,14 +37,11 @@ class IBDA_TransportStreamInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pPatTickCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_transportstreaminfo-get_pattabletickcount
      */
-    get_PatTableTickCount(pPatTickCount) {
-        pPatTickCountMarshal := pPatTickCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pPatTickCountMarshal, pPatTickCount, "HRESULT")
-        return result
+    get_PatTableTickCount() {
+        result := ComCall(3, this, "uint*", &pPatTickCount := 0, "HRESULT")
+        return pPatTickCount
     }
 }

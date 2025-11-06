@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsSignatureRequestCollection.ahk
+#Include ..\Packaging\Opc\IOpcPartUri.ahk
+#Include .\IXpsSignatureRequest.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -37,61 +40,54 @@ class IXpsSignatureBlock extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IXpsSignatureRequestCollection>} requests 
-     * @returns {HRESULT} 
+     * @returns {IXpsSignatureRequestCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignatureblock-getrequests
      */
-    GetRequests(requests) {
-        result := ComCall(3, this, "ptr*", requests, "HRESULT")
-        return result
+    GetRequests() {
+        result := ComCall(3, this, "ptr*", &requests := 0, "HRESULT")
+        return IXpsSignatureRequestCollection(requests)
     }
 
     /**
      * 
-     * @param {Pointer<IOpcPartUri>} partName 
-     * @returns {HRESULT} 
+     * @returns {IOpcPartUri} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignatureblock-getpartname
      */
-    GetPartName(partName) {
-        result := ComCall(4, this, "ptr*", partName, "HRESULT")
-        return result
+    GetPartName() {
+        result := ComCall(4, this, "ptr*", &partName := 0, "HRESULT")
+        return IOpcPartUri(partName)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} fixedDocumentIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignatureblock-getdocumentindex
      */
-    GetDocumentIndex(fixedDocumentIndex) {
-        fixedDocumentIndexMarshal := fixedDocumentIndex is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, fixedDocumentIndexMarshal, fixedDocumentIndex, "HRESULT")
-        return result
+    GetDocumentIndex() {
+        result := ComCall(5, this, "uint*", &fixedDocumentIndex := 0, "HRESULT")
+        return fixedDocumentIndex
     }
 
     /**
      * 
-     * @param {Pointer<IOpcPartUri>} fixedDocumentName 
-     * @returns {HRESULT} 
+     * @returns {IOpcPartUri} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignatureblock-getdocumentname
      */
-    GetDocumentName(fixedDocumentName) {
-        result := ComCall(6, this, "ptr*", fixedDocumentName, "HRESULT")
-        return result
+    GetDocumentName() {
+        result := ComCall(6, this, "ptr*", &fixedDocumentName := 0, "HRESULT")
+        return IOpcPartUri(fixedDocumentName)
     }
 
     /**
      * 
      * @param {PWSTR} requestId 
-     * @param {Pointer<IXpsSignatureRequest>} signatureRequest 
-     * @returns {HRESULT} 
+     * @returns {IXpsSignatureRequest} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignatureblock-createrequest
      */
-    CreateRequest(requestId, signatureRequest) {
+    CreateRequest(requestId) {
         requestId := requestId is String ? StrPtr(requestId) : requestId
 
-        result := ComCall(7, this, "ptr", requestId, "ptr*", signatureRequest, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", requestId, "ptr*", &signatureRequest := 0, "HRESULT")
+        return IXpsSignatureRequest(signatureRequest)
     }
 }

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Variant\VARIANT.ahk
 #Include .\IUpdate5.ahk
 
 /**
@@ -32,26 +33,26 @@ class IUpdateEx extends IUpdate5{
     /**
      * 
      * @param {BSTR} propertyName 
-     * @param {Pointer<VARIANT>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_ExtendedStaticProperty(propertyName, retval) {
+    get_ExtendedStaticProperty(propertyName) {
         propertyName := propertyName is String ? BSTR.Alloc(propertyName).Value : propertyName
 
+        retval := VARIANT()
         result := ComCall(60, this, "ptr", propertyName, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
      * @param {BSTR} propertyName 
-     * @param {Pointer<VARIANT>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    EvaluateExtendedDynamicProperty(propertyName, retval) {
+    EvaluateExtendedDynamicProperty(propertyName) {
         propertyName := propertyName is String ? BSTR.Alloc(propertyName).Value : propertyName
 
+        retval := VARIANT()
         result := ComCall(61, this, "ptr", propertyName, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 }

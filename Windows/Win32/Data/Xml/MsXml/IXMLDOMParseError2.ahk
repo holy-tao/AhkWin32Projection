@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IXMLDOMParseErrorCollection.ahk
 #Include .\IXMLDOMParseError.ahk
 
 /**
@@ -30,44 +32,40 @@ class IXMLDOMParseError2 extends IXMLDOMParseError{
 
     /**
      * 
-     * @param {Pointer<BSTR>} xpathexpr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_errorXPath(xpathexpr) {
+    get_errorXPath() {
+        xpathexpr := BSTR()
         result := ComCall(14, this, "ptr", xpathexpr, "HRESULT")
-        return result
+        return xpathexpr
     }
 
     /**
      * 
-     * @param {Pointer<IXMLDOMParseErrorCollection>} allErrors 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMParseErrorCollection} 
      */
-    get_allErrors(allErrors) {
-        result := ComCall(15, this, "ptr*", allErrors, "HRESULT")
-        return result
+    get_allErrors() {
+        result := ComCall(15, this, "ptr*", &allErrors := 0, "HRESULT")
+        return IXMLDOMParseErrorCollection(allErrors)
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<BSTR>} param1 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    errorParameters(index, param1) {
+    errorParameters(index) {
+        param1 := BSTR()
         result := ComCall(16, this, "int", index, "ptr", param1, "HRESULT")
-        return result
+        return param1
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_errorParametersCount(count) {
-        countMarshal := count is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, countMarshal, count, "HRESULT")
-        return result
+    get_errorParametersCount() {
+        result := ComCall(17, this, "int*", &count := 0, "HRESULT")
+        return count
     }
 }

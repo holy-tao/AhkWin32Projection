@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMILBitmapEffectConnectorInfo.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -36,51 +37,43 @@ class IMILBitmapEffectConnectionsInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} puiNumInputs 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectconnectionsinfo-getnumberinputs
      */
-    GetNumberInputs(puiNumInputs) {
-        puiNumInputsMarshal := puiNumInputs is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, puiNumInputsMarshal, puiNumInputs, "HRESULT")
-        return result
+    GetNumberInputs() {
+        result := ComCall(3, this, "uint*", &puiNumInputs := 0, "HRESULT")
+        return puiNumInputs
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} puiNumOutputs 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectconnectionsinfo-getnumberoutputs
      */
-    GetNumberOutputs(puiNumOutputs) {
-        puiNumOutputsMarshal := puiNumOutputs is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, puiNumOutputsMarshal, puiNumOutputs, "HRESULT")
-        return result
+    GetNumberOutputs() {
+        result := ComCall(4, this, "uint*", &puiNumOutputs := 0, "HRESULT")
+        return puiNumOutputs
     }
 
     /**
      * 
      * @param {Integer} uiIndex 
-     * @param {Pointer<IMILBitmapEffectConnectorInfo>} ppConnectorInfo 
-     * @returns {HRESULT} 
+     * @returns {IMILBitmapEffectConnectorInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectconnectionsinfo-getinputconnectorinfo
      */
-    GetInputConnectorInfo(uiIndex, ppConnectorInfo) {
-        result := ComCall(5, this, "uint", uiIndex, "ptr*", ppConnectorInfo, "HRESULT")
-        return result
+    GetInputConnectorInfo(uiIndex) {
+        result := ComCall(5, this, "uint", uiIndex, "ptr*", &ppConnectorInfo := 0, "HRESULT")
+        return IMILBitmapEffectConnectorInfo(ppConnectorInfo)
     }
 
     /**
      * 
      * @param {Integer} uiIndex 
-     * @param {Pointer<IMILBitmapEffectConnectorInfo>} ppConnectorInfo 
-     * @returns {HRESULT} 
+     * @returns {IMILBitmapEffectConnectorInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectconnectionsinfo-getoutputconnectorinfo
      */
-    GetOutputConnectorInfo(uiIndex, ppConnectorInfo) {
-        result := ComCall(6, this, "uint", uiIndex, "ptr*", ppConnectorInfo, "HRESULT")
-        return result
+    GetOutputConnectorInfo(uiIndex) {
+        result := ComCall(6, this, "uint", uiIndex, "ptr*", &ppConnectorInfo := 0, "HRESULT")
+        return IMILBitmapEffectConnectorInfo(ppConnectorInfo)
     }
 }

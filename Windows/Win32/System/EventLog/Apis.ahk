@@ -389,9 +389,11 @@ class EventLog {
      * @since windows6.0.6000
      */
     static EvtCreateRenderContext(ValuePathsCount, ValuePaths, Flags) {
+        ValuePathsMarshal := ValuePaths is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("wevtapi.dll\EvtCreateRenderContext", "uint", ValuePathsCount, "ptr", ValuePaths, "uint", Flags, "ptr")
+        result := DllCall("wevtapi.dll\EvtCreateRenderContext", "uint", ValuePathsCount, ValuePathsMarshal, ValuePaths, "uint", Flags, "ptr")
         if(A_LastError)
             throw OSError()
 
@@ -2123,9 +2125,11 @@ class EventLog {
     static ReportEventA(hEventLog, wType, wCategory, dwEventID, lpUserSid, wNumStrings, dwDataSize, lpStrings, lpRawData) {
         hEventLog := hEventLog is Win32Handle ? NumGet(hEventLog, "ptr") : hEventLog
 
+        lpStringsMarshal := lpStrings is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ReportEventA", "ptr", hEventLog, "ushort", wType, "ushort", wCategory, "uint", dwEventID, "ptr", lpUserSid, "ushort", wNumStrings, "uint", dwDataSize, "ptr", lpStrings, "ptr", lpRawData, "int")
+        result := DllCall("ADVAPI32.dll\ReportEventA", "ptr", hEventLog, "ushort", wType, "ushort", wCategory, "uint", dwEventID, "ptr", lpUserSid, "ushort", wNumStrings, "uint", dwDataSize, lpStringsMarshal, lpStrings, "ptr", lpRawData, "int")
         if(A_LastError)
             throw OSError()
 
@@ -2229,9 +2233,11 @@ class EventLog {
     static ReportEventW(hEventLog, wType, wCategory, dwEventID, lpUserSid, wNumStrings, dwDataSize, lpStrings, lpRawData) {
         hEventLog := hEventLog is Win32Handle ? NumGet(hEventLog, "ptr") : hEventLog
 
+        lpStringsMarshal := lpStrings is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\ReportEventW", "ptr", hEventLog, "ushort", wType, "ushort", wCategory, "uint", dwEventID, "ptr", lpUserSid, "ushort", wNumStrings, "uint", dwDataSize, "ptr", lpStrings, "ptr", lpRawData, "int")
+        result := DllCall("ADVAPI32.dll\ReportEventW", "ptr", hEventLog, "ushort", wType, "ushort", wCategory, "uint", dwEventID, "ptr", lpUserSid, "ushort", wNumStrings, "uint", dwDataSize, lpStringsMarshal, lpStrings, "ptr", lpRawData, "int")
         if(A_LastError)
             throw OSError()
 

@@ -86,13 +86,12 @@ class IToolbar extends IUnknown{
      * 
      * @param {Integer} idCommand 
      * @param {Integer} nState 
-     * @param {Pointer<BOOL>} pState 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-itoolbar-getbuttonstate
      */
-    GetButtonState(idCommand, nState, pState) {
-        result := ComCall(7, this, "int", idCommand, "int", nState, "ptr", pState, "HRESULT")
-        return result
+    GetButtonState(idCommand, nState) {
+        result := ComCall(7, this, "int", idCommand, "int", nState, "int*", &pState := 0, "HRESULT")
+        return pState
     }
 
     /**

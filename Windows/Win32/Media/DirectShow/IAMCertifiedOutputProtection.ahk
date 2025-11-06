@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\AMCOPPStatusOutput.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -71,12 +72,12 @@ class IAMCertifiedOutputProtection extends IUnknown{
     /**
      * 
      * @param {Pointer<AMCOPPStatusInput>} pStatusInput 
-     * @param {Pointer<AMCOPPStatusOutput>} pStatusOutput 
-     * @returns {HRESULT} 
+     * @returns {AMCOPPStatusOutput} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamcertifiedoutputprotection-protectionstatus
      */
-    ProtectionStatus(pStatusInput, pStatusOutput) {
+    ProtectionStatus(pStatusInput) {
+        pStatusOutput := AMCOPPStatusOutput()
         result := ComCall(6, this, "ptr", pStatusInput, "ptr", pStatusOutput, "HRESULT")
-        return result
+        return pStatusOutput
     }
 }

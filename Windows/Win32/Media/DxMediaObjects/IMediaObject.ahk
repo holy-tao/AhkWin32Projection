@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DMO_MEDIA_TYPE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -48,55 +49,49 @@ class IMediaObject extends IUnknown{
     /**
      * 
      * @param {Integer} dwInputStreamIndex 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediaobject-getinputstreaminfo
      */
-    GetInputStreamInfo(dwInputStreamIndex, pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, "uint", dwInputStreamIndex, pdwFlagsMarshal, pdwFlags, "HRESULT")
-        return result
+    GetInputStreamInfo(dwInputStreamIndex) {
+        result := ComCall(4, this, "uint", dwInputStreamIndex, "uint*", &pdwFlags := 0, "HRESULT")
+        return pdwFlags
     }
 
     /**
      * 
      * @param {Integer} dwOutputStreamIndex 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediaobject-getoutputstreaminfo
      */
-    GetOutputStreamInfo(dwOutputStreamIndex, pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, "uint", dwOutputStreamIndex, pdwFlagsMarshal, pdwFlags, "HRESULT")
-        return result
+    GetOutputStreamInfo(dwOutputStreamIndex) {
+        result := ComCall(5, this, "uint", dwOutputStreamIndex, "uint*", &pdwFlags := 0, "HRESULT")
+        return pdwFlags
     }
 
     /**
      * 
      * @param {Integer} dwInputStreamIndex 
      * @param {Integer} dwTypeIndex 
-     * @param {Pointer<DMO_MEDIA_TYPE>} pmt 
-     * @returns {HRESULT} 
+     * @returns {DMO_MEDIA_TYPE} 
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediaobject-getinputtype
      */
-    GetInputType(dwInputStreamIndex, dwTypeIndex, pmt) {
+    GetInputType(dwInputStreamIndex, dwTypeIndex) {
+        pmt := DMO_MEDIA_TYPE()
         result := ComCall(6, this, "uint", dwInputStreamIndex, "uint", dwTypeIndex, "ptr", pmt, "HRESULT")
-        return result
+        return pmt
     }
 
     /**
      * 
      * @param {Integer} dwOutputStreamIndex 
      * @param {Integer} dwTypeIndex 
-     * @param {Pointer<DMO_MEDIA_TYPE>} pmt 
-     * @returns {HRESULT} 
+     * @returns {DMO_MEDIA_TYPE} 
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediaobject-getoutputtype
      */
-    GetOutputType(dwOutputStreamIndex, dwTypeIndex, pmt) {
+    GetOutputType(dwOutputStreamIndex, dwTypeIndex) {
+        pmt := DMO_MEDIA_TYPE()
         result := ComCall(7, this, "uint", dwOutputStreamIndex, "uint", dwTypeIndex, "ptr", pmt, "HRESULT")
-        return result
+        return pmt
     }
 
     /**
@@ -128,25 +123,25 @@ class IMediaObject extends IUnknown{
     /**
      * 
      * @param {Integer} dwInputStreamIndex 
-     * @param {Pointer<DMO_MEDIA_TYPE>} pmt 
-     * @returns {HRESULT} 
+     * @returns {DMO_MEDIA_TYPE} 
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediaobject-getinputcurrenttype
      */
-    GetInputCurrentType(dwInputStreamIndex, pmt) {
+    GetInputCurrentType(dwInputStreamIndex) {
+        pmt := DMO_MEDIA_TYPE()
         result := ComCall(10, this, "uint", dwInputStreamIndex, "ptr", pmt, "HRESULT")
-        return result
+        return pmt
     }
 
     /**
      * 
      * @param {Integer} dwOutputStreamIndex 
-     * @param {Pointer<DMO_MEDIA_TYPE>} pmt 
-     * @returns {HRESULT} 
+     * @returns {DMO_MEDIA_TYPE} 
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediaobject-getoutputcurrenttype
      */
-    GetOutputCurrentType(dwOutputStreamIndex, pmt) {
+    GetOutputCurrentType(dwOutputStreamIndex) {
+        pmt := DMO_MEDIA_TYPE()
         result := ComCall(11, this, "uint", dwOutputStreamIndex, "ptr", pmt, "HRESULT")
-        return result
+        return pmt
     }
 
     /**
@@ -186,15 +181,12 @@ class IMediaObject extends IUnknown{
     /**
      * 
      * @param {Integer} dwInputStreamIndex 
-     * @param {Pointer<Integer>} prtMaxLatency 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediaobject-getinputmaxlatency
      */
-    GetInputMaxLatency(dwInputStreamIndex, prtMaxLatency) {
-        prtMaxLatencyMarshal := prtMaxLatency is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(14, this, "uint", dwInputStreamIndex, prtMaxLatencyMarshal, prtMaxLatency, "HRESULT")
-        return result
+    GetInputMaxLatency(dwInputStreamIndex) {
+        result := ComCall(14, this, "uint", dwInputStreamIndex, "int64*", &prtMaxLatency := 0, "HRESULT")
+        return prtMaxLatency
     }
 
     /**
@@ -253,15 +245,12 @@ class IMediaObject extends IUnknown{
     /**
      * 
      * @param {Integer} dwInputStreamIndex 
-     * @param {Pointer<Integer>} dwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediaobject-getinputstatus
      */
-    GetInputStatus(dwInputStreamIndex, dwFlags) {
-        dwFlagsMarshal := dwFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(20, this, "uint", dwInputStreamIndex, dwFlagsMarshal, dwFlags, "HRESULT")
-        return result
+    GetInputStatus(dwInputStreamIndex) {
+        result := ComCall(20, this, "uint", dwInputStreamIndex, "uint*", &dwFlags := 0, "HRESULT")
+        return dwFlags
     }
 
     /**

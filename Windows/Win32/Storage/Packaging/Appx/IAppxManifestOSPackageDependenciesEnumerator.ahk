@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IAppxManifestOSPackageDependency.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,31 +31,28 @@ class IAppxManifestOSPackageDependenciesEnumerator extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IAppxManifestOSPackageDependency>} osPackageDependency 
-     * @returns {HRESULT} 
+     * @returns {IAppxManifestOSPackageDependency} 
      */
-    GetCurrent(osPackageDependency) {
-        result := ComCall(3, this, "ptr*", osPackageDependency, "HRESULT")
-        return result
+    GetCurrent() {
+        result := ComCall(3, this, "ptr*", &osPackageDependency := 0, "HRESULT")
+        return IAppxManifestOSPackageDependency(osPackageDependency)
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} hasCurrent 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    GetHasCurrent(hasCurrent) {
-        result := ComCall(4, this, "ptr", hasCurrent, "HRESULT")
-        return result
+    GetHasCurrent() {
+        result := ComCall(4, this, "int*", &hasCurrent := 0, "HRESULT")
+        return hasCurrent
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} hasNext 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    MoveNext(hasNext) {
-        result := ComCall(5, this, "ptr", hasNext, "HRESULT")
-        return result
+    MoveNext() {
+        result := ComCall(5, this, "int*", &hasNext := 0, "HRESULT")
+        return hasNext
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -38,51 +39,44 @@ class IOfflineFilesSetting extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessetting-getname
      */
-    GetName(ppszName) {
-        result := ComCall(3, this, "ptr", ppszName, "HRESULT")
-        return result
+    GetName() {
+        result := ComCall(3, this, "ptr*", &ppszName := 0, "HRESULT")
+        return ppszName
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessetting-getvaluetype
      */
-    GetValueType(pType) {
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, pTypeMarshal, pType, "HRESULT")
-        return result
+    GetValueType() {
+        result := ComCall(4, this, "int*", &pType := 0, "HRESULT")
+        return pType
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarValue 
      * @param {Integer} dwScope 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessetting-getpreference
      */
-    GetPreference(pvarValue, dwScope) {
+    GetPreference(dwScope) {
+        pvarValue := VARIANT()
         result := ComCall(5, this, "ptr", pvarValue, "uint", dwScope, "HRESULT")
-        return result
+        return pvarValue
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwScope 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessetting-getpreferencescope
      */
-    GetPreferenceScope(pdwScope) {
-        pdwScopeMarshal := pdwScope is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pdwScopeMarshal, pdwScope, "HRESULT")
-        return result
+    GetPreferenceScope() {
+        result := ComCall(6, this, "uint*", &pdwScope := 0, "HRESULT")
+        return pdwScope
     }
 
     /**
@@ -110,27 +104,24 @@ class IOfflineFilesSetting extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarValue 
      * @param {Integer} dwScope 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessetting-getpolicy
      */
-    GetPolicy(pvarValue, dwScope) {
+    GetPolicy(dwScope) {
+        pvarValue := VARIANT()
         result := ComCall(9, this, "ptr", pvarValue, "uint", dwScope, "HRESULT")
-        return result
+        return pvarValue
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwScope 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessetting-getpolicyscope
      */
-    GetPolicyScope(pdwScope) {
-        pdwScopeMarshal := pdwScope is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, pdwScopeMarshal, pdwScope, "HRESULT")
-        return result
+    GetPolicyScope() {
+        result := ComCall(10, this, "uint*", &pdwScope := 0, "HRESULT")
+        return pdwScope
     }
 
     /**
@@ -141,7 +132,9 @@ class IOfflineFilesSetting extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessetting-getvalue
      */
     GetValue(pvarValue, pbSetByPolicy) {
-        result := ComCall(11, this, "ptr", pvarValue, "ptr", pbSetByPolicy, "HRESULT")
+        pbSetByPolicyMarshal := pbSetByPolicy is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, "ptr", pvarValue, pbSetByPolicyMarshal, pbSetByPolicy, "HRESULT")
         return result
     }
 }

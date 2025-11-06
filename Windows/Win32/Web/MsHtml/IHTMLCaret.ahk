@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\POINT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -75,12 +76,11 @@ class IHTMLCaret extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pIsVisible 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsVisible(pIsVisible) {
-        result := ComCall(7, this, "ptr", pIsVisible, "HRESULT")
-        return result
+    IsVisible() {
+        result := ComCall(7, this, "int*", &pIsVisible := 0, "HRESULT")
+        return pIsVisible
     }
 
     /**
@@ -126,25 +126,22 @@ class IHTMLCaret extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<POINT>} pPoint 
      * @param {BOOL} fTranslate 
-     * @returns {HRESULT} 
+     * @returns {POINT} 
      */
-    GetLocation(pPoint, fTranslate) {
+    GetLocation(fTranslate) {
+        pPoint := POINT()
         result := ComCall(12, this, "ptr", pPoint, "int", fTranslate, "HRESULT")
-        return result
+        return pPoint
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} peDir 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetCaretDirection(peDir) {
-        peDirMarshal := peDir is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, peDirMarshal, peDir, "HRESULT")
-        return result
+    GetCaretDirection() {
+        result := ComCall(13, this, "int*", &peDir := 0, "HRESULT")
+        return peDir
     }
 
     /**

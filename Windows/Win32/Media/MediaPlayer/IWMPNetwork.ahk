@@ -324,7 +324,9 @@ class IWMPNetwork extends IDispatch{
     getProxyBypassForLocal(bstrProtocol, pfBypassForLocal) {
         bstrProtocol := bstrProtocol is String ? BSTR.Alloc(bstrProtocol).Value : bstrProtocol
 
-        result := ComCall(28, this, "ptr", bstrProtocol, "ptr", pfBypassForLocal, "HRESULT")
+        pfBypassForLocalMarshal := pfBypassForLocal is VarRef ? "short*" : "ptr"
+
+        result := ComCall(28, this, "ptr", bstrProtocol, pfBypassForLocalMarshal, pfBypassForLocal, "HRESULT")
         return result
     }
 

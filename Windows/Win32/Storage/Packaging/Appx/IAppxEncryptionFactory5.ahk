@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IAppxPackageReader.ahk
+#Include .\IAppxBundleReader.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -35,15 +37,14 @@ class IAppxEncryptionFactory5 extends IUnknown{
      * @param {IStream} inputStream 
      * @param {Pointer<APPX_KEY_INFO>} keyInfo 
      * @param {PWSTR} expectedDigest 
-     * @param {Pointer<IAppxPackageReader>} packageReader 
-     * @returns {HRESULT} 
+     * @returns {IAppxPackageReader} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxencryptionfactory5-createencryptedpackagereader2
      */
-    CreateEncryptedPackageReader2(inputStream, keyInfo, expectedDigest, packageReader) {
+    CreateEncryptedPackageReader2(inputStream, keyInfo, expectedDigest) {
         expectedDigest := expectedDigest is String ? StrPtr(expectedDigest) : expectedDigest
 
-        result := ComCall(3, this, "ptr", inputStream, "ptr", keyInfo, "ptr", expectedDigest, "ptr*", packageReader, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", inputStream, "ptr", keyInfo, "ptr", expectedDigest, "ptr*", &packageReader := 0, "HRESULT")
+        return IAppxPackageReader(packageReader)
     }
 
     /**
@@ -51,14 +52,13 @@ class IAppxEncryptionFactory5 extends IUnknown{
      * @param {IStream} inputStream 
      * @param {Pointer<APPX_KEY_INFO>} keyInfo 
      * @param {PWSTR} expectedDigest 
-     * @param {Pointer<IAppxBundleReader>} bundleReader 
-     * @returns {HRESULT} 
+     * @returns {IAppxBundleReader} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxencryptionfactory5-createencryptedbundlereader2
      */
-    CreateEncryptedBundleReader2(inputStream, keyInfo, expectedDigest, bundleReader) {
+    CreateEncryptedBundleReader2(inputStream, keyInfo, expectedDigest) {
         expectedDigest := expectedDigest is String ? StrPtr(expectedDigest) : expectedDigest
 
-        result := ComCall(4, this, "ptr", inputStream, "ptr", keyInfo, "ptr", expectedDigest, "ptr*", bundleReader, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", inputStream, "ptr", keyInfo, "ptr", expectedDigest, "ptr*", &bundleReader := 0, "HRESULT")
+        return IAppxBundleReader(bundleReader)
     }
 }

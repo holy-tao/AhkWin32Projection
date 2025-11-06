@@ -56,15 +56,12 @@ class IResultData extends IUnknown{
     /**
      * 
      * @param {LPARAM} lParam 
-     * @param {Pointer<Pointer>} pItemID 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iresultdata-finditembylparam
      */
-    FindItemByLParam(lParam, pItemID) {
-        pItemIDMarshal := pItemID is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, "ptr", lParam, pItemIDMarshal, pItemID, "HRESULT")
-        return result
+    FindItemByLParam(lParam) {
+        result := ComCall(5, this, "ptr", lParam, "ptr*", &pItemID := 0, "HRESULT")
+        return pItemID
     }
 
     /**
@@ -149,15 +146,12 @@ class IResultData extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} lViewMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iresultdata-getviewmode
      */
-    GetViewMode(lViewMode) {
-        lViewModeMarshal := lViewMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, lViewModeMarshal, lViewMode, "HRESULT")
-        return result
+    GetViewMode() {
+        result := ComCall(13, this, "int*", &lViewMode := 0, "HRESULT")
+        return lViewMode
     }
 
     /**

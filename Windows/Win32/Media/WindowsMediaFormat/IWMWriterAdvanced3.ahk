@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\WM_WRITER_STATISTICS_EX.ahk
 #Include .\IWMWriterAdvanced2.ahk
 
 /**
@@ -33,13 +34,13 @@ class IWMWriterAdvanced3 extends IWMWriterAdvanced2{
     /**
      * 
      * @param {Integer} wStreamNum 
-     * @param {Pointer<WM_WRITER_STATISTICS_EX>} pStats 
-     * @returns {HRESULT} 
+     * @returns {WM_WRITER_STATISTICS_EX} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriteradvanced3-getstatisticsex
      */
-    GetStatisticsEx(wStreamNum, pStats) {
+    GetStatisticsEx(wStreamNum) {
+        pStats := WM_WRITER_STATISTICS_EX()
         result := ComCall(16, this, "ushort", wStreamNum, "ptr", pStats, "HRESULT")
-        return result
+        return pStats
     }
 
     /**

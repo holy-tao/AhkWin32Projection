@@ -30,13 +30,10 @@ class IRTCProfileEvent2 extends IRTCProfileEvent{
 
     /**
      * 
-     * @param {Pointer<Integer>} pEventType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_EventType(pEventType) {
-        pEventTypeMarshal := pEventType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, pEventTypeMarshal, pEventType, "HRESULT")
-        return result
+    get_EventType() {
+        result := ComCall(10, this, "int*", &pEventType := 0, "HRESULT")
+        return pEventType
     }
 }

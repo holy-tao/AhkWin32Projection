@@ -31,14 +31,11 @@ class IHostControl extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppObject 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetHostManager(riid, ppObject) {
-        ppObjectMarshal := ppObject is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", riid, ppObjectMarshal, ppObject, "HRESULT")
-        return result
+    GetHostManager(riid) {
+        result := ComCall(3, this, "ptr", riid, "ptr*", &ppObject := 0, "HRESULT")
+        return ppObject
     }
 
     /**

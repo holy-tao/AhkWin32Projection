@@ -31,13 +31,12 @@ class ICompositionCapabilitiesInteropFactory extends IInspectable{
     /**
      * 
      * @param {HWND} hwnd 
-     * @param {Pointer<CompositionCapabilities>} result 
-     * @returns {HRESULT} 
+     * @returns {Pointer<CompositionCapabilities>} 
      */
-    GetForWindow(hwnd, result) {
+    GetForWindow(hwnd) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := ComCall(6, this, "ptr", hwnd, "ptr", result, "HRESULT")
+        result := ComCall(6, this, "ptr", hwnd, "ptr*", &result := 0, "HRESULT")
         return result
     }
 }

@@ -2,6 +2,10 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\IVMRImageCompositor.ahk
+#Include ..\..\..\System\Ole\IPictureDisp.ahk
+#Include ..\IVMRMixerBitmap.ahk
+#Include .\IMSVidRect.ahk
 #Include .\IMSVidOutputDevice.ahk
 
 /**
@@ -44,13 +48,13 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
 
     /**
      * 
-     * @param {Pointer<BSTR>} CompositorCLSID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-get_customcompositorclass
      */
-    get_CustomCompositorClass(CompositorCLSID) {
+    get_CustomCompositorClass() {
+        CompositorCLSID := BSTR()
         result := ComCall(16, this, "ptr", CompositorCLSID, "HRESULT")
-        return result
+        return CompositorCLSID
     }
 
     /**
@@ -68,13 +72,13 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
 
     /**
      * 
-     * @param {Pointer<Guid>} CompositorCLSID 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-get__customcompositorclass
      */
-    get__CustomCompositorClass(CompositorCLSID) {
+    get__CustomCompositorClass() {
+        CompositorCLSID := Guid()
         result := ComCall(18, this, "ptr", CompositorCLSID, "HRESULT")
-        return result
+        return CompositorCLSID
     }
 
     /**
@@ -90,13 +94,12 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
 
     /**
      * 
-     * @param {Pointer<IVMRImageCompositor>} Compositor 
-     * @returns {HRESULT} 
+     * @returns {IVMRImageCompositor} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-get__customcompositor
      */
-    get__CustomCompositor(Compositor) {
-        result := ComCall(20, this, "ptr*", Compositor, "HRESULT")
-        return result
+    get__CustomCompositor() {
+        result := ComCall(20, this, "ptr*", &Compositor := 0, "HRESULT")
+        return IVMRImageCompositor(Compositor)
     }
 
     /**
@@ -112,24 +115,22 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
 
     /**
      * 
-     * @param {Pointer<IPictureDisp>} MixerPictureDisp 
-     * @returns {HRESULT} 
+     * @returns {IPictureDisp} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-get_mixerbitmap
      */
-    get_MixerBitmap(MixerPictureDisp) {
-        result := ComCall(22, this, "ptr*", MixerPictureDisp, "HRESULT")
-        return result
+    get_MixerBitmap() {
+        result := ComCall(22, this, "ptr*", &MixerPictureDisp := 0, "HRESULT")
+        return IPictureDisp(MixerPictureDisp)
     }
 
     /**
      * 
-     * @param {Pointer<IVMRMixerBitmap>} MixerPicture 
-     * @returns {HRESULT} 
+     * @returns {IVMRMixerBitmap} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-get__mixerbitmap
      */
-    get__MixerBitmap(MixerPicture) {
-        result := ComCall(23, this, "ptr*", MixerPicture, "HRESULT")
-        return result
+    get__MixerBitmap() {
+        result := ComCall(23, this, "ptr*", &MixerPicture := 0, "HRESULT")
+        return IVMRMixerBitmap(MixerPicture)
     }
 
     /**
@@ -156,13 +157,12 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
 
     /**
      * 
-     * @param {Pointer<IMSVidRect>} rDest 
-     * @returns {HRESULT} 
+     * @returns {IMSVidRect} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-get_mixerbitmappositionrect
      */
-    get_MixerBitmapPositionRect(rDest) {
-        result := ComCall(26, this, "ptr*", rDest, "HRESULT")
-        return result
+    get_MixerBitmapPositionRect() {
+        result := ComCall(26, this, "ptr*", &rDest := 0, "HRESULT")
+        return IMSVidRect(rDest)
     }
 
     /**
@@ -178,15 +178,12 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
 
     /**
      * 
-     * @param {Pointer<Integer>} opacity 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-get_mixerbitmapopacity
      */
-    get_MixerBitmapOpacity(opacity) {
-        opacityMarshal := opacity is VarRef ? "int*" : "ptr"
-
-        result := ComCall(28, this, opacityMarshal, opacity, "HRESULT")
-        return result
+    get_MixerBitmapOpacity() {
+        result := ComCall(28, this, "int*", &opacity := 0, "HRESULT")
+        return opacity
     }
 
     /**
@@ -215,15 +212,12 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
 
     /**
      * 
-     * @param {Pointer<Integer>} CurrentSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-get_sourcesize
      */
-    get_SourceSize(CurrentSize) {
-        CurrentSizeMarshal := CurrentSize is VarRef ? "int*" : "ptr"
-
-        result := ComCall(31, this, CurrentSizeMarshal, CurrentSize, "HRESULT")
-        return result
+    get_SourceSize() {
+        result := ComCall(31, this, "int*", &CurrentSize := 0, "HRESULT")
+        return CurrentSize
     }
 
     /**
@@ -239,15 +233,12 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
 
     /**
      * 
-     * @param {Pointer<Integer>} plPercent 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-get_overscan
      */
-    get_OverScan(plPercent) {
-        plPercentMarshal := plPercent is VarRef ? "int*" : "ptr"
-
-        result := ComCall(33, this, plPercentMarshal, plPercent, "HRESULT")
-        return result
+    get_OverScan() {
+        result := ComCall(33, this, "int*", &plPercent := 0, "HRESULT")
+        return plPercent
     }
 
     /**
@@ -263,46 +254,42 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
 
     /**
      * 
-     * @param {Pointer<IMSVidRect>} pRect 
-     * @returns {HRESULT} 
+     * @returns {IMSVidRect} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-get_availablesourcerect
      */
-    get_AvailableSourceRect(pRect) {
-        result := ComCall(35, this, "ptr*", pRect, "HRESULT")
-        return result
+    get_AvailableSourceRect() {
+        result := ComCall(35, this, "ptr*", &pRect := 0, "HRESULT")
+        return IMSVidRect(pRect)
     }
 
     /**
      * 
-     * @param {Pointer<IMSVidRect>} ppVidRect 
-     * @returns {HRESULT} 
+     * @returns {IMSVidRect} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-get_maxvidrect
      */
-    get_MaxVidRect(ppVidRect) {
-        result := ComCall(36, this, "ptr*", ppVidRect, "HRESULT")
-        return result
+    get_MaxVidRect() {
+        result := ComCall(36, this, "ptr*", &ppVidRect := 0, "HRESULT")
+        return IMSVidRect(ppVidRect)
     }
 
     /**
      * 
-     * @param {Pointer<IMSVidRect>} ppVidRect 
-     * @returns {HRESULT} 
+     * @returns {IMSVidRect} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-get_minvidrect
      */
-    get_MinVidRect(ppVidRect) {
-        result := ComCall(37, this, "ptr*", ppVidRect, "HRESULT")
-        return result
+    get_MinVidRect() {
+        result := ComCall(37, this, "ptr*", &ppVidRect := 0, "HRESULT")
+        return IMSVidRect(ppVidRect)
     }
 
     /**
      * 
-     * @param {Pointer<IMSVidRect>} pRect 
-     * @returns {HRESULT} 
+     * @returns {IMSVidRect} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-get_clippedsourcerect
      */
-    get_ClippedSourceRect(pRect) {
-        result := ComCall(38, this, "ptr*", pRect, "HRESULT")
-        return result
+    get_ClippedSourceRect() {
+        result := ComCall(38, this, "ptr*", &pRect := 0, "HRESULT")
+        return IMSVidRect(pRect)
     }
 
     /**
@@ -318,13 +305,12 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} UseOverlayVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-get_usingoverlay
      */
-    get_UsingOverlay(UseOverlayVal) {
-        result := ComCall(40, this, "ptr", UseOverlayVal, "HRESULT")
-        return result
+    get_UsingOverlay() {
+        result := ComCall(40, this, "short*", &UseOverlayVal := 0, "HRESULT")
+        return UseOverlayVal
     }
 
     /**
@@ -340,37 +326,32 @@ class IMSVidVideoRenderer extends IMSVidOutputDevice{
 
     /**
      * 
-     * @param {Pointer<IPictureDisp>} currentImage 
-     * @returns {HRESULT} 
+     * @returns {IPictureDisp} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-capture
      */
-    Capture(currentImage) {
-        result := ComCall(42, this, "ptr*", currentImage, "HRESULT")
-        return result
+    Capture() {
+        result := ComCall(42, this, "ptr*", &currentImage := 0, "HRESULT")
+        return IPictureDisp(currentImage)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-get_framespersecond
      */
-    get_FramesPerSecond(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(43, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_FramesPerSecond() {
+        result := ComCall(43, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pDeci 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidvideorenderer-get_decimateinput
      */
-    get_DecimateInput(pDeci) {
-        result := ComCall(44, this, "ptr", pDeci, "HRESULT")
-        return result
+    get_DecimateInput() {
+        result := ComCall(44, this, "short*", &pDeci := 0, "HRESULT")
+        return pDeci
     }
 
     /**

@@ -45,7 +45,11 @@ class ICcgDomainAuthCredentials extends IUnknown{
     GetPasswordCredentials(pluginInput, domainName, username, password) {
         pluginInput := pluginInput is String ? StrPtr(pluginInput) : pluginInput
 
-        result := ComCall(3, this, "ptr", pluginInput, "ptr", domainName, "ptr", username, "ptr", password, "HRESULT")
+        domainNameMarshal := domainName is VarRef ? "ptr*" : "ptr"
+        usernameMarshal := username is VarRef ? "ptr*" : "ptr"
+        passwordMarshal := password is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pluginInput, domainNameMarshal, domainName, usernameMarshal, username, passwordMarshal, password, "HRESULT")
         return result
     }
 }

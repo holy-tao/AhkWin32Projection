@@ -32,12 +32,11 @@ class IAppxManifestReader6 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} isNonQualifiedResourcePackage 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestreader6-getisnonqualifiedresourcepackage
      */
-    GetIsNonQualifiedResourcePackage(isNonQualifiedResourcePackage) {
-        result := ComCall(3, this, "ptr", isNonQualifiedResourcePackage, "HRESULT")
-        return result
+    GetIsNonQualifiedResourcePackage() {
+        result := ComCall(3, this, "int*", &isNonQualifiedResourcePackage := 0, "HRESULT")
+        return isNonQualifiedResourcePackage
     }
 }

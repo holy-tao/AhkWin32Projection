@@ -56,12 +56,11 @@ class IRowPosition extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppRowset 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    GetRowset(riid, ppRowset) {
-        result := ComCall(5, this, "ptr", riid, "ptr*", ppRowset, "HRESULT")
-        return result
+    GetRowset(riid) {
+        result := ComCall(5, this, "ptr", riid, "ptr*", &ppRowset := 0, "HRESULT")
+        return IUnknown(ppRowset)
     }
 
     /**

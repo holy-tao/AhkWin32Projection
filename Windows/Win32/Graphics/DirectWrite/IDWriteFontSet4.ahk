@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteFontSet4.ahk
 #Include .\IDWriteFontSet3.ahk
 
 /**
@@ -53,14 +54,13 @@ class IDWriteFontSet4 extends IDWriteFontSet3{
      * @param {Pointer<DWRITE_FONT_AXIS_VALUE>} fontAxisValues 
      * @param {Integer} fontAxisValueCount 
      * @param {Integer} allowedSimulations 
-     * @param {Pointer<IDWriteFontSet4>} matchingFonts 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontSet4} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset4-getmatchingfonts
      */
-    GetMatchingFonts(familyName, fontAxisValues, fontAxisValueCount, allowedSimulations, matchingFonts) {
+    GetMatchingFonts(familyName, fontAxisValues, fontAxisValueCount, allowedSimulations) {
         familyName := familyName is String ? StrPtr(familyName) : familyName
 
-        result := ComCall(31, this, "ptr", familyName, "ptr", fontAxisValues, "uint", fontAxisValueCount, "int", allowedSimulations, "ptr*", matchingFonts, "HRESULT")
-        return result
+        result := ComCall(31, this, "ptr", familyName, "ptr", fontAxisValues, "uint", fontAxisValueCount, "int", allowedSimulations, "ptr*", &matchingFonts := 0, "HRESULT")
+        return IDWriteFontSet4(matchingFonts)
     }
 }

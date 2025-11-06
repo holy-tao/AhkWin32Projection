@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISynchronize.ahk
 #Include .\IUnknown.ahk
 
 /**
@@ -45,12 +46,11 @@ class ISynchronizeContainer extends IUnknown{
      * 
      * @param {Integer} dwFlags 
      * @param {Integer} dwTimeOut 
-     * @param {Pointer<ISynchronize>} ppSync 
-     * @returns {HRESULT} 
+     * @returns {ISynchronize} 
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-isynchronizecontainer-waitmultiple
      */
-    WaitMultiple(dwFlags, dwTimeOut, ppSync) {
-        result := ComCall(4, this, "uint", dwFlags, "uint", dwTimeOut, "ptr*", ppSync, "HRESULT")
-        return result
+    WaitMultiple(dwFlags, dwTimeOut) {
+        result := ComCall(4, this, "uint", dwFlags, "uint", dwTimeOut, "ptr*", &ppSync := 0, "HRESULT")
+        return ISynchronize(ppSync)
     }
 }

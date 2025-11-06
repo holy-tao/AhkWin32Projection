@@ -37,36 +37,29 @@ class IDOMProgressEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_lengthComputable(p) {
-        result := ComCall(7, this, "ptr", p, "HRESULT")
-        return result
+    get_lengthComputable() {
+        result := ComCall(7, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_loaded(p) {
-        pMarshal := p is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pMarshal, p, "HRESULT")
-        return result
+    get_loaded() {
+        result := ComCall(8, this, "uint*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_total(p) {
-        pMarshal := p is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, pMarshal, p, "HRESULT")
-        return result
+    get_total() {
+        result := ComCall(9, this, "uint*", &p := 0, "HRESULT")
+        return p
     }
 
     /**

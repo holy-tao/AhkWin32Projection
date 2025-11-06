@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,11 +31,11 @@ class IUPnPDeviceControlHttpHeaders extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} bstrHttpResponseHeaders 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetAdditionalResponseHeaders(bstrHttpResponseHeaders) {
+    GetAdditionalResponseHeaders() {
+        bstrHttpResponseHeaders := BSTR()
         result := ComCall(3, this, "ptr", bstrHttpResponseHeaders, "HRESULT")
-        return result
+        return bstrHttpResponseHeaders
     }
 }

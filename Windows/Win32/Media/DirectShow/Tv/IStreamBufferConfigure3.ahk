@@ -48,13 +48,12 @@ class IStreamBufferConfigure3 extends IStreamBufferConfigure2{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfStartStopsCur 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferconfigure3-getstartrecconfig
      */
-    GetStartRecConfig(pfStartStopsCur) {
-        result := ComCall(14, this, "ptr", pfStartStopsCur, "HRESULT")
-        return result
+    GetStartRecConfig() {
+        result := ComCall(14, this, "int*", &pfStartStopsCur := 0, "HRESULT")
+        return pfStartStopsCur
     }
 
     /**
@@ -72,12 +71,11 @@ class IStreamBufferConfigure3 extends IStreamBufferConfigure2{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszNamespace 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferconfigure3-getnamespace
      */
-    GetNamespace(ppszNamespace) {
-        result := ComCall(16, this, "ptr", ppszNamespace, "HRESULT")
-        return result
+    GetNamespace() {
+        result := ComCall(16, this, "ptr*", &ppszNamespace := 0, "HRESULT")
+        return ppszNamespace
     }
 }

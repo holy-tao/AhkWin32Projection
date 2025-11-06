@@ -43,39 +43,32 @@ class IBackgroundCopyJob4 extends IBackgroundCopyJob3{
 
     /**
      * 
-     * @param {Pointer<Integer>} pFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibackgroundcopyjob4-getpeercachingflags
      */
-    GetPeerCachingFlags(pFlags) {
-        pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(48, this, pFlagsMarshal, pFlags, "HRESULT")
-        return result
+    GetPeerCachingFlags() {
+        result := ComCall(48, this, "uint*", &pFlags := 0, "HRESULT")
+        return pFlags
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pLevel 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibackgroundcopyjob4-getownerintegritylevel
      */
-    GetOwnerIntegrityLevel(pLevel) {
-        pLevelMarshal := pLevel is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(49, this, pLevelMarshal, pLevel, "HRESULT")
-        return result
+    GetOwnerIntegrityLevel() {
+        result := ComCall(49, this, "uint*", &pLevel := 0, "HRESULT")
+        return pLevel
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pElevated 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibackgroundcopyjob4-getownerelevationstate
      */
-    GetOwnerElevationState(pElevated) {
-        result := ComCall(50, this, "ptr", pElevated, "HRESULT")
-        return result
+    GetOwnerElevationState() {
+        result := ComCall(50, this, "int*", &pElevated := 0, "HRESULT")
+        return pElevated
     }
 
     /**
@@ -91,14 +84,11 @@ class IBackgroundCopyJob4 extends IBackgroundCopyJob3{
 
     /**
      * 
-     * @param {Pointer<Integer>} pTimeout 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibackgroundcopyjob4-getmaximumdownloadtime
      */
-    GetMaximumDownloadTime(pTimeout) {
-        pTimeoutMarshal := pTimeout is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(52, this, pTimeoutMarshal, pTimeout, "HRESULT")
-        return result
+    GetMaximumDownloadTime() {
+        result := ComCall(52, this, "uint*", &pTimeout := 0, "HRESULT")
+        return pTimeout
     }
 }

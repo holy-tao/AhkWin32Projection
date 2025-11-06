@@ -53,14 +53,11 @@ class IObjectWithFolderEnumMode extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pfeMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iobjectwithfolderenummode-getmode
      */
-    GetMode(pfeMode) {
-        pfeModeMarshal := pfeMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, pfeModeMarshal, pfeMode, "HRESULT")
-        return result
+    GetMode() {
+        result := ComCall(4, this, "int*", &pfeMode := 0, "HRESULT")
+        return pfeMode
     }
 }

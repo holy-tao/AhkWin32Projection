@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IScriptNode.ahk
+#Include .\IScriptEntry.ahk
+#Include ..\..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -124,24 +127,20 @@ class IActiveScriptAuthor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IScriptNode>} ppsp 
-     * @returns {HRESULT} 
+     * @returns {IScriptNode} 
      */
-    GetRoot(ppsp) {
-        result := ComCall(8, this, "ptr*", ppsp, "HRESULT")
-        return result
+    GetRoot() {
+        result := ComCall(8, this, "ptr*", &ppsp := 0, "HRESULT")
+        return IScriptNode(ppsp)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pgrfasa 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetLanguageFlags(pgrfasa) {
-        pgrfasaMarshal := pgrfasa is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, pgrfasaMarshal, pgrfasa, "HRESULT")
-        return result
+    GetLanguageFlags() {
+        result := ComCall(9, this, "uint*", &pgrfasa := 0, "HRESULT")
+        return pgrfasa
     }
 
     /**
@@ -150,16 +149,15 @@ class IActiveScriptAuthor extends IUnknown{
      * @param {PWSTR} pszItem 
      * @param {PWSTR} pszSubItem 
      * @param {PWSTR} pszEvent 
-     * @param {Pointer<IScriptEntry>} ppse 
-     * @returns {HRESULT} 
+     * @returns {IScriptEntry} 
      */
-    GetEventHandler(pdisp, pszItem, pszSubItem, pszEvent, ppse) {
+    GetEventHandler(pdisp, pszItem, pszSubItem, pszEvent) {
         pszItem := pszItem is String ? StrPtr(pszItem) : pszItem
         pszSubItem := pszSubItem is String ? StrPtr(pszSubItem) : pszSubItem
         pszEvent := pszEvent is String ? StrPtr(pszEvent) : pszEvent
 
-        result := ComCall(10, this, "ptr", pdisp, "ptr", pszItem, "ptr", pszSubItem, "ptr", pszEvent, "ptr*", ppse, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", pdisp, "ptr", pszItem, "ptr", pszSubItem, "ptr", pszEvent, "ptr*", &ppse := 0, "HRESULT")
+        return IScriptEntry(ppse)
     }
 
     /**
@@ -202,12 +200,12 @@ class IActiveScriptAuthor extends IUnknown{
     /**
      * 
      * @param {Integer} fRequestedList 
-     * @param {Pointer<BSTR>} pbstrChars 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetChars(fRequestedList, pbstrChars) {
+    GetChars(fRequestedList) {
+        pbstrChars := BSTR()
         result := ComCall(14, this, "uint", fRequestedList, "ptr", pbstrChars, "HRESULT")
-        return result
+        return pbstrChars
     }
 
     /**
@@ -240,11 +238,10 @@ class IActiveScriptAuthor extends IUnknown{
     /**
      * 
      * @param {Integer} ch 
-     * @param {Pointer<BOOL>} pfcommit 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsCommitChar(ch, pfcommit) {
-        result := ComCall(16, this, "char", ch, "ptr", pfcommit, "HRESULT")
-        return result
+    IsCommitChar(ch) {
+        result := ComCall(16, this, "char", ch, "int*", &pfcommit := 0, "HRESULT")
+        return pfcommit
     }
 }

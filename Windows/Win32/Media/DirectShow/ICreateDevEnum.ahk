@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IEnumMoniker.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,13 +34,12 @@ class ICreateDevEnum extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} clsidDeviceClass 
-     * @param {Pointer<IEnumMoniker>} ppEnumMoniker 
      * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
+     * @returns {IEnumMoniker} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icreatedevenum-createclassenumerator
      */
-    CreateClassEnumerator(clsidDeviceClass, ppEnumMoniker, dwFlags) {
-        result := ComCall(3, this, "ptr", clsidDeviceClass, "ptr*", ppEnumMoniker, "uint", dwFlags, "HRESULT")
-        return result
+    CreateClassEnumerator(clsidDeviceClass, dwFlags) {
+        result := ComCall(3, this, "ptr", clsidDeviceClass, "ptr*", &ppEnumMoniker := 0, "uint", dwFlags, "HRESULT")
+        return IEnumMoniker(ppEnumMoniker)
     }
 }

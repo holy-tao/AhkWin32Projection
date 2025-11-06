@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IDebugHostTaggedUnionRangeEnumerator.ahk
+#Include .\IDebugHostType.ahk
 #Include .\IDebugHostType5.ahk
 
 /**
@@ -44,22 +46,20 @@ class IDebugHostType6 extends IDebugHostType5{
 
     /**
      * 
-     * @param {Pointer<IDebugHostTaggedUnionRangeEnumerator>} pTagRangeEnumerator 
-     * @returns {HRESULT} 
+     * @returns {IDebugHostTaggedUnionRangeEnumerator} 
      */
-    GetTaggedUnionTagRanges(pTagRangeEnumerator) {
-        result := ComCall(40, this, "ptr*", pTagRangeEnumerator, "HRESULT")
-        return result
+    GetTaggedUnionTagRanges() {
+        result := ComCall(40, this, "ptr*", &pTagRangeEnumerator := 0, "HRESULT")
+        return IDebugHostTaggedUnionRangeEnumerator(pTagRangeEnumerator)
     }
 
     /**
      * 
      * @param {IDebugHostType} pTaggedUnionType 
-     * @param {Pointer<IDebugHostType>} pUpcastedCaseType 
-     * @returns {HRESULT} 
+     * @returns {IDebugHostType} 
      */
-    UpcastToTaggedUnionType(pTaggedUnionType, pUpcastedCaseType) {
-        result := ComCall(41, this, "ptr", pTaggedUnionType, "ptr*", pUpcastedCaseType, "HRESULT")
-        return result
+    UpcastToTaggedUnionType(pTaggedUnionType) {
+        result := ComCall(41, this, "ptr", pTaggedUnionType, "ptr*", &pUpcastedCaseType := 0, "HRESULT")
+        return IDebugHostType(pUpcastedCaseType)
     }
 }

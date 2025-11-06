@@ -57,7 +57,9 @@ class IFileSinkFilter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ifilesinkfilter-getcurfile
      */
     GetCurFile(ppszFileName, pmt) {
-        result := ComCall(4, this, "ptr", ppszFileName, "ptr", pmt, "HRESULT")
+        ppszFileNameMarshal := ppszFileName is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, ppszFileNameMarshal, ppszFileName, "ptr", pmt, "HRESULT")
         return result
     }
 }

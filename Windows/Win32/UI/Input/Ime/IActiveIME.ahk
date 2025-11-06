@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IEnumRegisterWordW.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -96,19 +97,16 @@ class IActiveIME extends IUnknown{
      * @param {HIMC} hIMC 
      * @param {Integer} uEscape 
      * @param {Pointer<Void>} pData 
-     * @param {Pointer<LRESULT>} plResult 
-     * @returns {HRESULT} If the function succeeds, the return value is greater than zero, except with the <a href="/previous-versions/windows/desktop/legacy/ff686811(v=vs.85)">QUERYESCSUPPORT</a> printer escape, which checks for implementation only. If the escape is not implemented, the return value is zero.
-     * 
-     * If the function fails, the return value is a system error code.
+     * @returns {LRESULT} 
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-escape
      */
-    Escape(hIMC, uEscape, pData, plResult) {
+    Escape(hIMC, uEscape, pData) {
         hIMC := hIMC is Win32Handle ? NumGet(hIMC, "ptr") : hIMC
 
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(7, this, "ptr", hIMC, "uint", uEscape, pDataMarshal, pData, "ptr", plResult, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", hIMC, "uint", uEscape, pDataMarshal, pData, "ptr*", &plResult := 0, "HRESULT")
+        return plResult
     }
 
     /**
@@ -306,40 +304,33 @@ class IActiveIME extends IUnknown{
      * @param {Integer} dwStyle 
      * @param {PWSTR} szRegister 
      * @param {Pointer<Void>} pData 
-     * @param {Pointer<IEnumRegisterWordW>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumRegisterWordW} 
      */
-    EnumRegisterWord(szReading, dwStyle, szRegister, pData, ppEnum) {
+    EnumRegisterWord(szReading, dwStyle, szRegister, pData) {
         szReading := szReading is String ? StrPtr(szReading) : szReading
         szRegister := szRegister is String ? StrPtr(szRegister) : szRegister
 
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(17, this, "ptr", szReading, "uint", dwStyle, "ptr", szRegister, pDataMarshal, pData, "ptr*", ppEnum, "HRESULT")
-        return result
+        result := ComCall(17, this, "ptr", szReading, "uint", dwStyle, "ptr", szRegister, pDataMarshal, pData, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumRegisterWordW(ppEnum)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} uCodePage 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetCodePageA(uCodePage) {
-        uCodePageMarshal := uCodePage is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(18, this, uCodePageMarshal, uCodePage, "HRESULT")
-        return result
+    GetCodePageA() {
+        result := ComCall(18, this, "uint*", &uCodePage := 0, "HRESULT")
+        return uCodePage
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plid 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetLangId(plid) {
-        plidMarshal := plid is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(19, this, plidMarshal, plid, "HRESULT")
-        return result
+    GetLangId() {
+        result := ComCall(19, this, "ushort*", &plid := 0, "HRESULT")
+        return plid
     }
 }

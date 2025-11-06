@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRDPSRAPIApplicationList.ahk
+#Include .\IRDPSRAPIWindowList.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -38,35 +40,32 @@ class IRDPSRAPIApplicationFilter extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IRDPSRAPIApplicationList>} pApplications 
-     * @returns {HRESULT} 
+     * @returns {IRDPSRAPIApplicationList} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiapplicationfilter-get_applications
      */
-    get_Applications(pApplications) {
-        result := ComCall(7, this, "ptr*", pApplications, "HRESULT")
-        return result
+    get_Applications() {
+        result := ComCall(7, this, "ptr*", &pApplications := 0, "HRESULT")
+        return IRDPSRAPIApplicationList(pApplications)
     }
 
     /**
      * 
-     * @param {Pointer<IRDPSRAPIWindowList>} pWindows 
-     * @returns {HRESULT} 
+     * @returns {IRDPSRAPIWindowList} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiapplicationfilter-get_windows
      */
-    get_Windows(pWindows) {
-        result := ComCall(8, this, "ptr*", pWindows, "HRESULT")
-        return result
+    get_Windows() {
+        result := ComCall(8, this, "ptr*", &pWindows := 0, "HRESULT")
+        return IRDPSRAPIWindowList(pWindows)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiapplicationfilter-get_enabled
      */
-    get_Enabled(pRetVal) {
-        result := ComCall(9, this, "ptr", pRetVal, "HRESULT")
-        return result
+    get_Enabled() {
+        result := ComCall(9, this, "short*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 
     /**

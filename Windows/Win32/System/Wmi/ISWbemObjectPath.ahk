@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ISWbemNamedValueSet.ahk
+#Include .\ISWbemSecurity.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -37,12 +39,12 @@ class ISWbemObjectPath extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} strPath 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Path(strPath) {
+    get_Path() {
+        strPath := BSTR()
         result := ComCall(7, this, "ptr", strPath, "HRESULT")
-        return result
+        return strPath
     }
 
     /**
@@ -59,12 +61,12 @@ class ISWbemObjectPath extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} strRelPath 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_RelPath(strRelPath) {
+    get_RelPath() {
+        strRelPath := BSTR()
         result := ComCall(9, this, "ptr", strRelPath, "HRESULT")
-        return result
+        return strRelPath
     }
 
     /**
@@ -81,12 +83,12 @@ class ISWbemObjectPath extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} strServer 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Server(strServer) {
+    get_Server() {
+        strServer := BSTR()
         result := ComCall(11, this, "ptr", strServer, "HRESULT")
-        return result
+        return strServer
     }
 
     /**
@@ -103,12 +105,12 @@ class ISWbemObjectPath extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} strNamespace 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Namespace(strNamespace) {
+    get_Namespace() {
+        strNamespace := BSTR()
         result := ComCall(13, this, "ptr", strNamespace, "HRESULT")
-        return result
+        return strNamespace
     }
 
     /**
@@ -125,22 +127,22 @@ class ISWbemObjectPath extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} strParentNamespace 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ParentNamespace(strParentNamespace) {
+    get_ParentNamespace() {
+        strParentNamespace := BSTR()
         result := ComCall(15, this, "ptr", strParentNamespace, "HRESULT")
-        return result
+        return strParentNamespace
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} strDisplayName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_DisplayName(strDisplayName) {
+    get_DisplayName() {
+        strDisplayName := BSTR()
         result := ComCall(16, this, "ptr", strDisplayName, "HRESULT")
-        return result
+        return strDisplayName
     }
 
     /**
@@ -157,12 +159,12 @@ class ISWbemObjectPath extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} strClass 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Class(strClass) {
+    get_Class() {
+        strClass := BSTR()
         result := ComCall(18, this, "ptr", strClass, "HRESULT")
-        return result
+        return strClass
     }
 
     /**
@@ -179,12 +181,11 @@ class ISWbemObjectPath extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} bIsClass 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_IsClass(bIsClass) {
-        result := ComCall(20, this, "ptr", bIsClass, "HRESULT")
-        return result
+    get_IsClass() {
+        result := ComCall(20, this, "short*", &bIsClass := 0, "HRESULT")
+        return bIsClass
     }
 
     /**
@@ -198,12 +199,11 @@ class ISWbemObjectPath extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} bIsSingleton 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_IsSingleton(bIsSingleton) {
-        result := ComCall(22, this, "ptr", bIsSingleton, "HRESULT")
-        return result
+    get_IsSingleton() {
+        result := ComCall(22, this, "short*", &bIsSingleton := 0, "HRESULT")
+        return bIsSingleton
     }
 
     /**
@@ -217,32 +217,30 @@ class ISWbemObjectPath extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISWbemNamedValueSet>} objWbemNamedValueSet 
-     * @returns {HRESULT} 
+     * @returns {ISWbemNamedValueSet} 
      */
-    get_Keys(objWbemNamedValueSet) {
-        result := ComCall(24, this, "ptr*", objWbemNamedValueSet, "HRESULT")
-        return result
+    get_Keys() {
+        result := ComCall(24, this, "ptr*", &objWbemNamedValueSet := 0, "HRESULT")
+        return ISWbemNamedValueSet(objWbemNamedValueSet)
     }
 
     /**
      * 
-     * @param {Pointer<ISWbemSecurity>} objWbemSecurity 
-     * @returns {HRESULT} 
+     * @returns {ISWbemSecurity} 
      */
-    get_Security_(objWbemSecurity) {
-        result := ComCall(25, this, "ptr*", objWbemSecurity, "HRESULT")
-        return result
+    get_Security_() {
+        result := ComCall(25, this, "ptr*", &objWbemSecurity := 0, "HRESULT")
+        return ISWbemSecurity(objWbemSecurity)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} strLocale 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Locale(strLocale) {
+    get_Locale() {
+        strLocale := BSTR()
         result := ComCall(26, this, "ptr", strLocale, "HRESULT")
-        return result
+        return strLocale
     }
 
     /**
@@ -259,12 +257,12 @@ class ISWbemObjectPath extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} strAuthority 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Authority(strAuthority) {
+    get_Authority() {
+        strAuthority := BSTR()
         result := ComCall(28, this, "ptr", strAuthority, "HRESULT")
-        return result
+        return strAuthority
     }
 
     /**

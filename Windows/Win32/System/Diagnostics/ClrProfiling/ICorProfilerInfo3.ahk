@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ICorProfilerFunctionEnum.ahk
+#Include .\ICorProfilerModuleEnum.ahk
 #Include .\ICorProfilerInfo2.ahk
 
 /**
@@ -30,12 +32,11 @@ class ICorProfilerInfo3 extends ICorProfilerInfo2{
 
     /**
      * 
-     * @param {Pointer<ICorProfilerFunctionEnum>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {ICorProfilerFunctionEnum} 
      */
-    EnumJITedFunctions(ppEnum) {
-        result := ComCall(57, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumJITedFunctions() {
+        result := ComCall(57, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return ICorProfilerFunctionEnum(ppEnum)
     }
 
     /**
@@ -144,24 +145,20 @@ class ICorProfilerInfo3 extends ICorProfilerInfo2{
      * 
      * @param {Pointer} functionId 
      * @param {Pointer} eltInfo 
-     * @param {Pointer<Pointer>} pFrameInfo 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    GetFunctionTailcall3Info(functionId, eltInfo, pFrameInfo) {
-        pFrameInfoMarshal := pFrameInfo is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(65, this, "ptr", functionId, "ptr", eltInfo, pFrameInfoMarshal, pFrameInfo, "HRESULT")
-        return result
+    GetFunctionTailcall3Info(functionId, eltInfo) {
+        result := ComCall(65, this, "ptr", functionId, "ptr", eltInfo, "ptr*", &pFrameInfo := 0, "HRESULT")
+        return pFrameInfo
     }
 
     /**
      * 
-     * @param {Pointer<ICorProfilerModuleEnum>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {ICorProfilerModuleEnum} 
      */
-    EnumModules(ppEnum) {
-        result := ComCall(66, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumModules() {
+        result := ComCall(66, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return ICorProfilerModuleEnum(ppEnum)
     }
 
     /**
@@ -198,14 +195,11 @@ class ICorProfilerInfo3 extends ICorProfilerInfo2{
      * @param {Integer} fieldToken 
      * @param {Pointer} appDomainId 
      * @param {Pointer} threadId 
-     * @param {Pointer<Pointer<Void>>} ppAddress 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetThreadStaticAddress2(classId, fieldToken, appDomainId, threadId, ppAddress) {
-        ppAddressMarshal := ppAddress is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(68, this, "ptr", classId, "uint", fieldToken, "ptr", appDomainId, "ptr", threadId, ppAddressMarshal, ppAddress, "HRESULT")
-        return result
+    GetThreadStaticAddress2(classId, fieldToken, appDomainId, threadId) {
+        result := ComCall(68, this, "ptr", classId, "uint", fieldToken, "ptr", appDomainId, "ptr", threadId, "ptr*", &ppAddress := 0, "HRESULT")
+        return ppAddress
     }
 
     /**

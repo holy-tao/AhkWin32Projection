@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\SORTCOLUMN.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,36 +31,30 @@ class ISortColumnArray extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} columnCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetCount(columnCount) {
-        columnCountMarshal := columnCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, columnCountMarshal, columnCount, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(3, this, "uint*", &columnCount := 0, "HRESULT")
+        return columnCount
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<SORTCOLUMN>} sortcolumn 
-     * @returns {HRESULT} 
+     * @returns {SORTCOLUMN} 
      */
-    GetAt(index, sortcolumn) {
+    GetAt(index) {
+        sortcolumn := SORTCOLUMN()
         result := ComCall(4, this, "uint", index, "ptr", sortcolumn, "HRESULT")
-        return result
+        return sortcolumn
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} type 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetSortType(type) {
-        typeMarshal := type is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, typeMarshal, type, "HRESULT")
-        return result
+    GetSortType() {
+        result := ComCall(5, this, "int*", &type := 0, "HRESULT")
+        return type
     }
 }

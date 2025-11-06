@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Graphics\Direct3D12\ID3D12Resource.ahk
 #Include ..\IInspectable.ahk
 
 /**
@@ -34,13 +35,12 @@ class IHolographicCameraInterop extends IInspectable{
      * 
      * @param {ID3D12Device} pDevice 
      * @param {Pointer<D3D12_RESOURCE_DESC>} pTexture2DDesc 
-     * @param {Pointer<ID3D12Resource>} ppCreatedTexture2DResource 
-     * @returns {HRESULT} 
+     * @returns {ID3D12Resource} 
      * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.holographic.interop/nf-windows-graphics-holographic-interop-iholographiccamerainterop-createdirect3d12backbufferresource
      */
-    CreateDirect3D12BackBufferResource(pDevice, pTexture2DDesc, ppCreatedTexture2DResource) {
-        result := ComCall(6, this, "ptr", pDevice, "ptr", pTexture2DDesc, "ptr*", ppCreatedTexture2DResource, "HRESULT")
-        return result
+    CreateDirect3D12BackBufferResource(pDevice, pTexture2DDesc) {
+        result := ComCall(6, this, "ptr", pDevice, "ptr", pTexture2DDesc, "ptr*", &ppCreatedTexture2DResource := 0, "HRESULT")
+        return ID3D12Resource(ppCreatedTexture2DResource)
     }
 
     /**
@@ -48,13 +48,12 @@ class IHolographicCameraInterop extends IInspectable{
      * @param {ID3D12Device} pDevice 
      * @param {Pointer<D3D12_RESOURCE_DESC>} pTexture2DDesc 
      * @param {ID3D12ProtectedResourceSession} pProtectedResourceSession 
-     * @param {Pointer<ID3D12Resource>} ppCreatedTexture2DResource 
-     * @returns {HRESULT} 
+     * @returns {ID3D12Resource} 
      * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.holographic.interop/nf-windows-graphics-holographic-interop-iholographiccamerainterop-createdirect3d12hardwareprotectedbackbufferresource
      */
-    CreateDirect3D12HardwareProtectedBackBufferResource(pDevice, pTexture2DDesc, pProtectedResourceSession, ppCreatedTexture2DResource) {
-        result := ComCall(7, this, "ptr", pDevice, "ptr", pTexture2DDesc, "ptr", pProtectedResourceSession, "ptr*", ppCreatedTexture2DResource, "HRESULT")
-        return result
+    CreateDirect3D12HardwareProtectedBackBufferResource(pDevice, pTexture2DDesc, pProtectedResourceSession) {
+        result := ComCall(7, this, "ptr", pDevice, "ptr", pTexture2DDesc, "ptr", pProtectedResourceSession, "ptr*", &ppCreatedTexture2DResource := 0, "HRESULT")
+        return ID3D12Resource(ppCreatedTexture2DResource)
     }
 
     /**

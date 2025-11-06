@@ -30,12 +30,11 @@ class IIntelliForms extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_enabled(pVal) {
-        result := ComCall(7, this, "ptr", pVal, "HRESULT")
-        return result
+    get_enabled() {
+        result := ComCall(7, this, "short*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\SPTRANSITIONENTRY.ahk
 #Include .\ISpSREngineSite.ahk
 
 /**
@@ -56,12 +57,12 @@ class ISpSREngineSite2 extends ISpSREngineSite{
      * 
      * @param {Integer} ulGrammarID 
      * @param {Integer} RuleIndex 
-     * @param {Pointer<SPTRANSITIONENTRY>} pTrans 
-     * @returns {HRESULT} 
+     * @returns {SPTRANSITIONENTRY} 
      */
-    GetRuleTransition(ulGrammarID, RuleIndex, pTrans) {
+    GetRuleTransition(ulGrammarID, RuleIndex) {
+        pTrans := SPTRANSITIONENTRY()
         result := ComCall(23, this, "uint", ulGrammarID, "uint", RuleIndex, "ptr", pTrans, "HRESULT")
-        return result
+        return pTrans
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IEnumString.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -73,29 +74,25 @@ class ISyncMgrHandlerCollection extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumString>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IEnumString} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrhandlercollection-gethandlerenumerator
      */
-    GetHandlerEnumerator(ppenum) {
-        result := ComCall(3, this, "ptr*", ppenum, "HRESULT")
-        return result
+    GetHandlerEnumerator() {
+        result := ComCall(3, this, "ptr*", &ppenum := 0, "HRESULT")
+        return IEnumString(ppenum)
     }
 
     /**
      * 
      * @param {PWSTR} pszHandlerID 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrhandlercollection-bindtohandler
      */
-    BindToHandler(pszHandlerID, riid, ppv) {
+    BindToHandler(pszHandlerID, riid) {
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID
 
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "ptr", pszHandlerID, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pszHandlerID, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 }

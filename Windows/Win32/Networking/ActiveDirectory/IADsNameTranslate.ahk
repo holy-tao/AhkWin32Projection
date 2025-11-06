@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -92,13 +93,13 @@ class IADsNameTranslate extends IDispatch{
     /**
      * 
      * @param {Integer} lnFormatType 
-     * @param {Pointer<BSTR>} pbstrADsPath 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsnametranslate-get
      */
-    Get(lnFormatType, pbstrADsPath) {
+    Get(lnFormatType) {
+        pbstrADsPath := BSTR()
         result := ComCall(11, this, "int", lnFormatType, "ptr", pbstrADsPath, "HRESULT")
-        return result
+        return pbstrADsPath
     }
 
     /**
@@ -116,12 +117,12 @@ class IADsNameTranslate extends IDispatch{
     /**
      * 
      * @param {Integer} lnFormatType 
-     * @param {Pointer<VARIANT>} pvar 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsnametranslate-getex
      */
-    GetEx(lnFormatType, pvar) {
+    GetEx(lnFormatType) {
+        pvar := VARIANT()
         result := ComCall(13, this, "int", lnFormatType, "ptr", pvar, "HRESULT")
-        return result
+        return pvar
     }
 }

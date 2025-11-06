@@ -172,77 +172,21 @@ class NetworkDiagnosticsFramework {
      * @param {Pointer<HELPER_ATTRIBUTE>} attributes Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/ndattrib/ns-ndattrib-helper_attribute">HELPER_ATTRIBUTE</a>*</b>
      * 
      * The applicable <a href="https://docs.microsoft.com/windows/desktop/api/ndattrib/ns-ndattrib-helper_attribute">HELPER_ATTRIBUTE</a> structure.
-     * @param {Pointer<Pointer<Void>>} handle Type: <b>NDFHANDLE*</b>
+     * @returns {Pointer<Void>} Type: <b>NDFHANDLE*</b>
      * 
      * A handle to the Network Diagnostics Framework incident.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * Possible return values include, but are not limited to, the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation succeeded.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * There is not enough memory available to complete this operation.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>NDF_E_BAD_PARAM</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more parameters are invalid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>                NDF_E_NOHELPERCLASS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * <i>helperClassName</i> is <b>NULL</b>.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfcreateincident
      * @deprecated
      * @since windows6.0.6000
      */
-    static NdfCreateIncident(helperClassName, celt, attributes, handle) {
+    static NdfCreateIncident(helperClassName, celt, attributes) {
         helperClassName := helperClassName is String ? StrPtr(helperClassName) : helperClassName
 
-        handleMarshal := handle is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("NDFAPI.dll\NdfCreateIncident", "ptr", helperClassName, "uint", celt, "ptr", attributes, handleMarshal, handle, "int")
+        result := DllCall("NDFAPI.dll\NdfCreateIncident", "ptr", helperClassName, "uint", celt, "ptr", attributes, "ptr*", &handle := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return handle
     }
 
     /**
@@ -262,79 +206,23 @@ class NetworkDiagnosticsFramework {
      * @param {Pointer<SID>} userId Type: <b>SID*</b>
      * 
      * Unique identifier associated with the user.
-     * @param {Pointer<Pointer<Void>>} handle Type: <b>NDFHANDLE*</b>
+     * @returns {Pointer<Void>} Type: <b>NDFHANDLE*</b>
      * 
      * Handle to the Network Diagnostics Framework incident.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * Possible return values include, but are not limited to, the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation succeeded.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * There is not enough memory available to complete this operation.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>NDF_E_BAD_PARAM</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more parameters are invalid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more parameters are invalid.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfcreatewinsockincident
      * @deprecated
      * @since windows6.0.6000
      */
-    static NdfCreateWinSockIncident(sock, host, port, appId, userId, handle) {
+    static NdfCreateWinSockIncident(sock, host, port, appId, userId) {
         sock := sock is Win32Handle ? NumGet(sock, "ptr") : sock
         host := host is String ? StrPtr(host) : host
         appId := appId is String ? StrPtr(appId) : appId
 
-        handleMarshal := handle is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("NDFAPI.dll\NdfCreateWinSockIncident", "ptr", sock, "ptr", host, "ushort", port, "ptr", appId, "ptr", userId, handleMarshal, handle, "int")
+        result := DllCall("NDFAPI.dll\NdfCreateWinSockIncident", "ptr", sock, "ptr", host, "ushort", port, "ptr", appId, "ptr", userId, "ptr*", &handle := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return handle
     }
 
     /**
@@ -342,77 +230,21 @@ class NetworkDiagnosticsFramework {
      * @param {PWSTR} url Type: <b>LPCWSTR</b>
      * 
      * The URL with which there is a connectivity issue.
-     * @param {Pointer<Pointer<Void>>} handle Type: <b>NDFHANDLE*</b>
+     * @returns {Pointer<Void>} Type: <b>NDFHANDLE*</b>
      * 
      * Handle to the Network Diagnostics Framework incident.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * Possible return values include, but are not limited to, the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation succeeded.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_ABORT</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The underlying diagnosis or repair operation has been canceled.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * There is not enough memory available to complete this operation.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>NDF_E_BAD_PARAM</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more parameters are invalid.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfcreatewebincident
      * @deprecated
      * @since windows6.0.6000
      */
-    static NdfCreateWebIncident(url, handle) {
+    static NdfCreateWebIncident(url) {
         url := url is String ? StrPtr(url) : url
 
-        handleMarshal := handle is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("NDFAPI.dll\NdfCreateWebIncident", "ptr", url, handleMarshal, handle, "int")
+        result := DllCall("NDFAPI.dll\NdfCreateWebIncident", "ptr", url, "ptr*", &handle := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return handle
     }
 
     /**
@@ -426,78 +258,22 @@ class NetworkDiagnosticsFramework {
      * @param {PWSTR} moduleName Type: <b>LPWSTR</b>
      * 
      * The module name to use when checking against application-specific filtering rules (for example, "C:\Program Files\Internet Explorer\iexplorer.exe").  If <b>NULL</b>, the value is autodetected during the diagnosis.
-     * @param {Pointer<Pointer<Void>>} handle Type: <b>NDFHANDLE*</b>
+     * @returns {Pointer<Void>} Type: <b>NDFHANDLE*</b>
      * 
      * Handle to the Network Diagnostics Framework incident.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * Possible return values include, but are not limited to, the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation succeeded.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_ABORT</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The underlying diagnosis or repair operation has been canceled.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * There is not enough memory available to complete this operation.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>NDF_E_BAD_PARAM</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more parameters are invalid.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfcreatewebincidentex
      * @deprecated
      * @since windows6.0.6000
      */
-    static NdfCreateWebIncidentEx(url, useWinHTTP, moduleName, handle) {
+    static NdfCreateWebIncidentEx(url, useWinHTTP, moduleName) {
         url := url is String ? StrPtr(url) : url
         moduleName := moduleName is String ? StrPtr(moduleName) : moduleName
 
-        handleMarshal := handle is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("NDFAPI.dll\NdfCreateWebIncidentEx", "ptr", url, "int", useWinHTTP, "ptr", moduleName, handleMarshal, handle, "int")
+        result := DllCall("NDFAPI.dll\NdfCreateWebIncidentEx", "ptr", url, "int", useWinHTTP, "ptr", moduleName, "ptr*", &handle := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return handle
     }
 
     /**
@@ -505,77 +281,21 @@ class NetworkDiagnosticsFramework {
      * @param {PWSTR} UNCPath Type: <b>LPCWSTR</b>
      * 
      * The full UNC string (for example, "\\server\folder\file.ext") for the shared asset with which there is a connectivity issue.
-     * @param {Pointer<Pointer<Void>>} handle Type: <b>NDFHANDLE*</b>
+     * @returns {Pointer<Void>} Type: <b>NDFHANDLE*</b>
      * 
      * Handle to the Network Diagnostics Framework incident.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * Possible return values include, but are not limited to, the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation succeeded.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_ABORT</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The underlying diagnosis or repair operation has been canceled.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * There is not enough memory available to complete this operation.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>NDF_E_BAD_PARAM</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more parameters are invalid.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfcreatesharingincident
      * @deprecated
      * @since windows6.0.6000
      */
-    static NdfCreateSharingIncident(UNCPath, handle) {
+    static NdfCreateSharingIncident(UNCPath) {
         UNCPath := UNCPath is String ? StrPtr(UNCPath) : UNCPath
 
-        handleMarshal := handle is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("NDFAPI.dll\NdfCreateSharingIncident", "ptr", UNCPath, handleMarshal, handle, "int")
+        result := DllCall("NDFAPI.dll\NdfCreateSharingIncident", "ptr", UNCPath, "ptr*", &handle := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return handle
     }
 
     /**
@@ -588,228 +308,60 @@ class NetworkDiagnosticsFramework {
      * The numeric representation of the type of record that was queried when the issue occurred.  For more information and a complete listing of record set types and their numeric representations, see the windns.h header file.
      * 
      * This parameter should be set to  <b>DNS_TYPE_ZERO</b> for generic DNS resolution diagnosis.
-     * @param {Pointer<Pointer<Void>>} handle Type: <b>NDFHANDLE*</b>
+     * @returns {Pointer<Void>} Type: <b>NDFHANDLE*</b>
      * 
      * Handle to the Network Diagnostics Framework incident.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * Possible return values include, but are not limited to, the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation succeeded.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_ABORT</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The underlying diagnosis or repair operation has been canceled.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * There is not enough memory available to complete this operation.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>NDF_E_BAD_PARAM</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more parameters are invalid.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfcreatednsincident
      * @deprecated
      * @since windows6.0.6000
      */
-    static NdfCreateDNSIncident(hostname, queryType, handle) {
+    static NdfCreateDNSIncident(hostname, queryType) {
         hostname := hostname is String ? StrPtr(hostname) : hostname
 
-        handleMarshal := handle is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("NDFAPI.dll\NdfCreateDNSIncident", "ptr", hostname, "ushort", queryType, handleMarshal, handle, "int")
+        result := DllCall("NDFAPI.dll\NdfCreateDNSIncident", "ptr", hostname, "ushort", queryType, "ptr*", &handle := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return handle
     }
 
     /**
      * Diagnoses generic Internet connectivity problems.
-     * @param {Pointer<Pointer<Void>>} handle Type: <b>NDFHANDLE*</b>
+     * @returns {Pointer<Void>} Type: <b>NDFHANDLE*</b>
      * 
      * Handle to the Network Diagnostics Framework incident.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * Possible return values include, but are not limited to, the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation succeeded.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_ABORT</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The underlying diagnosis or repair operation has been canceled.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * There is not enough memory available to complete this operation.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>NDF_E_BAD_PARAM</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The handle is invalid.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfcreateconnectivityincident
      * @deprecated
      * @since windows6.0.6000
      */
-    static NdfCreateConnectivityIncident(handle) {
-        handleMarshal := handle is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("NDFAPI.dll\NdfCreateConnectivityIncident", handleMarshal, handle, "int")
+    static NdfCreateConnectivityIncident() {
+        result := DllCall("NDFAPI.dll\NdfCreateConnectivityIncident", "ptr*", &handle := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return handle
     }
 
     /**
      * Diagnoses connectivity issues using the NetConnection helper class.
-     * @param {Pointer<Pointer<Void>>} handle Type: <b>NDFHANDLE*</b>
-     * 
-     * Handle to the Network Diagnostics Framework incident.
      * @param {Guid} id Type: <b>GUID</b>
      * 
      * Identifier of the network interface that the caller would like to create the incident for.  
      * 
      * The NULL GUID {00000000-0000-0000-0000-000000000000} may be used if the caller does not want to specify an interface. The system will attempt to determine the most appropriate interface based on the current state of the system.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * @returns {Pointer<Void>} Type: <b>NDFHANDLE*</b>
      * 
-     * Possible return values include, but are not limited to, the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation succeeded.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_ABORT</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The underlying diagnosis or repair operation has been canceled.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * There is not enough memory available to complete this operation.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>NDF_E_BAD_PARAM</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The handle is invalid.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * Handle to the Network Diagnostics Framework incident.
      * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfcreatenetconnectionincident
      * @deprecated
      * @since windows8.0
      */
-    static NdfCreateNetConnectionIncident(handle, id) {
-        handleMarshal := handle is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("NDFAPI.dll\NdfCreateNetConnectionIncident", handleMarshal, handle, "ptr", id, "int")
+    static NdfCreateNetConnectionIncident(id) {
+        result := DllCall("NDFAPI.dll\NdfCreateNetConnectionIncident", "ptr*", &handle := 0, "ptr", id, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return handle
     }
 
     /**
@@ -826,58 +378,23 @@ class NetworkDiagnosticsFramework {
      * @param {PWSTR} appId Type: <b>LPCWSTR</b>
      * 
      * Application ID for the calling application.
-     * @param {Pointer<Pointer<Void>>} handle Type: <b>NDFHANDLE*</b>
+     * @returns {Pointer<Void>} Type: <b>NDFHANDLE*</b>
      * 
      * Handle to the Network Diagnostics Framework incident.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * Possible return values include, but are not limited to, the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation succeeded.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>NDF_E_BAD_PARAM</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more parameters has not been provided correctly.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfcreatepnrpincident
      * @deprecated
      * @since windows6.1
      */
-    static NdfCreatePnrpIncident(cloudname, peername, diagnosePublish, appId, handle) {
+    static NdfCreatePnrpIncident(cloudname, peername, diagnosePublish, appId) {
         cloudname := cloudname is String ? StrPtr(cloudname) : cloudname
         peername := peername is String ? StrPtr(peername) : peername
         appId := appId is String ? StrPtr(appId) : appId
 
-        handleMarshal := handle is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("NDFAPI.dll\NdfCreatePnrpIncident", "ptr", cloudname, "ptr", peername, "int", diagnosePublish, "ptr", appId, handleMarshal, handle, "int")
+        result := DllCall("NDFAPI.dll\NdfCreatePnrpIncident", "ptr", cloudname, "ptr", peername, "int", diagnosePublish, "ptr", appId, "ptr*", &handle := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return handle
     }
 
     /**
@@ -900,60 +417,25 @@ class NetworkDiagnosticsFramework {
      * @param {PWSTR} appId Type: <b>LPCWSTR</b>
      * 
      * Application ID for the calling application.
-     * @param {Pointer<Pointer<Void>>} handle Type: <b>NDFHANDLE*</b>
+     * @returns {Pointer<Void>} Type: <b>NDFHANDLE*</b>
      * 
      * Handle to the Network Diagnostics Framework incident.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * Possible return values include, but are not limited to, the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation succeeded.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>NDF_E_BAD_PARAM</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more parameters has not been provided correctly.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfcreategroupingincident
      * @deprecated
      * @since windows6.1
      */
-    static NdfCreateGroupingIncident(CloudName, GroupName, Identity, Invitation, Addresses, appId, handle) {
+    static NdfCreateGroupingIncident(CloudName, GroupName, Identity, Invitation, Addresses, appId) {
         CloudName := CloudName is String ? StrPtr(CloudName) : CloudName
         GroupName := GroupName is String ? StrPtr(GroupName) : GroupName
         Identity := Identity is String ? StrPtr(Identity) : Identity
         Invitation := Invitation is String ? StrPtr(Invitation) : Invitation
         appId := appId is String ? StrPtr(appId) : appId
 
-        handleMarshal := handle is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("NDFAPI.dll\NdfCreateGroupingIncident", "ptr", CloudName, "ptr", GroupName, "ptr", Identity, "ptr", Invitation, "ptr", Addresses, "ptr", appId, handleMarshal, handle, "int")
+        result := DllCall("NDFAPI.dll\NdfCreateGroupingIncident", "ptr", CloudName, "ptr", GroupName, "ptr", Identity, "ptr", Invitation, "ptr", Addresses, "ptr", appId, "ptr*", &handle := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return handle
     }
 
     /**
@@ -1291,45 +773,21 @@ class NetworkDiagnosticsFramework {
      * @param {Pointer<Void>} Handle Type: <b>NDFHANDLE</b>
      * 
      * Handle to a Network Diagnostics Framework incident. This handle should match the handle of an existing incident.
-     * @param {Pointer<PWSTR>} TraceFileLocation Type: <b>LPCWSTR*</b>
+     * @returns {PWSTR} Type: <b>LPCWSTR*</b>
      * 
      * The location of the trace file.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * Possible return values include, but are not limited to, the following.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation succeeded.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     *  
-     * 
-     *  Any result other than S_OK should be interpreted as an error.
      * @see https://docs.microsoft.com/windows/win32/api//ndfapi/nf-ndfapi-ndfgettracefile
      * @deprecated
      * @since windows6.1
      */
-    static NdfGetTraceFile(Handle, TraceFileLocation) {
+    static NdfGetTraceFile(Handle) {
         HandleMarshal := Handle is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("NDFAPI.dll\NdfGetTraceFile", HandleMarshal, Handle, "ptr", TraceFileLocation, "int")
+        result := DllCall("NDFAPI.dll\NdfGetTraceFile", HandleMarshal, Handle, "ptr*", &TraceFileLocation := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return TraceFileLocation
     }
 
 ;@endregion Methods

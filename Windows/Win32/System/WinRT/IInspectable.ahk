@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\HSTRING.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -52,25 +53,22 @@ class IInspectable extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HSTRING>} className 
-     * @returns {HRESULT} 
+     * @returns {HSTRING} 
      * @see https://learn.microsoft.com/windows/win32/api/inspectable/nf-inspectable-iinspectable-getruntimeclassname
      */
-    GetRuntimeClassName(className) {
+    GetRuntimeClassName() {
+        className := HSTRING()
         result := ComCall(4, this, "ptr", className, "HRESULT")
-        return result
+        return className
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} trustLevel 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/inspectable/nf-inspectable-iinspectable-gettrustlevel
      */
-    GetTrustLevel(trustLevel) {
-        trustLevelMarshal := trustLevel is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, trustLevelMarshal, trustLevel, "HRESULT")
-        return result
+    GetTrustLevel() {
+        result := ComCall(5, this, "int*", &trustLevel := 0, "HRESULT")
+        return trustLevel
     }
 }

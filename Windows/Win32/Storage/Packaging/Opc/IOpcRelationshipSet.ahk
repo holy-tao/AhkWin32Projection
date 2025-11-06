@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IOpcRelationship.ahk
+#Include .\IOpcRelationshipEnumerator.ahk
+#Include ..\..\..\System\Com\IStream.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -49,15 +52,14 @@ class IOpcRelationshipSet extends IUnknown{
     /**
      * 
      * @param {PWSTR} relationshipIdentifier 
-     * @param {Pointer<IOpcRelationship>} relationship 
-     * @returns {HRESULT} 
+     * @returns {IOpcRelationship} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationshipset-getrelationship
      */
-    GetRelationship(relationshipIdentifier, relationship) {
+    GetRelationship(relationshipIdentifier) {
         relationshipIdentifier := relationshipIdentifier is String ? StrPtr(relationshipIdentifier) : relationshipIdentifier
 
-        result := ComCall(3, this, "ptr", relationshipIdentifier, "ptr*", relationship, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", relationshipIdentifier, "ptr*", &relationship := 0, "HRESULT")
+        return IOpcRelationship(relationship)
     }
 
     /**
@@ -66,16 +68,15 @@ class IOpcRelationshipSet extends IUnknown{
      * @param {PWSTR} relationshipType 
      * @param {IUri} targetUri 
      * @param {Integer} targetMode 
-     * @param {Pointer<IOpcRelationship>} relationship 
-     * @returns {HRESULT} 
+     * @returns {IOpcRelationship} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationshipset-createrelationship
      */
-    CreateRelationship(relationshipIdentifier, relationshipType, targetUri, targetMode, relationship) {
+    CreateRelationship(relationshipIdentifier, relationshipType, targetUri, targetMode) {
         relationshipIdentifier := relationshipIdentifier is String ? StrPtr(relationshipIdentifier) : relationshipIdentifier
         relationshipType := relationshipType is String ? StrPtr(relationshipType) : relationshipType
 
-        result := ComCall(4, this, "ptr", relationshipIdentifier, "ptr", relationshipType, "ptr", targetUri, "int", targetMode, "ptr*", relationship, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", relationshipIdentifier, "ptr", relationshipType, "ptr", targetUri, "int", targetMode, "ptr*", &relationship := 0, "HRESULT")
+        return IOpcRelationship(relationship)
     }
 
     /**
@@ -94,50 +95,46 @@ class IOpcRelationshipSet extends IUnknown{
     /**
      * 
      * @param {PWSTR} relationshipIdentifier 
-     * @param {Pointer<BOOL>} relationshipExists 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationshipset-relationshipexists
      */
-    RelationshipExists(relationshipIdentifier, relationshipExists) {
+    RelationshipExists(relationshipIdentifier) {
         relationshipIdentifier := relationshipIdentifier is String ? StrPtr(relationshipIdentifier) : relationshipIdentifier
 
-        result := ComCall(6, this, "ptr", relationshipIdentifier, "ptr", relationshipExists, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", relationshipIdentifier, "int*", &relationshipExists := 0, "HRESULT")
+        return relationshipExists
     }
 
     /**
      * 
-     * @param {Pointer<IOpcRelationshipEnumerator>} relationshipEnumerator 
-     * @returns {HRESULT} 
+     * @returns {IOpcRelationshipEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationshipset-getenumerator
      */
-    GetEnumerator(relationshipEnumerator) {
-        result := ComCall(7, this, "ptr*", relationshipEnumerator, "HRESULT")
-        return result
+    GetEnumerator() {
+        result := ComCall(7, this, "ptr*", &relationshipEnumerator := 0, "HRESULT")
+        return IOpcRelationshipEnumerator(relationshipEnumerator)
     }
 
     /**
      * 
      * @param {PWSTR} relationshipType 
-     * @param {Pointer<IOpcRelationshipEnumerator>} relationshipEnumerator 
-     * @returns {HRESULT} 
+     * @returns {IOpcRelationshipEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationshipset-getenumeratorfortype
      */
-    GetEnumeratorForType(relationshipType, relationshipEnumerator) {
+    GetEnumeratorForType(relationshipType) {
         relationshipType := relationshipType is String ? StrPtr(relationshipType) : relationshipType
 
-        result := ComCall(8, this, "ptr", relationshipType, "ptr*", relationshipEnumerator, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", relationshipType, "ptr*", &relationshipEnumerator := 0, "HRESULT")
+        return IOpcRelationshipEnumerator(relationshipEnumerator)
     }
 
     /**
      * 
-     * @param {Pointer<IStream>} contents 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationshipset-getrelationshipscontentstream
      */
-    GetRelationshipsContentStream(contents) {
-        result := ComCall(9, this, "ptr*", contents, "HRESULT")
-        return result
+    GetRelationshipsContentStream() {
+        result := ComCall(9, this, "ptr*", &contents := 0, "HRESULT")
+        return IStream(contents)
     }
 }

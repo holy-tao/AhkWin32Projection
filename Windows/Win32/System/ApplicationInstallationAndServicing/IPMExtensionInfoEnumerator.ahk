@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IPMExtensionInfo.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -30,11 +31,10 @@ class IPMExtensionInfoEnumerator extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IPMExtensionInfo>} ppExtensionInfo 
-     * @returns {HRESULT} 
+     * @returns {IPMExtensionInfo} 
      */
-    get_Next(ppExtensionInfo) {
-        result := ComCall(3, this, "ptr*", ppExtensionInfo, "HRESULT")
-        return result
+    get_Next() {
+        result := ComCall(3, this, "ptr*", &ppExtensionInfo := 0, "HRESULT")
+        return IPMExtensionInfo(ppExtensionInfo)
     }
 }

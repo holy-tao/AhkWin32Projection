@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IRDPSRAPIInvitation.ahk
+#Include ..\Com\IUnknown.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -43,39 +46,33 @@ class IRDPSRAPIAttendee extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiattendee-get_id
      */
-    get_Id(pId) {
-        pIdMarshal := pId is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pIdMarshal, pId, "HRESULT")
-        return result
+    get_Id() {
+        result := ComCall(7, this, "int*", &pId := 0, "HRESULT")
+        return pId
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiattendee-get_remotename
      */
-    get_RemoteName(pVal) {
+    get_RemoteName() {
+        pVal := BSTR()
         result := ComCall(8, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiattendee-get_controllevel
      */
-    get_ControlLevel(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_ControlLevel() {
+        result := ComCall(9, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -91,13 +88,12 @@ class IRDPSRAPIAttendee extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IRDPSRAPIInvitation>} ppVal 
-     * @returns {HRESULT} 
+     * @returns {IRDPSRAPIInvitation} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiattendee-get_invitation
      */
-    get_Invitation(ppVal) {
-        result := ComCall(11, this, "ptr*", ppVal, "HRESULT")
-        return result
+    get_Invitation() {
+        result := ComCall(11, this, "ptr*", &ppVal := 0, "HRESULT")
+        return IRDPSRAPIInvitation(ppVal)
     }
 
     /**
@@ -112,25 +108,21 @@ class IRDPSRAPIAttendee extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiattendee-get_flags
      */
-    get_Flags(plFlags) {
-        plFlagsMarshal := plFlags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, plFlagsMarshal, plFlags, "HRESULT")
-        return result
+    get_Flags() {
+        result := ComCall(13, this, "int*", &plFlags := 0, "HRESULT")
+        return plFlags
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppVal 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiattendee-get_connectivityinfo
      */
-    get_ConnectivityInfo(ppVal) {
-        result := ComCall(14, this, "ptr*", ppVal, "HRESULT")
-        return result
+    get_ConnectivityInfo() {
+        result := ComCall(14, this, "ptr*", &ppVal := 0, "HRESULT")
+        return IUnknown(ppVal)
     }
 }

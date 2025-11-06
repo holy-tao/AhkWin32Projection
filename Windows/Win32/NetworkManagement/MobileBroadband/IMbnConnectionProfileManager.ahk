@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMbnConnectionProfile.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -79,30 +80,26 @@ class IMbnConnectionProfileManager extends IUnknown{
     /**
      * 
      * @param {IMbnInterface} mbnInterface 
-     * @param {Pointer<Pointer<SAFEARRAY>>} connectionProfiles 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnectionprofilemanager-getconnectionprofiles
      */
-    GetConnectionProfiles(mbnInterface, connectionProfiles) {
-        connectionProfilesMarshal := connectionProfiles is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", mbnInterface, connectionProfilesMarshal, connectionProfiles, "HRESULT")
-        return result
+    GetConnectionProfiles(mbnInterface) {
+        result := ComCall(3, this, "ptr", mbnInterface, "ptr*", &connectionProfiles := 0, "HRESULT")
+        return connectionProfiles
     }
 
     /**
      * 
      * @param {IMbnInterface} mbnInterface 
      * @param {PWSTR} profileName 
-     * @param {Pointer<IMbnConnectionProfile>} connectionProfile 
-     * @returns {HRESULT} 
+     * @returns {IMbnConnectionProfile} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnectionprofilemanager-getconnectionprofile
      */
-    GetConnectionProfile(mbnInterface, profileName, connectionProfile) {
+    GetConnectionProfile(mbnInterface, profileName) {
         profileName := profileName is String ? StrPtr(profileName) : profileName
 
-        result := ComCall(4, this, "ptr", mbnInterface, "ptr", profileName, "ptr*", connectionProfile, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", mbnInterface, "ptr", profileName, "ptr*", &connectionProfile := 0, "HRESULT")
+        return IMbnConnectionProfile(connectionProfile)
     }
 
     /**

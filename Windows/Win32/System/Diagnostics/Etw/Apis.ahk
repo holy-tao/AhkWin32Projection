@@ -7081,8 +7081,9 @@ class Etw {
      */
     static TdhAggregatePayloadFilters(PayloadFilterCount, PayloadFilterPtrs, EventMatchALLFlags, EventFilterDescriptor) {
         PayloadFilterPtrsMarshal := PayloadFilterPtrs is VarRef ? "ptr*" : "ptr"
+        EventMatchALLFlagsMarshal := EventMatchALLFlags is VarRef ? "char*" : "ptr"
 
-        result := DllCall("tdh.dll\TdhAggregatePayloadFilters", "uint", PayloadFilterCount, PayloadFilterPtrsMarshal, PayloadFilterPtrs, "ptr", EventMatchALLFlags, "ptr", EventFilterDescriptor, "uint")
+        result := DllCall("tdh.dll\TdhAggregatePayloadFilters", "uint", PayloadFilterCount, PayloadFilterPtrsMarshal, PayloadFilterPtrs, EventMatchALLFlagsMarshal, EventMatchALLFlags, "ptr", EventFilterDescriptor, "uint")
         return result
     }
 

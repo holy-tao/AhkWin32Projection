@@ -34,15 +34,12 @@ class IMFSequencerSource extends IUnknown{
      * 
      * @param {IMFTopology} pTopology 
      * @param {Integer} dwFlags 
-     * @param {Pointer<Integer>} pdwId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsequencersource-appendtopology
      */
-    AppendTopology(pTopology, dwFlags, pdwId) {
-        pdwIdMarshal := pdwId is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pTopology, "uint", dwFlags, pdwIdMarshal, pdwId, "HRESULT")
-        return result
+    AppendTopology(pTopology, dwFlags) {
+        result := ComCall(3, this, "ptr", pTopology, "uint", dwFlags, "uint*", &pdwId := 0, "HRESULT")
+        return pdwId
     }
 
     /**

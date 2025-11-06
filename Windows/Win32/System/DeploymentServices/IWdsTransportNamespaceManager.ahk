@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IWdsTransportNamespace.ahk
+#Include .\IWdsTransportCollection.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -43,31 +45,29 @@ class IWdsTransportNamespaceManager extends IDispatch{
      * @param {BSTR} bszNamespaceName 
      * @param {BSTR} bszContentProvider 
      * @param {BSTR} bszConfiguration 
-     * @param {Pointer<IWdsTransportNamespace>} ppWdsTransportNamespace 
-     * @returns {HRESULT} 
+     * @returns {IWdsTransportNamespace} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespacemanager-createnamespace
      */
-    CreateNamespace(NamespaceType, bszNamespaceName, bszContentProvider, bszConfiguration, ppWdsTransportNamespace) {
+    CreateNamespace(NamespaceType, bszNamespaceName, bszContentProvider, bszConfiguration) {
         bszNamespaceName := bszNamespaceName is String ? BSTR.Alloc(bszNamespaceName).Value : bszNamespaceName
         bszContentProvider := bszContentProvider is String ? BSTR.Alloc(bszContentProvider).Value : bszContentProvider
         bszConfiguration := bszConfiguration is String ? BSTR.Alloc(bszConfiguration).Value : bszConfiguration
 
-        result := ComCall(7, this, "int", NamespaceType, "ptr", bszNamespaceName, "ptr", bszContentProvider, "ptr", bszConfiguration, "ptr*", ppWdsTransportNamespace, "HRESULT")
-        return result
+        result := ComCall(7, this, "int", NamespaceType, "ptr", bszNamespaceName, "ptr", bszContentProvider, "ptr", bszConfiguration, "ptr*", &ppWdsTransportNamespace := 0, "HRESULT")
+        return IWdsTransportNamespace(ppWdsTransportNamespace)
     }
 
     /**
      * 
      * @param {BSTR} bszNamespaceName 
-     * @param {Pointer<IWdsTransportNamespace>} ppWdsTransportNamespace 
-     * @returns {HRESULT} 
+     * @returns {IWdsTransportNamespace} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespacemanager-retrievenamespace
      */
-    RetrieveNamespace(bszNamespaceName, ppWdsTransportNamespace) {
+    RetrieveNamespace(bszNamespaceName) {
         bszNamespaceName := bszNamespaceName is String ? BSTR.Alloc(bszNamespaceName).Value : bszNamespaceName
 
-        result := ComCall(8, this, "ptr", bszNamespaceName, "ptr*", ppWdsTransportNamespace, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", bszNamespaceName, "ptr*", &ppWdsTransportNamespace := 0, "HRESULT")
+        return IWdsTransportNamespace(ppWdsTransportNamespace)
     }
 
     /**
@@ -75,15 +75,14 @@ class IWdsTransportNamespaceManager extends IDispatch{
      * @param {BSTR} bszContentProvider 
      * @param {BSTR} bszNamespaceName 
      * @param {VARIANT_BOOL} bIncludeTombstones 
-     * @param {Pointer<IWdsTransportCollection>} ppWdsTransportNamespaces 
-     * @returns {HRESULT} 
+     * @returns {IWdsTransportCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespacemanager-retrievenamespaces
      */
-    RetrieveNamespaces(bszContentProvider, bszNamespaceName, bIncludeTombstones, ppWdsTransportNamespaces) {
+    RetrieveNamespaces(bszContentProvider, bszNamespaceName, bIncludeTombstones) {
         bszContentProvider := bszContentProvider is String ? BSTR.Alloc(bszContentProvider).Value : bszContentProvider
         bszNamespaceName := bszNamespaceName is String ? BSTR.Alloc(bszNamespaceName).Value : bszNamespaceName
 
-        result := ComCall(9, this, "ptr", bszContentProvider, "ptr", bszNamespaceName, "short", bIncludeTombstones, "ptr*", ppWdsTransportNamespaces, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", bszContentProvider, "ptr", bszNamespaceName, "short", bIncludeTombstones, "ptr*", &ppWdsTransportNamespaces := 0, "HRESULT")
+        return IWdsTransportCollection(ppWdsTransportNamespaces)
     }
 }

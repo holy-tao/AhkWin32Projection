@@ -33,15 +33,12 @@ class IWMReaderTimecode extends IUnknown{
     /**
      * 
      * @param {Integer} wStreamNum 
-     * @param {Pointer<Integer>} pwRangeCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadertimecode-gettimecoderangecount
      */
-    GetTimecodeRangeCount(wStreamNum, pwRangeCount) {
-        pwRangeCountMarshal := pwRangeCount is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(3, this, "ushort", wStreamNum, pwRangeCountMarshal, pwRangeCount, "HRESULT")
-        return result
+    GetTimecodeRangeCount(wStreamNum) {
+        result := ComCall(3, this, "ushort", wStreamNum, "ushort*", &pwRangeCount := 0, "HRESULT")
+        return pwRangeCount
     }
 
     /**

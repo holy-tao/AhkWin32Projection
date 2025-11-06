@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -33,40 +34,38 @@ class IHTMLDataTransfer extends IDispatch{
      * 
      * @param {BSTR} format 
      * @param {Pointer<VARIANT>} data 
-     * @param {Pointer<VARIANT_BOOL>} pret 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    setData(format, data, pret) {
+    setData(format, data) {
         format := format is String ? BSTR.Alloc(format).Value : format
 
-        result := ComCall(7, this, "ptr", format, "ptr", data, "ptr", pret, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", format, "ptr", data, "short*", &pret := 0, "HRESULT")
+        return pret
     }
 
     /**
      * 
      * @param {BSTR} format 
-     * @param {Pointer<VARIANT>} pvarRet 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    getData(format, pvarRet) {
+    getData(format) {
         format := format is String ? BSTR.Alloc(format).Value : format
 
+        pvarRet := VARIANT()
         result := ComCall(8, this, "ptr", format, "ptr", pvarRet, "HRESULT")
-        return result
+        return pvarRet
     }
 
     /**
      * 
      * @param {BSTR} format 
-     * @param {Pointer<VARIANT_BOOL>} pret 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    clearData(format, pret) {
+    clearData(format) {
         format := format is String ? BSTR.Alloc(format).Value : format
 
-        result := ComCall(9, this, "ptr", format, "ptr", pret, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", format, "short*", &pret := 0, "HRESULT")
+        return pret
     }
 
     /**
@@ -83,12 +82,12 @@ class IHTMLDataTransfer extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_dropEffect(p) {
+    get_dropEffect() {
+        p := BSTR()
         result := ComCall(11, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -105,11 +104,11 @@ class IHTMLDataTransfer extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_effectAllowed(p) {
+    get_effectAllowed() {
+        p := BSTR()
         result := ComCall(13, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 }

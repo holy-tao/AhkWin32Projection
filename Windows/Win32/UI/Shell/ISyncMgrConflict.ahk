@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include .\SYNCMGR_CONFLICT_ID_INFO.ahk
+#Include .\ISyncMgrConflictItems.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,35 +36,34 @@ class ISyncMgrConflict extends IUnknown{
     /**
      * 
      * @param {Pointer<PROPERTYKEY>} propkey 
-     * @param {Pointer<PROPVARIANT>} ppropvar 
-     * @returns {HRESULT} 
+     * @returns {PROPVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflict-getproperty
      */
-    GetProperty(propkey, ppropvar) {
+    GetProperty(propkey) {
+        ppropvar := PROPVARIANT()
         result := ComCall(3, this, "ptr", propkey, "ptr", ppropvar, "HRESULT")
-        return result
+        return ppropvar
     }
 
     /**
      * 
-     * @param {Pointer<SYNCMGR_CONFLICT_ID_INFO>} pConflictIdInfo 
-     * @returns {HRESULT} 
+     * @returns {SYNCMGR_CONFLICT_ID_INFO} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflict-getconflictidinfo
      */
-    GetConflictIdInfo(pConflictIdInfo) {
+    GetConflictIdInfo() {
+        pConflictIdInfo := SYNCMGR_CONFLICT_ID_INFO()
         result := ComCall(4, this, "ptr", pConflictIdInfo, "HRESULT")
-        return result
+        return pConflictIdInfo
     }
 
     /**
      * 
-     * @param {Pointer<ISyncMgrConflictItems>} ppArray 
-     * @returns {HRESULT} 
+     * @returns {ISyncMgrConflictItems} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflict-getitemsarray
      */
-    GetItemsArray(ppArray) {
-        result := ComCall(5, this, "ptr*", ppArray, "HRESULT")
-        return result
+    GetItemsArray() {
+        result := ComCall(5, this, "ptr*", &ppArray := 0, "HRESULT")
+        return ISyncMgrConflictItems(ppArray)
     }
 
     /**
@@ -78,14 +80,11 @@ class ISyncMgrConflict extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvResolutionHandler 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflict-getresolutionhandler
      */
-    GetResolutionHandler(riid, ppvResolutionHandler) {
-        ppvResolutionHandlerMarshal := ppvResolutionHandler is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, "ptr", riid, ppvResolutionHandlerMarshal, ppvResolutionHandler, "HRESULT")
-        return result
+    GetResolutionHandler(riid) {
+        result := ComCall(7, this, "ptr", riid, "ptr*", &ppvResolutionHandler := 0, "HRESULT")
+        return ppvResolutionHandler
     }
 }

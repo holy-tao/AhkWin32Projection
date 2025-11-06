@@ -32,14 +32,11 @@ class IWSManEx2 extends IWSManEx{
 
     /**
      * 
-     * @param {Pointer<Integer>} flags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex2-sessionflaguseclientcertificate
      */
-    SessionFlagUseClientCertificate(flags) {
-        flagsMarshal := flags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(31, this, flagsMarshal, flags, "HRESULT")
-        return result
+    SessionFlagUseClientCertificate() {
+        result := ComCall(31, this, "int*", &flags := 0, "HRESULT")
+        return flags
     }
 }

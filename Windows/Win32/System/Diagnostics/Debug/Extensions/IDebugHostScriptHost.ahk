@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IDataModelScriptHostContext.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -31,74 +32,11 @@ class IDebugHostScriptHost extends IUnknown{
     /**
      * Creates a recognizer context.
      * @param {IDataModelScript} script 
-     * @param {Pointer<IDataModelScriptHostContext>} scriptContext 
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_FAIL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An unspecified error occurred.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_POINTER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The parameter is an invalid pointer.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * There is insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An invalid argument was received.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {IDataModelScriptHostContext} 
      * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-createcontext
      */
-    CreateContext(script, scriptContext) {
-        result := ComCall(3, this, "ptr", script, "ptr*", scriptContext, "HRESULT")
-        return result
+    CreateContext(script) {
+        result := ComCall(3, this, "ptr", script, "ptr*", &scriptContext := 0, "HRESULT")
+        return IDataModelScriptHostContext(scriptContext)
     }
 }

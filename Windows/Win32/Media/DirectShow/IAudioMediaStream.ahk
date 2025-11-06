@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Audio\WAVEFORMATEX.ahk
+#Include .\IAudioStreamSample.ahk
 #Include .\IMediaStream.ahk
 
 /**
@@ -32,13 +34,13 @@ class IAudioMediaStream extends IMediaStream{
 
     /**
      * 
-     * @param {Pointer<WAVEFORMATEX>} pWaveFormatCurrent 
-     * @returns {HRESULT} 
+     * @returns {WAVEFORMATEX} 
      * @see https://learn.microsoft.com/windows/win32/api/austream/nf-austream-iaudiomediastream-getformat
      */
-    GetFormat(pWaveFormatCurrent) {
+    GetFormat() {
+        pWaveFormatCurrent := WAVEFORMATEX()
         result := ComCall(9, this, "ptr", pWaveFormatCurrent, "HRESULT")
-        return result
+        return pWaveFormatCurrent
     }
 
     /**
@@ -56,12 +58,11 @@ class IAudioMediaStream extends IMediaStream{
      * 
      * @param {IAudioData} pAudioData 
      * @param {Integer} dwFlags 
-     * @param {Pointer<IAudioStreamSample>} ppSample 
-     * @returns {HRESULT} 
+     * @returns {IAudioStreamSample} 
      * @see https://learn.microsoft.com/windows/win32/api/austream/nf-austream-iaudiomediastream-createsample
      */
-    CreateSample(pAudioData, dwFlags, ppSample) {
-        result := ComCall(11, this, "ptr", pAudioData, "uint", dwFlags, "ptr*", ppSample, "HRESULT")
-        return result
+    CreateSample(pAudioData, dwFlags) {
+        result := ComCall(11, this, "ptr", pAudioData, "uint", dwFlags, "ptr*", &ppSample := 0, "HRESULT")
+        return IAudioStreamSample(ppSample)
     }
 }

@@ -59,38 +59,35 @@ class IADsPathname extends IDispatch{
     /**
      * 
      * @param {Integer} lnFormatType 
-     * @param {Pointer<BSTR>} pbstrADsPath 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadspathname-retrieve
      */
-    Retrieve(lnFormatType, pbstrADsPath) {
+    Retrieve(lnFormatType) {
+        pbstrADsPath := BSTR()
         result := ComCall(9, this, "int", lnFormatType, "ptr", pbstrADsPath, "HRESULT")
-        return result
+        return pbstrADsPath
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plnNumPathElements 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadspathname-getnumelements
      */
-    GetNumElements(plnNumPathElements) {
-        plnNumPathElementsMarshal := plnNumPathElements is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, plnNumPathElementsMarshal, plnNumPathElements, "HRESULT")
-        return result
+    GetNumElements() {
+        result := ComCall(10, this, "int*", &plnNumPathElements := 0, "HRESULT")
+        return plnNumPathElements
     }
 
     /**
      * 
      * @param {Integer} lnElementIndex 
-     * @param {Pointer<BSTR>} pbstrElement 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadspathname-getelement
      */
-    GetElement(lnElementIndex, pbstrElement) {
+    GetElement(lnElementIndex) {
+        pbstrElement := BSTR()
         result := ComCall(11, this, "int", lnElementIndex, "ptr", pbstrElement, "HRESULT")
-        return result
+        return pbstrElement
     }
 
     /**
@@ -118,40 +115,36 @@ class IADsPathname extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppAdsPath 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadspathname-copypath
      */
-    CopyPath(ppAdsPath) {
-        result := ComCall(14, this, "ptr*", ppAdsPath, "HRESULT")
-        return result
+    CopyPath() {
+        result := ComCall(14, this, "ptr*", &ppAdsPath := 0, "HRESULT")
+        return IDispatch(ppAdsPath)
     }
 
     /**
      * 
      * @param {Integer} lnReserved 
      * @param {BSTR} bstrInStr 
-     * @param {Pointer<BSTR>} pbstrOutStr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadspathname-getescapedelement
      */
-    GetEscapedElement(lnReserved, bstrInStr, pbstrOutStr) {
+    GetEscapedElement(lnReserved, bstrInStr) {
         bstrInStr := bstrInStr is String ? BSTR.Alloc(bstrInStr).Value : bstrInStr
 
+        pbstrOutStr := BSTR()
         result := ComCall(15, this, "int", lnReserved, "ptr", bstrInStr, "ptr", pbstrOutStr, "HRESULT")
-        return result
+        return pbstrOutStr
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_EscapedMode(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_EscapedMode() {
+        result := ComCall(16, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**

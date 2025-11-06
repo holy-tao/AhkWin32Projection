@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\Guid.ahk
+#Include .\IEnumSpellingError.ahk
+#Include ..\System\Com\IEnumString.ahk
+#Include .\IOptionDescription.ahk
 #Include ..\System\Com\IUnknown.ahk
 
 /**
@@ -32,57 +35,51 @@ class ISpellCheckProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} value 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/spellcheckprovider/nf-spellcheckprovider-ispellcheckprovider-get_languagetag
      */
-    get_LanguageTag(value) {
-        result := ComCall(3, this, "ptr", value, "HRESULT")
-        return result
+    get_LanguageTag() {
+        result := ComCall(3, this, "ptr*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
      * @param {PWSTR} text 
-     * @param {Pointer<IEnumSpellingError>} value 
-     * @returns {HRESULT} 
+     * @returns {IEnumSpellingError} 
      * @see https://learn.microsoft.com/windows/win32/api/spellcheckprovider/nf-spellcheckprovider-ispellcheckprovider-check
      */
-    Check(text, value) {
+    Check(text) {
         text := text is String ? StrPtr(text) : text
 
-        result := ComCall(4, this, "ptr", text, "ptr*", value, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", text, "ptr*", &value := 0, "HRESULT")
+        return IEnumSpellingError(value)
     }
 
     /**
      * 
      * @param {PWSTR} word 
-     * @param {Pointer<IEnumString>} value 
-     * @returns {HRESULT} 
+     * @returns {IEnumString} 
      * @see https://learn.microsoft.com/windows/win32/api/spellcheckprovider/nf-spellcheckprovider-ispellcheckprovider-suggest
      */
-    Suggest(word, value) {
+    Suggest(word) {
         word := word is String ? StrPtr(word) : word
 
-        result := ComCall(5, this, "ptr", word, "ptr*", value, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", word, "ptr*", &value := 0, "HRESULT")
+        return IEnumString(value)
     }
 
     /**
      * 
      * @param {PWSTR} optionId 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/spellcheckprovider/nf-spellcheckprovider-ispellcheckprovider-getoptionvalue
      */
-    GetOptionValue(optionId, value) {
+    GetOptionValue(optionId) {
         optionId := optionId is String ? StrPtr(optionId) : optionId
 
-        valueMarshal := value is VarRef ? "char*" : "ptr"
-
-        result := ComCall(6, this, "ptr", optionId, valueMarshal, value, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", optionId, "char*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
@@ -101,49 +98,45 @@ class ISpellCheckProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumString>} value 
-     * @returns {HRESULT} 
+     * @returns {IEnumString} 
      * @see https://learn.microsoft.com/windows/win32/api/spellcheckprovider/nf-spellcheckprovider-ispellcheckprovider-get_optionids
      */
-    get_OptionIds(value) {
-        result := ComCall(8, this, "ptr*", value, "HRESULT")
-        return result
+    get_OptionIds() {
+        result := ComCall(8, this, "ptr*", &value := 0, "HRESULT")
+        return IEnumString(value)
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} value 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/spellcheckprovider/nf-spellcheckprovider-ispellcheckprovider-get_id
      */
-    get_Id(value) {
-        result := ComCall(9, this, "ptr", value, "HRESULT")
-        return result
+    get_Id() {
+        result := ComCall(9, this, "ptr*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} value 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/spellcheckprovider/nf-spellcheckprovider-ispellcheckprovider-get_localizedname
      */
-    get_LocalizedName(value) {
-        result := ComCall(10, this, "ptr", value, "HRESULT")
-        return result
+    get_LocalizedName() {
+        result := ComCall(10, this, "ptr*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
      * @param {PWSTR} optionId 
-     * @param {Pointer<IOptionDescription>} value 
-     * @returns {HRESULT} 
+     * @returns {IOptionDescription} 
      * @see https://learn.microsoft.com/windows/win32/api/spellcheckprovider/nf-spellcheckprovider-ispellcheckprovider-getoptiondescription
      */
-    GetOptionDescription(optionId, value) {
+    GetOptionDescription(optionId) {
         optionId := optionId is String ? StrPtr(optionId) : optionId
 
-        result := ComCall(11, this, "ptr", optionId, "ptr*", value, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", optionId, "ptr*", &value := 0, "HRESULT")
+        return IOptionDescription(value)
     }
 
     /**

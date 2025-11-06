@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Foundation\HWND.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -30,15 +31,13 @@ class IActiveScriptSiteWindow extends IUnknown{
 
     /**
      * Retrieves a handle to a window that has the specified relationship (Z-Order or owner) to the specified window.
-     * @param {Pointer<HWND>} phwnd 
-     * @returns {HRESULT} Type: <b>HWND</b>
-     * 
-     * If the function succeeds, the return value is a window handle. If no window exists with the specified relationship to the specified window, the return value is <b>NULL</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {HWND} 
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getwindow
      */
-    GetWindow(phwnd) {
+    GetWindow() {
+        phwnd := HWND()
         result := ComCall(3, this, "ptr", phwnd, "HRESULT")
-        return result
+        return phwnd
     }
 
     /**

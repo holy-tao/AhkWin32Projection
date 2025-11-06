@@ -32,14 +32,11 @@ class ITLegacyWaveSupport extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pSupport 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlegacywavesupport-isfullduplex
      */
-    IsFullDuplex(pSupport) {
-        pSupportMarshal := pSupport is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pSupportMarshal, pSupport, "HRESULT")
-        return result
+    IsFullDuplex() {
+        result := ComCall(7, this, "int*", &pSupport := 0, "HRESULT")
+        return pSupport
     }
 }

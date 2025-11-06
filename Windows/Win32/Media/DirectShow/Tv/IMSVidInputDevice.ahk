@@ -44,13 +44,12 @@ class IMSVidInputDevice extends IMSVidDevice{
     /**
      * 
      * @param {Pointer<VARIANT>} v 
-     * @param {Pointer<VARIANT_BOOL>} pfViewable 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidinputdevice-isviewable
      */
-    IsViewable(v, pfViewable) {
-        result := ComCall(16, this, "ptr", v, "ptr", pfViewable, "HRESULT")
-        return result
+    IsViewable(v) {
+        result := ComCall(16, this, "ptr", v, "short*", &pfViewable := 0, "HRESULT")
+        return pfViewable
     }
 
     /**

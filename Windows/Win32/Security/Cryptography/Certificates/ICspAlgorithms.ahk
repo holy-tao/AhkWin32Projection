@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\ICspAlgorithm.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -34,37 +36,32 @@ class ICspAlgorithms extends IDispatch{
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<ICspAlgorithm>} pVal 
-     * @returns {HRESULT} 
+     * @returns {ICspAlgorithm} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspalgorithms-get_itembyindex
      */
-    get_ItemByIndex(Index, pVal) {
-        result := ComCall(7, this, "int", Index, "ptr*", pVal, "HRESULT")
-        return result
+    get_ItemByIndex(Index) {
+        result := ComCall(7, this, "int", Index, "ptr*", &pVal := 0, "HRESULT")
+        return ICspAlgorithm(pVal)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspalgorithms-get_count
      */
-    get_Count(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(8, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} pVal 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspalgorithms-get__newenum
      */
-    get__NewEnum(pVal) {
-        result := ComCall(9, this, "ptr*", pVal, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(9, this, "ptr*", &pVal := 0, "HRESULT")
+        return IUnknown(pVal)
     }
 
     /**
@@ -102,28 +99,24 @@ class ICspAlgorithms extends IDispatch{
     /**
      * 
      * @param {BSTR} strName 
-     * @param {Pointer<ICspAlgorithm>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {ICspAlgorithm} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspalgorithms-get_itembyname
      */
-    get_ItemByName(strName, ppValue) {
+    get_ItemByName(strName) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
 
-        result := ComCall(13, this, "ptr", strName, "ptr*", ppValue, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", strName, "ptr*", &ppValue := 0, "HRESULT")
+        return ICspAlgorithm(ppValue)
     }
 
     /**
      * 
      * @param {IObjectId} pObjectId 
-     * @param {Pointer<Integer>} pIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspalgorithms-get_indexbyobjectid
      */
-    get_IndexByObjectId(pObjectId, pIndex) {
-        pIndexMarshal := pIndex is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, "ptr", pObjectId, pIndexMarshal, pIndex, "HRESULT")
-        return result
+    get_IndexByObjectId(pObjectId) {
+        result := ComCall(14, this, "ptr", pObjectId, "int*", &pIndex := 0, "HRESULT")
+        return pIndex
     }
 }

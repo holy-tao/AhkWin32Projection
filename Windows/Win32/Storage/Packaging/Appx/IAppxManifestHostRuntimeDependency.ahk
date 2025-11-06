@@ -30,33 +30,28 @@ class IAppxManifestHostRuntimeDependency extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} name 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetName(name) {
-        result := ComCall(3, this, "ptr", name, "HRESULT")
-        return result
+    GetName() {
+        result := ComCall(3, this, "ptr*", &name := 0, "HRESULT")
+        return name
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} publisher 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetPublisher(publisher) {
-        result := ComCall(4, this, "ptr", publisher, "HRESULT")
-        return result
+    GetPublisher() {
+        result := ComCall(4, this, "ptr*", &publisher := 0, "HRESULT")
+        return publisher
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} minVersion 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetMinVersion(minVersion) {
-        minVersionMarshal := minVersion is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, minVersionMarshal, minVersion, "HRESULT")
-        return result
+    GetMinVersion() {
+        result := ComCall(5, this, "uint*", &minVersion := 0, "HRESULT")
+        return minVersion
     }
 }

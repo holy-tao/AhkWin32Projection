@@ -77,14 +77,11 @@ class IOleParentUndoUnit extends IOleUndoUnit{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleparentundounit-getparentstate
      */
-    GetParentState(pdwState) {
-        pdwStateMarshal := pdwState is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, pdwStateMarshal, pdwState, "HRESULT")
-        return result
+    GetParentState() {
+        result := ComCall(11, this, "uint*", &pdwState := 0, "HRESULT")
+        return pdwState
     }
 }

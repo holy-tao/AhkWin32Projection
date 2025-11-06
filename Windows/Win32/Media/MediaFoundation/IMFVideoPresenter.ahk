@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFVideoMediaType.ahk
 #Include .\IMFClockStateSink.ahk
 
 /**
@@ -44,12 +45,11 @@ class IMFVideoPresenter extends IMFClockStateSink{
 
     /**
      * 
-     * @param {Pointer<IMFVideoMediaType>} ppMediaType 
-     * @returns {HRESULT} 
+     * @returns {IMFVideoMediaType} 
      * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideopresenter-getcurrentmediatype
      */
-    GetCurrentMediaType(ppMediaType) {
-        result := ComCall(9, this, "ptr*", ppMediaType, "HRESULT")
-        return result
+    GetCurrentMediaType() {
+        result := ComCall(9, this, "ptr*", &ppMediaType := 0, "HRESULT")
+        return IMFVideoMediaType(ppMediaType)
     }
 }

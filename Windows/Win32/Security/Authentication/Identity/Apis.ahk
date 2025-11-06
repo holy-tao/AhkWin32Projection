@@ -8211,10 +8211,11 @@ class Identity {
      * @since windows8.0
      */
     static LsaQueryCAPs(CAPIDs, CAPIDCount, CAPs, CAPCount) {
+        CAPIDsMarshal := CAPIDs is VarRef ? "ptr*" : "ptr"
         CAPsMarshal := CAPs is VarRef ? "ptr*" : "ptr"
         CAPCountMarshal := CAPCount is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\LsaQueryCAPs", "ptr", CAPIDs, "uint", CAPIDCount, CAPsMarshal, CAPs, CAPCountMarshal, CAPCount, "int")
+        result := DllCall("ADVAPI32.dll\LsaQueryCAPs", CAPIDsMarshal, CAPIDs, "uint", CAPIDCount, CAPsMarshal, CAPs, CAPCountMarshal, CAPCount, "int")
         return result
     }
 
@@ -8850,10 +8851,11 @@ class Identity {
     static LsaLookupSids(PolicyHandle, Count, Sids, ReferencedDomains, Names) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
+        SidsMarshal := Sids is VarRef ? "ptr*" : "ptr"
         ReferencedDomainsMarshal := ReferencedDomains is VarRef ? "ptr*" : "ptr"
         NamesMarshal := Names is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\LsaLookupSids", "ptr", PolicyHandle, "uint", Count, "ptr", Sids, ReferencedDomainsMarshal, ReferencedDomains, NamesMarshal, Names, "int")
+        result := DllCall("ADVAPI32.dll\LsaLookupSids", "ptr", PolicyHandle, "uint", Count, SidsMarshal, Sids, ReferencedDomainsMarshal, ReferencedDomains, NamesMarshal, Names, "int")
         return result
     }
 
@@ -8992,10 +8994,11 @@ class Identity {
     static LsaLookupSids2(PolicyHandle, LookupOptions, Count, Sids, ReferencedDomains, Names) {
         PolicyHandle := PolicyHandle is Win32Handle ? NumGet(PolicyHandle, "ptr") : PolicyHandle
 
+        SidsMarshal := Sids is VarRef ? "ptr*" : "ptr"
         ReferencedDomainsMarshal := ReferencedDomains is VarRef ? "ptr*" : "ptr"
         NamesMarshal := Names is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ADVAPI32.dll\LsaLookupSids2", "ptr", PolicyHandle, "uint", LookupOptions, "uint", Count, "ptr", Sids, ReferencedDomainsMarshal, ReferencedDomains, NamesMarshal, Names, "int")
+        result := DllCall("ADVAPI32.dll\LsaLookupSids2", "ptr", PolicyHandle, "uint", LookupOptions, "uint", Count, SidsMarshal, Sids, ReferencedDomainsMarshal, ReferencedDomains, NamesMarshal, Names, "int")
         return result
     }
 
@@ -10403,9 +10406,11 @@ class Identity {
      * @since windows6.0.6000
      */
     static AuditLookupCategoryNameW(pAuditCategoryGuid, ppszCategoryName) {
+        ppszCategoryNameMarshal := ppszCategoryName is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AuditLookupCategoryNameW", "ptr", pAuditCategoryGuid, "ptr", ppszCategoryName, "char")
+        result := DllCall("ADVAPI32.dll\AuditLookupCategoryNameW", "ptr", pAuditCategoryGuid, ppszCategoryNameMarshal, ppszCategoryName, "char")
         if(A_LastError)
             throw OSError()
 
@@ -10426,9 +10431,11 @@ class Identity {
      * @since windows6.0.6000
      */
     static AuditLookupCategoryNameA(pAuditCategoryGuid, ppszCategoryName) {
+        ppszCategoryNameMarshal := ppszCategoryName is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AuditLookupCategoryNameA", "ptr", pAuditCategoryGuid, "ptr", ppszCategoryName, "char")
+        result := DllCall("ADVAPI32.dll\AuditLookupCategoryNameA", "ptr", pAuditCategoryGuid, ppszCategoryNameMarshal, ppszCategoryName, "char")
         if(A_LastError)
             throw OSError()
 
@@ -10449,9 +10456,11 @@ class Identity {
      * @since windows6.0.6000
      */
     static AuditLookupSubCategoryNameW(pAuditSubCategoryGuid, ppszSubCategoryName) {
+        ppszSubCategoryNameMarshal := ppszSubCategoryName is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AuditLookupSubCategoryNameW", "ptr", pAuditSubCategoryGuid, "ptr", ppszSubCategoryName, "char")
+        result := DllCall("ADVAPI32.dll\AuditLookupSubCategoryNameW", "ptr", pAuditSubCategoryGuid, ppszSubCategoryNameMarshal, ppszSubCategoryName, "char")
         if(A_LastError)
             throw OSError()
 
@@ -10472,9 +10481,11 @@ class Identity {
      * @since windows6.0.6000
      */
     static AuditLookupSubCategoryNameA(pAuditSubCategoryGuid, ppszSubCategoryName) {
+        ppszSubCategoryNameMarshal := ppszSubCategoryName is VarRef ? "ptr*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("ADVAPI32.dll\AuditLookupSubCategoryNameA", "ptr", pAuditSubCategoryGuid, "ptr", ppszSubCategoryName, "char")
+        result := DllCall("ADVAPI32.dll\AuditLookupSubCategoryNameA", "ptr", pAuditSubCategoryGuid, ppszSubCategoryNameMarshal, ppszSubCategoryName, "char")
         if(A_LastError)
             throw OSError()
 
@@ -10874,100 +10885,23 @@ class Identity {
      * @param {Pointer<SEC_GET_KEY_FN>} pGetKeyFn Reserved. This parameter is not used and should be set to <b>NULL</b>.
      * @param {Pointer<Void>} pvGetKeyArgument Reserved. This parameter must be set to <b>NULL</b>.
      * @param {Pointer<SecHandle>} phCredential A pointer to the <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/sspi-handles">CredHandle</a> structure that will receive the credential handle.
-     * @param {Pointer<Integer>} ptsExpiry A pointer to a <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/timestamp">TimeStamp</a> structure that receives the time at which the returned credentials expire. The structure value received depends on the security package, which must specify the value in local time.
-     * @returns {HRESULT} If the function succeeds, it returns <b>SEC_E_OK</b>.
-     * 
-     * If the function fails, it returns one of the following error codes.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_INSUFFICIENT_MEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * There is insufficient memory available to complete the requested action.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_INTERNAL_ERROR</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An error occurred that did not map to an SSPI error code.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_NO_CREDENTIALS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * No credentials are available in the <a href="/windows/desktop/SecGloss/s-gly">security package</a>.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_NOT_OWNER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The caller of the function does not have the necessary credentials.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_SECPKG_NOT_FOUND</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The requested security package does not exist.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_UNKNOWN_CREDENTIALS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The credentials supplied to the package were not recognized.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/timestamp">TimeStamp</a> structure that receives the time at which the returned credentials expire. The structure value received depends on the security package, which must specify the value in local time.
      * @see https://docs.microsoft.com/windows/win32/api//sspi/nf-sspi-acquirecredentialshandlew
      * @since windows6.0.6000
      */
-    static AcquireCredentialsHandleW(pszPrincipal, pszPackage, fCredentialUse, pvLogonId, pAuthData, pGetKeyFn, pvGetKeyArgument, phCredential, ptsExpiry) {
+    static AcquireCredentialsHandleW(pszPrincipal, pszPackage, fCredentialUse, pvLogonId, pAuthData, pGetKeyFn, pvGetKeyArgument, phCredential) {
         pszPrincipal := pszPrincipal is String ? StrPtr(pszPrincipal) : pszPrincipal
         pszPackage := pszPackage is String ? StrPtr(pszPackage) : pszPackage
 
         pvLogonIdMarshal := pvLogonId is VarRef ? "ptr" : "ptr"
         pAuthDataMarshal := pAuthData is VarRef ? "ptr" : "ptr"
         pvGetKeyArgumentMarshal := pvGetKeyArgument is VarRef ? "ptr" : "ptr"
-        ptsExpiryMarshal := ptsExpiry is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("SECUR32.dll\AcquireCredentialsHandleW", "ptr", pszPrincipal, "ptr", pszPackage, "uint", fCredentialUse, pvLogonIdMarshal, pvLogonId, pAuthDataMarshal, pAuthData, "ptr", pGetKeyFn, pvGetKeyArgumentMarshal, pvGetKeyArgument, "ptr", phCredential, ptsExpiryMarshal, ptsExpiry, "int")
+        result := DllCall("SECUR32.dll\AcquireCredentialsHandleW", "ptr", pszPrincipal, "ptr", pszPackage, "uint", fCredentialUse, pvLogonIdMarshal, pvLogonId, pAuthDataMarshal, pAuthData, "ptr", pGetKeyFn, pvGetKeyArgumentMarshal, pvGetKeyArgument, "ptr", phCredential, "int64*", &ptsExpiry := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ptsExpiry
     }
 
     /**
@@ -10986,100 +10920,23 @@ class Identity {
      * @param {Pointer<SEC_GET_KEY_FN>} pGetKeyFn Reserved. This parameter is not used and should be set to <b>NULL</b>.
      * @param {Pointer<Void>} pvGetKeyArgument Reserved. This parameter must be set to <b>NULL</b>.
      * @param {Pointer<SecHandle>} phCredential A pointer to the <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/sspi-handles">CredHandle</a> structure that will receive the credential handle.
-     * @param {Pointer<Integer>} ptsExpiry A pointer to a <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/timestamp">TimeStamp</a> structure that receives the time at which the returned credentials expire. The structure value received depends on the security package, which must specify the value in local time.
-     * @returns {HRESULT} If the function succeeds, it returns <b>SEC_E_OK</b>.
-     * 
-     * If the function fails, it returns one of the following error codes.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_INSUFFICIENT_MEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * There is insufficient memory available to complete the requested action.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_INTERNAL_ERROR</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An error occurred that did not map to an SSPI error code.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_NO_CREDENTIALS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * No credentials are available in the <a href="/windows/desktop/SecGloss/s-gly">security package</a>.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_NOT_OWNER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The caller of the function does not have the necessary credentials.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_SECPKG_NOT_FOUND</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The requested security package does not exist.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_UNKNOWN_CREDENTIALS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The credentials supplied to the package were not recognized.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/SecAuthN/timestamp">TimeStamp</a> structure that receives the time at which the returned credentials expire. The structure value received depends on the security package, which must specify the value in local time.
      * @see https://docs.microsoft.com/windows/win32/api//sspi/nf-sspi-acquirecredentialshandlea
      * @since windows6.0.6000
      */
-    static AcquireCredentialsHandleA(pszPrincipal, pszPackage, fCredentialUse, pvLogonId, pAuthData, pGetKeyFn, pvGetKeyArgument, phCredential, ptsExpiry) {
+    static AcquireCredentialsHandleA(pszPrincipal, pszPackage, fCredentialUse, pvLogonId, pAuthData, pGetKeyFn, pvGetKeyArgument, phCredential) {
         pszPrincipal := pszPrincipal is String ? StrPtr(pszPrincipal) : pszPrincipal
         pszPackage := pszPackage is String ? StrPtr(pszPackage) : pszPackage
 
         pvLogonIdMarshal := pvLogonId is VarRef ? "ptr" : "ptr"
         pAuthDataMarshal := pAuthData is VarRef ? "ptr" : "ptr"
         pvGetKeyArgumentMarshal := pvGetKeyArgument is VarRef ? "ptr" : "ptr"
-        ptsExpiryMarshal := ptsExpiry is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("SECUR32.dll\AcquireCredentialsHandleA", "ptr", pszPrincipal, "ptr", pszPackage, "uint", fCredentialUse, pvLogonIdMarshal, pvLogonId, pAuthDataMarshal, pAuthData, "ptr", pGetKeyFn, pvGetKeyArgumentMarshal, pvGetKeyArgument, "ptr", phCredential, ptsExpiryMarshal, ptsExpiry, "int")
+        result := DllCall("SECUR32.dll\AcquireCredentialsHandleA", "ptr", pszPrincipal, "ptr", pszPackage, "uint", fCredentialUse, pvLogonIdMarshal, pvLogonId, pAuthDataMarshal, pAuthData, "ptr", pGetKeyFn, pvGetKeyArgumentMarshal, pvGetKeyArgument, "ptr", phCredential, "int64*", &ptsExpiry := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ptsExpiry
     }
 
     /**
@@ -11127,23 +10984,21 @@ class Identity {
      * @param {Pointer<Void>} pAuthData 
      * @param {Pointer<SEC_GET_KEY_FN>} pGetKeyFn 
      * @param {Pointer<Void>} pvGetKeyArgument 
-     * @param {Pointer<Integer>} ptsExpiry 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-addcredentialsw
      */
-    static AddCredentialsW(hCredentials, pszPrincipal, pszPackage, fCredentialUse, pAuthData, pGetKeyFn, pvGetKeyArgument, ptsExpiry) {
+    static AddCredentialsW(hCredentials, pszPrincipal, pszPackage, fCredentialUse, pAuthData, pGetKeyFn, pvGetKeyArgument) {
         pszPrincipal := pszPrincipal is String ? StrPtr(pszPrincipal) : pszPrincipal
         pszPackage := pszPackage is String ? StrPtr(pszPackage) : pszPackage
 
         pAuthDataMarshal := pAuthData is VarRef ? "ptr" : "ptr"
         pvGetKeyArgumentMarshal := pvGetKeyArgument is VarRef ? "ptr" : "ptr"
-        ptsExpiryMarshal := ptsExpiry is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("SECUR32.dll\AddCredentialsW", "ptr", hCredentials, "ptr", pszPrincipal, "ptr", pszPackage, "uint", fCredentialUse, pAuthDataMarshal, pAuthData, "ptr", pGetKeyFn, pvGetKeyArgumentMarshal, pvGetKeyArgument, ptsExpiryMarshal, ptsExpiry, "int")
+        result := DllCall("SECUR32.dll\AddCredentialsW", "ptr", hCredentials, "ptr", pszPrincipal, "ptr", pszPackage, "uint", fCredentialUse, pAuthDataMarshal, pAuthData, "ptr", pGetKeyFn, pvGetKeyArgumentMarshal, pvGetKeyArgument, "int64*", &ptsExpiry := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ptsExpiry
     }
 
     /**
@@ -11155,23 +11010,21 @@ class Identity {
      * @param {Pointer<Void>} pAuthData 
      * @param {Pointer<SEC_GET_KEY_FN>} pGetKeyFn 
      * @param {Pointer<Void>} pvGetKeyArgument 
-     * @param {Pointer<Integer>} ptsExpiry 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-addcredentialsa
      */
-    static AddCredentialsA(hCredentials, pszPrincipal, pszPackage, fCredentialUse, pAuthData, pGetKeyFn, pvGetKeyArgument, ptsExpiry) {
+    static AddCredentialsA(hCredentials, pszPrincipal, pszPackage, fCredentialUse, pAuthData, pGetKeyFn, pvGetKeyArgument) {
         pszPrincipal := pszPrincipal is String ? StrPtr(pszPrincipal) : pszPrincipal
         pszPackage := pszPackage is String ? StrPtr(pszPackage) : pszPackage
 
         pAuthDataMarshal := pAuthData is VarRef ? "ptr" : "ptr"
         pvGetKeyArgumentMarshal := pvGetKeyArgument is VarRef ? "ptr" : "ptr"
-        ptsExpiryMarshal := ptsExpiry is VarRef ? "int64*" : "ptr"
 
-        result := DllCall("SECUR32.dll\AddCredentialsA", "ptr", hCredentials, "ptr", pszPrincipal, "ptr", pszPackage, "uint", fCredentialUse, pAuthDataMarshal, pAuthData, "ptr", pGetKeyFn, pvGetKeyArgumentMarshal, pvGetKeyArgument, ptsExpiryMarshal, ptsExpiry, "int")
+        result := DllCall("SECUR32.dll\AddCredentialsA", "ptr", hCredentials, "ptr", pszPrincipal, "ptr", pszPackage, "uint", fCredentialUse, pAuthDataMarshal, pAuthData, "ptr", pGetKeyFn, pvGetKeyArgumentMarshal, pvGetKeyArgument, "int64*", &ptsExpiry := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ptsExpiry
     }
 
     /**
@@ -12468,21 +12321,16 @@ class Identity {
     /**
      * Obtains the access token for a client security context and uses it directly.
      * @param {Pointer<SecHandle>} phContext Handle of the context to query.
-     * @param {Pointer<Pointer<Void>>} Token Returned handle to the access token.
-     * @returns {HRESULT} If the function succeeds, the function returns SEC_E_OK.
-     * 
-     * If the function fails, it returns a nonzero error code. One possible error code return is SEC_E_INVALID_HANDLE.
+     * @returns {Pointer<Void>} Returned handle to the access token.
      * @see https://docs.microsoft.com/windows/win32/api//sspi/nf-sspi-querysecuritycontexttoken
      * @since windows5.1.2600
      */
-    static QuerySecurityContextToken(phContext, Token) {
-        TokenMarshal := Token is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SECUR32.dll\QuerySecurityContextToken", "ptr", phContext, TokenMarshal, Token, "int")
+    static QuerySecurityContextToken(phContext) {
+        result := DllCall("SECUR32.dll\QuerySecurityContextToken", "ptr", phContext, "ptr*", &Token := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return Token
     }
 
     /**
@@ -12565,52 +12413,16 @@ class Identity {
      * Lets a transport application query the Credential Security Support Provider (CredSSP) security package for certain attributes of a security context.
      * @param {Pointer<SecHandle>} phContext A  handle to the security context to be queried.
      * @param {Integer} ulAttribute 
-     * @param {Pointer<Void>} pBuffer A pointer to a structure that receives the attributes. The structure type depends on the value of the <i>ulAttribute</i> parameter.
-     * @returns {HRESULT} If the function succeeds, it returns SEC_E_OK.
-     * 
-     * If the function fails, it can return the following error codes.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code/value</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_INVALID_HANDLE</b></dt>
-     * <dt>0x80100003</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function failed. The <i>phContext</i> parameter specifies a handle to an incomplete context.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_UNSUPPORTED_FUNCTION</b></dt>
-     * <dt>0x80090302</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function failed. The value of the <i>ulAttribute</i> parameter is not valid.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Void} A pointer to a structure that receives the attributes. The structure type depends on the value of the <i>ulAttribute</i> parameter.
      * @see https://docs.microsoft.com/windows/win32/api//sspi/nf-sspi-querycontextattributesw
      * @since windows6.0.6000
      */
-    static QueryContextAttributesW(phContext, ulAttribute, pBuffer) {
-        pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
-
-        result := DllCall("SECUR32.dll\QueryContextAttributesW", "ptr", phContext, "uint", ulAttribute, pBufferMarshal, pBuffer, "int")
+    static QueryContextAttributesW(phContext, ulAttribute) {
+        result := DllCall("SECUR32.dll\QueryContextAttributesW", "ptr", phContext, "uint", ulAttribute, "ptr", &pBuffer := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pBuffer
     }
 
     /**
@@ -12637,52 +12449,16 @@ class Identity {
      * Lets a transport application query the Credential Security Support Provider (CredSSP) security package for certain attributes of a security context.
      * @param {Pointer<SecHandle>} phContext A  handle to the security context to be queried.
      * @param {Integer} ulAttribute 
-     * @param {Pointer<Void>} pBuffer A pointer to a structure that receives the attributes. The structure type depends on the value of the <i>ulAttribute</i> parameter.
-     * @returns {HRESULT} If the function succeeds, it returns SEC_E_OK.
-     * 
-     * If the function fails, it can return the following error codes.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code/value</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_INVALID_HANDLE</b></dt>
-     * <dt>0x80100003</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function failed. The <i>phContext</i> parameter specifies a handle to an incomplete context.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_UNSUPPORTED_FUNCTION</b></dt>
-     * <dt>0x80090302</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The function failed. The value of the <i>ulAttribute</i> parameter is not valid.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Void} A pointer to a structure that receives the attributes. The structure type depends on the value of the <i>ulAttribute</i> parameter.
      * @see https://docs.microsoft.com/windows/win32/api//sspi/nf-sspi-querycontextattributesa
      * @since windows6.0.6000
      */
-    static QueryContextAttributesA(phContext, ulAttribute, pBuffer) {
-        pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
-
-        result := DllCall("SECUR32.dll\QueryContextAttributesA", "ptr", phContext, "uint", ulAttribute, pBufferMarshal, pBuffer, "int")
+    static QueryContextAttributesA(phContext, ulAttribute) {
+        result := DllCall("SECUR32.dll\QueryContextAttributesA", "ptr", phContext, "uint", ulAttribute, "ptr", &pBuffer := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pBuffer
     }
 
     /**
@@ -13382,17 +13158,14 @@ class Identity {
      * 
      * @param {Pointer} lpIpAddress 
      * @param {Integer} cchIpAddress 
-     * @param {Pointer<Integer>} FreeCallContext 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    static SecAllocateAndSetIPAddress(lpIpAddress, cchIpAddress, FreeCallContext) {
-        FreeCallContextMarshal := FreeCallContext is VarRef ? "int*" : "ptr"
-
-        result := DllCall("SspiCli.dll\SecAllocateAndSetIPAddress", "ptr", lpIpAddress, "uint", cchIpAddress, FreeCallContextMarshal, FreeCallContext, "int")
+    static SecAllocateAndSetIPAddress(lpIpAddress, cchIpAddress) {
+        result := DllCall("SspiCli.dll\SecAllocateAndSetIPAddress", "ptr", lpIpAddress, "uint", cchIpAddress, "int*", &FreeCallContext := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return FreeCallContext
     }
 
     /**
@@ -13400,19 +13173,16 @@ class Identity {
      * @param {Pointer} lpIpAddress 
      * @param {Integer} cchIpAddress 
      * @param {PWSTR} TargetName 
-     * @param {Pointer<Integer>} FreeCallContext 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    static SecAllocateAndSetCallTarget(lpIpAddress, cchIpAddress, TargetName, FreeCallContext) {
+    static SecAllocateAndSetCallTarget(lpIpAddress, cchIpAddress, TargetName) {
         TargetName := TargetName is String ? StrPtr(TargetName) : TargetName
 
-        FreeCallContextMarshal := FreeCallContext is VarRef ? "int*" : "ptr"
-
-        result := DllCall("SspiCli.dll\SecAllocateAndSetCallTarget", "ptr", lpIpAddress, "uint", cchIpAddress, "ptr", TargetName, FreeCallContextMarshal, FreeCallContext, "int")
+        result := DllCall("SspiCli.dll\SecAllocateAndSetCallTarget", "ptr", lpIpAddress, "uint", cchIpAddress, "ptr", TargetName, "int*", &FreeCallContext := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return FreeCallContext
     }
 
     /**
@@ -13654,85 +13424,18 @@ class Identity {
      * <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-secbufferdesc">SecBufferDesc</a> structure that references a set of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-secbuffer">SecBuffer</a> structures that contain the message and signature to verify. The signature is in a <b>SecBuffer</b> structure of type SECBUFFER_TOKEN.
      * @param {Integer} MessageSeqNo Specifies the sequence number expected by the transport application, if any. If the transport application does not maintain sequence numbers, this parameter is zero.
-     * @param {Pointer<Integer>} pfQOP Pointer to a <b>ULONG</b> variable that receives package-specific flags that indicate the quality of protection.
+     * @returns {Integer} Pointer to a <b>ULONG</b> variable that receives package-specific flags that indicate the quality of protection.
      * 
      * Some security packages ignore this parameter.
-     * @returns {HRESULT} If the function verifies that the message was received in the correct sequence and has not been modified, the return value is SEC_E_OK.
-     * 
-     * If the function determines that the message is not correct according to the information in the signature, the return value can be one of the following error codes.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_OUT_OF_SEQUENCE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The message was not received in the correct sequence.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_MESSAGE_ALTERED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The message has been altered.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_INVALID_HANDLE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The context handle specified by <i>phContext</i> is not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_INVALID_TOKEN</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * <i>pMessage</i> did not contain a valid SECBUFFER_TOKEN buffer, or contained too few buffers.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_QOP_NOT_SUPPORTED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The quality of protection negotiated between the client and server did not include <a href="/windows/desktop/SecGloss/i-gly">integrity</a> checking.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//sspi/nf-sspi-verifysignature
      * @since windows5.1.2600
      */
-    static VerifySignature(phContext, pMessage, MessageSeqNo, pfQOP) {
-        pfQOPMarshal := pfQOP is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("SECUR32.dll\VerifySignature", "ptr", phContext, "ptr", pMessage, "uint", MessageSeqNo, pfQOPMarshal, pfQOP, "int")
+    static VerifySignature(phContext, pMessage, MessageSeqNo) {
+        result := DllCall("SECUR32.dll\VerifySignature", "ptr", phContext, "ptr", pMessage, "uint", MessageSeqNo, "uint*", &pfQOP := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pfQOP
     }
 
     /**
@@ -13866,7 +13569,7 @@ class Identity {
      * @param {Integer} MessageSeqNo The sequence number expected by the transport application, if any. If the transport application does not maintain sequence numbers, this parameter must be set to zero.
      * 
      * When using the Digest SSP, this parameter must be set to zero. The Digest SSP manages sequence numbering internally.
-     * @param {Pointer<Integer>} pfQOP A pointer to a variable of type <b>ULONG</b> that receives package-specific flags that indicate the quality of protection.
+     * @returns {Integer} A pointer to a variable of type <b>ULONG</b> that receives package-specific flags that indicate the quality of protection.
      * 						
      * 
      * This parameter can be one of the following flags.
@@ -13900,101 +13603,12 @@ class Identity {
      * </td>
      * </tr>
      * </table>
-     * @returns {HRESULT} If the function verifies that the message was received in the correct sequence, the function returns SEC_E_OK.
-     * 
-     * If the function fails to decrypt the message, it returns one of the following error codes.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_BUFFER_TOO_SMALL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The message buffer is too small.  Used with the Digest SSP.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_CRYPTO_SYSTEM_INVALID</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The cipher chosen for the security context is not supported. Used with the Digest SSP.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_INCOMPLETE_MESSAGE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The data in the input buffer is incomplete. The application needs to read more data from the server and call <a href="/windows/desktop/api/sspi/nf-sspi-decryptmessage">DecryptMessage (Digest)</a> again.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_INVALID_HANDLE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * A context handle that is not valid was specified in the <i>phContext</i> parameter. Used with the Digest SSP.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_MESSAGE_ALTERED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The message has been altered. Used with the Digest SSP.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_OUT_OF_SEQUENCE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The message was not received in the correct sequence.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_QOP_NOT_SUPPORTED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Neither confidentiality nor <a href="/windows/desktop/SecGloss/i-gly">integrity</a> are supported by the security context. Used with the Digest SSP.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//sspi/nf-sspi-decryptmessage
      * @since windows5.1.2600
      */
-    static DecryptMessage(phContext, pMessage, MessageSeqNo, pfQOP) {
-        pfQOPMarshal := pfQOP is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("SECUR32.dll\DecryptMessage", "ptr", phContext, "ptr", pMessage, "uint", MessageSeqNo, pfQOPMarshal, pfQOP, "int")
-        return result
+    static DecryptMessage(phContext, pMessage, MessageSeqNo) {
+        result := DllCall("SECUR32.dll\DecryptMessage", "ptr", phContext, "ptr", pMessage, "uint", MessageSeqNo, "uint*", &pfQOP := 0, "int")
+        return pfQOP
     }
 
     /**
@@ -14134,47 +13748,37 @@ class Identity {
     /**
      * Retrieves information about a specified security package. This information includes the bounds on sizes of authentication information, credentials, and contexts.
      * @param {PWSTR} pszPackageName 
-     * @param {Pointer<Pointer<SecPkgInfoW>>} ppPackageInfo Pointer to a variable that receives a pointer to a 
+     * @returns {Pointer<SecPkgInfoW>} Pointer to a variable that receives a pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-secpkginfoa">SecPkgInfo</a> structure containing information about the specified security package.
-     * @returns {HRESULT} If the function succeeds, the return value is SEC_E_OK.
-     * 
-     * If the function fails, the return value is a nonzero error code.
      * @see https://docs.microsoft.com/windows/win32/api//sspi/nf-sspi-querysecuritypackageinfow
      * @since windows5.1.2600
      */
-    static QuerySecurityPackageInfoW(pszPackageName, ppPackageInfo) {
+    static QuerySecurityPackageInfoW(pszPackageName) {
         pszPackageName := pszPackageName is String ? StrPtr(pszPackageName) : pszPackageName
 
-        ppPackageInfoMarshal := ppPackageInfo is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SECUR32.dll\QuerySecurityPackageInfoW", "ptr", pszPackageName, ppPackageInfoMarshal, ppPackageInfo, "int")
+        result := DllCall("SECUR32.dll\QuerySecurityPackageInfoW", "ptr", pszPackageName, "ptr*", &ppPackageInfo := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppPackageInfo
     }
 
     /**
      * Retrieves information about a specified security package. This information includes the bounds on sizes of authentication information, credentials, and contexts.
      * @param {PSTR} pszPackageName Pointer to a null-terminated string that specifies the name of the security package.
-     * @param {Pointer<Pointer<SecPkgInfoA>>} ppPackageInfo Pointer to a variable that receives a pointer to a 
+     * @returns {Pointer<SecPkgInfoA>} Pointer to a variable that receives a pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-secpkginfoa">SecPkgInfo</a> structure containing information about the specified security package.
-     * @returns {HRESULT} If the function succeeds, the return value is SEC_E_OK.
-     * 
-     * If the function fails, the return value is a nonzero error code.
      * @see https://docs.microsoft.com/windows/win32/api//sspi/nf-sspi-querysecuritypackageinfoa
      * @since windows5.1.2600
      */
-    static QuerySecurityPackageInfoA(pszPackageName, ppPackageInfo) {
+    static QuerySecurityPackageInfoA(pszPackageName) {
         pszPackageName := pszPackageName is String ? StrPtr(pszPackageName) : pszPackageName
 
-        ppPackageInfoMarshal := ppPackageInfo is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SECUR32.dll\QuerySecurityPackageInfoA", "ptr", pszPackageName, ppPackageInfoMarshal, ppPackageInfo, "int")
+        result := DllCall("SECUR32.dll\QuerySecurityPackageInfoA", "ptr", pszPackageName, "ptr*", &ppPackageInfo := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppPackageInfo
     }
 
     /**
@@ -14183,63 +13787,18 @@ class Identity {
      * @param {Integer} fFlags 
      * @param {Pointer<SecBuffer>} pPackedContext A pointer to a buffer of type <b>SECBUFFER_EMPTY</b> that receives the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">serialized</a> security context. When you have finished using this context,  free it by calling the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-freecontextbuffer">FreeContextBuffer</a> function.
-     * @param {Pointer<Pointer<Void>>} pToken A pointer to receive the handle of the context's token.
+     * @returns {Pointer<Void>} A pointer to receive the handle of the context's token.
      * 
      * When you have finished using the user token, release the handle by calling the <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> function.
-     * @returns {HRESULT} If the function succeeds, the function returns SEC_E_OK.
-     * 
-     * If the function fails, it returns one of the following error codes.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_INSUFFICIENT_MEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * There is not enough memory available to complete the requested action.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_INVALID_HANDLE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <i>phContext</i> parameter does not point to a valid handle.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_NOT_SUPPORTED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Schannel kernel mode does not support this function.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//sspi/nf-sspi-exportsecuritycontext
      * @since windows5.1.2600
      */
-    static ExportSecurityContext(phContext, fFlags, pPackedContext, pToken) {
-        pTokenMarshal := pToken is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SECUR32.dll\ExportSecurityContext", "ptr", phContext, "uint", fFlags, "ptr", pPackedContext, pTokenMarshal, pToken, "int")
+    static ExportSecurityContext(phContext, fFlags, pPackedContext) {
+        result := DllCall("SECUR32.dll\ExportSecurityContext", "ptr", phContext, "uint", fFlags, "ptr", pPackedContext, "ptr*", &pToken := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pToken
     }
 
     /**
@@ -14453,9 +14012,10 @@ class Identity {
      * @since windowsserver2003
      */
     static SaslEnumerateProfilesA(ProfileList, ProfileCount) {
+        ProfileListMarshal := ProfileList is VarRef ? "ptr*" : "ptr"
         ProfileCountMarshal := ProfileCount is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SECUR32.dll\SaslEnumerateProfilesA", "ptr", ProfileList, ProfileCountMarshal, ProfileCount, "int")
+        result := DllCall("SECUR32.dll\SaslEnumerateProfilesA", ProfileListMarshal, ProfileList, ProfileCountMarshal, ProfileCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -14473,9 +14033,10 @@ class Identity {
      * @since windowsserver2003
      */
     static SaslEnumerateProfilesW(ProfileList, ProfileCount) {
+        ProfileListMarshal := ProfileList is VarRef ? "ptr*" : "ptr"
         ProfileCountMarshal := ProfileCount is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SECUR32.dll\SaslEnumerateProfilesW", "ptr", ProfileList, ProfileCountMarshal, ProfileCount, "int")
+        result := DllCall("SECUR32.dll\SaslEnumerateProfilesW", ProfileListMarshal, ProfileList, ProfileCountMarshal, ProfileCount, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -14485,139 +14046,65 @@ class Identity {
     /**
      * Returns the package information for the specified package.
      * @param {PSTR} ProfileName Unicode or ANSI string that contains the name of the SASL package.
-     * @param {Pointer<Pointer<SecPkgInfoA>>} PackageInfo Pointer to a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-secpkginfoa">SecPkgInfo</a> structure that returns the package information for the package specified by the <i>ProfileName</i> parameter.
-     * @returns {HRESULT} If the call is completed successfully, this function returns SEC_E_OK. The following table shows some possible failure return values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_SECPKG_NOT_FOUND</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The SASL profile specified by the <i>ProfileName</i> parameter could not be found.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_INSUFFICIENT_MEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Memory could not be allocated for the <a href="/windows/desktop/api/sspi/ns-sspi-secpkginfoa">SecPkgInfo</a> structure.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<SecPkgInfoA>} Pointer to a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-secpkginfoa">SecPkgInfo</a> structure that returns the package information for the package specified by the <i>ProfileName</i> parameter.
      * @see https://docs.microsoft.com/windows/win32/api//sspi/nf-sspi-saslgetprofilepackagea
      * @since windowsserver2003
      */
-    static SaslGetProfilePackageA(ProfileName, PackageInfo) {
+    static SaslGetProfilePackageA(ProfileName) {
         ProfileName := ProfileName is String ? StrPtr(ProfileName) : ProfileName
 
-        PackageInfoMarshal := PackageInfo is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SECUR32.dll\SaslGetProfilePackageA", "ptr", ProfileName, PackageInfoMarshal, PackageInfo, "int")
+        result := DllCall("SECUR32.dll\SaslGetProfilePackageA", "ptr", ProfileName, "ptr*", &PackageInfo := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return PackageInfo
     }
 
     /**
      * Returns the package information for the specified package.
      * @param {PWSTR} ProfileName Unicode or ANSI string that contains the name of the SASL package.
-     * @param {Pointer<Pointer<SecPkgInfoW>>} PackageInfo Pointer to a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-secpkginfoa">SecPkgInfo</a> structure that returns the package information for the package specified by the <i>ProfileName</i> parameter.
-     * @returns {HRESULT} If the call is completed successfully, this function returns SEC_E_OK. The following table shows some possible failure return values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_SECPKG_NOT_FOUND</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The SASL profile specified by the <i>ProfileName</i> parameter could not be found.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SEC_E_INSUFFICIENT_MEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Memory could not be allocated for the <a href="/windows/desktop/api/sspi/ns-sspi-secpkginfoa">SecPkgInfo</a> structure.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<SecPkgInfoW>} Pointer to a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-secpkginfoa">SecPkgInfo</a> structure that returns the package information for the package specified by the <i>ProfileName</i> parameter.
      * @see https://docs.microsoft.com/windows/win32/api//sspi/nf-sspi-saslgetprofilepackagew
      * @since windowsserver2003
      */
-    static SaslGetProfilePackageW(ProfileName, PackageInfo) {
+    static SaslGetProfilePackageW(ProfileName) {
         ProfileName := ProfileName is String ? StrPtr(ProfileName) : ProfileName
 
-        PackageInfoMarshal := PackageInfo is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SECUR32.dll\SaslGetProfilePackageW", "ptr", ProfileName, PackageInfoMarshal, PackageInfo, "int")
+        result := DllCall("SECUR32.dll\SaslGetProfilePackageW", "ptr", ProfileName, "ptr*", &PackageInfo := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return PackageInfo
     }
 
     /**
      * Returns the negotiate prefix that matches the specified SASL negotiation buffer.
      * @param {Pointer<SecBufferDesc>} pInput Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-secbufferdesc">SecBufferDesc</a> structure that specifies the SASL negotiation buffer for which to find the negotiate prefix.
-     * @param {Pointer<Pointer<SecPkgInfoA>>} PackageInfo Pointer to a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-secpkginfoa">SecPkgInfo</a> structure that returns the negotiate prefix for the negotiation buffer specified by the <i>pInput</i> parameter.
-     * @returns {HRESULT} If the call is completed successfully, this function returns SEC_E_OK.
-     * 
-     * If the function fails, the return value is a nonzero error code.
+     * @returns {Pointer<SecPkgInfoA>} Pointer to a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-secpkginfoa">SecPkgInfo</a> structure that returns the negotiate prefix for the negotiation buffer specified by the <i>pInput</i> parameter.
      * @see https://docs.microsoft.com/windows/win32/api//sspi/nf-sspi-saslidentifypackagea
      * @since windowsserver2003
      */
-    static SaslIdentifyPackageA(pInput, PackageInfo) {
-        PackageInfoMarshal := PackageInfo is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SECUR32.dll\SaslIdentifyPackageA", "ptr", pInput, PackageInfoMarshal, PackageInfo, "int")
+    static SaslIdentifyPackageA(pInput) {
+        result := DllCall("SECUR32.dll\SaslIdentifyPackageA", "ptr", pInput, "ptr*", &PackageInfo := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return PackageInfo
     }
 
     /**
      * Returns the negotiate prefix that matches the specified SASL negotiation buffer.
      * @param {Pointer<SecBufferDesc>} pInput Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-secbufferdesc">SecBufferDesc</a> structure that specifies the SASL negotiation buffer for which to find the negotiate prefix.
-     * @param {Pointer<Pointer<SecPkgInfoW>>} PackageInfo Pointer to a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-secpkginfoa">SecPkgInfo</a> structure that returns the negotiate prefix for the negotiation buffer specified by the <i>pInput</i> parameter.
-     * @returns {HRESULT} If the call is completed successfully, this function returns SEC_E_OK.
-     * 
-     * If the function fails, the return value is a nonzero error code.
+     * @returns {Pointer<SecPkgInfoW>} Pointer to a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-secpkginfoa">SecPkgInfo</a> structure that returns the negotiate prefix for the negotiation buffer specified by the <i>pInput</i> parameter.
      * @see https://docs.microsoft.com/windows/win32/api//sspi/nf-sspi-saslidentifypackagew
      * @since windowsserver2003
      */
-    static SaslIdentifyPackageW(pInput, PackageInfo) {
-        PackageInfoMarshal := PackageInfo is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SECUR32.dll\SaslIdentifyPackageW", "ptr", pInput, PackageInfoMarshal, PackageInfo, "int")
+    static SaslIdentifyPackageW(pInput) {
+        result := DllCall("SECUR32.dll\SaslIdentifyPackageW", "ptr", pInput, "ptr*", &PackageInfo := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return PackageInfo
     }
 
     /**
@@ -15475,8 +14962,9 @@ class Identity {
 
         AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr" : "ptr"
         pCredmanCredentialTypeMarshal := pCredmanCredentialType is VarRef ? "uint*" : "ptr"
+        ppszCredmanTargetNameMarshal := ppszCredmanTargetName is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("SECUR32.dll\SspiPrepareForCredRead", AuthIdentityMarshal, AuthIdentity, "ptr", pszTargetName, pCredmanCredentialTypeMarshal, pCredmanCredentialType, "ptr", ppszCredmanTargetName, "int")
+        result := DllCall("SECUR32.dll\SspiPrepareForCredRead", AuthIdentityMarshal, AuthIdentity, "ptr", pszTargetName, pCredmanCredentialTypeMarshal, pCredmanCredentialType, ppszCredmanTargetNameMarshal, ppszCredmanTargetName, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15505,10 +14993,12 @@ class Identity {
 
         AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr" : "ptr"
         pCredmanCredentialTypeMarshal := pCredmanCredentialType is VarRef ? "uint*" : "ptr"
+        ppszCredmanTargetNameMarshal := ppszCredmanTargetName is VarRef ? "ptr*" : "ptr"
+        ppszCredmanUserNameMarshal := ppszCredmanUserName is VarRef ? "ptr*" : "ptr"
         ppCredentialBlobMarshal := ppCredentialBlob is VarRef ? "ptr*" : "ptr"
         pCredentialBlobSizeMarshal := pCredentialBlobSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SECUR32.dll\SspiPrepareForCredWrite", AuthIdentityMarshal, AuthIdentity, "ptr", pszTargetName, pCredmanCredentialTypeMarshal, pCredmanCredentialType, "ptr", ppszCredmanTargetName, "ptr", ppszCredmanUserName, ppCredentialBlobMarshal, ppCredentialBlob, pCredentialBlobSizeMarshal, pCredentialBlobSize, "int")
+        result := DllCall("SECUR32.dll\SspiPrepareForCredWrite", AuthIdentityMarshal, AuthIdentity, "ptr", pszTargetName, pCredmanCredentialTypeMarshal, pCredmanCredentialType, ppszCredmanTargetNameMarshal, ppszCredmanTargetName, ppszCredmanUserNameMarshal, ppszCredmanUserName, ppCredentialBlobMarshal, ppCredentialBlob, pCredentialBlobSizeMarshal, pCredentialBlobSize, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15646,8 +15136,11 @@ class Identity {
      */
     static SspiEncodeAuthIdentityAsStrings(pAuthIdentity, ppszUserName, ppszDomainName, ppszPackedCredentialsString) {
         pAuthIdentityMarshal := pAuthIdentity is VarRef ? "ptr" : "ptr"
+        ppszUserNameMarshal := ppszUserName is VarRef ? "ptr*" : "ptr"
+        ppszDomainNameMarshal := ppszDomainName is VarRef ? "ptr*" : "ptr"
+        ppszPackedCredentialsStringMarshal := ppszPackedCredentialsString is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("SECUR32.dll\SspiEncodeAuthIdentityAsStrings", pAuthIdentityMarshal, pAuthIdentity, "ptr", ppszUserName, "ptr", ppszDomainName, "ptr", ppszPackedCredentialsString, "int")
+        result := DllCall("SECUR32.dll\SspiEncodeAuthIdentityAsStrings", pAuthIdentityMarshal, pAuthIdentity, ppszUserNameMarshal, ppszUserName, ppszDomainNameMarshal, ppszDomainName, ppszPackedCredentialsStringMarshal, ppszPackedCredentialsString, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15676,22 +15169,18 @@ class Identity {
     /**
      * Creates a copy of the specified opaque credential structure.
      * @param {Pointer<Void>} AuthData The credential structure to be copied.
-     * @param {Pointer<Pointer<Void>>} AuthDataCopy The structure that receives the copy of the structure specified by the <i>AuthData</i> parameter.
-     * @returns {HRESULT} If the function succeeds, it returns <b>SEC_E_OK</b>.
-     * 
-     * If the function fails, it returns a nonzero error code.
+     * @returns {Pointer<Void>} The structure that receives the copy of the structure specified by the <i>AuthData</i> parameter.
      * @see https://docs.microsoft.com/windows/win32/api//sspi/nf-sspi-sspicopyauthidentity
      * @since windows6.1
      */
-    static SspiCopyAuthIdentity(AuthData, AuthDataCopy) {
+    static SspiCopyAuthIdentity(AuthData) {
         AuthDataMarshal := AuthData is VarRef ? "ptr" : "ptr"
-        AuthDataCopyMarshal := AuthDataCopy is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("SECUR32.dll\SspiCopyAuthIdentity", AuthDataMarshal, AuthData, AuthDataCopyMarshal, AuthDataCopy, "int")
+        result := DllCall("SECUR32.dll\SspiCopyAuthIdentity", AuthDataMarshal, AuthData, "ptr*", &AuthDataCopy := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return AuthDataCopy
     }
 
     /**
@@ -15738,27 +15227,22 @@ class Identity {
      * @param {PWSTR} pszUserName The user name associated with the identity to encode.
      * @param {PWSTR} pszDomainName The domain name associated with the identity to encode.
      * @param {PWSTR} pszPackedCredentialsString An encoded string version of a <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-sec_winnt_auth_identity_ex2">SEC_WINNT_AUTH_IDENTITY_EX2</a> structure that specifies the user's credentials.
-     * @param {Pointer<Pointer<Void>>} ppAuthIdentity A pointer to the encoded identity structure.
+     * @returns {Pointer<Void>} A pointer to the encoded identity structure.
      * 
      * When you have finished using this structure, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-sspifreeauthidentity">SspiFreeAuthIdentity</a> function.
-     * @returns {HRESULT} If the function succeeds, it returns <b>SEC_E_OK</b>.
-     * 
-     * If the function fails, it returns a nonzero error code.
      * @see https://docs.microsoft.com/windows/win32/api//sspi/nf-sspi-sspiencodestringsasauthidentity
      * @since windows6.1
      */
-    static SspiEncodeStringsAsAuthIdentity(pszUserName, pszDomainName, pszPackedCredentialsString, ppAuthIdentity) {
+    static SspiEncodeStringsAsAuthIdentity(pszUserName, pszDomainName, pszPackedCredentialsString) {
         pszUserName := pszUserName is String ? StrPtr(pszUserName) : pszUserName
         pszDomainName := pszDomainName is String ? StrPtr(pszDomainName) : pszDomainName
         pszPackedCredentialsString := pszPackedCredentialsString is String ? StrPtr(pszPackedCredentialsString) : pszPackedCredentialsString
 
-        ppAuthIdentityMarshal := ppAuthIdentity is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SECUR32.dll\SspiEncodeStringsAsAuthIdentity", "ptr", pszUserName, "ptr", pszDomainName, "ptr", pszPackedCredentialsString, ppAuthIdentityMarshal, ppAuthIdentity, "int")
+        result := DllCall("SECUR32.dll\SspiEncodeStringsAsAuthIdentity", "ptr", pszUserName, "ptr", pszDomainName, "ptr", pszPackedCredentialsString, "ptr*", &ppAuthIdentity := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppAuthIdentity
     }
 
     /**
@@ -15776,8 +15260,10 @@ class Identity {
     static SspiCompareAuthIdentities(AuthIdentity1, AuthIdentity2, SameSuppliedUser, SameSuppliedIdentity) {
         AuthIdentity1Marshal := AuthIdentity1 is VarRef ? "ptr" : "ptr"
         AuthIdentity2Marshal := AuthIdentity2 is VarRef ? "ptr" : "ptr"
+        SameSuppliedUserMarshal := SameSuppliedUser is VarRef ? "char*" : "ptr"
+        SameSuppliedIdentityMarshal := SameSuppliedIdentity is VarRef ? "char*" : "ptr"
 
-        result := DllCall("SECUR32.dll\SspiCompareAuthIdentities", AuthIdentity1Marshal, AuthIdentity1, AuthIdentity2Marshal, AuthIdentity2, "ptr", SameSuppliedUser, "ptr", SameSuppliedIdentity, "int")
+        result := DllCall("SECUR32.dll\SspiCompareAuthIdentities", AuthIdentity1Marshal, AuthIdentity1, AuthIdentity2Marshal, AuthIdentity2, SameSuppliedUserMarshal, SameSuppliedUser, SameSuppliedIdentityMarshal, SameSuppliedIdentity, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -15811,21 +15297,16 @@ class Identity {
      * Deserializes the specified array of byte values into an identity structure.
      * @param {Integer} AuthIdentityLength The size, in bytes, of the <i>AuthIdentityByteArray</i> array.
      * @param {Pointer} AuthIdentityByteArray The array of byte values to deserialize.
-     * @param {Pointer<Pointer<Void>>} ppAuthIdentity The deserialized identity structure.
-     * @returns {HRESULT} If the function succeeds, it returns <b>SEC_E_OK</b>.
-     * 
-     * If the function fails, it returns a nonzero error code.
+     * @returns {Pointer<Void>} The deserialized identity structure.
      * @see https://docs.microsoft.com/windows/win32/api//sspi/nf-sspi-sspiunmarshalauthidentity
      * @since windows6.1
      */
-    static SspiUnmarshalAuthIdentity(AuthIdentityLength, AuthIdentityByteArray, ppAuthIdentity) {
-        ppAuthIdentityMarshal := ppAuthIdentity is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SECUR32.dll\SspiUnmarshalAuthIdentity", "uint", AuthIdentityLength, "ptr", AuthIdentityByteArray, ppAuthIdentityMarshal, ppAuthIdentity, "int")
+    static SspiUnmarshalAuthIdentity(AuthIdentityLength, AuthIdentityByteArray) {
+        result := DllCall("SECUR32.dll\SspiUnmarshalAuthIdentity", "uint", AuthIdentityLength, "ptr", AuthIdentityByteArray, "ptr*", &ppAuthIdentity := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppAuthIdentity
     }
 
     /**
@@ -15843,45 +15324,38 @@ class Identity {
     /**
      * Gets the host name associated with the specified target.
      * @param {PWSTR} pszTargetName The target for which to get the host name.
-     * @param {Pointer<PWSTR>} pszHostName The name of the host associated with the target specified by the <i>pszTargetName</i> parameter.
-     * @returns {HRESULT} If the function succeeds, it returns <b>SEC_E_OK</b>.
-     * 
-     * If the function fails, it returns a nonzero error code.
+     * @returns {PWSTR} The name of the host associated with the target specified by the <i>pszTargetName</i> parameter.
      * @see https://docs.microsoft.com/windows/win32/api//sspi/nf-sspi-sspigettargethostname
      * @since windows6.1
      */
-    static SspiGetTargetHostName(pszTargetName, pszHostName) {
+    static SspiGetTargetHostName(pszTargetName) {
         pszTargetName := pszTargetName is String ? StrPtr(pszTargetName) : pszTargetName
 
-        result := DllCall("SECUR32.dll\SspiGetTargetHostName", "ptr", pszTargetName, "ptr", pszHostName, "int")
+        result := DllCall("SECUR32.dll\SspiGetTargetHostName", "ptr", pszTargetName, "ptr*", &pszHostName := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pszHostName
     }
 
     /**
      * Creates a new identity structure that is a copy of the specified identity structure modified to exclude the specified security support provider (SSP).
      * @param {Pointer<Void>} AuthIdentity The identity structure to modify.
      * @param {PWSTR} pszPackageName The SSP to exclude.
-     * @param {Pointer<Pointer<Void>>} ppNewAuthIdentity The modified identity structure.
-     * @returns {HRESULT} If the function succeeds, it returns <b>SEC_E_OK</b>.
-     * 
-     * If the function fails, it returns a nonzero error code.
+     * @returns {Pointer<Void>} The modified identity structure.
      * @see https://docs.microsoft.com/windows/win32/api//sspi/nf-sspi-sspiexcludepackage
      * @since windows6.1
      */
-    static SspiExcludePackage(AuthIdentity, pszPackageName, ppNewAuthIdentity) {
+    static SspiExcludePackage(AuthIdentity, pszPackageName) {
         pszPackageName := pszPackageName is String ? StrPtr(pszPackageName) : pszPackageName
 
         AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr" : "ptr"
-        ppNewAuthIdentityMarshal := ppNewAuthIdentity is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("SECUR32.dll\SspiExcludePackage", AuthIdentityMarshal, AuthIdentity, "ptr", pszPackageName, ppNewAuthIdentityMarshal, ppNewAuthIdentity, "int")
+        result := DllCall("SECUR32.dll\SspiExcludePackage", AuthIdentityMarshal, AuthIdentity, "ptr", pszPackageName, "ptr*", &ppNewAuthIdentity := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppNewAuthIdentity
     }
 
     /**
@@ -16162,35 +15636,30 @@ class Identity {
      * @param {Integer} clientHelloByteSize 
      * @param {Pointer<SCH_EXTENSION_DATA>} genericExtensions 
      * @param {Integer} genericExtensionsCount 
-     * @param {Pointer<Integer>} bytesToRead 
      * @param {Integer} flags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    static SslGetExtensions(clientHello, clientHelloByteSize, genericExtensions, genericExtensionsCount, bytesToRead, flags) {
+    static SslGetExtensions(clientHello, clientHelloByteSize, genericExtensions, genericExtensionsCount, flags) {
         clientHelloMarshal := clientHello is VarRef ? "char*" : "ptr"
-        bytesToReadMarshal := bytesToRead is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SCHANNEL.dll\SslGetExtensions", clientHelloMarshal, clientHello, "uint", clientHelloByteSize, "ptr", genericExtensions, "char", genericExtensionsCount, bytesToReadMarshal, bytesToRead, "int", flags, "int")
+        result := DllCall("SCHANNEL.dll\SslGetExtensions", clientHelloMarshal, clientHello, "uint", clientHelloByteSize, "ptr", genericExtensions, "char", genericExtensionsCount, "uint*", &bytesToRead := 0, "int", flags, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return bytesToRead
     }
 
     /**
      * 
      * @param {CRYPT_INTEGER_BLOB} SerializedCertificateStore 
-     * @param {Pointer<Pointer<CERT_CONTEXT>>} ppCertContext 
-     * @returns {HRESULT} 
+     * @returns {Pointer<CERT_CONTEXT>} 
      */
-    static SslDeserializeCertificateStore(SerializedCertificateStore, ppCertContext) {
-        ppCertContextMarshal := ppCertContext is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SCHANNEL.dll\SslDeserializeCertificateStore", "ptr", SerializedCertificateStore, ppCertContextMarshal, ppCertContext, "int")
+    static SslDeserializeCertificateStore(SerializedCertificateStore) {
+        result := DllCall("SCHANNEL.dll\SslDeserializeCertificateStore", "ptr", SerializedCertificateStore, "ptr*", &ppCertContext := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppCertContext
     }
 
     /**
@@ -16255,57 +15724,48 @@ class Identity {
      * @param {Integer} keyType The negotiated key algorithm to use. Use a value from the list of key types that you retrieved by calling the <a href="https://docs.microsoft.com/windows/desktop/api/tokenbinding/nf-tokenbinding-tokenbindinggetkeytypesserver">TokenBindingGetKeyTypesServer</a> function.
      * @param {Pointer} tlsEKM A pointer to a buffer that contains unique data.
      * @param {Integer} tlsEKMSize The size of the buffer that the <i>tlsUnique</i> parameter points to, in bytes.
-     * @param {Pointer<Pointer<TOKENBINDING_RESULT_LIST>>} resultList A pointer that receives the address for the buffer that contains the results for each of the token bindings that <b>TokenBindingVerifyMessage</b>   verifies.
+     * @returns {Pointer<TOKENBINDING_RESULT_LIST>} A pointer that receives the address for the buffer that contains the results for each of the token bindings that <b>TokenBindingVerifyMessage</b>   verifies.
      * 
      * In user mode, use <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapalloc">HeapAlloc</a> to allocate the memory for the buffer, and <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapfree">HeapFree</a> to free that memory. In kernel mode, use <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/wdm/nf-wdm-exallocatepoolwithtag">ExAllocatePoolWithTag</a>  to allocate the memory for the buffer, and <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/ntddk/nf-ntddk-exfreepool">ExFreePool</a> to free that memory.
-     * @returns {HRESULT} Returns a status code that indicates the success or failure of the function.
      * @see https://docs.microsoft.com/windows/win32/api//tokenbinding/nf-tokenbinding-tokenbindingverifymessage
      * @since windows10.0.10240
      */
-    static TokenBindingVerifyMessage(tokenBindingMessage, tokenBindingMessageSize, keyType, tlsEKM, tlsEKMSize, resultList) {
-        resultListMarshal := resultList is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("TOKENBINDING.dll\TokenBindingVerifyMessage", "ptr", tokenBindingMessage, "uint", tokenBindingMessageSize, "int", keyType, "ptr", tlsEKM, "uint", tlsEKMSize, resultListMarshal, resultList, "int")
+    static TokenBindingVerifyMessage(tokenBindingMessage, tokenBindingMessageSize, keyType, tlsEKM, tlsEKMSize) {
+        result := DllCall("TOKENBINDING.dll\TokenBindingVerifyMessage", "ptr", tokenBindingMessage, "uint", tokenBindingMessageSize, "int", keyType, "ptr", tlsEKM, "uint", tlsEKMSize, "ptr*", &resultList := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return resultList
     }
 
     /**
      * Retrieves a list of the key types that the client device supports.
-     * @param {Pointer<Pointer<TOKENBINDING_KEY_TYPES>>} keyTypes A pointer to a buffer that contains the list of key types that the client device supports. <b>TokenBindingGetKeyTypesClient</b> returns the string identifiers for well-known algorithms that correspond to the keys that the client device supports. Use <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapalloc">HeapAlloc</a> to allocate the memory for the buffer, and <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapfree">HeapFree</a> to free that memory.
-     * @returns {HRESULT} Returns a status code that indicates the success or failure of the function.
+     * @returns {Pointer<TOKENBINDING_KEY_TYPES>} A pointer to a buffer that contains the list of key types that the client device supports. <b>TokenBindingGetKeyTypesClient</b> returns the string identifiers for well-known algorithms that correspond to the keys that the client device supports. Use <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapalloc">HeapAlloc</a> to allocate the memory for the buffer, and <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapfree">HeapFree</a> to free that memory.
      * @see https://docs.microsoft.com/windows/win32/api//tokenbinding/nf-tokenbinding-tokenbindinggetkeytypesclient
      * @since windows10.0.10240
      */
-    static TokenBindingGetKeyTypesClient(keyTypes) {
-        keyTypesMarshal := keyTypes is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("TOKENBINDING.dll\TokenBindingGetKeyTypesClient", keyTypesMarshal, keyTypes, "int")
+    static TokenBindingGetKeyTypesClient() {
+        result := DllCall("TOKENBINDING.dll\TokenBindingGetKeyTypesClient", "ptr*", &keyTypes := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return keyTypes
     }
 
     /**
      * Retrieves a list of the key types that the server supports.
-     * @param {Pointer<Pointer<TOKENBINDING_KEY_TYPES>>} keyTypes A pointer to a buffer that contains the list of key types that the server supports. <b>TokenBindingGetKeyTypesServer</b> returns the string identifiers for well-known algorithms that correspond to the keys that the server supports.
+     * @returns {Pointer<TOKENBINDING_KEY_TYPES>} A pointer to a buffer that contains the list of key types that the server supports. <b>TokenBindingGetKeyTypesServer</b> returns the string identifiers for well-known algorithms that correspond to the keys that the server supports.
      * 
      * In user mode, use <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapalloc">HeapAlloc</a> to allocate the memory for the buffer, and <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapfree">HeapFree</a> to free that memory. In kernel mode, use <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/wdm/nf-wdm-exallocatepoolwithtag">ExAllocatePoolWithTag</a>  to allocate the memory for the buffer, and <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/ntddk/nf-ntddk-exfreepool">ExFreePool</a> to free that memory.
-     * @returns {HRESULT} Returns a status code that indicates the success or failure of the function.
      * @see https://docs.microsoft.com/windows/win32/api//tokenbinding/nf-tokenbinding-tokenbindinggetkeytypesserver
      * @since windows10.0.10240
      */
-    static TokenBindingGetKeyTypesServer(keyTypes) {
-        keyTypesMarshal := keyTypes is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("TOKENBINDING.dll\TokenBindingGetKeyTypesServer", keyTypesMarshal, keyTypes, "int")
+    static TokenBindingGetKeyTypesServer() {
+        result := DllCall("TOKENBINDING.dll\TokenBindingGetKeyTypesServer", "ptr*", &keyTypes := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return keyTypes
     }
 
     /**
@@ -16344,40 +15804,34 @@ class Identity {
      * @param {Integer} keyType The negotiated key type to use. Use a value from the list of key types that you retrieved by calling the <a href="https://docs.microsoft.com/windows/desktop/api/tokenbinding/nf-tokenbinding-tokenbindinggetkeytypesclient">TokenBindingGetKeyTypesClient</a> function.
      * @param {Pointer} publicKey An exported public key blob.
      * @param {Integer} publicKeySize The size of the exported public key blob.
-     * @param {Pointer<Pointer<TOKENBINDING_RESULT_DATA>>} resultData A pointer that receives the address of the buffer that is allocated for the token binding result data.  The token binding result data contains the token binding identifier. 
+     * @returns {Pointer<TOKENBINDING_RESULT_DATA>} A pointer that receives the address of the buffer that is allocated for the token binding result data.  The token binding result data contains the token binding identifier. 
      * 
      * Use the <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapalloc">HeapAlloc</a> function to allocate the memory for this buffer, and the <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapfree">HeapFree</a> method to free that memory.
-     * @returns {HRESULT} Returns a status code that indicates the success or failure of the function.
      * @see https://docs.microsoft.com/windows/win32/api//tokenbinding/nf-tokenbinding-tokenbindinggenerateid
      * @since windows10.0.10240
      */
-    static TokenBindingGenerateID(keyType, publicKey, publicKeySize, resultData) {
-        resultDataMarshal := resultData is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("TOKENBINDING.dll\TokenBindingGenerateID", "int", keyType, "ptr", publicKey, "uint", publicKeySize, resultDataMarshal, resultData, "int")
+    static TokenBindingGenerateID(keyType, publicKey, publicKeySize) {
+        result := DllCall("TOKENBINDING.dll\TokenBindingGenerateID", "int", keyType, "ptr", publicKey, "uint", publicKeySize, "ptr*", &resultData := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return resultData
     }
 
     /**
      * 
      * @param {Integer} keyType 
      * @param {PWSTR} targetUri 
-     * @param {Pointer<Pointer<TOKENBINDING_RESULT_DATA>>} resultData 
-     * @returns {HRESULT} 
+     * @returns {Pointer<TOKENBINDING_RESULT_DATA>} 
      */
-    static TokenBindingGenerateIDForUri(keyType, targetUri, resultData) {
+    static TokenBindingGenerateIDForUri(keyType, targetUri) {
         targetUri := targetUri is String ? StrPtr(targetUri) : targetUri
 
-        resultDataMarshal := resultData is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("TOKENBINDING.dll\TokenBindingGenerateIDForUri", "int", keyType, "ptr", targetUri, resultDataMarshal, resultData, "int")
+        result := DllCall("TOKENBINDING.dll\TokenBindingGenerateIDForUri", "int", keyType, "ptr", targetUri, "ptr*", &resultData := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return resultData
     }
 
     /**
@@ -16683,42 +16137,18 @@ class Identity {
 
     /**
      * Initializes the Software Licensing Client (SLC) and connects SLC to the Software Licensing Service (SLS).
-     * @param {Pointer<Pointer<Void>>} phSLC Type: <b>HSLC*</b>
+     * @returns {Pointer<Void>} Type: <b>HSLC*</b>
      * 
      * A pointer to a context handle returned from the Software Licensing Service.
-     * @returns {HRESULT} Type: <b>HRESULT WINAPI</b>
-     * 
-     * If this function succeeds, it return <b>S_OK</b>.  Otherwise, it returns an <b>HRESULT</b> error code.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code/value</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * <dt>0x80070057</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more arguments are not valid.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//slpublic/nf-slpublic-slopen
      * @since windows8.0
      */
-    static SLOpen(phSLC) {
-        phSLCMarshal := phSLC is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("SLC.dll\SLOpen", phSLCMarshal, phSLC, "int")
+    static SLOpen() {
+        result := DllCall("SLC.dll\SLOpen", "ptr*", &phSLC := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return phSLC
     }
 
     /**
@@ -18025,82 +17455,22 @@ class Identity {
      * @param {PWSTR} pwszValueName Type: <b>PCWSTR</b>
      * 
      * The policy name.
-     * @param {Pointer<Integer>} pdwValue Type: <b>DWORD*</b>
+     * @returns {Integer} Type: <b>DWORD*</b>
      * 
      * A pointer to the return value.
-     * @returns {HRESULT} Type: <b>HRESULT WINAPI</b>
-     * 
-     * If this function succeeds, it return <b>S_OK</b>.  Otherwise, it returns an <b>HRESULT</b> error code.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code/value</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * <dt>0x80070057</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more arguments are not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SL_E_VALUE_NOT_FOUND</b></dt>
-     * <dt>0xC004F012</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The value for the input key was not found.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SL_E_RIGHT_NOT_GRANTED</b></dt>
-     * <dt>0xC004F013</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The caller does not have permission to run the software.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SL_E_DATATYPE_MISMATCHED</b></dt>
-     * <dt>0xC004F01E</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The input data type does not match the data type in the license.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//slpublic/nf-slpublic-slgetpolicyinformationdword
      * @since windows8.0
      */
-    static SLGetPolicyInformationDWORD(hSLC, pwszValueName, pdwValue) {
+    static SLGetPolicyInformationDWORD(hSLC, pwszValueName) {
         pwszValueName := pwszValueName is String ? StrPtr(pwszValueName) : pwszValueName
 
         hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
-        pdwValueMarshal := pdwValue is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SLC.dll\SLGetPolicyInformationDWORD", hSLCMarshal, hSLC, "ptr", pwszValueName, pdwValueMarshal, pdwValue, "int")
+        result := DllCall("SLC.dll\SLGetPolicyInformationDWORD", hSLCMarshal, hSLC, "ptr", pwszValueName, "uint*", &pdwValue := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdwValue
     }
 
     /**
@@ -18639,44 +18009,22 @@ class Identity {
      * @param {Integer} wProxyPort Type: <b>WORD</b>
      * 
      * The proxy server port. Set to 0 to use the default port.
-     * @param {Pointer<HRESULT>} phrStatus Type: <b>HRESULT*</b>
+     * @returns {HRESULT} Type: <b>HRESULT*</b>
      * 
      * A pointer to the server status.
-     * @returns {HRESULT} Type: <b>HRESULT WINAPI</b>
-     * 
-     * If this function succeeds, it return <b>S_OK</b>.  Otherwise, it returns an <b>HRESULT</b> error code.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code/value</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * <dt>0x80070057</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more arguments are not valid.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//slpublic/nf-slpublic-slgetserverstatus
      * @since windows8.0
      */
-    static SLGetServerStatus(pwszServerURL, pwszAcquisitionType, pwszProxyServer, wProxyPort, phrStatus) {
+    static SLGetServerStatus(pwszServerURL, pwszAcquisitionType, pwszProxyServer, wProxyPort) {
         pwszServerURL := pwszServerURL is String ? StrPtr(pwszServerURL) : pwszServerURL
         pwszAcquisitionType := pwszAcquisitionType is String ? StrPtr(pwszAcquisitionType) : pwszAcquisitionType
         pwszProxyServer := pwszProxyServer is String ? StrPtr(pwszProxyServer) : pwszProxyServer
 
-        result := DllCall("slcext.dll\SLGetServerStatus", "ptr", pwszServerURL, "ptr", pwszAcquisitionType, "ptr", pwszProxyServer, "ushort", wProxyPort, "ptr", phrStatus, "int")
+        result := DllCall("slcext.dll\SLGetServerStatus", "ptr", pwszServerURL, "ptr", pwszAcquisitionType, "ptr", pwszProxyServer, "ushort", wProxyPort, "int*", &phrStatus := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return phrStatus
     }
 
     /**
@@ -18687,55 +18035,21 @@ class Identity {
      * @param {Pointer<Guid>} pProductSkuId Type: <b>const SLID*</b>
      * 
      * A pointer to the product ID.
-     * @param {Pointer<PWSTR>} ppwszInstallationId Type: <b>PWSTR*</b>
+     * @returns {PWSTR} Type: <b>PWSTR*</b>
      * 
      * The Installation ID string. Once you are finished, call the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function to      
      * 		free the memory.
-     * @returns {HRESULT} Type: <b>HRESULT WINAPI</b>
-     * 
-     * If this function succeeds, it return <b>S_OK</b>.  Otherwise,  it returns an <b>HRESULT</b> error code.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code/value</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * <dt>0x80070057</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more arguments are not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SL_E_PKEY_NOT_INSTALLED</b></dt>
-     * <dt>0xC004F014</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The product key is not available.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//slpublic/nf-slpublic-slgenerateofflineinstallationid
      * @since windows8.0
      */
-    static SLGenerateOfflineInstallationId(hSLC, pProductSkuId, ppwszInstallationId) {
+    static SLGenerateOfflineInstallationId(hSLC, pProductSkuId) {
         hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("SLC.dll\SLGenerateOfflineInstallationId", hSLCMarshal, hSLC, "ptr", pProductSkuId, "ptr", ppwszInstallationId, "int")
+        result := DllCall("SLC.dll\SLGenerateOfflineInstallationId", hSLCMarshal, hSLC, "ptr", pProductSkuId, "ptr*", &ppwszInstallationId := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppwszInstallationId
     }
 
     /**
@@ -18749,55 +18063,21 @@ class Identity {
      * @param {Pointer<SL_ACTIVATION_INFO_HEADER>} pActivationInfo Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/slpublic/ns-slpublic-sl_activation_info_header">SL_ACTIVATION_INFO_HEADER</a>*</b>
      * 
      * A pointer to additional information.
-     * @param {Pointer<PWSTR>} ppwszInstallationId Type: <b>PWSTR*</b>
+     * @returns {PWSTR} Type: <b>PWSTR*</b>
      * 
      * The Installation ID string. Once you are finished, call the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function to      
      * 		free the memory.
-     * @returns {HRESULT} Type: <b>HRESULT WINAPI</b>
-     * 
-     * If this function succeeds, it return <b>S_OK</b>.  Otherwise, it returns an <b>HRESULT</b> error code.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code/value</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * <dt>0x80070057</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more arguments are not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SL_E_PKEY_NOT_INSTALLED</b></dt>
-     * <dt>0xC004F014</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The product key is not available.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//slpublic/nf-slpublic-slgenerateofflineinstallationidex
      * @since windows8.0
      */
-    static SLGenerateOfflineInstallationIdEx(hSLC, pProductSkuId, pActivationInfo, ppwszInstallationId) {
+    static SLGenerateOfflineInstallationIdEx(hSLC, pProductSkuId, pActivationInfo) {
         hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("SLC.dll\SLGenerateOfflineInstallationIdEx", hSLCMarshal, hSLC, "ptr", pProductSkuId, "ptr", pActivationInfo, "ptr", ppwszInstallationId, "int")
+        result := DllCall("SLC.dll\SLGenerateOfflineInstallationIdEx", hSLCMarshal, hSLC, "ptr", pProductSkuId, "ptr", pActivationInfo, "ptr*", &ppwszInstallationId := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppwszInstallationId
     }
 
     /**
@@ -19603,77 +18883,34 @@ class Identity {
     /**
      * Retrieves the DWORD value portion of a name-value pair from the licensing policy of a software component.
      * @param {PWSTR} pwszValueName A pointer to a null-terminated string that contains the name associated with the value to retrieve.
-     * @param {Pointer<Integer>} pdwValue A pointer to the value associated with the name specified by the <i>pwszValueName</i> parameter.
-     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>.
-     * 
-     * If the method fails, it returns an error code. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * 
-     * This function can return the following values defined in Slerror.h.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code/value</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SL_E_RIGHT_NOT_GRANTED</b></dt>
-     * <dt>0xC004F013</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The caller does not have the permissions necessary to call this function.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>SL_E_DATATYPE_MISMATCHED</b></dt>
-     * <dt>0xC004F01E</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The value portion of the name-value pair is not a <b>DWORD</b>.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} A pointer to the value associated with the name specified by the <i>pwszValueName</i> parameter.
      * @see https://docs.microsoft.com/windows/win32/api//slpublic/nf-slpublic-slgetwindowsinformationdword
      * @since windows6.0.6000
      */
-    static SLGetWindowsInformationDWORD(pwszValueName, pdwValue) {
+    static SLGetWindowsInformationDWORD(pwszValueName) {
         pwszValueName := pwszValueName is String ? StrPtr(pwszValueName) : pwszValueName
 
-        pdwValueMarshal := pdwValue is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("SLC.dll\SLGetWindowsInformationDWORD", "ptr", pwszValueName, pdwValueMarshal, pdwValue, "int")
+        result := DllCall("SLC.dll\SLGetWindowsInformationDWORD", "ptr", pwszValueName, "uint*", &pdwValue := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdwValue
     }
 
     /**
      * Checks whether the specified application is a genuine Windows installation.
      * @param {Pointer<Guid>} pAppId A pointer to an <b>SLID</b> structure that specifies the application to check.
-     * @param {Pointer<Integer>} pGenuineState A pointer to a value of the <a href="https://docs.microsoft.com/windows/desktop/api/slpublic/ne-slpublic-sl_genuine_state">SL_GENUINE_STATE</a> enumeration that specifies the state of the installation.
      * @param {Pointer<SL_NONGENUINE_UI_OPTIONS>} pUIOptions A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/slpublic/ns-slpublic-sl_nongenuine_ui_options">SL_NONGENUINE_UI_OPTIONS</a> structure that specifies a dialog box to display if the installation is not genuine. If the value of this parameter is <b>NULL</b>, no dialog box is displayed.
-     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>.
-     * 
-     * If the method fails, it returns an error code. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @returns {Integer} A pointer to a value of the <a href="https://docs.microsoft.com/windows/desktop/api/slpublic/ne-slpublic-sl_genuine_state">SL_GENUINE_STATE</a> enumeration that specifies the state of the installation.
      * @see https://docs.microsoft.com/windows/win32/api//slpublic/nf-slpublic-slisgenuinelocal
      * @since windows6.0.6000
      */
-    static SLIsGenuineLocal(pAppId, pGenuineState, pUIOptions) {
-        pGenuineStateMarshal := pGenuineState is VarRef ? "int*" : "ptr"
-
-        result := DllCall("SLWGA.dll\SLIsGenuineLocal", "ptr", pAppId, pGenuineStateMarshal, pGenuineState, "ptr", pUIOptions, "int")
+    static SLIsGenuineLocal(pAppId, pUIOptions) {
+        result := DllCall("SLWGA.dll\SLIsGenuineLocal", "ptr", pAppId, "int*", &pGenuineState := 0, "ptr", pUIOptions, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pGenuineState
     }
 
     /**
@@ -19970,44 +19207,22 @@ class Identity {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<PWSTR>} ppwszValue Type: <b>PWSTR*</b>
+     * @returns {PWSTR} Type: <b>PWSTR*</b>
      * 
      * The value to store. When finished using the memory, free it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function.
-     * @returns {HRESULT} Type: <b>HRESULT WINAPI</b>
-     * 
-     * If this function succeeds, it return <b>S_OK</b>.  Otherwise,  it returns an <b>HRESULT</b> error code.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code/value</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * <dt>0x80070057</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more arguments are not valid.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//slpublic/nf-slpublic-slgetreferralinformation
      * @since windows8.0
      */
-    static SLGetReferralInformation(hSLC, eReferralType, pSkuOrAppId, pwszValueName, ppwszValue) {
+    static SLGetReferralInformation(hSLC, eReferralType, pSkuOrAppId, pwszValueName) {
         pwszValueName := pwszValueName is String ? StrPtr(pwszValueName) : pwszValueName
 
         hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("slcext.dll\SLGetReferralInformation", hSLCMarshal, hSLC, "int", eReferralType, "ptr", pSkuOrAppId, "ptr", pwszValueName, "ptr", ppwszValue, "int")
+        result := DllCall("slcext.dll\SLGetReferralInformation", hSLCMarshal, hSLC, "int", eReferralType, "ptr", pSkuOrAppId, "ptr", pwszValueName, "ptr*", &ppwszValue := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppwszValue
     }
 
     /**

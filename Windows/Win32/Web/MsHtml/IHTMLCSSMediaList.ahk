@@ -49,35 +49,32 @@ class IHTMLCSSMediaList extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_mediaText(p) {
+    get_mediaText() {
+        p := BSTR()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_length(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pMarshal, p, "HRESULT")
-        return result
+    get_length() {
+        result := ComCall(9, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<BSTR>} pbstrMedium 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    item(index, pbstrMedium) {
+    item(index) {
+        pbstrMedium := BSTR()
         result := ComCall(10, this, "int", index, "ptr", pbstrMedium, "HRESULT")
-        return result
+        return pbstrMedium
     }
 
     /**

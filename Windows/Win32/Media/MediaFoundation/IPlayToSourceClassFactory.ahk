@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\WinRT\IInspectable.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -39,12 +40,11 @@ class IPlayToSourceClassFactory extends IUnknown{
      * 
      * @param {Integer} dwFlags 
      * @param {IPlayToControl} pControl 
-     * @param {Pointer<IInspectable>} ppSource 
-     * @returns {HRESULT} 
+     * @returns {IInspectable} 
      * @see https://learn.microsoft.com/windows/win32/api/mfsharingengine/nf-mfsharingengine-iplaytosourceclassfactory-createinstance
      */
-    CreateInstance(dwFlags, pControl, ppSource) {
-        result := ComCall(3, this, "uint", dwFlags, "ptr", pControl, "ptr*", ppSource, "HRESULT")
-        return result
+    CreateInstance(dwFlags, pControl) {
+        result := ComCall(3, this, "uint", dwFlags, "ptr", pControl, "ptr*", &ppSource := 0, "HRESULT")
+        return IInspectable(ppSource)
     }
 }

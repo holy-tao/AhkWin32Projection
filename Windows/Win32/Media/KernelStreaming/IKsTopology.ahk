@@ -35,13 +35,10 @@ class IKsTopology extends IUnknown{
      * @param {Integer} DesiredAccess 
      * @param {IUnknown} UnkOuter 
      * @param {Pointer<Guid>} InterfaceId 
-     * @param {Pointer<Pointer<Void>>} Interface 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    CreateNodeInstance(NodeId, Flags, DesiredAccess, UnkOuter, InterfaceId, Interface) {
-        InterfaceMarshal := Interface is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "uint", NodeId, "uint", Flags, "uint", DesiredAccess, "ptr", UnkOuter, "ptr", InterfaceId, InterfaceMarshal, Interface, "HRESULT")
-        return result
+    CreateNodeInstance(NodeId, Flags, DesiredAccess, UnkOuter, InterfaceId) {
+        result := ComCall(3, this, "uint", NodeId, "uint", Flags, "uint", DesiredAccess, "ptr", UnkOuter, "ptr", InterfaceId, "ptr*", &Interface := 0, "HRESULT")
+        return Interface
     }
 }

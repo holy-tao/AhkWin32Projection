@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -189,71 +191,64 @@ class IPhotoAcquireSettings extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwPhotoAcquireFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresettings-getflags
      */
-    GetFlags(pdwPhotoAcquireFlags) {
-        pdwPhotoAcquireFlagsMarshal := pdwPhotoAcquireFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, pdwPhotoAcquireFlagsMarshal, pdwPhotoAcquireFlags, "HRESULT")
-        return result
+    GetFlags() {
+        result := ComCall(10, this, "uint*", &pdwPhotoAcquireFlags := 0, "HRESULT")
+        return pdwPhotoAcquireFlags
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrTemplate 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresettings-getoutputfilenametemplate
      */
-    GetOutputFilenameTemplate(pbstrTemplate) {
+    GetOutputFilenameTemplate() {
+        pbstrTemplate := BSTR()
         result := ComCall(11, this, "ptr", pbstrTemplate, "HRESULT")
-        return result
+        return pbstrTemplate
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwWidth 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresettings-getsequencepaddingwidth
      */
-    GetSequencePaddingWidth(pdwWidth) {
-        pdwWidthMarshal := pdwWidth is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, pdwWidthMarshal, pdwWidth, "HRESULT")
-        return result
+    GetSequencePaddingWidth() {
+        result := ComCall(12, this, "uint*", &pdwWidth := 0, "HRESULT")
+        return pdwWidth
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfZeroPad 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresettings-getsequencezeropadding
      */
-    GetSequenceZeroPadding(pfZeroPad) {
-        result := ComCall(13, this, "ptr", pfZeroPad, "HRESULT")
-        return result
+    GetSequenceZeroPadding() {
+        result := ComCall(13, this, "int*", &pfZeroPad := 0, "HRESULT")
+        return pfZeroPad
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrGroupTag 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresettings-getgrouptag
      */
-    GetGroupTag(pbstrGroupTag) {
+    GetGroupTag() {
+        pbstrGroupTag := BSTR()
         result := ComCall(14, this, "ptr", pbstrGroupTag, "HRESULT")
-        return result
+        return pbstrGroupTag
     }
 
     /**
      * 
-     * @param {Pointer<FILETIME>} pftAcquisitionTime 
-     * @returns {HRESULT} 
+     * @returns {FILETIME} 
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresettings-getacquisitiontime
      */
-    GetAcquisitionTime(pftAcquisitionTime) {
+    GetAcquisitionTime() {
+        pftAcquisitionTime := FILETIME()
         result := ComCall(15, this, "ptr", pftAcquisitionTime, "HRESULT")
-        return result
+        return pftAcquisitionTime
     }
 }

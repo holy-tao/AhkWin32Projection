@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumWIA_FORMAT_INFO.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -67,12 +68,11 @@ class IWiaTransfer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumWIA_FORMAT_INFO>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumWIA_FORMAT_INFO} 
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiatransfer-enumwia-format-info
      */
-    EnumWIA_FORMAT_INFO(ppEnum) {
-        result := ComCall(6, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumWIA_FORMAT_INFO() {
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumWIA_FORMAT_INFO(ppEnum)
     }
 }

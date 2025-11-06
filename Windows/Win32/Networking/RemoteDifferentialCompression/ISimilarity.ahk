@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IFindSimilarResults.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -42,18 +43,16 @@ class ISimilarity extends IUnknown{
      * @param {BOOL} truncate 
      * @param {Pointer<Integer>} securityDescriptor 
      * @param {Integer} recordSize 
-     * @param {Pointer<Integer>} isNew 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilarity-createtable
      */
-    CreateTable(path, truncate, securityDescriptor, recordSize, isNew) {
+    CreateTable(path, truncate, securityDescriptor, recordSize) {
         path := path is String ? StrPtr(path) : path
 
         securityDescriptorMarshal := securityDescriptor is VarRef ? "char*" : "ptr"
-        isNewMarshal := isNew is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", path, "int", truncate, securityDescriptorMarshal, securityDescriptor, "uint", recordSize, isNewMarshal, isNew, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", path, "int", truncate, securityDescriptorMarshal, securityDescriptor, "uint", recordSize, "int*", &isNew := 0, "HRESULT")
+        return isNew
     }
 
     /**
@@ -62,15 +61,12 @@ class ISimilarity extends IUnknown{
      * @param {IRdcFileWriter} fileIdFile 
      * @param {BOOL} truncate 
      * @param {Integer} recordSize 
-     * @param {Pointer<Integer>} isNew 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilarity-createtableindirect
      */
-    CreateTableIndirect(mapping, fileIdFile, truncate, recordSize, isNew) {
-        isNewMarshal := isNew is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, "ptr", mapping, "ptr", fileIdFile, "int", truncate, "uint", recordSize, isNewMarshal, isNew, "HRESULT")
-        return result
+    CreateTableIndirect(mapping, fileIdFile, truncate, recordSize) {
+        result := ComCall(4, this, "ptr", mapping, "ptr", fileIdFile, "int", truncate, "uint", recordSize, "int*", &isNew := 0, "HRESULT")
+        return isNew
     }
 
     /**
@@ -101,13 +97,12 @@ class ISimilarity extends IUnknown{
      * @param {Pointer<SimilarityData>} similarityData 
      * @param {Integer} numberOfMatchesRequired 
      * @param {Integer} resultsSize 
-     * @param {Pointer<IFindSimilarResults>} findSimilarResults 
-     * @returns {HRESULT} 
+     * @returns {IFindSimilarResults} 
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilarity-findsimilarfileid
      */
-    FindSimilarFileId(similarityData, numberOfMatchesRequired, resultsSize, findSimilarResults) {
-        result := ComCall(7, this, "ptr", similarityData, "ushort", numberOfMatchesRequired, "uint", resultsSize, "ptr*", findSimilarResults, "HRESULT")
-        return result
+    FindSimilarFileId(similarityData, numberOfMatchesRequired, resultsSize) {
+        result := ComCall(7, this, "ptr", similarityData, "ushort", numberOfMatchesRequired, "uint", resultsSize, "ptr*", &findSimilarResults := 0, "HRESULT")
+        return IFindSimilarResults(findSimilarResults)
     }
 
     /**
@@ -124,14 +119,11 @@ class ISimilarity extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} recordCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilarity-getrecordcount
      */
-    GetRecordCount(recordCount) {
-        recordCountMarshal := recordCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, recordCountMarshal, recordCount, "HRESULT")
-        return result
+    GetRecordCount() {
+        result := ComCall(9, this, "uint*", &recordCount := 0, "HRESULT")
+        return recordCount
     }
 }

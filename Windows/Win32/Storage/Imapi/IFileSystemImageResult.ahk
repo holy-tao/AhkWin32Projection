@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IStream.ahk
+#Include .\IProgressItems.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -43,60 +46,52 @@ class IFileSystemImageResult extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IStream>} pVal 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimageresult-get_imagestream
      */
-    get_ImageStream(pVal) {
-        result := ComCall(7, this, "ptr*", pVal, "HRESULT")
-        return result
+    get_ImageStream() {
+        result := ComCall(7, this, "ptr*", &pVal := 0, "HRESULT")
+        return IStream(pVal)
     }
 
     /**
      * 
-     * @param {Pointer<IProgressItems>} pVal 
-     * @returns {HRESULT} 
+     * @returns {IProgressItems} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimageresult-get_progressitems
      */
-    get_ProgressItems(pVal) {
-        result := ComCall(8, this, "ptr*", pVal, "HRESULT")
-        return result
+    get_ProgressItems() {
+        result := ComCall(8, this, "ptr*", &pVal := 0, "HRESULT")
+        return IProgressItems(pVal)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimageresult-get_totalblocks
      */
-    get_TotalBlocks(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_TotalBlocks() {
+        result := ComCall(9, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimageresult-get_blocksize
      */
-    get_BlockSize(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_BlockSize() {
+        result := ComCall(10, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimageresult-get_discid
      */
-    get_DiscId(pVal) {
+    get_DiscId() {
+        pVal := BSTR()
         result := ComCall(11, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 }

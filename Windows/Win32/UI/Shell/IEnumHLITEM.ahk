@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumHLITEM.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -63,11 +64,10 @@ class IEnumHLITEM extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumHLITEM>} ppienumhlitem 
-     * @returns {HRESULT} 
+     * @returns {IEnumHLITEM} 
      */
-    Clone(ppienumhlitem) {
-        result := ComCall(6, this, "ptr*", ppienumhlitem, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppienumhlitem := 0, "HRESULT")
+        return IEnumHLITEM(ppienumhlitem)
     }
 }

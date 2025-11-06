@@ -32,13 +32,12 @@ class IWsbApplicationAsync extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HRESULT>} phrResult 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/wsbapp/nf-wsbapp-iwsbapplicationasync-querystatus
      */
-    QueryStatus(phrResult) {
-        result := ComCall(3, this, "ptr", phrResult, "HRESULT")
-        return result
+    QueryStatus() {
+        result := ComCall(3, this, "int*", &phrResult := 0, "HRESULT")
+        return phrResult
     }
 
     /**

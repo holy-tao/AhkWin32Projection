@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFMediaType.ahk
+#Include .\IMFASFStreamConfig.ahk
 #Include .\IMFAttributes.ahk
 
 /**
@@ -32,13 +34,13 @@ class IMFASFStreamConfig extends IMFAttributes{
 
     /**
      * 
-     * @param {Pointer<Guid>} pguidStreamType 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfstreamconfig-getstreamtype
      */
-    GetStreamType(pguidStreamType) {
+    GetStreamType() {
+        pguidStreamType := Guid()
         result := ComCall(33, this, "ptr", pguidStreamType, "HRESULT")
-        return result
+        return pguidStreamType
     }
 
     /**
@@ -64,13 +66,12 @@ class IMFASFStreamConfig extends IMFAttributes{
 
     /**
      * 
-     * @param {Pointer<IMFMediaType>} ppIMediaType 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaType} 
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfstreamconfig-getmediatype
      */
-    GetMediaType(ppIMediaType) {
-        result := ComCall(36, this, "ptr*", ppIMediaType, "HRESULT")
-        return result
+    GetMediaType() {
+        result := ComCall(36, this, "ptr*", &ppIMediaType := 0, "HRESULT")
+        return IMFMediaType(ppIMediaType)
     }
 
     /**
@@ -86,15 +87,12 @@ class IMFASFStreamConfig extends IMFAttributes{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcPayloadExtensions 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfstreamconfig-getpayloadextensioncount
      */
-    GetPayloadExtensionCount(pcPayloadExtensions) {
-        pcPayloadExtensionsMarshal := pcPayloadExtensions is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(38, this, pcPayloadExtensionsMarshal, pcPayloadExtensions, "HRESULT")
-        return result
+    GetPayloadExtensionCount() {
+        result := ComCall(38, this, "ushort*", &pcPayloadExtensions := 0, "HRESULT")
+        return pcPayloadExtensions
     }
 
     /**
@@ -144,12 +142,11 @@ class IMFASFStreamConfig extends IMFAttributes{
 
     /**
      * 
-     * @param {Pointer<IMFASFStreamConfig>} ppIStreamConfig 
-     * @returns {HRESULT} 
+     * @returns {IMFASFStreamConfig} 
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfstreamconfig-clone
      */
-    Clone(ppIStreamConfig) {
-        result := ComCall(42, this, "ptr*", ppIStreamConfig, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(42, this, "ptr*", &ppIStreamConfig := 0, "HRESULT")
+        return IMFASFStreamConfig(ppIStreamConfig)
     }
 }

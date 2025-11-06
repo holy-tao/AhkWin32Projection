@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IJsDebugFrame.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -30,11 +31,10 @@ class IJsDebugStackWalker extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IJsDebugFrame>} ppFrame 
-     * @returns {HRESULT} 
+     * @returns {IJsDebugFrame} 
      */
-    GetNext(ppFrame) {
-        result := ComCall(3, this, "ptr*", ppFrame, "HRESULT")
-        return result
+    GetNext() {
+        result := ComCall(3, this, "ptr*", &ppFrame := 0, "HRESULT")
+        return IJsDebugFrame(ppFrame)
     }
 }

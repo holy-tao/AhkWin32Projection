@@ -32,15 +32,12 @@ class IMediaPosition extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} plength 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediaposition-get_duration
      */
-    get_Duration(plength) {
-        plengthMarshal := plength is VarRef ? "double*" : "ptr"
-
-        result := ComCall(7, this, plengthMarshal, plength, "HRESULT")
-        return result
+    get_Duration() {
+        result := ComCall(7, this, "double*", &plength := 0, "HRESULT")
+        return plength
     }
 
     /**
@@ -56,28 +53,22 @@ class IMediaPosition extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} pllTime 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediaposition-get_currentposition
      */
-    get_CurrentPosition(pllTime) {
-        pllTimeMarshal := pllTime is VarRef ? "double*" : "ptr"
-
-        result := ComCall(9, this, pllTimeMarshal, pllTime, "HRESULT")
-        return result
+    get_CurrentPosition() {
+        result := ComCall(9, this, "double*", &pllTime := 0, "HRESULT")
+        return pllTime
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pllTime 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediaposition-get_stoptime
      */
-    get_StopTime(pllTime) {
-        pllTimeMarshal := pllTime is VarRef ? "double*" : "ptr"
-
-        result := ComCall(10, this, pllTimeMarshal, pllTime, "HRESULT")
-        return result
+    get_StopTime() {
+        result := ComCall(10, this, "double*", &pllTime := 0, "HRESULT")
+        return pllTime
     }
 
     /**
@@ -93,15 +84,12 @@ class IMediaPosition extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} pllTime 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediaposition-get_prerolltime
      */
-    get_PrerollTime(pllTime) {
-        pllTimeMarshal := pllTime is VarRef ? "double*" : "ptr"
-
-        result := ComCall(12, this, pllTimeMarshal, pllTime, "HRESULT")
-        return result
+    get_PrerollTime() {
+        result := ComCall(12, this, "double*", &pllTime := 0, "HRESULT")
+        return pllTime
     }
 
     /**
@@ -128,40 +116,31 @@ class IMediaPosition extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} pdRate 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediaposition-get_rate
      */
-    get_Rate(pdRate) {
-        pdRateMarshal := pdRate is VarRef ? "double*" : "ptr"
-
-        result := ComCall(15, this, pdRateMarshal, pdRate, "HRESULT")
-        return result
+    get_Rate() {
+        result := ComCall(15, this, "double*", &pdRate := 0, "HRESULT")
+        return pdRate
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCanSeekForward 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediaposition-canseekforward
      */
-    CanSeekForward(pCanSeekForward) {
-        pCanSeekForwardMarshal := pCanSeekForward is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, pCanSeekForwardMarshal, pCanSeekForward, "HRESULT")
-        return result
+    CanSeekForward() {
+        result := ComCall(16, this, "int*", &pCanSeekForward := 0, "HRESULT")
+        return pCanSeekForward
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCanSeekBackward 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-imediaposition-canseekbackward
      */
-    CanSeekBackward(pCanSeekBackward) {
-        pCanSeekBackwardMarshal := pCanSeekBackward is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, pCanSeekBackwardMarshal, pCanSeekBackward, "HRESULT")
-        return result
+    CanSeekBackward() {
+        result := ComCall(17, this, "int*", &pCanSeekBackward := 0, "HRESULT")
+        return pCanSeekBackward
     }
 }

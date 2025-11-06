@@ -43,14 +43,11 @@ class IAudioEndpointOffloadStreamMute extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pbMuted 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudioendpointoffloadstreammute-getmute
      */
-    GetMute(pbMuted) {
-        pbMutedMarshal := pbMuted is VarRef ? "char*" : "ptr"
-
-        result := ComCall(4, this, pbMutedMarshal, pbMuted, "HRESULT")
-        return result
+    GetMute() {
+        result := ComCall(4, this, "char*", &pbMuted := 0, "HRESULT")
+        return pbMuted
     }
 }

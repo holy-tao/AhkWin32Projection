@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Gdi\HDC.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -44,15 +45,13 @@ class ID2D1GdiInteropRenderTarget extends IUnknown{
     /**
      * The GetDC function retrieves a handle to a device context (DC) for the client area of a specified window or for the entire screen.
      * @param {Integer} mode 
-     * @param {Pointer<HDC>} hdc 
-     * @returns {HRESULT} If the function succeeds, the return value is a handle to the DC for the specified window's client area.
-     * 
-     * If the function fails, the return value is <b>NULL</b>.
+     * @returns {HDC} 
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getdc
      */
-    GetDC(mode, hdc) {
+    GetDC(mode) {
+        hdc := HDC()
         result := ComCall(3, this, "int", mode, "ptr", hdc, "HRESULT")
-        return result
+        return hdc
     }
 
     /**

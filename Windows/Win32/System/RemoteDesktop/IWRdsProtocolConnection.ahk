@@ -1,6 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWRdsProtocolLogonErrorRedirector.ahk
+#Include .\WTS_CLIENT_DATA.ahk
+#Include .\WTS_USER_CREDENTIAL.ahk
+#Include .\IWRdsProtocolLicenseConnection.ahk
+#Include .\WTS_SESSION_ID.ahk
+#Include .\WTS_PROTOCOL_STATUS.ahk
+#Include .\WTS_PROPERTY_VALUE.ahk
+#Include .\IWRdsProtocolShadowConnection.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -36,13 +44,12 @@ class IWRdsProtocolConnection extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IWRdsProtocolLogonErrorRedirector>} ppLogonErrorRedir 
-     * @returns {HRESULT} 
+     * @returns {IWRdsProtocolLogonErrorRedirector} 
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocolconnection-getlogonerrorredirector
      */
-    GetLogonErrorRedirector(ppLogonErrorRedir) {
-        result := ComCall(3, this, "ptr*", ppLogonErrorRedir, "HRESULT")
-        return result
+    GetLogonErrorRedirector() {
+        result := ComCall(3, this, "ptr*", &ppLogonErrorRedir := 0, "HRESULT")
+        return IWRdsProtocolLogonErrorRedirector(ppLogonErrorRedir)
     }
 
     /**
@@ -57,13 +64,13 @@ class IWRdsProtocolConnection extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<WTS_CLIENT_DATA>} pClientData 
-     * @returns {HRESULT} 
+     * @returns {WTS_CLIENT_DATA} 
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocolconnection-getclientdata
      */
-    GetClientData(pClientData) {
+    GetClientData() {
+        pClientData := WTS_CLIENT_DATA()
         result := ComCall(5, this, "ptr", pClientData, "HRESULT")
-        return result
+        return pClientData
     }
 
     /**
@@ -83,35 +90,34 @@ class IWRdsProtocolConnection extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<WTS_USER_CREDENTIAL>} pUserCreds 
-     * @returns {HRESULT} 
+     * @returns {WTS_USER_CREDENTIAL} 
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocolconnection-getusercredentials
      */
-    GetUserCredentials(pUserCreds) {
+    GetUserCredentials() {
+        pUserCreds := WTS_USER_CREDENTIAL()
         result := ComCall(7, this, "ptr", pUserCreds, "HRESULT")
-        return result
+        return pUserCreds
     }
 
     /**
      * 
-     * @param {Pointer<IWRdsProtocolLicenseConnection>} ppLicenseConnection 
-     * @returns {HRESULT} 
+     * @returns {IWRdsProtocolLicenseConnection} 
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocolconnection-getlicenseconnection
      */
-    GetLicenseConnection(ppLicenseConnection) {
-        result := ComCall(8, this, "ptr*", ppLicenseConnection, "HRESULT")
-        return result
+    GetLicenseConnection() {
+        result := ComCall(8, this, "ptr*", &ppLicenseConnection := 0, "HRESULT")
+        return IWRdsProtocolLicenseConnection(ppLicenseConnection)
     }
 
     /**
      * 
-     * @param {Pointer<WTS_SESSION_ID>} SessionId 
-     * @returns {HRESULT} 
+     * @returns {WTS_SESSION_ID} 
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocolconnection-authenticateclienttosession
      */
-    AuthenticateClientToSession(SessionId) {
+    AuthenticateClientToSession() {
+        SessionId := WTS_SESSION_ID()
         result := ComCall(9, this, "ptr", SessionId, "HRESULT")
-        return result
+        return SessionId
     }
 
     /**
@@ -135,19 +141,22 @@ class IWRdsProtocolConnection extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocolconnection-getinputhandles
      */
     GetInputHandles(pKeyboardHandle, pMouseHandle, pBeepHandle) {
-        result := ComCall(11, this, "ptr", pKeyboardHandle, "ptr", pMouseHandle, "ptr", pBeepHandle, "HRESULT")
+        pKeyboardHandleMarshal := pKeyboardHandle is VarRef ? "ptr*" : "ptr"
+        pMouseHandleMarshal := pMouseHandle is VarRef ? "ptr*" : "ptr"
+        pBeepHandleMarshal := pBeepHandle is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(11, this, pKeyboardHandleMarshal, pKeyboardHandle, pMouseHandleMarshal, pMouseHandle, pBeepHandleMarshal, pBeepHandle, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<HANDLE_PTR>} pVideoHandle 
-     * @returns {HRESULT} 
+     * @returns {HANDLE_PTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocolconnection-getvideohandle
      */
-    GetVideoHandle(pVideoHandle) {
-        result := ComCall(12, this, "ptr", pVideoHandle, "HRESULT")
-        return result
+    GetVideoHandle() {
+        result := ComCall(12, this, "ptr*", &pVideoHandle := 0, "HRESULT")
+        return pVideoHandle
     }
 
     /**
@@ -182,17 +191,15 @@ class IWRdsProtocolConnection extends IUnknown{
      * 
      * @param {HANDLE_PTR} hUserToken 
      * @param {BOOL} bSingleSessionPerUserEnabled 
-     * @param {Pointer<Integer>} pSessionIdArray 
      * @param {Pointer<Integer>} pdwSessionIdentifierCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocolconnection-sessionarbitrationenumeration
      */
-    SessionArbitrationEnumeration(hUserToken, bSingleSessionPerUserEnabled, pSessionIdArray, pdwSessionIdentifierCount) {
-        pSessionIdArrayMarshal := pSessionIdArray is VarRef ? "uint*" : "ptr"
+    SessionArbitrationEnumeration(hUserToken, bSingleSessionPerUserEnabled, pdwSessionIdentifierCount) {
         pdwSessionIdentifierCountMarshal := pdwSessionIdentifierCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, "ptr", hUserToken, "int", bSingleSessionPerUserEnabled, pSessionIdArrayMarshal, pSessionIdArray, pdwSessionIdentifierCountMarshal, pdwSessionIdentifierCount, "HRESULT")
-        return result
+        result := ComCall(15, this, "ptr", hUserToken, "int", bSingleSessionPerUserEnabled, "uint*", &pSessionIdArray := 0, pdwSessionIdentifierCountMarshal, pdwSessionIdentifierCount, "HRESULT")
+        return pSessionIdArray
     }
 
     /**
@@ -246,26 +253,23 @@ class IWRdsProtocolConnection extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<WTS_PROTOCOL_STATUS>} pProtocolStatus 
-     * @returns {HRESULT} 
+     * @returns {WTS_PROTOCOL_STATUS} 
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocolconnection-getprotocolstatus
      */
-    GetProtocolStatus(pProtocolStatus) {
+    GetProtocolStatus() {
+        pProtocolStatus := WTS_PROTOCOL_STATUS()
         result := ComCall(20, this, "ptr", pProtocolStatus, "HRESULT")
-        return result
+        return pProtocolStatus
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pLastInputTime 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocolconnection-getlastinputtime
      */
-    GetLastInputTime(pLastInputTime) {
-        pLastInputTimeMarshal := pLastInputTime is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(21, this, pLastInputTimeMarshal, pLastInputTime, "HRESULT")
-        return result
+    GetLastInputTime() {
+        result := ComCall(21, this, "uint*", &pLastInputTime := 0, "HRESULT")
+        return pLastInputTime
     }
 
     /**
@@ -284,17 +288,14 @@ class IWRdsProtocolConnection extends IUnknown{
      * @param {PSTR} szEndpointName 
      * @param {BOOL} bStatic 
      * @param {Integer} RequestedPriority 
-     * @param {Pointer<Pointer>} phChannel 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocolconnection-createvirtualchannel
      */
-    CreateVirtualChannel(szEndpointName, bStatic, RequestedPriority, phChannel) {
+    CreateVirtualChannel(szEndpointName, bStatic, RequestedPriority) {
         szEndpointName := szEndpointName is String ? StrPtr(szEndpointName) : szEndpointName
 
-        phChannelMarshal := phChannel is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(23, this, "ptr", szEndpointName, "int", bStatic, "uint", RequestedPriority, phChannelMarshal, phChannel, "HRESULT")
-        return result
+        result := ComCall(23, this, "ptr", szEndpointName, "int", bStatic, "uint", RequestedPriority, "ptr*", &phChannel := 0, "HRESULT")
+        return phChannel
     }
 
     /**
@@ -303,24 +304,23 @@ class IWRdsProtocolConnection extends IUnknown{
      * @param {Integer} ulNumEntriesIn 
      * @param {Integer} ulNumEntriesOut 
      * @param {Pointer<WTS_PROPERTY_VALUE>} pPropertyEntriesIn 
-     * @param {Pointer<WTS_PROPERTY_VALUE>} pPropertyEntriesOut 
-     * @returns {HRESULT} 
+     * @returns {WTS_PROPERTY_VALUE} 
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocolconnection-queryproperty
      */
-    QueryProperty(QueryType, ulNumEntriesIn, ulNumEntriesOut, pPropertyEntriesIn, pPropertyEntriesOut) {
+    QueryProperty(QueryType, ulNumEntriesIn, ulNumEntriesOut, pPropertyEntriesIn) {
+        pPropertyEntriesOut := WTS_PROPERTY_VALUE()
         result := ComCall(24, this, "ptr", QueryType, "uint", ulNumEntriesIn, "uint", ulNumEntriesOut, "ptr", pPropertyEntriesIn, "ptr", pPropertyEntriesOut, "HRESULT")
-        return result
+        return pPropertyEntriesOut
     }
 
     /**
      * 
-     * @param {Pointer<IWRdsProtocolShadowConnection>} ppShadowConnection 
-     * @returns {HRESULT} 
+     * @returns {IWRdsProtocolShadowConnection} 
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocolconnection-getshadowconnection
      */
-    GetShadowConnection(ppShadowConnection) {
-        result := ComCall(25, this, "ptr*", ppShadowConnection, "HRESULT")
-        return result
+    GetShadowConnection() {
+        result := ComCall(25, this, "ptr*", &ppShadowConnection := 0, "HRESULT")
+        return IWRdsProtocolShadowConnection(ppShadowConnection)
     }
 
     /**

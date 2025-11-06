@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITSubStream.ahk
+#Include .\IEnumSubStream.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,13 +35,12 @@ class ITSubStreamControl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ITSubStream>} ppSubStream 
-     * @returns {HRESULT} 
+     * @returns {ITSubStream} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itsubstreamcontrol-createsubstream
      */
-    CreateSubStream(ppSubStream) {
-        result := ComCall(7, this, "ptr*", ppSubStream, "HRESULT")
-        return result
+    CreateSubStream() {
+        result := ComCall(7, this, "ptr*", &ppSubStream := 0, "HRESULT")
+        return ITSubStream(ppSubStream)
     }
 
     /**
@@ -54,23 +56,22 @@ class ITSubStreamControl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IEnumSubStream>} ppEnumSubStream 
-     * @returns {HRESULT} 
+     * @returns {IEnumSubStream} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itsubstreamcontrol-enumeratesubstreams
      */
-    EnumerateSubStreams(ppEnumSubStream) {
-        result := ComCall(9, this, "ptr*", ppEnumSubStream, "HRESULT")
-        return result
+    EnumerateSubStreams() {
+        result := ComCall(9, this, "ptr*", &ppEnumSubStream := 0, "HRESULT")
+        return IEnumSubStream(ppEnumSubStream)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pVariant 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itsubstreamcontrol-get_substreams
      */
-    get_SubStreams(pVariant) {
+    get_SubStreams() {
+        pVariant := VARIANT()
         result := ComCall(10, this, "ptr", pVariant, "HRESULT")
-        return result
+        return pVariant
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Graphics\Imaging\IWICBitmapSource.ahk
+#Include .\MilRectD.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -37,13 +39,12 @@ class IMILBitmapEffectImpl extends IUnknown{
     /**
      * 
      * @param {IMILBitmapEffectOutputConnector} pOutputConnector 
-     * @param {Pointer<VARIANT_BOOL>} pfModifyInPlace 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectimpl-isinplacemodificationallowed
      */
-    IsInPlaceModificationAllowed(pOutputConnector, pfModifyInPlace) {
-        result := ComCall(3, this, "ptr", pOutputConnector, "ptr", pfModifyInPlace, "HRESULT")
-        return result
+    IsInPlaceModificationAllowed(pOutputConnector) {
+        result := ComCall(3, this, "ptr", pOutputConnector, "short*", &pfModifyInPlace := 0, "HRESULT")
+        return pfModifyInPlace
     }
 
     /**
@@ -60,25 +61,24 @@ class IMILBitmapEffectImpl extends IUnknown{
     /**
      * 
      * @param {Integer} uiIndex 
-     * @param {Pointer<IWICBitmapSource>} ppBitmapSource 
-     * @returns {HRESULT} 
+     * @returns {IWICBitmapSource} 
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectimpl-getinputsource
      */
-    GetInputSource(uiIndex, ppBitmapSource) {
-        result := ComCall(5, this, "uint", uiIndex, "ptr*", ppBitmapSource, "HRESULT")
-        return result
+    GetInputSource(uiIndex) {
+        result := ComCall(5, this, "uint", uiIndex, "ptr*", &ppBitmapSource := 0, "HRESULT")
+        return IWICBitmapSource(ppBitmapSource)
     }
 
     /**
      * 
      * @param {Integer} uiIndex 
-     * @param {Pointer<MilRectD>} pRect 
-     * @returns {HRESULT} 
+     * @returns {MilRectD} 
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectimpl-getinputsourcebounds
      */
-    GetInputSourceBounds(uiIndex, pRect) {
+    GetInputSourceBounds(uiIndex) {
+        pRect := MilRectD()
         result := ComCall(6, this, "uint", uiIndex, "ptr", pRect, "HRESULT")
-        return result
+        return pRect
     }
 
     /**
@@ -86,13 +86,14 @@ class IMILBitmapEffectImpl extends IUnknown{
      * @param {Integer} uiIndex 
      * @param {IMILBitmapEffectRenderContext} pRenderContext 
      * @param {Pointer<VARIANT_BOOL>} pfModifyInPlace 
-     * @param {Pointer<IWICBitmapSource>} ppBitmapSource 
-     * @returns {HRESULT} 
+     * @returns {IWICBitmapSource} 
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectimpl-getinputbitmapsource
      */
-    GetInputBitmapSource(uiIndex, pRenderContext, pfModifyInPlace, ppBitmapSource) {
-        result := ComCall(7, this, "uint", uiIndex, "ptr", pRenderContext, "ptr", pfModifyInPlace, "ptr*", ppBitmapSource, "HRESULT")
-        return result
+    GetInputBitmapSource(uiIndex, pRenderContext, pfModifyInPlace) {
+        pfModifyInPlaceMarshal := pfModifyInPlace is VarRef ? "short*" : "ptr"
+
+        result := ComCall(7, this, "uint", uiIndex, "ptr", pRenderContext, pfModifyInPlaceMarshal, pfModifyInPlace, "ptr*", &ppBitmapSource := 0, "HRESULT")
+        return IWICBitmapSource(ppBitmapSource)
     }
 
     /**
@@ -100,13 +101,14 @@ class IMILBitmapEffectImpl extends IUnknown{
      * @param {Integer} uiIndex 
      * @param {IMILBitmapEffectRenderContext} pRenderContext 
      * @param {Pointer<VARIANT_BOOL>} pfModifyInPlace 
-     * @param {Pointer<IWICBitmapSource>} ppBitmapSource 
-     * @returns {HRESULT} 
+     * @returns {IWICBitmapSource} 
      * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectimpl-getoutputbitmapsource
      */
-    GetOutputBitmapSource(uiIndex, pRenderContext, pfModifyInPlace, ppBitmapSource) {
-        result := ComCall(8, this, "uint", uiIndex, "ptr", pRenderContext, "ptr", pfModifyInPlace, "ptr*", ppBitmapSource, "HRESULT")
-        return result
+    GetOutputBitmapSource(uiIndex, pRenderContext, pfModifyInPlace) {
+        pfModifyInPlaceMarshal := pfModifyInPlace is VarRef ? "short*" : "ptr"
+
+        result := ComCall(8, this, "uint", uiIndex, "ptr", pRenderContext, pfModifyInPlaceMarshal, pfModifyInPlace, "ptr*", &ppBitmapSource := 0, "HRESULT")
+        return IWICBitmapSource(ppBitmapSource)
     }
 
     /**

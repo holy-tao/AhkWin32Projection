@@ -44,8 +44,9 @@ class IBDA_DRM extends IUnknown{
      */
     GetDRMPairingStatus(pdwStatus, phError) {
         pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
+        phErrorMarshal := phError is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, pdwStatusMarshal, pdwStatus, "ptr", phError, "HRESULT")
+        result := ComCall(3, this, pdwStatusMarshal, pdwStatus, phErrorMarshal, phError, "HRESULT")
         return result
     }
 

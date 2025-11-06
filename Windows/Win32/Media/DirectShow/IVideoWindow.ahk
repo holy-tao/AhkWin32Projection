@@ -46,13 +46,13 @@ class IVideoWindow extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} strCaption 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-get_caption
      */
-    get_Caption(strCaption) {
+    get_Caption() {
+        strCaption := BSTR()
         result := ComCall(8, this, "ptr", strCaption, "HRESULT")
-        return result
+        return strCaption
     }
 
     /**
@@ -68,15 +68,12 @@ class IVideoWindow extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} WindowStyle 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-get_windowstyle
      */
-    get_WindowStyle(WindowStyle) {
-        WindowStyleMarshal := WindowStyle is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, WindowStyleMarshal, WindowStyle, "HRESULT")
-        return result
+    get_WindowStyle() {
+        result := ComCall(10, this, "int*", &WindowStyle := 0, "HRESULT")
+        return WindowStyle
     }
 
     /**
@@ -92,15 +89,12 @@ class IVideoWindow extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} WindowStyleEx 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-get_windowstyleex
      */
-    get_WindowStyleEx(WindowStyleEx) {
-        WindowStyleExMarshal := WindowStyleEx is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, WindowStyleExMarshal, WindowStyleEx, "HRESULT")
-        return result
+    get_WindowStyleEx() {
+        result := ComCall(12, this, "int*", &WindowStyleEx := 0, "HRESULT")
+        return WindowStyleEx
     }
 
     /**
@@ -116,15 +110,12 @@ class IVideoWindow extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} AutoShow 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-get_autoshow
      */
-    get_AutoShow(AutoShow) {
-        AutoShowMarshal := AutoShow is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, AutoShowMarshal, AutoShow, "HRESULT")
-        return result
+    get_AutoShow() {
+        result := ComCall(14, this, "int*", &AutoShow := 0, "HRESULT")
+        return AutoShow
     }
 
     /**
@@ -140,15 +131,12 @@ class IVideoWindow extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} WindowState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-get_windowstate
      */
-    get_WindowState(WindowState) {
-        WindowStateMarshal := WindowState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, WindowStateMarshal, WindowState, "HRESULT")
-        return result
+    get_WindowState() {
+        result := ComCall(16, this, "int*", &WindowState := 0, "HRESULT")
+        return WindowState
     }
 
     /**
@@ -164,15 +152,12 @@ class IVideoWindow extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pBackgroundPalette 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-get_backgroundpalette
      */
-    get_BackgroundPalette(pBackgroundPalette) {
-        pBackgroundPaletteMarshal := pBackgroundPalette is VarRef ? "int*" : "ptr"
-
-        result := ComCall(18, this, pBackgroundPaletteMarshal, pBackgroundPalette, "HRESULT")
-        return result
+    get_BackgroundPalette() {
+        result := ComCall(18, this, "int*", &pBackgroundPalette := 0, "HRESULT")
+        return pBackgroundPalette
     }
 
     /**
@@ -188,15 +173,12 @@ class IVideoWindow extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVisible 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-get_visible
      */
-    get_Visible(pVisible) {
-        pVisibleMarshal := pVisible is VarRef ? "int*" : "ptr"
-
-        result := ComCall(20, this, pVisibleMarshal, pVisible, "HRESULT")
-        return result
+    get_Visible() {
+        result := ComCall(20, this, "int*", &pVisible := 0, "HRESULT")
+        return pVisible
     }
 
     /**
@@ -212,15 +194,12 @@ class IVideoWindow extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pLeft 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-get_left
      */
-    get_Left(pLeft) {
-        pLeftMarshal := pLeft is VarRef ? "int*" : "ptr"
-
-        result := ComCall(22, this, pLeftMarshal, pLeft, "HRESULT")
-        return result
+    get_Left() {
+        result := ComCall(22, this, "int*", &pLeft := 0, "HRESULT")
+        return pLeft
     }
 
     /**
@@ -236,15 +215,12 @@ class IVideoWindow extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pWidth 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-get_width
      */
-    get_Width(pWidth) {
-        pWidthMarshal := pWidth is VarRef ? "int*" : "ptr"
-
-        result := ComCall(24, this, pWidthMarshal, pWidth, "HRESULT")
-        return result
+    get_Width() {
+        result := ComCall(24, this, "int*", &pWidth := 0, "HRESULT")
+        return pWidth
     }
 
     /**
@@ -260,15 +236,12 @@ class IVideoWindow extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pTop 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-get_top
      */
-    get_Top(pTop) {
-        pTopMarshal := pTop is VarRef ? "int*" : "ptr"
-
-        result := ComCall(26, this, pTopMarshal, pTop, "HRESULT")
-        return result
+    get_Top() {
+        result := ComCall(26, this, "int*", &pTop := 0, "HRESULT")
+        return pTop
     }
 
     /**
@@ -284,15 +257,12 @@ class IVideoWindow extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pHeight 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-get_height
      */
-    get_Height(pHeight) {
-        pHeightMarshal := pHeight is VarRef ? "int*" : "ptr"
-
-        result := ComCall(28, this, pHeightMarshal, pHeight, "HRESULT")
-        return result
+    get_Height() {
+        result := ComCall(28, this, "int*", &pHeight := 0, "HRESULT")
+        return pHeight
     }
 
     /**
@@ -308,15 +278,12 @@ class IVideoWindow extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Pointer>} Owner 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-get_owner
      */
-    get_Owner(Owner) {
-        OwnerMarshal := Owner is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(30, this, OwnerMarshal, Owner, "HRESULT")
-        return result
+    get_Owner() {
+        result := ComCall(30, this, "ptr*", &Owner := 0, "HRESULT")
+        return Owner
     }
 
     /**
@@ -332,28 +299,22 @@ class IVideoWindow extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Pointer>} Drain 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-get_messagedrain
      */
-    get_MessageDrain(Drain) {
-        DrainMarshal := Drain is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(32, this, DrainMarshal, Drain, "HRESULT")
-        return result
+    get_MessageDrain() {
+        result := ComCall(32, this, "ptr*", &Drain := 0, "HRESULT")
+        return Drain
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Color 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-get_bordercolor
      */
-    get_BorderColor(Color) {
-        ColorMarshal := Color is VarRef ? "int*" : "ptr"
-
-        result := ComCall(33, this, ColorMarshal, Color, "HRESULT")
-        return result
+    get_BorderColor() {
+        result := ComCall(33, this, "int*", &Color := 0, "HRESULT")
+        return Color
     }
 
     /**
@@ -369,15 +330,12 @@ class IVideoWindow extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} FullScreenMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-get_fullscreenmode
      */
-    get_FullScreenMode(FullScreenMode) {
-        FullScreenModeMarshal := FullScreenMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(35, this, FullScreenModeMarshal, FullScreenMode, "HRESULT")
-        return result
+    get_FullScreenMode() {
+        result := ComCall(35, this, "int*", &FullScreenMode := 0, "HRESULT")
+        return FullScreenMode
     }
 
     /**
@@ -511,14 +469,11 @@ class IVideoWindow extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} CursorHidden 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/control/nf-control-ivideowindow-iscursorhidden
      */
-    IsCursorHidden(CursorHidden) {
-        CursorHiddenMarshal := CursorHidden is VarRef ? "int*" : "ptr"
-
-        result := ComCall(45, this, CursorHiddenMarshal, CursorHidden, "HRESULT")
-        return result
+    IsCursorHidden() {
+        result := ComCall(45, this, "int*", &CursorHidden := 0, "HRESULT")
+        return CursorHidden
     }
 }

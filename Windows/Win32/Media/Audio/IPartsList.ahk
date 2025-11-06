@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IPart.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,26 +33,22 @@ class IPartsList extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-ipartslist-getcount
      */
-    GetCount(pCount) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(3, this, "uint*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
      * 
      * @param {Integer} nIndex 
-     * @param {Pointer<IPart>} ppPart 
-     * @returns {HRESULT} 
+     * @returns {IPart} 
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-ipartslist-getpart
      */
-    GetPart(nIndex, ppPart) {
-        result := ComCall(4, this, "uint", nIndex, "ptr*", ppPart, "HRESULT")
-        return result
+    GetPart(nIndex) {
+        result := ComCall(4, this, "uint", nIndex, "ptr*", &ppPart := 0, "HRESULT")
+        return IPart(ppPart)
     }
 }

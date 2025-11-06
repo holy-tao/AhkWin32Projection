@@ -33,14 +33,11 @@ class IWMPlayerTimestampHook extends IUnknown{
     /**
      * 
      * @param {Integer} rtIn 
-     * @param {Pointer<Integer>} prtOut 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmdxva/nf-wmdxva-iwmplayertimestamphook-maptimestamp
      */
-    MapTimestamp(rtIn, prtOut) {
-        prtOutMarshal := prtOut is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(3, this, "int64", rtIn, prtOutMarshal, prtOut, "HRESULT")
-        return result
+    MapTimestamp(rtIn) {
+        result := ComCall(3, this, "int64", rtIn, "int64*", &prtOut := 0, "HRESULT")
+        return prtOut
     }
 }

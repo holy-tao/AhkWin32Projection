@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\MFCameraIntrinsic_DistortionModel6KT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,12 +31,12 @@ class IMFExtendedCameraIntrinsicsDistortionModel6KT extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<MFCameraIntrinsic_DistortionModel6KT>} pDistortionModel 
-     * @returns {HRESULT} 
+     * @returns {MFCameraIntrinsic_DistortionModel6KT} 
      */
-    GetDistortionModel(pDistortionModel) {
+    GetDistortionModel() {
+        pDistortionModel := MFCameraIntrinsic_DistortionModel6KT()
         result := ComCall(3, this, "ptr", pDistortionModel, "HRESULT")
-        return result
+        return pDistortionModel
     }
 
     /**

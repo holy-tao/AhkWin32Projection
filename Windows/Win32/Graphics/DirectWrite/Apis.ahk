@@ -64,23 +64,18 @@ class DirectWrite {
      * @param {Pointer<Guid>} iid Type: <b>REFIID</b>
      * 
      * A GUID value that identifies the DirectWrite factory interface, such as __uuidof(<a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefactory">IDWriteFactory</a>).
-     * @param {Pointer<Pointer<Void>>} factory Type: <b>IUnknown**</b>
+     * @returns {Pointer<Void>} Type: <b>IUnknown**</b>
      * 
      * An address of a pointer to the newly created DirectWrite factory object.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-dwritecreatefactory
      * @since windows6.1
      */
-    static DWriteCreateFactory(factoryType, iid, factory) {
-        factoryMarshal := factory is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("DWrite.dll\DWriteCreateFactory", "int", factoryType, "ptr", iid, factoryMarshal, factory, "int")
+    static DWriteCreateFactory(factoryType, iid) {
+        result := DllCall("DWrite.dll\DWriteCreateFactory", "int", factoryType, "ptr", iid, "ptr*", &factory := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return factory
     }
 
 ;@endregion Methods

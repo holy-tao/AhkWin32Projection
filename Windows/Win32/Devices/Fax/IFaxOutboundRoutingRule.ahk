@@ -43,52 +43,42 @@ class IFaxOutboundRoutingRule extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plCountryCode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutingrule-get_countrycode
      */
-    get_CountryCode(plCountryCode) {
-        plCountryCodeMarshal := plCountryCode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, plCountryCodeMarshal, plCountryCode, "HRESULT")
-        return result
+    get_CountryCode() {
+        result := ComCall(7, this, "int*", &plCountryCode := 0, "HRESULT")
+        return plCountryCode
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plAreaCode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutingrule-get_areacode
      */
-    get_AreaCode(plAreaCode) {
-        plAreaCodeMarshal := plAreaCode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, plAreaCodeMarshal, plAreaCode, "HRESULT")
-        return result
+    get_AreaCode() {
+        result := ComCall(8, this, "int*", &plAreaCode := 0, "HRESULT")
+        return plAreaCode
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutingrule-get_status
      */
-    get_Status(pStatus) {
-        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pStatusMarshal, pStatus, "HRESULT")
-        return result
+    get_Status() {
+        result := ComCall(9, this, "int*", &pStatus := 0, "HRESULT")
+        return pStatus
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbUseDevice 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutingrule-get_usedevice
      */
-    get_UseDevice(pbUseDevice) {
-        result := ComCall(10, this, "ptr", pbUseDevice, "HRESULT")
-        return result
+    get_UseDevice() {
+        result := ComCall(10, this, "short*", &pbUseDevice := 0, "HRESULT")
+        return pbUseDevice
     }
 
     /**
@@ -104,15 +94,12 @@ class IFaxOutboundRoutingRule extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plDeviceId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutingrule-get_deviceid
      */
-    get_DeviceId(plDeviceId) {
-        plDeviceIdMarshal := plDeviceId is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, plDeviceIdMarshal, plDeviceId, "HRESULT")
-        return result
+    get_DeviceId() {
+        result := ComCall(12, this, "int*", &plDeviceId := 0, "HRESULT")
+        return plDeviceId
     }
 
     /**
@@ -128,13 +115,13 @@ class IFaxOutboundRoutingRule extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrGroupName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutingrule-get_groupname
      */
-    get_GroupName(pbstrGroupName) {
+    get_GroupName() {
+        pbstrGroupName := BSTR()
         result := ComCall(14, this, "ptr", pbstrGroupName, "HRESULT")
-        return result
+        return pbstrGroupName
     }
 
     /**

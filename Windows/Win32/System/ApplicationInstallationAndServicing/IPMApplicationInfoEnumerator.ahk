@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IPMApplicationInfo.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -30,11 +31,10 @@ class IPMApplicationInfoEnumerator extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IPMApplicationInfo>} ppAppInfo 
-     * @returns {HRESULT} 
+     * @returns {IPMApplicationInfo} 
      */
-    get_Next(ppAppInfo) {
-        result := ComCall(3, this, "ptr*", ppAppInfo, "HRESULT")
-        return result
+    get_Next() {
+        result := ComCall(3, this, "ptr*", &ppAppInfo := 0, "HRESULT")
+        return IPMApplicationInfo(ppAppInfo)
     }
 }

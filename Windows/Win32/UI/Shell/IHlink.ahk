@@ -74,7 +74,9 @@ class IHlink extends IUnknown{
      * @returns {HRESULT} 
      */
     GetMonikerReference(dwWhichRef, ppimkTarget, ppwzLocation) {
-        result := ComCall(6, this, "uint", dwWhichRef, "ptr*", ppimkTarget, "ptr", ppwzLocation, "HRESULT")
+        ppwzLocationMarshal := ppwzLocation is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(6, this, "uint", dwWhichRef, "ptr*", ppimkTarget, ppwzLocationMarshal, ppwzLocation, "HRESULT")
         return result
     }
 
@@ -101,7 +103,10 @@ class IHlink extends IUnknown{
      * @returns {HRESULT} 
      */
     GetStringReference(dwWhichRef, ppwzTarget, ppwzLocation) {
-        result := ComCall(8, this, "uint", dwWhichRef, "ptr", ppwzTarget, "ptr", ppwzLocation, "HRESULT")
+        ppwzTargetMarshal := ppwzTarget is VarRef ? "ptr*" : "ptr"
+        ppwzLocationMarshal := ppwzLocation is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(8, this, "uint", dwWhichRef, ppwzTargetMarshal, ppwzTarget, ppwzLocationMarshal, ppwzLocation, "HRESULT")
         return result
     }
 
@@ -120,12 +125,11 @@ class IHlink extends IUnknown{
     /**
      * 
      * @param {Integer} grfHLFNAMEF 
-     * @param {Pointer<PWSTR>} ppwzFriendlyName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetFriendlyName(grfHLFNAMEF, ppwzFriendlyName) {
-        result := ComCall(10, this, "uint", grfHLFNAMEF, "ptr", ppwzFriendlyName, "HRESULT")
-        return result
+    GetFriendlyName(grfHLFNAMEF) {
+        result := ComCall(10, this, "uint", grfHLFNAMEF, "ptr*", &ppwzFriendlyName := 0, "HRESULT")
+        return ppwzFriendlyName
     }
 
     /**
@@ -142,24 +146,20 @@ class IHlink extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppwzTargetFrameName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetTargetFrameName(ppwzTargetFrameName) {
-        result := ComCall(12, this, "ptr", ppwzTargetFrameName, "HRESULT")
-        return result
+    GetTargetFrameName() {
+        result := ComCall(12, this, "ptr*", &ppwzTargetFrameName := 0, "HRESULT")
+        return ppwzTargetFrameName
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetMiscStatus(pdwStatus) {
-        pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(13, this, pdwStatusMarshal, pdwStatus, "HRESULT")
-        return result
+    GetMiscStatus() {
+        result := ComCall(13, this, "uint*", &pdwStatus := 0, "HRESULT")
+        return pdwStatus
     }
 
     /**
@@ -189,11 +189,10 @@ class IHlink extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppwzAdditionalParams 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetAdditionalParams(ppwzAdditionalParams) {
-        result := ComCall(16, this, "ptr", ppwzAdditionalParams, "HRESULT")
-        return result
+    GetAdditionalParams() {
+        result := ComCall(16, this, "ptr*", &ppwzAdditionalParams := 0, "HRESULT")
+        return ppwzAdditionalParams
     }
 }

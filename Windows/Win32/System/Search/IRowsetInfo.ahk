@@ -48,22 +48,20 @@ class IRowsetInfo extends IUnknown{
      * 
      * @param {Pointer} iOrdinal 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppReferencedRowset 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    GetReferencedRowset(iOrdinal, riid, ppReferencedRowset) {
-        result := ComCall(4, this, "ptr", iOrdinal, "ptr", riid, "ptr*", ppReferencedRowset, "HRESULT")
-        return result
+    GetReferencedRowset(iOrdinal, riid) {
+        result := ComCall(4, this, "ptr", iOrdinal, "ptr", riid, "ptr*", &ppReferencedRowset := 0, "HRESULT")
+        return IUnknown(ppReferencedRowset)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppSpecification 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    GetSpecification(riid, ppSpecification) {
-        result := ComCall(5, this, "ptr", riid, "ptr*", ppSpecification, "HRESULT")
-        return result
+    GetSpecification(riid) {
+        result := ComCall(5, this, "ptr", riid, "ptr*", &ppSpecification := 0, "HRESULT")
+        return IUnknown(ppSpecification)
     }
 }

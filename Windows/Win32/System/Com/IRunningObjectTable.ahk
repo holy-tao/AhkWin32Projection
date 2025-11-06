@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include .\IUnknown.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include .\IEnumMoniker.ahk
 
 /**
  * Manages access to the running object table (ROT), a globally accessible look-up table on each workstation.
@@ -44,15 +46,12 @@ class IRunningObjectTable extends IUnknown{
      * @param {Integer} grfFlags 
      * @param {IUnknown} punkObject 
      * @param {IMoniker} pmkObjectName 
-     * @param {Pointer<Integer>} pdwRegister 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-irunningobjecttable-register
      */
-    Register(grfFlags, punkObject, pmkObjectName, pdwRegister) {
-        pdwRegisterMarshal := pdwRegister is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "uint", grfFlags, "ptr", punkObject, "ptr", pmkObjectName, pdwRegisterMarshal, pdwRegister, "HRESULT")
-        return result
+    Register(grfFlags, punkObject, pmkObjectName) {
+        result := ComCall(3, this, "uint", grfFlags, "ptr", punkObject, "ptr", pmkObjectName, "uint*", &pdwRegister := 0, "HRESULT")
+        return pdwRegister
     }
 
     /**
@@ -80,17 +79,12 @@ class IRunningObjectTable extends IUnknown{
     /**
      * The GetObject function retrieves information for the specified graphics object.
      * @param {IMoniker} pmkObjectName 
-     * @param {Pointer<IUnknown>} ppunkObject 
-     * @returns {HRESULT} If the function succeeds, and <i>lpvObject</i> is a valid pointer, the return value is the number of bytes stored into the buffer.
-     * 
-     * If the function succeeds, and <i>lpvObject</i> is <b>NULL</b>, the return value is the number of bytes required to hold the information the function would store into the buffer.
-     * 
-     * If the function fails, the return value is zero.
+     * @returns {IUnknown} 
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getobject
      */
-    GetObject(pmkObjectName, ppunkObject) {
-        result := ComCall(6, this, "ptr", pmkObjectName, "ptr*", ppunkObject, "HRESULT")
-        return result
+    GetObject(pmkObjectName) {
+        result := ComCall(6, this, "ptr", pmkObjectName, "ptr*", &ppunkObject := 0, "HRESULT")
+        return IUnknown(ppunkObject)
     }
 
     /**
@@ -108,23 +102,22 @@ class IRunningObjectTable extends IUnknown{
     /**
      * 
      * @param {IMoniker} pmkObjectName 
-     * @param {Pointer<FILETIME>} pfiletime 
-     * @returns {HRESULT} 
+     * @returns {FILETIME} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-irunningobjecttable-gettimeoflastchange
      */
-    GetTimeOfLastChange(pmkObjectName, pfiletime) {
+    GetTimeOfLastChange(pmkObjectName) {
+        pfiletime := FILETIME()
         result := ComCall(8, this, "ptr", pmkObjectName, "ptr", pfiletime, "HRESULT")
-        return result
+        return pfiletime
     }
 
     /**
      * 
-     * @param {Pointer<IEnumMoniker>} ppenumMoniker 
-     * @returns {HRESULT} 
+     * @returns {IEnumMoniker} 
      * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-irunningobjecttable-enumrunning
      */
-    EnumRunning(ppenumMoniker) {
-        result := ComCall(9, this, "ptr*", ppenumMoniker, "HRESULT")
-        return result
+    EnumRunning() {
+        result := ComCall(9, this, "ptr*", &ppenumMoniker := 0, "HRESULT")
+        return IEnumMoniker(ppenumMoniker)
     }
 }

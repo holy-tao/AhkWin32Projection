@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDtcLuRecovery.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -32,13 +33,12 @@ class IDtcLuRecoveryFactory extends IUnknown{
      * 
      * @param {Pointer<Integer>} pucLuPair 
      * @param {Integer} cbLuPair 
-     * @param {Pointer<IDtcLuRecovery>} ppRecovery 
-     * @returns {HRESULT} 
+     * @returns {IDtcLuRecovery} 
      */
-    Create(pucLuPair, cbLuPair, ppRecovery) {
+    Create(pucLuPair, cbLuPair) {
         pucLuPairMarshal := pucLuPair is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, pucLuPairMarshal, pucLuPair, "uint", cbLuPair, "ptr*", ppRecovery, "HRESULT")
-        return result
+        result := ComCall(3, this, pucLuPairMarshal, pucLuPair, "uint", cbLuPair, "ptr*", &ppRecovery := 0, "HRESULT")
+        return IDtcLuRecovery(ppRecovery)
     }
 }

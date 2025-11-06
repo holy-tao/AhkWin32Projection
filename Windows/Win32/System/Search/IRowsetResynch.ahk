@@ -32,16 +32,13 @@ class IRowsetResynch extends IUnknown{
      * 
      * @param {Pointer} hRow 
      * @param {HACCESSOR} hAccessor 
-     * @param {Pointer<Void>} pData 
-     * @returns {HRESULT} 
+     * @returns {Void} 
      */
-    GetVisibleData(hRow, hAccessor, pData) {
+    GetVisibleData(hRow, hAccessor) {
         hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
 
-        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
-
-        result := ComCall(3, this, "ptr", hRow, "ptr", hAccessor, pDataMarshal, pData, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", hRow, "ptr", hAccessor, "ptr", &pData := 0, "HRESULT")
+        return pData
     }
 
     /**

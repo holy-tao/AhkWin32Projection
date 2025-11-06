@@ -89,12 +89,12 @@ class IRTCSessionCallControl extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrReferredByURI 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ReferredByURI(pbstrReferredByURI) {
+    get_ReferredByURI() {
+        pbstrReferredByURI := BSTR()
         result := ComCall(8, this, "ptr", pbstrReferredByURI, "HRESULT")
-        return result
+        return pbstrReferredByURI
     }
 
     /**
@@ -111,21 +111,20 @@ class IRTCSessionCallControl extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrReferCookie 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ReferCookie(pbstrReferCookie) {
+    get_ReferCookie() {
+        pbstrReferCookie := BSTR()
         result := ComCall(10, this, "ptr", pbstrReferCookie, "HRESULT")
-        return result
+        return pbstrReferCookie
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pfIsReferred 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_IsReferred(pfIsReferred) {
-        result := ComCall(11, this, "ptr", pfIsReferred, "HRESULT")
-        return result
+    get_IsReferred() {
+        result := ComCall(11, this, "short*", &pfIsReferred := 0, "HRESULT")
+        return pfIsReferred
     }
 }

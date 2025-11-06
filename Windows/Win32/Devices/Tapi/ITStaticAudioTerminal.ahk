@@ -32,14 +32,11 @@ class ITStaticAudioTerminal extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plWaveId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itstaticaudioterminal-get_waveid
      */
-    get_WaveId(plWaveId) {
-        plWaveIdMarshal := plWaveId is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, plWaveIdMarshal, plWaveId, "HRESULT")
-        return result
+    get_WaveId() {
+        result := ComCall(7, this, "int*", &plWaveId := 0, "HRESULT")
+        return plWaveId
     }
 }

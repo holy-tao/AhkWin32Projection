@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteLocalizedStrings.ahk
 #Include .\IDWriteFontFace5.ahk
 
 /**
@@ -31,22 +32,20 @@ class IDWriteFontFace6 extends IDWriteFontFace5{
     /**
      * 
      * @param {Integer} fontFamilyModel 
-     * @param {Pointer<IDWriteLocalizedStrings>} names 
-     * @returns {HRESULT} 
+     * @returns {IDWriteLocalizedStrings} 
      */
-    GetFamilyNames(fontFamilyModel, names) {
-        result := ComCall(58, this, "int", fontFamilyModel, "ptr*", names, "HRESULT")
-        return result
+    GetFamilyNames(fontFamilyModel) {
+        result := ComCall(58, this, "int", fontFamilyModel, "ptr*", &names := 0, "HRESULT")
+        return IDWriteLocalizedStrings(names)
     }
 
     /**
      * 
      * @param {Integer} fontFamilyModel 
-     * @param {Pointer<IDWriteLocalizedStrings>} names 
-     * @returns {HRESULT} 
+     * @returns {IDWriteLocalizedStrings} 
      */
-    GetFaceNames(fontFamilyModel, names) {
-        result := ComCall(59, this, "int", fontFamilyModel, "ptr*", names, "HRESULT")
-        return result
+    GetFaceNames(fontFamilyModel) {
+        result := ComCall(59, this, "int", fontFamilyModel, "ptr*", &names := 0, "HRESULT")
+        return IDWriteLocalizedStrings(names)
     }
 }

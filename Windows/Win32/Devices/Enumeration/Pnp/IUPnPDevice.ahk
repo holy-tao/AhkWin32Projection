@@ -2,6 +2,9 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IUPnPDevice.ahk
+#Include .\IUPnPDevices.ahk
+#Include .\IUPnPServices.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -39,189 +42,184 @@ class IUPnPDevice extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pvarb 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_isrootdevice
      */
-    get_IsRootDevice(pvarb) {
-        result := ComCall(7, this, "ptr", pvarb, "HRESULT")
-        return result
+    get_IsRootDevice() {
+        result := ComCall(7, this, "short*", &pvarb := 0, "HRESULT")
+        return pvarb
     }
 
     /**
      * 
-     * @param {Pointer<IUPnPDevice>} ppudRootDevice 
-     * @returns {HRESULT} 
+     * @returns {IUPnPDevice} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_rootdevice
      */
-    get_RootDevice(ppudRootDevice) {
-        result := ComCall(8, this, "ptr*", ppudRootDevice, "HRESULT")
-        return result
+    get_RootDevice() {
+        result := ComCall(8, this, "ptr*", &ppudRootDevice := 0, "HRESULT")
+        return IUPnPDevice(ppudRootDevice)
     }
 
     /**
      * 
-     * @param {Pointer<IUPnPDevice>} ppudDeviceParent 
-     * @returns {HRESULT} 
+     * @returns {IUPnPDevice} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_parentdevice
      */
-    get_ParentDevice(ppudDeviceParent) {
-        result := ComCall(9, this, "ptr*", ppudDeviceParent, "HRESULT")
-        return result
+    get_ParentDevice() {
+        result := ComCall(9, this, "ptr*", &ppudDeviceParent := 0, "HRESULT")
+        return IUPnPDevice(ppudDeviceParent)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pvarb 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_haschildren
      */
-    get_HasChildren(pvarb) {
-        result := ComCall(10, this, "ptr", pvarb, "HRESULT")
-        return result
+    get_HasChildren() {
+        result := ComCall(10, this, "short*", &pvarb := 0, "HRESULT")
+        return pvarb
     }
 
     /**
      * 
-     * @param {Pointer<IUPnPDevices>} ppudChildren 
-     * @returns {HRESULT} 
+     * @returns {IUPnPDevices} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_children
      */
-    get_Children(ppudChildren) {
-        result := ComCall(11, this, "ptr*", ppudChildren, "HRESULT")
-        return result
+    get_Children() {
+        result := ComCall(11, this, "ptr*", &ppudChildren := 0, "HRESULT")
+        return IUPnPDevices(ppudChildren)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_uniquedevicename
      */
-    get_UniqueDeviceName(pbstr) {
+    get_UniqueDeviceName() {
+        pbstr := BSTR()
         result := ComCall(12, this, "ptr", pbstr, "HRESULT")
-        return result
+        return pbstr
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_friendlyname
      */
-    get_FriendlyName(pbstr) {
+    get_FriendlyName() {
+        pbstr := BSTR()
         result := ComCall(13, this, "ptr", pbstr, "HRESULT")
-        return result
+        return pbstr
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_type
      */
-    get_Type(pbstr) {
+    get_Type() {
+        pbstr := BSTR()
         result := ComCall(14, this, "ptr", pbstr, "HRESULT")
-        return result
+        return pbstr
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_presentationurl
      */
-    get_PresentationURL(pbstr) {
+    get_PresentationURL() {
+        pbstr := BSTR()
         result := ComCall(15, this, "ptr", pbstr, "HRESULT")
-        return result
+        return pbstr
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_manufacturername
      */
-    get_ManufacturerName(pbstr) {
+    get_ManufacturerName() {
+        pbstr := BSTR()
         result := ComCall(16, this, "ptr", pbstr, "HRESULT")
-        return result
+        return pbstr
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_manufacturerurl
      */
-    get_ManufacturerURL(pbstr) {
+    get_ManufacturerURL() {
+        pbstr := BSTR()
         result := ComCall(17, this, "ptr", pbstr, "HRESULT")
-        return result
+        return pbstr
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_modelname
      */
-    get_ModelName(pbstr) {
+    get_ModelName() {
+        pbstr := BSTR()
         result := ComCall(18, this, "ptr", pbstr, "HRESULT")
-        return result
+        return pbstr
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_modelnumber
      */
-    get_ModelNumber(pbstr) {
+    get_ModelNumber() {
+        pbstr := BSTR()
         result := ComCall(19, this, "ptr", pbstr, "HRESULT")
-        return result
+        return pbstr
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_description
      */
-    get_Description(pbstr) {
+    get_Description() {
+        pbstr := BSTR()
         result := ComCall(20, this, "ptr", pbstr, "HRESULT")
-        return result
+        return pbstr
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_modelurl
      */
-    get_ModelURL(pbstr) {
+    get_ModelURL() {
+        pbstr := BSTR()
         result := ComCall(21, this, "ptr", pbstr, "HRESULT")
-        return result
+        return pbstr
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_upc
      */
-    get_UPC(pbstr) {
+    get_UPC() {
+        pbstr := BSTR()
         result := ComCall(22, this, "ptr", pbstr, "HRESULT")
-        return result
+        return pbstr
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_serialnumber
      */
-    get_SerialNumber(pbstr) {
+    get_SerialNumber() {
+        pbstr := BSTR()
         result := ComCall(23, this, "ptr", pbstr, "HRESULT")
-        return result
+        return pbstr
     }
 
     /**
@@ -230,25 +228,24 @@ class IUPnPDevice extends IDispatch{
      * @param {Integer} lSizeX 
      * @param {Integer} lSizeY 
      * @param {Integer} lBitDepth 
-     * @param {Pointer<BSTR>} pbstrIconURL 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-iconurl
      */
-    IconURL(bstrEncodingFormat, lSizeX, lSizeY, lBitDepth, pbstrIconURL) {
+    IconURL(bstrEncodingFormat, lSizeX, lSizeY, lBitDepth) {
         bstrEncodingFormat := bstrEncodingFormat is String ? BSTR.Alloc(bstrEncodingFormat).Value : bstrEncodingFormat
 
+        pbstrIconURL := BSTR()
         result := ComCall(24, this, "ptr", bstrEncodingFormat, "int", lSizeX, "int", lSizeY, "int", lBitDepth, "ptr", pbstrIconURL, "HRESULT")
-        return result
+        return pbstrIconURL
     }
 
     /**
      * 
-     * @param {Pointer<IUPnPServices>} ppusServices 
-     * @returns {HRESULT} 
+     * @returns {IUPnPServices} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevice-get_services
      */
-    get_Services(ppusServices) {
-        result := ComCall(25, this, "ptr*", ppusServices, "HRESULT")
-        return result
+    get_Services() {
+        result := ComCall(25, this, "ptr*", &ppusServices := 0, "HRESULT")
+        return IUPnPServices(ppusServices)
     }
 }

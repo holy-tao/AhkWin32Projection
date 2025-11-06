@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -53,13 +54,13 @@ class IIEWebDriverSite extends IDispatch{
      * 
      * @param {IUnknown} pUnkWD 
      * @param {PWSTR} capName 
-     * @param {Pointer<VARIANT>} capValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    GetCapabilityValue(pUnkWD, capName, capValue) {
+    GetCapabilityValue(pUnkWD, capName) {
         capName := capName is String ? StrPtr(capName) : capName
 
+        capValue := VARIANT()
         result := ComCall(9, this, "ptr", pUnkWD, "ptr", capName, "ptr", capValue, "HRESULT")
-        return result
+        return capValue
     }
 }

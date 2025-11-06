@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\SENSORPROFILEID.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,13 +33,13 @@ class IMFSensorProfile extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<SENSORPROFILEID>} pId 
-     * @returns {HRESULT} 
+     * @returns {SENSORPROFILEID} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensorprofile-getprofileid
      */
-    GetProfileId(pId) {
+    GetProfileId() {
+        pId := SENSORPROFILEID()
         result := ComCall(3, this, "ptr", pId, "HRESULT")
-        return result
+        return pId
     }
 
     /**
@@ -59,13 +60,12 @@ class IMFSensorProfile extends IUnknown{
      * 
      * @param {Integer} StreamId 
      * @param {IMFMediaType} pMediaType 
-     * @param {Pointer<BOOL>} pfSupported 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensorprofile-ismediatypesupported
      */
-    IsMediaTypeSupported(StreamId, pMediaType, pfSupported) {
-        result := ComCall(5, this, "uint", StreamId, "ptr", pMediaType, "ptr", pfSupported, "HRESULT")
-        return result
+    IsMediaTypeSupported(StreamId, pMediaType) {
+        result := ComCall(5, this, "uint", StreamId, "ptr", pMediaType, "int*", &pfSupported := 0, "HRESULT")
+        return pfSupported
     }
 
     /**

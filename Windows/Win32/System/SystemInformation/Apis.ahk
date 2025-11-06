@@ -700,9 +700,10 @@ class SystemInformation {
      * @returns {BOOL} 
      */
     static GetSystemLeapSecondInformation(Enabled, Flags) {
+        EnabledMarshal := Enabled is VarRef ? "int*" : "ptr"
         FlagsMarshal := Flags is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("KERNEL32.dll\GetSystemLeapSecondInformation", "ptr", Enabled, FlagsMarshal, Flags, "int")
+        result := DllCall("KERNEL32.dll\GetSystemLeapSecondInformation", EnabledMarshal, Enabled, FlagsMarshal, Flags, "int")
         return result
     }
 
@@ -790,10 +791,11 @@ class SystemInformation {
     static GetSystemTimeAdjustment(lpTimeAdjustment, lpTimeIncrement, lpTimeAdjustmentDisabled) {
         lpTimeAdjustmentMarshal := lpTimeAdjustment is VarRef ? "uint*" : "ptr"
         lpTimeIncrementMarshal := lpTimeIncrement is VarRef ? "uint*" : "ptr"
+        lpTimeAdjustmentDisabledMarshal := lpTimeAdjustmentDisabled is VarRef ? "int*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\GetSystemTimeAdjustment", lpTimeAdjustmentMarshal, lpTimeAdjustment, lpTimeIncrementMarshal, lpTimeIncrement, "ptr", lpTimeAdjustmentDisabled, "int")
+        result := DllCall("KERNEL32.dll\GetSystemTimeAdjustment", lpTimeAdjustmentMarshal, lpTimeAdjustment, lpTimeIncrementMarshal, lpTimeIncrement, lpTimeAdjustmentDisabledMarshal, lpTimeAdjustmentDisabled, "int")
         if(A_LastError)
             throw OSError()
 
@@ -818,10 +820,11 @@ class SystemInformation {
     static GetSystemTimeAdjustmentPrecise(lpTimeAdjustment, lpTimeIncrement, lpTimeAdjustmentDisabled) {
         lpTimeAdjustmentMarshal := lpTimeAdjustment is VarRef ? "uint*" : "ptr"
         lpTimeIncrementMarshal := lpTimeIncrement is VarRef ? "uint*" : "ptr"
+        lpTimeAdjustmentDisabledMarshal := lpTimeAdjustmentDisabled is VarRef ? "int*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("api-ms-win-core-sysinfo-l1-2-4.dll\GetSystemTimeAdjustmentPrecise", lpTimeAdjustmentMarshal, lpTimeAdjustment, lpTimeIncrementMarshal, lpTimeIncrement, "ptr", lpTimeAdjustmentDisabled, "int")
+        result := DllCall("api-ms-win-core-sysinfo-l1-2-4.dll\GetSystemTimeAdjustmentPrecise", lpTimeAdjustmentMarshal, lpTimeAdjustment, lpTimeIncrementMarshal, lpTimeIncrement, lpTimeAdjustmentDisabledMarshal, lpTimeAdjustmentDisabled, "int")
         if(A_LastError)
             throw OSError()
 
@@ -1849,25 +1852,24 @@ class SystemInformation {
      * @returns {BOOL} 
      */
     static GetOsManufacturingMode(pbEnabled) {
-        result := DllCall("api-ms-win-core-sysinfo-l1-2-3.dll\GetOsManufacturingMode", "ptr", pbEnabled, "int")
+        pbEnabledMarshal := pbEnabled is VarRef ? "int*" : "ptr"
+
+        result := DllCall("api-ms-win-core-sysinfo-l1-2-3.dll\GetOsManufacturingMode", pbEnabledMarshal, pbEnabled, "int")
         return result
     }
 
     /**
      * Retrieves the best estimate of the diagonal size of the built-in screen, in inches.
-     * @param {Pointer<Float>} sizeInInches The best estimate of the diagonal size of the built-in screen, in inches.
-     * @returns {HRESULT} The result code indicating if the function succeeded or failed.
+     * @returns {Float} The best estimate of the diagonal size of the built-in screen, in inches.
      * @see https://docs.microsoft.com/windows/win32/api//sysinfoapi/nf-sysinfoapi-getintegrateddisplaysize
      * @since windows10.0.10240
      */
-    static GetIntegratedDisplaySize(sizeInInches) {
-        sizeInInchesMarshal := sizeInInches is VarRef ? "double*" : "ptr"
-
-        result := DllCall("api-ms-win-core-sysinfo-l1-2-3.dll\GetIntegratedDisplaySize", sizeInInchesMarshal, sizeInInches, "int")
+    static GetIntegratedDisplaySize() {
+        result := DllCall("api-ms-win-core-sysinfo-l1-2-3.dll\GetIntegratedDisplaySize", "double*", &sizeInInches := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return sizeInInches
     }
 
     /**
@@ -2079,22 +2081,21 @@ class SystemInformation {
     /**
      * Determines which architectures are supported (under WOW64) on the given machine architecture.
      * @param {Integer} WowGuestMachine An <a href="https://docs.microsoft.com/windows/desktop/SysInfo/image-file-machine-constants">IMAGE_FILE_MACHINE_*</a> value that specifies the machine to test.
-     * @param {Pointer<BOOL>} MachineIsSupported On success, returns a pointer to a boolean: <b>true</b> if the machine supports WOW64, or <b>false</b> if it does not.
-     * @returns {HRESULT} On success, returns <b>S_OK</b>; otherwise, returns an error. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {BOOL} On success, returns a pointer to a boolean: <b>true</b> if the machine supports WOW64, or <b>false</b> if it does not.
      * @see https://docs.microsoft.com/windows/win32/api//wow64apiset/nf-wow64apiset-iswow64guestmachinesupported
      * @since windows10.0.16299
      */
-    static IsWow64GuestMachineSupported(WowGuestMachine, MachineIsSupported) {
+    static IsWow64GuestMachineSupported(WowGuestMachine) {
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\IsWow64GuestMachineSupported", "ushort", WowGuestMachine, "ptr", MachineIsSupported, "int")
+        result := DllCall("KERNEL32.dll\IsWow64GuestMachineSupported", "ushort", WowGuestMachine, "int*", &MachineIsSupported := 0, "int")
         if(A_LastError)
             throw OSError()
 
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return MachineIsSupported
     }
 
     /**

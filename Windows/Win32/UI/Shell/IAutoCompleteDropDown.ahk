@@ -39,8 +39,9 @@ class IAutoCompleteDropDown extends IUnknown{
      */
     GetDropDownStatus(pdwFlags, ppwszString) {
         pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
+        ppwszStringMarshal := ppwszString is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, pdwFlagsMarshal, pdwFlags, "ptr", ppwszString, "HRESULT")
+        result := ComCall(3, this, pdwFlagsMarshal, pdwFlags, ppwszStringMarshal, ppwszString, "HRESULT")
         return result
     }
 

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Data\Xml\MsXml\IXMLDOMDocument2.ahk
 #Include .\IPrintTicketProvider.ahk
 
 /**
@@ -31,25 +32,23 @@ class IPrintTicketProvider2 extends IPrintTicketProvider{
     /**
      * 
      * @param {IXMLDOMDocument2} pPrintTicket 
-     * @param {Pointer<IXMLDOMDocument2>} ppDeviceCapabilities 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMDocument2} 
      */
-    GetPrintDeviceCapabilities(pPrintTicket, ppDeviceCapabilities) {
-        result := ComCall(10, this, "ptr", pPrintTicket, "ptr*", ppDeviceCapabilities, "HRESULT")
-        return result
+    GetPrintDeviceCapabilities(pPrintTicket) {
+        result := ComCall(10, this, "ptr", pPrintTicket, "ptr*", &ppDeviceCapabilities := 0, "HRESULT")
+        return IXMLDOMDocument2(ppDeviceCapabilities)
     }
 
     /**
      * 
      * @param {PWSTR} pszLocaleName 
      * @param {IXMLDOMDocument2} pPrintTicket 
-     * @param {Pointer<IXMLDOMDocument2>} ppDeviceResources 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMDocument2} 
      */
-    GetPrintDeviceResources(pszLocaleName, pPrintTicket, ppDeviceResources) {
+    GetPrintDeviceResources(pszLocaleName, pPrintTicket) {
         pszLocaleName := pszLocaleName is String ? StrPtr(pszLocaleName) : pszLocaleName
 
-        result := ComCall(11, this, "ptr", pszLocaleName, "ptr", pPrintTicket, "ptr*", ppDeviceResources, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", pszLocaleName, "ptr", pPrintTicket, "ptr*", &ppDeviceResources := 0, "HRESULT")
+        return IXMLDOMDocument2(ppDeviceResources)
     }
 }

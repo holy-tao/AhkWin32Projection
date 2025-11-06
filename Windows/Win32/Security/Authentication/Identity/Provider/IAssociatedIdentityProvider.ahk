@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
 #Include ..\..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,15 +34,14 @@ class IAssociatedIdentityProvider extends IUnknown{
     /**
      * 
      * @param {HWND} hwndParent 
-     * @param {Pointer<IPropertyStore>} ppPropertyStore 
-     * @returns {HRESULT} 
+     * @returns {IPropertyStore} 
      * @see https://learn.microsoft.com/windows/win32/api/identityprovider/nf-identityprovider-iassociatedidentityprovider-associateidentity
      */
-    AssociateIdentity(hwndParent, ppPropertyStore) {
+    AssociateIdentity(hwndParent) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
-        result := ComCall(3, this, "ptr", hwndParent, "ptr*", ppPropertyStore, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", hwndParent, "ptr*", &ppPropertyStore := 0, "HRESULT")
+        return IPropertyStore(ppPropertyStore)
     }
 
     /**

@@ -2,6 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IInkDrawingAttributes.ahk
+#Include .\IInkRecognizer.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\System\Ole\OLE_HANDLE.ahk
+#Include ..\..\System\Ole\IFontDisp.ahk
+#Include ..\..\System\Ole\IPictureDisp.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -33,26 +39,22 @@ class IInkEdit extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_status
      */
-    get_Status(pStatus) {
-        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pStatusMarshal, pStatus, "HRESULT")
-        return result
+    get_Status() {
+        result := ComCall(7, this, "int*", &pStatus := 0, "HRESULT")
+        return pStatus
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_usemouseforinput
      */
-    get_UseMouseForInput(pVal) {
-        result := ComCall(8, this, "ptr", pVal, "HRESULT")
-        return result
+    get_UseMouseForInput() {
+        result := ComCall(8, this, "short*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -68,15 +70,12 @@ class IInkEdit extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_inkmode
      */
-    get_InkMode(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_InkMode() {
+        result := ComCall(10, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -92,15 +91,12 @@ class IInkEdit extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_inkinsertmode
      */
-    get_InkInsertMode(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_InkInsertMode() {
+        result := ComCall(12, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -116,13 +112,12 @@ class IInkEdit extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IInkDrawingAttributes>} pVal 
-     * @returns {HRESULT} 
+     * @returns {IInkDrawingAttributes} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_drawingattributes
      */
-    get_DrawingAttributes(pVal) {
-        result := ComCall(14, this, "ptr*", pVal, "HRESULT")
-        return result
+    get_DrawingAttributes() {
+        result := ComCall(14, this, "ptr*", &pVal := 0, "HRESULT")
+        return IInkDrawingAttributes(pVal)
     }
 
     /**
@@ -138,15 +133,12 @@ class IInkEdit extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_recognitiontimeout
      */
-    get_RecognitionTimeout(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_RecognitionTimeout() {
+        result := ComCall(16, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -162,13 +154,12 @@ class IInkEdit extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IInkRecognizer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {IInkRecognizer} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_recognizer
      */
-    get_Recognizer(pVal) {
-        result := ComCall(18, this, "ptr*", pVal, "HRESULT")
-        return result
+    get_Recognizer() {
+        result := ComCall(18, this, "ptr*", &pVal := 0, "HRESULT")
+        return IInkRecognizer(pVal)
     }
 
     /**
@@ -184,13 +175,13 @@ class IInkEdit extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_factoid
      */
-    get_Factoid(pVal) {
+    get_Factoid() {
+        pVal := BSTR()
         result := ComCall(20, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
@@ -208,13 +199,13 @@ class IInkEdit extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pSelInk 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_selinks
      */
-    get_SelInks(pSelInk) {
+    get_SelInks() {
+        pSelInk := VARIANT()
         result := ComCall(22, this, "ptr", pSelInk, "HRESULT")
-        return result
+        return pSelInk
     }
 
     /**
@@ -230,15 +221,12 @@ class IInkEdit extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pInkDisplayMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_selinksdisplaymode
      */
-    get_SelInksDisplayMode(pInkDisplayMode) {
-        pInkDisplayModeMarshal := pInkDisplayMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(24, this, pInkDisplayModeMarshal, pInkDisplayMode, "HRESULT")
-        return result
+    get_SelInksDisplayMode() {
+        result := ComCall(24, this, "int*", &pInkDisplayMode := 0, "HRESULT")
+        return pInkDisplayMode
     }
 
     /**
@@ -265,13 +253,12 @@ class IInkEdit extends IDispatch{
     /**
      * 
      * @param {Integer} Gesture 
-     * @param {Pointer<VARIANT_BOOL>} pListen 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-getgesturestatus
      */
-    GetGestureStatus(Gesture, pListen) {
-        result := ComCall(27, this, "int", Gesture, "ptr", pListen, "HRESULT")
-        return result
+    GetGestureStatus(Gesture) {
+        result := ComCall(27, this, "int", Gesture, "short*", &pListen := 0, "HRESULT")
+        return pListen
     }
 
     /**
@@ -299,28 +286,22 @@ class IInkEdit extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pclr 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_backcolor
      */
-    get_BackColor(pclr) {
-        pclrMarshal := pclr is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(30, this, pclrMarshal, pclr, "HRESULT")
-        return result
+    get_BackColor() {
+        result := ComCall(30, this, "uint*", &pclr := 0, "HRESULT")
+        return pclr
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pAppearance 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_appearance
      */
-    get_Appearance(pAppearance) {
-        pAppearanceMarshal := pAppearance is VarRef ? "int*" : "ptr"
-
-        result := ComCall(31, this, pAppearanceMarshal, pAppearance, "HRESULT")
-        return result
+    get_Appearance() {
+        result := ComCall(31, this, "int*", &pAppearance := 0, "HRESULT")
+        return pAppearance
     }
 
     /**
@@ -336,15 +317,12 @@ class IInkEdit extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pBorderStyle 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_borderstyle
      */
-    get_BorderStyle(pBorderStyle) {
-        pBorderStyleMarshal := pBorderStyle is VarRef ? "int*" : "ptr"
-
-        result := ComCall(33, this, pBorderStyleMarshal, pBorderStyle, "HRESULT")
-        return result
+    get_BorderStyle() {
+        result := ComCall(33, this, "int*", &pBorderStyle := 0, "HRESULT")
+        return pBorderStyle
     }
 
     /**
@@ -360,24 +338,23 @@ class IInkEdit extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<OLE_HANDLE>} pohHwnd 
-     * @returns {HRESULT} 
+     * @returns {OLE_HANDLE} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_hwnd
      */
-    get_Hwnd(pohHwnd) {
+    get_Hwnd() {
+        pohHwnd := OLE_HANDLE()
         result := ComCall(35, this, "ptr", pohHwnd, "HRESULT")
-        return result
+        return pohHwnd
     }
 
     /**
      * 
-     * @param {Pointer<IFontDisp>} ppFont 
-     * @returns {HRESULT} 
+     * @returns {IFontDisp} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_font
      */
-    get_Font(ppFont) {
-        result := ComCall(36, this, "ptr*", ppFont, "HRESULT")
-        return result
+    get_Font() {
+        result := ComCall(36, this, "ptr*", &ppFont := 0, "HRESULT")
+        return IFontDisp(ppFont)
     }
 
     /**
@@ -393,13 +370,13 @@ class IInkEdit extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrText 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_text
      */
-    get_Text(pbstrText) {
+    get_Text() {
+        pbstrText := BSTR()
         result := ComCall(38, this, "ptr", pbstrText, "HRESULT")
-        return result
+        return pbstrText
     }
 
     /**
@@ -417,13 +394,12 @@ class IInkEdit extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IPictureDisp>} MouseIcon 
-     * @returns {HRESULT} 
+     * @returns {IPictureDisp} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_mouseicon
      */
-    get_MouseIcon(MouseIcon) {
-        result := ComCall(40, this, "ptr*", MouseIcon, "HRESULT")
-        return result
+    get_MouseIcon() {
+        result := ComCall(40, this, "ptr*", &MouseIcon := 0, "HRESULT")
+        return IPictureDisp(MouseIcon)
     }
 
     /**
@@ -450,15 +426,12 @@ class IInkEdit extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} MousePointer 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_mousepointer
      */
-    get_MousePointer(MousePointer) {
-        MousePointerMarshal := MousePointer is VarRef ? "int*" : "ptr"
-
-        result := ComCall(43, this, MousePointerMarshal, MousePointer, "HRESULT")
-        return result
+    get_MousePointer() {
+        result := ComCall(43, this, "int*", &MousePointer := 0, "HRESULT")
+        return MousePointer
     }
 
     /**
@@ -474,13 +447,12 @@ class IInkEdit extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_locked
      */
-    get_Locked(pVal) {
-        result := ComCall(45, this, "ptr", pVal, "HRESULT")
-        return result
+    get_Locked() {
+        result := ComCall(45, this, "short*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -496,13 +468,12 @@ class IInkEdit extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_enabled
      */
-    get_Enabled(pVal) {
-        result := ComCall(47, this, "ptr", pVal, "HRESULT")
-        return result
+    get_Enabled() {
+        result := ComCall(47, this, "short*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -518,15 +489,12 @@ class IInkEdit extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plMaxLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_maxlength
      */
-    get_MaxLength(plMaxLength) {
-        plMaxLengthMarshal := plMaxLength is VarRef ? "int*" : "ptr"
-
-        result := ComCall(49, this, plMaxLengthMarshal, plMaxLength, "HRESULT")
-        return result
+    get_MaxLength() {
+        result := ComCall(49, this, "int*", &plMaxLength := 0, "HRESULT")
+        return plMaxLength
     }
 
     /**
@@ -542,13 +510,12 @@ class IInkEdit extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_multiline
      */
-    get_MultiLine(pVal) {
-        result := ComCall(51, this, "ptr", pVal, "HRESULT")
-        return result
+    get_MultiLine() {
+        result := ComCall(51, this, "short*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -564,15 +531,12 @@ class IInkEdit extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_scrollbars
      */
-    get_ScrollBars(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(53, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_ScrollBars() {
+        result := ComCall(53, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -588,13 +552,12 @@ class IInkEdit extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_disablenoscroll
      */
-    get_DisableNoScroll(pVal) {
-        result := ComCall(55, this, "ptr", pVal, "HRESULT")
-        return result
+    get_DisableNoScroll() {
+        result := ComCall(55, this, "short*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -610,13 +573,13 @@ class IInkEdit extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarSelAlignment 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_selalignment
      */
-    get_SelAlignment(pvarSelAlignment) {
+    get_SelAlignment() {
+        pvarSelAlignment := VARIANT()
         result := ComCall(57, this, "ptr", pvarSelAlignment, "HRESULT")
-        return result
+        return pvarSelAlignment
     }
 
     /**
@@ -632,13 +595,13 @@ class IInkEdit extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarSelBold 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_selbold
      */
-    get_SelBold(pvarSelBold) {
+    get_SelBold() {
+        pvarSelBold := VARIANT()
         result := ComCall(59, this, "ptr", pvarSelBold, "HRESULT")
-        return result
+        return pvarSelBold
     }
 
     /**
@@ -654,13 +617,13 @@ class IInkEdit extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarSelItalic 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_selitalic
      */
-    get_SelItalic(pvarSelItalic) {
+    get_SelItalic() {
+        pvarSelItalic := VARIANT()
         result := ComCall(61, this, "ptr", pvarSelItalic, "HRESULT")
-        return result
+        return pvarSelItalic
     }
 
     /**
@@ -676,13 +639,13 @@ class IInkEdit extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarSelUnderline 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_selunderline
      */
-    get_SelUnderline(pvarSelUnderline) {
+    get_SelUnderline() {
+        pvarSelUnderline := VARIANT()
         result := ComCall(63, this, "ptr", pvarSelUnderline, "HRESULT")
-        return result
+        return pvarSelUnderline
     }
 
     /**
@@ -698,13 +661,13 @@ class IInkEdit extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarSelColor 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_selcolor
      */
-    get_SelColor(pvarSelColor) {
+    get_SelColor() {
+        pvarSelColor := VARIANT()
         result := ComCall(65, this, "ptr", pvarSelColor, "HRESULT")
-        return result
+        return pvarSelColor
     }
 
     /**
@@ -720,13 +683,13 @@ class IInkEdit extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarSelFontName 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_selfontname
      */
-    get_SelFontName(pvarSelFontName) {
+    get_SelFontName() {
+        pvarSelFontName := VARIANT()
         result := ComCall(67, this, "ptr", pvarSelFontName, "HRESULT")
-        return result
+        return pvarSelFontName
     }
 
     /**
@@ -742,13 +705,13 @@ class IInkEdit extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarSelFontSize 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_selfontsize
      */
-    get_SelFontSize(pvarSelFontSize) {
+    get_SelFontSize() {
+        pvarSelFontSize := VARIANT()
         result := ComCall(69, this, "ptr", pvarSelFontSize, "HRESULT")
-        return result
+        return pvarSelFontSize
     }
 
     /**
@@ -764,13 +727,13 @@ class IInkEdit extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarSelCharOffset 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_selcharoffset
      */
-    get_SelCharOffset(pvarSelCharOffset) {
+    get_SelCharOffset() {
+        pvarSelCharOffset := VARIANT()
         result := ComCall(71, this, "ptr", pvarSelCharOffset, "HRESULT")
-        return result
+        return pvarSelCharOffset
     }
 
     /**
@@ -786,13 +749,13 @@ class IInkEdit extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrTextRTF 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_textrtf
      */
-    get_TextRTF(pbstrTextRTF) {
+    get_TextRTF() {
+        pbstrTextRTF := BSTR()
         result := ComCall(73, this, "ptr", pbstrTextRTF, "HRESULT")
-        return result
+        return pbstrTextRTF
     }
 
     /**
@@ -810,15 +773,12 @@ class IInkEdit extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plSelStart 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_selstart
      */
-    get_SelStart(plSelStart) {
-        plSelStartMarshal := plSelStart is VarRef ? "int*" : "ptr"
-
-        result := ComCall(75, this, plSelStartMarshal, plSelStart, "HRESULT")
-        return result
+    get_SelStart() {
+        result := ComCall(75, this, "int*", &plSelStart := 0, "HRESULT")
+        return plSelStart
     }
 
     /**
@@ -834,15 +794,12 @@ class IInkEdit extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plSelLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_sellength
      */
-    get_SelLength(plSelLength) {
-        plSelLengthMarshal := plSelLength is VarRef ? "int*" : "ptr"
-
-        result := ComCall(77, this, plSelLengthMarshal, plSelLength, "HRESULT")
-        return result
+    get_SelLength() {
+        result := ComCall(77, this, "int*", &plSelLength := 0, "HRESULT")
+        return plSelLength
     }
 
     /**
@@ -858,13 +815,13 @@ class IInkEdit extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrSelText 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_seltext
      */
-    get_SelText(pbstrSelText) {
+    get_SelText() {
+        pbstrSelText := BSTR()
         result := ComCall(79, this, "ptr", pbstrSelText, "HRESULT")
-        return result
+        return pbstrSelText
     }
 
     /**
@@ -882,13 +839,13 @@ class IInkEdit extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrSelRTF 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/inked/nf-inked-iinkedit-get_selrtf
      */
-    get_SelRTF(pbstrSelRTF) {
+    get_SelRTF() {
+        pbstrSelRTF := BSTR()
         result := ComCall(81, this, "ptr", pbstrSelRTF, "HRESULT")
-        return result
+        return pbstrSelRTF
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUIAutomationElementArray.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -37,45 +38,41 @@ class IUIAutomationTableItemPattern extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IUIAutomationElementArray>} retVal 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElementArray} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtableitempattern-getcurrentrowheaderitems
      */
-    GetCurrentRowHeaderItems(retVal) {
-        result := ComCall(3, this, "ptr*", retVal, "HRESULT")
-        return result
+    GetCurrentRowHeaderItems() {
+        result := ComCall(3, this, "ptr*", &retVal := 0, "HRESULT")
+        return IUIAutomationElementArray(retVal)
     }
 
     /**
      * 
-     * @param {Pointer<IUIAutomationElementArray>} retVal 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElementArray} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtableitempattern-getcurrentcolumnheaderitems
      */
-    GetCurrentColumnHeaderItems(retVal) {
-        result := ComCall(4, this, "ptr*", retVal, "HRESULT")
-        return result
+    GetCurrentColumnHeaderItems() {
+        result := ComCall(4, this, "ptr*", &retVal := 0, "HRESULT")
+        return IUIAutomationElementArray(retVal)
     }
 
     /**
      * 
-     * @param {Pointer<IUIAutomationElementArray>} retVal 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElementArray} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtableitempattern-getcachedrowheaderitems
      */
-    GetCachedRowHeaderItems(retVal) {
-        result := ComCall(5, this, "ptr*", retVal, "HRESULT")
-        return result
+    GetCachedRowHeaderItems() {
+        result := ComCall(5, this, "ptr*", &retVal := 0, "HRESULT")
+        return IUIAutomationElementArray(retVal)
     }
 
     /**
      * 
-     * @param {Pointer<IUIAutomationElementArray>} retVal 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElementArray} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtableitempattern-getcachedcolumnheaderitems
      */
-    GetCachedColumnHeaderItems(retVal) {
-        result := ComCall(6, this, "ptr*", retVal, "HRESULT")
-        return result
+    GetCachedColumnHeaderItems() {
+        result := ComCall(6, this, "ptr*", &retVal := 0, "HRESULT")
+        return IUIAutomationElementArray(retVal)
     }
 }

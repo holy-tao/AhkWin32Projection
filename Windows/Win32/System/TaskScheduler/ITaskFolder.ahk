@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ITaskFolder.ahk
+#Include .\ITaskFolderCollection.ahk
+#Include .\IRegisteredTask.ahk
+#Include .\IRegisteredTaskCollection.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -33,65 +37,62 @@ class ITaskFolder extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskfolder-get_name
      */
-    get_Name(pName) {
+    get_Name() {
+        pName := BSTR()
         result := ComCall(7, this, "ptr", pName, "HRESULT")
-        return result
+        return pName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pPath 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskfolder-get_path
      */
-    get_Path(pPath) {
+    get_Path() {
+        pPath := BSTR()
         result := ComCall(8, this, "ptr", pPath, "HRESULT")
-        return result
+        return pPath
     }
 
     /**
      * 
      * @param {BSTR} path 
-     * @param {Pointer<ITaskFolder>} ppFolder 
-     * @returns {HRESULT} 
+     * @returns {ITaskFolder} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskfolder-getfolder
      */
-    GetFolder(path, ppFolder) {
+    GetFolder(path) {
         path := path is String ? BSTR.Alloc(path).Value : path
 
-        result := ComCall(9, this, "ptr", path, "ptr*", ppFolder, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", path, "ptr*", &ppFolder := 0, "HRESULT")
+        return ITaskFolder(ppFolder)
     }
 
     /**
      * 
      * @param {Integer} flags 
-     * @param {Pointer<ITaskFolderCollection>} ppFolders 
-     * @returns {HRESULT} 
+     * @returns {ITaskFolderCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskfolder-getfolders
      */
-    GetFolders(flags, ppFolders) {
-        result := ComCall(10, this, "int", flags, "ptr*", ppFolders, "HRESULT")
-        return result
+    GetFolders(flags) {
+        result := ComCall(10, this, "int", flags, "ptr*", &ppFolders := 0, "HRESULT")
+        return ITaskFolderCollection(ppFolders)
     }
 
     /**
      * 
      * @param {BSTR} subFolderName 
      * @param {VARIANT} sddl 
-     * @param {Pointer<ITaskFolder>} ppFolder 
-     * @returns {HRESULT} 
+     * @returns {ITaskFolder} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskfolder-createfolder
      */
-    CreateFolder(subFolderName, sddl, ppFolder) {
+    CreateFolder(subFolderName, sddl) {
         subFolderName := subFolderName is String ? BSTR.Alloc(subFolderName).Value : subFolderName
 
-        result := ComCall(11, this, "ptr", subFolderName, "ptr", sddl, "ptr*", ppFolder, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", subFolderName, "ptr", sddl, "ptr*", &ppFolder := 0, "HRESULT")
+        return ITaskFolder(ppFolder)
     }
 
     /**
@@ -111,27 +112,25 @@ class ITaskFolder extends IDispatch{
     /**
      * 
      * @param {BSTR} path 
-     * @param {Pointer<IRegisteredTask>} ppTask 
-     * @returns {HRESULT} 
+     * @returns {IRegisteredTask} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskfolder-gettask
      */
-    GetTask(path, ppTask) {
+    GetTask(path) {
         path := path is String ? BSTR.Alloc(path).Value : path
 
-        result := ComCall(13, this, "ptr", path, "ptr*", ppTask, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", path, "ptr*", &ppTask := 0, "HRESULT")
+        return IRegisteredTask(ppTask)
     }
 
     /**
      * 
      * @param {Integer} flags 
-     * @param {Pointer<IRegisteredTaskCollection>} ppTasks 
-     * @returns {HRESULT} 
+     * @returns {IRegisteredTaskCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskfolder-gettasks
      */
-    GetTasks(flags, ppTasks) {
-        result := ComCall(14, this, "int", flags, "ptr*", ppTasks, "HRESULT")
-        return result
+    GetTasks(flags) {
+        result := ComCall(14, this, "int", flags, "ptr*", &ppTasks := 0, "HRESULT")
+        return IRegisteredTaskCollection(ppTasks)
     }
 
     /**
@@ -157,16 +156,15 @@ class ITaskFolder extends IDispatch{
      * @param {VARIANT} password 
      * @param {Integer} logonType 
      * @param {VARIANT} sddl 
-     * @param {Pointer<IRegisteredTask>} ppTask 
-     * @returns {HRESULT} 
+     * @returns {IRegisteredTask} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskfolder-registertask
      */
-    RegisterTask(path, xmlText, flags, userId, password, logonType, sddl, ppTask) {
+    RegisterTask(path, xmlText, flags, userId, password, logonType, sddl) {
         path := path is String ? BSTR.Alloc(path).Value : path
         xmlText := xmlText is String ? BSTR.Alloc(xmlText).Value : xmlText
 
-        result := ComCall(16, this, "ptr", path, "ptr", xmlText, "int", flags, "ptr", userId, "ptr", password, "int", logonType, "ptr", sddl, "ptr*", ppTask, "HRESULT")
-        return result
+        result := ComCall(16, this, "ptr", path, "ptr", xmlText, "int", flags, "ptr", userId, "ptr", password, "int", logonType, "ptr", sddl, "ptr*", &ppTask := 0, "HRESULT")
+        return IRegisteredTask(ppTask)
     }
 
     /**
@@ -178,27 +176,26 @@ class ITaskFolder extends IDispatch{
      * @param {VARIANT} password 
      * @param {Integer} logonType 
      * @param {VARIANT} sddl 
-     * @param {Pointer<IRegisteredTask>} ppTask 
-     * @returns {HRESULT} 
+     * @returns {IRegisteredTask} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskfolder-registertaskdefinition
      */
-    RegisterTaskDefinition(path, pDefinition, flags, userId, password, logonType, sddl, ppTask) {
+    RegisterTaskDefinition(path, pDefinition, flags, userId, password, logonType, sddl) {
         path := path is String ? BSTR.Alloc(path).Value : path
 
-        result := ComCall(17, this, "ptr", path, "ptr", pDefinition, "int", flags, "ptr", userId, "ptr", password, "int", logonType, "ptr", sddl, "ptr*", ppTask, "HRESULT")
-        return result
+        result := ComCall(17, this, "ptr", path, "ptr", pDefinition, "int", flags, "ptr", userId, "ptr", password, "int", logonType, "ptr", sddl, "ptr*", &ppTask := 0, "HRESULT")
+        return IRegisteredTask(ppTask)
     }
 
     /**
      * 
      * @param {Integer} securityInformation 
-     * @param {Pointer<BSTR>} pSddl 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskfolder-getsecuritydescriptor
      */
-    GetSecurityDescriptor(securityInformation, pSddl) {
+    GetSecurityDescriptor(securityInformation) {
+        pSddl := BSTR()
         result := ComCall(18, this, "int", securityInformation, "ptr", pSddl, "HRESULT")
-        return result
+        return pSddl
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -31,104 +32,99 @@ class IFeedItem extends IDispatch{
     /**
      * 
      * @param {Integer} includeFlags 
-     * @param {Pointer<BSTR>} xml 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    Xml(includeFlags, xml) {
+    Xml(includeFlags) {
+        xml := BSTR()
         result := ComCall(7, this, "int", includeFlags, "ptr", xml, "HRESULT")
-        return result
+        return xml
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} title 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Title(title) {
+    get_Title() {
+        title := BSTR()
         result := ComCall(8, this, "ptr", title, "HRESULT")
-        return result
+        return title
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} linkUrl 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Link(linkUrl) {
+    get_Link() {
+        linkUrl := BSTR()
         result := ComCall(9, this, "ptr", linkUrl, "HRESULT")
-        return result
+        return linkUrl
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} itemGuid 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Guid(itemGuid) {
+    get_Guid() {
+        itemGuid := BSTR()
         result := ComCall(10, this, "ptr", itemGuid, "HRESULT")
-        return result
+        return itemGuid
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} description 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Description(description) {
+    get_Description() {
+        description := BSTR()
         result := ComCall(11, this, "ptr", description, "HRESULT")
-        return result
+        return description
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pubDate 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_PubDate(pubDate) {
-        pubDateMarshal := pubDate is VarRef ? "double*" : "ptr"
-
-        result := ComCall(12, this, pubDateMarshal, pubDate, "HRESULT")
-        return result
+    get_PubDate() {
+        result := ComCall(12, this, "double*", &pubDate := 0, "HRESULT")
+        return pubDate
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} comments 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Comments(comments) {
+    get_Comments() {
+        comments := BSTR()
         result := ComCall(13, this, "ptr", comments, "HRESULT")
-        return result
+        return comments
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} author 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Author(author) {
+    get_Author() {
+        author := BSTR()
         result := ComCall(14, this, "ptr", author, "HRESULT")
-        return result
+        return author
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} disp 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Enclosure(disp) {
-        result := ComCall(15, this, "ptr*", disp, "HRESULT")
-        return result
+    get_Enclosure() {
+        result := ComCall(15, this, "ptr*", &disp := 0, "HRESULT")
+        return IDispatch(disp)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} isRead 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_IsRead(isRead) {
-        result := ComCall(16, this, "ptr", isRead, "HRESULT")
-        return result
+    get_IsRead() {
+        result := ComCall(16, this, "short*", &isRead := 0, "HRESULT")
+        return isRead
     }
 
     /**
@@ -143,24 +139,20 @@ class IFeedItem extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} itemId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_LocalId(itemId) {
-        itemIdMarshal := itemId is VarRef ? "int*" : "ptr"
-
-        result := ComCall(18, this, itemIdMarshal, itemId, "HRESULT")
-        return result
+    get_LocalId() {
+        result := ComCall(18, this, "int*", &itemId := 0, "HRESULT")
+        return itemId
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} disp 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Parent(disp) {
-        result := ComCall(19, this, "ptr*", disp, "HRESULT")
-        return result
+    get_Parent() {
+        result := ComCall(19, this, "ptr*", &disp := 0, "HRESULT")
+        return IDispatch(disp)
     }
 
     /**
@@ -174,35 +166,29 @@ class IFeedItem extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} itemUrl 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_DownloadUrl(itemUrl) {
+    get_DownloadUrl() {
+        itemUrl := BSTR()
         result := ComCall(21, this, "ptr", itemUrl, "HRESULT")
-        return result
+        return itemUrl
     }
 
     /**
      * 
-     * @param {Pointer<Float>} lastDownload 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_LastDownloadTime(lastDownload) {
-        lastDownloadMarshal := lastDownload is VarRef ? "double*" : "ptr"
-
-        result := ComCall(22, this, lastDownloadMarshal, lastDownload, "HRESULT")
-        return result
+    get_LastDownloadTime() {
+        result := ComCall(22, this, "double*", &lastDownload := 0, "HRESULT")
+        return lastDownload
     }
 
     /**
      * 
-     * @param {Pointer<Float>} modified 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_Modified(modified) {
-        modifiedMarshal := modified is VarRef ? "double*" : "ptr"
-
-        result := ComCall(23, this, modifiedMarshal, modified, "HRESULT")
-        return result
+    get_Modified() {
+        result := ComCall(23, this, "double*", &modified := 0, "HRESULT")
+        return modified
     }
 }

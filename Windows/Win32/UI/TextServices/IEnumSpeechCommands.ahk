@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumSpeechCommands.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,12 +31,11 @@ class IEnumSpeechCommands extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumSpeechCommands>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumSpeechCommands} 
      */
-    Clone(ppEnum) {
-        result := ComCall(3, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(3, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumSpeechCommands(ppEnum)
     }
 
     /**

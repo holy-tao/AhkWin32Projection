@@ -32,17 +32,15 @@ class IMDSPObject2 extends IMDSPObject{
 
     /**
      * 
-     * @param {Pointer<Integer>} pData 
      * @param {Pointer<Integer>} pdwSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspobject2-readonclearchannel
      */
-    ReadOnClearChannel(pData, pdwSize) {
-        pDataMarshal := pData is VarRef ? "char*" : "ptr"
+    ReadOnClearChannel(pdwSize) {
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, pDataMarshal, pData, pdwSizeMarshal, pdwSize, "HRESULT")
-        return result
+        result := ComCall(11, this, "char*", &pData := 0, pdwSizeMarshal, pdwSize, "HRESULT")
+        return pData
     }
 
     /**

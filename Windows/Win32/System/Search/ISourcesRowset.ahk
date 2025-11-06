@@ -34,11 +34,10 @@ class ISourcesRowset extends IUnknown{
      * @param {Pointer<Guid>} riid 
      * @param {Integer} cPropertySets 
      * @param {Pointer<DBPROPSET>} rgProperties 
-     * @param {Pointer<IUnknown>} ppSourcesRowset 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    GetSourcesRowset(pUnkOuter, riid, cPropertySets, rgProperties, ppSourcesRowset) {
-        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", riid, "uint", cPropertySets, "ptr", rgProperties, "ptr*", ppSourcesRowset, "HRESULT")
-        return result
+    GetSourcesRowset(pUnkOuter, riid, cPropertySets, rgProperties) {
+        result := ComCall(3, this, "ptr", pUnkOuter, "ptr", riid, "uint", cPropertySets, "ptr", rgProperties, "ptr*", &ppSourcesRowset := 0, "HRESULT")
+        return IUnknown(ppSourcesRowset)
     }
 }

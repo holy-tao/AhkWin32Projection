@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IEnumStreamBufferRecordingAttrib.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -57,15 +58,12 @@ class IStreamBufferRecordingAttribute extends IUnknown{
     /**
      * 
      * @param {Integer} ulReserved 
-     * @param {Pointer<Integer>} pcAttributes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferrecordingattribute-getattributecount
      */
-    GetAttributeCount(ulReserved, pcAttributes) {
-        pcAttributesMarshal := pcAttributes is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(4, this, "uint", ulReserved, pcAttributesMarshal, pcAttributes, "HRESULT")
-        return result
+    GetAttributeCount(ulReserved) {
+        result := ComCall(4, this, "uint", ulReserved, "ushort*", &pcAttributes := 0, "HRESULT")
+        return pcAttributes
     }
 
     /**
@@ -117,12 +115,11 @@ class IStreamBufferRecordingAttribute extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumStreamBufferRecordingAttrib>} ppIEnumStreamBufferAttrib 
-     * @returns {HRESULT} 
+     * @returns {IEnumStreamBufferRecordingAttrib} 
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferrecordingattribute-enumattributes
      */
-    EnumAttributes(ppIEnumStreamBufferAttrib) {
-        result := ComCall(7, this, "ptr*", ppIEnumStreamBufferAttrib, "HRESULT")
-        return result
+    EnumAttributes() {
+        result := ComCall(7, this, "ptr*", &ppIEnumStreamBufferAttrib := 0, "HRESULT")
+        return IEnumStreamBufferRecordingAttrib(ppIEnumStreamBufferAttrib)
     }
 }

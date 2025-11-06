@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITDirectory.ahk
+#Include .\IEnumDirectory.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,16 +35,15 @@ class IEnumDirectory extends IUnknown{
     /**
      * 
      * @param {Integer} celt 
-     * @param {Pointer<ITDirectory>} ppElements 
      * @param {Pointer<Integer>} pcFetched 
-     * @returns {HRESULT} 
+     * @returns {ITDirectory} 
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-ienumdirectory-next
      */
-    Next(celt, ppElements, pcFetched) {
+    Next(celt, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, "ptr*", ppElements, pcFetchedMarshal, pcFetched, "HRESULT")
-        return result
+        result := ComCall(3, this, "uint", celt, "ptr*", &ppElements := 0, pcFetchedMarshal, pcFetched, "HRESULT")
+        return ITDirectory(ppElements)
     }
 
     /**
@@ -68,12 +69,11 @@ class IEnumDirectory extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumDirectory>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumDirectory} 
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-ienumdirectory-clone
      */
-    Clone(ppEnum) {
-        result := ComCall(6, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumDirectory(ppEnum)
     }
 }

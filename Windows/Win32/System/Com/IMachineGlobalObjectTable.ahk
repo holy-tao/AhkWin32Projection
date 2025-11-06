@@ -33,14 +33,13 @@ class IMachineGlobalObjectTable extends IUnknown{
      * @param {Pointer<Guid>} clsid 
      * @param {PWSTR} identifier 
      * @param {IUnknown} object 
-     * @param {Pointer<MachineGlobalObjectTableRegistrationToken>} token 
-     * @returns {HRESULT} 
+     * @returns {MachineGlobalObjectTableRegistrationToken} 
      */
-    RegisterObject(clsid, identifier, object, token) {
+    RegisterObject(clsid, identifier, object) {
         identifier := identifier is String ? StrPtr(identifier) : identifier
 
-        result := ComCall(3, this, "ptr", clsid, "ptr", identifier, "ptr", object, "ptr", token, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", clsid, "ptr", identifier, "ptr", object, "ptr*", &token := 0, "HRESULT")
+        return token
     }
 
     /**
@@ -48,21 +47,14 @@ class IMachineGlobalObjectTable extends IUnknown{
      * @param {Pointer<Guid>} clsid 
      * @param {PWSTR} identifier 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} If the function succeeds, and <i>lpvObject</i> is a valid pointer, the return value is the number of bytes stored into the buffer.
-     * 
-     * If the function succeeds, and <i>lpvObject</i> is <b>NULL</b>, the return value is the number of bytes required to hold the information the function would store into the buffer.
-     * 
-     * If the function fails, the return value is zero.
+     * @returns {Pointer<Void>} 
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getobject
      */
-    GetObject(clsid, identifier, riid, ppv) {
+    GetObject(clsid, identifier, riid) {
         identifier := identifier is String ? StrPtr(identifier) : identifier
 
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "ptr", clsid, "ptr", identifier, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", clsid, "ptr", identifier, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**

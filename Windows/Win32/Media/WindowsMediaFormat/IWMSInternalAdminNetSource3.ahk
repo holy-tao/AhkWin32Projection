@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include .\IWMSInternalAdminNetSource2.ahk
 
 /**
@@ -33,13 +34,12 @@ class IWMSInternalAdminNetSource3 extends IWMSInternalAdminNetSource2{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppNetSourceCreator 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsinternaladminnetsource/nn-wmsinternaladminnetsource-iwmsinternaladminnetsource3
      */
-    GetNetSourceCreator2(ppNetSourceCreator) {
-        result := ComCall(7, this, "ptr*", ppNetSourceCreator, "HRESULT")
-        return result
+    GetNetSourceCreator2() {
+        result := ComCall(7, this, "ptr*", &ppNetSourceCreator := 0, "HRESULT")
+        return IUnknown(ppNetSourceCreator)
     }
 
     /**
@@ -59,10 +59,11 @@ class IWMSInternalAdminNetSource3 extends IWMSInternalAdminNetSource2{
         bstrHost := bstrHost is String ? BSTR.Alloc(bstrHost).Value : bstrHost
         bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
 
+        pfProxyEnabledMarshal := pfProxyEnabled is VarRef ? "int*" : "ptr"
         pdwProxyPortMarshal := pdwProxyPort is VarRef ? "uint*" : "ptr"
         pqwProxyContextMarshal := pqwProxyContext is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "ptr", bstrProtocol, "ptr", bstrHost, "ptr", bstrUrl, "ptr", pfProxyEnabled, "ptr", pbstrProxyServer, pdwProxyPortMarshal, pdwProxyPort, pqwProxyContextMarshal, pqwProxyContext, "HRESULT")
+        result := ComCall(8, this, "ptr", bstrProtocol, "ptr", bstrHost, "ptr", bstrUrl, pfProxyEnabledMarshal, pfProxyEnabled, "ptr", pbstrProxyServer, pdwProxyPortMarshal, pdwProxyPort, pqwProxyContextMarshal, pqwProxyContext, "HRESULT")
         return result
     }
 
@@ -92,13 +93,12 @@ class IWMSInternalAdminNetSource3 extends IWMSInternalAdminNetSource2{
     /**
      * 
      * @param {Integer} qwProxyContext 
-     * @param {Pointer<BOOL>} pfIsUsingIE 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsinternaladminnetsource/nn-wmsinternaladminnetsource-iwmsinternaladminnetsource3
      */
-    IsUsingIE2(qwProxyContext, pfIsUsingIE) {
-        result := ComCall(11, this, "uint", qwProxyContext, "ptr", pfIsUsingIE, "HRESULT")
-        return result
+    IsUsingIE2(qwProxyContext) {
+        result := ComCall(11, this, "uint", qwProxyContext, "int*", &pfIsUsingIE := 0, "HRESULT")
+        return pfIsUsingIE
     }
 
     /**
@@ -142,8 +142,9 @@ class IWMSInternalAdminNetSource3 extends IWMSInternalAdminNetSource2{
         bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
 
         pdwUrlPolicyMarshal := pdwUrlPolicy is VarRef ? "int*" : "ptr"
+        pfConfirmedGoodMarshal := pfConfirmedGood is VarRef ? "int*" : "ptr"
 
-        result := ComCall(13, this, "ptr", bstrRealm, "ptr", bstrUrl, "int", fProxy, "int", fClearTextAuthentication, pdwUrlPolicyMarshal, pdwUrlPolicy, "ptr", pbstrName, "ptr", pbstrPassword, "ptr", pfConfirmedGood, "HRESULT")
+        result := ComCall(13, this, "ptr", bstrRealm, "ptr", bstrUrl, "int", fProxy, "int", fClearTextAuthentication, pdwUrlPolicyMarshal, pdwUrlPolicy, "ptr", pbstrName, "ptr", pbstrPassword, pfConfirmedGoodMarshal, pfConfirmedGood, "HRESULT")
         return result
     }
 }

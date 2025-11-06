@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IAudioSessionControl.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -57,26 +58,22 @@ class IAudioSessionEnumerator extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} SessionCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessionenumerator-getcount
      */
-    GetCount(SessionCount) {
-        SessionCountMarshal := SessionCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, SessionCountMarshal, SessionCount, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(3, this, "int*", &SessionCount := 0, "HRESULT")
+        return SessionCount
     }
 
     /**
      * 
      * @param {Integer} SessionCount 
-     * @param {Pointer<IAudioSessionControl>} Session 
-     * @returns {HRESULT} 
+     * @returns {IAudioSessionControl} 
      * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessionenumerator-getsession
      */
-    GetSession(SessionCount, Session) {
-        result := ComCall(4, this, "int", SessionCount, "ptr*", Session, "HRESULT")
-        return result
+    GetSession(SessionCount) {
+        result := ComCall(4, this, "int", SessionCount, "ptr*", &Session := 0, "HRESULT")
+        return IAudioSessionControl(Session)
     }
 }

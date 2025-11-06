@@ -90,15 +90,12 @@ class IMPEG2_TIF_CONTROL extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pulcPIDs 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-impeg2_tif_control-getpidcount
      */
-    GetPIDCount(pulcPIDs) {
-        pulcPIDsMarshal := pulcPIDs is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pulcPIDsMarshal, pulcPIDs, "HRESULT")
-        return result
+    GetPIDCount() {
+        result := ComCall(7, this, "uint*", &pulcPIDs := 0, "HRESULT")
+        return pulcPIDs
     }
 
     /**

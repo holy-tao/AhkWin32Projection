@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IHTMLStyleSheet.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -49,12 +51,12 @@ class IHTMLLinkElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_href(p) {
+    get_href() {
+        p := BSTR()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -71,12 +73,12 @@ class IHTMLLinkElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_rel(p) {
+    get_rel() {
+        p := BSTR()
         result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -93,12 +95,12 @@ class IHTMLLinkElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_rev(p) {
+    get_rev() {
+        p := BSTR()
         result := ComCall(12, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -115,22 +117,22 @@ class IHTMLLinkElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_type(p) {
+    get_type() {
+        p := BSTR()
         result := ComCall(14, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_readyState(p) {
+    get_readyState() {
+        p := BSTR()
         result := ComCall(15, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -145,12 +147,12 @@ class IHTMLLinkElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onreadystatechange(p) {
+    get_onreadystatechange() {
+        p := VARIANT()
         result := ComCall(17, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -165,12 +167,12 @@ class IHTMLLinkElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onload(p) {
+    get_onload() {
+        p := VARIANT()
         result := ComCall(19, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -185,22 +187,21 @@ class IHTMLLinkElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onerror(p) {
+    get_onerror() {
+        p := VARIANT()
         result := ComCall(21, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLStyleSheet>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLStyleSheet} 
      */
-    get_styleSheet(p) {
-        result := ComCall(22, this, "ptr*", p, "HRESULT")
-        return result
+    get_styleSheet() {
+        result := ComCall(22, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLStyleSheet(p)
     }
 
     /**
@@ -215,12 +216,11 @@ class IHTMLLinkElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_disabled(p) {
-        result := ComCall(24, this, "ptr", p, "HRESULT")
-        return result
+    get_disabled() {
+        result := ComCall(24, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -237,11 +237,11 @@ class IHTMLLinkElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_media(p) {
+    get_media() {
+        p := BSTR()
         result := ComCall(26, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 }

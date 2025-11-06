@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRdcGeneratorParameters.ahk
+#Include .\IRdcGenerator.ahk
+#Include .\IRdcComparator.ahk
+#Include .\IRdcSignatureReader.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -39,81 +43,73 @@ class IRdcLibrary extends IUnknown{
     /**
      * 
      * @param {Integer} fileSize 
-     * @param {Pointer<Integer>} depth 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdclibrary-computedefaultrecursiondepth
      */
-    ComputeDefaultRecursionDepth(fileSize, depth) {
-        depthMarshal := depth is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "uint", fileSize, depthMarshal, depth, "HRESULT")
-        return result
+    ComputeDefaultRecursionDepth(fileSize) {
+        result := ComCall(3, this, "uint", fileSize, "uint*", &depth := 0, "HRESULT")
+        return depth
     }
 
     /**
      * 
      * @param {Integer} parametersType 
      * @param {Integer} level 
-     * @param {Pointer<IRdcGeneratorParameters>} iGeneratorParameters 
-     * @returns {HRESULT} 
+     * @returns {IRdcGeneratorParameters} 
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdclibrary-creategeneratorparameters
      */
-    CreateGeneratorParameters(parametersType, level, iGeneratorParameters) {
-        result := ComCall(4, this, "int", parametersType, "uint", level, "ptr*", iGeneratorParameters, "HRESULT")
-        return result
+    CreateGeneratorParameters(parametersType, level) {
+        result := ComCall(4, this, "int", parametersType, "uint", level, "ptr*", &iGeneratorParameters := 0, "HRESULT")
+        return IRdcGeneratorParameters(iGeneratorParameters)
     }
 
     /**
      * 
      * @param {Integer} size 
      * @param {Pointer<Integer>} parametersBlob 
-     * @param {Pointer<IRdcGeneratorParameters>} iGeneratorParameters 
-     * @returns {HRESULT} 
+     * @returns {IRdcGeneratorParameters} 
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdclibrary-opengeneratorparameters
      */
-    OpenGeneratorParameters(size, parametersBlob, iGeneratorParameters) {
+    OpenGeneratorParameters(size, parametersBlob) {
         parametersBlobMarshal := parametersBlob is VarRef ? "char*" : "ptr"
 
-        result := ComCall(5, this, "uint", size, parametersBlobMarshal, parametersBlob, "ptr*", iGeneratorParameters, "HRESULT")
-        return result
+        result := ComCall(5, this, "uint", size, parametersBlobMarshal, parametersBlob, "ptr*", &iGeneratorParameters := 0, "HRESULT")
+        return IRdcGeneratorParameters(iGeneratorParameters)
     }
 
     /**
      * 
      * @param {Integer} depth 
      * @param {Pointer<IRdcGeneratorParameters>} iGeneratorParametersArray 
-     * @param {Pointer<IRdcGenerator>} iGenerator 
-     * @returns {HRESULT} 
+     * @returns {IRdcGenerator} 
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdclibrary-creategenerator
      */
-    CreateGenerator(depth, iGeneratorParametersArray, iGenerator) {
-        result := ComCall(6, this, "uint", depth, "ptr*", iGeneratorParametersArray, "ptr*", iGenerator, "HRESULT")
-        return result
+    CreateGenerator(depth, iGeneratorParametersArray) {
+        result := ComCall(6, this, "uint", depth, "ptr*", iGeneratorParametersArray, "ptr*", &iGenerator := 0, "HRESULT")
+        return IRdcGenerator(iGenerator)
     }
 
     /**
      * 
      * @param {IRdcFileReader} iSeedSignaturesFile 
      * @param {Integer} comparatorBufferSize 
-     * @param {Pointer<IRdcComparator>} iComparator 
-     * @returns {HRESULT} 
+     * @returns {IRdcComparator} 
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdclibrary-createcomparator
      */
-    CreateComparator(iSeedSignaturesFile, comparatorBufferSize, iComparator) {
-        result := ComCall(7, this, "ptr", iSeedSignaturesFile, "uint", comparatorBufferSize, "ptr*", iComparator, "HRESULT")
-        return result
+    CreateComparator(iSeedSignaturesFile, comparatorBufferSize) {
+        result := ComCall(7, this, "ptr", iSeedSignaturesFile, "uint", comparatorBufferSize, "ptr*", &iComparator := 0, "HRESULT")
+        return IRdcComparator(iComparator)
     }
 
     /**
      * 
      * @param {IRdcFileReader} iFileReader 
-     * @param {Pointer<IRdcSignatureReader>} iSignatureReader 
-     * @returns {HRESULT} 
+     * @returns {IRdcSignatureReader} 
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdclibrary-createsignaturereader
      */
-    CreateSignatureReader(iFileReader, iSignatureReader) {
-        result := ComCall(8, this, "ptr", iFileReader, "ptr*", iSignatureReader, "HRESULT")
-        return result
+    CreateSignatureReader(iFileReader) {
+        result := ComCall(8, this, "ptr", iFileReader, "ptr*", &iSignatureReader := 0, "HRESULT")
+        return IRdcSignatureReader(iSignatureReader)
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWMOutputMediaProps.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -120,15 +121,12 @@ class IWMSyncReader extends IUnknown{
     /**
      * 
      * @param {Integer} wStreamNum 
-     * @param {Pointer<Integer>} pSelection 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getstreamselected
      */
-    GetStreamSelected(wStreamNum, pSelection) {
-        pSelectionMarshal := pSelection is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, "ushort", wStreamNum, pSelectionMarshal, pSelection, "HRESULT")
-        return result
+    GetStreamSelected(wStreamNum) {
+        result := ComCall(9, this, "ushort", wStreamNum, "int*", &pSelection := 0, "HRESULT")
+        return pSelection
     }
 
     /**
@@ -146,13 +144,12 @@ class IWMSyncReader extends IUnknown{
     /**
      * 
      * @param {Integer} wStreamNum 
-     * @param {Pointer<BOOL>} pfCompressed 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getreadstreamsamples
      */
-    GetReadStreamSamples(wStreamNum, pfCompressed) {
-        result := ComCall(11, this, "ushort", wStreamNum, "ptr", pfCompressed, "HRESULT")
-        return result
+    GetReadStreamSamples(wStreamNum) {
+        result := ComCall(11, this, "ushort", wStreamNum, "int*", &pfCompressed := 0, "HRESULT")
+        return pfCompressed
     }
 
     /**
@@ -197,27 +194,23 @@ class IWMSyncReader extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcOutputs 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getoutputcount
      */
-    GetOutputCount(pcOutputs) {
-        pcOutputsMarshal := pcOutputs is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, pcOutputsMarshal, pcOutputs, "HRESULT")
-        return result
+    GetOutputCount() {
+        result := ComCall(14, this, "uint*", &pcOutputs := 0, "HRESULT")
+        return pcOutputs
     }
 
     /**
      * 
      * @param {Integer} dwOutputNum 
-     * @param {Pointer<IWMOutputMediaProps>} ppOutput 
-     * @returns {HRESULT} 
+     * @returns {IWMOutputMediaProps} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getoutputprops
      */
-    GetOutputProps(dwOutputNum, ppOutput) {
-        result := ComCall(15, this, "uint", dwOutputNum, "ptr*", ppOutput, "HRESULT")
-        return result
+    GetOutputProps(dwOutputNum) {
+        result := ComCall(15, this, "uint", dwOutputNum, "ptr*", &ppOutput := 0, "HRESULT")
+        return IWMOutputMediaProps(ppOutput)
     }
 
     /**
@@ -235,84 +228,68 @@ class IWMSyncReader extends IUnknown{
     /**
      * 
      * @param {Integer} dwOutputNum 
-     * @param {Pointer<Integer>} pcFormats 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getoutputformatcount
      */
-    GetOutputFormatCount(dwOutputNum, pcFormats) {
-        pcFormatsMarshal := pcFormats is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(17, this, "uint", dwOutputNum, pcFormatsMarshal, pcFormats, "HRESULT")
-        return result
+    GetOutputFormatCount(dwOutputNum) {
+        result := ComCall(17, this, "uint", dwOutputNum, "uint*", &pcFormats := 0, "HRESULT")
+        return pcFormats
     }
 
     /**
      * 
      * @param {Integer} dwOutputNum 
      * @param {Integer} dwFormatNum 
-     * @param {Pointer<IWMOutputMediaProps>} ppProps 
-     * @returns {HRESULT} 
+     * @returns {IWMOutputMediaProps} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getoutputformat
      */
-    GetOutputFormat(dwOutputNum, dwFormatNum, ppProps) {
-        result := ComCall(18, this, "uint", dwOutputNum, "uint", dwFormatNum, "ptr*", ppProps, "HRESULT")
-        return result
+    GetOutputFormat(dwOutputNum, dwFormatNum) {
+        result := ComCall(18, this, "uint", dwOutputNum, "uint", dwFormatNum, "ptr*", &ppProps := 0, "HRESULT")
+        return IWMOutputMediaProps(ppProps)
     }
 
     /**
      * 
      * @param {Integer} wStreamNum 
-     * @param {Pointer<Integer>} pdwOutputNum 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getoutputnumberforstream
      */
-    GetOutputNumberForStream(wStreamNum, pdwOutputNum) {
-        pdwOutputNumMarshal := pdwOutputNum is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(19, this, "ushort", wStreamNum, pdwOutputNumMarshal, pdwOutputNum, "HRESULT")
-        return result
+    GetOutputNumberForStream(wStreamNum) {
+        result := ComCall(19, this, "ushort", wStreamNum, "uint*", &pdwOutputNum := 0, "HRESULT")
+        return pdwOutputNum
     }
 
     /**
      * 
      * @param {Integer} dwOutputNum 
-     * @param {Pointer<Integer>} pwStreamNum 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getstreamnumberforoutput
      */
-    GetStreamNumberForOutput(dwOutputNum, pwStreamNum) {
-        pwStreamNumMarshal := pwStreamNum is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(20, this, "uint", dwOutputNum, pwStreamNumMarshal, pwStreamNum, "HRESULT")
-        return result
+    GetStreamNumberForOutput(dwOutputNum) {
+        result := ComCall(20, this, "uint", dwOutputNum, "ushort*", &pwStreamNum := 0, "HRESULT")
+        return pwStreamNum
     }
 
     /**
      * 
      * @param {Integer} dwOutput 
-     * @param {Pointer<Integer>} pcbMax 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getmaxoutputsamplesize
      */
-    GetMaxOutputSampleSize(dwOutput, pcbMax) {
-        pcbMaxMarshal := pcbMax is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(21, this, "uint", dwOutput, pcbMaxMarshal, pcbMax, "HRESULT")
-        return result
+    GetMaxOutputSampleSize(dwOutput) {
+        result := ComCall(21, this, "uint", dwOutput, "uint*", &pcbMax := 0, "HRESULT")
+        return pcbMax
     }
 
     /**
      * 
      * @param {Integer} wStream 
-     * @param {Pointer<Integer>} pcbMax 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmsyncreader-getmaxstreamsamplesize
      */
-    GetMaxStreamSampleSize(wStream, pcbMax) {
-        pcbMaxMarshal := pcbMax is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(22, this, "ushort", wStream, pcbMaxMarshal, pcbMax, "HRESULT")
-        return result
+    GetMaxStreamSampleSize(wStream) {
+        result := ComCall(22, this, "ushort", wStream, "uint*", &pcbMax := 0, "HRESULT")
+        return pcbMax
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -43,13 +44,13 @@ class IOleUndoUnit extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pBstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleundounit-getdescription
      */
-    GetDescription(pBstr) {
+    GetDescription() {
+        pBstr := BSTR()
         result := ComCall(4, this, "ptr", pBstr, "HRESULT")
-        return result
+        return pBstr
     }
 
     /**

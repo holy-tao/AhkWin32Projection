@@ -37,19 +37,17 @@ class IImePlugInDictDictionaryList extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} prgDictionaryGUID 
      * @param {Pointer<Pointer<SAFEARRAY>>} prgDateCreated 
      * @param {Pointer<Pointer<SAFEARRAY>>} prgfEncrypted 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/msimeapi/nf-msimeapi-iimeplugindictdictionarylist-getdictionariesinuse
      */
-    GetDictionariesInUse(prgDictionaryGUID, prgDateCreated, prgfEncrypted) {
-        prgDictionaryGUIDMarshal := prgDictionaryGUID is VarRef ? "ptr*" : "ptr"
+    GetDictionariesInUse(prgDateCreated, prgfEncrypted) {
         prgDateCreatedMarshal := prgDateCreated is VarRef ? "ptr*" : "ptr"
         prgfEncryptedMarshal := prgfEncrypted is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, prgDictionaryGUIDMarshal, prgDictionaryGUID, prgDateCreatedMarshal, prgDateCreated, prgfEncryptedMarshal, prgfEncrypted, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr*", &prgDictionaryGUID := 0, prgDateCreatedMarshal, prgDateCreated, prgfEncryptedMarshal, prgfEncrypted, "HRESULT")
+        return prgDictionaryGUID
     }
 
     /**

@@ -38,15 +38,12 @@ class IRdcGeneratorParameters extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} parametersType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcgeneratorparameters-getgeneratorparameterstype
      */
-    GetGeneratorParametersType(parametersType) {
-        parametersTypeMarshal := parametersType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, parametersTypeMarshal, parametersType, "HRESULT")
-        return result
+    GetGeneratorParametersType() {
+        result := ComCall(3, this, "int*", &parametersType := 0, "HRESULT")
+        return parametersType
     }
 
     /**
@@ -66,15 +63,12 @@ class IRdcGeneratorParameters extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} size 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcgeneratorparameters-getserializesize
      */
-    GetSerializeSize(size) {
-        sizeMarshal := size is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, sizeMarshal, size, "HRESULT")
-        return result
+    GetSerializeSize() {
+        result := ComCall(5, this, "uint*", &size := 0, "HRESULT")
+        return size
     }
 
     /**

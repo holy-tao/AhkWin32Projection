@@ -59,24 +59,22 @@ class ICrmCompensatorVariants extends IUnknown{
     /**
      * 
      * @param {Pointer<VARIANT>} pLogRecord 
-     * @param {Pointer<VARIANT_BOOL>} pbForget 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmcompensatorvariants-preparerecordvariants
      */
-    PrepareRecordVariants(pLogRecord, pbForget) {
-        result := ComCall(5, this, "ptr", pLogRecord, "ptr", pbForget, "HRESULT")
-        return result
+    PrepareRecordVariants(pLogRecord) {
+        result := ComCall(5, this, "ptr", pLogRecord, "short*", &pbForget := 0, "HRESULT")
+        return pbForget
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbOkToPrepare 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmcompensatorvariants-endpreparevariants
      */
-    EndPrepareVariants(pbOkToPrepare) {
-        result := ComCall(6, this, "ptr", pbOkToPrepare, "HRESULT")
-        return result
+    EndPrepareVariants() {
+        result := ComCall(6, this, "short*", &pbOkToPrepare := 0, "HRESULT")
+        return pbOkToPrepare
     }
 
     /**
@@ -93,13 +91,12 @@ class ICrmCompensatorVariants extends IUnknown{
     /**
      * 
      * @param {Pointer<VARIANT>} pLogRecord 
-     * @param {Pointer<VARIANT_BOOL>} pbForget 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmcompensatorvariants-commitrecordvariants
      */
-    CommitRecordVariants(pLogRecord, pbForget) {
-        result := ComCall(8, this, "ptr", pLogRecord, "ptr", pbForget, "HRESULT")
-        return result
+    CommitRecordVariants(pLogRecord) {
+        result := ComCall(8, this, "ptr", pLogRecord, "short*", &pbForget := 0, "HRESULT")
+        return pbForget
     }
 
     /**
@@ -126,13 +123,12 @@ class ICrmCompensatorVariants extends IUnknown{
     /**
      * 
      * @param {Pointer<VARIANT>} pLogRecord 
-     * @param {Pointer<VARIANT_BOOL>} pbForget 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmcompensatorvariants-abortrecordvariants
      */
-    AbortRecordVariants(pLogRecord, pbForget) {
-        result := ComCall(11, this, "ptr", pLogRecord, "ptr", pbForget, "HRESULT")
-        return result
+    AbortRecordVariants(pLogRecord) {
+        result := ComCall(11, this, "ptr", pLogRecord, "short*", &pbForget := 0, "HRESULT")
+        return pbForget
     }
 
     /**

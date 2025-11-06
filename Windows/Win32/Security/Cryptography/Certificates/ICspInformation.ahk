@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\ICspAlgorithms.ahk
+#Include .\ICspStatus.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -59,177 +61,156 @@ class ICspInformation extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ICspAlgorithms>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {ICspAlgorithms} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-get_cspalgorithms
      */
-    get_CspAlgorithms(ppValue) {
-        result := ComCall(9, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_CspAlgorithms() {
+        result := ComCall(9, this, "ptr*", &ppValue := 0, "HRESULT")
+        return ICspAlgorithms(ppValue)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-get_hashardwarerandomnumbergenerator
      */
-    get_HasHardwareRandomNumberGenerator(pValue) {
-        result := ComCall(10, this, "ptr", pValue, "HRESULT")
-        return result
+    get_HasHardwareRandomNumberGenerator() {
+        result := ComCall(10, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-get_ishardwaredevice
      */
-    get_IsHardwareDevice(pValue) {
-        result := ComCall(11, this, "ptr", pValue, "HRESULT")
-        return result
+    get_IsHardwareDevice() {
+        result := ComCall(11, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-get_isremovable
      */
-    get_IsRemovable(pValue) {
-        result := ComCall(12, this, "ptr", pValue, "HRESULT")
-        return result
+    get_IsRemovable() {
+        result := ComCall(12, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-get_issoftwaredevice
      */
-    get_IsSoftwareDevice(pValue) {
-        result := ComCall(13, this, "ptr", pValue, "HRESULT")
-        return result
+    get_IsSoftwareDevice() {
+        result := ComCall(13, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-get_valid
      */
-    get_Valid(pValue) {
-        result := ComCall(14, this, "ptr", pValue, "HRESULT")
-        return result
+    get_Valid() {
+        result := ComCall(14, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-get_maxkeycontainernamelength
      */
-    get_MaxKeyContainerNameLength(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_MaxKeyContainerNameLength() {
+        result := ComCall(15, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-get_name
      */
-    get_Name(pValue) {
+    get_Name() {
+        pValue := BSTR()
         result := ComCall(16, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-get_type
      */
-    get_Type(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_Type() {
+        result := ComCall(17, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-get_version
      */
-    get_Version(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(18, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_Version() {
+        result := ComCall(18, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-get_keyspec
      */
-    get_KeySpec(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(19, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_KeySpec() {
+        result := ComCall(19, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-get_issmartcard
      */
-    get_IsSmartCard(pValue) {
-        result := ComCall(20, this, "ptr", pValue, "HRESULT")
-        return result
+    get_IsSmartCard() {
+        result := ComCall(20, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
      * @param {VARIANT_BOOL} MachineContext 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-getdefaultsecuritydescriptor
      */
-    GetDefaultSecurityDescriptor(MachineContext, pValue) {
+    GetDefaultSecurityDescriptor(MachineContext) {
+        pValue := BSTR()
         result := ComCall(21, this, "short", MachineContext, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-get_legacycsp
      */
-    get_LegacyCsp(pValue) {
-        result := ComCall(22, this, "ptr", pValue, "HRESULT")
-        return result
+    get_LegacyCsp() {
+        result := ComCall(22, this, "short*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
      * @param {IObjectId} pAlgorithm 
      * @param {Integer} Operations 
-     * @param {Pointer<ICspStatus>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {ICspStatus} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-getcspstatusfromoperations
      */
-    GetCspStatusFromOperations(pAlgorithm, Operations, ppValue) {
-        result := ComCall(23, this, "ptr", pAlgorithm, "int", Operations, "ptr*", ppValue, "HRESULT")
-        return result
+    GetCspStatusFromOperations(pAlgorithm, Operations) {
+        result := ComCall(23, this, "ptr", pAlgorithm, "int", Operations, "ptr*", &ppValue := 0, "HRESULT")
+        return ICspStatus(ppValue)
     }
 }

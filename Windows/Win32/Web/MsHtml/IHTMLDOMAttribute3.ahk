@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IHTMLElement2.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -41,12 +43,12 @@ class IHTMLDOMAttribute3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_nodeValue(p) {
+    get_nodeValue() {
+        p := VARIANT()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -63,31 +65,29 @@ class IHTMLDOMAttribute3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_value(p) {
+    get_value() {
+        p := BSTR()
         result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_specified(p) {
-        result := ComCall(11, this, "ptr", p, "HRESULT")
-        return result
+    get_specified() {
+        result := ComCall(11, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLElement2>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElement2} 
      */
-    get_ownerElement(p) {
-        result := ComCall(12, this, "ptr*", p, "HRESULT")
-        return result
+    get_ownerElement() {
+        result := ComCall(12, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLElement2(p)
     }
 }

@@ -125,16 +125,13 @@ class IDirectManipulationPrimaryContent extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} matrix 
      * @param {Integer} pointCount 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationprimarycontent-getinertiaendtransform
      */
-    GetInertiaEndTransform(matrix, pointCount) {
-        matrixMarshal := matrix is VarRef ? "float*" : "ptr"
-
-        result := ComCall(10, this, matrixMarshal, matrix, "uint", pointCount, "HRESULT")
-        return result
+    GetInertiaEndTransform(pointCount) {
+        result := ComCall(10, this, "float*", &matrix := 0, "uint", pointCount, "HRESULT")
+        return matrix
     }
 
     /**

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IHTMLWindow2.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -37,24 +38,20 @@ class IDOMUIEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IHTMLWindow2>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLWindow2} 
      */
-    get_view(p) {
-        result := ComCall(7, this, "ptr*", p, "HRESULT")
-        return result
+    get_view() {
+        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLWindow2(p)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_detail(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pMarshal, p, "HRESULT")
-        return result
+    get_detail() {
+        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**

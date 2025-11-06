@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IADs.ahk
 
 /**
@@ -33,32 +34,32 @@ class IADsComputer extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ComputerID(retval) {
+    get_ComputerID() {
+        retval := BSTR()
         result := ComCall(20, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Site(retval) {
+    get_Site() {
+        retval := BSTR()
         result := ComCall(21, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Description(retval) {
+    get_Description() {
+        retval := BSTR()
         result := ComCall(22, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -75,12 +76,12 @@ class IADsComputer extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Location(retval) {
+    get_Location() {
+        retval := BSTR()
         result := ComCall(24, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -97,12 +98,12 @@ class IADsComputer extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_PrimaryUser(retval) {
+    get_PrimaryUser() {
+        retval := BSTR()
         result := ComCall(26, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -119,12 +120,12 @@ class IADsComputer extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Owner(retval) {
+    get_Owner() {
+        retval := BSTR()
         result := ComCall(28, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -141,12 +142,12 @@ class IADsComputer extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Division(retval) {
+    get_Division() {
+        retval := BSTR()
         result := ComCall(30, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -163,12 +164,12 @@ class IADsComputer extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Department(retval) {
+    get_Department() {
+        retval := BSTR()
         result := ComCall(32, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -185,12 +186,12 @@ class IADsComputer extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Role(retval) {
+    get_Role() {
+        retval := BSTR()
         result := ComCall(34, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -207,12 +208,12 @@ class IADsComputer extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_OperatingSystem(retval) {
+    get_OperatingSystem() {
+        retval := BSTR()
         result := ComCall(36, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -229,12 +230,12 @@ class IADsComputer extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_OperatingSystemVersion(retval) {
+    get_OperatingSystemVersion() {
+        retval := BSTR()
         result := ComCall(38, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -251,12 +252,12 @@ class IADsComputer extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Model(retval) {
+    get_Model() {
+        retval := BSTR()
         result := ComCall(40, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -273,12 +274,12 @@ class IADsComputer extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Processor(retval) {
+    get_Processor() {
+        retval := BSTR()
         result := ComCall(42, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -295,12 +296,12 @@ class IADsComputer extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ProcessorCount(retval) {
+    get_ProcessorCount() {
+        retval := BSTR()
         result := ComCall(44, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -317,12 +318,12 @@ class IADsComputer extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_MemorySize(retval) {
+    get_MemorySize() {
+        retval := BSTR()
         result := ComCall(46, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -339,12 +340,12 @@ class IADsComputer extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_StorageCapacity(retval) {
+    get_StorageCapacity() {
+        retval := BSTR()
         result := ComCall(48, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -361,12 +362,12 @@ class IADsComputer extends IADs{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_NetAddresses(retval) {
+    get_NetAddresses() {
+        retval := VARIANT()
         result := ComCall(50, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**

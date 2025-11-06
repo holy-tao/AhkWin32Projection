@@ -37,12 +37,11 @@ class IUpdateDownloadContent2 extends IUpdateDownloadContent{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatedownloadcontent2-get_isdeltacompressedcontent
      */
-    get_IsDeltaCompressedContent(retval) {
-        result := ComCall(8, this, "ptr", retval, "HRESULT")
-        return result
+    get_IsDeltaCompressedContent() {
+        result := ComCall(8, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 }

@@ -60,12 +60,11 @@ class IWICFormatConverter extends IWICBitmapSource{
      * 
      * @param {Pointer<Guid>} srcPixelFormat 
      * @param {Pointer<Guid>} dstPixelFormat 
-     * @param {Pointer<BOOL>} pfCanConvert 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicformatconverter-canconvert
      */
-    CanConvert(srcPixelFormat, dstPixelFormat, pfCanConvert) {
-        result := ComCall(9, this, "ptr", srcPixelFormat, "ptr", dstPixelFormat, "ptr", pfCanConvert, "HRESULT")
-        return result
+    CanConvert(srcPixelFormat, dstPixelFormat) {
+        result := ComCall(9, this, "ptr", srcPixelFormat, "ptr", dstPixelFormat, "int*", &pfCanConvert := 0, "HRESULT")
+        return pfCanConvert
     }
 }

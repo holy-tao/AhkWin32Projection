@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -32,12 +33,12 @@ class ITsSbLoadBalanceResult extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbloadbalanceresult-get_targetname
      */
-    get_TargetName(pVal) {
+    get_TargetName() {
+        pVal := BSTR()
         result := ComCall(3, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 }

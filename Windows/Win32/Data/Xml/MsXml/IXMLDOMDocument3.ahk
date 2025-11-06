@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IXMLDOMParseError.ahk
+#Include .\IXMLDOMNode.ahk
 #Include .\IXMLDOMDocument2.ahk
 
 /**
@@ -31,23 +33,21 @@ class IXMLDOMDocument3 extends IXMLDOMDocument2{
     /**
      * 
      * @param {IXMLDOMNode} node 
-     * @param {Pointer<IXMLDOMParseError>} errorObj 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMParseError} 
      */
-    validateNode(node, errorObj) {
-        result := ComCall(82, this, "ptr", node, "ptr*", errorObj, "HRESULT")
-        return result
+    validateNode(node) {
+        result := ComCall(82, this, "ptr", node, "ptr*", &errorObj := 0, "HRESULT")
+        return IXMLDOMParseError(errorObj)
     }
 
     /**
      * 
      * @param {IXMLDOMNode} node 
      * @param {VARIANT_BOOL} deep 
-     * @param {Pointer<IXMLDOMNode>} clone 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMNode} 
      */
-    importNode(node, deep, clone) {
-        result := ComCall(83, this, "ptr", node, "short", deep, "ptr*", clone, "HRESULT")
-        return result
+    importNode(node, deep) {
+        result := ComCall(83, this, "ptr", node, "short", deep, "ptr*", &clone := 0, "HRESULT")
+        return IXMLDOMNode(clone)
     }
 }

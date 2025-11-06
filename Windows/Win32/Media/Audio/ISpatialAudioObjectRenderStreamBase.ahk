@@ -32,29 +32,23 @@ class ISpatialAudioObjectRenderStreamBase extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioobjectrenderstreambase-getavailabledynamicobjectcount
      */
-    GetAvailableDynamicObjectCount(value) {
-        valueMarshal := value is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, valueMarshal, value, "HRESULT")
-        return result
+    GetAvailableDynamicObjectCount() {
+        result := ComCall(3, this, "uint*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} service 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-ispatialaudioobjectrenderstreambase-getservice
      */
-    GetService(riid, service) {
-        serviceMarshal := service is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "ptr", riid, serviceMarshal, service, "HRESULT")
-        return result
+    GetService(riid) {
+        result := ComCall(4, this, "ptr", riid, "ptr*", &service := 0, "HRESULT")
+        return service
     }
 
     /**

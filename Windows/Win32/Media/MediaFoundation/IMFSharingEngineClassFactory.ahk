@@ -34,12 +34,11 @@ class IMFSharingEngineClassFactory extends IUnknown{
      * 
      * @param {Integer} dwFlags 
      * @param {IMFAttributes} pAttr 
-     * @param {Pointer<IUnknown>} ppEngine 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/mfsharingengine/nf-mfsharingengine-imfsharingengineclassfactory-createinstance
      */
-    CreateInstance(dwFlags, pAttr, ppEngine) {
-        result := ComCall(3, this, "uint", dwFlags, "ptr", pAttr, "ptr*", ppEngine, "HRESULT")
-        return result
+    CreateInstance(dwFlags, pAttr) {
+        result := ComCall(3, this, "uint", dwFlags, "ptr", pAttr, "ptr*", &ppEngine := 0, "HRESULT")
+        return IUnknown(ppEngine)
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\FolderItem.ahk
 #Include .\IShellLinkDual.ahk
 
 /**
@@ -32,11 +33,10 @@ class IShellLinkDual2 extends IShellLinkDual{
 
     /**
      * 
-     * @param {Pointer<FolderItem>} ppfi 
-     * @returns {HRESULT} 
+     * @returns {FolderItem} 
      */
-    get_Target(ppfi) {
-        result := ComCall(23, this, "ptr*", ppfi, "HRESULT")
-        return result
+    get_Target() {
+        result := ComCall(23, this, "ptr*", &ppfi := 0, "HRESULT")
+        return FolderItem(ppfi)
     }
 }

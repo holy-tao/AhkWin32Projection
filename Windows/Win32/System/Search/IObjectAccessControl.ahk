@@ -46,26 +46,22 @@ class IObjectAccessControl extends IUnknown{
     /**
      * 
      * @param {Pointer<SEC_OBJECT>} pObject 
-     * @param {Pointer<Pointer<TRUSTEE_W>>} ppOwner 
-     * @returns {HRESULT} 
+     * @returns {Pointer<TRUSTEE_W>} 
      */
-    GetObjectOwner(pObject, ppOwner) {
-        ppOwnerMarshal := ppOwner is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "ptr", pObject, ppOwnerMarshal, ppOwner, "HRESULT")
-        return result
+    GetObjectOwner(pObject) {
+        result := ComCall(4, this, "ptr", pObject, "ptr*", &ppOwner := 0, "HRESULT")
+        return ppOwner
     }
 
     /**
      * 
      * @param {Pointer<SEC_OBJECT>} pObject 
      * @param {Pointer<EXPLICIT_ACCESS_W>} pAccessEntry 
-     * @param {Pointer<BOOL>} pfResult 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsObjectAccessAllowed(pObject, pAccessEntry, pfResult) {
-        result := ComCall(5, this, "ptr", pObject, "ptr", pAccessEntry, "ptr", pfResult, "HRESULT")
-        return result
+    IsObjectAccessAllowed(pObject, pAccessEntry) {
+        result := ComCall(5, this, "ptr", pObject, "ptr", pAccessEntry, "int*", &pfResult := 0, "HRESULT")
+        return pfResult
     }
 
     /**

@@ -45,15 +45,12 @@ class IEvalRat extends IDispatch{
      * 
      * @param {Integer} enSystem 
      * @param {Integer} enLevel 
-     * @param {Pointer<Integer>} plbfAttrs 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tvratings/nf-tvratings-ievalrat-get_blockedratingattributes
      */
-    get_BlockedRatingAttributes(enSystem, enLevel, plbfAttrs) {
-        plbfAttrsMarshal := plbfAttrs is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, "int", enSystem, "int", enLevel, plbfAttrsMarshal, plbfAttrs, "HRESULT")
-        return result
+    get_BlockedRatingAttributes(enSystem, enLevel) {
+        result := ComCall(7, this, "int", enSystem, "int", enLevel, "int*", &plbfAttrs := 0, "HRESULT")
+        return plbfAttrs
     }
 
     /**
@@ -71,13 +68,12 @@ class IEvalRat extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfBlockUnRatedShows 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/tvratings/nf-tvratings-ievalrat-get_blockunrated
      */
-    get_BlockUnRated(pfBlockUnRatedShows) {
-        result := ComCall(9, this, "ptr", pfBlockUnRatedShows, "HRESULT")
-        return result
+    get_BlockUnRated() {
+        result := ComCall(9, this, "int*", &pfBlockUnRatedShows := 0, "HRESULT")
+        return pfBlockUnRatedShows
     }
 
     /**

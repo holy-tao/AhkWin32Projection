@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumVdsObject.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,24 +33,22 @@ class IVdsServiceIscsi extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppwszIscsiName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsserviceiscsi-getinitiatorname
      */
-    GetInitiatorName(ppwszIscsiName) {
-        result := ComCall(3, this, "ptr", ppwszIscsiName, "HRESULT")
-        return result
+    GetInitiatorName() {
+        result := ComCall(3, this, "ptr*", &ppwszIscsiName := 0, "HRESULT")
+        return ppwszIscsiName
     }
 
     /**
      * 
-     * @param {Pointer<IEnumVdsObject>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumVdsObject} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsserviceiscsi-queryinitiatoradapters
      */
-    QueryInitiatorAdapters(ppEnum) {
-        result := ComCall(4, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    QueryInitiatorAdapters() {
+        result := ComCall(4, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumVdsObject(ppEnum)
     }
 
     /**

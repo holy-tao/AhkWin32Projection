@@ -2,7 +2,19 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IXMLDOMDocumentType.ahk
+#Include .\IXMLDOMImplementation.ahk
+#Include .\IXMLDOMElement.ahk
+#Include .\IXMLDOMDocumentFragment.ahk
+#Include .\IXMLDOMText.ahk
+#Include .\IXMLDOMComment.ahk
+#Include .\IXMLDOMCDATASection.ahk
+#Include .\IXMLDOMProcessingInstruction.ahk
+#Include .\IXMLDOMAttribute.ahk
+#Include .\IXMLDOMEntityReference.ahk
+#Include .\IXMLDOMNodeList.ahk
 #Include .\IXMLDOMNode.ahk
+#Include .\IXMLDOMParseError.ahk
 
 /**
  * @namespace Windows.Win32.Data.Xml.MsXml
@@ -31,32 +43,29 @@ class IXMLDOMDocument extends IXMLDOMNode{
 
     /**
      * 
-     * @param {Pointer<IXMLDOMDocumentType>} documentType 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMDocumentType} 
      */
-    get_doctype(documentType) {
-        result := ComCall(43, this, "ptr*", documentType, "HRESULT")
-        return result
+    get_doctype() {
+        result := ComCall(43, this, "ptr*", &documentType := 0, "HRESULT")
+        return IXMLDOMDocumentType(documentType)
     }
 
     /**
      * 
-     * @param {Pointer<IXMLDOMImplementation>} impl 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMImplementation} 
      */
-    get_implementation(impl) {
-        result := ComCall(44, this, "ptr*", impl, "HRESULT")
-        return result
+    get_implementation() {
+        result := ComCall(44, this, "ptr*", &impl := 0, "HRESULT")
+        return IXMLDOMImplementation(impl)
     }
 
     /**
      * 
-     * @param {Pointer<IXMLDOMElement>} DOMElement 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMElement} 
      */
-    get_documentElement(DOMElement) {
-        result := ComCall(45, this, "ptr*", DOMElement, "HRESULT")
-        return result
+    get_documentElement() {
+        result := ComCall(45, this, "ptr*", &DOMElement := 0, "HRESULT")
+        return IXMLDOMElement(DOMElement)
     }
 
     /**
@@ -72,117 +81,108 @@ class IXMLDOMDocument extends IXMLDOMNode{
     /**
      * 
      * @param {BSTR} tagName 
-     * @param {Pointer<IXMLDOMElement>} element 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMElement} 
      */
-    createElement(tagName, element) {
+    createElement(tagName) {
         tagName := tagName is String ? BSTR.Alloc(tagName).Value : tagName
 
-        result := ComCall(47, this, "ptr", tagName, "ptr*", element, "HRESULT")
-        return result
+        result := ComCall(47, this, "ptr", tagName, "ptr*", &element := 0, "HRESULT")
+        return IXMLDOMElement(element)
     }
 
     /**
      * 
-     * @param {Pointer<IXMLDOMDocumentFragment>} docFrag 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMDocumentFragment} 
      */
-    createDocumentFragment(docFrag) {
-        result := ComCall(48, this, "ptr*", docFrag, "HRESULT")
-        return result
-    }
-
-    /**
-     * 
-     * @param {BSTR} data 
-     * @param {Pointer<IXMLDOMText>} text 
-     * @returns {HRESULT} 
-     */
-    createTextNode(data, text) {
-        data := data is String ? BSTR.Alloc(data).Value : data
-
-        result := ComCall(49, this, "ptr", data, "ptr*", text, "HRESULT")
-        return result
+    createDocumentFragment() {
+        result := ComCall(48, this, "ptr*", &docFrag := 0, "HRESULT")
+        return IXMLDOMDocumentFragment(docFrag)
     }
 
     /**
      * 
      * @param {BSTR} data 
-     * @param {Pointer<IXMLDOMComment>} comment 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMText} 
      */
-    createComment(data, comment) {
+    createTextNode(data) {
         data := data is String ? BSTR.Alloc(data).Value : data
 
-        result := ComCall(50, this, "ptr", data, "ptr*", comment, "HRESULT")
-        return result
+        result := ComCall(49, this, "ptr", data, "ptr*", &text := 0, "HRESULT")
+        return IXMLDOMText(text)
     }
 
     /**
      * 
      * @param {BSTR} data 
-     * @param {Pointer<IXMLDOMCDATASection>} cdata 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMComment} 
      */
-    createCDATASection(data, cdata) {
+    createComment(data) {
         data := data is String ? BSTR.Alloc(data).Value : data
 
-        result := ComCall(51, this, "ptr", data, "ptr*", cdata, "HRESULT")
-        return result
+        result := ComCall(50, this, "ptr", data, "ptr*", &comment := 0, "HRESULT")
+        return IXMLDOMComment(comment)
+    }
+
+    /**
+     * 
+     * @param {BSTR} data 
+     * @returns {IXMLDOMCDATASection} 
+     */
+    createCDATASection(data) {
+        data := data is String ? BSTR.Alloc(data).Value : data
+
+        result := ComCall(51, this, "ptr", data, "ptr*", &cdata := 0, "HRESULT")
+        return IXMLDOMCDATASection(cdata)
     }
 
     /**
      * 
      * @param {BSTR} target 
      * @param {BSTR} data 
-     * @param {Pointer<IXMLDOMProcessingInstruction>} pi 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMProcessingInstruction} 
      */
-    createProcessingInstruction(target, data, pi) {
+    createProcessingInstruction(target, data) {
         target := target is String ? BSTR.Alloc(target).Value : target
         data := data is String ? BSTR.Alloc(data).Value : data
 
-        result := ComCall(52, this, "ptr", target, "ptr", data, "ptr*", pi, "HRESULT")
-        return result
+        result := ComCall(52, this, "ptr", target, "ptr", data, "ptr*", &pi := 0, "HRESULT")
+        return IXMLDOMProcessingInstruction(pi)
     }
 
     /**
      * 
      * @param {BSTR} name 
-     * @param {Pointer<IXMLDOMAttribute>} attribute 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMAttribute} 
      */
-    createAttribute(name, attribute) {
+    createAttribute(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(53, this, "ptr", name, "ptr*", attribute, "HRESULT")
-        return result
+        result := ComCall(53, this, "ptr", name, "ptr*", &attribute := 0, "HRESULT")
+        return IXMLDOMAttribute(attribute)
     }
 
     /**
      * 
      * @param {BSTR} name 
-     * @param {Pointer<IXMLDOMEntityReference>} entityRef 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMEntityReference} 
      */
-    createEntityReference(name, entityRef) {
+    createEntityReference(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(54, this, "ptr", name, "ptr*", entityRef, "HRESULT")
-        return result
+        result := ComCall(54, this, "ptr", name, "ptr*", &entityRef := 0, "HRESULT")
+        return IXMLDOMEntityReference(entityRef)
     }
 
     /**
      * 
      * @param {BSTR} tagName 
-     * @param {Pointer<IXMLDOMNodeList>} resultList 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMNodeList} 
      */
-    getElementsByTagName(tagName, resultList) {
+    getElementsByTagName(tagName) {
         tagName := tagName is String ? BSTR.Alloc(tagName).Value : tagName
 
-        result := ComCall(55, this, "ptr", tagName, "ptr*", resultList, "HRESULT")
-        return result
+        result := ComCall(55, this, "ptr", tagName, "ptr*", &resultList := 0, "HRESULT")
+        return IXMLDOMNodeList(resultList)
     }
 
     /**
@@ -190,81 +190,73 @@ class IXMLDOMDocument extends IXMLDOMNode{
      * @param {VARIANT} Type 
      * @param {BSTR} name 
      * @param {BSTR} namespaceURI 
-     * @param {Pointer<IXMLDOMNode>} node 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMNode} 
      */
-    createNode(Type, name, namespaceURI, node) {
+    createNode(Type, name, namespaceURI) {
         name := name is String ? BSTR.Alloc(name).Value : name
         namespaceURI := namespaceURI is String ? BSTR.Alloc(namespaceURI).Value : namespaceURI
 
-        result := ComCall(56, this, "ptr", Type, "ptr", name, "ptr", namespaceURI, "ptr*", node, "HRESULT")
-        return result
+        result := ComCall(56, this, "ptr", Type, "ptr", name, "ptr", namespaceURI, "ptr*", &node := 0, "HRESULT")
+        return IXMLDOMNode(node)
     }
 
     /**
      * 
      * @param {BSTR} idString 
-     * @param {Pointer<IXMLDOMNode>} node 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMNode} 
      */
-    nodeFromID(idString, node) {
+    nodeFromID(idString) {
         idString := idString is String ? BSTR.Alloc(idString).Value : idString
 
-        result := ComCall(57, this, "ptr", idString, "ptr*", node, "HRESULT")
-        return result
+        result := ComCall(57, this, "ptr", idString, "ptr*", &node := 0, "HRESULT")
+        return IXMLDOMNode(node)
     }
 
     /**
      * 
      * @param {VARIANT} xmlSource 
-     * @param {Pointer<VARIANT_BOOL>} isSuccessful 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    load(xmlSource, isSuccessful) {
-        result := ComCall(58, this, "ptr", xmlSource, "ptr", isSuccessful, "HRESULT")
-        return result
+    load(xmlSource) {
+        result := ComCall(58, this, "ptr", xmlSource, "short*", &isSuccessful := 0, "HRESULT")
+        return isSuccessful
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_readyState(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(59, this, valueMarshal, value, "HRESULT")
-        return result
+    get_readyState() {
+        result := ComCall(59, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<IXMLDOMParseError>} errorObj 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMParseError} 
      */
-    get_parseError(errorObj) {
-        result := ComCall(60, this, "ptr*", errorObj, "HRESULT")
-        return result
+    get_parseError() {
+        result := ComCall(60, this, "ptr*", &errorObj := 0, "HRESULT")
+        return IXMLDOMParseError(errorObj)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} urlString 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_url(urlString) {
+    get_url() {
+        urlString := BSTR()
         result := ComCall(61, this, "ptr", urlString, "HRESULT")
-        return result
+        return urlString
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} isAsync 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_async(isAsync) {
-        result := ComCall(62, this, "ptr", isAsync, "HRESULT")
-        return result
+    get_async() {
+        result := ComCall(62, this, "short*", &isAsync := 0, "HRESULT")
+        return isAsync
     }
 
     /**
@@ -289,14 +281,13 @@ class IXMLDOMDocument extends IXMLDOMNode{
     /**
      * 
      * @param {BSTR} bstrXML 
-     * @param {Pointer<VARIANT_BOOL>} isSuccessful 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    loadXML(bstrXML, isSuccessful) {
+    loadXML(bstrXML) {
         bstrXML := bstrXML is String ? BSTR.Alloc(bstrXML).Value : bstrXML
 
-        result := ComCall(65, this, "ptr", bstrXML, "ptr", isSuccessful, "HRESULT")
-        return result
+        result := ComCall(65, this, "ptr", bstrXML, "short*", &isSuccessful := 0, "HRESULT")
+        return isSuccessful
     }
 
     /**
@@ -311,12 +302,11 @@ class IXMLDOMDocument extends IXMLDOMNode{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} isValidating 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_validateOnParse(isValidating) {
-        result := ComCall(67, this, "ptr", isValidating, "HRESULT")
-        return result
+    get_validateOnParse() {
+        result := ComCall(67, this, "short*", &isValidating := 0, "HRESULT")
+        return isValidating
     }
 
     /**
@@ -331,12 +321,11 @@ class IXMLDOMDocument extends IXMLDOMNode{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} isResolving 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_resolveExternals(isResolving) {
-        result := ComCall(69, this, "ptr", isResolving, "HRESULT")
-        return result
+    get_resolveExternals() {
+        result := ComCall(69, this, "short*", &isResolving := 0, "HRESULT")
+        return isResolving
     }
 
     /**
@@ -351,12 +340,11 @@ class IXMLDOMDocument extends IXMLDOMNode{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} isPreserving 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_preserveWhiteSpace(isPreserving) {
-        result := ComCall(71, this, "ptr", isPreserving, "HRESULT")
-        return result
+    get_preserveWhiteSpace() {
+        result := ComCall(71, this, "short*", &isPreserving := 0, "HRESULT")
+        return isPreserving
     }
 
     /**

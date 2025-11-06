@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISpObjectToken.ahk
+#Include .\ISpStreamFormat.ahk
+#Include .\ISpRecoContext.ahk
 #Include .\ISpProperties.ahk
 
 /**
@@ -40,12 +43,11 @@ class ISpRecognizer extends ISpProperties{
 
     /**
      * 
-     * @param {Pointer<ISpObjectToken>} ppRecognizer 
-     * @returns {HRESULT} 
+     * @returns {ISpObjectToken} 
      */
-    GetRecognizer(ppRecognizer) {
-        result := ComCall(8, this, "ptr*", ppRecognizer, "HRESULT")
-        return result
+    GetRecognizer() {
+        result := ComCall(8, this, "ptr*", &ppRecognizer := 0, "HRESULT")
+        return ISpObjectToken(ppRecognizer)
     }
 
     /**
@@ -61,42 +63,38 @@ class ISpRecognizer extends ISpProperties{
 
     /**
      * 
-     * @param {Pointer<ISpObjectToken>} ppToken 
-     * @returns {HRESULT} 
+     * @returns {ISpObjectToken} 
      */
-    GetInputObjectToken(ppToken) {
-        result := ComCall(10, this, "ptr*", ppToken, "HRESULT")
-        return result
+    GetInputObjectToken() {
+        result := ComCall(10, this, "ptr*", &ppToken := 0, "HRESULT")
+        return ISpObjectToken(ppToken)
     }
 
     /**
      * 
-     * @param {Pointer<ISpStreamFormat>} ppStream 
-     * @returns {HRESULT} 
+     * @returns {ISpStreamFormat} 
      */
-    GetInputStream(ppStream) {
-        result := ComCall(11, this, "ptr*", ppStream, "HRESULT")
-        return result
+    GetInputStream() {
+        result := ComCall(11, this, "ptr*", &ppStream := 0, "HRESULT")
+        return ISpStreamFormat(ppStream)
     }
 
     /**
      * 
-     * @param {Pointer<ISpRecoContext>} ppNewCtxt 
-     * @returns {HRESULT} 
+     * @returns {ISpRecoContext} 
      */
-    CreateRecoContext(ppNewCtxt) {
-        result := ComCall(12, this, "ptr*", ppNewCtxt, "HRESULT")
-        return result
+    CreateRecoContext() {
+        result := ComCall(12, this, "ptr*", &ppNewCtxt := 0, "HRESULT")
+        return ISpRecoContext(ppNewCtxt)
     }
 
     /**
      * 
-     * @param {Pointer<ISpObjectToken>} ppToken 
-     * @returns {HRESULT} 
+     * @returns {ISpObjectToken} 
      */
-    GetRecoProfile(ppToken) {
-        result := ComCall(13, this, "ptr*", ppToken, "HRESULT")
-        return result
+    GetRecoProfile() {
+        result := ComCall(13, this, "ptr*", &ppToken := 0, "HRESULT")
+        return ISpObjectToken(ppToken)
     }
 
     /**
@@ -154,14 +152,11 @@ class ISpRecognizer extends ISpProperties{
      * 
      * @param {Integer} WaveFormatType 
      * @param {Pointer<Guid>} pFormatId 
-     * @param {Pointer<Pointer<WAVEFORMATEX>>} ppCoMemWFEX 
-     * @returns {HRESULT} 
+     * @returns {Pointer<WAVEFORMATEX>} 
      */
-    GetFormat(WaveFormatType, pFormatId, ppCoMemWFEX) {
-        ppCoMemWFEXMarshal := ppCoMemWFEX is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(19, this, "int", WaveFormatType, "ptr", pFormatId, ppCoMemWFEXMarshal, ppCoMemWFEX, "HRESULT")
-        return result
+    GetFormat(WaveFormatType, pFormatId) {
+        result := ComCall(19, this, "int", WaveFormatType, "ptr", pFormatId, "ptr*", &ppCoMemWFEX := 0, "HRESULT")
+        return ppCoMemWFEX
     }
 
     /**
@@ -176,8 +171,9 @@ class ISpRecognizer extends ISpProperties{
         pszTypeOfUI := pszTypeOfUI is String ? StrPtr(pszTypeOfUI) : pszTypeOfUI
 
         pvExtraDataMarshal := pvExtraData is VarRef ? "ptr" : "ptr"
+        pfSupportedMarshal := pfSupported is VarRef ? "int*" : "ptr"
 
-        result := ComCall(20, this, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, "uint", cbExtraData, "ptr", pfSupported, "HRESULT")
+        result := ComCall(20, this, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, "uint", cbExtraData, pfSupportedMarshal, pfSupported, "HRESULT")
         return result
     }
 

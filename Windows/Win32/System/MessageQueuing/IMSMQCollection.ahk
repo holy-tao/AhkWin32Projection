@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include ..\Com\IUnknown.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -37,33 +39,29 @@ class IMSMQCollection extends IDispatch{
     /**
      * 
      * @param {Pointer<VARIANT>} Index 
-     * @param {Pointer<VARIANT>} pvarRet 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    Item(Index, pvarRet) {
+    Item(Index) {
+        pvarRet := VARIANT()
         result := ComCall(7, this, "ptr", Index, "ptr", pvarRet, "HRESULT")
-        return result
+        return pvarRet
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Count(pCount) {
-        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(8, this, "int*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppunk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    _NewEnum(ppunk) {
-        result := ComCall(9, this, "ptr*", ppunk, "HRESULT")
-        return result
+    _NewEnum() {
+        result := ComCall(9, this, "ptr*", &ppunk := 0, "HRESULT")
+        return IUnknown(ppunk)
     }
 }

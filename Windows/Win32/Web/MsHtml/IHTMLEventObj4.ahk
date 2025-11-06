@@ -30,13 +30,10 @@ class IHTMLEventObj4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_wheelDelta(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pMarshal, p, "HRESULT")
-        return result
+    get_wheelDelta() {
+        result := ComCall(7, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 }

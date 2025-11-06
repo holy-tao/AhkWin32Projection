@@ -1,6 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISettingsIdentity.ahk
+#Include .\IItemEnumerator.ahk
+#Include .\ISettingsResult.ahk
+#Include .\ISettingsItem.ahk
+#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -32,64 +37,59 @@ class ISettingsNamespace extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ISettingsIdentity>} SettingsID 
-     * @returns {HRESULT} 
+     * @returns {ISettingsIdentity} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsnamespace-getidentity
      */
-    GetIdentity(SettingsID) {
-        result := ComCall(3, this, "ptr*", SettingsID, "HRESULT")
-        return result
+    GetIdentity() {
+        result := ComCall(3, this, "ptr*", &SettingsID := 0, "HRESULT")
+        return ISettingsIdentity(SettingsID)
     }
 
     /**
      * 
-     * @param {Pointer<IItemEnumerator>} Settings 
-     * @returns {HRESULT} 
+     * @returns {IItemEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsnamespace-settings
      */
-    Settings(Settings) {
-        result := ComCall(4, this, "ptr*", Settings, "HRESULT")
-        return result
+    Settings() {
+        result := ComCall(4, this, "ptr*", &Settings := 0, "HRESULT")
+        return IItemEnumerator(Settings)
     }
 
     /**
      * 
      * @param {BOOL} PushSettings 
-     * @param {Pointer<ISettingsResult>} Result 
-     * @returns {HRESULT} 
+     * @returns {ISettingsResult} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsnamespace-save
      */
-    Save(PushSettings, Result) {
-        result := ComCall(5, this, "int", PushSettings, "ptr*", Result, "HRESULT")
-        return result
+    Save(PushSettings) {
+        result := ComCall(5, this, "int", PushSettings, "ptr*", &Result := 0, "HRESULT")
+        return ISettingsResult(Result)
     }
 
     /**
      * 
      * @param {PWSTR} Path 
-     * @param {Pointer<ISettingsItem>} Setting 
-     * @returns {HRESULT} 
+     * @returns {ISettingsItem} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsnamespace-getsettingbypath
      */
-    GetSettingByPath(Path, Setting) {
+    GetSettingByPath(Path) {
         Path := Path is String ? StrPtr(Path) : Path
 
-        result := ComCall(6, this, "ptr", Path, "ptr*", Setting, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", Path, "ptr*", &Setting := 0, "HRESULT")
+        return ISettingsItem(Setting)
     }
 
     /**
      * 
      * @param {PWSTR} Path 
-     * @param {Pointer<ISettingsItem>} Setting 
-     * @returns {HRESULT} 
+     * @returns {ISettingsItem} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsnamespace-createsettingbypath
      */
-    CreateSettingByPath(Path, Setting) {
+    CreateSettingByPath(Path) {
         Path := Path is String ? StrPtr(Path) : Path
 
-        result := ComCall(7, this, "ptr", Path, "ptr*", Setting, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", Path, "ptr*", &Setting := 0, "HRESULT")
+        return ISettingsItem(Setting)
     }
 
     /**
@@ -108,14 +108,14 @@ class ISettingsNamespace extends IUnknown{
     /**
      * 
      * @param {PWSTR} Name 
-     * @param {Pointer<VARIANT>} Value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsnamespace-getattribute
      */
-    GetAttribute(Name, Value) {
+    GetAttribute(Name) {
         Name := Name is String ? StrPtr(Name) : Name
 
+        Value := VARIANT()
         result := ComCall(9, this, "ptr", Name, "ptr", Value, "HRESULT")
-        return result
+        return Value
     }
 }

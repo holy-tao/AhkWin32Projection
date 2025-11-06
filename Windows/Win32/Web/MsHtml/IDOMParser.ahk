@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IHTMLDocument2.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -39,14 +40,13 @@ class IDOMParser extends IDispatch{
      * 
      * @param {BSTR} xmlSource 
      * @param {BSTR} mimeType 
-     * @param {Pointer<IHTMLDocument2>} ppNode 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDocument2} 
      */
-    parseFromString(xmlSource, mimeType, ppNode) {
+    parseFromString(xmlSource, mimeType) {
         xmlSource := xmlSource is String ? BSTR.Alloc(xmlSource).Value : xmlSource
         mimeType := mimeType is String ? BSTR.Alloc(mimeType).Value : mimeType
 
-        result := ComCall(7, this, "ptr", xmlSource, "ptr", mimeType, "ptr*", ppNode, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", xmlSource, "ptr", mimeType, "ptr*", &ppNode := 0, "HRESULT")
+        return IHTMLDocument2(ppNode)
     }
 }

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\ISWbemQualifier.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -37,38 +39,33 @@ class ISWbemQualifierSet extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} pUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__NewEnum(pUnk) {
-        result := ComCall(7, this, "ptr*", pUnk, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(7, this, "ptr*", &pUnk := 0, "HRESULT")
+        return IUnknown(pUnk)
     }
 
     /**
      * 
      * @param {BSTR} name 
      * @param {Integer} iFlags 
-     * @param {Pointer<ISWbemQualifier>} objWbemQualifier 
-     * @returns {HRESULT} 
+     * @returns {ISWbemQualifier} 
      */
-    Item(name, iFlags, objWbemQualifier) {
+    Item(name, iFlags) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(8, this, "ptr", name, "int", iFlags, "ptr*", objWbemQualifier, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", name, "int", iFlags, "ptr*", &objWbemQualifier := 0, "HRESULT")
+        return ISWbemQualifier(objWbemQualifier)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} iCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Count(iCount) {
-        iCountMarshal := iCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, iCountMarshal, iCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(9, this, "int*", &iCount := 0, "HRESULT")
+        return iCount
     }
 
     /**
@@ -79,14 +76,13 @@ class ISWbemQualifierSet extends IDispatch{
      * @param {VARIANT_BOOL} bPropagatesToInstance 
      * @param {VARIANT_BOOL} bIsOverridable 
      * @param {Integer} iFlags 
-     * @param {Pointer<ISWbemQualifier>} objWbemQualifier 
-     * @returns {HRESULT} 
+     * @returns {ISWbemQualifier} 
      */
-    Add(strName, varVal, bPropagatesToSubclass, bPropagatesToInstance, bIsOverridable, iFlags, objWbemQualifier) {
+    Add(strName, varVal, bPropagatesToSubclass, bPropagatesToInstance, bIsOverridable, iFlags) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
 
-        result := ComCall(10, this, "ptr", strName, "ptr", varVal, "short", bPropagatesToSubclass, "short", bPropagatesToInstance, "short", bIsOverridable, "int", iFlags, "ptr*", objWbemQualifier, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", strName, "ptr", varVal, "short", bPropagatesToSubclass, "short", bPropagatesToInstance, "short", bIsOverridable, "int", iFlags, "ptr*", &objWbemQualifier := 0, "HRESULT")
+        return ISWbemQualifier(objWbemQualifier)
     }
 
     /**

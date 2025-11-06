@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IEnumWIA_DEV_INFO.ahk
+#Include .\IWiaItem2.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -40,28 +42,26 @@ class IWiaDevMgr2 extends IUnknown{
     /**
      * 
      * @param {Integer} lFlags 
-     * @param {Pointer<IEnumWIA_DEV_INFO>} ppIEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumWIA_DEV_INFO} 
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiadevmgr2-enumdeviceinfo
      */
-    EnumDeviceInfo(lFlags, ppIEnum) {
-        result := ComCall(3, this, "int", lFlags, "ptr*", ppIEnum, "HRESULT")
-        return result
+    EnumDeviceInfo(lFlags) {
+        result := ComCall(3, this, "int", lFlags, "ptr*", &ppIEnum := 0, "HRESULT")
+        return IEnumWIA_DEV_INFO(ppIEnum)
     }
 
     /**
      * 
      * @param {Integer} lFlags 
      * @param {BSTR} bstrDeviceID 
-     * @param {Pointer<IWiaItem2>} ppWiaItem2Root 
-     * @returns {HRESULT} 
+     * @returns {IWiaItem2} 
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiadevmgr2-createdevice
      */
-    CreateDevice(lFlags, bstrDeviceID, ppWiaItem2Root) {
+    CreateDevice(lFlags, bstrDeviceID) {
         bstrDeviceID := bstrDeviceID is String ? BSTR.Alloc(bstrDeviceID).Value : bstrDeviceID
 
-        result := ComCall(4, this, "int", lFlags, "ptr", bstrDeviceID, "ptr*", ppWiaItem2Root, "HRESULT")
-        return result
+        result := ComCall(4, this, "int", lFlags, "ptr", bstrDeviceID, "ptr*", &ppWiaItem2Root := 0, "HRESULT")
+        return IWiaItem2(ppWiaItem2Root)
     }
 
     /**
@@ -70,15 +70,14 @@ class IWiaDevMgr2 extends IUnknown{
      * @param {Integer} lDeviceType 
      * @param {Integer} lFlags 
      * @param {Pointer<BSTR>} pbstrDeviceID 
-     * @param {Pointer<IWiaItem2>} ppItemRoot 
-     * @returns {HRESULT} 
+     * @returns {IWiaItem2} 
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiadevmgr2-selectdevicedlg
      */
-    SelectDeviceDlg(hwndParent, lDeviceType, lFlags, pbstrDeviceID, ppItemRoot) {
+    SelectDeviceDlg(hwndParent, lDeviceType, lFlags, pbstrDeviceID) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
-        result := ComCall(5, this, "ptr", hwndParent, "int", lDeviceType, "int", lFlags, "ptr", pbstrDeviceID, "ptr*", ppItemRoot, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", hwndParent, "int", lDeviceType, "int", lFlags, "ptr", pbstrDeviceID, "ptr*", &ppItemRoot := 0, "HRESULT")
+        return IWiaItem2(ppItemRoot)
     }
 
     /**
@@ -103,15 +102,14 @@ class IWiaDevMgr2 extends IUnknown{
      * @param {BSTR} bstrDeviceID 
      * @param {Pointer<Guid>} pEventGUID 
      * @param {IWiaEventCallback} pIWiaEventCallback 
-     * @param {Pointer<IUnknown>} pEventObject 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiadevmgr2-registereventcallbackinterface
      */
-    RegisterEventCallbackInterface(lFlags, bstrDeviceID, pEventGUID, pIWiaEventCallback, pEventObject) {
+    RegisterEventCallbackInterface(lFlags, bstrDeviceID, pEventGUID, pIWiaEventCallback) {
         bstrDeviceID := bstrDeviceID is String ? BSTR.Alloc(bstrDeviceID).Value : bstrDeviceID
 
-        result := ComCall(7, this, "int", lFlags, "ptr", bstrDeviceID, "ptr", pEventGUID, "ptr", pIWiaEventCallback, "ptr*", pEventObject, "HRESULT")
-        return result
+        result := ComCall(7, this, "int", lFlags, "ptr", bstrDeviceID, "ptr", pEventGUID, "ptr", pIWiaEventCallback, "ptr*", &pEventObject := 0, "HRESULT")
+        return IUnknown(pEventObject)
     }
 
     /**
@@ -170,11 +168,10 @@ class IWiaDevMgr2 extends IUnknown{
      * @param {BSTR} bstrFilename 
      * @param {Pointer<Integer>} plNumFiles 
      * @param {Pointer<Pointer<BSTR>>} ppbstrFilePaths 
-     * @param {Pointer<IWiaItem2>} ppItem 
-     * @returns {HRESULT} 
+     * @returns {IWiaItem2} 
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-iwiadevmgr2-getimagedlg
      */
-    GetImageDlg(lFlags, bstrDeviceID, hwndParent, bstrFolderName, bstrFilename, plNumFiles, ppbstrFilePaths, ppItem) {
+    GetImageDlg(lFlags, bstrDeviceID, hwndParent, bstrFolderName, bstrFilename, plNumFiles, ppbstrFilePaths) {
         bstrDeviceID := bstrDeviceID is String ? BSTR.Alloc(bstrDeviceID).Value : bstrDeviceID
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
         bstrFolderName := bstrFolderName is String ? BSTR.Alloc(bstrFolderName).Value : bstrFolderName
@@ -183,7 +180,7 @@ class IWiaDevMgr2 extends IUnknown{
         plNumFilesMarshal := plNumFiles is VarRef ? "int*" : "ptr"
         ppbstrFilePathsMarshal := ppbstrFilePaths is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(10, this, "int", lFlags, "ptr", bstrDeviceID, "ptr", hwndParent, "ptr", bstrFolderName, "ptr", bstrFilename, plNumFilesMarshal, plNumFiles, ppbstrFilePathsMarshal, ppbstrFilePaths, "ptr*", ppItem, "HRESULT")
-        return result
+        result := ComCall(10, this, "int", lFlags, "ptr", bstrDeviceID, "ptr", hwndParent, "ptr", bstrFolderName, "ptr", bstrFilename, plNumFilesMarshal, plNumFiles, ppbstrFilePathsMarshal, ppbstrFilePaths, "ptr*", &ppItem := 0, "HRESULT")
+        return IWiaItem2(ppItem)
     }
 }

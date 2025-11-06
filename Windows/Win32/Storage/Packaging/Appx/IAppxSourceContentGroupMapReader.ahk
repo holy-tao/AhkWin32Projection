@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IAppxContentGroup.ahk
+#Include .\IAppxContentGroupsEnumerator.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,23 +34,21 @@ class IAppxSourceContentGroupMapReader extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IAppxContentGroup>} requiredGroup 
-     * @returns {HRESULT} 
+     * @returns {IAppxContentGroup} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxsourcecontentgroupmapreader-getrequiredgroup
      */
-    GetRequiredGroup(requiredGroup) {
-        result := ComCall(3, this, "ptr*", requiredGroup, "HRESULT")
-        return result
+    GetRequiredGroup() {
+        result := ComCall(3, this, "ptr*", &requiredGroup := 0, "HRESULT")
+        return IAppxContentGroup(requiredGroup)
     }
 
     /**
      * 
-     * @param {Pointer<IAppxContentGroupsEnumerator>} automaticGroupsEnumerator 
-     * @returns {HRESULT} 
+     * @returns {IAppxContentGroupsEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxsourcecontentgroupmapreader-getautomaticgroups
      */
-    GetAutomaticGroups(automaticGroupsEnumerator) {
-        result := ComCall(4, this, "ptr*", automaticGroupsEnumerator, "HRESULT")
-        return result
+    GetAutomaticGroups() {
+        result := ComCall(4, this, "ptr*", &automaticGroupsEnumerator := 0, "HRESULT")
+        return IAppxContentGroupsEnumerator(automaticGroupsEnumerator)
     }
 }

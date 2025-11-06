@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\XACTTRANSINFO.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -54,11 +55,11 @@ class ITransaction extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<XACTTRANSINFO>} pinfo 
-     * @returns {HRESULT} 
+     * @returns {XACTTRANSINFO} 
      */
-    GetTransactionInfo(pinfo) {
+    GetTransactionInfo() {
+        pinfo := XACTTRANSINFO()
         result := ComCall(5, this, "ptr", pinfo, "HRESULT")
-        return result
+        return pinfo
     }
 }

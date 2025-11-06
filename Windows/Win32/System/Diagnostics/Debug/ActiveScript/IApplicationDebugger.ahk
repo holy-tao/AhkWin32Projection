@@ -43,12 +43,11 @@ class IApplicationDebugger extends IUnknown{
      * @param {IUnknown} pUnkOuter 
      * @param {Integer} dwClsContext 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppvObject 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    CreateInstanceAtDebugger(rclsid, pUnkOuter, dwClsContext, riid, ppvObject) {
-        result := ComCall(4, this, "ptr", rclsid, "ptr", pUnkOuter, "uint", dwClsContext, "ptr", riid, "ptr*", ppvObject, "HRESULT")
-        return result
+    CreateInstanceAtDebugger(rclsid, pUnkOuter, dwClsContext, riid) {
+        result := ComCall(4, this, "ptr", rclsid, "ptr", pUnkOuter, "uint", dwClsContext, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
+        return IUnknown(ppvObject)
     }
 
     /**

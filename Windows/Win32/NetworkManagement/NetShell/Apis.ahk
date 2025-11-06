@@ -304,9 +304,10 @@ class NetShell {
     static PreprocessCommand(hModule, ppwcArguments, dwCurrentIndex, dwArgCount, pttTags, dwTagCount, dwMinArgs, dwMaxArgs, pdwTagType) {
         hModule := hModule is Win32Handle ? NumGet(hModule, "ptr") : hModule
 
+        ppwcArgumentsMarshal := ppwcArguments is VarRef ? "ptr*" : "ptr"
         pdwTagTypeMarshal := pdwTagType is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("NETSH.dll\PreprocessCommand", "ptr", hModule, "ptr", ppwcArguments, "uint", dwCurrentIndex, "uint", dwArgCount, "ptr", pttTags, "uint", dwTagCount, "uint", dwMinArgs, "uint", dwMaxArgs, pdwTagTypeMarshal, pdwTagType, "uint")
+        result := DllCall("NETSH.dll\PreprocessCommand", "ptr", hModule, ppwcArgumentsMarshal, ppwcArguments, "uint", dwCurrentIndex, "uint", dwArgCount, "ptr", pttTags, "uint", dwTagCount, "uint", dwMinArgs, "uint", dwMaxArgs, pdwTagTypeMarshal, pdwTagType, "uint")
         return result
     }
 

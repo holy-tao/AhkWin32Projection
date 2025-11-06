@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\PROPERTYKEY.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -42,151 +43,124 @@ class IPropertyDescription extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PROPERTYKEY>} pkey 
-     * @returns {HRESULT} 
+     * @returns {PROPERTYKEY} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-getpropertykey
      */
-    GetPropertyKey(pkey) {
+    GetPropertyKey() {
+        pkey := PROPERTYKEY()
         result := ComCall(3, this, "ptr", pkey, "HRESULT")
-        return result
+        return pkey
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-getcanonicalname
      */
-    GetCanonicalName(ppszName) {
-        result := ComCall(4, this, "ptr", ppszName, "HRESULT")
-        return result
+    GetCanonicalName() {
+        result := ComCall(4, this, "ptr*", &ppszName := 0, "HRESULT")
+        return ppszName
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pvartype 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-getpropertytype
      */
-    GetPropertyType(pvartype) {
-        pvartypeMarshal := pvartype is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(5, this, pvartypeMarshal, pvartype, "HRESULT")
-        return result
+    GetPropertyType() {
+        result := ComCall(5, this, "ushort*", &pvartype := 0, "HRESULT")
+        return pvartype
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-getdisplayname
      */
-    GetDisplayName(ppszName) {
-        result := ComCall(6, this, "ptr", ppszName, "HRESULT")
-        return result
+    GetDisplayName() {
+        result := ComCall(6, this, "ptr*", &ppszName := 0, "HRESULT")
+        return ppszName
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszInvite 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-geteditinvitation
      */
-    GetEditInvitation(ppszInvite) {
-        result := ComCall(7, this, "ptr", ppszInvite, "HRESULT")
-        return result
+    GetEditInvitation() {
+        result := ComCall(7, this, "ptr*", &ppszInvite := 0, "HRESULT")
+        return ppszInvite
     }
 
     /**
      * 
      * @param {Integer} mask 
-     * @param {Pointer<Integer>} ppdtFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-gettypeflags
      */
-    GetTypeFlags(mask, ppdtFlags) {
-        ppdtFlagsMarshal := ppdtFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, "uint", mask, ppdtFlagsMarshal, ppdtFlags, "HRESULT")
-        return result
+    GetTypeFlags(mask) {
+        result := ComCall(8, this, "uint", mask, "uint*", &ppdtFlags := 0, "HRESULT")
+        return ppdtFlags
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} ppdvFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-getviewflags
      */
-    GetViewFlags(ppdvFlags) {
-        ppdvFlagsMarshal := ppdvFlags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, ppdvFlagsMarshal, ppdvFlags, "HRESULT")
-        return result
+    GetViewFlags() {
+        result := ComCall(9, this, "int*", &ppdvFlags := 0, "HRESULT")
+        return ppdvFlags
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pcxChars 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-getdefaultcolumnwidth
      */
-    GetDefaultColumnWidth(pcxChars) {
-        pcxCharsMarshal := pcxChars is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, pcxCharsMarshal, pcxChars, "HRESULT")
-        return result
+    GetDefaultColumnWidth() {
+        result := ComCall(10, this, "uint*", &pcxChars := 0, "HRESULT")
+        return pcxChars
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdisplaytype 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-getdisplaytype
      */
-    GetDisplayType(pdisplaytype) {
-        pdisplaytypeMarshal := pdisplaytype is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, pdisplaytypeMarshal, pdisplaytype, "HRESULT")
-        return result
+    GetDisplayType() {
+        result := ComCall(11, this, "int*", &pdisplaytype := 0, "HRESULT")
+        return pdisplaytype
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pcsFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-getcolumnstate
      */
-    GetColumnState(pcsFlags) {
-        pcsFlagsMarshal := pcsFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, pcsFlagsMarshal, pcsFlags, "HRESULT")
-        return result
+    GetColumnState() {
+        result := ComCall(12, this, "uint*", &pcsFlags := 0, "HRESULT")
+        return pcsFlags
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pgr 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-getgroupingrange
      */
-    GetGroupingRange(pgr) {
-        pgrMarshal := pgr is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, pgrMarshal, pgr, "HRESULT")
-        return result
+    GetGroupingRange() {
+        result := ComCall(13, this, "int*", &pgr := 0, "HRESULT")
+        return pgr
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} prdt 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-getrelativedescriptiontype
      */
-    GetRelativeDescriptionType(prdt) {
-        prdtMarshal := prdt is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, prdtMarshal, prdt, "HRESULT")
-        return result
+    GetRelativeDescriptionType() {
+        result := ComCall(14, this, "int*", &prdt := 0, "HRESULT")
+        return prdt
     }
 
     /**
@@ -199,46 +173,42 @@ class IPropertyDescription extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-getrelativedescription
      */
     GetRelativeDescription(propvar1, propvar2, ppszDesc1, ppszDesc2) {
-        result := ComCall(15, this, "ptr", propvar1, "ptr", propvar2, "ptr", ppszDesc1, "ptr", ppszDesc2, "HRESULT")
+        ppszDesc1Marshal := ppszDesc1 is VarRef ? "ptr*" : "ptr"
+        ppszDesc2Marshal := ppszDesc2 is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(15, this, "ptr", propvar1, "ptr", propvar2, ppszDesc1Marshal, ppszDesc1, ppszDesc2Marshal, ppszDesc2, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} psd 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-getsortdescription
      */
-    GetSortDescription(psd) {
-        psdMarshal := psd is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, psdMarshal, psd, "HRESULT")
-        return result
+    GetSortDescription() {
+        result := ComCall(16, this, "int*", &psd := 0, "HRESULT")
+        return psd
     }
 
     /**
      * 
      * @param {BOOL} fDescending 
-     * @param {Pointer<PWSTR>} ppszDescription 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-getsortdescriptionlabel
      */
-    GetSortDescriptionLabel(fDescending, ppszDescription) {
-        result := ComCall(17, this, "int", fDescending, "ptr", ppszDescription, "HRESULT")
-        return result
+    GetSortDescriptionLabel(fDescending) {
+        result := ComCall(17, this, "int", fDescending, "ptr*", &ppszDescription := 0, "HRESULT")
+        return ppszDescription
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} paggtype 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-getaggregationtype
      */
-    GetAggregationType(paggtype) {
-        paggtypeMarshal := paggtype is VarRef ? "int*" : "ptr"
-
-        result := ComCall(18, this, paggtypeMarshal, paggtype, "HRESULT")
-        return result
+    GetAggregationType() {
+        result := ComCall(18, this, "int*", &paggtype := 0, "HRESULT")
+        return paggtype
     }
 
     /**
@@ -259,15 +229,12 @@ class IPropertyDescription extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-getenumtypelist
      */
-    GetEnumTypeList(riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(20, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetEnumTypeList(riid) {
+        result := ComCall(20, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
@@ -285,13 +252,12 @@ class IPropertyDescription extends IUnknown{
      * 
      * @param {Pointer<PROPVARIANT>} propvar 
      * @param {Integer} pdfFlags 
-     * @param {Pointer<PWSTR>} ppszDisplay 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription-formatfordisplay
      */
-    FormatForDisplay(propvar, pdfFlags, ppszDisplay) {
-        result := ComCall(22, this, "ptr", propvar, "int", pdfFlags, "ptr", ppszDisplay, "HRESULT")
-        return result
+    FormatForDisplay(propvar, pdfFlags) {
+        result := ComCall(22, this, "ptr", propvar, "int", pdfFlags, "ptr*", &ppszDisplay := 0, "HRESULT")
+        return ppszDisplay
     }
 
     /**

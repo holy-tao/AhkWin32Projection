@@ -30,55 +30,48 @@ class IDxcOptimizerPass extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetOptionName(ppResult) {
-        result := ComCall(3, this, "ptr", ppResult, "HRESULT")
-        return result
+    GetOptionName() {
+        result := ComCall(3, this, "ptr*", &ppResult := 0, "HRESULT")
+        return ppResult
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetDescription(ppResult) {
-        result := ComCall(4, this, "ptr", ppResult, "HRESULT")
-        return result
+    GetDescription() {
+        result := ComCall(4, this, "ptr*", &ppResult := 0, "HRESULT")
+        return ppResult
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetOptionArgCount(pCount) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    GetOptionArgCount() {
+        result := ComCall(5, this, "uint*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
      * 
      * @param {Integer} argIndex 
-     * @param {Pointer<PWSTR>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetOptionArgName(argIndex, ppResult) {
-        result := ComCall(6, this, "uint", argIndex, "ptr", ppResult, "HRESULT")
-        return result
+    GetOptionArgName(argIndex) {
+        result := ComCall(6, this, "uint", argIndex, "ptr*", &ppResult := 0, "HRESULT")
+        return ppResult
     }
 
     /**
      * 
      * @param {Integer} argIndex 
-     * @param {Pointer<PWSTR>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetOptionArgDescription(argIndex, ppResult) {
-        result := ComCall(7, this, "uint", argIndex, "ptr", ppResult, "HRESULT")
-        return result
+    GetOptionArgDescription(argIndex) {
+        result := ComCall(7, this, "uint", argIndex, "ptr*", &ppResult := 0, "HRESULT")
+        return ppResult
     }
 }

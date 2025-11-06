@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFMediaKeySession2.ahk
 #Include .\IMFMediaKeys.ahk
 
 /**
@@ -32,12 +33,11 @@ class IMFMediaKeys2 extends IMFMediaKeys{
      * 
      * @param {Integer} eSessionType 
      * @param {IMFMediaKeySessionNotify2} pMFMediaKeySessionNotify2 
-     * @param {Pointer<IMFMediaKeySession2>} ppSession 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaKeySession2} 
      */
-    CreateSession2(eSessionType, pMFMediaKeySessionNotify2, ppSession) {
-        result := ComCall(7, this, "int", eSessionType, "ptr", pMFMediaKeySessionNotify2, "ptr*", ppSession, "HRESULT")
-        return result
+    CreateSession2(eSessionType, pMFMediaKeySessionNotify2) {
+        result := ComCall(7, this, "int", eSessionType, "ptr", pMFMediaKeySessionNotify2, "ptr*", &ppSession := 0, "HRESULT")
+        return IMFMediaKeySession2(ppSession)
     }
 
     /**
@@ -54,11 +54,10 @@ class IMFMediaKeys2 extends IMFMediaKeys{
     /**
      * 
      * @param {HRESULT} systemCode 
-     * @param {Pointer<HRESULT>} code 
      * @returns {HRESULT} 
      */
-    GetDOMException(systemCode, code) {
-        result := ComCall(9, this, "int", systemCode, "ptr", code, "HRESULT")
-        return result
+    GetDOMException(systemCode) {
+        result := ComCall(9, this, "int", systemCode, "int*", &code := 0, "HRESULT")
+        return code
     }
 }

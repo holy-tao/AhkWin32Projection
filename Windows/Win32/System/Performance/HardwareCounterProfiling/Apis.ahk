@@ -53,7 +53,9 @@ class HardwareCounterProfiling {
     static QueryThreadProfiling(ThreadHandle, Enabled) {
         ThreadHandle := ThreadHandle is Win32Handle ? NumGet(ThreadHandle, "ptr") : ThreadHandle
 
-        result := DllCall("KERNEL32.dll\QueryThreadProfiling", "ptr", ThreadHandle, "ptr", Enabled, "uint")
+        EnabledMarshal := Enabled is VarRef ? "char*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\QueryThreadProfiling", "ptr", ThreadHandle, EnabledMarshal, Enabled, "uint")
         return result
     }
 

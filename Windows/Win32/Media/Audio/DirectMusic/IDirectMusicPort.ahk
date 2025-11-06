@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IDirectMusicDownloadedInstrument.ahk
+#Include ..\..\IReferenceClock.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -63,14 +65,13 @@ class IDirectMusicPort extends IUnknown{
     /**
      * 
      * @param {IDirectMusicInstrument} pInstrument 
-     * @param {Pointer<IDirectMusicDownloadedInstrument>} ppDownloadedInstrument 
      * @param {Pointer<DMUS_NOTERANGE>} pNoteRanges 
      * @param {Integer} dwNumNoteRanges 
-     * @returns {HRESULT} 
+     * @returns {IDirectMusicDownloadedInstrument} 
      */
-    DownloadInstrument(pInstrument, ppDownloadedInstrument, pNoteRanges, dwNumNoteRanges) {
-        result := ComCall(6, this, "ptr", pInstrument, "ptr*", ppDownloadedInstrument, "ptr", pNoteRanges, "uint", dwNumNoteRanges, "HRESULT")
-        return result
+    DownloadInstrument(pInstrument, pNoteRanges, dwNumNoteRanges) {
+        result := ComCall(6, this, "ptr", pInstrument, "ptr*", &ppDownloadedInstrument := 0, "ptr", pNoteRanges, "uint", dwNumNoteRanges, "HRESULT")
+        return IDirectMusicDownloadedInstrument(ppDownloadedInstrument)
     }
 
     /**
@@ -85,12 +86,11 @@ class IDirectMusicPort extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IReferenceClock>} ppClock 
-     * @returns {HRESULT} 
+     * @returns {IReferenceClock} 
      */
-    GetLatencyClock(ppClock) {
-        result := ComCall(8, this, "ptr*", ppClock, "HRESULT")
-        return result
+    GetLatencyClock() {
+        result := ComCall(8, this, "ptr*", &ppClock := 0, "HRESULT")
+        return IReferenceClock(ppClock)
     }
 
     /**

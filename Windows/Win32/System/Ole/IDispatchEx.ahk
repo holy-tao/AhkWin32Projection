@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IUnknown.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -33,16 +34,13 @@ class IDispatchEx extends IDispatch{
      * 
      * @param {BSTR} bstrName 
      * @param {Integer} grfdex 
-     * @param {Pointer<Integer>} pid 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetDispID(bstrName, grfdex, pid) {
+    GetDispID(bstrName, grfdex) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        pidMarshal := pid is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, "ptr", bstrName, "uint", grfdex, pidMarshal, pid, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", bstrName, "uint", grfdex, "int*", &pid := 0, "HRESULT")
+        return pid
     }
 
     /**
@@ -88,48 +86,41 @@ class IDispatchEx extends IDispatch{
      * 
      * @param {Integer} id 
      * @param {Integer} grfdexFetch 
-     * @param {Pointer<Integer>} pgrfdex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetMemberProperties(id, grfdexFetch, pgrfdex) {
-        pgrfdexMarshal := pgrfdex is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, "int", id, "uint", grfdexFetch, pgrfdexMarshal, pgrfdex, "HRESULT")
-        return result
+    GetMemberProperties(id, grfdexFetch) {
+        result := ComCall(11, this, "int", id, "uint", grfdexFetch, "uint*", &pgrfdex := 0, "HRESULT")
+        return pgrfdex
     }
 
     /**
      * 
      * @param {Integer} id 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetMemberName(id, pbstrName) {
+    GetMemberName(id) {
+        pbstrName := BSTR()
         result := ComCall(12, this, "int", id, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 
     /**
      * 
      * @param {Integer} grfdex 
      * @param {Integer} id 
-     * @param {Pointer<Integer>} pid 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetNextDispID(grfdex, id, pid) {
-        pidMarshal := pid is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, "uint", grfdex, "int", id, pidMarshal, pid, "HRESULT")
-        return result
+    GetNextDispID(grfdex, id) {
+        result := ComCall(13, this, "uint", grfdex, "int", id, "int*", &pid := 0, "HRESULT")
+        return pid
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppunk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    GetNameSpaceParent(ppunk) {
-        result := ComCall(14, this, "ptr*", ppunk, "HRESULT")
-        return result
+    GetNameSpaceParent() {
+        result := ComCall(14, this, "ptr*", &ppunk := 0, "HRESULT")
+        return IUnknown(ppunk)
     }
 }

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IEnumNames.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -60,13 +61,12 @@ class IContextProperties extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumNames>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IEnumNames} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icontextproperties-enumnames
      */
-    EnumNames(ppenum) {
-        result := ComCall(5, this, "ptr*", ppenum, "HRESULT")
-        return result
+    EnumNames() {
+        result := ComCall(5, this, "ptr*", &ppenum := 0, "HRESULT")
+        return IEnumNames(ppenum)
     }
 
     /**

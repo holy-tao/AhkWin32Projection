@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include .\IShellItemArray.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -54,54 +56,49 @@ class IDesktopWallpaper extends IUnknown{
     /**
      * 
      * @param {PWSTR} monitorID 
-     * @param {Pointer<PWSTR>} wallpaper 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getwallpaper
      */
-    GetWallpaper(monitorID, wallpaper) {
+    GetWallpaper(monitorID) {
         monitorID := monitorID is String ? StrPtr(monitorID) : monitorID
 
-        result := ComCall(4, this, "ptr", monitorID, "ptr", wallpaper, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", monitorID, "ptr*", &wallpaper := 0, "HRESULT")
+        return wallpaper
     }
 
     /**
      * 
      * @param {Integer} monitorIndex 
-     * @param {Pointer<PWSTR>} monitorID 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getmonitordevicepathat
      */
-    GetMonitorDevicePathAt(monitorIndex, monitorID) {
-        result := ComCall(5, this, "uint", monitorIndex, "ptr", monitorID, "HRESULT")
-        return result
+    GetMonitorDevicePathAt(monitorIndex) {
+        result := ComCall(5, this, "uint", monitorIndex, "ptr*", &monitorID := 0, "HRESULT")
+        return monitorID
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getmonitordevicepathcount
      */
-    GetMonitorDevicePathCount(count) {
-        countMarshal := count is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, countMarshal, count, "HRESULT")
-        return result
+    GetMonitorDevicePathCount() {
+        result := ComCall(6, this, "uint*", &count := 0, "HRESULT")
+        return count
     }
 
     /**
      * 
      * @param {PWSTR} monitorID 
-     * @param {Pointer<RECT>} displayRect 
-     * @returns {HRESULT} 
+     * @returns {RECT} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getmonitorrect
      */
-    GetMonitorRECT(monitorID, displayRect) {
+    GetMonitorRECT(monitorID) {
         monitorID := monitorID is String ? StrPtr(monitorID) : monitorID
 
+        displayRect := RECT()
         result := ComCall(7, this, "ptr", monitorID, "ptr", displayRect, "HRESULT")
-        return result
+        return displayRect
     }
 
     /**
@@ -117,13 +114,12 @@ class IDesktopWallpaper extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<COLORREF>} color 
-     * @returns {HRESULT} 
+     * @returns {COLORREF} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getbackgroundcolor
      */
-    GetBackgroundColor(color) {
-        result := ComCall(9, this, "ptr", color, "HRESULT")
-        return result
+    GetBackgroundColor() {
+        result := ComCall(9, this, "uint*", &color := 0, "HRESULT")
+        return color
     }
 
     /**
@@ -139,15 +135,12 @@ class IDesktopWallpaper extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} position 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getposition
      */
-    GetPosition(position) {
-        positionMarshal := position is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, positionMarshal, position, "HRESULT")
-        return result
+    GetPosition() {
+        result := ComCall(11, this, "int*", &position := 0, "HRESULT")
+        return position
     }
 
     /**
@@ -163,13 +156,12 @@ class IDesktopWallpaper extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IShellItemArray>} items 
-     * @returns {HRESULT} 
+     * @returns {IShellItemArray} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getslideshow
      */
-    GetSlideshow(items) {
-        result := ComCall(13, this, "ptr*", items, "HRESULT")
-        return result
+    GetSlideshow() {
+        result := ComCall(13, this, "ptr*", &items := 0, "HRESULT")
+        return IShellItemArray(items)
     }
 
     /**
@@ -215,15 +207,12 @@ class IDesktopWallpaper extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} state 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idesktopwallpaper-getstatus
      */
-    GetStatus(state) {
-        stateMarshal := state is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, stateMarshal, state, "HRESULT")
-        return result
+    GetStatus() {
+        result := ComCall(17, this, "int*", &state := 0, "HRESULT")
+        return state
     }
 
     /**

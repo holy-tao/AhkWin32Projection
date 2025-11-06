@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include .\WMDM_FORMAT_CAPABILITY.ahk
+#Include .\IMDSPStorage.ahk
 #Include .\IMDSPDevice2.ahk
 
 /**
@@ -33,15 +36,15 @@ class IMDSPDevice3 extends IMDSPDevice2{
     /**
      * 
      * @param {PWSTR} pwszPropName 
-     * @param {Pointer<PROPVARIANT>} pValue 
-     * @returns {HRESULT} 
+     * @returns {PROPVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevice3-getproperty
      */
-    GetProperty(pwszPropName, pValue) {
+    GetProperty(pwszPropName) {
         pwszPropName := pwszPropName is String ? StrPtr(pwszPropName) : pwszPropName
 
+        pValue := PROPVARIANT()
         result := ComCall(18, this, "ptr", pwszPropName, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
@@ -61,13 +64,13 @@ class IMDSPDevice3 extends IMDSPDevice2{
     /**
      * 
      * @param {Integer} format 
-     * @param {Pointer<WMDM_FORMAT_CAPABILITY>} pFormatSupport 
-     * @returns {HRESULT} 
+     * @returns {WMDM_FORMAT_CAPABILITY} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevice3-getformatcapability
      */
-    GetFormatCapability(format, pFormatSupport) {
+    GetFormatCapability(format) {
+        pFormatSupport := WMDM_FORMAT_CAPABILITY()
         result := ComCall(20, this, "int", format, "ptr", pFormatSupport, "HRESULT")
-        return result
+        return pFormatSupport
     }
 
     /**
@@ -84,39 +87,33 @@ class IMDSPDevice3 extends IMDSPDevice2{
      * This parameter can be <b>NULL</b> if <i>dwIoControlCode</i> specifies 
      *        an operation that does not require input data.
      * @param {Integer} nInBufferSize The size of the input buffer, in bytes.
-     * @param {Pointer<Integer>} lpOutBuffer A pointer to the output buffer that is to receive the data returned by the operation. The format of this 
+     * @param {Pointer<Integer>} pnOutBufferSize 
+     * @returns {Integer} A pointer to the output buffer that is to receive the data returned by the operation. The format of this 
      *        data depends on the value of the <i>dwIoControlCode</i> parameter.
      * 
      * This parameter can be <b>NULL</b> if <i>dwIoControlCode</i> specifies 
      *        an operation that does not return data.
-     * @param {Pointer<Integer>} pnOutBufferSize 
-     * @returns {HRESULT} If the operation completes successfully, the return value is nonzero.
-     * 
-     * If the operation fails or is pending, the return value is zero. To get extended error information, call 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * @see https://docs.microsoft.com/windows/win32/api//ioapiset/nf-ioapiset-deviceiocontrol
      */
-    DeviceIoControl(dwIoControlCode, lpInBuffer, nInBufferSize, lpOutBuffer, pnOutBufferSize) {
+    DeviceIoControl(dwIoControlCode, lpInBuffer, nInBufferSize, pnOutBufferSize) {
         lpInBufferMarshal := lpInBuffer is VarRef ? "char*" : "ptr"
-        lpOutBufferMarshal := lpOutBuffer is VarRef ? "char*" : "ptr"
         pnOutBufferSizeMarshal := pnOutBufferSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(21, this, "uint", dwIoControlCode, lpInBufferMarshal, lpInBuffer, "uint", nInBufferSize, lpOutBufferMarshal, lpOutBuffer, pnOutBufferSizeMarshal, pnOutBufferSize, "HRESULT")
-        return result
+        result := ComCall(21, this, "uint", dwIoControlCode, lpInBufferMarshal, lpInBuffer, "uint", nInBufferSize, "char*", &lpOutBuffer := 0, pnOutBufferSizeMarshal, pnOutBufferSize, "HRESULT")
+        return lpOutBuffer
     }
 
     /**
      * 
      * @param {Integer} findScope 
      * @param {PWSTR} pwszUniqueID 
-     * @param {Pointer<IMDSPStorage>} ppStorage 
-     * @returns {HRESULT} 
+     * @returns {IMDSPStorage} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevice3-findstorage
      */
-    FindStorage(findScope, pwszUniqueID, ppStorage) {
+    FindStorage(findScope, pwszUniqueID) {
         pwszUniqueID := pwszUniqueID is String ? StrPtr(pwszUniqueID) : pwszUniqueID
 
-        result := ComCall(22, this, "int", findScope, "ptr", pwszUniqueID, "ptr*", ppStorage, "HRESULT")
-        return result
+        result := ComCall(22, this, "int", findScope, "ptr", pwszUniqueID, "ptr*", &ppStorage := 0, "HRESULT")
+        return IMDSPStorage(ppStorage)
     }
 }

@@ -37,38 +37,31 @@ class IWriteSpeedDescriptor extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iwritespeeddescriptor-get_mediatype
      */
-    get_MediaType(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, valueMarshal, value, "HRESULT")
-        return result
+    get_MediaType() {
+        result := ComCall(7, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iwritespeeddescriptor-get_rotationtypeispurecav
      */
-    get_RotationTypeIsPureCAV(value) {
-        result := ComCall(8, this, "ptr", value, "HRESULT")
-        return result
+    get_RotationTypeIsPureCAV() {
+        result := ComCall(8, this, "short*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iwritespeeddescriptor-get_writespeed
      */
-    get_WriteSpeed(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, valueMarshal, value, "HRESULT")
-        return result
+    get_WriteSpeed() {
+        result := ComCall(9, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 }

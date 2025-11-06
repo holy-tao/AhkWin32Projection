@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRawElementProviderSimple.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -31,11 +32,10 @@ class ICustomNavigationProvider extends IUnknown{
     /**
      * 
      * @param {Integer} direction 
-     * @param {Pointer<IRawElementProviderSimple>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {IRawElementProviderSimple} 
      */
-    Navigate(direction, pRetVal) {
-        result := ComCall(3, this, "int", direction, "ptr*", pRetVal, "HRESULT")
-        return result
+    Navigate(direction) {
+        result := ComCall(3, this, "int", direction, "ptr*", &pRetVal := 0, "HRESULT")
+        return IRawElementProviderSimple(pRetVal)
     }
 }

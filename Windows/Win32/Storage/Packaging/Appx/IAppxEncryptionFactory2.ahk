@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IAppxEncryptedPackageWriter.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -38,12 +39,11 @@ class IAppxEncryptionFactory2 extends IUnknown{
      * @param {Pointer<APPX_ENCRYPTED_PACKAGE_SETTINGS>} settings 
      * @param {Pointer<APPX_KEY_INFO>} keyInfo 
      * @param {Pointer<APPX_ENCRYPTED_EXEMPTIONS>} exemptedFiles 
-     * @param {Pointer<IAppxEncryptedPackageWriter>} packageWriter 
-     * @returns {HRESULT} 
+     * @returns {IAppxEncryptedPackageWriter} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxencryptionfactory2-createencryptedpackagewriter
      */
-    CreateEncryptedPackageWriter(outputStream, manifestStream, contentGroupMapStream, settings, keyInfo, exemptedFiles, packageWriter) {
-        result := ComCall(3, this, "ptr", outputStream, "ptr", manifestStream, "ptr", contentGroupMapStream, "ptr", settings, "ptr", keyInfo, "ptr", exemptedFiles, "ptr*", packageWriter, "HRESULT")
-        return result
+    CreateEncryptedPackageWriter(outputStream, manifestStream, contentGroupMapStream, settings, keyInfo, exemptedFiles) {
+        result := ComCall(3, this, "ptr", outputStream, "ptr", manifestStream, "ptr", contentGroupMapStream, "ptr", settings, "ptr", keyInfo, "ptr", exemptedFiles, "ptr*", &packageWriter := 0, "HRESULT")
+        return IAppxEncryptedPackageWriter(packageWriter)
     }
 }

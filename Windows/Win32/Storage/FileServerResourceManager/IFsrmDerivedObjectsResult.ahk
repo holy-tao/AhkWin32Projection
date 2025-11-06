@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IFsrmCollection.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,23 +33,21 @@ class IFsrmDerivedObjectsResult extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IFsrmCollection>} derivedObjects 
-     * @returns {HRESULT} 
+     * @returns {IFsrmCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmderivedobjectsresult-get_derivedobjects
      */
-    get_DerivedObjects(derivedObjects) {
-        result := ComCall(7, this, "ptr*", derivedObjects, "HRESULT")
-        return result
+    get_DerivedObjects() {
+        result := ComCall(7, this, "ptr*", &derivedObjects := 0, "HRESULT")
+        return IFsrmCollection(derivedObjects)
     }
 
     /**
      * 
-     * @param {Pointer<IFsrmCollection>} results 
-     * @returns {HRESULT} 
+     * @returns {IFsrmCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmderivedobjectsresult-get_results
      */
-    get_Results(results) {
-        result := ComCall(8, this, "ptr*", results, "HRESULT")
-        return result
+    get_Results() {
+        result := ComCall(8, this, "ptr*", &results := 0, "HRESULT")
+        return IFsrmCollection(results)
     }
 }

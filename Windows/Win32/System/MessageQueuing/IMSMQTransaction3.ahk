@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Variant\VARIANT.ahk
 #Include .\IMSMQTransaction2.ahk
 
 /**
@@ -30,11 +31,11 @@ class IMSMQTransaction3 extends IMSMQTransaction2{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarITransaction 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_ITransaction(pvarITransaction) {
+    get_ITransaction() {
+        pvarITransaction := VARIANT()
         result := ComCall(12, this, "ptr", pvarITransaction, "HRESULT")
-        return result
+        return pvarITransaction
     }
 }

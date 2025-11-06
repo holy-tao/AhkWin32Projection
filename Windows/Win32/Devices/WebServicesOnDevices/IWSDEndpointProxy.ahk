@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWSDAsyncResult.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -71,15 +72,14 @@ class IWSDEndpointProxy extends IUnknown{
      * @param {Pointer<WSD_OPERATION>} pOperation 
      * @param {IUnknown} pAsyncState 
      * @param {IWSDAsyncCallback} pCallback 
-     * @param {Pointer<IWSDAsyncResult>} pResult 
-     * @returns {HRESULT} 
+     * @returns {IWSDAsyncResult} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdendpointproxy-sendtwowayrequestasync
      */
-    SendTwoWayRequestAsync(pBody, pOperation, pAsyncState, pCallback, pResult) {
+    SendTwoWayRequestAsync(pBody, pOperation, pAsyncState, pCallback) {
         pBodyMarshal := pBody is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, pBodyMarshal, pBody, "ptr", pOperation, "ptr", pAsyncState, "ptr", pCallback, "ptr*", pResult, "HRESULT")
-        return result
+        result := ComCall(5, this, pBodyMarshal, pBody, "ptr", pOperation, "ptr", pAsyncState, "ptr", pCallback, "ptr*", &pResult := 0, "HRESULT")
+        return IWSDAsyncResult(pResult)
     }
 
     /**
@@ -106,55 +106,21 @@ class IWSDEndpointProxy extends IUnknown{
 
     /**
      * Obtains the error information pointer set by the previous call to SetErrorInfo in the current logical thread.
-     * @param {Pointer<PWSTR>} ppszErrorInfo 
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_FALSE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * There was no error object to return.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {PWSTR} 
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-geterrorinfo
      */
-    GetErrorInfo(ppszErrorInfo) {
-        result := ComCall(8, this, "ptr", ppszErrorInfo, "HRESULT")
-        return result
+    GetErrorInfo() {
+        result := ComCall(8, this, "ptr*", &ppszErrorInfo := 0, "HRESULT")
+        return ppszErrorInfo
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<WSD_SOAP_FAULT>>} ppFault 
-     * @returns {HRESULT} 
+     * @returns {Pointer<WSD_SOAP_FAULT>} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdendpointproxy-getfaultinfo
      */
-    GetFaultInfo(ppFault) {
-        ppFaultMarshal := ppFault is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(9, this, ppFaultMarshal, ppFault, "HRESULT")
-        return result
+    GetFaultInfo() {
+        result := ComCall(9, this, "ptr*", &ppFault := 0, "HRESULT")
+        return ppFault
     }
 }

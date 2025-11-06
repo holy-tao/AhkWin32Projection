@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFASFProfile.ahk
+#Include .\IMFPresentationDescriptor.ahk
+#Include ..\..\UI\Shell\PropertiesSystem\IPropertyStore.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,15 +36,12 @@ class IMFASFContentInfo extends IUnknown{
     /**
      * 
      * @param {IMFMediaBuffer} pIStartOfContent 
-     * @param {Pointer<Integer>} cbHeaderSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfcontentinfo-getheadersize
      */
-    GetHeaderSize(pIStartOfContent, cbHeaderSize) {
-        cbHeaderSizeMarshal := cbHeaderSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pIStartOfContent, cbHeaderSizeMarshal, cbHeaderSize, "HRESULT")
-        return result
+    GetHeaderSize(pIStartOfContent) {
+        result := ComCall(3, this, "ptr", pIStartOfContent, "uint*", &cbHeaderSize := 0, "HRESULT")
+        return cbHeaderSize
     }
 
     /**
@@ -59,26 +59,22 @@ class IMFASFContentInfo extends IUnknown{
     /**
      * 
      * @param {IMFMediaBuffer} pIHeader 
-     * @param {Pointer<Integer>} pcbHeader 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfcontentinfo-generateheader
      */
-    GenerateHeader(pIHeader, pcbHeader) {
-        pcbHeaderMarshal := pcbHeader is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, "ptr", pIHeader, pcbHeaderMarshal, pcbHeader, "HRESULT")
-        return result
+    GenerateHeader(pIHeader) {
+        result := ComCall(5, this, "ptr", pIHeader, "uint*", &pcbHeader := 0, "HRESULT")
+        return pcbHeader
     }
 
     /**
      * 
-     * @param {Pointer<IMFASFProfile>} ppIProfile 
-     * @returns {HRESULT} 
+     * @returns {IMFASFProfile} 
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfcontentinfo-getprofile
      */
-    GetProfile(ppIProfile) {
-        result := ComCall(6, this, "ptr*", ppIProfile, "HRESULT")
-        return result
+    GetProfile() {
+        result := ComCall(6, this, "ptr*", &ppIProfile := 0, "HRESULT")
+        return IMFASFProfile(ppIProfile)
     }
 
     /**
@@ -94,24 +90,22 @@ class IMFASFContentInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IMFPresentationDescriptor>} ppIPresentationDescriptor 
-     * @returns {HRESULT} 
+     * @returns {IMFPresentationDescriptor} 
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfcontentinfo-generatepresentationdescriptor
      */
-    GeneratePresentationDescriptor(ppIPresentationDescriptor) {
-        result := ComCall(8, this, "ptr*", ppIPresentationDescriptor, "HRESULT")
-        return result
+    GeneratePresentationDescriptor() {
+        result := ComCall(8, this, "ptr*", &ppIPresentationDescriptor := 0, "HRESULT")
+        return IMFPresentationDescriptor(ppIPresentationDescriptor)
     }
 
     /**
      * 
      * @param {Integer} wStreamNumber 
-     * @param {Pointer<IPropertyStore>} ppIStore 
-     * @returns {HRESULT} 
+     * @returns {IPropertyStore} 
      * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfcontentinfo-getencodingconfigurationpropertystore
      */
-    GetEncodingConfigurationPropertyStore(wStreamNumber, ppIStore) {
-        result := ComCall(9, this, "ushort", wStreamNumber, "ptr*", ppIStore, "HRESULT")
-        return result
+    GetEncodingConfigurationPropertyStore(wStreamNumber) {
+        result := ComCall(9, this, "ushort", wStreamNumber, "ptr*", &ppIStore := 0, "HRESULT")
+        return IPropertyStore(ppIStore)
     }
 }

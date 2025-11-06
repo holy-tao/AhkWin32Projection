@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\MF_SINK_WRITER_STATISTICS.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -52,15 +53,12 @@ class IMFSinkWriter extends IUnknown{
     /**
      * 
      * @param {IMFMediaType} pTargetMediaType 
-     * @param {Pointer<Integer>} pdwStreamIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsinkwriter-addstream
      */
-    AddStream(pTargetMediaType, pdwStreamIndex) {
-        pdwStreamIndexMarshal := pdwStreamIndex is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pTargetMediaType, pdwStreamIndexMarshal, pdwStreamIndex, "HRESULT")
-        return result
+    AddStream(pTargetMediaType) {
+        result := ComCall(3, this, "ptr", pTargetMediaType, "uint*", &pdwStreamIndex := 0, "HRESULT")
+        return pdwStreamIndex
     }
 
     /**
@@ -161,26 +159,23 @@ class IMFSinkWriter extends IUnknown{
      * @param {Integer} dwStreamIndex 
      * @param {Pointer<Guid>} guidService 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvObject 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsinkwriter-getserviceforstream
      */
-    GetServiceForStream(dwStreamIndex, guidService, riid, ppvObject) {
-        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(12, this, "uint", dwStreamIndex, "ptr", guidService, "ptr", riid, ppvObjectMarshal, ppvObject, "HRESULT")
-        return result
+    GetServiceForStream(dwStreamIndex, guidService, riid) {
+        result := ComCall(12, this, "uint", dwStreamIndex, "ptr", guidService, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
+        return ppvObject
     }
 
     /**
      * 
      * @param {Integer} dwStreamIndex 
-     * @param {Pointer<MF_SINK_WRITER_STATISTICS>} pStats 
-     * @returns {HRESULT} 
+     * @returns {MF_SINK_WRITER_STATISTICS} 
      * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsinkwriter-getstatistics
      */
-    GetStatistics(dwStreamIndex, pStats) {
+    GetStatistics(dwStreamIndex) {
+        pStats := MF_SINK_WRITER_STATISTICS()
         result := ComCall(13, this, "uint", dwStreamIndex, "ptr", pStats, "HRESULT")
-        return result
+        return pStats
     }
 }

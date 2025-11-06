@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteFontCollection.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -253,13 +254,12 @@ class IDWriteTextFormat extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDWriteFontCollection>} fontCollection 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-getfontcollection
      */
-    GetFontCollection(fontCollection) {
-        result := ComCall(19, this, "ptr*", fontCollection, "HRESULT")
-        return result
+    GetFontCollection() {
+        result := ComCall(19, this, "ptr*", &fontCollection := 0, "HRESULT")
+        return IDWriteFontCollection(fontCollection)
     }
 
     /**

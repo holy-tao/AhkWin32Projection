@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -33,13 +34,13 @@ class IAzOperation extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazoperation-get_name
      */
-    get_Name(pbstrName) {
+    get_Name() {
+        pbstrName := BSTR()
         result := ComCall(7, this, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 
     /**
@@ -57,13 +58,13 @@ class IAzOperation extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrDescription 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazoperation-get_description
      */
-    get_Description(pbstrDescription) {
+    get_Description() {
+        pbstrDescription := BSTR()
         result := ComCall(9, this, "ptr", pbstrDescription, "HRESULT")
-        return result
+        return pbstrDescription
     }
 
     /**
@@ -81,13 +82,13 @@ class IAzOperation extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrApplicationData 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazoperation-get_applicationdata
      */
-    get_ApplicationData(pbstrApplicationData) {
+    get_ApplicationData() {
+        pbstrApplicationData := BSTR()
         result := ComCall(11, this, "ptr", pbstrApplicationData, "HRESULT")
-        return result
+        return pbstrApplicationData
     }
 
     /**
@@ -105,15 +106,12 @@ class IAzOperation extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plProp 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazoperation-get_operationid
      */
-    get_OperationID(plProp) {
-        plPropMarshal := plProp is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, plPropMarshal, plProp, "HRESULT")
-        return result
+    get_OperationID() {
+        result := ComCall(13, this, "int*", &plProp := 0, "HRESULT")
+        return plProp
     }
 
     /**
@@ -129,26 +127,25 @@ class IAzOperation extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfProp 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazoperation-get_writable
      */
-    get_Writable(pfProp) {
-        result := ComCall(15, this, "ptr", pfProp, "HRESULT")
-        return result
+    get_Writable() {
+        result := ComCall(15, this, "int*", &pfProp := 0, "HRESULT")
+        return pfProp
     }
 
     /**
      * 
      * @param {Integer} lPropId 
      * @param {VARIANT} varReserved 
-     * @param {Pointer<VARIANT>} pvarProp 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazoperation-getproperty
      */
-    GetProperty(lPropId, varReserved, pvarProp) {
+    GetProperty(lPropId, varReserved) {
+        pvarProp := VARIANT()
         result := ComCall(16, this, "int", lPropId, "ptr", varReserved, "ptr", pvarProp, "HRESULT")
-        return result
+        return pvarProp
     }
 
     /**

@@ -1,7 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -30,53 +32,47 @@ class IScriptEventHandler extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrFunctionName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    FunctionName(pbstrFunctionName) {
+    FunctionName() {
+        pbstrFunctionName := BSTR()
         result := ComCall(3, this, "ptr", pbstrFunctionName, "HRESULT")
-        return result
+        return pbstrFunctionName
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppDebugDocumentContext 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    DebugDocumentContext(ppDebugDocumentContext) {
-        result := ComCall(4, this, "ptr*", ppDebugDocumentContext, "HRESULT")
-        return result
+    DebugDocumentContext() {
+        result := ComCall(4, this, "ptr*", &ppDebugDocumentContext := 0, "HRESULT")
+        return IUnknown(ppDebugDocumentContext)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppDispHandler 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    EventHandlerDispatch(ppDispHandler) {
-        result := ComCall(5, this, "ptr*", ppDispHandler, "HRESULT")
-        return result
+    EventHandlerDispatch() {
+        result := ComCall(5, this, "ptr*", &ppDispHandler := 0, "HRESULT")
+        return IDispatch(ppDispHandler)
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfUsesCapture 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    UsesCapture(pfUsesCapture) {
-        result := ComCall(6, this, "ptr", pfUsesCapture, "HRESULT")
-        return result
+    UsesCapture() {
+        result := ComCall(6, this, "int*", &pfUsesCapture := 0, "HRESULT")
+        return pfUsesCapture
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pullCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Cookie(pullCookie) {
-        pullCookieMarshal := pullCookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pullCookieMarshal, pullCookie, "HRESULT")
-        return result
+    Cookie() {
+        result := ComCall(7, this, "uint*", &pullCookie := 0, "HRESULT")
+        return pullCookie
     }
 }

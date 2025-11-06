@@ -2,6 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ISpeechObjectToken.ahk
+#Include .\ISpeechBaseStream.ahk
+#Include .\ISpeechRecognizerStatus.ahk
+#Include .\ISpeechRecoContext.ahk
+#Include .\ISpeechAudioFormat.ahk
+#Include .\ISpeechObjectTokens.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -41,12 +47,11 @@ class ISpeechRecognizer extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISpeechObjectToken>} Recognizer 
-     * @returns {HRESULT} 
+     * @returns {ISpeechObjectToken} 
      */
-    get_Recognizer(Recognizer) {
-        result := ComCall(8, this, "ptr*", Recognizer, "HRESULT")
-        return result
+    get_Recognizer() {
+        result := ComCall(8, this, "ptr*", &Recognizer := 0, "HRESULT")
+        return ISpeechObjectToken(Recognizer)
     }
 
     /**
@@ -61,12 +66,11 @@ class ISpeechRecognizer extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} Allow 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_AllowAudioInputFormatChangesOnNextSet(Allow) {
-        result := ComCall(10, this, "ptr", Allow, "HRESULT")
-        return result
+    get_AllowAudioInputFormatChangesOnNextSet() {
+        result := ComCall(10, this, "short*", &Allow := 0, "HRESULT")
+        return Allow
     }
 
     /**
@@ -81,12 +85,11 @@ class ISpeechRecognizer extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISpeechObjectToken>} AudioInput 
-     * @returns {HRESULT} 
+     * @returns {ISpeechObjectToken} 
      */
-    get_AudioInput(AudioInput) {
-        result := ComCall(12, this, "ptr*", AudioInput, "HRESULT")
-        return result
+    get_AudioInput() {
+        result := ComCall(12, this, "ptr*", &AudioInput := 0, "HRESULT")
+        return ISpeechObjectToken(AudioInput)
     }
 
     /**
@@ -101,22 +104,20 @@ class ISpeechRecognizer extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISpeechBaseStream>} AudioInputStream 
-     * @returns {HRESULT} 
+     * @returns {ISpeechBaseStream} 
      */
-    get_AudioInputStream(AudioInputStream) {
-        result := ComCall(14, this, "ptr*", AudioInputStream, "HRESULT")
-        return result
+    get_AudioInputStream() {
+        result := ComCall(14, this, "ptr*", &AudioInputStream := 0, "HRESULT")
+        return ISpeechBaseStream(AudioInputStream)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} Shared 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_IsShared(Shared) {
-        result := ComCall(15, this, "ptr", Shared, "HRESULT")
-        return result
+    get_IsShared() {
+        result := ComCall(15, this, "short*", &Shared := 0, "HRESULT")
+        return Shared
     }
 
     /**
@@ -131,24 +132,20 @@ class ISpeechRecognizer extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} State 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_State(State) {
-        StateMarshal := State is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, StateMarshal, State, "HRESULT")
-        return result
+    get_State() {
+        result := ComCall(17, this, "int*", &State := 0, "HRESULT")
+        return State
     }
 
     /**
      * 
-     * @param {Pointer<ISpeechRecognizerStatus>} Status 
-     * @returns {HRESULT} 
+     * @returns {ISpeechRecognizerStatus} 
      */
-    get_Status(Status) {
-        result := ComCall(18, this, "ptr*", Status, "HRESULT")
-        return result
+    get_Status() {
+        result := ComCall(18, this, "ptr*", &Status := 0, "HRESULT")
+        return ISpeechRecognizerStatus(Status)
     }
 
     /**
@@ -163,12 +160,11 @@ class ISpeechRecognizer extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISpeechObjectToken>} Profile 
-     * @returns {HRESULT} 
+     * @returns {ISpeechObjectToken} 
      */
-    get_Profile(Profile) {
-        result := ComCall(20, this, "ptr*", Profile, "HRESULT")
-        return result
+    get_Profile() {
+        result := ComCall(20, this, "ptr*", &Profile := 0, "HRESULT")
+        return ISpeechObjectToken(Profile)
     }
 
     /**
@@ -185,96 +181,89 @@ class ISpeechRecognizer extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISpeechRecoContext>} NewContext 
-     * @returns {HRESULT} 
+     * @returns {ISpeechRecoContext} 
      */
-    CreateRecoContext(NewContext) {
-        result := ComCall(22, this, "ptr*", NewContext, "HRESULT")
-        return result
+    CreateRecoContext() {
+        result := ComCall(22, this, "ptr*", &NewContext := 0, "HRESULT")
+        return ISpeechRecoContext(NewContext)
     }
 
     /**
      * 
      * @param {Integer} Type 
-     * @param {Pointer<ISpeechAudioFormat>} Format 
-     * @returns {HRESULT} 
+     * @returns {ISpeechAudioFormat} 
      */
-    GetFormat(Type, Format) {
-        result := ComCall(23, this, "int", Type, "ptr*", Format, "HRESULT")
-        return result
+    GetFormat(Type) {
+        result := ComCall(23, this, "int", Type, "ptr*", &Format := 0, "HRESULT")
+        return ISpeechAudioFormat(Format)
     }
 
     /**
      * 
      * @param {BSTR} Name 
      * @param {Integer} Value 
-     * @param {Pointer<VARIANT_BOOL>} Supported 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    SetPropertyNumber(Name, Value, Supported) {
+    SetPropertyNumber(Name, Value) {
         Name := Name is String ? BSTR.Alloc(Name).Value : Name
 
-        result := ComCall(24, this, "ptr", Name, "int", Value, "ptr", Supported, "HRESULT")
-        return result
+        result := ComCall(24, this, "ptr", Name, "int", Value, "short*", &Supported := 0, "HRESULT")
+        return Supported
     }
 
     /**
      * 
      * @param {BSTR} Name 
      * @param {Pointer<Integer>} Value 
-     * @param {Pointer<VARIANT_BOOL>} Supported 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    GetPropertyNumber(Name, Value, Supported) {
+    GetPropertyNumber(Name, Value) {
         Name := Name is String ? BSTR.Alloc(Name).Value : Name
 
         ValueMarshal := Value is VarRef ? "int*" : "ptr"
 
-        result := ComCall(25, this, "ptr", Name, ValueMarshal, Value, "ptr", Supported, "HRESULT")
-        return result
+        result := ComCall(25, this, "ptr", Name, ValueMarshal, Value, "short*", &Supported := 0, "HRESULT")
+        return Supported
     }
 
     /**
      * 
      * @param {BSTR} Name 
      * @param {BSTR} Value 
-     * @param {Pointer<VARIANT_BOOL>} Supported 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    SetPropertyString(Name, Value, Supported) {
+    SetPropertyString(Name, Value) {
         Name := Name is String ? BSTR.Alloc(Name).Value : Name
         Value := Value is String ? BSTR.Alloc(Value).Value : Value
 
-        result := ComCall(26, this, "ptr", Name, "ptr", Value, "ptr", Supported, "HRESULT")
-        return result
+        result := ComCall(26, this, "ptr", Name, "ptr", Value, "short*", &Supported := 0, "HRESULT")
+        return Supported
     }
 
     /**
      * 
      * @param {BSTR} Name 
      * @param {Pointer<BSTR>} Value 
-     * @param {Pointer<VARIANT_BOOL>} Supported 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    GetPropertyString(Name, Value, Supported) {
+    GetPropertyString(Name, Value) {
         Name := Name is String ? BSTR.Alloc(Name).Value : Name
 
-        result := ComCall(27, this, "ptr", Name, "ptr", Value, "ptr", Supported, "HRESULT")
-        return result
+        result := ComCall(27, this, "ptr", Name, "ptr", Value, "short*", &Supported := 0, "HRESULT")
+        return Supported
     }
 
     /**
      * 
      * @param {BSTR} TypeOfUI 
      * @param {Pointer<VARIANT>} ExtraData 
-     * @param {Pointer<VARIANT_BOOL>} Supported 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    IsUISupported(TypeOfUI, ExtraData, Supported) {
+    IsUISupported(TypeOfUI, ExtraData) {
         TypeOfUI := TypeOfUI is String ? BSTR.Alloc(TypeOfUI).Value : TypeOfUI
 
-        result := ComCall(28, this, "ptr", TypeOfUI, "ptr", ExtraData, "ptr", Supported, "HRESULT")
-        return result
+        result := ComCall(28, this, "ptr", TypeOfUI, "ptr", ExtraData, "short*", &Supported := 0, "HRESULT")
+        return Supported
     }
 
     /**
@@ -297,44 +286,41 @@ class ISpeechRecognizer extends IDispatch{
      * 
      * @param {BSTR} RequiredAttributes 
      * @param {BSTR} OptionalAttributes 
-     * @param {Pointer<ISpeechObjectTokens>} ObjectTokens 
-     * @returns {HRESULT} 
+     * @returns {ISpeechObjectTokens} 
      */
-    GetRecognizers(RequiredAttributes, OptionalAttributes, ObjectTokens) {
+    GetRecognizers(RequiredAttributes, OptionalAttributes) {
         RequiredAttributes := RequiredAttributes is String ? BSTR.Alloc(RequiredAttributes).Value : RequiredAttributes
         OptionalAttributes := OptionalAttributes is String ? BSTR.Alloc(OptionalAttributes).Value : OptionalAttributes
 
-        result := ComCall(30, this, "ptr", RequiredAttributes, "ptr", OptionalAttributes, "ptr*", ObjectTokens, "HRESULT")
-        return result
+        result := ComCall(30, this, "ptr", RequiredAttributes, "ptr", OptionalAttributes, "ptr*", &ObjectTokens := 0, "HRESULT")
+        return ISpeechObjectTokens(ObjectTokens)
     }
 
     /**
      * 
      * @param {BSTR} RequiredAttributes 
      * @param {BSTR} OptionalAttributes 
-     * @param {Pointer<ISpeechObjectTokens>} ObjectTokens 
-     * @returns {HRESULT} 
+     * @returns {ISpeechObjectTokens} 
      */
-    GetAudioInputs(RequiredAttributes, OptionalAttributes, ObjectTokens) {
+    GetAudioInputs(RequiredAttributes, OptionalAttributes) {
         RequiredAttributes := RequiredAttributes is String ? BSTR.Alloc(RequiredAttributes).Value : RequiredAttributes
         OptionalAttributes := OptionalAttributes is String ? BSTR.Alloc(OptionalAttributes).Value : OptionalAttributes
 
-        result := ComCall(31, this, "ptr", RequiredAttributes, "ptr", OptionalAttributes, "ptr*", ObjectTokens, "HRESULT")
-        return result
+        result := ComCall(31, this, "ptr", RequiredAttributes, "ptr", OptionalAttributes, "ptr*", &ObjectTokens := 0, "HRESULT")
+        return ISpeechObjectTokens(ObjectTokens)
     }
 
     /**
      * 
      * @param {BSTR} RequiredAttributes 
      * @param {BSTR} OptionalAttributes 
-     * @param {Pointer<ISpeechObjectTokens>} ObjectTokens 
-     * @returns {HRESULT} 
+     * @returns {ISpeechObjectTokens} 
      */
-    GetProfiles(RequiredAttributes, OptionalAttributes, ObjectTokens) {
+    GetProfiles(RequiredAttributes, OptionalAttributes) {
         RequiredAttributes := RequiredAttributes is String ? BSTR.Alloc(RequiredAttributes).Value : RequiredAttributes
         OptionalAttributes := OptionalAttributes is String ? BSTR.Alloc(OptionalAttributes).Value : OptionalAttributes
 
-        result := ComCall(32, this, "ptr", RequiredAttributes, "ptr", OptionalAttributes, "ptr*", ObjectTokens, "HRESULT")
-        return result
+        result := ComCall(32, this, "ptr", RequiredAttributes, "ptr", OptionalAttributes, "ptr*", &ObjectTokens := 0, "HRESULT")
+        return ISpeechObjectTokens(ObjectTokens)
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\MenuItem.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -38,34 +40,29 @@ class ContextMenu extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__NewEnum(retval) {
-        result := ComCall(7, this, "ptr*", retval, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(7, this, "ptr*", &retval := 0, "HRESULT")
+        return IUnknown(retval)
     }
 
     /**
      * 
      * @param {VARIANT} IndexOrPath 
-     * @param {Pointer<MenuItem>} MenuItem 
-     * @returns {HRESULT} 
+     * @returns {MenuItem} 
      */
-    get_Item(IndexOrPath, MenuItem) {
-        result := ComCall(8, this, "ptr", IndexOrPath, "ptr*", MenuItem, "HRESULT")
-        return result
+    get_Item(IndexOrPath) {
+        result := ComCall(8, this, "ptr", IndexOrPath, "ptr*", &MenuItem := 0, "HRESULT")
+        return MenuItem(MenuItem)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Count(Count) {
-        CountMarshal := Count is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, CountMarshal, Count, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(9, this, "int*", &Count := 0, "HRESULT")
+        return Count
     }
 }

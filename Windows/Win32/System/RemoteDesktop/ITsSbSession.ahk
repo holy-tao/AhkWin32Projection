@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Foundation\FILETIME.ahk
+#Include .\CLIENT_DISPLAY.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -33,26 +35,23 @@ class ITsSbSession extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-get_sessionid
      */
-    get_SessionId(pVal) {
-        pValMarshal := pVal is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_SessionId() {
+        result := ComCall(3, this, "uint*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} targetName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-get_targetname
      */
-    get_TargetName(targetName) {
+    get_TargetName() {
+        targetName := BSTR()
         result := ComCall(4, this, "ptr", targetName, "HRESULT")
-        return result
+        return targetName
     }
 
     /**
@@ -69,37 +68,34 @@ class ITsSbSession extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} userName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-get_username
      */
-    get_Username(userName) {
+    get_Username() {
+        userName := BSTR()
         result := ComCall(6, this, "ptr", userName, "HRESULT")
-        return result
+        return userName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} domain 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-get_domain
      */
-    get_Domain(domain) {
+    get_Domain() {
+        domain := BSTR()
         result := ComCall(7, this, "ptr", domain, "HRESULT")
-        return result
+        return domain
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-get_state
      */
-    get_State(pState) {
-        pStateMarshal := pState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pStateMarshal, pState, "HRESULT")
-        return result
+    get_State() {
+        result := ComCall(8, this, "int*", &pState := 0, "HRESULT")
+        return pState
     }
 
     /**
@@ -115,13 +111,13 @@ class ITsSbSession extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<FILETIME>} pTime 
-     * @returns {HRESULT} 
+     * @returns {FILETIME} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-get_createtime
      */
-    get_CreateTime(pTime) {
+    get_CreateTime() {
+        pTime := FILETIME()
         result := ComCall(10, this, "ptr", pTime, "HRESULT")
-        return result
+        return pTime
     }
 
     /**
@@ -137,13 +133,13 @@ class ITsSbSession extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<FILETIME>} pTime 
-     * @returns {HRESULT} 
+     * @returns {FILETIME} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-get_disconnecttime
      */
-    get_DisconnectTime(pTime) {
+    get_DisconnectTime() {
+        pTime := FILETIME()
         result := ComCall(12, this, "ptr", pTime, "HRESULT")
-        return result
+        return pTime
     }
 
     /**
@@ -159,13 +155,13 @@ class ITsSbSession extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} app 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-get_initialprogram
      */
-    get_InitialProgram(app) {
+    get_InitialProgram() {
+        app := BSTR()
         result := ComCall(14, this, "ptr", app, "HRESULT")
-        return result
+        return app
     }
 
     /**
@@ -183,13 +179,13 @@ class ITsSbSession extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<CLIENT_DISPLAY>} pClientDisplay 
-     * @returns {HRESULT} 
+     * @returns {CLIENT_DISPLAY} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-get_clientdisplay
      */
-    get_ClientDisplay(pClientDisplay) {
+    get_ClientDisplay() {
+        pClientDisplay := CLIENT_DISPLAY()
         result := ComCall(16, this, "ptr", pClientDisplay, "HRESULT")
-        return result
+        return pClientDisplay
     }
 
     /**
@@ -205,15 +201,12 @@ class ITsSbSession extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbsession-get_protocoltype
      */
-    get_ProtocolType(pVal) {
-        pValMarshal := pVal is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(18, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_ProtocolType() {
+        result := ComCall(18, this, "uint*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**

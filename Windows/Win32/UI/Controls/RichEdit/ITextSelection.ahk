@@ -103,15 +103,12 @@ class ITextSelection extends ITextRange{
 
     /**
      * 
-     * @param {Pointer<Integer>} pFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextselection-getflags
      */
-    GetFlags(pFlags) {
-        pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(58, this, pFlagsMarshal, pFlags, "HRESULT")
-        return result
+    GetFlags() {
+        result := ComCall(58, this, "int*", &pFlags := 0, "HRESULT")
+        return pFlags
     }
 
     /**
@@ -201,15 +198,12 @@ class ITextSelection extends ITextRange{
 
     /**
      * 
-     * @param {Pointer<Integer>} pType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextselection-gettype
      */
-    GetType(pType) {
-        pTypeMarshal := pType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(60, this, pTypeMarshal, pType, "HRESULT")
-        return result
+    GetType() {
+        result := ComCall(60, this, "int*", &pType := 0, "HRESULT")
+        return pType
     }
 
     /**
@@ -217,15 +211,12 @@ class ITextSelection extends ITextRange{
      * @param {Integer} Unit 
      * @param {Integer} Count 
      * @param {Integer} Extend 
-     * @param {Pointer<Integer>} pDelta 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextselection-moveleft
      */
-    MoveLeft(Unit, Count, Extend, pDelta) {
-        pDeltaMarshal := pDelta is VarRef ? "int*" : "ptr"
-
-        result := ComCall(61, this, "int", Unit, "int", Count, "int", Extend, pDeltaMarshal, pDelta, "HRESULT")
-        return result
+    MoveLeft(Unit, Count, Extend) {
+        result := ComCall(61, this, "int", Unit, "int", Count, "int", Extend, "int*", &pDelta := 0, "HRESULT")
+        return pDelta
     }
 
     /**
@@ -233,15 +224,12 @@ class ITextSelection extends ITextRange{
      * @param {Integer} Unit 
      * @param {Integer} Count 
      * @param {Integer} Extend 
-     * @param {Pointer<Integer>} pDelta 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextselection-moveright
      */
-    MoveRight(Unit, Count, Extend, pDelta) {
-        pDeltaMarshal := pDelta is VarRef ? "int*" : "ptr"
-
-        result := ComCall(62, this, "int", Unit, "int", Count, "int", Extend, pDeltaMarshal, pDelta, "HRESULT")
-        return result
+    MoveRight(Unit, Count, Extend) {
+        result := ComCall(62, this, "int", Unit, "int", Count, "int", Extend, "int*", &pDelta := 0, "HRESULT")
+        return pDelta
     }
 
     /**
@@ -249,15 +237,12 @@ class ITextSelection extends ITextRange{
      * @param {Integer} Unit 
      * @param {Integer} Count 
      * @param {Integer} Extend 
-     * @param {Pointer<Integer>} pDelta 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextselection-moveup
      */
-    MoveUp(Unit, Count, Extend, pDelta) {
-        pDeltaMarshal := pDelta is VarRef ? "int*" : "ptr"
-
-        result := ComCall(63, this, "int", Unit, "int", Count, "int", Extend, pDeltaMarshal, pDelta, "HRESULT")
-        return result
+    MoveUp(Unit, Count, Extend) {
+        result := ComCall(63, this, "int", Unit, "int", Count, "int", Extend, "int*", &pDelta := 0, "HRESULT")
+        return pDelta
     }
 
     /**
@@ -265,45 +250,36 @@ class ITextSelection extends ITextRange{
      * @param {Integer} Unit 
      * @param {Integer} Count 
      * @param {Integer} Extend 
-     * @param {Pointer<Integer>} pDelta 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextselection-movedown
      */
-    MoveDown(Unit, Count, Extend, pDelta) {
-        pDeltaMarshal := pDelta is VarRef ? "int*" : "ptr"
-
-        result := ComCall(64, this, "int", Unit, "int", Count, "int", Extend, pDeltaMarshal, pDelta, "HRESULT")
-        return result
+    MoveDown(Unit, Count, Extend) {
+        result := ComCall(64, this, "int", Unit, "int", Count, "int", Extend, "int*", &pDelta := 0, "HRESULT")
+        return pDelta
     }
 
     /**
      * 
      * @param {Integer} Unit 
      * @param {Integer} Extend 
-     * @param {Pointer<Integer>} pDelta 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextselection-homekey
      */
-    HomeKey(Unit, Extend, pDelta) {
-        pDeltaMarshal := pDelta is VarRef ? "int*" : "ptr"
-
-        result := ComCall(65, this, "int", Unit, "int", Extend, pDeltaMarshal, pDelta, "HRESULT")
-        return result
+    HomeKey(Unit, Extend) {
+        result := ComCall(65, this, "int", Unit, "int", Extend, "int*", &pDelta := 0, "HRESULT")
+        return pDelta
     }
 
     /**
      * 
      * @param {Integer} Unit 
      * @param {Integer} Extend 
-     * @param {Pointer<Integer>} pDelta 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextselection-endkey
      */
-    EndKey(Unit, Extend, pDelta) {
-        pDeltaMarshal := pDelta is VarRef ? "int*" : "ptr"
-
-        result := ComCall(66, this, "int", Unit, "int", Extend, pDeltaMarshal, pDelta, "HRESULT")
-        return result
+    EndKey(Unit, Extend) {
+        result := ComCall(66, this, "int", Unit, "int", Extend, "int*", &pDelta := 0, "HRESULT")
+        return pDelta
     }
 
     /**

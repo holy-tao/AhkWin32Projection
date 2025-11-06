@@ -62,23 +62,23 @@ class ICertificateAttestationChallenge extends IDispatch{
     /**
      * 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pstrEnvelopedPkcs7ReencryptedToCA 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertificateattestationchallenge-decryptchallenge
      */
-    DecryptChallenge(Encoding, pstrEnvelopedPkcs7ReencryptedToCA) {
+    DecryptChallenge(Encoding) {
+        pstrEnvelopedPkcs7ReencryptedToCA := BSTR()
         result := ComCall(8, this, "int", Encoding, "ptr", pstrEnvelopedPkcs7ReencryptedToCA, "HRESULT")
-        return result
+        return pstrEnvelopedPkcs7ReencryptedToCA
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pstrRequestID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertificateattestationchallenge-get_requestid
      */
-    get_RequestID(pstrRequestID) {
+    get_RequestID() {
+        pstrRequestID := BSTR()
         result := ComCall(9, this, "ptr", pstrRequestID, "HRESULT")
-        return result
+        return pstrRequestID
     }
 }

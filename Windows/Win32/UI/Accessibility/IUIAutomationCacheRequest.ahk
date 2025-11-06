@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUIAutomationCacheRequest.ahk
+#Include .\IUIAutomationCondition.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -61,26 +63,22 @@ class IUIAutomationCacheRequest extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IUIAutomationCacheRequest>} clonedRequest 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationCacheRequest} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationcacherequest-clone
      */
-    Clone(clonedRequest) {
-        result := ComCall(5, this, "ptr*", clonedRequest, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(5, this, "ptr*", &clonedRequest := 0, "HRESULT")
+        return IUIAutomationCacheRequest(clonedRequest)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} scope 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationcacherequest-get_treescope
      */
-    get_TreeScope(scope) {
-        scopeMarshal := scope is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, scopeMarshal, scope, "HRESULT")
-        return result
+    get_TreeScope() {
+        result := ComCall(6, this, "int*", &scope := 0, "HRESULT")
+        return scope
     }
 
     /**
@@ -96,13 +94,12 @@ class IUIAutomationCacheRequest extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IUIAutomationCondition>} filter 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationCondition} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationcacherequest-get_treefilter
      */
-    get_TreeFilter(filter) {
-        result := ComCall(8, this, "ptr*", filter, "HRESULT")
-        return result
+    get_TreeFilter() {
+        result := ComCall(8, this, "ptr*", &filter := 0, "HRESULT")
+        return IUIAutomationCondition(filter)
     }
 
     /**
@@ -118,15 +115,12 @@ class IUIAutomationCacheRequest extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} mode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationcacherequest-get_automationelementmode
      */
-    get_AutomationElementMode(mode) {
-        modeMarshal := mode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, modeMarshal, mode, "HRESULT")
-        return result
+    get_AutomationElementMode() {
+        result := ComCall(10, this, "int*", &mode := 0, "HRESULT")
+        return mode
     }
 
     /**

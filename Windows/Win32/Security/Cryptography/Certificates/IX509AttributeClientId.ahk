@@ -65,47 +65,44 @@ class IX509AttributeClientId extends IX509Attribute{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributeclientid-get_clientid
      */
-    get_ClientId(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_ClientId() {
+        result := ComCall(12, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributeclientid-get_machinednsname
      */
-    get_MachineDnsName(pValue) {
+    get_MachineDnsName() {
+        pValue := BSTR()
         result := ComCall(13, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributeclientid-get_usersamname
      */
-    get_UserSamName(pValue) {
+    get_UserSamName() {
+        pValue := BSTR()
         result := ComCall(14, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributeclientid-get_processname
      */
-    get_ProcessName(pValue) {
+    get_ProcessName() {
+        pValue := BSTR()
         result := ComCall(15, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 }

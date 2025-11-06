@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\MFARGB.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,13 +33,12 @@ class IMFTimedTextStyle extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} name 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-getname
      */
-    GetName(name) {
-        result := ComCall(3, this, "ptr", name, "HRESULT")
-        return result
+    GetName() {
+        result := ComCall(3, this, "ptr*", &name := 0, "HRESULT")
+        return name
     }
 
     /**
@@ -53,13 +53,12 @@ class IMFTimedTextStyle extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} fontFamily 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-getfontfamily
      */
-    GetFontFamily(fontFamily) {
-        result := ComCall(5, this, "ptr", fontFamily, "HRESULT")
-        return result
+    GetFontFamily() {
+        result := ComCall(5, this, "ptr*", &fontFamily := 0, "HRESULT")
+        return fontFamily
     }
 
     /**
@@ -79,96 +78,84 @@ class IMFTimedTextStyle extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<MFARGB>} color 
-     * @returns {HRESULT} 
+     * @returns {MFARGB} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-getcolor
      */
-    GetColor(color) {
+    GetColor() {
+        color := MFARGB()
         result := ComCall(7, this, "ptr", color, "HRESULT")
-        return result
+        return color
     }
 
     /**
      * 
-     * @param {Pointer<MFARGB>} bgColor 
-     * @returns {HRESULT} 
+     * @returns {MFARGB} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-getbackgroundcolor
      */
-    GetBackgroundColor(bgColor) {
+    GetBackgroundColor() {
+        bgColor := MFARGB()
         result := ComCall(8, this, "ptr", bgColor, "HRESULT")
-        return result
+        return bgColor
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} showBackgroundAlways 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-getshowbackgroundalways
      */
-    GetShowBackgroundAlways(showBackgroundAlways) {
-        result := ComCall(9, this, "ptr", showBackgroundAlways, "HRESULT")
-        return result
+    GetShowBackgroundAlways() {
+        result := ComCall(9, this, "int*", &showBackgroundAlways := 0, "HRESULT")
+        return showBackgroundAlways
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} fontStyle 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-getfontstyle
      */
-    GetFontStyle(fontStyle) {
-        fontStyleMarshal := fontStyle is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, fontStyleMarshal, fontStyle, "HRESULT")
-        return result
+    GetFontStyle() {
+        result := ComCall(10, this, "int*", &fontStyle := 0, "HRESULT")
+        return fontStyle
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} bold 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-getbold
      */
-    GetBold(bold) {
-        result := ComCall(11, this, "ptr", bold, "HRESULT")
-        return result
+    GetBold() {
+        result := ComCall(11, this, "int*", &bold := 0, "HRESULT")
+        return bold
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} rightToLeft 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-getrighttoleft
      */
-    GetRightToLeft(rightToLeft) {
-        result := ComCall(12, this, "ptr", rightToLeft, "HRESULT")
-        return result
+    GetRightToLeft() {
+        result := ComCall(12, this, "int*", &rightToLeft := 0, "HRESULT")
+        return rightToLeft
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} textAlign 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-gettextalignment
      */
-    GetTextAlignment(textAlign) {
-        textAlignMarshal := textAlign is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, textAlignMarshal, textAlign, "HRESULT")
-        return result
+    GetTextAlignment() {
+        result := ComCall(13, this, "int*", &textAlign := 0, "HRESULT")
+        return textAlign
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} textDecoration 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextstyle-gettextdecoration
      */
-    GetTextDecoration(textDecoration) {
-        textDecorationMarshal := textDecoration is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, textDecorationMarshal, textDecoration, "HRESULT")
-        return result
+    GetTextDecoration() {
+        result := ComCall(14, this, "uint*", &textDecoration := 0, "HRESULT")
+        return textDecoration
     }
 
     /**

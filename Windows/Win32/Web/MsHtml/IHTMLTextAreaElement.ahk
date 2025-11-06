@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IHTMLFormElement.ahk
+#Include .\IHTMLTxtRange.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -37,12 +40,12 @@ class IHTMLTextAreaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_type(p) {
+    get_type() {
+        p := BSTR()
         result := ComCall(7, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -59,12 +62,12 @@ class IHTMLTextAreaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_value(p) {
+    get_value() {
+        p := BSTR()
         result := ComCall(9, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -81,12 +84,12 @@ class IHTMLTextAreaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_name(p) {
+    get_name() {
+        p := BSTR()
         result := ComCall(11, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -101,12 +104,12 @@ class IHTMLTextAreaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_status(p) {
+    get_status() {
+        p := VARIANT()
         result := ComCall(13, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -121,22 +124,20 @@ class IHTMLTextAreaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_disabled(p) {
-        result := ComCall(15, this, "ptr", p, "HRESULT")
-        return result
+    get_disabled() {
+        result := ComCall(15, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLFormElement>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLFormElement} 
      */
-    get_form(p) {
-        result := ComCall(16, this, "ptr*", p, "HRESULT")
-        return result
+    get_form() {
+        result := ComCall(16, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLFormElement(p)
     }
 
     /**
@@ -153,12 +154,12 @@ class IHTMLTextAreaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_defaultValue(p) {
+    get_defaultValue() {
+        p := BSTR()
         result := ComCall(18, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -272,12 +273,12 @@ class IHTMLTextAreaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onchange(p) {
+    get_onchange() {
+        p := VARIANT()
         result := ComCall(21, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -292,12 +293,12 @@ class IHTMLTextAreaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onselect(p) {
+    get_onselect() {
+        p := VARIANT()
         result := ComCall(23, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -312,12 +313,11 @@ class IHTMLTextAreaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_readOnly(p) {
-        result := ComCall(25, this, "ptr", p, "HRESULT")
-        return result
+    get_readOnly() {
+        result := ComCall(25, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -332,14 +332,11 @@ class IHTMLTextAreaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_rows(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(27, this, pMarshal, p, "HRESULT")
-        return result
+    get_rows() {
+        result := ComCall(27, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -354,14 +351,11 @@ class IHTMLTextAreaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_cols(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(29, this, pMarshal, p, "HRESULT")
-        return result
+    get_cols() {
+        result := ComCall(29, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -378,21 +372,20 @@ class IHTMLTextAreaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_wrap(p) {
+    get_wrap() {
+        p := BSTR()
         result := ComCall(31, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLTxtRange>} range 
-     * @returns {HRESULT} 
+     * @returns {IHTMLTxtRange} 
      */
-    createTextRange(range) {
-        result := ComCall(32, this, "ptr*", range, "HRESULT")
-        return result
+    createTextRange() {
+        result := ComCall(32, this, "ptr*", &range := 0, "HRESULT")
+        return IHTMLTxtRange(range)
     }
 }

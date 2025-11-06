@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDXGISwapChain1.ahk
+#Include .\IDXGIDecodeSwapChain.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -59,15 +61,14 @@ class IDXGIFactoryMedia extends IUnknown{
      * @param {HANDLE} hSurface 
      * @param {Pointer<DXGI_SWAP_CHAIN_DESC1>} pDesc 
      * @param {IDXGIOutput} pRestrictToOutput 
-     * @param {Pointer<IDXGISwapChain1>} ppSwapChain 
-     * @returns {HRESULT} 
+     * @returns {IDXGISwapChain1} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgifactorymedia-createswapchainforcompositionsurfacehandle
      */
-    CreateSwapChainForCompositionSurfaceHandle(pDevice, hSurface, pDesc, pRestrictToOutput, ppSwapChain) {
+    CreateSwapChainForCompositionSurfaceHandle(pDevice, hSurface, pDesc, pRestrictToOutput) {
         hSurface := hSurface is Win32Handle ? NumGet(hSurface, "ptr") : hSurface
 
-        result := ComCall(3, this, "ptr", pDevice, "ptr", hSurface, "ptr", pDesc, "ptr", pRestrictToOutput, "ptr*", ppSwapChain, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pDevice, "ptr", hSurface, "ptr", pDesc, "ptr", pRestrictToOutput, "ptr*", &ppSwapChain := 0, "HRESULT")
+        return IDXGISwapChain1(ppSwapChain)
     }
 
     /**
@@ -77,14 +78,13 @@ class IDXGIFactoryMedia extends IUnknown{
      * @param {Pointer<DXGI_DECODE_SWAP_CHAIN_DESC>} pDesc 
      * @param {IDXGIResource} pYuvDecodeBuffers 
      * @param {IDXGIOutput} pRestrictToOutput 
-     * @param {Pointer<IDXGIDecodeSwapChain>} ppSwapChain 
-     * @returns {HRESULT} 
+     * @returns {IDXGIDecodeSwapChain} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgifactorymedia-createdecodeswapchainforcompositionsurfacehandle
      */
-    CreateDecodeSwapChainForCompositionSurfaceHandle(pDevice, hSurface, pDesc, pYuvDecodeBuffers, pRestrictToOutput, ppSwapChain) {
+    CreateDecodeSwapChainForCompositionSurfaceHandle(pDevice, hSurface, pDesc, pYuvDecodeBuffers, pRestrictToOutput) {
         hSurface := hSurface is Win32Handle ? NumGet(hSurface, "ptr") : hSurface
 
-        result := ComCall(4, this, "ptr", pDevice, "ptr", hSurface, "ptr", pDesc, "ptr", pYuvDecodeBuffers, "ptr", pRestrictToOutput, "ptr*", ppSwapChain, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pDevice, "ptr", hSurface, "ptr", pDesc, "ptr", pYuvDecodeBuffers, "ptr", pRestrictToOutput, "ptr*", &ppSwapChain := 0, "HRESULT")
+        return IDXGIDecodeSwapChain(ppSwapChain)
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteFontCollection.ahk
+#Include .\IDWriteRenderingParams1.ahk
 #Include .\IDWriteFactory.ahk
 
 /**
@@ -32,14 +34,13 @@ class IDWriteFactory1 extends IDWriteFactory{
 
     /**
      * 
-     * @param {Pointer<IDWriteFontCollection>} fontCollection 
      * @param {BOOL} checkForUpdates 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefactory1-geteudcfontcollection
      */
-    GetEudcFontCollection(fontCollection, checkForUpdates) {
-        result := ComCall(24, this, "ptr*", fontCollection, "int", checkForUpdates, "HRESULT")
-        return result
+    GetEudcFontCollection(checkForUpdates) {
+        result := ComCall(24, this, "ptr*", &fontCollection := 0, "int", checkForUpdates, "HRESULT")
+        return IDWriteFontCollection(fontCollection)
     }
 
     /**
@@ -50,12 +51,11 @@ class IDWriteFactory1 extends IDWriteFactory{
      * @param {Float} clearTypeLevel 
      * @param {Integer} pixelGeometry 
      * @param {Integer} renderingMode 
-     * @param {Pointer<IDWriteRenderingParams1>} renderingParams 
-     * @returns {HRESULT} 
+     * @returns {IDWriteRenderingParams1} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefactory1-createcustomrenderingparams
      */
-    CreateCustomRenderingParams(gamma, enhancedContrast, enhancedContrastGrayscale, clearTypeLevel, pixelGeometry, renderingMode, renderingParams) {
-        result := ComCall(25, this, "float", gamma, "float", enhancedContrast, "float", enhancedContrastGrayscale, "float", clearTypeLevel, "int", pixelGeometry, "int", renderingMode, "ptr*", renderingParams, "HRESULT")
-        return result
+    CreateCustomRenderingParams(gamma, enhancedContrast, enhancedContrastGrayscale, clearTypeLevel, pixelGeometry, renderingMode) {
+        result := ComCall(25, this, "float", gamma, "float", enhancedContrast, "float", enhancedContrastGrayscale, "float", clearTypeLevel, "int", pixelGeometry, "int", renderingMode, "ptr*", &renderingParams := 0, "HRESULT")
+        return IDWriteRenderingParams1(renderingParams)
     }
 }

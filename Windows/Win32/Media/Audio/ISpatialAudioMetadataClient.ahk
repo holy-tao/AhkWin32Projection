@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISpatialAudioMetadataWriter.ahk
+#Include .\ISpatialAudioMetadataCopier.ahk
+#Include .\ISpatialAudioMetadataReader.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -47,48 +50,42 @@ class ISpatialAudioMetadataClient extends IUnknown{
     /**
      * 
      * @param {Integer} maxItemCount 
-     * @param {Pointer<Integer>} bufferLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataclient-getspatialaudiometadataitemsbufferlength
      */
-    GetSpatialAudioMetadataItemsBufferLength(maxItemCount, bufferLength) {
-        bufferLengthMarshal := bufferLength is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, "ushort", maxItemCount, bufferLengthMarshal, bufferLength, "HRESULT")
-        return result
+    GetSpatialAudioMetadataItemsBufferLength(maxItemCount) {
+        result := ComCall(4, this, "ushort", maxItemCount, "uint*", &bufferLength := 0, "HRESULT")
+        return bufferLength
     }
 
     /**
      * 
      * @param {Integer} overflowMode 
-     * @param {Pointer<ISpatialAudioMetadataWriter>} metadataWriter 
-     * @returns {HRESULT} 
+     * @returns {ISpatialAudioMetadataWriter} 
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataclient-activatespatialaudiometadatawriter
      */
-    ActivateSpatialAudioMetadataWriter(overflowMode, metadataWriter) {
-        result := ComCall(5, this, "int", overflowMode, "ptr*", metadataWriter, "HRESULT")
-        return result
+    ActivateSpatialAudioMetadataWriter(overflowMode) {
+        result := ComCall(5, this, "int", overflowMode, "ptr*", &metadataWriter := 0, "HRESULT")
+        return ISpatialAudioMetadataWriter(metadataWriter)
     }
 
     /**
      * 
-     * @param {Pointer<ISpatialAudioMetadataCopier>} metadataCopier 
-     * @returns {HRESULT} 
+     * @returns {ISpatialAudioMetadataCopier} 
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataclient-activatespatialaudiometadatacopier
      */
-    ActivateSpatialAudioMetadataCopier(metadataCopier) {
-        result := ComCall(6, this, "ptr*", metadataCopier, "HRESULT")
-        return result
+    ActivateSpatialAudioMetadataCopier() {
+        result := ComCall(6, this, "ptr*", &metadataCopier := 0, "HRESULT")
+        return ISpatialAudioMetadataCopier(metadataCopier)
     }
 
     /**
      * 
-     * @param {Pointer<ISpatialAudioMetadataReader>} metadataReader 
-     * @returns {HRESULT} 
+     * @returns {ISpatialAudioMetadataReader} 
      * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataclient-activatespatialaudiometadatareader
      */
-    ActivateSpatialAudioMetadataReader(metadataReader) {
-        result := ComCall(7, this, "ptr*", metadataReader, "HRESULT")
-        return result
+    ActivateSpatialAudioMetadataReader() {
+        result := ComCall(7, this, "ptr*", &metadataReader := 0, "HRESULT")
+        return ISpatialAudioMetadataReader(metadataReader)
     }
 }

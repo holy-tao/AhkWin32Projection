@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumOfflineFilesSettings.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -68,12 +69,11 @@ class IEnumOfflineFilesSettings extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumOfflineFilesSettings>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IEnumOfflineFilesSettings} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-ienumofflinefilessettings-clone
      */
-    Clone(ppenum) {
-        result := ComCall(6, this, "ptr*", ppenum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")
+        return IEnumOfflineFilesSettings(ppenum)
     }
 }

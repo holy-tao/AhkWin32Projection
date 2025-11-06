@@ -34,25 +34,21 @@ class IKsFormatSupport extends IUnknown{
      * 
      * @param {Pointer<KSDATAFORMAT>} pKsFormat 
      * @param {Integer} cbFormat 
-     * @param {Pointer<BOOL>} pbSupported 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iksformatsupport-isformatsupported
      */
-    IsFormatSupported(pKsFormat, cbFormat, pbSupported) {
-        result := ComCall(3, this, "ptr", pKsFormat, "uint", cbFormat, "ptr", pbSupported, "HRESULT")
-        return result
+    IsFormatSupported(pKsFormat, cbFormat) {
+        result := ComCall(3, this, "ptr", pKsFormat, "uint", cbFormat, "int*", &pbSupported := 0, "HRESULT")
+        return pbSupported
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<KSDATAFORMAT>>} ppKsFormat 
-     * @returns {HRESULT} 
+     * @returns {Pointer<KSDATAFORMAT>} 
      * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iksformatsupport-getdevicepreferredformat
      */
-    GetDevicePreferredFormat(ppKsFormat) {
-        ppKsFormatMarshal := ppKsFormat is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, ppKsFormatMarshal, ppKsFormat, "HRESULT")
-        return result
+    GetDevicePreferredFormat() {
+        result := ComCall(4, this, "ptr*", &ppKsFormat := 0, "HRESULT")
+        return ppKsFormat
     }
 }

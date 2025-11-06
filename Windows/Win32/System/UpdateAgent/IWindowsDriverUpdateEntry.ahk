@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -37,95 +38,86 @@ class IWindowsDriverUpdateEntry extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdateentry-get_driverclass
      */
-    get_DriverClass(retval) {
+    get_DriverClass() {
+        retval := BSTR()
         result := ComCall(7, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdateentry-get_driverhardwareid
      */
-    get_DriverHardwareID(retval) {
+    get_DriverHardwareID() {
+        retval := BSTR()
         result := ComCall(8, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdateentry-get_drivermanufacturer
      */
-    get_DriverManufacturer(retval) {
+    get_DriverManufacturer() {
+        retval := BSTR()
         result := ComCall(9, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdateentry-get_drivermodel
      */
-    get_DriverModel(retval) {
+    get_DriverModel() {
+        retval := BSTR()
         result := ComCall(10, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdateentry-get_driverprovider
      */
-    get_DriverProvider(retval) {
+    get_DriverProvider() {
+        retval := BSTR()
         result := ComCall(11, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<Float>} retval 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdateentry-get_driververdate
      */
-    get_DriverVerDate(retval) {
-        retvalMarshal := retval is VarRef ? "double*" : "ptr"
-
-        result := ComCall(12, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_DriverVerDate() {
+        result := ComCall(12, this, "double*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdateentry-get_deviceproblemnumber
      */
-    get_DeviceProblemNumber(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_DeviceProblemNumber() {
+        result := ComCall(13, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdateentry-get_devicestatus
      */
-    get_DeviceStatus(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_DeviceStatus() {
+        result := ComCall(14, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 }

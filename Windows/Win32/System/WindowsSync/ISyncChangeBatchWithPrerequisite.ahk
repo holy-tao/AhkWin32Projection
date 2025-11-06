@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISyncKnowledge.ahk
+#Include .\IForgottenKnowledge.ahk
 #Include .\ISyncChangeBatchBase.ahk
 
 /**
@@ -49,23 +51,21 @@ class ISyncChangeBatchWithPrerequisite extends ISyncChangeBatchBase{
     /**
      * 
      * @param {ISyncKnowledge} pDestinationKnowledge 
-     * @param {Pointer<ISyncKnowledge>} ppLearnedWithPrerequisiteKnowledge 
-     * @returns {HRESULT} 
+     * @returns {ISyncKnowledge} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchwithprerequisite-getlearnedknowledgewithprerequisite
      */
-    GetLearnedKnowledgeWithPrerequisite(pDestinationKnowledge, ppLearnedWithPrerequisiteKnowledge) {
-        result := ComCall(18, this, "ptr", pDestinationKnowledge, "ptr*", ppLearnedWithPrerequisiteKnowledge, "HRESULT")
-        return result
+    GetLearnedKnowledgeWithPrerequisite(pDestinationKnowledge) {
+        result := ComCall(18, this, "ptr", pDestinationKnowledge, "ptr*", &ppLearnedWithPrerequisiteKnowledge := 0, "HRESULT")
+        return ISyncKnowledge(ppLearnedWithPrerequisiteKnowledge)
     }
 
     /**
      * 
-     * @param {Pointer<IForgottenKnowledge>} ppLearnedForgottenKnowledge 
-     * @returns {HRESULT} 
+     * @returns {IForgottenKnowledge} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchwithprerequisite-getlearnedforgottenknowledge
      */
-    GetLearnedForgottenKnowledge(ppLearnedForgottenKnowledge) {
-        result := ComCall(19, this, "ptr*", ppLearnedForgottenKnowledge, "HRESULT")
-        return result
+    GetLearnedForgottenKnowledge() {
+        result := ComCall(19, this, "ptr*", &ppLearnedForgottenKnowledge := 0, "HRESULT")
+        return IForgottenKnowledge(ppLearnedForgottenKnowledge)
     }
 }

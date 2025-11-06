@@ -1,6 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\RECT.ahk
+#Include .\IStylusSyncPlugin.ahk
+#Include .\IStylusAsyncPlugin.ahk
+#Include .\IRealTimeStylus.ahk
+#Include .\IInkTablet.ahk
+#Include .\IInkCursors.ahk
+#Include .\IInkCursor.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -50,13 +57,12 @@ class IRealTimeStylus extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfEnable 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-get_enabled
      */
-    get_Enabled(pfEnable) {
-        result := ComCall(3, this, "ptr", pfEnable, "HRESULT")
-        return result
+    get_Enabled() {
+        result := ComCall(3, this, "int*", &pfEnable := 0, "HRESULT")
+        return pfEnable
     }
 
     /**
@@ -72,13 +78,12 @@ class IRealTimeStylus extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HANDLE_PTR>} phwnd 
-     * @returns {HRESULT} 
+     * @returns {HANDLE_PTR} 
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-get_hwnd
      */
-    get_HWND(phwnd) {
-        result := ComCall(5, this, "ptr", phwnd, "HRESULT")
-        return result
+    get_HWND() {
+        result := ComCall(5, this, "ptr*", &phwnd := 0, "HRESULT")
+        return phwnd
     }
 
     /**
@@ -94,13 +99,13 @@ class IRealTimeStylus extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<RECT>} prcWndInputRect 
-     * @returns {HRESULT} 
+     * @returns {RECT} 
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-get_windowinputrectangle
      */
-    get_WindowInputRectangle(prcWndInputRect) {
+    get_WindowInputRectangle() {
+        prcWndInputRect := RECT()
         result := ComCall(7, this, "ptr", prcWndInputRect, "HRESULT")
-        return result
+        return prcWndInputRect
     }
 
     /**
@@ -151,26 +156,22 @@ class IRealTimeStylus extends IUnknown{
     /**
      * 
      * @param {Integer} iIndex 
-     * @param {Pointer<IStylusSyncPlugin>} ppiPlugin 
-     * @returns {HRESULT} 
+     * @returns {IStylusSyncPlugin} 
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-getstylussyncplugin
      */
-    GetStylusSyncPlugin(iIndex, ppiPlugin) {
-        result := ComCall(12, this, "uint", iIndex, "ptr*", ppiPlugin, "HRESULT")
-        return result
+    GetStylusSyncPlugin(iIndex) {
+        result := ComCall(12, this, "uint", iIndex, "ptr*", &ppiPlugin := 0, "HRESULT")
+        return IStylusSyncPlugin(ppiPlugin)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pcPlugins 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-getstylussyncplugincount
      */
-    GetStylusSyncPluginCount(pcPlugins) {
-        pcPluginsMarshal := pcPlugins is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(13, this, pcPluginsMarshal, pcPlugins, "HRESULT")
-        return result
+    GetStylusSyncPluginCount() {
+        result := ComCall(13, this, "uint*", &pcPlugins := 0, "HRESULT")
+        return pcPlugins
     }
 
     /**
@@ -210,37 +211,32 @@ class IRealTimeStylus extends IUnknown{
     /**
      * 
      * @param {Integer} iIndex 
-     * @param {Pointer<IStylusAsyncPlugin>} ppiPlugin 
-     * @returns {HRESULT} 
+     * @returns {IStylusAsyncPlugin} 
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-getstylusasyncplugin
      */
-    GetStylusAsyncPlugin(iIndex, ppiPlugin) {
-        result := ComCall(17, this, "uint", iIndex, "ptr*", ppiPlugin, "HRESULT")
-        return result
+    GetStylusAsyncPlugin(iIndex) {
+        result := ComCall(17, this, "uint", iIndex, "ptr*", &ppiPlugin := 0, "HRESULT")
+        return IStylusAsyncPlugin(ppiPlugin)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pcPlugins 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-getstylusasyncplugincount
      */
-    GetStylusAsyncPluginCount(pcPlugins) {
-        pcPluginsMarshal := pcPlugins is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(18, this, pcPluginsMarshal, pcPlugins, "HRESULT")
-        return result
+    GetStylusAsyncPluginCount() {
+        result := ComCall(18, this, "uint*", &pcPlugins := 0, "HRESULT")
+        return pcPlugins
     }
 
     /**
      * 
-     * @param {Pointer<IRealTimeStylus>} ppiRTS 
-     * @returns {HRESULT} 
+     * @returns {IRealTimeStylus} 
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-get_childrealtimestylusplugin
      */
-    get_ChildRealTimeStylusPlugin(ppiRTS) {
-        result := ComCall(19, this, "ptr*", ppiRTS, "HRESULT")
-        return result
+    get_ChildRealTimeStylusPlugin() {
+        result := ComCall(19, this, "ptr*", &ppiRTS := 0, "HRESULT")
+        return IRealTimeStylus(ppiRTS)
     }
 
     /**
@@ -303,77 +299,68 @@ class IRealTimeStylus extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IInkTablet>} ppiSingleTablet 
-     * @returns {HRESULT} 
+     * @returns {IInkTablet} 
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-gettablet
      */
-    GetTablet(ppiSingleTablet) {
-        result := ComCall(25, this, "ptr*", ppiSingleTablet, "HRESULT")
-        return result
+    GetTablet() {
+        result := ComCall(25, this, "ptr*", &ppiSingleTablet := 0, "HRESULT")
+        return IInkTablet(ppiSingleTablet)
     }
 
     /**
      * 
      * @param {IInkTablet} piTablet 
-     * @param {Pointer<Integer>} ptcid 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-gettabletcontextidfromtablet
      */
-    GetTabletContextIdFromTablet(piTablet, ptcid) {
-        ptcidMarshal := ptcid is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(26, this, "ptr", piTablet, ptcidMarshal, ptcid, "HRESULT")
-        return result
+    GetTabletContextIdFromTablet(piTablet) {
+        result := ComCall(26, this, "ptr", piTablet, "uint*", &ptcid := 0, "HRESULT")
+        return ptcid
     }
 
     /**
      * 
      * @param {Integer} tcid 
-     * @param {Pointer<IInkTablet>} ppiTablet 
-     * @returns {HRESULT} 
+     * @returns {IInkTablet} 
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-gettabletfromtabletcontextid
      */
-    GetTabletFromTabletContextId(tcid, ppiTablet) {
-        result := ComCall(27, this, "uint", tcid, "ptr*", ppiTablet, "HRESULT")
-        return result
+    GetTabletFromTabletContextId(tcid) {
+        result := ComCall(27, this, "uint", tcid, "ptr*", &ppiTablet := 0, "HRESULT")
+        return IInkTablet(ppiTablet)
     }
 
     /**
      * 
      * @param {Pointer<Integer>} pcTcidCount 
-     * @param {Pointer<Pointer<Integer>>} ppTcids 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Integer>} 
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-getalltabletcontextids
      */
-    GetAllTabletContextIds(pcTcidCount, ppTcids) {
+    GetAllTabletContextIds(pcTcidCount) {
         pcTcidCountMarshal := pcTcidCount is VarRef ? "uint*" : "ptr"
-        ppTcidsMarshal := ppTcids is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(28, this, pcTcidCountMarshal, pcTcidCount, ppTcidsMarshal, ppTcids, "HRESULT")
-        return result
+        result := ComCall(28, this, pcTcidCountMarshal, pcTcidCount, "ptr*", &ppTcids := 0, "HRESULT")
+        return ppTcids
     }
 
     /**
      * 
-     * @param {Pointer<IInkCursors>} ppiInkCursors 
-     * @returns {HRESULT} 
+     * @returns {IInkCursors} 
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-getstyluses
      */
-    GetStyluses(ppiInkCursors) {
-        result := ComCall(29, this, "ptr*", ppiInkCursors, "HRESULT")
-        return result
+    GetStyluses() {
+        result := ComCall(29, this, "ptr*", &ppiInkCursors := 0, "HRESULT")
+        return IInkCursors(ppiInkCursors)
     }
 
     /**
      * 
      * @param {Integer} sid 
-     * @param {Pointer<IInkCursor>} ppiInkCursor 
-     * @returns {HRESULT} 
+     * @returns {IInkCursor} 
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-getstylusforid
      */
-    GetStylusForId(sid, ppiInkCursor) {
-        result := ComCall(30, this, "uint", sid, "ptr*", ppiInkCursor, "HRESULT")
-        return result
+    GetStylusForId(sid) {
+        result := ComCall(30, this, "uint", sid, "ptr*", &ppiInkCursor := 0, "HRESULT")
+        return IInkCursor(ppiInkCursor)
     }
 
     /**
@@ -391,16 +378,14 @@ class IRealTimeStylus extends IUnknown{
     /**
      * 
      * @param {Pointer<Integer>} pcProperties 
-     * @param {Pointer<Pointer<Guid>>} ppPropertyGuids 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Guid>} 
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-getdesiredpacketdescription
      */
-    GetDesiredPacketDescription(pcProperties, ppPropertyGuids) {
+    GetDesiredPacketDescription(pcProperties) {
         pcPropertiesMarshal := pcProperties is VarRef ? "uint*" : "ptr"
-        ppPropertyGuidsMarshal := ppPropertyGuids is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(32, this, pcPropertiesMarshal, pcProperties, ppPropertyGuidsMarshal, ppPropertyGuids, "HRESULT")
-        return result
+        result := ComCall(32, this, pcPropertiesMarshal, pcProperties, "ptr*", &ppPropertyGuids := 0, "HRESULT")
+        return ppPropertyGuids
     }
 
     /**
@@ -409,17 +394,15 @@ class IRealTimeStylus extends IUnknown{
      * @param {Pointer<Float>} pfInkToDeviceScaleX 
      * @param {Pointer<Float>} pfInkToDeviceScaleY 
      * @param {Pointer<Integer>} pcPacketProperties 
-     * @param {Pointer<Pointer<PACKET_PROPERTY>>} ppPacketProperties 
-     * @returns {HRESULT} 
+     * @returns {Pointer<PACKET_PROPERTY>} 
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylus-getpacketdescriptiondata
      */
-    GetPacketDescriptionData(tcid, pfInkToDeviceScaleX, pfInkToDeviceScaleY, pcPacketProperties, ppPacketProperties) {
+    GetPacketDescriptionData(tcid, pfInkToDeviceScaleX, pfInkToDeviceScaleY, pcPacketProperties) {
         pfInkToDeviceScaleXMarshal := pfInkToDeviceScaleX is VarRef ? "float*" : "ptr"
         pfInkToDeviceScaleYMarshal := pfInkToDeviceScaleY is VarRef ? "float*" : "ptr"
         pcPacketPropertiesMarshal := pcPacketProperties is VarRef ? "uint*" : "ptr"
-        ppPacketPropertiesMarshal := ppPacketProperties is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(33, this, "uint", tcid, pfInkToDeviceScaleXMarshal, pfInkToDeviceScaleX, pfInkToDeviceScaleYMarshal, pfInkToDeviceScaleY, pcPacketPropertiesMarshal, pcPacketProperties, ppPacketPropertiesMarshal, ppPacketProperties, "HRESULT")
-        return result
+        result := ComCall(33, this, "uint", tcid, pfInkToDeviceScaleXMarshal, pfInkToDeviceScaleX, pfInkToDeviceScaleYMarshal, pfInkToDeviceScaleY, pcPacketPropertiesMarshal, pcPacketProperties, "ptr*", &ppPacketProperties := 0, "HRESULT")
+        return ppPacketProperties
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\Guid.ahk
+#Include .\IEnumSpellingError.ahk
 #Include ..\System\Com\IUnknown.ahk
 
 /**
@@ -33,14 +34,13 @@ class IComprehensiveSpellCheckProvider extends IUnknown{
     /**
      * 
      * @param {PWSTR} text 
-     * @param {Pointer<IEnumSpellingError>} value 
-     * @returns {HRESULT} 
+     * @returns {IEnumSpellingError} 
      * @see https://learn.microsoft.com/windows/win32/Intl/icomprehensivespellcheckprovider-comprehensivecheck
      */
-    ComprehensiveCheck(text, value) {
+    ComprehensiveCheck(text) {
         text := text is String ? StrPtr(text) : text
 
-        result := ComCall(3, this, "ptr", text, "ptr*", value, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", text, "ptr*", &value := 0, "HRESULT")
+        return IEnumSpellingError(value)
     }
 }

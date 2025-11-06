@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IHTMLStyleSheetRulesCollection.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -47,38 +49,34 @@ class IHTMLCSSMediaRule extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_media(p) {
+    get_media() {
+        p := VARIANT()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLStyleSheetRulesCollection>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLStyleSheetRulesCollection} 
      */
-    get_cssRules(p) {
-        result := ComCall(9, this, "ptr*", p, "HRESULT")
-        return result
+    get_cssRules() {
+        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLStyleSheetRulesCollection(p)
     }
 
     /**
      * 
      * @param {BSTR} bstrRule 
      * @param {Integer} lIndex 
-     * @param {Pointer<Integer>} plNewIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    insertRule(bstrRule, lIndex, plNewIndex) {
+    insertRule(bstrRule, lIndex) {
         bstrRule := bstrRule is String ? BSTR.Alloc(bstrRule).Value : bstrRule
 
-        plNewIndexMarshal := plNewIndex is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, "ptr", bstrRule, "int", lIndex, plNewIndexMarshal, plNewIndex, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", bstrRule, "int", lIndex, "int*", &plNewIndex := 0, "HRESULT")
+        return plNewIndex
     }
 
     /**

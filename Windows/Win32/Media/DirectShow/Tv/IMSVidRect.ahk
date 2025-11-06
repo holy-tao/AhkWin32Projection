@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\HWND.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -43,15 +44,12 @@ class IMSVidRect extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} TopVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidrect-get_top
      */
-    get_Top(TopVal) {
-        TopValMarshal := TopVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, TopValMarshal, TopVal, "HRESULT")
-        return result
+    get_Top() {
+        result := ComCall(7, this, "int*", &TopVal := 0, "HRESULT")
+        return TopVal
     }
 
     /**
@@ -67,15 +65,12 @@ class IMSVidRect extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} LeftVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidrect-get_left
      */
-    get_Left(LeftVal) {
-        LeftValMarshal := LeftVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, LeftValMarshal, LeftVal, "HRESULT")
-        return result
+    get_Left() {
+        result := ComCall(9, this, "int*", &LeftVal := 0, "HRESULT")
+        return LeftVal
     }
 
     /**
@@ -91,15 +86,12 @@ class IMSVidRect extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} WidthVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidrect-get_width
      */
-    get_Width(WidthVal) {
-        WidthValMarshal := WidthVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, WidthValMarshal, WidthVal, "HRESULT")
-        return result
+    get_Width() {
+        result := ComCall(11, this, "int*", &WidthVal := 0, "HRESULT")
+        return WidthVal
     }
 
     /**
@@ -115,15 +107,12 @@ class IMSVidRect extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} HeightVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidrect-get_height
      */
-    get_Height(HeightVal) {
-        HeightValMarshal := HeightVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, HeightValMarshal, HeightVal, "HRESULT")
-        return result
+    get_Height() {
+        result := ComCall(13, this, "int*", &HeightVal := 0, "HRESULT")
+        return HeightVal
     }
 
     /**
@@ -139,13 +128,13 @@ class IMSVidRect extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<HWND>} HWndVal 
-     * @returns {HRESULT} 
+     * @returns {HWND} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidrect-get_hwnd
      */
-    get_HWnd(HWndVal) {
+    get_HWnd() {
+        HWndVal := HWND()
         result := ComCall(15, this, "ptr", HWndVal, "HRESULT")
-        return result
+        return HWndVal
     }
 
     /**

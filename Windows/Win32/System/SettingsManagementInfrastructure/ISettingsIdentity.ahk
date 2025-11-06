@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -34,17 +35,17 @@ class ISettingsIdentity extends IUnknown{
      * 
      * @param {Pointer<Void>} Reserved 
      * @param {PWSTR} Name 
-     * @param {Pointer<BSTR>} Value 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsidentity-getattribute
      */
-    GetAttribute(Reserved, Name, Value) {
+    GetAttribute(Reserved, Name) {
         Name := Name is String ? StrPtr(Name) : Name
 
         ReservedMarshal := Reserved is VarRef ? "ptr" : "ptr"
 
+        Value := BSTR()
         result := ComCall(3, this, ReservedMarshal, Reserved, "ptr", Name, "ptr", Value, "HRESULT")
-        return result
+        return Value
     }
 
     /**
@@ -67,15 +68,12 @@ class ISettingsIdentity extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} Flags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsidentity-getflags
      */
-    GetFlags(Flags) {
-        FlagsMarshal := Flags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, FlagsMarshal, Flags, "HRESULT")
-        return result
+    GetFlags() {
+        result := ComCall(5, this, "uint*", &Flags := 0, "HRESULT")
+        return Flags
     }
 
     /**

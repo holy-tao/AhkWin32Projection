@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumOpenServiceActivityCategory.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -63,11 +64,10 @@ class IEnumOpenServiceActivityCategory extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumOpenServiceActivityCategory>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IEnumOpenServiceActivityCategory} 
      */
-    Clone(ppenum) {
-        result := ComCall(6, this, "ptr*", ppenum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")
+        return IEnumOpenServiceActivityCategory(ppenum)
     }
 }

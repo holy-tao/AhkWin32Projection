@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IMFMediaSourceExtension.ahk
+#Include .\IMFMediaKeys.ahk
 #Include .\IMFMediaEngineClassFactory.ahk
 
 /**
@@ -40,44 +42,41 @@ class IMFMediaEngineClassFactoryEx extends IMFMediaEngineClassFactory{
      * 
      * @param {Integer} dwFlags 
      * @param {IMFAttributes} pAttr 
-     * @param {Pointer<IMFMediaSourceExtension>} ppMSE 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaSourceExtension} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineclassfactoryex-createmediasourceextension
      */
-    CreateMediaSourceExtension(dwFlags, pAttr, ppMSE) {
-        result := ComCall(6, this, "uint", dwFlags, "ptr", pAttr, "ptr*", ppMSE, "HRESULT")
-        return result
+    CreateMediaSourceExtension(dwFlags, pAttr) {
+        result := ComCall(6, this, "uint", dwFlags, "ptr", pAttr, "ptr*", &ppMSE := 0, "HRESULT")
+        return IMFMediaSourceExtension(ppMSE)
     }
 
     /**
      * 
      * @param {BSTR} keySystem 
      * @param {BSTR} cdmStorePath 
-     * @param {Pointer<IMFMediaKeys>} ppKeys 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaKeys} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineclassfactoryex-createmediakeys
      */
-    CreateMediaKeys(keySystem, cdmStorePath, ppKeys) {
+    CreateMediaKeys(keySystem, cdmStorePath) {
         keySystem := keySystem is String ? BSTR.Alloc(keySystem).Value : keySystem
         cdmStorePath := cdmStorePath is String ? BSTR.Alloc(cdmStorePath).Value : cdmStorePath
 
-        result := ComCall(7, this, "ptr", keySystem, "ptr", cdmStorePath, "ptr*", ppKeys, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", keySystem, "ptr", cdmStorePath, "ptr*", &ppKeys := 0, "HRESULT")
+        return IMFMediaKeys(ppKeys)
     }
 
     /**
      * 
      * @param {BSTR} type 
      * @param {BSTR} keySystem 
-     * @param {Pointer<BOOL>} isSupported 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineclassfactoryex-istypesupported
      */
-    IsTypeSupported(type, keySystem, isSupported) {
+    IsTypeSupported(type, keySystem) {
         type := type is String ? BSTR.Alloc(type).Value : type
         keySystem := keySystem is String ? BSTR.Alloc(keySystem).Value : keySystem
 
-        result := ComCall(8, this, "ptr", type, "ptr", keySystem, "ptr", isSupported, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", type, "ptr", keySystem, "int*", &isSupported := 0, "HRESULT")
+        return isSupported
     }
 }

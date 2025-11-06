@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISurfacePresenter.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -36,22 +37,20 @@ class IViewObjectPresentSite extends IUnknown{
      * @param {Integer} backBufferCount 
      * @param {Integer} format 
      * @param {Integer} mode 
-     * @param {Pointer<ISurfacePresenter>} ppQueue 
-     * @returns {HRESULT} 
+     * @returns {ISurfacePresenter} 
      */
-    CreateSurfacePresenter(pDevice, width, height, backBufferCount, format, mode, ppQueue) {
-        result := ComCall(3, this, "ptr", pDevice, "uint", width, "uint", height, "uint", backBufferCount, "int", format, "int", mode, "ptr*", ppQueue, "HRESULT")
-        return result
+    CreateSurfacePresenter(pDevice, width, height, backBufferCount, format, mode) {
+        result := ComCall(3, this, "ptr", pDevice, "uint", width, "uint", height, "uint", backBufferCount, "int", format, "int", mode, "ptr*", &ppQueue := 0, "HRESULT")
+        return ISurfacePresenter(ppQueue)
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pIsHardwareComposition 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsHardwareComposition(pIsHardwareComposition) {
-        result := ComCall(4, this, "ptr", pIsHardwareComposition, "HRESULT")
-        return result
+    IsHardwareComposition() {
+        result := ComCall(4, this, "int*", &pIsHardwareComposition := 0, "HRESULT")
+        return pIsHardwareComposition
     }
 
     /**

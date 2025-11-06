@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\WSDUdpRetransmitParams.ahk
 #Include .\IWSDMessageParameters.ahk
 
 /**
@@ -43,12 +44,12 @@ class IWSDUdpMessageParameters extends IWSDMessageParameters{
 
     /**
      * 
-     * @param {Pointer<WSDUdpRetransmitParams>} pParams 
-     * @returns {HRESULT} 
+     * @returns {WSDUdpRetransmitParams} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdudpmessageparameters-getretransmitparams
      */
-    GetRetransmitParams(pParams) {
+    GetRetransmitParams() {
+        pParams := WSDUdpRetransmitParams()
         result := ComCall(9, this, "ptr", pParams, "HRESULT")
-        return result
+        return pParams
     }
 }

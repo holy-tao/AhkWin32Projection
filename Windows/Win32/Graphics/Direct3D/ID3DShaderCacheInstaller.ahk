@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D_SHADER_CACHE_COMPILER_PROPERTIES.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -75,16 +76,13 @@ class ID3DShaderCacheInstaller extends IUnknown{
      * @param {PWSTR} pExePath 
      * @param {Pointer<D3D_SHADER_CACHE_APPLICATION_DESC>} pApplicationDesc 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvApp 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    RegisterApplication(pExePath, pApplicationDesc, riid, ppvApp) {
+    RegisterApplication(pExePath, pApplicationDesc, riid) {
         pExePath := pExePath is String ? StrPtr(pExePath) : pExePath
 
-        ppvAppMarshal := ppvApp is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, "ptr", pExePath, "ptr", pApplicationDesc, "ptr", riid, ppvAppMarshal, ppvApp, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", pExePath, "ptr", pApplicationDesc, "ptr", riid, "ptr*", &ppvApp := 0, "HRESULT")
+        return ppvApp
     }
 
     /**
@@ -110,14 +108,11 @@ class ID3DShaderCacheInstaller extends IUnknown{
      * 
      * @param {Integer} index 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvApp 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetApplication(index, riid, ppvApp) {
-        ppvAppMarshal := ppvApp is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(10, this, "uint", index, "ptr", riid, ppvAppMarshal, ppvApp, "HRESULT")
-        return result
+    GetApplication(index, riid) {
+        result := ComCall(10, this, "uint", index, "ptr", riid, "ptr*", &ppvApp := 0, "HRESULT")
+        return ppvApp
     }
 
     /**
@@ -142,14 +137,14 @@ class ID3DShaderCacheInstaller extends IUnknown{
      * 
      * @param {Pointer<D3D_SHADER_CACHE_APPLICATION_DESC>} pApplicationDesc 
      * @param {Pointer<Integer>} pArraySize 
-     * @param {Pointer<D3D_SHADER_CACHE_COMPILER_PROPERTIES>} pArray 
      * @param {Integer} flags 
-     * @returns {HRESULT} 
+     * @returns {D3D_SHADER_CACHE_COMPILER_PROPERTIES} 
      */
-    GetPrecompileTargets(pApplicationDesc, pArraySize, pArray, flags) {
+    GetPrecompileTargets(pApplicationDesc, pArraySize, flags) {
         pArraySizeMarshal := pArraySize is VarRef ? "uint*" : "ptr"
 
+        pArray := D3D_SHADER_CACHE_COMPILER_PROPERTIES()
         result := ComCall(13, this, "ptr", pApplicationDesc, pArraySizeMarshal, pArraySize, "ptr", pArray, "int", flags, "HRESULT")
-        return result
+        return pArray
     }
 }

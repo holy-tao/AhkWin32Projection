@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,12 +33,12 @@ class IObjectWithCancelEvent extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HANDLE>} phEvent 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iobjectwithcancelevent-getcancelevent
      */
-    GetCancelEvent(phEvent) {
+    GetCancelEvent() {
+        phEvent := HANDLE()
         result := ComCall(3, this, "ptr", phEvent, "HRESULT")
-        return result
+        return phEvent
     }
 }

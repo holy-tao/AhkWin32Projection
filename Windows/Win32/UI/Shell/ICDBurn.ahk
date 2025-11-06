@@ -65,12 +65,11 @@ class ICDBurn extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfHasRecorder 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-icdburn-hasrecordabledrive
      */
-    HasRecordableDrive(pfHasRecorder) {
-        result := ComCall(5, this, "ptr", pfHasRecorder, "HRESULT")
-        return result
+    HasRecordableDrive() {
+        result := ComCall(5, this, "int*", &pfHasRecorder := 0, "HRESULT")
+        return pfHasRecorder
     }
 }

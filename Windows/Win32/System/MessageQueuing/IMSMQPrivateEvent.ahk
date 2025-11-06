@@ -30,14 +30,11 @@ class IMSMQPrivateEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} phwnd 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Hwnd(phwnd) {
-        phwndMarshal := phwnd is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, phwndMarshal, phwnd, "HRESULT")
-        return result
+    get_Hwnd() {
+        result := ComCall(7, this, "int*", &phwnd := 0, "HRESULT")
+        return phwnd
     }
 
     /**

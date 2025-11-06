@@ -1,6 +1,14 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IInkDrawingAttributes.ahk
+#Include .\IInkRenderer.ahk
+#Include .\IInkDisp.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\System\Ole\IPictureDisp.ahk
+#Include .\IInkStrokes.ahk
+#Include .\IInkCursors.ahk
+#Include .\IInkTablet.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,26 +40,22 @@ class IInkPicture extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Pointer>} CurrentWindow 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-get_hwnd
      */
-    get_hWnd(CurrentWindow) {
-        CurrentWindowMarshal := CurrentWindow is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, CurrentWindowMarshal, CurrentWindow, "HRESULT")
-        return result
+    get_hWnd() {
+        result := ComCall(7, this, "ptr*", &CurrentWindow := 0, "HRESULT")
+        return CurrentWindow
     }
 
     /**
      * 
-     * @param {Pointer<IInkDrawingAttributes>} CurrentAttributes 
-     * @returns {HRESULT} 
+     * @returns {IInkDrawingAttributes} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-get_defaultdrawingattributes
      */
-    get_DefaultDrawingAttributes(CurrentAttributes) {
-        result := ComCall(8, this, "ptr*", CurrentAttributes, "HRESULT")
-        return result
+    get_DefaultDrawingAttributes() {
+        result := ComCall(8, this, "ptr*", &CurrentAttributes := 0, "HRESULT")
+        return IInkDrawingAttributes(CurrentAttributes)
     }
 
     /**
@@ -66,13 +70,12 @@ class IInkPicture extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IInkRenderer>} CurrentInkRenderer 
-     * @returns {HRESULT} 
+     * @returns {IInkRenderer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-get_renderer
      */
-    get_Renderer(CurrentInkRenderer) {
-        result := ComCall(10, this, "ptr*", CurrentInkRenderer, "HRESULT")
-        return result
+    get_Renderer() {
+        result := ComCall(10, this, "ptr*", &CurrentInkRenderer := 0, "HRESULT")
+        return IInkRenderer(CurrentInkRenderer)
     }
 
     /**
@@ -87,13 +90,12 @@ class IInkPicture extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IInkDisp>} Ink 
-     * @returns {HRESULT} 
+     * @returns {IInkDisp} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-get_ink
      */
-    get_Ink(Ink) {
-        result := ComCall(12, this, "ptr*", Ink, "HRESULT")
-        return result
+    get_Ink() {
+        result := ComCall(12, this, "ptr*", &Ink := 0, "HRESULT")
+        return IInkDisp(Ink)
     }
 
     /**
@@ -108,13 +110,12 @@ class IInkPicture extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} AutoRedraw 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-get_autoredraw
      */
-    get_AutoRedraw(AutoRedraw) {
-        result := ComCall(14, this, "ptr", AutoRedraw, "HRESULT")
-        return result
+    get_AutoRedraw() {
+        result := ComCall(14, this, "short*", &AutoRedraw := 0, "HRESULT")
+        return AutoRedraw
     }
 
     /**
@@ -130,26 +131,22 @@ class IInkPicture extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} Collecting 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-get_collectingink
      */
-    get_CollectingInk(Collecting) {
-        result := ComCall(16, this, "ptr", Collecting, "HRESULT")
-        return result
+    get_CollectingInk() {
+        result := ComCall(16, this, "short*", &Collecting := 0, "HRESULT")
+        return Collecting
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} Mode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-get_collectionmode
      */
-    get_CollectionMode(Mode) {
-        ModeMarshal := Mode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, ModeMarshal, Mode, "HRESULT")
-        return result
+    get_CollectionMode() {
+        result := ComCall(17, this, "int*", &Mode := 0, "HRESULT")
+        return Mode
     }
 
     /**
@@ -165,13 +162,12 @@ class IInkPicture extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} Enabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-get_dynamicrendering
      */
-    get_DynamicRendering(Enabled) {
-        result := ComCall(19, this, "ptr", Enabled, "HRESULT")
-        return result
+    get_DynamicRendering() {
+        result := ComCall(19, this, "short*", &Enabled := 0, "HRESULT")
+        return Enabled
     }
 
     /**
@@ -187,13 +183,13 @@ class IInkPicture extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} PacketGuids 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-get_desiredpacketdescription
      */
-    get_DesiredPacketDescription(PacketGuids) {
+    get_DesiredPacketDescription() {
+        PacketGuids := VARIANT()
         result := ComCall(21, this, "ptr", PacketGuids, "HRESULT")
-        return result
+        return PacketGuids
     }
 
     /**
@@ -209,13 +205,12 @@ class IInkPicture extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IPictureDisp>} MouseIcon 
-     * @returns {HRESULT} 
+     * @returns {IPictureDisp} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-get_mouseicon
      */
-    get_MouseIcon(MouseIcon) {
-        result := ComCall(23, this, "ptr*", MouseIcon, "HRESULT")
-        return result
+    get_MouseIcon() {
+        result := ComCall(23, this, "ptr*", &MouseIcon := 0, "HRESULT")
+        return IPictureDisp(MouseIcon)
     }
 
     /**
@@ -241,15 +236,12 @@ class IInkPicture extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} MousePointer 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-get_mousepointer
      */
-    get_MousePointer(MousePointer) {
-        MousePointerMarshal := MousePointer is VarRef ? "int*" : "ptr"
-
-        result := ComCall(26, this, MousePointerMarshal, MousePointer, "HRESULT")
-        return result
+    get_MousePointer() {
+        result := ComCall(26, this, "int*", &MousePointer := 0, "HRESULT")
+        return MousePointer
     }
 
     /**
@@ -265,15 +257,12 @@ class IInkPicture extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} EditingMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-get_editingmode
      */
-    get_EditingMode(EditingMode) {
-        EditingModeMarshal := EditingMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(28, this, EditingModeMarshal, EditingMode, "HRESULT")
-        return result
+    get_EditingMode() {
+        result := ComCall(28, this, "int*", &EditingMode := 0, "HRESULT")
+        return EditingMode
     }
 
     /**
@@ -289,13 +278,12 @@ class IInkPicture extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IInkStrokes>} Selection 
-     * @returns {HRESULT} 
+     * @returns {IInkStrokes} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-get_selection
      */
-    get_Selection(Selection) {
-        result := ComCall(30, this, "ptr*", Selection, "HRESULT")
-        return result
+    get_Selection() {
+        result := ComCall(30, this, "ptr*", &Selection := 0, "HRESULT")
+        return IInkStrokes(Selection)
     }
 
     /**
@@ -311,15 +299,12 @@ class IInkPicture extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} EraserMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-get_erasermode
      */
-    get_EraserMode(EraserMode) {
-        EraserModeMarshal := EraserMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(32, this, EraserModeMarshal, EraserMode, "HRESULT")
-        return result
+    get_EraserMode() {
+        result := ComCall(32, this, "int*", &EraserMode := 0, "HRESULT")
+        return EraserMode
     }
 
     /**
@@ -335,15 +320,12 @@ class IInkPicture extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} EraserWidth 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-get_eraserwidth
      */
-    get_EraserWidth(EraserWidth) {
-        EraserWidthMarshal := EraserWidth is VarRef ? "int*" : "ptr"
-
-        result := ComCall(34, this, EraserWidthMarshal, EraserWidth, "HRESULT")
-        return result
+    get_EraserWidth() {
+        result := ComCall(34, this, "int*", &EraserWidth := 0, "HRESULT")
+        return EraserWidth
     }
 
     /**
@@ -380,13 +362,12 @@ class IInkPicture extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IPictureDisp>} ppPicture 
-     * @returns {HRESULT} 
+     * @returns {IPictureDisp} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-get_picture
      */
-    get_Picture(ppPicture) {
-        result := ComCall(38, this, "ptr*", ppPicture, "HRESULT")
-        return result
+    get_Picture() {
+        result := ComCall(38, this, "ptr*", &ppPicture := 0, "HRESULT")
+        return IPictureDisp(ppPicture)
     }
 
     /**
@@ -402,15 +383,12 @@ class IInkPicture extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} smSizeMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-get_sizemode
      */
-    get_SizeMode(smSizeMode) {
-        smSizeModeMarshal := smSizeMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(40, this, smSizeModeMarshal, smSizeMode, "HRESULT")
-        return result
+    get_SizeMode() {
+        result := ComCall(40, this, "int*", &smSizeMode := 0, "HRESULT")
+        return smSizeMode
     }
 
     /**
@@ -426,39 +404,32 @@ class IInkPicture extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pColor 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-get_backcolor
      */
-    get_BackColor(pColor) {
-        pColorMarshal := pColor is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(42, this, pColorMarshal, pColor, "HRESULT")
-        return result
+    get_BackColor() {
+        result := ComCall(42, this, "uint*", &pColor := 0, "HRESULT")
+        return pColor
     }
 
     /**
      * 
-     * @param {Pointer<IInkCursors>} Cursors 
-     * @returns {HRESULT} 
+     * @returns {IInkCursors} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-get_cursors
      */
-    get_Cursors(Cursors) {
-        result := ComCall(43, this, "ptr*", Cursors, "HRESULT")
-        return result
+    get_Cursors() {
+        result := ComCall(43, this, "ptr*", &Cursors := 0, "HRESULT")
+        return IInkCursors(Cursors)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} MarginX 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-get_marginx
      */
-    get_MarginX(MarginX) {
-        MarginXMarshal := MarginX is VarRef ? "int*" : "ptr"
-
-        result := ComCall(44, this, MarginXMarshal, MarginX, "HRESULT")
-        return result
+    get_MarginX() {
+        result := ComCall(44, this, "int*", &MarginX := 0, "HRESULT")
+        return MarginX
     }
 
     /**
@@ -474,15 +445,12 @@ class IInkPicture extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} MarginY 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-get_marginy
      */
-    get_MarginY(MarginY) {
-        MarginYMarshal := MarginY is VarRef ? "int*" : "ptr"
-
-        result := ComCall(46, this, MarginYMarshal, MarginY, "HRESULT")
-        return result
+    get_MarginY() {
+        result := ComCall(46, this, "int*", &MarginY := 0, "HRESULT")
+        return MarginY
     }
 
     /**
@@ -498,24 +466,22 @@ class IInkPicture extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IInkTablet>} SingleTablet 
-     * @returns {HRESULT} 
+     * @returns {IInkTablet} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-get_tablet
      */
-    get_Tablet(SingleTablet) {
-        result := ComCall(48, this, "ptr*", SingleTablet, "HRESULT")
-        return result
+    get_Tablet() {
+        result := ComCall(48, this, "ptr*", &SingleTablet := 0, "HRESULT")
+        return IInkTablet(SingleTablet)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} Support 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-get_supporthighcontrastink
      */
-    get_SupportHighContrastInk(Support) {
-        result := ComCall(49, this, "ptr", Support, "HRESULT")
-        return result
+    get_SupportHighContrastInk() {
+        result := ComCall(49, this, "short*", &Support := 0, "HRESULT")
+        return Support
     }
 
     /**
@@ -531,13 +497,12 @@ class IInkPicture extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} Support 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-get_supporthighcontrastselectionui
      */
-    get_SupportHighContrastSelectionUI(Support) {
-        result := ComCall(51, this, "ptr", Support, "HRESULT")
-        return result
+    get_SupportHighContrastSelectionUI() {
+        result := ComCall(51, this, "short*", &Support := 0, "HRESULT")
+        return Support
     }
 
     /**
@@ -555,15 +520,12 @@ class IInkPicture extends IDispatch{
      * 
      * @param {Integer} x 
      * @param {Integer} y 
-     * @param {Pointer<Integer>} SelArea 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-hittestselection
      */
-    HitTestSelection(x, y, SelArea) {
-        SelAreaMarshal := SelArea is VarRef ? "int*" : "ptr"
-
-        result := ComCall(53, this, "int", x, "int", y, SelAreaMarshal, SelArea, "HRESULT")
-        return result
+    HitTestSelection(x, y) {
+        result := ComCall(53, this, "int", x, "int", y, "int*", &SelArea := 0, "HRESULT")
+        return SelArea
     }
 
     /**
@@ -581,13 +543,12 @@ class IInkPicture extends IDispatch{
     /**
      * 
      * @param {Integer} Gesture 
-     * @param {Pointer<VARIANT_BOOL>} Listening 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-getgesturestatus
      */
-    GetGestureStatus(Gesture, Listening) {
-        result := ComCall(55, this, "int", Gesture, "ptr", Listening, "HRESULT")
-        return result
+    GetGestureStatus(Gesture) {
+        result := ComCall(55, this, "int", Gesture, "short*", &Listening := 0, "HRESULT")
+        return Listening
     }
 
     /**
@@ -637,13 +598,12 @@ class IInkPicture extends IDispatch{
     /**
      * 
      * @param {Integer} EventId 
-     * @param {Pointer<VARIANT_BOOL>} Listen 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-geteventinterest
      */
-    GetEventInterest(EventId, Listen) {
-        result := ComCall(60, this, "int", EventId, "ptr", Listen, "HRESULT")
-        return result
+    GetEventInterest(EventId) {
+        result := ComCall(60, this, "int", EventId, "short*", &Listen := 0, "HRESULT")
+        return Listen
     }
 
     /**
@@ -660,13 +620,12 @@ class IInkPicture extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} Collecting 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-get_inkenabled
      */
-    get_InkEnabled(Collecting) {
-        result := ComCall(62, this, "ptr", Collecting, "HRESULT")
-        return result
+    get_InkEnabled() {
+        result := ComCall(62, this, "short*", &Collecting := 0, "HRESULT")
+        return Collecting
     }
 
     /**
@@ -682,13 +641,12 @@ class IInkPicture extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbool 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkpicture-get_enabled
      */
-    get_Enabled(pbool) {
-        result := ComCall(64, this, "ptr", pbool, "HRESULT")
-        return result
+    get_Enabled() {
+        result := ComCall(64, this, "short*", &pbool := 0, "HRESULT")
+        return pbool
     }
 
     /**

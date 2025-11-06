@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IVdsAsync.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -37,12 +38,11 @@ class IVdsPack2 extends IUnknown{
      * @param {Integer} lNumberOfDisks 
      * @param {Integer} ulStripeSize 
      * @param {Integer} ulAlign 
-     * @param {Pointer<IVdsAsync>} ppAsync 
-     * @returns {HRESULT} 
+     * @returns {IVdsAsync} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdspack2-createvolume2
      */
-    CreateVolume2(type, pInputDiskArray, lNumberOfDisks, ulStripeSize, ulAlign, ppAsync) {
-        result := ComCall(3, this, "int", type, "ptr", pInputDiskArray, "int", lNumberOfDisks, "uint", ulStripeSize, "uint", ulAlign, "ptr*", ppAsync, "HRESULT")
-        return result
+    CreateVolume2(type, pInputDiskArray, lNumberOfDisks, ulStripeSize, ulAlign) {
+        result := ComCall(3, this, "int", type, "ptr", pInputDiskArray, "int", lNumberOfDisks, "uint", ulStripeSize, "uint", ulAlign, "ptr*", &ppAsync := 0, "HRESULT")
+        return IVdsAsync(ppAsync)
     }
 }

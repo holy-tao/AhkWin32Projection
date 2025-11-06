@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -30,14 +31,11 @@ class IActiveScriptSite extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} plcid 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetLCID(plcid) {
-        plcidMarshal := plcid is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, plcidMarshal, plcid, "HRESULT")
-        return result
+    GetLCID() {
+        result := ComCall(3, this, "uint*", &plcid := 0, "HRESULT")
+        return plcid
     }
 
     /**
@@ -57,12 +55,12 @@ class IActiveScriptSite extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrVersion 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetDocVersionString(pbstrVersion) {
+    GetDocVersionString() {
+        pbstrVersion := BSTR()
         result := ComCall(5, this, "ptr", pbstrVersion, "HRESULT")
-        return result
+        return pbstrVersion
     }
 
     /**

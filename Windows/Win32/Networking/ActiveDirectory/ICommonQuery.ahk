@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDataObject.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -34,14 +35,13 @@ class ICommonQuery extends IUnknown{
      * 
      * @param {HWND} hwndParent 
      * @param {Pointer<OPENQUERYWINDOW>} pQueryWnd 
-     * @param {Pointer<IDataObject>} ppDataObject 
-     * @returns {HRESULT} 
+     * @returns {IDataObject} 
      * @see https://learn.microsoft.com/windows/win32/api/cmnquery/nf-cmnquery-icommonquery-openquerywindow
      */
-    OpenQueryWindow(hwndParent, pQueryWnd, ppDataObject) {
+    OpenQueryWindow(hwndParent, pQueryWnd) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
-        result := ComCall(3, this, "ptr", hwndParent, "ptr", pQueryWnd, "ptr*", ppDataObject, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", hwndParent, "ptr", pQueryWnd, "ptr*", &ppDataObject := 0, "HRESULT")
+        return IDataObject(ppDataObject)
     }
 }

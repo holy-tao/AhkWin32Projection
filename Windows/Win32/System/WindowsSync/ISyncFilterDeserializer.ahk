@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISyncFilter.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -32,13 +33,12 @@ class ISyncFilterDeserializer extends IUnknown{
      * 
      * @param {Pointer<Integer>} pbSyncFilter 
      * @param {Integer} dwCbSyncFilter 
-     * @param {Pointer<ISyncFilter>} ppISyncFilter 
-     * @returns {HRESULT} 
+     * @returns {ISyncFilter} 
      */
-    DeserializeSyncFilter(pbSyncFilter, dwCbSyncFilter, ppISyncFilter) {
+    DeserializeSyncFilter(pbSyncFilter, dwCbSyncFilter) {
         pbSyncFilterMarshal := pbSyncFilter is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, pbSyncFilterMarshal, pbSyncFilter, "uint", dwCbSyncFilter, "ptr*", ppISyncFilter, "HRESULT")
-        return result
+        result := ComCall(3, this, pbSyncFilterMarshal, pbSyncFilter, "uint", dwCbSyncFilter, "ptr*", &ppISyncFilter := 0, "HRESULT")
+        return ISyncFilter(ppISyncFilter)
     }
 }

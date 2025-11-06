@@ -102,7 +102,9 @@ class IEnroll2 extends IEnroll{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll2-getalgnamewstr
      */
     GetAlgNameWStr(algID, ppwsz) {
-        result := ComCall(78, this, "int", algID, "ptr", ppwsz, "HRESULT")
+        ppwszMarshal := ppwsz is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(78, this, "int", algID, ppwszMarshal, ppwsz, "HRESULT")
         return result
     }
 
@@ -124,7 +126,9 @@ class IEnroll2 extends IEnroll{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll2-get_reusehardwarekeyifunabletogennew
      */
     get_ReuseHardwareKeyIfUnableToGenNew(fReuseHardwareKeyIfUnableToGenNew) {
-        result := ComCall(80, this, "ptr", fReuseHardwareKeyIfUnableToGenNew, "HRESULT")
+        fReuseHardwareKeyIfUnableToGenNewMarshal := fReuseHardwareKeyIfUnableToGenNew is VarRef ? "int*" : "ptr"
+
+        result := ComCall(80, this, fReuseHardwareKeyIfUnableToGenNewMarshal, fReuseHardwareKeyIfUnableToGenNew, "HRESULT")
         return result
     }
 
@@ -222,7 +226,9 @@ class IEnroll2 extends IEnroll{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll2-get_limitexchangekeytoencipherment
      */
     get_LimitExchangeKeyToEncipherment(fLimitExchangeKeyToEncipherment) {
-        result := ComCall(88, this, "ptr", fLimitExchangeKeyToEncipherment, "HRESULT")
+        fLimitExchangeKeyToEnciphermentMarshal := fLimitExchangeKeyToEncipherment is VarRef ? "int*" : "ptr"
+
+        result := ComCall(88, this, fLimitExchangeKeyToEnciphermentMarshal, fLimitExchangeKeyToEncipherment, "HRESULT")
         return result
     }
 
@@ -244,7 +250,9 @@ class IEnroll2 extends IEnroll{
      * @see https://learn.microsoft.com/windows/win32/api/xenroll/nf-xenroll-ienroll2-get_enablesmimecapabilities
      */
     get_EnableSMIMECapabilities(fEnableSMIMECapabilities) {
-        result := ComCall(90, this, "ptr", fEnableSMIMECapabilities, "HRESULT")
+        fEnableSMIMECapabilitiesMarshal := fEnableSMIMECapabilities is VarRef ? "int*" : "ptr"
+
+        result := ComCall(90, this, fEnableSMIMECapabilitiesMarshal, fEnableSMIMECapabilities, "HRESULT")
         return result
     }
 }

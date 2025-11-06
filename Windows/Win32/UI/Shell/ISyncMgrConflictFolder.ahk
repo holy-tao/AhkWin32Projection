@@ -33,14 +33,11 @@ class ISyncMgrConflictFolder extends IUnknown{
     /**
      * 
      * @param {ISyncMgrConflict} pConflict 
-     * @param {Pointer<Pointer<ITEMIDLIST>>} ppidlConflict 
-     * @returns {HRESULT} 
+     * @returns {Pointer<ITEMIDLIST>} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictfolder-getconflictidlist
      */
-    GetConflictIDList(pConflict, ppidlConflict) {
-        ppidlConflictMarshal := ppidlConflict is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pConflict, ppidlConflictMarshal, ppidlConflict, "HRESULT")
-        return result
+    GetConflictIDList(pConflict) {
+        result := ComCall(3, this, "ptr", pConflict, "ptr*", &ppidlConflict := 0, "HRESULT")
+        return ppidlConflict
     }
 }

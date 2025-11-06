@@ -40,29 +40,23 @@ class IObjectArray extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcObjects 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/objectarray/nf-objectarray-iobjectarray-getcount
      */
-    GetCount(pcObjects) {
-        pcObjectsMarshal := pcObjects is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pcObjectsMarshal, pcObjects, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(3, this, "uint*", &pcObjects := 0, "HRESULT")
+        return pcObjects
     }
 
     /**
      * 
      * @param {Integer} uiIndex 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/objectarray/nf-objectarray-iobjectarray-getat
      */
-    GetAt(uiIndex, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "uint", uiIndex, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetAt(uiIndex, riid) {
+        result := ComCall(4, this, "uint", uiIndex, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 }

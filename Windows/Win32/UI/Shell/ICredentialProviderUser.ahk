@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -40,47 +41,45 @@ class ICredentialProviderUser extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} sid 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovideruser-getsid
      */
-    GetSid(sid) {
-        result := ComCall(3, this, "ptr", sid, "HRESULT")
-        return result
+    GetSid() {
+        result := ComCall(3, this, "ptr*", &sid := 0, "HRESULT")
+        return sid
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} providerID 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovideruser-getproviderid
      */
-    GetProviderID(providerID) {
+    GetProviderID() {
+        providerID := Guid()
         result := ComCall(4, this, "ptr", providerID, "HRESULT")
-        return result
+        return providerID
     }
 
     /**
      * 
      * @param {Pointer<PROPERTYKEY>} key 
-     * @param {Pointer<PWSTR>} stringValue 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovideruser-getstringvalue
      */
-    GetStringValue(key, stringValue) {
-        result := ComCall(5, this, "ptr", key, "ptr", stringValue, "HRESULT")
-        return result
+    GetStringValue(key) {
+        result := ComCall(5, this, "ptr", key, "ptr*", &stringValue := 0, "HRESULT")
+        return stringValue
     }
 
     /**
      * 
      * @param {Pointer<PROPERTYKEY>} key 
-     * @param {Pointer<PROPVARIANT>} value 
-     * @returns {HRESULT} 
+     * @returns {PROPVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovideruser-getvalue
      */
-    GetValue(key, value) {
+    GetValue(key) {
+        value := PROPVARIANT()
         result := ComCall(6, this, "ptr", key, "ptr", value, "HRESULT")
-        return result
+        return value
     }
 }

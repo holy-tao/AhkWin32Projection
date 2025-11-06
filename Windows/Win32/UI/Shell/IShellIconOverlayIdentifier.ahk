@@ -75,14 +75,11 @@ class IShellIconOverlayIdentifier extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pPriority 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelliconoverlayidentifier-getpriority
      */
-    GetPriority(pPriority) {
-        pPriorityMarshal := pPriority is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, pPriorityMarshal, pPriority, "HRESULT")
-        return result
+    GetPriority() {
+        result := ComCall(5, this, "int*", &pPriority := 0, "HRESULT")
+        return pPriority
     }
 }

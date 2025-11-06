@@ -47,15 +47,12 @@ class IAMPushSource extends IAMLatency{
 
     /**
      * 
-     * @param {Pointer<Integer>} pFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iampushsource-getpushsourceflags
      */
-    GetPushSourceFlags(pFlags) {
-        pFlagsMarshal := pFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pFlagsMarshal, pFlags, "HRESULT")
-        return result
+    GetPushSourceFlags() {
+        result := ComCall(4, this, "uint*", &pFlags := 0, "HRESULT")
+        return pFlags
     }
 
     /**
@@ -82,28 +79,22 @@ class IAMPushSource extends IAMLatency{
 
     /**
      * 
-     * @param {Pointer<Integer>} prtOffset 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iampushsource-getstreamoffset
      */
-    GetStreamOffset(prtOffset) {
-        prtOffsetMarshal := prtOffset is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(7, this, prtOffsetMarshal, prtOffset, "HRESULT")
-        return result
+    GetStreamOffset() {
+        result := ComCall(7, this, "int64*", &prtOffset := 0, "HRESULT")
+        return prtOffset
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} prtMaxOffset 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iampushsource-getmaxstreamoffset
      */
-    GetMaxStreamOffset(prtMaxOffset) {
-        prtMaxOffsetMarshal := prtMaxOffset is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(8, this, prtMaxOffsetMarshal, prtMaxOffset, "HRESULT")
-        return result
+    GetMaxStreamOffset() {
+        result := ComCall(8, this, "int64*", &prtMaxOffset := 0, "HRESULT")
+        return prtMaxOffset
     }
 
     /**

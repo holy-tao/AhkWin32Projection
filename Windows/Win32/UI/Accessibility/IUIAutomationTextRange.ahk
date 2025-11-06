@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IUIAutomationTextRange.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IUIAutomationElement.ahk
+#Include .\IUIAutomationElementArray.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,25 +37,23 @@ class IUIAutomationTextRange extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IUIAutomationTextRange>} clonedRange 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationTextRange} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextrange-clone
      */
-    Clone(clonedRange) {
-        result := ComCall(3, this, "ptr*", clonedRange, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(3, this, "ptr*", &clonedRange := 0, "HRESULT")
+        return IUIAutomationTextRange(clonedRange)
     }
 
     /**
      * 
      * @param {IUIAutomationTextRange} range 
-     * @param {Pointer<BOOL>} areSame 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextrange-compare
      */
-    Compare(range, areSame) {
-        result := ComCall(4, this, "ptr", range, "ptr", areSame, "HRESULT")
-        return result
+    Compare(range) {
+        result := ComCall(4, this, "ptr", range, "int*", &areSame := 0, "HRESULT")
+        return areSame
     }
 
     /**
@@ -59,15 +61,12 @@ class IUIAutomationTextRange extends IUnknown{
      * @param {Integer} srcEndPoint 
      * @param {IUIAutomationTextRange} range 
      * @param {Integer} targetEndPoint 
-     * @param {Pointer<Integer>} compValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextrange-compareendpoints
      */
-    CompareEndpoints(srcEndPoint, range, targetEndPoint, compValue) {
-        compValueMarshal := compValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, "int", srcEndPoint, "ptr", range, "int", targetEndPoint, compValueMarshal, compValue, "HRESULT")
-        return result
+    CompareEndpoints(srcEndPoint, range, targetEndPoint) {
+        result := ComCall(5, this, "int", srcEndPoint, "ptr", range, "int", targetEndPoint, "int*", &compValue := 0, "HRESULT")
+        return compValue
     }
 
     /**
@@ -86,13 +85,12 @@ class IUIAutomationTextRange extends IUnknown{
      * @param {Integer} attr 
      * @param {VARIANT} val 
      * @param {BOOL} backward 
-     * @param {Pointer<IUIAutomationTextRange>} found 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationTextRange} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextrange-findattribute
      */
-    FindAttribute(attr, val, backward, found) {
-        result := ComCall(7, this, "int", attr, "ptr", val, "int", backward, "ptr*", found, "HRESULT")
-        return result
+    FindAttribute(attr, val, backward) {
+        result := ComCall(7, this, "int", attr, "ptr", val, "int", backward, "ptr*", &found := 0, "HRESULT")
+        return IUIAutomationTextRange(found)
     }
 
     /**
@@ -100,78 +98,70 @@ class IUIAutomationTextRange extends IUnknown{
      * @param {BSTR} text 
      * @param {BOOL} backward 
      * @param {BOOL} ignoreCase 
-     * @param {Pointer<IUIAutomationTextRange>} found 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationTextRange} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextrange-findtext
      */
-    FindText(text, backward, ignoreCase, found) {
+    FindText(text, backward, ignoreCase) {
         text := text is String ? BSTR.Alloc(text).Value : text
 
-        result := ComCall(8, this, "ptr", text, "int", backward, "int", ignoreCase, "ptr*", found, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", text, "int", backward, "int", ignoreCase, "ptr*", &found := 0, "HRESULT")
+        return IUIAutomationTextRange(found)
     }
 
     /**
      * 
      * @param {Integer} attr 
-     * @param {Pointer<VARIANT>} value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextrange-getattributevalue
      */
-    GetAttributeValue(attr, value) {
+    GetAttributeValue(attr) {
+        value := VARIANT()
         result := ComCall(9, this, "int", attr, "ptr", value, "HRESULT")
-        return result
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} boundingRects 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextrange-getboundingrectangles
      */
-    GetBoundingRectangles(boundingRects) {
-        boundingRectsMarshal := boundingRects is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(10, this, boundingRectsMarshal, boundingRects, "HRESULT")
-        return result
+    GetBoundingRectangles() {
+        result := ComCall(10, this, "ptr*", &boundingRects := 0, "HRESULT")
+        return boundingRects
     }
 
     /**
      * 
-     * @param {Pointer<IUIAutomationElement>} enclosingElement 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElement} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextrange-getenclosingelement
      */
-    GetEnclosingElement(enclosingElement) {
-        result := ComCall(11, this, "ptr*", enclosingElement, "HRESULT")
-        return result
+    GetEnclosingElement() {
+        result := ComCall(11, this, "ptr*", &enclosingElement := 0, "HRESULT")
+        return IUIAutomationElement(enclosingElement)
     }
 
     /**
      * 
      * @param {Integer} maxLength 
-     * @param {Pointer<BSTR>} text 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextrange-gettext
      */
-    GetText(maxLength, text) {
+    GetText(maxLength) {
+        text := BSTR()
         result := ComCall(12, this, "int", maxLength, "ptr", text, "HRESULT")
-        return result
+        return text
     }
 
     /**
      * 
      * @param {Integer} unit 
      * @param {Integer} count 
-     * @param {Pointer<Integer>} moved 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextrange-move
      */
-    Move(unit, count, moved) {
-        movedMarshal := moved is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, "int", unit, "int", count, movedMarshal, moved, "HRESULT")
-        return result
+    Move(unit, count) {
+        result := ComCall(13, this, "int", unit, "int", count, "int*", &moved := 0, "HRESULT")
+        return moved
     }
 
     /**
@@ -179,15 +169,12 @@ class IUIAutomationTextRange extends IUnknown{
      * @param {Integer} endpoint 
      * @param {Integer} unit 
      * @param {Integer} count 
-     * @param {Pointer<Integer>} moved 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextrange-moveendpointbyunit
      */
-    MoveEndpointByUnit(endpoint, unit, count, moved) {
-        movedMarshal := moved is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, "int", endpoint, "int", unit, "int", count, movedMarshal, moved, "HRESULT")
-        return result
+    MoveEndpointByUnit(endpoint, unit, count) {
+        result := ComCall(14, this, "int", endpoint, "int", unit, "int", count, "int*", &moved := 0, "HRESULT")
+        return moved
     }
 
     /**
@@ -246,12 +233,11 @@ class IUIAutomationTextRange extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IUIAutomationElementArray>} children 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElementArray} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextrange-getchildren
      */
-    GetChildren(children) {
-        result := ComCall(20, this, "ptr*", children, "HRESULT")
-        return result
+    GetChildren() {
+        result := ComCall(20, this, "ptr*", &children := 0, "HRESULT")
+        return IUIAutomationElementArray(children)
     }
 }

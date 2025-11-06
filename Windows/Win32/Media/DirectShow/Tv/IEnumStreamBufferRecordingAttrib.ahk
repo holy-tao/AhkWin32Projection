@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IEnumStreamBufferRecordingAttrib.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -39,15 +40,12 @@ class IEnumStreamBufferRecordingAttrib extends IUnknown{
      * 
      * @param {Integer} cRequest 
      * @param {Pointer<STREAMBUFFER_ATTRIBUTE>} pStreamBufferAttribute 
-     * @param {Pointer<Integer>} pcReceived 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-ienumstreambufferrecordingattrib-next
      */
-    Next(cRequest, pStreamBufferAttribute, pcReceived) {
-        pcReceivedMarshal := pcReceived is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "uint", cRequest, "ptr", pStreamBufferAttribute, pcReceivedMarshal, pcReceived, "HRESULT")
-        return result
+    Next(cRequest, pStreamBufferAttribute) {
+        result := ComCall(3, this, "uint", cRequest, "ptr", pStreamBufferAttribute, "uint*", &pcReceived := 0, "HRESULT")
+        return pcReceived
     }
 
     /**
@@ -73,12 +71,11 @@ class IEnumStreamBufferRecordingAttrib extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumStreamBufferRecordingAttrib>} ppIEnumStreamBufferAttrib 
-     * @returns {HRESULT} 
+     * @returns {IEnumStreamBufferRecordingAttrib} 
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-ienumstreambufferrecordingattrib-clone
      */
-    Clone(ppIEnumStreamBufferAttrib) {
-        result := ComCall(6, this, "ptr*", ppIEnumStreamBufferAttrib, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppIEnumStreamBufferAttrib := 0, "HRESULT")
+        return IEnumStreamBufferRecordingAttrib(ppIEnumStreamBufferAttrib)
     }
 }

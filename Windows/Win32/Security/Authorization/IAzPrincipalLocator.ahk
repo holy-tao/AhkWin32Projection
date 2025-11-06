@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IAzNameResolver.ahk
+#Include .\IAzObjectPicker.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -44,23 +46,21 @@ class IAzPrincipalLocator extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IAzNameResolver>} ppNameResolver 
-     * @returns {HRESULT} 
+     * @returns {IAzNameResolver} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazprincipallocator-get_nameresolver
      */
-    get_NameResolver(ppNameResolver) {
-        result := ComCall(7, this, "ptr*", ppNameResolver, "HRESULT")
-        return result
+    get_NameResolver() {
+        result := ComCall(7, this, "ptr*", &ppNameResolver := 0, "HRESULT")
+        return IAzNameResolver(ppNameResolver)
     }
 
     /**
      * 
-     * @param {Pointer<IAzObjectPicker>} ppObjectPicker 
-     * @returns {HRESULT} 
+     * @returns {IAzObjectPicker} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazprincipallocator-get_objectpicker
      */
-    get_ObjectPicker(ppObjectPicker) {
-        result := ComCall(8, this, "ptr*", ppObjectPicker, "HRESULT")
-        return result
+    get_ObjectPicker() {
+        result := ComCall(8, this, "ptr*", &ppObjectPicker := 0, "HRESULT")
+        return IAzObjectPicker(ppObjectPicker)
     }
 }

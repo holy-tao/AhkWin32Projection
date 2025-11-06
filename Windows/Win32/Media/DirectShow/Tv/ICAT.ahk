@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IGenericDescriptor.ahk
+#Include .\ICAT.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -54,55 +56,47 @@ class ICAT extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-icat-getversionnumber
      */
-    GetVersionNumber(pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(4, this, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetVersionNumber() {
+        result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-icat-getcountoftabledescriptors
      */
-    GetCountOfTableDescriptors(pdwVal) {
-        pdwValMarshal := pdwVal is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pdwValMarshal, pdwVal, "HRESULT")
-        return result
+    GetCountOfTableDescriptors() {
+        result := ComCall(5, this, "uint*", &pdwVal := 0, "HRESULT")
+        return pdwVal
     }
 
     /**
      * 
      * @param {Integer} dwIndex 
-     * @param {Pointer<IGenericDescriptor>} ppDescriptor 
-     * @returns {HRESULT} 
+     * @returns {IGenericDescriptor} 
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-icat-gettabledescriptorbyindex
      */
-    GetTableDescriptorByIndex(dwIndex, ppDescriptor) {
-        result := ComCall(6, this, "uint", dwIndex, "ptr*", ppDescriptor, "HRESULT")
-        return result
+    GetTableDescriptorByIndex(dwIndex) {
+        result := ComCall(6, this, "uint", dwIndex, "ptr*", &ppDescriptor := 0, "HRESULT")
+        return IGenericDescriptor(ppDescriptor)
     }
 
     /**
      * 
      * @param {Integer} bTag 
      * @param {Pointer<Integer>} pdwCookie 
-     * @param {Pointer<IGenericDescriptor>} ppDescriptor 
-     * @returns {HRESULT} 
+     * @returns {IGenericDescriptor} 
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-icat-gettabledescriptorbytag
      */
-    GetTableDescriptorByTag(bTag, pdwCookie, ppDescriptor) {
+    GetTableDescriptorByTag(bTag, pdwCookie) {
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", ppDescriptor, "HRESULT")
-        return result
+        result := ComCall(7, this, "char", bTag, pdwCookieMarshal, pdwCookie, "ptr*", &ppDescriptor := 0, "HRESULT")
+        return IGenericDescriptor(ppDescriptor)
     }
 
     /**
@@ -121,13 +115,12 @@ class ICAT extends IUnknown{
     /**
      * 
      * @param {Integer} dwTimeout 
-     * @param {Pointer<ICAT>} ppCAT 
-     * @returns {HRESULT} 
+     * @returns {ICAT} 
      * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-icat-getnexttable
      */
-    GetNextTable(dwTimeout, ppCAT) {
-        result := ComCall(9, this, "uint", dwTimeout, "ptr*", ppCAT, "HRESULT")
-        return result
+    GetNextTable(dwTimeout) {
+        result := ComCall(9, this, "uint", dwTimeout, "ptr*", &ppCAT := 0, "HRESULT")
+        return ICAT(ppCAT)
     }
 
     /**

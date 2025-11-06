@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -33,14 +34,14 @@ class IComTrackingInfoObject extends IUnknown{
     /**
      * 
      * @param {PWSTR} szPropertyName 
-     * @param {Pointer<VARIANT>} pvarOut 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomtrackinginfoobject-getvalue
      */
-    GetValue(szPropertyName, pvarOut) {
+    GetValue(szPropertyName) {
         szPropertyName := szPropertyName is String ? StrPtr(szPropertyName) : szPropertyName
 
+        pvarOut := VARIANT()
         result := ComCall(3, this, "ptr", szPropertyName, "ptr", pvarOut, "HRESULT")
-        return result
+        return pvarOut
     }
 }

@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IHTMLElementCollection.ahk
+#Include .\IHTMLTableSection.ahk
+#Include .\IHTMLTableCaption.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -47,14 +51,11 @@ class IHTMLTable extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_cols(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pMarshal, p, "HRESULT")
-        return result
+    get_cols() {
+        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -69,12 +70,12 @@ class IHTMLTable extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_border(p) {
+    get_border() {
+        p := VARIANT()
         result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -91,12 +92,12 @@ class IHTMLTable extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_frame(p) {
+    get_frame() {
+        p := BSTR()
         result := ComCall(12, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -113,12 +114,12 @@ class IHTMLTable extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_rules(p) {
+    get_rules() {
+        p := BSTR()
         result := ComCall(14, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -133,12 +134,12 @@ class IHTMLTable extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_cellSpacing(p) {
+    get_cellSpacing() {
+        p := VARIANT()
         result := ComCall(16, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -153,12 +154,12 @@ class IHTMLTable extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_cellPadding(p) {
+    get_cellPadding() {
+        p := VARIANT()
         result := ComCall(18, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -175,12 +176,12 @@ class IHTMLTable extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_background(p) {
+    get_background() {
+        p := BSTR()
         result := ComCall(20, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -195,12 +196,12 @@ class IHTMLTable extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_bgColor(p) {
+    get_bgColor() {
+        p := VARIANT()
         result := ComCall(22, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -215,12 +216,12 @@ class IHTMLTable extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_borderColor(p) {
+    get_borderColor() {
+        p := VARIANT()
         result := ComCall(24, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -235,12 +236,12 @@ class IHTMLTable extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_borderColorLight(p) {
+    get_borderColorLight() {
+        p := VARIANT()
         result := ComCall(26, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -255,12 +256,12 @@ class IHTMLTable extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_borderColorDark(p) {
+    get_borderColorDark() {
+        p := VARIANT()
         result := ComCall(28, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -277,12 +278,12 @@ class IHTMLTable extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_align(p) {
+    get_align() {
+        p := BSTR()
         result := ComCall(30, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -296,12 +297,11 @@ class IHTMLTable extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IHTMLElementCollection>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElementCollection} 
      */
-    get_rows(p) {
-        result := ComCall(32, this, "ptr*", p, "HRESULT")
-        return result
+    get_rows() {
+        result := ComCall(32, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLElementCollection(p)
     }
 
     /**
@@ -316,12 +316,12 @@ class IHTMLTable extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_width(p) {
+    get_width() {
+        p := VARIANT()
         result := ComCall(34, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -336,12 +336,12 @@ class IHTMLTable extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_height(p) {
+    get_height() {
+        p := VARIANT()
         result := ComCall(36, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -356,14 +356,11 @@ class IHTMLTable extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_dataPageSize(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(38, this, pMarshal, p, "HRESULT")
-        return result
+    get_dataPageSize() {
+        result := ComCall(38, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -386,52 +383,47 @@ class IHTMLTable extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IHTMLTableSection>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLTableSection} 
      */
-    get_tHead(p) {
-        result := ComCall(41, this, "ptr*", p, "HRESULT")
-        return result
+    get_tHead() {
+        result := ComCall(41, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLTableSection(p)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLTableSection>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLTableSection} 
      */
-    get_tFoot(p) {
-        result := ComCall(42, this, "ptr*", p, "HRESULT")
-        return result
+    get_tFoot() {
+        result := ComCall(42, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLTableSection(p)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLElementCollection>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElementCollection} 
      */
-    get_tBodies(p) {
-        result := ComCall(43, this, "ptr*", p, "HRESULT")
-        return result
+    get_tBodies() {
+        result := ComCall(43, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLElementCollection(p)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLTableCaption>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLTableCaption} 
      */
-    get_caption(p) {
-        result := ComCall(44, this, "ptr*", p, "HRESULT")
-        return result
+    get_caption() {
+        result := ComCall(44, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLTableCaption(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} head 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    createTHead(head) {
-        result := ComCall(45, this, "ptr*", head, "HRESULT")
-        return result
+    createTHead() {
+        result := ComCall(45, this, "ptr*", &head := 0, "HRESULT")
+        return IDispatch(head)
     }
 
     /**
@@ -445,12 +437,11 @@ class IHTMLTable extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} foot 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    createTFoot(foot) {
-        result := ComCall(47, this, "ptr*", foot, "HRESULT")
-        return result
+    createTFoot() {
+        result := ComCall(47, this, "ptr*", &foot := 0, "HRESULT")
+        return IDispatch(foot)
     }
 
     /**
@@ -464,12 +455,11 @@ class IHTMLTable extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IHTMLTableCaption>} caption 
-     * @returns {HRESULT} 
+     * @returns {IHTMLTableCaption} 
      */
-    createCaption(caption) {
-        result := ComCall(49, this, "ptr*", caption, "HRESULT")
-        return result
+    createCaption() {
+        result := ComCall(49, this, "ptr*", &caption := 0, "HRESULT")
+        return IHTMLTableCaption(caption)
     }
 
     /**
@@ -484,12 +474,11 @@ class IHTMLTable extends IDispatch{
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<IDispatch>} row 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    insertRow(index, row) {
-        result := ComCall(51, this, "int", index, "ptr*", row, "HRESULT")
-        return result
+    insertRow(index) {
+        result := ComCall(51, this, "int", index, "ptr*", &row := 0, "HRESULT")
+        return IDispatch(row)
     }
 
     /**
@@ -504,12 +493,12 @@ class IHTMLTable extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_readyState(p) {
+    get_readyState() {
+        p := BSTR()
         result := ComCall(53, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -524,11 +513,11 @@ class IHTMLTable extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onreadystatechange(p) {
+    get_onreadystatechange() {
+        p := VARIANT()
         result := ComCall(55, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 }

@@ -54,15 +54,12 @@ class IDigitalCableTuneRequest extends IATSCChannelTuneRequest{
 
     /**
      * 
-     * @param {Pointer<Integer>} pMajorChannel 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idigitalcabletunerequest-get_majorchannel
      */
-    get_MajorChannel(pMajorChannel) {
-        pMajorChannelMarshal := pMajorChannel is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, pMajorChannelMarshal, pMajorChannel, "HRESULT")
-        return result
+    get_MajorChannel() {
+        result := ComCall(16, this, "int*", &pMajorChannel := 0, "HRESULT")
+        return pMajorChannel
     }
 
     /**
@@ -78,15 +75,12 @@ class IDigitalCableTuneRequest extends IATSCChannelTuneRequest{
 
     /**
      * 
-     * @param {Pointer<Integer>} pSourceID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idigitalcabletunerequest-get_sourceid
      */
-    get_SourceID(pSourceID) {
-        pSourceIDMarshal := pSourceID is VarRef ? "int*" : "ptr"
-
-        result := ComCall(18, this, pSourceIDMarshal, pSourceID, "HRESULT")
-        return result
+    get_SourceID() {
+        result := ComCall(18, this, "int*", &pSourceID := 0, "HRESULT")
+        return pSourceID
     }
 
     /**

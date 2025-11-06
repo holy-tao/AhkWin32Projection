@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IFsrmDerivedObjectsResult.ahk
 #Include .\IFsrmQuotaObject.ahk
 
 /**
@@ -48,15 +49,12 @@ class IFsrmAutoApplyQuota extends IFsrmQuotaObject{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} folders 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmautoapplyquota-get_excludefolders
      */
-    get_ExcludeFolders(folders) {
-        foldersMarshal := folders is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(28, this, foldersMarshal, folders, "HRESULT")
-        return result
+    get_ExcludeFolders() {
+        result := ComCall(28, this, "ptr*", &folders := 0, "HRESULT")
+        return folders
     }
 
     /**
@@ -74,12 +72,11 @@ class IFsrmAutoApplyQuota extends IFsrmQuotaObject{
      * 
      * @param {Integer} commitOptions 
      * @param {Integer} applyOptions 
-     * @param {Pointer<IFsrmDerivedObjectsResult>} derivedObjectsResult 
-     * @returns {HRESULT} 
+     * @returns {IFsrmDerivedObjectsResult} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmautoapplyquota-commitandupdatederived
      */
-    CommitAndUpdateDerived(commitOptions, applyOptions, derivedObjectsResult) {
-        result := ComCall(30, this, "int", commitOptions, "int", applyOptions, "ptr*", derivedObjectsResult, "HRESULT")
-        return result
+    CommitAndUpdateDerived(commitOptions, applyOptions) {
+        result := ComCall(30, this, "int", commitOptions, "int", applyOptions, "ptr*", &derivedObjectsResult := 0, "HRESULT")
+        return IFsrmDerivedObjectsResult(derivedObjectsResult)
     }
 }

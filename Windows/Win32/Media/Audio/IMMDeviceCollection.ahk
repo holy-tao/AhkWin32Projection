@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMMDevice.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,26 +33,22 @@ class IMMDeviceCollection extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcDevices 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-immdevicecollection-getcount
      */
-    GetCount(pcDevices) {
-        pcDevicesMarshal := pcDevices is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pcDevicesMarshal, pcDevices, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(3, this, "uint*", &pcDevices := 0, "HRESULT")
+        return pcDevices
     }
 
     /**
      * 
      * @param {Integer} nDevice 
-     * @param {Pointer<IMMDevice>} ppDevice 
-     * @returns {HRESULT} 
+     * @returns {IMMDevice} 
      * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-immdevicecollection-item
      */
-    Item(nDevice, ppDevice) {
-        result := ComCall(4, this, "uint", nDevice, "ptr*", ppDevice, "HRESULT")
-        return result
+    Item(nDevice) {
+        result := ComCall(4, this, "uint", nDevice, "ptr*", &ppDevice := 0, "HRESULT")
+        return IMMDevice(ppDevice)
     }
 }

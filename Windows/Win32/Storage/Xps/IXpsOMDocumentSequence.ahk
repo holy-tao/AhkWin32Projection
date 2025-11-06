@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsOMPackage.ahk
+#Include .\IXpsOMDocumentCollection.ahk
+#Include .\IXpsOMPrintTicketResource.ahk
 #Include .\IXpsOMPart.ahk
 
 /**
@@ -79,35 +82,32 @@ class IXpsOMDocumentSequence extends IXpsOMPart{
 
     /**
      * 
-     * @param {Pointer<IXpsOMPackage>} package 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMPackage} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdocumentsequence-getowner
      */
-    GetOwner(package) {
-        result := ComCall(5, this, "ptr*", package, "HRESULT")
-        return result
+    GetOwner() {
+        result := ComCall(5, this, "ptr*", &package := 0, "HRESULT")
+        return IXpsOMPackage(package)
     }
 
     /**
      * 
-     * @param {Pointer<IXpsOMDocumentCollection>} documents 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMDocumentCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdocumentsequence-getdocuments
      */
-    GetDocuments(documents) {
-        result := ComCall(6, this, "ptr*", documents, "HRESULT")
-        return result
+    GetDocuments() {
+        result := ComCall(6, this, "ptr*", &documents := 0, "HRESULT")
+        return IXpsOMDocumentCollection(documents)
     }
 
     /**
      * 
-     * @param {Pointer<IXpsOMPrintTicketResource>} printTicketResource 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMPrintTicketResource} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdocumentsequence-getprintticketresource
      */
-    GetPrintTicketResource(printTicketResource) {
-        result := ComCall(7, this, "ptr*", printTicketResource, "HRESULT")
-        return result
+    GetPrintTicketResource() {
+        result := ComCall(7, this, "ptr*", &printTicketResource := 0, "HRESULT")
+        return IXpsOMPrintTicketResource(printTicketResource)
     }
 
     /**

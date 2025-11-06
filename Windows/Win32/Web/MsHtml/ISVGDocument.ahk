@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISVGSVGElement.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,11 +31,10 @@ class ISVGDocument extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGSVGElement>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGSVGElement} 
      */
-    get_rootElement(p) {
-        result := ComCall(7, this, "ptr*", p, "HRESULT")
-        return result
+    get_rootElement() {
+        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGSVGElement(p)
     }
 }

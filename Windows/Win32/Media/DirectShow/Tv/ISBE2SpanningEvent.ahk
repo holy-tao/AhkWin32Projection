@@ -43,15 +43,13 @@ class ISBE2SpanningEvent extends IUnknown{
      * @param {Pointer<Guid>} idEvt 
      * @param {Integer} streamId 
      * @param {Pointer<Integer>} pcb 
-     * @param {Pointer<Integer>} pb 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-isbe2spanningevent-getevent
      */
-    GetEvent(idEvt, streamId, pcb, pb) {
+    GetEvent(idEvt, streamId, pcb) {
         pcbMarshal := pcb is VarRef ? "uint*" : "ptr"
-        pbMarshal := pb is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "ptr", idEvt, "uint", streamId, pcbMarshal, pcb, pbMarshal, pb, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", idEvt, "uint", streamId, pcbMarshal, pcb, "char*", &pb := 0, "HRESULT")
+        return pb
     }
 }

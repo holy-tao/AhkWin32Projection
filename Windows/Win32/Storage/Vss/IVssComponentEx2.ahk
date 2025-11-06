@@ -56,9 +56,11 @@ class IVssComponentEx2 extends IVssComponentEx{
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponentex2-getfailure
      */
     GetFailure(phr, phrApplication, pbstrApplicationMessage, pdwReserved) {
+        phrMarshal := phr is VarRef ? "int*" : "ptr"
+        phrApplicationMarshal := phrApplication is VarRef ? "int*" : "ptr"
         pdwReservedMarshal := pdwReserved is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(49, this, "ptr", phr, "ptr", phrApplication, "ptr", pbstrApplicationMessage, pdwReservedMarshal, pdwReserved, "HRESULT")
+        result := ComCall(49, this, phrMarshal, phr, phrApplicationMarshal, phrApplication, "ptr", pbstrApplicationMessage, pdwReservedMarshal, pdwReserved, "HRESULT")
         return result
     }
 }

@@ -53,7 +53,9 @@ class IVPNotify2 extends IVPNotify{
      * @see https://learn.microsoft.com/windows/win32/api/vpnotify/nf-vpnotify-ivpnotify2-getvpsyncmaster
      */
     GetVPSyncMaster(pbVPSyncMaster) {
-        result := ComCall(7, this, "ptr", pbVPSyncMaster, "HRESULT")
+        pbVPSyncMasterMarshal := pbVPSyncMaster is VarRef ? "int*" : "ptr"
+
+        result := ComCall(7, this, pbVPSyncMasterMarshal, pbVPSyncMaster, "HRESULT")
         return result
     }
 }

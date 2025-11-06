@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\MPEG_DATE_AND_TIME.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -53,12 +54,12 @@ class IDVB_TDT extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<MPEG_DATE_AND_TIME>} pmdtVal 
-     * @returns {HRESULT} 
+     * @returns {MPEG_DATE_AND_TIME} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_tdt-getutctime
      */
-    GetUTCTime(pmdtVal) {
+    GetUTCTime() {
+        pmdtVal := MPEG_DATE_AND_TIME()
         result := ComCall(4, this, "ptr", pmdtVal, "HRESULT")
-        return result
+        return pmdtVal
     }
 }

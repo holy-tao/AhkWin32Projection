@@ -32,23 +32,21 @@ class IAppxManifestOptionalPackageInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} isOptionalPackage 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestoptionalpackageinfo-getisoptionalpackage
      */
-    GetIsOptionalPackage(isOptionalPackage) {
-        result := ComCall(3, this, "ptr", isOptionalPackage, "HRESULT")
-        return result
+    GetIsOptionalPackage() {
+        result := ComCall(3, this, "int*", &isOptionalPackage := 0, "HRESULT")
+        return isOptionalPackage
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} mainPackageName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestoptionalpackageinfo-getmainpackagename
      */
-    GetMainPackageName(mainPackageName) {
-        result := ComCall(4, this, "ptr", mainPackageName, "HRESULT")
-        return result
+    GetMainPackageName() {
+        result := ComCall(4, this, "ptr*", &mainPackageName := 0, "HRESULT")
+        return mainPackageName
     }
 }

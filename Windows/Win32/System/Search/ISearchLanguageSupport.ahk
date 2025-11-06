@@ -47,13 +47,12 @@ class ISearchLanguageSupport extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfDiacriticSensitive 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchlanguagesupport-getdiacriticsensitivity
      */
-    GetDiacriticSensitivity(pfDiacriticSensitive) {
-        result := ComCall(4, this, "ptr", pfDiacriticSensitive, "HRESULT")
-        return result
+    GetDiacriticSensitivity() {
+        result := ComCall(4, this, "int*", &pfDiacriticSensitive := 0, "HRESULT")
+        return pfDiacriticSensitive
     }
 
     /**
@@ -96,17 +95,14 @@ class ISearchLanguageSupport extends IUnknown{
      * @param {Integer} cwcQueryToken 
      * @param {PWSTR} pwcsDocumentToken 
      * @param {Integer} cwcDocumentToken 
-     * @param {Pointer<Integer>} pulPrefixLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchlanguagesupport-isprefixnormalized
      */
-    IsPrefixNormalized(pwcsQueryToken, cwcQueryToken, pwcsDocumentToken, cwcDocumentToken, pulPrefixLength) {
+    IsPrefixNormalized(pwcsQueryToken, cwcQueryToken, pwcsDocumentToken, cwcDocumentToken) {
         pwcsQueryToken := pwcsQueryToken is String ? StrPtr(pwcsQueryToken) : pwcsQueryToken
         pwcsDocumentToken := pwcsDocumentToken is String ? StrPtr(pwcsDocumentToken) : pwcsDocumentToken
 
-        pulPrefixLengthMarshal := pulPrefixLength is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, "ptr", pwcsQueryToken, "uint", cwcQueryToken, "ptr", pwcsDocumentToken, "uint", cwcDocumentToken, pulPrefixLengthMarshal, pulPrefixLength, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", pwcsQueryToken, "uint", cwcQueryToken, "ptr", pwcsDocumentToken, "uint", cwcDocumentToken, "uint*", &pulPrefixLength := 0, "HRESULT")
+        return pulPrefixLength
     }
 }

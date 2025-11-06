@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\IESEvent.ahk
 
 /**
@@ -37,51 +38,46 @@ class IESOpenMmiEvent extends IESEvent{
     /**
      * 
      * @param {Pointer<Integer>} pDialogRequest 
-     * @param {Pointer<Integer>} pDialogNumber 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesopenmmievent-getdialognumber
      */
-    GetDialogNumber(pDialogRequest, pDialogNumber) {
+    GetDialogNumber(pDialogRequest) {
         pDialogRequestMarshal := pDialogRequest is VarRef ? "uint*" : "ptr"
-        pDialogNumberMarshal := pDialogNumber is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, pDialogRequestMarshal, pDialogRequest, pDialogNumberMarshal, pDialogNumber, "HRESULT")
-        return result
+        result := ComCall(8, this, pDialogRequestMarshal, pDialogRequest, "uint*", &pDialogNumber := 0, "HRESULT")
+        return pDialogNumber
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} guidDialogType 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesopenmmievent-getdialogtype
      */
-    GetDialogType(guidDialogType) {
+    GetDialogType() {
+        guidDialogType := Guid()
         result := ComCall(9, this, "ptr", guidDialogType, "HRESULT")
-        return result
+        return guidDialogType
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} pbData 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesopenmmievent-getdialogdata
      */
-    GetDialogData(pbData) {
-        pbDataMarshal := pbData is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(10, this, pbDataMarshal, pbData, "HRESULT")
-        return result
+    GetDialogData() {
+        result := ComCall(10, this, "ptr*", &pbData := 0, "HRESULT")
+        return pbData
     }
 
     /**
      * 
      * @param {Pointer<BSTR>} pbstrBaseUrl 
-     * @param {Pointer<BSTR>} pbstrData 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesopenmmievent-getdialogstringdata
      */
-    GetDialogStringData(pbstrBaseUrl, pbstrData) {
+    GetDialogStringData(pbstrBaseUrl) {
+        pbstrData := BSTR()
         result := ComCall(11, this, "ptr", pbstrBaseUrl, "ptr", pbstrData, "HRESULT")
-        return result
+        return pbstrData
     }
 }

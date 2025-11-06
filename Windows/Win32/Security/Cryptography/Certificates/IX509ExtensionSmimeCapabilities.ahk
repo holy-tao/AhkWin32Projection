@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\ISmimeCapabilities.ahk
 #Include .\IX509Extension.ahk
 
 /**
@@ -58,12 +59,11 @@ class IX509ExtensionSmimeCapabilities extends IX509Extension{
 
     /**
      * 
-     * @param {Pointer<ISmimeCapabilities>} ppValue 
-     * @returns {HRESULT} 
+     * @returns {ISmimeCapabilities} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509extensionsmimecapabilities-get_smimecapabilities
      */
-    get_SmimeCapabilities(ppValue) {
-        result := ComCall(14, this, "ptr*", ppValue, "HRESULT")
-        return result
+    get_SmimeCapabilities() {
+        result := ComCall(14, this, "ptr*", &ppValue := 0, "HRESULT")
+        return ISmimeCapabilities(ppValue)
     }
 }

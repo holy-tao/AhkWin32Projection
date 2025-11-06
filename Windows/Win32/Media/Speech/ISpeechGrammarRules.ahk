@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ISpeechGrammarRule.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -31,56 +33,49 @@ class ISpeechGrammarRules extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} Count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Count(Count) {
-        CountMarshal := Count is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, CountMarshal, Count, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &Count := 0, "HRESULT")
+        return Count
     }
 
     /**
      * 
      * @param {VARIANT} RuleNameOrId 
-     * @param {Pointer<ISpeechGrammarRule>} Rule 
-     * @returns {HRESULT} 
+     * @returns {ISpeechGrammarRule} 
      */
-    FindRule(RuleNameOrId, Rule) {
-        result := ComCall(8, this, "ptr", RuleNameOrId, "ptr*", Rule, "HRESULT")
-        return result
+    FindRule(RuleNameOrId) {
+        result := ComCall(8, this, "ptr", RuleNameOrId, "ptr*", &Rule := 0, "HRESULT")
+        return ISpeechGrammarRule(Rule)
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<ISpeechGrammarRule>} Rule 
-     * @returns {HRESULT} 
+     * @returns {ISpeechGrammarRule} 
      */
-    Item(Index, Rule) {
-        result := ComCall(9, this, "int", Index, "ptr*", Rule, "HRESULT")
-        return result
+    Item(Index) {
+        result := ComCall(9, this, "int", Index, "ptr*", &Rule := 0, "HRESULT")
+        return ISpeechGrammarRule(Rule)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} EnumVARIANT 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__NewEnum(EnumVARIANT) {
-        result := ComCall(10, this, "ptr*", EnumVARIANT, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(10, this, "ptr*", &EnumVARIANT := 0, "HRESULT")
+        return IUnknown(EnumVARIANT)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} Dynamic 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_Dynamic(Dynamic) {
-        result := ComCall(11, this, "ptr", Dynamic, "HRESULT")
-        return result
+    get_Dynamic() {
+        result := ComCall(11, this, "short*", &Dynamic := 0, "HRESULT")
+        return Dynamic
     }
 
     /**
@@ -88,14 +83,13 @@ class ISpeechGrammarRules extends IDispatch{
      * @param {BSTR} RuleName 
      * @param {Integer} Attributes 
      * @param {Integer} RuleId 
-     * @param {Pointer<ISpeechGrammarRule>} Rule 
-     * @returns {HRESULT} 
+     * @returns {ISpeechGrammarRule} 
      */
-    Add(RuleName, Attributes, RuleId, Rule) {
+    Add(RuleName, Attributes, RuleId) {
         RuleName := RuleName is String ? BSTR.Alloc(RuleName).Value : RuleName
 
-        result := ComCall(12, this, "ptr", RuleName, "int", Attributes, "int", RuleId, "ptr*", Rule, "HRESULT")
-        return result
+        result := ComCall(12, this, "ptr", RuleName, "int", Attributes, "int", RuleId, "ptr*", &Rule := 0, "HRESULT")
+        return ISpeechGrammarRule(Rule)
     }
 
     /**

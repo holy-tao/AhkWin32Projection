@@ -72,18 +72,15 @@ class IVisualTreeService extends IUnknown{
      * 
      * @param {BSTR} typeName 
      * @param {BSTR} value 
-     * @param {Pointer<Integer>} pInstanceHandle 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ivisualtreeservice-createinstance
      */
-    CreateInstance(typeName, value, pInstanceHandle) {
+    CreateInstance(typeName, value) {
         typeName := typeName is String ? BSTR.Alloc(typeName).Value : typeName
         value := value is String ? BSTR.Alloc(value).Value : value
 
-        pInstanceHandleMarshal := pInstanceHandle is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, "ptr", typeName, "ptr", value, pInstanceHandleMarshal, pInstanceHandle, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", typeName, "ptr", value, "uint*", &pInstanceHandle := 0, "HRESULT")
+        return pInstanceHandle
     }
 
     /**
@@ -134,15 +131,12 @@ class IVisualTreeService extends IUnknown{
     /**
      * 
      * @param {Integer} instanceHandle 
-     * @param {Pointer<Integer>} pCollectionSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ivisualtreeservice-getcollectioncount
      */
-    GetCollectionCount(instanceHandle, pCollectionSize) {
-        pCollectionSizeMarshal := pCollectionSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, "uint", instanceHandle, pCollectionSizeMarshal, pCollectionSize, "HRESULT")
-        return result
+    GetCollectionCount(instanceHandle) {
+        result := ComCall(10, this, "uint", instanceHandle, "uint*", &pCollectionSize := 0, "HRESULT")
+        return pCollectionSize
     }
 
     /**
@@ -150,16 +144,14 @@ class IVisualTreeService extends IUnknown{
      * @param {Integer} instanceHandle 
      * @param {Integer} startIndex 
      * @param {Pointer<Integer>} pElementCount 
-     * @param {Pointer<Pointer<CollectionElementValue>>} ppElementValues 
-     * @returns {HRESULT} 
+     * @returns {Pointer<CollectionElementValue>} 
      * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ivisualtreeservice-getcollectionelements
      */
-    GetCollectionElements(instanceHandle, startIndex, pElementCount, ppElementValues) {
+    GetCollectionElements(instanceHandle, startIndex, pElementCount) {
         pElementCountMarshal := pElementCount is VarRef ? "uint*" : "ptr"
-        ppElementValuesMarshal := ppElementValues is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(11, this, "uint", instanceHandle, "uint", startIndex, pElementCountMarshal, pElementCount, ppElementValuesMarshal, ppElementValues, "HRESULT")
-        return result
+        result := ComCall(11, this, "uint", instanceHandle, "uint", startIndex, pElementCountMarshal, pElementCount, "ptr*", &ppElementValues := 0, "HRESULT")
+        return ppElementValues
     }
 
     /**

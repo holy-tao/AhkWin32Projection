@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IMbnDeviceServicesContext.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -54,14 +55,13 @@ class IMbnDeviceServicesManager extends IUnknown{
     /**
      * 
      * @param {BSTR} networkInterfaceID 
-     * @param {Pointer<IMbnDeviceServicesContext>} mbnDevicesContext 
-     * @returns {HRESULT} 
+     * @returns {IMbnDeviceServicesContext} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicesmanager-getdeviceservicescontext
      */
-    GetDeviceServicesContext(networkInterfaceID, mbnDevicesContext) {
+    GetDeviceServicesContext(networkInterfaceID) {
         networkInterfaceID := networkInterfaceID is String ? BSTR.Alloc(networkInterfaceID).Value : networkInterfaceID
 
-        result := ComCall(3, this, "ptr", networkInterfaceID, "ptr*", mbnDevicesContext, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", networkInterfaceID, "ptr*", &mbnDevicesContext := 0, "HRESULT")
+        return IMbnDeviceServicesContext(mbnDevicesContext)
     }
 }

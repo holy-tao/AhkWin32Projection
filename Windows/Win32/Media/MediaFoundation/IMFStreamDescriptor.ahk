@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFMediaTypeHandler.ahk
 #Include .\IMFAttributes.ahk
 
 /**
@@ -44,25 +45,21 @@ class IMFStreamDescriptor extends IMFAttributes{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwStreamIdentifier 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfstreamdescriptor-getstreamidentifier
      */
-    GetStreamIdentifier(pdwStreamIdentifier) {
-        pdwStreamIdentifierMarshal := pdwStreamIdentifier is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(33, this, pdwStreamIdentifierMarshal, pdwStreamIdentifier, "HRESULT")
-        return result
+    GetStreamIdentifier() {
+        result := ComCall(33, this, "uint*", &pdwStreamIdentifier := 0, "HRESULT")
+        return pdwStreamIdentifier
     }
 
     /**
      * 
-     * @param {Pointer<IMFMediaTypeHandler>} ppMediaTypeHandler 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaTypeHandler} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfstreamdescriptor-getmediatypehandler
      */
-    GetMediaTypeHandler(ppMediaTypeHandler) {
-        result := ComCall(34, this, "ptr*", ppMediaTypeHandler, "HRESULT")
-        return result
+    GetMediaTypeHandler() {
+        result := ComCall(34, this, "ptr*", &ppMediaTypeHandler := 0, "HRESULT")
+        return IMFMediaTypeHandler(ppMediaTypeHandler)
     }
 }

@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IInkStrokes.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IInkTransform.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -39,46 +42,41 @@ class IInkDivisionUnit extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IInkStrokes>} Strokes 
-     * @returns {HRESULT} 
+     * @returns {IInkStrokes} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut15/nf-msinkaut15-iinkdivisionunit-get_strokes
      */
-    get_Strokes(Strokes) {
-        result := ComCall(7, this, "ptr*", Strokes, "HRESULT")
-        return result
+    get_Strokes() {
+        result := ComCall(7, this, "ptr*", &Strokes := 0, "HRESULT")
+        return IInkStrokes(Strokes)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} divisionType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut15/nf-msinkaut15-iinkdivisionunit-get_divisiontype
      */
-    get_DivisionType(divisionType) {
-        divisionTypeMarshal := divisionType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, divisionTypeMarshal, divisionType, "HRESULT")
-        return result
+    get_DivisionType() {
+        result := ComCall(8, this, "int*", &divisionType := 0, "HRESULT")
+        return divisionType
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} RecoString 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_RecognizedString(RecoString) {
+    get_RecognizedString() {
+        RecoString := BSTR()
         result := ComCall(9, this, "ptr", RecoString, "HRESULT")
-        return result
+        return RecoString
     }
 
     /**
      * 
-     * @param {Pointer<IInkTransform>} RotationTransform 
-     * @returns {HRESULT} 
+     * @returns {IInkTransform} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut15/nf-msinkaut15-iinkdivisionunit-get_rotationtransform
      */
-    get_RotationTransform(RotationTransform) {
-        result := ComCall(10, this, "ptr*", RotationTransform, "HRESULT")
-        return result
+    get_RotationTransform() {
+        result := ComCall(10, this, "ptr*", &RotationTransform := 0, "HRESULT")
+        return IInkTransform(RotationTransform)
     }
 }

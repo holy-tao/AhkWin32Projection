@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRawElementProviderSimple.ahk
+#Include .\ITextRangeProvider.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -39,23 +41,21 @@ class ITextChildProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IRawElementProviderSimple>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {IRawElementProviderSimple} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextchildprovider-get_textcontainer
      */
-    get_TextContainer(pRetVal) {
-        result := ComCall(3, this, "ptr*", pRetVal, "HRESULT")
-        return result
+    get_TextContainer() {
+        result := ComCall(3, this, "ptr*", &pRetVal := 0, "HRESULT")
+        return IRawElementProviderSimple(pRetVal)
     }
 
     /**
      * 
-     * @param {Pointer<ITextRangeProvider>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {ITextRangeProvider} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextchildprovider-get_textrange
      */
-    get_TextRange(pRetVal) {
-        result := ComCall(4, this, "ptr*", pRetVal, "HRESULT")
-        return result
+    get_TextRange() {
+        result := ComCall(4, this, "ptr*", &pRetVal := 0, "HRESULT")
+        return ITextRangeProvider(pRetVal)
     }
 }

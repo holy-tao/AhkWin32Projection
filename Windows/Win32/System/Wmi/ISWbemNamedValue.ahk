@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -36,12 +38,12 @@ class ISWbemNamedValue extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} varValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_Value(varValue) {
+    get_Value() {
+        varValue := VARIANT()
         result := ComCall(7, this, "ptr", varValue, "HRESULT")
-        return result
+        return varValue
     }
 
     /**
@@ -56,11 +58,11 @@ class ISWbemNamedValue extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} strName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Name(strName) {
+    get_Name() {
+        strName := BSTR()
         result := ComCall(9, this, "ptr", strName, "HRESULT")
-        return result
+        return strName
     }
 }

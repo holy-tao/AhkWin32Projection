@@ -47,13 +47,12 @@ class IGestureRecognizer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfEnabled 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-igesturerecognizer-get_enabled
      */
-    get_Enabled(pfEnabled) {
-        result := ComCall(3, this, "ptr", pfEnabled, "HRESULT")
-        return result
+    get_Enabled() {
+        result := ComCall(3, this, "int*", &pfEnabled := 0, "HRESULT")
+        return pfEnabled
     }
 
     /**
@@ -69,15 +68,12 @@ class IGestureRecognizer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcStrokes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-igesturerecognizer-get_maxstrokecount
      */
-    get_MaxStrokeCount(pcStrokes) {
-        pcStrokesMarshal := pcStrokes is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, pcStrokesMarshal, pcStrokes, "HRESULT")
-        return result
+    get_MaxStrokeCount() {
+        result := ComCall(5, this, "int*", &pcStrokes := 0, "HRESULT")
+        return pcStrokes
     }
 
     /**

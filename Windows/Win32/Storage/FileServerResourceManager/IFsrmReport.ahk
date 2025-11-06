@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -33,26 +34,23 @@ class IFsrmReport extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} reportType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreport-get_type
      */
-    get_Type(reportType) {
-        reportTypeMarshal := reportType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, reportTypeMarshal, reportType, "HRESULT")
-        return result
+    get_Type() {
+        result := ComCall(7, this, "int*", &reportType := 0, "HRESULT")
+        return reportType
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreport-get_name
      */
-    get_Name(name) {
+    get_Name() {
+        name := BSTR()
         result := ComCall(8, this, "ptr", name, "HRESULT")
-        return result
+        return name
     }
 
     /**
@@ -70,13 +68,13 @@ class IFsrmReport extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} description 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreport-get_description
      */
-    get_Description(description) {
+    get_Description() {
+        description := BSTR()
         result := ComCall(10, this, "ptr", description, "HRESULT")
-        return result
+        return description
     }
 
     /**
@@ -94,25 +92,25 @@ class IFsrmReport extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} prefix 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreport-get_lastgeneratedfilenameprefix
      */
-    get_LastGeneratedFileNamePrefix(prefix) {
+    get_LastGeneratedFileNamePrefix() {
+        prefix := BSTR()
         result := ComCall(12, this, "ptr", prefix, "HRESULT")
-        return result
+        return prefix
     }
 
     /**
      * 
      * @param {Integer} filter 
-     * @param {Pointer<VARIANT>} filterValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmreport-getfilter
      */
-    GetFilter(filter, filterValue) {
+    GetFilter(filter) {
+        filterValue := VARIANT()
         result := ComCall(13, this, "int", filter, "ptr", filterValue, "HRESULT")
-        return result
+        return filterValue
     }
 
     /**

@@ -84,15 +84,12 @@ class IFileDialogEvents extends IUnknown{
      * 
      * @param {IFileDialog} pfd 
      * @param {IShellItem} psi 
-     * @param {Pointer<Integer>} pResponse 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogevents-onshareviolation
      */
-    OnShareViolation(pfd, psi, pResponse) {
-        pResponseMarshal := pResponse is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, "ptr", pfd, "ptr", psi, pResponseMarshal, pResponse, "HRESULT")
-        return result
+    OnShareViolation(pfd, psi) {
+        result := ComCall(7, this, "ptr", pfd, "ptr", psi, "int*", &pResponse := 0, "HRESULT")
+        return pResponse
     }
 
     /**
@@ -110,14 +107,11 @@ class IFileDialogEvents extends IUnknown{
      * 
      * @param {IFileDialog} pfd 
      * @param {IShellItem} psi 
-     * @param {Pointer<Integer>} pResponse 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogevents-onoverwrite
      */
-    OnOverwrite(pfd, psi, pResponse) {
-        pResponseMarshal := pResponse is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, "ptr", pfd, "ptr", psi, pResponseMarshal, pResponse, "HRESULT")
-        return result
+    OnOverwrite(pfd, psi) {
+        result := ComCall(9, this, "ptr", pfd, "ptr", psi, "int*", &pResponse := 0, "HRESULT")
+        return pResponse
     }
 }

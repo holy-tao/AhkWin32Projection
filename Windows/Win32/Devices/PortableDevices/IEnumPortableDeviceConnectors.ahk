@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IPortableDeviceConnector.ahk
+#Include .\IEnumPortableDeviceConnectors.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,16 +35,15 @@ class IEnumPortableDeviceConnectors extends IUnknown{
     /**
      * 
      * @param {Integer} cRequested 
-     * @param {Pointer<IPortableDeviceConnector>} pConnectors 
      * @param {Pointer<Integer>} pcFetched 
-     * @returns {HRESULT} 
+     * @returns {IPortableDeviceConnector} 
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/ienumportabledeviceconnectors-next
      */
-    Next(cRequested, pConnectors, pcFetched) {
+    Next(cRequested, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cRequested, "ptr*", pConnectors, pcFetchedMarshal, pcFetched, "HRESULT")
-        return result
+        result := ComCall(3, this, "uint", cRequested, "ptr*", &pConnectors := 0, pcFetchedMarshal, pcFetched, "HRESULT")
+        return IPortableDeviceConnector(pConnectors)
     }
 
     /**
@@ -68,12 +69,11 @@ class IEnumPortableDeviceConnectors extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumPortableDeviceConnectors>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumPortableDeviceConnectors} 
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/ienumportabledeviceconnectors-clone
      */
-    Clone(ppEnum) {
-        result := ComCall(6, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumPortableDeviceConnectors(ppEnum)
     }
 }

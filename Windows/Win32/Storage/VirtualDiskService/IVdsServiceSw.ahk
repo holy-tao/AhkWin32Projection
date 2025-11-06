@@ -31,13 +31,12 @@ class IVdsServiceSw extends IUnknown{
     /**
      * 
      * @param {PWSTR} pwszDeviceID 
-     * @param {Pointer<IUnknown>} ppDiskUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    GetDiskObject(pwszDeviceID, ppDiskUnk) {
+    GetDiskObject(pwszDeviceID) {
         pwszDeviceID := pwszDeviceID is String ? StrPtr(pwszDeviceID) : pwszDeviceID
 
-        result := ComCall(3, this, "ptr", pwszDeviceID, "ptr*", ppDiskUnk, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pwszDeviceID, "ptr*", &ppDiskUnk := 0, "HRESULT")
+        return IUnknown(ppDiskUnk)
     }
 }

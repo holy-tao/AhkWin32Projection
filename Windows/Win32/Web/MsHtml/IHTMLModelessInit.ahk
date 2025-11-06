@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,41 +32,39 @@ class IHTMLModelessInit extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_parameters(p) {
+    get_parameters() {
+        p := VARIANT()
         result := ComCall(7, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_optionString(p) {
+    get_optionString() {
+        p := VARIANT()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} p 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get_moniker(p) {
-        result := ComCall(9, this, "ptr*", p, "HRESULT")
-        return result
+    get_moniker() {
+        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        return IUnknown(p)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} p 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get_document(p) {
-        result := ComCall(10, this, "ptr*", p, "HRESULT")
-        return result
+    get_document() {
+        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        return IUnknown(p)
     }
 }

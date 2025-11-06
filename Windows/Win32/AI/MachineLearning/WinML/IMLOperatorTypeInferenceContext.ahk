@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\MLOperatorEdgeDescription.ahk
 #Include .\IMLOperatorAttributes.ahk
 
 /**
@@ -69,12 +70,12 @@ class IMLOperatorTypeInferenceContext extends IMLOperatorAttributes{
     /**
      * 
      * @param {Integer} inputIndex 
-     * @param {Pointer<MLOperatorEdgeDescription>} edgeDescription 
-     * @returns {HRESULT} 
+     * @returns {MLOperatorEdgeDescription} 
      */
-    GetInputEdgeDescription(inputIndex, edgeDescription) {
+    GetInputEdgeDescription(inputIndex) {
+        edgeDescription := MLOperatorEdgeDescription()
         result := ComCall(11, this, "uint", inputIndex, "ptr", edgeDescription, "HRESULT")
-        return result
+        return edgeDescription
     }
 
     /**

@@ -88,17 +88,15 @@ class ISpSREngine extends IUnknown{
      * 
      * @param {Pointer<Void>} pvEngineRecoContext 
      * @param {SPGRAMMARHANDLE} hSAPIGrammar 
-     * @param {Pointer<Pointer<Void>>} ppvEngineGrammarContext 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    OnCreateGrammar(pvEngineRecoContext, hSAPIGrammar, ppvEngineGrammarContext) {
+    OnCreateGrammar(pvEngineRecoContext, hSAPIGrammar) {
         hSAPIGrammar := hSAPIGrammar is Win32Handle ? NumGet(hSAPIGrammar, "ptr") : hSAPIGrammar
 
         pvEngineRecoContextMarshal := pvEngineRecoContext is VarRef ? "ptr" : "ptr"
-        ppvEngineGrammarContextMarshal := ppvEngineGrammarContext is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, pvEngineRecoContextMarshal, pvEngineRecoContext, "ptr", hSAPIGrammar, ppvEngineGrammarContextMarshal, ppvEngineGrammarContext, "HRESULT")
-        return result
+        result := ComCall(7, this, pvEngineRecoContextMarshal, pvEngineRecoContext, "ptr", hSAPIGrammar, "ptr*", &ppvEngineGrammarContext := 0, "HRESULT")
+        return ppvEngineGrammarContext
     }
 
     /**
@@ -151,18 +149,16 @@ class ISpSREngine extends IUnknown{
      * @param {PWSTR} pszName 
      * @param {Pointer<Void>} pReserved 
      * @param {Integer} NewState 
-     * @param {Pointer<Integer>} pcRulesChanged 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    SetProprietaryRuleState(pvEngineGrammar, pszName, pReserved, NewState, pcRulesChanged) {
+    SetProprietaryRuleState(pvEngineGrammar, pszName, pReserved, NewState) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
         pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
         pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
-        pcRulesChangedMarshal := pcRulesChanged is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, pvEngineGrammarMarshal, pvEngineGrammar, "ptr", pszName, pReservedMarshal, pReserved, "int", NewState, pcRulesChangedMarshal, pcRulesChanged, "HRESULT")
-        return result
+        result := ComCall(11, this, pvEngineGrammarMarshal, pvEngineGrammar, "ptr", pszName, pReservedMarshal, pReserved, "int", NewState, "uint*", &pcRulesChanged := 0, "HRESULT")
+        return pcRulesChanged
     }
 
     /**
@@ -253,32 +249,27 @@ class ISpSREngine extends IUnknown{
      * 
      * @param {Pointer<Void>} pvEngineGrammar 
      * @param {PWSTR} pszWord 
-     * @param {Pointer<Integer>} pWordPronounceable 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    IsPronounceable(pvEngineGrammar, pszWord, pWordPronounceable) {
+    IsPronounceable(pvEngineGrammar, pszWord) {
         pszWord := pszWord is String ? StrPtr(pszWord) : pszWord
 
         pvEngineGrammarMarshal := pvEngineGrammar is VarRef ? "ptr" : "ptr"
-        pWordPronounceableMarshal := pWordPronounceable is VarRef ? "int*" : "ptr"
 
-        result := ComCall(18, this, pvEngineGrammarMarshal, pvEngineGrammar, "ptr", pszWord, pWordPronounceableMarshal, pWordPronounceable, "HRESULT")
-        return result
+        result := ComCall(18, this, pvEngineGrammarMarshal, pvEngineGrammar, "ptr", pszWord, "int*", &pWordPronounceable := 0, "HRESULT")
+        return pWordPronounceable
     }
 
     /**
      * 
      * @param {SPRECOCONTEXTHANDLE} hSAPIRecoContext 
-     * @param {Pointer<Pointer<Void>>} ppvEngineContext 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    OnCreateRecoContext(hSAPIRecoContext, ppvEngineContext) {
+    OnCreateRecoContext(hSAPIRecoContext) {
         hSAPIRecoContext := hSAPIRecoContext is Win32Handle ? NumGet(hSAPIRecoContext, "ptr") : hSAPIRecoContext
 
-        ppvEngineContextMarshal := ppvEngineContext is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(19, this, "ptr", hSAPIRecoContext, ppvEngineContextMarshal, ppvEngineContext, "HRESULT")
-        return result
+        result := ComCall(19, this, "ptr", hSAPIRecoContext, "ptr*", &ppvEngineContext := 0, "HRESULT")
+        return ppvEngineContext
     }
 
     /**
@@ -346,17 +337,15 @@ class ISpSREngine extends IUnknown{
      * @param {Integer} eSrc 
      * @param {Pointer<Void>} pvSrcObj 
      * @param {PWSTR} pName 
-     * @param {Pointer<Integer>} lValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetPropertyNum(eSrc, pvSrcObj, pName, lValue) {
+    GetPropertyNum(eSrc, pvSrcObj, pName) {
         pName := pName is String ? StrPtr(pName) : pName
 
         pvSrcObjMarshal := pvSrcObj is VarRef ? "ptr" : "ptr"
-        lValueMarshal := lValue is VarRef ? "int*" : "ptr"
 
-        result := ComCall(24, this, "int", eSrc, pvSrcObjMarshal, pvSrcObj, "ptr", pName, lValueMarshal, lValue, "HRESULT")
-        return result
+        result := ComCall(24, this, "int", eSrc, pvSrcObjMarshal, pvSrcObj, "ptr", pName, "int*", &lValue := 0, "HRESULT")
+        return lValue
     }
 
     /**
@@ -382,16 +371,15 @@ class ISpSREngine extends IUnknown{
      * @param {Integer} eSrc 
      * @param {Pointer<Void>} pvSrcObj 
      * @param {PWSTR} pName 
-     * @param {Pointer<PWSTR>} ppCoMemValue 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetPropertyString(eSrc, pvSrcObj, pName, ppCoMemValue) {
+    GetPropertyString(eSrc, pvSrcObj, pName) {
         pName := pName is String ? StrPtr(pName) : pName
 
         pvSrcObjMarshal := pvSrcObj is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(26, this, "int", eSrc, pvSrcObjMarshal, pvSrcObj, "ptr", pName, "ptr", ppCoMemValue, "HRESULT")
-        return result
+        result := ComCall(26, this, "int", eSrc, pvSrcObjMarshal, pvSrcObj, "ptr", pName, "ptr*", &ppCoMemValue := 0, "HRESULT")
+        return ppCoMemValue
     }
 
     /**

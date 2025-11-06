@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\FolderItemVerbs.ahk
 
 /**
  * 
@@ -39,32 +40,30 @@ class FolderItem extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppid 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Application(ppid) {
-        result := ComCall(7, this, "ptr*", ppid, "HRESULT")
-        return result
+    get_Application() {
+        result := ComCall(7, this, "ptr*", &ppid := 0, "HRESULT")
+        return IDispatch(ppid)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppid 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Parent(ppid) {
-        result := ComCall(8, this, "ptr*", ppid, "HRESULT")
-        return result
+    get_Parent() {
+        result := ComCall(8, this, "ptr*", &ppid := 0, "HRESULT")
+        return IDispatch(ppid)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbs 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Name(pbs) {
+    get_Name() {
+        pbs := BSTR()
         result := ComCall(9, this, "ptr", pbs, "HRESULT")
-        return result
+        return pbs
     }
 
     /**
@@ -81,84 +80,75 @@ class FolderItem extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbs 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Path(pbs) {
+    get_Path() {
+        pbs := BSTR()
         result := ComCall(11, this, "ptr", pbs, "HRESULT")
-        return result
+        return pbs
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppid 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_GetLink(ppid) {
-        result := ComCall(12, this, "ptr*", ppid, "HRESULT")
-        return result
+    get_GetLink() {
+        result := ComCall(12, this, "ptr*", &ppid := 0, "HRESULT")
+        return IDispatch(ppid)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppid 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_GetFolder(ppid) {
-        result := ComCall(13, this, "ptr*", ppid, "HRESULT")
-        return result
+    get_GetFolder() {
+        result := ComCall(13, this, "ptr*", &ppid := 0, "HRESULT")
+        return IDispatch(ppid)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pb 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_IsLink(pb) {
-        result := ComCall(14, this, "ptr", pb, "HRESULT")
-        return result
+    get_IsLink() {
+        result := ComCall(14, this, "short*", &pb := 0, "HRESULT")
+        return pb
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pb 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_IsFolder(pb) {
-        result := ComCall(15, this, "ptr", pb, "HRESULT")
-        return result
+    get_IsFolder() {
+        result := ComCall(15, this, "short*", &pb := 0, "HRESULT")
+        return pb
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pb 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_IsFileSystem(pb) {
-        result := ComCall(16, this, "ptr", pb, "HRESULT")
-        return result
+    get_IsFileSystem() {
+        result := ComCall(16, this, "short*", &pb := 0, "HRESULT")
+        return pb
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pb 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_IsBrowsable(pb) {
-        result := ComCall(17, this, "ptr", pb, "HRESULT")
-        return result
+    get_IsBrowsable() {
+        result := ComCall(17, this, "short*", &pb := 0, "HRESULT")
+        return pb
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pdt 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    get_ModifyDate(pdt) {
-        pdtMarshal := pdt is VarRef ? "double*" : "ptr"
-
-        result := ComCall(18, this, pdtMarshal, pdt, "HRESULT")
-        return result
+    get_ModifyDate() {
+        result := ComCall(18, this, "double*", &pdt := 0, "HRESULT")
+        return pdt
     }
 
     /**
@@ -173,35 +163,31 @@ class FolderItem extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pul 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Size(pul) {
-        pulMarshal := pul is VarRef ? "int*" : "ptr"
-
-        result := ComCall(20, this, pulMarshal, pul, "HRESULT")
-        return result
+    get_Size() {
+        result := ComCall(20, this, "int*", &pul := 0, "HRESULT")
+        return pul
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbs 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Type(pbs) {
+    get_Type() {
+        pbs := BSTR()
         result := ComCall(21, this, "ptr", pbs, "HRESULT")
-        return result
+        return pbs
     }
 
     /**
      * 
-     * @param {Pointer<FolderItemVerbs>} ppfic 
-     * @returns {HRESULT} 
+     * @returns {FolderItemVerbs} 
      * @see https://learn.microsoft.com/windows/win32/shell/folderitem-verbs
      */
-    Verbs(ppfic) {
-        result := ComCall(22, this, "ptr*", ppfic, "HRESULT")
-        return result
+    Verbs() {
+        result := ComCall(22, this, "ptr*", &ppfic := 0, "HRESULT")
+        return FolderItemVerbs(ppfic)
     }
 
     /**

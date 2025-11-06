@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -38,44 +39,42 @@ class IHtmlDlgSafeHelper extends IDispatch{
     /**
      * 
      * @param {VARIANT} initColor 
-     * @param {Pointer<VARIANT>} rgbColor 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    choosecolordlg(initColor, rgbColor) {
+    choosecolordlg(initColor) {
+        rgbColor := VARIANT()
         result := ComCall(7, this, "ptr", initColor, "ptr", rgbColor, "HRESULT")
-        return result
+        return rgbColor
     }
 
     /**
      * 
      * @param {BSTR} fontName 
-     * @param {Pointer<VARIANT>} charset 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    getCharset(fontName, charset) {
+    getCharset(fontName) {
         fontName := fontName is String ? BSTR.Alloc(fontName).Value : fontName
 
+        charset := VARIANT()
         result := ComCall(8, this, "ptr", fontName, "ptr", charset, "HRESULT")
-        return result
+        return charset
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_Fonts(p) {
-        result := ComCall(9, this, "ptr*", p, "HRESULT")
-        return result
+    get_Fonts() {
+        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_BlockFormats(p) {
-        result := ComCall(10, this, "ptr*", p, "HRESULT")
-        return result
+    get_BlockFormats() {
+        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 }

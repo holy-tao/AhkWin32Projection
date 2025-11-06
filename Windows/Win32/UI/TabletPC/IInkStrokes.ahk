@@ -1,6 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include .\IInkDisp.ahk
+#Include .\IInkRecognitionResult.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IInkStrokeDisp.ahk
+#Include .\IInkRectangle.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,70 +38,63 @@ class IInkStrokes extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} Count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokes-get_count
      */
-    get_Count(Count) {
-        CountMarshal := Count is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, CountMarshal, Count, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &Count := 0, "HRESULT")
+        return Count
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} _NewEnum 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__NewEnum(_NewEnum) {
-        result := ComCall(8, this, "ptr*", _NewEnum, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(8, this, "ptr*", &_NewEnum := 0, "HRESULT")
+        return IUnknown(_NewEnum)
     }
 
     /**
      * 
-     * @param {Pointer<IInkDisp>} Ink 
-     * @returns {HRESULT} 
+     * @returns {IInkDisp} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokes-get_ink
      */
-    get_Ink(Ink) {
-        result := ComCall(9, this, "ptr*", Ink, "HRESULT")
-        return result
+    get_Ink() {
+        result := ComCall(9, this, "ptr*", &Ink := 0, "HRESULT")
+        return IInkDisp(Ink)
     }
 
     /**
      * 
-     * @param {Pointer<IInkRecognitionResult>} RecognitionResult 
-     * @returns {HRESULT} 
+     * @returns {IInkRecognitionResult} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokes-get_recognitionresult
      */
-    get_RecognitionResult(RecognitionResult) {
-        result := ComCall(10, this, "ptr*", RecognitionResult, "HRESULT")
-        return result
+    get_RecognitionResult() {
+        result := ComCall(10, this, "ptr*", &RecognitionResult := 0, "HRESULT")
+        return IInkRecognitionResult(RecognitionResult)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} ToString 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokes-tostring
      */
-    ToString(ToString) {
+    ToString() {
+        ToString := BSTR()
         result := ComCall(11, this, "ptr", ToString, "HRESULT")
-        return result
+        return ToString
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<IInkStrokeDisp>} Stroke 
-     * @returns {HRESULT} 
+     * @returns {IInkStrokeDisp} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokes-item
      */
-    Item(Index, Stroke) {
-        result := ComCall(12, this, "int", Index, "ptr*", Stroke, "HRESULT")
-        return result
+    Item(Index) {
+        result := ComCall(12, this, "int", Index, "ptr*", &Stroke := 0, "HRESULT")
+        return IInkStrokeDisp(Stroke)
     }
 
     /**
@@ -156,13 +155,12 @@ class IInkStrokes extends IDispatch{
     /**
      * 
      * @param {Integer} BoundingBoxMode 
-     * @param {Pointer<IInkRectangle>} BoundingBox 
-     * @returns {HRESULT} 
+     * @returns {IInkRectangle} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkstrokes-getboundingbox
      */
-    GetBoundingBox(BoundingBoxMode, BoundingBox) {
-        result := ComCall(18, this, "int", BoundingBoxMode, "ptr*", BoundingBox, "HRESULT")
-        return result
+    GetBoundingBox(BoundingBoxMode) {
+        result := ComCall(18, this, "int", BoundingBoxMode, "ptr*", &BoundingBox := 0, "HRESULT")
+        return IInkRectangle(BoundingBox)
     }
 
     /**

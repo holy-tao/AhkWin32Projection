@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumFullIDList.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -69,12 +70,11 @@ class IEnumFullIDList extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumFullIDList>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IEnumFullIDList} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ienumfullidlist-clone
      */
-    Clone(ppenum) {
-        result := ComCall(6, this, "ptr*", ppenum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")
+        return IEnumFullIDList(ppenum)
     }
 }

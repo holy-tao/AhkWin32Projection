@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -55,15 +56,15 @@ class ITransactionContext extends IDispatch{
     /**
      * 
      * @param {BSTR} pszProgId 
-     * @param {Pointer<VARIANT>} pObject 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-itransactioncontext-createinstance
      */
-    CreateInstance(pszProgId, pObject) {
+    CreateInstance(pszProgId) {
         pszProgId := pszProgId is String ? BSTR.Alloc(pszProgId).Value : pszProgId
 
+        pObject := VARIANT()
         result := ComCall(7, this, "ptr", pszProgId, "ptr", pObject, "HRESULT")
-        return result
+        return pObject
     }
 
     /**

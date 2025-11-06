@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Foundation\BSTR.ahk
+#Include .\IEnumJsStackFrames.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -65,14 +67,11 @@ class IJsDebugDataTarget extends IUnknown{
      * @param {Integer} size 
      * @param {Integer} allocationType 
      * @param {Integer} pageProtection 
-     * @param {Pointer<Integer>} pAllocatedAddress 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    AllocateVirtualMemory(address, size, allocationType, pageProtection, pAllocatedAddress) {
-        pAllocatedAddressMarshal := pAllocatedAddress is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, "uint", address, "uint", size, "uint", allocationType, "uint", pageProtection, pAllocatedAddressMarshal, pAllocatedAddress, "HRESULT")
-        return result
+    AllocateVirtualMemory(address, size, allocationType, pageProtection) {
+        result := ComCall(5, this, "uint", address, "uint", size, "uint", allocationType, "uint", pageProtection, "uint*", &pAllocatedAddress := 0, "HRESULT")
+        return pAllocatedAddress
     }
 
     /**
@@ -91,25 +90,22 @@ class IJsDebugDataTarget extends IUnknown{
      * 
      * @param {Integer} threadId 
      * @param {Integer} tlsIndex 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetTlsValue(threadId, tlsIndex, pValue) {
-        pValueMarshal := pValue is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, "uint", threadId, "uint", tlsIndex, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetTlsValue(threadId, tlsIndex) {
+        result := ComCall(7, this, "uint", threadId, "uint", tlsIndex, "uint*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
      * @param {Integer} address 
-     * @param {Pointer<BSTR>} pString 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    ReadBSTR(address, pString) {
+    ReadBSTR(address) {
+        pString := BSTR()
         result := ComCall(8, this, "uint", address, "ptr", pString, "HRESULT")
-        return result
+        return pString
     }
 
     /**
@@ -117,23 +113,22 @@ class IJsDebugDataTarget extends IUnknown{
      * @param {Integer} address 
      * @param {Integer} characterSize 
      * @param {Integer} maxCharacters 
-     * @param {Pointer<BSTR>} pString 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    ReadNullTerminatedString(address, characterSize, maxCharacters, pString) {
+    ReadNullTerminatedString(address, characterSize, maxCharacters) {
+        pString := BSTR()
         result := ComCall(9, this, "uint", address, "ushort", characterSize, "uint", maxCharacters, "ptr", pString, "HRESULT")
-        return result
+        return pString
     }
 
     /**
      * 
      * @param {Integer} threadId 
-     * @param {Pointer<IEnumJsStackFrames>} ppEnumerator 
-     * @returns {HRESULT} 
+     * @returns {IEnumJsStackFrames} 
      */
-    CreateStackFrameEnumerator(threadId, ppEnumerator) {
-        result := ComCall(10, this, "uint", threadId, "ptr*", ppEnumerator, "HRESULT")
-        return result
+    CreateStackFrameEnumerator(threadId) {
+        result := ComCall(10, this, "uint", threadId, "ptr*", &ppEnumerator := 0, "HRESULT")
+        return IEnumJsStackFrames(ppEnumerator)
     }
 
     /**
@@ -141,16 +136,11 @@ class IJsDebugDataTarget extends IUnknown{
      * @param {Integer} threadId 
      * @param {Integer} contextFlags 
      * @param {Integer} contextSize 
-     * @param {Pointer<Void>} pContext 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call [GetLastError](/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror).
+     * @returns {Void} 
      * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getthreadcontext
      */
-    GetThreadContext(threadId, contextFlags, contextSize, pContext) {
-        pContextMarshal := pContext is VarRef ? "ptr" : "ptr"
-
-        result := ComCall(11, this, "uint", threadId, "uint", contextFlags, "uint", contextSize, pContextMarshal, pContext, "HRESULT")
-        return result
+    GetThreadContext(threadId, contextFlags, contextSize) {
+        result := ComCall(11, this, "uint", threadId, "uint", contextFlags, "uint", contextSize, "ptr", &pContext := 0, "HRESULT")
+        return pContext
     }
 }

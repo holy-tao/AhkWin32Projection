@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUpdateDownloadResult.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -32,39 +33,32 @@ class IDownloadResult extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-idownloadresult-get_hresult
      */
-    get_HResult(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_HResult() {
+        result := ComCall(7, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-idownloadresult-get_resultcode
      */
-    get_ResultCode(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_ResultCode() {
+        result := ComCall(8, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
      * @param {Integer} updateIndex 
-     * @param {Pointer<IUpdateDownloadResult>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUpdateDownloadResult} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-idownloadresult-getupdateresult
      */
-    GetUpdateResult(updateIndex, retval) {
-        result := ComCall(9, this, "int", updateIndex, "ptr*", retval, "HRESULT")
-        return result
+    GetUpdateResult(updateIndex) {
+        result := ComCall(9, this, "int", updateIndex, "ptr*", &retval := 0, "HRESULT")
+        return IUpdateDownloadResult(retval)
     }
 }

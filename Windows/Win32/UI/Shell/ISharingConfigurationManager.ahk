@@ -78,15 +78,12 @@ class ISharingConfigurationManager extends IUnknown{
     /**
      * 
      * @param {Integer} dsid 
-     * @param {Pointer<Integer>} pRole 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-isharingconfigurationmanager-getsharepermissions
      */
-    GetSharePermissions(dsid, pRole) {
-        pRoleMarshal := pRole is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, "int", dsid, pRoleMarshal, pRole, "HRESULT")
-        return result
+    GetSharePermissions(dsid) {
+        result := ComCall(6, this, "int", dsid, "int*", &pRole := 0, "HRESULT")
+        return pRole
     }
 
     /**

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -31,24 +32,20 @@ class ISClusCryptoKeys extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Count(plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, plCountMarshal, plCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &plCount := 0, "HRESULT")
+        return plCount
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__NewEnum(retval) {
-        result := ComCall(8, this, "ptr*", retval, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(8, this, "ptr*", &retval := 0, "HRESULT")
+        return IUnknown(retval)
     }
 
     /**
@@ -63,12 +60,12 @@ class ISClusCryptoKeys extends IDispatch{
     /**
      * 
      * @param {VARIANT} varIndex 
-     * @param {Pointer<BSTR>} pbstrCyrptoKey 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Item(varIndex, pbstrCyrptoKey) {
+    get_Item(varIndex) {
+        pbstrCyrptoKey := BSTR()
         result := ComCall(10, this, "ptr", varIndex, "ptr", pbstrCyrptoKey, "HRESULT")
-        return result
+        return pbstrCyrptoKey
     }
 
     /**

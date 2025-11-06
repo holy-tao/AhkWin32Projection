@@ -1,6 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include ..\..\System\Com\IStream.ahk
+#Include .\IPhotoAcquireItem.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,37 +37,37 @@ class IPhotoAcquireItem extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrItemName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireitem-getitemname
      */
-    GetItemName(pbstrItemName) {
+    GetItemName() {
+        pbstrItemName := BSTR()
         result := ComCall(3, this, "ptr", pbstrItemName, "HRESULT")
-        return result
+        return pbstrItemName
     }
 
     /**
      * 
      * @param {SIZE} sizeThumbnail 
-     * @param {Pointer<HBITMAP>} phbmpThumbnail 
-     * @returns {HRESULT} 
+     * @returns {HBITMAP} 
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireitem-getthumbnail
      */
-    GetThumbnail(sizeThumbnail, phbmpThumbnail) {
+    GetThumbnail(sizeThumbnail) {
+        phbmpThumbnail := HBITMAP()
         result := ComCall(4, this, "ptr", sizeThumbnail, "ptr", phbmpThumbnail, "HRESULT")
-        return result
+        return phbmpThumbnail
     }
 
     /**
      * 
      * @param {Pointer<PROPERTYKEY>} key 
-     * @param {Pointer<PROPVARIANT>} pv 
-     * @returns {HRESULT} 
+     * @returns {PROPVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireitem-getproperty
      */
-    GetProperty(key, pv) {
+    GetProperty(key) {
+        pv := PROPVARIANT()
         result := ComCall(5, this, "ptr", key, "ptr", pv, "HRESULT")
-        return result
+        return pv
     }
 
     /**
@@ -79,24 +84,22 @@ class IPhotoAcquireItem extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IStream>} ppStream 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireitem-getstream
      */
-    GetStream(ppStream) {
-        result := ComCall(7, this, "ptr*", ppStream, "HRESULT")
-        return result
+    GetStream() {
+        result := ComCall(7, this, "ptr*", &ppStream := 0, "HRESULT")
+        return IStream(ppStream)
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfCanDelete 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireitem-candelete
      */
-    CanDelete(pfCanDelete) {
-        result := ComCall(8, this, "ptr", pfCanDelete, "HRESULT")
-        return result
+    CanDelete() {
+        result := ComCall(8, this, "int*", &pfCanDelete := 0, "HRESULT")
+        return pfCanDelete
     }
 
     /**
@@ -111,26 +114,22 @@ class IPhotoAcquireItem extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pnCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireitem-getsubitemcount
      */
-    GetSubItemCount(pnCount) {
-        pnCountMarshal := pnCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, pnCountMarshal, pnCount, "HRESULT")
-        return result
+    GetSubItemCount() {
+        result := ComCall(10, this, "uint*", &pnCount := 0, "HRESULT")
+        return pnCount
     }
 
     /**
      * 
      * @param {Integer} nItemIndex 
-     * @param {Pointer<IPhotoAcquireItem>} ppPhotoAcquireItem 
-     * @returns {HRESULT} 
+     * @returns {IPhotoAcquireItem} 
      * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireitem-getsubitemat
      */
-    GetSubItemAt(nItemIndex, ppPhotoAcquireItem) {
-        result := ComCall(11, this, "uint", nItemIndex, "ptr*", ppPhotoAcquireItem, "HRESULT")
-        return result
+    GetSubItemAt(nItemIndex) {
+        result := ComCall(11, this, "uint", nItemIndex, "ptr*", &ppPhotoAcquireItem := 0, "HRESULT")
+        return IPhotoAcquireItem(ppPhotoAcquireItem)
     }
 }

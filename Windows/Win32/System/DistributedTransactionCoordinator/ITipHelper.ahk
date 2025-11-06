@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITransaction.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -31,39 +32,34 @@ class ITipHelper extends IUnknown{
     /**
      * 
      * @param {Pointer<Integer>} i_pszTxUrl 
-     * @param {Pointer<ITransaction>} o_ppITransaction 
-     * @returns {HRESULT} 
+     * @returns {ITransaction} 
      */
-    Pull(i_pszTxUrl, o_ppITransaction) {
+    Pull(i_pszTxUrl) {
         i_pszTxUrlMarshal := i_pszTxUrl is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, i_pszTxUrlMarshal, i_pszTxUrl, "ptr*", o_ppITransaction, "HRESULT")
-        return result
+        result := ComCall(3, this, i_pszTxUrlMarshal, i_pszTxUrl, "ptr*", &o_ppITransaction := 0, "HRESULT")
+        return ITransaction(o_ppITransaction)
     }
 
     /**
      * 
      * @param {Pointer<Integer>} i_pszTxUrl 
      * @param {ITipPullSink} i_pTipPullSink 
-     * @param {Pointer<ITransaction>} o_ppITransaction 
-     * @returns {HRESULT} 
+     * @returns {ITransaction} 
      */
-    PullAsync(i_pszTxUrl, i_pTipPullSink, o_ppITransaction) {
+    PullAsync(i_pszTxUrl, i_pTipPullSink) {
         i_pszTxUrlMarshal := i_pszTxUrl is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, i_pszTxUrlMarshal, i_pszTxUrl, "ptr", i_pTipPullSink, "ptr*", o_ppITransaction, "HRESULT")
-        return result
+        result := ComCall(4, this, i_pszTxUrlMarshal, i_pszTxUrl, "ptr", i_pTipPullSink, "ptr*", &o_ppITransaction := 0, "HRESULT")
+        return ITransaction(o_ppITransaction)
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Integer>>} o_ppszLocalTmUrl 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Integer>} 
      */
-    GetLocalTmUrl(o_ppszLocalTmUrl) {
-        o_ppszLocalTmUrlMarshal := o_ppszLocalTmUrl is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, o_ppszLocalTmUrlMarshal, o_ppszLocalTmUrl, "HRESULT")
-        return result
+    GetLocalTmUrl() {
+        result := ComCall(5, this, "ptr*", &o_ppszLocalTmUrl := 0, "HRESULT")
+        return o_ppszLocalTmUrl
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISyncProvider.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -32,12 +33,11 @@ class ISyncSessionExtendedErrorInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ISyncProvider>} ppProviderWithError 
-     * @returns {HRESULT} 
+     * @returns {ISyncProvider} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncsessionextendederrorinfo-getsyncproviderwitherror
      */
-    GetSyncProviderWithError(ppProviderWithError) {
-        result := ComCall(3, this, "ptr*", ppProviderWithError, "HRESULT")
-        return result
+    GetSyncProviderWithError() {
+        result := ComCall(3, this, "ptr*", &ppProviderWithError := 0, "HRESULT")
+        return ISyncProvider(ppProviderWithError)
     }
 }

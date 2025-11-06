@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IScriptNode.ahk
+#Include ..\..\..\..\Foundation\BSTR.ahk
+#Include .\IScriptEntry.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -48,82 +51,59 @@ class IScriptNode extends IUnknown{
 
     /**
      * Retrieves a handle to the specified window's parent or owner.
-     * @param {Pointer<IScriptNode>} ppsnParent 
-     * @returns {HRESULT} Type: <b>HWND</b>
-     * 
-     * If the window is a child window, the return value is a handle to the parent window. If the window is a top-level window with the <b>WS_POPUP</b> style, the return value is a handle to the owner window. 
-     * 
-     * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * 
-     * This function typically fails for one of the following reasons:
-     * 
-     * 
-     * <ul>
-     * <li>The window is a top-level window that is unowned or does not have the <b>WS_POPUP</b> style. </li>
-     * <li>The owner window has <b>WS_POPUP</b> style.</li>
-     * </ul>
+     * @returns {IScriptNode} 
      * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getparent
      */
-    GetParent(ppsnParent) {
-        result := ComCall(5, this, "ptr*", ppsnParent, "HRESULT")
-        return result
+    GetParent() {
+        result := ComCall(5, this, "ptr*", &ppsnParent := 0, "HRESULT")
+        return IScriptNode(ppsnParent)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pisn 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetIndexInParent(pisn) {
-        pisnMarshal := pisn is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pisnMarshal, pisn, "HRESULT")
-        return result
+    GetIndexInParent() {
+        result := ComCall(6, this, "uint*", &pisn := 0, "HRESULT")
+        return pisn
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetCookie(pdwCookie) {
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pdwCookieMarshal, pdwCookie, "HRESULT")
-        return result
+    GetCookie() {
+        result := ComCall(7, this, "uint*", &pdwCookie := 0, "HRESULT")
+        return pdwCookie
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pcsn 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetNumberOfChildren(pcsn) {
-        pcsnMarshal := pcsn is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pcsnMarshal, pcsn, "HRESULT")
-        return result
+    GetNumberOfChildren() {
+        result := ComCall(8, this, "uint*", &pcsn := 0, "HRESULT")
+        return pcsn
     }
 
     /**
      * 
      * @param {Integer} isn 
-     * @param {Pointer<IScriptNode>} ppsn 
-     * @returns {HRESULT} 
+     * @returns {IScriptNode} 
      */
-    GetChild(isn, ppsn) {
-        result := ComCall(9, this, "uint", isn, "ptr*", ppsn, "HRESULT")
-        return result
+    GetChild(isn) {
+        result := ComCall(9, this, "uint", isn, "ptr*", &ppsn := 0, "HRESULT")
+        return IScriptNode(ppsn)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetLanguage(pbstr) {
+    GetLanguage() {
+        pbstr := BSTR()
         result := ComCall(10, this, "ptr", pbstr, "HRESULT")
-        return result
+        return pbstr
     }
 
     /**
@@ -131,14 +111,13 @@ class IScriptNode extends IUnknown{
      * @param {Integer} isn 
      * @param {Integer} dwCookie 
      * @param {PWSTR} pszDelimiter 
-     * @param {Pointer<IScriptEntry>} ppse 
-     * @returns {HRESULT} 
+     * @returns {IScriptEntry} 
      */
-    CreateChildEntry(isn, dwCookie, pszDelimiter, ppse) {
+    CreateChildEntry(isn, dwCookie, pszDelimiter) {
         pszDelimiter := pszDelimiter is String ? StrPtr(pszDelimiter) : pszDelimiter
 
-        result := ComCall(11, this, "uint", isn, "uint", dwCookie, "ptr", pszDelimiter, "ptr*", ppse, "HRESULT")
-        return result
+        result := ComCall(11, this, "uint", isn, "uint", dwCookie, "ptr", pszDelimiter, "ptr*", &ppse := 0, "HRESULT")
+        return IScriptEntry(ppse)
     }
 
     /**
@@ -152,15 +131,16 @@ class IScriptNode extends IUnknown{
      * @param {Integer} iMethodSignature 
      * @param {Integer} isn 
      * @param {Integer} dwCookie 
-     * @param {Pointer<IScriptEntry>} ppse 
-     * @returns {HRESULT} 
+     * @returns {IScriptEntry} 
      */
-    CreateChildHandler(pszDefaultName, prgpszNames, cpszNames, pszEvent, pszDelimiter, ptiSignature, iMethodSignature, isn, dwCookie, ppse) {
+    CreateChildHandler(pszDefaultName, prgpszNames, cpszNames, pszEvent, pszDelimiter, ptiSignature, iMethodSignature, isn, dwCookie) {
         pszDefaultName := pszDefaultName is String ? StrPtr(pszDefaultName) : pszDefaultName
         pszEvent := pszEvent is String ? StrPtr(pszEvent) : pszEvent
         pszDelimiter := pszDelimiter is String ? StrPtr(pszDelimiter) : pszDelimiter
 
-        result := ComCall(12, this, "ptr", pszDefaultName, "ptr", prgpszNames, "uint", cpszNames, "ptr", pszEvent, "ptr", pszDelimiter, "ptr", ptiSignature, "uint", iMethodSignature, "uint", isn, "uint", dwCookie, "ptr*", ppse, "HRESULT")
-        return result
+        prgpszNamesMarshal := prgpszNames is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(12, this, "ptr", pszDefaultName, prgpszNamesMarshal, prgpszNames, "uint", cpszNames, "ptr", pszEvent, "ptr", pszDelimiter, "ptr", ptiSignature, "uint", iMethodSignature, "uint", isn, "uint", dwCookie, "ptr*", &ppse := 0, "HRESULT")
+        return IScriptEntry(ppse)
     }
 }

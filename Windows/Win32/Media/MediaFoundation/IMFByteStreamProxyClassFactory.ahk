@@ -40,14 +40,11 @@ class IMFByteStreamProxyClassFactory extends IUnknown{
      * @param {IMFByteStream} pByteStream 
      * @param {IMFAttributes} pAttributes 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvObject 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestreamproxyclassfactory-createbytestreamproxy
      */
-    CreateByteStreamProxy(pByteStream, pAttributes, riid, ppvObject) {
-        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pByteStream, "ptr", pAttributes, "ptr", riid, ppvObjectMarshal, ppvObject, "HRESULT")
-        return result
+    CreateByteStreamProxy(pByteStream, pAttributes, riid) {
+        result := ComCall(3, this, "ptr", pByteStream, "ptr", pAttributes, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
+        return ppvObject
     }
 }

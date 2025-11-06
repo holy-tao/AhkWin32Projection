@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include .\IMAPIProp.ahk
 
 /**
@@ -32,15 +33,14 @@ class IAddrBook extends IMAPIProp{
      * @param {Pointer<Guid>} lpInterface 
      * @param {Integer} ulFlags 
      * @param {Pointer<Integer>} lpulObjType 
-     * @param {Pointer<IUnknown>} lppUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/iaddrbook-openentry
      */
-    OpenEntry(cbEntryID, lpEntryID, lpInterface, ulFlags, lpulObjType, lppUnk) {
+    OpenEntry(cbEntryID, lpEntryID, lpInterface, ulFlags, lpulObjType) {
         lpulObjTypeMarshal := lpulObjType is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, "uint", cbEntryID, "ptr", lpEntryID, "ptr", lpInterface, "uint", ulFlags, lpulObjTypeMarshal, lpulObjType, "ptr*", lppUnk, "HRESULT")
-        return result
+        result := ComCall(14, this, "uint", cbEntryID, "ptr", lpEntryID, "ptr", lpInterface, "uint", ulFlags, lpulObjTypeMarshal, lpulObjType, "ptr*", &lppUnk := 0, "HRESULT")
+        return IUnknown(lppUnk)
     }
 
     /**

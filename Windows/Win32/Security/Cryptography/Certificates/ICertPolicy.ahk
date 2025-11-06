@@ -112,28 +112,25 @@ class ICertPolicy extends IDispatch{
      * @param {Integer} Context 
      * @param {Integer} bNewRequest 
      * @param {Integer} Flags 
-     * @param {Pointer<Integer>} pDisposition 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certpol/nf-certpol-icertpolicy-verifyrequest
      */
-    VerifyRequest(strConfig, Context, bNewRequest, Flags, pDisposition) {
+    VerifyRequest(strConfig, Context, bNewRequest, Flags) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        pDispositionMarshal := pDisposition is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, "ptr", strConfig, "int", Context, "int", bNewRequest, "int", Flags, pDispositionMarshal, pDisposition, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", strConfig, "int", Context, "int", bNewRequest, "int", Flags, "int*", &pDisposition := 0, "HRESULT")
+        return pDisposition
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pstrDescription 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certpol/nf-certpol-icertpolicy-getdescription
      */
-    GetDescription(pstrDescription) {
+    GetDescription() {
+        pstrDescription := BSTR()
         result := ComCall(9, this, "ptr", pstrDescription, "HRESULT")
-        return result
+        return pstrDescription
     }
 
     /**

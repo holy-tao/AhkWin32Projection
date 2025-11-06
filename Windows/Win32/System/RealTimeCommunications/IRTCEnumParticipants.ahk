@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRTCParticipant.ahk
+#Include .\IRTCEnumParticipants.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -31,15 +33,14 @@ class IRTCEnumParticipants extends IUnknown{
     /**
      * 
      * @param {Integer} celt 
-     * @param {Pointer<IRTCParticipant>} ppElements 
      * @param {Pointer<Integer>} pceltFetched 
-     * @returns {HRESULT} 
+     * @returns {IRTCParticipant} 
      */
-    Next(celt, ppElements, pceltFetched) {
+    Next(celt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, "ptr*", ppElements, pceltFetchedMarshal, pceltFetched, "HRESULT")
-        return result
+        result := ComCall(3, this, "uint", celt, "ptr*", &ppElements := 0, pceltFetchedMarshal, pceltFetched, "HRESULT")
+        return IRTCParticipant(ppElements)
     }
 
     /**
@@ -63,11 +64,10 @@ class IRTCEnumParticipants extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IRTCEnumParticipants>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IRTCEnumParticipants} 
      */
-    Clone(ppEnum) {
-        result := ComCall(6, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IRTCEnumParticipants(ppEnum)
     }
 }

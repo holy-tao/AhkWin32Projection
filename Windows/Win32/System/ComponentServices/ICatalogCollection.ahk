@@ -2,7 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Com\IUnknown.ahk
 #Include ..\Com\IDispatch.ahk
+#Include ..\Variant\VARIANT.ahk
 
 /**
  * Represents any collection in the COM+ catalog. ICatalogCollection enables you to enumerate, add, remove, and retrieve items in a collection and to access related collections.
@@ -33,38 +35,33 @@ class ICatalogCollection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppEnumVariant 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icatalogcollection-get__newenum
      */
-    get__NewEnum(ppEnumVariant) {
-        result := ComCall(7, this, "ptr*", ppEnumVariant, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(7, this, "ptr*", &ppEnumVariant := 0, "HRESULT")
+        return IUnknown(ppEnumVariant)
     }
 
     /**
      * 
      * @param {Integer} lIndex 
-     * @param {Pointer<IDispatch>} ppCatalogObject 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icatalogcollection-get_item
      */
-    get_Item(lIndex, ppCatalogObject) {
-        result := ComCall(8, this, "int", lIndex, "ptr*", ppCatalogObject, "HRESULT")
-        return result
+    get_Item(lIndex) {
+        result := ComCall(8, this, "int", lIndex, "ptr*", &ppCatalogObject := 0, "HRESULT")
+        return IDispatch(ppCatalogObject)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plObjectCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icatalogcollection-get_count
      */
-    get_Count(plObjectCount) {
-        plObjectCountMarshal := plObjectCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, plObjectCountMarshal, plObjectCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(9, this, "int*", &plObjectCount := 0, "HRESULT")
+        return plObjectCount
     }
 
     /**
@@ -80,13 +77,12 @@ class ICatalogCollection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppCatalogObject 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icatalogcollection-add
      */
-    Add(ppCatalogObject) {
-        result := ComCall(11, this, "ptr*", ppCatalogObject, "HRESULT")
-        return result
+    Add() {
+        result := ComCall(11, this, "ptr*", &ppCatalogObject := 0, "HRESULT")
+        return IDispatch(ppCatalogObject)
     }
 
     /**
@@ -101,100 +97,87 @@ class ICatalogCollection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcChanges 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icatalogcollection-savechanges
      */
-    SaveChanges(pcChanges) {
-        pcChangesMarshal := pcChanges is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, pcChangesMarshal, pcChanges, "HRESULT")
-        return result
+    SaveChanges() {
+        result := ComCall(13, this, "int*", &pcChanges := 0, "HRESULT")
+        return pcChanges
     }
 
     /**
      * 
      * @param {BSTR} bstrCollName 
      * @param {VARIANT} varObjectKey 
-     * @param {Pointer<IDispatch>} ppCatalogCollection 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icatalogcollection-getcollection
      */
-    GetCollection(bstrCollName, varObjectKey, ppCatalogCollection) {
+    GetCollection(bstrCollName, varObjectKey) {
         bstrCollName := bstrCollName is String ? BSTR.Alloc(bstrCollName).Value : bstrCollName
 
-        result := ComCall(14, this, "ptr", bstrCollName, "ptr", varObjectKey, "ptr*", ppCatalogCollection, "HRESULT")
-        return result
+        result := ComCall(14, this, "ptr", bstrCollName, "ptr", varObjectKey, "ptr*", &ppCatalogCollection := 0, "HRESULT")
+        return IDispatch(ppCatalogCollection)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pVarNamel 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icatalogcollection-get_name
      */
-    get_Name(pVarNamel) {
+    get_Name() {
+        pVarNamel := VARIANT()
         result := ComCall(15, this, "ptr", pVarNamel, "HRESULT")
-        return result
+        return pVarNamel
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pVarBool 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icatalogcollection-get_addenabled
      */
-    get_AddEnabled(pVarBool) {
-        result := ComCall(16, this, "ptr", pVarBool, "HRESULT")
-        return result
+    get_AddEnabled() {
+        result := ComCall(16, this, "short*", &pVarBool := 0, "HRESULT")
+        return pVarBool
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pVarBool 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icatalogcollection-get_removeenabled
      */
-    get_RemoveEnabled(pVarBool) {
-        result := ComCall(17, this, "ptr", pVarBool, "HRESULT")
-        return result
+    get_RemoveEnabled() {
+        result := ComCall(17, this, "short*", &pVarBool := 0, "HRESULT")
+        return pVarBool
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppIDispatch 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icatalogcollection-getutilinterface
      */
-    GetUtilInterface(ppIDispatch) {
-        result := ComCall(18, this, "ptr*", ppIDispatch, "HRESULT")
-        return result
+    GetUtilInterface() {
+        result := ComCall(18, this, "ptr*", &ppIDispatch := 0, "HRESULT")
+        return IDispatch(ppIDispatch)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plMajorVersion 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icatalogcollection-get_datastoremajorversion
      */
-    get_DataStoreMajorVersion(plMajorVersion) {
-        plMajorVersionMarshal := plMajorVersion is VarRef ? "int*" : "ptr"
-
-        result := ComCall(19, this, plMajorVersionMarshal, plMajorVersion, "HRESULT")
-        return result
+    get_DataStoreMajorVersion() {
+        result := ComCall(19, this, "int*", &plMajorVersion := 0, "HRESULT")
+        return plMajorVersion
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plMinorVersionl 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/comadmin/nf-comadmin-icatalogcollection-get_datastoreminorversion
      */
-    get_DataStoreMinorVersion(plMinorVersionl) {
-        plMinorVersionlMarshal := plMinorVersionl is VarRef ? "int*" : "ptr"
-
-        result := ComCall(20, this, plMinorVersionlMarshal, plMinorVersionl, "HRESULT")
-        return result
+    get_DataStoreMinorVersion() {
+        result := ComCall(20, this, "int*", &plMinorVersionl := 0, "HRESULT")
+        return plMinorVersionl
     }
 
     /**

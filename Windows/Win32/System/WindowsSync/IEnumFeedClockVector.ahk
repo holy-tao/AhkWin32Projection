@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IFeedClockVectorElement.ahk
+#Include .\IEnumFeedClockVector.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -33,16 +35,15 @@ class IEnumFeedClockVector extends IUnknown{
     /**
      * 
      * @param {Integer} cClockVectorElements 
-     * @param {Pointer<IFeedClockVectorElement>} ppiClockVectorElements 
      * @param {Pointer<Integer>} pcFetched 
-     * @returns {HRESULT} 
+     * @returns {IFeedClockVectorElement} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumfeedclockvector-next
      */
-    Next(cClockVectorElements, ppiClockVectorElements, pcFetched) {
+    Next(cClockVectorElements, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cClockVectorElements, "ptr*", ppiClockVectorElements, pcFetchedMarshal, pcFetched, "HRESULT")
-        return result
+        result := ComCall(3, this, "uint", cClockVectorElements, "ptr*", &ppiClockVectorElements := 0, pcFetchedMarshal, pcFetched, "HRESULT")
+        return IFeedClockVectorElement(ppiClockVectorElements)
     }
 
     /**
@@ -68,12 +69,11 @@ class IEnumFeedClockVector extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumFeedClockVector>} ppiEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumFeedClockVector} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumfeedclockvector-clone
      */
-    Clone(ppiEnum) {
-        result := ComCall(6, this, "ptr*", ppiEnum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppiEnum := 0, "HRESULT")
+        return IEnumFeedClockVector(ppiEnum)
     }
 }

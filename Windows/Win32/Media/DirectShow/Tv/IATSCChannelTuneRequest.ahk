@@ -65,15 +65,12 @@ class IATSCChannelTuneRequest extends IChannelTuneRequest{
 
     /**
      * 
-     * @param {Pointer<Integer>} MinorChannel 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatscchanneltunerequest-get_minorchannel
      */
-    get_MinorChannel(MinorChannel) {
-        MinorChannelMarshal := MinorChannel is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, MinorChannelMarshal, MinorChannel, "HRESULT")
-        return result
+    get_MinorChannel() {
+        result := ComCall(14, this, "int*", &MinorChannel := 0, "HRESULT")
+        return MinorChannel
     }
 
     /**

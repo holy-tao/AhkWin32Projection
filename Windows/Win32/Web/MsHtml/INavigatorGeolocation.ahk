@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWebGeolocation.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,11 +31,10 @@ class INavigatorGeolocation extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IWebGeolocation>} p 
-     * @returns {HRESULT} 
+     * @returns {IWebGeolocation} 
      */
-    get_geolocation(p) {
-        result := ComCall(7, this, "ptr*", p, "HRESULT")
-        return result
+    get_geolocation() {
+        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        return IWebGeolocation(p)
     }
 }

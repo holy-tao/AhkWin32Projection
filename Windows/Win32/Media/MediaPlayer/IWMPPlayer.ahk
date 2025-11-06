@@ -38,7 +38,9 @@ class IWMPPlayer extends IWMPCore{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayer-get_enabled
      */
     get_enabled(pbEnabled) {
-        result := ComCall(28, this, "ptr", pbEnabled, "HRESULT")
+        pbEnabledMarshal := pbEnabled is VarRef ? "short*" : "ptr"
+
+        result := ComCall(28, this, pbEnabledMarshal, pbEnabled, "HRESULT")
         return result
     }
 
@@ -60,7 +62,9 @@ class IWMPPlayer extends IWMPCore{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayer-get_fullscreen
      */
     get_fullScreen(pbFullScreen) {
-        result := ComCall(30, this, "ptr", pbFullScreen, "HRESULT")
+        pbFullScreenMarshal := pbFullScreen is VarRef ? "short*" : "ptr"
+
+        result := ComCall(30, this, pbFullScreenMarshal, pbFullScreen, "HRESULT")
         return result
     }
 
@@ -82,7 +86,9 @@ class IWMPPlayer extends IWMPCore{
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpplayer-get_enablecontextmenu
      */
     get_enableContextMenu(pbEnableContextMenu) {
-        result := ComCall(32, this, "ptr", pbEnableContextMenu, "HRESULT")
+        pbEnableContextMenuMarshal := pbEnableContextMenu is VarRef ? "short*" : "ptr"
+
+        result := ComCall(32, this, pbEnableContextMenuMarshal, pbEnableContextMenu, "HRESULT")
         return result
     }
 

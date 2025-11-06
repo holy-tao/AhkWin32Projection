@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D2D1_POINT_DESCRIPTION.ahk
 #Include .\ID2D1PathGeometry.ahk
 
 /**
@@ -41,12 +42,12 @@ class ID2D1PathGeometry1 extends ID2D1PathGeometry{
      * @param {Integer} startSegment 
      * @param {Pointer<D2D_MATRIX_3X2_F>} worldTransform 
      * @param {Float} flatteningTolerance 
-     * @param {Pointer<D2D1_POINT_DESCRIPTION>} pointDescription 
-     * @returns {HRESULT} 
+     * @returns {D2D1_POINT_DESCRIPTION} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1pathgeometry1-computepointandsegmentatlength(float_uint32_constd2d1_matrix_3x2_f__float_d2d1_point_description)
      */
-    ComputePointAndSegmentAtLength(length, startSegment, worldTransform, flatteningTolerance, pointDescription) {
+    ComputePointAndSegmentAtLength(length, startSegment, worldTransform, flatteningTolerance) {
+        pointDescription := D2D1_POINT_DESCRIPTION()
         result := ComCall(21, this, "float", length, "uint", startSegment, "ptr", worldTransform, "float", flatteningTolerance, "ptr", pointDescription, "HRESULT")
-        return result
+        return pointDescription
     }
 }

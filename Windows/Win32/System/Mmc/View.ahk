@@ -2,7 +2,13 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\Node.ahk
+#Include .\Nodes.ahk
 #Include ..\Com\IDispatch.ahk
+#Include .\Document.ahk
+#Include .\ContextMenu.ahk
+#Include .\Frame.ahk
+#Include .\Columns.ahk
 
 /**
  * 
@@ -39,12 +45,11 @@ class View extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Node>} Node 
-     * @returns {HRESULT} 
+     * @returns {Node} 
      */
-    get_ActiveScopeNode(Node) {
-        result := ComCall(7, this, "ptr*", Node, "HRESULT")
-        return result
+    get_ActiveScopeNode() {
+        result := ComCall(7, this, "ptr*", &Node := 0, "HRESULT")
+        return Node(Node)
     }
 
     /**
@@ -59,64 +64,58 @@ class View extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Nodes>} Nodes 
-     * @returns {HRESULT} 
+     * @returns {Nodes} 
      */
-    get_Selection(Nodes) {
-        result := ComCall(9, this, "ptr*", Nodes, "HRESULT")
-        return result
+    get_Selection() {
+        result := ComCall(9, this, "ptr*", &Nodes := 0, "HRESULT")
+        return Nodes(Nodes)
     }
 
     /**
      * 
-     * @param {Pointer<Nodes>} Nodes 
-     * @returns {HRESULT} 
+     * @returns {Nodes} 
      */
-    get_ListItems(Nodes) {
-        result := ComCall(10, this, "ptr*", Nodes, "HRESULT")
-        return result
+    get_ListItems() {
+        result := ComCall(10, this, "ptr*", &Nodes := 0, "HRESULT")
+        return Nodes(Nodes)
     }
 
     /**
      * 
      * @param {VARIANT} ScopeNode 
-     * @param {Pointer<IDispatch>} ScopeNodeObject 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    SnapinScopeObject(ScopeNode, ScopeNodeObject) {
-        result := ComCall(11, this, "ptr", ScopeNode, "ptr*", ScopeNodeObject, "HRESULT")
-        return result
+    SnapinScopeObject(ScopeNode) {
+        result := ComCall(11, this, "ptr", ScopeNode, "ptr*", &ScopeNodeObject := 0, "HRESULT")
+        return IDispatch(ScopeNodeObject)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} SelectionObject 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    SnapinSelectionObject(SelectionObject) {
-        result := ComCall(12, this, "ptr*", SelectionObject, "HRESULT")
-        return result
+    SnapinSelectionObject() {
+        result := ComCall(12, this, "ptr*", &SelectionObject := 0, "HRESULT")
+        return IDispatch(SelectionObject)
     }
 
     /**
      * 
      * @param {View} View 
-     * @param {Pointer<VARIANT_BOOL>} TheSame 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    Is(View, TheSame) {
-        result := ComCall(13, this, "ptr", View, "ptr", TheSame, "HRESULT")
-        return result
+    Is(View) {
+        result := ComCall(13, this, "ptr", View, "short*", &TheSame := 0, "HRESULT")
+        return TheSame
     }
 
     /**
      * 
-     * @param {Pointer<Document>} Document 
-     * @returns {HRESULT} 
+     * @returns {Document} 
      */
-    get_Document(Document) {
-        result := ComCall(14, this, "ptr*", Document, "HRESULT")
-        return result
+    get_Document() {
+        result := ComCall(14, this, "ptr*", &Document := 0, "HRESULT")
+        return Document(Document)
     }
 
     /**
@@ -151,12 +150,11 @@ class View extends IDispatch{
     /**
      * 
      * @param {Node} Node 
-     * @param {Pointer<BOOL>} IsSelected 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsSelected(Node, IsSelected) {
-        result := ComCall(18, this, "ptr", Node, "ptr", IsSelected, "HRESULT")
-        return result
+    IsSelected(Node) {
+        result := ComCall(18, this, "ptr", Node, "int*", &IsSelected := 0, "HRESULT")
+        return IsSelected
     }
 
     /**
@@ -244,22 +242,20 @@ class View extends IDispatch{
     /**
      * 
      * @param {VARIANT} ScopeNode 
-     * @param {Pointer<ContextMenu>} ContextMenu 
-     * @returns {HRESULT} 
+     * @returns {ContextMenu} 
      */
-    get_ScopeNodeContextMenu(ScopeNode, ContextMenu) {
-        result := ComCall(27, this, "ptr", ScopeNode, "ptr*", ContextMenu, "HRESULT")
-        return result
+    get_ScopeNodeContextMenu(ScopeNode) {
+        result := ComCall(27, this, "ptr", ScopeNode, "ptr*", &ContextMenu := 0, "HRESULT")
+        return ContextMenu(ContextMenu)
     }
 
     /**
      * 
-     * @param {Pointer<ContextMenu>} ContextMenu 
-     * @returns {HRESULT} 
+     * @returns {ContextMenu} 
      */
-    get_SelectionContextMenu(ContextMenu) {
-        result := ComCall(28, this, "ptr*", ContextMenu, "HRESULT")
-        return result
+    get_SelectionContextMenu() {
+        result := ComCall(28, this, "ptr*", &ContextMenu := 0, "HRESULT")
+        return ContextMenu(ContextMenu)
     }
 
     /**
@@ -326,12 +322,11 @@ class View extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Frame>} Frame 
-     * @returns {HRESULT} 
+     * @returns {Frame} 
      */
-    get_Frame(Frame) {
-        result := ComCall(34, this, "ptr*", Frame, "HRESULT")
-        return result
+    get_Frame() {
+        result := ComCall(34, this, "ptr*", &Frame := 0, "HRESULT")
+        return Frame(Frame)
     }
 
     /**
@@ -346,12 +341,11 @@ class View extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BOOL>} Visible 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_ScopeTreeVisible(Visible) {
-        result := ComCall(36, this, "ptr", Visible, "HRESULT")
-        return result
+    get_ScopeTreeVisible() {
+        result := ComCall(36, this, "int*", &Visible := 0, "HRESULT")
+        return Visible
     }
 
     /**
@@ -396,12 +390,12 @@ class View extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} Memento 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Memento(Memento) {
+    get_Memento() {
+        Memento := BSTR()
         result := ComCall(41, this, "ptr", Memento, "HRESULT")
-        return result
+        return Memento
     }
 
     /**
@@ -418,24 +412,23 @@ class View extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Columns>} Columns 
-     * @returns {HRESULT} 
+     * @returns {Columns} 
      */
-    get_Columns(Columns) {
-        result := ComCall(43, this, "ptr*", Columns, "HRESULT")
-        return result
+    get_Columns() {
+        result := ComCall(43, this, "ptr*", &Columns := 0, "HRESULT")
+        return Columns(Columns)
     }
 
     /**
      * 
      * @param {Node} Node 
      * @param {Integer} Column 
-     * @param {Pointer<BSTR>} CellContents 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_CellContents(Node, Column, CellContents) {
+    get_CellContents(Node, Column) {
+        CellContents := BSTR()
         result := ComCall(44, this, "ptr", Node, "int", Column, "ptr", CellContents, "HRESULT")
-        return result
+        return CellContents
     }
 
     /**
@@ -453,14 +446,11 @@ class View extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} Mode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ListViewMode(Mode) {
-        ModeMarshal := Mode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(46, this, ModeMarshal, Mode, "HRESULT")
-        return result
+    get_ListViewMode() {
+        result := ComCall(46, this, "int*", &Mode := 0, "HRESULT")
+        return Mode
     }
 
     /**
@@ -475,11 +465,10 @@ class View extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} Control 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_ControlObject(Control) {
-        result := ComCall(48, this, "ptr*", Control, "HRESULT")
-        return result
+    get_ControlObject() {
+        result := ComCall(48, this, "ptr*", &Control := 0, "HRESULT")
+        return IDispatch(Control)
     }
 }

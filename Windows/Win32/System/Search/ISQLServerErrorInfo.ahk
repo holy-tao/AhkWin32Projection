@@ -31,45 +31,13 @@ class ISQLServerErrorInfo extends IUnknown{
     /**
      * Obtains the error information pointer set by the previous call to SetErrorInfo in the current logical thread.
      * @param {Pointer<Pointer<SSERRORINFO>>} ppErrorInfo 
-     * @param {Pointer<Pointer<Integer>>} ppStringsBuffer 
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_FALSE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * There was no error object to return.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Pointer<Integer>} 
      * @see https://docs.microsoft.com/windows/win32/api//oleauto/nf-oleauto-geterrorinfo
      */
-    GetErrorInfo(ppErrorInfo, ppStringsBuffer) {
+    GetErrorInfo(ppErrorInfo) {
         ppErrorInfoMarshal := ppErrorInfo is VarRef ? "ptr*" : "ptr"
-        ppStringsBufferMarshal := ppStringsBuffer is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, ppErrorInfoMarshal, ppErrorInfo, ppStringsBufferMarshal, ppStringsBuffer, "HRESULT")
-        return result
+        result := ComCall(3, this, ppErrorInfoMarshal, ppErrorInfo, "ptr*", &ppStringsBuffer := 0, "HRESULT")
+        return ppStringsBuffer
     }
 }

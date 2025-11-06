@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IEnumGUID.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IEnumTfLanguageProfiles.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -94,13 +97,12 @@ class ITfInputProcessorProfiles extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumGUID>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumGUID} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofiles-enuminputprocessorinfo
      */
-    EnumInputProcessorInfo(ppEnum) {
-        result := ComCall(7, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumInputProcessorInfo() {
+        result := ComCall(7, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumGUID(ppEnum)
     }
 
     /**
@@ -163,26 +165,23 @@ class ITfInputProcessorProfiles extends IUnknown{
      * @param {Pointer<Guid>} rclsid 
      * @param {Integer} langid 
      * @param {Pointer<Guid>} guidProfile 
-     * @param {Pointer<BSTR>} pbstrProfile 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofiles-getlanguageprofiledescription
      */
-    GetLanguageProfileDescription(rclsid, langid, guidProfile, pbstrProfile) {
+    GetLanguageProfileDescription(rclsid, langid, guidProfile) {
+        pbstrProfile := BSTR()
         result := ComCall(12, this, "ptr", rclsid, "ushort", langid, "ptr", guidProfile, "ptr", pbstrProfile, "HRESULT")
-        return result
+        return pbstrProfile
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plangid 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofiles-getcurrentlanguage
      */
-    GetCurrentLanguage(plangid) {
-        plangidMarshal := plangid is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(13, this, plangidMarshal, plangid, "HRESULT")
-        return result
+    GetCurrentLanguage() {
+        result := ComCall(13, this, "ushort*", &plangid := 0, "HRESULT")
+        return plangid
     }
 
     /**
@@ -214,13 +213,12 @@ class ITfInputProcessorProfiles extends IUnknown{
     /**
      * 
      * @param {Integer} langid 
-     * @param {Pointer<IEnumTfLanguageProfiles>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumTfLanguageProfiles} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofiles-enumlanguageprofiles
      */
-    EnumLanguageProfiles(langid, ppEnum) {
-        result := ComCall(16, this, "ushort", langid, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumLanguageProfiles(langid) {
+        result := ComCall(16, this, "ushort", langid, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumTfLanguageProfiles(ppEnum)
     }
 
     /**
@@ -242,13 +240,12 @@ class ITfInputProcessorProfiles extends IUnknown{
      * @param {Pointer<Guid>} rclsid 
      * @param {Integer} langid 
      * @param {Pointer<Guid>} guidProfile 
-     * @param {Pointer<BOOL>} pfEnable 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofiles-isenabledlanguageprofile
      */
-    IsEnabledLanguageProfile(rclsid, langid, guidProfile, pfEnable) {
-        result := ComCall(18, this, "ptr", rclsid, "ushort", langid, "ptr", guidProfile, "ptr", pfEnable, "HRESULT")
-        return result
+    IsEnabledLanguageProfile(rclsid, langid, guidProfile) {
+        result := ComCall(18, this, "ptr", rclsid, "ushort", langid, "ptr", guidProfile, "int*", &pfEnable := 0, "HRESULT")
+        return pfEnable
     }
 
     /**

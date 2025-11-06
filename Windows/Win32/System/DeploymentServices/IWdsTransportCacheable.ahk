@@ -38,13 +38,12 @@ class IWdsTransportCacheable extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbDirty 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportcacheable-get_dirty
      */
-    get_Dirty(pbDirty) {
-        result := ComCall(7, this, "ptr", pbDirty, "HRESULT")
-        return result
+    get_Dirty() {
+        result := ComCall(7, this, "short*", &pbDirty := 0, "HRESULT")
+        return pbDirty
     }
 
     /**

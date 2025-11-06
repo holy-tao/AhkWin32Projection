@@ -31,13 +31,10 @@ class IDebugHostModuleSignature extends IUnknown{
     /**
      * 
      * @param {IDebugHostModule} pModule 
-     * @param {Pointer<Boolean>} isMatch 
-     * @returns {HRESULT} 
+     * @returns {Boolean} 
      */
-    IsMatch(pModule, isMatch) {
-        isMatchMarshal := isMatch is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pModule, isMatchMarshal, isMatch, "HRESULT")
-        return result
+    IsMatch(pModule) {
+        result := ComCall(3, this, "ptr", pModule, "int*", &isMatch := 0, "HRESULT")
+        return isMatch
     }
 }

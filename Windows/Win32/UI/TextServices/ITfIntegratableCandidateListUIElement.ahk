@@ -54,39 +54,34 @@ class ITfIntegratableCandidateListUIElement extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} ptfSelectionStyle 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itfintegratablecandidatelistuielement-getselectionstyle
      */
-    GetSelectionStyle(ptfSelectionStyle) {
-        ptfSelectionStyleMarshal := ptfSelectionStyle is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, ptfSelectionStyleMarshal, ptfSelectionStyle, "HRESULT")
-        return result
+    GetSelectionStyle() {
+        result := ComCall(4, this, "int*", &ptfSelectionStyle := 0, "HRESULT")
+        return ptfSelectionStyle
     }
 
     /**
      * 
      * @param {WPARAM} wParam 
      * @param {LPARAM} lParam 
-     * @param {Pointer<BOOL>} pfEaten 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itfintegratablecandidatelistuielement-onkeydown
      */
-    OnKeyDown(wParam, lParam, pfEaten) {
-        result := ComCall(5, this, "ptr", wParam, "ptr", lParam, "ptr", pfEaten, "HRESULT")
-        return result
+    OnKeyDown(wParam, lParam) {
+        result := ComCall(5, this, "ptr", wParam, "ptr", lParam, "int*", &pfEaten := 0, "HRESULT")
+        return pfEaten
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfShow 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itfintegratablecandidatelistuielement-showcandidatenumbers
      */
-    ShowCandidateNumbers(pfShow) {
-        result := ComCall(6, this, "ptr", pfShow, "HRESULT")
-        return result
+    ShowCandidateNumbers() {
+        result := ComCall(6, this, "int*", &pfShow := 0, "HRESULT")
+        return pfShow
     }
 
     /**

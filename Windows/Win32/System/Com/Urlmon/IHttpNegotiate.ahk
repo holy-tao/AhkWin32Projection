@@ -33,15 +33,14 @@ class IHttpNegotiate extends IUnknown{
      * @param {PWSTR} szURL 
      * @param {PWSTR} szHeaders 
      * @param {Integer} dwReserved 
-     * @param {Pointer<PWSTR>} pszAdditionalHeaders 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    BeginningTransaction(szURL, szHeaders, dwReserved, pszAdditionalHeaders) {
+    BeginningTransaction(szURL, szHeaders, dwReserved) {
         szURL := szURL is String ? StrPtr(szURL) : szURL
         szHeaders := szHeaders is String ? StrPtr(szHeaders) : szHeaders
 
-        result := ComCall(3, this, "ptr", szURL, "ptr", szHeaders, "uint", dwReserved, "ptr", pszAdditionalHeaders, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", szURL, "ptr", szHeaders, "uint", dwReserved, "ptr*", &pszAdditionalHeaders := 0, "HRESULT")
+        return pszAdditionalHeaders
     }
 
     /**
@@ -49,14 +48,13 @@ class IHttpNegotiate extends IUnknown{
      * @param {Integer} dwResponseCode 
      * @param {PWSTR} szResponseHeaders 
      * @param {PWSTR} szRequestHeaders 
-     * @param {Pointer<PWSTR>} pszAdditionalRequestHeaders 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    OnResponse(dwResponseCode, szResponseHeaders, szRequestHeaders, pszAdditionalRequestHeaders) {
+    OnResponse(dwResponseCode, szResponseHeaders, szRequestHeaders) {
         szResponseHeaders := szResponseHeaders is String ? StrPtr(szResponseHeaders) : szResponseHeaders
         szRequestHeaders := szRequestHeaders is String ? StrPtr(szRequestHeaders) : szRequestHeaders
 
-        result := ComCall(4, this, "uint", dwResponseCode, "ptr", szResponseHeaders, "ptr", szRequestHeaders, "ptr", pszAdditionalRequestHeaders, "HRESULT")
-        return result
+        result := ComCall(4, this, "uint", dwResponseCode, "ptr", szResponseHeaders, "ptr", szRequestHeaders, "ptr*", &pszAdditionalRequestHeaders := 0, "HRESULT")
+        return pszAdditionalRequestHeaders
     }
 }

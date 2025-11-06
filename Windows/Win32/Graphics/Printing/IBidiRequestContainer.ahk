@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IEnumUnknown.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -46,23 +47,19 @@ class IBidiRequestContainer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumUnknown>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IEnumUnknown} 
      */
-    GetEnumObject(ppenum) {
-        result := ComCall(4, this, "ptr*", ppenum, "HRESULT")
-        return result
+    GetEnumObject() {
+        result := ComCall(4, this, "ptr*", &ppenum := 0, "HRESULT")
+        return IEnumUnknown(ppenum)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} puCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetRequestCount(puCount) {
-        puCountMarshal := puCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, puCountMarshal, puCount, "HRESULT")
-        return result
+    GetRequestCount() {
+        result := ComCall(5, this, "uint*", &puCount := 0, "HRESULT")
+        return puCount
     }
 }

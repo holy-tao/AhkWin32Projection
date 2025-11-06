@@ -5201,10 +5201,11 @@ class WiFi {
         hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
         strProfileName := strProfileName is String ? StrPtr(strProfileName) : strProfileName
 
+        pstrProfileXmlMarshal := pstrProfileXml is VarRef ? "ptr*" : "ptr"
         pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
         pdwGrantedAccessMarshal := pdwGrantedAccess is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("wlanapi.dll\WlanGetProfile", "ptr", hClientHandle, "ptr", pInterfaceGuid, "ptr", strProfileName, "ptr", pReserved, "ptr", pstrProfileXml, pdwFlagsMarshal, pdwFlags, pdwGrantedAccessMarshal, pdwGrantedAccess, "uint")
+        result := DllCall("wlanapi.dll\WlanGetProfile", "ptr", hClientHandle, "ptr", pInterfaceGuid, "ptr", strProfileName, "ptr", pReserved, pstrProfileXmlMarshal, pstrProfileXml, pdwFlagsMarshal, pdwFlags, pdwGrantedAccessMarshal, pdwGrantedAccess, "uint")
         return result
     }
 
@@ -5997,7 +5998,9 @@ class WiFi {
 
         hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
 
-        result := DllCall("wlanapi.dll\WlanSetProfileList", "ptr", hClientHandle, "ptr", pInterfaceGuid, "uint", dwItems, "ptr", strProfileNames, "ptr", pReserved, "uint")
+        strProfileNamesMarshal := strProfileNames is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("wlanapi.dll\WlanSetProfileList", "ptr", hClientHandle, "ptr", pInterfaceGuid, "uint", dwItems, strProfileNamesMarshal, strProfileNames, "ptr", pReserved, "uint")
         return result
     }
 
@@ -7132,9 +7135,10 @@ class WiFi {
         hClientHandle := hClientHandle is Win32Handle ? NumGet(hClientHandle, "ptr") : hClientHandle
 
         pValueTypeMarshal := pValueType is VarRef ? "int*" : "ptr"
+        pstrCurrentSDDLMarshal := pstrCurrentSDDL is VarRef ? "ptr*" : "ptr"
         pdwGrantedAccessMarshal := pdwGrantedAccess is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("wlanapi.dll\WlanGetSecuritySettings", "ptr", hClientHandle, "int", SecurableObject, pValueTypeMarshal, pValueType, "ptr", pstrCurrentSDDL, pdwGrantedAccessMarshal, pdwGrantedAccess, "uint")
+        result := DllCall("wlanapi.dll\WlanGetSecuritySettings", "ptr", hClientHandle, "int", SecurableObject, pValueTypeMarshal, pValueType, pstrCurrentSDDLMarshal, pstrCurrentSDDL, pdwGrantedAccessMarshal, pdwGrantedAccess, "uint")
         return result
     }
 
@@ -8314,9 +8318,11 @@ class WiFi {
 
         pdwKeyLengthMarshal := pdwKeyLength is VarRef ? "uint*" : "ptr"
         ppucKeyDataMarshal := ppucKeyData is VarRef ? "ptr*" : "ptr"
+        pbIsPassPhraseMarshal := pbIsPassPhrase is VarRef ? "int*" : "ptr"
+        pbPersistentMarshal := pbPersistent is VarRef ? "int*" : "ptr"
         pFailReasonMarshal := pFailReason is VarRef ? "int*" : "ptr"
 
-        result := DllCall("wlanapi.dll\WlanHostedNetworkQuerySecondaryKey", "ptr", hClientHandle, pdwKeyLengthMarshal, pdwKeyLength, ppucKeyDataMarshal, ppucKeyData, "ptr", pbIsPassPhrase, "ptr", pbPersistent, pFailReasonMarshal, pFailReason, "ptr", pvReserved, "uint")
+        result := DllCall("wlanapi.dll\WlanHostedNetworkQuerySecondaryKey", "ptr", hClientHandle, pdwKeyLengthMarshal, pdwKeyLength, ppucKeyDataMarshal, ppucKeyData, pbIsPassPhraseMarshal, pbIsPassPhrase, pbPersistentMarshal, pbPersistent, pFailReasonMarshal, pFailReason, "ptr", pvReserved, "uint")
         return result
     }
 

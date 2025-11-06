@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Graphics\DirectDraw\DDCAPS_DX7.ahk
+#Include ..\..\Graphics\DirectDraw\IDirectDraw.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,15 +34,12 @@ class IDirectDrawVideo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pSwitches 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/amvideo/nf-amvideo-idirectdrawvideo-getswitches
      */
-    GetSwitches(pSwitches) {
-        pSwitchesMarshal := pSwitches is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pSwitchesMarshal, pSwitches, "HRESULT")
-        return result
+    GetSwitches() {
+        result := ComCall(3, this, "uint*", &pSwitches := 0, "HRESULT")
+        return pSwitches
     }
 
     /**
@@ -56,24 +55,24 @@ class IDirectDrawVideo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<DDCAPS_DX7>} pCaps 
-     * @returns {HRESULT} 
+     * @returns {DDCAPS_DX7} 
      * @see https://learn.microsoft.com/windows/win32/api/amvideo/nf-amvideo-idirectdrawvideo-getcaps
      */
-    GetCaps(pCaps) {
+    GetCaps() {
+        pCaps := DDCAPS_DX7()
         result := ComCall(5, this, "ptr", pCaps, "HRESULT")
-        return result
+        return pCaps
     }
 
     /**
      * 
-     * @param {Pointer<DDCAPS_DX7>} pCaps 
-     * @returns {HRESULT} 
+     * @returns {DDCAPS_DX7} 
      * @see https://learn.microsoft.com/windows/win32/api/amvideo/nf-amvideo-idirectdrawvideo-getemulatedcaps
      */
-    GetEmulatedCaps(pCaps) {
+    GetEmulatedCaps() {
+        pCaps := DDCAPS_DX7()
         result := ComCall(6, this, "ptr", pCaps, "HRESULT")
-        return result
+        return pCaps
     }
 
     /**
@@ -115,26 +114,22 @@ class IDirectDrawVideo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDirectDraw>} ppDirectDraw 
-     * @returns {HRESULT} 
+     * @returns {IDirectDraw} 
      * @see https://learn.microsoft.com/windows/win32/api/amvideo/nf-amvideo-idirectdrawvideo-getdirectdraw
      */
-    GetDirectDraw(ppDirectDraw) {
-        result := ComCall(10, this, "ptr*", ppDirectDraw, "HRESULT")
-        return result
+    GetDirectDraw() {
+        result := ComCall(10, this, "ptr*", &ppDirectDraw := 0, "HRESULT")
+        return IDirectDraw(ppDirectDraw)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pSurfaceType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/amvideo/nf-amvideo-idirectdrawvideo-getsurfacetype
      */
-    GetSurfaceType(pSurfaceType) {
-        pSurfaceTypeMarshal := pSurfaceType is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, pSurfaceTypeMarshal, pSurfaceType, "HRESULT")
-        return result
+    GetSurfaceType() {
+        result := ComCall(11, this, "uint*", &pSurfaceType := 0, "HRESULT")
+        return pSurfaceType
     }
 
     /**
@@ -160,15 +155,12 @@ class IDirectDrawVideo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} UseScanLine 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/amvideo/nf-amvideo-idirectdrawvideo-canusescanline
      */
-    CanUseScanLine(UseScanLine) {
-        UseScanLineMarshal := UseScanLine is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, UseScanLineMarshal, UseScanLine, "HRESULT")
-        return result
+    CanUseScanLine() {
+        result := ComCall(14, this, "int*", &UseScanLine := 0, "HRESULT")
+        return UseScanLine
     }
 
     /**
@@ -184,15 +176,12 @@ class IDirectDrawVideo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} UseOverlayStretch 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/amvideo/nf-amvideo-idirectdrawvideo-canuseoverlaystretch
      */
-    CanUseOverlayStretch(UseOverlayStretch) {
-        UseOverlayStretchMarshal := UseOverlayStretch is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, UseOverlayStretchMarshal, UseOverlayStretch, "HRESULT")
-        return result
+    CanUseOverlayStretch() {
+        result := ComCall(16, this, "int*", &UseOverlayStretch := 0, "HRESULT")
+        return UseOverlayStretch
     }
 
     /**
@@ -208,14 +197,11 @@ class IDirectDrawVideo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} UseWhenFullScreen 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/amvideo/nf-amvideo-idirectdrawvideo-willusefullscreen
      */
-    WillUseFullScreen(UseWhenFullScreen) {
-        UseWhenFullScreenMarshal := UseWhenFullScreen is VarRef ? "int*" : "ptr"
-
-        result := ComCall(18, this, UseWhenFullScreenMarshal, UseWhenFullScreen, "HRESULT")
-        return result
+    WillUseFullScreen() {
+        result := ComCall(18, this, "int*", &UseWhenFullScreen := 0, "HRESULT")
+        return UseWhenFullScreen
     }
 }

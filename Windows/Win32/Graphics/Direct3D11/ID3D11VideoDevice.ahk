@@ -1,6 +1,16 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID3D11VideoDecoder.ahk
+#Include .\ID3D11VideoProcessor.ahk
+#Include .\ID3D11AuthenticatedChannel.ahk
+#Include .\ID3D11CryptoSession.ahk
+#Include .\ID3D11VideoDecoderOutputView.ahk
+#Include .\ID3D11VideoProcessorInputView.ahk
+#Include .\ID3D11VideoProcessorOutputView.ahk
+#Include .\ID3D11VideoProcessorEnumerator.ahk
+#Include .\D3D11_VIDEO_DECODER_CONFIG.ahk
+#Include .\D3D11_VIDEO_CONTENT_PROTECTION_CAPS.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -41,38 +51,35 @@ class ID3D11VideoDevice extends IUnknown{
      * 
      * @param {Pointer<D3D11_VIDEO_DECODER_DESC>} pVideoDesc 
      * @param {Pointer<D3D11_VIDEO_DECODER_CONFIG>} pConfig 
-     * @param {Pointer<ID3D11VideoDecoder>} ppDecoder 
-     * @returns {HRESULT} 
+     * @returns {ID3D11VideoDecoder} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-createvideodecoder
      */
-    CreateVideoDecoder(pVideoDesc, pConfig, ppDecoder) {
-        result := ComCall(3, this, "ptr", pVideoDesc, "ptr", pConfig, "ptr*", ppDecoder, "HRESULT")
-        return result
+    CreateVideoDecoder(pVideoDesc, pConfig) {
+        result := ComCall(3, this, "ptr", pVideoDesc, "ptr", pConfig, "ptr*", &ppDecoder := 0, "HRESULT")
+        return ID3D11VideoDecoder(ppDecoder)
     }
 
     /**
      * 
      * @param {ID3D11VideoProcessorEnumerator} pEnum 
      * @param {Integer} RateConversionIndex 
-     * @param {Pointer<ID3D11VideoProcessor>} ppVideoProcessor 
-     * @returns {HRESULT} 
+     * @returns {ID3D11VideoProcessor} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-createvideoprocessor
      */
-    CreateVideoProcessor(pEnum, RateConversionIndex, ppVideoProcessor) {
-        result := ComCall(4, this, "ptr", pEnum, "uint", RateConversionIndex, "ptr*", ppVideoProcessor, "HRESULT")
-        return result
+    CreateVideoProcessor(pEnum, RateConversionIndex) {
+        result := ComCall(4, this, "ptr", pEnum, "uint", RateConversionIndex, "ptr*", &ppVideoProcessor := 0, "HRESULT")
+        return ID3D11VideoProcessor(ppVideoProcessor)
     }
 
     /**
      * 
      * @param {Integer} ChannelType 
-     * @param {Pointer<ID3D11AuthenticatedChannel>} ppAuthenticatedChannel 
-     * @returns {HRESULT} 
+     * @returns {ID3D11AuthenticatedChannel} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-createauthenticatedchannel
      */
-    CreateAuthenticatedChannel(ChannelType, ppAuthenticatedChannel) {
-        result := ComCall(5, this, "int", ChannelType, "ptr*", ppAuthenticatedChannel, "HRESULT")
-        return result
+    CreateAuthenticatedChannel(ChannelType) {
+        result := ComCall(5, this, "int", ChannelType, "ptr*", &ppAuthenticatedChannel := 0, "HRESULT")
+        return ID3D11AuthenticatedChannel(ppAuthenticatedChannel)
     }
 
     /**
@@ -80,26 +87,24 @@ class ID3D11VideoDevice extends IUnknown{
      * @param {Pointer<Guid>} pCryptoType 
      * @param {Pointer<Guid>} pDecoderProfile 
      * @param {Pointer<Guid>} pKeyExchangeType 
-     * @param {Pointer<ID3D11CryptoSession>} ppCryptoSession 
-     * @returns {HRESULT} 
+     * @returns {ID3D11CryptoSession} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-createcryptosession
      */
-    CreateCryptoSession(pCryptoType, pDecoderProfile, pKeyExchangeType, ppCryptoSession) {
-        result := ComCall(6, this, "ptr", pCryptoType, "ptr", pDecoderProfile, "ptr", pKeyExchangeType, "ptr*", ppCryptoSession, "HRESULT")
-        return result
+    CreateCryptoSession(pCryptoType, pDecoderProfile, pKeyExchangeType) {
+        result := ComCall(6, this, "ptr", pCryptoType, "ptr", pDecoderProfile, "ptr", pKeyExchangeType, "ptr*", &ppCryptoSession := 0, "HRESULT")
+        return ID3D11CryptoSession(ppCryptoSession)
     }
 
     /**
      * 
      * @param {ID3D11Resource} pResource 
      * @param {Pointer<D3D11_VIDEO_DECODER_OUTPUT_VIEW_DESC>} pDesc 
-     * @param {Pointer<ID3D11VideoDecoderOutputView>} ppVDOVView 
-     * @returns {HRESULT} 
+     * @returns {ID3D11VideoDecoderOutputView} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-createvideodecoderoutputview
      */
-    CreateVideoDecoderOutputView(pResource, pDesc, ppVDOVView) {
-        result := ComCall(7, this, "ptr", pResource, "ptr", pDesc, "ptr*", ppVDOVView, "HRESULT")
-        return result
+    CreateVideoDecoderOutputView(pResource, pDesc) {
+        result := ComCall(7, this, "ptr", pResource, "ptr", pDesc, "ptr*", &ppVDOVView := 0, "HRESULT")
+        return ID3D11VideoDecoderOutputView(ppVDOVView)
     }
 
     /**
@@ -107,13 +112,12 @@ class ID3D11VideoDevice extends IUnknown{
      * @param {ID3D11Resource} pResource 
      * @param {ID3D11VideoProcessorEnumerator} pEnum 
      * @param {Pointer<D3D11_VIDEO_PROCESSOR_INPUT_VIEW_DESC>} pDesc 
-     * @param {Pointer<ID3D11VideoProcessorInputView>} ppVPIView 
-     * @returns {HRESULT} 
+     * @returns {ID3D11VideoProcessorInputView} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-createvideoprocessorinputview
      */
-    CreateVideoProcessorInputView(pResource, pEnum, pDesc, ppVPIView) {
-        result := ComCall(8, this, "ptr", pResource, "ptr", pEnum, "ptr", pDesc, "ptr*", ppVPIView, "HRESULT")
-        return result
+    CreateVideoProcessorInputView(pResource, pEnum, pDesc) {
+        result := ComCall(8, this, "ptr", pResource, "ptr", pEnum, "ptr", pDesc, "ptr*", &ppVPIView := 0, "HRESULT")
+        return ID3D11VideoProcessorInputView(ppVPIView)
     }
 
     /**
@@ -121,25 +125,23 @@ class ID3D11VideoDevice extends IUnknown{
      * @param {ID3D11Resource} pResource 
      * @param {ID3D11VideoProcessorEnumerator} pEnum 
      * @param {Pointer<D3D11_VIDEO_PROCESSOR_OUTPUT_VIEW_DESC>} pDesc 
-     * @param {Pointer<ID3D11VideoProcessorOutputView>} ppVPOView 
-     * @returns {HRESULT} 
+     * @returns {ID3D11VideoProcessorOutputView} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-createvideoprocessoroutputview
      */
-    CreateVideoProcessorOutputView(pResource, pEnum, pDesc, ppVPOView) {
-        result := ComCall(9, this, "ptr", pResource, "ptr", pEnum, "ptr", pDesc, "ptr*", ppVPOView, "HRESULT")
-        return result
+    CreateVideoProcessorOutputView(pResource, pEnum, pDesc) {
+        result := ComCall(9, this, "ptr", pResource, "ptr", pEnum, "ptr", pDesc, "ptr*", &ppVPOView := 0, "HRESULT")
+        return ID3D11VideoProcessorOutputView(ppVPOView)
     }
 
     /**
      * 
      * @param {Pointer<D3D11_VIDEO_PROCESSOR_CONTENT_DESC>} pDesc 
-     * @param {Pointer<ID3D11VideoProcessorEnumerator>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {ID3D11VideoProcessorEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-createvideoprocessorenumerator
      */
-    CreateVideoProcessorEnumerator(pDesc, ppEnum) {
-        result := ComCall(10, this, "ptr", pDesc, "ptr*", ppEnum, "HRESULT")
-        return result
+    CreateVideoProcessorEnumerator(pDesc) {
+        result := ComCall(10, this, "ptr", pDesc, "ptr*", &ppEnum := 0, "HRESULT")
+        return ID3D11VideoProcessorEnumerator(ppEnum)
     }
 
     /**
@@ -155,66 +157,62 @@ class ID3D11VideoDevice extends IUnknown{
     /**
      * 
      * @param {Integer} Index 
-     * @param {Pointer<Guid>} pDecoderProfile 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-getvideodecoderprofile
      */
-    GetVideoDecoderProfile(Index, pDecoderProfile) {
+    GetVideoDecoderProfile(Index) {
+        pDecoderProfile := Guid()
         result := ComCall(12, this, "uint", Index, "ptr", pDecoderProfile, "HRESULT")
-        return result
+        return pDecoderProfile
     }
 
     /**
      * 
      * @param {Pointer<Guid>} pDecoderProfile 
      * @param {Integer} Format 
-     * @param {Pointer<BOOL>} pSupported 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-checkvideodecoderformat
      */
-    CheckVideoDecoderFormat(pDecoderProfile, Format, pSupported) {
-        result := ComCall(13, this, "ptr", pDecoderProfile, "int", Format, "ptr", pSupported, "HRESULT")
-        return result
+    CheckVideoDecoderFormat(pDecoderProfile, Format) {
+        result := ComCall(13, this, "ptr", pDecoderProfile, "int", Format, "int*", &pSupported := 0, "HRESULT")
+        return pSupported
     }
 
     /**
      * 
      * @param {Pointer<D3D11_VIDEO_DECODER_DESC>} pDesc 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-getvideodecoderconfigcount
      */
-    GetVideoDecoderConfigCount(pDesc, pCount) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, "ptr", pDesc, pCountMarshal, pCount, "HRESULT")
-        return result
+    GetVideoDecoderConfigCount(pDesc) {
+        result := ComCall(14, this, "ptr", pDesc, "uint*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
      * 
      * @param {Pointer<D3D11_VIDEO_DECODER_DESC>} pDesc 
      * @param {Integer} Index 
-     * @param {Pointer<D3D11_VIDEO_DECODER_CONFIG>} pConfig 
-     * @returns {HRESULT} 
+     * @returns {D3D11_VIDEO_DECODER_CONFIG} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-getvideodecoderconfig
      */
-    GetVideoDecoderConfig(pDesc, Index, pConfig) {
+    GetVideoDecoderConfig(pDesc, Index) {
+        pConfig := D3D11_VIDEO_DECODER_CONFIG()
         result := ComCall(15, this, "ptr", pDesc, "uint", Index, "ptr", pConfig, "HRESULT")
-        return result
+        return pConfig
     }
 
     /**
      * 
      * @param {Pointer<Guid>} pCryptoType 
      * @param {Pointer<Guid>} pDecoderProfile 
-     * @param {Pointer<D3D11_VIDEO_CONTENT_PROTECTION_CAPS>} pCaps 
-     * @returns {HRESULT} 
+     * @returns {D3D11_VIDEO_CONTENT_PROTECTION_CAPS} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-getcontentprotectioncaps
      */
-    GetContentProtectionCaps(pCryptoType, pDecoderProfile, pCaps) {
+    GetContentProtectionCaps(pCryptoType, pDecoderProfile) {
+        pCaps := D3D11_VIDEO_CONTENT_PROTECTION_CAPS()
         result := ComCall(16, this, "ptr", pCryptoType, "ptr", pDecoderProfile, "ptr", pCaps, "HRESULT")
-        return result
+        return pCaps
     }
 
     /**
@@ -222,13 +220,13 @@ class ID3D11VideoDevice extends IUnknown{
      * @param {Pointer<Guid>} pCryptoType 
      * @param {Pointer<Guid>} pDecoderProfile 
      * @param {Integer} Index 
-     * @param {Pointer<Guid>} pKeyExchangeType 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11videodevice-checkcryptokeyexchange
      */
-    CheckCryptoKeyExchange(pCryptoType, pDecoderProfile, Index, pKeyExchangeType) {
+    CheckCryptoKeyExchange(pCryptoType, pDecoderProfile, Index) {
+        pKeyExchangeType := Guid()
         result := ComCall(17, this, "ptr", pCryptoType, "ptr", pDecoderProfile, "uint", Index, "ptr", pKeyExchangeType, "HRESULT")
-        return result
+        return pKeyExchangeType
     }
 
     /**

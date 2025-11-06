@@ -35,14 +35,11 @@ class ICreateWithTransactionEx extends IUnknown{
      * @param {ITransaction} pTransaction 
      * @param {Pointer<Guid>} rclsid 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} pObject 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icreatewithtransactionex-createinstance
      */
-    CreateInstance(pTransaction, rclsid, riid, pObject) {
-        pObjectMarshal := pObject is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pTransaction, "ptr", rclsid, "ptr", riid, pObjectMarshal, pObject, "HRESULT")
-        return result
+    CreateInstance(pTransaction, rclsid, riid) {
+        result := ComCall(3, this, "ptr", pTransaction, "ptr", rclsid, "ptr", riid, "ptr*", &pObject := 0, "HRESULT")
+        return pObject
     }
 }

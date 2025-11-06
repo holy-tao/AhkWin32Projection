@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -52,100 +53,89 @@ class ISdoMachine extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppDictionarySDO 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdomachine-getdictionarysdo
      */
-    GetDictionarySDO(ppDictionarySDO) {
-        result := ComCall(8, this, "ptr*", ppDictionarySDO, "HRESULT")
-        return result
+    GetDictionarySDO() {
+        result := ComCall(8, this, "ptr*", &ppDictionarySDO := 0, "HRESULT")
+        return IUnknown(ppDictionarySDO)
     }
 
     /**
      * 
      * @param {Integer} eDataStore 
      * @param {BSTR} bstrServiceName 
-     * @param {Pointer<IUnknown>} ppServiceSDO 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdomachine-getservicesdo
      */
-    GetServiceSDO(eDataStore, bstrServiceName, ppServiceSDO) {
+    GetServiceSDO(eDataStore, bstrServiceName) {
         bstrServiceName := bstrServiceName is String ? BSTR.Alloc(bstrServiceName).Value : bstrServiceName
 
-        result := ComCall(9, this, "int", eDataStore, "ptr", bstrServiceName, "ptr*", ppServiceSDO, "HRESULT")
-        return result
+        result := ComCall(9, this, "int", eDataStore, "ptr", bstrServiceName, "ptr*", &ppServiceSDO := 0, "HRESULT")
+        return IUnknown(ppServiceSDO)
     }
 
     /**
      * 
      * @param {Integer} eDataStore 
      * @param {BSTR} bstrUserName 
-     * @param {Pointer<IUnknown>} ppUserSDO 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdomachine-getusersdo
      */
-    GetUserSDO(eDataStore, bstrUserName, ppUserSDO) {
+    GetUserSDO(eDataStore, bstrUserName) {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
 
-        result := ComCall(10, this, "int", eDataStore, "ptr", bstrUserName, "ptr*", ppUserSDO, "HRESULT")
-        return result
+        result := ComCall(10, this, "int", eDataStore, "ptr", bstrUserName, "ptr*", &ppUserSDO := 0, "HRESULT")
+        return IUnknown(ppUserSDO)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} eOSType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdomachine-getostype
      */
-    GetOSType(eOSType) {
-        eOSTypeMarshal := eOSType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, eOSTypeMarshal, eOSType, "HRESULT")
-        return result
+    GetOSType() {
+        result := ComCall(11, this, "int*", &eOSType := 0, "HRESULT")
+        return eOSType
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} eDomainType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdomachine-getdomaintype
      */
-    GetDomainType(eDomainType) {
-        eDomainTypeMarshal := eDomainType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, eDomainTypeMarshal, eDomainType, "HRESULT")
-        return result
+    GetDomainType() {
+        result := ComCall(12, this, "int*", &eDomainType := 0, "HRESULT")
+        return eDomainType
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} boolDirectoryAvailable 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdomachine-isdirectoryavailable
      */
-    IsDirectoryAvailable(boolDirectoryAvailable) {
-        result := ComCall(13, this, "ptr", boolDirectoryAvailable, "HRESULT")
-        return result
+    IsDirectoryAvailable() {
+        result := ComCall(13, this, "short*", &boolDirectoryAvailable := 0, "HRESULT")
+        return boolDirectoryAvailable
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} bstrComputerName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdomachine-getattachedcomputer
      */
-    GetAttachedComputer(bstrComputerName) {
+    GetAttachedComputer() {
+        bstrComputerName := BSTR()
         result := ComCall(14, this, "ptr", bstrComputerName, "HRESULT")
-        return result
+        return bstrComputerName
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppSDOSchema 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    GetSDOSchema(ppSDOSchema) {
-        result := ComCall(15, this, "ptr*", ppSDOSchema, "HRESULT")
-        return result
+    GetSDOSchema() {
+        result := ComCall(15, this, "ptr*", &ppSDOSchema := 0, "HRESULT")
+        return IUnknown(ppSDOSchema)
     }
 }

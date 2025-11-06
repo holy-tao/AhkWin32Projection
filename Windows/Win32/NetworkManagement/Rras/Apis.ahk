@@ -4616,7 +4616,9 @@ class Rras {
     static RasGetEntryDialParamsA(param0, param1, param2) {
         param0 := param0 is String ? StrPtr(param0) : param0
 
-        result := DllCall("RASAPI32.dll\RasGetEntryDialParamsA", "ptr", param0, "ptr", param1, "ptr", param2, "uint")
+        param2Marshal := param2 is VarRef ? "int*" : "ptr"
+
+        result := DllCall("RASAPI32.dll\RasGetEntryDialParamsA", "ptr", param0, "ptr", param1, param2Marshal, param2, "uint")
         return result
     }
 
@@ -4674,7 +4676,9 @@ class Rras {
     static RasGetEntryDialParamsW(param0, param1, param2) {
         param0 := param0 is String ? StrPtr(param0) : param0
 
-        result := DllCall("RASAPI32.dll\RasGetEntryDialParamsW", "ptr", param0, "ptr", param1, "ptr", param2, "uint")
+        param2Marshal := param2 is VarRef ? "int*" : "ptr"
+
+        result := DllCall("RASAPI32.dll\RasGetEntryDialParamsW", "ptr", param0, "ptr", param1, param2Marshal, param2, "uint")
         return result
     }
 
@@ -6741,7 +6745,9 @@ class Rras {
      * @since windows5.0
      */
     static RasGetAutodialEnableA(param0, param1) {
-        result := DllCall("RASAPI32.dll\RasGetAutodialEnableA", "uint", param0, "ptr", param1, "uint")
+        param1Marshal := param1 is VarRef ? "int*" : "ptr"
+
+        result := DllCall("RASAPI32.dll\RasGetAutodialEnableA", "uint", param0, param1Marshal, param1, "uint")
         return result
     }
 
@@ -6756,7 +6762,9 @@ class Rras {
      * @since windows5.0
      */
     static RasGetAutodialEnableW(param0, param1) {
-        result := DllCall("RASAPI32.dll\RasGetAutodialEnableW", "uint", param0, "ptr", param1, "uint")
+        param1Marshal := param1 is VarRef ? "int*" : "ptr"
+
+        result := DllCall("RASAPI32.dll\RasGetAutodialEnableW", "uint", param0, param1Marshal, param1, "uint")
         return result
     }
 
@@ -9153,7 +9161,9 @@ class Rras {
     static MprAdminIsServiceInitialized(lpwsServerName, fIsServiceInitialized) {
         lpwsServerName := lpwsServerName is String ? StrPtr(lpwsServerName) : lpwsServerName
 
-        result := DllCall("MPRAPI.dll\MprAdminIsServiceInitialized", "ptr", lpwsServerName, "ptr", fIsServiceInitialized, "uint")
+        fIsServiceInitializedMarshal := fIsServiceInitialized is VarRef ? "int*" : "ptr"
+
+        result := DllCall("MPRAPI.dll\MprAdminIsServiceInitialized", "ptr", lpwsServerName, fIsServiceInitializedMarshal, fIsServiceInitialized, "uint")
         return result
     }
 
@@ -10897,7 +10907,9 @@ class Rras {
      * @since windowsserver2000
      */
     static MprAdminGetErrorString(dwError, lplpwsErrorString) {
-        result := DllCall("MPRAPI.dll\MprAdminGetErrorString", "uint", dwError, "ptr", lplpwsErrorString, "uint")
+        lplpwsErrorStringMarshal := lplpwsErrorString is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("MPRAPI.dll\MprAdminGetErrorString", "uint", dwError, lplpwsErrorStringMarshal, lplpwsErrorString, "uint")
         return result
     }
 
@@ -11249,7 +11261,9 @@ class Rras {
         pszDomain := pszDomain is String ? StrPtr(pszDomain) : pszDomain
         pszMachine := pszMachine is String ? StrPtr(pszMachine) : pszMachine
 
-        result := DllCall("MPRAPI.dll\MprAdminIsDomainRasServer", "ptr", pszDomain, "ptr", pszMachine, "ptr", pbIsRasServer, "uint")
+        pbIsRasServerMarshal := pbIsRasServer is VarRef ? "int*" : "ptr"
+
+        result := DllCall("MPRAPI.dll\MprAdminIsDomainRasServer", "ptr", pszDomain, "ptr", pszMachine, pbIsRasServerMarshal, pbIsRasServer, "uint")
         return result
     }
 
@@ -15561,8 +15575,9 @@ class Rras {
         lpdwGlobalInfoSizeMarshal := lpdwGlobalInfoSize is VarRef ? "uint*" : "ptr"
         ppClientInterfaceInfoMarshal := ppClientInterfaceInfo is VarRef ? "ptr*" : "ptr"
         lpdwClientInterfaceInfoSizeMarshal := lpdwClientInterfaceInfoSize is VarRef ? "uint*" : "ptr"
+        lplpwsDLLPathMarshal := lplpwsDLLPath is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("MPRAPI.dll\MprConfigTransportGetInfo", "ptr", hMprConfig, "ptr", hRouterTransport, ppGlobalInfoMarshal, ppGlobalInfo, lpdwGlobalInfoSizeMarshal, lpdwGlobalInfoSize, ppClientInterfaceInfoMarshal, ppClientInterfaceInfo, lpdwClientInterfaceInfoSizeMarshal, lpdwClientInterfaceInfoSize, "ptr", lplpwsDLLPath, "uint")
+        result := DllCall("MPRAPI.dll\MprConfigTransportGetInfo", "ptr", hMprConfig, "ptr", hRouterTransport, ppGlobalInfoMarshal, ppGlobalInfo, lpdwGlobalInfoSizeMarshal, lpdwGlobalInfoSize, ppClientInterfaceInfoMarshal, ppClientInterfaceInfo, lpdwClientInterfaceInfoSizeMarshal, lpdwClientInterfaceInfoSize, lplpwsDLLPathMarshal, lplpwsDLLPath, "uint")
         return result
     }
 
@@ -22245,7 +22260,9 @@ class Rras {
      * @since windowsserver2000
      */
     static RtmGetChangeStatus(RtmRegHandle, NotifyHandle, DestHandle, ChangeStatus) {
-        result := DllCall("rtm.dll\RtmGetChangeStatus", "ptr", RtmRegHandle, "ptr", NotifyHandle, "ptr", DestHandle, "ptr", ChangeStatus, "uint")
+        ChangeStatusMarshal := ChangeStatus is VarRef ? "int*" : "ptr"
+
+        result := DllCall("rtm.dll\RtmGetChangeStatus", "ptr", RtmRegHandle, "ptr", NotifyHandle, "ptr", DestHandle, ChangeStatusMarshal, ChangeStatus, "uint")
         return result
     }
 
@@ -22323,7 +22340,9 @@ class Rras {
      * @since windowsserver2000
      */
     static RtmIsMarkedForChangeNotification(RtmRegHandle, NotifyHandle, DestHandle, DestMarked) {
-        result := DllCall("rtm.dll\RtmIsMarkedForChangeNotification", "ptr", RtmRegHandle, "ptr", NotifyHandle, "ptr", DestHandle, "ptr", DestMarked, "uint")
+        DestMarkedMarshal := DestMarked is VarRef ? "int*" : "ptr"
+
+        result := DllCall("rtm.dll\RtmIsMarkedForChangeNotification", "ptr", RtmRegHandle, "ptr", NotifyHandle, "ptr", DestHandle, DestMarkedMarshal, DestMarked, "uint")
         return result
     }
 

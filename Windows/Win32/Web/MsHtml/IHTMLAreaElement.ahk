@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -49,12 +50,12 @@ class IHTMLAreaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_shape(p) {
+    get_shape() {
+        p := BSTR()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -71,12 +72,12 @@ class IHTMLAreaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_coords(p) {
+    get_coords() {
+        p := BSTR()
         result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -93,12 +94,12 @@ class IHTMLAreaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_href(p) {
+    get_href() {
+        p := BSTR()
         result := ComCall(12, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -115,12 +116,12 @@ class IHTMLAreaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_target(p) {
+    get_target() {
+        p := BSTR()
         result := ComCall(14, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -137,12 +138,12 @@ class IHTMLAreaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_alt(p) {
+    get_alt() {
+        p := BSTR()
         result := ComCall(16, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -157,12 +158,11 @@ class IHTMLAreaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_noHref(p) {
-        result := ComCall(18, this, "ptr", p, "HRESULT")
-        return result
+    get_noHref() {
+        result := ComCall(18, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -179,12 +179,12 @@ class IHTMLAreaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_host(p) {
+    get_host() {
+        p := BSTR()
         result := ComCall(20, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -201,12 +201,12 @@ class IHTMLAreaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_hostname(p) {
+    get_hostname() {
+        p := BSTR()
         result := ComCall(22, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -223,12 +223,12 @@ class IHTMLAreaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_pathname(p) {
+    get_pathname() {
+        p := BSTR()
         result := ComCall(24, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -245,12 +245,12 @@ class IHTMLAreaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_port(p) {
+    get_port() {
+        p := BSTR()
         result := ComCall(26, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -267,12 +267,12 @@ class IHTMLAreaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_protocol(p) {
+    get_protocol() {
+        p := BSTR()
         result := ComCall(28, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -289,12 +289,12 @@ class IHTMLAreaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_search(p) {
+    get_search() {
+        p := BSTR()
         result := ComCall(30, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -311,12 +311,12 @@ class IHTMLAreaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_hash(p) {
+    get_hash() {
+        p := BSTR()
         result := ComCall(32, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -331,12 +331,12 @@ class IHTMLAreaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onblur(p) {
+    get_onblur() {
+        p := VARIANT()
         result := ComCall(34, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -351,12 +351,12 @@ class IHTMLAreaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onfocus(p) {
+    get_onfocus() {
+        p := VARIANT()
         result := ComCall(36, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -371,14 +371,11 @@ class IHTMLAreaElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_tabIndex(p) {
-        pMarshal := p is VarRef ? "short*" : "ptr"
-
-        result := ComCall(38, this, pMarshal, p, "HRESULT")
-        return result
+    get_tabIndex() {
+        result := ComCall(38, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**

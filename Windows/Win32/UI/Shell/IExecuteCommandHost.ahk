@@ -40,14 +40,11 @@ class IExecuteCommandHost extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pUIMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexecutecommandhost-getuimode
      */
-    GetUIMode(pUIMode) {
-        pUIModeMarshal := pUIMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, pUIModeMarshal, pUIMode, "HRESULT")
-        return result
+    GetUIMode() {
+        result := ComCall(3, this, "int*", &pUIMode := 0, "HRESULT")
+        return pUIMode
     }
 }

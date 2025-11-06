@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -80,35 +82,31 @@ class IADsContainer extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Count(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadscontainer-get__newenum
      */
-    get__NewEnum(retval) {
-        result := ComCall(8, this, "ptr*", retval, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(8, this, "ptr*", &retval := 0, "HRESULT")
+        return IUnknown(retval)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pVar 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_Filter(pVar) {
+    get_Filter() {
+        pVar := VARIANT()
         result := ComCall(9, this, "ptr", pVar, "HRESULT")
-        return result
+        return pVar
     }
 
     /**
@@ -123,12 +121,12 @@ class IADsContainer extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvFilter 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_Hints(pvFilter) {
+    get_Hints() {
+        pvFilter := VARIANT()
         result := ComCall(11, this, "ptr", pvFilter, "HRESULT")
-        return result
+        return pvFilter
     }
 
     /**
@@ -145,36 +143,30 @@ class IADsContainer extends IDispatch{
      * The GetObject function retrieves information for the specified graphics object.
      * @param {BSTR} ClassName 
      * @param {BSTR} RelativeName 
-     * @param {Pointer<IDispatch>} ppObject 
-     * @returns {HRESULT} If the function succeeds, and <i>lpvObject</i> is a valid pointer, the return value is the number of bytes stored into the buffer.
-     * 
-     * If the function succeeds, and <i>lpvObject</i> is <b>NULL</b>, the return value is the number of bytes required to hold the information the function would store into the buffer.
-     * 
-     * If the function fails, the return value is zero.
+     * @returns {IDispatch} 
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getobject
      */
-    GetObject(ClassName, RelativeName, ppObject) {
+    GetObject(ClassName, RelativeName) {
         ClassName := ClassName is String ? BSTR.Alloc(ClassName).Value : ClassName
         RelativeName := RelativeName is String ? BSTR.Alloc(RelativeName).Value : RelativeName
 
-        result := ComCall(13, this, "ptr", ClassName, "ptr", RelativeName, "ptr*", ppObject, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", ClassName, "ptr", RelativeName, "ptr*", &ppObject := 0, "HRESULT")
+        return IDispatch(ppObject)
     }
 
     /**
      * 
      * @param {BSTR} ClassName 
      * @param {BSTR} RelativeName 
-     * @param {Pointer<IDispatch>} ppObject 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadscontainer-create
      */
-    Create(ClassName, RelativeName, ppObject) {
+    Create(ClassName, RelativeName) {
         ClassName := ClassName is String ? BSTR.Alloc(ClassName).Value : ClassName
         RelativeName := RelativeName is String ? BSTR.Alloc(RelativeName).Value : RelativeName
 
-        result := ComCall(14, this, "ptr", ClassName, "ptr", RelativeName, "ptr*", ppObject, "HRESULT")
-        return result
+        result := ComCall(14, this, "ptr", ClassName, "ptr", RelativeName, "ptr*", &ppObject := 0, "HRESULT")
+        return IDispatch(ppObject)
     }
 
     /**
@@ -196,31 +188,29 @@ class IADsContainer extends IDispatch{
      * 
      * @param {BSTR} SourceName 
      * @param {BSTR} NewName 
-     * @param {Pointer<IDispatch>} ppObject 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadscontainer-copyhere
      */
-    CopyHere(SourceName, NewName, ppObject) {
+    CopyHere(SourceName, NewName) {
         SourceName := SourceName is String ? BSTR.Alloc(SourceName).Value : SourceName
         NewName := NewName is String ? BSTR.Alloc(NewName).Value : NewName
 
-        result := ComCall(16, this, "ptr", SourceName, "ptr", NewName, "ptr*", ppObject, "HRESULT")
-        return result
+        result := ComCall(16, this, "ptr", SourceName, "ptr", NewName, "ptr*", &ppObject := 0, "HRESULT")
+        return IDispatch(ppObject)
     }
 
     /**
      * 
      * @param {BSTR} SourceName 
      * @param {BSTR} NewName 
-     * @param {Pointer<IDispatch>} ppObject 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadscontainer-movehere
      */
-    MoveHere(SourceName, NewName, ppObject) {
+    MoveHere(SourceName, NewName) {
         SourceName := SourceName is String ? BSTR.Alloc(SourceName).Value : SourceName
         NewName := NewName is String ? BSTR.Alloc(NewName).Value : NewName
 
-        result := ComCall(17, this, "ptr", SourceName, "ptr", NewName, "ptr*", ppObject, "HRESULT")
-        return result
+        result := ComCall(17, this, "ptr", SourceName, "ptr", NewName, "ptr*", &ppObject := 0, "HRESULT")
+        return IDispatch(ppObject)
     }
 }

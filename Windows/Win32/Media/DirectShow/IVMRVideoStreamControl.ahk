@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Graphics\DirectDraw\DDCOLORKEY.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -43,13 +44,13 @@ class IVMRVideoStreamControl extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<DDCOLORKEY>} lpClrKey 
-     * @returns {HRESULT} 
+     * @returns {DDCOLORKEY} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrvideostreamcontrol-getcolorkey
      */
-    GetColorKey(lpClrKey) {
+    GetColorKey() {
+        lpClrKey := DDCOLORKEY()
         result := ComCall(4, this, "ptr", lpClrKey, "HRESULT")
-        return result
+        return lpClrKey
     }
 
     /**
@@ -65,12 +66,11 @@ class IVMRVideoStreamControl extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} lpfActive 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrvideostreamcontrol-getstreamactivestate
      */
-    GetStreamActiveState(lpfActive) {
-        result := ComCall(6, this, "ptr", lpfActive, "HRESULT")
-        return result
+    GetStreamActiveState() {
+        result := ComCall(6, this, "int*", &lpfActive := 0, "HRESULT")
+        return lpfActive
     }
 }

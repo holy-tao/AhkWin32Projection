@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISyncChangeBuilder.ahk
 #Include .\ISyncChangeBatch.ahk
 
 /**
@@ -36,16 +37,15 @@ class ISyncChangeBatch2 extends ISyncChangeBatch{
      * @param {Pointer<SYNC_VERSION>} pChangeVersion 
      * @param {Pointer<SYNC_VERSION>} pCreationVersion 
      * @param {Integer} dwWorkForChange 
-     * @param {Pointer<ISyncChangeBuilder>} ppChangeBuilder 
-     * @returns {HRESULT} 
+     * @returns {ISyncChangeBuilder} 
      */
-    AddMergeTombstoneMetadataToGroup(pbOwnerReplicaId, pbWinnerItemId, pbItemId, pChangeVersion, pCreationVersion, dwWorkForChange, ppChangeBuilder) {
+    AddMergeTombstoneMetadataToGroup(pbOwnerReplicaId, pbWinnerItemId, pbItemId, pChangeVersion, pCreationVersion, dwWorkForChange) {
         pbOwnerReplicaIdMarshal := pbOwnerReplicaId is VarRef ? "char*" : "ptr"
         pbWinnerItemIdMarshal := pbWinnerItemId is VarRef ? "char*" : "ptr"
         pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
 
-        result := ComCall(20, this, pbOwnerReplicaIdMarshal, pbOwnerReplicaId, pbWinnerItemIdMarshal, pbWinnerItemId, pbItemIdMarshal, pbItemId, "ptr", pChangeVersion, "ptr", pCreationVersion, "uint", dwWorkForChange, "ptr*", ppChangeBuilder, "HRESULT")
-        return result
+        result := ComCall(20, this, pbOwnerReplicaIdMarshal, pbOwnerReplicaId, pbWinnerItemIdMarshal, pbWinnerItemId, pbItemIdMarshal, pbItemId, "ptr", pChangeVersion, "ptr", pCreationVersion, "uint", dwWorkForChange, "ptr*", &ppChangeBuilder := 0, "HRESULT")
+        return ISyncChangeBuilder(ppChangeBuilder)
     }
 
     /**
@@ -57,15 +57,14 @@ class ISyncChangeBatch2 extends ISyncChangeBatch{
      * @param {Pointer<SYNC_VERSION>} pCreationVersion 
      * @param {Integer} dwWorkForChange 
      * @param {ISyncKnowledge} pConflictKnowledge 
-     * @param {Pointer<ISyncChangeBuilder>} ppChangeBuilder 
-     * @returns {HRESULT} 
+     * @returns {ISyncChangeBuilder} 
      */
-    AddMergeTombstoneLoggedConflict(pbOwnerReplicaId, pbWinnerItemId, pbItemId, pChangeVersion, pCreationVersion, dwWorkForChange, pConflictKnowledge, ppChangeBuilder) {
+    AddMergeTombstoneLoggedConflict(pbOwnerReplicaId, pbWinnerItemId, pbItemId, pChangeVersion, pCreationVersion, dwWorkForChange, pConflictKnowledge) {
         pbOwnerReplicaIdMarshal := pbOwnerReplicaId is VarRef ? "char*" : "ptr"
         pbWinnerItemIdMarshal := pbWinnerItemId is VarRef ? "char*" : "ptr"
         pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
 
-        result := ComCall(21, this, pbOwnerReplicaIdMarshal, pbOwnerReplicaId, pbWinnerItemIdMarshal, pbWinnerItemId, pbItemIdMarshal, pbItemId, "ptr", pChangeVersion, "ptr", pCreationVersion, "uint", dwWorkForChange, "ptr", pConflictKnowledge, "ptr*", ppChangeBuilder, "HRESULT")
-        return result
+        result := ComCall(21, this, pbOwnerReplicaIdMarshal, pbOwnerReplicaId, pbWinnerItemIdMarshal, pbWinnerItemId, pbItemIdMarshal, pbItemId, "ptr", pChangeVersion, "ptr", pCreationVersion, "uint", dwWorkForChange, "ptr", pConflictKnowledge, "ptr*", &ppChangeBuilder := 0, "HRESULT")
+        return ISyncChangeBuilder(ppChangeBuilder)
     }
 }

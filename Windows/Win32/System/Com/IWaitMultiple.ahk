@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISynchronize.ahk
 #Include .\IUnknown.ahk
 
 /**
@@ -31,12 +32,11 @@ class IWaitMultiple extends IUnknown{
     /**
      * 
      * @param {Integer} timeout 
-     * @param {Pointer<ISynchronize>} pSync 
-     * @returns {HRESULT} 
+     * @returns {ISynchronize} 
      */
-    WaitMultiple(timeout, pSync) {
-        result := ComCall(3, this, "uint", timeout, "ptr*", pSync, "HRESULT")
-        return result
+    WaitMultiple(timeout) {
+        result := ComCall(3, this, "uint", timeout, "ptr*", &pSync := 0, "HRESULT")
+        return ISynchronize(pSync)
     }
 
     /**

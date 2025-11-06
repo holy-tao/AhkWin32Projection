@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDiscRecorder2.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -37,13 +38,12 @@ class IMultisession extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-imultisession-get_issupportedoncurrentmediastate
      */
-    get_IsSupportedOnCurrentMediaState(value) {
-        result := ComCall(7, this, "ptr", value, "HRESULT")
-        return result
+    get_IsSupportedOnCurrentMediaState() {
+        result := ComCall(7, this, "short*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
@@ -59,23 +59,21 @@ class IMultisession extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-imultisession-get_inuse
      */
-    get_InUse(value) {
-        result := ComCall(9, this, "ptr", value, "HRESULT")
-        return result
+    get_InUse() {
+        result := ComCall(9, this, "short*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<IDiscRecorder2>} value 
-     * @returns {HRESULT} 
+     * @returns {IDiscRecorder2} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-imultisession-get_importrecorder
      */
-    get_ImportRecorder(value) {
-        result := ComCall(10, this, "ptr*", value, "HRESULT")
-        return result
+    get_ImportRecorder() {
+        result := ComCall(10, this, "ptr*", &value := 0, "HRESULT")
+        return IDiscRecorder2(value)
     }
 }

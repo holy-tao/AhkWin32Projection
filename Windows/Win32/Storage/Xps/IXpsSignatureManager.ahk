@@ -1,6 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsSignature.ahk
+#Include ..\Packaging\Opc\IOpcPartUri.ahk
+#Include .\IXpsSignatureCollection.ahk
+#Include .\IXpsSignatureBlock.ahk
+#Include .\IXpsSignatureBlockCollection.ahk
+#Include .\IXpsSigningOptions.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -106,24 +112,22 @@ class IXpsSignatureManager extends IUnknown{
      * 
      * @param {IXpsSigningOptions} signOptions 
      * @param {Pointer<CERT_CONTEXT>} x509Certificate 
-     * @param {Pointer<IXpsSignature>} signature 
-     * @returns {HRESULT} 
+     * @returns {IXpsSignature} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturemanager-sign
      */
-    Sign(signOptions, x509Certificate, signature) {
-        result := ComCall(5, this, "ptr", signOptions, "ptr", x509Certificate, "ptr*", signature, "HRESULT")
-        return result
+    Sign(signOptions, x509Certificate) {
+        result := ComCall(5, this, "ptr", signOptions, "ptr", x509Certificate, "ptr*", &signature := 0, "HRESULT")
+        return IXpsSignature(signature)
     }
 
     /**
      * 
-     * @param {Pointer<IOpcPartUri>} signatureOriginPartName 
-     * @returns {HRESULT} 
+     * @returns {IOpcPartUri} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturemanager-getsignatureoriginpartname
      */
-    GetSignatureOriginPartName(signatureOriginPartName) {
-        result := ComCall(6, this, "ptr*", signatureOriginPartName, "HRESULT")
-        return result
+    GetSignatureOriginPartName() {
+        result := ComCall(6, this, "ptr*", &signatureOriginPartName := 0, "HRESULT")
+        return IOpcPartUri(signatureOriginPartName)
     }
 
     /**
@@ -139,48 +143,44 @@ class IXpsSignatureManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IXpsSignatureCollection>} signatures 
-     * @returns {HRESULT} 
+     * @returns {IXpsSignatureCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturemanager-getsignatures
      */
-    GetSignatures(signatures) {
-        result := ComCall(8, this, "ptr*", signatures, "HRESULT")
-        return result
+    GetSignatures() {
+        result := ComCall(8, this, "ptr*", &signatures := 0, "HRESULT")
+        return IXpsSignatureCollection(signatures)
     }
 
     /**
      * 
      * @param {IOpcPartUri} partName 
      * @param {Integer} fixedDocumentIndex 
-     * @param {Pointer<IXpsSignatureBlock>} signatureBlock 
-     * @returns {HRESULT} 
+     * @returns {IXpsSignatureBlock} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturemanager-addsignatureblock
      */
-    AddSignatureBlock(partName, fixedDocumentIndex, signatureBlock) {
-        result := ComCall(9, this, "ptr", partName, "uint", fixedDocumentIndex, "ptr*", signatureBlock, "HRESULT")
-        return result
+    AddSignatureBlock(partName, fixedDocumentIndex) {
+        result := ComCall(9, this, "ptr", partName, "uint", fixedDocumentIndex, "ptr*", &signatureBlock := 0, "HRESULT")
+        return IXpsSignatureBlock(signatureBlock)
     }
 
     /**
      * 
-     * @param {Pointer<IXpsSignatureBlockCollection>} signatureBlocks 
-     * @returns {HRESULT} 
+     * @returns {IXpsSignatureBlockCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturemanager-getsignatureblocks
      */
-    GetSignatureBlocks(signatureBlocks) {
-        result := ComCall(10, this, "ptr*", signatureBlocks, "HRESULT")
-        return result
+    GetSignatureBlocks() {
+        result := ComCall(10, this, "ptr*", &signatureBlocks := 0, "HRESULT")
+        return IXpsSignatureBlockCollection(signatureBlocks)
     }
 
     /**
      * 
-     * @param {Pointer<IXpsSigningOptions>} signingOptions 
-     * @returns {HRESULT} 
+     * @returns {IXpsSigningOptions} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturemanager-createsigningoptions
      */
-    CreateSigningOptions(signingOptions) {
-        result := ComCall(11, this, "ptr*", signingOptions, "HRESULT")
-        return result
+    CreateSigningOptions() {
+        result := ComCall(11, this, "ptr*", &signingOptions := 0, "HRESULT")
+        return IXpsSigningOptions(signingOptions)
     }
 
     /**

@@ -31,12 +31,12 @@ class IRTCPresenceContact extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrPresentityURI 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_PresentityURI(pbstrPresentityURI) {
+    get_PresentityURI() {
+        pbstrPresentityURI := BSTR()
         result := ComCall(3, this, "ptr", pbstrPresentityURI, "HRESULT")
-        return result
+        return pbstrPresentityURI
     }
 
     /**
@@ -53,12 +53,12 @@ class IRTCPresenceContact extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Name(pbstrName) {
+    get_Name() {
+        pbstrName := BSTR()
         result := ComCall(5, this, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 
     /**
@@ -75,12 +75,12 @@ class IRTCPresenceContact extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrData 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Data(pbstrData) {
+    get_Data() {
+        pbstrData := BSTR()
         result := ComCall(7, this, "ptr", pbstrData, "HRESULT")
-        return result
+        return pbstrData
     }
 
     /**
@@ -97,12 +97,11 @@ class IRTCPresenceContact extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pfPersistent 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_Persistent(pfPersistent) {
-        result := ComCall(9, this, "ptr", pfPersistent, "HRESULT")
-        return result
+    get_Persistent() {
+        result := ComCall(9, this, "short*", &pfPersistent := 0, "HRESULT")
+        return pfPersistent
     }
 
     /**

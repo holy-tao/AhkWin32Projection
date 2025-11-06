@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,25 +33,22 @@ class IWSDHttpAuthParameters extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HANDLE>} phToken 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdhttpauthparameters-getclientaccesstoken
      */
-    GetClientAccessToken(phToken) {
+    GetClientAccessToken() {
+        phToken := HANDLE()
         result := ComCall(3, this, "ptr", phToken, "HRESULT")
-        return result
+        return phToken
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pAuthType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdhttpauthparameters-getauthtype
      */
-    GetAuthType(pAuthType) {
-        pAuthTypeMarshal := pAuthType is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pAuthTypeMarshal, pAuthType, "HRESULT")
-        return result
+    GetAuthType() {
+        result := ComCall(4, this, "uint*", &pAuthType := 0, "HRESULT")
+        return pAuthType
     }
 }

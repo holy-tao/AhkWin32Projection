@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -42,26 +43,23 @@ class IESEvent extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwEventId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesevent-geteventid
      */
-    GetEventId(pdwEventId) {
-        pdwEventIdMarshal := pdwEventId is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pdwEventIdMarshal, pdwEventId, "HRESULT")
-        return result
+    GetEventId() {
+        result := ComCall(3, this, "uint*", &pdwEventId := 0, "HRESULT")
+        return pdwEventId
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} pguidEventType 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesevent-geteventtype
      */
-    GetEventType(pguidEventType) {
+    GetEventType() {
+        pguidEventType := Guid()
         result := ComCall(4, this, "ptr", pguidEventType, "HRESULT")
-        return result
+        return pguidEventType
     }
 
     /**
@@ -77,25 +75,22 @@ class IESEvent extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} pbData 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesevent-getdata
      */
-    GetData(pbData) {
-        pbDataMarshal := pbData is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, pbDataMarshal, pbData, "HRESULT")
-        return result
+    GetData() {
+        result := ComCall(6, this, "ptr*", &pbData := 0, "HRESULT")
+        return pbData
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrData 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesevent-getstringdata
      */
-    GetStringData(pbstrData) {
+    GetStringData() {
+        pbstrData := BSTR()
         result := ComCall(7, this, "ptr", pbstrData, "HRESULT")
-        return result
+        return pbstrData
     }
 }

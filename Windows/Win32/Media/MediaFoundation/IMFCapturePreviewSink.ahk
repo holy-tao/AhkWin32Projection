@@ -68,7 +68,9 @@ class IMFCapturePreviewSink extends IMFCaptureSink{
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturepreviewsink-updatevideo
      */
     UpdateVideo(pSrc, pDst, pBorderClr) {
-        result := ComCall(10, this, "ptr", pSrc, "ptr", pDst, "ptr", pBorderClr, "HRESULT")
+        pBorderClrMarshal := pBorderClr is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, "ptr", pSrc, "ptr", pDst, pBorderClrMarshal, pBorderClr, "HRESULT")
         return result
     }
 
@@ -86,13 +88,12 @@ class IMFCapturePreviewSink extends IMFCaptureSink{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfMirrorState 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturepreviewsink-getmirrorstate
      */
-    GetMirrorState(pfMirrorState) {
-        result := ComCall(12, this, "ptr", pfMirrorState, "HRESULT")
-        return result
+    GetMirrorState() {
+        result := ComCall(12, this, "int*", &pfMirrorState := 0, "HRESULT")
+        return pfMirrorState
     }
 
     /**
@@ -109,15 +110,12 @@ class IMFCapturePreviewSink extends IMFCaptureSink{
     /**
      * 
      * @param {Integer} dwStreamIndex 
-     * @param {Pointer<Integer>} pdwRotationValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturepreviewsink-getrotation
      */
-    GetRotation(dwStreamIndex, pdwRotationValue) {
-        pdwRotationValueMarshal := pdwRotationValue is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, "uint", dwStreamIndex, pdwRotationValueMarshal, pdwRotationValue, "HRESULT")
-        return result
+    GetRotation(dwStreamIndex) {
+        result := ComCall(14, this, "uint", dwStreamIndex, "uint*", &pdwRotationValue := 0, "HRESULT")
+        return pdwRotationValue
     }
 
     /**

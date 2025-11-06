@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\IWICBitmapSource.ahk
+#Include .\IWICBitmap.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Imaging
@@ -1584,21 +1586,18 @@ class Imaging {
      * @param {IWICBitmapSource} pISrc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapsource">IWICBitmapSource</a>*</b>
      * 
      * The source bitmap.
-     * @param {Pointer<IWICBitmapSource>} ppIDst Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapsource">IWICBitmapSource</a>**</b>
+     * @returns {IWICBitmapSource} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapsource">IWICBitmapSource</a>**</b>
      * 
      * A pointer to the <b>null</b>-initialized destination bitmap pointer.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns **S_OK**. Otherwise, it returns an **HRESULT** error code.
      * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-wicconvertbitmapsource
      * @since windows5.1.2600
      */
-    static WICConvertBitmapSource(dstFormat, pISrc, ppIDst) {
-        result := DllCall("WindowsCodecs.dll\WICConvertBitmapSource", "ptr", dstFormat, "ptr", pISrc, "ptr*", ppIDst, "int")
+    static WICConvertBitmapSource(dstFormat, pISrc) {
+        result := DllCall("WindowsCodecs.dll\WICConvertBitmapSource", "ptr", dstFormat, "ptr", pISrc, "ptr*", &ppIDst := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IWICBitmapSource(ppIDst)
     }
 
     /**
@@ -1621,23 +1620,20 @@ class Imaging {
      * @param {Integer} offset Type: <b>UINT</b>
      * 
      * The offset into the section.
-     * @param {Pointer<IWICBitmap>} ppIBitmap Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmap">IWICBitmap</a>**</b>
+     * @returns {IWICBitmap} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmap">IWICBitmap</a>**</b>
      * 
      * A pointer that receives the bitmap.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-wiccreatebitmapfromsection
      * @since windows5.1.2600
      */
-    static WICCreateBitmapFromSection(width, height, pixelFormat, hSection, stride, offset, ppIBitmap) {
+    static WICCreateBitmapFromSection(width, height, pixelFormat, hSection, stride, offset) {
         hSection := hSection is Win32Handle ? NumGet(hSection, "ptr") : hSection
 
-        result := DllCall("WindowsCodecs.dll\WICCreateBitmapFromSection", "uint", width, "uint", height, "ptr", pixelFormat, "ptr", hSection, "uint", stride, "uint", offset, "ptr*", ppIBitmap, "int")
+        result := DllCall("WindowsCodecs.dll\WICCreateBitmapFromSection", "uint", width, "uint", height, "ptr", pixelFormat, "ptr", hSection, "uint", stride, "uint", offset, "ptr*", &ppIBitmap := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IWICBitmap(ppIBitmap)
     }
 
     /**
@@ -1663,23 +1659,20 @@ class Imaging {
      * @param {Integer} desiredAccessLevel Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicsectionaccesslevel">WICSectionAccessLevel</a></b>
      * 
      * The desired access level.
-     * @param {Pointer<IWICBitmap>} ppIBitmap Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmap">IWICBitmap</a>**</b>
+     * @returns {IWICBitmap} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmap">IWICBitmap</a>**</b>
      * 
      * A pointer that receives the bitmap.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-wiccreatebitmapfromsectionex
      * @since windows6.1
      */
-    static WICCreateBitmapFromSectionEx(width, height, pixelFormat, hSection, stride, offset, desiredAccessLevel, ppIBitmap) {
+    static WICCreateBitmapFromSectionEx(width, height, pixelFormat, hSection, stride, offset, desiredAccessLevel) {
         hSection := hSection is Win32Handle ? NumGet(hSection, "ptr") : hSection
 
-        result := DllCall("WindowsCodecs.dll\WICCreateBitmapFromSectionEx", "uint", width, "uint", height, "ptr", pixelFormat, "ptr", hSection, "uint", stride, "uint", offset, "int", desiredAccessLevel, "ptr*", ppIBitmap, "int")
+        result := DllCall("WindowsCodecs.dll\WICCreateBitmapFromSectionEx", "uint", width, "uint", height, "ptr", pixelFormat, "ptr", hSection, "uint", stride, "uint", offset, "int", desiredAccessLevel, "ptr*", &ppIBitmap := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IWICBitmap(ppIBitmap)
     }
 
     /**
@@ -1693,25 +1686,20 @@ class Imaging {
      * @param {PWSTR} wzName Type: <b>WCHAR*</b>
      * 
      * A pointer that receives the short name associated with the GUID.
-     * @param {Pointer<Integer>} pcchActual Type: <b>UINT*</b>
+     * @returns {Integer} Type: <b>UINT*</b>
      * 
      * The actual size needed to retrieve the entire short name associated with the GUID.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-wicmapguidtoshortname
      * @since windows5.1.2600
      */
-    static WICMapGuidToShortName(guid, cchName, wzName, pcchActual) {
+    static WICMapGuidToShortName(guid, cchName, wzName) {
         wzName := wzName is String ? StrPtr(wzName) : wzName
 
-        pcchActualMarshal := pcchActual is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("WindowsCodecs.dll\WICMapGuidToShortName", "ptr", guid, "uint", cchName, "ptr", wzName, pcchActualMarshal, pcchActual, "int")
+        result := DllCall("WindowsCodecs.dll\WICMapGuidToShortName", "ptr", guid, "uint", cchName, "ptr", wzName, "uint*", &pcchActual := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pcchActual
     }
 
     /**
@@ -1754,26 +1742,21 @@ class Imaging {
      * A pointer to a buffer that receives the schema's name.
      * 
      * To obtain the required buffer size, call <b>WICMapSchemaToName</b> with <i>cchName</i> set to 0 and <i>wzName</i> set to <b>NULL</b>.
-     * @param {Pointer<Integer>} pcchActual Type: <b>UINT</b>
+     * @returns {Integer} Type: <b>UINT</b>
      * 
      * The actual buffer size needed to retrieve the entire schema name.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-wicmapschematoname
      * @since windows5.1.2600
      */
-    static WICMapSchemaToName(guidMetadataFormat, pwzSchema, cchName, wzName, pcchActual) {
+    static WICMapSchemaToName(guidMetadataFormat, pwzSchema, cchName, wzName) {
         pwzSchema := pwzSchema is String ? StrPtr(pwzSchema) : pwzSchema
         wzName := wzName is String ? StrPtr(wzName) : wzName
 
-        pcchActualMarshal := pcchActual is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("WindowsCodecs.dll\WICMapSchemaToName", "ptr", guidMetadataFormat, "ptr", pwzSchema, "uint", cchName, "ptr", wzName, pcchActualMarshal, pcchActual, "int")
+        result := DllCall("WindowsCodecs.dll\WICMapSchemaToName", "ptr", guidMetadataFormat, "ptr", pwzSchema, "uint", cchName, "ptr", wzName, "uint*", &pcchActual := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pcchActual
     }
 
     /**
@@ -1840,23 +1823,18 @@ class Imaging {
      * @param {IWICMetadataWriter} pIWriter Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodecsdk/nn-wincodecsdk-iwicmetadatawriter">IWICMetadataWriter</a>*</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodecsdk/nn-wincodecsdk-iwicmetadatawriter">IWICMetadataWriter</a> that contains the content.
-     * @param {Pointer<Integer>} pcbSize Type: <b>ULARGE_INTEGER*</b>
+     * @returns {Integer} Type: <b>ULARGE_INTEGER*</b>
      * 
      * A pointer that receives the size of the metadata content.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-wicgetmetadatacontentsize
      * @since windows5.1.2600
      */
-    static WICGetMetadataContentSize(guidContainerFormat, pIWriter, pcbSize) {
-        pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("WindowsCodecs.dll\WICGetMetadataContentSize", "ptr", guidContainerFormat, "ptr", pIWriter, pcbSizeMarshal, pcbSize, "int")
+    static WICGetMetadataContentSize(guidContainerFormat, pIWriter) {
+        result := DllCall("WindowsCodecs.dll\WICGetMetadataContentSize", "ptr", guidContainerFormat, "ptr", pIWriter, "uint*", &pcbSize := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pcbSize
     }
 
 ;@endregion Methods

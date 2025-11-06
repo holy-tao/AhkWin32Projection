@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IVdsAsync.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,13 +33,12 @@ class IVdsVolumeMF2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppwszFileSystemTypeName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolumemf2-getfilesystemtypename
      */
-    GetFileSystemTypeName(ppwszFileSystemTypeName) {
-        result := ComCall(3, this, "ptr", ppwszFileSystemTypeName, "HRESULT")
-        return result
+    GetFileSystemTypeName() {
+        result := ComCall(3, this, "ptr*", &ppwszFileSystemTypeName := 0, "HRESULT")
+        return ppwszFileSystemTypeName
     }
 
     /**
@@ -65,15 +65,14 @@ class IVdsVolumeMF2 extends IUnknown{
      * @param {BOOL} bForce 
      * @param {BOOL} bQuickFormat 
      * @param {BOOL} bEnableCompression 
-     * @param {Pointer<IVdsAsync>} ppAsync 
-     * @returns {HRESULT} 
+     * @returns {IVdsAsync} 
      * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvolumemf2-formatex
      */
-    FormatEx(pwszFileSystemTypeName, usFileSystemRevision, ulDesiredUnitAllocationSize, pwszLabel, bForce, bQuickFormat, bEnableCompression, ppAsync) {
+    FormatEx(pwszFileSystemTypeName, usFileSystemRevision, ulDesiredUnitAllocationSize, pwszLabel, bForce, bQuickFormat, bEnableCompression) {
         pwszFileSystemTypeName := pwszFileSystemTypeName is String ? StrPtr(pwszFileSystemTypeName) : pwszFileSystemTypeName
         pwszLabel := pwszLabel is String ? StrPtr(pwszLabel) : pwszLabel
 
-        result := ComCall(5, this, "ptr", pwszFileSystemTypeName, "ushort", usFileSystemRevision, "uint", ulDesiredUnitAllocationSize, "ptr", pwszLabel, "int", bForce, "int", bQuickFormat, "int", bEnableCompression, "ptr*", ppAsync, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", pwszFileSystemTypeName, "ushort", usFileSystemRevision, "uint", ulDesiredUnitAllocationSize, "ptr", pwszLabel, "int", bForce, "int", bQuickFormat, "int", bEnableCompression, "ptr*", &ppAsync := 0, "HRESULT")
+        return IVdsAsync(ppAsync)
     }
 }

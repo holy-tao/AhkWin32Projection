@@ -32,14 +32,11 @@ class IGraphVersion extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVersion 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-igraphversion-queryversion
      */
-    QueryVersion(pVersion) {
-        pVersionMarshal := pVersion is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, pVersionMarshal, pVersion, "HRESULT")
-        return result
+    QueryVersion() {
+        result := ComCall(3, this, "int*", &pVersion := 0, "HRESULT")
+        return pVersion
     }
 }

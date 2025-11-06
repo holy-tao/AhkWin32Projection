@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISVGAnimatedTransformList.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,11 +31,10 @@ class ISVGTransformable extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedTransformList>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedTransformList} 
      */
-    get_transform(p) {
-        result := ComCall(7, this, "ptr*", p, "HRESULT")
-        return result
+    get_transform() {
+        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedTransformList(p)
     }
 }

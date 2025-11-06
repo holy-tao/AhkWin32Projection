@@ -43,13 +43,12 @@ class IMSVidClosedCaptioning extends IMSVidFeature{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} On 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidclosedcaptioning-get_enable
      */
-    get_Enable(On) {
-        result := ComCall(16, this, "ptr", On, "HRESULT")
-        return result
+    get_Enable() {
+        result := ComCall(16, this, "short*", &On := 0, "HRESULT")
+        return On
     }
 
     /**

@@ -36,15 +36,12 @@ class IDVBSLocator2 extends IDVBSLocator{
 
     /**
      * 
-     * @param {Pointer<Integer>} DiseqLNBSourceVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbslocator2-get_diseqlnbsource
      */
-    get_DiseqLNBSource(DiseqLNBSourceVal) {
-        DiseqLNBSourceValMarshal := DiseqLNBSourceVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(32, this, DiseqLNBSourceValMarshal, DiseqLNBSourceVal, "HRESULT")
-        return result
+    get_DiseqLNBSource() {
+        result := ComCall(32, this, "int*", &DiseqLNBSourceVal := 0, "HRESULT")
+        return DiseqLNBSourceVal
     }
 
     /**
@@ -60,15 +57,12 @@ class IDVBSLocator2 extends IDVBSLocator{
 
     /**
      * 
-     * @param {Pointer<Integer>} LocalOscillatorOverrideLowVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbslocator2-get_localoscillatoroverridelow
      */
-    get_LocalOscillatorOverrideLow(LocalOscillatorOverrideLowVal) {
-        LocalOscillatorOverrideLowValMarshal := LocalOscillatorOverrideLowVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(34, this, LocalOscillatorOverrideLowValMarshal, LocalOscillatorOverrideLowVal, "HRESULT")
-        return result
+    get_LocalOscillatorOverrideLow() {
+        result := ComCall(34, this, "int*", &LocalOscillatorOverrideLowVal := 0, "HRESULT")
+        return LocalOscillatorOverrideLowVal
     }
 
     /**
@@ -84,15 +78,12 @@ class IDVBSLocator2 extends IDVBSLocator{
 
     /**
      * 
-     * @param {Pointer<Integer>} LocalOscillatorOverrideHighVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbslocator2-get_localoscillatoroverridehigh
      */
-    get_LocalOscillatorOverrideHigh(LocalOscillatorOverrideHighVal) {
-        LocalOscillatorOverrideHighValMarshal := LocalOscillatorOverrideHighVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(36, this, LocalOscillatorOverrideHighValMarshal, LocalOscillatorOverrideHighVal, "HRESULT")
-        return result
+    get_LocalOscillatorOverrideHigh() {
+        result := ComCall(36, this, "int*", &LocalOscillatorOverrideHighVal := 0, "HRESULT")
+        return LocalOscillatorOverrideHighVal
     }
 
     /**
@@ -108,15 +99,12 @@ class IDVBSLocator2 extends IDVBSLocator{
 
     /**
      * 
-     * @param {Pointer<Integer>} LocalLNBSwitchOverrideVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbslocator2-get_locallnbswitchoverride
      */
-    get_LocalLNBSwitchOverride(LocalLNBSwitchOverrideVal) {
-        LocalLNBSwitchOverrideValMarshal := LocalLNBSwitchOverrideVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(38, this, LocalLNBSwitchOverrideValMarshal, LocalLNBSwitchOverrideVal, "HRESULT")
-        return result
+    get_LocalLNBSwitchOverride() {
+        result := ComCall(38, this, "int*", &LocalLNBSwitchOverrideVal := 0, "HRESULT")
+        return LocalLNBSwitchOverrideVal
     }
 
     /**
@@ -132,15 +120,12 @@ class IDVBSLocator2 extends IDVBSLocator{
 
     /**
      * 
-     * @param {Pointer<Integer>} LocalSpectralInversionOverrideVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbslocator2-get_localspectralinversionoverride
      */
-    get_LocalSpectralInversionOverride(LocalSpectralInversionOverrideVal) {
-        LocalSpectralInversionOverrideValMarshal := LocalSpectralInversionOverrideVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(40, this, LocalSpectralInversionOverrideValMarshal, LocalSpectralInversionOverrideVal, "HRESULT")
-        return result
+    get_LocalSpectralInversionOverride() {
+        result := ComCall(40, this, "int*", &LocalSpectralInversionOverrideVal := 0, "HRESULT")
+        return LocalSpectralInversionOverrideVal
     }
 
     /**
@@ -156,15 +141,12 @@ class IDVBSLocator2 extends IDVBSLocator{
 
     /**
      * 
-     * @param {Pointer<Integer>} RollOffVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbslocator2-get_signalrolloff
      */
-    get_SignalRollOff(RollOffVal) {
-        RollOffValMarshal := RollOffVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(42, this, RollOffValMarshal, RollOffVal, "HRESULT")
-        return result
+    get_SignalRollOff() {
+        result := ComCall(42, this, "int*", &RollOffVal := 0, "HRESULT")
+        return RollOffVal
     }
 
     /**
@@ -180,15 +162,12 @@ class IDVBSLocator2 extends IDVBSLocator{
 
     /**
      * 
-     * @param {Pointer<Integer>} PilotVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbslocator2-get_signalpilot
      */
-    get_SignalPilot(PilotVal) {
-        PilotValMarshal := PilotVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(44, this, PilotValMarshal, PilotVal, "HRESULT")
-        return result
+    get_SignalPilot() {
+        result := ComCall(44, this, "int*", &PilotVal := 0, "HRESULT")
+        return PilotVal
     }
 
     /**

@@ -37,32 +37,29 @@ class IAttributeGet extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} plCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dsattrib/nf-dsattrib-iattributeget-getcount
      */
-    GetCount(plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, plCountMarshal, plCount, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(3, this, "int*", &plCount := 0, "HRESULT")
+        return plCount
     }
 
     /**
      * 
      * @param {Integer} lIndex 
-     * @param {Pointer<Guid>} pguidAttribute 
      * @param {Pointer<Integer>} pbAttribute 
      * @param {Pointer<Integer>} pdwAttributeLength 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/dsattrib/nf-dsattrib-iattributeget-getattribindexed
      */
-    GetAttribIndexed(lIndex, pguidAttribute, pbAttribute, pdwAttributeLength) {
+    GetAttribIndexed(lIndex, pbAttribute, pdwAttributeLength) {
         pbAttributeMarshal := pbAttribute is VarRef ? "char*" : "ptr"
         pdwAttributeLengthMarshal := pdwAttributeLength is VarRef ? "uint*" : "ptr"
 
+        pguidAttribute := Guid()
         result := ComCall(4, this, "int", lIndex, "ptr", pguidAttribute, pbAttributeMarshal, pbAttribute, pdwAttributeLengthMarshal, pdwAttributeLength, "HRESULT")
-        return result
+        return pguidAttribute
     }
 
     /**

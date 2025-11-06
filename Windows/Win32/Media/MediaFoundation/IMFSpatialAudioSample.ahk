@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFSpatialAudioObjectBuffer.ahk
 #Include .\IMFSample.ahk
 
 /**
@@ -32,15 +33,12 @@ class IMFSpatialAudioSample extends IMFSample{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwObjectCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfspatialaudio/nf-mfspatialaudio-imfspatialaudiosample-getobjectcount
      */
-    GetObjectCount(pdwObjectCount) {
-        pdwObjectCountMarshal := pdwObjectCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(47, this, pdwObjectCountMarshal, pdwObjectCount, "HRESULT")
-        return result
+    GetObjectCount() {
+        result := ComCall(47, this, "uint*", &pdwObjectCount := 0, "HRESULT")
+        return pdwObjectCount
     }
 
     /**
@@ -57,12 +55,11 @@ class IMFSpatialAudioSample extends IMFSample{
     /**
      * 
      * @param {Integer} dwIndex 
-     * @param {Pointer<IMFSpatialAudioObjectBuffer>} ppAudioObjBuffer 
-     * @returns {HRESULT} 
+     * @returns {IMFSpatialAudioObjectBuffer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfspatialaudio/nf-mfspatialaudio-imfspatialaudiosample-getspatialaudioobjectbyindex
      */
-    GetSpatialAudioObjectByIndex(dwIndex, ppAudioObjBuffer) {
-        result := ComCall(49, this, "uint", dwIndex, "ptr*", ppAudioObjBuffer, "HRESULT")
-        return result
+    GetSpatialAudioObjectByIndex(dwIndex) {
+        result := ComCall(49, this, "uint", dwIndex, "ptr*", &ppAudioObjBuffer := 0, "HRESULT")
+        return IMFSpatialAudioObjectBuffer(ppAudioObjBuffer)
     }
 }

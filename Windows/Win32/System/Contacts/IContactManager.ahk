@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IContact.ahk
+#Include .\IContactCollection.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -64,15 +66,14 @@ class IContactManager extends IUnknown{
     /**
      * 
      * @param {PWSTR} pszContactID 
-     * @param {Pointer<IContact>} ppContact 
-     * @returns {HRESULT} 
+     * @returns {IContact} 
      * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontactmanager-load
      */
-    Load(pszContactID, ppContact) {
+    Load(pszContactID) {
         pszContactID := pszContactID is String ? StrPtr(pszContactID) : pszContactID
 
-        result := ComCall(4, this, "ptr", pszContactID, "ptr*", ppContact, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pszContactID, "ptr*", &ppContact := 0, "HRESULT")
+        return IContact(ppContact)
     }
 
     /**
@@ -92,13 +93,12 @@ class IContactManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IContact>} ppMeContact 
-     * @returns {HRESULT} 
+     * @returns {IContact} 
      * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontactmanager-getmecontact
      */
-    GetMeContact(ppMeContact) {
-        result := ComCall(6, this, "ptr*", ppMeContact, "HRESULT")
-        return result
+    GetMeContact() {
+        result := ComCall(6, this, "ptr*", &ppMeContact := 0, "HRESULT")
+        return IContact(ppMeContact)
     }
 
     /**
@@ -114,12 +114,11 @@ class IContactManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IContactCollection>} ppContactCollection 
-     * @returns {HRESULT} 
+     * @returns {IContactCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontactmanager-getcontactcollection
      */
-    GetContactCollection(ppContactCollection) {
-        result := ComCall(8, this, "ptr*", ppContactCollection, "HRESULT")
-        return result
+    GetContactCollection() {
+        result := ComCall(8, this, "ptr*", &ppContactCollection := 0, "HRESULT")
+        return IContactCollection(ppContactCollection)
     }
 }

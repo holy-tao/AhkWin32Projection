@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumWIA_FORMAT_INFO.ahk
+#Include .\WIA_EXTENDED_TRANSFER_INFO.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -96,23 +98,22 @@ class IWiaDataTransfer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumWIA_FORMAT_INFO>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumWIA_FORMAT_INFO} 
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiadatatransfer-idtenumwia_format_info
      */
-    idtEnumWIA_FORMAT_INFO(ppEnum) {
-        result := ComCall(6, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    idtEnumWIA_FORMAT_INFO() {
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumWIA_FORMAT_INFO(ppEnum)
     }
 
     /**
      * 
-     * @param {Pointer<WIA_EXTENDED_TRANSFER_INFO>} pExtendedTransferInfo 
-     * @returns {HRESULT} 
+     * @returns {WIA_EXTENDED_TRANSFER_INFO} 
      * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiadatatransfer-idtgetextendedtransferinfo
      */
-    idtGetExtendedTransferInfo(pExtendedTransferInfo) {
+    idtGetExtendedTransferInfo() {
+        pExtendedTransferInfo := WIA_EXTENDED_TRANSFER_INFO()
         result := ComCall(7, this, "ptr", pExtendedTransferInfo, "HRESULT")
-        return result
+        return pExtendedTransferInfo
     }
 }

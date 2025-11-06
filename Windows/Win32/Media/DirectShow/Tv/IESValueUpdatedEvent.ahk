@@ -36,14 +36,11 @@ class IESValueUpdatedEvent extends IESEvent{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} pbstrNames 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesvalueupdatedevent-getvaluenames
      */
-    GetValueNames(pbstrNames) {
-        pbstrNamesMarshal := pbstrNames is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(8, this, pbstrNamesMarshal, pbstrNames, "HRESULT")
-        return result
+    GetValueNames() {
+        result := ComCall(8, this, "ptr*", &pbstrNames := 0, "HRESULT")
+        return pbstrNames
     }
 }

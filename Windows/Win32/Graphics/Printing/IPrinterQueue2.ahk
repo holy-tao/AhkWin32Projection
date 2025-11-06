@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IPrinterExtensionAsyncOperation.ahk
+#Include .\IPrinterQueueView.ahk
 #Include .\IPrinterQueue.ahk
 
 /**
@@ -33,25 +35,23 @@ class IPrinterQueue2 extends IPrinterQueue{
      * 
      * @param {BSTR} bstrBidiRequest 
      * @param {IPrinterBidiSetRequestCallback} pCallback 
-     * @param {Pointer<IPrinterExtensionAsyncOperation>} ppAsyncOperation 
-     * @returns {HRESULT} 
+     * @returns {IPrinterExtensionAsyncOperation} 
      */
-    SendBidiSetRequestAsync(bstrBidiRequest, pCallback, ppAsyncOperation) {
+    SendBidiSetRequestAsync(bstrBidiRequest, pCallback) {
         bstrBidiRequest := bstrBidiRequest is String ? BSTR.Alloc(bstrBidiRequest).Value : bstrBidiRequest
 
-        result := ComCall(11, this, "ptr", bstrBidiRequest, "ptr", pCallback, "ptr*", ppAsyncOperation, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", bstrBidiRequest, "ptr", pCallback, "ptr*", &ppAsyncOperation := 0, "HRESULT")
+        return IPrinterExtensionAsyncOperation(ppAsyncOperation)
     }
 
     /**
      * 
      * @param {Integer} ulViewOffset 
      * @param {Integer} ulViewSize 
-     * @param {Pointer<IPrinterQueueView>} ppJobView 
-     * @returns {HRESULT} 
+     * @returns {IPrinterQueueView} 
      */
-    GetPrinterQueueView(ulViewOffset, ulViewSize, ppJobView) {
-        result := ComCall(12, this, "uint", ulViewOffset, "uint", ulViewSize, "ptr*", ppJobView, "HRESULT")
-        return result
+    GetPrinterQueueView(ulViewOffset, ulViewSize) {
+        result := ComCall(12, this, "uint", ulViewOffset, "uint", ulViewSize, "ptr*", &ppJobView := 0, "HRESULT")
+        return IPrinterQueueView(ppJobView)
     }
 }

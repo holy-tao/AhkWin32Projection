@@ -30,12 +30,12 @@ class IAudioSessionSite extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} audioSessionGuid 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    GetAudioSessionGuid(audioSessionGuid) {
+    GetAudioSessionGuid() {
+        audioSessionGuid := Guid()
         result := ComCall(3, this, "ptr", audioSessionGuid, "HRESULT")
-        return result
+        return audioSessionGuid
     }
 
     /**

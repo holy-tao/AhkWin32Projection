@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\StructuredStorage\PROPVARIANT.ahk
+#Include .\IMFPMediaItem.ahk
+#Include .\MFVideoNormalizedRect.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -85,25 +89,25 @@ class IMFPMediaPlayer extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} guidPositionType 
-     * @param {Pointer<PROPVARIANT>} pvPositionValue 
-     * @returns {HRESULT} 
+     * @returns {PROPVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaplayer-getposition
      */
-    GetPosition(guidPositionType, pvPositionValue) {
+    GetPosition(guidPositionType) {
+        pvPositionValue := PROPVARIANT()
         result := ComCall(8, this, "ptr", guidPositionType, "ptr", pvPositionValue, "HRESULT")
-        return result
+        return pvPositionValue
     }
 
     /**
      * 
      * @param {Pointer<Guid>} guidPositionType 
-     * @param {Pointer<PROPVARIANT>} pvDurationValue 
-     * @returns {HRESULT} 
+     * @returns {PROPVARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaplayer-getduration
      */
-    GetDuration(guidPositionType, pvDurationValue) {
+    GetDuration(guidPositionType) {
+        pvDurationValue := PROPVARIANT()
         result := ComCall(9, this, "ptr", guidPositionType, "ptr", pvDurationValue, "HRESULT")
-        return result
+        return pvDurationValue
     }
 
     /**
@@ -119,15 +123,12 @@ class IMFPMediaPlayer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} pflRate 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaplayer-getrate
      */
-    GetRate(pflRate) {
-        pflRateMarshal := pflRate is VarRef ? "float*" : "ptr"
-
-        result := ComCall(11, this, pflRateMarshal, pflRate, "HRESULT")
-        return result
+    GetRate() {
+        result := ComCall(11, this, "float*", &pflRate := 0, "HRESULT")
+        return pflRate
     }
 
     /**
@@ -148,15 +149,12 @@ class IMFPMediaPlayer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} peState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaplayer-getstate
      */
-    GetState(peState) {
-        peStateMarshal := peState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, peStateMarshal, peState, "HRESULT")
-        return result
+    GetState() {
+        result := ComCall(13, this, "int*", &peState := 0, "HRESULT")
+        return peState
     }
 
     /**
@@ -164,15 +162,14 @@ class IMFPMediaPlayer extends IUnknown{
      * @param {PWSTR} pwszURL 
      * @param {BOOL} fSync 
      * @param {Pointer} dwUserData 
-     * @param {Pointer<IMFPMediaItem>} ppMediaItem 
-     * @returns {HRESULT} 
+     * @returns {IMFPMediaItem} 
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaplayer-createmediaitemfromurl
      */
-    CreateMediaItemFromURL(pwszURL, fSync, dwUserData, ppMediaItem) {
+    CreateMediaItemFromURL(pwszURL, fSync, dwUserData) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
-        result := ComCall(14, this, "ptr", pwszURL, "int", fSync, "ptr", dwUserData, "ptr*", ppMediaItem, "HRESULT")
-        return result
+        result := ComCall(14, this, "ptr", pwszURL, "int", fSync, "ptr", dwUserData, "ptr*", &ppMediaItem := 0, "HRESULT")
+        return IMFPMediaItem(ppMediaItem)
     }
 
     /**
@@ -180,13 +177,12 @@ class IMFPMediaPlayer extends IUnknown{
      * @param {IUnknown} pIUnknownObj 
      * @param {BOOL} fSync 
      * @param {Pointer} dwUserData 
-     * @param {Pointer<IMFPMediaItem>} ppMediaItem 
-     * @returns {HRESULT} 
+     * @returns {IMFPMediaItem} 
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaplayer-createmediaitemfromobject
      */
-    CreateMediaItemFromObject(pIUnknownObj, fSync, dwUserData, ppMediaItem) {
-        result := ComCall(15, this, "ptr", pIUnknownObj, "int", fSync, "ptr", dwUserData, "ptr*", ppMediaItem, "HRESULT")
-        return result
+    CreateMediaItemFromObject(pIUnknownObj, fSync, dwUserData) {
+        result := ComCall(15, this, "ptr", pIUnknownObj, "int", fSync, "ptr", dwUserData, "ptr*", &ppMediaItem := 0, "HRESULT")
+        return IMFPMediaItem(ppMediaItem)
     }
 
     /**
@@ -212,26 +208,22 @@ class IMFPMediaPlayer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IMFPMediaItem>} ppIMFPMediaItem 
-     * @returns {HRESULT} 
+     * @returns {IMFPMediaItem} 
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaplayer-getmediaitem
      */
-    GetMediaItem(ppIMFPMediaItem) {
-        result := ComCall(18, this, "ptr*", ppIMFPMediaItem, "HRESULT")
-        return result
+    GetMediaItem() {
+        result := ComCall(18, this, "ptr*", &ppIMFPMediaItem := 0, "HRESULT")
+        return IMFPMediaItem(ppIMFPMediaItem)
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pflVolume 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaplayer-getvolume
      */
-    GetVolume(pflVolume) {
-        pflVolumeMarshal := pflVolume is VarRef ? "float*" : "ptr"
-
-        result := ComCall(19, this, pflVolumeMarshal, pflVolume, "HRESULT")
-        return result
+    GetVolume() {
+        result := ComCall(19, this, "float*", &pflVolume := 0, "HRESULT")
+        return pflVolume
     }
 
     /**
@@ -247,15 +239,12 @@ class IMFPMediaPlayer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} pflBalance 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaplayer-getbalance
      */
-    GetBalance(pflBalance) {
-        pflBalanceMarshal := pflBalance is VarRef ? "float*" : "ptr"
-
-        result := ComCall(21, this, pflBalanceMarshal, pflBalance, "HRESULT")
-        return result
+    GetBalance() {
+        result := ComCall(21, this, "float*", &pflBalance := 0, "HRESULT")
+        return pflBalance
     }
 
     /**
@@ -271,13 +260,12 @@ class IMFPMediaPlayer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfMute 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaplayer-getmute
      */
-    GetMute(pfMute) {
-        result := ComCall(23, this, "ptr", pfMute, "HRESULT")
-        return result
+    GetMute() {
+        result := ComCall(23, this, "int*", &pfMute := 0, "HRESULT")
+        return pfMute
     }
 
     /**
@@ -328,13 +316,13 @@ class IMFPMediaPlayer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<MFVideoNormalizedRect>} pnrcSource 
-     * @returns {HRESULT} 
+     * @returns {MFVideoNormalizedRect} 
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaplayer-getvideosourcerect
      */
-    GetVideoSourceRect(pnrcSource) {
+    GetVideoSourceRect() {
+        pnrcSource := MFVideoNormalizedRect()
         result := ComCall(28, this, "ptr", pnrcSource, "HRESULT")
-        return result
+        return pnrcSource
     }
 
     /**
@@ -350,26 +338,23 @@ class IMFPMediaPlayer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwAspectRatioMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaplayer-getaspectratiomode
      */
-    GetAspectRatioMode(pdwAspectRatioMode) {
-        pdwAspectRatioModeMarshal := pdwAspectRatioMode is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(30, this, pdwAspectRatioModeMarshal, pdwAspectRatioMode, "HRESULT")
-        return result
+    GetAspectRatioMode() {
+        result := ComCall(30, this, "uint*", &pdwAspectRatioMode := 0, "HRESULT")
+        return pdwAspectRatioMode
     }
 
     /**
      * 
-     * @param {Pointer<HWND>} phwndVideo 
-     * @returns {HRESULT} 
+     * @returns {HWND} 
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaplayer-getvideowindow
      */
-    GetVideoWindow(phwndVideo) {
+    GetVideoWindow() {
+        phwndVideo := HWND()
         result := ComCall(31, this, "ptr", phwndVideo, "HRESULT")
-        return result
+        return phwndVideo
     }
 
     /**
@@ -395,13 +380,12 @@ class IMFPMediaPlayer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<COLORREF>} pClr 
-     * @returns {HRESULT} 
+     * @returns {COLORREF} 
      * @see https://learn.microsoft.com/windows/win32/api/mfplay/nf-mfplay-imfpmediaplayer-getbordercolor
      */
-    GetBorderColor(pClr) {
-        result := ComCall(34, this, "ptr", pClr, "HRESULT")
-        return result
+    GetBorderColor() {
+        result := ComCall(34, this, "uint*", &pClr := 0, "HRESULT")
+        return pClr
     }
 
     /**

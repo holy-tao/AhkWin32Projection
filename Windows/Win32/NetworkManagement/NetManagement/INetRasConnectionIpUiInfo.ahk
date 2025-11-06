@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\RASCON_IPUI.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,11 +31,11 @@ class INetRasConnectionIpUiInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<RASCON_IPUI>} pInfo 
-     * @returns {HRESULT} 
+     * @returns {RASCON_IPUI} 
      */
-    GetUiInfo(pInfo) {
+    GetUiInfo() {
+        pInfo := RASCON_IPUI()
         result := ComCall(3, this, "ptr", pInfo, "HRESULT")
-        return result
+        return pInfo
     }
 }

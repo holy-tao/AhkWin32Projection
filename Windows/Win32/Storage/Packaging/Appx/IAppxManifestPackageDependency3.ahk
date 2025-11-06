@@ -30,11 +30,10 @@ class IAppxManifestPackageDependency3 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} isOptional 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    GetIsOptional(isOptional) {
-        result := ComCall(3, this, "ptr", isOptional, "HRESULT")
-        return result
+    GetIsOptional() {
+        result := ComCall(3, this, "int*", &isOptional := 0, "HRESULT")
+        return isOptional
     }
 }

@@ -41,7 +41,9 @@ class IWMPDVD extends IDispatch{
     get_isAvailable(bstrItem, pIsAvailable) {
         bstrItem := bstrItem is String ? BSTR.Alloc(bstrItem).Value : bstrItem
 
-        result := ComCall(7, this, "ptr", bstrItem, "ptr", pIsAvailable, "HRESULT")
+        pIsAvailableMarshal := pIsAvailable is VarRef ? "short*" : "ptr"
+
+        result := ComCall(7, this, "ptr", bstrItem, pIsAvailableMarshal, pIsAvailable, "HRESULT")
         return result
     }
 

@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IHTMLDocument2.ahk
+#Include .\IMarkupContainer.ahk
+#Include .\IHTMLElement.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,24 +33,20 @@ class IMarkupPointer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IHTMLDocument2>} ppDoc 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDocument2} 
      */
-    OwningDoc(ppDoc) {
-        result := ComCall(3, this, "ptr*", ppDoc, "HRESULT")
-        return result
+    OwningDoc() {
+        result := ComCall(3, this, "ptr*", &ppDoc := 0, "HRESULT")
+        return IHTMLDocument2(ppDoc)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pGravity 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Gravity(pGravity) {
-        pGravityMarshal := pGravity is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, pGravityMarshal, pGravity, "HRESULT")
-        return result
+    Gravity() {
+        result := ComCall(4, this, "int*", &pGravity := 0, "HRESULT")
+        return pGravity
     }
 
     /**
@@ -62,12 +61,11 @@ class IMarkupPointer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfCling 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    Cling(pfCling) {
-        result := ComCall(6, this, "ptr", pfCling, "HRESULT")
-        return result
+    Cling() {
+        result := ComCall(6, this, "int*", &pfCling := 0, "HRESULT")
+        return pfCling
     }
 
     /**
@@ -91,22 +89,20 @@ class IMarkupPointer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfPositioned 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsPositioned(pfPositioned) {
-        result := ComCall(9, this, "ptr", pfPositioned, "HRESULT")
-        return result
+    IsPositioned() {
+        result := ComCall(9, this, "int*", &pfPositioned := 0, "HRESULT")
+        return pfPositioned
     }
 
     /**
      * 
-     * @param {Pointer<IMarkupContainer>} ppContainer 
-     * @returns {HRESULT} 
+     * @returns {IMarkupContainer} 
      */
-    GetContainer(ppContainer) {
-        result := ComCall(10, this, "ptr*", ppContainer, "HRESULT")
-        return result
+    GetContainer() {
+        result := ComCall(10, this, "ptr*", &ppContainer := 0, "HRESULT")
+        return IMarkupContainer(ppContainer)
     }
 
     /**
@@ -181,67 +177,61 @@ class IMarkupPointer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IHTMLElement>} ppElemCurrent 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElement} 
      */
-    CurrentScope(ppElemCurrent) {
-        result := ComCall(16, this, "ptr*", ppElemCurrent, "HRESULT")
-        return result
+    CurrentScope() {
+        result := ComCall(16, this, "ptr*", &ppElemCurrent := 0, "HRESULT")
+        return IHTMLElement(ppElemCurrent)
     }
 
     /**
      * 
      * @param {IMarkupPointer} pPointerThat 
-     * @param {Pointer<BOOL>} pfResult 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsLeftOf(pPointerThat, pfResult) {
-        result := ComCall(17, this, "ptr", pPointerThat, "ptr", pfResult, "HRESULT")
-        return result
+    IsLeftOf(pPointerThat) {
+        result := ComCall(17, this, "ptr", pPointerThat, "int*", &pfResult := 0, "HRESULT")
+        return pfResult
     }
 
     /**
      * 
      * @param {IMarkupPointer} pPointerThat 
-     * @param {Pointer<BOOL>} pfResult 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsLeftOfOrEqualTo(pPointerThat, pfResult) {
-        result := ComCall(18, this, "ptr", pPointerThat, "ptr", pfResult, "HRESULT")
-        return result
+    IsLeftOfOrEqualTo(pPointerThat) {
+        result := ComCall(18, this, "ptr", pPointerThat, "int*", &pfResult := 0, "HRESULT")
+        return pfResult
     }
 
     /**
      * 
      * @param {IMarkupPointer} pPointerThat 
-     * @param {Pointer<BOOL>} pfResult 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsRightOf(pPointerThat, pfResult) {
-        result := ComCall(19, this, "ptr", pPointerThat, "ptr", pfResult, "HRESULT")
-        return result
+    IsRightOf(pPointerThat) {
+        result := ComCall(19, this, "ptr", pPointerThat, "int*", &pfResult := 0, "HRESULT")
+        return pfResult
     }
 
     /**
      * 
      * @param {IMarkupPointer} pPointerThat 
-     * @param {Pointer<BOOL>} pfResult 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsRightOfOrEqualTo(pPointerThat, pfResult) {
-        result := ComCall(20, this, "ptr", pPointerThat, "ptr", pfResult, "HRESULT")
-        return result
+    IsRightOfOrEqualTo(pPointerThat) {
+        result := ComCall(20, this, "ptr", pPointerThat, "int*", &pfResult := 0, "HRESULT")
+        return pfResult
     }
 
     /**
      * 
      * @param {IMarkupPointer} pPointerThat 
-     * @param {Pointer<BOOL>} pfAreEqual 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsEqualTo(pPointerThat, pfAreEqual) {
-        result := ComCall(21, this, "ptr", pPointerThat, "ptr", pfAreEqual, "HRESULT")
-        return result
+    IsEqualTo(pPointerThat) {
+        result := ComCall(21, this, "ptr", pPointerThat, "int*", &pfAreEqual := 0, "HRESULT")
+        return pfAreEqual
     }
 
     /**

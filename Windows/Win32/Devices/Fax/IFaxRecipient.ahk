@@ -43,13 +43,13 @@ class IFaxRecipient extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrFaxNumber 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxrecipient-get_faxnumber
      */
-    get_FaxNumber(pbstrFaxNumber) {
+    get_FaxNumber() {
+        pbstrFaxNumber := BSTR()
         result := ComCall(7, this, "ptr", pbstrFaxNumber, "HRESULT")
-        return result
+        return pbstrFaxNumber
     }
 
     /**
@@ -67,13 +67,13 @@ class IFaxRecipient extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxrecipient-get_name
      */
-    get_Name(pbstrName) {
+    get_Name() {
+        pbstrName := BSTR()
         result := ComCall(9, this, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include .\ISchemaItem.ahk
 
 /**
@@ -30,21 +31,21 @@ class ISchemaParticle extends ISchemaItem{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} minOccurs 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_minOccurs(minOccurs) {
+    get_minOccurs() {
+        minOccurs := VARIANT()
         result := ComCall(14, this, "ptr", minOccurs, "HRESULT")
-        return result
+        return minOccurs
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} maxOccurs 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_maxOccurs(maxOccurs) {
+    get_maxOccurs() {
+        maxOccurs := VARIANT()
         result := ComCall(15, this, "ptr", maxOccurs, "HRESULT")
-        return result
+        return maxOccurs
     }
 }

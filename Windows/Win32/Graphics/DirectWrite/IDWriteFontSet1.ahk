@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteFontSet1.ahk
+#Include .\IDWriteFontFaceReference1.ahk
+#Include .\IDWriteFontResource.ahk
+#Include .\IDWriteFontFace5.ahk
 #Include .\IDWriteFontSet.ahk
 
 /**
@@ -35,39 +39,36 @@ class IDWriteFontSet1 extends IDWriteFontSet{
      * @param {Pointer<DWRITE_FONT_PROPERTY>} fontProperty 
      * @param {Pointer<DWRITE_FONT_AXIS_VALUE>} fontAxisValues 
      * @param {Integer} fontAxisValueCount 
-     * @param {Pointer<IDWriteFontSet1>} matchingFonts 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontSet1} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset1-getmatchingfonts
      */
-    GetMatchingFonts(fontProperty, fontAxisValues, fontAxisValueCount, matchingFonts) {
-        result := ComCall(13, this, "ptr", fontProperty, "ptr", fontAxisValues, "uint", fontAxisValueCount, "ptr*", matchingFonts, "HRESULT")
-        return result
+    GetMatchingFonts(fontProperty, fontAxisValues, fontAxisValueCount) {
+        result := ComCall(13, this, "ptr", fontProperty, "ptr", fontAxisValues, "uint", fontAxisValueCount, "ptr*", &matchingFonts := 0, "HRESULT")
+        return IDWriteFontSet1(matchingFonts)
     }
 
     /**
      * 
-     * @param {Pointer<IDWriteFontSet1>} filteredFontSet 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontSet1} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset1-getfirstfontresources
      */
-    GetFirstFontResources(filteredFontSet) {
-        result := ComCall(14, this, "ptr*", filteredFontSet, "HRESULT")
-        return result
+    GetFirstFontResources() {
+        result := ComCall(14, this, "ptr*", &filteredFontSet := 0, "HRESULT")
+        return IDWriteFontSet1(filteredFontSet)
     }
 
     /**
      * 
      * @param {Pointer<Integer>} indices 
      * @param {Integer} indexCount 
-     * @param {Pointer<IDWriteFontSet1>} filteredFontSet 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontSet1} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset1-getfilteredfonts(uint32const_uint32_idwritefontset1)
      */
-    GetFilteredFonts(indices, indexCount, filteredFontSet) {
+    GetFilteredFonts(indices, indexCount) {
         indicesMarshal := indices is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, indicesMarshal, indices, "uint", indexCount, "ptr*", filteredFontSet, "HRESULT")
-        return result
+        result := ComCall(15, this, indicesMarshal, indices, "uint", indexCount, "ptr*", &filteredFontSet := 0, "HRESULT")
+        return IDWriteFontSet1(filteredFontSet)
     }
 
     /**
@@ -75,13 +76,12 @@ class IDWriteFontSet1 extends IDWriteFontSet{
      * @param {Pointer<DWRITE_FONT_AXIS_RANGE>} fontAxisRanges 
      * @param {Integer} fontAxisRangeCount 
      * @param {BOOL} selectAnyRange 
-     * @param {Pointer<IDWriteFontSet1>} filteredFontSet 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontSet1} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset1-getfilteredfonts(uint32const_uint32_idwritefontset1)
      */
-    GetFilteredFonts1(fontAxisRanges, fontAxisRangeCount, selectAnyRange, filteredFontSet) {
-        result := ComCall(16, this, "ptr", fontAxisRanges, "uint", fontAxisRangeCount, "int", selectAnyRange, "ptr*", filteredFontSet, "HRESULT")
-        return result
+    GetFilteredFonts1(fontAxisRanges, fontAxisRangeCount, selectAnyRange) {
+        result := ComCall(16, this, "ptr", fontAxisRanges, "uint", fontAxisRangeCount, "int", selectAnyRange, "ptr*", &filteredFontSet := 0, "HRESULT")
+        return IDWriteFontSet1(filteredFontSet)
     }
 
     /**
@@ -89,13 +89,12 @@ class IDWriteFontSet1 extends IDWriteFontSet{
      * @param {Pointer<DWRITE_FONT_PROPERTY>} properties 
      * @param {Integer} propertyCount 
      * @param {BOOL} selectAnyProperty 
-     * @param {Pointer<IDWriteFontSet1>} filteredFontSet 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontSet1} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset1-getfilteredfonts(uint32const_uint32_idwritefontset1)
      */
-    GetFilteredFonts2(properties, propertyCount, selectAnyProperty, filteredFontSet) {
-        result := ComCall(17, this, "ptr", properties, "uint", propertyCount, "int", selectAnyProperty, "ptr*", filteredFontSet, "HRESULT")
-        return result
+    GetFilteredFonts2(properties, propertyCount, selectAnyProperty) {
+        result := ComCall(17, this, "ptr", properties, "uint", propertyCount, "int", selectAnyProperty, "ptr*", &filteredFontSet := 0, "HRESULT")
+        return IDWriteFontSet1(filteredFontSet)
     }
 
     /**
@@ -170,37 +169,34 @@ class IDWriteFontSet1 extends IDWriteFontSet{
     /**
      * 
      * @param {Integer} listIndex 
-     * @param {Pointer<IDWriteFontFaceReference1>} fontFaceReference 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontFaceReference1} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset1-getfontfacereference
      */
-    GetFontFaceReference(listIndex, fontFaceReference) {
-        result := ComCall(22, this, "uint", listIndex, "ptr*", fontFaceReference, "HRESULT")
-        return result
+    GetFontFaceReference(listIndex) {
+        result := ComCall(22, this, "uint", listIndex, "ptr*", &fontFaceReference := 0, "HRESULT")
+        return IDWriteFontFaceReference1(fontFaceReference)
     }
 
     /**
      * 
      * @param {Integer} listIndex 
-     * @param {Pointer<IDWriteFontResource>} fontResource 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontResource} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset1-createfontresource
      */
-    CreateFontResource(listIndex, fontResource) {
-        result := ComCall(23, this, "uint", listIndex, "ptr*", fontResource, "HRESULT")
-        return result
+    CreateFontResource(listIndex) {
+        result := ComCall(23, this, "uint", listIndex, "ptr*", &fontResource := 0, "HRESULT")
+        return IDWriteFontResource(fontResource)
     }
 
     /**
      * 
      * @param {Integer} listIndex 
-     * @param {Pointer<IDWriteFontFace5>} fontFace 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontFace5} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset1-createfontface
      */
-    CreateFontFace(listIndex, fontFace) {
-        result := ComCall(24, this, "uint", listIndex, "ptr*", fontFace, "HRESULT")
-        return result
+    CreateFontFace(listIndex) {
+        result := ComCall(24, this, "uint", listIndex, "ptr*", &fontFace := 0, "HRESULT")
+        return IDWriteFontFace5(fontFace)
     }
 
     /**

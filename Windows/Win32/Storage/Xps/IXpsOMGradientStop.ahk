@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsOMGradientBrush.ahk
+#Include .\IXpsOMColorProfileResource.ahk
+#Include .\IXpsOMGradientStop.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -97,26 +100,22 @@ class IXpsOMGradientStop extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IXpsOMGradientBrush>} owner 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMGradientBrush} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientstop-getowner
      */
-    GetOwner(owner) {
-        result := ComCall(3, this, "ptr*", owner, "HRESULT")
-        return result
+    GetOwner() {
+        result := ComCall(3, this, "ptr*", &owner := 0, "HRESULT")
+        return IXpsOMGradientBrush(owner)
     }
 
     /**
      * 
-     * @param {Pointer<Float>} offset 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientstop-getoffset
      */
-    GetOffset(offset) {
-        offsetMarshal := offset is VarRef ? "float*" : "ptr"
-
-        result := ComCall(4, this, offsetMarshal, offset, "HRESULT")
-        return result
+    GetOffset() {
+        result := ComCall(4, this, "float*", &offset := 0, "HRESULT")
+        return offset
     }
 
     /**
@@ -133,13 +132,12 @@ class IXpsOMGradientStop extends IUnknown{
     /**
      * 
      * @param {Pointer<XPS_COLOR>} color 
-     * @param {Pointer<IXpsOMColorProfileResource>} colorProfile 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMColorProfileResource} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientstop-getcolor
      */
-    GetColor(color, colorProfile) {
-        result := ComCall(6, this, "ptr", color, "ptr*", colorProfile, "HRESULT")
-        return result
+    GetColor(color) {
+        result := ComCall(6, this, "ptr", color, "ptr*", &colorProfile := 0, "HRESULT")
+        return IXpsOMColorProfileResource(colorProfile)
     }
 
     /**
@@ -156,12 +154,11 @@ class IXpsOMGradientStop extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IXpsOMGradientStop>} gradientStop 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMGradientStop} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomgradientstop-clone
      */
-    Clone(gradientStop) {
-        result := ComCall(8, this, "ptr*", gradientStop, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(8, this, "ptr*", &gradientStop := 0, "HRESULT")
+        return IXpsOMGradientStop(gradientStop)
     }
 }

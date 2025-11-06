@@ -1,6 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITfRange.ahk
+#Include .\ITfContextView.ahk
+#Include .\IEnumTfContextViews.ahk
+#Include .\TS_STATUS.ahk
+#Include .\ITfProperty.ahk
+#Include .\ITfReadOnlyProperty.ahk
+#Include .\IEnumTfProperties.ahk
+#Include .\ITfDocumentMgr.ahk
+#Include .\ITfRangeBackup.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -41,25 +50,23 @@ class ITfContext extends IUnknown{
      * @param {Integer} tid 
      * @param {ITfEditSession} pes 
      * @param {Integer} dwFlags 
-     * @param {Pointer<HRESULT>} phrSession 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontext-requesteditsession
      */
-    RequestEditSession(tid, pes, dwFlags, phrSession) {
-        result := ComCall(3, this, "uint", tid, "ptr", pes, "uint", dwFlags, "ptr", phrSession, "HRESULT")
-        return result
+    RequestEditSession(tid, pes, dwFlags) {
+        result := ComCall(3, this, "uint", tid, "ptr", pes, "uint", dwFlags, "int*", &phrSession := 0, "HRESULT")
+        return phrSession
     }
 
     /**
      * 
      * @param {Integer} tid 
-     * @param {Pointer<BOOL>} pfWriteSession 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontext-inwritesession
      */
-    InWriteSession(tid, pfWriteSession) {
-        result := ComCall(4, this, "uint", tid, "ptr", pfWriteSession, "HRESULT")
-        return result
+    InWriteSession(tid) {
+        result := ComCall(4, this, "uint", tid, "int*", &pfWriteSession := 0, "HRESULT")
+        return pfWriteSession
     }
 
     /**
@@ -95,81 +102,75 @@ class ITfContext extends IUnknown{
     /**
      * 
      * @param {Integer} ec 
-     * @param {Pointer<ITfRange>} ppStart 
-     * @returns {HRESULT} 
+     * @returns {ITfRange} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontext-getstart
      */
-    GetStart(ec, ppStart) {
-        result := ComCall(7, this, "uint", ec, "ptr*", ppStart, "HRESULT")
-        return result
+    GetStart(ec) {
+        result := ComCall(7, this, "uint", ec, "ptr*", &ppStart := 0, "HRESULT")
+        return ITfRange(ppStart)
     }
 
     /**
      * 
      * @param {Integer} ec 
-     * @param {Pointer<ITfRange>} ppEnd 
-     * @returns {HRESULT} 
+     * @returns {ITfRange} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontext-getend
      */
-    GetEnd(ec, ppEnd) {
-        result := ComCall(8, this, "uint", ec, "ptr*", ppEnd, "HRESULT")
-        return result
+    GetEnd(ec) {
+        result := ComCall(8, this, "uint", ec, "ptr*", &ppEnd := 0, "HRESULT")
+        return ITfRange(ppEnd)
     }
 
     /**
      * 
-     * @param {Pointer<ITfContextView>} ppView 
-     * @returns {HRESULT} 
+     * @returns {ITfContextView} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontext-getactiveview
      */
-    GetActiveView(ppView) {
-        result := ComCall(9, this, "ptr*", ppView, "HRESULT")
-        return result
+    GetActiveView() {
+        result := ComCall(9, this, "ptr*", &ppView := 0, "HRESULT")
+        return ITfContextView(ppView)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumTfContextViews>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumTfContextViews} 
      */
-    EnumViews(ppEnum) {
-        result := ComCall(10, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumViews() {
+        result := ComCall(10, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumTfContextViews(ppEnum)
     }
 
     /**
      * 
-     * @param {Pointer<TS_STATUS>} pdcs 
-     * @returns {HRESULT} 
+     * @returns {TS_STATUS} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontext-getstatus
      */
-    GetStatus(pdcs) {
+    GetStatus() {
+        pdcs := TS_STATUS()
         result := ComCall(11, this, "ptr", pdcs, "HRESULT")
-        return result
+        return pdcs
     }
 
     /**
      * 
      * @param {Pointer<Guid>} guidProp 
-     * @param {Pointer<ITfProperty>} ppProp 
-     * @returns {HRESULT} 
+     * @returns {ITfProperty} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontext-getproperty
      */
-    GetProperty(guidProp, ppProp) {
-        result := ComCall(12, this, "ptr", guidProp, "ptr*", ppProp, "HRESULT")
-        return result
+    GetProperty(guidProp) {
+        result := ComCall(12, this, "ptr", guidProp, "ptr*", &ppProp := 0, "HRESULT")
+        return ITfProperty(ppProp)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} guidProp 
-     * @param {Pointer<ITfReadOnlyProperty>} ppProp 
-     * @returns {HRESULT} 
+     * @returns {ITfReadOnlyProperty} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontext-getappproperty
      */
-    GetAppProperty(guidProp, ppProp) {
-        result := ComCall(13, this, "ptr", guidProp, "ptr*", ppProp, "HRESULT")
-        return result
+    GetAppProperty(guidProp) {
+        result := ComCall(13, this, "ptr", guidProp, "ptr*", &ppProp := 0, "HRESULT")
+        return ITfReadOnlyProperty(ppProp)
     }
 
     /**
@@ -178,50 +179,46 @@ class ITfContext extends IUnknown{
      * @param {Integer} cProp 
      * @param {Pointer<Pointer<Guid>>} prgAppProp 
      * @param {Integer} cAppProp 
-     * @param {Pointer<ITfReadOnlyProperty>} ppProperty 
-     * @returns {HRESULT} 
+     * @returns {ITfReadOnlyProperty} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontext-trackproperties
      */
-    TrackProperties(prgProp, cProp, prgAppProp, cAppProp, ppProperty) {
+    TrackProperties(prgProp, cProp, prgAppProp, cAppProp) {
         prgPropMarshal := prgProp is VarRef ? "ptr*" : "ptr"
         prgAppPropMarshal := prgAppProp is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(14, this, prgPropMarshal, prgProp, "uint", cProp, prgAppPropMarshal, prgAppProp, "uint", cAppProp, "ptr*", ppProperty, "HRESULT")
-        return result
+        result := ComCall(14, this, prgPropMarshal, prgProp, "uint", cProp, prgAppPropMarshal, prgAppProp, "uint", cAppProp, "ptr*", &ppProperty := 0, "HRESULT")
+        return ITfReadOnlyProperty(ppProperty)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumTfProperties>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumTfProperties} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontext-enumproperties
      */
-    EnumProperties(ppEnum) {
-        result := ComCall(15, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumProperties() {
+        result := ComCall(15, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumTfProperties(ppEnum)
     }
 
     /**
      * 
-     * @param {Pointer<ITfDocumentMgr>} ppDm 
-     * @returns {HRESULT} 
+     * @returns {ITfDocumentMgr} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontext-getdocumentmgr
      */
-    GetDocumentMgr(ppDm) {
-        result := ComCall(16, this, "ptr*", ppDm, "HRESULT")
-        return result
+    GetDocumentMgr() {
+        result := ComCall(16, this, "ptr*", &ppDm := 0, "HRESULT")
+        return ITfDocumentMgr(ppDm)
     }
 
     /**
      * 
      * @param {Integer} ec 
      * @param {ITfRange} pRange 
-     * @param {Pointer<ITfRangeBackup>} ppBackup 
-     * @returns {HRESULT} 
+     * @returns {ITfRangeBackup} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontext-createrangebackup
      */
-    CreateRangeBackup(ec, pRange, ppBackup) {
-        result := ComCall(17, this, "uint", ec, "ptr", pRange, "ptr*", ppBackup, "HRESULT")
-        return result
+    CreateRangeBackup(ec, pRange) {
+        result := ComCall(17, this, "uint", ec, "ptr", pRange, "ptr*", &ppBackup := 0, "HRESULT")
+        return ITfRangeBackup(ppBackup)
     }
 }

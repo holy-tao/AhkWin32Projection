@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IWbemServices.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -41,10 +42,9 @@ class IWbemClientTransport extends IUnknown{
      * @param {Integer} lSecurityFlags 
      * @param {BSTR} strAuthority 
      * @param {IWbemContext} pCtx 
-     * @param {Pointer<IWbemServices>} ppNamespace 
-     * @returns {HRESULT} 
+     * @returns {IWbemServices} 
      */
-    ConnectServer(strAddressType, dwBinaryAddressLength, abBinaryAddress, strNetworkResource, strUser, strPassword, strLocale, lSecurityFlags, strAuthority, pCtx, ppNamespace) {
+    ConnectServer(strAddressType, dwBinaryAddressLength, abBinaryAddress, strNetworkResource, strUser, strPassword, strLocale, lSecurityFlags, strAuthority, pCtx) {
         strAddressType := strAddressType is String ? BSTR.Alloc(strAddressType).Value : strAddressType
         strNetworkResource := strNetworkResource is String ? BSTR.Alloc(strNetworkResource).Value : strNetworkResource
         strUser := strUser is String ? BSTR.Alloc(strUser).Value : strUser
@@ -54,7 +54,7 @@ class IWbemClientTransport extends IUnknown{
 
         abBinaryAddressMarshal := abBinaryAddress is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "ptr", strAddressType, "uint", dwBinaryAddressLength, abBinaryAddressMarshal, abBinaryAddress, "ptr", strNetworkResource, "ptr", strUser, "ptr", strPassword, "ptr", strLocale, "int", lSecurityFlags, "ptr", strAuthority, "ptr", pCtx, "ptr*", ppNamespace, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", strAddressType, "uint", dwBinaryAddressLength, abBinaryAddressMarshal, abBinaryAddress, "ptr", strNetworkResource, "ptr", strUser, "ptr", strPassword, "ptr", strLocale, "int", lSecurityFlags, "ptr", strAuthority, "ptr", pCtx, "ptr*", &ppNamespace := 0, "HRESULT")
+        return IWbemServices(ppNamespace)
     }
 }

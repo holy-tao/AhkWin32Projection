@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IDxcBlob.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -31,13 +32,12 @@ class IDxcIncludeHandler extends IUnknown{
     /**
      * 
      * @param {PWSTR} pFilename 
-     * @param {Pointer<IDxcBlob>} ppIncludeSource 
-     * @returns {HRESULT} 
+     * @returns {IDxcBlob} 
      */
-    LoadSource(pFilename, ppIncludeSource) {
+    LoadSource(pFilename) {
         pFilename := pFilename is String ? StrPtr(pFilename) : pFilename
 
-        result := ComCall(3, this, "ptr", pFilename, "ptr*", ppIncludeSource, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pFilename, "ptr*", &ppIncludeSource := 0, "HRESULT")
+        return IDxcBlob(ppIncludeSource)
     }
 }

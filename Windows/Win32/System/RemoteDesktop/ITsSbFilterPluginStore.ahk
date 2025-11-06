@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ITsSbPropertySet.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -44,13 +45,12 @@ class ITsSbFilterPluginStore extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ITsSbPropertySet>} ppPropertySet 
-     * @returns {HRESULT} 
+     * @returns {ITsSbPropertySet} 
      * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbfilterpluginstore-enumerateproperties
      */
-    EnumerateProperties(ppPropertySet) {
-        result := ComCall(4, this, "ptr*", ppPropertySet, "HRESULT")
-        return result
+    EnumerateProperties() {
+        result := ComCall(4, this, "ptr*", &ppPropertySet := 0, "HRESULT")
+        return ITsSbPropertySet(ppPropertySet)
     }
 
     /**

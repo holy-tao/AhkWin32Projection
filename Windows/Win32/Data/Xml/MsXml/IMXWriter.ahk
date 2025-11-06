@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -41,12 +42,12 @@ class IMXWriter extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} varDestination 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_output(varDestination) {
+    get_output() {
+        varDestination := VARIANT()
         result := ComCall(8, this, "ptr", varDestination, "HRESULT")
-        return result
+        return varDestination
     }
 
     /**
@@ -63,12 +64,12 @@ class IMXWriter extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} strEncoding 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_encoding(strEncoding) {
+    get_encoding() {
+        strEncoding := BSTR()
         result := ComCall(10, this, "ptr", strEncoding, "HRESULT")
-        return result
+        return strEncoding
     }
 
     /**
@@ -83,12 +84,11 @@ class IMXWriter extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} fWriteByteOrderMark 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_byteOrderMark(fWriteByteOrderMark) {
-        result := ComCall(12, this, "ptr", fWriteByteOrderMark, "HRESULT")
-        return result
+    get_byteOrderMark() {
+        result := ComCall(12, this, "short*", &fWriteByteOrderMark := 0, "HRESULT")
+        return fWriteByteOrderMark
     }
 
     /**
@@ -103,12 +103,11 @@ class IMXWriter extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} fIndentMode 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_indent(fIndentMode) {
-        result := ComCall(14, this, "ptr", fIndentMode, "HRESULT")
-        return result
+    get_indent() {
+        result := ComCall(14, this, "short*", &fIndentMode := 0, "HRESULT")
+        return fIndentMode
     }
 
     /**
@@ -123,12 +122,11 @@ class IMXWriter extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} fValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_standalone(fValue) {
-        result := ComCall(16, this, "ptr", fValue, "HRESULT")
-        return result
+    get_standalone() {
+        result := ComCall(16, this, "short*", &fValue := 0, "HRESULT")
+        return fValue
     }
 
     /**
@@ -143,12 +141,11 @@ class IMXWriter extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} fValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_omitXMLDeclaration(fValue) {
-        result := ComCall(18, this, "ptr", fValue, "HRESULT")
-        return result
+    get_omitXMLDeclaration() {
+        result := ComCall(18, this, "short*", &fValue := 0, "HRESULT")
+        return fValue
     }
 
     /**
@@ -165,12 +162,12 @@ class IMXWriter extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} strVersion 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_version(strVersion) {
+    get_version() {
+        strVersion := BSTR()
         result := ComCall(20, this, "ptr", strVersion, "HRESULT")
-        return result
+        return strVersion
     }
 
     /**
@@ -185,12 +182,11 @@ class IMXWriter extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} fValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_disableOutputEscaping(fValue) {
-        result := ComCall(22, this, "ptr", fValue, "HRESULT")
-        return result
+    get_disableOutputEscaping() {
+        result := ComCall(22, this, "short*", &fValue := 0, "HRESULT")
+        return fValue
     }
 
     /**

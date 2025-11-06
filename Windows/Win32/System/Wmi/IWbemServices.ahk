@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IWbemObjectSink.ahk
+#Include .\IEnumWbemClassObject.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -74,13 +76,12 @@ class IWbemServices extends IUnknown{
     /**
      * 
      * @param {Integer} lFlags 
-     * @param {Pointer<IWbemObjectSink>} ppResponseHandler 
-     * @returns {HRESULT} 
+     * @returns {IWbemObjectSink} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemservices-queryobjectsink
      */
-    QueryObjectSink(lFlags, ppResponseHandler) {
-        result := ComCall(5, this, "int", lFlags, "ptr*", ppResponseHandler, "HRESULT")
-        return result
+    QueryObjectSink(lFlags) {
+        result := ComCall(5, this, "int", lFlags, "ptr*", &ppResponseHandler := 0, "HRESULT")
+        return IWbemObjectSink(ppResponseHandler)
     }
 
     /**
@@ -185,15 +186,14 @@ class IWbemServices extends IUnknown{
      * @param {BSTR} strSuperclass 
      * @param {Integer} lFlags 
      * @param {IWbemContext} pCtx 
-     * @param {Pointer<IEnumWbemClassObject>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumWbemClassObject} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemservices-createclassenum
      */
-    CreateClassEnum(strSuperclass, lFlags, pCtx, ppEnum) {
+    CreateClassEnum(strSuperclass, lFlags, pCtx) {
         strSuperclass := strSuperclass is String ? BSTR.Alloc(strSuperclass).Value : strSuperclass
 
-        result := ComCall(12, this, "ptr", strSuperclass, "int", lFlags, "ptr", pCtx, "ptr*", ppEnum, "HRESULT")
-        return result
+        result := ComCall(12, this, "ptr", strSuperclass, "int", lFlags, "ptr", pCtx, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumWbemClassObject(ppEnum)
     }
 
     /**
@@ -277,15 +277,14 @@ class IWbemServices extends IUnknown{
      * @param {BSTR} strFilter 
      * @param {Integer} lFlags 
      * @param {IWbemContext} pCtx 
-     * @param {Pointer<IEnumWbemClassObject>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumWbemClassObject} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemservices-createinstanceenum
      */
-    CreateInstanceEnum(strFilter, lFlags, pCtx, ppEnum) {
+    CreateInstanceEnum(strFilter, lFlags, pCtx) {
         strFilter := strFilter is String ? BSTR.Alloc(strFilter).Value : strFilter
 
-        result := ComCall(18, this, "ptr", strFilter, "int", lFlags, "ptr", pCtx, "ptr*", ppEnum, "HRESULT")
-        return result
+        result := ComCall(18, this, "ptr", strFilter, "int", lFlags, "ptr", pCtx, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumWbemClassObject(ppEnum)
     }
 
     /**
@@ -310,16 +309,15 @@ class IWbemServices extends IUnknown{
      * @param {BSTR} strQuery 
      * @param {Integer} lFlags 
      * @param {IWbemContext} pCtx 
-     * @param {Pointer<IEnumWbemClassObject>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumWbemClassObject} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemservices-execquery
      */
-    ExecQuery(strQueryLanguage, strQuery, lFlags, pCtx, ppEnum) {
+    ExecQuery(strQueryLanguage, strQuery, lFlags, pCtx) {
         strQueryLanguage := strQueryLanguage is String ? BSTR.Alloc(strQueryLanguage).Value : strQueryLanguage
         strQuery := strQuery is String ? BSTR.Alloc(strQuery).Value : strQuery
 
-        result := ComCall(20, this, "ptr", strQueryLanguage, "ptr", strQuery, "int", lFlags, "ptr", pCtx, "ptr*", ppEnum, "HRESULT")
-        return result
+        result := ComCall(20, this, "ptr", strQueryLanguage, "ptr", strQuery, "int", lFlags, "ptr", pCtx, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumWbemClassObject(ppEnum)
     }
 
     /**
@@ -346,16 +344,15 @@ class IWbemServices extends IUnknown{
      * @param {BSTR} strQuery 
      * @param {Integer} lFlags 
      * @param {IWbemContext} pCtx 
-     * @param {Pointer<IEnumWbemClassObject>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumWbemClassObject} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemservices-execnotificationquery
      */
-    ExecNotificationQuery(strQueryLanguage, strQuery, lFlags, pCtx, ppEnum) {
+    ExecNotificationQuery(strQueryLanguage, strQuery, lFlags, pCtx) {
         strQueryLanguage := strQueryLanguage is String ? BSTR.Alloc(strQueryLanguage).Value : strQueryLanguage
         strQuery := strQuery is String ? BSTR.Alloc(strQuery).Value : strQuery
 
-        result := ComCall(22, this, "ptr", strQueryLanguage, "ptr", strQuery, "int", lFlags, "ptr", pCtx, "ptr*", ppEnum, "HRESULT")
-        return result
+        result := ComCall(22, this, "ptr", strQueryLanguage, "ptr", strQuery, "int", lFlags, "ptr", pCtx, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumWbemClassObject(ppEnum)
     }
 
     /**

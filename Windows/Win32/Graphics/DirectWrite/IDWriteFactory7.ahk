@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteFontSet2.ahk
+#Include .\IDWriteFontCollection3.ahk
 #Include .\IDWriteFactory6.ahk
 
 /**
@@ -33,25 +35,23 @@ class IDWriteFactory7 extends IDWriteFactory6{
     /**
      * 
      * @param {BOOL} includeDownloadableFonts 
-     * @param {Pointer<IDWriteFontSet2>} fontSet 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontSet2} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory7-getsystemfontset
      */
-    GetSystemFontSet(includeDownloadableFonts, fontSet) {
-        result := ComCall(55, this, "int", includeDownloadableFonts, "ptr*", fontSet, "HRESULT")
-        return result
+    GetSystemFontSet(includeDownloadableFonts) {
+        result := ComCall(55, this, "int", includeDownloadableFonts, "ptr*", &fontSet := 0, "HRESULT")
+        return IDWriteFontSet2(fontSet)
     }
 
     /**
      * 
      * @param {BOOL} includeDownloadableFonts 
      * @param {Integer} fontFamilyModel 
-     * @param {Pointer<IDWriteFontCollection3>} fontCollection 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontCollection3} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory7-getsystemfontcollection
      */
-    GetSystemFontCollection(includeDownloadableFonts, fontFamilyModel, fontCollection) {
-        result := ComCall(56, this, "int", includeDownloadableFonts, "int", fontFamilyModel, "ptr*", fontCollection, "HRESULT")
-        return result
+    GetSystemFontCollection(includeDownloadableFonts, fontFamilyModel) {
+        result := ComCall(56, this, "int", includeDownloadableFonts, "int", fontFamilyModel, "ptr*", &fontCollection := 0, "HRESULT")
+        return IDWriteFontCollection3(fontCollection)
     }
 }

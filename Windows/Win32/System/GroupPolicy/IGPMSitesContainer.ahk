@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IGPMSOM.ahk
+#Include .\IGPMSOMCollection.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -39,57 +41,55 @@ class IGPMSitesContainer extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_DomainController(pVal) {
+    get_DomainController() {
+        pVal := BSTR()
         result := ComCall(7, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Domain(pVal) {
+    get_Domain() {
+        pVal := BSTR()
         result := ComCall(8, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Forest(pVal) {
+    get_Forest() {
+        pVal := BSTR()
         result := ComCall(9, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
      * @param {BSTR} bstrSiteName 
-     * @param {Pointer<IGPMSOM>} ppSOM 
-     * @returns {HRESULT} 
+     * @returns {IGPMSOM} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmsitescontainer-getsite
      */
-    GetSite(bstrSiteName, ppSOM) {
+    GetSite(bstrSiteName) {
         bstrSiteName := bstrSiteName is String ? BSTR.Alloc(bstrSiteName).Value : bstrSiteName
 
-        result := ComCall(10, this, "ptr", bstrSiteName, "ptr*", ppSOM, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", bstrSiteName, "ptr*", &ppSOM := 0, "HRESULT")
+        return IGPMSOM(ppSOM)
     }
 
     /**
      * 
      * @param {IGPMSearchCriteria} pIGPMSearchCriteria 
-     * @param {Pointer<IGPMSOMCollection>} ppIGPMSOMCollection 
-     * @returns {HRESULT} 
+     * @returns {IGPMSOMCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmsitescontainer-searchsites
      */
-    SearchSites(pIGPMSearchCriteria, ppIGPMSOMCollection) {
-        result := ComCall(11, this, "ptr", pIGPMSearchCriteria, "ptr*", ppIGPMSOMCollection, "HRESULT")
-        return result
+    SearchSites(pIGPMSearchCriteria) {
+        result := ComCall(11, this, "ptr", pIGPMSearchCriteria, "ptr*", &ppIGPMSOMCollection := 0, "HRESULT")
+        return IGPMSOMCollection(ppIGPMSOMCollection)
     }
 }

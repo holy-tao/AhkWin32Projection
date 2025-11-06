@@ -38,13 +38,13 @@ class IMSMQApplication extends IDispatch{
     /**
      * 
      * @param {BSTR} MachineName 
-     * @param {Pointer<BSTR>} pbstrGuid 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    MachineIdOfMachineName(MachineName, pbstrGuid) {
+    MachineIdOfMachineName(MachineName) {
         MachineName := MachineName is String ? BSTR.Alloc(MachineName).Value : MachineName
 
+        pbstrGuid := BSTR()
         result := ComCall(7, this, "ptr", MachineName, "ptr", pbstrGuid, "HRESULT")
-        return result
+        return pbstrGuid
     }
 }

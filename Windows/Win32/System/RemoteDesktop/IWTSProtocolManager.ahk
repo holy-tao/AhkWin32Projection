@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWTSProtocolListener.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -33,15 +34,14 @@ class IWTSProtocolManager extends IUnknown{
     /**
      * 
      * @param {PWSTR} wszListenerName 
-     * @param {Pointer<IWTSProtocolListener>} pProtocolListener 
-     * @returns {HRESULT} 
+     * @returns {IWTSProtocolListener} 
      * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwtsprotocolmanager-createlistener
      */
-    CreateListener(wszListenerName, pProtocolListener) {
+    CreateListener(wszListenerName) {
         wszListenerName := wszListenerName is String ? StrPtr(wszListenerName) : wszListenerName
 
-        result := ComCall(3, this, "ptr", wszListenerName, "ptr*", pProtocolListener, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", wszListenerName, "ptr*", &pProtocolListener := 0, "HRESULT")
+        return IWTSProtocolListener(pProtocolListener)
     }
 
     /**

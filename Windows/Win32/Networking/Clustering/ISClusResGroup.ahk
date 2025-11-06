@@ -2,6 +2,12 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ISClusProperties.ahk
+#Include .\ISClusNode.ahk
+#Include .\ISClusResGroupResources.ahk
+#Include .\ISClusResGroupPreferredOwnerNodes.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\ISCluster.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -31,64 +37,57 @@ class ISClusResGroup extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISClusProperties>} ppProperties 
-     * @returns {HRESULT} 
+     * @returns {ISClusProperties} 
      */
-    get_CommonProperties(ppProperties) {
-        result := ComCall(7, this, "ptr*", ppProperties, "HRESULT")
-        return result
+    get_CommonProperties() {
+        result := ComCall(7, this, "ptr*", &ppProperties := 0, "HRESULT")
+        return ISClusProperties(ppProperties)
     }
 
     /**
      * 
-     * @param {Pointer<ISClusProperties>} ppProperties 
-     * @returns {HRESULT} 
+     * @returns {ISClusProperties} 
      */
-    get_PrivateProperties(ppProperties) {
-        result := ComCall(8, this, "ptr*", ppProperties, "HRESULT")
-        return result
+    get_PrivateProperties() {
+        result := ComCall(8, this, "ptr*", &ppProperties := 0, "HRESULT")
+        return ISClusProperties(ppProperties)
     }
 
     /**
      * 
-     * @param {Pointer<ISClusProperties>} ppProperties 
-     * @returns {HRESULT} 
+     * @returns {ISClusProperties} 
      */
-    get_CommonROProperties(ppProperties) {
-        result := ComCall(9, this, "ptr*", ppProperties, "HRESULT")
-        return result
+    get_CommonROProperties() {
+        result := ComCall(9, this, "ptr*", &ppProperties := 0, "HRESULT")
+        return ISClusProperties(ppProperties)
     }
 
     /**
      * 
-     * @param {Pointer<ISClusProperties>} ppProperties 
-     * @returns {HRESULT} 
+     * @returns {ISClusProperties} 
      */
-    get_PrivateROProperties(ppProperties) {
-        result := ComCall(10, this, "ptr*", ppProperties, "HRESULT")
-        return result
+    get_PrivateROProperties() {
+        result := ComCall(10, this, "ptr*", &ppProperties := 0, "HRESULT")
+        return ISClusProperties(ppProperties)
     }
 
     /**
      * 
-     * @param {Pointer<Pointer>} phandle 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    get_Handle(phandle) {
-        phandleMarshal := phandle is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(11, this, phandleMarshal, phandle, "HRESULT")
-        return result
+    get_Handle() {
+        result := ComCall(11, this, "ptr*", &phandle := 0, "HRESULT")
+        return phandle
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Name(pbstrName) {
+    get_Name() {
+        pbstrName := BSTR()
         result := ComCall(12, this, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 
     /**
@@ -105,44 +104,38 @@ class ISClusResGroup extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} dwState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_State(dwState) {
-        dwStateMarshal := dwState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, dwStateMarshal, dwState, "HRESULT")
-        return result
+    get_State() {
+        result := ComCall(14, this, "int*", &dwState := 0, "HRESULT")
+        return dwState
     }
 
     /**
      * 
-     * @param {Pointer<ISClusNode>} ppOwnerNode 
-     * @returns {HRESULT} 
+     * @returns {ISClusNode} 
      */
-    get_OwnerNode(ppOwnerNode) {
-        result := ComCall(15, this, "ptr*", ppOwnerNode, "HRESULT")
-        return result
+    get_OwnerNode() {
+        result := ComCall(15, this, "ptr*", &ppOwnerNode := 0, "HRESULT")
+        return ISClusNode(ppOwnerNode)
     }
 
     /**
      * 
-     * @param {Pointer<ISClusResGroupResources>} ppClusterGroupResources 
-     * @returns {HRESULT} 
+     * @returns {ISClusResGroupResources} 
      */
-    get_Resources(ppClusterGroupResources) {
-        result := ComCall(16, this, "ptr*", ppClusterGroupResources, "HRESULT")
-        return result
+    get_Resources() {
+        result := ComCall(16, this, "ptr*", &ppClusterGroupResources := 0, "HRESULT")
+        return ISClusResGroupResources(ppClusterGroupResources)
     }
 
     /**
      * 
-     * @param {Pointer<ISClusResGroupPreferredOwnerNodes>} ppOwnerNodes 
-     * @returns {HRESULT} 
+     * @returns {ISClusResGroupPreferredOwnerNodes} 
      */
-    get_PreferredOwnerNodes(ppOwnerNodes) {
-        result := ComCall(17, this, "ptr*", ppOwnerNodes, "HRESULT")
-        return result
+    get_PreferredOwnerNodes() {
+        result := ComCall(17, this, "ptr*", &ppOwnerNodes := 0, "HRESULT")
+        return ISClusResGroupPreferredOwnerNodes(ppOwnerNodes)
     }
 
     /**
@@ -158,44 +151,43 @@ class ISClusResGroup extends IDispatch{
      * 
      * @param {VARIANT} varTimeout 
      * @param {VARIANT} varNode 
-     * @param {Pointer<VARIANT>} pvarPending 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    Online(varTimeout, varNode, pvarPending) {
+    Online(varTimeout, varNode) {
+        pvarPending := VARIANT()
         result := ComCall(19, this, "ptr", varTimeout, "ptr", varNode, "ptr", pvarPending, "HRESULT")
-        return result
+        return pvarPending
     }
 
     /**
      * 
      * @param {VARIANT} varTimeout 
      * @param {VARIANT} varNode 
-     * @param {Pointer<VARIANT>} pvarPending 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    Move(varTimeout, varNode, pvarPending) {
+    Move(varTimeout, varNode) {
+        pvarPending := VARIANT()
         result := ComCall(20, this, "ptr", varTimeout, "ptr", varNode, "ptr", pvarPending, "HRESULT")
-        return result
+        return pvarPending
     }
 
     /**
      * 
      * @param {VARIANT} varTimeout 
-     * @param {Pointer<VARIANT>} pvarPending 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    Offline(varTimeout, pvarPending) {
+    Offline(varTimeout) {
+        pvarPending := VARIANT()
         result := ComCall(21, this, "ptr", varTimeout, "ptr", pvarPending, "HRESULT")
-        return result
+        return pvarPending
     }
 
     /**
      * 
-     * @param {Pointer<ISCluster>} ppCluster 
-     * @returns {HRESULT} 
+     * @returns {ISCluster} 
      */
-    get_Cluster(ppCluster) {
-        result := ComCall(22, this, "ptr*", ppCluster, "HRESULT")
-        return result
+    get_Cluster() {
+        result := ComCall(22, this, "ptr*", &ppCluster := 0, "HRESULT")
+        return ISCluster(ppCluster)
     }
 }

@@ -43,27 +43,21 @@ class IBlockRange extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iblockrange-get_startlba
      */
-    get_StartLba(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, valueMarshal, value, "HRESULT")
-        return result
+    get_StartLba() {
+        result := ComCall(7, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iblockrange-get_endlba
      */
-    get_EndLba(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, valueMarshal, value, "HRESULT")
-        return result
+    get_EndLba() {
+        result := ComCall(8, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 }

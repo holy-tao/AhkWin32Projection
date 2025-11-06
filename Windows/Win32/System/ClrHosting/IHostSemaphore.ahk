@@ -42,16 +42,11 @@ class IHostSemaphore extends IUnknown{
     /**
      * Increases the count of the specified semaphore object by a specified amount.
      * @param {Integer} lReleaseCount The amount by which the semaphore object's current count is to be increased. The value must be greater than zero. If the specified amount would cause the semaphore's count to exceed the maximum count that was specified when the semaphore was created, the count is not changed and the function returns <b>FALSE</b>.
-     * @param {Pointer<Integer>} lpPreviousCount A pointer to a variable to receive the previous count for the semaphore. This parameter can be <b>NULL</b> if the previous count is not required.
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {Integer} A pointer to a variable to receive the previous count for the semaphore. This parameter can be <b>NULL</b> if the previous count is not required.
      * @see https://docs.microsoft.com/windows/win32/api//synchapi/nf-synchapi-releasesemaphore
      */
-    ReleaseSemaphore(lReleaseCount, lpPreviousCount) {
-        lpPreviousCountMarshal := lpPreviousCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, "int", lReleaseCount, lpPreviousCountMarshal, lpPreviousCount, "HRESULT")
-        return result
+    ReleaseSemaphore(lReleaseCount) {
+        result := ComCall(4, this, "int", lReleaseCount, "int*", &lpPreviousCount := 0, "HRESULT")
+        return lpPreviousCount
     }
 }

@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include .\ITextSelection.ahk
+#Include .\ITextStoryRanges.ahk
+#Include .\ITextRange.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,61 +36,53 @@ class ITextDocument extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument-getname
      */
-    GetName(pName) {
+    GetName() {
+        pName := BSTR()
         result := ComCall(7, this, "ptr", pName, "HRESULT")
-        return result
+        return pName
     }
 
     /**
      * 
-     * @param {Pointer<ITextSelection>} ppSel 
-     * @returns {HRESULT} 
+     * @returns {ITextSelection} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument-getselection
      */
-    GetSelection(ppSel) {
-        result := ComCall(8, this, "ptr*", ppSel, "HRESULT")
-        return result
+    GetSelection() {
+        result := ComCall(8, this, "ptr*", &ppSel := 0, "HRESULT")
+        return ITextSelection(ppSel)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument-getstorycount
      */
-    GetStoryCount(pCount) {
-        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    GetStoryCount() {
+        result := ComCall(9, this, "int*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
      * 
-     * @param {Pointer<ITextStoryRanges>} ppStories 
-     * @returns {HRESULT} 
+     * @returns {ITextStoryRanges} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument-getstoryranges
      */
-    GetStoryRanges(ppStories) {
-        result := ComCall(10, this, "ptr*", ppStories, "HRESULT")
-        return result
+    GetStoryRanges() {
+        result := ComCall(10, this, "ptr*", &ppStories := 0, "HRESULT")
+        return ITextStoryRanges(ppStories)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument-getsaved
      */
-    GetSaved(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetSaved() {
+        result := ComCall(11, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -102,15 +98,12 @@ class ITextDocument extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument-getdefaulttabstop
      */
-    GetDefaultTabStop(pValue) {
-        pValueMarshal := pValue is VarRef ? "float*" : "ptr"
-
-        result := ComCall(13, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetDefaultTabStop() {
+        result := ComCall(13, this, "float*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -162,28 +155,22 @@ class ITextDocument extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument-freeze
      */
-    Freeze(pCount) {
-        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(18, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    Freeze() {
+        result := ComCall(18, this, "int*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument-unfreeze
      */
-    Unfreeze(pCount) {
-        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(19, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    Unfreeze() {
+        result := ComCall(19, this, "int*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
@@ -209,54 +196,46 @@ class ITextDocument extends IDispatch{
     /**
      * 
      * @param {Integer} Count 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument-undo
      */
-    Undo(Count, pCount) {
-        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(22, this, "int", Count, pCountMarshal, pCount, "HRESULT")
-        return result
+    Undo(Count) {
+        result := ComCall(22, this, "int", Count, "int*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
      * 
      * @param {Integer} Count 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument-redo
      */
-    Redo(Count, pCount) {
-        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(23, this, "int", Count, pCountMarshal, pCount, "HRESULT")
-        return result
+    Redo(Count) {
+        result := ComCall(23, this, "int", Count, "int*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
      * 
      * @param {Integer} cpActive 
      * @param {Integer} cpAnchor 
-     * @param {Pointer<ITextRange>} ppRange 
-     * @returns {HRESULT} 
+     * @returns {ITextRange} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument-range
      */
-    Range(cpActive, cpAnchor, ppRange) {
-        result := ComCall(24, this, "int", cpActive, "int", cpAnchor, "ptr*", ppRange, "HRESULT")
-        return result
+    Range(cpActive, cpAnchor) {
+        result := ComCall(24, this, "int", cpActive, "int", cpAnchor, "ptr*", &ppRange := 0, "HRESULT")
+        return ITextRange(ppRange)
     }
 
     /**
      * 
      * @param {Integer} x 
      * @param {Integer} y 
-     * @param {Pointer<ITextRange>} ppRange 
-     * @returns {HRESULT} 
+     * @returns {ITextRange} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument-rangefrompoint
      */
-    RangeFromPoint(x, y, ppRange) {
-        result := ComCall(25, this, "int", x, "int", y, "ptr*", ppRange, "HRESULT")
-        return result
+    RangeFromPoint(x, y) {
+        result := ComCall(25, this, "int", x, "int", y, "ptr*", &ppRange := 0, "HRESULT")
+        return ITextRange(ppRange)
     }
 }

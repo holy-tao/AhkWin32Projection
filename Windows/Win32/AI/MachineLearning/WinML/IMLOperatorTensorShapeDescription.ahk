@@ -31,28 +31,22 @@ class IMLOperatorTensorShapeDescription extends IUnknown{
     /**
      * 
      * @param {Integer} inputIndex 
-     * @param {Pointer<Integer>} dimensionCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetInputTensorDimensionCount(inputIndex, dimensionCount) {
-        dimensionCountMarshal := dimensionCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "uint", inputIndex, dimensionCountMarshal, dimensionCount, "HRESULT")
-        return result
+    GetInputTensorDimensionCount(inputIndex) {
+        result := ComCall(3, this, "uint", inputIndex, "uint*", &dimensionCount := 0, "HRESULT")
+        return dimensionCount
     }
 
     /**
      * 
      * @param {Integer} inputIndex 
      * @param {Integer} dimensionCount 
-     * @param {Pointer<Integer>} dimensions 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetInputTensorShape(inputIndex, dimensionCount, dimensions) {
-        dimensionsMarshal := dimensions is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, "uint", inputIndex, "uint", dimensionCount, dimensionsMarshal, dimensions, "HRESULT")
-        return result
+    GetInputTensorShape(inputIndex, dimensionCount) {
+        result := ComCall(4, this, "uint", inputIndex, "uint", dimensionCount, "uint*", &dimensions := 0, "HRESULT")
+        return dimensions
     }
 
     /**
@@ -67,27 +61,21 @@ class IMLOperatorTensorShapeDescription extends IUnknown{
     /**
      * 
      * @param {Integer} outputIndex 
-     * @param {Pointer<Integer>} dimensionCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetOutputTensorDimensionCount(outputIndex, dimensionCount) {
-        dimensionCountMarshal := dimensionCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, "uint", outputIndex, dimensionCountMarshal, dimensionCount, "HRESULT")
-        return result
+    GetOutputTensorDimensionCount(outputIndex) {
+        result := ComCall(6, this, "uint", outputIndex, "uint*", &dimensionCount := 0, "HRESULT")
+        return dimensionCount
     }
 
     /**
      * 
      * @param {Integer} outputIndex 
      * @param {Integer} dimensionCount 
-     * @param {Pointer<Integer>} dimensions 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetOutputTensorShape(outputIndex, dimensionCount, dimensions) {
-        dimensionsMarshal := dimensions is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, "uint", outputIndex, "uint", dimensionCount, dimensionsMarshal, dimensions, "HRESULT")
-        return result
+    GetOutputTensorShape(outputIndex, dimensionCount) {
+        result := ComCall(7, this, "uint", outputIndex, "uint", dimensionCount, "uint*", &dimensions := 0, "HRESULT")
+        return dimensions
     }
 }

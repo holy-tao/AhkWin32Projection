@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IOpcPartUri.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -68,35 +69,32 @@ class IOpcSignaturePartReference extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IOpcPartUri>} partName 
-     * @returns {HRESULT} 
+     * @returns {IOpcPartUri} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturepartreference-getpartname
      */
-    GetPartName(partName) {
-        result := ComCall(3, this, "ptr*", partName, "HRESULT")
-        return result
+    GetPartName() {
+        result := ComCall(3, this, "ptr*", &partName := 0, "HRESULT")
+        return IOpcPartUri(partName)
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} contentType 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturepartreference-getcontenttype
      */
-    GetContentType(contentType) {
-        result := ComCall(4, this, "ptr", contentType, "HRESULT")
-        return result
+    GetContentType() {
+        result := ComCall(4, this, "ptr*", &contentType := 0, "HRESULT")
+        return contentType
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} digestMethod 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturepartreference-getdigestmethod
      */
-    GetDigestMethod(digestMethod) {
-        result := ComCall(5, this, "ptr", digestMethod, "HRESULT")
-        return result
+    GetDigestMethod() {
+        result := ComCall(5, this, "ptr*", &digestMethod := 0, "HRESULT")
+        return digestMethod
     }
 
     /**
@@ -116,14 +114,11 @@ class IOpcSignaturePartReference extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} transformMethod 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturepartreference-gettransformmethod
      */
-    GetTransformMethod(transformMethod) {
-        transformMethodMarshal := transformMethod is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, transformMethodMarshal, transformMethod, "HRESULT")
-        return result
+    GetTransformMethod() {
+        result := ComCall(7, this, "int*", &transformMethod := 0, "HRESULT")
+        return transformMethod
     }
 }

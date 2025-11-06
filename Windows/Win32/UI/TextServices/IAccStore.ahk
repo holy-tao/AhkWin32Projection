@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IEnumUnknown.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -57,38 +58,35 @@ class IAccStore extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumUnknown>} enumUnknown 
-     * @returns {HRESULT} 
+     * @returns {IEnumUnknown} 
      */
-    GetDocuments(enumUnknown) {
-        result := ComCall(5, this, "ptr*", enumUnknown, "HRESULT")
-        return result
+    GetDocuments() {
+        result := ComCall(5, this, "ptr*", &enumUnknown := 0, "HRESULT")
+        return IEnumUnknown(enumUnknown)
     }
 
     /**
      * 
      * @param {HWND} hWnd 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppunk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    LookupByHWND(hWnd, riid, ppunk) {
+    LookupByHWND(hWnd, riid) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
-        result := ComCall(6, this, "ptr", hWnd, "ptr", riid, "ptr*", ppunk, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", hWnd, "ptr", riid, "ptr*", &ppunk := 0, "HRESULT")
+        return IUnknown(ppunk)
     }
 
     /**
      * 
      * @param {POINT} pt 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppunk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    LookupByPoint(pt, riid, ppunk) {
-        result := ComCall(7, this, "ptr", pt, "ptr", riid, "ptr*", ppunk, "HRESULT")
-        return result
+    LookupByPoint(pt, riid) {
+        result := ComCall(7, this, "ptr", pt, "ptr", riid, "ptr*", &ppunk := 0, "HRESULT")
+        return IUnknown(ppunk)
     }
 
     /**
@@ -104,11 +102,10 @@ class IAccStore extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppunk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    GetFocused(riid, ppunk) {
-        result := ComCall(9, this, "ptr", riid, "ptr*", ppunk, "HRESULT")
-        return result
+    GetFocused(riid) {
+        result := ComCall(9, this, "ptr", riid, "ptr*", &ppunk := 0, "HRESULT")
+        return IUnknown(ppunk)
     }
 }

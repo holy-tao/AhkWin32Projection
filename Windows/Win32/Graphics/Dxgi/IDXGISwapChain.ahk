@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DXGI_SWAP_CHAIN_DESC.ahk
+#Include .\IDXGIOutput.ahk
+#Include .\DXGI_FRAME_STATISTICS.ahk
 #Include .\IDXGIDeviceSubObject.ahk
 
 /**
@@ -52,15 +55,12 @@ class IDXGISwapChain extends IDXGIDeviceSubObject{
      * 
      * @param {Integer} Buffer 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppSurface 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiswapchain-getbuffer
      */
-    GetBuffer(Buffer, riid, ppSurface) {
-        ppSurfaceMarshal := ppSurface is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(9, this, "uint", Buffer, "ptr", riid, ppSurfaceMarshal, ppSurface, "HRESULT")
-        return result
+    GetBuffer(Buffer, riid) {
+        result := ComCall(9, this, "uint", Buffer, "ptr", riid, "ptr*", &ppSurface := 0, "HRESULT")
+        return ppSurface
     }
 
     /**
@@ -83,19 +83,21 @@ class IDXGISwapChain extends IDXGIDeviceSubObject{
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiswapchain-getfullscreenstate
      */
     GetFullscreenState(pFullscreen, ppTarget) {
-        result := ComCall(11, this, "ptr", pFullscreen, "ptr*", ppTarget, "HRESULT")
+        pFullscreenMarshal := pFullscreen is VarRef ? "int*" : "ptr"
+
+        result := ComCall(11, this, pFullscreenMarshal, pFullscreen, "ptr*", ppTarget, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<DXGI_SWAP_CHAIN_DESC>} pDesc 
-     * @returns {HRESULT} 
+     * @returns {DXGI_SWAP_CHAIN_DESC} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiswapchain-getdesc
      */
-    GetDesc(pDesc) {
+    GetDesc() {
+        pDesc := DXGI_SWAP_CHAIN_DESC()
         result := ComCall(12, this, "ptr", pDesc, "HRESULT")
-        return result
+        return pDesc
     }
 
     /**
@@ -126,36 +128,32 @@ class IDXGISwapChain extends IDXGIDeviceSubObject{
 
     /**
      * 
-     * @param {Pointer<IDXGIOutput>} ppOutput 
-     * @returns {HRESULT} 
+     * @returns {IDXGIOutput} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiswapchain-getcontainingoutput
      */
-    GetContainingOutput(ppOutput) {
-        result := ComCall(15, this, "ptr*", ppOutput, "HRESULT")
-        return result
+    GetContainingOutput() {
+        result := ComCall(15, this, "ptr*", &ppOutput := 0, "HRESULT")
+        return IDXGIOutput(ppOutput)
     }
 
     /**
      * 
-     * @param {Pointer<DXGI_FRAME_STATISTICS>} pStats 
-     * @returns {HRESULT} 
+     * @returns {DXGI_FRAME_STATISTICS} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiswapchain-getframestatistics
      */
-    GetFrameStatistics(pStats) {
+    GetFrameStatistics() {
+        pStats := DXGI_FRAME_STATISTICS()
         result := ComCall(16, this, "ptr", pStats, "HRESULT")
-        return result
+        return pStats
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pLastPresentCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiswapchain-getlastpresentcount
      */
-    GetLastPresentCount(pLastPresentCount) {
-        pLastPresentCountMarshal := pLastPresentCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(17, this, pLastPresentCountMarshal, pLastPresentCount, "HRESULT")
-        return result
+    GetLastPresentCount() {
+        result := ComCall(17, this, "uint*", &pLastPresentCount := 0, "HRESULT")
+        return pLastPresentCount
     }
 }

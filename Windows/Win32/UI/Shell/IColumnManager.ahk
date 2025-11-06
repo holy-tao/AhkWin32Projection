@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\PROPERTYKEY.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -64,28 +65,25 @@ class IColumnManager extends IUnknown{
     /**
      * 
      * @param {Integer} dwFlags 
-     * @param {Pointer<Integer>} puCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icolumnmanager-getcolumncount
      */
-    GetColumnCount(dwFlags, puCount) {
-        puCountMarshal := puCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, "int", dwFlags, puCountMarshal, puCount, "HRESULT")
-        return result
+    GetColumnCount(dwFlags) {
+        result := ComCall(5, this, "int", dwFlags, "uint*", &puCount := 0, "HRESULT")
+        return puCount
     }
 
     /**
      * 
      * @param {Integer} dwFlags 
-     * @param {Pointer<PROPERTYKEY>} rgkeyOrder 
      * @param {Integer} cColumns 
-     * @returns {HRESULT} 
+     * @returns {PROPERTYKEY} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icolumnmanager-getcolumns
      */
-    GetColumns(dwFlags, rgkeyOrder, cColumns) {
+    GetColumns(dwFlags, cColumns) {
+        rgkeyOrder := PROPERTYKEY()
         result := ComCall(6, this, "int", dwFlags, "ptr", rgkeyOrder, "uint", cColumns, "HRESULT")
-        return result
+        return rgkeyOrder
     }
 
     /**

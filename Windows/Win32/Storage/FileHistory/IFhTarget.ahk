@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,26 +34,23 @@ class IFhTarget extends IUnknown{
     /**
      * 
      * @param {Integer} PropertyType 
-     * @param {Pointer<BSTR>} PropertyValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhtarget-getstringproperty
      */
-    GetStringProperty(PropertyType, PropertyValue) {
+    GetStringProperty(PropertyType) {
+        PropertyValue := BSTR()
         result := ComCall(3, this, "int", PropertyType, "ptr", PropertyValue, "HRESULT")
-        return result
+        return PropertyValue
     }
 
     /**
      * 
      * @param {Integer} PropertyType 
-     * @param {Pointer<Integer>} PropertyValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fhcfg/nf-fhcfg-ifhtarget-getnumericalproperty
      */
-    GetNumericalProperty(PropertyType, PropertyValue) {
-        PropertyValueMarshal := PropertyValue is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, "int", PropertyType, PropertyValueMarshal, PropertyValue, "HRESULT")
-        return result
+    GetNumericalProperty(PropertyType) {
+        result := ComCall(4, this, "int", PropertyType, "uint*", &PropertyValue := 0, "HRESULT")
+        return PropertyValue
     }
 }

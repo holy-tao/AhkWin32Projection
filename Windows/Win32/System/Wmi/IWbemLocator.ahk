@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IWbemServices.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -46,18 +47,17 @@ class IWbemLocator extends IUnknown{
      * @param {Integer} lSecurityFlags 
      * @param {BSTR} strAuthority 
      * @param {IWbemContext} pCtx 
-     * @param {Pointer<IWbemServices>} ppNamespace 
-     * @returns {HRESULT} 
+     * @returns {IWbemServices} 
      * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemlocator-connectserver
      */
-    ConnectServer(strNetworkResource, strUser, strPassword, strLocale, lSecurityFlags, strAuthority, pCtx, ppNamespace) {
+    ConnectServer(strNetworkResource, strUser, strPassword, strLocale, lSecurityFlags, strAuthority, pCtx) {
         strNetworkResource := strNetworkResource is String ? BSTR.Alloc(strNetworkResource).Value : strNetworkResource
         strUser := strUser is String ? BSTR.Alloc(strUser).Value : strUser
         strPassword := strPassword is String ? BSTR.Alloc(strPassword).Value : strPassword
         strLocale := strLocale is String ? BSTR.Alloc(strLocale).Value : strLocale
         strAuthority := strAuthority is String ? BSTR.Alloc(strAuthority).Value : strAuthority
 
-        result := ComCall(3, this, "ptr", strNetworkResource, "ptr", strUser, "ptr", strPassword, "ptr", strLocale, "int", lSecurityFlags, "ptr", strAuthority, "ptr", pCtx, "ptr*", ppNamespace, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", strNetworkResource, "ptr", strUser, "ptr", strPassword, "ptr", strLocale, "int", lSecurityFlags, "ptr", strAuthority, "ptr", pCtx, "ptr*", &ppNamespace := 0, "HRESULT")
+        return IWbemServices(ppNamespace)
     }
 }

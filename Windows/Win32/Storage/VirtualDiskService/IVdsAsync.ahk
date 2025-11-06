@@ -48,7 +48,9 @@ class IVdsAsync extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsasync-wait
      */
     Wait(pHrResult, pAsyncOut) {
-        result := ComCall(4, this, "ptr", pHrResult, "ptr", pAsyncOut, "HRESULT")
+        pHrResultMarshal := pHrResult is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, pHrResultMarshal, pHrResult, "ptr", pAsyncOut, "HRESULT")
         return result
     }
 
@@ -60,9 +62,10 @@ class IVdsAsync extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsasync-querystatus
      */
     QueryStatus(pHrResult, pulPercentCompleted) {
+        pHrResultMarshal := pHrResult is VarRef ? "int*" : "ptr"
         pulPercentCompletedMarshal := pulPercentCompleted is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pHrResult, pulPercentCompletedMarshal, pulPercentCompleted, "HRESULT")
+        result := ComCall(5, this, pHrResultMarshal, pHrResult, pulPercentCompletedMarshal, pulPercentCompleted, "HRESULT")
         return result
     }
 }

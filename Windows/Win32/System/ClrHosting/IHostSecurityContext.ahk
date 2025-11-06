@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IHostSecurityContext.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -30,11 +31,10 @@ class IHostSecurityContext extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IHostSecurityContext>} ppClonedContext 
-     * @returns {HRESULT} 
+     * @returns {IHostSecurityContext} 
      */
-    Capture(ppClonedContext) {
-        result := ComCall(3, this, "ptr*", ppClonedContext, "HRESULT")
-        return result
+    Capture() {
+        result := ComCall(3, this, "ptr*", &ppClonedContext := 0, "HRESULT")
+        return IHostSecurityContext(ppClonedContext)
     }
 }

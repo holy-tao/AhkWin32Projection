@@ -30,12 +30,11 @@ class ITrackerOwner extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<TrackerHandle>} returnValue 
-     * @returns {HRESULT} 
+     * @returns {TrackerHandle} 
      */
-    CreateTrackerHandle(returnValue) {
-        result := ComCall(3, this, "ptr", returnValue, "HRESULT")
-        return result
+    CreateTrackerHandle() {
+        result := ComCall(3, this, "ptr*", &returnValue := 0, "HRESULT")
+        return returnValue
     }
 
     /**

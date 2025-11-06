@@ -30,12 +30,12 @@ class IPMExtensionInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pSupplierPID 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    get_SupplierPID(pSupplierPID) {
+    get_SupplierPID() {
+        pSupplierPID := Guid()
         result := ComCall(3, this, "ptr", pSupplierPID, "HRESULT")
-        return result
+        return pSupplierPID
     }
 
     /**

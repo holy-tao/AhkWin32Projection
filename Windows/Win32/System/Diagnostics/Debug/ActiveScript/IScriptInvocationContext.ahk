@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -30,33 +31,29 @@ class IScriptInvocationContext extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pInvocationContextType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetContextType(pInvocationContextType) {
-        pInvocationContextTypeMarshal := pInvocationContextType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, pInvocationContextTypeMarshal, pInvocationContextType, "HRESULT")
-        return result
+    GetContextType() {
+        result := ComCall(3, this, "int*", &pInvocationContextType := 0, "HRESULT")
+        return pInvocationContextType
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pDescription 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetContextDescription(pDescription) {
+    GetContextDescription() {
+        pDescription := BSTR()
         result := ComCall(4, this, "ptr", pDescription, "HRESULT")
-        return result
+        return pDescription
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppContextObject 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    GetContextObject(ppContextObject) {
-        result := ComCall(5, this, "ptr*", ppContextObject, "HRESULT")
-        return result
+    GetContextObject() {
+        result := ComCall(5, this, "ptr*", &ppContextObject := 0, "HRESULT")
+        return IUnknown(ppContextObject)
     }
 }

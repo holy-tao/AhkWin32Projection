@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IHTMLXDomainRequest.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,11 +31,10 @@ class IHTMLXDomainRequestFactory extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IHTMLXDomainRequest>} __MIDL__IHTMLXDomainRequestFactory0000 
-     * @returns {HRESULT} 
+     * @returns {IHTMLXDomainRequest} 
      */
-    create(__MIDL__IHTMLXDomainRequestFactory0000) {
-        result := ComCall(7, this, "ptr*", __MIDL__IHTMLXDomainRequestFactory0000, "HRESULT")
-        return result
+    create() {
+        result := ComCall(7, this, "ptr*", &__MIDL__IHTMLXDomainRequestFactory0000 := 0, "HRESULT")
+        return IHTMLXDomainRequest(__MIDL__IHTMLXDomainRequestFactory0000)
     }
 }

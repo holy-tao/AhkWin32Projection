@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID2D1LookupTable3D.ahk
 #Include .\ID2D1EffectContext.ahk
 
 /**
@@ -37,16 +38,15 @@ class ID2D1EffectContext1 extends ID2D1EffectContext{
      * @param {Pointer<Integer>} data 
      * @param {Integer} dataCount 
      * @param {Pointer<Integer>} strides 
-     * @param {Pointer<ID2D1LookupTable3D>} lookupTable 
-     * @returns {HRESULT} 
+     * @returns {ID2D1LookupTable3D} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor_1/nf-d2d1effectauthor_1-id2d1effectcontext1-createlookuptable3d
      */
-    CreateLookupTable3D(precision, extents, data, dataCount, strides, lookupTable) {
+    CreateLookupTable3D(precision, extents, data, dataCount, strides) {
         extentsMarshal := extents is VarRef ? "uint*" : "ptr"
         dataMarshal := data is VarRef ? "char*" : "ptr"
         stridesMarshal := strides is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(24, this, "int", precision, extentsMarshal, extents, dataMarshal, data, "uint", dataCount, stridesMarshal, strides, "ptr*", lookupTable, "HRESULT")
-        return result
+        result := ComCall(24, this, "int", precision, extentsMarshal, extents, dataMarshal, data, "uint", dataCount, stridesMarshal, strides, "ptr*", &lookupTable := 0, "HRESULT")
+        return ID2D1LookupTable3D(lookupTable)
     }
 }

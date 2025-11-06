@@ -36,16 +36,13 @@ class ICreateWithTipTransactionEx extends IUnknown{
      * @param {BSTR} bstrTipUrl 
      * @param {Pointer<Guid>} rclsid 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} pObject 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icreatewithtiptransactionex-createinstance
      */
-    CreateInstance(bstrTipUrl, rclsid, riid, pObject) {
+    CreateInstance(bstrTipUrl, rclsid, riid) {
         bstrTipUrl := bstrTipUrl is String ? BSTR.Alloc(bstrTipUrl).Value : bstrTipUrl
 
-        pObjectMarshal := pObject is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", bstrTipUrl, "ptr", rclsid, "ptr", riid, pObjectMarshal, pObject, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", bstrTipUrl, "ptr", rclsid, "ptr", riid, "ptr*", &pObject := 0, "HRESULT")
+        return pObject
     }
 }

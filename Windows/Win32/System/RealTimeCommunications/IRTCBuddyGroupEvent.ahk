@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRTCBuddyGroup.ahk
+#Include .\IRTCBuddy2.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -30,45 +32,37 @@ class IRTCBuddyGroupEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pEventType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_EventType(pEventType) {
-        pEventTypeMarshal := pEventType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pEventTypeMarshal, pEventType, "HRESULT")
-        return result
+    get_EventType() {
+        result := ComCall(7, this, "int*", &pEventType := 0, "HRESULT")
+        return pEventType
     }
 
     /**
      * 
-     * @param {Pointer<IRTCBuddyGroup>} ppGroup 
-     * @returns {HRESULT} 
+     * @returns {IRTCBuddyGroup} 
      */
-    get_Group(ppGroup) {
-        result := ComCall(8, this, "ptr*", ppGroup, "HRESULT")
-        return result
+    get_Group() {
+        result := ComCall(8, this, "ptr*", &ppGroup := 0, "HRESULT")
+        return IRTCBuddyGroup(ppGroup)
     }
 
     /**
      * 
-     * @param {Pointer<IRTCBuddy2>} ppBuddy 
-     * @returns {HRESULT} 
+     * @returns {IRTCBuddy2} 
      */
-    get_Buddy(ppBuddy) {
-        result := ComCall(9, this, "ptr*", ppBuddy, "HRESULT")
-        return result
+    get_Buddy() {
+        result := ComCall(9, this, "ptr*", &ppBuddy := 0, "HRESULT")
+        return IRTCBuddy2(ppBuddy)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plStatusCode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_StatusCode(plStatusCode) {
-        plStatusCodeMarshal := plStatusCode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, plStatusCodeMarshal, plStatusCode, "HRESULT")
-        return result
+    get_StatusCode() {
+        result := ComCall(10, this, "int*", &plStatusCode := 0, "HRESULT")
+        return plStatusCode
     }
 }

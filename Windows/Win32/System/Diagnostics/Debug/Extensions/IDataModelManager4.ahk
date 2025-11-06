@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IModelObject.ahk
 #Include .\IDataModelManager3.ahk
 
 /**
@@ -32,11 +33,10 @@ class IDataModelManager4 extends IDataModelManager3{
      * 
      * @param {IDebugHostContext} context 
      * @param {IKeyStore} parentStore 
-     * @param {Pointer<IModelObject>} object 
-     * @returns {HRESULT} 
+     * @returns {IModelObject} 
      */
-    CreateSyntheticObjectFromKeyStore(context, parentStore, object) {
-        result := ComCall(27, this, "ptr", context, "ptr", parentStore, "ptr*", object, "HRESULT")
-        return result
+    CreateSyntheticObjectFromKeyStore(context, parentStore) {
+        result := ComCall(27, this, "ptr", context, "ptr", parentStore, "ptr*", &object := 0, "HRESULT")
+        return IModelObject(object)
     }
 }

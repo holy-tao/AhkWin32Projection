@@ -31,14 +31,11 @@ class IX509PrivateKey2 extends IX509PrivateKey{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_HardwareKeyUsage(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(65, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_HardwareKeyUsage() {
+        result := ComCall(65, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -53,12 +50,12 @@ class IX509PrivateKey2 extends IX509PrivateKey{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_AlternateStorageLocation(pValue) {
+    get_AlternateStorageLocation() {
+        pValue := BSTR()
         result := ComCall(67, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
@@ -75,12 +72,12 @@ class IX509PrivateKey2 extends IX509PrivateKey{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_AlgorithmName(pValue) {
+    get_AlgorithmName() {
+        pValue := BSTR()
         result := ComCall(69, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
@@ -98,12 +95,12 @@ class IX509PrivateKey2 extends IX509PrivateKey{
     /**
      * 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_AlgorithmParameters(Encoding, pValue) {
+    get_AlgorithmParameters(Encoding) {
+        pValue := BSTR()
         result := ComCall(71, this, "int", Encoding, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
@@ -121,14 +118,11 @@ class IX509PrivateKey2 extends IX509PrivateKey{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ParametersExportType(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(73, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_ParametersExportType() {
+        result := ComCall(73, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**

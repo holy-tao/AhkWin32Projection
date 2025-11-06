@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteFontFamily.ahk
+#Include .\IDWriteLocalizedStrings.ahk
+#Include .\IDWriteFontFace.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,13 +35,12 @@ class IDWriteFont extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDWriteFontFamily>} fontFamily 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontFamily} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefont-getfontfamily
      */
-    GetFontFamily(fontFamily) {
-        result := ComCall(3, this, "ptr*", fontFamily, "HRESULT")
-        return result
+    GetFontFamily() {
+        result := ComCall(3, this, "ptr*", &fontFamily := 0, "HRESULT")
+        return IDWriteFontFamily(fontFamily)
     }
 
     /**
@@ -83,13 +85,12 @@ class IDWriteFont extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDWriteLocalizedStrings>} names 
-     * @returns {HRESULT} 
+     * @returns {IDWriteLocalizedStrings} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefont-getfacenames
      */
-    GetFaceNames(names) {
-        result := ComCall(8, this, "ptr*", names, "HRESULT")
-        return result
+    GetFaceNames() {
+        result := ComCall(8, this, "ptr*", &names := 0, "HRESULT")
+        return IDWriteLocalizedStrings(names)
     }
 
     /**
@@ -101,7 +102,9 @@ class IDWriteFont extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefont-getinformationalstrings
      */
     GetInformationalStrings(informationalStringID, informationalStrings, exists) {
-        result := ComCall(9, this, "int", informationalStringID, "ptr*", informationalStrings, "ptr", exists, "HRESULT")
+        existsMarshal := exists is VarRef ? "int*" : "ptr"
+
+        result := ComCall(9, this, "int", informationalStringID, "ptr*", informationalStrings, existsMarshal, exists, "HRESULT")
         return result
     }
 
@@ -128,23 +131,21 @@ class IDWriteFont extends IUnknown{
     /**
      * 
      * @param {Integer} unicodeValue 
-     * @param {Pointer<BOOL>} exists 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefont-hascharacter
      */
-    HasCharacter(unicodeValue, exists) {
-        result := ComCall(12, this, "uint", unicodeValue, "ptr", exists, "HRESULT")
-        return result
+    HasCharacter(unicodeValue) {
+        result := ComCall(12, this, "uint", unicodeValue, "int*", &exists := 0, "HRESULT")
+        return exists
     }
 
     /**
      * 
-     * @param {Pointer<IDWriteFontFace>} fontFace 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontFace} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefont-createfontface
      */
-    CreateFontFace(fontFace) {
-        result := ComCall(13, this, "ptr*", fontFace, "HRESULT")
-        return result
+    CreateFontFace() {
+        result := ComCall(13, this, "ptr*", &fontFace := 0, "HRESULT")
+        return IDWriteFontFace(fontFace)
     }
 }

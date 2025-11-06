@@ -25,12 +25,11 @@ class IPrintAsyncNotifyServerReferral extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} param0 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetServerReferral(param0) {
-        result := ComCall(3, this, "ptr", param0, "HRESULT")
-        return result
+    GetServerReferral() {
+        result := ComCall(3, this, "ptr*", &param0 := 0, "HRESULT")
+        return param0
     }
 
     /**

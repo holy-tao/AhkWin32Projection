@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsOMPackageWriter.ahk
+#Include .\IXpsOMObjectFactory.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -34,36 +36,31 @@ class IXpsDocumentPackageTarget extends IUnknown{
      * 
      * @param {IOpcPartUri} documentSequencePartName 
      * @param {IOpcPartUri} discardControlPartName 
-     * @param {Pointer<IXpsOMPackageWriter>} packageWriter 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMPackageWriter} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsdocumentpackagetarget-getxpsompackagewriter
      */
-    GetXpsOMPackageWriter(documentSequencePartName, discardControlPartName, packageWriter) {
-        result := ComCall(3, this, "ptr", documentSequencePartName, "ptr", discardControlPartName, "ptr*", packageWriter, "HRESULT")
-        return result
+    GetXpsOMPackageWriter(documentSequencePartName, discardControlPartName) {
+        result := ComCall(3, this, "ptr", documentSequencePartName, "ptr", discardControlPartName, "ptr*", &packageWriter := 0, "HRESULT")
+        return IXpsOMPackageWriter(packageWriter)
     }
 
     /**
      * 
-     * @param {Pointer<IXpsOMObjectFactory>} xpsFactory 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMObjectFactory} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsdocumentpackagetarget-getxpsomfactory
      */
-    GetXpsOMFactory(xpsFactory) {
-        result := ComCall(4, this, "ptr*", xpsFactory, "HRESULT")
-        return result
+    GetXpsOMFactory() {
+        result := ComCall(4, this, "ptr*", &xpsFactory := 0, "HRESULT")
+        return IXpsOMObjectFactory(xpsFactory)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} documentType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsdocumentpackagetarget-getxpstype
      */
-    GetXpsType(documentType) {
-        documentTypeMarshal := documentType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, documentTypeMarshal, documentType, "HRESULT")
-        return result
+    GetXpsType() {
+        result := ComCall(5, this, "int*", &documentType := 0, "HRESULT")
+        return documentType
     }
 }

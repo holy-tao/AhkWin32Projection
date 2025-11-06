@@ -2,6 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IRTCEnumBuddies.ahk
+#Include .\IRTCCollection.ahk
+#Include .\IRTCBuddy.ahk
+#Include .\IRTCEnumWatchers.ahk
+#Include .\IRTCWatcher.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -63,35 +68,32 @@ class IRTCClientPresence extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IRTCEnumBuddies>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IRTCEnumBuddies} 
      */
-    EnumerateBuddies(ppEnum) {
-        result := ComCall(6, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumerateBuddies() {
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IRTCEnumBuddies(ppEnum)
     }
 
     /**
      * 
-     * @param {Pointer<IRTCCollection>} ppCollection 
-     * @returns {HRESULT} 
+     * @returns {IRTCCollection} 
      */
-    get_Buddies(ppCollection) {
-        result := ComCall(7, this, "ptr*", ppCollection, "HRESULT")
-        return result
+    get_Buddies() {
+        result := ComCall(7, this, "ptr*", &ppCollection := 0, "HRESULT")
+        return IRTCCollection(ppCollection)
     }
 
     /**
      * 
      * @param {BSTR} bstrPresentityURI 
-     * @param {Pointer<IRTCBuddy>} ppBuddy 
-     * @returns {HRESULT} 
+     * @returns {IRTCBuddy} 
      */
-    get_Buddy(bstrPresentityURI, ppBuddy) {
+    get_Buddy(bstrPresentityURI) {
         bstrPresentityURI := bstrPresentityURI is String ? BSTR.Alloc(bstrPresentityURI).Value : bstrPresentityURI
 
-        result := ComCall(8, this, "ptr", bstrPresentityURI, "ptr*", ppBuddy, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", bstrPresentityURI, "ptr*", &ppBuddy := 0, "HRESULT")
+        return IRTCBuddy(ppBuddy)
     }
 
     /**
@@ -102,16 +104,15 @@ class IRTCClientPresence extends IUnknown{
      * @param {VARIANT_BOOL} fPersistent 
      * @param {IRTCProfile} pProfile 
      * @param {Integer} lFlags 
-     * @param {Pointer<IRTCBuddy>} ppBuddy 
-     * @returns {HRESULT} 
+     * @returns {IRTCBuddy} 
      */
-    AddBuddy(bstrPresentityURI, bstrUserName, bstrData, fPersistent, pProfile, lFlags, ppBuddy) {
+    AddBuddy(bstrPresentityURI, bstrUserName, bstrData, fPersistent, pProfile, lFlags) {
         bstrPresentityURI := bstrPresentityURI is String ? BSTR.Alloc(bstrPresentityURI).Value : bstrPresentityURI
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
         bstrData := bstrData is String ? BSTR.Alloc(bstrData).Value : bstrData
 
-        result := ComCall(9, this, "ptr", bstrPresentityURI, "ptr", bstrUserName, "ptr", bstrData, "short", fPersistent, "ptr", pProfile, "int", lFlags, "ptr*", ppBuddy, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", bstrPresentityURI, "ptr", bstrUserName, "ptr", bstrData, "short", fPersistent, "ptr", pProfile, "int", lFlags, "ptr*", &ppBuddy := 0, "HRESULT")
+        return IRTCBuddy(ppBuddy)
     }
 
     /**
@@ -126,35 +127,32 @@ class IRTCClientPresence extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IRTCEnumWatchers>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IRTCEnumWatchers} 
      */
-    EnumerateWatchers(ppEnum) {
-        result := ComCall(11, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumerateWatchers() {
+        result := ComCall(11, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IRTCEnumWatchers(ppEnum)
     }
 
     /**
      * 
-     * @param {Pointer<IRTCCollection>} ppCollection 
-     * @returns {HRESULT} 
+     * @returns {IRTCCollection} 
      */
-    get_Watchers(ppCollection) {
-        result := ComCall(12, this, "ptr*", ppCollection, "HRESULT")
-        return result
+    get_Watchers() {
+        result := ComCall(12, this, "ptr*", &ppCollection := 0, "HRESULT")
+        return IRTCCollection(ppCollection)
     }
 
     /**
      * 
      * @param {BSTR} bstrPresentityURI 
-     * @param {Pointer<IRTCWatcher>} ppWatcher 
-     * @returns {HRESULT} 
+     * @returns {IRTCWatcher} 
      */
-    get_Watcher(bstrPresentityURI, ppWatcher) {
+    get_Watcher(bstrPresentityURI) {
         bstrPresentityURI := bstrPresentityURI is String ? BSTR.Alloc(bstrPresentityURI).Value : bstrPresentityURI
 
-        result := ComCall(13, this, "ptr", bstrPresentityURI, "ptr*", ppWatcher, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", bstrPresentityURI, "ptr*", &ppWatcher := 0, "HRESULT")
+        return IRTCWatcher(ppWatcher)
     }
 
     /**
@@ -164,16 +162,15 @@ class IRTCClientPresence extends IUnknown{
      * @param {BSTR} bstrData 
      * @param {VARIANT_BOOL} fBlocked 
      * @param {VARIANT_BOOL} fPersistent 
-     * @param {Pointer<IRTCWatcher>} ppWatcher 
-     * @returns {HRESULT} 
+     * @returns {IRTCWatcher} 
      */
-    AddWatcher(bstrPresentityURI, bstrUserName, bstrData, fBlocked, fPersistent, ppWatcher) {
+    AddWatcher(bstrPresentityURI, bstrUserName, bstrData, fBlocked, fPersistent) {
         bstrPresentityURI := bstrPresentityURI is String ? BSTR.Alloc(bstrPresentityURI).Value : bstrPresentityURI
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
         bstrData := bstrData is String ? BSTR.Alloc(bstrData).Value : bstrData
 
-        result := ComCall(14, this, "ptr", bstrPresentityURI, "ptr", bstrUserName, "ptr", bstrData, "short", fBlocked, "short", fPersistent, "ptr*", ppWatcher, "HRESULT")
-        return result
+        result := ComCall(14, this, "ptr", bstrPresentityURI, "ptr", bstrUserName, "ptr", bstrData, "short", fBlocked, "short", fPersistent, "ptr*", &ppWatcher := 0, "HRESULT")
+        return IRTCWatcher(ppWatcher)
     }
 
     /**
@@ -201,14 +198,11 @@ class IRTCClientPresence extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} penMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_OfferWatcherMode(penMode) {
-        penModeMarshal := penMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, penModeMarshal, penMode, "HRESULT")
-        return result
+    get_OfferWatcherMode() {
+        result := ComCall(17, this, "int*", &penMode := 0, "HRESULT")
+        return penMode
     }
 
     /**
@@ -223,14 +217,11 @@ class IRTCClientPresence extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} penMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_PrivacyMode(penMode) {
-        penModeMarshal := penMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(19, this, penModeMarshal, penMode, "HRESULT")
-        return result
+    get_PrivacyMode() {
+        result := ComCall(19, this, "int*", &penMode := 0, "HRESULT")
+        return penMode
     }
 
     /**

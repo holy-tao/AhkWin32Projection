@@ -30,13 +30,10 @@ class IQueryOEMWinSATCustomization extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} state 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetOEMPrePopulationInfo(state) {
-        stateMarshal := state is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, stateMarshal, state, "HRESULT")
-        return result
+    GetOEMPrePopulationInfo() {
+        result := ComCall(3, this, "int*", &state := 0, "HRESULT")
+        return state
     }
 }

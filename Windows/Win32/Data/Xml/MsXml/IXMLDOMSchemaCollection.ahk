@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IXMLDOMNode.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -45,14 +47,13 @@ class IXMLDOMSchemaCollection extends IDispatch{
     /**
      * 
      * @param {BSTR} namespaceURI 
-     * @param {Pointer<IXMLDOMNode>} schemaNode 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMNode} 
      */
-    get(namespaceURI, schemaNode) {
+    get(namespaceURI) {
         namespaceURI := namespaceURI is String ? BSTR.Alloc(namespaceURI).Value : namespaceURI
 
-        result := ComCall(8, this, "ptr", namespaceURI, "ptr*", schemaNode, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", namespaceURI, "ptr*", &schemaNode := 0, "HRESULT")
+        return IXMLDOMNode(schemaNode)
     }
 
     /**
@@ -69,25 +70,22 @@ class IXMLDOMSchemaCollection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} length 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_length(length) {
-        lengthMarshal := length is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, lengthMarshal, length, "HRESULT")
-        return result
+    get_length() {
+        result := ComCall(10, this, "int*", &length := 0, "HRESULT")
+        return length
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<BSTR>} length 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_namespaceURI(index, length) {
+    get_namespaceURI(index) {
+        length := BSTR()
         result := ComCall(11, this, "int", index, "ptr", length, "HRESULT")
-        return result
+        return length
     }
 
     /**
@@ -102,11 +100,10 @@ class IXMLDOMSchemaCollection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__newEnum(ppUnk) {
-        result := ComCall(13, this, "ptr*", ppUnk, "HRESULT")
-        return result
+    get__newEnum() {
+        result := ComCall(13, this, "ptr*", &ppUnk := 0, "HRESULT")
+        return IUnknown(ppUnk)
     }
 }

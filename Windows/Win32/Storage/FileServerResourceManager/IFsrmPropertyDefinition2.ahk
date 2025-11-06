@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IFsrmCollection.ahk
 #Include .\IFsrmPropertyDefinition.ahk
 
 /**
@@ -33,26 +34,23 @@ class IFsrmPropertyDefinition2 extends IFsrmPropertyDefinition{
 
     /**
      * 
-     * @param {Pointer<Integer>} propertyDefinitionFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition2-get_propertydefinitionflags
      */
-    get_PropertyDefinitionFlags(propertyDefinitionFlags) {
-        propertyDefinitionFlagsMarshal := propertyDefinitionFlags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(22, this, propertyDefinitionFlagsMarshal, propertyDefinitionFlags, "HRESULT")
-        return result
+    get_PropertyDefinitionFlags() {
+        result := ComCall(22, this, "int*", &propertyDefinitionFlags := 0, "HRESULT")
+        return propertyDefinitionFlags
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition2-get_displayname
      */
-    get_DisplayName(name) {
+    get_DisplayName() {
+        name := BSTR()
         result := ComCall(23, this, "ptr", name, "HRESULT")
-        return result
+        return name
     }
 
     /**
@@ -70,25 +68,21 @@ class IFsrmPropertyDefinition2 extends IFsrmPropertyDefinition{
 
     /**
      * 
-     * @param {Pointer<Integer>} appliesTo 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition2-get_appliesto
      */
-    get_AppliesTo(appliesTo) {
-        appliesToMarshal := appliesTo is VarRef ? "int*" : "ptr"
-
-        result := ComCall(25, this, appliesToMarshal, appliesTo, "HRESULT")
-        return result
+    get_AppliesTo() {
+        result := ComCall(25, this, "int*", &appliesTo := 0, "HRESULT")
+        return appliesTo
     }
 
     /**
      * 
-     * @param {Pointer<IFsrmCollection>} valueDefinitions 
-     * @returns {HRESULT} 
+     * @returns {IFsrmCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition2-get_valuedefinitions
      */
-    get_ValueDefinitions(valueDefinitions) {
-        result := ComCall(26, this, "ptr*", valueDefinitions, "HRESULT")
-        return result
+    get_ValueDefinitions() {
+        result := ComCall(26, this, "ptr*", &valueDefinitions := 0, "HRESULT")
+        return IFsrmCollection(valueDefinitions)
     }
 }

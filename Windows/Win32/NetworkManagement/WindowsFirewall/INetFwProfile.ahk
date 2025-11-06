@@ -1,6 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\INetFwRemoteAdminSettings.ahk
+#Include .\INetFwIcmpSettings.ahk
+#Include .\INetFwOpenPorts.ahk
+#Include .\INetFwServices.ahk
+#Include .\INetFwAuthorizedApplications.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -42,26 +47,22 @@ class INetFwProfile extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} type 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwprofile-get_type
      */
-    get_Type(type) {
-        typeMarshal := type is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, typeMarshal, type, "HRESULT")
-        return result
+    get_Type() {
+        result := ComCall(7, this, "int*", &type := 0, "HRESULT")
+        return type
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} enabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwprofile-get_firewallenabled
      */
-    get_FirewallEnabled(enabled) {
-        result := ComCall(8, this, "ptr", enabled, "HRESULT")
-        return result
+    get_FirewallEnabled() {
+        result := ComCall(8, this, "short*", &enabled := 0, "HRESULT")
+        return enabled
     }
 
     /**
@@ -77,13 +78,12 @@ class INetFwProfile extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} notAllowed 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwprofile-get_exceptionsnotallowed
      */
-    get_ExceptionsNotAllowed(notAllowed) {
-        result := ComCall(10, this, "ptr", notAllowed, "HRESULT")
-        return result
+    get_ExceptionsNotAllowed() {
+        result := ComCall(10, this, "short*", &notAllowed := 0, "HRESULT")
+        return notAllowed
     }
 
     /**
@@ -99,13 +99,12 @@ class INetFwProfile extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} disabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwprofile-get_notificationsdisabled
      */
-    get_NotificationsDisabled(disabled) {
-        result := ComCall(12, this, "ptr", disabled, "HRESULT")
-        return result
+    get_NotificationsDisabled() {
+        result := ComCall(12, this, "short*", &disabled := 0, "HRESULT")
+        return disabled
     }
 
     /**
@@ -121,13 +120,12 @@ class INetFwProfile extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} disabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwprofile-get_unicastresponsestomulticastbroadcastdisabled
      */
-    get_UnicastResponsesToMulticastBroadcastDisabled(disabled) {
-        result := ComCall(14, this, "ptr", disabled, "HRESULT")
-        return result
+    get_UnicastResponsesToMulticastBroadcastDisabled() {
+        result := ComCall(14, this, "short*", &disabled := 0, "HRESULT")
+        return disabled
     }
 
     /**
@@ -143,56 +141,51 @@ class INetFwProfile extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<INetFwRemoteAdminSettings>} remoteAdminSettings 
-     * @returns {HRESULT} 
+     * @returns {INetFwRemoteAdminSettings} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwprofile-get_remoteadminsettings
      */
-    get_RemoteAdminSettings(remoteAdminSettings) {
-        result := ComCall(16, this, "ptr*", remoteAdminSettings, "HRESULT")
-        return result
+    get_RemoteAdminSettings() {
+        result := ComCall(16, this, "ptr*", &remoteAdminSettings := 0, "HRESULT")
+        return INetFwRemoteAdminSettings(remoteAdminSettings)
     }
 
     /**
      * 
-     * @param {Pointer<INetFwIcmpSettings>} icmpSettings 
-     * @returns {HRESULT} 
+     * @returns {INetFwIcmpSettings} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwprofile-get_icmpsettings
      */
-    get_IcmpSettings(icmpSettings) {
-        result := ComCall(17, this, "ptr*", icmpSettings, "HRESULT")
-        return result
+    get_IcmpSettings() {
+        result := ComCall(17, this, "ptr*", &icmpSettings := 0, "HRESULT")
+        return INetFwIcmpSettings(icmpSettings)
     }
 
     /**
      * 
-     * @param {Pointer<INetFwOpenPorts>} openPorts 
-     * @returns {HRESULT} 
+     * @returns {INetFwOpenPorts} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwprofile-get_globallyopenports
      */
-    get_GloballyOpenPorts(openPorts) {
-        result := ComCall(18, this, "ptr*", openPorts, "HRESULT")
-        return result
+    get_GloballyOpenPorts() {
+        result := ComCall(18, this, "ptr*", &openPorts := 0, "HRESULT")
+        return INetFwOpenPorts(openPorts)
     }
 
     /**
      * 
-     * @param {Pointer<INetFwServices>} services 
-     * @returns {HRESULT} 
+     * @returns {INetFwServices} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwprofile-get_services
      */
-    get_Services(services) {
-        result := ComCall(19, this, "ptr*", services, "HRESULT")
-        return result
+    get_Services() {
+        result := ComCall(19, this, "ptr*", &services := 0, "HRESULT")
+        return INetFwServices(services)
     }
 
     /**
      * 
-     * @param {Pointer<INetFwAuthorizedApplications>} apps 
-     * @returns {HRESULT} 
+     * @returns {INetFwAuthorizedApplications} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwprofile-get_authorizedapplications
      */
-    get_AuthorizedApplications(apps) {
-        result := ComCall(20, this, "ptr*", apps, "HRESULT")
-        return result
+    get_AuthorizedApplications() {
+        result := ComCall(20, this, "ptr*", &apps := 0, "HRESULT")
+        return INetFwAuthorizedApplications(apps)
     }
 }

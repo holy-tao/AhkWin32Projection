@@ -101,30 +101,24 @@ class IPropertyUI extends IUnknown{
      * 
      * @param {Pointer<Guid>} fmtid 
      * @param {Integer} pid 
-     * @param {Pointer<Integer>} pcxChars 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipropertyui-getdefaultwidth
      */
-    GetDefaultWidth(fmtid, pid, pcxChars) {
-        pcxCharsMarshal := pcxChars is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, "ptr", fmtid, "uint", pid, pcxCharsMarshal, pcxChars, "HRESULT")
-        return result
+    GetDefaultWidth(fmtid, pid) {
+        result := ComCall(7, this, "ptr", fmtid, "uint", pid, "uint*", &pcxChars := 0, "HRESULT")
+        return pcxChars
     }
 
     /**
      * 
      * @param {Pointer<Guid>} fmtid 
      * @param {Integer} pid 
-     * @param {Pointer<Integer>} pflags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipropertyui-getflags
      */
-    GetFlags(fmtid, pid, pflags) {
-        pflagsMarshal := pflags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, "ptr", fmtid, "uint", pid, pflagsMarshal, pflags, "HRESULT")
-        return result
+    GetFlags(fmtid, pid) {
+        result := ComCall(8, this, "ptr", fmtid, "uint", pid, "int*", &pflags := 0, "HRESULT")
+        return pflags
     }
 
     /**
@@ -151,16 +145,13 @@ class IPropertyUI extends IUnknown{
      * @param {Integer} pid 
      * @param {PWSTR} pwszHelpFile 
      * @param {Integer} cch 
-     * @param {Pointer<Integer>} puHelpID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipropertyui-gethelpinfo
      */
-    GetHelpInfo(fmtid, pid, pwszHelpFile, cch, puHelpID) {
+    GetHelpInfo(fmtid, pid, pwszHelpFile, cch) {
         pwszHelpFile := pwszHelpFile is String ? StrPtr(pwszHelpFile) : pwszHelpFile
 
-        puHelpIDMarshal := puHelpID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, "ptr", fmtid, "uint", pid, "ptr", pwszHelpFile, "uint", cch, puHelpIDMarshal, puHelpID, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", fmtid, "uint", pid, "ptr", pwszHelpFile, "uint", cch, "uint*", &puHelpID := 0, "HRESULT")
+        return puHelpID
     }
 }

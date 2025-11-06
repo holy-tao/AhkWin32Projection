@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\INetFwAuthorizedApplication.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -42,15 +44,12 @@ class INetFwAuthorizedApplications extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} count 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwauthorizedapplications-get_count
      */
-    get_Count(count) {
-        countMarshal := count is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, countMarshal, count, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &count := 0, "HRESULT")
+        return count
     }
 
     /**
@@ -80,25 +79,23 @@ class INetFwAuthorizedApplications extends IDispatch{
     /**
      * 
      * @param {BSTR} imageFileName 
-     * @param {Pointer<INetFwAuthorizedApplication>} app 
-     * @returns {HRESULT} 
+     * @returns {INetFwAuthorizedApplication} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwauthorizedapplications-item
      */
-    Item(imageFileName, app) {
+    Item(imageFileName) {
         imageFileName := imageFileName is String ? BSTR.Alloc(imageFileName).Value : imageFileName
 
-        result := ComCall(10, this, "ptr", imageFileName, "ptr*", app, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", imageFileName, "ptr*", &app := 0, "HRESULT")
+        return INetFwAuthorizedApplication(app)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} newEnum 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwauthorizedapplications-get__newenum
      */
-    get__NewEnum(newEnum) {
-        result := ComCall(11, this, "ptr*", newEnum, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(11, this, "ptr*", &newEnum := 0, "HRESULT")
+        return IUnknown(newEnum)
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IEnumDebugStackFrames.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -63,11 +64,10 @@ class IEnumDebugStackFrames extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumDebugStackFrames>} ppedsf 
-     * @returns {HRESULT} 
+     * @returns {IEnumDebugStackFrames} 
      */
-    Clone(ppedsf) {
-        result := ComCall(6, this, "ptr*", ppedsf, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppedsf := 0, "HRESULT")
+        return IEnumDebugStackFrames(ppedsf)
     }
 }

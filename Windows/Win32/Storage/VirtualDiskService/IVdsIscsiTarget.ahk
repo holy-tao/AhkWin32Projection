@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\VDS_ISCSI_TARGET_PROP.ahk
+#Include .\IVdsSubSystem.ahk
+#Include .\IEnumVdsObject.ahk
+#Include .\IVdsAsync.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,68 +36,63 @@ class IVdsIscsiTarget extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VDS_ISCSI_TARGET_PROP>} pTargetProp 
-     * @returns {HRESULT} 
+     * @returns {VDS_ISCSI_TARGET_PROP} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsiscsitarget-getproperties
      */
-    GetProperties(pTargetProp) {
+    GetProperties() {
+        pTargetProp := VDS_ISCSI_TARGET_PROP()
         result := ComCall(3, this, "ptr", pTargetProp, "HRESULT")
-        return result
+        return pTargetProp
     }
 
     /**
      * 
-     * @param {Pointer<IVdsSubSystem>} ppSubSystem 
-     * @returns {HRESULT} 
+     * @returns {IVdsSubSystem} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsiscsitarget-getsubsystem
      */
-    GetSubSystem(ppSubSystem) {
-        result := ComCall(4, this, "ptr*", ppSubSystem, "HRESULT")
-        return result
+    GetSubSystem() {
+        result := ComCall(4, this, "ptr*", &ppSubSystem := 0, "HRESULT")
+        return IVdsSubSystem(ppSubSystem)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumVdsObject>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumVdsObject} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsiscsitarget-queryportalgroups
      */
-    QueryPortalGroups(ppEnum) {
-        result := ComCall(5, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    QueryPortalGroups() {
+        result := ComCall(5, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumVdsObject(ppEnum)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumVdsObject>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumVdsObject} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsiscsitarget-queryassociatedluns
      */
-    QueryAssociatedLuns(ppEnum) {
-        result := ComCall(6, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    QueryAssociatedLuns() {
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumVdsObject(ppEnum)
     }
 
     /**
      * 
-     * @param {Pointer<IVdsAsync>} ppAsync 
-     * @returns {HRESULT} 
+     * @returns {IVdsAsync} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsiscsitarget-createportalgroup
      */
-    CreatePortalGroup(ppAsync) {
-        result := ComCall(7, this, "ptr*", ppAsync, "HRESULT")
-        return result
+    CreatePortalGroup() {
+        result := ComCall(7, this, "ptr*", &ppAsync := 0, "HRESULT")
+        return IVdsAsync(ppAsync)
     }
 
     /**
      * 
-     * @param {Pointer<IVdsAsync>} ppAsync 
-     * @returns {HRESULT} 
+     * @returns {IVdsAsync} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsiscsitarget-delete
      */
-    Delete(ppAsync) {
-        result := ComCall(8, this, "ptr*", ppAsync, "HRESULT")
-        return result
+    Delete() {
+        result := ComCall(8, this, "ptr*", &ppAsync := 0, "HRESULT")
+        return IVdsAsync(ppAsync)
     }
 
     /**

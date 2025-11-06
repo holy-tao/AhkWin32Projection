@@ -32,12 +32,11 @@ class ISnapinHelp extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpCompiledHelpFile 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-isnapinhelp-gethelptopic
      */
-    GetHelpTopic(lpCompiledHelpFile) {
-        result := ComCall(3, this, "ptr", lpCompiledHelpFile, "HRESULT")
-        return result
+    GetHelpTopic() {
+        result := ComCall(3, this, "ptr*", &lpCompiledHelpFile := 0, "HRESULT")
+        return lpCompiledHelpFile
     }
 }

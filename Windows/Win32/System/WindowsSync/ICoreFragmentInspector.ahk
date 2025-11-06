@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ICoreFragment.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -38,16 +39,15 @@ class ICoreFragmentInspector extends IUnknown{
     /**
      * 
      * @param {Integer} requestedCount 
-     * @param {Pointer<ICoreFragment>} ppiCoreFragments 
      * @param {Pointer<Integer>} pFetchedCount 
-     * @returns {HRESULT} 
+     * @returns {ICoreFragment} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-icorefragmentinspector-nextcorefragments
      */
-    NextCoreFragments(requestedCount, ppiCoreFragments, pFetchedCount) {
+    NextCoreFragments(requestedCount, pFetchedCount) {
         pFetchedCountMarshal := pFetchedCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", requestedCount, "ptr*", ppiCoreFragments, pFetchedCountMarshal, pFetchedCount, "HRESULT")
-        return result
+        result := ComCall(3, this, "uint", requestedCount, "ptr*", &ppiCoreFragments := 0, pFetchedCountMarshal, pFetchedCount, "HRESULT")
+        return ICoreFragment(ppiCoreFragments)
     }
 
     /**

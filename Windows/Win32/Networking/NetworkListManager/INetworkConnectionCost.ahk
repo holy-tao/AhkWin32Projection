@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\NLM_DATAPLAN_STATUS.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,25 +33,22 @@ class INetworkConnectionCost extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pCost 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkconnectioncost-getcost
      */
-    GetCost(pCost) {
-        pCostMarshal := pCost is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pCostMarshal, pCost, "HRESULT")
-        return result
+    GetCost() {
+        result := ComCall(3, this, "uint*", &pCost := 0, "HRESULT")
+        return pCost
     }
 
     /**
      * 
-     * @param {Pointer<NLM_DATAPLAN_STATUS>} pDataPlanStatus 
-     * @returns {HRESULT} 
+     * @returns {NLM_DATAPLAN_STATUS} 
      * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkconnectioncost-getdataplanstatus
      */
-    GetDataPlanStatus(pDataPlanStatus) {
+    GetDataPlanStatus() {
+        pDataPlanStatus := NLM_DATAPLAN_STATUS()
         result := ComCall(4, this, "ptr", pDataPlanStatus, "HRESULT")
-        return result
+        return pDataPlanStatus
     }
 }

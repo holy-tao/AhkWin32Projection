@@ -33,15 +33,13 @@ class IRowsetChange extends IUnknown{
      * @param {Pointer} hReserved 
      * @param {Pointer} cRows 
      * @param {Pointer<Pointer>} rghRows 
-     * @param {Pointer<Integer>} rgRowStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    DeleteRows(hReserved, cRows, rghRows, rgRowStatus) {
+    DeleteRows(hReserved, cRows, rghRows) {
         rghRowsMarshal := rghRows is VarRef ? "ptr*" : "ptr"
-        rgRowStatusMarshal := rgRowStatus is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", hReserved, "ptr", cRows, rghRowsMarshal, rghRows, rgRowStatusMarshal, rgRowStatus, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", hReserved, "ptr", cRows, rghRowsMarshal, rghRows, "uint*", &rgRowStatus := 0, "HRESULT")
+        return rgRowStatus
     }
 
     /**
@@ -65,16 +63,14 @@ class IRowsetChange extends IUnknown{
      * @param {Pointer} hReserved 
      * @param {HACCESSOR} hAccessor 
      * @param {Pointer<Void>} pData 
-     * @param {Pointer<Pointer>} phRow 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    InsertRow(hReserved, hAccessor, pData, phRow) {
+    InsertRow(hReserved, hAccessor, pData) {
         hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
 
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
-        phRowMarshal := phRow is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", hReserved, "ptr", hAccessor, pDataMarshal, pData, phRowMarshal, phRow, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", hReserved, "ptr", hAccessor, pDataMarshal, pData, "ptr*", &phRow := 0, "HRESULT")
+        return phRow
     }
 }

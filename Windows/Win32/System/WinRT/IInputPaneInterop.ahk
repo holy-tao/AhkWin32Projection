@@ -59,16 +59,13 @@ class IInputPaneInterop extends IInspectable{
      * 
      * @param {HWND} appWindow 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} inputPane 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/inputpaneinterop/nf-inputpaneinterop-iinputpaneinterop-getforwindow
      */
-    GetForWindow(appWindow, riid, inputPane) {
+    GetForWindow(appWindow, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
 
-        inputPaneMarshal := inputPane is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", appWindow, "ptr", riid, inputPaneMarshal, inputPane, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", appWindow, "ptr", riid, "ptr*", &inputPane := 0, "HRESULT")
+        return inputPane
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\HWND.ahk
+#Include ..\..\..\Foundation\RECT.ahk
 #Include .\IMSVidGraphSegment.ahk
 
 /**
@@ -52,22 +54,21 @@ class IMSVidVRGraphSegment extends IMSVidGraphSegment{
 
     /**
      * 
-     * @param {Pointer<HWND>} Window 
-     * @returns {HRESULT} 
+     * @returns {HWND} 
      */
-    get_Owner(Window) {
+    get_Owner() {
+        Window := HWND()
         result := ComCall(21, this, "ptr", Window, "HRESULT")
-        return result
+        return Window
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} UseOverlayVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_UseOverlay(UseOverlayVal) {
-        result := ComCall(22, this, "ptr", UseOverlayVal, "HRESULT")
-        return result
+    get_UseOverlay() {
+        result := ComCall(22, this, "short*", &UseOverlayVal := 0, "HRESULT")
+        return UseOverlayVal
     }
 
     /**
@@ -82,12 +83,11 @@ class IMSVidVRGraphSegment extends IMSVidGraphSegment{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} Visible 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_Visible(Visible) {
-        result := ComCall(24, this, "ptr", Visible, "HRESULT")
-        return result
+    get_Visible() {
+        result := ComCall(24, this, "short*", &Visible := 0, "HRESULT")
+        return Visible
     }
 
     /**
@@ -102,14 +102,11 @@ class IMSVidVRGraphSegment extends IMSVidGraphSegment{
 
     /**
      * 
-     * @param {Pointer<Integer>} ColorKey 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ColorKey(ColorKey) {
-        ColorKeyMarshal := ColorKey is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(26, this, ColorKeyMarshal, ColorKey, "HRESULT")
-        return result
+    get_ColorKey() {
+        result := ComCall(26, this, "uint*", &ColorKey := 0, "HRESULT")
+        return ColorKey
     }
 
     /**
@@ -124,12 +121,12 @@ class IMSVidVRGraphSegment extends IMSVidGraphSegment{
 
     /**
      * 
-     * @param {Pointer<RECT>} r 
-     * @returns {HRESULT} 
+     * @returns {RECT} 
      */
-    get_Source(r) {
+    get_Source() {
+        r := RECT()
         result := ComCall(28, this, "ptr", r, "HRESULT")
-        return result
+        return r
     }
 
     /**
@@ -144,12 +141,12 @@ class IMSVidVRGraphSegment extends IMSVidGraphSegment{
 
     /**
      * 
-     * @param {Pointer<RECT>} r 
-     * @returns {HRESULT} 
+     * @returns {RECT} 
      */
-    get_Destination(r) {
+    get_Destination() {
+        r := RECT()
         result := ComCall(30, this, "ptr", r, "HRESULT")
-        return result
+        return r
     }
 
     /**
@@ -175,14 +172,11 @@ class IMSVidVRGraphSegment extends IMSVidGraphSegment{
 
     /**
      * 
-     * @param {Pointer<Integer>} color 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_BorderColor(color) {
-        colorMarshal := color is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(33, this, colorMarshal, color, "HRESULT")
-        return result
+    get_BorderColor() {
+        result := ComCall(33, this, "uint*", &color := 0, "HRESULT")
+        return color
     }
 
     /**
@@ -197,12 +191,11 @@ class IMSVidVRGraphSegment extends IMSVidGraphSegment{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} fMaintain 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_MaintainAspectRatio(fMaintain) {
-        result := ComCall(35, this, "ptr", fMaintain, "HRESULT")
-        return result
+    get_MaintainAspectRatio() {
+        result := ComCall(35, this, "short*", &fMaintain := 0, "HRESULT")
+        return fMaintain
     }
 
     /**

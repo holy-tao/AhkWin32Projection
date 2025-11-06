@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITransactionOptions.ahk
+#Include .\ITransaction.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -30,12 +32,11 @@ class ITransactionDispenser extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ITransactionOptions>} ppOptions 
-     * @returns {HRESULT} 
+     * @returns {ITransactionOptions} 
      */
-    GetOptionsObject(ppOptions) {
-        result := ComCall(3, this, "ptr*", ppOptions, "HRESULT")
-        return result
+    GetOptionsObject() {
+        result := ComCall(3, this, "ptr*", &ppOptions := 0, "HRESULT")
+        return ITransactionOptions(ppOptions)
     }
 
     /**
@@ -44,11 +45,10 @@ class ITransactionDispenser extends IUnknown{
      * @param {Integer} isoLevel 
      * @param {Integer} isoFlags 
      * @param {ITransactionOptions} pOptions 
-     * @param {Pointer<ITransaction>} ppTransaction 
-     * @returns {HRESULT} 
+     * @returns {ITransaction} 
      */
-    BeginTransaction(punkOuter, isoLevel, isoFlags, pOptions, ppTransaction) {
-        result := ComCall(4, this, "ptr", punkOuter, "int", isoLevel, "uint", isoFlags, "ptr", pOptions, "ptr*", ppTransaction, "HRESULT")
-        return result
+    BeginTransaction(punkOuter, isoLevel, isoFlags, pOptions) {
+        result := ComCall(4, this, "ptr", punkOuter, "int", isoLevel, "uint", isoFlags, "ptr", pOptions, "ptr*", &ppTransaction := 0, "HRESULT")
+        return ITransaction(ppTransaction)
     }
 }

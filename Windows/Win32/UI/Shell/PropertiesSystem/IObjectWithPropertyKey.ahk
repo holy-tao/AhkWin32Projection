@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\PROPERTYKEY.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -43,12 +44,12 @@ class IObjectWithPropertyKey extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PROPERTYKEY>} pkey 
-     * @returns {HRESULT} 
+     * @returns {PROPERTYKEY} 
      * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-iobjectwithpropertykey-getpropertykey
      */
-    GetPropertyKey(pkey) {
+    GetPropertyKey() {
+        pkey := PROPERTYKEY()
         result := ComCall(4, this, "ptr", pkey, "HRESULT")
-        return result
+        return pkey
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\KSJACK_DESCRIPTION3.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,24 +31,21 @@ class IKsJackDescription3 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcJacks 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetJackCount(pcJacks) {
-        pcJacksMarshal := pcJacks is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pcJacksMarshal, pcJacks, "HRESULT")
-        return result
+    GetJackCount() {
+        result := ComCall(3, this, "uint*", &pcJacks := 0, "HRESULT")
+        return pcJacks
     }
 
     /**
      * 
      * @param {Integer} nJack 
-     * @param {Pointer<KSJACK_DESCRIPTION3>} pDescription3 
-     * @returns {HRESULT} 
+     * @returns {KSJACK_DESCRIPTION3} 
      */
-    GetJackDescription3(nJack, pDescription3) {
+    GetJackDescription3(nJack) {
+        pDescription3 := KSJACK_DESCRIPTION3()
         result := ComCall(4, this, "uint", nJack, "ptr", pDescription3, "HRESULT")
-        return result
+        return pDescription3
     }
 }

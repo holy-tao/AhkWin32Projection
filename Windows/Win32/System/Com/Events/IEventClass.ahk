@@ -33,13 +33,13 @@ class IEventClass extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrEventClassID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass-get_eventclassid
      */
-    get_EventClassID(pbstrEventClassID) {
+    get_EventClassID() {
+        pbstrEventClassID := BSTR()
         result := ComCall(7, this, "ptr", pbstrEventClassID, "HRESULT")
-        return result
+        return pbstrEventClassID
     }
 
     /**
@@ -57,13 +57,13 @@ class IEventClass extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrEventClassName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass-get_eventclassname
      */
-    get_EventClassName(pbstrEventClassName) {
+    get_EventClassName() {
+        pbstrEventClassName := BSTR()
         result := ComCall(9, this, "ptr", pbstrEventClassName, "HRESULT")
-        return result
+        return pbstrEventClassName
     }
 
     /**
@@ -81,13 +81,13 @@ class IEventClass extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrOwnerSID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass-get_ownersid
      */
-    get_OwnerSID(pbstrOwnerSID) {
+    get_OwnerSID() {
+        pbstrOwnerSID := BSTR()
         result := ComCall(11, this, "ptr", pbstrOwnerSID, "HRESULT")
-        return result
+        return pbstrOwnerSID
     }
 
     /**
@@ -105,13 +105,13 @@ class IEventClass extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrFiringInterfaceID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass-get_firinginterfaceid
      */
-    get_FiringInterfaceID(pbstrFiringInterfaceID) {
+    get_FiringInterfaceID() {
+        pbstrFiringInterfaceID := BSTR()
         result := ComCall(13, this, "ptr", pbstrFiringInterfaceID, "HRESULT")
-        return result
+        return pbstrFiringInterfaceID
     }
 
     /**
@@ -129,13 +129,13 @@ class IEventClass extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrDescription 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass-get_description
      */
-    get_Description(pbstrDescription) {
+    get_Description() {
+        pbstrDescription := BSTR()
         result := ComCall(15, this, "ptr", pbstrDescription, "HRESULT")
-        return result
+        return pbstrDescription
     }
 
     /**
@@ -153,13 +153,13 @@ class IEventClass extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrCustomConfigCLSID 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass-get_customconfigclsid
      */
-    get_CustomConfigCLSID(pbstrCustomConfigCLSID) {
+    get_CustomConfigCLSID() {
+        pbstrCustomConfigCLSID := BSTR()
         result := ComCall(17, this, "ptr", pbstrCustomConfigCLSID, "HRESULT")
-        return result
+        return pbstrCustomConfigCLSID
     }
 
     /**
@@ -177,13 +177,13 @@ class IEventClass extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrTypeLib 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventclass-get_typelib
      */
-    get_TypeLib(pbstrTypeLib) {
+    get_TypeLib() {
+        pbstrTypeLib := BSTR()
         result := ComCall(19, this, "ptr", pbstrTypeLib, "HRESULT")
-        return result
+        return pbstrTypeLib
     }
 
     /**

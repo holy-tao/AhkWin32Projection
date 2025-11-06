@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include .\ISchemaItemCollection.ahk
+#Include .\ISchemaStringCollection.ahk
 #Include .\ISchemaItem.ahk
 
 /**
@@ -30,91 +33,84 @@ class ISchema extends ISchemaItem{
 
     /**
      * 
-     * @param {Pointer<BSTR>} targetNamespace 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_targetNamespace(targetNamespace) {
+    get_targetNamespace() {
+        targetNamespace := BSTR()
         result := ComCall(14, this, "ptr", targetNamespace, "HRESULT")
-        return result
+        return targetNamespace
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} version 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_version(version) {
+    get_version() {
+        version := BSTR()
         result := ComCall(15, this, "ptr", version, "HRESULT")
-        return result
+        return version
     }
 
     /**
      * 
-     * @param {Pointer<ISchemaItemCollection>} types 
-     * @returns {HRESULT} 
+     * @returns {ISchemaItemCollection} 
      */
-    get_types(types) {
-        result := ComCall(16, this, "ptr*", types, "HRESULT")
-        return result
+    get_types() {
+        result := ComCall(16, this, "ptr*", &types := 0, "HRESULT")
+        return ISchemaItemCollection(types)
     }
 
     /**
      * 
-     * @param {Pointer<ISchemaItemCollection>} elements 
-     * @returns {HRESULT} 
+     * @returns {ISchemaItemCollection} 
      */
-    get_elements(elements) {
-        result := ComCall(17, this, "ptr*", elements, "HRESULT")
-        return result
+    get_elements() {
+        result := ComCall(17, this, "ptr*", &elements := 0, "HRESULT")
+        return ISchemaItemCollection(elements)
     }
 
     /**
      * 
-     * @param {Pointer<ISchemaItemCollection>} attributes 
-     * @returns {HRESULT} 
+     * @returns {ISchemaItemCollection} 
      */
-    get_attributes(attributes) {
-        result := ComCall(18, this, "ptr*", attributes, "HRESULT")
-        return result
+    get_attributes() {
+        result := ComCall(18, this, "ptr*", &attributes := 0, "HRESULT")
+        return ISchemaItemCollection(attributes)
     }
 
     /**
      * 
-     * @param {Pointer<ISchemaItemCollection>} attributeGroups 
-     * @returns {HRESULT} 
+     * @returns {ISchemaItemCollection} 
      */
-    get_attributeGroups(attributeGroups) {
-        result := ComCall(19, this, "ptr*", attributeGroups, "HRESULT")
-        return result
+    get_attributeGroups() {
+        result := ComCall(19, this, "ptr*", &attributeGroups := 0, "HRESULT")
+        return ISchemaItemCollection(attributeGroups)
     }
 
     /**
      * 
-     * @param {Pointer<ISchemaItemCollection>} modelGroups 
-     * @returns {HRESULT} 
+     * @returns {ISchemaItemCollection} 
      */
-    get_modelGroups(modelGroups) {
-        result := ComCall(20, this, "ptr*", modelGroups, "HRESULT")
-        return result
+    get_modelGroups() {
+        result := ComCall(20, this, "ptr*", &modelGroups := 0, "HRESULT")
+        return ISchemaItemCollection(modelGroups)
     }
 
     /**
      * 
-     * @param {Pointer<ISchemaItemCollection>} notations 
-     * @returns {HRESULT} 
+     * @returns {ISchemaItemCollection} 
      */
-    get_notations(notations) {
-        result := ComCall(21, this, "ptr*", notations, "HRESULT")
-        return result
+    get_notations() {
+        result := ComCall(21, this, "ptr*", &notations := 0, "HRESULT")
+        return ISchemaItemCollection(notations)
     }
 
     /**
      * 
-     * @param {Pointer<ISchemaStringCollection>} schemaLocations 
-     * @returns {HRESULT} 
+     * @returns {ISchemaStringCollection} 
      */
-    get_schemaLocations(schemaLocations) {
-        result := ComCall(22, this, "ptr*", schemaLocations, "HRESULT")
-        return result
+    get_schemaLocations() {
+        result := ComCall(22, this, "ptr*", &schemaLocations := 0, "HRESULT")
+        return ISchemaStringCollection(schemaLocations)
     }
 }

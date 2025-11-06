@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IDirectMusicInstrument.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -31,12 +32,11 @@ class IDirectMusicCollection extends IUnknown{
     /**
      * 
      * @param {Integer} dwPatch 
-     * @param {Pointer<IDirectMusicInstrument>} ppInstrument 
-     * @returns {HRESULT} 
+     * @returns {IDirectMusicInstrument} 
      */
-    GetInstrument(dwPatch, ppInstrument) {
-        result := ComCall(3, this, "uint", dwPatch, "ptr*", ppInstrument, "HRESULT")
-        return result
+    GetInstrument(dwPatch) {
+        result := ComCall(3, this, "uint", dwPatch, "ptr*", &ppInstrument := 0, "HRESULT")
+        return IDirectMusicInstrument(ppInstrument)
     }
 
     /**

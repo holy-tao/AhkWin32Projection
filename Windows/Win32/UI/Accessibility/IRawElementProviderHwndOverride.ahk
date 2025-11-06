@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRawElementProviderSimple.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,14 +34,13 @@ class IRawElementProviderHwndOverride extends IUnknown{
     /**
      * 
      * @param {HWND} hwnd 
-     * @param {Pointer<IRawElementProviderSimple>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {IRawElementProviderSimple} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementproviderhwndoverride-getoverrideproviderforhwnd
      */
-    GetOverrideProviderForHwnd(hwnd, pRetVal) {
+    GetOverrideProviderForHwnd(hwnd) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := ComCall(3, this, "ptr", hwnd, "ptr*", pRetVal, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", hwnd, "ptr*", &pRetVal := 0, "HRESULT")
+        return IRawElementProviderSimple(pRetVal)
     }
 }

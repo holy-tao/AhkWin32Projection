@@ -30,14 +30,11 @@ class ITmNodeName extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcbNodeNameSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetNodeNameSize(pcbNodeNameSize) {
-        pcbNodeNameSizeMarshal := pcbNodeNameSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pcbNodeNameSizeMarshal, pcbNodeNameSize, "HRESULT")
-        return result
+    GetNodeNameSize() {
+        result := ComCall(3, this, "uint*", &pcbNodeNameSize := 0, "HRESULT")
+        return pcbNodeNameSize
     }
 
     /**

@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IWdsTransportSetupManager.ahk
+#Include .\IWdsTransportConfigurationManager.ahk
+#Include .\IWdsTransportNamespaceManager.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -38,46 +42,43 @@ class IWdsTransportServer extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbszName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportserver-get_name
      */
-    get_Name(pbszName) {
+    get_Name() {
+        pbszName := BSTR()
         result := ComCall(7, this, "ptr", pbszName, "HRESULT")
-        return result
+        return pbszName
     }
 
     /**
      * 
-     * @param {Pointer<IWdsTransportSetupManager>} ppWdsTransportSetupManager 
-     * @returns {HRESULT} 
+     * @returns {IWdsTransportSetupManager} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportserver-get_setupmanager
      */
-    get_SetupManager(ppWdsTransportSetupManager) {
-        result := ComCall(8, this, "ptr*", ppWdsTransportSetupManager, "HRESULT")
-        return result
+    get_SetupManager() {
+        result := ComCall(8, this, "ptr*", &ppWdsTransportSetupManager := 0, "HRESULT")
+        return IWdsTransportSetupManager(ppWdsTransportSetupManager)
     }
 
     /**
      * 
-     * @param {Pointer<IWdsTransportConfigurationManager>} ppWdsTransportConfigurationManager 
-     * @returns {HRESULT} 
+     * @returns {IWdsTransportConfigurationManager} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportserver-get_configurationmanager
      */
-    get_ConfigurationManager(ppWdsTransportConfigurationManager) {
-        result := ComCall(9, this, "ptr*", ppWdsTransportConfigurationManager, "HRESULT")
-        return result
+    get_ConfigurationManager() {
+        result := ComCall(9, this, "ptr*", &ppWdsTransportConfigurationManager := 0, "HRESULT")
+        return IWdsTransportConfigurationManager(ppWdsTransportConfigurationManager)
     }
 
     /**
      * 
-     * @param {Pointer<IWdsTransportNamespaceManager>} ppWdsTransportNamespaceManager 
-     * @returns {HRESULT} 
+     * @returns {IWdsTransportNamespaceManager} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportserver-get_namespacemanager
      */
-    get_NamespaceManager(ppWdsTransportNamespaceManager) {
-        result := ComCall(10, this, "ptr*", ppWdsTransportNamespaceManager, "HRESULT")
-        return result
+    get_NamespaceManager() {
+        result := ComCall(10, this, "ptr*", &ppWdsTransportNamespaceManager := 0, "HRESULT")
+        return IWdsTransportNamespaceManager(ppWdsTransportNamespaceManager)
     }
 
     /**

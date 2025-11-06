@@ -31,13 +31,10 @@ class IFtpPostprocessProvider extends IUnknown{
     /**
      * 
      * @param {Pointer<POST_PROCESS_PARAMETERS>} pPostProcessParameters 
-     * @param {Pointer<Integer>} pFtpProcessStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    HandlePostprocess(pPostProcessParameters, pFtpProcessStatus) {
-        pFtpProcessStatusMarshal := pFtpProcessStatus is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pPostProcessParameters, pFtpProcessStatusMarshal, pFtpProcessStatus, "HRESULT")
-        return result
+    HandlePostprocess(pPostProcessParameters) {
+        result := ComCall(3, this, "ptr", pPostProcessParameters, "int*", &pFtpProcessStatus := 0, "HRESULT")
+        return pFtpProcessStatus
     }
 }

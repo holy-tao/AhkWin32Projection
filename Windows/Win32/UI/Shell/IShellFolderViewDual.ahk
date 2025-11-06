@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\Folder.ahk
+#Include .\FolderItems.ahk
+#Include .\FolderItem.ahk
+#Include ..\..\Foundation\BSTR.ahk
 
 /**
  * Exposes methods that modify the view and select items in the current folder.
@@ -32,57 +36,52 @@ class IShellFolderViewDual extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppid 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-ishellfolderviewdual-get_application
      */
-    get_Application(ppid) {
-        result := ComCall(7, this, "ptr*", ppid, "HRESULT")
-        return result
+    get_Application() {
+        result := ComCall(7, this, "ptr*", &ppid := 0, "HRESULT")
+        return IDispatch(ppid)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppid 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-ishellfolderviewdual-get_parent
      */
-    get_Parent(ppid) {
-        result := ComCall(8, this, "ptr*", ppid, "HRESULT")
-        return result
+    get_Parent() {
+        result := ComCall(8, this, "ptr*", &ppid := 0, "HRESULT")
+        return IDispatch(ppid)
     }
 
     /**
      * 
-     * @param {Pointer<Folder>} ppid 
-     * @returns {HRESULT} 
+     * @returns {Folder} 
      * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-ishellfolderviewdual-get_folder
      */
-    get_Folder(ppid) {
-        result := ComCall(9, this, "ptr*", ppid, "HRESULT")
-        return result
+    get_Folder() {
+        result := ComCall(9, this, "ptr*", &ppid := 0, "HRESULT")
+        return Folder(ppid)
     }
 
     /**
      * 
-     * @param {Pointer<FolderItems>} ppid 
-     * @returns {HRESULT} 
+     * @returns {FolderItems} 
      * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-ishellfolderviewdual-selecteditems
      */
-    SelectedItems(ppid) {
-        result := ComCall(10, this, "ptr*", ppid, "HRESULT")
-        return result
+    SelectedItems() {
+        result := ComCall(10, this, "ptr*", &ppid := 0, "HRESULT")
+        return FolderItems(ppid)
     }
 
     /**
      * 
-     * @param {Pointer<FolderItem>} ppid 
-     * @returns {HRESULT} 
+     * @returns {FolderItem} 
      * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-ishellfolderviewdual-get_focuseditem
      */
-    get_FocusedItem(ppid) {
-        result := ComCall(11, this, "ptr*", ppid, "HRESULT")
-        return result
+    get_FocusedItem() {
+        result := ComCall(11, this, "ptr*", &ppid := 0, "HRESULT")
+        return FolderItem(ppid)
     }
 
     /**
@@ -102,36 +101,32 @@ class IShellFolderViewDual extends IDispatch{
      * @param {FolderItem} pfi 
      * @param {VARIANT} vx 
      * @param {VARIANT} vy 
-     * @param {Pointer<BSTR>} pbs 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-ishellfolderviewdual-popupitemmenu
      */
-    PopupItemMenu(pfi, vx, vy, pbs) {
+    PopupItemMenu(pfi, vx, vy) {
+        pbs := BSTR()
         result := ComCall(13, this, "ptr", pfi, "ptr", vx, "ptr", vy, "ptr", pbs, "HRESULT")
-        return result
+        return pbs
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppDisp 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-ishellfolderviewdual-get_script
      */
-    get_Script(ppDisp) {
-        result := ComCall(14, this, "ptr*", ppDisp, "HRESULT")
-        return result
+    get_Script() {
+        result := ComCall(14, this, "ptr*", &ppDisp := 0, "HRESULT")
+        return IDispatch(ppDisp)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plViewOptions 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-ishellfolderviewdual-get_viewoptions
      */
-    get_ViewOptions(plViewOptions) {
-        plViewOptionsMarshal := plViewOptions is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, plViewOptionsMarshal, plViewOptions, "HRESULT")
-        return result
+    get_ViewOptions() {
+        result := ComCall(15, this, "int*", &plViewOptions := 0, "HRESULT")
+        return plViewOptions
     }
 }

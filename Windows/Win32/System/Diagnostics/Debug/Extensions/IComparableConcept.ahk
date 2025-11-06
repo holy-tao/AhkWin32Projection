@@ -32,13 +32,10 @@ class IComparableConcept extends IUnknown{
      * 
      * @param {IModelObject} contextObject 
      * @param {IModelObject} otherObject 
-     * @param {Pointer<Integer>} comparisonResult 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    CompareObjects(contextObject, otherObject, comparisonResult) {
-        comparisonResultMarshal := comparisonResult is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, "ptr", contextObject, "ptr", otherObject, comparisonResultMarshal, comparisonResult, "HRESULT")
-        return result
+    CompareObjects(contextObject, otherObject) {
+        result := ComCall(3, this, "ptr", contextObject, "ptr", otherObject, "int*", &comparisonResult := 0, "HRESULT")
+        return comparisonResult
     }
 }

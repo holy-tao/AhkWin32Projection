@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IClockVector.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -54,16 +55,15 @@ class ICoreFragment extends IUnknown{
      * 
      * @param {Pointer<Integer>} pItemId 
      * @param {Pointer<Integer>} pItemIdSize 
-     * @param {Pointer<IClockVector>} piClockVector 
-     * @returns {HRESULT} 
+     * @returns {IClockVector} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-icorefragment-nextrange
      */
-    NextRange(pItemId, pItemIdSize, piClockVector) {
+    NextRange(pItemId, pItemIdSize) {
         pItemIdMarshal := pItemId is VarRef ? "char*" : "ptr"
         pItemIdSizeMarshal := pItemIdSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, pItemIdMarshal, pItemId, pItemIdSizeMarshal, pItemIdSize, "ptr*", piClockVector, "HRESULT")
-        return result
+        result := ComCall(4, this, pItemIdMarshal, pItemId, pItemIdSizeMarshal, pItemIdSize, "ptr*", &piClockVector := 0, "HRESULT")
+        return IClockVector(piClockVector)
     }
 
     /**

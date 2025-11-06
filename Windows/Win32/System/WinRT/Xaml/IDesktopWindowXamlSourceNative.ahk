@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\HWND.ahk
 #Include ..\..\Com\IUnknown.ahk
 
 /**
@@ -45,12 +46,12 @@ class IDesktopWindowXamlSourceNative extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HWND>} hWnd 
-     * @returns {HRESULT} 
+     * @returns {HWND} 
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.hosting.desktopwindowxamlsource/nf-windows-ui-xaml-hosting-desktopwindowxamlsource-idesktopwindowxamlsourcenative-get_windowhandle
      */
-    get_WindowHandle(hWnd) {
+    get_WindowHandle() {
+        hWnd := HWND()
         result := ComCall(4, this, "ptr", hWnd, "HRESULT")
-        return result
+        return hWnd
     }
 }

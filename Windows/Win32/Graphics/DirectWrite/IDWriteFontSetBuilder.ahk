@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteFontSet.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -67,12 +68,11 @@ class IDWriteFontSetBuilder extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDWriteFontSet>} fontSet 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontSet} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontsetbuilder-createfontset
      */
-    CreateFontSet(fontSet) {
-        result := ComCall(6, this, "ptr*", fontSet, "HRESULT")
-        return result
+    CreateFontSet() {
+        result := ComCall(6, this, "ptr*", &fontSet := 0, "HRESULT")
+        return IDWriteFontSet(fontSet)
     }
 }

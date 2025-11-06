@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IChangeUnitException.ahk
+#Include .\IEnumChangeUnitExceptions.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -33,16 +35,15 @@ class IEnumChangeUnitExceptions extends IUnknown{
     /**
      * 
      * @param {Integer} cExceptions 
-     * @param {Pointer<IChangeUnitException>} ppChangeUnitException 
      * @param {Pointer<Integer>} pcFetched 
-     * @returns {HRESULT} 
+     * @returns {IChangeUnitException} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumchangeunitexceptions-next
      */
-    Next(cExceptions, ppChangeUnitException, pcFetched) {
+    Next(cExceptions, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", cExceptions, "ptr*", ppChangeUnitException, pcFetchedMarshal, pcFetched, "HRESULT")
-        return result
+        result := ComCall(3, this, "uint", cExceptions, "ptr*", &ppChangeUnitException := 0, pcFetchedMarshal, pcFetched, "HRESULT")
+        return IChangeUnitException(ppChangeUnitException)
     }
 
     /**
@@ -68,12 +69,11 @@ class IEnumChangeUnitExceptions extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumChangeUnitExceptions>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumChangeUnitExceptions} 
      * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumchangeunitexceptions-clone
      */
-    Clone(ppEnum) {
-        result := ComCall(6, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumChangeUnitExceptions(ppEnum)
     }
 }

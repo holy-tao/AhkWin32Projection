@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IRunningTask.ahk
+#Include .\IRunningTaskCollection.ahk
+#Include .\ITaskDefinition.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -33,48 +36,44 @@ class IRegisteredTask extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregisteredtask-get_name
      */
-    get_Name(pName) {
+    get_Name() {
+        pName := BSTR()
         result := ComCall(7, this, "ptr", pName, "HRESULT")
-        return result
+        return pName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pPath 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregisteredtask-get_path
      */
-    get_Path(pPath) {
+    get_Path() {
+        pPath := BSTR()
         result := ComCall(8, this, "ptr", pPath, "HRESULT")
-        return result
+        return pPath
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregisteredtask-get_state
      */
-    get_State(pState) {
-        pStateMarshal := pState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pStateMarshal, pState, "HRESULT")
-        return result
+    get_State() {
+        result := ComCall(9, this, "int*", &pState := 0, "HRESULT")
+        return pState
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pEnabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregisteredtask-get_enabled
      */
-    get_Enabled(pEnabled) {
-        result := ComCall(10, this, "ptr", pEnabled, "HRESULT")
-        return result
+    get_Enabled() {
+        result := ComCall(10, this, "short*", &pEnabled := 0, "HRESULT")
+        return pEnabled
     }
 
     /**
@@ -91,13 +90,12 @@ class IRegisteredTask extends IDispatch{
     /**
      * 
      * @param {VARIANT} params 
-     * @param {Pointer<IRunningTask>} ppRunningTask 
-     * @returns {HRESULT} 
+     * @returns {IRunningTask} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregisteredtask-run
      */
-    Run(params, ppRunningTask) {
-        result := ComCall(12, this, "ptr", params, "ptr*", ppRunningTask, "HRESULT")
-        return result
+    Run(params) {
+        result := ComCall(12, this, "ptr", params, "ptr*", &ppRunningTask := 0, "HRESULT")
+        return IRunningTask(ppRunningTask)
     }
 
     /**
@@ -106,113 +104,98 @@ class IRegisteredTask extends IDispatch{
      * @param {Integer} flags 
      * @param {Integer} sessionID 
      * @param {BSTR} user 
-     * @param {Pointer<IRunningTask>} ppRunningTask 
-     * @returns {HRESULT} 
+     * @returns {IRunningTask} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregisteredtask-runex
      */
-    RunEx(params, flags, sessionID, user, ppRunningTask) {
+    RunEx(params, flags, sessionID, user) {
         user := user is String ? BSTR.Alloc(user).Value : user
 
-        result := ComCall(13, this, "ptr", params, "int", flags, "int", sessionID, "ptr", user, "ptr*", ppRunningTask, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", params, "int", flags, "int", sessionID, "ptr", user, "ptr*", &ppRunningTask := 0, "HRESULT")
+        return IRunningTask(ppRunningTask)
     }
 
     /**
      * 
      * @param {Integer} flags 
-     * @param {Pointer<IRunningTaskCollection>} ppRunningTasks 
-     * @returns {HRESULT} 
+     * @returns {IRunningTaskCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregisteredtask-getinstances
      */
-    GetInstances(flags, ppRunningTasks) {
-        result := ComCall(14, this, "int", flags, "ptr*", ppRunningTasks, "HRESULT")
-        return result
+    GetInstances(flags) {
+        result := ComCall(14, this, "int", flags, "ptr*", &ppRunningTasks := 0, "HRESULT")
+        return IRunningTaskCollection(ppRunningTasks)
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pLastRunTime 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregisteredtask-get_lastruntime
      */
-    get_LastRunTime(pLastRunTime) {
-        pLastRunTimeMarshal := pLastRunTime is VarRef ? "double*" : "ptr"
-
-        result := ComCall(15, this, pLastRunTimeMarshal, pLastRunTime, "HRESULT")
-        return result
+    get_LastRunTime() {
+        result := ComCall(15, this, "double*", &pLastRunTime := 0, "HRESULT")
+        return pLastRunTime
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pLastTaskResult 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregisteredtask-get_lasttaskresult
      */
-    get_LastTaskResult(pLastTaskResult) {
-        pLastTaskResultMarshal := pLastTaskResult is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, pLastTaskResultMarshal, pLastTaskResult, "HRESULT")
-        return result
+    get_LastTaskResult() {
+        result := ComCall(16, this, "int*", &pLastTaskResult := 0, "HRESULT")
+        return pLastTaskResult
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pNumberOfMissedRuns 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregisteredtask-get_numberofmissedruns
      */
-    get_NumberOfMissedRuns(pNumberOfMissedRuns) {
-        pNumberOfMissedRunsMarshal := pNumberOfMissedRuns is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, pNumberOfMissedRunsMarshal, pNumberOfMissedRuns, "HRESULT")
-        return result
+    get_NumberOfMissedRuns() {
+        result := ComCall(17, this, "int*", &pNumberOfMissedRuns := 0, "HRESULT")
+        return pNumberOfMissedRuns
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pNextRunTime 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregisteredtask-get_nextruntime
      */
-    get_NextRunTime(pNextRunTime) {
-        pNextRunTimeMarshal := pNextRunTime is VarRef ? "double*" : "ptr"
-
-        result := ComCall(18, this, pNextRunTimeMarshal, pNextRunTime, "HRESULT")
-        return result
+    get_NextRunTime() {
+        result := ComCall(18, this, "double*", &pNextRunTime := 0, "HRESULT")
+        return pNextRunTime
     }
 
     /**
      * 
-     * @param {Pointer<ITaskDefinition>} ppDefinition 
-     * @returns {HRESULT} 
+     * @returns {ITaskDefinition} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregisteredtask-get_definition
      */
-    get_Definition(ppDefinition) {
-        result := ComCall(19, this, "ptr*", ppDefinition, "HRESULT")
-        return result
+    get_Definition() {
+        result := ComCall(19, this, "ptr*", &ppDefinition := 0, "HRESULT")
+        return ITaskDefinition(ppDefinition)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pXml 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregisteredtask-get_xml
      */
-    get_Xml(pXml) {
+    get_Xml() {
+        pXml := BSTR()
         result := ComCall(20, this, "ptr", pXml, "HRESULT")
-        return result
+        return pXml
     }
 
     /**
      * 
      * @param {Integer} securityInformation 
-     * @param {Pointer<BSTR>} pSddl 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregisteredtask-getsecuritydescriptor
      */
-    GetSecurityDescriptor(securityInformation, pSddl) {
+    GetSecurityDescriptor(securityInformation) {
+        pSddl := BSTR()
         result := ComCall(21, this, "int", securityInformation, "ptr", pSddl, "HRESULT")
-        return result
+        return pSddl
     }
 
     /**
@@ -245,15 +228,13 @@ class IRegisteredTask extends IDispatch{
      * @param {Pointer<SYSTEMTIME>} pstStart 
      * @param {Pointer<SYSTEMTIME>} pstEnd 
      * @param {Pointer<Integer>} pCount 
-     * @param {Pointer<Pointer<SYSTEMTIME>>} pRunTimes 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SYSTEMTIME>} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iregisteredtask-getruntimes
      */
-    GetRunTimes(pstStart, pstEnd, pCount, pRunTimes) {
+    GetRunTimes(pstStart, pstEnd, pCount) {
         pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
-        pRunTimesMarshal := pRunTimes is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(24, this, "ptr", pstStart, "ptr", pstEnd, pCountMarshal, pCount, pRunTimesMarshal, pRunTimes, "HRESULT")
-        return result
+        result := ComCall(24, this, "ptr", pstStart, "ptr", pstEnd, pCountMarshal, pCount, "ptr*", &pRunTimes := 0, "HRESULT")
+        return pRunTimes
     }
 }

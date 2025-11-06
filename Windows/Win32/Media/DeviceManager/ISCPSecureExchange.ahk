@@ -34,35 +34,31 @@ class ISCPSecureExchange extends IUnknown{
      * 
      * @param {Pointer<Integer>} pData 
      * @param {Integer} dwSize 
-     * @param {Pointer<Integer>} pfuReadyFlags 
      * @param {Pointer<Integer>} abMac 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iscpsecureexchange-transfercontainerdata
      */
-    TransferContainerData(pData, dwSize, pfuReadyFlags, abMac) {
+    TransferContainerData(pData, dwSize, abMac) {
         pDataMarshal := pData is VarRef ? "char*" : "ptr"
-        pfuReadyFlagsMarshal := pfuReadyFlags is VarRef ? "uint*" : "ptr"
         abMacMarshal := abMac is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, pDataMarshal, pData, "uint", dwSize, pfuReadyFlagsMarshal, pfuReadyFlags, abMacMarshal, abMac, "HRESULT")
-        return result
+        result := ComCall(3, this, pDataMarshal, pData, "uint", dwSize, "uint*", &pfuReadyFlags := 0, abMacMarshal, abMac, "HRESULT")
+        return pfuReadyFlags
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pData 
      * @param {Pointer<Integer>} pdwSize 
      * @param {Pointer<Integer>} abMac 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iscpsecureexchange-objectdata
      */
-    ObjectData(pData, pdwSize, abMac) {
-        pDataMarshal := pData is VarRef ? "char*" : "ptr"
+    ObjectData(pdwSize, abMac) {
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
         abMacMarshal := abMac is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, pDataMarshal, pData, pdwSizeMarshal, pdwSize, abMacMarshal, abMac, "HRESULT")
-        return result
+        result := ComCall(4, this, "char*", &pData := 0, pdwSizeMarshal, pdwSize, abMacMarshal, abMac, "HRESULT")
+        return pData
     }
 
     /**

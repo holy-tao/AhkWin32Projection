@@ -54,14 +54,11 @@ class IDockProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-idockprovider-get_dockposition
      */
-    get_DockPosition(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    get_DockPosition() {
+        result := ComCall(4, this, "int*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 }

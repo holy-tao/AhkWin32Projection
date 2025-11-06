@@ -32,12 +32,12 @@ class IX509SCEPEnrollment2 extends IX509SCEPEnrollment{
     /**
      * 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    CreateChallengeAnswerMessage(Encoding, pValue) {
+    CreateChallengeAnswerMessage(Encoding) {
+        pValue := BSTR()
         result := ComCall(29, this, "int", Encoding, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
@@ -45,48 +45,42 @@ class IX509SCEPEnrollment2 extends IX509SCEPEnrollment{
      * @param {Integer} Flags 
      * @param {BSTR} strResponse 
      * @param {Integer} Encoding 
-     * @param {Pointer<Integer>} pDisposition 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    ProcessResponseMessage2(Flags, strResponse, Encoding, pDisposition) {
+    ProcessResponseMessage2(Flags, strResponse, Encoding) {
         strResponse := strResponse is String ? BSTR.Alloc(strResponse).Value : strResponse
 
-        pDispositionMarshal := pDisposition is VarRef ? "int*" : "ptr"
-
-        result := ComCall(30, this, "int", Flags, "ptr", strResponse, "int", Encoding, pDispositionMarshal, pDisposition, "HRESULT")
-        return result
+        result := ComCall(30, this, "int", Flags, "ptr", strResponse, "int", Encoding, "int*", &pDisposition := 0, "HRESULT")
+        return pDisposition
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ResultMessageText(pValue) {
+    get_ResultMessageText() {
+        pValue := BSTR()
         result := ComCall(31, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_DelayRetry(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(32, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    get_DelayRetry() {
+        result := ComCall(32, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ActivityId(pValue) {
+    get_ActivityId() {
+        pValue := BSTR()
         result := ComCall(33, this, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 
     /**

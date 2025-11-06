@@ -43,15 +43,12 @@ class IAnalogAudioComponentType extends IComponentType{
 
     /**
      * 
-     * @param {Pointer<Integer>} Mode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianalogaudiocomponenttype-get_analogaudiomode
      */
-    get_AnalogAudioMode(Mode) {
-        ModeMarshal := Mode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(24, this, ModeMarshal, Mode, "HRESULT")
-        return result
+    get_AnalogAudioMode() {
+        result := ComCall(24, this, "int*", &Mode := 0, "HRESULT")
+        return Mode
     }
 
     /**

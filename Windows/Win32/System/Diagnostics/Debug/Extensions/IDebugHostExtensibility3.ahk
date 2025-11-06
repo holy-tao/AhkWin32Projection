@@ -32,14 +32,11 @@ class IDebugHostExtensibility3 extends IDebugHostExtensibility2{
      * 
      * @param {Integer} blobSize 
      * @param {Pointer<Guid>} identifier 
-     * @param {Pointer<Integer>} blobId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    ExtendHostContext(blobSize, identifier, blobId) {
-        blobIdMarshal := blobId is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, "uint", blobSize, "ptr", identifier, blobIdMarshal, blobId, "HRESULT")
-        return result
+    ExtendHostContext(blobSize, identifier) {
+        result := ComCall(6, this, "uint", blobSize, "ptr", identifier, "uint*", &blobId := 0, "HRESULT")
+        return blobId
     }
 
     /**

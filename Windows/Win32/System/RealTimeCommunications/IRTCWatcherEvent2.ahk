@@ -30,25 +30,19 @@ class IRTCWatcherEvent2 extends IRTCWatcherEvent{
 
     /**
      * 
-     * @param {Pointer<Integer>} pEventType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_EventType(pEventType) {
-        pEventTypeMarshal := pEventType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pEventTypeMarshal, pEventType, "HRESULT")
-        return result
+    get_EventType() {
+        result := ComCall(8, this, "int*", &pEventType := 0, "HRESULT")
+        return pEventType
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plStatusCode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_StatusCode(plStatusCode) {
-        plStatusCodeMarshal := plStatusCode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, plStatusCodeMarshal, plStatusCode, "HRESULT")
-        return result
+    get_StatusCode() {
+        result := ComCall(9, this, "int*", &plStatusCode := 0, "HRESULT")
+        return plStatusCode
     }
 }

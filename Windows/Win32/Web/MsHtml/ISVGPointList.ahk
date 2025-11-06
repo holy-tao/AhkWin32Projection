@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISVGPoint.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -46,14 +47,11 @@ class ISVGPointList extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_numberOfItems(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pMarshal, p, "HRESULT")
-        return result
+    get_numberOfItems() {
+        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -68,68 +66,62 @@ class ISVGPointList extends IDispatch{
     /**
      * 
      * @param {ISVGPoint} pNewItem 
-     * @param {Pointer<ISVGPoint>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGPoint} 
      */
-    initialize(pNewItem, ppResult) {
-        result := ComCall(10, this, "ptr", pNewItem, "ptr*", ppResult, "HRESULT")
-        return result
+    initialize(pNewItem) {
+        result := ComCall(10, this, "ptr", pNewItem, "ptr*", &ppResult := 0, "HRESULT")
+        return ISVGPoint(ppResult)
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<ISVGPoint>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGPoint} 
      */
-    getItem(index, ppResult) {
-        result := ComCall(11, this, "int", index, "ptr*", ppResult, "HRESULT")
-        return result
+    getItem(index) {
+        result := ComCall(11, this, "int", index, "ptr*", &ppResult := 0, "HRESULT")
+        return ISVGPoint(ppResult)
     }
 
     /**
      * 
      * @param {ISVGPoint} pNewItem 
      * @param {Integer} index 
-     * @param {Pointer<ISVGPoint>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGPoint} 
      */
-    insertItemBefore(pNewItem, index, ppResult) {
-        result := ComCall(12, this, "ptr", pNewItem, "int", index, "ptr*", ppResult, "HRESULT")
-        return result
+    insertItemBefore(pNewItem, index) {
+        result := ComCall(12, this, "ptr", pNewItem, "int", index, "ptr*", &ppResult := 0, "HRESULT")
+        return ISVGPoint(ppResult)
     }
 
     /**
      * 
      * @param {ISVGPoint} pNewItem 
      * @param {Integer} index 
-     * @param {Pointer<ISVGPoint>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGPoint} 
      */
-    replaceItem(pNewItem, index, ppResult) {
-        result := ComCall(13, this, "ptr", pNewItem, "int", index, "ptr*", ppResult, "HRESULT")
-        return result
+    replaceItem(pNewItem, index) {
+        result := ComCall(13, this, "ptr", pNewItem, "int", index, "ptr*", &ppResult := 0, "HRESULT")
+        return ISVGPoint(ppResult)
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<ISVGPoint>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGPoint} 
      */
-    removeItem(index, ppResult) {
-        result := ComCall(14, this, "int", index, "ptr*", ppResult, "HRESULT")
-        return result
+    removeItem(index) {
+        result := ComCall(14, this, "int", index, "ptr*", &ppResult := 0, "HRESULT")
+        return ISVGPoint(ppResult)
     }
 
     /**
      * 
      * @param {ISVGPoint} pNewItem 
-     * @param {Pointer<ISVGPoint>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {ISVGPoint} 
      */
-    appendItem(pNewItem, ppResult) {
-        result := ComCall(15, this, "ptr", pNewItem, "ptr*", ppResult, "HRESULT")
-        return result
+    appendItem(pNewItem) {
+        result := ComCall(15, this, "ptr", pNewItem, "ptr*", &ppResult := 0, "HRESULT")
+        return ISVGPoint(ppResult)
     }
 }

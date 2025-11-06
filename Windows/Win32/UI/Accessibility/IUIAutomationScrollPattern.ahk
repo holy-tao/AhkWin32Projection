@@ -56,149 +56,121 @@ class IUIAutomationScrollPattern extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_currenthorizontalscrollpercent
      */
-    get_CurrentHorizontalScrollPercent(retVal) {
-        retValMarshal := retVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(5, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CurrentHorizontalScrollPercent() {
+        result := ComCall(5, this, "double*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Float>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_currentverticalscrollpercent
      */
-    get_CurrentVerticalScrollPercent(retVal) {
-        retValMarshal := retVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(6, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CurrentVerticalScrollPercent() {
+        result := ComCall(6, this, "double*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Float>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_currenthorizontalviewsize
      */
-    get_CurrentHorizontalViewSize(retVal) {
-        retValMarshal := retVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(7, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CurrentHorizontalViewSize() {
+        result := ComCall(7, this, "double*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Float>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_currentverticalviewsize
      */
-    get_CurrentVerticalViewSize(retVal) {
-        retValMarshal := retVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(8, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CurrentVerticalViewSize() {
+        result := ComCall(8, this, "double*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_currenthorizontallyscrollable
      */
-    get_CurrentHorizontallyScrollable(retVal) {
-        result := ComCall(9, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CurrentHorizontallyScrollable() {
+        result := ComCall(9, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_currentverticallyscrollable
      */
-    get_CurrentVerticallyScrollable(retVal) {
-        result := ComCall(10, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CurrentVerticallyScrollable() {
+        result := ComCall(10, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Float>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_cachedhorizontalscrollpercent
      */
-    get_CachedHorizontalScrollPercent(retVal) {
-        retValMarshal := retVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(11, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CachedHorizontalScrollPercent() {
+        result := ComCall(11, this, "double*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Float>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_cachedverticalscrollpercent
      */
-    get_CachedVerticalScrollPercent(retVal) {
-        retValMarshal := retVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(12, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CachedVerticalScrollPercent() {
+        result := ComCall(12, this, "double*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Float>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_cachedhorizontalviewsize
      */
-    get_CachedHorizontalViewSize(retVal) {
-        retValMarshal := retVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(13, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CachedHorizontalViewSize() {
+        result := ComCall(13, this, "double*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Float>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_cachedverticalviewsize
      */
-    get_CachedVerticalViewSize(retVal) {
-        retValMarshal := retVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(14, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CachedVerticalViewSize() {
+        result := ComCall(14, this, "double*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_cachedhorizontallyscrollable
      */
-    get_CachedHorizontallyScrollable(retVal) {
-        result := ComCall(15, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CachedHorizontallyScrollable() {
+        result := ComCall(15, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationscrollpattern-get_cachedverticallyscrollable
      */
-    get_CachedVerticallyScrollable(retVal) {
-        result := ComCall(16, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CachedVerticallyScrollable() {
+        result := ComCall(16, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 }

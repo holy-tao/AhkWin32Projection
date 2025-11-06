@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDirectXVideoDecoder.ahk
 #Include .\IDirectXVideoAccelerationService.ahk
 
 /**
@@ -87,12 +88,11 @@ class IDirectXVideoDecoderService extends IDirectXVideoAccelerationService{
      * @param {Pointer<DXVA2_ConfigPictureDecode>} pConfig 
      * @param {Pointer<IDirect3DSurface9>} ppDecoderRenderTargets 
      * @param {Integer} NumRenderTargets 
-     * @param {Pointer<IDirectXVideoDecoder>} ppDecode 
-     * @returns {HRESULT} 
+     * @returns {IDirectXVideoDecoder} 
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideodecoderservice-createvideodecoder
      */
-    CreateVideoDecoder(Guid, pVideoDesc, pConfig, ppDecoderRenderTargets, NumRenderTargets, ppDecode) {
-        result := ComCall(7, this, "ptr", Guid, "ptr", pVideoDesc, "ptr", pConfig, "ptr*", ppDecoderRenderTargets, "uint", NumRenderTargets, "ptr*", ppDecode, "HRESULT")
-        return result
+    CreateVideoDecoder(Guid, pVideoDesc, pConfig, ppDecoderRenderTargets, NumRenderTargets) {
+        result := ComCall(7, this, "ptr", Guid, "ptr", pVideoDesc, "ptr", pConfig, "ptr*", ppDecoderRenderTargets, "uint", NumRenderTargets, "ptr*", &ppDecode := 0, "HRESULT")
+        return IDirectXVideoDecoder(ppDecode)
     }
 }

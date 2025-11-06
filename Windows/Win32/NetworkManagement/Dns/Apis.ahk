@@ -1768,7 +1768,9 @@ class Dns {
      * @returns {Integer} 
      */
     static DnsIsFlatRecord(pRecord, ullFlags, pfFlat) {
-        result := DllCall("DNSAPI.dll\DnsIsFlatRecord", "ptr", pRecord, "uint", ullFlags, "ptr", pfFlat, "int")
+        pfFlatMarshal := pfFlat is VarRef ? "int*" : "ptr"
+
+        result := DllCall("DNSAPI.dll\DnsIsFlatRecord", "ptr", pRecord, "uint", ullFlags, pfFlatMarshal, pfFlat, "int")
         return result
     }
 
@@ -2582,8 +2584,10 @@ class Dns {
         pHostName := pHostName is String ? StrPtr(pHostName) : pHostName
 
         pIp4Marshal := pIp4 is VarRef ? "uint*" : "ptr"
+        keysMarshal := keys is VarRef ? "ptr*" : "ptr"
+        valuesMarshal := values is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("DNSAPI.dll\DnsServiceConstructInstance", "ptr", pServiceName, "ptr", pHostName, pIp4Marshal, pIp4, "ptr", pIp6, "ushort", wPort, "ushort", wPriority, "ushort", wWeight, "uint", dwPropertiesCount, "ptr", keys, "ptr", values, "ptr")
+        result := DllCall("DNSAPI.dll\DnsServiceConstructInstance", "ptr", pServiceName, "ptr", pHostName, pIp4Marshal, pIp4, "ptr", pIp6, "ushort", wPort, "ushort", wPriority, "ushort", wWeight, "uint", dwPropertiesCount, keysMarshal, keys, valuesMarshal, values, "ptr")
         return result
     }
 

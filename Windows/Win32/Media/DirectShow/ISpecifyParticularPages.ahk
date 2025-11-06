@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Ole\CAUUID.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -31,11 +32,11 @@ class ISpecifyParticularPages extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} guidWhatPages 
-     * @param {Pointer<CAUUID>} pPages 
-     * @returns {HRESULT} 
+     * @returns {CAUUID} 
      */
-    GetPages(guidWhatPages, pPages) {
+    GetPages(guidWhatPages) {
+        pPages := CAUUID()
         result := ComCall(3, this, "ptr", guidWhatPages, "ptr", pPages, "HRESULT")
-        return result
+        return pPages
     }
 }

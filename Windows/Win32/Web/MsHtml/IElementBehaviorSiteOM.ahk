@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IHTMLEventObj.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,31 +33,25 @@ class IElementBehaviorSiteOM extends IUnknown{
      * 
      * @param {PWSTR} pchEvent 
      * @param {Integer} lFlags 
-     * @param {Pointer<Integer>} plCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    RegisterEvent(pchEvent, lFlags, plCookie) {
+    RegisterEvent(pchEvent, lFlags) {
         pchEvent := pchEvent is String ? StrPtr(pchEvent) : pchEvent
 
-        plCookieMarshal := plCookie is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pchEvent, "int", lFlags, plCookieMarshal, plCookie, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pchEvent, "int", lFlags, "int*", &plCookie := 0, "HRESULT")
+        return plCookie
     }
 
     /**
      * 
      * @param {PWSTR} pchEvent 
-     * @param {Pointer<Integer>} plCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetEventCookie(pchEvent, plCookie) {
+    GetEventCookie(pchEvent) {
         pchEvent := pchEvent is String ? StrPtr(pchEvent) : pchEvent
 
-        plCookieMarshal := plCookie is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, "ptr", pchEvent, plCookieMarshal, plCookie, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pchEvent, "int*", &plCookie := 0, "HRESULT")
+        return plCookie
     }
 
     /**
@@ -72,12 +67,11 @@ class IElementBehaviorSiteOM extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IHTMLEventObj>} ppEventObject 
-     * @returns {HRESULT} 
+     * @returns {IHTMLEventObj} 
      */
-    CreateEventObject(ppEventObject) {
-        result := ComCall(6, this, "ptr*", ppEventObject, "HRESULT")
-        return result
+    CreateEventObject() {
+        result := ComCall(6, this, "ptr*", &ppEventObject := 0, "HRESULT")
+        return IHTMLEventObj(ppEventObject)
     }
 
     /**

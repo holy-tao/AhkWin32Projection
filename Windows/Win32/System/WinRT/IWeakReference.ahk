@@ -33,14 +33,11 @@ class IWeakReference extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} objectReference 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/weakreference/nf-weakreference-iweakreference-resolve(t_)
      */
-    Resolve(riid, objectReference) {
-        objectReferenceMarshal := objectReference is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", riid, objectReferenceMarshal, objectReference, "HRESULT")
-        return result
+    Resolve(riid) {
+        result := ComCall(3, this, "ptr", riid, "ptr*", &objectReference := 0, "HRESULT")
+        return objectReference
     }
 }

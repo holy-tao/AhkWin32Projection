@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -30,45 +31,39 @@ class IRTCPresencePropertyEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plStatusCode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_StatusCode(plStatusCode) {
-        plStatusCodeMarshal := plStatusCode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, plStatusCodeMarshal, plStatusCode, "HRESULT")
-        return result
+    get_StatusCode() {
+        result := ComCall(7, this, "int*", &plStatusCode := 0, "HRESULT")
+        return plStatusCode
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrStatusText 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_StatusText(pbstrStatusText) {
+    get_StatusText() {
+        pbstrStatusText := BSTR()
         result := ComCall(8, this, "ptr", pbstrStatusText, "HRESULT")
-        return result
+        return pbstrStatusText
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} penPresProp 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_PresenceProperty(penPresProp) {
-        penPresPropMarshal := penPresProp is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, penPresPropMarshal, penPresProp, "HRESULT")
-        return result
+    get_PresenceProperty() {
+        result := ComCall(9, this, "int*", &penPresProp := 0, "HRESULT")
+        return penPresProp
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Value(pbstrValue) {
+    get_Value() {
+        pbstrValue := BSTR()
         result := ComCall(10, this, "ptr", pbstrValue, "HRESULT")
-        return result
+        return pbstrValue
     }
 }

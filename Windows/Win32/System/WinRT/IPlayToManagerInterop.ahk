@@ -34,17 +34,14 @@ class IPlayToManagerInterop extends IInspectable{
      * 
      * @param {HWND} appWindow 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} playToManager 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/playtomanagerinterop/nf-playtomanagerinterop-iplaytomanagerinterop-getforwindow
      */
-    GetForWindow(appWindow, riid, playToManager) {
+    GetForWindow(appWindow, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
 
-        playToManagerMarshal := playToManager is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", appWindow, "ptr", riid, playToManagerMarshal, playToManager, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", appWindow, "ptr", riid, "ptr*", &playToManager := 0, "HRESULT")
+        return playToManager
     }
 
     /**

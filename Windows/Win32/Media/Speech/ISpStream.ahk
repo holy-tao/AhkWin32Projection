@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IStream.ahk
 #Include .\ISpStreamFormat.ahk
 
 /**
@@ -48,12 +49,11 @@ class ISpStream extends ISpStreamFormat{
 
     /**
      * 
-     * @param {Pointer<IStream>} ppStream 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      */
-    GetBaseStream(ppStream) {
-        result := ComCall(16, this, "ptr*", ppStream, "HRESULT")
-        return result
+    GetBaseStream() {
+        result := ComCall(16, this, "ptr*", &ppStream := 0, "HRESULT")
+        return IStream(ppStream)
     }
 
     /**

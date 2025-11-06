@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -46,32 +47,26 @@ class IFrameworkInputPane extends IUnknown{
      * 
      * @param {IUnknown} pWindow 
      * @param {IFrameworkInputPaneHandler} pHandler 
-     * @param {Pointer<Integer>} pdwCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iframeworkinputpane-advise
      */
-    Advise(pWindow, pHandler, pdwCookie) {
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pWindow, "ptr", pHandler, pdwCookieMarshal, pdwCookie, "HRESULT")
-        return result
+    Advise(pWindow, pHandler) {
+        result := ComCall(3, this, "ptr", pWindow, "ptr", pHandler, "uint*", &pdwCookie := 0, "HRESULT")
+        return pdwCookie
     }
 
     /**
      * 
      * @param {HWND} hwnd 
      * @param {IFrameworkInputPaneHandler} pHandler 
-     * @param {Pointer<Integer>} pdwCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iframeworkinputpane-advisewithhwnd
      */
-    AdviseWithHWND(hwnd, pHandler, pdwCookie) {
+    AdviseWithHWND(hwnd, pHandler) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, "ptr", hwnd, "ptr", pHandler, pdwCookieMarshal, pdwCookie, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", hwnd, "ptr", pHandler, "uint*", &pdwCookie := 0, "HRESULT")
+        return pdwCookie
     }
 
     /**
@@ -87,12 +82,12 @@ class IFrameworkInputPane extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<RECT>} prcInputPaneScreenLocation 
-     * @returns {HRESULT} 
+     * @returns {RECT} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iframeworkinputpane-location
      */
-    Location(prcInputPaneScreenLocation) {
+    Location() {
+        prcInputPaneScreenLocation := RECT()
         result := ComCall(6, this, "ptr", prcInputPaneScreenLocation, "HRESULT")
-        return result
+        return prcInputPaneScreenLocation
     }
 }

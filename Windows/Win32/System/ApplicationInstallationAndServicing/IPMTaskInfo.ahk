@@ -30,12 +30,12 @@ class IPMTaskInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pProductID 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    get_ProductID(pProductID) {
+    get_ProductID() {
+        pProductID := Guid()
         result := ComCall(3, this, "ptr", pProductID, "HRESULT")
-        return result
+        return pProductID
     }
 
     /**
@@ -60,50 +60,38 @@ class IPMTaskInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pTaskTransition 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_TaskTransition(pTaskTransition) {
-        pTaskTransitionMarshal := pTaskTransition is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, pTaskTransitionMarshal, pTaskTransition, "HRESULT")
-        return result
+    get_TaskTransition() {
+        result := ComCall(6, this, "int*", &pTaskTransition := 0, "HRESULT")
+        return pTaskTransition
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pRuntimetype 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_RuntimeType(pRuntimetype) {
-        pRuntimetypeMarshal := pRuntimetype is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pRuntimetypeMarshal, pRuntimetype, "HRESULT")
-        return result
+    get_RuntimeType() {
+        result := ComCall(7, this, "int*", &pRuntimetype := 0, "HRESULT")
+        return pRuntimetype
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pActivationPolicy 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ActivationPolicy(pActivationPolicy) {
-        pActivationPolicyMarshal := pActivationPolicy is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pActivationPolicyMarshal, pActivationPolicy, "HRESULT")
-        return result
+    get_ActivationPolicy() {
+        result := ComCall(8, this, "int*", &pActivationPolicy := 0, "HRESULT")
+        return pActivationPolicy
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pTaskType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_TaskType(pTaskType) {
-        pTaskTypeMarshal := pTaskType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pTaskTypeMarshal, pTaskType, "HRESULT")
-        return result
+    get_TaskType() {
+        result := ComCall(9, this, "int*", &pTaskType := 0, "HRESULT")
+        return pTaskType
     }
 
     /**
@@ -159,46 +147,38 @@ class IPMTaskInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pIsSingleInstanceHost 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_IsSingleInstanceHost(pIsSingleInstanceHost) {
-        result := ComCall(15, this, "ptr", pIsSingleInstanceHost, "HRESULT")
-        return result
+    get_IsSingleInstanceHost() {
+        result := ComCall(15, this, "int*", &pIsSingleInstanceHost := 0, "HRESULT")
+        return pIsSingleInstanceHost
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pIsInteropEnabled 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_IsInteropEnabled(pIsInteropEnabled) {
-        result := ComCall(16, this, "ptr", pIsInteropEnabled, "HRESULT")
-        return result
+    get_IsInteropEnabled() {
+        result := ComCall(16, this, "int*", &pIsInteropEnabled := 0, "HRESULT")
+        return pIsInteropEnabled
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pApplicationState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ApplicationState(pApplicationState) {
-        pApplicationStateMarshal := pApplicationState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, pApplicationStateMarshal, pApplicationState, "HRESULT")
-        return result
+    get_ApplicationState() {
+        result := ComCall(17, this, "int*", &pApplicationState := 0, "HRESULT")
+        return pApplicationState
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pInstallType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_InstallType(pInstallType) {
-        pInstallTypeMarshal := pInstallType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(18, this, pInstallTypeMarshal, pInstallType, "HRESULT")
-        return result
+    get_InstallType() {
+        result := ComCall(18, this, "int*", &pInstallType := 0, "HRESULT")
+        return pInstallType
     }
 
     /**
@@ -217,24 +197,20 @@ class IPMTaskInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pBitsPerPixel 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_BitsPerPixel(pBitsPerPixel) {
-        pBitsPerPixelMarshal := pBitsPerPixel is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(20, this, pBitsPerPixelMarshal, pBitsPerPixel, "HRESULT")
-        return result
+    get_BitsPerPixel() {
+        result := ComCall(20, this, "ushort*", &pBitsPerPixel := 0, "HRESULT")
+        return pBitsPerPixel
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pSuppressesDehydration 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_SuppressesDehydration(pSuppressesDehydration) {
-        result := ComCall(21, this, "ptr", pSuppressesDehydration, "HRESULT")
-        return result
+    get_SuppressesDehydration() {
+        result := ComCall(21, this, "int*", &pSuppressesDehydration := 0, "HRESULT")
+        return pSuppressesDehydration
     }
 
     /**
@@ -249,11 +225,10 @@ class IPMTaskInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pIsOptedIn 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_IsOptedForExtendedMem(pIsOptedIn) {
-        result := ComCall(23, this, "ptr", pIsOptedIn, "HRESULT")
-        return result
+    get_IsOptedForExtendedMem() {
+        result := ComCall(23, this, "int*", &pIsOptedIn := 0, "HRESULT")
+        return pIsOptedIn
     }
 }

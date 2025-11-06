@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IInkDisp.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -121,13 +122,12 @@ class IStrokeBuilder extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IInkDisp>} ppiInkObj 
-     * @returns {HRESULT} 
+     * @returns {IInkDisp} 
      * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-istrokebuilder-get_ink
      */
-    get_Ink(ppiInkObj) {
-        result := ComCall(7, this, "ptr*", ppiInkObj, "HRESULT")
-        return result
+    get_Ink() {
+        result := ComCall(7, this, "ptr*", &ppiInkObj := 0, "HRESULT")
+        return IInkDisp(ppiInkObj)
     }
 
     /**

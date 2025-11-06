@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IDiscRecorder2.ahk
 #Include .\IDiscFormat2.ahk
 
 /**
@@ -116,13 +117,12 @@ class IDiscFormat2RawCD extends IDiscFormat2{
 
     /**
      * 
-     * @param {Pointer<IDiscRecorder2>} value 
-     * @returns {HRESULT} 
+     * @returns {IDiscRecorder2} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2rawcd-get_recorder
      */
-    get_Recorder(value) {
-        result := ComCall(19, this, "ptr*", value, "HRESULT")
-        return result
+    get_Recorder() {
+        result := ComCall(19, this, "ptr*", &value := 0, "HRESULT")
+        return IDiscRecorder2(value)
     }
 
     /**
@@ -138,65 +138,52 @@ class IDiscFormat2RawCD extends IDiscFormat2{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2rawcd-get_bufferunderrunfreedisabled
      */
-    get_BufferUnderrunFreeDisabled(value) {
-        result := ComCall(21, this, "ptr", value, "HRESULT")
-        return result
+    get_BufferUnderrunFreeDisabled() {
+        result := ComCall(21, this, "short*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2rawcd-get_startofnextsession
      */
-    get_StartOfNextSession(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(22, this, valueMarshal, value, "HRESULT")
-        return result
+    get_StartOfNextSession() {
+        result := ComCall(22, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2rawcd-get_lastpossiblestartofleadout
      */
-    get_LastPossibleStartOfLeadout(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(23, this, valueMarshal, value, "HRESULT")
-        return result
+    get_LastPossibleStartOfLeadout() {
+        result := ComCall(23, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2rawcd-get_currentphysicalmediatype
      */
-    get_CurrentPhysicalMediaType(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(24, this, valueMarshal, value, "HRESULT")
-        return result
+    get_CurrentPhysicalMediaType() {
+        result := ComCall(24, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} value 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2rawcd-get_supportedsectortypes
      */
-    get_SupportedSectorTypes(value) {
-        valueMarshal := value is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(25, this, valueMarshal, value, "HRESULT")
-        return result
+    get_SupportedSectorTypes() {
+        result := ComCall(25, this, "ptr*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
@@ -212,15 +199,12 @@ class IDiscFormat2RawCD extends IDiscFormat2{
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2rawcd-get_requestedsectortype
      */
-    get_RequestedSectorType(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(27, this, valueMarshal, value, "HRESULT")
-        return result
+    get_RequestedSectorType() {
+        result := ComCall(27, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
@@ -238,86 +222,72 @@ class IDiscFormat2RawCD extends IDiscFormat2{
 
     /**
      * 
-     * @param {Pointer<BSTR>} value 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2rawcd-get_clientname
      */
-    get_ClientName(value) {
+    get_ClientName() {
+        value := BSTR()
         result := ComCall(29, this, "ptr", value, "HRESULT")
-        return result
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2rawcd-get_requestedwritespeed
      */
-    get_RequestedWriteSpeed(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(30, this, valueMarshal, value, "HRESULT")
-        return result
+    get_RequestedWriteSpeed() {
+        result := ComCall(30, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2rawcd-get_requestedrotationtypeispurecav
      */
-    get_RequestedRotationTypeIsPureCAV(value) {
-        result := ComCall(31, this, "ptr", value, "HRESULT")
-        return result
+    get_RequestedRotationTypeIsPureCAV() {
+        result := ComCall(31, this, "short*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} value 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2rawcd-get_currentwritespeed
      */
-    get_CurrentWriteSpeed(value) {
-        valueMarshal := value is VarRef ? "int*" : "ptr"
-
-        result := ComCall(32, this, valueMarshal, value, "HRESULT")
-        return result
+    get_CurrentWriteSpeed() {
+        result := ComCall(32, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} value 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2rawcd-get_currentrotationtypeispurecav
      */
-    get_CurrentRotationTypeIsPureCAV(value) {
-        result := ComCall(33, this, "ptr", value, "HRESULT")
-        return result
+    get_CurrentRotationTypeIsPureCAV() {
+        result := ComCall(33, this, "short*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} supportedSpeeds 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2rawcd-get_supportedwritespeeds
      */
-    get_SupportedWriteSpeeds(supportedSpeeds) {
-        supportedSpeedsMarshal := supportedSpeeds is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(34, this, supportedSpeedsMarshal, supportedSpeeds, "HRESULT")
-        return result
+    get_SupportedWriteSpeeds() {
+        result := ComCall(34, this, "ptr*", &supportedSpeeds := 0, "HRESULT")
+        return supportedSpeeds
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} supportedSpeedDescriptors 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2rawcd-get_supportedwritespeeddescriptors
      */
-    get_SupportedWriteSpeedDescriptors(supportedSpeedDescriptors) {
-        supportedSpeedDescriptorsMarshal := supportedSpeedDescriptors is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(35, this, supportedSpeedDescriptorsMarshal, supportedSpeedDescriptors, "HRESULT")
-        return result
+    get_SupportedWriteSpeedDescriptors() {
+        result := ComCall(35, this, "ptr*", &supportedSpeedDescriptors := 0, "HRESULT")
+        return supportedSpeedDescriptors
     }
 }

@@ -44,13 +44,12 @@ class ISearchQueryHelper extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} pszConnectionString 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchqueryhelper-get_connectionstring
      */
-    get_ConnectionString(pszConnectionString) {
-        result := ComCall(3, this, "ptr", pszConnectionString, "HRESULT")
-        return result
+    get_ConnectionString() {
+        result := ComCall(3, this, "ptr*", &pszConnectionString := 0, "HRESULT")
+        return pszConnectionString
     }
 
     /**
@@ -66,15 +65,12 @@ class ISearchQueryHelper extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} plcid 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchqueryhelper-get_querycontentlocale
      */
-    get_QueryContentLocale(plcid) {
-        plcidMarshal := plcid is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, plcidMarshal, plcid, "HRESULT")
-        return result
+    get_QueryContentLocale() {
+        result := ComCall(5, this, "uint*", &plcid := 0, "HRESULT")
+        return plcid
     }
 
     /**
@@ -90,15 +86,12 @@ class ISearchQueryHelper extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} plcid 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchqueryhelper-get_querykeywordlocale
      */
-    get_QueryKeywordLocale(plcid) {
-        plcidMarshal := plcid is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, plcidMarshal, plcid, "HRESULT")
-        return result
+    get_QueryKeywordLocale() {
+        result := ComCall(7, this, "uint*", &plcid := 0, "HRESULT")
+        return plcid
     }
 
     /**
@@ -114,15 +107,12 @@ class ISearchQueryHelper extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pExpandTerms 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchqueryhelper-get_querytermexpansion
      */
-    get_QueryTermExpansion(pExpandTerms) {
-        pExpandTermsMarshal := pExpandTerms is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pExpandTermsMarshal, pExpandTerms, "HRESULT")
-        return result
+    get_QueryTermExpansion() {
+        result := ComCall(9, this, "int*", &pExpandTerms := 0, "HRESULT")
+        return pExpandTerms
     }
 
     /**
@@ -138,15 +128,12 @@ class ISearchQueryHelper extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pQuerySyntax 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchqueryhelper-get_querysyntax
      */
-    get_QuerySyntax(pQuerySyntax) {
-        pQuerySyntaxMarshal := pQuerySyntax is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, pQuerySyntaxMarshal, pQuerySyntax, "HRESULT")
-        return result
+    get_QuerySyntax() {
+        result := ComCall(11, this, "int*", &pQuerySyntax := 0, "HRESULT")
+        return pQuerySyntax
     }
 
     /**
@@ -164,13 +151,12 @@ class ISearchQueryHelper extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszContentProperties 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchqueryhelper-get_querycontentproperties
      */
-    get_QueryContentProperties(ppszContentProperties) {
-        result := ComCall(13, this, "ptr", ppszContentProperties, "HRESULT")
-        return result
+    get_QueryContentProperties() {
+        result := ComCall(13, this, "ptr*", &ppszContentProperties := 0, "HRESULT")
+        return ppszContentProperties
     }
 
     /**
@@ -188,13 +174,12 @@ class ISearchQueryHelper extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszSelectColumns 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchqueryhelper-get_queryselectcolumns
      */
-    get_QuerySelectColumns(ppszSelectColumns) {
-        result := ComCall(15, this, "ptr", ppszSelectColumns, "HRESULT")
-        return result
+    get_QuerySelectColumns() {
+        result := ComCall(15, this, "ptr*", &ppszSelectColumns := 0, "HRESULT")
+        return ppszSelectColumns
     }
 
     /**
@@ -212,13 +197,12 @@ class ISearchQueryHelper extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszRestrictions 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchqueryhelper-get_querywhererestrictions
      */
-    get_QueryWhereRestrictions(ppszRestrictions) {
-        result := ComCall(17, this, "ptr", ppszRestrictions, "HRESULT")
-        return result
+    get_QueryWhereRestrictions() {
+        result := ComCall(17, this, "ptr*", &ppszRestrictions := 0, "HRESULT")
+        return ppszRestrictions
     }
 
     /**
@@ -236,27 +220,25 @@ class ISearchQueryHelper extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszSorting 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchqueryhelper-get_querysorting
      */
-    get_QuerySorting(ppszSorting) {
-        result := ComCall(19, this, "ptr", ppszSorting, "HRESULT")
-        return result
+    get_QuerySorting() {
+        result := ComCall(19, this, "ptr*", &ppszSorting := 0, "HRESULT")
+        return ppszSorting
     }
 
     /**
      * 
      * @param {PWSTR} pszQuery 
-     * @param {Pointer<PWSTR>} ppszSQL 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchqueryhelper-generatesqlfromuserquery
      */
-    GenerateSQLFromUserQuery(pszQuery, ppszSQL) {
+    GenerateSQLFromUserQuery(pszQuery) {
         pszQuery := pszQuery is String ? StrPtr(pszQuery) : pszQuery
 
-        result := ComCall(20, this, "ptr", pszQuery, "ptr", ppszSQL, "HRESULT")
-        return result
+        result := ComCall(20, this, "ptr", pszQuery, "ptr*", &ppszSQL := 0, "HRESULT")
+        return ppszSQL
     }
 
     /**
@@ -287,14 +269,11 @@ class ISearchQueryHelper extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcMaxResults 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchqueryhelper-get_querymaxresults
      */
-    get_QueryMaxResults(pcMaxResults) {
-        pcMaxResultsMarshal := pcMaxResults is VarRef ? "int*" : "ptr"
-
-        result := ComCall(23, this, pcMaxResultsMarshal, pcMaxResults, "HRESULT")
-        return result
+    get_QueryMaxResults() {
+        result := ComCall(23, this, "int*", &pcMaxResults := 0, "HRESULT")
+        return pcMaxResults
     }
 }

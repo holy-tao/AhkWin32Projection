@@ -58,25 +58,21 @@ class IRTCSession2 extends IRTCSession{
     /**
      * 
      * @param {Integer} enSecurityType 
-     * @param {Pointer<Integer>} penSecurityLevel 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_PreferredSecurityLevel(enSecurityType, penSecurityLevel) {
-        penSecurityLevelMarshal := penSecurityLevel is VarRef ? "int*" : "ptr"
-
-        result := ComCall(25, this, "int", enSecurityType, penSecurityLevelMarshal, penSecurityLevel, "HRESULT")
-        return result
+    get_PreferredSecurityLevel(enSecurityType) {
+        result := ComCall(25, this, "int", enSecurityType, "int*", &penSecurityLevel := 0, "HRESULT")
+        return penSecurityLevel
     }
 
     /**
      * 
      * @param {Integer} enSecurityType 
-     * @param {Pointer<VARIANT_BOOL>} pfSecurityEnabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    IsSecurityEnabled(enSecurityType, pfSecurityEnabled) {
-        result := ComCall(26, this, "int", enSecurityType, "ptr", pfSecurityEnabled, "HRESULT")
-        return result
+    IsSecurityEnabled(enSecurityType) {
+        result := ComCall(26, this, "int", enSecurityType, "short*", &pfSecurityEnabled := 0, "HRESULT")
+        return pfSecurityEnabled
     }
 
     /**

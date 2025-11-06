@@ -53,30 +53,25 @@ class ID3D11VideoContext1 extends ID3D11VideoContext{
      * @param {ID3D11CryptoSession} pCryptoSession 
      * @param {Integer} PrivateInputSize 
      * @param {Pointer<Void>} pPrivatInputData 
-     * @param {Pointer<Integer>} pPrivateOutputData 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videocontext1-getdatafornewhardwarekey
      */
-    GetDataForNewHardwareKey(pCryptoSession, PrivateInputSize, pPrivatInputData, pPrivateOutputData) {
+    GetDataForNewHardwareKey(pCryptoSession, PrivateInputSize, pPrivatInputData) {
         pPrivatInputDataMarshal := pPrivatInputData is VarRef ? "ptr" : "ptr"
-        pPrivateOutputDataMarshal := pPrivateOutputData is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(66, this, "ptr", pCryptoSession, "uint", PrivateInputSize, pPrivatInputDataMarshal, pPrivatInputData, pPrivateOutputDataMarshal, pPrivateOutputData, "HRESULT")
-        return result
+        result := ComCall(66, this, "ptr", pCryptoSession, "uint", PrivateInputSize, pPrivatInputDataMarshal, pPrivatInputData, "uint*", &pPrivateOutputData := 0, "HRESULT")
+        return pPrivateOutputData
     }
 
     /**
      * 
      * @param {ID3D11CryptoSession} pCryptoSession 
-     * @param {Pointer<Integer>} pStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videocontext1-checkcryptosessionstatus
      */
-    CheckCryptoSessionStatus(pCryptoSession, pStatus) {
-        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
-
-        result := ComCall(67, this, "ptr", pCryptoSession, pStatusMarshal, pStatus, "HRESULT")
-        return result
+    CheckCryptoSessionStatus(pCryptoSession) {
+        result := ComCall(67, this, "ptr", pCryptoSession, "int*", &pStatus := 0, "HRESULT")
+        return pStatus
     }
 
     /**
@@ -148,7 +143,9 @@ class ID3D11VideoContext1 extends ID3D11VideoContext{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videocontext1-videoprocessorgetoutputshaderusage
      */
     VideoProcessorGetOutputShaderUsage(pVideoProcessor, pShaderUsage) {
-        ComCall(73, this, "ptr", pVideoProcessor, "ptr", pShaderUsage)
+        pShaderUsageMarshal := pShaderUsage is VarRef ? "int*" : "ptr"
+
+        ComCall(73, this, "ptr", pVideoProcessor, pShaderUsageMarshal, pShaderUsage)
     }
 
     /**
@@ -202,7 +199,11 @@ class ID3D11VideoContext1 extends ID3D11VideoContext{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videocontext1-videoprocessorgetstreammirror
      */
     VideoProcessorGetStreamMirror(pVideoProcessor, StreamIndex, pEnable, pFlipHorizontal, pFlipVertical) {
-        ComCall(77, this, "ptr", pVideoProcessor, "uint", StreamIndex, "ptr", pEnable, "ptr", pFlipHorizontal, "ptr", pFlipVertical)
+        pEnableMarshal := pEnable is VarRef ? "int*" : "ptr"
+        pFlipHorizontalMarshal := pFlipHorizontal is VarRef ? "int*" : "ptr"
+        pFlipVerticalMarshal := pFlipVertical is VarRef ? "int*" : "ptr"
+
+        ComCall(77, this, "ptr", pVideoProcessor, "uint", StreamIndex, pEnableMarshal, pEnable, pFlipHorizontalMarshal, pFlipHorizontal, pFlipVerticalMarshal, pFlipVertical)
     }
 
     /**
@@ -213,14 +214,11 @@ class ID3D11VideoContext1 extends ID3D11VideoContext{
      * @param {Integer} OutputFormat 
      * @param {Integer} StreamCount 
      * @param {Pointer<D3D11_VIDEO_PROCESSOR_STREAM_BEHAVIOR_HINT>} pStreams 
-     * @param {Pointer<Integer>} pBehaviorHints 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videocontext1-videoprocessorgetbehaviorhints
      */
-    VideoProcessorGetBehaviorHints(pVideoProcessor, OutputWidth, OutputHeight, OutputFormat, StreamCount, pStreams, pBehaviorHints) {
-        pBehaviorHintsMarshal := pBehaviorHints is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(78, this, "ptr", pVideoProcessor, "uint", OutputWidth, "uint", OutputHeight, "int", OutputFormat, "uint", StreamCount, "ptr", pStreams, pBehaviorHintsMarshal, pBehaviorHints, "HRESULT")
-        return result
+    VideoProcessorGetBehaviorHints(pVideoProcessor, OutputWidth, OutputHeight, OutputFormat, StreamCount, pStreams) {
+        result := ComCall(78, this, "ptr", pVideoProcessor, "uint", OutputWidth, "uint", OutputHeight, "int", OutputFormat, "uint", StreamCount, "ptr", pStreams, "uint*", &pBehaviorHints := 0, "HRESULT")
+        return pBehaviorHints
     }
 }

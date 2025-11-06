@@ -43,14 +43,11 @@ class IAMClockSlave extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwTolerance 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamclockslave-geterrortolerance
      */
-    GetErrorTolerance(pdwTolerance) {
-        pdwToleranceMarshal := pdwTolerance is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pdwToleranceMarshal, pdwTolerance, "HRESULT")
-        return result
+    GetErrorTolerance() {
+        result := ComCall(4, this, "uint*", &pdwTolerance := 0, "HRESULT")
+        return pdwTolerance
     }
 }

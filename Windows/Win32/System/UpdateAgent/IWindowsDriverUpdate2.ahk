@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IStringCollection.ahk
 #Include .\IWindowsDriverUpdate.ahk
 
 /**
@@ -37,35 +38,32 @@ class IWindowsDriverUpdate2 extends IWindowsDriverUpdate{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate2-get_rebootrequired
      */
-    get_RebootRequired(retval) {
-        result := ComCall(60, this, "ptr", retval, "HRESULT")
-        return result
+    get_RebootRequired() {
+        result := ComCall(60, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate2-get_ispresent
      */
-    get_IsPresent(retval) {
-        result := ComCall(61, this, "ptr", retval, "HRESULT")
-        return result
+    get_IsPresent() {
+        result := ComCall(61, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<IStringCollection>} retval 
-     * @returns {HRESULT} 
+     * @returns {IStringCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate2-get_cveids
      */
-    get_CveIDs(retval) {
-        result := ComCall(62, this, "ptr*", retval, "HRESULT")
-        return result
+    get_CveIDs() {
+        result := ComCall(62, this, "ptr*", &retval := 0, "HRESULT")
+        return IStringCollection(retval)
     }
 
     /**

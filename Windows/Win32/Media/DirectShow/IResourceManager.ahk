@@ -34,17 +34,14 @@ class IResourceManager extends IUnknown{
      * 
      * @param {PWSTR} pName 
      * @param {Integer} cResource 
-     * @param {Pointer<Integer>} plToken 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iresourcemanager-register
      */
-    Register(pName, cResource, plToken) {
+    Register(pName, cResource) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        plTokenMarshal := plToken is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pName, "int", cResource, plTokenMarshal, plToken, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pName, "int", cResource, "int*", &plToken := 0, "HRESULT")
+        return plToken
     }
 
     /**
@@ -52,18 +49,16 @@ class IResourceManager extends IUnknown{
      * @param {PWSTR} pName 
      * @param {Integer} cResource 
      * @param {Pointer<Integer>} palTokens 
-     * @param {Pointer<Integer>} plToken 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iresourcemanager-registergroup
      */
-    RegisterGroup(pName, cResource, palTokens, plToken) {
+    RegisterGroup(pName, cResource, palTokens) {
         pName := pName is String ? StrPtr(pName) : pName
 
         palTokensMarshal := palTokens is VarRef ? "int*" : "ptr"
-        plTokenMarshal := plToken is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pName, "int", cResource, palTokensMarshal, palTokens, plTokenMarshal, plToken, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pName, "int", cResource, palTokensMarshal, palTokens, "int*", &plToken := 0, "HRESULT")
+        return plToken
     }
 
     /**

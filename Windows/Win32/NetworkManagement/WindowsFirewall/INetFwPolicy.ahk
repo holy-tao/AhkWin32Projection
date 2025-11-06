@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\INetFwProfile.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -43,24 +44,22 @@ class INetFwPolicy extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<INetFwProfile>} profile 
-     * @returns {HRESULT} 
+     * @returns {INetFwProfile} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy-get_currentprofile
      */
-    get_CurrentProfile(profile) {
-        result := ComCall(7, this, "ptr*", profile, "HRESULT")
-        return result
+    get_CurrentProfile() {
+        result := ComCall(7, this, "ptr*", &profile := 0, "HRESULT")
+        return INetFwProfile(profile)
     }
 
     /**
      * 
      * @param {Integer} profileType 
-     * @param {Pointer<INetFwProfile>} profile 
-     * @returns {HRESULT} 
+     * @returns {INetFwProfile} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwpolicy-getprofilebytype
      */
-    GetProfileByType(profileType, profile) {
-        result := ComCall(8, this, "int", profileType, "ptr*", profile, "HRESULT")
-        return result
+    GetProfileByType(profileType) {
+        result := ComCall(8, this, "int", profileType, "ptr*", &profile := 0, "HRESULT")
+        return INetFwProfile(profile)
     }
 }

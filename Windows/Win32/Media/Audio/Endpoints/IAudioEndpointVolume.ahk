@@ -54,15 +54,12 @@ class IAudioEndpointVolume extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pnChannelCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudioendpointvolume-getchannelcount
      */
-    GetChannelCount(pnChannelCount) {
-        pnChannelCountMarshal := pnChannelCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pnChannelCountMarshal, pnChannelCount, "HRESULT")
-        return result
+    GetChannelCount() {
+        result := ComCall(5, this, "uint*", &pnChannelCount := 0, "HRESULT")
+        return pnChannelCount
     }
 
     /**
@@ -91,28 +88,22 @@ class IAudioEndpointVolume extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} pfLevelDB 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudioendpointvolume-getmastervolumelevel
      */
-    GetMasterVolumeLevel(pfLevelDB) {
-        pfLevelDBMarshal := pfLevelDB is VarRef ? "float*" : "ptr"
-
-        result := ComCall(8, this, pfLevelDBMarshal, pfLevelDB, "HRESULT")
-        return result
+    GetMasterVolumeLevel() {
+        result := ComCall(8, this, "float*", &pfLevelDB := 0, "HRESULT")
+        return pfLevelDB
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pfLevel 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudioendpointvolume-getmastervolumelevelscalar
      */
-    GetMasterVolumeLevelScalar(pfLevel) {
-        pfLevelMarshal := pfLevel is VarRef ? "float*" : "ptr"
-
-        result := ComCall(9, this, pfLevelMarshal, pfLevel, "HRESULT")
-        return result
+    GetMasterVolumeLevelScalar() {
+        result := ComCall(9, this, "float*", &pfLevel := 0, "HRESULT")
+        return pfLevel
     }
 
     /**
@@ -144,29 +135,23 @@ class IAudioEndpointVolume extends IUnknown{
     /**
      * 
      * @param {Integer} nChannel 
-     * @param {Pointer<Float>} pfLevelDB 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudioendpointvolume-getchannelvolumelevel
      */
-    GetChannelVolumeLevel(nChannel, pfLevelDB) {
-        pfLevelDBMarshal := pfLevelDB is VarRef ? "float*" : "ptr"
-
-        result := ComCall(12, this, "uint", nChannel, pfLevelDBMarshal, pfLevelDB, "HRESULT")
-        return result
+    GetChannelVolumeLevel(nChannel) {
+        result := ComCall(12, this, "uint", nChannel, "float*", &pfLevelDB := 0, "HRESULT")
+        return pfLevelDB
     }
 
     /**
      * 
      * @param {Integer} nChannel 
-     * @param {Pointer<Float>} pfLevel 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudioendpointvolume-getchannelvolumelevelscalar
      */
-    GetChannelVolumeLevelScalar(nChannel, pfLevel) {
-        pfLevelMarshal := pfLevel is VarRef ? "float*" : "ptr"
-
-        result := ComCall(13, this, "uint", nChannel, pfLevelMarshal, pfLevel, "HRESULT")
-        return result
+    GetChannelVolumeLevelScalar(nChannel) {
+        result := ComCall(13, this, "uint", nChannel, "float*", &pfLevel := 0, "HRESULT")
+        return pfLevel
     }
 
     /**
@@ -183,13 +168,12 @@ class IAudioEndpointVolume extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbMute 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudioendpointvolume-getmute
      */
-    GetMute(pbMute) {
-        result := ComCall(15, this, "ptr", pbMute, "HRESULT")
-        return result
+    GetMute() {
+        result := ComCall(15, this, "int*", &pbMute := 0, "HRESULT")
+        return pbMute
     }
 
     /**
@@ -231,15 +215,12 @@ class IAudioEndpointVolume extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwHardwareSupportMask 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudioendpointvolume-queryhardwaresupport
      */
-    QueryHardwareSupport(pdwHardwareSupportMask) {
-        pdwHardwareSupportMaskMarshal := pdwHardwareSupportMask is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(19, this, pdwHardwareSupportMaskMarshal, pdwHardwareSupportMask, "HRESULT")
-        return result
+    QueryHardwareSupport() {
+        result := ComCall(19, this, "uint*", &pdwHardwareSupportMask := 0, "HRESULT")
+        return pdwHardwareSupportMask
     }
 
     /**

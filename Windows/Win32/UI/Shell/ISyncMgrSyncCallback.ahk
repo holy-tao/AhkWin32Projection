@@ -85,11 +85,10 @@ class ISyncMgrSyncCallback extends IUnknown{
      * @param {PWSTR} pszLinkText 
      * @param {PWSTR} pszLinkReference 
      * @param {PWSTR} pszContext 
-     * @param {Pointer<Guid>} pguidEventID 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsynccallback-reportevent
      */
-    ReportEvent(pszItemID, nLevel, nFlags, pszName, pszDescription, pszLinkText, pszLinkReference, pszContext, pguidEventID) {
+    ReportEvent(pszItemID, nLevel, nFlags, pszName, pszDescription, pszLinkText, pszLinkReference, pszContext) {
         pszItemID := pszItemID is String ? StrPtr(pszItemID) : pszItemID
         pszName := pszName is String ? StrPtr(pszName) : pszName
         pszDescription := pszDescription is String ? StrPtr(pszDescription) : pszDescription
@@ -97,8 +96,9 @@ class ISyncMgrSyncCallback extends IUnknown{
         pszLinkReference := pszLinkReference is String ? StrPtr(pszLinkReference) : pszLinkReference
         pszContext := pszContext is String ? StrPtr(pszContext) : pszContext
 
+        pguidEventID := Guid()
         result := ComCall(5, this, "ptr", pszItemID, "int", nLevel, "int", nFlags, "ptr", pszName, "ptr", pszDescription, "ptr", pszLinkText, "ptr", pszLinkReference, "ptr", pszContext, "ptr", pguidEventID, "HRESULT")
-        return result
+        return pguidEventID
     }
 
     /**

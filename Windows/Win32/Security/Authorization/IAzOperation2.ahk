@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IAzRoleAssignments.ahk
 #Include .\IAzOperation.ahk
 
 /**
@@ -35,14 +36,13 @@ class IAzOperation2 extends IAzOperation{
      * 
      * @param {BSTR} bstrScopeName 
      * @param {VARIANT_BOOL} bRecursive 
-     * @param {Pointer<IAzRoleAssignments>} ppRoleAssignments 
-     * @returns {HRESULT} 
+     * @returns {IAzRoleAssignments} 
      * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazoperation2-roleassignments
      */
-    RoleAssignments(bstrScopeName, bRecursive, ppRoleAssignments) {
+    RoleAssignments(bstrScopeName, bRecursive) {
         bstrScopeName := bstrScopeName is String ? BSTR.Alloc(bstrScopeName).Value : bstrScopeName
 
-        result := ComCall(19, this, "ptr", bstrScopeName, "short", bRecursive, "ptr*", ppRoleAssignments, "HRESULT")
-        return result
+        result := ComCall(19, this, "ptr", bstrScopeName, "short", bRecursive, "ptr*", &ppRoleAssignments := 0, "HRESULT")
+        return IAzRoleAssignments(ppRoleAssignments)
     }
 }

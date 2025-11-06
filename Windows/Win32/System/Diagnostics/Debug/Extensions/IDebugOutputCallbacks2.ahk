@@ -43,14 +43,11 @@ class IDebugOutputCallbacks2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} Mask 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetInterestMask(Mask) {
-        MaskMarshal := Mask is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, MaskMarshal, Mask, "HRESULT")
-        return result
+    GetInterestMask() {
+        result := ComCall(4, this, "uint*", &Mask := 0, "HRESULT")
+        return Mask
     }
 
     /**

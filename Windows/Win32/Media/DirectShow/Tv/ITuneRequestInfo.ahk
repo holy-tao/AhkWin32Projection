@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\ITuneRequest.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -71,48 +72,44 @@ class ITuneRequestInfo extends IUnknown{
     /**
      * 
      * @param {ITuneRequest} CurrentRequest 
-     * @param {Pointer<ITuneRequest>} TuneRequest 
-     * @returns {HRESULT} 
+     * @returns {ITuneRequest} 
      * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-itunerequestinfo-getnextprogram
      */
-    GetNextProgram(CurrentRequest, TuneRequest) {
-        result := ComCall(6, this, "ptr", CurrentRequest, "ptr*", TuneRequest, "HRESULT")
-        return result
+    GetNextProgram(CurrentRequest) {
+        result := ComCall(6, this, "ptr", CurrentRequest, "ptr*", &TuneRequest := 0, "HRESULT")
+        return ITuneRequest(TuneRequest)
     }
 
     /**
      * 
      * @param {ITuneRequest} CurrentRequest 
-     * @param {Pointer<ITuneRequest>} TuneRequest 
-     * @returns {HRESULT} 
+     * @returns {ITuneRequest} 
      * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-itunerequestinfo-getpreviousprogram
      */
-    GetPreviousProgram(CurrentRequest, TuneRequest) {
-        result := ComCall(7, this, "ptr", CurrentRequest, "ptr*", TuneRequest, "HRESULT")
-        return result
+    GetPreviousProgram(CurrentRequest) {
+        result := ComCall(7, this, "ptr", CurrentRequest, "ptr*", &TuneRequest := 0, "HRESULT")
+        return ITuneRequest(TuneRequest)
     }
 
     /**
      * 
      * @param {ITuneRequest} CurrentRequest 
-     * @param {Pointer<ITuneRequest>} TuneRequest 
-     * @returns {HRESULT} 
+     * @returns {ITuneRequest} 
      * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-itunerequestinfo-getnextlocator
      */
-    GetNextLocator(CurrentRequest, TuneRequest) {
-        result := ComCall(8, this, "ptr", CurrentRequest, "ptr*", TuneRequest, "HRESULT")
-        return result
+    GetNextLocator(CurrentRequest) {
+        result := ComCall(8, this, "ptr", CurrentRequest, "ptr*", &TuneRequest := 0, "HRESULT")
+        return ITuneRequest(TuneRequest)
     }
 
     /**
      * 
      * @param {ITuneRequest} CurrentRequest 
-     * @param {Pointer<ITuneRequest>} TuneRequest 
-     * @returns {HRESULT} 
+     * @returns {ITuneRequest} 
      * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-itunerequestinfo-getpreviouslocator
      */
-    GetPreviousLocator(CurrentRequest, TuneRequest) {
-        result := ComCall(9, this, "ptr", CurrentRequest, "ptr*", TuneRequest, "HRESULT")
-        return result
+    GetPreviousLocator(CurrentRequest) {
+        result := ComCall(9, this, "ptr", CurrentRequest, "ptr*", &TuneRequest := 0, "HRESULT")
+        return ITuneRequest(TuneRequest)
     }
 }

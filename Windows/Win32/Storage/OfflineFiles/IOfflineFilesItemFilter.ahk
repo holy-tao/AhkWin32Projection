@@ -55,10 +55,11 @@ class IOfflineFilesItemFilter extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesitemfilter-gettimefilter
      */
     GetTimeFilter(pftTime, pbEvalTimeOfDay, pTimeType, pCompare) {
+        pbEvalTimeOfDayMarshal := pbEvalTimeOfDay is VarRef ? "int*" : "ptr"
         pTimeTypeMarshal := pTimeType is VarRef ? "int*" : "ptr"
         pCompareMarshal := pCompare is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "ptr", pftTime, "ptr", pbEvalTimeOfDay, pTimeTypeMarshal, pTimeType, pCompareMarshal, pCompare, "HRESULT")
+        result := ComCall(4, this, "ptr", pftTime, pbEvalTimeOfDayMarshal, pbEvalTimeOfDay, pTimeTypeMarshal, pTimeType, pCompareMarshal, pCompare, "HRESULT")
         return result
     }
 

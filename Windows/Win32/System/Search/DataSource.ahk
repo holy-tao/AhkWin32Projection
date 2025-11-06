@@ -38,39 +38,32 @@ class DataSource extends IUnknown{
      * 
      * @param {Pointer<Integer>} bstrDM 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppunk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    getDataMember(bstrDM, riid, ppunk) {
+    getDataMember(bstrDM, riid) {
         bstrDMMarshal := bstrDM is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(3, this, bstrDMMarshal, bstrDM, "ptr", riid, "ptr*", ppunk, "HRESULT")
-        return result
+        result := ComCall(3, this, bstrDMMarshal, bstrDM, "ptr", riid, "ptr*", &ppunk := 0, "HRESULT")
+        return IUnknown(ppunk)
     }
 
     /**
      * 
      * @param {Integer} lIndex 
-     * @param {Pointer<Pointer<Integer>>} pbstrDM 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Integer>} 
      */
-    getDataMemberName(lIndex, pbstrDM) {
-        pbstrDMMarshal := pbstrDM is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "int", lIndex, pbstrDMMarshal, pbstrDM, "HRESULT")
-        return result
+    getDataMemberName(lIndex) {
+        result := ComCall(4, this, "int", lIndex, "ptr*", &pbstrDM := 0, "HRESULT")
+        return pbstrDM
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    getDataMemberCount(plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, plCountMarshal, plCount, "HRESULT")
-        return result
+    getDataMemberCount() {
+        result := ComCall(5, this, "int*", &plCount := 0, "HRESULT")
+        return plCount
     }
 
     /**

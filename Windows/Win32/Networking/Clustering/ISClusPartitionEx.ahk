@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\ISClusPartition.ahk
 
 /**
@@ -32,59 +33,47 @@ class ISClusPartitionEx extends ISClusPartition{
 
     /**
      * 
-     * @param {Pointer<Integer>} plTotalSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_TotalSize(plTotalSize) {
-        plTotalSizeMarshal := plTotalSize is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, plTotalSizeMarshal, plTotalSize, "HRESULT")
-        return result
+    get_TotalSize() {
+        result := ComCall(14, this, "int*", &plTotalSize := 0, "HRESULT")
+        return plTotalSize
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plFreeSpace 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_FreeSpace(plFreeSpace) {
-        plFreeSpaceMarshal := plFreeSpace is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, plFreeSpaceMarshal, plFreeSpace, "HRESULT")
-        return result
+    get_FreeSpace() {
+        result := ComCall(15, this, "int*", &plFreeSpace := 0, "HRESULT")
+        return plFreeSpace
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plDeviceNumber 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_DeviceNumber(plDeviceNumber) {
-        plDeviceNumberMarshal := plDeviceNumber is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, plDeviceNumberMarshal, plDeviceNumber, "HRESULT")
-        return result
+    get_DeviceNumber() {
+        result := ComCall(16, this, "int*", &plDeviceNumber := 0, "HRESULT")
+        return plDeviceNumber
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plPartitionNumber 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_PartitionNumber(plPartitionNumber) {
-        plPartitionNumberMarshal := plPartitionNumber is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, plPartitionNumberMarshal, plPartitionNumber, "HRESULT")
-        return result
+    get_PartitionNumber() {
+        result := ComCall(17, this, "int*", &plPartitionNumber := 0, "HRESULT")
+        return plPartitionNumber
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrVolumeGuid 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_VolumeGuid(pbstrVolumeGuid) {
+    get_VolumeGuid() {
+        pbstrVolumeGuid := BSTR()
         result := ComCall(18, this, "ptr", pbstrVolumeGuid, "HRESULT")
-        return result
+        return pbstrVolumeGuid
     }
 }

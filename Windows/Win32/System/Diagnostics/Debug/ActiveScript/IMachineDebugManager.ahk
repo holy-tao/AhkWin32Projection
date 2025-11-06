@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IEnumRemoteDebugApplications.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -31,14 +32,11 @@ class IMachineDebugManager extends IUnknown{
     /**
      * 
      * @param {IRemoteDebugApplication} pda 
-     * @param {Pointer<Integer>} pdwAppCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    AddApplication(pda, pdwAppCookie) {
-        pdwAppCookieMarshal := pdwAppCookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pda, pdwAppCookieMarshal, pdwAppCookie, "HRESULT")
-        return result
+    AddApplication(pda) {
+        result := ComCall(3, this, "ptr", pda, "uint*", &pdwAppCookie := 0, "HRESULT")
+        return pdwAppCookie
     }
 
     /**
@@ -53,11 +51,10 @@ class IMachineDebugManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumRemoteDebugApplications>} ppeda 
-     * @returns {HRESULT} 
+     * @returns {IEnumRemoteDebugApplications} 
      */
-    EnumApplications(ppeda) {
-        result := ComCall(5, this, "ptr*", ppeda, "HRESULT")
-        return result
+    EnumApplications() {
+        result := ComCall(5, this, "ptr*", &ppeda := 0, "HRESULT")
+        return IEnumRemoteDebugApplications(ppeda)
     }
 }

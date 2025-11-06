@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRTCClient.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -30,23 +31,19 @@ class IRTCClientEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} penEventType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_EventType(penEventType) {
-        penEventTypeMarshal := penEventType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, penEventTypeMarshal, penEventType, "HRESULT")
-        return result
+    get_EventType() {
+        result := ComCall(7, this, "int*", &penEventType := 0, "HRESULT")
+        return penEventType
     }
 
     /**
      * 
-     * @param {Pointer<IRTCClient>} ppClient 
-     * @returns {HRESULT} 
+     * @returns {IRTCClient} 
      */
-    get_Client(ppClient) {
-        result := ComCall(8, this, "ptr*", ppClient, "HRESULT")
-        return result
+    get_Client() {
+        result := ComCall(8, this, "ptr*", &ppClient := 0, "HRESULT")
+        return IRTCClient(ppClient)
     }
 }

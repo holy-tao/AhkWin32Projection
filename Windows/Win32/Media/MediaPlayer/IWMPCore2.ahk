@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWMPDVD.ahk
 #Include .\IWMPCore.ahk
 
 /**
@@ -32,12 +33,11 @@ class IWMPCore2 extends IWMPCore{
 
     /**
      * 
-     * @param {Pointer<IWMPDVD>} ppDVD 
-     * @returns {HRESULT} 
+     * @returns {IWMPDVD} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcore2-get_dvd
      */
-    get_dvd(ppDVD) {
-        result := ComCall(28, this, "ptr*", ppDVD, "HRESULT")
-        return result
+    get_dvd() {
+        result := ComCall(28, this, "ptr*", &ppDVD := 0, "HRESULT")
+        return IWMPDVD(ppDVD)
     }
 }

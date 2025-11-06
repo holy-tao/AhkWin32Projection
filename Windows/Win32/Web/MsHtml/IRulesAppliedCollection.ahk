@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IRulesApplied.ahk
+#Include .\IHTMLElement.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -38,98 +40,85 @@ class IRulesAppliedCollection extends IDispatch{
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<IRulesApplied>} ppRulesApplied 
-     * @returns {HRESULT} 
+     * @returns {IRulesApplied} 
      */
-    item(index, ppRulesApplied) {
-        result := ComCall(7, this, "int", index, "ptr*", ppRulesApplied, "HRESULT")
-        return result
+    item(index) {
+        result := ComCall(7, this, "int", index, "ptr*", &ppRulesApplied := 0, "HRESULT")
+        return IRulesApplied(ppRulesApplied)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_length(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pMarshal, p, "HRESULT")
-        return result
+    get_length() {
+        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLElement>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElement} 
      */
-    get_element(p) {
-        result := ComCall(9, this, "ptr*", p, "HRESULT")
-        return result
+    get_element() {
+        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLElement(p)
     }
 
     /**
      * 
      * @param {BSTR} name 
-     * @param {Pointer<IRulesApplied>} ppRulesApplied 
-     * @returns {HRESULT} 
+     * @returns {IRulesApplied} 
      */
-    propertyInheritedFrom(name, ppRulesApplied) {
+    propertyInheritedFrom(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(10, this, "ptr", name, "ptr*", ppRulesApplied, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", name, "ptr*", &ppRulesApplied := 0, "HRESULT")
+        return IRulesApplied(ppRulesApplied)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_propertyCount(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, pMarshal, p, "HRESULT")
-        return result
+    get_propertyCount() {
+        result := ComCall(11, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<BSTR>} pbstrProperty 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    property(index, pbstrProperty) {
+    property(index) {
+        pbstrProperty := BSTR()
         result := ComCall(12, this, "int", index, "ptr", pbstrProperty, "HRESULT")
-        return result
+        return pbstrProperty
     }
 
     /**
      * 
      * @param {BSTR} name 
      * @param {Integer} index 
-     * @param {Pointer<IRulesApplied>} ppRulesApplied 
-     * @returns {HRESULT} 
+     * @returns {IRulesApplied} 
      */
-    propertyInheritedTrace(name, index, ppRulesApplied) {
+    propertyInheritedTrace(name, index) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(13, this, "ptr", name, "int", index, "ptr*", ppRulesApplied, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", name, "int", index, "ptr*", &ppRulesApplied := 0, "HRESULT")
+        return IRulesApplied(ppRulesApplied)
     }
 
     /**
      * 
      * @param {BSTR} name 
-     * @param {Pointer<Integer>} pLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    propertyInheritedTraceLength(name, pLength) {
+    propertyInheritedTraceLength(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        pLengthMarshal := pLength is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, "ptr", name, pLengthMarshal, pLength, "HRESULT")
-        return result
+        result := ComCall(14, this, "ptr", name, "int*", &pLength := 0, "HRESULT")
+        return pLength
     }
 }

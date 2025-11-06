@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumContextProps.ahk
 #Include .\IUnknown.ahk
 
 /**
@@ -68,25 +69,21 @@ class IEnumContextProps extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumContextProps>} ppEnumContextProps 
-     * @returns {HRESULT} 
+     * @returns {IEnumContextProps} 
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-ienumcontextprops-clone
      */
-    Clone(ppEnumContextProps) {
-        result := ComCall(6, this, "ptr*", ppEnumContextProps, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppEnumContextProps := 0, "HRESULT")
+        return IEnumContextProps(ppEnumContextProps)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pcelt 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-ienumcontextprops-count
      */
-    Count(pcelt) {
-        pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pceltMarshal, pcelt, "HRESULT")
-        return result
+    Count() {
+        result := ComCall(7, this, "uint*", &pcelt := 0, "HRESULT")
+        return pcelt
     }
 }

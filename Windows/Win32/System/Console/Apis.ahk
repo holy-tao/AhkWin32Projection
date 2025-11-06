@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include .\HPCON.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\UI\WindowsAndMessaging\HMENU.ahk
@@ -497,13 +498,10 @@ class Console {
     /**
      * 
      * @param {Pointer<ALLOC_CONSOLE_OPTIONS>} options 
-     * @param {Pointer<Integer>} result 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    static AllocConsoleWithOptions(options, result) {
-        resultMarshal := result is VarRef ? "int*" : "ptr"
-
-        result := DllCall("KERNEL32.dll\AllocConsoleWithOptions", "ptr", options, resultMarshal, result, "int")
+    static AllocConsoleWithOptions(options) {
+        result := DllCall("KERNEL32.dll\AllocConsoleWithOptions", "ptr", options, "int*", &result := 0, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -849,19 +847,19 @@ class Console {
      * @param {HANDLE} hInput 
      * @param {HANDLE} hOutput 
      * @param {Integer} dwFlags 
-     * @param {Pointer<HPCON>} phPC 
-     * @returns {HRESULT} 
+     * @returns {HPCON} 
      * @see https://learn.microsoft.com/windows/console/createpseudoconsole
      */
-    static CreatePseudoConsole(size, hInput, hOutput, dwFlags, phPC) {
+    static CreatePseudoConsole(size, hInput, hOutput, dwFlags) {
         hInput := hInput is Win32Handle ? NumGet(hInput, "ptr") : hInput
         hOutput := hOutput is Win32Handle ? NumGet(hOutput, "ptr") : hOutput
 
+        phPC := HPCON()
         result := DllCall("KERNEL32.dll\CreatePseudoConsole", "ptr", size, "ptr", hInput, "ptr", hOutput, "uint", dwFlags, "ptr", phPC, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return phPC
     }
 
     /**
@@ -2691,7 +2689,10 @@ class Console {
     static GetConsoleCursorMode(hConsoleHandle, pbBlink, pbDBEnable) {
         hConsoleHandle := hConsoleHandle is Win32Handle ? NumGet(hConsoleHandle, "ptr") : hConsoleHandle
 
-        result := DllCall("KERNEL32.dll\GetConsoleCursorMode", "ptr", hConsoleHandle, "ptr", pbBlink, "ptr", pbDBEnable, "int")
+        pbBlinkMarshal := pbBlink is VarRef ? "int*" : "ptr"
+        pbDBEnableMarshal := pbDBEnable is VarRef ? "int*" : "ptr"
+
+        result := DllCall("KERNEL32.dll\GetConsoleCursorMode", "ptr", hConsoleHandle, pbBlinkMarshal, pbBlink, pbDBEnableMarshal, pbDBEnable, "int")
         return result
     }
 

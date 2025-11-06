@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRTCParticipant.ahk
 #Include .\IRTCSessionOperationCompleteEvent.ahk
 
 /**
@@ -30,12 +31,11 @@ class IRTCSessionOperationCompleteEvent2 extends IRTCSessionOperationCompleteEve
 
     /**
      * 
-     * @param {Pointer<IRTCParticipant>} ppParticipant 
-     * @returns {HRESULT} 
+     * @returns {IRTCParticipant} 
      */
-    get_Participant(ppParticipant) {
-        result := ComCall(11, this, "ptr*", ppParticipant, "HRESULT")
-        return result
+    get_Participant() {
+        result := ComCall(11, this, "ptr*", &ppParticipant := 0, "HRESULT")
+        return IRTCParticipant(ppParticipant)
     }
 
     /**

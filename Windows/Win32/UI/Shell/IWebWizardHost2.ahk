@@ -32,13 +32,13 @@ class IWebWizardHost2 extends IWebWizardHost{
     /**
      * 
      * @param {BSTR} value 
-     * @param {Pointer<BSTR>} signedValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    SignString(value, signedValue) {
+    SignString(value) {
         value := value is String ? BSTR.Alloc(value).Value : value
 
+        signedValue := BSTR()
         result := ComCall(16, this, "ptr", value, "ptr", signedValue, "HRESULT")
-        return result
+        return signedValue
     }
 }

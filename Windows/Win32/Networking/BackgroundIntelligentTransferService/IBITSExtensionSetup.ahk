@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -60,24 +62,23 @@ class IBITSExtensionSetup extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pTaskName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/bitscfg/nf-bitscfg-ibitsextensionsetup-getcleanuptaskname
      */
-    GetCleanupTaskName(pTaskName) {
+    GetCleanupTaskName() {
+        pTaskName := BSTR()
         result := ComCall(9, this, "ptr", pTaskName, "HRESULT")
-        return result
+        return pTaskName
     }
 
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/bitscfg/nf-bitscfg-ibitsextensionsetup-getcleanuptask
      */
-    GetCleanupTask(riid, ppUnk) {
-        result := ComCall(10, this, "ptr", riid, "ptr*", ppUnk, "HRESULT")
-        return result
+    GetCleanupTask(riid) {
+        result := ComCall(10, this, "ptr", riid, "ptr*", &ppUnk := 0, "HRESULT")
+        return IUnknown(ppUnk)
     }
 }

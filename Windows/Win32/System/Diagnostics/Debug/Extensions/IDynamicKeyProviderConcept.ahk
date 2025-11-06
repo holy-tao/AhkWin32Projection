@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IKeyEnumerator.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -64,11 +65,10 @@ class IDynamicKeyProviderConcept extends IUnknown{
     /**
      * 
      * @param {IModelObject} contextObject 
-     * @param {Pointer<IKeyEnumerator>} ppEnumerator 
-     * @returns {HRESULT} 
+     * @returns {IKeyEnumerator} 
      */
-    EnumerateKeys(contextObject, ppEnumerator) {
-        result := ComCall(5, this, "ptr", contextObject, "ptr*", ppEnumerator, "HRESULT")
-        return result
+    EnumerateKeys(contextObject) {
+        result := ComCall(5, this, "ptr", contextObject, "ptr*", &ppEnumerator := 0, "HRESULT")
+        return IKeyEnumerator(ppEnumerator)
     }
 }

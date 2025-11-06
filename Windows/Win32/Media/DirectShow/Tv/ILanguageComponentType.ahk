@@ -43,15 +43,12 @@ class ILanguageComponentType extends IComponentType{
 
     /**
      * 
-     * @param {Pointer<Integer>} LangID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ilanguagecomponenttype-get_langid
      */
-    get_LangID(LangID) {
-        LangIDMarshal := LangID is VarRef ? "int*" : "ptr"
-
-        result := ComCall(24, this, LangIDMarshal, LangID, "HRESULT")
-        return result
+    get_LangID() {
+        result := ComCall(24, this, "int*", &LangID := 0, "HRESULT")
+        return LangID
     }
 
     /**

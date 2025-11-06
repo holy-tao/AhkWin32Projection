@@ -69,12 +69,11 @@ class IContactAggregationContact extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppAccountId 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    get_AccountId(ppAccountId) {
-        result := ComCall(7, this, "ptr", ppAccountId, "HRESULT")
-        return result
+    get_AccountId() {
+        result := ComCall(7, this, "ptr*", &ppAccountId := 0, "HRESULT")
+        return ppAccountId
     }
 
     /**
@@ -91,54 +90,47 @@ class IContactAggregationContact extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppAggregateId 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    get_AggregateId(ppAggregateId) {
-        result := ComCall(9, this, "ptr", ppAggregateId, "HRESULT")
-        return result
+    get_AggregateId() {
+        result := ComCall(9, this, "ptr*", &ppAggregateId := 0, "HRESULT")
+        return ppAggregateId
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppItemId 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    get_Id(ppItemId) {
-        result := ComCall(10, this, "ptr", ppItemId, "HRESULT")
-        return result
+    get_Id() {
+        result := ComCall(10, this, "ptr*", &ppItemId := 0, "HRESULT")
+        return ppItemId
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pIsMe 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_IsMe(pIsMe) {
-        result := ComCall(11, this, "ptr", pIsMe, "HRESULT")
-        return result
+    get_IsMe() {
+        result := ComCall(11, this, "int*", &pIsMe := 0, "HRESULT")
+        return pIsMe
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pIsExternal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_IsExternal(pIsExternal) {
-        result := ComCall(12, this, "ptr", pIsExternal, "HRESULT")
-        return result
+    get_IsExternal() {
+        result := ComCall(12, this, "int*", &pIsExternal := 0, "HRESULT")
+        return pIsExternal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pNetworkSourceId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_NetworkSourceId(pNetworkSourceId) {
-        pNetworkSourceIdMarshal := pNetworkSourceId is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(13, this, pNetworkSourceIdMarshal, pNetworkSourceId, "HRESULT")
-        return result
+    get_NetworkSourceId() {
+        result := ComCall(13, this, "uint*", &pNetworkSourceId := 0, "HRESULT")
+        return pNetworkSourceId
     }
 
     /**
@@ -153,12 +145,11 @@ class IContactAggregationContact extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppNetworkSourceId 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    get_NetworkSourceIdString(ppNetworkSourceId) {
-        result := ComCall(15, this, "ptr", ppNetworkSourceId, "HRESULT")
-        return result
+    get_NetworkSourceIdString() {
+        result := ComCall(15, this, "ptr*", &ppNetworkSourceId := 0, "HRESULT")
+        return ppNetworkSourceId
     }
 
     /**
@@ -175,14 +166,11 @@ class IContactAggregationContact extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<CONTACT_AGGREGATION_BLOB>>} ppRemoteObjectId 
-     * @returns {HRESULT} 
+     * @returns {Pointer<CONTACT_AGGREGATION_BLOB>} 
      */
-    get_RemoteObjectId(ppRemoteObjectId) {
-        ppRemoteObjectIdMarshal := ppRemoteObjectId is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(17, this, ppRemoteObjectIdMarshal, ppRemoteObjectId, "HRESULT")
-        return result
+    get_RemoteObjectId() {
+        result := ComCall(17, this, "ptr*", &ppRemoteObjectId := 0, "HRESULT")
+        return ppRemoteObjectId
     }
 
     /**
@@ -197,14 +185,11 @@ class IContactAggregationContact extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<CONTACT_AGGREGATION_BLOB>>} ppSyncIdentityHash 
-     * @returns {HRESULT} 
+     * @returns {Pointer<CONTACT_AGGREGATION_BLOB>} 
      */
-    get_SyncIdentityHash(ppSyncIdentityHash) {
-        ppSyncIdentityHashMarshal := ppSyncIdentityHash is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(19, this, ppSyncIdentityHashMarshal, ppSyncIdentityHash, "HRESULT")
-        return result
+    get_SyncIdentityHash() {
+        result := ComCall(19, this, "ptr*", &ppSyncIdentityHash := 0, "HRESULT")
+        return ppSyncIdentityHash
     }
 
     /**

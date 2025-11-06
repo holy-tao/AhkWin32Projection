@@ -64,15 +64,12 @@ class IWMHeaderInfo extends IUnknown{
     /**
      * 
      * @param {Integer} wStreamNum 
-     * @param {Pointer<Integer>} pcAttributes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo-getattributecount
      */
-    GetAttributeCount(wStreamNum, pcAttributes) {
-        pcAttributesMarshal := pcAttributes is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(3, this, "ushort", wStreamNum, pcAttributesMarshal, pcAttributes, "HRESULT")
-        return result
+    GetAttributeCount(wStreamNum) {
+        result := ComCall(3, this, "ushort", wStreamNum, "ushort*", &pcAttributes := 0, "HRESULT")
+        return pcAttributes
     }
 
     /**
@@ -143,15 +140,12 @@ class IWMHeaderInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcMarkers 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo-getmarkercount
      */
-    GetMarkerCount(pcMarkers) {
-        pcMarkersMarshal := pcMarkers is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(7, this, pcMarkersMarshal, pcMarkers, "HRESULT")
-        return result
+    GetMarkerCount() {
+        result := ComCall(7, this, "ushort*", &pcMarkers := 0, "HRESULT")
+        return pcMarkers
     }
 
     /**
@@ -159,18 +153,16 @@ class IWMHeaderInfo extends IUnknown{
      * @param {Integer} wIndex 
      * @param {PWSTR} pwszMarkerName 
      * @param {Pointer<Integer>} pcchMarkerNameLen 
-     * @param {Pointer<Integer>} pcnsMarkerTime 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo-getmarker
      */
-    GetMarker(wIndex, pwszMarkerName, pcchMarkerNameLen, pcnsMarkerTime) {
+    GetMarker(wIndex, pwszMarkerName, pcchMarkerNameLen) {
         pwszMarkerName := pwszMarkerName is String ? StrPtr(pwszMarkerName) : pwszMarkerName
 
         pcchMarkerNameLenMarshal := pcchMarkerNameLen is VarRef ? "ushort*" : "ptr"
-        pcnsMarkerTimeMarshal := pcnsMarkerTime is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "ushort", wIndex, "ptr", pwszMarkerName, pcchMarkerNameLenMarshal, pcchMarkerNameLen, pcnsMarkerTimeMarshal, pcnsMarkerTime, "HRESULT")
-        return result
+        result := ComCall(8, this, "ushort", wIndex, "ptr", pwszMarkerName, pcchMarkerNameLenMarshal, pcchMarkerNameLen, "uint*", &pcnsMarkerTime := 0, "HRESULT")
+        return pcnsMarkerTime
     }
 
     /**
@@ -200,15 +192,12 @@ class IWMHeaderInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcScripts 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo-getscriptcount
      */
-    GetScriptCount(pcScripts) {
-        pcScriptsMarshal := pcScripts is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(11, this, pcScriptsMarshal, pcScripts, "HRESULT")
-        return result
+    GetScriptCount() {
+        result := ComCall(11, this, "ushort*", &pcScripts := 0, "HRESULT")
+        return pcScripts
     }
 
     /**
@@ -218,20 +207,18 @@ class IWMHeaderInfo extends IUnknown{
      * @param {Pointer<Integer>} pcchTypeLen 
      * @param {PWSTR} pwszCommand 
      * @param {Pointer<Integer>} pcchCommandLen 
-     * @param {Pointer<Integer>} pcnsScriptTime 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo-getscript
      */
-    GetScript(wIndex, pwszType, pcchTypeLen, pwszCommand, pcchCommandLen, pcnsScriptTime) {
+    GetScript(wIndex, pwszType, pcchTypeLen, pwszCommand, pcchCommandLen) {
         pwszType := pwszType is String ? StrPtr(pwszType) : pwszType
         pwszCommand := pwszCommand is String ? StrPtr(pwszCommand) : pwszCommand
 
         pcchTypeLenMarshal := pcchTypeLen is VarRef ? "ushort*" : "ptr"
         pcchCommandLenMarshal := pcchCommandLen is VarRef ? "ushort*" : "ptr"
-        pcnsScriptTimeMarshal := pcnsScriptTime is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "ushort", wIndex, "ptr", pwszType, pcchTypeLenMarshal, pcchTypeLen, "ptr", pwszCommand, pcchCommandLenMarshal, pcchCommandLen, pcnsScriptTimeMarshal, pcnsScriptTime, "HRESULT")
-        return result
+        result := ComCall(12, this, "ushort", wIndex, "ptr", pwszType, pcchTypeLenMarshal, pcchTypeLen, "ptr", pwszCommand, pcchCommandLenMarshal, pcchCommandLen, "uint*", &pcnsScriptTime := 0, "HRESULT")
+        return pcnsScriptTime
     }
 
     /**

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include .\IMSMQCollection.ahk
 #Include .\IMSMQManagement.ahk
 
 /**
@@ -36,34 +38,30 @@ class IMSMQOutgoingQueueManagement extends IMSMQManagement{
 
     /**
      * 
-     * @param {Pointer<Integer>} plState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_State(plState) {
-        plStateMarshal := plState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, plStateMarshal, plState, "HRESULT")
-        return result
+    get_State() {
+        result := ComCall(16, this, "int*", &plState := 0, "HRESULT")
+        return plState
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvNextHops 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_NextHops(pvNextHops) {
+    get_NextHops() {
+        pvNextHops := VARIANT()
         result := ComCall(17, this, "ptr", pvNextHops, "HRESULT")
-        return result
+        return pvNextHops
     }
 
     /**
      * 
-     * @param {Pointer<IMSMQCollection>} ppCollection 
-     * @returns {HRESULT} 
+     * @returns {IMSMQCollection} 
      */
-    EodGetSendInfo(ppCollection) {
-        result := ComCall(18, this, "ptr*", ppCollection, "HRESULT")
-        return result
+    EodGetSendInfo() {
+        result := ComCall(18, this, "ptr*", &ppCollection := 0, "HRESULT")
+        return IMSMQCollection(ppCollection)
     }
 
     /**

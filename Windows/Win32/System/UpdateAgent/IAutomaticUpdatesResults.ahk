@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Variant\VARIANT.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -32,23 +33,23 @@ class IAutomaticUpdatesResults extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iautomaticupdatesresults-get_lastsearchsuccessdate
      */
-    get_LastSearchSuccessDate(retval) {
+    get_LastSearchSuccessDate() {
+        retval := VARIANT()
         result := ComCall(7, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iautomaticupdatesresults-get_lastinstallationsuccessdate
      */
-    get_LastInstallationSuccessDate(retval) {
+    get_LastInstallationSuccessDate() {
+        retval := VARIANT()
         result := ComCall(8, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 }

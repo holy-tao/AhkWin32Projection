@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IFsrmQuota.ahk
+#Include .\IFsrmAutoApplyQuota.ahk
+#Include .\IFsrmCommittableCollection.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -57,145 +60,131 @@ class IFsrmQuotaManager extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} variables 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotamanager-get_actionvariables
      */
-    get_ActionVariables(variables) {
-        variablesMarshal := variables is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, variablesMarshal, variables, "HRESULT")
-        return result
+    get_ActionVariables() {
+        result := ComCall(7, this, "ptr*", &variables := 0, "HRESULT")
+        return variables
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} descriptions 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotamanager-get_actionvariabledescriptions
      */
-    get_ActionVariableDescriptions(descriptions) {
-        descriptionsMarshal := descriptions is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(8, this, descriptionsMarshal, descriptions, "HRESULT")
-        return result
+    get_ActionVariableDescriptions() {
+        result := ComCall(8, this, "ptr*", &descriptions := 0, "HRESULT")
+        return descriptions
     }
 
     /**
      * 
      * @param {BSTR} path 
-     * @param {Pointer<IFsrmQuota>} quota 
-     * @returns {HRESULT} 
+     * @returns {IFsrmQuota} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotamanager-createquota
      */
-    CreateQuota(path, quota) {
+    CreateQuota(path) {
         path := path is String ? BSTR.Alloc(path).Value : path
 
-        result := ComCall(9, this, "ptr", path, "ptr*", quota, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", path, "ptr*", &quota := 0, "HRESULT")
+        return IFsrmQuota(quota)
     }
 
     /**
      * 
      * @param {BSTR} quotaTemplateName 
      * @param {BSTR} path 
-     * @param {Pointer<IFsrmAutoApplyQuota>} quota 
-     * @returns {HRESULT} 
+     * @returns {IFsrmAutoApplyQuota} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotamanager-createautoapplyquota
      */
-    CreateAutoApplyQuota(quotaTemplateName, path, quota) {
+    CreateAutoApplyQuota(quotaTemplateName, path) {
         quotaTemplateName := quotaTemplateName is String ? BSTR.Alloc(quotaTemplateName).Value : quotaTemplateName
         path := path is String ? BSTR.Alloc(path).Value : path
 
-        result := ComCall(10, this, "ptr", quotaTemplateName, "ptr", path, "ptr*", quota, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", quotaTemplateName, "ptr", path, "ptr*", &quota := 0, "HRESULT")
+        return IFsrmAutoApplyQuota(quota)
     }
 
     /**
      * 
      * @param {BSTR} path 
-     * @param {Pointer<IFsrmQuota>} quota 
-     * @returns {HRESULT} 
+     * @returns {IFsrmQuota} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotamanager-getquota
      */
-    GetQuota(path, quota) {
+    GetQuota(path) {
         path := path is String ? BSTR.Alloc(path).Value : path
 
-        result := ComCall(11, this, "ptr", path, "ptr*", quota, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", path, "ptr*", &quota := 0, "HRESULT")
+        return IFsrmQuota(quota)
     }
 
     /**
      * 
      * @param {BSTR} path 
-     * @param {Pointer<IFsrmAutoApplyQuota>} quota 
-     * @returns {HRESULT} 
+     * @returns {IFsrmAutoApplyQuota} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotamanager-getautoapplyquota
      */
-    GetAutoApplyQuota(path, quota) {
+    GetAutoApplyQuota(path) {
         path := path is String ? BSTR.Alloc(path).Value : path
 
-        result := ComCall(12, this, "ptr", path, "ptr*", quota, "HRESULT")
-        return result
+        result := ComCall(12, this, "ptr", path, "ptr*", &quota := 0, "HRESULT")
+        return IFsrmAutoApplyQuota(quota)
     }
 
     /**
      * 
      * @param {BSTR} path 
-     * @param {Pointer<IFsrmQuota>} quota 
-     * @returns {HRESULT} 
+     * @returns {IFsrmQuota} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotamanager-getrestrictivequota
      */
-    GetRestrictiveQuota(path, quota) {
+    GetRestrictiveQuota(path) {
         path := path is String ? BSTR.Alloc(path).Value : path
 
-        result := ComCall(13, this, "ptr", path, "ptr*", quota, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", path, "ptr*", &quota := 0, "HRESULT")
+        return IFsrmQuota(quota)
     }
 
     /**
      * 
      * @param {BSTR} path 
      * @param {Integer} options 
-     * @param {Pointer<IFsrmCommittableCollection>} quotas 
-     * @returns {HRESULT} 
+     * @returns {IFsrmCommittableCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotamanager-enumquotas
      */
-    EnumQuotas(path, options, quotas) {
+    EnumQuotas(path, options) {
         path := path is String ? BSTR.Alloc(path).Value : path
 
-        result := ComCall(14, this, "ptr", path, "int", options, "ptr*", quotas, "HRESULT")
-        return result
+        result := ComCall(14, this, "ptr", path, "int", options, "ptr*", &quotas := 0, "HRESULT")
+        return IFsrmCommittableCollection(quotas)
     }
 
     /**
      * 
      * @param {BSTR} path 
      * @param {Integer} options 
-     * @param {Pointer<IFsrmCommittableCollection>} quotas 
-     * @returns {HRESULT} 
+     * @returns {IFsrmCommittableCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotamanager-enumautoapplyquotas
      */
-    EnumAutoApplyQuotas(path, options, quotas) {
+    EnumAutoApplyQuotas(path, options) {
         path := path is String ? BSTR.Alloc(path).Value : path
 
-        result := ComCall(15, this, "ptr", path, "int", options, "ptr*", quotas, "HRESULT")
-        return result
+        result := ComCall(15, this, "ptr", path, "int", options, "ptr*", &quotas := 0, "HRESULT")
+        return IFsrmCommittableCollection(quotas)
     }
 
     /**
      * 
      * @param {BSTR} path 
      * @param {Integer} options 
-     * @param {Pointer<IFsrmCommittableCollection>} quotas 
-     * @returns {HRESULT} 
+     * @returns {IFsrmCommittableCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotamanager-enumeffectivequotas
      */
-    EnumEffectiveQuotas(path, options, quotas) {
+    EnumEffectiveQuotas(path, options) {
         path := path is String ? BSTR.Alloc(path).Value : path
 
-        result := ComCall(16, this, "ptr", path, "int", options, "ptr*", quotas, "HRESULT")
-        return result
+        result := ComCall(16, this, "ptr", path, "int", options, "ptr*", &quotas := 0, "HRESULT")
+        return IFsrmCommittableCollection(quotas)
     }
 
     /**
@@ -213,12 +202,11 @@ class IFsrmQuotaManager extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IFsrmCommittableCollection>} collection 
-     * @returns {HRESULT} 
+     * @returns {IFsrmCommittableCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotamanager-createquotacollection
      */
-    CreateQuotaCollection(collection) {
-        result := ComCall(18, this, "ptr*", collection, "HRESULT")
-        return result
+    CreateQuotaCollection() {
+        result := ComCall(18, this, "ptr*", &collection := 0, "HRESULT")
+        return IFsrmCommittableCollection(collection)
     }
 }

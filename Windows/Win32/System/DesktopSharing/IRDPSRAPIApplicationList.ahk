@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\IRDPSRAPIApplication.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -38,24 +40,22 @@ class IRDPSRAPIApplicationList extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiapplicationlist-get__newenum
      */
-    get__NewEnum(retval) {
-        result := ComCall(7, this, "ptr*", retval, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(7, this, "ptr*", &retval := 0, "HRESULT")
+        return IUnknown(retval)
     }
 
     /**
      * 
      * @param {Integer} item 
-     * @param {Pointer<IRDPSRAPIApplication>} pApplication 
-     * @returns {HRESULT} 
+     * @returns {IRDPSRAPIApplication} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiapplicationlist-get_item
      */
-    get_Item(item, pApplication) {
-        result := ComCall(8, this, "int", item, "ptr*", pApplication, "HRESULT")
-        return result
+    get_Item(item) {
+        result := ComCall(8, this, "int", item, "ptr*", &pApplication := 0, "HRESULT")
+        return IRDPSRAPIApplication(pApplication)
     }
 }

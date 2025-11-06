@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include .\IGPMSecurityInfo.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -46,12 +48,12 @@ class IGPMWMIFilter extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Path(pVal) {
+    get_Path() {
+        pVal := BSTR()
         result := ComCall(7, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
@@ -68,12 +70,12 @@ class IGPMWMIFilter extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Name(pVal) {
+    get_Name() {
+        pVal := BSTR()
         result := ComCall(9, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
@@ -90,36 +92,33 @@ class IGPMWMIFilter extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Description(pVal) {
+    get_Description() {
+        pVal := BSTR()
         result := ComCall(11, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pQryList 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmwmifilter-getquerylist
      */
-    GetQueryList(pQryList) {
+    GetQueryList() {
+        pQryList := VARIANT()
         result := ComCall(12, this, "ptr", pQryList, "HRESULT")
-        return result
+        return pQryList
     }
 
     /**
      * Retrieves a copy of the security descriptor for an object specified by a handle.
-     * @param {Pointer<IGPMSecurityInfo>} ppSecurityInfo 
-     * @returns {HRESULT} If the function succeeds, the return value is ERROR_SUCCESS.
-     * 
-     * If the function fails, the return value is a nonzero error code defined in WinError.h.
+     * @returns {IGPMSecurityInfo} 
      * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-getsecurityinfo
      */
-    GetSecurityInfo(ppSecurityInfo) {
-        result := ComCall(13, this, "ptr*", ppSecurityInfo, "HRESULT")
-        return result
+    GetSecurityInfo() {
+        result := ComCall(13, this, "ptr*", &ppSecurityInfo := 0, "HRESULT")
+        return IGPMSecurityInfo(ppSecurityInfo)
     }
 
     /**

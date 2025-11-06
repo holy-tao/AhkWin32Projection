@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID2D1SvgAttribute.ahk
 #Include .\ID2D1Resource.ahk
 
 /**
@@ -42,12 +43,11 @@ class ID2D1SvgAttribute extends ID2D1Resource{
 
     /**
      * 
-     * @param {Pointer<ID2D1SvgAttribute>} attribute 
-     * @returns {HRESULT} 
+     * @returns {ID2D1SvgAttribute} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1svg/nf-d2d1svg-id2d1svgattribute-clone
      */
-    Clone(attribute) {
-        result := ComCall(5, this, "ptr*", attribute, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(5, this, "ptr*", &attribute := 0, "HRESULT")
+        return ID2D1SvgAttribute(attribute)
     }
 }

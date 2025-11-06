@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IEnumRemoteDebugApplicationThreads.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -63,11 +64,10 @@ class IEnumRemoteDebugApplicationThreads extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumRemoteDebugApplicationThreads>} pperdat 
-     * @returns {HRESULT} 
+     * @returns {IEnumRemoteDebugApplicationThreads} 
      */
-    Clone(pperdat) {
-        result := ComCall(6, this, "ptr*", pperdat, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &pperdat := 0, "HRESULT")
+        return IEnumRemoteDebugApplicationThreads(pperdat)
     }
 }

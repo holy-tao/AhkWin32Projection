@@ -53,13 +53,12 @@ class IWSDHttpAddress extends IWSDTransportAddress{
 
     /**
      * The GetPath function retrieves the coordinates defining the endpoints of lines and the control points of curves found in the path that is selected into the specified device context.
-     * @param {Pointer<PWSTR>} ppszPath 
-     * @returns {HRESULT} If the <i>nSize</i> parameter is nonzero, the return value is the number of points enumerated. If <i>nSize</i> is 0, the return value is the total number of points in the path (and <b>GetPath</b> writes nothing to the buffers). If <i>nSize</i> is nonzero and is less than the number of points in the path, the return value is 1.
+     * @returns {PWSTR} 
      * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getpath
      */
-    GetPath(ppszPath) {
-        result := ComCall(12, this, "ptr", ppszPath, "HRESULT")
-        return result
+    GetPath() {
+        result := ComCall(12, this, "ptr*", &ppszPath := 0, "HRESULT")
+        return ppszPath
     }
 
     /**

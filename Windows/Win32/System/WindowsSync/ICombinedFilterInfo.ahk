@@ -43,12 +43,11 @@ class ICombinedFilterInfo extends ISyncFilterInfo{
     /**
      * 
      * @param {Integer} dwFilterIndex 
-     * @param {Pointer<ISyncFilterInfo>} ppIFilterInfo 
-     * @returns {HRESULT} 
+     * @returns {ISyncFilterInfo} 
      */
-    GetFilterInfo(dwFilterIndex, ppIFilterInfo) {
-        result := ComCall(5, this, "uint", dwFilterIndex, "ptr*", ppIFilterInfo, "HRESULT")
-        return result
+    GetFilterInfo(dwFilterIndex) {
+        result := ComCall(5, this, "uint", dwFilterIndex, "ptr*", &ppIFilterInfo := 0, "HRESULT")
+        return ISyncFilterInfo(ppIFilterInfo)
     }
 
     /**

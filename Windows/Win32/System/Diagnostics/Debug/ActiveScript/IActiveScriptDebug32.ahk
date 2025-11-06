@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IEnumDebugCodeContexts.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -71,11 +72,10 @@ class IActiveScriptDebug32 extends IUnknown{
      * @param {Integer} dwSourceContext 
      * @param {Integer} uCharacterOffset 
      * @param {Integer} uNumChars 
-     * @param {Pointer<IEnumDebugCodeContexts>} ppescc 
-     * @returns {HRESULT} 
+     * @returns {IEnumDebugCodeContexts} 
      */
-    EnumCodeContextsOfPosition(dwSourceContext, uCharacterOffset, uNumChars, ppescc) {
-        result := ComCall(5, this, "uint", dwSourceContext, "uint", uCharacterOffset, "uint", uNumChars, "ptr*", ppescc, "HRESULT")
-        return result
+    EnumCodeContextsOfPosition(dwSourceContext, uCharacterOffset, uNumChars) {
+        result := ComCall(5, this, "uint", dwSourceContext, "uint", uCharacterOffset, "uint", uNumChars, "ptr*", &ppescc := 0, "HRESULT")
+        return IEnumDebugCodeContexts(ppescc)
     }
 }

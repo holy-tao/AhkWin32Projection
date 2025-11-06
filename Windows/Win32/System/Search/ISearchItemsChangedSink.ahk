@@ -67,8 +67,9 @@ class ISearchItemsChangedSink extends IUnknown{
      */
     OnItemsChanged(dwNumberOfChanges, rgDataChangeEntries, rgdwDocIds, rghrCompletionCodes) {
         rgdwDocIdsMarshal := rgdwDocIds is VarRef ? "uint*" : "ptr"
+        rghrCompletionCodesMarshal := rghrCompletionCodes is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, "uint", dwNumberOfChanges, "ptr", rgDataChangeEntries, rgdwDocIdsMarshal, rgdwDocIds, "ptr", rghrCompletionCodes, "HRESULT")
+        result := ComCall(5, this, "uint", dwNumberOfChanges, "ptr", rgDataChangeEntries, rgdwDocIdsMarshal, rgdwDocIds, rghrCompletionCodesMarshal, rghrCompletionCodes, "HRESULT")
         return result
     }
 }

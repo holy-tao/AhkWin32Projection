@@ -32,15 +32,12 @@ class ITAMMediaFormat extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<AM_MEDIA_TYPE>>} ppmt 
-     * @returns {HRESULT} 
+     * @returns {Pointer<AM_MEDIA_TYPE>} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3ds/nf-tapi3ds-itammediaformat-get_mediaformat
      */
-    get_MediaFormat(ppmt) {
-        ppmtMarshal := ppmt is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, ppmtMarshal, ppmt, "HRESULT")
-        return result
+    get_MediaFormat() {
+        result := ComCall(3, this, "ptr*", &ppmt := 0, "HRESULT")
+        return ppmt
     }
 
     /**

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Dxgi\IDXGISurface.ahk
+#Include .\D2D1_MAPPED_RECT.ahk
 #Include .\ID2D1Bitmap.ahk
 
 /**
@@ -70,25 +72,24 @@ class ID2D1Bitmap1 extends ID2D1Bitmap{
 
     /**
      * 
-     * @param {Pointer<IDXGISurface>} dxgiSurface 
-     * @returns {HRESULT} 
+     * @returns {IDXGISurface} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1bitmap1-getsurface
      */
-    GetSurface(dxgiSurface) {
-        result := ComCall(13, this, "ptr*", dxgiSurface, "HRESULT")
-        return result
+    GetSurface() {
+        result := ComCall(13, this, "ptr*", &dxgiSurface := 0, "HRESULT")
+        return IDXGISurface(dxgiSurface)
     }
 
     /**
      * 
      * @param {Integer} options 
-     * @param {Pointer<D2D1_MAPPED_RECT>} mappedRect 
-     * @returns {HRESULT} 
+     * @returns {D2D1_MAPPED_RECT} 
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1bitmap1-map
      */
-    Map(options, mappedRect) {
+    Map(options) {
+        mappedRect := D2D1_MAPPED_RECT()
         result := ComCall(14, this, "int", options, "ptr", mappedRect, "HRESULT")
-        return result
+        return mappedRect
     }
 
     /**

@@ -1,6 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISyncProviderConfigUIInfo.ahk
+#Include .\IEnumSyncProviderConfigUIInfos.ahk
+#Include .\ISyncProviderInfo.ahk
+#Include .\IEnumSyncProviderInfos.ahk
+#Include .\IRegisteredSyncProvider.ahk
+#Include .\ISyncProviderConfigUI.ahk
+#Include .\ISyncRegistrationChange.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -39,13 +46,12 @@ class ISyncProviderRegistration extends IUnknown{
     /**
      * 
      * @param {Pointer<SyncProviderConfigUIConfiguration>} pConfigUIConfig 
-     * @param {Pointer<ISyncProviderConfigUIInfo>} ppConfigUIInfo 
-     * @returns {HRESULT} 
+     * @returns {ISyncProviderConfigUIInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderregistration-createsyncproviderconfiguiregistrationinstance
      */
-    CreateSyncProviderConfigUIRegistrationInstance(pConfigUIConfig, ppConfigUIInfo) {
-        result := ComCall(3, this, "ptr", pConfigUIConfig, "ptr*", ppConfigUIInfo, "HRESULT")
-        return result
+    CreateSyncProviderConfigUIRegistrationInstance(pConfigUIConfig) {
+        result := ComCall(3, this, "ptr", pConfigUIConfig, "ptr*", &ppConfigUIInfo := 0, "HRESULT")
+        return ISyncProviderConfigUIInfo(ppConfigUIInfo)
     }
 
     /**
@@ -63,25 +69,23 @@ class ISyncProviderRegistration extends IUnknown{
      * 
      * @param {Pointer<Guid>} pguidContentType 
      * @param {Integer} dwSupportedArchitecture 
-     * @param {Pointer<IEnumSyncProviderConfigUIInfos>} ppEnumSyncProviderConfigUIInfos 
-     * @returns {HRESULT} 
+     * @returns {IEnumSyncProviderConfigUIInfos} 
      * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderregistration-enumeratesyncproviderconfiguis
      */
-    EnumerateSyncProviderConfigUIs(pguidContentType, dwSupportedArchitecture, ppEnumSyncProviderConfigUIInfos) {
-        result := ComCall(5, this, "ptr", pguidContentType, "uint", dwSupportedArchitecture, "ptr*", ppEnumSyncProviderConfigUIInfos, "HRESULT")
-        return result
+    EnumerateSyncProviderConfigUIs(pguidContentType, dwSupportedArchitecture) {
+        result := ComCall(5, this, "ptr", pguidContentType, "uint", dwSupportedArchitecture, "ptr*", &ppEnumSyncProviderConfigUIInfos := 0, "HRESULT")
+        return IEnumSyncProviderConfigUIInfos(ppEnumSyncProviderConfigUIInfos)
     }
 
     /**
      * 
      * @param {Pointer<SyncProviderConfiguration>} pProviderConfiguration 
-     * @param {Pointer<ISyncProviderInfo>} ppProviderInfo 
-     * @returns {HRESULT} 
+     * @returns {ISyncProviderInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderregistration-createsyncproviderregistrationinstance
      */
-    CreateSyncProviderRegistrationInstance(pProviderConfiguration, ppProviderInfo) {
-        result := ComCall(6, this, "ptr", pProviderConfiguration, "ptr*", ppProviderInfo, "HRESULT")
-        return result
+    CreateSyncProviderRegistrationInstance(pProviderConfiguration) {
+        result := ComCall(6, this, "ptr", pProviderConfiguration, "ptr*", &ppProviderInfo := 0, "HRESULT")
+        return ISyncProviderInfo(ppProviderInfo)
     }
 
     /**
@@ -98,13 +102,12 @@ class ISyncProviderRegistration extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} pguidProviderInstanceId 
-     * @param {Pointer<ISyncProviderConfigUIInfo>} ppProviderConfigUIInfo 
-     * @returns {HRESULT} 
+     * @returns {ISyncProviderConfigUIInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderregistration-getsyncproviderconfiguiinfoforprovider
      */
-    GetSyncProviderConfigUIInfoforProvider(pguidProviderInstanceId, ppProviderConfigUIInfo) {
-        result := ComCall(8, this, "ptr", pguidProviderInstanceId, "ptr*", ppProviderConfigUIInfo, "HRESULT")
-        return result
+    GetSyncProviderConfigUIInfoforProvider(pguidProviderInstanceId) {
+        result := ComCall(8, this, "ptr", pguidProviderInstanceId, "ptr*", &ppProviderConfigUIInfo := 0, "HRESULT")
+        return ISyncProviderConfigUIInfo(ppProviderConfigUIInfo)
     }
 
     /**
@@ -114,77 +117,69 @@ class ISyncProviderRegistration extends IUnknown{
      * @param {Integer} dwStateFlagsToFilter 
      * @param {Pointer<Guid>} refProviderClsId 
      * @param {Integer} dwSupportedArchitecture 
-     * @param {Pointer<IEnumSyncProviderInfos>} ppEnumSyncProviderInfos 
-     * @returns {HRESULT} 
+     * @returns {IEnumSyncProviderInfos} 
      * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderregistration-enumeratesyncproviders
      */
-    EnumerateSyncProviders(pguidContentType, dwStateFlagsToFilterMask, dwStateFlagsToFilter, refProviderClsId, dwSupportedArchitecture, ppEnumSyncProviderInfos) {
-        result := ComCall(9, this, "ptr", pguidContentType, "uint", dwStateFlagsToFilterMask, "uint", dwStateFlagsToFilter, "ptr", refProviderClsId, "uint", dwSupportedArchitecture, "ptr*", ppEnumSyncProviderInfos, "HRESULT")
-        return result
+    EnumerateSyncProviders(pguidContentType, dwStateFlagsToFilterMask, dwStateFlagsToFilter, refProviderClsId, dwSupportedArchitecture) {
+        result := ComCall(9, this, "ptr", pguidContentType, "uint", dwStateFlagsToFilterMask, "uint", dwStateFlagsToFilter, "ptr", refProviderClsId, "uint", dwSupportedArchitecture, "ptr*", &ppEnumSyncProviderInfos := 0, "HRESULT")
+        return IEnumSyncProviderInfos(ppEnumSyncProviderInfos)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} pguidInstanceId 
-     * @param {Pointer<ISyncProviderInfo>} ppProviderInfo 
-     * @returns {HRESULT} 
+     * @returns {ISyncProviderInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderregistration-getsyncproviderinfo
      */
-    GetSyncProviderInfo(pguidInstanceId, ppProviderInfo) {
-        result := ComCall(10, this, "ptr", pguidInstanceId, "ptr*", ppProviderInfo, "HRESULT")
-        return result
+    GetSyncProviderInfo(pguidInstanceId) {
+        result := ComCall(10, this, "ptr", pguidInstanceId, "ptr*", &ppProviderInfo := 0, "HRESULT")
+        return ISyncProviderInfo(ppProviderInfo)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} pguidInstanceId 
      * @param {Integer} dwClsContext 
-     * @param {Pointer<IRegisteredSyncProvider>} ppSyncProvider 
-     * @returns {HRESULT} 
+     * @returns {IRegisteredSyncProvider} 
      * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderregistration-getsyncproviderfrominstanceid
      */
-    GetSyncProviderFromInstanceId(pguidInstanceId, dwClsContext, ppSyncProvider) {
-        result := ComCall(11, this, "ptr", pguidInstanceId, "uint", dwClsContext, "ptr*", ppSyncProvider, "HRESULT")
-        return result
+    GetSyncProviderFromInstanceId(pguidInstanceId, dwClsContext) {
+        result := ComCall(11, this, "ptr", pguidInstanceId, "uint", dwClsContext, "ptr*", &ppSyncProvider := 0, "HRESULT")
+        return IRegisteredSyncProvider(ppSyncProvider)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} pguidInstanceId 
-     * @param {Pointer<ISyncProviderConfigUIInfo>} ppConfigUIInfo 
-     * @returns {HRESULT} 
+     * @returns {ISyncProviderConfigUIInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderregistration-getsyncproviderconfiguiinfo
      */
-    GetSyncProviderConfigUIInfo(pguidInstanceId, ppConfigUIInfo) {
-        result := ComCall(12, this, "ptr", pguidInstanceId, "ptr*", ppConfigUIInfo, "HRESULT")
-        return result
+    GetSyncProviderConfigUIInfo(pguidInstanceId) {
+        result := ComCall(12, this, "ptr", pguidInstanceId, "ptr*", &ppConfigUIInfo := 0, "HRESULT")
+        return ISyncProviderConfigUIInfo(ppConfigUIInfo)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} pguidInstanceId 
      * @param {Integer} dwClsContext 
-     * @param {Pointer<ISyncProviderConfigUI>} ppConfigUI 
-     * @returns {HRESULT} 
+     * @returns {ISyncProviderConfigUI} 
      * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderregistration-getsyncproviderconfiguifrominstanceid
      */
-    GetSyncProviderConfigUIFromInstanceId(pguidInstanceId, dwClsContext, ppConfigUI) {
-        result := ComCall(13, this, "ptr", pguidInstanceId, "uint", dwClsContext, "ptr*", ppConfigUI, "HRESULT")
-        return result
+    GetSyncProviderConfigUIFromInstanceId(pguidInstanceId, dwClsContext) {
+        result := ComCall(13, this, "ptr", pguidInstanceId, "uint", dwClsContext, "ptr*", &ppConfigUI := 0, "HRESULT")
+        return ISyncProviderConfigUI(ppConfigUI)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} pguidInstanceId 
-     * @param {Pointer<Integer>} pdwStateFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderregistration-getsyncproviderstate
      */
-    GetSyncProviderState(pguidInstanceId, pdwStateFlags) {
-        pdwStateFlagsMarshal := pdwStateFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, "ptr", pguidInstanceId, pdwStateFlagsMarshal, pdwStateFlags, "HRESULT")
-        return result
+    GetSyncProviderState(pguidInstanceId) {
+        result := ComCall(14, this, "ptr", pguidInstanceId, "uint*", &pdwStateFlags := 0, "HRESULT")
+        return pdwStateFlags
     }
 
     /**
@@ -227,14 +222,13 @@ class ISyncProviderRegistration extends IUnknown{
     /**
      * 
      * @param {HANDLE} hEvent 
-     * @param {Pointer<ISyncRegistrationChange>} ppChange 
-     * @returns {HRESULT} 
+     * @returns {ISyncRegistrationChange} 
      * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderregistration-getchange
      */
-    GetChange(hEvent, ppChange) {
+    GetChange(hEvent) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
-        result := ComCall(18, this, "ptr", hEvent, "ptr*", ppChange, "HRESULT")
-        return result
+        result := ComCall(18, this, "ptr", hEvent, "ptr*", &ppChange := 0, "HRESULT")
+        return ISyncRegistrationChange(ppChange)
     }
 }

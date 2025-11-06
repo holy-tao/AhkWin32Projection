@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IDataCollectorSet.ahk
+#Include ..\Com\IUnknown.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -43,38 +45,33 @@ class IDataCollectorSetCollection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorsetcollection-get_count
      */
-    get_Count(retVal) {
-        retValMarshal := retVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(7, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
      * @param {VARIANT} index 
-     * @param {Pointer<IDataCollectorSet>} set 
-     * @returns {HRESULT} 
+     * @returns {IDataCollectorSet} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorsetcollection-get_item
      */
-    get_Item(index, set) {
-        result := ComCall(8, this, "ptr", index, "ptr*", set, "HRESULT")
-        return result
+    get_Item(index) {
+        result := ComCall(8, this, "ptr", index, "ptr*", &set := 0, "HRESULT")
+        return IDataCollectorSet(set)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} retVal 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorsetcollection-get__newenum
      */
-    get__NewEnum(retVal) {
-        result := ComCall(9, this, "ptr*", retVal, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(9, this, "ptr*", &retVal := 0, "HRESULT")
+        return IUnknown(retVal)
     }
 
     /**

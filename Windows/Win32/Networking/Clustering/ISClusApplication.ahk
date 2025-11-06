@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ISDomainNames.ahk
+#Include .\ISClusterNames.ahk
+#Include .\ISCluster.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -31,59 +34,35 @@ class ISClusApplication extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISDomainNames>} ppDomains 
-     * @returns {HRESULT} 
+     * @returns {ISDomainNames} 
      */
-    get_DomainNames(ppDomains) {
-        result := ComCall(7, this, "ptr*", ppDomains, "HRESULT")
-        return result
+    get_DomainNames() {
+        result := ComCall(7, this, "ptr*", &ppDomains := 0, "HRESULT")
+        return ISDomainNames(ppDomains)
     }
 
     /**
      * 
      * @param {BSTR} bstrDomainName 
-     * @param {Pointer<ISClusterNames>} ppClusters 
-     * @returns {HRESULT} 
+     * @returns {ISClusterNames} 
      */
-    get_ClusterNames(bstrDomainName, ppClusters) {
+    get_ClusterNames(bstrDomainName) {
         bstrDomainName := bstrDomainName is String ? BSTR.Alloc(bstrDomainName).Value : bstrDomainName
 
-        result := ComCall(8, this, "ptr", bstrDomainName, "ptr*", ppClusters, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", bstrDomainName, "ptr*", &ppClusters := 0, "HRESULT")
+        return ISClusterNames(ppClusters)
     }
 
     /**
      * Opens a connection to a cluster and returns a handle to it.
      * @param {BSTR} bstrClusterName 
-     * @param {Pointer<ISCluster>} pCluster 
-     * @returns {HRESULT} If the operation was successful, <b>OpenCluster</b> returns 
-     *        a cluster handle.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code/value</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>NULL</b></dt>
-     * <dt>0</dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation was not successful. For more information about the error, call the function 
-     *          <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {ISCluster} 
      * @see https://docs.microsoft.com/windows/win32/api//clusapi/nf-clusapi-opencluster
      */
-    OpenCluster(bstrClusterName, pCluster) {
+    OpenCluster(bstrClusterName) {
         bstrClusterName := bstrClusterName is String ? BSTR.Alloc(bstrClusterName).Value : bstrClusterName
 
-        result := ComCall(9, this, "ptr", bstrClusterName, "ptr*", pCluster, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", bstrClusterName, "ptr*", &pCluster := 0, "HRESULT")
+        return ISCluster(pCluster)
     }
 }

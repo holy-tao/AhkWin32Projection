@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IHTMLTxtRange.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -43,12 +45,12 @@ class IHTMLBodyElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_background(p) {
+    get_background() {
+        p := BSTR()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -65,12 +67,12 @@ class IHTMLBodyElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_bgProperties(p) {
+    get_bgProperties() {
+        p := BSTR()
         result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -85,12 +87,12 @@ class IHTMLBodyElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_leftMargin(p) {
+    get_leftMargin() {
+        p := VARIANT()
         result := ComCall(12, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -105,12 +107,12 @@ class IHTMLBodyElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_topMargin(p) {
+    get_topMargin() {
+        p := VARIANT()
         result := ComCall(14, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -125,12 +127,12 @@ class IHTMLBodyElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_rightMargin(p) {
+    get_rightMargin() {
+        p := VARIANT()
         result := ComCall(16, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -145,12 +147,12 @@ class IHTMLBodyElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_bottomMargin(p) {
+    get_bottomMargin() {
+        p := VARIANT()
         result := ComCall(18, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -165,12 +167,11 @@ class IHTMLBodyElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_noWrap(p) {
-        result := ComCall(20, this, "ptr", p, "HRESULT")
-        return result
+    get_noWrap() {
+        result := ComCall(20, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -185,12 +186,12 @@ class IHTMLBodyElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_bgColor(p) {
+    get_bgColor() {
+        p := VARIANT()
         result := ComCall(22, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -205,12 +206,12 @@ class IHTMLBodyElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_text(p) {
+    get_text() {
+        p := VARIANT()
         result := ComCall(24, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -225,12 +226,12 @@ class IHTMLBodyElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_link(p) {
+    get_link() {
+        p := VARIANT()
         result := ComCall(26, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -245,12 +246,12 @@ class IHTMLBodyElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_vLink(p) {
+    get_vLink() {
+        p := VARIANT()
         result := ComCall(28, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -265,12 +266,12 @@ class IHTMLBodyElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_aLink(p) {
+    get_aLink() {
+        p := VARIANT()
         result := ComCall(30, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -285,12 +286,12 @@ class IHTMLBodyElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onload(p) {
+    get_onload() {
+        p := VARIANT()
         result := ComCall(32, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -305,12 +306,12 @@ class IHTMLBodyElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onunload(p) {
+    get_onunload() {
+        p := VARIANT()
         result := ComCall(34, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -327,12 +328,12 @@ class IHTMLBodyElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_scroll(p) {
+    get_scroll() {
+        p := BSTR()
         result := ComCall(36, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -347,12 +348,12 @@ class IHTMLBodyElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onselect(p) {
+    get_onselect() {
+        p := VARIANT()
         result := ComCall(38, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -367,21 +368,20 @@ class IHTMLBodyElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onbeforeunload(p) {
+    get_onbeforeunload() {
+        p := VARIANT()
         result := ComCall(40, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLTxtRange>} range 
-     * @returns {HRESULT} 
+     * @returns {IHTMLTxtRange} 
      */
-    createTextRange(range) {
-        result := ComCall(41, this, "ptr*", range, "HRESULT")
-        return result
+    createTextRange() {
+        result := ComCall(41, this, "ptr*", &range := 0, "HRESULT")
+        return IHTMLTxtRange(range)
     }
 }

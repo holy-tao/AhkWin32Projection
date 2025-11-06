@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFMediaType.ahk
+#Include .\IMFSensorStream.ahk
 #Include .\IMFAttributes.ahk
 
 /**
@@ -32,37 +34,32 @@ class IMFSensorStream extends IMFAttributes{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensorstream-getmediatypecount
      */
-    GetMediaTypeCount(pdwCount) {
-        pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(33, this, pdwCountMarshal, pdwCount, "HRESULT")
-        return result
+    GetMediaTypeCount() {
+        result := ComCall(33, this, "uint*", &pdwCount := 0, "HRESULT")
+        return pdwCount
     }
 
     /**
      * 
      * @param {Integer} dwIndex 
-     * @param {Pointer<IMFMediaType>} ppMediaType 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaType} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensorstream-getmediatype
      */
-    GetMediaType(dwIndex, ppMediaType) {
-        result := ComCall(34, this, "uint", dwIndex, "ptr*", ppMediaType, "HRESULT")
-        return result
+    GetMediaType(dwIndex) {
+        result := ComCall(34, this, "uint", dwIndex, "ptr*", &ppMediaType := 0, "HRESULT")
+        return IMFMediaType(ppMediaType)
     }
 
     /**
      * 
-     * @param {Pointer<IMFSensorStream>} ppStream 
-     * @returns {HRESULT} 
+     * @returns {IMFSensorStream} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensorstream-clonesensorstream
      */
-    CloneSensorStream(ppStream) {
-        result := ComCall(35, this, "ptr*", ppStream, "HRESULT")
-        return result
+    CloneSensorStream() {
+        result := ComCall(35, this, "ptr*", &ppStream := 0, "HRESULT")
+        return IMFSensorStream(ppStream)
     }
 }

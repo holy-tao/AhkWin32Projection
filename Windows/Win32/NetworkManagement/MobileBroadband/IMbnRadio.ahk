@@ -36,41 +36,32 @@ class IMbnRadio extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} SoftwareRadioState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnradio-get_softwareradiostate
      */
-    get_SoftwareRadioState(SoftwareRadioState) {
-        SoftwareRadioStateMarshal := SoftwareRadioState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, SoftwareRadioStateMarshal, SoftwareRadioState, "HRESULT")
-        return result
+    get_SoftwareRadioState() {
+        result := ComCall(3, this, "int*", &SoftwareRadioState := 0, "HRESULT")
+        return SoftwareRadioState
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} HardwareRadioState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnradio-get_hardwareradiostate
      */
-    get_HardwareRadioState(HardwareRadioState) {
-        HardwareRadioStateMarshal := HardwareRadioState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, HardwareRadioStateMarshal, HardwareRadioState, "HRESULT")
-        return result
+    get_HardwareRadioState() {
+        result := ComCall(4, this, "int*", &HardwareRadioState := 0, "HRESULT")
+        return HardwareRadioState
     }
 
     /**
      * 
      * @param {Integer} radioState 
-     * @param {Pointer<Integer>} requestID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnradio-setsoftwareradiostate
      */
-    SetSoftwareRadioState(radioState, requestID) {
-        requestIDMarshal := requestID is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, "int", radioState, requestIDMarshal, requestID, "HRESULT")
-        return result
+    SetSoftwareRadioState(radioState) {
+        result := ComCall(5, this, "int", radioState, "uint*", &requestID := 0, "HRESULT")
+        return requestID
     }
 }

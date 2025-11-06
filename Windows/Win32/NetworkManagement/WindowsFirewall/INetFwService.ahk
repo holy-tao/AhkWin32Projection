@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\INetFwOpenPorts.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -42,50 +43,43 @@ class INetFwService extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservice-get_name
      */
-    get_Name(name) {
+    get_Name() {
+        name := BSTR()
         result := ComCall(7, this, "ptr", name, "HRESULT")
-        return result
+        return name
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} type 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservice-get_type
      */
-    get_Type(type) {
-        typeMarshal := type is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, typeMarshal, type, "HRESULT")
-        return result
+    get_Type() {
+        result := ComCall(8, this, "int*", &type := 0, "HRESULT")
+        return type
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} customized 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservice-get_customized
      */
-    get_Customized(customized) {
-        result := ComCall(9, this, "ptr", customized, "HRESULT")
-        return result
+    get_Customized() {
+        result := ComCall(9, this, "short*", &customized := 0, "HRESULT")
+        return customized
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} ipVersion 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservice-get_ipversion
      */
-    get_IpVersion(ipVersion) {
-        ipVersionMarshal := ipVersion is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, ipVersionMarshal, ipVersion, "HRESULT")
-        return result
+    get_IpVersion() {
+        result := ComCall(10, this, "int*", &ipVersion := 0, "HRESULT")
+        return ipVersion
     }
 
     /**
@@ -101,15 +95,12 @@ class INetFwService extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} scope 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservice-get_scope
      */
-    get_Scope(scope) {
-        scopeMarshal := scope is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, scopeMarshal, scope, "HRESULT")
-        return result
+    get_Scope() {
+        result := ComCall(12, this, "int*", &scope := 0, "HRESULT")
+        return scope
     }
 
     /**
@@ -125,13 +116,13 @@ class INetFwService extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} remoteAddrs 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservice-get_remoteaddresses
      */
-    get_RemoteAddresses(remoteAddrs) {
+    get_RemoteAddresses() {
+        remoteAddrs := BSTR()
         result := ComCall(14, this, "ptr", remoteAddrs, "HRESULT")
-        return result
+        return remoteAddrs
     }
 
     /**
@@ -149,13 +140,12 @@ class INetFwService extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} enabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservice-get_enabled
      */
-    get_Enabled(enabled) {
-        result := ComCall(16, this, "ptr", enabled, "HRESULT")
-        return result
+    get_Enabled() {
+        result := ComCall(16, this, "short*", &enabled := 0, "HRESULT")
+        return enabled
     }
 
     /**
@@ -171,12 +161,11 @@ class INetFwService extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<INetFwOpenPorts>} openPorts 
-     * @returns {HRESULT} 
+     * @returns {INetFwOpenPorts} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwservice-get_globallyopenports
      */
-    get_GloballyOpenPorts(openPorts) {
-        result := ComCall(18, this, "ptr*", openPorts, "HRESULT")
-        return result
+    get_GloballyOpenPorts() {
+        result := ComCall(18, this, "ptr*", &openPorts := 0, "HRESULT")
+        return INetFwOpenPorts(openPorts)
     }
 }

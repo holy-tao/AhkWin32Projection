@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITAddress.ahk
+#Include .\ITCallInfo.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,62 +34,51 @@ class ITAddressDeviceSpecificEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ITAddress>} ppAddress 
-     * @returns {HRESULT} 
+     * @returns {ITAddress} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddressdevicespecificevent-get_address
      */
-    get_Address(ppAddress) {
-        result := ComCall(7, this, "ptr*", ppAddress, "HRESULT")
-        return result
+    get_Address() {
+        result := ComCall(7, this, "ptr*", &ppAddress := 0, "HRESULT")
+        return ITAddress(ppAddress)
     }
 
     /**
      * 
-     * @param {Pointer<ITCallInfo>} ppCall 
-     * @returns {HRESULT} 
+     * @returns {ITCallInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddressdevicespecificevent-get_call
      */
-    get_Call(ppCall) {
-        result := ComCall(8, this, "ptr*", ppCall, "HRESULT")
-        return result
+    get_Call() {
+        result := ComCall(8, this, "ptr*", &ppCall := 0, "HRESULT")
+        return ITCallInfo(ppCall)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pParam1 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddressdevicespecificevent-get_lparam1
      */
-    get_lParam1(pParam1) {
-        pParam1Marshal := pParam1 is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pParam1Marshal, pParam1, "HRESULT")
-        return result
+    get_lParam1() {
+        result := ComCall(9, this, "int*", &pParam1 := 0, "HRESULT")
+        return pParam1
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pParam2 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddressdevicespecificevent-get_lparam2
      */
-    get_lParam2(pParam2) {
-        pParam2Marshal := pParam2 is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, pParam2Marshal, pParam2, "HRESULT")
-        return result
+    get_lParam2() {
+        result := ComCall(10, this, "int*", &pParam2 := 0, "HRESULT")
+        return pParam2
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pParam3 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddressdevicespecificevent-get_lparam3
      */
-    get_lParam3(pParam3) {
-        pParam3Marshal := pParam3 is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, pParam3Marshal, pParam3, "HRESULT")
-        return result
+    get_lParam3() {
+        result := ComCall(11, this, "int*", &pParam3 := 0, "HRESULT")
+        return pParam3
     }
 }

@@ -31,153 +31,152 @@ class IRTCProfile extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrKey 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Key(pbstrKey) {
+    get_Key() {
+        pbstrKey := BSTR()
         result := ComCall(3, this, "ptr", pbstrKey, "HRESULT")
-        return result
+        return pbstrKey
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Name(pbstrName) {
+    get_Name() {
+        pbstrName := BSTR()
         result := ComCall(4, this, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrXML 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_XML(pbstrXML) {
+    get_XML() {
+        pbstrXML := BSTR()
         result := ComCall(5, this, "ptr", pbstrXML, "HRESULT")
-        return result
+        return pbstrXML
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ProviderName(pbstrName) {
+    get_ProviderName() {
+        pbstrName := BSTR()
         result := ComCall(6, this, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 
     /**
      * 
      * @param {Integer} enURI 
-     * @param {Pointer<BSTR>} pbstrURI 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ProviderURI(enURI, pbstrURI) {
+    get_ProviderURI(enURI) {
+        pbstrURI := BSTR()
         result := ComCall(7, this, "int", enURI, "ptr", pbstrURI, "HRESULT")
-        return result
+        return pbstrURI
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrData 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ProviderData(pbstrData) {
+    get_ProviderData() {
+        pbstrData := BSTR()
         result := ComCall(8, this, "ptr", pbstrData, "HRESULT")
-        return result
+        return pbstrData
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ClientName(pbstrName) {
+    get_ClientName() {
+        pbstrName := BSTR()
         result := ComCall(9, this, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pfBanner 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_ClientBanner(pfBanner) {
-        result := ComCall(10, this, "ptr", pfBanner, "HRESULT")
-        return result
+    get_ClientBanner() {
+        result := ComCall(10, this, "short*", &pfBanner := 0, "HRESULT")
+        return pfBanner
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrMinVer 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ClientMinVer(pbstrMinVer) {
+    get_ClientMinVer() {
+        pbstrMinVer := BSTR()
         result := ComCall(11, this, "ptr", pbstrMinVer, "HRESULT")
-        return result
+        return pbstrMinVer
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrCurVer 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ClientCurVer(pbstrCurVer) {
+    get_ClientCurVer() {
+        pbstrCurVer := BSTR()
         result := ComCall(12, this, "ptr", pbstrCurVer, "HRESULT")
-        return result
+        return pbstrCurVer
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrUpdateURI 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ClientUpdateURI(pbstrUpdateURI) {
+    get_ClientUpdateURI() {
+        pbstrUpdateURI := BSTR()
         result := ComCall(13, this, "ptr", pbstrUpdateURI, "HRESULT")
-        return result
+        return pbstrUpdateURI
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrData 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ClientData(pbstrData) {
+    get_ClientData() {
+        pbstrData := BSTR()
         result := ComCall(14, this, "ptr", pbstrData, "HRESULT")
-        return result
+        return pbstrData
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrUserURI 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_UserURI(pbstrUserURI) {
+    get_UserURI() {
+        pbstrUserURI := BSTR()
         result := ComCall(15, this, "ptr", pbstrUserURI, "HRESULT")
-        return result
+        return pbstrUserURI
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrUserName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_UserName(pbstrUserName) {
+    get_UserName() {
+        pbstrUserName := BSTR()
         result := ComCall(16, this, "ptr", pbstrUserName, "HRESULT")
-        return result
+        return pbstrUserName
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrUserAccount 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_UserAccount(pbstrUserAccount) {
+    get_UserAccount() {
+        pbstrUserAccount := BSTR()
         result := ComCall(17, this, "ptr", pbstrUserAccount, "HRESULT")
-        return result
+        return pbstrUserAccount
     }
 
     /**
@@ -198,25 +197,19 @@ class IRTCProfile extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} plSupportedSessions 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_SessionCapabilities(plSupportedSessions) {
-        plSupportedSessionsMarshal := plSupportedSessions is VarRef ? "int*" : "ptr"
-
-        result := ComCall(19, this, plSupportedSessionsMarshal, plSupportedSessions, "HRESULT")
-        return result
+    get_SessionCapabilities() {
+        result := ComCall(19, this, "int*", &plSupportedSessions := 0, "HRESULT")
+        return plSupportedSessions
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} penState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_State(penState) {
-        penStateMarshal := penState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(20, this, penStateMarshal, penState, "HRESULT")
-        return result
+    get_State() {
+        result := ComCall(20, this, "int*", &penState := 0, "HRESULT")
+        return penState
     }
 }

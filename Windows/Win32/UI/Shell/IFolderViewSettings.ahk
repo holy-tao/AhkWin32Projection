@@ -33,15 +33,12 @@ class IFolderViewSettings extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderviewsettings-getcolumnpropertylist
      */
-    GetColumnPropertyList(riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetColumnPropertyList(riid) {
+        result := ComCall(3, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
@@ -52,34 +49,30 @@ class IFolderViewSettings extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderviewsettings-getgroupbyproperty
      */
     GetGroupByProperty(pkey, pfGroupAscending) {
-        result := ComCall(4, this, "ptr", pkey, "ptr", pfGroupAscending, "HRESULT")
+        pfGroupAscendingMarshal := pfGroupAscending is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pkey, pfGroupAscendingMarshal, pfGroupAscending, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plvm 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderviewsettings-getviewmode
      */
-    GetViewMode(plvm) {
-        plvmMarshal := plvm is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, plvmMarshal, plvm, "HRESULT")
-        return result
+    GetViewMode() {
+        result := ComCall(5, this, "int*", &plvm := 0, "HRESULT")
+        return plvm
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} puIconSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderviewsettings-geticonsize
      */
-    GetIconSize(puIconSize) {
-        puIconSizeMarshal := puIconSize is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, puIconSizeMarshal, puIconSize, "HRESULT")
-        return result
+    GetIconSize() {
+        result := ComCall(6, this, "uint*", &puIconSize := 0, "HRESULT")
+        return puIconSize
     }
 
     /**
@@ -114,14 +107,11 @@ class IFolderViewSettings extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcVisibleRows 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderviewsettings-getgroupsubsetcount
      */
-    GetGroupSubsetCount(pcVisibleRows) {
-        pcVisibleRowsMarshal := pcVisibleRows is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, pcVisibleRowsMarshal, pcVisibleRows, "HRESULT")
-        return result
+    GetGroupSubsetCount() {
+        result := ComCall(9, this, "uint*", &pcVisibleRows := 0, "HRESULT")
+        return pcVisibleRows
     }
 }

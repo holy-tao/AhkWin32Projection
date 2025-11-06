@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -42,12 +43,12 @@ class IADsPropertyEntry extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Name(retval) {
+    get_Name() {
+        retval := BSTR()
         result := ComCall(8, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -64,14 +65,11 @@ class IADsPropertyEntry extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ADsType(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_ADsType() {
+        result := ComCall(10, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -86,14 +84,11 @@ class IADsPropertyEntry extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ControlCode(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_ControlCode() {
+        result := ComCall(12, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
@@ -108,12 +103,12 @@ class IADsPropertyEntry extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_Values(retval) {
+    get_Values() {
+        retval := VARIANT()
         result := ComCall(14, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**

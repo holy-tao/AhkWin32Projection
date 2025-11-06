@@ -32,14 +32,13 @@ class ITemplatePrinter extends IDispatch{
     /**
      * 
      * @param {BSTR} bstrTitle 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    startDoc(bstrTitle, p) {
+    startDoc(bstrTitle) {
         bstrTitle := bstrTitle is String ? BSTR.Alloc(bstrTitle).Value : bstrTitle
 
-        result := ComCall(7, this, "ptr", bstrTitle, "ptr", p, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", bstrTitle, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -72,43 +71,39 @@ class ITemplatePrinter extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    ensurePrintDialogDefaults(p) {
-        result := ComCall(11, this, "ptr", p, "HRESULT")
-        return result
+    ensurePrintDialogDefaults() {
+        result := ComCall(11, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    showPrintDialog(p) {
-        result := ComCall(12, this, "ptr", p, "HRESULT")
-        return result
+    showPrintDialog() {
+        result := ComCall(12, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    showPageSetupDialog(p) {
-        result := ComCall(13, this, "ptr", p, "HRESULT")
-        return result
+    showPageSetupDialog() {
+        result := ComCall(13, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
      * @param {IUnknown} pMarkup 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    printNonNative(pMarkup, p) {
-        result := ComCall(14, this, "ptr", pMarkup, "ptr", p, "HRESULT")
-        return result
+    printNonNative(pMarkup) {
+        result := ComCall(14, this, "ptr", pMarkup, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -134,12 +129,11 @@ class ITemplatePrinter extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_framesetDocument(p) {
-        result := ComCall(17, this, "ptr", p, "HRESULT")
-        return result
+    get_framesetDocument() {
+        result := ComCall(17, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -154,12 +148,11 @@ class ITemplatePrinter extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_frameActive(p) {
-        result := ComCall(19, this, "ptr", p, "HRESULT")
-        return result
+    get_frameActive() {
+        result := ComCall(19, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -174,12 +167,11 @@ class ITemplatePrinter extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_frameAsShown(p) {
-        result := ComCall(21, this, "ptr", p, "HRESULT")
-        return result
+    get_frameAsShown() {
+        result := ComCall(21, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -194,12 +186,11 @@ class ITemplatePrinter extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_selection(p) {
-        result := ComCall(23, this, "ptr", p, "HRESULT")
-        return result
+    get_selection() {
+        result := ComCall(23, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -214,12 +205,11 @@ class ITemplatePrinter extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_selectedPages(p) {
-        result := ComCall(25, this, "ptr", p, "HRESULT")
-        return result
+    get_selectedPages() {
+        result := ComCall(25, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -234,12 +224,11 @@ class ITemplatePrinter extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_currentPage(p) {
-        result := ComCall(27, this, "ptr", p, "HRESULT")
-        return result
+    get_currentPage() {
+        result := ComCall(27, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -254,12 +243,11 @@ class ITemplatePrinter extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_currentPageAvail(p) {
-        result := ComCall(29, this, "ptr", p, "HRESULT")
-        return result
+    get_currentPageAvail() {
+        result := ComCall(29, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -274,22 +262,20 @@ class ITemplatePrinter extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_collate(p) {
-        result := ComCall(31, this, "ptr", p, "HRESULT")
-        return result
+    get_collate() {
+        result := ComCall(31, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_duplex(p) {
-        result := ComCall(32, this, "ptr", p, "HRESULT")
-        return result
+    get_duplex() {
+        result := ComCall(32, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -304,14 +290,11 @@ class ITemplatePrinter extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_copies(p) {
-        pMarshal := p is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(34, this, pMarshal, p, "HRESULT")
-        return result
+    get_copies() {
+        result := ComCall(34, this, "ushort*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -326,14 +309,11 @@ class ITemplatePrinter extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_pageFrom(p) {
-        pMarshal := p is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(36, this, pMarshal, p, "HRESULT")
-        return result
+    get_pageFrom() {
+        result := ComCall(36, this, "ushort*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -348,14 +328,11 @@ class ITemplatePrinter extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_pageTo(p) {
-        pMarshal := p is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(38, this, pMarshal, p, "HRESULT")
-        return result
+    get_pageTo() {
+        result := ComCall(38, this, "ushort*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -370,12 +347,11 @@ class ITemplatePrinter extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_tableOfLinks(p) {
-        result := ComCall(40, this, "ptr", p, "HRESULT")
-        return result
+    get_tableOfLinks() {
+        result := ComCall(40, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -390,12 +366,11 @@ class ITemplatePrinter extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_allLinkedDocuments(p) {
-        result := ComCall(42, this, "ptr", p, "HRESULT")
-        return result
+    get_allLinkedDocuments() {
+        result := ComCall(42, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -412,12 +387,12 @@ class ITemplatePrinter extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_header(p) {
+    get_header() {
+        p := BSTR()
         result := ComCall(44, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -434,12 +409,12 @@ class ITemplatePrinter extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_footer(p) {
+    get_footer() {
+        p := BSTR()
         result := ComCall(46, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -454,14 +429,11 @@ class ITemplatePrinter extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_marginLeft(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(48, this, pMarshal, p, "HRESULT")
-        return result
+    get_marginLeft() {
+        result := ComCall(48, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -476,14 +448,11 @@ class ITemplatePrinter extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_marginRight(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(50, this, pMarshal, p, "HRESULT")
-        return result
+    get_marginRight() {
+        result := ComCall(50, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -498,14 +467,11 @@ class ITemplatePrinter extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_marginTop(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(52, this, pMarshal, p, "HRESULT")
-        return result
+    get_marginTop() {
+        result := ComCall(52, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -520,86 +486,65 @@ class ITemplatePrinter extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_marginBottom(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(54, this, pMarshal, p, "HRESULT")
-        return result
+    get_marginBottom() {
+        result := ComCall(54, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_pageWidth(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(55, this, pMarshal, p, "HRESULT")
-        return result
+    get_pageWidth() {
+        result := ComCall(55, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_pageHeight(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(56, this, pMarshal, p, "HRESULT")
-        return result
+    get_pageHeight() {
+        result := ComCall(56, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_unprintableLeft(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(57, this, pMarshal, p, "HRESULT")
-        return result
+    get_unprintableLeft() {
+        result := ComCall(57, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_unprintableTop(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(58, this, pMarshal, p, "HRESULT")
-        return result
+    get_unprintableTop() {
+        result := ComCall(58, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_unprintableRight(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(59, this, pMarshal, p, "HRESULT")
-        return result
+    get_unprintableRight() {
+        result := ComCall(59, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_unprintableBottom(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(60, this, pMarshal, p, "HRESULT")
-        return result
+    get_unprintableBottom() {
+        result := ComCall(60, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**

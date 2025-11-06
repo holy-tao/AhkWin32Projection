@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -33,12 +34,12 @@ class IX509CertificateTemplate extends IDispatch{
     /**
      * 
      * @param {Integer} property 
-     * @param {Pointer<VARIANT>} pValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificatetemplate-get_property
      */
-    get_Property(property, pValue) {
+    get_Property(property) {
+        pValue := VARIANT()
         result := ComCall(7, this, "int", property, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 }

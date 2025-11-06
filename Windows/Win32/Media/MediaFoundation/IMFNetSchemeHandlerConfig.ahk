@@ -32,29 +32,23 @@ class IMFNetSchemeHandlerConfig extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcProtocols 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfnetschemehandlerconfig-getnumberofsupportedprotocols
      */
-    GetNumberOfSupportedProtocols(pcProtocols) {
-        pcProtocolsMarshal := pcProtocols is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pcProtocolsMarshal, pcProtocols, "HRESULT")
-        return result
+    GetNumberOfSupportedProtocols() {
+        result := ComCall(3, this, "uint*", &pcProtocols := 0, "HRESULT")
+        return pcProtocols
     }
 
     /**
      * 
      * @param {Integer} nProtocolIndex 
-     * @param {Pointer<Integer>} pnProtocolType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfnetschemehandlerconfig-getsupportedprotocoltype
      */
-    GetSupportedProtocolType(nProtocolIndex, pnProtocolType) {
-        pnProtocolTypeMarshal := pnProtocolType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, "uint", nProtocolIndex, pnProtocolTypeMarshal, pnProtocolType, "HRESULT")
-        return result
+    GetSupportedProtocolType(nProtocolIndex) {
+        result := ComCall(4, this, "uint", nProtocolIndex, "int*", &pnProtocolType := 0, "HRESULT")
+        return pnProtocolType
     }
 
     /**

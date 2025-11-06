@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IStorageProviderPropertyHandler.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -40,42 +41,39 @@ class IStorageProviderHandler extends IUnknown{
     /**
      * 
      * @param {PWSTR} path 
-     * @param {Pointer<IStorageProviderPropertyHandler>} propertyHandler 
-     * @returns {HRESULT} 
+     * @returns {IStorageProviderPropertyHandler} 
      * @see https://learn.microsoft.com/windows/win32/api/storageprovider/nf-storageprovider-istorageproviderhandler-getpropertyhandlerfrompath
      */
-    GetPropertyHandlerFromPath(path, propertyHandler) {
+    GetPropertyHandlerFromPath(path) {
         path := path is String ? StrPtr(path) : path
 
-        result := ComCall(3, this, "ptr", path, "ptr*", propertyHandler, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", path, "ptr*", &propertyHandler := 0, "HRESULT")
+        return IStorageProviderPropertyHandler(propertyHandler)
     }
 
     /**
      * 
      * @param {PWSTR} uri 
-     * @param {Pointer<IStorageProviderPropertyHandler>} propertyHandler 
-     * @returns {HRESULT} 
+     * @returns {IStorageProviderPropertyHandler} 
      * @see https://learn.microsoft.com/windows/win32/api/storageprovider/nf-storageprovider-istorageproviderhandler-getpropertyhandlerfromuri
      */
-    GetPropertyHandlerFromUri(uri, propertyHandler) {
+    GetPropertyHandlerFromUri(uri) {
         uri := uri is String ? StrPtr(uri) : uri
 
-        result := ComCall(4, this, "ptr", uri, "ptr*", propertyHandler, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", uri, "ptr*", &propertyHandler := 0, "HRESULT")
+        return IStorageProviderPropertyHandler(propertyHandler)
     }
 
     /**
      * 
      * @param {PWSTR} fileId 
-     * @param {Pointer<IStorageProviderPropertyHandler>} propertyHandler 
-     * @returns {HRESULT} 
+     * @returns {IStorageProviderPropertyHandler} 
      * @see https://learn.microsoft.com/windows/win32/api/storageprovider/nf-storageprovider-istorageproviderhandler-getpropertyhandlerfromfileid
      */
-    GetPropertyHandlerFromFileId(fileId, propertyHandler) {
+    GetPropertyHandlerFromFileId(fileId) {
         fileId := fileId is String ? StrPtr(fileId) : fileId
 
-        result := ComCall(5, this, "ptr", fileId, "ptr*", propertyHandler, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", fileId, "ptr*", &propertyHandler := 0, "HRESULT")
+        return IStorageProviderPropertyHandler(propertyHandler)
     }
 }

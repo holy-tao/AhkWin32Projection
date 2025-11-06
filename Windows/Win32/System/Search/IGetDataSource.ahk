@@ -31,11 +31,10 @@ class IGetDataSource extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppDataSource 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    GetDataSource(riid, ppDataSource) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", ppDataSource, "HRESULT")
-        return result
+    GetDataSource(riid) {
+        result := ComCall(3, this, "ptr", riid, "ptr*", &ppDataSource := 0, "HRESULT")
+        return IUnknown(ppDataSource)
     }
 }

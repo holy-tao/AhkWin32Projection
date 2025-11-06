@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,37 +33,34 @@ class IFsiItem extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsiitem-get_name
      */
-    get_Name(pVal) {
+    get_Name() {
+        pVal := BSTR()
         result := ComCall(7, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsiitem-get_fullpath
      */
-    get_FullPath(pVal) {
+    get_FullPath() {
+        pVal := BSTR()
         result := ComCall(8, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Float>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsiitem-get_creationtime
      */
-    get_CreationTime(pVal) {
-        pValMarshal := pVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(9, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_CreationTime() {
+        result := ComCall(9, this, "double*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -78,15 +76,12 @@ class IFsiItem extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsiitem-get_lastaccessedtime
      */
-    get_LastAccessedTime(pVal) {
-        pValMarshal := pVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(11, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_LastAccessedTime() {
+        result := ComCall(11, this, "double*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -102,15 +97,12 @@ class IFsiItem extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Float>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsiitem-get_lastmodifiedtime
      */
-    get_LastModifiedTime(pVal) {
-        pValMarshal := pVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(13, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_LastModifiedTime() {
+        result := ComCall(13, this, "double*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -126,13 +118,12 @@ class IFsiItem extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsiitem-get_ishidden
      */
-    get_IsHidden(pVal) {
-        result := ComCall(15, this, "ptr", pVal, "HRESULT")
-        return result
+    get_IsHidden() {
+        result := ComCall(15, this, "short*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -149,24 +140,24 @@ class IFsiItem extends IDispatch{
     /**
      * 
      * @param {Integer} fileSystem 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsiitem-filesystemname
      */
-    FileSystemName(fileSystem, pVal) {
+    FileSystemName(fileSystem) {
+        pVal := BSTR()
         result := ComCall(17, this, "int", fileSystem, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
      * @param {Integer} fileSystem 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsiitem-filesystempath
      */
-    FileSystemPath(fileSystem, pVal) {
+    FileSystemPath(fileSystem) {
+        pVal := BSTR()
         result := ComCall(18, this, "int", fileSystem, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 }

@@ -32,15 +32,12 @@ class INSSBuffer4 extends INSSBuffer3{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcBufferProperties 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsbuffer/nf-wmsbuffer-inssbuffer4-getpropertycount
      */
-    GetPropertyCount(pcBufferProperties) {
-        pcBufferPropertiesMarshal := pcBufferProperties is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, pcBufferPropertiesMarshal, pcBufferProperties, "HRESULT")
-        return result
+    GetPropertyCount() {
+        result := ComCall(12, this, "uint*", &pcBufferProperties := 0, "HRESULT")
+        return pcBufferProperties
     }
 
     /**

@@ -79,14 +79,12 @@ class ITrusteeAdmin extends IUnknown{
      * @param {Integer} cPropertyIDSets 
      * @param {Pointer<DBPROPIDSET>} rgPropertyIDSets 
      * @param {Pointer<Integer>} pcPropertySets 
-     * @param {Pointer<Pointer<DBPROPSET>>} prgPropertySets 
-     * @returns {HRESULT} 
+     * @returns {Pointer<DBPROPSET>} 
      */
-    GetTrusteeProperties(pTrustee, cPropertyIDSets, rgPropertyIDSets, pcPropertySets, prgPropertySets) {
+    GetTrusteeProperties(pTrustee, cPropertyIDSets, rgPropertyIDSets, pcPropertySets) {
         pcPropertySetsMarshal := pcPropertySets is VarRef ? "uint*" : "ptr"
-        prgPropertySetsMarshal := prgPropertySets is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "ptr", pTrustee, "uint", cPropertyIDSets, "ptr", rgPropertyIDSets, pcPropertySetsMarshal, pcPropertySets, prgPropertySetsMarshal, prgPropertySets, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", pTrustee, "uint", cPropertyIDSets, "ptr", rgPropertyIDSets, pcPropertySetsMarshal, pcPropertySets, "ptr*", &prgPropertySets := 0, "HRESULT")
+        return prgPropertySets
     }
 }

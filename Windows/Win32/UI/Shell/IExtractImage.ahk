@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -63,12 +64,12 @@ class IExtractImage extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HBITMAP>} phBmpThumbnail 
-     * @returns {HRESULT} 
+     * @returns {HBITMAP} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iextractimage-extract
      */
-    Extract(phBmpThumbnail) {
+    Extract() {
+        phBmpThumbnail := HBITMAP()
         result := ComCall(4, this, "ptr", phBmpThumbnail, "HRESULT")
-        return result
+        return phBmpThumbnail
     }
 }

@@ -38,15 +38,12 @@ class ID3D12VideoDevice1 extends ID3D12VideoDevice{
      * @param {Pointer<D3D12_VIDEO_MOTION_ESTIMATOR_DESC>} pDesc 
      * @param {ID3D12ProtectedResourceSession} pProtectedResourceSession 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppVideoMotionEstimator 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodevice1-createvideomotionestimator
      */
-    CreateVideoMotionEstimator(pDesc, pProtectedResourceSession, riid, ppVideoMotionEstimator) {
-        ppVideoMotionEstimatorMarshal := ppVideoMotionEstimator is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, "ptr", pDesc, "ptr", pProtectedResourceSession, "ptr", riid, ppVideoMotionEstimatorMarshal, ppVideoMotionEstimator, "HRESULT")
-        return result
+    CreateVideoMotionEstimator(pDesc, pProtectedResourceSession, riid) {
+        result := ComCall(7, this, "ptr", pDesc, "ptr", pProtectedResourceSession, "ptr", riid, "ptr*", &ppVideoMotionEstimator := 0, "HRESULT")
+        return ppVideoMotionEstimator
     }
 
     /**
@@ -54,14 +51,11 @@ class ID3D12VideoDevice1 extends ID3D12VideoDevice{
      * @param {Pointer<D3D12_VIDEO_MOTION_VECTOR_HEAP_DESC>} pDesc 
      * @param {ID3D12ProtectedResourceSession} pProtectedResourceSession 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppVideoMotionVectorHeap 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodevice1-createvideomotionvectorheap
      */
-    CreateVideoMotionVectorHeap(pDesc, pProtectedResourceSession, riid, ppVideoMotionVectorHeap) {
-        ppVideoMotionVectorHeapMarshal := ppVideoMotionVectorHeap is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(8, this, "ptr", pDesc, "ptr", pProtectedResourceSession, "ptr", riid, ppVideoMotionVectorHeapMarshal, ppVideoMotionVectorHeap, "HRESULT")
-        return result
+    CreateVideoMotionVectorHeap(pDesc, pProtectedResourceSession, riid) {
+        result := ComCall(8, this, "ptr", pDesc, "ptr", pProtectedResourceSession, "ptr", riid, "ptr*", &ppVideoMotionVectorHeap := 0, "HRESULT")
+        return ppVideoMotionVectorHeap
     }
 }

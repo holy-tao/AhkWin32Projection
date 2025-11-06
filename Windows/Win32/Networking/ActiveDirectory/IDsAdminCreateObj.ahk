@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IADs.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -58,14 +59,13 @@ class IDsAdminCreateObj extends IUnknown{
     /**
      * 
      * @param {HWND} hwndParent 
-     * @param {Pointer<IADs>} ppADsObj 
-     * @returns {HRESULT} 
+     * @returns {IADs} 
      * @see https://learn.microsoft.com/windows/win32/api/dsadmin/nf-dsadmin-idsadmincreateobj-createmodal
      */
-    CreateModal(hwndParent, ppADsObj) {
+    CreateModal(hwndParent) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
 
-        result := ComCall(4, this, "ptr", hwndParent, "ptr*", ppADsObj, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", hwndParent, "ptr*", &ppADsObj := 0, "HRESULT")
+        return IADs(ppADsObj)
     }
 }

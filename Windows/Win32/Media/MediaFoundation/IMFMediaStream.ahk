@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFMediaSource.ahk
+#Include .\IMFStreamDescriptor.ahk
 #Include .\IMFMediaEventGenerator.ahk
 
 /**
@@ -37,24 +39,22 @@ class IMFMediaStream extends IMFMediaEventGenerator{
 
     /**
      * 
-     * @param {Pointer<IMFMediaSource>} ppMediaSource 
-     * @returns {HRESULT} 
+     * @returns {IMFMediaSource} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediastream-getmediasource
      */
-    GetMediaSource(ppMediaSource) {
-        result := ComCall(7, this, "ptr*", ppMediaSource, "HRESULT")
-        return result
+    GetMediaSource() {
+        result := ComCall(7, this, "ptr*", &ppMediaSource := 0, "HRESULT")
+        return IMFMediaSource(ppMediaSource)
     }
 
     /**
      * 
-     * @param {Pointer<IMFStreamDescriptor>} ppStreamDescriptor 
-     * @returns {HRESULT} 
+     * @returns {IMFStreamDescriptor} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediastream-getstreamdescriptor
      */
-    GetStreamDescriptor(ppStreamDescriptor) {
-        result := ComCall(8, this, "ptr*", ppStreamDescriptor, "HRESULT")
-        return result
+    GetStreamDescriptor() {
+        result := ComCall(8, this, "ptr*", &ppStreamDescriptor := 0, "HRESULT")
+        return IMFStreamDescriptor(ppStreamDescriptor)
     }
 
     /**

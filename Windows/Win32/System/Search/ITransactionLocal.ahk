@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\DistributedTransactionCoordinator\ITransactionOptions.ahk
 #Include ..\DistributedTransactionCoordinator\ITransaction.ahk
 
 /**
@@ -30,12 +31,11 @@ class ITransactionLocal extends ITransaction{
 
     /**
      * 
-     * @param {Pointer<ITransactionOptions>} ppOptions 
-     * @returns {HRESULT} 
+     * @returns {ITransactionOptions} 
      */
-    GetOptionsObject(ppOptions) {
-        result := ComCall(6, this, "ptr*", ppOptions, "HRESULT")
-        return result
+    GetOptionsObject() {
+        result := ComCall(6, this, "ptr*", &ppOptions := 0, "HRESULT")
+        return ITransactionOptions(ppOptions)
     }
 
     /**
@@ -43,13 +43,10 @@ class ITransactionLocal extends ITransaction{
      * @param {Integer} isoLevel 
      * @param {Integer} isoFlags 
      * @param {ITransactionOptions} pOtherOptions 
-     * @param {Pointer<Integer>} pulTransactionLevel 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    StartTransaction(isoLevel, isoFlags, pOtherOptions, pulTransactionLevel) {
-        pulTransactionLevelMarshal := pulTransactionLevel is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, "int", isoLevel, "uint", isoFlags, "ptr", pOtherOptions, pulTransactionLevelMarshal, pulTransactionLevel, "HRESULT")
-        return result
+    StartTransaction(isoLevel, isoFlags, pOtherOptions) {
+        result := ComCall(7, this, "int", isoLevel, "uint", isoFlags, "ptr", pOtherOptions, "uint*", &pulTransactionLevel := 0, "HRESULT")
+        return pulTransactionLevel
     }
 }

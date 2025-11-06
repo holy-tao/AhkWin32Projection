@@ -34,16 +34,13 @@ class ISpatialInteractionManagerInterop extends IInspectable{
      * 
      * @param {HWND} window 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} spatialInteractionManager 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/spatialinteractionmanagerinterop/nf-spatialinteractionmanagerinterop-ispatialinteractionmanagerinterop-getforwindow
      */
-    GetForWindow(window, riid, spatialInteractionManager) {
+    GetForWindow(window, riid) {
         window := window is Win32Handle ? NumGet(window, "ptr") : window
 
-        spatialInteractionManagerMarshal := spatialInteractionManager is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", window, "ptr", riid, spatialInteractionManagerMarshal, spatialInteractionManager, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", window, "ptr", riid, "ptr*", &spatialInteractionManager := 0, "HRESULT")
+        return spatialInteractionManager
     }
 }

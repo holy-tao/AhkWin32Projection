@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IUIAutomationElementArray.ahk
 #Include .\IUIAutomationElement.ahk
 
 /**
@@ -32,71 +33,61 @@ class IUIAutomationElement2 extends IUIAutomationElement{
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement2-get_currentoptimizeforvisualcontent
      */
-    get_CurrentOptimizeForVisualContent(retVal) {
-        result := ComCall(85, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CurrentOptimizeForVisualContent() {
+        result := ComCall(85, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement2-get_cachedoptimizeforvisualcontent
      */
-    get_CachedOptimizeForVisualContent(retVal) {
-        result := ComCall(86, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CachedOptimizeForVisualContent() {
+        result := ComCall(86, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement2-get_currentlivesetting
      */
-    get_CurrentLiveSetting(retVal) {
-        retValMarshal := retVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(87, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CurrentLiveSetting() {
+        result := ComCall(87, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement2-get_cachedlivesetting
      */
-    get_CachedLiveSetting(retVal) {
-        retValMarshal := retVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(88, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CachedLiveSetting() {
+        result := ComCall(88, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<IUIAutomationElementArray>} retVal 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElementArray} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement2-get_currentflowsfrom
      */
-    get_CurrentFlowsFrom(retVal) {
-        result := ComCall(89, this, "ptr*", retVal, "HRESULT")
-        return result
+    get_CurrentFlowsFrom() {
+        result := ComCall(89, this, "ptr*", &retVal := 0, "HRESULT")
+        return IUIAutomationElementArray(retVal)
     }
 
     /**
      * 
-     * @param {Pointer<IUIAutomationElementArray>} retVal 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationElementArray} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement2-get_cachedflowsfrom
      */
-    get_CachedFlowsFrom(retVal) {
-        result := ComCall(90, this, "ptr*", retVal, "HRESULT")
-        return result
+    get_CachedFlowsFrom() {
+        result := ComCall(90, this, "ptr*", &retVal := 0, "HRESULT")
+        return IUIAutomationElementArray(retVal)
     }
 }

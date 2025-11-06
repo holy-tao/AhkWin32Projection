@@ -1,6 +1,30 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID3D11Buffer.ahk
+#Include .\ID3D11Texture1D.ahk
+#Include .\ID3D11Texture2D.ahk
+#Include .\ID3D11Texture3D.ahk
+#Include .\ID3D11ShaderResourceView.ahk
+#Include .\ID3D11UnorderedAccessView.ahk
+#Include .\ID3D11RenderTargetView.ahk
+#Include .\ID3D11DepthStencilView.ahk
+#Include .\ID3D11InputLayout.ahk
+#Include .\ID3D11VertexShader.ahk
+#Include .\ID3D11GeometryShader.ahk
+#Include .\ID3D11PixelShader.ahk
+#Include .\ID3D11HullShader.ahk
+#Include .\ID3D11DomainShader.ahk
+#Include .\ID3D11ComputeShader.ahk
+#Include .\ID3D11ClassLinkage.ahk
+#Include .\ID3D11BlendState.ahk
+#Include .\ID3D11DepthStencilState.ahk
+#Include .\ID3D11RasterizerState.ahk
+#Include .\ID3D11SamplerState.ahk
+#Include .\ID3D11Query.ahk
+#Include .\ID3D11Predicate.ahk
+#Include .\ID3D11Counter.ahk
+#Include .\ID3D11DeviceContext.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -43,104 +67,96 @@ class ID3D11Device extends IUnknown{
      * 
      * @param {Pointer<D3D11_BUFFER_DESC>} pDesc 
      * @param {Pointer<D3D11_SUBRESOURCE_DATA>} pInitialData 
-     * @param {Pointer<ID3D11Buffer>} ppBuffer 
-     * @returns {HRESULT} 
+     * @returns {ID3D11Buffer} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-createbuffer
      */
-    CreateBuffer(pDesc, pInitialData, ppBuffer) {
-        result := ComCall(3, this, "ptr", pDesc, "ptr", pInitialData, "ptr*", ppBuffer, "HRESULT")
-        return result
+    CreateBuffer(pDesc, pInitialData) {
+        result := ComCall(3, this, "ptr", pDesc, "ptr", pInitialData, "ptr*", &ppBuffer := 0, "HRESULT")
+        return ID3D11Buffer(ppBuffer)
     }
 
     /**
      * 
      * @param {Pointer<D3D11_TEXTURE1D_DESC>} pDesc 
      * @param {Pointer<D3D11_SUBRESOURCE_DATA>} pInitialData 
-     * @param {Pointer<ID3D11Texture1D>} ppTexture1D 
-     * @returns {HRESULT} 
+     * @returns {ID3D11Texture1D} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-createtexture1d
      */
-    CreateTexture1D(pDesc, pInitialData, ppTexture1D) {
-        result := ComCall(4, this, "ptr", pDesc, "ptr", pInitialData, "ptr*", ppTexture1D, "HRESULT")
-        return result
+    CreateTexture1D(pDesc, pInitialData) {
+        result := ComCall(4, this, "ptr", pDesc, "ptr", pInitialData, "ptr*", &ppTexture1D := 0, "HRESULT")
+        return ID3D11Texture1D(ppTexture1D)
     }
 
     /**
      * 
      * @param {Pointer<D3D11_TEXTURE2D_DESC>} pDesc 
      * @param {Pointer<D3D11_SUBRESOURCE_DATA>} pInitialData 
-     * @param {Pointer<ID3D11Texture2D>} ppTexture2D 
-     * @returns {HRESULT} 
+     * @returns {ID3D11Texture2D} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-createtexture2d
      */
-    CreateTexture2D(pDesc, pInitialData, ppTexture2D) {
-        result := ComCall(5, this, "ptr", pDesc, "ptr", pInitialData, "ptr*", ppTexture2D, "HRESULT")
-        return result
+    CreateTexture2D(pDesc, pInitialData) {
+        result := ComCall(5, this, "ptr", pDesc, "ptr", pInitialData, "ptr*", &ppTexture2D := 0, "HRESULT")
+        return ID3D11Texture2D(ppTexture2D)
     }
 
     /**
      * 
      * @param {Pointer<D3D11_TEXTURE3D_DESC>} pDesc 
      * @param {Pointer<D3D11_SUBRESOURCE_DATA>} pInitialData 
-     * @param {Pointer<ID3D11Texture3D>} ppTexture3D 
-     * @returns {HRESULT} 
+     * @returns {ID3D11Texture3D} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-createtexture3d
      */
-    CreateTexture3D(pDesc, pInitialData, ppTexture3D) {
-        result := ComCall(6, this, "ptr", pDesc, "ptr", pInitialData, "ptr*", ppTexture3D, "HRESULT")
-        return result
+    CreateTexture3D(pDesc, pInitialData) {
+        result := ComCall(6, this, "ptr", pDesc, "ptr", pInitialData, "ptr*", &ppTexture3D := 0, "HRESULT")
+        return ID3D11Texture3D(ppTexture3D)
     }
 
     /**
      * 
      * @param {ID3D11Resource} pResource 
      * @param {Pointer<D3D11_SHADER_RESOURCE_VIEW_DESC>} pDesc 
-     * @param {Pointer<ID3D11ShaderResourceView>} ppSRView 
-     * @returns {HRESULT} 
+     * @returns {ID3D11ShaderResourceView} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-createshaderresourceview
      */
-    CreateShaderResourceView(pResource, pDesc, ppSRView) {
-        result := ComCall(7, this, "ptr", pResource, "ptr", pDesc, "ptr*", ppSRView, "HRESULT")
-        return result
+    CreateShaderResourceView(pResource, pDesc) {
+        result := ComCall(7, this, "ptr", pResource, "ptr", pDesc, "ptr*", &ppSRView := 0, "HRESULT")
+        return ID3D11ShaderResourceView(ppSRView)
     }
 
     /**
      * 
      * @param {ID3D11Resource} pResource 
      * @param {Pointer<D3D11_UNORDERED_ACCESS_VIEW_DESC>} pDesc 
-     * @param {Pointer<ID3D11UnorderedAccessView>} ppUAView 
-     * @returns {HRESULT} 
+     * @returns {ID3D11UnorderedAccessView} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-createunorderedaccessview
      */
-    CreateUnorderedAccessView(pResource, pDesc, ppUAView) {
-        result := ComCall(8, this, "ptr", pResource, "ptr", pDesc, "ptr*", ppUAView, "HRESULT")
-        return result
+    CreateUnorderedAccessView(pResource, pDesc) {
+        result := ComCall(8, this, "ptr", pResource, "ptr", pDesc, "ptr*", &ppUAView := 0, "HRESULT")
+        return ID3D11UnorderedAccessView(ppUAView)
     }
 
     /**
      * 
      * @param {ID3D11Resource} pResource 
      * @param {Pointer<D3D11_RENDER_TARGET_VIEW_DESC>} pDesc 
-     * @param {Pointer<ID3D11RenderTargetView>} ppRTView 
-     * @returns {HRESULT} 
+     * @returns {ID3D11RenderTargetView} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-createrendertargetview
      */
-    CreateRenderTargetView(pResource, pDesc, ppRTView) {
-        result := ComCall(9, this, "ptr", pResource, "ptr", pDesc, "ptr*", ppRTView, "HRESULT")
-        return result
+    CreateRenderTargetView(pResource, pDesc) {
+        result := ComCall(9, this, "ptr", pResource, "ptr", pDesc, "ptr*", &ppRTView := 0, "HRESULT")
+        return ID3D11RenderTargetView(ppRTView)
     }
 
     /**
      * 
      * @param {ID3D11Resource} pResource 
      * @param {Pointer<D3D11_DEPTH_STENCIL_VIEW_DESC>} pDesc 
-     * @param {Pointer<ID3D11DepthStencilView>} ppDepthStencilView 
-     * @returns {HRESULT} 
+     * @returns {ID3D11DepthStencilView} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-createdepthstencilview
      */
-    CreateDepthStencilView(pResource, pDesc, ppDepthStencilView) {
-        result := ComCall(10, this, "ptr", pResource, "ptr", pDesc, "ptr*", ppDepthStencilView, "HRESULT")
-        return result
+    CreateDepthStencilView(pResource, pDesc) {
+        result := ComCall(10, this, "ptr", pResource, "ptr", pDesc, "ptr*", &ppDepthStencilView := 0, "HRESULT")
+        return ID3D11DepthStencilView(ppDepthStencilView)
     }
 
     /**
@@ -149,15 +165,14 @@ class ID3D11Device extends IUnknown{
      * @param {Integer} NumElements 
      * @param {Pointer<Void>} pShaderBytecodeWithInputSignature 
      * @param {Pointer} BytecodeLength 
-     * @param {Pointer<ID3D11InputLayout>} ppInputLayout 
-     * @returns {HRESULT} 
+     * @returns {ID3D11InputLayout} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-createinputlayout
      */
-    CreateInputLayout(pInputElementDescs, NumElements, pShaderBytecodeWithInputSignature, BytecodeLength, ppInputLayout) {
+    CreateInputLayout(pInputElementDescs, NumElements, pShaderBytecodeWithInputSignature, BytecodeLength) {
         pShaderBytecodeWithInputSignatureMarshal := pShaderBytecodeWithInputSignature is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(11, this, "ptr", pInputElementDescs, "uint", NumElements, pShaderBytecodeWithInputSignatureMarshal, pShaderBytecodeWithInputSignature, "ptr", BytecodeLength, "ptr*", ppInputLayout, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", pInputElementDescs, "uint", NumElements, pShaderBytecodeWithInputSignatureMarshal, pShaderBytecodeWithInputSignature, "ptr", BytecodeLength, "ptr*", &ppInputLayout := 0, "HRESULT")
+        return ID3D11InputLayout(ppInputLayout)
     }
 
     /**
@@ -165,15 +180,14 @@ class ID3D11Device extends IUnknown{
      * @param {Pointer<Void>} pShaderBytecode 
      * @param {Pointer} BytecodeLength 
      * @param {ID3D11ClassLinkage} pClassLinkage 
-     * @param {Pointer<ID3D11VertexShader>} ppVertexShader 
-     * @returns {HRESULT} 
+     * @returns {ID3D11VertexShader} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-createvertexshader
      */
-    CreateVertexShader(pShaderBytecode, BytecodeLength, pClassLinkage, ppVertexShader) {
+    CreateVertexShader(pShaderBytecode, BytecodeLength, pClassLinkage) {
         pShaderBytecodeMarshal := pShaderBytecode is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(12, this, pShaderBytecodeMarshal, pShaderBytecode, "ptr", BytecodeLength, "ptr", pClassLinkage, "ptr*", ppVertexShader, "HRESULT")
-        return result
+        result := ComCall(12, this, pShaderBytecodeMarshal, pShaderBytecode, "ptr", BytecodeLength, "ptr", pClassLinkage, "ptr*", &ppVertexShader := 0, "HRESULT")
+        return ID3D11VertexShader(ppVertexShader)
     }
 
     /**
@@ -181,15 +195,14 @@ class ID3D11Device extends IUnknown{
      * @param {Pointer<Void>} pShaderBytecode 
      * @param {Pointer} BytecodeLength 
      * @param {ID3D11ClassLinkage} pClassLinkage 
-     * @param {Pointer<ID3D11GeometryShader>} ppGeometryShader 
-     * @returns {HRESULT} 
+     * @returns {ID3D11GeometryShader} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-creategeometryshader
      */
-    CreateGeometryShader(pShaderBytecode, BytecodeLength, pClassLinkage, ppGeometryShader) {
+    CreateGeometryShader(pShaderBytecode, BytecodeLength, pClassLinkage) {
         pShaderBytecodeMarshal := pShaderBytecode is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(13, this, pShaderBytecodeMarshal, pShaderBytecode, "ptr", BytecodeLength, "ptr", pClassLinkage, "ptr*", ppGeometryShader, "HRESULT")
-        return result
+        result := ComCall(13, this, pShaderBytecodeMarshal, pShaderBytecode, "ptr", BytecodeLength, "ptr", pClassLinkage, "ptr*", &ppGeometryShader := 0, "HRESULT")
+        return ID3D11GeometryShader(ppGeometryShader)
     }
 
     /**
@@ -202,16 +215,15 @@ class ID3D11Device extends IUnknown{
      * @param {Integer} NumStrides 
      * @param {Integer} RasterizedStream 
      * @param {ID3D11ClassLinkage} pClassLinkage 
-     * @param {Pointer<ID3D11GeometryShader>} ppGeometryShader 
-     * @returns {HRESULT} 
+     * @returns {ID3D11GeometryShader} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-creategeometryshaderwithstreamoutput
      */
-    CreateGeometryShaderWithStreamOutput(pShaderBytecode, BytecodeLength, pSODeclaration, NumEntries, pBufferStrides, NumStrides, RasterizedStream, pClassLinkage, ppGeometryShader) {
+    CreateGeometryShaderWithStreamOutput(pShaderBytecode, BytecodeLength, pSODeclaration, NumEntries, pBufferStrides, NumStrides, RasterizedStream, pClassLinkage) {
         pShaderBytecodeMarshal := pShaderBytecode is VarRef ? "ptr" : "ptr"
         pBufferStridesMarshal := pBufferStrides is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, pShaderBytecodeMarshal, pShaderBytecode, "ptr", BytecodeLength, "ptr", pSODeclaration, "uint", NumEntries, pBufferStridesMarshal, pBufferStrides, "uint", NumStrides, "uint", RasterizedStream, "ptr", pClassLinkage, "ptr*", ppGeometryShader, "HRESULT")
-        return result
+        result := ComCall(14, this, pShaderBytecodeMarshal, pShaderBytecode, "ptr", BytecodeLength, "ptr", pSODeclaration, "uint", NumEntries, pBufferStridesMarshal, pBufferStrides, "uint", NumStrides, "uint", RasterizedStream, "ptr", pClassLinkage, "ptr*", &ppGeometryShader := 0, "HRESULT")
+        return ID3D11GeometryShader(ppGeometryShader)
     }
 
     /**
@@ -219,15 +231,14 @@ class ID3D11Device extends IUnknown{
      * @param {Pointer<Void>} pShaderBytecode 
      * @param {Pointer} BytecodeLength 
      * @param {ID3D11ClassLinkage} pClassLinkage 
-     * @param {Pointer<ID3D11PixelShader>} ppPixelShader 
-     * @returns {HRESULT} 
+     * @returns {ID3D11PixelShader} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-createpixelshader
      */
-    CreatePixelShader(pShaderBytecode, BytecodeLength, pClassLinkage, ppPixelShader) {
+    CreatePixelShader(pShaderBytecode, BytecodeLength, pClassLinkage) {
         pShaderBytecodeMarshal := pShaderBytecode is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(15, this, pShaderBytecodeMarshal, pShaderBytecode, "ptr", BytecodeLength, "ptr", pClassLinkage, "ptr*", ppPixelShader, "HRESULT")
-        return result
+        result := ComCall(15, this, pShaderBytecodeMarshal, pShaderBytecode, "ptr", BytecodeLength, "ptr", pClassLinkage, "ptr*", &ppPixelShader := 0, "HRESULT")
+        return ID3D11PixelShader(ppPixelShader)
     }
 
     /**
@@ -235,15 +246,14 @@ class ID3D11Device extends IUnknown{
      * @param {Pointer<Void>} pShaderBytecode 
      * @param {Pointer} BytecodeLength 
      * @param {ID3D11ClassLinkage} pClassLinkage 
-     * @param {Pointer<ID3D11HullShader>} ppHullShader 
-     * @returns {HRESULT} 
+     * @returns {ID3D11HullShader} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-createhullshader
      */
-    CreateHullShader(pShaderBytecode, BytecodeLength, pClassLinkage, ppHullShader) {
+    CreateHullShader(pShaderBytecode, BytecodeLength, pClassLinkage) {
         pShaderBytecodeMarshal := pShaderBytecode is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(16, this, pShaderBytecodeMarshal, pShaderBytecode, "ptr", BytecodeLength, "ptr", pClassLinkage, "ptr*", ppHullShader, "HRESULT")
-        return result
+        result := ComCall(16, this, pShaderBytecodeMarshal, pShaderBytecode, "ptr", BytecodeLength, "ptr", pClassLinkage, "ptr*", &ppHullShader := 0, "HRESULT")
+        return ID3D11HullShader(ppHullShader)
     }
 
     /**
@@ -251,15 +261,14 @@ class ID3D11Device extends IUnknown{
      * @param {Pointer<Void>} pShaderBytecode 
      * @param {Pointer} BytecodeLength 
      * @param {ID3D11ClassLinkage} pClassLinkage 
-     * @param {Pointer<ID3D11DomainShader>} ppDomainShader 
-     * @returns {HRESULT} 
+     * @returns {ID3D11DomainShader} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-createdomainshader
      */
-    CreateDomainShader(pShaderBytecode, BytecodeLength, pClassLinkage, ppDomainShader) {
+    CreateDomainShader(pShaderBytecode, BytecodeLength, pClassLinkage) {
         pShaderBytecodeMarshal := pShaderBytecode is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(17, this, pShaderBytecodeMarshal, pShaderBytecode, "ptr", BytecodeLength, "ptr", pClassLinkage, "ptr*", ppDomainShader, "HRESULT")
-        return result
+        result := ComCall(17, this, pShaderBytecodeMarshal, pShaderBytecode, "ptr", BytecodeLength, "ptr", pClassLinkage, "ptr*", &ppDomainShader := 0, "HRESULT")
+        return ID3D11DomainShader(ppDomainShader)
     }
 
     /**
@@ -267,168 +276,149 @@ class ID3D11Device extends IUnknown{
      * @param {Pointer<Void>} pShaderBytecode 
      * @param {Pointer} BytecodeLength 
      * @param {ID3D11ClassLinkage} pClassLinkage 
-     * @param {Pointer<ID3D11ComputeShader>} ppComputeShader 
-     * @returns {HRESULT} 
+     * @returns {ID3D11ComputeShader} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-createcomputeshader
      */
-    CreateComputeShader(pShaderBytecode, BytecodeLength, pClassLinkage, ppComputeShader) {
+    CreateComputeShader(pShaderBytecode, BytecodeLength, pClassLinkage) {
         pShaderBytecodeMarshal := pShaderBytecode is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(18, this, pShaderBytecodeMarshal, pShaderBytecode, "ptr", BytecodeLength, "ptr", pClassLinkage, "ptr*", ppComputeShader, "HRESULT")
-        return result
+        result := ComCall(18, this, pShaderBytecodeMarshal, pShaderBytecode, "ptr", BytecodeLength, "ptr", pClassLinkage, "ptr*", &ppComputeShader := 0, "HRESULT")
+        return ID3D11ComputeShader(ppComputeShader)
     }
 
     /**
      * 
-     * @param {Pointer<ID3D11ClassLinkage>} ppLinkage 
-     * @returns {HRESULT} 
+     * @returns {ID3D11ClassLinkage} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-createclasslinkage
      */
-    CreateClassLinkage(ppLinkage) {
-        result := ComCall(19, this, "ptr*", ppLinkage, "HRESULT")
-        return result
+    CreateClassLinkage() {
+        result := ComCall(19, this, "ptr*", &ppLinkage := 0, "HRESULT")
+        return ID3D11ClassLinkage(ppLinkage)
     }
 
     /**
      * 
      * @param {Pointer<D3D11_BLEND_DESC>} pBlendStateDesc 
-     * @param {Pointer<ID3D11BlendState>} ppBlendState 
-     * @returns {HRESULT} 
+     * @returns {ID3D11BlendState} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-createblendstate
      */
-    CreateBlendState(pBlendStateDesc, ppBlendState) {
-        result := ComCall(20, this, "ptr", pBlendStateDesc, "ptr*", ppBlendState, "HRESULT")
-        return result
+    CreateBlendState(pBlendStateDesc) {
+        result := ComCall(20, this, "ptr", pBlendStateDesc, "ptr*", &ppBlendState := 0, "HRESULT")
+        return ID3D11BlendState(ppBlendState)
     }
 
     /**
      * 
      * @param {Pointer<D3D11_DEPTH_STENCIL_DESC>} pDepthStencilDesc 
-     * @param {Pointer<ID3D11DepthStencilState>} ppDepthStencilState 
-     * @returns {HRESULT} 
+     * @returns {ID3D11DepthStencilState} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-createdepthstencilstate
      */
-    CreateDepthStencilState(pDepthStencilDesc, ppDepthStencilState) {
-        result := ComCall(21, this, "ptr", pDepthStencilDesc, "ptr*", ppDepthStencilState, "HRESULT")
-        return result
+    CreateDepthStencilState(pDepthStencilDesc) {
+        result := ComCall(21, this, "ptr", pDepthStencilDesc, "ptr*", &ppDepthStencilState := 0, "HRESULT")
+        return ID3D11DepthStencilState(ppDepthStencilState)
     }
 
     /**
      * 
      * @param {Pointer<D3D11_RASTERIZER_DESC>} pRasterizerDesc 
-     * @param {Pointer<ID3D11RasterizerState>} ppRasterizerState 
-     * @returns {HRESULT} 
+     * @returns {ID3D11RasterizerState} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-createrasterizerstate
      */
-    CreateRasterizerState(pRasterizerDesc, ppRasterizerState) {
-        result := ComCall(22, this, "ptr", pRasterizerDesc, "ptr*", ppRasterizerState, "HRESULT")
-        return result
+    CreateRasterizerState(pRasterizerDesc) {
+        result := ComCall(22, this, "ptr", pRasterizerDesc, "ptr*", &ppRasterizerState := 0, "HRESULT")
+        return ID3D11RasterizerState(ppRasterizerState)
     }
 
     /**
      * 
      * @param {Pointer<D3D11_SAMPLER_DESC>} pSamplerDesc 
-     * @param {Pointer<ID3D11SamplerState>} ppSamplerState 
-     * @returns {HRESULT} 
+     * @returns {ID3D11SamplerState} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-createsamplerstate
      */
-    CreateSamplerState(pSamplerDesc, ppSamplerState) {
-        result := ComCall(23, this, "ptr", pSamplerDesc, "ptr*", ppSamplerState, "HRESULT")
-        return result
+    CreateSamplerState(pSamplerDesc) {
+        result := ComCall(23, this, "ptr", pSamplerDesc, "ptr*", &ppSamplerState := 0, "HRESULT")
+        return ID3D11SamplerState(ppSamplerState)
     }
 
     /**
      * 
      * @param {Pointer<D3D11_QUERY_DESC>} pQueryDesc 
-     * @param {Pointer<ID3D11Query>} ppQuery 
-     * @returns {HRESULT} 
+     * @returns {ID3D11Query} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-createquery
      */
-    CreateQuery(pQueryDesc, ppQuery) {
-        result := ComCall(24, this, "ptr", pQueryDesc, "ptr*", ppQuery, "HRESULT")
-        return result
+    CreateQuery(pQueryDesc) {
+        result := ComCall(24, this, "ptr", pQueryDesc, "ptr*", &ppQuery := 0, "HRESULT")
+        return ID3D11Query(ppQuery)
     }
 
     /**
      * 
      * @param {Pointer<D3D11_QUERY_DESC>} pPredicateDesc 
-     * @param {Pointer<ID3D11Predicate>} ppPredicate 
-     * @returns {HRESULT} 
+     * @returns {ID3D11Predicate} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-createpredicate
      */
-    CreatePredicate(pPredicateDesc, ppPredicate) {
-        result := ComCall(25, this, "ptr", pPredicateDesc, "ptr*", ppPredicate, "HRESULT")
-        return result
+    CreatePredicate(pPredicateDesc) {
+        result := ComCall(25, this, "ptr", pPredicateDesc, "ptr*", &ppPredicate := 0, "HRESULT")
+        return ID3D11Predicate(ppPredicate)
     }
 
     /**
      * 
      * @param {Pointer<D3D11_COUNTER_DESC>} pCounterDesc 
-     * @param {Pointer<ID3D11Counter>} ppCounter 
-     * @returns {HRESULT} 
+     * @returns {ID3D11Counter} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-createcounter
      */
-    CreateCounter(pCounterDesc, ppCounter) {
-        result := ComCall(26, this, "ptr", pCounterDesc, "ptr*", ppCounter, "HRESULT")
-        return result
+    CreateCounter(pCounterDesc) {
+        result := ComCall(26, this, "ptr", pCounterDesc, "ptr*", &ppCounter := 0, "HRESULT")
+        return ID3D11Counter(ppCounter)
     }
 
     /**
      * 
      * @param {Integer} ContextFlags 
-     * @param {Pointer<ID3D11DeviceContext>} ppDeferredContext 
-     * @returns {HRESULT} 
+     * @returns {ID3D11DeviceContext} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-createdeferredcontext
      */
-    CreateDeferredContext(ContextFlags, ppDeferredContext) {
-        result := ComCall(27, this, "uint", ContextFlags, "ptr*", ppDeferredContext, "HRESULT")
-        return result
+    CreateDeferredContext(ContextFlags) {
+        result := ComCall(27, this, "uint", ContextFlags, "ptr*", &ppDeferredContext := 0, "HRESULT")
+        return ID3D11DeviceContext(ppDeferredContext)
     }
 
     /**
      * 
      * @param {HANDLE} hResource 
      * @param {Pointer<Guid>} ReturnedInterface 
-     * @param {Pointer<Pointer<Void>>} ppResource 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-opensharedresource
      */
-    OpenSharedResource(hResource, ReturnedInterface, ppResource) {
+    OpenSharedResource(hResource, ReturnedInterface) {
         hResource := hResource is Win32Handle ? NumGet(hResource, "ptr") : hResource
 
-        ppResourceMarshal := ppResource is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(28, this, "ptr", hResource, "ptr", ReturnedInterface, ppResourceMarshal, ppResource, "HRESULT")
-        return result
+        result := ComCall(28, this, "ptr", hResource, "ptr", ReturnedInterface, "ptr*", &ppResource := 0, "HRESULT")
+        return ppResource
     }
 
     /**
      * 
      * @param {Integer} Format 
-     * @param {Pointer<Integer>} pFormatSupport 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-checkformatsupport
      */
-    CheckFormatSupport(Format, pFormatSupport) {
-        pFormatSupportMarshal := pFormatSupport is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(29, this, "int", Format, pFormatSupportMarshal, pFormatSupport, "HRESULT")
-        return result
+    CheckFormatSupport(Format) {
+        result := ComCall(29, this, "int", Format, "uint*", &pFormatSupport := 0, "HRESULT")
+        return pFormatSupport
     }
 
     /**
      * 
      * @param {Integer} Format 
      * @param {Integer} SampleCount 
-     * @param {Pointer<Integer>} pNumQualityLevels 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11device-checkmultisamplequalitylevels
      */
-    CheckMultisampleQualityLevels(Format, SampleCount, pNumQualityLevels) {
-        pNumQualityLevelsMarshal := pNumQualityLevels is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(30, this, "int", Format, "uint", SampleCount, pNumQualityLevelsMarshal, pNumQualityLevels, "HRESULT")
-        return result
+    CheckMultisampleQualityLevels(Format, SampleCount) {
+        result := ComCall(30, this, "int", Format, "uint", SampleCount, "uint*", &pNumQualityLevels := 0, "HRESULT")
+        return pNumQualityLevels
     }
 
     /**

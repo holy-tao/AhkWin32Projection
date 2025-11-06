@@ -32,12 +32,11 @@ class IObjectModelProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppUnknown 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iobjectmodelprovider-getunderlyingobjectmodel
      */
-    GetUnderlyingObjectModel(ppUnknown) {
-        result := ComCall(3, this, "ptr*", ppUnknown, "HRESULT")
-        return result
+    GetUnderlyingObjectModel() {
+        result := ComCall(3, this, "ptr*", &ppUnknown := 0, "HRESULT")
+        return IUnknown(ppUnknown)
     }
 }

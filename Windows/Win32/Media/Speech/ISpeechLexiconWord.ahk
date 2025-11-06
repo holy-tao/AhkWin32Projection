@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\ISpeechLexiconPronunciations.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,45 +32,38 @@ class ISpeechLexiconWord extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} LangId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_LangId(LangId) {
-        LangIdMarshal := LangId is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, LangIdMarshal, LangId, "HRESULT")
-        return result
+    get_LangId() {
+        result := ComCall(7, this, "int*", &LangId := 0, "HRESULT")
+        return LangId
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} WordType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Type(WordType) {
-        WordTypeMarshal := WordType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, WordTypeMarshal, WordType, "HRESULT")
-        return result
+    get_Type() {
+        result := ComCall(8, this, "int*", &WordType := 0, "HRESULT")
+        return WordType
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} Word 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Word(Word) {
+    get_Word() {
+        Word := BSTR()
         result := ComCall(9, this, "ptr", Word, "HRESULT")
-        return result
+        return Word
     }
 
     /**
      * 
-     * @param {Pointer<ISpeechLexiconPronunciations>} Pronunciations 
-     * @returns {HRESULT} 
+     * @returns {ISpeechLexiconPronunciations} 
      */
-    get_Pronunciations(Pronunciations) {
-        result := ComCall(10, this, "ptr*", Pronunciations, "HRESULT")
-        return result
+    get_Pronunciations() {
+        result := ComCall(10, this, "ptr*", &Pronunciations := 0, "HRESULT")
+        return ISpeechLexiconPronunciations(Pronunciations)
     }
 }

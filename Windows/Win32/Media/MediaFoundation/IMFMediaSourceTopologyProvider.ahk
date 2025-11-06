@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFTopology.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -33,12 +34,11 @@ class IMFMediaSourceTopologyProvider extends IUnknown{
     /**
      * 
      * @param {IMFPresentationDescriptor} pPresentationDescriptor 
-     * @param {Pointer<IMFTopology>} ppTopology 
-     * @returns {HRESULT} 
+     * @returns {IMFTopology} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasourcetopologyprovider-getmediasourcetopology
      */
-    GetMediaSourceTopology(pPresentationDescriptor, ppTopology) {
-        result := ComCall(3, this, "ptr", pPresentationDescriptor, "ptr*", ppTopology, "HRESULT")
-        return result
+    GetMediaSourceTopology(pPresentationDescriptor) {
+        result := ComCall(3, this, "ptr", pPresentationDescriptor, "ptr*", &ppTopology := 0, "HRESULT")
+        return IMFTopology(ppTopology)
     }
 }

@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IHostCrst.ahk
+#Include .\IHostAutoEvent.ahk
+#Include .\IHostManualEvent.ahk
+#Include .\IHostSemaphore.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -40,93 +44,82 @@ class IHostSyncManager extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IHostCrst>} ppCrst 
-     * @returns {HRESULT} 
+     * @returns {IHostCrst} 
      */
-    CreateCrst(ppCrst) {
-        result := ComCall(4, this, "ptr*", ppCrst, "HRESULT")
-        return result
+    CreateCrst() {
+        result := ComCall(4, this, "ptr*", &ppCrst := 0, "HRESULT")
+        return IHostCrst(ppCrst)
     }
 
     /**
      * 
      * @param {Integer} dwSpinCount 
-     * @param {Pointer<IHostCrst>} ppCrst 
-     * @returns {HRESULT} 
+     * @returns {IHostCrst} 
      */
-    CreateCrstWithSpinCount(dwSpinCount, ppCrst) {
-        result := ComCall(5, this, "uint", dwSpinCount, "ptr*", ppCrst, "HRESULT")
-        return result
+    CreateCrstWithSpinCount(dwSpinCount) {
+        result := ComCall(5, this, "uint", dwSpinCount, "ptr*", &ppCrst := 0, "HRESULT")
+        return IHostCrst(ppCrst)
     }
 
     /**
      * 
-     * @param {Pointer<IHostAutoEvent>} ppEvent 
-     * @returns {HRESULT} 
+     * @returns {IHostAutoEvent} 
      */
-    CreateAutoEvent(ppEvent) {
-        result := ComCall(6, this, "ptr*", ppEvent, "HRESULT")
-        return result
+    CreateAutoEvent() {
+        result := ComCall(6, this, "ptr*", &ppEvent := 0, "HRESULT")
+        return IHostAutoEvent(ppEvent)
     }
 
     /**
      * 
      * @param {BOOL} bInitialState 
-     * @param {Pointer<IHostManualEvent>} ppEvent 
-     * @returns {HRESULT} 
+     * @returns {IHostManualEvent} 
      */
-    CreateManualEvent(bInitialState, ppEvent) {
-        result := ComCall(7, this, "int", bInitialState, "ptr*", ppEvent, "HRESULT")
-        return result
+    CreateManualEvent(bInitialState) {
+        result := ComCall(7, this, "int", bInitialState, "ptr*", &ppEvent := 0, "HRESULT")
+        return IHostManualEvent(ppEvent)
     }
 
     /**
      * 
      * @param {Pointer} Cookie 
-     * @param {Pointer<IHostAutoEvent>} ppEvent 
-     * @returns {HRESULT} 
+     * @returns {IHostAutoEvent} 
      */
-    CreateMonitorEvent(Cookie, ppEvent) {
-        result := ComCall(8, this, "ptr", Cookie, "ptr*", ppEvent, "HRESULT")
-        return result
+    CreateMonitorEvent(Cookie) {
+        result := ComCall(8, this, "ptr", Cookie, "ptr*", &ppEvent := 0, "HRESULT")
+        return IHostAutoEvent(ppEvent)
     }
 
     /**
      * 
      * @param {Pointer} Cookie 
-     * @param {Pointer<IHostAutoEvent>} ppEvent 
-     * @returns {HRESULT} 
+     * @returns {IHostAutoEvent} 
      */
-    CreateRWLockWriterEvent(Cookie, ppEvent) {
-        result := ComCall(9, this, "ptr", Cookie, "ptr*", ppEvent, "HRESULT")
-        return result
+    CreateRWLockWriterEvent(Cookie) {
+        result := ComCall(9, this, "ptr", Cookie, "ptr*", &ppEvent := 0, "HRESULT")
+        return IHostAutoEvent(ppEvent)
     }
 
     /**
      * 
      * @param {BOOL} bInitialState 
      * @param {Pointer} Cookie 
-     * @param {Pointer<IHostManualEvent>} ppEvent 
-     * @returns {HRESULT} 
+     * @returns {IHostManualEvent} 
      */
-    CreateRWLockReaderEvent(bInitialState, Cookie, ppEvent) {
-        result := ComCall(10, this, "int", bInitialState, "ptr", Cookie, "ptr*", ppEvent, "HRESULT")
-        return result
+    CreateRWLockReaderEvent(bInitialState, Cookie) {
+        result := ComCall(10, this, "int", bInitialState, "ptr", Cookie, "ptr*", &ppEvent := 0, "HRESULT")
+        return IHostManualEvent(ppEvent)
     }
 
     /**
      * Creates or opens a named or unnamed semaphore object.
      * @param {Integer} dwInitial 
      * @param {Integer} dwMax 
-     * @param {Pointer<IHostSemaphore>} ppSemaphore 
-     * @returns {HRESULT} If the function succeeds, the return value is a handle to the semaphore object. If the named semaphore object existed before the function call, the function returns a handle to the existing object and 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns <b>ERROR_ALREADY_EXISTS</b>.
-     * 
-     * If the function fails, the return value is <b>NULL</b>. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {IHostSemaphore} 
      * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-createsemaphorea
      */
-    CreateSemaphoreA(dwInitial, dwMax, ppSemaphore) {
-        result := ComCall(11, this, "uint", dwInitial, "uint", dwMax, "ptr*", ppSemaphore, "HRESULT")
-        return result
+    CreateSemaphoreA(dwInitial, dwMax) {
+        result := ComCall(11, this, "uint", dwInitial, "uint", dwMax, "ptr*", &ppSemaphore := 0, "HRESULT")
+        return IHostSemaphore(ppSemaphore)
     }
 }

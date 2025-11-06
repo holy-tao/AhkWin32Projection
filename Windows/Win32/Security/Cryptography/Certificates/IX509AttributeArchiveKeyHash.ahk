@@ -62,12 +62,12 @@ class IX509AttributeArchiveKeyHash extends IX509Attribute{
     /**
      * 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509attributearchivekeyhash-get_encryptedkeyhashblob
      */
-    get_EncryptedKeyHashBlob(Encoding, pValue) {
+    get_EncryptedKeyHashBlob(Encoding) {
+        pValue := BSTR()
         result := ComCall(12, this, "int", Encoding, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 }

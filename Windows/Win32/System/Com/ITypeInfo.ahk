@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITypeComp.ahk
+#Include .\ITypeInfo.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\IUnknown.ahk
 
 /**
@@ -57,54 +60,44 @@ class ITypeInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<TYPEATTR>>} ppTypeAttr 
-     * @returns {HRESULT} 
+     * @returns {Pointer<TYPEATTR>} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-gettypeattr
      */
-    GetTypeAttr(ppTypeAttr) {
-        ppTypeAttrMarshal := ppTypeAttr is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, ppTypeAttrMarshal, ppTypeAttr, "HRESULT")
-        return result
+    GetTypeAttr() {
+        result := ComCall(3, this, "ptr*", &ppTypeAttr := 0, "HRESULT")
+        return ppTypeAttr
     }
 
     /**
      * 
-     * @param {Pointer<ITypeComp>} ppTComp 
-     * @returns {HRESULT} 
+     * @returns {ITypeComp} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-gettypecomp
      */
-    GetTypeComp(ppTComp) {
-        result := ComCall(4, this, "ptr*", ppTComp, "HRESULT")
-        return result
+    GetTypeComp() {
+        result := ComCall(4, this, "ptr*", &ppTComp := 0, "HRESULT")
+        return ITypeComp(ppTComp)
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<Pointer<FUNCDESC>>} ppFuncDesc 
-     * @returns {HRESULT} 
+     * @returns {Pointer<FUNCDESC>} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-getfuncdesc
      */
-    GetFuncDesc(index, ppFuncDesc) {
-        ppFuncDescMarshal := ppFuncDesc is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, "uint", index, ppFuncDescMarshal, ppFuncDesc, "HRESULT")
-        return result
+    GetFuncDesc(index) {
+        result := ComCall(5, this, "uint", index, "ptr*", &ppFuncDesc := 0, "HRESULT")
+        return ppFuncDesc
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<Pointer<VARDESC>>} ppVarDesc 
-     * @returns {HRESULT} 
+     * @returns {Pointer<VARDESC>} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-getvardesc
      */
-    GetVarDesc(index, ppVarDesc) {
-        ppVarDescMarshal := ppVarDesc is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "uint", index, ppVarDescMarshal, ppVarDesc, "HRESULT")
-        return result
+    GetVarDesc(index) {
+        result := ComCall(6, this, "uint", index, "ptr*", &ppVarDesc := 0, "HRESULT")
+        return ppVarDesc
     }
 
     /**
@@ -126,44 +119,37 @@ class ITypeInfo extends IUnknown{
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<Integer>} pRefType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-getreftypeofimpltype
      */
-    GetRefTypeOfImplType(index, pRefType) {
-        pRefTypeMarshal := pRefType is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, "uint", index, pRefTypeMarshal, pRefType, "HRESULT")
-        return result
+    GetRefTypeOfImplType(index) {
+        result := ComCall(8, this, "uint", index, "uint*", &pRefType := 0, "HRESULT")
+        return pRefType
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<Integer>} pImplTypeFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-getimpltypeflags
      */
-    GetImplTypeFlags(index, pImplTypeFlags) {
-        pImplTypeFlagsMarshal := pImplTypeFlags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, "uint", index, pImplTypeFlagsMarshal, pImplTypeFlags, "HRESULT")
-        return result
+    GetImplTypeFlags(index) {
+        result := ComCall(9, this, "uint", index, "int*", &pImplTypeFlags := 0, "HRESULT")
+        return pImplTypeFlags
     }
 
     /**
      * 
      * @param {Pointer<PWSTR>} rgszNames 
      * @param {Integer} cNames 
-     * @param {Pointer<Integer>} pMemId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-getidsofnames
      */
-    GetIDsOfNames(rgszNames, cNames, pMemId) {
-        pMemIdMarshal := pMemId is VarRef ? "int*" : "ptr"
+    GetIDsOfNames(rgszNames, cNames) {
+        rgszNamesMarshal := rgszNames is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(10, this, "ptr", rgszNames, "uint", cNames, pMemIdMarshal, pMemId, "HRESULT")
-        return result
+        result := ComCall(10, this, rgszNamesMarshal, rgszNames, "uint", cNames, "int*", &pMemId := 0, "HRESULT")
+        return pMemId
     }
 
     /**
@@ -223,55 +209,48 @@ class ITypeInfo extends IUnknown{
     /**
      * 
      * @param {Integer} hRefType 
-     * @param {Pointer<ITypeInfo>} ppTInfo 
-     * @returns {HRESULT} 
+     * @returns {ITypeInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-getreftypeinfo
      */
-    GetRefTypeInfo(hRefType, ppTInfo) {
-        result := ComCall(14, this, "uint", hRefType, "ptr*", ppTInfo, "HRESULT")
-        return result
+    GetRefTypeInfo(hRefType) {
+        result := ComCall(14, this, "uint", hRefType, "ptr*", &ppTInfo := 0, "HRESULT")
+        return ITypeInfo(ppTInfo)
     }
 
     /**
      * 
      * @param {Integer} memid 
      * @param {Integer} invKind 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-addressofmember
      */
-    AddressOfMember(memid, invKind, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(15, this, "int", memid, "int", invKind, ppvMarshal, ppv, "HRESULT")
-        return result
+    AddressOfMember(memid, invKind) {
+        result := ComCall(15, this, "int", memid, "int", invKind, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
      * 
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvObj 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-createinstance
      */
-    CreateInstance(pUnkOuter, riid, ppvObj) {
-        ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(16, this, "ptr", pUnkOuter, "ptr", riid, ppvObjMarshal, ppvObj, "HRESULT")
-        return result
+    CreateInstance(pUnkOuter, riid) {
+        result := ComCall(16, this, "ptr", pUnkOuter, "ptr", riid, "ptr*", &ppvObj := 0, "HRESULT")
+        return ppvObj
     }
 
     /**
      * 
      * @param {Integer} memid 
-     * @param {Pointer<BSTR>} pBstrMops 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypeinfo-getmops
      */
-    GetMops(memid, pBstrMops) {
+    GetMops(memid) {
+        pBstrMops := BSTR()
         result := ComCall(17, this, "int", memid, "ptr", pBstrMops, "HRESULT")
-        return result
+        return pBstrMops
     }
 
     /**

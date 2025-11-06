@@ -39,14 +39,11 @@ class IUpdateIDList extends IUnknown{
      * 
      * @param {IBindCtx} pbc 
      * @param {Pointer<ITEMIDLIST>} pidlIn 
-     * @param {Pointer<Pointer<ITEMIDLIST>>} ppidlOut 
-     * @returns {HRESULT} 
+     * @returns {Pointer<ITEMIDLIST>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iupdateidlist-update
      */
-    Update(pbc, pidlIn, ppidlOut) {
-        ppidlOutMarshal := ppidlOut is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", pbc, "ptr", pidlIn, ppidlOutMarshal, ppidlOut, "HRESULT")
-        return result
+    Update(pbc, pidlIn) {
+        result := ComCall(3, this, "ptr", pbc, "ptr", pidlIn, "ptr*", &ppidlOut := 0, "HRESULT")
+        return ppidlOut
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,21 +31,21 @@ class IXMLAttribute extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} n 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_name(n) {
+    get_name() {
+        n := BSTR()
         result := ComCall(7, this, "ptr", n, "HRESULT")
-        return result
+        return n
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} v 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_value(v) {
+    get_value() {
+        v := BSTR()
         result := ComCall(8, this, "ptr", v, "HRESULT")
-        return result
+        return v
     }
 }

@@ -39,7 +39,9 @@ class ITfFnPlayBack extends ITfFunction{
      * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnplayback-queryrange
      */
     QueryRange(pRange, ppNewRange, pfPlayable) {
-        result := ComCall(4, this, "ptr", pRange, "ptr*", ppNewRange, "ptr", pfPlayable, "HRESULT")
+        pfPlayableMarshal := pfPlayable is VarRef ? "int*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pRange, "ptr*", ppNewRange, pfPlayableMarshal, pfPlayable, "HRESULT")
         return result
     }
 

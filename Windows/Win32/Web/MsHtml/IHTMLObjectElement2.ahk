@@ -33,14 +33,13 @@ class IHTMLObjectElement2 extends IDispatch{
      * 
      * @param {BSTR} dataMember 
      * @param {Pointer<VARIANT>} hierarchy 
-     * @param {Pointer<IDispatch>} ppRecordset 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    namedRecordset(dataMember, hierarchy, ppRecordset) {
+    namedRecordset(dataMember, hierarchy) {
         dataMember := dataMember is String ? BSTR.Alloc(dataMember).Value : dataMember
 
-        result := ComCall(7, this, "ptr", dataMember, "ptr", hierarchy, "ptr*", ppRecordset, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", dataMember, "ptr", hierarchy, "ptr*", &ppRecordset := 0, "HRESULT")
+        return IDispatch(ppRecordset)
     }
 
     /**
@@ -57,12 +56,12 @@ class IHTMLObjectElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_classid(p) {
+    get_classid() {
+        p := BSTR()
         result := ComCall(9, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -79,11 +78,11 @@ class IHTMLObjectElement2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_data(p) {
+    get_data() {
+        p := BSTR()
         result := ComCall(11, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 }

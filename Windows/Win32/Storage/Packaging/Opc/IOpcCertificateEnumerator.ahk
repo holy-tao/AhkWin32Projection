@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IOpcCertificateEnumerator.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -42,47 +43,41 @@ class IOpcCertificateEnumerator extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} hasNext 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopccertificateenumerator-movenext
      */
-    MoveNext(hasNext) {
-        result := ComCall(3, this, "ptr", hasNext, "HRESULT")
-        return result
+    MoveNext() {
+        result := ComCall(3, this, "int*", &hasNext := 0, "HRESULT")
+        return hasNext
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} hasPrevious 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopccertificateenumerator-moveprevious
      */
-    MovePrevious(hasPrevious) {
-        result := ComCall(4, this, "ptr", hasPrevious, "HRESULT")
-        return result
+    MovePrevious() {
+        result := ComCall(4, this, "int*", &hasPrevious := 0, "HRESULT")
+        return hasPrevious
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<CERT_CONTEXT>>} certificate 
-     * @returns {HRESULT} 
+     * @returns {Pointer<CERT_CONTEXT>} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopccertificateenumerator-getcurrent
      */
-    GetCurrent(certificate) {
-        certificateMarshal := certificate is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, certificateMarshal, certificate, "HRESULT")
-        return result
+    GetCurrent() {
+        result := ComCall(5, this, "ptr*", &certificate := 0, "HRESULT")
+        return certificate
     }
 
     /**
      * 
-     * @param {Pointer<IOpcCertificateEnumerator>} copy 
-     * @returns {HRESULT} 
+     * @returns {IOpcCertificateEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopccertificateenumerator-clone
      */
-    Clone(copy) {
-        result := ComCall(6, this, "ptr*", copy, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &copy := 0, "HRESULT")
+        return IOpcCertificateEnumerator(copy)
     }
 }

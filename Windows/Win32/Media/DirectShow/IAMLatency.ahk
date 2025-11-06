@@ -32,14 +32,11 @@ class IAMLatency extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} prtLatency 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamlatency-getlatency
      */
-    GetLatency(prtLatency) {
-        prtLatencyMarshal := prtLatency is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(3, this, prtLatencyMarshal, prtLatency, "HRESULT")
-        return result
+    GetLatency() {
+        result := ComCall(3, this, "int64*", &prtLatency := 0, "HRESULT")
+        return prtLatency
     }
 }

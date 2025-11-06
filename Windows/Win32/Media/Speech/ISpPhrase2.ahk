@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISpStreamFormat.ahk
 #Include .\ISpPhrase.ahk
 
 /**
@@ -30,13 +31,12 @@ class ISpPhrase2 extends ISpPhrase{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszCoMemXMLResult 
      * @param {Integer} Options 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetXMLResult(ppszCoMemXMLResult, Options) {
-        result := ComCall(7, this, "ptr", ppszCoMemXMLResult, "int", Options, "HRESULT")
-        return result
+    GetXMLResult(Options) {
+        result := ComCall(7, this, "ptr*", &ppszCoMemXMLResult := 0, "int", Options, "HRESULT")
+        return ppszCoMemXMLResult
     }
 
     /**
@@ -53,11 +53,10 @@ class ISpPhrase2 extends ISpPhrase{
      * 
      * @param {Integer} ulStartElement 
      * @param {Integer} cElements 
-     * @param {Pointer<ISpStreamFormat>} ppStream 
-     * @returns {HRESULT} 
+     * @returns {ISpStreamFormat} 
      */
-    GetAudio(ulStartElement, cElements, ppStream) {
-        result := ComCall(9, this, "uint", ulStartElement, "uint", cElements, "ptr*", ppStream, "HRESULT")
-        return result
+    GetAudio(ulStartElement, cElements) {
+        result := ComCall(9, this, "uint", ulStartElement, "uint", cElements, "ptr*", &ppStream := 0, "HRESULT")
+        return ISpStreamFormat(ppStream)
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRTCSession2.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -30,45 +32,38 @@ class IRTCSessionReferStatusEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IRTCSession2>} ppSession 
-     * @returns {HRESULT} 
+     * @returns {IRTCSession2} 
      */
-    get_Session(ppSession) {
-        result := ComCall(7, this, "ptr*", ppSession, "HRESULT")
-        return result
+    get_Session() {
+        result := ComCall(7, this, "ptr*", &ppSession := 0, "HRESULT")
+        return IRTCSession2(ppSession)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} penReferStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ReferStatus(penReferStatus) {
-        penReferStatusMarshal := penReferStatus is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, penReferStatusMarshal, penReferStatus, "HRESULT")
-        return result
+    get_ReferStatus() {
+        result := ComCall(8, this, "int*", &penReferStatus := 0, "HRESULT")
+        return penReferStatus
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plStatusCode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_StatusCode(plStatusCode) {
-        plStatusCodeMarshal := plStatusCode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, plStatusCodeMarshal, plStatusCode, "HRESULT")
-        return result
+    get_StatusCode() {
+        result := ComCall(9, this, "int*", &plStatusCode := 0, "HRESULT")
+        return plStatusCode
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrStatusText 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_StatusText(pbstrStatusText) {
+    get_StatusText() {
+        pbstrStatusText := BSTR()
         result := ComCall(10, this, "ptr", pbstrStatusText, "HRESULT")
-        return result
+        return pbstrStatusText
     }
 }

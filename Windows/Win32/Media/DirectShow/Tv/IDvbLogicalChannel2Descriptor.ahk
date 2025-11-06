@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include .\IDvbLogicalChannelDescriptor2.ahk
 
 /**
@@ -32,114 +33,93 @@ class IDvbLogicalChannel2Descriptor extends IDvbLogicalChannelDescriptor2{
 
     /**
      * 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvblogicalchannel2descriptor-getcountoflists
      */
-    GetCountOfLists(pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(9, this, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetCountOfLists() {
+        result := ComCall(9, this, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
      * @param {Integer} bListIndex 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvblogicalchannel2descriptor-getlistid
      */
-    GetListId(bListIndex, pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(10, this, "char", bListIndex, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetListId(bListIndex) {
+        result := ComCall(10, this, "char", bListIndex, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
      * @param {Integer} bListIndex 
      * @param {Integer} convMode 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvblogicalchannel2descriptor-getlistnamew
      */
-    GetListNameW(bListIndex, convMode, pbstrName) {
+    GetListNameW(bListIndex, convMode) {
+        pbstrName := BSTR()
         result := ComCall(11, this, "char", bListIndex, "int", convMode, "ptr", pbstrName, "HRESULT")
-        return result
+        return pbstrName
     }
 
     /**
      * 
      * @param {Integer} bListIndex 
-     * @param {Pointer<Integer>} pszCode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvblogicalchannel2descriptor-getlistcountrycode
      */
-    GetListCountryCode(bListIndex, pszCode) {
-        pszCodeMarshal := pszCode is VarRef ? "char*" : "ptr"
-
-        result := ComCall(12, this, "char", bListIndex, pszCodeMarshal, pszCode, "HRESULT")
-        return result
+    GetListCountryCode(bListIndex) {
+        result := ComCall(12, this, "char", bListIndex, "char*", &pszCode := 0, "HRESULT")
+        return pszCode
     }
 
     /**
      * 
      * @param {Integer} bChannelListIndex 
-     * @param {Pointer<Integer>} pbVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvblogicalchannel2descriptor-getlistcountofrecords
      */
-    GetListCountOfRecords(bChannelListIndex, pbVal) {
-        pbValMarshal := pbVal is VarRef ? "char*" : "ptr"
-
-        result := ComCall(13, this, "char", bChannelListIndex, pbValMarshal, pbVal, "HRESULT")
-        return result
+    GetListCountOfRecords(bChannelListIndex) {
+        result := ComCall(13, this, "char", bChannelListIndex, "char*", &pbVal := 0, "HRESULT")
+        return pbVal
     }
 
     /**
      * 
      * @param {Integer} bListIndex 
      * @param {Integer} bRecordIndex 
-     * @param {Pointer<Integer>} pwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvblogicalchannel2descriptor-getlistrecordserviceid
      */
-    GetListRecordServiceId(bListIndex, bRecordIndex, pwVal) {
-        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(14, this, "char", bListIndex, "char", bRecordIndex, pwValMarshal, pwVal, "HRESULT")
-        return result
+    GetListRecordServiceId(bListIndex, bRecordIndex) {
+        result := ComCall(14, this, "char", bListIndex, "char", bRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
+        return pwVal
     }
 
     /**
      * 
      * @param {Integer} bListIndex 
      * @param {Integer} bRecordIndex 
-     * @param {Pointer<Integer>} pwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvblogicalchannel2descriptor-getlistrecordlogicalchannelnumber
      */
-    GetListRecordLogicalChannelNumber(bListIndex, bRecordIndex, pwVal) {
-        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(15, this, "char", bListIndex, "char", bRecordIndex, pwValMarshal, pwVal, "HRESULT")
-        return result
+    GetListRecordLogicalChannelNumber(bListIndex, bRecordIndex) {
+        result := ComCall(15, this, "char", bListIndex, "char", bRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
+        return pwVal
     }
 
     /**
      * 
      * @param {Integer} bListIndex 
      * @param {Integer} bRecordIndex 
-     * @param {Pointer<Integer>} pwVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvblogicalchannel2descriptor-getlistrecordlogicalchannelandvisibility
      */
-    GetListRecordLogicalChannelAndVisibility(bListIndex, bRecordIndex, pwVal) {
-        pwValMarshal := pwVal is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(16, this, "char", bListIndex, "char", bRecordIndex, pwValMarshal, pwVal, "HRESULT")
-        return result
+    GetListRecordLogicalChannelAndVisibility(bListIndex, bRecordIndex) {
+        result := ComCall(16, this, "char", bListIndex, "char", bRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
+        return pwVal
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IPublishedApp.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -37,13 +38,12 @@ class IEnumPublishedApps extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IPublishedApp>} pia 
-     * @returns {HRESULT} 
+     * @returns {IPublishedApp} 
      * @see https://learn.microsoft.com/windows/win32/api/shappmgr/nf-shappmgr-ienumpublishedapps-next
      */
-    Next(pia) {
-        result := ComCall(3, this, "ptr*", pia, "HRESULT")
-        return result
+    Next() {
+        result := ComCall(3, this, "ptr*", &pia := 0, "HRESULT")
+        return IPublishedApp(pia)
     }
 
     /**

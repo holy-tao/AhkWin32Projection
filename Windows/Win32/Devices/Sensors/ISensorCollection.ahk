@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISensor.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -39,26 +40,22 @@ class ISensorCollection extends IUnknown{
     /**
      * 
      * @param {Integer} ulIndex 
-     * @param {Pointer<ISensor>} ppSensor 
-     * @returns {HRESULT} 
+     * @returns {ISensor} 
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensorcollection-getat
      */
-    GetAt(ulIndex, ppSensor) {
-        result := ComCall(3, this, "uint", ulIndex, "ptr*", ppSensor, "HRESULT")
-        return result
+    GetAt(ulIndex) {
+        result := ComCall(3, this, "uint", ulIndex, "ptr*", &ppSensor := 0, "HRESULT")
+        return ISensor(ppSensor)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensorcollection-getcount
      */
-    GetCount(pCount) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(4, this, "uint*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**

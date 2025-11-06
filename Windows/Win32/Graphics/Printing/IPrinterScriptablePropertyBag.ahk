@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\IPrinterScriptableStream.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Printing
@@ -32,14 +33,13 @@ class IPrinterScriptablePropertyBag extends IDispatch{
     /**
      * 
      * @param {BSTR} bstrName 
-     * @param {Pointer<BOOL>} pbValue 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    GetBool(bstrName, pbValue) {
+    GetBool(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(7, this, "ptr", bstrName, "ptr", pbValue, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", bstrName, "int*", &pbValue := 0, "HRESULT")
+        return pbValue
     }
 
     /**
@@ -58,16 +58,13 @@ class IPrinterScriptablePropertyBag extends IDispatch{
     /**
      * 
      * @param {BSTR} bstrName 
-     * @param {Pointer<Integer>} pnValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetInt32(bstrName, pnValue) {
+    GetInt32(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        pnValueMarshal := pnValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, "ptr", bstrName, pnValueMarshal, pnValue, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", bstrName, "int*", &pnValue := 0, "HRESULT")
+        return pnValue
     }
 
     /**
@@ -86,14 +83,14 @@ class IPrinterScriptablePropertyBag extends IDispatch{
     /**
      * 
      * @param {BSTR} bstrName 
-     * @param {Pointer<BSTR>} pbstrValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetString(bstrName, pbstrValue) {
+    GetString(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
+        pbstrValue := BSTR()
         result := ComCall(11, this, "ptr", bstrName, "ptr", pbstrValue, "HRESULT")
-        return result
+        return pbstrValue
     }
 
     /**
@@ -113,14 +110,13 @@ class IPrinterScriptablePropertyBag extends IDispatch{
     /**
      * 
      * @param {BSTR} bstrName 
-     * @param {Pointer<IDispatch>} ppArray 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    GetBytes(bstrName, ppArray) {
+    GetBytes(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(13, this, "ptr", bstrName, "ptr*", ppArray, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", bstrName, "ptr*", &ppArray := 0, "HRESULT")
+        return IDispatch(ppArray)
     }
 
     /**
@@ -139,26 +135,24 @@ class IPrinterScriptablePropertyBag extends IDispatch{
     /**
      * 
      * @param {BSTR} bstrName 
-     * @param {Pointer<IPrinterScriptableStream>} ppStream 
-     * @returns {HRESULT} 
+     * @returns {IPrinterScriptableStream} 
      */
-    GetReadStream(bstrName, ppStream) {
+    GetReadStream(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(15, this, "ptr", bstrName, "ptr*", ppStream, "HRESULT")
-        return result
+        result := ComCall(15, this, "ptr", bstrName, "ptr*", &ppStream := 0, "HRESULT")
+        return IPrinterScriptableStream(ppStream)
     }
 
     /**
      * 
      * @param {BSTR} bstrName 
-     * @param {Pointer<IPrinterScriptableStream>} ppStream 
-     * @returns {HRESULT} 
+     * @returns {IPrinterScriptableStream} 
      */
-    GetWriteStream(bstrName, ppStream) {
+    GetWriteStream(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
 
-        result := ComCall(16, this, "ptr", bstrName, "ptr*", ppStream, "HRESULT")
-        return result
+        result := ComCall(16, this, "ptr", bstrName, "ptr*", &ppStream := 0, "HRESULT")
+        return IPrinterScriptableStream(ppStream)
     }
 }

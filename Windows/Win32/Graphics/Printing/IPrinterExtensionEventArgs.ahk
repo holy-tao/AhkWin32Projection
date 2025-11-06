@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IPrinterExtensionRequest.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 #Include .\IPrinterExtensionContext.ahk
 
 /**
@@ -30,71 +33,69 @@ class IPrinterExtensionEventArgs extends IPrinterExtensionContext{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrBidiNotification 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_BidiNotification(pbstrBidiNotification) {
+    get_BidiNotification() {
+        pbstrBidiNotification := BSTR()
         result := ComCall(11, this, "ptr", pbstrBidiNotification, "HRESULT")
-        return result
+        return pbstrBidiNotification
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} pReasonId 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    get_ReasonId(pReasonId) {
+    get_ReasonId() {
+        pReasonId := Guid()
         result := ComCall(12, this, "ptr", pReasonId, "HRESULT")
-        return result
+        return pReasonId
     }
 
     /**
      * 
-     * @param {Pointer<IPrinterExtensionRequest>} ppRequest 
-     * @returns {HRESULT} 
+     * @returns {IPrinterExtensionRequest} 
      */
-    get_Request(ppRequest) {
-        result := ComCall(13, this, "ptr*", ppRequest, "HRESULT")
-        return result
+    get_Request() {
+        result := ComCall(13, this, "ptr*", &ppRequest := 0, "HRESULT")
+        return IPrinterExtensionRequest(ppRequest)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrApplication 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_SourceApplication(pbstrApplication) {
+    get_SourceApplication() {
+        pbstrApplication := BSTR()
         result := ComCall(14, this, "ptr", pbstrApplication, "HRESULT")
-        return result
+        return pbstrApplication
     }
 
     /**
      * 
-     * @param {Pointer<Guid>} pDetailedReasonId 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    get_DetailedReasonId(pDetailedReasonId) {
+    get_DetailedReasonId() {
+        pDetailedReasonId := Guid()
         result := ComCall(15, this, "ptr", pDetailedReasonId, "HRESULT")
-        return result
+        return pDetailedReasonId
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbModal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_WindowModal(pbModal) {
-        result := ComCall(16, this, "ptr", pbModal, "HRESULT")
-        return result
+    get_WindowModal() {
+        result := ComCall(16, this, "int*", &pbModal := 0, "HRESULT")
+        return pbModal
     }
 
     /**
      * 
-     * @param {Pointer<HANDLE>} phwndParent 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      */
-    get_WindowParent(phwndParent) {
+    get_WindowParent() {
+        phwndParent := HANDLE()
         result := ComCall(17, this, "ptr", phwndParent, "HRESULT")
-        return result
+        return phwndParent
     }
 }

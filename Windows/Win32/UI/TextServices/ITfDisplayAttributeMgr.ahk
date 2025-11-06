@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumTfDisplayAttributeInfo.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -42,13 +43,12 @@ class ITfDisplayAttributeMgr extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumTfDisplayAttributeInfo>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumTfDisplayAttributeInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfdisplayattributemgr-enumdisplayattributeinfo
      */
-    EnumDisplayAttributeInfo(ppEnum) {
-        result := ComCall(4, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumDisplayAttributeInfo() {
+        result := ComCall(4, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumTfDisplayAttributeInfo(ppEnum)
     }
 
     /**

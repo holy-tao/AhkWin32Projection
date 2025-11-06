@@ -30,37 +30,28 @@ class IDebugHostContextTargetComposition extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<IDebugServiceManager>>} ppServiceManager 
-     * @returns {HRESULT} 
+     * @returns {Pointer<IDebugServiceManager>} 
      */
-    GetServiceManager(ppServiceManager) {
-        ppServiceManagerMarshal := ppServiceManager is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, ppServiceManagerMarshal, ppServiceManager, "HRESULT")
-        return result
+    GetServiceManager() {
+        result := ComCall(3, this, "ptr*", &ppServiceManager := 0, "HRESULT")
+        return ppServiceManager
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<ISvcProcess>>} ppProcess 
-     * @returns {HRESULT} 
+     * @returns {Pointer<ISvcProcess>} 
      */
-    GetServiceProcess(ppProcess) {
-        ppProcessMarshal := ppProcess is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, ppProcessMarshal, ppProcess, "HRESULT")
-        return result
+    GetServiceProcess() {
+        result := ComCall(4, this, "ptr*", &ppProcess := 0, "HRESULT")
+        return ppProcess
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<ISvcThread>>} ppThread 
-     * @returns {HRESULT} 
+     * @returns {Pointer<ISvcThread>} 
      */
-    GetServiceThread(ppThread) {
-        ppThreadMarshal := ppThread is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, ppThreadMarshal, ppThread, "HRESULT")
-        return result
+    GetServiceThread() {
+        result := ComCall(5, this, "ptr*", &ppThread := 0, "HRESULT")
+        return ppThread
     }
 }

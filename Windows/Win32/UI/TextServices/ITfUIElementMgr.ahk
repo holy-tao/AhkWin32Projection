@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITfUIElement.ahk
+#Include .\IEnumTfUIElements.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -38,15 +40,14 @@ class ITfUIElementMgr extends IUnknown{
      * 
      * @param {ITfUIElement} pElement 
      * @param {Pointer<BOOL>} pbShow 
-     * @param {Pointer<Integer>} pdwUIElementId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfuielementmgr-beginuielement
      */
-    BeginUIElement(pElement, pbShow, pdwUIElementId) {
-        pdwUIElementIdMarshal := pdwUIElementId is VarRef ? "uint*" : "ptr"
+    BeginUIElement(pElement, pbShow) {
+        pbShowMarshal := pbShow is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pElement, "ptr", pbShow, pdwUIElementIdMarshal, pdwUIElementId, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pElement, pbShowMarshal, pbShow, "uint*", &pdwUIElementId := 0, "HRESULT")
+        return pdwUIElementId
     }
 
     /**
@@ -74,23 +75,21 @@ class ITfUIElementMgr extends IUnknown{
     /**
      * 
      * @param {Integer} dwUIELementId 
-     * @param {Pointer<ITfUIElement>} ppElement 
-     * @returns {HRESULT} 
+     * @returns {ITfUIElement} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfuielementmgr-getuielement
      */
-    GetUIElement(dwUIELementId, ppElement) {
-        result := ComCall(6, this, "uint", dwUIELementId, "ptr*", ppElement, "HRESULT")
-        return result
+    GetUIElement(dwUIELementId) {
+        result := ComCall(6, this, "uint", dwUIELementId, "ptr*", &ppElement := 0, "HRESULT")
+        return ITfUIElement(ppElement)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumTfUIElements>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumTfUIElements} 
      * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfuielementmgr-enumuielements
      */
-    EnumUIElements(ppEnum) {
-        result := ComCall(7, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumUIElements() {
+        result := ComCall(7, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumTfUIElements(ppEnum)
     }
 }

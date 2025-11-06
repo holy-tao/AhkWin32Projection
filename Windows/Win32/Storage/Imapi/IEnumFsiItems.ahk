@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumFsiItems.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -79,12 +80,11 @@ class IEnumFsiItems extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumFsiItems>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumFsiItems} 
      * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ienumfsiitems-clone
      */
-    Clone(ppEnum) {
-        result := ComCall(6, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumFsiItems(ppEnum)
     }
 }

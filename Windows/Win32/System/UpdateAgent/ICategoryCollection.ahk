@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ICategory.ahk
+#Include ..\Com\IUnknown.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -33,36 +35,31 @@ class ICategoryCollection extends IDispatch{
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<ICategory>} retval 
-     * @returns {HRESULT} 
+     * @returns {ICategory} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-icategorycollection-get_item
      */
-    get_Item(index, retval) {
-        result := ComCall(7, this, "int", index, "ptr*", retval, "HRESULT")
-        return result
+    get_Item(index) {
+        result := ComCall(7, this, "int", index, "ptr*", &retval := 0, "HRESULT")
+        return ICategory(retval)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-icategorycollection-get__newenum
      */
-    get__NewEnum(retval) {
-        result := ComCall(8, this, "ptr*", retval, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(8, this, "ptr*", &retval := 0, "HRESULT")
+        return IUnknown(retval)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} retval 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-icategorycollection-get_count
      */
-    get_Count(retval) {
-        retvalMarshal := retval is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(9, this, "int*", &retval := 0, "HRESULT")
+        return retval
     }
 }

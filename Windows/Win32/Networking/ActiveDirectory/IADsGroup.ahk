@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IADsMembers.ahk
 #Include .\IADs.ahk
 
 /**
@@ -33,12 +34,12 @@ class IADsGroup extends IADs{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Description(retval) {
+    get_Description() {
+        retval := BSTR()
         result := ComCall(20, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -55,27 +56,25 @@ class IADsGroup extends IADs{
 
     /**
      * 
-     * @param {Pointer<IADsMembers>} ppMembers 
-     * @returns {HRESULT} 
+     * @returns {IADsMembers} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsgroup-members
      */
-    Members(ppMembers) {
-        result := ComCall(22, this, "ptr*", ppMembers, "HRESULT")
-        return result
+    Members() {
+        result := ComCall(22, this, "ptr*", &ppMembers := 0, "HRESULT")
+        return IADsMembers(ppMembers)
     }
 
     /**
      * 
      * @param {BSTR} bstrMember 
-     * @param {Pointer<VARIANT_BOOL>} bMember 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsgroup-ismember
      */
-    IsMember(bstrMember, bMember) {
+    IsMember(bstrMember) {
         bstrMember := bstrMember is String ? BSTR.Alloc(bstrMember).Value : bstrMember
 
-        result := ComCall(23, this, "ptr", bstrMember, "ptr", bMember, "HRESULT")
-        return result
+        result := ComCall(23, this, "ptr", bstrMember, "short*", &bMember := 0, "HRESULT")
+        return bMember
     }
 
     /**

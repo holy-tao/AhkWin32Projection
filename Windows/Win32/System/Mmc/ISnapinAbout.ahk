@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\UI\WindowsAndMessaging\HICON.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -32,46 +33,43 @@ class ISnapinAbout extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpDescription 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-isnapinabout-getsnapindescription
      */
-    GetSnapinDescription(lpDescription) {
-        result := ComCall(3, this, "ptr", lpDescription, "HRESULT")
-        return result
+    GetSnapinDescription() {
+        result := ComCall(3, this, "ptr*", &lpDescription := 0, "HRESULT")
+        return lpDescription
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-isnapinabout-getprovider
      */
-    GetProvider(lpName) {
-        result := ComCall(4, this, "ptr", lpName, "HRESULT")
-        return result
+    GetProvider() {
+        result := ComCall(4, this, "ptr*", &lpName := 0, "HRESULT")
+        return lpName
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} lpVersion 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-isnapinabout-getsnapinversion
      */
-    GetSnapinVersion(lpVersion) {
-        result := ComCall(5, this, "ptr", lpVersion, "HRESULT")
-        return result
+    GetSnapinVersion() {
+        result := ComCall(5, this, "ptr*", &lpVersion := 0, "HRESULT")
+        return lpVersion
     }
 
     /**
      * 
-     * @param {Pointer<HICON>} hAppIcon 
-     * @returns {HRESULT} 
+     * @returns {HICON} 
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-isnapinabout-getsnapinimage
      */
-    GetSnapinImage(hAppIcon) {
+    GetSnapinImage() {
+        hAppIcon := HICON()
         result := ComCall(6, this, "ptr", hAppIcon, "HRESULT")
-        return result
+        return hAppIcon
     }
 
     /**
@@ -84,7 +82,9 @@ class ISnapinAbout extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-isnapinabout-getstaticfolderimage
      */
     GetStaticFolderImage(hSmallImage, hSmallImageOpen, hLargeImage, cMask) {
-        result := ComCall(7, this, "ptr", hSmallImage, "ptr", hSmallImageOpen, "ptr", hLargeImage, "ptr", cMask, "HRESULT")
+        cMaskMarshal := cMask is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(7, this, "ptr", hSmallImage, "ptr", hSmallImageOpen, "ptr", hLargeImage, cMaskMarshal, cMask, "HRESULT")
         return result
     }
 }

@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include .\ISchema.ahk
+#Include .\IVBSAXAttributes.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,74 +33,68 @@ class ISchemaItem extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_name(name) {
+    get_name() {
+        name := BSTR()
         result := ComCall(7, this, "ptr", name, "HRESULT")
-        return result
+        return name
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} namespaceURI 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_namespaceURI(namespaceURI) {
+    get_namespaceURI() {
+        namespaceURI := BSTR()
         result := ComCall(8, this, "ptr", namespaceURI, "HRESULT")
-        return result
+        return namespaceURI
     }
 
     /**
      * 
-     * @param {Pointer<ISchema>} schema 
-     * @returns {HRESULT} 
+     * @returns {ISchema} 
      */
-    get_schema(schema) {
-        result := ComCall(9, this, "ptr*", schema, "HRESULT")
-        return result
+    get_schema() {
+        result := ComCall(9, this, "ptr*", &schema := 0, "HRESULT")
+        return ISchema(schema)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} id 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_id(id) {
+    get_id() {
+        id := BSTR()
         result := ComCall(10, this, "ptr", id, "HRESULT")
-        return result
+        return id
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} itemType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_itemType(itemType) {
-        itemTypeMarshal := itemType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, itemTypeMarshal, itemType, "HRESULT")
-        return result
+    get_itemType() {
+        result := ComCall(11, this, "int*", &itemType := 0, "HRESULT")
+        return itemType
     }
 
     /**
      * 
-     * @param {Pointer<IVBSAXAttributes>} attributes 
-     * @returns {HRESULT} 
+     * @returns {IVBSAXAttributes} 
      */
-    get_unhandledAttributes(attributes) {
-        result := ComCall(12, this, "ptr*", attributes, "HRESULT")
-        return result
+    get_unhandledAttributes() {
+        result := ComCall(12, this, "ptr*", &attributes := 0, "HRESULT")
+        return IVBSAXAttributes(attributes)
     }
 
     /**
      * 
      * @param {IUnknown} annotationSink 
-     * @param {Pointer<VARIANT_BOOL>} isWritten 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    writeAnnotation(annotationSink, isWritten) {
-        result := ComCall(13, this, "ptr", annotationSink, "ptr", isWritten, "HRESULT")
-        return result
+    writeAnnotation(annotationSink) {
+        result := ComCall(13, this, "ptr", annotationSink, "short*", &isWritten := 0, "HRESULT")
+        return isWritten
     }
 }

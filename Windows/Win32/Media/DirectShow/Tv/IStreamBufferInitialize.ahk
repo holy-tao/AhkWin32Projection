@@ -56,7 +56,9 @@ class IStreamBufferInitialize extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferinitialize-setsids
      */
     SetSIDs(cSIDs, ppSID) {
-        result := ComCall(4, this, "uint", cSIDs, "ptr", ppSID, "HRESULT")
+        ppSIDMarshal := ppSID is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "uint", cSIDs, ppSIDMarshal, ppSID, "HRESULT")
         return result
     }
 }

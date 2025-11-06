@@ -30,14 +30,11 @@ class IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwLoad 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetMaxCPULoad(pdwLoad) {
-        pdwLoadMarshal := pdwLoad is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, pdwLoadMarshal, pdwLoad, "HRESULT")
-        return result
+    GetMaxCPULoad() {
+        result := ComCall(14, this, "uint*", &pdwLoad := 0, "HRESULT")
+        return pdwLoad
     }
 
     /**
@@ -52,12 +49,11 @@ class IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbMetricEnabled 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    GetCPUMetricEnabled(pbMetricEnabled) {
-        result := ComCall(16, this, "ptr", pbMetricEnabled, "HRESULT")
-        return result
+    GetCPUMetricEnabled() {
+        result := ComCall(16, this, "int*", &pbMetricEnabled := 0, "HRESULT")
+        return pbMetricEnabled
     }
 
     /**
@@ -72,12 +68,11 @@ class IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbMetricEnabled 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    GetCreateThreadsAggressively(pbMetricEnabled) {
-        result := ComCall(18, this, "ptr", pbMetricEnabled, "HRESULT")
-        return result
+    GetCreateThreadsAggressively() {
+        result := ComCall(18, this, "int*", &pbMetricEnabled := 0, "HRESULT")
+        return pbMetricEnabled
     }
 
     /**
@@ -92,14 +87,11 @@ class IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwCSR 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetMaxCSR(pdwCSR) {
-        pdwCSRMarshal := pdwCSR is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(20, this, pdwCSRMarshal, pdwCSR, "HRESULT")
-        return result
+    GetMaxCSR() {
+        result := ComCall(20, this, "uint*", &pdwCSR := 0, "HRESULT")
+        return pdwCSR
     }
 
     /**
@@ -114,14 +106,11 @@ class IComStaThreadPoolKnobs2 extends IComStaThreadPoolKnobs{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwThreadCleanupWaitTime 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetWaitTimeForThreadCleanup(pdwThreadCleanupWaitTime) {
-        pdwThreadCleanupWaitTimeMarshal := pdwThreadCleanupWaitTime is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(22, this, pdwThreadCleanupWaitTimeMarshal, pdwThreadCleanupWaitTime, "HRESULT")
-        return result
+    GetWaitTimeForThreadCleanup() {
+        result := ComCall(22, this, "uint*", &pdwThreadCleanupWaitTime := 0, "HRESULT")
+        return pdwThreadCleanupWaitTime
     }
 
     /**

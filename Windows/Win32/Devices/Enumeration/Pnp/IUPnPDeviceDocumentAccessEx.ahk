@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -37,12 +38,12 @@ class IUPnPDeviceDocumentAccessEx extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrDocument 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevicedocumentaccessex-getdocument
      */
-    GetDocument(pbstrDocument) {
+    GetDocument() {
+        pbstrDocument := BSTR()
         result := ComCall(3, this, "ptr", pbstrDocument, "HRESULT")
-        return result
+        return pbstrDocument
     }
 }

@@ -32,13 +32,12 @@ class IRegTreeItem extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbCheck 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iregtreeitem-getcheckstate
      */
-    GetCheckState(pbCheck) {
-        result := ComCall(3, this, "ptr", pbCheck, "HRESULT")
-        return result
+    GetCheckState() {
+        result := ComCall(3, this, "int*", &pbCheck := 0, "HRESULT")
+        return pbCheck
     }
 
     /**

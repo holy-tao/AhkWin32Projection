@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -39,13 +40,13 @@ class INetFwProduct extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} ruleCategories 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwproduct-get_rulecategories
      */
-    get_RuleCategories(ruleCategories) {
+    get_RuleCategories() {
+        ruleCategories := VARIANT()
         result := ComCall(7, this, "ptr", ruleCategories, "HRESULT")
-        return result
+        return ruleCategories
     }
 
     /**
@@ -61,13 +62,13 @@ class INetFwProduct extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} displayName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwproduct-get_displayname
      */
-    get_DisplayName(displayName) {
+    get_DisplayName() {
+        displayName := BSTR()
         result := ComCall(9, this, "ptr", displayName, "HRESULT")
-        return result
+        return displayName
     }
 
     /**
@@ -85,12 +86,12 @@ class INetFwProduct extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} path 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwproduct-get_pathtosignedproductexe
      */
-    get_PathToSignedProductExe(path) {
+    get_PathToSignedProductExe() {
+        path := BSTR()
         result := ComCall(11, this, "ptr", path, "HRESULT")
-        return result
+        return path
     }
 }

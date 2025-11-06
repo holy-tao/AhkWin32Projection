@@ -37,73 +37,61 @@ class ICertRequest extends IDispatch{
      * @param {BSTR} strRequest 
      * @param {BSTR} strAttributes 
      * @param {BSTR} strConfig 
-     * @param {Pointer<Integer>} pDisposition 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertrequest-submit
      */
-    Submit(Flags, strRequest, strAttributes, strConfig, pDisposition) {
+    Submit(Flags, strRequest, strAttributes, strConfig) {
         strRequest := strRequest is String ? BSTR.Alloc(strRequest).Value : strRequest
         strAttributes := strAttributes is String ? BSTR.Alloc(strAttributes).Value : strAttributes
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        pDispositionMarshal := pDisposition is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, "int", Flags, "ptr", strRequest, "ptr", strAttributes, "ptr", strConfig, pDispositionMarshal, pDisposition, "HRESULT")
-        return result
+        result := ComCall(7, this, "int", Flags, "ptr", strRequest, "ptr", strAttributes, "ptr", strConfig, "int*", &pDisposition := 0, "HRESULT")
+        return pDisposition
     }
 
     /**
      * 
      * @param {Integer} RequestId 
      * @param {BSTR} strConfig 
-     * @param {Pointer<Integer>} pDisposition 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertrequest-retrievepending
      */
-    RetrievePending(RequestId, strConfig, pDisposition) {
+    RetrievePending(RequestId, strConfig) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        pDispositionMarshal := pDisposition is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, "int", RequestId, "ptr", strConfig, pDispositionMarshal, pDisposition, "HRESULT")
-        return result
+        result := ComCall(8, this, "int", RequestId, "ptr", strConfig, "int*", &pDisposition := 0, "HRESULT")
+        return pDisposition
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertrequest-getlaststatus
      */
-    GetLastStatus(pStatus) {
-        pStatusMarshal := pStatus is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pStatusMarshal, pStatus, "HRESULT")
-        return result
+    GetLastStatus() {
+        result := ComCall(9, this, "int*", &pStatus := 0, "HRESULT")
+        return pStatus
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pRequestId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertrequest-getrequestid
      */
-    GetRequestId(pRequestId) {
-        pRequestIdMarshal := pRequestId is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, pRequestIdMarshal, pRequestId, "HRESULT")
-        return result
+    GetRequestId() {
+        result := ComCall(10, this, "int*", &pRequestId := 0, "HRESULT")
+        return pRequestId
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pstrDispositionMessage 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertrequest-getdispositionmessage
      */
-    GetDispositionMessage(pstrDispositionMessage) {
+    GetDispositionMessage() {
+        pstrDispositionMessage := BSTR()
         result := ComCall(11, this, "ptr", pstrDispositionMessage, "HRESULT")
-        return result
+        return pstrDispositionMessage
     }
 
     /**
@@ -111,26 +99,26 @@ class ICertRequest extends IDispatch{
      * @param {Integer} fExchangeCertificate 
      * @param {BSTR} strConfig 
      * @param {Integer} Flags 
-     * @param {Pointer<BSTR>} pstrCertificate 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertrequest-getcacertificate
      */
-    GetCACertificate(fExchangeCertificate, strConfig, Flags, pstrCertificate) {
+    GetCACertificate(fExchangeCertificate, strConfig, Flags) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
+        pstrCertificate := BSTR()
         result := ComCall(12, this, "int", fExchangeCertificate, "ptr", strConfig, "int", Flags, "ptr", pstrCertificate, "HRESULT")
-        return result
+        return pstrCertificate
     }
 
     /**
      * 
      * @param {Integer} Flags 
-     * @param {Pointer<BSTR>} pstrCertificate 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertrequest-getcertificate
      */
-    GetCertificate(Flags, pstrCertificate) {
+    GetCertificate(Flags) {
+        pstrCertificate := BSTR()
         result := ComCall(13, this, "int", Flags, "ptr", pstrCertificate, "HRESULT")
-        return result
+        return pstrCertificate
     }
 }

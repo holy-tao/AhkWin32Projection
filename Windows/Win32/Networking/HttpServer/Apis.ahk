@@ -2474,7 +2474,9 @@ class HttpServer {
 
         Url := Url is String ? StrPtr(Url) : Url
 
-        result := DllCall("HTTPAPI.dll\HttpPrepareUrl", "ptr", Reserved, "uint", Flags, "ptr", Url, "ptr", PreparedUrl, "uint")
+        PreparedUrlMarshal := PreparedUrl is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("HTTPAPI.dll\HttpPrepareUrl", "ptr", Reserved, "uint", Flags, "ptr", Url, PreparedUrlMarshal, PreparedUrl, "uint")
         return result
     }
 
@@ -3718,8 +3720,6 @@ class HttpServer {
     static HttpSetServiceConfiguration(ConfigId, pConfigInformation, ConfigInformationLength) {
         static ServiceHandle := 0, pOverlapped := 0 ;Reserved parameters must always be NULL
 
-        ServiceHandle := ServiceHandle is Win32Handle ? NumGet(ServiceHandle, "ptr") : ServiceHandle
-
         result := DllCall("HTTPAPI.dll\HttpSetServiceConfiguration", "ptr", ServiceHandle, "int", ConfigId, "ptr", pConfigInformation, "uint", ConfigInformationLength, "ptr", pOverlapped, "uint")
         return result
     }
@@ -3850,8 +3850,6 @@ class HttpServer {
      */
     static HttpUpdateServiceConfiguration(ConfigId, ConfigInfo, ConfigInfoLength) {
         static Handle := 0, Overlapped := 0 ;Reserved parameters must always be NULL
-
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
 
         result := DllCall("HTTPAPI.dll\HttpUpdateServiceConfiguration", "ptr", Handle, "int", ConfigId, "ptr", ConfigInfo, "uint", ConfigInfoLength, "ptr", Overlapped, "uint")
         return result
@@ -4064,8 +4062,6 @@ class HttpServer {
      */
     static HttpDeleteServiceConfiguration(ConfigId, pConfigInformation, ConfigInformationLength) {
         static ServiceHandle := 0, pOverlapped := 0 ;Reserved parameters must always be NULL
-
-        ServiceHandle := ServiceHandle is Win32Handle ? NumGet(ServiceHandle, "ptr") : ServiceHandle
 
         result := DllCall("HTTPAPI.dll\HttpDeleteServiceConfiguration", "ptr", ServiceHandle, "int", ConfigId, "ptr", pConfigInformation, "uint", ConfigInformationLength, "ptr", pOverlapped, "uint")
         return result
@@ -4327,8 +4323,6 @@ class HttpServer {
      */
     static HttpQueryServiceConfiguration(ConfigId, pInput, InputLength, pOutput, OutputLength, pReturnLength) {
         static ServiceHandle := 0, pOverlapped := 0 ;Reserved parameters must always be NULL
-
-        ServiceHandle := ServiceHandle is Win32Handle ? NumGet(ServiceHandle, "ptr") : ServiceHandle
 
         pReturnLengthMarshal := pReturnLength is VarRef ? "uint*" : "ptr"
 

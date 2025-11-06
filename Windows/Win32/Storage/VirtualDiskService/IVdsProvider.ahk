@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\VDS_PROVIDER_PROP.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,12 +33,12 @@ class IVdsProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VDS_PROVIDER_PROP>} pProviderProp 
-     * @returns {HRESULT} 
+     * @returns {VDS_PROVIDER_PROP} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsprovider-getproperties
      */
-    GetProperties(pProviderProp) {
+    GetProperties() {
+        pProviderProp := VDS_PROVIDER_PROP()
         result := ComCall(3, this, "ptr", pProviderProp, "HRESULT")
-        return result
+        return pProviderProp
     }
 }

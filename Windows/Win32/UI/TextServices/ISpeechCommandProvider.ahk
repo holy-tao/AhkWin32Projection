@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumSpeechCommands.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -31,12 +32,11 @@ class ISpeechCommandProvider extends IUnknown{
     /**
      * 
      * @param {Integer} langid 
-     * @param {Pointer<IEnumSpeechCommands>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IEnumSpeechCommands} 
      */
-    EnumSpeechCommands(langid, ppEnum) {
-        result := ComCall(3, this, "ushort", langid, "ptr*", ppEnum, "HRESULT")
-        return result
+    EnumSpeechCommands(langid) {
+        result := ComCall(3, this, "ushort", langid, "ptr*", &ppEnum := 0, "HRESULT")
+        return IEnumSpeechCommands(ppEnum)
     }
 
     /**

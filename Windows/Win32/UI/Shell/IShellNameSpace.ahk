@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IDispatch.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include .\IShellFavoritesNameSpace.ahk
 
 /**
@@ -37,14 +39,11 @@ class IShellNameSpace extends IShellFavoritesNameSpace{
 
     /**
      * 
-     * @param {Pointer<Integer>} pgrfEnumFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_EnumOptions(pgrfEnumFlags) {
-        pgrfEnumFlagsMarshal := pgrfEnumFlags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(20, this, pgrfEnumFlagsMarshal, pgrfEnumFlags, "HRESULT")
-        return result
+    get_EnumOptions() {
+        result := ComCall(20, this, "int*", &pgrfEnumFlags := 0, "HRESULT")
+        return pgrfEnumFlags
     }
 
     /**
@@ -59,12 +58,11 @@ class IShellNameSpace extends IShellFavoritesNameSpace{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} pItem 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_SelectedItem(pItem) {
-        result := ComCall(22, this, "ptr*", pItem, "HRESULT")
-        return result
+    get_SelectedItem() {
+        result := ComCall(22, this, "ptr*", &pItem := 0, "HRESULT")
+        return IDispatch(pItem)
     }
 
     /**
@@ -79,12 +77,12 @@ class IShellNameSpace extends IShellFavoritesNameSpace{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvar 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_Root(pvar) {
+    get_Root() {
+        pvar := VARIANT()
         result := ComCall(24, this, "ptr", pvar, "HRESULT")
-        return result
+        return pvar
     }
 
     /**
@@ -99,14 +97,11 @@ class IShellNameSpace extends IShellFavoritesNameSpace{
 
     /**
      * 
-     * @param {Pointer<Integer>} piDepth 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Depth(piDepth) {
-        piDepthMarshal := piDepth is VarRef ? "int*" : "ptr"
-
-        result := ComCall(26, this, piDepthMarshal, piDepth, "HRESULT")
-        return result
+    get_Depth() {
+        result := ComCall(26, this, "int*", &piDepth := 0, "HRESULT")
+        return piDepth
     }
 
     /**
@@ -121,14 +116,11 @@ class IShellNameSpace extends IShellFavoritesNameSpace{
 
     /**
      * 
-     * @param {Pointer<Integer>} puMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Mode(puMode) {
-        puModeMarshal := puMode is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(28, this, puModeMarshal, puMode, "HRESULT")
-        return result
+    get_Mode() {
+        result := ComCall(28, this, "uint*", &puMode := 0, "HRESULT")
+        return puMode
     }
 
     /**
@@ -143,14 +135,11 @@ class IShellNameSpace extends IShellFavoritesNameSpace{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Flags(pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(30, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
-        return result
+    get_Flags() {
+        result := ComCall(30, this, "uint*", &pdwFlags := 0, "HRESULT")
+        return pdwFlags
     }
 
     /**
@@ -175,24 +164,21 @@ class IShellNameSpace extends IShellFavoritesNameSpace{
 
     /**
      * 
-     * @param {Pointer<Integer>} dwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_TVFlags(dwFlags) {
-        dwFlagsMarshal := dwFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(33, this, dwFlagsMarshal, dwFlags, "HRESULT")
-        return result
+    get_TVFlags() {
+        result := ComCall(33, this, "uint*", &dwFlags := 0, "HRESULT")
+        return dwFlags
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} bstrColumns 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Columns(bstrColumns) {
+    get_Columns() {
+        bstrColumns := BSTR()
         result := ComCall(34, this, "ptr", bstrColumns, "HRESULT")
-        return result
+        return bstrColumns
     }
 
     /**
@@ -209,14 +195,11 @@ class IShellNameSpace extends IShellFavoritesNameSpace{
 
     /**
      * 
-     * @param {Pointer<Integer>} piTypes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_CountViewTypes(piTypes) {
-        piTypesMarshal := piTypes is VarRef ? "int*" : "ptr"
-
-        result := ComCall(36, this, piTypesMarshal, piTypes, "HRESULT")
-        return result
+    get_CountViewTypes() {
+        result := ComCall(36, this, "int*", &piTypes := 0, "HRESULT")
+        return piTypes
     }
 
     /**
@@ -231,12 +214,11 @@ class IShellNameSpace extends IShellFavoritesNameSpace{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppid 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    SelectedItems(ppid) {
-        result := ComCall(38, this, "ptr*", ppid, "HRESULT")
-        return result
+    SelectedItems() {
+        result := ComCall(38, this, "ptr*", &ppid := 0, "HRESULT")
+        return IDispatch(ppid)
     }
 
     /**

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\UNCOMPRESSEDAUDIOFORMAT.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,27 +33,23 @@ class IAudioMediaType extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfCompressed 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/audiomediatype/nf-audiomediatype-iaudiomediatype-iscompressedformat
      */
-    IsCompressedFormat(pfCompressed) {
-        result := ComCall(3, this, "ptr", pfCompressed, "HRESULT")
-        return result
+    IsCompressedFormat() {
+        result := ComCall(3, this, "int*", &pfCompressed := 0, "HRESULT")
+        return pfCompressed
     }
 
     /**
      * 
      * @param {IAudioMediaType} pIAudioType 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/audiomediatype/nf-audiomediatype-iaudiomediatype-isequal
      */
-    IsEqual(pIAudioType, pdwFlags) {
-        pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, "ptr", pIAudioType, pdwFlagsMarshal, pdwFlags, "HRESULT")
-        return result
+    IsEqual(pIAudioType) {
+        result := ComCall(4, this, "ptr", pIAudioType, "uint*", &pdwFlags := 0, "HRESULT")
+        return pdwFlags
     }
 
     /**
@@ -67,12 +64,12 @@ class IAudioMediaType extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<UNCOMPRESSEDAUDIOFORMAT>} pUncompressedAudioFormat 
-     * @returns {HRESULT} 
+     * @returns {UNCOMPRESSEDAUDIOFORMAT} 
      * @see https://learn.microsoft.com/windows/win32/api/audiomediatype/nf-audiomediatype-iaudiomediatype-getuncompressedaudioformat
      */
-    GetUncompressedAudioFormat(pUncompressedAudioFormat) {
+    GetUncompressedAudioFormat() {
+        pUncompressedAudioFormat := UNCOMPRESSEDAUDIOFORMAT()
         result := ComCall(6, this, "ptr", pUncompressedAudioFormat, "HRESULT")
-        return result
+        return pUncompressedAudioFormat
     }
 }

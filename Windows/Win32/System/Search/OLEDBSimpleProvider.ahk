@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -36,40 +38,31 @@ class OLEDBSimpleProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer>} pcRows 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    getRowCount(pcRows) {
-        pcRowsMarshal := pcRows is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, pcRowsMarshal, pcRows, "HRESULT")
-        return result
+    getRowCount() {
+        result := ComCall(3, this, "ptr*", &pcRows := 0, "HRESULT")
+        return pcRows
     }
 
     /**
      * 
-     * @param {Pointer<Pointer>} pcColumns 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    getColumnCount(pcColumns) {
-        pcColumnsMarshal := pcColumns is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, pcColumnsMarshal, pcColumns, "HRESULT")
-        return result
+    getColumnCount() {
+        result := ComCall(4, this, "ptr*", &pcColumns := 0, "HRESULT")
+        return pcColumns
     }
 
     /**
      * 
      * @param {Pointer} iRow 
      * @param {Pointer} iColumn 
-     * @param {Pointer<Integer>} prwStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    getRWStatus(iRow, iColumn, prwStatus) {
-        prwStatusMarshal := prwStatus is VarRef ? "int*" : "ptr"
-
-        result := ComCall(5, this, "ptr", iRow, "ptr", iColumn, prwStatusMarshal, prwStatus, "HRESULT")
-        return result
+    getRWStatus(iRow, iColumn) {
+        result := ComCall(5, this, "ptr", iRow, "ptr", iColumn, "int*", &prwStatus := 0, "HRESULT")
+        return prwStatus
     }
 
     /**
@@ -77,12 +70,12 @@ class OLEDBSimpleProvider extends IUnknown{
      * @param {Pointer} iRow 
      * @param {Pointer} iColumn 
      * @param {Integer} format 
-     * @param {Pointer<VARIANT>} pVar 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    getVariant(iRow, iColumn, format, pVar) {
+    getVariant(iRow, iColumn, format) {
+        pVar := VARIANT()
         result := ComCall(6, this, "ptr", iRow, "ptr", iColumn, "int", format, "ptr", pVar, "HRESULT")
-        return result
+        return pVar
     }
 
     /**
@@ -100,40 +93,34 @@ class OLEDBSimpleProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrLocale 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    getLocale(pbstrLocale) {
+    getLocale() {
+        pbstrLocale := BSTR()
         result := ComCall(8, this, "ptr", pbstrLocale, "HRESULT")
-        return result
+        return pbstrLocale
     }
 
     /**
      * 
      * @param {Pointer} iRow 
      * @param {Pointer} cRows 
-     * @param {Pointer<Pointer>} pcRowsDeleted 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    deleteRows(iRow, cRows, pcRowsDeleted) {
-        pcRowsDeletedMarshal := pcRowsDeleted is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(9, this, "ptr", iRow, "ptr", cRows, pcRowsDeletedMarshal, pcRowsDeleted, "HRESULT")
-        return result
+    deleteRows(iRow, cRows) {
+        result := ComCall(9, this, "ptr", iRow, "ptr", cRows, "ptr*", &pcRowsDeleted := 0, "HRESULT")
+        return pcRowsDeleted
     }
 
     /**
      * 
      * @param {Pointer} iRow 
      * @param {Pointer} cRows 
-     * @param {Pointer<Pointer>} pcRowsInserted 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    insertRows(iRow, cRows, pcRowsInserted) {
-        pcRowsInsertedMarshal := pcRowsInserted is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(10, this, "ptr", iRow, "ptr", cRows, pcRowsInsertedMarshal, pcRowsInserted, "HRESULT")
-        return result
+    insertRows(iRow, cRows) {
+        result := ComCall(10, this, "ptr", iRow, "ptr", cRows, "ptr*", &pcRowsInserted := 0, "HRESULT")
+        return pcRowsInserted
     }
 
     /**
@@ -143,14 +130,11 @@ class OLEDBSimpleProvider extends IUnknown{
      * @param {VARIANT} val 
      * @param {Integer} findFlags 
      * @param {Integer} compType 
-     * @param {Pointer<Pointer>} piRowFound 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    find(iRowStart, iColumn, val, findFlags, compType, piRowFound) {
-        piRowFoundMarshal := piRowFound is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(11, this, "ptr", iRowStart, "ptr", iColumn, "ptr", val, "int", findFlags, "int", compType, piRowFoundMarshal, piRowFound, "HRESULT")
-        return result
+    find(iRowStart, iColumn, val, findFlags, compType) {
+        result := ComCall(11, this, "ptr", iRowStart, "ptr", iColumn, "ptr", val, "int", findFlags, "int", compType, "ptr*", &piRowFound := 0, "HRESULT")
+        return piRowFound
     }
 
     /**
@@ -175,24 +159,20 @@ class OLEDBSimpleProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbAsynch 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    isAsync(pbAsynch) {
-        result := ComCall(14, this, "ptr", pbAsynch, "HRESULT")
-        return result
+    isAsync() {
+        result := ComCall(14, this, "int*", &pbAsynch := 0, "HRESULT")
+        return pbAsynch
     }
 
     /**
      * 
-     * @param {Pointer<Pointer>} piRows 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    getEstimatedRows(piRows) {
-        piRowsMarshal := piRows is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(15, this, piRowsMarshal, piRows, "HRESULT")
-        return result
+    getEstimatedRows() {
+        result := ComCall(15, this, "ptr*", &piRows := 0, "HRESULT")
+        return piRows
     }
 
     /**

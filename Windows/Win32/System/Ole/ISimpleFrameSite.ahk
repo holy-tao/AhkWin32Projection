@@ -44,9 +44,10 @@ class ISimpleFrameSite extends IUnknown{
     PreMessageFilter(hWnd, msg, wp, lp, plResult, pdwCookie) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
+        plResultMarshal := plResult is VarRef ? "ptr*" : "ptr"
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", hWnd, "uint", msg, "ptr", wp, "ptr", lp, "ptr", plResult, pdwCookieMarshal, pdwCookie, "HRESULT")
+        result := ComCall(3, this, "ptr", hWnd, "uint", msg, "ptr", wp, "ptr", lp, plResultMarshal, plResult, pdwCookieMarshal, pdwCookie, "HRESULT")
         return result
     }
 
@@ -56,15 +57,14 @@ class ISimpleFrameSite extends IUnknown{
      * @param {Integer} msg 
      * @param {WPARAM} wp 
      * @param {LPARAM} lp 
-     * @param {Pointer<LRESULT>} plResult 
      * @param {Integer} dwCookie 
-     * @returns {HRESULT} 
+     * @returns {LRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-isimpleframesite-postmessagefilter
      */
-    PostMessageFilter(hWnd, msg, wp, lp, plResult, dwCookie) {
+    PostMessageFilter(hWnd, msg, wp, lp, dwCookie) {
         hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
 
-        result := ComCall(4, this, "ptr", hWnd, "uint", msg, "ptr", wp, "ptr", lp, "ptr", plResult, "uint", dwCookie, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", hWnd, "uint", msg, "ptr", wp, "ptr", lp, "ptr*", &plResult := 0, "uint", dwCookie, "HRESULT")
+        return plResult
     }
 }

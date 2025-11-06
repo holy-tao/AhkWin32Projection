@@ -45,16 +45,13 @@ class IFsrmPathMapper extends IDispatch{
     /**
      * 
      * @param {BSTR} localPath 
-     * @param {Pointer<Pointer<SAFEARRAY>>} sharePaths 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmpathmapper-getsharepathsforlocalpath
      */
-    GetSharePathsForLocalPath(localPath, sharePaths) {
+    GetSharePathsForLocalPath(localPath) {
         localPath := localPath is String ? BSTR.Alloc(localPath).Value : localPath
 
-        sharePathsMarshal := sharePaths is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, "ptr", localPath, sharePathsMarshal, sharePaths, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", localPath, "ptr*", &sharePaths := 0, "HRESULT")
+        return sharePaths
     }
 }

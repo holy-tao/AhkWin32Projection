@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IDataModelScriptDebugStackFrame.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -40,11 +41,10 @@ class IDataModelScriptDebugStack extends IUnknown{
     /**
      * 
      * @param {Integer} frameNumber 
-     * @param {Pointer<IDataModelScriptDebugStackFrame>} stackFrame 
-     * @returns {HRESULT} 
+     * @returns {IDataModelScriptDebugStackFrame} 
      */
-    GetStackFrame(frameNumber, stackFrame) {
-        result := ComCall(4, this, "uint", frameNumber, "ptr*", stackFrame, "HRESULT")
-        return result
+    GetStackFrame(frameNumber) {
+        result := ComCall(4, this, "uint", frameNumber, "ptr*", &stackFrame := 0, "HRESULT")
+        return IDataModelScriptDebugStackFrame(stackFrame)
     }
 }

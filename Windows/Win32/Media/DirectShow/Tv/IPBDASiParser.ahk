@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IPBDA_EIT.ahk
+#Include .\IPBDA_Services.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -55,29 +57,27 @@ class IPBDASiParser extends IUnknown{
      * 
      * @param {Integer} dwSize 
      * @param {Pointer<Integer>} pBuffer 
-     * @param {Pointer<IPBDA_EIT>} ppEIT 
-     * @returns {HRESULT} 
+     * @returns {IPBDA_EIT} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbdasiparser-geteit
      */
-    GetEIT(dwSize, pBuffer, ppEIT) {
+    GetEIT(dwSize, pBuffer) {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwSize, pBufferMarshal, pBuffer, "ptr*", ppEIT, "HRESULT")
-        return result
+        result := ComCall(4, this, "uint", dwSize, pBufferMarshal, pBuffer, "ptr*", &ppEIT := 0, "HRESULT")
+        return IPBDA_EIT(ppEIT)
     }
 
     /**
      * 
      * @param {Integer} dwSize 
      * @param {Pointer<Integer>} pBuffer 
-     * @param {Pointer<IPBDA_Services>} ppServices 
-     * @returns {HRESULT} 
+     * @returns {IPBDA_Services} 
      * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbdasiparser-getservices
      */
-    GetServices(dwSize, pBuffer, ppServices) {
+    GetServices(dwSize, pBuffer) {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(5, this, "uint", dwSize, pBufferMarshal, pBuffer, "ptr*", ppServices, "HRESULT")
-        return result
+        result := ComCall(5, this, "uint", dwSize, pBufferMarshal, pBuffer, "ptr*", &ppServices := 0, "HRESULT")
+        return IPBDA_Services(ppServices)
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Com\IDispatch.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -61,13 +62,12 @@ class IWMPRemoteMediaServices extends IUnknown{
     /**
      * 
      * @param {Pointer<BSTR>} pbstrName 
-     * @param {Pointer<IDispatch>} ppDispatch 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpremotemediaservices-getscriptableobject
      */
-    GetScriptableObject(pbstrName, ppDispatch) {
-        result := ComCall(5, this, "ptr", pbstrName, "ptr*", ppDispatch, "HRESULT")
-        return result
+    GetScriptableObject(pbstrName) {
+        result := ComCall(5, this, "ptr", pbstrName, "ptr*", &ppDispatch := 0, "HRESULT")
+        return IDispatch(ppDispatch)
     }
 
     /**

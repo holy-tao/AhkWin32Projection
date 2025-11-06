@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDispLatLongReport.ahk
 #Include .\ILocationReportFactory.ahk
 
 /**
@@ -36,11 +37,10 @@ class ILatLongReportFactory extends ILocationReportFactory{
 
     /**
      * 
-     * @param {Pointer<IDispLatLongReport>} pVal 
-     * @returns {HRESULT} 
+     * @returns {IDispLatLongReport} 
      */
-    get_LatLongReport(pVal) {
-        result := ComCall(15, this, "ptr*", pVal, "HRESULT")
-        return result
+    get_LatLongReport() {
+        result := ComCall(15, this, "ptr*", &pVal := 0, "HRESULT")
+        return IDispLatLongReport(pVal)
     }
 }

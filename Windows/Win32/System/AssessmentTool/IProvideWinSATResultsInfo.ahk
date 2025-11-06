@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IProvideWinSATAssessmentInfo.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -33,60 +36,53 @@ class IProvideWinSATResultsInfo extends IDispatch{
     /**
      * 
      * @param {Integer} assessment 
-     * @param {Pointer<IProvideWinSATAssessmentInfo>} ppinfo 
-     * @returns {HRESULT} 
+     * @returns {IProvideWinSATAssessmentInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatresultsinfo-getassessmentinfo
      */
-    GetAssessmentInfo(assessment, ppinfo) {
-        result := ComCall(7, this, "int", assessment, "ptr*", ppinfo, "HRESULT")
-        return result
+    GetAssessmentInfo(assessment) {
+        result := ComCall(7, this, "int", assessment, "ptr*", &ppinfo := 0, "HRESULT")
+        return IProvideWinSATAssessmentInfo(ppinfo)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} state 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatresultsinfo-get_assessmentstate
      */
-    get_AssessmentState(state) {
-        stateMarshal := state is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, stateMarshal, state, "HRESULT")
-        return result
+    get_AssessmentState() {
+        result := ComCall(8, this, "int*", &state := 0, "HRESULT")
+        return state
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} fileTime 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatresultsinfo-get_assessmentdatetime
      */
-    get_AssessmentDateTime(fileTime) {
+    get_AssessmentDateTime() {
+        fileTime := VARIANT()
         result := ComCall(9, this, "ptr", fileTime, "HRESULT")
-        return result
+        return fileTime
     }
 
     /**
      * 
-     * @param {Pointer<Float>} level 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatresultsinfo-get_systemrating
      */
-    get_SystemRating(level) {
-        levelMarshal := level is VarRef ? "float*" : "ptr"
-
-        result := ComCall(10, this, levelMarshal, level, "HRESULT")
-        return result
+    get_SystemRating() {
+        result := ComCall(10, this, "float*", &level := 0, "HRESULT")
+        return level
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} description 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nf-winsatcominterfacei-iprovidewinsatresultsinfo-get_ratingstatedesc
      */
-    get_RatingStateDesc(description) {
+    get_RatingStateDesc() {
+        description := BSTR()
         result := ComCall(11, this, "ptr", description, "HRESULT")
-        return result
+        return description
     }
 }

@@ -35,13 +35,12 @@ class IMetaDataDispenser extends IUnknown{
      * @param {Pointer<Guid>} rclsid 
      * @param {Integer} dwCreateFlags 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppIUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatadispenser-definescope
      */
-    DefineScope(rclsid, dwCreateFlags, riid, ppIUnk) {
-        result := ComCall(3, this, "ptr", rclsid, "uint", dwCreateFlags, "ptr", riid, "ptr*", ppIUnk, "HRESULT")
-        return result
+    DefineScope(rclsid, dwCreateFlags, riid) {
+        result := ComCall(3, this, "ptr", rclsid, "uint", dwCreateFlags, "ptr", riid, "ptr*", &ppIUnk := 0, "HRESULT")
+        return IUnknown(ppIUnk)
     }
 
     /**
@@ -49,15 +48,14 @@ class IMetaDataDispenser extends IUnknown{
      * @param {PWSTR} szScope 
      * @param {Integer} dwOpenFlags 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppIUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatadispenser-openscope
      */
-    OpenScope(szScope, dwOpenFlags, riid, ppIUnk) {
+    OpenScope(szScope, dwOpenFlags, riid) {
         szScope := szScope is String ? StrPtr(szScope) : szScope
 
-        result := ComCall(4, this, "ptr", szScope, "uint", dwOpenFlags, "ptr", riid, "ptr*", ppIUnk, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", szScope, "uint", dwOpenFlags, "ptr", riid, "ptr*", &ppIUnk := 0, "HRESULT")
+        return IUnknown(ppIUnk)
     }
 
     /**
@@ -66,14 +64,13 @@ class IMetaDataDispenser extends IUnknown{
      * @param {Integer} cbData 
      * @param {Integer} dwOpenFlags 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<IUnknown>} ppIUnk 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatadispenser-openscopeonmemory
      */
-    OpenScopeOnMemory(pData, cbData, dwOpenFlags, riid, ppIUnk) {
+    OpenScopeOnMemory(pData, cbData, dwOpenFlags, riid) {
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, pDataMarshal, pData, "uint", cbData, "uint", dwOpenFlags, "ptr", riid, "ptr*", ppIUnk, "HRESULT")
-        return result
+        result := ComCall(5, this, pDataMarshal, pData, "uint", cbData, "uint", dwOpenFlags, "ptr", riid, "ptr*", &ppIUnk := 0, "HRESULT")
+        return IUnknown(ppIUnk)
     }
 }

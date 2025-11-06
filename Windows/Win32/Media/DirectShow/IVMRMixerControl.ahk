@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\NORMALIZEDRECT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -45,15 +46,12 @@ class IVMRMixerControl extends IUnknown{
     /**
      * 
      * @param {Integer} dwStreamID 
-     * @param {Pointer<Float>} pAlpha 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrmixercontrol-getalpha
      */
-    GetAlpha(dwStreamID, pAlpha) {
-        pAlphaMarshal := pAlpha is VarRef ? "float*" : "ptr"
-
-        result := ComCall(4, this, "uint", dwStreamID, pAlphaMarshal, pAlpha, "HRESULT")
-        return result
+    GetAlpha(dwStreamID) {
+        result := ComCall(4, this, "uint", dwStreamID, "float*", &pAlpha := 0, "HRESULT")
+        return pAlpha
     }
 
     /**
@@ -71,15 +69,12 @@ class IVMRMixerControl extends IUnknown{
     /**
      * 
      * @param {Integer} dwStreamID 
-     * @param {Pointer<Integer>} pZ 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrmixercontrol-getzorder
      */
-    GetZOrder(dwStreamID, pZ) {
-        pZMarshal := pZ is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, "uint", dwStreamID, pZMarshal, pZ, "HRESULT")
-        return result
+    GetZOrder(dwStreamID) {
+        result := ComCall(6, this, "uint", dwStreamID, "uint*", &pZ := 0, "HRESULT")
+        return pZ
     }
 
     /**
@@ -97,13 +92,13 @@ class IVMRMixerControl extends IUnknown{
     /**
      * 
      * @param {Integer} dwStreamID 
-     * @param {Pointer<NORMALIZEDRECT>} pRect 
-     * @returns {HRESULT} 
+     * @returns {NORMALIZEDRECT} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrmixercontrol-getoutputrect
      */
-    GetOutputRect(dwStreamID, pRect) {
+    GetOutputRect(dwStreamID) {
+        pRect := NORMALIZEDRECT()
         result := ComCall(8, this, "uint", dwStreamID, "ptr", pRect, "HRESULT")
-        return result
+        return pRect
     }
 
     /**
@@ -124,7 +119,9 @@ class IVMRMixerControl extends IUnknown{
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrmixercontrol-getbackgroundclr
      */
     GetBackgroundClr(lpClrBkg) {
-        result := ComCall(10, this, "ptr", lpClrBkg, "HRESULT")
+        lpClrBkgMarshal := lpClrBkg is VarRef ? "uint*" : "ptr"
+
+        result := ComCall(10, this, lpClrBkgMarshal, lpClrBkg, "HRESULT")
         return result
     }
 
@@ -141,14 +138,11 @@ class IVMRMixerControl extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwMixerPrefs 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrmixercontrol-getmixingprefs
      */
-    GetMixingPrefs(pdwMixerPrefs) {
-        pdwMixerPrefsMarshal := pdwMixerPrefs is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, pdwMixerPrefsMarshal, pdwMixerPrefs, "HRESULT")
-        return result
+    GetMixingPrefs() {
+        result := ComCall(12, this, "uint*", &pdwMixerPrefs := 0, "HRESULT")
+        return pdwMixerPrefs
     }
 }

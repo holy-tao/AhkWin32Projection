@@ -2,6 +2,11 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Com\IUnknown.ahk
+#Include .\ITextRange2.ahk
+#Include .\ITextFont2.ahk
+#Include .\ITextPara2.ahk
+#Include .\ITextRow.ahk
 #Include .\ITextSelection.ahk
 
 /**
@@ -33,72 +38,62 @@ class ITextRange2 extends ITextSelection{
 
     /**
      * 
-     * @param {Pointer<Integer>} pcch 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-getcch
      */
-    GetCch(pcch) {
-        pcchMarshal := pcch is VarRef ? "int*" : "ptr"
-
-        result := ComCall(68, this, pcchMarshal, pcch, "HRESULT")
-        return result
+    GetCch() {
+        result := ComCall(68, this, "int*", &pcch := 0, "HRESULT")
+        return pcch
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppCells 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-getcells
      */
-    GetCells(ppCells) {
-        result := ComCall(69, this, "ptr*", ppCells, "HRESULT")
-        return result
+    GetCells() {
+        result := ComCall(69, this, "ptr*", &ppCells := 0, "HRESULT")
+        return IUnknown(ppCells)
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppColumn 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-getcolumn
      */
-    GetColumn(ppColumn) {
-        result := ComCall(70, this, "ptr*", ppColumn, "HRESULT")
-        return result
+    GetColumn() {
+        result := ComCall(70, this, "ptr*", &ppColumn := 0, "HRESULT")
+        return IUnknown(ppColumn)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-getcount
      */
-    GetCount(pCount) {
-        pCountMarshal := pCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(71, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    GetCount() {
+        result := ComCall(71, this, "int*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
      * 
-     * @param {Pointer<ITextRange2>} ppRange 
-     * @returns {HRESULT} 
+     * @returns {ITextRange2} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-getduplicate2
      */
-    GetDuplicate2(ppRange) {
-        result := ComCall(72, this, "ptr*", ppRange, "HRESULT")
-        return result
+    GetDuplicate2() {
+        result := ComCall(72, this, "ptr*", &ppRange := 0, "HRESULT")
+        return ITextRange2(ppRange)
     }
 
     /**
      * 
-     * @param {Pointer<ITextFont2>} ppFont 
-     * @returns {HRESULT} 
+     * @returns {ITextFont2} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-getfont2
      */
-    GetFont2(ppFont) {
-        result := ComCall(73, this, "ptr*", ppFont, "HRESULT")
-        return result
+    GetFont2() {
+        result := ComCall(73, this, "ptr*", &ppFont := 0, "HRESULT")
+        return ITextFont2(ppFont)
     }
 
     /**
@@ -114,13 +109,12 @@ class ITextRange2 extends ITextSelection{
 
     /**
      * 
-     * @param {Pointer<ITextRange2>} ppRange 
-     * @returns {HRESULT} 
+     * @returns {ITextRange2} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-getformattedtext2
      */
-    GetFormattedText2(ppRange) {
-        result := ComCall(75, this, "ptr*", ppRange, "HRESULT")
-        return result
+    GetFormattedText2() {
+        result := ComCall(75, this, "ptr*", &ppRange := 0, "HRESULT")
+        return ITextRange2(ppRange)
     }
 
     /**
@@ -136,15 +130,12 @@ class ITextRange2 extends ITextSelection{
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-getgravity
      */
-    GetGravity(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(77, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetGravity() {
+        result := ComCall(77, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -160,13 +151,12 @@ class ITextRange2 extends ITextSelection{
 
     /**
      * 
-     * @param {Pointer<ITextPara2>} ppPara 
-     * @returns {HRESULT} 
+     * @returns {ITextPara2} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-getpara2
      */
-    GetPara2(ppPara) {
-        result := ComCall(79, this, "ptr*", ppPara, "HRESULT")
-        return result
+    GetPara2() {
+        result := ComCall(79, this, "ptr*", &ppPara := 0, "HRESULT")
+        return ITextPara2(ppPara)
     }
 
     /**
@@ -182,48 +172,43 @@ class ITextRange2 extends ITextSelection{
 
     /**
      * 
-     * @param {Pointer<ITextRow>} ppRow 
-     * @returns {HRESULT} 
+     * @returns {ITextRow} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-getrow
      */
-    GetRow(ppRow) {
-        result := ComCall(81, this, "ptr*", ppRow, "HRESULT")
-        return result
+    GetRow() {
+        result := ComCall(81, this, "ptr*", &ppRow := 0, "HRESULT")
+        return ITextRow(ppRow)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-getstartpara
      */
-    GetStartPara(pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(82, this, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetStartPara() {
+        result := ComCall(82, this, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppTable 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-gettable
      */
-    GetTable(ppTable) {
-        result := ComCall(83, this, "ptr*", ppTable, "HRESULT")
-        return result
+    GetTable() {
+        result := ComCall(83, this, "ptr*", &ppTable := 0, "HRESULT")
+        return IUnknown(ppTable)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-geturl
      */
-    GetURL(pbstr) {
+    GetURL() {
+        pbstr := BSTR()
         result := ComCall(84, this, "ptr", pbstr, "HRESULT")
-        return result
+        return pbstr
     }
 
     /**
@@ -280,29 +265,23 @@ class ITextRange2 extends ITextSelection{
      * @param {ITextRange2} pRange 
      * @param {Integer} Count 
      * @param {Integer} Flags 
-     * @param {Pointer<Integer>} pDelta 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-find
      */
-    Find(pRange, Count, Flags, pDelta) {
-        pDeltaMarshal := pDelta is VarRef ? "int*" : "ptr"
-
-        result := ComCall(89, this, "ptr", pRange, "int", Count, "int", Flags, pDeltaMarshal, pDelta, "HRESULT")
-        return result
+    Find(pRange, Count, Flags) {
+        result := ComCall(89, this, "ptr", pRange, "int", Count, "int", Flags, "int*", &pDelta := 0, "HRESULT")
+        return pDelta
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pChar 
      * @param {Integer} Offset 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-getchar2
      */
-    GetChar2(pChar, Offset) {
-        pCharMarshal := pChar is VarRef ? "int*" : "ptr"
-
-        result := ComCall(90, this, pCharMarshal, pChar, "int", Offset, "HRESULT")
-        return result
+    GetChar2(Offset) {
+        result := ComCall(90, this, "int*", &pChar := 0, "int", Offset, "HRESULT")
+        return pChar
     }
 
     /**
@@ -352,15 +331,12 @@ class ITextRange2 extends ITextSelection{
     /**
      * 
      * @param {Integer} Type 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-getproperty
      */
-    GetProperty(Type, pValue) {
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(93, this, "int", Type, pValueMarshal, pValue, "HRESULT")
-        return result
+    GetProperty(Type) {
+        result := ComCall(93, this, "int", Type, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**
@@ -404,13 +380,13 @@ class ITextRange2 extends ITextSelection{
     /**
      * 
      * @param {Integer} Flags 
-     * @param {Pointer<BSTR>} pbstr 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-gettext2
      */
-    GetText2(Flags, pbstr) {
+    GetText2(Flags) {
+        pbstr := BSTR()
         result := ComCall(96, this, "int", Flags, "ptr", pbstr, "HRESULT")
-        return result
+        return pbstr
     }
 
     /**
@@ -528,17 +504,14 @@ class ITextRange2 extends ITextSelection{
     /**
      * 
      * @param {BSTR} bstr 
-     * @param {Pointer<Integer>} pValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextrange2-getmathfunctiontype
      */
-    GetMathFunctionType(bstr, pValue) {
+    GetMathFunctionType(bstr) {
         bstr := bstr is String ? BSTR.Alloc(bstr).Value : bstr
 
-        pValueMarshal := pValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(106, this, "ptr", bstr, pValueMarshal, pValue, "HRESULT")
-        return result
+        result := ComCall(106, this, "ptr", bstr, "int*", &pValue := 0, "HRESULT")
+        return pValue
     }
 
     /**

@@ -1,6 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IDxcBlobEncoding.ahk
+#Include ..\..\..\Foundation\BSTR.ahk
+#Include .\IDxcBlob.ahk
+#Include .\IDxcVersionInfo.ahk
+#Include .\IDxcResult.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -40,94 +45,81 @@ class IDxcPdbUtils extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetSourceCount(pCount) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    GetSourceCount() {
+        result := ComCall(4, this, "uint*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
      * 
      * @param {Integer} uIndex 
-     * @param {Pointer<IDxcBlobEncoding>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {IDxcBlobEncoding} 
      */
-    GetSource(uIndex, ppResult) {
-        result := ComCall(5, this, "uint", uIndex, "ptr*", ppResult, "HRESULT")
-        return result
+    GetSource(uIndex) {
+        result := ComCall(5, this, "uint", uIndex, "ptr*", &ppResult := 0, "HRESULT")
+        return IDxcBlobEncoding(ppResult)
     }
 
     /**
      * 
      * @param {Integer} uIndex 
-     * @param {Pointer<BSTR>} pResult 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetSourceName(uIndex, pResult) {
+    GetSourceName(uIndex) {
+        pResult := BSTR()
         result := ComCall(6, this, "uint", uIndex, "ptr", pResult, "HRESULT")
-        return result
+        return pResult
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetFlagCount(pCount) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    GetFlagCount() {
+        result := ComCall(7, this, "uint*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
      * 
      * @param {Integer} uIndex 
-     * @param {Pointer<BSTR>} pResult 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetFlag(uIndex, pResult) {
+    GetFlag(uIndex) {
+        pResult := BSTR()
         result := ComCall(8, this, "uint", uIndex, "ptr", pResult, "HRESULT")
-        return result
+        return pResult
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetArgCount(pCount) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    GetArgCount() {
+        result := ComCall(9, this, "uint*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
      * 
      * @param {Integer} uIndex 
-     * @param {Pointer<BSTR>} pResult 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetArg(uIndex, pResult) {
+    GetArg(uIndex) {
+        pResult := BSTR()
         result := ComCall(10, this, "uint", uIndex, "ptr", pResult, "HRESULT")
-        return result
+        return pResult
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetArgPairCount(pCount) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    GetArgPairCount() {
+        result := ComCall(11, this, "uint*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
@@ -144,75 +136,71 @@ class IDxcPdbUtils extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetDefineCount(pCount) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(13, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    GetDefineCount() {
+        result := ComCall(13, this, "uint*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
      * 
      * @param {Integer} uIndex 
-     * @param {Pointer<BSTR>} pResult 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetDefine(uIndex, pResult) {
+    GetDefine(uIndex) {
+        pResult := BSTR()
         result := ComCall(14, this, "uint", uIndex, "ptr", pResult, "HRESULT")
-        return result
+        return pResult
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pResult 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetTargetProfile(pResult) {
+    GetTargetProfile() {
+        pResult := BSTR()
         result := ComCall(15, this, "ptr", pResult, "HRESULT")
-        return result
+        return pResult
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pResult 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetEntryPoint(pResult) {
+    GetEntryPoint() {
+        pResult := BSTR()
         result := ComCall(16, this, "ptr", pResult, "HRESULT")
-        return result
+        return pResult
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pResult 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetMainFileName(pResult) {
+    GetMainFileName() {
+        pResult := BSTR()
         result := ComCall(17, this, "ptr", pResult, "HRESULT")
-        return result
+        return pResult
     }
 
     /**
      * 
-     * @param {Pointer<IDxcBlob>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {IDxcBlob} 
      */
-    GetHash(ppResult) {
-        result := ComCall(18, this, "ptr*", ppResult, "HRESULT")
-        return result
+    GetHash() {
+        result := ComCall(18, this, "ptr*", &ppResult := 0, "HRESULT")
+        return IDxcBlob(ppResult)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pResult 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetName(pResult) {
+    GetName() {
+        pResult := BSTR()
         result := ComCall(19, this, "ptr", pResult, "HRESULT")
-        return result
+        return pResult
     }
 
     /**
@@ -226,22 +214,20 @@ class IDxcPdbUtils extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDxcBlob>} ppFullPDB 
-     * @returns {HRESULT} 
+     * @returns {IDxcBlob} 
      */
-    GetFullPDB(ppFullPDB) {
-        result := ComCall(21, this, "ptr*", ppFullPDB, "HRESULT")
-        return result
+    GetFullPDB() {
+        result := ComCall(21, this, "ptr*", &ppFullPDB := 0, "HRESULT")
+        return IDxcBlob(ppFullPDB)
     }
 
     /**
      * 
-     * @param {Pointer<IDxcVersionInfo>} ppVersionInfo 
-     * @returns {HRESULT} 
+     * @returns {IDxcVersionInfo} 
      */
-    GetVersionInfo(ppVersionInfo) {
-        result := ComCall(22, this, "ptr*", ppVersionInfo, "HRESULT")
-        return result
+    GetVersionInfo() {
+        result := ComCall(22, this, "ptr*", &ppVersionInfo := 0, "HRESULT")
+        return IDxcVersionInfo(ppVersionInfo)
     }
 
     /**
@@ -256,12 +242,11 @@ class IDxcPdbUtils extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDxcResult>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {IDxcResult} 
      */
-    CompileForFullPDB(ppResult) {
-        result := ComCall(24, this, "ptr*", ppResult, "HRESULT")
-        return result
+    CompileForFullPDB() {
+        result := ComCall(24, this, "ptr*", &ppResult := 0, "HRESULT")
+        return IDxcResult(ppResult)
     }
 
     /**

@@ -58,12 +58,12 @@ class ICertPropertyArchivedKeyHash extends ICertProperty{
     /**
      * 
      * @param {Integer} Encoding 
-     * @param {Pointer<BSTR>} pValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyarchivedkeyhash-get_archivedkeyhash
      */
-    get_ArchivedKeyHash(Encoding, pValue) {
+    get_ArchivedKeyHash(Encoding) {
+        pValue := BSTR()
         result := ComCall(15, this, "int", Encoding, "ptr", pValue, "HRESULT")
-        return result
+        return pValue
     }
 }

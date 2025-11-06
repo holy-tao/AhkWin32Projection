@@ -43,153 +43,121 @@ class IUIAutomationRangeValuePattern extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Float>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_currentvalue
      */
-    get_CurrentValue(retVal) {
-        retValMarshal := retVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(4, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CurrentValue() {
+        result := ComCall(4, this, "double*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_currentisreadonly
      */
-    get_CurrentIsReadOnly(retVal) {
-        result := ComCall(5, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CurrentIsReadOnly() {
+        result := ComCall(5, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Float>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_currentmaximum
      */
-    get_CurrentMaximum(retVal) {
-        retValMarshal := retVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(6, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CurrentMaximum() {
+        result := ComCall(6, this, "double*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Float>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_currentminimum
      */
-    get_CurrentMinimum(retVal) {
-        retValMarshal := retVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(7, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CurrentMinimum() {
+        result := ComCall(7, this, "double*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Float>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_currentlargechange
      */
-    get_CurrentLargeChange(retVal) {
-        retValMarshal := retVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(8, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CurrentLargeChange() {
+        result := ComCall(8, this, "double*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Float>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_currentsmallchange
      */
-    get_CurrentSmallChange(retVal) {
-        retValMarshal := retVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(9, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CurrentSmallChange() {
+        result := ComCall(9, this, "double*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Float>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_cachedvalue
      */
-    get_CachedValue(retVal) {
-        retValMarshal := retVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(10, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CachedValue() {
+        result := ComCall(10, this, "double*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} retVal 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_cachedisreadonly
      */
-    get_CachedIsReadOnly(retVal) {
-        result := ComCall(11, this, "ptr", retVal, "HRESULT")
-        return result
+    get_CachedIsReadOnly() {
+        result := ComCall(11, this, "int*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Float>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_cachedmaximum
      */
-    get_CachedMaximum(retVal) {
-        retValMarshal := retVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(12, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CachedMaximum() {
+        result := ComCall(12, this, "double*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Float>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_cachedminimum
      */
-    get_CachedMinimum(retVal) {
-        retValMarshal := retVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(13, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CachedMinimum() {
+        result := ComCall(13, this, "double*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Float>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_cachedlargechange
      */
-    get_CachedLargeChange(retVal) {
-        retValMarshal := retVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(14, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CachedLargeChange() {
+        result := ComCall(14, this, "double*", &retVal := 0, "HRESULT")
+        return retVal
     }
 
     /**
      * 
-     * @param {Pointer<Float>} retVal 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_cachedsmallchange
      */
-    get_CachedSmallChange(retVal) {
-        retValMarshal := retVal is VarRef ? "double*" : "ptr"
-
-        result := ComCall(15, this, retValMarshal, retVal, "HRESULT")
-        return result
+    get_CachedSmallChange() {
+        result := ComCall(15, this, "double*", &retVal := 0, "HRESULT")
+        return retVal
     }
 }

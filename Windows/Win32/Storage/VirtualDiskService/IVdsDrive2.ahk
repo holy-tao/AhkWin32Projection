@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\VDS_DRIVE_PROP2.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,12 +33,12 @@ class IVdsDrive2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VDS_DRIVE_PROP2>} pDriveProp2 
-     * @returns {HRESULT} 
+     * @returns {VDS_DRIVE_PROP2} 
      * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsdrive2-getproperties2
      */
-    GetProperties2(pDriveProp2) {
+    GetProperties2() {
+        pDriveProp2 := VDS_DRIVE_PROP2()
         result := ComCall(3, this, "ptr", pDriveProp2, "HRESULT")
-        return result
+        return pDriveProp2
     }
 }

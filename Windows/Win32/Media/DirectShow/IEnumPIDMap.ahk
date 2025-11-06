@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumPIDMap.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -34,15 +35,12 @@ class IEnumPIDMap extends IUnknown{
      * 
      * @param {Integer} cRequest 
      * @param {Pointer<PID_MAP>} pPIDMap 
-     * @param {Pointer<Integer>} pcReceived 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ienumpidmap-next
      */
-    Next(cRequest, pPIDMap, pcReceived) {
-        pcReceivedMarshal := pcReceived is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "uint", cRequest, "ptr", pPIDMap, pcReceivedMarshal, pcReceived, "int")
-        return result
+    Next(cRequest, pPIDMap) {
+        result := ComCall(3, this, "uint", cRequest, "ptr", pPIDMap, "uint*", &pcReceived := 0, "int")
+        return pcReceived
     }
 
     /**
@@ -68,12 +66,11 @@ class IEnumPIDMap extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumPIDMap>} ppIEnumPIDMap 
-     * @returns {HRESULT} 
+     * @returns {IEnumPIDMap} 
      * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ienumpidmap-clone
      */
-    Clone(ppIEnumPIDMap) {
-        result := ComCall(6, this, "ptr*", ppIEnumPIDMap, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppIEnumPIDMap := 0, "HRESULT")
+        return IEnumPIDMap(ppIEnumPIDMap)
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IMFTimedTextRuby.ahk
+#Include .\IMFTimedTextBouten.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,43 +32,37 @@ class IMFTimedTextStyle2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IMFTimedTextRuby>} ruby 
-     * @returns {HRESULT} 
+     * @returns {IMFTimedTextRuby} 
      */
-    GetRuby(ruby) {
-        result := ComCall(3, this, "ptr*", ruby, "HRESULT")
-        return result
+    GetRuby() {
+        result := ComCall(3, this, "ptr*", &ruby := 0, "HRESULT")
+        return IMFTimedTextRuby(ruby)
     }
 
     /**
      * 
-     * @param {Pointer<IMFTimedTextBouten>} bouten 
-     * @returns {HRESULT} 
+     * @returns {IMFTimedTextBouten} 
      */
-    GetBouten(bouten) {
-        result := ComCall(4, this, "ptr*", bouten, "HRESULT")
-        return result
+    GetBouten() {
+        result := ComCall(4, this, "ptr*", &bouten := 0, "HRESULT")
+        return IMFTimedTextBouten(bouten)
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} value 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    IsTextCombined(value) {
-        result := ComCall(5, this, "ptr", value, "HRESULT")
-        return result
+    IsTextCombined() {
+        result := ComCall(5, this, "int*", &value := 0, "HRESULT")
+        return value
     }
 
     /**
      * 
-     * @param {Pointer<Float>} value 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      */
-    GetFontAngleInDegrees(value) {
-        valueMarshal := value is VarRef ? "double*" : "ptr"
-
-        result := ComCall(6, this, valueMarshal, value, "HRESULT")
-        return result
+    GetFontAngleInDegrees() {
+        result := ComCall(6, this, "double*", &value := 0, "HRESULT")
+        return value
     }
 }

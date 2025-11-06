@@ -47,8 +47,9 @@ class ISimilarityTableDumpState extends IUnknown{
      */
     GetNextData(resultsSize, resultsUsed, eof, results) {
         resultsUsedMarshal := resultsUsed is VarRef ? "uint*" : "ptr"
+        eofMarshal := eof is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "uint", resultsSize, resultsUsedMarshal, resultsUsed, "ptr", eof, "ptr", results, "HRESULT")
+        result := ComCall(3, this, "uint", resultsSize, resultsUsedMarshal, resultsUsed, eofMarshal, eof, "ptr", results, "HRESULT")
         return result
     }
 }

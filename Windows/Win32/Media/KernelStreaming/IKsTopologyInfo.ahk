@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\KSTOPOLOGY_CONNECTION.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -43,52 +44,46 @@ class IKsTopologyInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwNumCategories 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ikstopologyinfo-get_numcategories
      */
-    get_NumCategories(pdwNumCategories) {
-        pdwNumCategoriesMarshal := pdwNumCategories is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pdwNumCategoriesMarshal, pdwNumCategories, "HRESULT")
-        return result
+    get_NumCategories() {
+        result := ComCall(3, this, "uint*", &pdwNumCategories := 0, "HRESULT")
+        return pdwNumCategories
     }
 
     /**
      * 
      * @param {Integer} dwIndex 
-     * @param {Pointer<Guid>} pCategory 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ikstopologyinfo-get_category
      */
-    get_Category(dwIndex, pCategory) {
+    get_Category(dwIndex) {
+        pCategory := Guid()
         result := ComCall(4, this, "uint", dwIndex, "ptr", pCategory, "HRESULT")
-        return result
+        return pCategory
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwNumConnections 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ikstopologyinfo-get_numconnections
      */
-    get_NumConnections(pdwNumConnections) {
-        pdwNumConnectionsMarshal := pdwNumConnections is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pdwNumConnectionsMarshal, pdwNumConnections, "HRESULT")
-        return result
+    get_NumConnections() {
+        result := ComCall(5, this, "uint*", &pdwNumConnections := 0, "HRESULT")
+        return pdwNumConnections
     }
 
     /**
      * 
      * @param {Integer} dwIndex 
-     * @param {Pointer<KSTOPOLOGY_CONNECTION>} pConnectionInfo 
-     * @returns {HRESULT} 
+     * @returns {KSTOPOLOGY_CONNECTION} 
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ikstopologyinfo-get_connectioninfo
      */
-    get_ConnectionInfo(dwIndex, pConnectionInfo) {
+    get_ConnectionInfo(dwIndex) {
+        pConnectionInfo := KSTOPOLOGY_CONNECTION()
         result := ComCall(6, this, "uint", dwIndex, "ptr", pConnectionInfo, "HRESULT")
-        return result
+        return pConnectionInfo
     }
 
     /**
@@ -96,54 +91,45 @@ class IKsTopologyInfo extends IUnknown{
      * @param {Integer} dwNodeId 
      * @param {Pointer} pwchNodeName 
      * @param {Integer} dwBufSize 
-     * @param {Pointer<Integer>} pdwNameLen 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ikstopologyinfo-get_nodename
      */
-    get_NodeName(dwNodeId, pwchNodeName, dwBufSize, pdwNameLen) {
-        pdwNameLenMarshal := pdwNameLen is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, "uint", dwNodeId, "ptr", pwchNodeName, "uint", dwBufSize, pdwNameLenMarshal, pdwNameLen, "HRESULT")
-        return result
+    get_NodeName(dwNodeId, pwchNodeName, dwBufSize) {
+        result := ComCall(7, this, "uint", dwNodeId, "ptr", pwchNodeName, "uint", dwBufSize, "uint*", &pdwNameLen := 0, "HRESULT")
+        return pdwNameLen
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwNumNodes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ikstopologyinfo-get_numnodes
      */
-    get_NumNodes(pdwNumNodes) {
-        pdwNumNodesMarshal := pdwNumNodes is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(8, this, pdwNumNodesMarshal, pdwNumNodes, "HRESULT")
-        return result
+    get_NumNodes() {
+        result := ComCall(8, this, "uint*", &pdwNumNodes := 0, "HRESULT")
+        return pdwNumNodes
     }
 
     /**
      * 
      * @param {Integer} dwNodeId 
-     * @param {Pointer<Guid>} pNodeType 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ikstopologyinfo-get_nodetype
      */
-    get_NodeType(dwNodeId, pNodeType) {
+    get_NodeType(dwNodeId) {
+        pNodeType := Guid()
         result := ComCall(9, this, "uint", dwNodeId, "ptr", pNodeType, "HRESULT")
-        return result
+        return pNodeType
     }
 
     /**
      * 
      * @param {Integer} dwNodeId 
      * @param {Pointer<Guid>} iid 
-     * @param {Pointer<Pointer<Void>>} ppvObject 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-ikstopologyinfo-createnodeinstance
      */
-    CreateNodeInstance(dwNodeId, iid, ppvObject) {
-        ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(10, this, "uint", dwNodeId, "ptr", iid, ppvObjectMarshal, ppvObject, "HRESULT")
-        return result
+    CreateNodeInstance(dwNodeId, iid) {
+        result := ComCall(10, this, "uint", dwNodeId, "ptr", iid, "ptr*", &ppvObject := 0, "HRESULT")
+        return ppvObject
     }
 }

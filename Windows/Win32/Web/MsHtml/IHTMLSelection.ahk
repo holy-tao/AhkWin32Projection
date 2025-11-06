@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IHTMLDOMNode.ahk
+#Include .\IHTMLDOMRange.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,56 +33,47 @@ class IHTMLSelection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IHTMLDOMNode>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMNode} 
      */
-    get_anchorNode(p) {
-        result := ComCall(7, this, "ptr*", p, "HRESULT")
-        return result
+    get_anchorNode() {
+        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLDOMNode(p)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_anchorOffset(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pMarshal, p, "HRESULT")
-        return result
+    get_anchorOffset() {
+        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLDOMNode>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMNode} 
      */
-    get_focusNode(p) {
-        result := ComCall(9, this, "ptr*", p, "HRESULT")
-        return result
+    get_focusNode() {
+        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLDOMNode(p)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_focusOffset(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, pMarshal, p, "HRESULT")
-        return result
+    get_focusOffset() {
+        result := ComCall(10, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_isCollapsed(p) {
-        result := ComCall(11, this, "ptr", p, "HRESULT")
-        return result
+    get_isCollapsed() {
+        result := ComCall(11, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -132,25 +126,21 @@ class IHTMLSelection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_rangeCount(p) {
-        pMarshal := p is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, pMarshal, p, "HRESULT")
-        return result
+    get_rangeCount() {
+        result := ComCall(17, this, "int*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<IHTMLDOMRange>} ppRange 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMRange} 
      */
-    getRangeAt(index, ppRange) {
-        result := ComCall(18, this, "int", index, "ptr*", ppRange, "HRESULT")
-        return result
+    getRangeAt(index) {
+        result := ComCall(18, this, "int", index, "ptr*", &ppRange := 0, "HRESULT")
+        return IHTMLDOMRange(ppRange)
     }
 
     /**
@@ -184,11 +174,11 @@ class IHTMLSelection extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pSelectionString 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    toString(pSelectionString) {
+    toString() {
+        pSelectionString := BSTR()
         result := ComCall(22, this, "ptr", pSelectionString, "HRESULT")
-        return result
+        return pSelectionString
     }
 }

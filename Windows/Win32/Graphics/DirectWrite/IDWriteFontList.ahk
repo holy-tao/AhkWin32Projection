@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDWriteFontCollection.ahk
+#Include .\IDWriteFont.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,13 +34,12 @@ class IDWriteFontList extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDWriteFontCollection>} fontCollection 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFontCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontlist-getfontcollection
      */
-    GetFontCollection(fontCollection) {
-        result := ComCall(3, this, "ptr*", fontCollection, "HRESULT")
-        return result
+    GetFontCollection() {
+        result := ComCall(3, this, "ptr*", &fontCollection := 0, "HRESULT")
+        return IDWriteFontCollection(fontCollection)
     }
 
     /**
@@ -54,12 +55,11 @@ class IDWriteFontList extends IUnknown{
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<IDWriteFont>} font 
-     * @returns {HRESULT} 
+     * @returns {IDWriteFont} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontlist-getfont
      */
-    GetFont(index, font) {
-        result := ComCall(5, this, "uint", index, "ptr*", font, "HRESULT")
-        return result
+    GetFont(index) {
+        result := ComCall(5, this, "uint", index, "ptr*", &font := 0, "HRESULT")
+        return IDWriteFont(font)
     }
 }

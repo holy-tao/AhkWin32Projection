@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IXpsOMVisualCollection.ahk
+#Include .\IXpsOMDictionary.ahk
+#Include .\IXpsOMRemoteDictionaryResource.ahk
+#Include .\IXpsOMCanvas.ahk
 #Include .\IXpsOMVisual.ahk
 
 /**
@@ -71,24 +75,22 @@ class IXpsOMCanvas extends IXpsOMVisual{
 
     /**
      * 
-     * @param {Pointer<IXpsOMVisualCollection>} visuals 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMVisualCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-getvisuals
      */
-    GetVisuals(visuals) {
-        result := ComCall(30, this, "ptr*", visuals, "HRESULT")
-        return result
+    GetVisuals() {
+        result := ComCall(30, this, "ptr*", &visuals := 0, "HRESULT")
+        return IXpsOMVisualCollection(visuals)
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} useAliasedEdgeMode 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-getusealiasededgemode
      */
-    GetUseAliasedEdgeMode(useAliasedEdgeMode) {
-        result := ComCall(31, this, "ptr", useAliasedEdgeMode, "HRESULT")
-        return result
+    GetUseAliasedEdgeMode() {
+        result := ComCall(31, this, "int*", &useAliasedEdgeMode := 0, "HRESULT")
+        return useAliasedEdgeMode
     }
 
     /**
@@ -104,13 +106,12 @@ class IXpsOMCanvas extends IXpsOMVisual{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} shortDescription 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-getaccessibilityshortdescription
      */
-    GetAccessibilityShortDescription(shortDescription) {
-        result := ComCall(33, this, "ptr", shortDescription, "HRESULT")
-        return result
+    GetAccessibilityShortDescription() {
+        result := ComCall(33, this, "ptr*", &shortDescription := 0, "HRESULT")
+        return shortDescription
     }
 
     /**
@@ -128,13 +129,12 @@ class IXpsOMCanvas extends IXpsOMVisual{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} longDescription 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-getaccessibilitylongdescription
      */
-    GetAccessibilityLongDescription(longDescription) {
-        result := ComCall(35, this, "ptr", longDescription, "HRESULT")
-        return result
+    GetAccessibilityLongDescription() {
+        result := ComCall(35, this, "ptr*", &longDescription := 0, "HRESULT")
+        return longDescription
     }
 
     /**
@@ -152,24 +152,22 @@ class IXpsOMCanvas extends IXpsOMVisual{
 
     /**
      * 
-     * @param {Pointer<IXpsOMDictionary>} resourceDictionary 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMDictionary} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-getdictionary
      */
-    GetDictionary(resourceDictionary) {
-        result := ComCall(37, this, "ptr*", resourceDictionary, "HRESULT")
-        return result
+    GetDictionary() {
+        result := ComCall(37, this, "ptr*", &resourceDictionary := 0, "HRESULT")
+        return IXpsOMDictionary(resourceDictionary)
     }
 
     /**
      * 
-     * @param {Pointer<IXpsOMDictionary>} resourceDictionary 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMDictionary} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-getdictionarylocal
      */
-    GetDictionaryLocal(resourceDictionary) {
-        result := ComCall(38, this, "ptr*", resourceDictionary, "HRESULT")
-        return result
+    GetDictionaryLocal() {
+        result := ComCall(38, this, "ptr*", &resourceDictionary := 0, "HRESULT")
+        return IXpsOMDictionary(resourceDictionary)
     }
 
     /**
@@ -185,13 +183,12 @@ class IXpsOMCanvas extends IXpsOMVisual{
 
     /**
      * 
-     * @param {Pointer<IXpsOMRemoteDictionaryResource>} remoteDictionaryResource 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMRemoteDictionaryResource} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-getdictionaryresource
      */
-    GetDictionaryResource(remoteDictionaryResource) {
-        result := ComCall(40, this, "ptr*", remoteDictionaryResource, "HRESULT")
-        return result
+    GetDictionaryResource() {
+        result := ComCall(40, this, "ptr*", &remoteDictionaryResource := 0, "HRESULT")
+        return IXpsOMRemoteDictionaryResource(remoteDictionaryResource)
     }
 
     /**
@@ -207,12 +204,11 @@ class IXpsOMCanvas extends IXpsOMVisual{
 
     /**
      * 
-     * @param {Pointer<IXpsOMCanvas>} canvas 
-     * @returns {HRESULT} 
+     * @returns {IXpsOMCanvas} 
      * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomcanvas-clone
      */
-    Clone(canvas) {
-        result := ComCall(42, this, "ptr*", canvas, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(42, this, "ptr*", &canvas := 0, "HRESULT")
+        return IXpsOMCanvas(canvas)
     }
 }

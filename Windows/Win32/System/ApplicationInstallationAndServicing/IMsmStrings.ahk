@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Com\IUnknown.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -53,11 +54,10 @@ class IMsmStrings extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IUnknown>} NewEnum 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    get__NewEnum(NewEnum) {
-        result := ComCall(9, this, "ptr*", NewEnum, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(9, this, "ptr*", &NewEnum := 0, "HRESULT")
+        return IUnknown(NewEnum)
     }
 }

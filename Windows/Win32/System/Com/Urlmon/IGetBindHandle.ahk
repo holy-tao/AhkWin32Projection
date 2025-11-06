@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\Foundation\HANDLE.ahk
 #Include ..\IUnknown.ahk
 
 /**
@@ -31,11 +32,11 @@ class IGetBindHandle extends IUnknown{
     /**
      * 
      * @param {Integer} enumRequestedHandle 
-     * @param {Pointer<HANDLE>} pRetHandle 
-     * @returns {HRESULT} 
+     * @returns {HANDLE} 
      */
-    GetBindHandle(enumRequestedHandle, pRetHandle) {
+    GetBindHandle(enumRequestedHandle) {
+        pRetHandle := HANDLE()
         result := ComCall(3, this, "int", enumRequestedHandle, "ptr", pRetHandle, "HRESULT")
-        return result
+        return pRetHandle
     }
 }

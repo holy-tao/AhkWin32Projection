@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include .\IStringCollection.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -32,148 +35,136 @@ class IUpdateService extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservice-get_name
      */
-    get_Name(retval) {
+    get_Name() {
+        retval := BSTR()
         result := ComCall(7, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservice-get_contentvalidationcert
      */
-    get_ContentValidationCert(retval) {
+    get_ContentValidationCert() {
+        retval := VARIANT()
         result := ComCall(8, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<Float>} retval 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservice-get_expirationdate
      */
-    get_ExpirationDate(retval) {
-        retvalMarshal := retval is VarRef ? "double*" : "ptr"
-
-        result := ComCall(9, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_ExpirationDate() {
+        result := ComCall(9, this, "double*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservice-get_ismanaged
      */
-    get_IsManaged(retval) {
-        result := ComCall(10, this, "ptr", retval, "HRESULT")
-        return result
+    get_IsManaged() {
+        result := ComCall(10, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservice-get_isregisteredwithau
      */
-    get_IsRegisteredWithAU(retval) {
-        result := ComCall(11, this, "ptr", retval, "HRESULT")
-        return result
+    get_IsRegisteredWithAU() {
+        result := ComCall(11, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<Float>} retval 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservice-get_issuedate
      */
-    get_IssueDate(retval) {
-        retvalMarshal := retval is VarRef ? "double*" : "ptr"
-
-        result := ComCall(12, this, retvalMarshal, retval, "HRESULT")
-        return result
+    get_IssueDate() {
+        result := ComCall(12, this, "double*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservice-get_offerswindowsupdates
      */
-    get_OffersWindowsUpdates(retval) {
-        result := ComCall(13, this, "ptr", retval, "HRESULT")
-        return result
+    get_OffersWindowsUpdates() {
+        result := ComCall(13, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<IStringCollection>} retval 
-     * @returns {HRESULT} 
+     * @returns {IStringCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservice-get_redirecturls
      */
-    get_RedirectUrls(retval) {
-        result := ComCall(14, this, "ptr*", retval, "HRESULT")
-        return result
+    get_RedirectUrls() {
+        result := ComCall(14, this, "ptr*", &retval := 0, "HRESULT")
+        return IStringCollection(retval)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservice-get_serviceid
      */
-    get_ServiceID(retval) {
+    get_ServiceID() {
+        retval := BSTR()
         result := ComCall(15, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservice-get_isscanpackageservice
      */
-    get_IsScanPackageService(retval) {
-        result := ComCall(16, this, "ptr", retval, "HRESULT")
-        return result
+    get_IsScanPackageService() {
+        result := ComCall(16, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} retval 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservice-get_canregisterwithau
      */
-    get_CanRegisterWithAU(retval) {
-        result := ComCall(17, this, "ptr", retval, "HRESULT")
-        return result
+    get_CanRegisterWithAU() {
+        result := ComCall(17, this, "short*", &retval := 0, "HRESULT")
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservice-get_serviceurl
      */
-    get_ServiceUrl(retval) {
+    get_ServiceUrl() {
+        retval := BSTR()
         result := ComCall(18, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservice-get_setupprefix
      */
-    get_SetupPrefix(retval) {
+    get_SetupPrefix() {
+        retval := BSTR()
         result := ComCall(19, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ICastingController.ahk
+#Include ..\..\UI\Shell\PropertiesSystem\INamedPropertyStore.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -30,21 +32,19 @@ class ICastingSourceInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ICastingController>} controller 
-     * @returns {HRESULT} 
+     * @returns {ICastingController} 
      */
-    GetController(controller) {
-        result := ComCall(3, this, "ptr*", controller, "HRESULT")
-        return result
+    GetController() {
+        result := ComCall(3, this, "ptr*", &controller := 0, "HRESULT")
+        return ICastingController(controller)
     }
 
     /**
      * 
-     * @param {Pointer<INamedPropertyStore>} props 
-     * @returns {HRESULT} 
+     * @returns {INamedPropertyStore} 
      */
-    GetProperties(props) {
-        result := ComCall(4, this, "ptr*", props, "HRESULT")
-        return result
+    GetProperties() {
+        result := ComCall(4, this, "ptr*", &props := 0, "HRESULT")
+        return INamedPropertyStore(props)
     }
 }

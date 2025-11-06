@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\HWND.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -30,12 +31,12 @@ class IDataSourceLocator extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<HWND>} phwndParent 
-     * @returns {HRESULT} 
+     * @returns {HWND} 
      */
-    get_hWnd(phwndParent) {
+    get_hWnd() {
+        phwndParent := HWND()
         result := ComCall(7, this, "ptr", phwndParent, "HRESULT")
-        return result
+        return phwndParent
     }
 
     /**
@@ -52,22 +53,20 @@ class IDataSourceLocator extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppADOConnection 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    PromptNew(ppADOConnection) {
-        result := ComCall(9, this, "ptr*", ppADOConnection, "HRESULT")
-        return result
+    PromptNew() {
+        result := ComCall(9, this, "ptr*", &ppADOConnection := 0, "HRESULT")
+        return IDispatch(ppADOConnection)
     }
 
     /**
      * 
      * @param {Pointer<IDispatch>} ppADOConnection 
-     * @param {Pointer<VARIANT_BOOL>} pbSuccess 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    PromptEdit(ppADOConnection, pbSuccess) {
-        result := ComCall(10, this, "ptr*", ppADOConnection, "ptr", pbSuccess, "HRESULT")
-        return result
+    PromptEdit(ppADOConnection) {
+        result := ComCall(10, this, "ptr*", ppADOConnection, "short*", &pbSuccess := 0, "HRESULT")
+        return pbSuccess
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IAudioMediaType.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -63,12 +64,11 @@ class IApoAuxiliaryInputConfiguration extends IUnknown{
     /**
      * 
      * @param {IAudioMediaType} pRequestedInputFormat 
-     * @param {Pointer<IAudioMediaType>} ppSupportedInputFormat 
-     * @returns {HRESULT} 
+     * @returns {IAudioMediaType} 
      * @see https://learn.microsoft.com/windows/win32/api/audioenginebaseapo/nf-audioenginebaseapo-iapoauxiliaryinputconfiguration-isinputformatsupported
      */
-    IsInputFormatSupported(pRequestedInputFormat, ppSupportedInputFormat) {
-        result := ComCall(5, this, "ptr", pRequestedInputFormat, "ptr*", ppSupportedInputFormat, "HRESULT")
-        return result
+    IsInputFormatSupported(pRequestedInputFormat) {
+        result := ComCall(5, this, "ptr", pRequestedInputFormat, "ptr*", &ppSupportedInputFormat := 0, "HRESULT")
+        return IAudioMediaType(ppSupportedInputFormat)
     }
 }

@@ -33,15 +33,12 @@ class IOfflineFilesFileSysInfo extends IUnknown{
     /**
      * 
      * @param {Integer} copy 
-     * @param {Pointer<Integer>} pdwAttributes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesfilesysinfo-getattributes
      */
-    GetAttributes(copy, pdwAttributes) {
-        pdwAttributesMarshal := pdwAttributes is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "int", copy, pdwAttributesMarshal, pdwAttributes, "HRESULT")
-        return result
+    GetAttributes(copy) {
+        result := ComCall(3, this, "int", copy, "uint*", &pdwAttributes := 0, "HRESULT")
+        return pdwAttributes
     }
 
     /**
@@ -62,28 +59,11 @@ class IOfflineFilesFileSysInfo extends IUnknown{
     /**
      * Retrieves the size of the specified file, in bytes.
      * @param {Integer} copy 
-     * @param {Pointer<Integer>} pSize 
-     * @returns {HRESULT} If the function succeeds, the return value is the low-order doubleword of the file size, and, if 
-     *        <i>lpFileSizeHigh</i> is non-<b>NULL</b>, the function puts the 
-     *        high-order doubleword of the file size into the variable pointed to by that parameter.
-     * 
-     * If the function fails and <i>lpFileSizeHigh</i> is <b>NULL</b>, the 
-     *        return value is <b>INVALID_FILE_SIZE</b>. To get extended error information, call 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. When 
-     *        <i>lpFileSizeHigh</i> is <b>NULL</b>, the results returned for large 
-     *        files are ambiguous, and you will not be able to determine the actual size of the file. It is recommended that 
-     *        you use <a href="/windows/desktop/api/fileapi/nf-fileapi-getfilesizeex">GetFileSizeEx</a> instead.
-     * 
-     * If the function fails and <i>lpFileSizeHigh</i> is non-<b>NULL</b>, the 
-     *        return value is <b>INVALID_FILE_SIZE</b> and 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> will return a value other than 
-     *        <b>NO_ERROR</b>.
+     * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//fileapi/nf-fileapi-getfilesize
      */
-    GetFileSize(copy, pSize) {
-        pSizeMarshal := pSize is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(5, this, "int", copy, pSizeMarshal, pSize, "HRESULT")
-        return result
+    GetFileSize(copy) {
+        result := ComCall(5, this, "int", copy, "int64*", &pSize := 0, "HRESULT")
+        return pSize
     }
 }

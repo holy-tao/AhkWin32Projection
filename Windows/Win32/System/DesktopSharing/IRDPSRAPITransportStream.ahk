@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IRDPSRAPITransportStreamBuffer.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -33,13 +34,12 @@ class IRDPSRAPITransportStream extends IUnknown{
     /**
      * 
      * @param {Integer} maxPayload 
-     * @param {Pointer<IRDPSRAPITransportStreamBuffer>} ppBuffer 
-     * @returns {HRESULT} 
+     * @returns {IRDPSRAPITransportStreamBuffer} 
      * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapitransportstream-allocbuffer
      */
-    AllocBuffer(maxPayload, ppBuffer) {
-        result := ComCall(3, this, "int", maxPayload, "ptr*", ppBuffer, "HRESULT")
-        return result
+    AllocBuffer(maxPayload) {
+        result := ComCall(3, this, "int", maxPayload, "ptr*", &ppBuffer := 0, "HRESULT")
+        return IRDPSRAPITransportStreamBuffer(ppBuffer)
     }
 
     /**

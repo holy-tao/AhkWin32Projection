@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISpObjectToken.ahk
+#Include .\ISpStreamFormat.ahk
 #Include ..\..\Foundation\HANDLE.ahk
 #Include .\ISpEventSource.ahk
 
@@ -48,22 +50,20 @@ class ISpVoice extends ISpEventSource{
 
     /**
      * 
-     * @param {Pointer<ISpObjectToken>} ppObjectToken 
-     * @returns {HRESULT} 
+     * @returns {ISpObjectToken} 
      */
-    GetOutputObjectToken(ppObjectToken) {
-        result := ComCall(14, this, "ptr*", ppObjectToken, "HRESULT")
-        return result
+    GetOutputObjectToken() {
+        result := ComCall(14, this, "ptr*", &ppObjectToken := 0, "HRESULT")
+        return ISpObjectToken(ppObjectToken)
     }
 
     /**
      * 
-     * @param {Pointer<ISpStreamFormat>} ppStream 
-     * @returns {HRESULT} 
+     * @returns {ISpStreamFormat} 
      */
-    GetOutputStream(ppStream) {
-        result := ComCall(15, this, "ptr*", ppStream, "HRESULT")
-        return result
+    GetOutputStream() {
+        result := ComCall(15, this, "ptr*", &ppStream := 0, "HRESULT")
+        return ISpStreamFormat(ppStream)
     }
 
     /**
@@ -96,53 +96,45 @@ class ISpVoice extends ISpEventSource{
 
     /**
      * 
-     * @param {Pointer<ISpObjectToken>} ppToken 
-     * @returns {HRESULT} 
+     * @returns {ISpObjectToken} 
      */
-    GetVoice(ppToken) {
-        result := ComCall(19, this, "ptr*", ppToken, "HRESULT")
-        return result
+    GetVoice() {
+        result := ComCall(19, this, "ptr*", &ppToken := 0, "HRESULT")
+        return ISpObjectToken(ppToken)
     }
 
     /**
      * 
      * @param {PWSTR} pwcs 
      * @param {Integer} dwFlags 
-     * @param {Pointer<Integer>} pulStreamNumber 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Speak(pwcs, dwFlags, pulStreamNumber) {
+    Speak(pwcs, dwFlags) {
         pwcs := pwcs is String ? StrPtr(pwcs) : pwcs
 
-        pulStreamNumberMarshal := pulStreamNumber is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(20, this, "ptr", pwcs, "uint", dwFlags, pulStreamNumberMarshal, pulStreamNumber, "HRESULT")
-        return result
+        result := ComCall(20, this, "ptr", pwcs, "uint", dwFlags, "uint*", &pulStreamNumber := 0, "HRESULT")
+        return pulStreamNumber
     }
 
     /**
      * 
      * @param {IStream} pStream 
      * @param {Integer} dwFlags 
-     * @param {Pointer<Integer>} pulStreamNumber 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    SpeakStream(pStream, dwFlags, pulStreamNumber) {
-        pulStreamNumberMarshal := pulStreamNumber is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(21, this, "ptr", pStream, "uint", dwFlags, pulStreamNumberMarshal, pulStreamNumber, "HRESULT")
-        return result
+    SpeakStream(pStream, dwFlags) {
+        result := ComCall(21, this, "ptr", pStream, "uint", dwFlags, "uint*", &pulStreamNumber := 0, "HRESULT")
+        return pulStreamNumber
     }
 
     /**
      * 
      * @param {Pointer<SPVOICESTATUS>} pStatus 
-     * @param {Pointer<PWSTR>} ppszLastBookmark 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetStatus(pStatus, ppszLastBookmark) {
-        result := ComCall(22, this, "ptr", pStatus, "ptr", ppszLastBookmark, "HRESULT")
-        return result
+    GetStatus(pStatus) {
+        result := ComCall(22, this, "ptr", pStatus, "ptr*", &ppszLastBookmark := 0, "HRESULT")
+        return ppszLastBookmark
     }
 
     /**
@@ -287,7 +279,7 @@ class ISpVoice extends ISpEventSource{
      */
     SpeakCompleteEvent() {
         result := ComCall(35, this, "ptr")
-        return result
+        return HANDLE({Value: result}, True)
     }
 
     /**
@@ -302,8 +294,9 @@ class ISpVoice extends ISpEventSource{
         pszTypeOfUI := pszTypeOfUI is String ? StrPtr(pszTypeOfUI) : pszTypeOfUI
 
         pvExtraDataMarshal := pvExtraData is VarRef ? "ptr" : "ptr"
+        pfSupportedMarshal := pfSupported is VarRef ? "int*" : "ptr"
 
-        result := ComCall(36, this, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, "uint", cbExtraData, "ptr", pfSupported, "HRESULT")
+        result := ComCall(36, this, "ptr", pszTypeOfUI, pvExtraDataMarshal, pvExtraData, "uint", cbExtraData, pfSupportedMarshal, pfSupported, "HRESULT")
         return result
     }
 

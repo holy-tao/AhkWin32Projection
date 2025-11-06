@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IHTMLStyleSheetRulesCollection.ahk
+#Include .\IHTMLMSCSSKeyframeRule.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -49,22 +51,21 @@ class IHTMLMSCSSKeyframesRule extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_name(p) {
+    get_name() {
+        p := BSTR()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLStyleSheetRulesCollection>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLStyleSheetRulesCollection} 
      */
-    get_cssRules(p) {
-        result := ComCall(9, this, "ptr*", p, "HRESULT")
-        return result
+    get_cssRules() {
+        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLStyleSheetRulesCollection(p)
     }
 
     /**
@@ -94,13 +95,12 @@ class IHTMLMSCSSKeyframesRule extends IDispatch{
     /**
      * 
      * @param {BSTR} bstrKey 
-     * @param {Pointer<IHTMLMSCSSKeyframeRule>} ppMSKeyframeRule 
-     * @returns {HRESULT} 
+     * @returns {IHTMLMSCSSKeyframeRule} 
      */
-    findRule(bstrKey, ppMSKeyframeRule) {
+    findRule(bstrKey) {
         bstrKey := bstrKey is String ? BSTR.Alloc(bstrKey).Value : bstrKey
 
-        result := ComCall(12, this, "ptr", bstrKey, "ptr*", ppMSKeyframeRule, "HRESULT")
-        return result
+        result := ComCall(12, this, "ptr", bstrKey, "ptr*", &ppMSKeyframeRule := 0, "HRESULT")
+        return IHTMLMSCSSKeyframeRule(ppMSKeyframeRule)
     }
 }

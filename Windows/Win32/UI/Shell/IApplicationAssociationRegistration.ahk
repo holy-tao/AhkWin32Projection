@@ -46,15 +46,14 @@ class IApplicationAssociationRegistration extends IUnknown{
      * @param {PWSTR} pszQuery 
      * @param {Integer} atQueryType 
      * @param {Integer} alQueryLevel 
-     * @param {Pointer<PWSTR>} ppszAssociation 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationassociationregistration-querycurrentdefault
      */
-    QueryCurrentDefault(pszQuery, atQueryType, alQueryLevel, ppszAssociation) {
+    QueryCurrentDefault(pszQuery, atQueryType, alQueryLevel) {
         pszQuery := pszQuery is String ? StrPtr(pszQuery) : pszQuery
 
-        result := ComCall(3, this, "ptr", pszQuery, "int", atQueryType, "int", alQueryLevel, "ptr", ppszAssociation, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pszQuery, "int", atQueryType, "int", alQueryLevel, "ptr*", &ppszAssociation := 0, "HRESULT")
+        return ppszAssociation
     }
 
     /**
@@ -63,31 +62,29 @@ class IApplicationAssociationRegistration extends IUnknown{
      * @param {Integer} atQueryType 
      * @param {Integer} alQueryLevel 
      * @param {PWSTR} pszAppRegistryName 
-     * @param {Pointer<BOOL>} pfDefault 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationassociationregistration-queryappisdefault
      */
-    QueryAppIsDefault(pszQuery, atQueryType, alQueryLevel, pszAppRegistryName, pfDefault) {
+    QueryAppIsDefault(pszQuery, atQueryType, alQueryLevel, pszAppRegistryName) {
         pszQuery := pszQuery is String ? StrPtr(pszQuery) : pszQuery
         pszAppRegistryName := pszAppRegistryName is String ? StrPtr(pszAppRegistryName) : pszAppRegistryName
 
-        result := ComCall(4, this, "ptr", pszQuery, "int", atQueryType, "int", alQueryLevel, "ptr", pszAppRegistryName, "ptr", pfDefault, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pszQuery, "int", atQueryType, "int", alQueryLevel, "ptr", pszAppRegistryName, "int*", &pfDefault := 0, "HRESULT")
+        return pfDefault
     }
 
     /**
      * 
      * @param {Integer} alQueryLevel 
      * @param {PWSTR} pszAppRegistryName 
-     * @param {Pointer<BOOL>} pfDefault 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationassociationregistration-queryappisdefaultall
      */
-    QueryAppIsDefaultAll(alQueryLevel, pszAppRegistryName, pfDefault) {
+    QueryAppIsDefaultAll(alQueryLevel, pszAppRegistryName) {
         pszAppRegistryName := pszAppRegistryName is String ? StrPtr(pszAppRegistryName) : pszAppRegistryName
 
-        result := ComCall(5, this, "int", alQueryLevel, "ptr", pszAppRegistryName, "ptr", pfDefault, "HRESULT")
-        return result
+        result := ComCall(5, this, "int", alQueryLevel, "ptr", pszAppRegistryName, "int*", &pfDefault := 0, "HRESULT")
+        return pfDefault
     }
 
     /**

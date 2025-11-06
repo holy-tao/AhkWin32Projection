@@ -85,7 +85,9 @@ class IWMPEffects2 extends IWMPEffects{
      * @see https://learn.microsoft.com/windows/win32/api/effects/nf-effects-iwmpeffects2-onwindowmessage
      */
     OnWindowMessage(msg, WParam, LParam, plResultParam) {
-        result := ComCall(18, this, "uint", msg, "ptr", WParam, "ptr", LParam, "ptr", plResultParam, "HRESULT")
+        plResultParamMarshal := plResultParam is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(18, this, "uint", msg, "ptr", WParam, "ptr", LParam, plResultParamMarshal, plResultParam, "HRESULT")
         return result
     }
 

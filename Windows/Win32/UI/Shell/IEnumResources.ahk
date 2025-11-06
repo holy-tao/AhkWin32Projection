@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumResources.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -68,12 +69,11 @@ class IEnumResources extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumResources>} ppenumr 
-     * @returns {HRESULT} 
+     * @returns {IEnumResources} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ienumresources-clone
      */
-    Clone(ppenumr) {
-        result := ComCall(6, this, "ptr*", ppenumr, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppenumr := 0, "HRESULT")
+        return IEnumResources(ppenumr)
     }
 }

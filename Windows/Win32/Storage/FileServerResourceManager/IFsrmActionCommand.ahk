@@ -33,13 +33,13 @@ class IFsrmActionCommand extends IFsrmAction{
 
     /**
      * 
-     * @param {Pointer<BSTR>} executablePath 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactioncommand-get_executablepath
      */
-    get_ExecutablePath(executablePath) {
+    get_ExecutablePath() {
+        executablePath := BSTR()
         result := ComCall(12, this, "ptr", executablePath, "HRESULT")
-        return result
+        return executablePath
     }
 
     /**
@@ -57,13 +57,13 @@ class IFsrmActionCommand extends IFsrmAction{
 
     /**
      * 
-     * @param {Pointer<BSTR>} arguments 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactioncommand-get_arguments
      */
-    get_Arguments(arguments) {
+    get_Arguments() {
+        arguments := BSTR()
         result := ComCall(14, this, "ptr", arguments, "HRESULT")
-        return result
+        return arguments
     }
 
     /**
@@ -81,15 +81,12 @@ class IFsrmActionCommand extends IFsrmAction{
 
     /**
      * 
-     * @param {Pointer<Integer>} account 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactioncommand-get_account
      */
-    get_Account(account) {
-        accountMarshal := account is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, accountMarshal, account, "HRESULT")
-        return result
+    get_Account() {
+        result := ComCall(16, this, "int*", &account := 0, "HRESULT")
+        return account
     }
 
     /**
@@ -105,13 +102,13 @@ class IFsrmActionCommand extends IFsrmAction{
 
     /**
      * 
-     * @param {Pointer<BSTR>} workingDirectory 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactioncommand-get_workingdirectory
      */
-    get_WorkingDirectory(workingDirectory) {
+    get_WorkingDirectory() {
+        workingDirectory := BSTR()
         result := ComCall(18, this, "ptr", workingDirectory, "HRESULT")
-        return result
+        return workingDirectory
     }
 
     /**
@@ -129,13 +126,12 @@ class IFsrmActionCommand extends IFsrmAction{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} monitorCommand 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactioncommand-get_monitorcommand
      */
-    get_MonitorCommand(monitorCommand) {
-        result := ComCall(20, this, "ptr", monitorCommand, "HRESULT")
-        return result
+    get_MonitorCommand() {
+        result := ComCall(20, this, "short*", &monitorCommand := 0, "HRESULT")
+        return monitorCommand
     }
 
     /**
@@ -151,15 +147,12 @@ class IFsrmActionCommand extends IFsrmAction{
 
     /**
      * 
-     * @param {Pointer<Integer>} minutes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactioncommand-get_killtimeout
      */
-    get_KillTimeOut(minutes) {
-        minutesMarshal := minutes is VarRef ? "int*" : "ptr"
-
-        result := ComCall(22, this, minutesMarshal, minutes, "HRESULT")
-        return result
+    get_KillTimeOut() {
+        result := ComCall(22, this, "int*", &minutes := 0, "HRESULT")
+        return minutes
     }
 
     /**
@@ -175,13 +168,12 @@ class IFsrmActionCommand extends IFsrmAction{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} logResults 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactioncommand-get_logresult
      */
-    get_LogResult(logResults) {
-        result := ComCall(24, this, "ptr", logResults, "HRESULT")
-        return result
+    get_LogResult() {
+        result := ComCall(24, this, "short*", &logResults := 0, "HRESULT")
+        return logResults
     }
 
     /**

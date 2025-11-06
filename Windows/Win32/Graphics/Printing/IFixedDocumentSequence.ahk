@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include .\IPartPrintTicket.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,22 +32,21 @@ class IFixedDocumentSequence extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} uri 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetUri(uri) {
+    GetUri() {
+        uri := BSTR()
         result := ComCall(3, this, "ptr", uri, "HRESULT")
-        return result
+        return uri
     }
 
     /**
      * 
-     * @param {Pointer<IPartPrintTicket>} ppPrintTicket 
-     * @returns {HRESULT} 
+     * @returns {IPartPrintTicket} 
      */
-    GetPrintTicket(ppPrintTicket) {
-        result := ComCall(4, this, "ptr*", ppPrintTicket, "HRESULT")
-        return result
+    GetPrintTicket() {
+        result := ComCall(4, this, "ptr*", &ppPrintTicket := 0, "HRESULT")
+        return IPartPrintTicket(ppPrintTicket)
     }
 
     /**

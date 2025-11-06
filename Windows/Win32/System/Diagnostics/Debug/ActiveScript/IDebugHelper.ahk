@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\IDebugProperty.ahk
+#Include .\ISimpleConnectionPoint.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -39,14 +41,13 @@ class IDebugHelper extends IUnknown{
      * @param {Pointer<VARIANT>} pvar 
      * @param {PWSTR} bstrName 
      * @param {IDebugApplicationThread} pdat 
-     * @param {Pointer<IDebugProperty>} ppdob 
-     * @returns {HRESULT} 
+     * @returns {IDebugProperty} 
      */
-    CreatePropertyBrowser(pvar, bstrName, pdat, ppdob) {
+    CreatePropertyBrowser(pvar, bstrName, pdat) {
         bstrName := bstrName is String ? StrPtr(bstrName) : bstrName
 
-        result := ComCall(3, this, "ptr", pvar, "ptr", bstrName, "ptr", pdat, "ptr*", ppdob, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pvar, "ptr", bstrName, "ptr", pdat, "ptr*", &ppdob := 0, "HRESULT")
+        return IDebugProperty(ppdob)
     }
 
     /**
@@ -55,24 +56,22 @@ class IDebugHelper extends IUnknown{
      * @param {PWSTR} bstrName 
      * @param {IDebugApplicationThread} pdat 
      * @param {IDebugFormatter} pdf 
-     * @param {Pointer<IDebugProperty>} ppdob 
-     * @returns {HRESULT} 
+     * @returns {IDebugProperty} 
      */
-    CreatePropertyBrowserEx(pvar, bstrName, pdat, pdf, ppdob) {
+    CreatePropertyBrowserEx(pvar, bstrName, pdat, pdf) {
         bstrName := bstrName is String ? StrPtr(bstrName) : bstrName
 
-        result := ComCall(4, this, "ptr", pvar, "ptr", bstrName, "ptr", pdat, "ptr", pdf, "ptr*", ppdob, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", pvar, "ptr", bstrName, "ptr", pdat, "ptr", pdf, "ptr*", &ppdob := 0, "HRESULT")
+        return IDebugProperty(ppdob)
     }
 
     /**
      * 
      * @param {IDispatch} pdisp 
-     * @param {Pointer<ISimpleConnectionPoint>} ppscp 
-     * @returns {HRESULT} 
+     * @returns {ISimpleConnectionPoint} 
      */
-    CreateSimpleConnectionPoint(pdisp, ppscp) {
-        result := ComCall(5, this, "ptr", pdisp, "ptr*", ppscp, "HRESULT")
-        return result
+    CreateSimpleConnectionPoint(pdisp) {
+        result := ComCall(5, this, "ptr", pdisp, "ptr*", &ppscp := 0, "HRESULT")
+        return ISimpleConnectionPoint(ppscp)
     }
 }

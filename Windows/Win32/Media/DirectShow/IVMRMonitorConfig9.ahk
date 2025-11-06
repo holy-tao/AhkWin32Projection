@@ -48,15 +48,12 @@ class IVMRMonitorConfig9 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} puDev 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrmonitorconfig9-getmonitor
      */
-    GetMonitor(puDev) {
-        puDevMarshal := puDev is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, puDevMarshal, puDev, "HRESULT")
-        return result
+    GetMonitor() {
+        result := ComCall(4, this, "uint*", &puDev := 0, "HRESULT")
+        return puDev
     }
 
     /**
@@ -72,15 +69,12 @@ class IVMRMonitorConfig9 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} puDev 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrmonitorconfig9-getdefaultmonitor
      */
-    GetDefaultMonitor(puDev) {
-        puDevMarshal := puDev is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, puDevMarshal, puDev, "HRESULT")
-        return result
+    GetDefaultMonitor() {
+        result := ComCall(6, this, "uint*", &puDev := 0, "HRESULT")
+        return puDev
     }
 
     /**

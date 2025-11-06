@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\FILETIME.ahk
 #Include .\IDWriteFontFileLoader.ahk
 
 /**
@@ -34,15 +35,12 @@ class IDWriteLocalFontFileLoader extends IDWriteFontFileLoader{
      * 
      * @param {Pointer} fontFileReferenceKey 
      * @param {Integer} fontFileReferenceKeySize 
-     * @param {Pointer<Integer>} filePathLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritelocalfontfileloader-getfilepathlengthfromkey
      */
-    GetFilePathLengthFromKey(fontFileReferenceKey, fontFileReferenceKeySize, filePathLength) {
-        filePathLengthMarshal := filePathLength is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, "ptr", fontFileReferenceKey, "uint", fontFileReferenceKeySize, filePathLengthMarshal, filePathLength, "HRESULT")
-        return result
+    GetFilePathLengthFromKey(fontFileReferenceKey, fontFileReferenceKeySize) {
+        result := ComCall(4, this, "ptr", fontFileReferenceKey, "uint", fontFileReferenceKeySize, "uint*", &filePathLength := 0, "HRESULT")
+        return filePathLength
     }
 
     /**
@@ -65,12 +63,12 @@ class IDWriteLocalFontFileLoader extends IDWriteFontFileLoader{
      * 
      * @param {Pointer} fontFileReferenceKey 
      * @param {Integer} fontFileReferenceKeySize 
-     * @param {Pointer<FILETIME>} lastWriteTime 
-     * @returns {HRESULT} 
+     * @returns {FILETIME} 
      * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritelocalfontfileloader-getlastwritetimefromkey
      */
-    GetLastWriteTimeFromKey(fontFileReferenceKey, fontFileReferenceKeySize, lastWriteTime) {
+    GetLastWriteTimeFromKey(fontFileReferenceKey, fontFileReferenceKeySize) {
+        lastWriteTime := FILETIME()
         result := ComCall(6, this, "ptr", fontFileReferenceKey, "uint", fontFileReferenceKeySize, "ptr", lastWriteTime, "HRESULT")
-        return result
+        return lastWriteTime
     }
 }

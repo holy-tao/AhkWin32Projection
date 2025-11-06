@@ -32,12 +32,11 @@ class IUIAutomationNotCondition extends IUIAutomationCondition{
 
     /**
      * 
-     * @param {Pointer<IUIAutomationCondition>} condition 
-     * @returns {HRESULT} 
+     * @returns {IUIAutomationCondition} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationnotcondition-getchild
      */
-    GetChild(condition) {
-        result := ComCall(3, this, "ptr*", condition, "HRESULT")
-        return result
+    GetChild() {
+        result := ComCall(3, this, "ptr*", &condition := 0, "HRESULT")
+        return IUIAutomationCondition(condition)
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISVGAnimatedLength.ahk
+#Include .\ISVGElementInstance.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -46,12 +48,11 @@ class ISVGUseElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedLength>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedLength} 
      */
-    get_x(p) {
-        result := ComCall(8, this, "ptr*", p, "HRESULT")
-        return result
+    get_x() {
+        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedLength(p)
     }
 
     /**
@@ -66,12 +67,11 @@ class ISVGUseElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedLength>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedLength} 
      */
-    get_y(p) {
-        result := ComCall(10, this, "ptr*", p, "HRESULT")
-        return result
+    get_y() {
+        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedLength(p)
     }
 
     /**
@@ -86,12 +86,11 @@ class ISVGUseElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedLength>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedLength} 
      */
-    get_width(p) {
-        result := ComCall(12, this, "ptr*", p, "HRESULT")
-        return result
+    get_width() {
+        result := ComCall(12, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedLength(p)
     }
 
     /**
@@ -106,12 +105,11 @@ class ISVGUseElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGAnimatedLength>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGAnimatedLength} 
      */
-    get_height(p) {
-        result := ComCall(14, this, "ptr*", p, "HRESULT")
-        return result
+    get_height() {
+        result := ComCall(14, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGAnimatedLength(p)
     }
 
     /**
@@ -126,12 +124,11 @@ class ISVGUseElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGElementInstance>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGElementInstance} 
      */
-    get_instanceRoot(p) {
-        result := ComCall(16, this, "ptr*", p, "HRESULT")
-        return result
+    get_instanceRoot() {
+        result := ComCall(16, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGElementInstance(p)
     }
 
     /**
@@ -146,11 +143,10 @@ class ISVGUseElement extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ISVGElementInstance>} p 
-     * @returns {HRESULT} 
+     * @returns {ISVGElementInstance} 
      */
-    get_animatedInstanceRoot(p) {
-        result := ComCall(18, this, "ptr*", p, "HRESULT")
-        return result
+    get_animatedInstanceRoot() {
+        result := ComCall(18, this, "ptr*", &p := 0, "HRESULT")
+        return ISVGElementInstance(p)
     }
 }

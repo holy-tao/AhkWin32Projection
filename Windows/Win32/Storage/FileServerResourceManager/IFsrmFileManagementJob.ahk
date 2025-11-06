@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IFsrmActionCommand.ahk
+#Include .\IFsrmCollection.ahk
+#Include .\IFsrmAction.ahk
+#Include .\IFsrmPropertyCondition.ahk
 #Include .\IFsrmObject.ahk
 
 /**
@@ -65,13 +69,13 @@ class IFsrmFileManagementJob extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<BSTR>} name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_name
      */
-    get_Name(name) {
+    get_Name() {
+        name := BSTR()
         result := ComCall(12, this, "ptr", name, "HRESULT")
-        return result
+        return name
     }
 
     /**
@@ -89,15 +93,12 @@ class IFsrmFileManagementJob extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} namespaceRoots 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_namespaceroots
      */
-    get_NamespaceRoots(namespaceRoots) {
-        namespaceRootsMarshal := namespaceRoots is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(14, this, namespaceRootsMarshal, namespaceRoots, "HRESULT")
-        return result
+    get_NamespaceRoots() {
+        result := ComCall(14, this, "ptr*", &namespaceRoots := 0, "HRESULT")
+        return namespaceRoots
     }
 
     /**
@@ -113,13 +114,12 @@ class IFsrmFileManagementJob extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} enabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_enabled
      */
-    get_Enabled(enabled) {
-        result := ComCall(16, this, "ptr", enabled, "HRESULT")
-        return result
+    get_Enabled() {
+        result := ComCall(16, this, "short*", &enabled := 0, "HRESULT")
+        return enabled
     }
 
     /**
@@ -135,15 +135,12 @@ class IFsrmFileManagementJob extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<Integer>} operationType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_operationtype
      */
-    get_OperationType(operationType) {
-        operationTypeMarshal := operationType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(18, this, operationTypeMarshal, operationType, "HRESULT")
-        return result
+    get_OperationType() {
+        result := ComCall(18, this, "int*", &operationType := 0, "HRESULT")
+        return operationType
     }
 
     /**
@@ -159,13 +156,13 @@ class IFsrmFileManagementJob extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<BSTR>} expirationDirectory 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_expirationdirectory
      */
-    get_ExpirationDirectory(expirationDirectory) {
+    get_ExpirationDirectory() {
+        expirationDirectory := BSTR()
         result := ComCall(20, this, "ptr", expirationDirectory, "HRESULT")
-        return result
+        return expirationDirectory
     }
 
     /**
@@ -183,39 +180,32 @@ class IFsrmFileManagementJob extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<IFsrmActionCommand>} action 
-     * @returns {HRESULT} 
+     * @returns {IFsrmActionCommand} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_customaction
      */
-    get_CustomAction(action) {
-        result := ComCall(22, this, "ptr*", action, "HRESULT")
-        return result
+    get_CustomAction() {
+        result := ComCall(22, this, "ptr*", &action := 0, "HRESULT")
+        return IFsrmActionCommand(action)
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} notifications 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_notifications
      */
-    get_Notifications(notifications) {
-        notificationsMarshal := notifications is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(23, this, notificationsMarshal, notifications, "HRESULT")
-        return result
+    get_Notifications() {
+        result := ComCall(23, this, "ptr*", &notifications := 0, "HRESULT")
+        return notifications
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} loggingFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_logging
      */
-    get_Logging(loggingFlags) {
-        loggingFlagsMarshal := loggingFlags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(24, this, loggingFlagsMarshal, loggingFlags, "HRESULT")
-        return result
+    get_Logging() {
+        result := ComCall(24, this, "int*", &loggingFlags := 0, "HRESULT")
+        return loggingFlags
     }
 
     /**
@@ -231,13 +221,12 @@ class IFsrmFileManagementJob extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} reportEnabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_reportenabled
      */
-    get_ReportEnabled(reportEnabled) {
-        result := ComCall(26, this, "ptr", reportEnabled, "HRESULT")
-        return result
+    get_ReportEnabled() {
+        result := ComCall(26, this, "short*", &reportEnabled := 0, "HRESULT")
+        return reportEnabled
     }
 
     /**
@@ -253,15 +242,12 @@ class IFsrmFileManagementJob extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} formats 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_formats
      */
-    get_Formats(formats) {
-        formatsMarshal := formats is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(28, this, formatsMarshal, formats, "HRESULT")
-        return result
+    get_Formats() {
+        result := ComCall(28, this, "ptr*", &formats := 0, "HRESULT")
+        return formats
     }
 
     /**
@@ -277,13 +263,13 @@ class IFsrmFileManagementJob extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<BSTR>} mailTo 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_mailto
      */
-    get_MailTo(mailTo) {
+    get_MailTo() {
+        mailTo := BSTR()
         result := ComCall(30, this, "ptr", mailTo, "HRESULT")
-        return result
+        return mailTo
     }
 
     /**
@@ -301,15 +287,12 @@ class IFsrmFileManagementJob extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<Integer>} daysSinceCreation 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_dayssincefilecreated
      */
-    get_DaysSinceFileCreated(daysSinceCreation) {
-        daysSinceCreationMarshal := daysSinceCreation is VarRef ? "int*" : "ptr"
-
-        result := ComCall(32, this, daysSinceCreationMarshal, daysSinceCreation, "HRESULT")
-        return result
+    get_DaysSinceFileCreated() {
+        result := ComCall(32, this, "int*", &daysSinceCreation := 0, "HRESULT")
+        return daysSinceCreation
     }
 
     /**
@@ -325,15 +308,12 @@ class IFsrmFileManagementJob extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<Integer>} daysSinceAccess 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_dayssincefilelastaccessed
      */
-    get_DaysSinceFileLastAccessed(daysSinceAccess) {
-        daysSinceAccessMarshal := daysSinceAccess is VarRef ? "int*" : "ptr"
-
-        result := ComCall(34, this, daysSinceAccessMarshal, daysSinceAccess, "HRESULT")
-        return result
+    get_DaysSinceFileLastAccessed() {
+        result := ComCall(34, this, "int*", &daysSinceAccess := 0, "HRESULT")
+        return daysSinceAccess
     }
 
     /**
@@ -349,15 +329,12 @@ class IFsrmFileManagementJob extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<Integer>} daysSinceModify 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_dayssincefilelastmodified
      */
-    get_DaysSinceFileLastModified(daysSinceModify) {
-        daysSinceModifyMarshal := daysSinceModify is VarRef ? "int*" : "ptr"
-
-        result := ComCall(36, this, daysSinceModifyMarshal, daysSinceModify, "HRESULT")
-        return result
+    get_DaysSinceFileLastModified() {
+        result := ComCall(36, this, "int*", &daysSinceModify := 0, "HRESULT")
+        return daysSinceModify
     }
 
     /**
@@ -373,26 +350,22 @@ class IFsrmFileManagementJob extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<IFsrmCollection>} propertyConditions 
-     * @returns {HRESULT} 
+     * @returns {IFsrmCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_propertyconditions
      */
-    get_PropertyConditions(propertyConditions) {
-        result := ComCall(38, this, "ptr*", propertyConditions, "HRESULT")
-        return result
+    get_PropertyConditions() {
+        result := ComCall(38, this, "ptr*", &propertyConditions := 0, "HRESULT")
+        return IFsrmCollection(propertyConditions)
     }
 
     /**
      * 
-     * @param {Pointer<Float>} fromDate 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_fromdate
      */
-    get_FromDate(fromDate) {
-        fromDateMarshal := fromDate is VarRef ? "double*" : "ptr"
-
-        result := ComCall(39, this, fromDateMarshal, fromDate, "HRESULT")
-        return result
+    get_FromDate() {
+        result := ComCall(39, this, "double*", &fromDate := 0, "HRESULT")
+        return fromDate
     }
 
     /**
@@ -408,13 +381,13 @@ class IFsrmFileManagementJob extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<BSTR>} taskName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_task
      */
-    get_Task(taskName) {
+    get_Task() {
+        taskName := BSTR()
         result := ComCall(41, this, "ptr", taskName, "HRESULT")
-        return result
+        return taskName
     }
 
     /**
@@ -432,15 +405,12 @@ class IFsrmFileManagementJob extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} parameters 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_parameters
      */
-    get_Parameters(parameters) {
-        parametersMarshal := parameters is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(43, this, parametersMarshal, parameters, "HRESULT")
-        return result
+    get_Parameters() {
+        result := ComCall(43, this, "ptr*", &parameters := 0, "HRESULT")
+        return parameters
     }
 
     /**
@@ -456,61 +426,55 @@ class IFsrmFileManagementJob extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<Integer>} runningStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_runningstatus
      */
-    get_RunningStatus(runningStatus) {
-        runningStatusMarshal := runningStatus is VarRef ? "int*" : "ptr"
-
-        result := ComCall(45, this, runningStatusMarshal, runningStatus, "HRESULT")
-        return result
+    get_RunningStatus() {
+        result := ComCall(45, this, "int*", &runningStatus := 0, "HRESULT")
+        return runningStatus
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} lastError 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_lasterror
      */
-    get_LastError(lastError) {
+    get_LastError() {
+        lastError := BSTR()
         result := ComCall(46, this, "ptr", lastError, "HRESULT")
-        return result
+        return lastError
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} path 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_lastreportpathwithoutextension
      */
-    get_LastReportPathWithoutExtension(path) {
+    get_LastReportPathWithoutExtension() {
+        path := BSTR()
         result := ComCall(47, this, "ptr", path, "HRESULT")
-        return result
+        return path
     }
 
     /**
      * 
-     * @param {Pointer<Float>} lastRun 
-     * @returns {HRESULT} 
+     * @returns {Float} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_lastrun
      */
-    get_LastRun(lastRun) {
-        lastRunMarshal := lastRun is VarRef ? "double*" : "ptr"
-
-        result := ComCall(48, this, lastRunMarshal, lastRun, "HRESULT")
-        return result
+    get_LastRun() {
+        result := ComCall(48, this, "double*", &lastRun := 0, "HRESULT")
+        return lastRun
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} fileNamePattern 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_filenamepattern
      */
-    get_FileNamePattern(fileNamePattern) {
+    get_FileNamePattern() {
+        fileNamePattern := BSTR()
         result := ComCall(49, this, "ptr", fileNamePattern, "HRESULT")
-        return result
+        return fileNamePattern
     }
 
     /**
@@ -540,13 +504,12 @@ class IFsrmFileManagementJob extends IFsrmObject{
     /**
      * 
      * @param {Integer} waitSeconds 
-     * @param {Pointer<VARIANT_BOOL>} completed 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-waitforcompletion
      */
-    WaitForCompletion(waitSeconds, completed) {
-        result := ComCall(52, this, "int", waitSeconds, "ptr", completed, "HRESULT")
-        return result
+    WaitForCompletion(waitSeconds) {
+        result := ComCall(52, this, "int", waitSeconds, "short*", &completed := 0, "HRESULT")
+        return completed
     }
 
     /**
@@ -597,49 +560,45 @@ class IFsrmFileManagementJob extends IFsrmObject{
      * 
      * @param {Integer} days 
      * @param {Integer} actionType 
-     * @param {Pointer<IFsrmAction>} action 
-     * @returns {HRESULT} 
+     * @returns {IFsrmAction} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-createnotificationaction
      */
-    CreateNotificationAction(days, actionType, action) {
-        result := ComCall(57, this, "int", days, "int", actionType, "ptr*", action, "HRESULT")
-        return result
+    CreateNotificationAction(days, actionType) {
+        result := ComCall(57, this, "int", days, "int", actionType, "ptr*", &action := 0, "HRESULT")
+        return IFsrmAction(action)
     }
 
     /**
      * 
      * @param {Integer} days 
-     * @param {Pointer<IFsrmCollection>} actions 
-     * @returns {HRESULT} 
+     * @returns {IFsrmCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-enumnotificationactions
      */
-    EnumNotificationActions(days, actions) {
-        result := ComCall(58, this, "int", days, "ptr*", actions, "HRESULT")
-        return result
+    EnumNotificationActions(days) {
+        result := ComCall(58, this, "int", days, "ptr*", &actions := 0, "HRESULT")
+        return IFsrmCollection(actions)
     }
 
     /**
      * 
      * @param {BSTR} name 
-     * @param {Pointer<IFsrmPropertyCondition>} propertyCondition 
-     * @returns {HRESULT} 
+     * @returns {IFsrmPropertyCondition} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-createpropertycondition
      */
-    CreatePropertyCondition(name, propertyCondition) {
+    CreatePropertyCondition(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(59, this, "ptr", name, "ptr*", propertyCondition, "HRESULT")
-        return result
+        result := ComCall(59, this, "ptr", name, "ptr*", &propertyCondition := 0, "HRESULT")
+        return IFsrmPropertyCondition(propertyCondition)
     }
 
     /**
      * 
-     * @param {Pointer<IFsrmActionCommand>} customAction 
-     * @returns {HRESULT} 
+     * @returns {IFsrmActionCommand} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-createcustomaction
      */
-    CreateCustomAction(customAction) {
-        result := ComCall(60, this, "ptr*", customAction, "HRESULT")
-        return result
+    CreateCustomAction() {
+        result := ComCall(60, this, "ptr*", &customAction := 0, "HRESULT")
+        return IFsrmActionCommand(customAction)
     }
 }

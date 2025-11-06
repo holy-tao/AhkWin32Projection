@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ICondition.ahk
 #Include ..\Com\IPersistStream.ahk
 
 /**
@@ -39,29 +40,23 @@ class ICondition extends IPersistStream{
 
     /**
      * 
-     * @param {Pointer<Integer>} pNodeType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquerycondition/nf-structuredquerycondition-icondition-getconditiontype
      */
-    GetConditionType(pNodeType) {
-        pNodeTypeMarshal := pNodeType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pNodeTypeMarshal, pNodeType, "HRESULT")
-        return result
+    GetConditionType() {
+        result := ComCall(8, this, "int*", &pNodeType := 0, "HRESULT")
+        return pNodeType
     }
 
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquerycondition/nf-structuredquerycondition-icondition-getsubconditions
      */
-    GetSubConditions(riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(9, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetSubConditions(riid) {
+        result := ComCall(9, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
@@ -73,32 +68,31 @@ class ICondition extends IPersistStream{
      * @see https://learn.microsoft.com/windows/win32/api/structuredquerycondition/nf-structuredquerycondition-icondition-getcomparisoninfo
      */
     GetComparisonInfo(ppszPropertyName, pcop, ppropvar) {
+        ppszPropertyNameMarshal := ppszPropertyName is VarRef ? "ptr*" : "ptr"
         pcopMarshal := pcop is VarRef ? "int*" : "ptr"
 
-        result := ComCall(10, this, "ptr", ppszPropertyName, pcopMarshal, pcop, "ptr", ppropvar, "HRESULT")
+        result := ComCall(10, this, ppszPropertyNameMarshal, ppszPropertyName, pcopMarshal, pcop, "ptr", ppropvar, "HRESULT")
         return result
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszValueTypeName 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquerycondition/nf-structuredquerycondition-icondition-getvaluetype
      */
-    GetValueType(ppszValueTypeName) {
-        result := ComCall(11, this, "ptr", ppszValueTypeName, "HRESULT")
-        return result
+    GetValueType() {
+        result := ComCall(11, this, "ptr*", &ppszValueTypeName := 0, "HRESULT")
+        return ppszValueTypeName
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszNormalization 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquerycondition/nf-structuredquerycondition-icondition-getvaluenormalization
      */
-    GetValueNormalization(ppszNormalization) {
-        result := ComCall(12, this, "ptr", ppszNormalization, "HRESULT")
-        return result
+    GetValueNormalization() {
+        result := ComCall(12, this, "ptr*", &ppszNormalization := 0, "HRESULT")
+        return ppszNormalization
     }
 
     /**
@@ -116,12 +110,11 @@ class ICondition extends IPersistStream{
 
     /**
      * 
-     * @param {Pointer<ICondition>} ppc 
-     * @returns {HRESULT} 
+     * @returns {ICondition} 
      * @see https://learn.microsoft.com/windows/win32/api/structuredquerycondition/nf-structuredquerycondition-icondition-clone
      */
-    Clone(ppc) {
-        result := ComCall(14, this, "ptr*", ppc, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(14, this, "ptr*", &ppc := 0, "HRESULT")
+        return ICondition(ppc)
     }
 }

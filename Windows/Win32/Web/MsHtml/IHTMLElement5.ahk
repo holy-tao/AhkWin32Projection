@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IHTMLDOMAttribute2.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IHTMLAttributeCollection3.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,49 +35,45 @@ class IHTMLElement5 extends IDispatch{
     /**
      * 
      * @param {BSTR} bstrname 
-     * @param {Pointer<IHTMLDOMAttribute2>} ppretAttribute 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMAttribute2} 
      */
-    getAttributeNode(bstrname, ppretAttribute) {
+    getAttributeNode(bstrname) {
         bstrname := bstrname is String ? BSTR.Alloc(bstrname).Value : bstrname
 
-        result := ComCall(7, this, "ptr", bstrname, "ptr*", ppretAttribute, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", bstrname, "ptr*", &ppretAttribute := 0, "HRESULT")
+        return IHTMLDOMAttribute2(ppretAttribute)
     }
 
     /**
      * 
      * @param {IHTMLDOMAttribute2} pattr 
-     * @param {Pointer<IHTMLDOMAttribute2>} ppretAttribute 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMAttribute2} 
      */
-    setAttributeNode(pattr, ppretAttribute) {
-        result := ComCall(8, this, "ptr", pattr, "ptr*", ppretAttribute, "HRESULT")
-        return result
+    setAttributeNode(pattr) {
+        result := ComCall(8, this, "ptr", pattr, "ptr*", &ppretAttribute := 0, "HRESULT")
+        return IHTMLDOMAttribute2(ppretAttribute)
     }
 
     /**
      * 
      * @param {IHTMLDOMAttribute2} pattr 
-     * @param {Pointer<IHTMLDOMAttribute2>} ppretAttribute 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMAttribute2} 
      */
-    removeAttributeNode(pattr, ppretAttribute) {
-        result := ComCall(9, this, "ptr", pattr, "ptr*", ppretAttribute, "HRESULT")
-        return result
+    removeAttributeNode(pattr) {
+        result := ComCall(9, this, "ptr", pattr, "ptr*", &ppretAttribute := 0, "HRESULT")
+        return IHTMLDOMAttribute2(ppretAttribute)
     }
 
     /**
      * 
      * @param {BSTR} name 
-     * @param {Pointer<VARIANT_BOOL>} pfHasAttribute 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    hasAttribute(name, pfHasAttribute) {
+    hasAttribute(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
-        result := ComCall(10, this, "ptr", name, "ptr", pfHasAttribute, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", name, "short*", &pfHasAttribute := 0, "HRESULT")
+        return pfHasAttribute
     }
 
     /**
@@ -91,12 +90,12 @@ class IHTMLElement5 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_role(p) {
+    get_role() {
+        p := BSTR()
         result := ComCall(12, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -113,12 +112,12 @@ class IHTMLElement5 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ariaBusy(p) {
+    get_ariaBusy() {
+        p := BSTR()
         result := ComCall(14, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -135,12 +134,12 @@ class IHTMLElement5 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ariaChecked(p) {
+    get_ariaChecked() {
+        p := BSTR()
         result := ComCall(16, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -157,12 +156,12 @@ class IHTMLElement5 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ariaDisabled(p) {
+    get_ariaDisabled() {
+        p := BSTR()
         result := ComCall(18, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -179,12 +178,12 @@ class IHTMLElement5 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ariaExpanded(p) {
+    get_ariaExpanded() {
+        p := BSTR()
         result := ComCall(20, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -201,12 +200,12 @@ class IHTMLElement5 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ariaHaspopup(p) {
+    get_ariaHaspopup() {
+        p := BSTR()
         result := ComCall(22, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -223,12 +222,12 @@ class IHTMLElement5 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ariaHidden(p) {
+    get_ariaHidden() {
+        p := BSTR()
         result := ComCall(24, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -245,12 +244,12 @@ class IHTMLElement5 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ariaInvalid(p) {
+    get_ariaInvalid() {
+        p := BSTR()
         result := ComCall(26, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -267,12 +266,12 @@ class IHTMLElement5 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ariaMultiselectable(p) {
+    get_ariaMultiselectable() {
+        p := BSTR()
         result := ComCall(28, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -289,12 +288,12 @@ class IHTMLElement5 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ariaPressed(p) {
+    get_ariaPressed() {
+        p := BSTR()
         result := ComCall(30, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -311,12 +310,12 @@ class IHTMLElement5 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ariaReadonly(p) {
+    get_ariaReadonly() {
+        p := BSTR()
         result := ComCall(32, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -333,12 +332,12 @@ class IHTMLElement5 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ariaRequired(p) {
+    get_ariaRequired() {
+        p := BSTR()
         result := ComCall(34, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -355,12 +354,12 @@ class IHTMLElement5 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ariaSecret(p) {
+    get_ariaSecret() {
+        p := BSTR()
         result := ComCall(36, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -377,25 +376,25 @@ class IHTMLElement5 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ariaSelected(p) {
+    get_ariaSelected() {
+        p := BSTR()
         result := ComCall(38, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
      * @param {BSTR} strAttributeName 
-     * @param {Pointer<VARIANT>} AttributeValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    getAttribute(strAttributeName, AttributeValue) {
+    getAttribute(strAttributeName) {
         strAttributeName := strAttributeName is String ? BSTR.Alloc(strAttributeName).Value : strAttributeName
 
+        AttributeValue := VARIANT()
         result := ComCall(39, this, "ptr", strAttributeName, "ptr", AttributeValue, "HRESULT")
-        return result
+        return AttributeValue
     }
 
     /**
@@ -414,24 +413,22 @@ class IHTMLElement5 extends IDispatch{
     /**
      * 
      * @param {BSTR} strAttributeName 
-     * @param {Pointer<VARIANT_BOOL>} pfSuccess 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    removeAttribute(strAttributeName, pfSuccess) {
+    removeAttribute(strAttributeName) {
         strAttributeName := strAttributeName is String ? BSTR.Alloc(strAttributeName).Value : strAttributeName
 
-        result := ComCall(41, this, "ptr", strAttributeName, "ptr", pfSuccess, "HRESULT")
-        return result
+        result := ComCall(41, this, "ptr", strAttributeName, "short*", &pfSuccess := 0, "HRESULT")
+        return pfSuccess
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLAttributeCollection3>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLAttributeCollection3} 
      */
-    get_attributes(p) {
-        result := ComCall(42, this, "ptr*", p, "HRESULT")
-        return result
+    get_attributes() {
+        result := ComCall(42, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLAttributeCollection3(p)
     }
 
     /**
@@ -448,12 +445,12 @@ class IHTMLElement5 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ariaValuenow(p) {
+    get_ariaValuenow() {
+        p := BSTR()
         result := ComCall(44, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -468,14 +465,11 @@ class IHTMLElement5 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ariaPosinset(p) {
-        pMarshal := p is VarRef ? "short*" : "ptr"
-
-        result := ComCall(46, this, pMarshal, p, "HRESULT")
-        return result
+    get_ariaPosinset() {
+        result := ComCall(46, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -490,14 +484,11 @@ class IHTMLElement5 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ariaSetsize(p) {
-        pMarshal := p is VarRef ? "short*" : "ptr"
-
-        result := ComCall(48, this, pMarshal, p, "HRESULT")
-        return result
+    get_ariaSetsize() {
+        result := ComCall(48, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -512,14 +503,11 @@ class IHTMLElement5 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} p 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ariaLevel(p) {
-        pMarshal := p is VarRef ? "short*" : "ptr"
-
-        result := ComCall(50, this, pMarshal, p, "HRESULT")
-        return result
+    get_ariaLevel() {
+        result := ComCall(50, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
@@ -536,12 +524,12 @@ class IHTMLElement5 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ariaValuemin(p) {
+    get_ariaValuemin() {
+        p := BSTR()
         result := ComCall(52, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -558,12 +546,12 @@ class IHTMLElement5 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ariaValuemax(p) {
+    get_ariaValuemax() {
+        p := BSTR()
         result := ComCall(54, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -580,12 +568,12 @@ class IHTMLElement5 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ariaControls(p) {
+    get_ariaControls() {
+        p := BSTR()
         result := ComCall(56, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -602,12 +590,12 @@ class IHTMLElement5 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ariaDescribedby(p) {
+    get_ariaDescribedby() {
+        p := BSTR()
         result := ComCall(58, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -624,12 +612,12 @@ class IHTMLElement5 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ariaFlowto(p) {
+    get_ariaFlowto() {
+        p := BSTR()
         result := ComCall(60, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -646,12 +634,12 @@ class IHTMLElement5 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ariaLabelledby(p) {
+    get_ariaLabelledby() {
+        p := BSTR()
         result := ComCall(62, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -668,12 +656,12 @@ class IHTMLElement5 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ariaActivedescendant(p) {
+    get_ariaActivedescendant() {
+        p := BSTR()
         result := ComCall(64, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -690,22 +678,21 @@ class IHTMLElement5 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ariaOwns(p) {
+    get_ariaOwns() {
+        p := BSTR()
         result := ComCall(66, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pfHasAttributes 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    hasAttributes(pfHasAttributes) {
-        result := ComCall(67, this, "ptr", pfHasAttributes, "HRESULT")
-        return result
+    hasAttributes() {
+        result := ComCall(67, this, "short*", &pfHasAttributes := 0, "HRESULT")
+        return pfHasAttributes
     }
 
     /**
@@ -722,12 +709,12 @@ class IHTMLElement5 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ariaLive(p) {
+    get_ariaLive() {
+        p := BSTR()
         result := ComCall(69, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -744,11 +731,11 @@ class IHTMLElement5 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ariaRelevant(p) {
+    get_ariaRelevant() {
+        p := BSTR()
         result := ComCall(71, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 }

@@ -36,14 +36,11 @@ class ISpPhoneticAlphabetConverter extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pLangID 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetLangId(pLangID) {
-        pLangIDMarshal := pLangID is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(3, this, pLangIDMarshal, pLangID, "HRESULT")
-        return result
+    GetLangId() {
+        result := ComCall(3, this, "ushort*", &pLangID := 0, "HRESULT")
+        return pLangID
     }
 
     /**
@@ -59,44 +56,37 @@ class ISpPhoneticAlphabetConverter extends IUnknown{
     /**
      * 
      * @param {Pointer<Integer>} pszSAPIId 
-     * @param {Pointer<Integer>} pszUPSId 
      * @param {Integer} cMaxLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    SAPI2UPS(pszSAPIId, pszUPSId, cMaxLength) {
+    SAPI2UPS(pszSAPIId, cMaxLength) {
         pszSAPIIdMarshal := pszSAPIId is VarRef ? "ushort*" : "ptr"
-        pszUPSIdMarshal := pszUPSId is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(5, this, pszSAPIIdMarshal, pszSAPIId, pszUPSIdMarshal, pszUPSId, "uint", cMaxLength, "HRESULT")
-        return result
+        result := ComCall(5, this, pszSAPIIdMarshal, pszSAPIId, "ushort*", &pszUPSId := 0, "uint", cMaxLength, "HRESULT")
+        return pszUPSId
     }
 
     /**
      * 
      * @param {Pointer<Integer>} pszUPSId 
-     * @param {Pointer<Integer>} pszSAPIId 
      * @param {Integer} cMaxLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    UPS2SAPI(pszUPSId, pszSAPIId, cMaxLength) {
+    UPS2SAPI(pszUPSId, cMaxLength) {
         pszUPSIdMarshal := pszUPSId is VarRef ? "ushort*" : "ptr"
-        pszSAPIIdMarshal := pszSAPIId is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(6, this, pszUPSIdMarshal, pszUPSId, pszSAPIIdMarshal, pszSAPIId, "uint", cMaxLength, "HRESULT")
-        return result
+        result := ComCall(6, this, pszUPSIdMarshal, pszUPSId, "ushort*", &pszSAPIId := 0, "uint", cMaxLength, "HRESULT")
+        return pszSAPIId
     }
 
     /**
      * 
      * @param {Integer} cSrcLength 
      * @param {BOOL} bSAPI2UPS 
-     * @param {Pointer<Integer>} pcMaxDestLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetMaxConvertLength(cSrcLength, bSAPI2UPS, pcMaxDestLength) {
-        pcMaxDestLengthMarshal := pcMaxDestLength is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, "uint", cSrcLength, "int", bSAPI2UPS, pcMaxDestLengthMarshal, pcMaxDestLength, "HRESULT")
-        return result
+    GetMaxConvertLength(cSrcLength, bSAPI2UPS) {
+        result := ComCall(7, this, "uint", cSrcLength, "int", bSAPI2UPS, "uint*", &pcMaxDestLength := 0, "HRESULT")
+        return pcMaxDestLength
     }
 }

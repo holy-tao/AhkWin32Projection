@@ -30,37 +30,28 @@ class IRTCMediaEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pMediaType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_MediaType(pMediaType) {
-        pMediaTypeMarshal := pMediaType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pMediaTypeMarshal, pMediaType, "HRESULT")
-        return result
+    get_MediaType() {
+        result := ComCall(7, this, "int*", &pMediaType := 0, "HRESULT")
+        return pMediaType
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} penEventType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_EventType(penEventType) {
-        penEventTypeMarshal := penEventType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, penEventTypeMarshal, penEventType, "HRESULT")
-        return result
+    get_EventType() {
+        result := ComCall(8, this, "int*", &penEventType := 0, "HRESULT")
+        return penEventType
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} penEventReason 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_EventReason(penEventReason) {
-        penEventReasonMarshal := penEventReason is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, penEventReasonMarshal, penEventReason, "HRESULT")
-        return result
+    get_EventReason() {
+        result := ComCall(9, this, "int*", &penEventReason := 0, "HRESULT")
+        return penEventReason
     }
 }

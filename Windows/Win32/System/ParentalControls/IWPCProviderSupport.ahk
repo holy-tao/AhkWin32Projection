@@ -32,12 +32,12 @@ class IWPCProviderSupport extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pguidProvider 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwpcprovidersupport-getcurrent
      */
-    GetCurrent(pguidProvider) {
+    GetCurrent() {
+        pguidProvider := Guid()
         result := ComCall(3, this, "ptr", pguidProvider, "HRESULT")
-        return result
+        return pguidProvider
     }
 }

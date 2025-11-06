@@ -103,7 +103,9 @@ class IFileIo extends IUnknown{
      * @returns {HRESULT} 
      */
     IsEndOfStream(pbEndOfStream) {
-        result := ComCall(8, this, "ptr", pbEndOfStream, "HRESULT")
+        pbEndOfStreamMarshal := pbEndOfStream is VarRef ? "int*" : "ptr"
+
+        result := ComCall(8, this, pbEndOfStreamMarshal, pbEndOfStream, "HRESULT")
         return result
     }
 

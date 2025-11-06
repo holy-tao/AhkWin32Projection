@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IEnumPhone.ahk
+#Include .\ITPhone.ahk
 #Include .\ITAddress.ahk
 
 /**
@@ -32,71 +35,67 @@ class ITAddress2 extends ITAddress{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pPhones 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress2-get_phones
      */
-    get_Phones(pPhones) {
+    get_Phones() {
+        pPhones := VARIANT()
         result := ComCall(22, this, "ptr", pPhones, "HRESULT")
-        return result
+        return pPhones
     }
 
     /**
      * 
-     * @param {Pointer<IEnumPhone>} ppEnumPhone 
-     * @returns {HRESULT} 
+     * @returns {IEnumPhone} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress2-enumeratephones
      */
-    EnumeratePhones(ppEnumPhone) {
-        result := ComCall(23, this, "ptr*", ppEnumPhone, "HRESULT")
-        return result
+    EnumeratePhones() {
+        result := ComCall(23, this, "ptr*", &ppEnumPhone := 0, "HRESULT")
+        return IEnumPhone(ppEnumPhone)
     }
 
     /**
      * 
      * @param {ITTerminal} pTerminal 
-     * @param {Pointer<ITPhone>} ppPhone 
-     * @returns {HRESULT} 
+     * @returns {ITPhone} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress2-getphonefromterminal
      */
-    GetPhoneFromTerminal(pTerminal, ppPhone) {
-        result := ComCall(24, this, "ptr", pTerminal, "ptr*", ppPhone, "HRESULT")
-        return result
+    GetPhoneFromTerminal(pTerminal) {
+        result := ComCall(24, this, "ptr", pTerminal, "ptr*", &ppPhone := 0, "HRESULT")
+        return ITPhone(ppPhone)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pPhones 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress2-get_preferredphones
      */
-    get_PreferredPhones(pPhones) {
+    get_PreferredPhones() {
+        pPhones := VARIANT()
         result := ComCall(25, this, "ptr", pPhones, "HRESULT")
-        return result
+        return pPhones
     }
 
     /**
      * 
-     * @param {Pointer<IEnumPhone>} ppEnumPhone 
-     * @returns {HRESULT} 
+     * @returns {IEnumPhone} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress2-enumeratepreferredphones
      */
-    EnumeratePreferredPhones(ppEnumPhone) {
-        result := ComCall(26, this, "ptr*", ppEnumPhone, "HRESULT")
-        return result
+    EnumeratePreferredPhones() {
+        result := ComCall(26, this, "ptr*", &ppEnumPhone := 0, "HRESULT")
+        return IEnumPhone(ppEnumPhone)
     }
 
     /**
      * 
      * @param {Integer} TapiEvent 
      * @param {Integer} lSubEvent 
-     * @param {Pointer<VARIANT_BOOL>} pEnable 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress2-get_eventfilter
      */
-    get_EventFilter(TapiEvent, lSubEvent, pEnable) {
-        result := ComCall(27, this, "int", TapiEvent, "int", lSubEvent, "ptr", pEnable, "HRESULT")
-        return result
+    get_EventFilter(TapiEvent, lSubEvent) {
+        result := ComCall(27, this, "int", TapiEvent, "int", lSubEvent, "short*", &pEnable := 0, "HRESULT")
+        return pEnable
     }
 
     /**
@@ -143,14 +142,11 @@ class ITAddress2 extends ITAddress{
      * 
      * @param {Integer} lLowVersion 
      * @param {Integer} lHighVersion 
-     * @param {Pointer<Integer>} plExtVersion 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress2-negotiateextversion
      */
-    NegotiateExtVersion(lLowVersion, lHighVersion, plExtVersion) {
-        plExtVersionMarshal := plExtVersion is VarRef ? "int*" : "ptr"
-
-        result := ComCall(31, this, "int", lLowVersion, "int", lHighVersion, plExtVersionMarshal, plExtVersion, "HRESULT")
-        return result
+    NegotiateExtVersion(lLowVersion, lHighVersion) {
+        result := ComCall(31, this, "int", lLowVersion, "int", lHighVersion, "int*", &plExtVersion := 0, "HRESULT")
+        return plExtVersion
     }
 }

@@ -44,15 +44,12 @@ class IInkDesktopHost extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/inkpresenterdesktop/nf-inkpresenterdesktop-iinkdesktophost-createinkpresenter
      */
-    CreateInkPresenter(riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    CreateInkPresenter(riid) {
+        result := ComCall(4, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 
     /**
@@ -61,14 +58,11 @@ class IInkDesktopHost extends IUnknown{
      * @param {Float} width 
      * @param {Float} height 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/inkpresenterdesktop/nf-inkpresenterdesktop-iinkdesktophost-createandinitializeinkpresenter
      */
-    CreateAndInitializeInkPresenter(rootVisual, width, height, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, "ptr", rootVisual, "float", width, "float", height, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    CreateAndInitializeInkPresenter(rootVisual, width, height, riid) {
+        result := ComCall(5, this, "ptr", rootVisual, "float", width, "float", height, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 }

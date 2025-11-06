@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDirectXVideoProcessorService.ahk
+#Include .\DXVA2_VideoProcessorCaps.ahk
+#Include .\DXVA2_ValueRange.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,13 +35,12 @@ class IDirectXVideoProcessor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDirectXVideoProcessorService>} ppService 
-     * @returns {HRESULT} 
+     * @returns {IDirectXVideoProcessorService} 
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideoprocessor-getvideoprocessorservice
      */
-    GetVideoProcessorService(ppService) {
-        result := ComCall(3, this, "ptr*", ppService, "HRESULT")
-        return result
+    GetVideoProcessorService() {
+        result := ComCall(3, this, "ptr*", &ppService := 0, "HRESULT")
+        return IDirectXVideoProcessorService(ppService)
     }
 
     /**
@@ -60,37 +62,37 @@ class IDirectXVideoProcessor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<DXVA2_VideoProcessorCaps>} pCaps 
-     * @returns {HRESULT} 
+     * @returns {DXVA2_VideoProcessorCaps} 
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideoprocessor-getvideoprocessorcaps
      */
-    GetVideoProcessorCaps(pCaps) {
+    GetVideoProcessorCaps() {
+        pCaps := DXVA2_VideoProcessorCaps()
         result := ComCall(5, this, "ptr", pCaps, "HRESULT")
-        return result
+        return pCaps
     }
 
     /**
      * 
      * @param {Integer} ProcAmpCap 
-     * @param {Pointer<DXVA2_ValueRange>} pRange 
-     * @returns {HRESULT} 
+     * @returns {DXVA2_ValueRange} 
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideoprocessor-getprocamprange
      */
-    GetProcAmpRange(ProcAmpCap, pRange) {
+    GetProcAmpRange(ProcAmpCap) {
+        pRange := DXVA2_ValueRange()
         result := ComCall(6, this, "uint", ProcAmpCap, "ptr", pRange, "HRESULT")
-        return result
+        return pRange
     }
 
     /**
      * 
      * @param {Integer} FilterSetting 
-     * @param {Pointer<DXVA2_ValueRange>} pRange 
-     * @returns {HRESULT} 
+     * @returns {DXVA2_ValueRange} 
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideoprocessor-getfilterpropertyrange
      */
-    GetFilterPropertyRange(FilterSetting, pRange) {
+    GetFilterPropertyRange(FilterSetting) {
+        pRange := DXVA2_ValueRange()
         result := ComCall(7, this, "uint", FilterSetting, "ptr", pRange, "HRESULT")
-        return result
+        return pRange
     }
 
     /**

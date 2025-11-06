@@ -30,14 +30,11 @@ class ISimpleConnectionPoint extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pulCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetEventCount(pulCount) {
-        pulCountMarshal := pulCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pulCountMarshal, pulCount, "HRESULT")
-        return result
+    GetEventCount() {
+        result := ComCall(3, this, "uint*", &pulCount := 0, "HRESULT")
+        return pulCount
     }
 
     /**
@@ -60,14 +57,11 @@ class ISimpleConnectionPoint extends IUnknown{
     /**
      * 
      * @param {IDispatch} pdisp 
-     * @param {Pointer<Integer>} pdwCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Advise(pdisp, pdwCookie) {
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, "ptr", pdisp, pdwCookieMarshal, pdwCookie, "HRESULT")
-        return result
+    Advise(pdisp) {
+        result := ComCall(5, this, "ptr", pdisp, "uint*", &pdwCookie := 0, "HRESULT")
+        return pdwCookie
     }
 
     /**

@@ -30,11 +30,10 @@ class IContainerActivationHelper extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} isAllowed 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    CanActivateClientVM(isAllowed) {
-        result := ComCall(3, this, "ptr", isAllowed, "HRESULT")
-        return result
+    CanActivateClientVM() {
+        result := ComCall(3, this, "short*", &isAllowed := 0, "HRESULT")
+        return isAllowed
     }
 }

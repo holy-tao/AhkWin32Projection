@@ -31,111 +31,98 @@ class IDynamicPortMapping extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_ExternalIPAddress(pVal) {
+    get_ExternalIPAddress() {
+        pVal := BSTR()
         result := ComCall(7, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_RemoteHost(pVal) {
+    get_RemoteHost() {
+        pVal := BSTR()
         result := ComCall(8, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ExternalPort(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_ExternalPort() {
+        result := ComCall(9, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Protocol(pVal) {
+    get_Protocol() {
+        pVal := BSTR()
         result := ComCall(10, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_InternalPort(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_InternalPort() {
+        result := ComCall(11, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_InternalClient(pVal) {
+    get_InternalClient() {
+        pVal := BSTR()
         result := ComCall(12, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_Enabled(pVal) {
-        result := ComCall(13, this, "ptr", pVal, "HRESULT")
-        return result
+    get_Enabled() {
+        result := ComCall(13, this, "short*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Description(pVal) {
+    get_Description() {
+        pVal := BSTR()
         result := ComCall(14, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_LeaseDuration(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_LeaseDuration() {
+        result := ComCall(15, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
      * @param {Integer} lLeaseDurationDesired 
-     * @param {Pointer<Integer>} pLeaseDurationReturned 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    RenewLease(lLeaseDurationDesired, pLeaseDurationReturned) {
-        pLeaseDurationReturnedMarshal := pLeaseDurationReturned is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, "int", lLeaseDurationDesired, pLeaseDurationReturnedMarshal, pLeaseDurationReturned, "HRESULT")
-        return result
+    RenewLease(lLeaseDurationDesired) {
+        result := ComCall(16, this, "int", lLeaseDurationDesired, "int*", &pLeaseDurationReturned := 0, "HRESULT")
+        return pLeaseDurationReturned
     }
 
     /**

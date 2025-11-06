@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IUpdateServiceRegistration.ahk
 #Include .\IUpdateServiceManager.ahk
 
 /**
@@ -38,13 +39,13 @@ class IUpdateServiceManager2 extends IUpdateServiceManager{
 
     /**
      * 
-     * @param {Pointer<BSTR>} retval 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservicemanager2-get_clientapplicationid
      */
-    get_ClientApplicationID(retval) {
+    get_ClientApplicationID() {
+        retval := BSTR()
         result := ComCall(14, this, "ptr", retval, "HRESULT")
-        return result
+        return retval
     }
 
     /**
@@ -63,15 +64,14 @@ class IUpdateServiceManager2 extends IUpdateServiceManager{
     /**
      * 
      * @param {BSTR} serviceID 
-     * @param {Pointer<IUpdateServiceRegistration>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUpdateServiceRegistration} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservicemanager2-queryserviceregistration
      */
-    QueryServiceRegistration(serviceID, retval) {
+    QueryServiceRegistration(serviceID) {
         serviceID := serviceID is String ? BSTR.Alloc(serviceID).Value : serviceID
 
-        result := ComCall(16, this, "ptr", serviceID, "ptr*", retval, "HRESULT")
-        return result
+        result := ComCall(16, this, "ptr", serviceID, "ptr*", &retval := 0, "HRESULT")
+        return IUpdateServiceRegistration(retval)
     }
 
     /**
@@ -79,15 +79,14 @@ class IUpdateServiceManager2 extends IUpdateServiceManager{
      * @param {BSTR} serviceID 
      * @param {Integer} flags 
      * @param {BSTR} authorizationCabPath 
-     * @param {Pointer<IUpdateServiceRegistration>} retval 
-     * @returns {HRESULT} 
+     * @returns {IUpdateServiceRegistration} 
      * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservicemanager2-addservice2
      */
-    AddService2(serviceID, flags, authorizationCabPath, retval) {
+    AddService2(serviceID, flags, authorizationCabPath) {
         serviceID := serviceID is String ? BSTR.Alloc(serviceID).Value : serviceID
         authorizationCabPath := authorizationCabPath is String ? BSTR.Alloc(authorizationCabPath).Value : authorizationCabPath
 
-        result := ComCall(17, this, "ptr", serviceID, "int", flags, "ptr", authorizationCabPath, "ptr*", retval, "HRESULT")
-        return result
+        result := ComCall(17, this, "ptr", serviceID, "int", flags, "ptr", authorizationCabPath, "ptr*", &retval := 0, "HRESULT")
+        return IUpdateServiceRegistration(retval)
     }
 }

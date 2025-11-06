@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\RECT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -44,14 +45,11 @@ class IElementBehaviorLayout extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} plLayoutInfo 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetLayoutInfo(plLayoutInfo) {
-        plLayoutInfoMarshal := plLayoutInfo is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, plLayoutInfoMarshal, plLayoutInfo, "HRESULT")
-        return result
+    GetLayoutInfo() {
+        result := ComCall(4, this, "int*", &plLayoutInfo := 0, "HRESULT")
+        return plLayoutInfo
     }
 
     /**
@@ -68,11 +66,11 @@ class IElementBehaviorLayout extends IUnknown{
     /**
      * 
      * @param {Pointer<SIZE>} psizeIn 
-     * @param {Pointer<RECT>} prcOut 
-     * @returns {HRESULT} 
+     * @returns {RECT} 
      */
-    MapSize(psizeIn, prcOut) {
+    MapSize(psizeIn) {
+        prcOut := RECT()
         result := ComCall(6, this, "ptr", psizeIn, "ptr", prcOut, "HRESULT")
-        return result
+        return prcOut
     }
 }

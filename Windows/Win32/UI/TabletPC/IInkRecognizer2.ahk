@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,23 +34,23 @@ class IInkRecognizer2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrId 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizer2-get_id
      */
-    get_Id(pbstrId) {
+    get_Id() {
+        pbstrId := BSTR()
         result := ComCall(7, this, "ptr", pbstrId, "HRESULT")
-        return result
+        return pbstrId
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} UnicodeRanges 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizer2-get_unicoderanges
      */
-    get_UnicodeRanges(UnicodeRanges) {
+    get_UnicodeRanges() {
+        UnicodeRanges := VARIANT()
         result := ComCall(8, this, "ptr", UnicodeRanges, "HRESULT")
-        return result
+        return UnicodeRanges
     }
 }

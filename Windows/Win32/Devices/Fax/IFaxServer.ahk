@@ -2,6 +2,16 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IFaxDeviceProviders.ahk
+#Include .\IFaxDevices.ahk
+#Include .\IFaxInboundRouting.ahk
+#Include .\IFaxFolders.ahk
+#Include .\IFaxLoggingOptions.ahk
+#Include .\IFaxActivity.ahk
+#Include .\IFaxOutboundRouting.ahk
+#Include .\IFaxReceiptOptions.ahk
+#Include .\IFaxSecurity.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -56,175 +66,153 @@ class IFaxServer extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrServerName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-get_servername
      */
-    get_ServerName(pbstrServerName) {
+    get_ServerName() {
+        pbstrServerName := BSTR()
         result := ComCall(8, this, "ptr", pbstrServerName, "HRESULT")
-        return result
+        return pbstrServerName
     }
 
     /**
      * 
-     * @param {Pointer<IFaxDeviceProviders>} ppFaxDeviceProviders 
-     * @returns {HRESULT} 
+     * @returns {IFaxDeviceProviders} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-getdeviceproviders
      */
-    GetDeviceProviders(ppFaxDeviceProviders) {
-        result := ComCall(9, this, "ptr*", ppFaxDeviceProviders, "HRESULT")
-        return result
+    GetDeviceProviders() {
+        result := ComCall(9, this, "ptr*", &ppFaxDeviceProviders := 0, "HRESULT")
+        return IFaxDeviceProviders(ppFaxDeviceProviders)
     }
 
     /**
      * 
-     * @param {Pointer<IFaxDevices>} ppFaxDevices 
-     * @returns {HRESULT} 
+     * @returns {IFaxDevices} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-getdevices
      */
-    GetDevices(ppFaxDevices) {
-        result := ComCall(10, this, "ptr*", ppFaxDevices, "HRESULT")
-        return result
+    GetDevices() {
+        result := ComCall(10, this, "ptr*", &ppFaxDevices := 0, "HRESULT")
+        return IFaxDevices(ppFaxDevices)
     }
 
     /**
      * 
-     * @param {Pointer<IFaxInboundRouting>} ppFaxInboundRouting 
-     * @returns {HRESULT} 
+     * @returns {IFaxInboundRouting} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-get_inboundrouting
      */
-    get_InboundRouting(ppFaxInboundRouting) {
-        result := ComCall(11, this, "ptr*", ppFaxInboundRouting, "HRESULT")
-        return result
+    get_InboundRouting() {
+        result := ComCall(11, this, "ptr*", &ppFaxInboundRouting := 0, "HRESULT")
+        return IFaxInboundRouting(ppFaxInboundRouting)
     }
 
     /**
      * 
-     * @param {Pointer<IFaxFolders>} pFaxFolders 
-     * @returns {HRESULT} 
+     * @returns {IFaxFolders} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-get_folders
      */
-    get_Folders(pFaxFolders) {
-        result := ComCall(12, this, "ptr*", pFaxFolders, "HRESULT")
-        return result
+    get_Folders() {
+        result := ComCall(12, this, "ptr*", &pFaxFolders := 0, "HRESULT")
+        return IFaxFolders(pFaxFolders)
     }
 
     /**
      * 
-     * @param {Pointer<IFaxLoggingOptions>} ppFaxLoggingOptions 
-     * @returns {HRESULT} 
+     * @returns {IFaxLoggingOptions} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-get_loggingoptions
      */
-    get_LoggingOptions(ppFaxLoggingOptions) {
-        result := ComCall(13, this, "ptr*", ppFaxLoggingOptions, "HRESULT")
-        return result
+    get_LoggingOptions() {
+        result := ComCall(13, this, "ptr*", &ppFaxLoggingOptions := 0, "HRESULT")
+        return IFaxLoggingOptions(ppFaxLoggingOptions)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plMajorVersion 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-get_majorversion
      */
-    get_MajorVersion(plMajorVersion) {
-        plMajorVersionMarshal := plMajorVersion is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, plMajorVersionMarshal, plMajorVersion, "HRESULT")
-        return result
+    get_MajorVersion() {
+        result := ComCall(14, this, "int*", &plMajorVersion := 0, "HRESULT")
+        return plMajorVersion
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plMinorVersion 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-get_minorversion
      */
-    get_MinorVersion(plMinorVersion) {
-        plMinorVersionMarshal := plMinorVersion is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, plMinorVersionMarshal, plMinorVersion, "HRESULT")
-        return result
+    get_MinorVersion() {
+        result := ComCall(15, this, "int*", &plMinorVersion := 0, "HRESULT")
+        return plMinorVersion
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plMajorBuild 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-get_majorbuild
      */
-    get_MajorBuild(plMajorBuild) {
-        plMajorBuildMarshal := plMajorBuild is VarRef ? "int*" : "ptr"
-
-        result := ComCall(16, this, plMajorBuildMarshal, plMajorBuild, "HRESULT")
-        return result
+    get_MajorBuild() {
+        result := ComCall(16, this, "int*", &plMajorBuild := 0, "HRESULT")
+        return plMajorBuild
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plMinorBuild 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-get_minorbuild
      */
-    get_MinorBuild(plMinorBuild) {
-        plMinorBuildMarshal := plMinorBuild is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, plMinorBuildMarshal, plMinorBuild, "HRESULT")
-        return result
+    get_MinorBuild() {
+        result := ComCall(17, this, "int*", &plMinorBuild := 0, "HRESULT")
+        return plMinorBuild
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbDebug 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-get_debug
      */
-    get_Debug(pbDebug) {
-        result := ComCall(18, this, "ptr", pbDebug, "HRESULT")
-        return result
+    get_Debug() {
+        result := ComCall(18, this, "short*", &pbDebug := 0, "HRESULT")
+        return pbDebug
     }
 
     /**
      * 
-     * @param {Pointer<IFaxActivity>} ppFaxActivity 
-     * @returns {HRESULT} 
+     * @returns {IFaxActivity} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-get_activity
      */
-    get_Activity(ppFaxActivity) {
-        result := ComCall(19, this, "ptr*", ppFaxActivity, "HRESULT")
-        return result
+    get_Activity() {
+        result := ComCall(19, this, "ptr*", &ppFaxActivity := 0, "HRESULT")
+        return IFaxActivity(ppFaxActivity)
     }
 
     /**
      * 
-     * @param {Pointer<IFaxOutboundRouting>} ppFaxOutboundRouting 
-     * @returns {HRESULT} 
+     * @returns {IFaxOutboundRouting} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-get_outboundrouting
      */
-    get_OutboundRouting(ppFaxOutboundRouting) {
-        result := ComCall(20, this, "ptr*", ppFaxOutboundRouting, "HRESULT")
-        return result
+    get_OutboundRouting() {
+        result := ComCall(20, this, "ptr*", &ppFaxOutboundRouting := 0, "HRESULT")
+        return IFaxOutboundRouting(ppFaxOutboundRouting)
     }
 
     /**
      * 
-     * @param {Pointer<IFaxReceiptOptions>} ppFaxReceiptOptions 
-     * @returns {HRESULT} 
+     * @returns {IFaxReceiptOptions} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-get_receiptoptions
      */
-    get_ReceiptOptions(ppFaxReceiptOptions) {
-        result := ComCall(21, this, "ptr*", ppFaxReceiptOptions, "HRESULT")
-        return result
+    get_ReceiptOptions() {
+        result := ComCall(21, this, "ptr*", &ppFaxReceiptOptions := 0, "HRESULT")
+        return IFaxReceiptOptions(ppFaxReceiptOptions)
     }
 
     /**
      * 
-     * @param {Pointer<IFaxSecurity>} ppFaxSecurity 
-     * @returns {HRESULT} 
+     * @returns {IFaxSecurity} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-get_security
      */
-    get_Security(ppFaxSecurity) {
-        result := ComCall(22, this, "ptr*", ppFaxSecurity, "HRESULT")
-        return result
+    get_Security() {
+        result := ComCall(22, this, "ptr*", &ppFaxSecurity := 0, "HRESULT")
+        return IFaxSecurity(ppFaxSecurity)
     }
 
     /**
@@ -240,15 +228,15 @@ class IFaxServer extends IDispatch{
     /**
      * 
      * @param {BSTR} bstrGUID 
-     * @param {Pointer<VARIANT>} pvProperty 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-getextensionproperty
      */
-    GetExtensionProperty(bstrGUID, pvProperty) {
+    GetExtensionProperty(bstrGUID) {
         bstrGUID := bstrGUID is String ? BSTR.Alloc(bstrGUID).Value : bstrGUID
 
+        pvProperty := VARIANT()
         result := ComCall(24, this, "ptr", bstrGUID, "ptr", pvProperty, "HRESULT")
-        return result
+        return pvProperty
     }
 
     /**
@@ -342,27 +330,21 @@ class IFaxServer extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pEventTypes 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-get_registeredevents
      */
-    get_RegisteredEvents(pEventTypes) {
-        pEventTypesMarshal := pEventTypes is VarRef ? "int*" : "ptr"
-
-        result := ComCall(31, this, pEventTypesMarshal, pEventTypes, "HRESULT")
-        return result
+    get_RegisteredEvents() {
+        result := ComCall(31, this, "int*", &pEventTypes := 0, "HRESULT")
+        return pEventTypes
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pAPIVersion 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxserver-get_apiversion
      */
-    get_APIVersion(pAPIVersion) {
-        pAPIVersionMarshal := pAPIVersion is VarRef ? "int*" : "ptr"
-
-        result := ComCall(32, this, pAPIVersionMarshal, pAPIVersion, "HRESULT")
-        return result
+    get_APIVersion() {
+        result := ComCall(32, this, "int*", &pAPIVersion := 0, "HRESULT")
+        return pAPIVersion
     }
 }

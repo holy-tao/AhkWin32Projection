@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Com\IStream.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -54,24 +55,23 @@ class IBidiSpl2 extends IUnknown{
     /**
      * 
      * @param {BSTR} bstrRequest 
-     * @param {Pointer<BSTR>} pbstrResponse 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    SendRecvXMLString(bstrRequest, pbstrResponse) {
+    SendRecvXMLString(bstrRequest) {
         bstrRequest := bstrRequest is String ? BSTR.Alloc(bstrRequest).Value : bstrRequest
 
+        pbstrResponse := BSTR()
         result := ComCall(5, this, "ptr", bstrRequest, "ptr", pbstrResponse, "HRESULT")
-        return result
+        return pbstrResponse
     }
 
     /**
      * 
      * @param {IStream} pSRequest 
-     * @param {Pointer<IStream>} ppSResponse 
-     * @returns {HRESULT} 
+     * @returns {IStream} 
      */
-    SendRecvXMLStream(pSRequest, ppSResponse) {
-        result := ComCall(6, this, "ptr", pSRequest, "ptr*", ppSResponse, "HRESULT")
-        return result
+    SendRecvXMLStream(pSRequest) {
+        result := ComCall(6, this, "ptr", pSRequest, "ptr*", &ppSResponse := 0, "HRESULT")
+        return IStream(ppSResponse)
     }
 }

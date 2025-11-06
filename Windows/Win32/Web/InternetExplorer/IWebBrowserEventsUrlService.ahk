@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,11 +31,11 @@ class IWebBrowserEventsUrlService extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pUrl 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetUrlForEvents(pUrl) {
+    GetUrlForEvents() {
+        pUrl := BSTR()
         result := ComCall(3, this, "ptr", pUrl, "HRESULT")
-        return result
+        return pUrl
     }
 }

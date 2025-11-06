@@ -1,6 +1,19 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDCompositionGaussianBlurEffect.ahk
+#Include .\IDCompositionBrightnessEffect.ahk
+#Include .\IDCompositionColorMatrixEffect.ahk
+#Include .\IDCompositionShadowEffect.ahk
+#Include .\IDCompositionHueRotationEffect.ahk
+#Include .\IDCompositionSaturationEffect.ahk
+#Include .\IDCompositionTurbulenceEffect.ahk
+#Include .\IDCompositionLinearTransferEffect.ahk
+#Include .\IDCompositionTableTransferEffect.ahk
+#Include .\IDCompositionCompositeEffect.ahk
+#Include .\IDCompositionBlendEffect.ahk
+#Include .\IDCompositionArithmeticCompositeEffect.ahk
+#Include .\IDCompositionAffineTransform2DEffect.ahk
 #Include .\IDCompositionDevice2.ahk
 
 /**
@@ -32,144 +45,131 @@ class IDCompositionDevice3 extends IDCompositionDevice2{
 
     /**
      * 
-     * @param {Pointer<IDCompositionGaussianBlurEffect>} gaussianBlurEffect 
-     * @returns {HRESULT} 
+     * @returns {IDCompositionGaussianBlurEffect} 
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice3-creategaussianblureffect
      */
-    CreateGaussianBlurEffect(gaussianBlurEffect) {
-        result := ComCall(24, this, "ptr*", gaussianBlurEffect, "HRESULT")
-        return result
+    CreateGaussianBlurEffect() {
+        result := ComCall(24, this, "ptr*", &gaussianBlurEffect := 0, "HRESULT")
+        return IDCompositionGaussianBlurEffect(gaussianBlurEffect)
     }
 
     /**
      * 
-     * @param {Pointer<IDCompositionBrightnessEffect>} brightnessEffect 
-     * @returns {HRESULT} 
+     * @returns {IDCompositionBrightnessEffect} 
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice3-createbrightnesseffect
      */
-    CreateBrightnessEffect(brightnessEffect) {
-        result := ComCall(25, this, "ptr*", brightnessEffect, "HRESULT")
-        return result
+    CreateBrightnessEffect() {
+        result := ComCall(25, this, "ptr*", &brightnessEffect := 0, "HRESULT")
+        return IDCompositionBrightnessEffect(brightnessEffect)
     }
 
     /**
      * 
-     * @param {Pointer<IDCompositionColorMatrixEffect>} colorMatrixEffect 
-     * @returns {HRESULT} 
+     * @returns {IDCompositionColorMatrixEffect} 
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice3-createcolormatrixeffect
      */
-    CreateColorMatrixEffect(colorMatrixEffect) {
-        result := ComCall(26, this, "ptr*", colorMatrixEffect, "HRESULT")
-        return result
+    CreateColorMatrixEffect() {
+        result := ComCall(26, this, "ptr*", &colorMatrixEffect := 0, "HRESULT")
+        return IDCompositionColorMatrixEffect(colorMatrixEffect)
     }
 
     /**
      * 
-     * @param {Pointer<IDCompositionShadowEffect>} shadowEffect 
-     * @returns {HRESULT} 
+     * @returns {IDCompositionShadowEffect} 
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice3-createshadoweffect
      */
-    CreateShadowEffect(shadowEffect) {
-        result := ComCall(27, this, "ptr*", shadowEffect, "HRESULT")
-        return result
+    CreateShadowEffect() {
+        result := ComCall(27, this, "ptr*", &shadowEffect := 0, "HRESULT")
+        return IDCompositionShadowEffect(shadowEffect)
     }
 
     /**
      * 
-     * @param {Pointer<IDCompositionHueRotationEffect>} hueRotationEffect 
-     * @returns {HRESULT} 
+     * @returns {IDCompositionHueRotationEffect} 
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice3-createhuerotationeffect
      */
-    CreateHueRotationEffect(hueRotationEffect) {
-        result := ComCall(28, this, "ptr*", hueRotationEffect, "HRESULT")
-        return result
+    CreateHueRotationEffect() {
+        result := ComCall(28, this, "ptr*", &hueRotationEffect := 0, "HRESULT")
+        return IDCompositionHueRotationEffect(hueRotationEffect)
     }
 
     /**
      * 
-     * @param {Pointer<IDCompositionSaturationEffect>} saturationEffect 
-     * @returns {HRESULT} 
+     * @returns {IDCompositionSaturationEffect} 
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice3-createsaturationeffect
      */
-    CreateSaturationEffect(saturationEffect) {
-        result := ComCall(29, this, "ptr*", saturationEffect, "HRESULT")
-        return result
+    CreateSaturationEffect() {
+        result := ComCall(29, this, "ptr*", &saturationEffect := 0, "HRESULT")
+        return IDCompositionSaturationEffect(saturationEffect)
     }
 
     /**
      * 
-     * @param {Pointer<IDCompositionTurbulenceEffect>} turbulenceEffect 
-     * @returns {HRESULT} 
+     * @returns {IDCompositionTurbulenceEffect} 
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice3-createturbulenceeffect
      */
-    CreateTurbulenceEffect(turbulenceEffect) {
-        result := ComCall(30, this, "ptr*", turbulenceEffect, "HRESULT")
-        return result
+    CreateTurbulenceEffect() {
+        result := ComCall(30, this, "ptr*", &turbulenceEffect := 0, "HRESULT")
+        return IDCompositionTurbulenceEffect(turbulenceEffect)
     }
 
     /**
      * 
-     * @param {Pointer<IDCompositionLinearTransferEffect>} linearTransferEffect 
-     * @returns {HRESULT} 
+     * @returns {IDCompositionLinearTransferEffect} 
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice3-createlineartransfereffect
      */
-    CreateLinearTransferEffect(linearTransferEffect) {
-        result := ComCall(31, this, "ptr*", linearTransferEffect, "HRESULT")
-        return result
+    CreateLinearTransferEffect() {
+        result := ComCall(31, this, "ptr*", &linearTransferEffect := 0, "HRESULT")
+        return IDCompositionLinearTransferEffect(linearTransferEffect)
     }
 
     /**
      * 
-     * @param {Pointer<IDCompositionTableTransferEffect>} tableTransferEffect 
-     * @returns {HRESULT} 
+     * @returns {IDCompositionTableTransferEffect} 
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice3-createtabletransfereffect
      */
-    CreateTableTransferEffect(tableTransferEffect) {
-        result := ComCall(32, this, "ptr*", tableTransferEffect, "HRESULT")
-        return result
+    CreateTableTransferEffect() {
+        result := ComCall(32, this, "ptr*", &tableTransferEffect := 0, "HRESULT")
+        return IDCompositionTableTransferEffect(tableTransferEffect)
     }
 
     /**
      * 
-     * @param {Pointer<IDCompositionCompositeEffect>} compositeEffect 
-     * @returns {HRESULT} 
+     * @returns {IDCompositionCompositeEffect} 
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice3-createcompositeeffect
      */
-    CreateCompositeEffect(compositeEffect) {
-        result := ComCall(33, this, "ptr*", compositeEffect, "HRESULT")
-        return result
+    CreateCompositeEffect() {
+        result := ComCall(33, this, "ptr*", &compositeEffect := 0, "HRESULT")
+        return IDCompositionCompositeEffect(compositeEffect)
     }
 
     /**
      * 
-     * @param {Pointer<IDCompositionBlendEffect>} blendEffect 
-     * @returns {HRESULT} 
+     * @returns {IDCompositionBlendEffect} 
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice3-createblendeffect
      */
-    CreateBlendEffect(blendEffect) {
-        result := ComCall(34, this, "ptr*", blendEffect, "HRESULT")
-        return result
+    CreateBlendEffect() {
+        result := ComCall(34, this, "ptr*", &blendEffect := 0, "HRESULT")
+        return IDCompositionBlendEffect(blendEffect)
     }
 
     /**
      * 
-     * @param {Pointer<IDCompositionArithmeticCompositeEffect>} arithmeticCompositeEffect 
-     * @returns {HRESULT} 
+     * @returns {IDCompositionArithmeticCompositeEffect} 
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice3-createarithmeticcompositeeffect
      */
-    CreateArithmeticCompositeEffect(arithmeticCompositeEffect) {
-        result := ComCall(35, this, "ptr*", arithmeticCompositeEffect, "HRESULT")
-        return result
+    CreateArithmeticCompositeEffect() {
+        result := ComCall(35, this, "ptr*", &arithmeticCompositeEffect := 0, "HRESULT")
+        return IDCompositionArithmeticCompositeEffect(arithmeticCompositeEffect)
     }
 
     /**
      * 
-     * @param {Pointer<IDCompositionAffineTransform2DEffect>} affineTransform2dEffect 
-     * @returns {HRESULT} 
+     * @returns {IDCompositionAffineTransform2DEffect} 
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevice3-createaffinetransform2deffect
      */
-    CreateAffineTransform2DEffect(affineTransform2dEffect) {
-        result := ComCall(36, this, "ptr*", affineTransform2dEffect, "HRESULT")
-        return result
+    CreateAffineTransform2DEffect() {
+        result := ComCall(36, this, "ptr*", &affineTransform2dEffect := 0, "HRESULT")
+        return IDCompositionAffineTransform2DEffect(affineTransform2dEffect)
     }
 }

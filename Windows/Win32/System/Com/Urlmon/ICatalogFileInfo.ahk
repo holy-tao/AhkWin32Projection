@@ -30,23 +30,19 @@ class ICatalogFileInfo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PSTR>} ppszCatalogFile 
-     * @returns {HRESULT} 
+     * @returns {PSTR} 
      */
-    GetCatalogFile(ppszCatalogFile) {
-        result := ComCall(3, this, "ptr", ppszCatalogFile, "HRESULT")
-        return result
+    GetCatalogFile() {
+        result := ComCall(3, this, "ptr*", &ppszCatalogFile := 0, "HRESULT")
+        return ppszCatalogFile
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Void>>} ppJavaTrust 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetJavaTrust(ppJavaTrust) {
-        ppJavaTrustMarshal := ppJavaTrust is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, ppJavaTrustMarshal, ppJavaTrust, "HRESULT")
-        return result
+    GetJavaTrust() {
+        result := ComCall(4, this, "ptr*", &ppJavaTrust := 0, "HRESULT")
+        return ppJavaTrust
     }
 }

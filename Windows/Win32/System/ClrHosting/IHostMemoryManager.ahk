@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IHostMalloc.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -31,12 +32,11 @@ class IHostMemoryManager extends IUnknown{
     /**
      * 
      * @param {Integer} dwMallocType 
-     * @param {Pointer<IHostMalloc>} ppMalloc 
-     * @returns {HRESULT} 
+     * @returns {IHostMalloc} 
      */
-    CreateMalloc(dwMallocType, ppMalloc) {
-        result := ComCall(3, this, "uint", dwMallocType, "ptr*", ppMalloc, "HRESULT")
-        return result
+    CreateMalloc(dwMallocType) {
+        result := ComCall(3, this, "uint", dwMallocType, "ptr*", &ppMalloc := 0, "HRESULT")
+        return IHostMalloc(ppMalloc)
     }
 
     /**
@@ -52,19 +52,14 @@ class IHostMemoryManager extends IUnknown{
      *       specify any one of the 
      *       <a href="https://docs.microsoft.com/windows/desktop/Memory/memory-protection-constants">memory protection constants</a>.
      * @param {Integer} eCriticalLevel 
-     * @param {Pointer<Pointer<Void>>} ppMem 
-     * @returns {HRESULT} If the function succeeds, the return value is the base address of the allocated region of pages.
-     * 
-     * If the function fails, the return value is <b>NULL</b>. To get extended error information, 
-     *        call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {Pointer<Void>} 
      * @see https://docs.microsoft.com/windows/win32/api//memoryapi/nf-memoryapi-virtualalloc
      */
-    VirtualAlloc(pAddress, dwSize, flAllocationType, flProtect, eCriticalLevel, ppMem) {
+    VirtualAlloc(pAddress, dwSize, flAllocationType, flProtect, eCriticalLevel) {
         pAddressMarshal := pAddress is VarRef ? "ptr" : "ptr"
-        ppMemMarshal := ppMem is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(4, this, pAddressMarshal, pAddress, "ptr", dwSize, "uint", flAllocationType, "uint", flProtect, "int", eCriticalLevel, ppMemMarshal, ppMem, "HRESULT")
-        return result
+        result := ComCall(4, this, pAddressMarshal, pAddress, "ptr", dwSize, "uint", flAllocationType, "uint", flProtect, "int", eCriticalLevel, "ptr*", &ppMem := 0, "HRESULT")
+        return ppMem
     }
 
     /**
@@ -148,19 +143,14 @@ class IHostMemoryManager extends IUnknown{
      *        mapped (see <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-mapviewoffile">MapViewOfFile</a>, 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/memoryapi/nf-memoryapi-mapviewoffileex">MapViewOfFileEx</a>, and 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-mapviewoffileexnuma">MapViewOfFileExNuma</a>).
-     * @param {Pointer<Integer>} pflOldProtect 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//memoryapi/nf-memoryapi-virtualprotect
      */
-    VirtualProtect(lpAddress, dwSize, flNewProtect, pflOldProtect) {
+    VirtualProtect(lpAddress, dwSize, flNewProtect) {
         lpAddressMarshal := lpAddress is VarRef ? "ptr" : "ptr"
-        pflOldProtectMarshal := pflOldProtect is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, lpAddressMarshal, lpAddress, "ptr", dwSize, "uint", flNewProtect, pflOldProtectMarshal, pflOldProtect, "HRESULT")
-        return result
+        result := ComCall(7, this, lpAddressMarshal, lpAddress, "ptr", dwSize, "uint", flNewProtect, "uint*", &pflOldProtect := 0, "HRESULT")
+        return pflOldProtect
     }
 
     /**

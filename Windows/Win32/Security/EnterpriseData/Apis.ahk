@@ -68,24 +68,20 @@ class EnterpriseData {
      * @param {HANDLE} tokenHandle Token Handle to be checked.
      * @param {Pointer<Integer>} numberOfBytes If <i>enterpriseIds</i> is provided, then this supplies the size of the <i>enterpriseIds</i> buffer. If you provide a buffer size, and it's too small, the output will contain the required size of the <i>enterpriseIds</i> buffer.
      * @param {Pointer} enterpriseIds An array of enterprise ID string pointers.
-     * @param {Pointer<Integer>} enterpriseIdCount The enterprise ID count on the token. Zero if the token is not explicitly enterprise allowed.
-     * @returns {HRESULT} If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * 
-     * If this function does not provide any enterprise IDs, it returns <b>E_NOT_SUFFICIENT_BUFFER</b>.
+     * @returns {Integer} The enterprise ID count on the token. Zero if the token is not explicitly enterprise allowed.
      * @see https://docs.microsoft.com/windows/win32/api//srpapi/nf-srpapi-srpgetenterpriseids
      * @since windows10.0.10240
      */
-    static SrpGetEnterpriseIds(tokenHandle, numberOfBytes, enterpriseIds, enterpriseIdCount) {
+    static SrpGetEnterpriseIds(tokenHandle, numberOfBytes, enterpriseIds) {
         tokenHandle := tokenHandle is Win32Handle ? NumGet(tokenHandle, "ptr") : tokenHandle
 
         numberOfBytesMarshal := numberOfBytes is VarRef ? "uint*" : "ptr"
-        enterpriseIdCountMarshal := enterpriseIdCount is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("srpapi.dll\SrpGetEnterpriseIds", "ptr", tokenHandle, numberOfBytesMarshal, numberOfBytes, "ptr", enterpriseIds, enterpriseIdCountMarshal, enterpriseIdCount, "int")
+        result := DllCall("srpapi.dll\SrpGetEnterpriseIds", "ptr", tokenHandle, numberOfBytesMarshal, numberOfBytes, "ptr", enterpriseIds, "uint*", &enterpriseIdCount := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return enterpriseIdCount
     }
 
     /**
@@ -126,21 +122,18 @@ class EnterpriseData {
     /**
      * Policy can be applied on Windows 10, version 1607.Gets information about the enterprise policy of an app.
      * @param {HANDLE} tokenHandle Token Handle to be checked.
-     * @param {Pointer<Integer>} policyFlags A collection of flags that indicate among other things whether the host app is allowed by the managing enterprise policy, and has been enlightened for Windows Information Protection.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @returns {Integer} A collection of flags that indicate among other things whether the host app is allowed by the managing enterprise policy, and has been enlightened for Windows Information Protection.
      * @see https://docs.microsoft.com/windows/win32/api//srpapi/nf-srpapi-srpgetenterprisepolicy
      * @since windows10.0.10240
      */
-    static SrpGetEnterprisePolicy(tokenHandle, policyFlags) {
+    static SrpGetEnterprisePolicy(tokenHandle) {
         tokenHandle := tokenHandle is Win32Handle ? NumGet(tokenHandle, "ptr") : tokenHandle
 
-        policyFlagsMarshal := policyFlags is VarRef ? "int*" : "ptr"
-
-        result := DllCall("srpapi.dll\SrpGetEnterprisePolicy", "ptr", tokenHandle, policyFlagsMarshal, policyFlags, "int")
+        result := DllCall("srpapi.dll\SrpGetEnterprisePolicy", "ptr", tokenHandle, "int*", &policyFlags := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return policyFlags
     }
 
     /**
@@ -163,17 +156,16 @@ class EnterpriseData {
     /**
      * Evaluates whether a packaged app will be allowed to execute based on software restriction policies.
      * @param {Pointer<PACKAGE_ID>} packageId Provides package name, publisher name, and version of the packaged app.
-     * @param {Pointer<BOOL>} isAllowed A boolean value that indicates whether the app is allowed to execute.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @returns {BOOL} A boolean value that indicates whether the app is allowed to execute.
      * @see https://docs.microsoft.com/windows/win32/api//srpapi/nf-srpapi-srpdoespolicyallowappexecution
      * @since windows10.0.10240
      */
-    static SrpDoesPolicyAllowAppExecution(packageId, isAllowed) {
-        result := DllCall("srpapi.dll\SrpDoesPolicyAllowAppExecution", "ptr", packageId, "ptr", isAllowed, "int")
+    static SrpDoesPolicyAllowAppExecution(packageId) {
+        result := DllCall("srpapi.dll\SrpDoesPolicyAllowAppExecution", "ptr", packageId, "int*", &isAllowed := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return isAllowed
     }
 
     /**
@@ -182,7 +174,9 @@ class EnterpriseData {
      * @returns {NTSTATUS} 
      */
     static SrpIsAllowed(FileInfo) {
-        result := DllCall("srpapi.dll\SrpIsAllowed", "ptr", FileInfo, "int")
+        FileInfoMarshal := FileInfo is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("srpapi.dll\SrpIsAllowed", FileInfoMarshal, FileInfo, "int")
         return result
     }
 

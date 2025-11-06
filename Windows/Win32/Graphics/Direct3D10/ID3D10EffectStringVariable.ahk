@@ -32,25 +32,23 @@ class ID3D10EffectStringVariable extends ID3D10EffectVariable{
 
     /**
      * 
-     * @param {Pointer<PSTR>} ppString 
-     * @returns {HRESULT} 
+     * @returns {PSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectstringvariable-getstring
      */
-    GetString(ppString) {
-        result := ComCall(25, this, "ptr", ppString, "HRESULT")
-        return result
+    GetString() {
+        result := ComCall(25, this, "ptr*", &ppString := 0, "HRESULT")
+        return ppString
     }
 
     /**
      * 
-     * @param {Pointer<PSTR>} ppStrings 
      * @param {Integer} Offset 
      * @param {Integer} Count 
-     * @returns {HRESULT} 
+     * @returns {PSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectstringvariable-getstringarray
      */
-    GetStringArray(ppStrings, Offset, Count) {
-        result := ComCall(26, this, "ptr", ppStrings, "uint", Offset, "uint", Count, "HRESULT")
-        return result
+    GetStringArray(Offset, Count) {
+        result := ComCall(26, this, "ptr*", &ppStrings := 0, "uint", Offset, "uint", Count, "HRESULT")
+        return ppStrings
     }
 }

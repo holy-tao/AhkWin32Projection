@@ -31,13 +31,12 @@ class IBindCallbackRedirect extends IUnknown{
     /**
      * 
      * @param {PWSTR} lpcUrl 
-     * @param {Pointer<VARIANT_BOOL>} vbCancel 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    Redirect(lpcUrl, vbCancel) {
+    Redirect(lpcUrl) {
         lpcUrl := lpcUrl is String ? StrPtr(lpcUrl) : lpcUrl
 
-        result := ComCall(3, this, "ptr", lpcUrl, "ptr", vbCancel, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", lpcUrl, "short*", &vbCancel := 0, "HRESULT")
+        return vbCancel
     }
 }

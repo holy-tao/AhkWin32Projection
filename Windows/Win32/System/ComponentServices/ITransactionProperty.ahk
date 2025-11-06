@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITransactionResourcePool.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -104,13 +105,12 @@ class ITransactionProperty extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<ITransactionResourcePool>} ppTxPool 
-     * @returns {HRESULT} 
+     * @returns {ITransactionResourcePool} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-itransactionproperty-gettransactionresourcepool
      */
-    GetTransactionResourcePool(ppTxPool) {
-        result := ComCall(12, this, "ptr*", ppTxPool, "HRESULT")
-        return result
+    GetTransactionResourcePool() {
+        result := ComCall(12, this, "ptr*", &ppTxPool := 0, "HRESULT")
+        return ITransactionResourcePool(ppTxPool)
     }
 
     /**

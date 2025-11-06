@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\ICertSrvSetupKeyInformationCollection.ahk
+#Include .\ICertSrvSetupKeyInformation.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -33,26 +36,23 @@ class ICertSrvSetup extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertsrvsetup-get_caerrorid
      */
-    get_CAErrorId(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_CAErrorId() {
+        result := ComCall(7, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertsrvsetup-get_caerrorstring
      */
-    get_CAErrorString(pVal) {
+    get_CAErrorString() {
+        pVal := BSTR()
         result := ComCall(8, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
@@ -70,13 +70,13 @@ class ICertSrvSetup extends IDispatch{
     /**
      * 
      * @param {Integer} propertyId 
-     * @param {Pointer<VARIANT>} pPropertyValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertsrvsetup-getcasetupproperty
      */
-    GetCASetupProperty(propertyId, pPropertyValue) {
+    GetCASetupProperty(propertyId) {
+        pPropertyValue := VARIANT()
         result := ComCall(10, this, "int", propertyId, "ptr", pPropertyValue, "HRESULT")
-        return result
+        return pPropertyValue
     }
 
     /**
@@ -94,88 +94,86 @@ class ICertSrvSetup extends IDispatch{
     /**
      * 
      * @param {Integer} propertyId 
-     * @param {Pointer<VARIANT_BOOL>} pbEditable 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertsrvsetup-ispropertyeditable
      */
-    IsPropertyEditable(propertyId, pbEditable) {
-        result := ComCall(12, this, "int", propertyId, "ptr", pbEditable, "HRESULT")
-        return result
+    IsPropertyEditable(propertyId) {
+        result := ComCall(12, this, "int", propertyId, "short*", &pbEditable := 0, "HRESULT")
+        return pbEditable
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pCATypes 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertsrvsetup-getsupportedcatypes
      */
-    GetSupportedCATypes(pCATypes) {
+    GetSupportedCATypes() {
+        pCATypes := VARIANT()
         result := ComCall(13, this, "ptr", pCATypes, "HRESULT")
-        return result
+        return pCATypes
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertsrvsetup-getprovidernamelist
      */
-    GetProviderNameList(pVal) {
+    GetProviderNameList() {
+        pVal := VARIANT()
         result := ComCall(14, this, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
      * @param {BSTR} bstrProviderName 
-     * @param {Pointer<VARIANT>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertsrvsetup-getkeylengthlist
      */
-    GetKeyLengthList(bstrProviderName, pVal) {
+    GetKeyLengthList(bstrProviderName) {
         bstrProviderName := bstrProviderName is String ? BSTR.Alloc(bstrProviderName).Value : bstrProviderName
 
+        pVal := VARIANT()
         result := ComCall(15, this, "ptr", bstrProviderName, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
      * @param {BSTR} bstrProviderName 
-     * @param {Pointer<VARIANT>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertsrvsetup-gethashalgorithmlist
      */
-    GetHashAlgorithmList(bstrProviderName, pVal) {
+    GetHashAlgorithmList(bstrProviderName) {
         bstrProviderName := bstrProviderName is String ? BSTR.Alloc(bstrProviderName).Value : bstrProviderName
 
+        pVal := VARIANT()
         result := ComCall(16, this, "ptr", bstrProviderName, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
      * @param {BSTR} bstrProviderName 
-     * @param {Pointer<VARIANT>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertsrvsetup-getprivatekeycontainerlist
      */
-    GetPrivateKeyContainerList(bstrProviderName, pVal) {
+    GetPrivateKeyContainerList(bstrProviderName) {
         bstrProviderName := bstrProviderName is String ? BSTR.Alloc(bstrProviderName).Value : bstrProviderName
 
+        pVal := VARIANT()
         result := ComCall(17, this, "ptr", bstrProviderName, "ptr", pVal, "HRESULT")
-        return result
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<ICertSrvSetupKeyInformationCollection>} ppVal 
-     * @returns {HRESULT} 
+     * @returns {ICertSrvSetupKeyInformationCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertsrvsetup-getexistingcacertificates
      */
-    GetExistingCACertificates(ppVal) {
-        result := ComCall(18, this, "ptr*", ppVal, "HRESULT")
-        return result
+    GetExistingCACertificates() {
+        result := ComCall(18, this, "ptr*", &ppVal := 0, "HRESULT")
+        return ICertSrvSetupKeyInformationCollection(ppVal)
     }
 
     /**
@@ -183,16 +181,15 @@ class ICertSrvSetup extends IDispatch{
      * @param {BSTR} bstrFileName 
      * @param {BSTR} bstrPasswd 
      * @param {VARIANT_BOOL} bOverwriteExistingKey 
-     * @param {Pointer<ICertSrvSetupKeyInformation>} ppVal 
-     * @returns {HRESULT} 
+     * @returns {ICertSrvSetupKeyInformation} 
      * @see https://learn.microsoft.com/windows/win32/api/casetup/nf-casetup-icertsrvsetup-caimportpfx
      */
-    CAImportPFX(bstrFileName, bstrPasswd, bOverwriteExistingKey, ppVal) {
+    CAImportPFX(bstrFileName, bstrPasswd, bOverwriteExistingKey) {
         bstrFileName := bstrFileName is String ? BSTR.Alloc(bstrFileName).Value : bstrFileName
         bstrPasswd := bstrPasswd is String ? BSTR.Alloc(bstrPasswd).Value : bstrPasswd
 
-        result := ComCall(19, this, "ptr", bstrFileName, "ptr", bstrPasswd, "short", bOverwriteExistingKey, "ptr*", ppVal, "HRESULT")
-        return result
+        result := ComCall(19, this, "ptr", bstrFileName, "ptr", bstrPasswd, "short", bOverwriteExistingKey, "ptr*", &ppVal := 0, "HRESULT")
+        return ICertSrvSetupKeyInformation(ppVal)
     }
 
     /**

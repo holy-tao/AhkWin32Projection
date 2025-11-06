@@ -34,17 +34,14 @@ class IDataTransferManagerInterop extends IUnknown{
      * 
      * @param {HWND} appWindow 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} dataTransferManager 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idatatransfermanagerinterop-getforwindow
      */
-    GetForWindow(appWindow, riid, dataTransferManager) {
+    GetForWindow(appWindow, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
 
-        dataTransferManagerMarshal := dataTransferManager is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(3, this, "ptr", appWindow, "ptr", riid, dataTransferManagerMarshal, dataTransferManager, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", appWindow, "ptr", riid, "ptr*", &dataTransferManager := 0, "HRESULT")
+        return dataTransferManager
     }
 
     /**

@@ -34,15 +34,12 @@ class ID3D12Resource extends ID3D12Pageable{
      * 
      * @param {Integer} Subresource 
      * @param {Pointer<D3D12_RANGE>} pReadRange 
-     * @param {Pointer<Pointer<Void>>} ppData 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12resource-map
      */
-    Map(Subresource, pReadRange, ppData) {
-        ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(8, this, "uint", Subresource, "ptr", pReadRange, ppDataMarshal, ppData, "HRESULT")
-        return result
+    Map(Subresource, pReadRange) {
+        result := ComCall(8, this, "uint", Subresource, "ptr", pReadRange, "ptr*", &ppData := 0, "HRESULT")
+        return ppData
     }
 
     /**
@@ -95,19 +92,16 @@ class ID3D12Resource extends ID3D12Pageable{
 
     /**
      * 
-     * @param {Pointer<Void>} pDstData 
      * @param {Integer} DstRowPitch 
      * @param {Integer} DstDepthPitch 
      * @param {Integer} SrcSubresource 
      * @param {Pointer<D3D12_BOX>} pSrcBox 
-     * @returns {HRESULT} 
+     * @returns {Void} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12resource-readfromsubresource
      */
-    ReadFromSubresource(pDstData, DstRowPitch, DstDepthPitch, SrcSubresource, pSrcBox) {
-        pDstDataMarshal := pDstData is VarRef ? "ptr" : "ptr"
-
-        result := ComCall(13, this, pDstDataMarshal, pDstData, "uint", DstRowPitch, "uint", DstDepthPitch, "uint", SrcSubresource, "ptr", pSrcBox, "HRESULT")
-        return result
+    ReadFromSubresource(DstRowPitch, DstDepthPitch, SrcSubresource, pSrcBox) {
+        result := ComCall(13, this, "ptr", &pDstData := 0, "uint", DstRowPitch, "uint", DstDepthPitch, "uint", SrcSubresource, "ptr", pSrcBox, "HRESULT")
+        return pDstData
     }
 
     /**

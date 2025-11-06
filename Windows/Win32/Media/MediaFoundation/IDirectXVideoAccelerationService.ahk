@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Graphics\Direct3D9\IDirect3DSurface9.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -51,13 +52,12 @@ class IDirectXVideoAccelerationService extends IUnknown{
      * @param {Integer} Pool 
      * @param {Integer} Usage 
      * @param {Integer} DxvaType 
-     * @param {Pointer<IDirect3DSurface9>} ppSurface 
      * @param {Pointer<HANDLE>} pSharedHandle 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DSurface9} 
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideoaccelerationservice-createsurface
      */
-    CreateSurface(Width, Height, BackBuffers, Format, Pool, Usage, DxvaType, ppSurface, pSharedHandle) {
-        result := ComCall(3, this, "uint", Width, "uint", Height, "uint", BackBuffers, "uint", Format, "int", Pool, "uint", Usage, "uint", DxvaType, "ptr*", ppSurface, "ptr", pSharedHandle, "HRESULT")
-        return result
+    CreateSurface(Width, Height, BackBuffers, Format, Pool, Usage, DxvaType, pSharedHandle) {
+        result := ComCall(3, this, "uint", Width, "uint", Height, "uint", BackBuffers, "uint", Format, "int", Pool, "uint", Usage, "uint", DxvaType, "ptr*", &ppSurface := 0, "ptr", pSharedHandle, "HRESULT")
+        return IDirect3DSurface9(ppSurface)
     }
 }

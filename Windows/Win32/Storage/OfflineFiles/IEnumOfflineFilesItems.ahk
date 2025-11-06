@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumOfflineFilesItems.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -94,12 +95,11 @@ class IEnumOfflineFilesItems extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumOfflineFilesItems>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IEnumOfflineFilesItems} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-ienumofflinefilesitems-clone
      */
-    Clone(ppenum) {
-        result := ComCall(6, this, "ptr*", ppenum, "HRESULT")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")
+        return IEnumOfflineFilesItems(ppenum)
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\SimilarityMappedViewInfo.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -61,13 +62,13 @@ class ISimilarityTraitsMappedView extends IUnknown{
      * @param {Integer} index 
      * @param {BOOL} dirty 
      * @param {Integer} numElements 
-     * @param {Pointer<SimilarityMappedViewInfo>} viewInfo 
-     * @returns {HRESULT} 
+     * @returns {SimilarityMappedViewInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilaritytraitsmappedview-get
      */
-    Get(index, dirty, numElements, viewInfo) {
+    Get(index, dirty, numElements) {
+        viewInfo := SimilarityMappedViewInfo()
         result := ComCall(5, this, "uint", index, "int", dirty, "uint", numElements, "ptr", viewInfo, "HRESULT")
-        return result
+        return viewInfo
     }
 
     /**

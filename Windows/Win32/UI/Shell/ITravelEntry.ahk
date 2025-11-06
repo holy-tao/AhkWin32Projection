@@ -62,14 +62,11 @@ class ITravelEntry extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<ITEMIDLIST>>} ppidl 
-     * @returns {HRESULT} 
+     * @returns {Pointer<ITEMIDLIST>} 
      * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-itravelentry-getpidl
      */
-    GetPidl(ppidl) {
-        ppidlMarshal := ppidl is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, ppidlMarshal, ppidl, "HRESULT")
-        return result
+    GetPidl() {
+        result := ComCall(5, this, "ptr*", &ppidl := 0, "HRESULT")
+        return ppidl
     }
 }

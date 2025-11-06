@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -35,14 +36,11 @@ class ITimer extends IUnknown{
      * @param {VARIANT} vtimeInterval 
      * @param {Integer} dwFlags 
      * @param {ITimerSink} pTimerSink 
-     * @param {Pointer<Integer>} pdwCookie 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Advise(vtimeMin, vtimeMax, vtimeInterval, dwFlags, pTimerSink, pdwCookie) {
-        pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", vtimeMin, "ptr", vtimeMax, "ptr", vtimeInterval, "uint", dwFlags, "ptr", pTimerSink, pdwCookieMarshal, pdwCookie, "HRESULT")
-        return result
+    Advise(vtimeMin, vtimeMax, vtimeInterval, dwFlags, pTimerSink) {
+        result := ComCall(3, this, "ptr", vtimeMin, "ptr", vtimeMax, "ptr", vtimeInterval, "uint", dwFlags, "ptr", pTimerSink, "uint*", &pdwCookie := 0, "HRESULT")
+        return pdwCookie
     }
 
     /**
@@ -67,11 +65,11 @@ class ITimer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvtime 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    GetTime(pvtime) {
+    GetTime() {
+        pvtime := VARIANT()
         result := ComCall(6, this, "ptr", pvtime, "HRESULT")
-        return result
+        return pvtime
     }
 }

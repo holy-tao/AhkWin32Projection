@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\Variant\VARIANT.ahk
+#Include ..\Com\IUnknown.ahk
+#Include .\SecurityProperty.ahk
+#Include .\ContextInfo.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -40,15 +44,15 @@ class ObjectContext extends IDispatch{
     /**
      * 
      * @param {BSTR} bstrProgID 
-     * @param {Pointer<VARIANT>} pObject 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-objectcontext-createinstance
      */
-    CreateInstance(bstrProgID, pObject) {
+    CreateInstance(bstrProgID) {
         bstrProgID := bstrProgID is String ? BSTR.Alloc(bstrProgID).Value : bstrProgID
 
+        pObject := VARIANT()
         result := ComCall(7, this, "ptr", bstrProgID, "ptr", pObject, "HRESULT")
-        return result
+        return pObject
     }
 
     /**
@@ -93,97 +97,88 @@ class ObjectContext extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbIsInTx 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-objectcontext-isintransaction
      */
-    IsInTransaction(pbIsInTx) {
-        result := ComCall(12, this, "ptr", pbIsInTx, "HRESULT")
-        return result
+    IsInTransaction() {
+        result := ComCall(12, this, "short*", &pbIsInTx := 0, "HRESULT")
+        return pbIsInTx
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbIsEnabled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-objectcontext-issecurityenabled
      */
-    IsSecurityEnabled(pbIsEnabled) {
-        result := ComCall(13, this, "ptr", pbIsEnabled, "HRESULT")
-        return result
+    IsSecurityEnabled() {
+        result := ComCall(13, this, "short*", &pbIsEnabled := 0, "HRESULT")
+        return pbIsEnabled
     }
 
     /**
      * 
      * @param {BSTR} bstrRole 
-     * @param {Pointer<VARIANT_BOOL>} pbInRole 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-objectcontext-iscallerinrole
      */
-    IsCallerInRole(bstrRole, pbInRole) {
+    IsCallerInRole(bstrRole) {
         bstrRole := bstrRole is String ? BSTR.Alloc(bstrRole).Value : bstrRole
 
-        result := ComCall(14, this, "ptr", bstrRole, "ptr", pbInRole, "HRESULT")
-        return result
+        result := ComCall(14, this, "ptr", bstrRole, "short*", &pbInRole := 0, "HRESULT")
+        return pbInRole
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-objectcontext-get_count
      */
-    get_Count(plCount) {
-        plCountMarshal := plCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, plCountMarshal, plCount, "HRESULT")
-        return result
+    get_Count() {
+        result := ComCall(15, this, "int*", &plCount := 0, "HRESULT")
+        return plCount
     }
 
     /**
      * 
      * @param {BSTR} name 
-     * @param {Pointer<VARIANT>} pItem 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-objectcontext-get_item
      */
-    get_Item(name, pItem) {
+    get_Item(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
 
+        pItem := VARIANT()
         result := ComCall(16, this, "ptr", name, "ptr", pItem, "HRESULT")
-        return result
+        return pItem
     }
 
     /**
      * 
-     * @param {Pointer<IUnknown>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-objectcontext-get__newenum
      */
-    get__NewEnum(ppEnum) {
-        result := ComCall(17, this, "ptr*", ppEnum, "HRESULT")
-        return result
+    get__NewEnum() {
+        result := ComCall(17, this, "ptr*", &ppEnum := 0, "HRESULT")
+        return IUnknown(ppEnum)
     }
 
     /**
      * 
-     * @param {Pointer<SecurityProperty>} ppSecurityProperty 
-     * @returns {HRESULT} 
+     * @returns {SecurityProperty} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-objectcontext-get_security
      */
-    get_Security(ppSecurityProperty) {
-        result := ComCall(18, this, "ptr*", ppSecurityProperty, "HRESULT")
-        return result
+    get_Security() {
+        result := ComCall(18, this, "ptr*", &ppSecurityProperty := 0, "HRESULT")
+        return SecurityProperty(ppSecurityProperty)
     }
 
     /**
      * 
-     * @param {Pointer<ContextInfo>} ppContextInfo 
-     * @returns {HRESULT} 
+     * @returns {ContextInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-objectcontext-get_contextinfo
      */
-    get_ContextInfo(ppContextInfo) {
-        result := ComCall(19, this, "ptr*", ppContextInfo, "HRESULT")
-        return result
+    get_ContextInfo() {
+        result := ComCall(19, this, "ptr*", &ppContextInfo := 0, "HRESULT")
+        return ContextInfo(ppContextInfo)
     }
 }

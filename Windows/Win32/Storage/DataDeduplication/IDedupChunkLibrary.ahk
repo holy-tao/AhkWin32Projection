@@ -60,11 +60,10 @@ class IDedupChunkLibrary extends IUnknown{
     /**
      * 
      * @param {Guid} iidIteratorInterfaceID 
-     * @param {Pointer<IUnknown>} ppChunksEnum 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    StartChunking(iidIteratorInterfaceID, ppChunksEnum) {
-        result := ComCall(6, this, "ptr", iidIteratorInterfaceID, "ptr*", ppChunksEnum, "HRESULT")
-        return result
+    StartChunking(iidIteratorInterfaceID) {
+        result := ComCall(6, this, "ptr", iidIteratorInterfaceID, "ptr*", &ppChunksEnum := 0, "HRESULT")
+        return IUnknown(ppChunksEnum)
     }
 }

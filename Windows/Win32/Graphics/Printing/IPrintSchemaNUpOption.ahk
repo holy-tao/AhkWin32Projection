@@ -30,13 +30,10 @@ class IPrintSchemaNUpOption extends IPrintSchemaOption{
 
     /**
      * 
-     * @param {Pointer<Integer>} pulPagesPerSheet 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_PagesPerSheet(pulPagesPerSheet) {
-        pulPagesPerSheetMarshal := pulPagesPerSheet is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, pulPagesPerSheetMarshal, pulPagesPerSheet, "HRESULT")
-        return result
+    get_PagesPerSheet() {
+        result := ComCall(14, this, "uint*", &pulPagesPerSheet := 0, "HRESULT")
+        return pulPagesPerSheet
     }
 }

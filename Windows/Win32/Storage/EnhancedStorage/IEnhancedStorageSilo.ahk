@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\SILO_INFO.ahk
+#Include ..\..\Devices\PortableDevices\IPortableDevice.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -38,13 +40,13 @@ class IEnhancedStorageSilo extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<SILO_INFO>} pSiloInfo 
-     * @returns {HRESULT} 
+     * @returns {SILO_INFO} 
      * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienhancedstoragesilo-getinfo
      */
-    GetInfo(pSiloInfo) {
+    GetInfo() {
+        pSiloInfo := SILO_INFO()
         result := ComCall(3, this, "ptr", pSiloInfo, "HRESULT")
-        return result
+        return pSiloInfo
     }
 
     /**
@@ -67,39 +69,35 @@ class IEnhancedStorageSilo extends IUnknown{
      * @param {Integer} Command 
      * @param {Pointer<Integer>} pbCommandBuffer 
      * @param {Integer} cbCommandBuffer 
-     * @param {Pointer<Integer>} pbResponseBuffer 
      * @param {Pointer<Integer>} pcbResponseBuffer 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienhancedstoragesilo-sendcommand
      */
-    SendCommand(Command, pbCommandBuffer, cbCommandBuffer, pbResponseBuffer, pcbResponseBuffer) {
+    SendCommand(Command, pbCommandBuffer, cbCommandBuffer, pcbResponseBuffer) {
         pbCommandBufferMarshal := pbCommandBuffer is VarRef ? "char*" : "ptr"
-        pbResponseBufferMarshal := pbResponseBuffer is VarRef ? "char*" : "ptr"
         pcbResponseBufferMarshal := pcbResponseBuffer is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "char", Command, pbCommandBufferMarshal, pbCommandBuffer, "uint", cbCommandBuffer, pbResponseBufferMarshal, pbResponseBuffer, pcbResponseBufferMarshal, pcbResponseBuffer, "HRESULT")
-        return result
+        result := ComCall(5, this, "char", Command, pbCommandBufferMarshal, pbCommandBuffer, "uint", cbCommandBuffer, "char*", &pbResponseBuffer := 0, pcbResponseBufferMarshal, pcbResponseBuffer, "HRESULT")
+        return pbResponseBuffer
     }
 
     /**
      * 
-     * @param {Pointer<IPortableDevice>} ppIPortableDevice 
-     * @returns {HRESULT} 
+     * @returns {IPortableDevice} 
      * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienhancedstoragesilo-getportabledevice
      */
-    GetPortableDevice(ppIPortableDevice) {
-        result := ComCall(6, this, "ptr*", ppIPortableDevice, "HRESULT")
-        return result
+    GetPortableDevice() {
+        result := ComCall(6, this, "ptr*", &ppIPortableDevice := 0, "HRESULT")
+        return IPortableDevice(ppIPortableDevice)
     }
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppwszSiloDevicePath 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienhancedstoragesilo-getdevicepath
      */
-    GetDevicePath(ppwszSiloDevicePath) {
-        result := ComCall(7, this, "ptr", ppwszSiloDevicePath, "HRESULT")
-        return result
+    GetDevicePath() {
+        result := ComCall(7, this, "ptr*", &ppwszSiloDevicePath := 0, "HRESULT")
+        return ppwszSiloDevicePath
     }
 }

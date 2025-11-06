@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IHostTask.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -31,36 +32,31 @@ class ICLRSyncManager extends IUnknown{
     /**
      * 
      * @param {Pointer} Cookie 
-     * @param {Pointer<IHostTask>} ppOwnerHostTask 
-     * @returns {HRESULT} 
+     * @returns {IHostTask} 
      */
-    GetMonitorOwner(Cookie, ppOwnerHostTask) {
-        result := ComCall(3, this, "ptr", Cookie, "ptr*", ppOwnerHostTask, "HRESULT")
-        return result
+    GetMonitorOwner(Cookie) {
+        result := ComCall(3, this, "ptr", Cookie, "ptr*", &ppOwnerHostTask := 0, "HRESULT")
+        return IHostTask(ppOwnerHostTask)
     }
 
     /**
      * 
      * @param {Pointer} Cookie 
-     * @param {Pointer<Pointer>} pIterator 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    CreateRWLockOwnerIterator(Cookie, pIterator) {
-        pIteratorMarshal := pIterator is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "ptr", Cookie, pIteratorMarshal, pIterator, "HRESULT")
-        return result
+    CreateRWLockOwnerIterator(Cookie) {
+        result := ComCall(4, this, "ptr", Cookie, "ptr*", &pIterator := 0, "HRESULT")
+        return pIterator
     }
 
     /**
      * 
      * @param {Pointer} Iterator 
-     * @param {Pointer<IHostTask>} ppOwnerHostTask 
-     * @returns {HRESULT} 
+     * @returns {IHostTask} 
      */
-    GetRWLockOwnerNext(Iterator, ppOwnerHostTask) {
-        result := ComCall(5, this, "ptr", Iterator, "ptr*", ppOwnerHostTask, "HRESULT")
-        return result
+    GetRWLockOwnerNext(Iterator) {
+        result := ComCall(5, this, "ptr", Iterator, "ptr*", &ppOwnerHostTask := 0, "HRESULT")
+        return IHostTask(ppOwnerHostTask)
     }
 
     /**

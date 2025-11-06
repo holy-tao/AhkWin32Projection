@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\ISpeechDataKey.ahk
+#Include .\ISpeechObjectTokenCategory.ahk
+#Include ..\..\System\Com\IUnknown.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -31,43 +34,41 @@ class ISpeechObjectToken extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} ObjectId 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Id(ObjectId) {
+    get_Id() {
+        ObjectId := BSTR()
         result := ComCall(7, this, "ptr", ObjectId, "HRESULT")
-        return result
+        return ObjectId
     }
 
     /**
      * 
-     * @param {Pointer<ISpeechDataKey>} DataKey 
-     * @returns {HRESULT} 
+     * @returns {ISpeechDataKey} 
      */
-    get_DataKey(DataKey) {
-        result := ComCall(8, this, "ptr*", DataKey, "HRESULT")
-        return result
+    get_DataKey() {
+        result := ComCall(8, this, "ptr*", &DataKey := 0, "HRESULT")
+        return ISpeechDataKey(DataKey)
     }
 
     /**
      * 
-     * @param {Pointer<ISpeechObjectTokenCategory>} Category 
-     * @returns {HRESULT} 
+     * @returns {ISpeechObjectTokenCategory} 
      */
-    get_Category(Category) {
-        result := ComCall(9, this, "ptr*", Category, "HRESULT")
-        return result
+    get_Category() {
+        result := ComCall(9, this, "ptr*", &Category := 0, "HRESULT")
+        return ISpeechObjectTokenCategory(Category)
     }
 
     /**
      * 
      * @param {Integer} Locale 
-     * @param {Pointer<BSTR>} Description 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetDescription(Locale, Description) {
+    GetDescription(Locale) {
+        Description := BSTR()
         result := ComCall(10, this, "int", Locale, "ptr", Description, "HRESULT")
-        return result
+        return Description
     }
 
     /**
@@ -88,26 +89,25 @@ class ISpeechObjectToken extends IDispatch{
     /**
      * 
      * @param {BSTR} AttributeName 
-     * @param {Pointer<BSTR>} AttributeValue 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetAttribute(AttributeName, AttributeValue) {
+    GetAttribute(AttributeName) {
         AttributeName := AttributeName is String ? BSTR.Alloc(AttributeName).Value : AttributeName
 
+        AttributeValue := BSTR()
         result := ComCall(12, this, "ptr", AttributeName, "ptr", AttributeValue, "HRESULT")
-        return result
+        return AttributeValue
     }
 
     /**
      * 
      * @param {IUnknown} pUnkOuter 
      * @param {Integer} ClsContext 
-     * @param {Pointer<IUnknown>} Object 
-     * @returns {HRESULT} 
+     * @returns {IUnknown} 
      */
-    CreateInstance(pUnkOuter, ClsContext, Object) {
-        result := ComCall(13, this, "ptr", pUnkOuter, "uint", ClsContext, "ptr*", Object, "HRESULT")
-        return result
+    CreateInstance(pUnkOuter, ClsContext) {
+        result := ComCall(13, this, "ptr", pUnkOuter, "uint", ClsContext, "ptr*", &Object := 0, "HRESULT")
+        return IUnknown(Object)
     }
 
     /**
@@ -128,16 +128,16 @@ class ISpeechObjectToken extends IDispatch{
      * @param {BSTR} KeyName 
      * @param {BSTR} FileName 
      * @param {Integer} Folder 
-     * @param {Pointer<BSTR>} FilePath 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetStorageFileName(ObjectStorageCLSID, KeyName, FileName, Folder, FilePath) {
+    GetStorageFileName(ObjectStorageCLSID, KeyName, FileName, Folder) {
         ObjectStorageCLSID := ObjectStorageCLSID is String ? BSTR.Alloc(ObjectStorageCLSID).Value : ObjectStorageCLSID
         KeyName := KeyName is String ? BSTR.Alloc(KeyName).Value : KeyName
         FileName := FileName is String ? BSTR.Alloc(FileName).Value : FileName
 
+        FilePath := BSTR()
         result := ComCall(15, this, "ptr", ObjectStorageCLSID, "ptr", KeyName, "ptr", FileName, "int", Folder, "ptr", FilePath, "HRESULT")
-        return result
+        return FilePath
     }
 
     /**
@@ -160,14 +160,13 @@ class ISpeechObjectToken extends IDispatch{
      * @param {BSTR} TypeOfUI 
      * @param {Pointer<VARIANT>} ExtraData 
      * @param {IUnknown} Object 
-     * @param {Pointer<VARIANT_BOOL>} Supported 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    IsUISupported(TypeOfUI, ExtraData, Object, Supported) {
+    IsUISupported(TypeOfUI, ExtraData, Object) {
         TypeOfUI := TypeOfUI is String ? BSTR.Alloc(TypeOfUI).Value : TypeOfUI
 
-        result := ComCall(17, this, "ptr", TypeOfUI, "ptr", ExtraData, "ptr", Object, "ptr", Supported, "HRESULT")
-        return result
+        result := ComCall(17, this, "ptr", TypeOfUI, "ptr", ExtraData, "ptr", Object, "short*", &Supported := 0, "HRESULT")
+        return Supported
     }
 
     /**
@@ -190,13 +189,12 @@ class ISpeechObjectToken extends IDispatch{
     /**
      * 
      * @param {BSTR} Attributes 
-     * @param {Pointer<VARIANT_BOOL>} Matches 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    MatchesAttributes(Attributes, Matches) {
+    MatchesAttributes(Attributes) {
         Attributes := Attributes is String ? BSTR.Alloc(Attributes).Value : Attributes
 
-        result := ComCall(19, this, "ptr", Attributes, "ptr", Matches, "HRESULT")
-        return result
+        result := ComCall(19, this, "ptr", Attributes, "short*", &Matches := 0, "HRESULT")
+        return Matches
     }
 }

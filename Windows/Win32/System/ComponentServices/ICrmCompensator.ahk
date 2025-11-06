@@ -59,24 +59,22 @@ class ICrmCompensator extends IUnknown{
     /**
      * 
      * @param {CrmLogRecordRead} crmLogRec 
-     * @param {Pointer<BOOL>} pfForget 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmcompensator-preparerecord
      */
-    PrepareRecord(crmLogRec, pfForget) {
-        result := ComCall(5, this, "ptr", crmLogRec, "ptr", pfForget, "HRESULT")
-        return result
+    PrepareRecord(crmLogRec) {
+        result := ComCall(5, this, "ptr", crmLogRec, "int*", &pfForget := 0, "HRESULT")
+        return pfForget
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfOkToPrepare 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmcompensator-endprepare
      */
-    EndPrepare(pfOkToPrepare) {
-        result := ComCall(6, this, "ptr", pfOkToPrepare, "HRESULT")
-        return result
+    EndPrepare() {
+        result := ComCall(6, this, "int*", &pfOkToPrepare := 0, "HRESULT")
+        return pfOkToPrepare
     }
 
     /**
@@ -93,13 +91,12 @@ class ICrmCompensator extends IUnknown{
     /**
      * 
      * @param {CrmLogRecordRead} crmLogRec 
-     * @param {Pointer<BOOL>} pfForget 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmcompensator-commitrecord
      */
-    CommitRecord(crmLogRec, pfForget) {
-        result := ComCall(8, this, "ptr", crmLogRec, "ptr", pfForget, "HRESULT")
-        return result
+    CommitRecord(crmLogRec) {
+        result := ComCall(8, this, "ptr", crmLogRec, "int*", &pfForget := 0, "HRESULT")
+        return pfForget
     }
 
     /**
@@ -126,13 +123,12 @@ class ICrmCompensator extends IUnknown{
     /**
      * 
      * @param {CrmLogRecordRead} crmLogRec 
-     * @param {Pointer<BOOL>} pfForget 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmcompensator-abortrecord
      */
-    AbortRecord(crmLogRec, pfForget) {
-        result := ComCall(11, this, "ptr", crmLogRec, "ptr", pfForget, "HRESULT")
-        return result
+    AbortRecord(crmLogRec) {
+        result := ComCall(11, this, "ptr", crmLogRec, "int*", &pfForget := 0, "HRESULT")
+        return pfForget
     }
 
     /**

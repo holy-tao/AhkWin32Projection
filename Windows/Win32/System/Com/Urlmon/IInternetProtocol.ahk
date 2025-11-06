@@ -32,29 +32,24 @@ class IInternetProtocol extends IInternetProtocolRoot{
      * 
      * @param {Pointer<Void>} pv 
      * @param {Integer} cb 
-     * @param {Pointer<Integer>} pcbRead 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Read(pv, cb, pcbRead) {
+    Read(pv, cb) {
         pvMarshal := pv is VarRef ? "ptr" : "ptr"
-        pcbReadMarshal := pcbRead is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, pvMarshal, pv, "uint", cb, pcbReadMarshal, pcbRead, "HRESULT")
-        return result
+        result := ComCall(9, this, pvMarshal, pv, "uint", cb, "uint*", &pcbRead := 0, "HRESULT")
+        return pcbRead
     }
 
     /**
      * 
      * @param {Integer} dlibMove 
      * @param {Integer} dwOrigin 
-     * @param {Pointer<Integer>} plibNewPosition 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    Seek(dlibMove, dwOrigin, plibNewPosition) {
-        plibNewPositionMarshal := plibNewPosition is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(10, this, "int64", dlibMove, "uint", dwOrigin, plibNewPositionMarshal, plibNewPosition, "HRESULT")
-        return result
+    Seek(dlibMove, dwOrigin) {
+        result := ComCall(10, this, "int64", dlibMove, "uint", dwOrigin, "uint*", &plibNewPosition := 0, "HRESULT")
+        return plibNewPosition
     }
 
     /**

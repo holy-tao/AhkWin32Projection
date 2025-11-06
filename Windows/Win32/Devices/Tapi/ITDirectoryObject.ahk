@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IEnumDialableAddrs.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -33,26 +35,23 @@ class ITDirectoryObject extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pObjectType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectoryobject-get_objecttype
      */
-    get_ObjectType(pObjectType) {
-        pObjectTypeMarshal := pObjectType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pObjectTypeMarshal, pObjectType, "HRESULT")
-        return result
+    get_ObjectType() {
+        result := ComCall(7, this, "int*", &pObjectType := 0, "HRESULT")
+        return pObjectType
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} ppName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectoryobject-get_name
      */
-    get_Name(ppName) {
+    get_Name() {
+        ppName := BSTR()
         result := ComCall(8, this, "ptr", ppName, "HRESULT")
-        return result
+        return ppName
     }
 
     /**
@@ -71,36 +70,34 @@ class ITDirectoryObject extends IDispatch{
     /**
      * 
      * @param {Integer} dwAddressType 
-     * @param {Pointer<VARIANT>} pVariant 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectoryobject-get_dialableaddrs
      */
-    get_DialableAddrs(dwAddressType, pVariant) {
+    get_DialableAddrs(dwAddressType) {
+        pVariant := VARIANT()
         result := ComCall(10, this, "int", dwAddressType, "ptr", pVariant, "HRESULT")
-        return result
+        return pVariant
     }
 
     /**
      * 
      * @param {Integer} dwAddressType 
-     * @param {Pointer<IEnumDialableAddrs>} ppEnumDialableAddrs 
-     * @returns {HRESULT} 
+     * @returns {IEnumDialableAddrs} 
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectoryobject-enumeratedialableaddrs
      */
-    EnumerateDialableAddrs(dwAddressType, ppEnumDialableAddrs) {
-        result := ComCall(11, this, "uint", dwAddressType, "ptr*", ppEnumDialableAddrs, "HRESULT")
-        return result
+    EnumerateDialableAddrs(dwAddressType) {
+        result := ComCall(11, this, "uint", dwAddressType, "ptr*", &ppEnumDialableAddrs := 0, "HRESULT")
+        return IEnumDialableAddrs(ppEnumDialableAddrs)
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} ppSecDes 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itdirectoryobject-get_securitydescriptor
      */
-    get_SecurityDescriptor(ppSecDes) {
-        result := ComCall(12, this, "ptr*", ppSecDes, "HRESULT")
-        return result
+    get_SecurityDescriptor() {
+        result := ComCall(12, this, "ptr*", &ppSecDes := 0, "HRESULT")
+        return IDispatch(ppSecDes)
     }
 
     /**

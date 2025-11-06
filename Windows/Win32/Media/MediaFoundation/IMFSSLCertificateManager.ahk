@@ -90,7 +90,10 @@ class IMFSSLCertificateManager extends IUnknown{
     GetCertificatePolicy(pszURL, pfOverrideAutomaticCheck, pfClientCertificateAvailable) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
-        result := ComCall(6, this, "ptr", pszURL, "ptr", pfOverrideAutomaticCheck, "ptr", pfClientCertificateAvailable, "HRESULT")
+        pfOverrideAutomaticCheckMarshal := pfOverrideAutomaticCheck is VarRef ? "int*" : "ptr"
+        pfClientCertificateAvailableMarshal := pfClientCertificateAvailable is VarRef ? "int*" : "ptr"
+
+        result := ComCall(6, this, "ptr", pszURL, pfOverrideAutomaticCheckMarshal, pfOverrideAutomaticCheck, pfClientCertificateAvailableMarshal, pfClientCertificateAvailable, "HRESULT")
         return result
     }
 
@@ -99,14 +102,13 @@ class IMFSSLCertificateManager extends IUnknown{
      * @param {PWSTR} pszURL 
      * @param {Pointer} pbData 
      * @param {Integer} cbData 
-     * @param {Pointer<BOOL>} pfIsGood 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsslcertificatemanager-onservercertificate
      */
-    OnServerCertificate(pszURL, pbData, cbData, pfIsGood) {
+    OnServerCertificate(pszURL, pbData, cbData) {
         pszURL := pszURL is String ? StrPtr(pszURL) : pszURL
 
-        result := ComCall(7, this, "ptr", pszURL, "ptr", pbData, "uint", cbData, "ptr", pfIsGood, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", pszURL, "ptr", pbData, "uint", cbData, "int*", &pfIsGood := 0, "HRESULT")
+        return pfIsGood
     }
 }

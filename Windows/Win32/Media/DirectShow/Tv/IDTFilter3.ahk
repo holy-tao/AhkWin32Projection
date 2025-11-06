@@ -38,26 +38,22 @@ class IDTFilter3 extends IDTFilter2{
 
     /**
      * 
-     * @param {Pointer<Integer>} pProtectionType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-idtfilter3-getprotectiontype
      */
-    GetProtectionType(pProtectionType) {
-        pProtectionTypeMarshal := pProtectionType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, pProtectionTypeMarshal, pProtectionType, "HRESULT")
-        return result
+    GetProtectionType() {
+        result := ComCall(14, this, "int*", &pProtectionType := 0, "HRESULT")
+        return pProtectionType
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pfLicenseHasExpirationDate 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-idtfilter3-licensehasexpirationdate
      */
-    LicenseHasExpirationDate(pfLicenseHasExpirationDate) {
-        result := ComCall(15, this, "ptr", pfLicenseHasExpirationDate, "HRESULT")
-        return result
+    LicenseHasExpirationDate() {
+        result := ComCall(15, this, "int*", &pfLicenseHasExpirationDate := 0, "HRESULT")
+        return pfLicenseHasExpirationDate
     }
 
     /**

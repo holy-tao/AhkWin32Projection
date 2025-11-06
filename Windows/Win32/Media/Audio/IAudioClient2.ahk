@@ -33,13 +33,12 @@ class IAudioClient2 extends IAudioClient{
     /**
      * 
      * @param {Integer} Category 
-     * @param {Pointer<BOOL>} pbOffloadCapable 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioclient2-isoffloadcapable
      */
-    IsOffloadCapable(Category, pbOffloadCapable) {
-        result := ComCall(15, this, "int", Category, "ptr", pbOffloadCapable, "HRESULT")
-        return result
+    IsOffloadCapable(Category) {
+        result := ComCall(15, this, "int", Category, "int*", &pbOffloadCapable := 0, "HRESULT")
+        return pbOffloadCapable
     }
 
     /**

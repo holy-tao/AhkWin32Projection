@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
+#Include ..\..\Foundation\HANDLE.ahk
 
 /**
  * @namespace Windows.Win32.System.SubsystemForLinux
@@ -123,21 +124,18 @@ class SubsystemForLinux {
      * @param {PWSTR} distributionName Unique name representing a distribution (for example, "Fabrikam.Distro.10.01").
      * @param {PWSTR} command Command to execute. If no command is supplied, launches the default shell.
      * @param {BOOL} useCurrentWorkingDirectory Governs whether or not the launched process should inherit the calling process's working directory. If FALSE, the process is started in the WSL default user's home directory ("~").
-     * @param {Pointer<Integer>} exitCode Receives the exit code of the process after it exits.
-     * @returns {HRESULT} Returns S_OK on success, or a failing HRESULT otherwise.
+     * @returns {Integer} Receives the exit code of the process after it exits.
      * @see https://docs.microsoft.com/windows/win32/api//wslapi/nf-wslapi-wsllaunchinteractive
      */
-    static WslLaunchInteractive(distributionName, command, useCurrentWorkingDirectory, exitCode) {
+    static WslLaunchInteractive(distributionName, command, useCurrentWorkingDirectory) {
         distributionName := distributionName is String ? StrPtr(distributionName) : distributionName
         command := command is String ? StrPtr(command) : command
 
-        exitCodeMarshal := exitCode is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslLaunchInteractive", "ptr", distributionName, "ptr", command, "int", useCurrentWorkingDirectory, exitCodeMarshal, exitCode, "int")
+        result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslLaunchInteractive", "ptr", distributionName, "ptr", command, "int", useCurrentWorkingDirectory, "uint*", &exitCode := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return exitCode
     }
 
     /**
@@ -148,22 +146,22 @@ class SubsystemForLinux {
      * @param {HANDLE} stdIn Handle to use for <b>STDIN</b>.
      * @param {HANDLE} stdOut Handle to use for <b>STDOUT</b>.
      * @param {HANDLE} stdErr Handle to use for <b>STDERR</b>.
-     * @param {Pointer<HANDLE>} process Pointer to address to receive the process HANDLE associated with the newly-launched WSL process.
-     * @returns {HRESULT} Returns S_OK on success, or a failing HRESULT otherwise.
+     * @returns {HANDLE} Pointer to address to receive the process HANDLE associated with the newly-launched WSL process.
      * @see https://docs.microsoft.com/windows/win32/api//wslapi/nf-wslapi-wsllaunch
      */
-    static WslLaunch(distributionName, command, useCurrentWorkingDirectory, stdIn, stdOut, stdErr, process) {
+    static WslLaunch(distributionName, command, useCurrentWorkingDirectory, stdIn, stdOut, stdErr) {
         distributionName := distributionName is String ? StrPtr(distributionName) : distributionName
         command := command is String ? StrPtr(command) : command
         stdIn := stdIn is Win32Handle ? NumGet(stdIn, "ptr") : stdIn
         stdOut := stdOut is Win32Handle ? NumGet(stdOut, "ptr") : stdOut
         stdErr := stdErr is Win32Handle ? NumGet(stdErr, "ptr") : stdErr
 
+        process := HANDLE()
         result := DllCall("Api-ms-win-wsl-api-l1-1-0.dll\WslLaunch", "ptr", distributionName, "ptr", command, "int", useCurrentWorkingDirectory, "ptr", stdIn, "ptr", stdOut, "ptr", stdErr, "ptr", process, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return process
     }
 
 ;@endregion Methods

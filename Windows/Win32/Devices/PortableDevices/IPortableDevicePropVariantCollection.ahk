@@ -74,15 +74,12 @@ class IPortableDevicePropVariantCollection extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pvt 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iportabledevicepropvariantcollection-gettype
      */
-    GetType(pvt) {
-        pvtMarshal := pvt is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(6, this, pvtMarshal, pvt, "HRESULT")
-        return result
+    GetType() {
+        result := ComCall(6, this, "ushort*", &pvt := 0, "HRESULT")
+        return pvt
     }
 
     /**

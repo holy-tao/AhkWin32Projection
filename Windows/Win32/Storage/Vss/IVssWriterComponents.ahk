@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IVssComponent.ahk
 
 /**
  * Contains methods used to obtain and modify component information.
@@ -52,12 +53,11 @@ class IVssWriterComponents extends Win32ComInterface{
     /**
      * 
      * @param {Integer} iComponent 
-     * @param {Pointer<IVssComponent>} ppComponent 
-     * @returns {HRESULT} 
+     * @returns {IVssComponent} 
      * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsswritercomponents-getcomponent
      */
-    GetComponent(iComponent, ppComponent) {
-        result := ComCall(2, this, "uint", iComponent, "ptr*", ppComponent, "HRESULT")
-        return result
+    GetComponent(iComponent) {
+        result := ComCall(2, this, "uint", iComponent, "ptr*", &ppComponent := 0, "HRESULT")
+        return IVssComponent(ppComponent)
     }
 }

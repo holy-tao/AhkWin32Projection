@@ -2,7 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
+#Include .\IHTMLDocument2.ahk
+#Include .\IHTMLEventObj.ahk
+#Include .\IHTMLRenderStyle.ahk
 
 /**
  * @namespace Windows.Win32.Web.MsHtml
@@ -40,12 +44,11 @@ class IHTMLDocument4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pfFocus 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    hasFocus(pfFocus) {
-        result := ComCall(8, this, "ptr", pfFocus, "HRESULT")
-        return result
+    hasFocus() {
+        result := ComCall(8, this, "short*", &pfFocus := 0, "HRESULT")
+        return pfFocus
     }
 
     /**
@@ -60,37 +63,35 @@ class IHTMLDocument4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_onselectionchange(p) {
+    get_onselectionchange() {
+        p := VARIANT()
         result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IDispatch>} p 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    get_namespaces(p) {
-        result := ComCall(11, this, "ptr*", p, "HRESULT")
-        return result
+    get_namespaces() {
+        result := ComCall(11, this, "ptr*", &p := 0, "HRESULT")
+        return IDispatch(p)
     }
 
     /**
      * 
      * @param {BSTR} bstrUrl 
      * @param {BSTR} bstrOptions 
-     * @param {Pointer<IHTMLDocument2>} newDoc 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDocument2} 
      */
-    createDocumentFromUrl(bstrUrl, bstrOptions, newDoc) {
+    createDocumentFromUrl(bstrUrl, bstrOptions) {
         bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
         bstrOptions := bstrOptions is String ? BSTR.Alloc(bstrOptions).Value : bstrOptions
 
-        result := ComCall(12, this, "ptr", bstrUrl, "ptr", bstrOptions, "ptr*", newDoc, "HRESULT")
-        return result
+        result := ComCall(12, this, "ptr", bstrUrl, "ptr", bstrOptions, "ptr*", &newDoc := 0, "HRESULT")
+        return IHTMLDocument2(newDoc)
     }
 
     /**
@@ -107,50 +108,47 @@ class IHTMLDocument4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_media(p) {
+    get_media() {
+        p := BSTR()
         result := ComCall(14, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
      * @param {Pointer<VARIANT>} pvarEventObject 
-     * @param {Pointer<IHTMLEventObj>} ppEventObj 
-     * @returns {HRESULT} 
+     * @returns {IHTMLEventObj} 
      */
-    createEventObject(pvarEventObject, ppEventObj) {
-        result := ComCall(15, this, "ptr", pvarEventObject, "ptr*", ppEventObj, "HRESULT")
-        return result
+    createEventObject(pvarEventObject) {
+        result := ComCall(15, this, "ptr", pvarEventObject, "ptr*", &ppEventObj := 0, "HRESULT")
+        return IHTMLEventObj(ppEventObj)
     }
 
     /**
      * 
      * @param {BSTR} bstrEventName 
      * @param {Pointer<VARIANT>} pvarEventObject 
-     * @param {Pointer<VARIANT_BOOL>} pfCancelled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    fireEvent(bstrEventName, pvarEventObject, pfCancelled) {
+    fireEvent(bstrEventName, pvarEventObject) {
         bstrEventName := bstrEventName is String ? BSTR.Alloc(bstrEventName).Value : bstrEventName
 
-        result := ComCall(16, this, "ptr", bstrEventName, "ptr", pvarEventObject, "ptr", pfCancelled, "HRESULT")
-        return result
+        result := ComCall(16, this, "ptr", bstrEventName, "ptr", pvarEventObject, "short*", &pfCancelled := 0, "HRESULT")
+        return pfCancelled
     }
 
     /**
      * 
      * @param {BSTR} v 
-     * @param {Pointer<IHTMLRenderStyle>} ppIHTMLRenderStyle 
-     * @returns {HRESULT} 
+     * @returns {IHTMLRenderStyle} 
      */
-    createRenderStyle(v, ppIHTMLRenderStyle) {
+    createRenderStyle(v) {
         v := v is String ? BSTR.Alloc(v).Value : v
 
-        result := ComCall(17, this, "ptr", v, "ptr*", ppIHTMLRenderStyle, "HRESULT")
-        return result
+        result := ComCall(17, this, "ptr", v, "ptr*", &ppIHTMLRenderStyle := 0, "HRESULT")
+        return IHTMLRenderStyle(ppIHTMLRenderStyle)
     }
 
     /**
@@ -165,21 +163,21 @@ class IHTMLDocument4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_oncontrolselect(p) {
+    get_oncontrolselect() {
+        p := VARIANT()
         result := ComCall(19, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_URLUnencoded(p) {
+    get_URLUnencoded() {
+        p := BSTR()
         result := ComCall(20, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 }

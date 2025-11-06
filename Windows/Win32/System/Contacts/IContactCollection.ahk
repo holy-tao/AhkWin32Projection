@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IContact.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -56,12 +57,11 @@ class IContactCollection extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IContact>} ppContact 
-     * @returns {HRESULT} 
+     * @returns {IContact} 
      * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontactcollection-getcurrent
      */
-    GetCurrent(ppContact) {
-        result := ComCall(5, this, "ptr*", ppContact, "HRESULT")
-        return result
+    GetCurrent() {
+        result := ComCall(5, this, "ptr*", &ppContact := 0, "HRESULT")
+        return IContact(ppContact)
     }
 }

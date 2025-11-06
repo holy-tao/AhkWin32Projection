@@ -1,5 +1,6 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
+#Include ..\IInspectable.ahk
 
 /**
  * @namespace Windows.Win32.System.WinRT.Direct3D11
@@ -14,31 +15,29 @@ class Direct3D11 {
     /**
      * 
      * @param {IDXGIDevice} dxgiDevice 
-     * @param {Pointer<IInspectable>} graphicsDevice 
-     * @returns {HRESULT} 
+     * @returns {IInspectable} 
      * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.directx.direct3d11.interop/nf-windows-graphics-directx-direct3d11-interop-createdirect3d11devicefromdxgidevice
      */
-    static CreateDirect3D11DeviceFromDXGIDevice(dxgiDevice, graphicsDevice) {
-        result := DllCall("d3d11.dll\CreateDirect3D11DeviceFromDXGIDevice", "ptr", dxgiDevice, "ptr*", graphicsDevice, "int")
+    static CreateDirect3D11DeviceFromDXGIDevice(dxgiDevice) {
+        result := DllCall("d3d11.dll\CreateDirect3D11DeviceFromDXGIDevice", "ptr", dxgiDevice, "ptr*", &graphicsDevice := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IInspectable(graphicsDevice)
     }
 
     /**
      * 
      * @param {IDXGISurface} dgxiSurface 
-     * @param {Pointer<IInspectable>} graphicsSurface 
-     * @returns {HRESULT} 
+     * @returns {IInspectable} 
      * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.directx.direct3d11.interop/nf-windows-graphics-directx-direct3d11-interop-createdirect3d11surfacefromdxgisurface
      */
-    static CreateDirect3D11SurfaceFromDXGISurface(dgxiSurface, graphicsSurface) {
-        result := DllCall("d3d11.dll\CreateDirect3D11SurfaceFromDXGISurface", "ptr", dgxiSurface, "ptr*", graphicsSurface, "int")
+    static CreateDirect3D11SurfaceFromDXGISurface(dgxiSurface) {
+        result := DllCall("d3d11.dll\CreateDirect3D11SurfaceFromDXGISurface", "ptr", dgxiSurface, "ptr*", &graphicsSurface := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IInspectable(graphicsSurface)
     }
 
 ;@endregion Methods

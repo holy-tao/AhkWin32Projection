@@ -87,16 +87,13 @@ class IInternetZoneManager extends IUnknown{
      * 
      * @param {Integer} dwZone 
      * @param {Integer} dwAction 
-     * @param {Pointer<Integer>} pPolicy 
      * @param {Integer} cbPolicy 
      * @param {Integer} urlZoneReg 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetZoneActionPolicy(dwZone, dwAction, pPolicy, cbPolicy, urlZoneReg) {
-        pPolicyMarshal := pPolicy is VarRef ? "char*" : "ptr"
-
-        result := ComCall(7, this, "uint", dwZone, "uint", dwAction, pPolicyMarshal, pPolicy, "uint", cbPolicy, "int", urlZoneReg, "HRESULT")
-        return result
+    GetZoneActionPolicy(dwZone, dwAction, cbPolicy, urlZoneReg) {
+        result := ComCall(7, this, "uint", dwZone, "uint", dwAction, "char*", &pPolicy := 0, "uint", cbPolicy, "int", urlZoneReg, "HRESULT")
+        return pPolicy
     }
 
     /**
@@ -168,14 +165,11 @@ class IInternetZoneManager extends IUnknown{
      * 
      * @param {Integer} dwEnum 
      * @param {Integer} dwIndex 
-     * @param {Pointer<Integer>} pdwZone 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetZoneAt(dwEnum, dwIndex, pdwZone) {
-        pdwZoneMarshal := pdwZone is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(12, this, "uint", dwEnum, "uint", dwIndex, pdwZoneMarshal, pdwZone, "HRESULT")
-        return result
+    GetZoneAt(dwEnum, dwIndex) {
+        result := ComCall(12, this, "uint", dwEnum, "uint", dwIndex, "uint*", &pdwZone := 0, "HRESULT")
+        return pdwZone
     }
 
     /**

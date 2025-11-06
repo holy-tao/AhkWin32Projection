@@ -46,8 +46,9 @@ class IWICPlanarBitmapSourceTransform extends IUnknown{
     DoesSupportTransform(puiWidth, puiHeight, dstTransform, dstPlanarOptions, pguidDstFormats, pPlaneDescriptions, cPlanes, pfIsSupported) {
         puiWidthMarshal := puiWidth is VarRef ? "uint*" : "ptr"
         puiHeightMarshal := puiHeight is VarRef ? "uint*" : "ptr"
+        pfIsSupportedMarshal := pfIsSupported is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, puiWidthMarshal, puiWidth, puiHeightMarshal, puiHeight, "int", dstTransform, "int", dstPlanarOptions, "ptr", pguidDstFormats, "ptr", pPlaneDescriptions, "uint", cPlanes, "ptr", pfIsSupported, "HRESULT")
+        result := ComCall(3, this, puiWidthMarshal, puiWidth, puiHeightMarshal, puiHeight, "int", dstTransform, "int", dstPlanarOptions, "ptr", pguidDstFormats, "ptr", pPlaneDescriptions, "uint", cPlanes, pfIsSupportedMarshal, pfIsSupported, "HRESULT")
         return result
     }
 

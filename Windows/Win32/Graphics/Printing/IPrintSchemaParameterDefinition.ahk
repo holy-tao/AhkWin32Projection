@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include .\IPrintSchemaDisplayableElement.ahk
 
 /**
@@ -30,57 +31,47 @@ class IPrintSchemaParameterDefinition extends IPrintSchemaDisplayableElement{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbIsRequired 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_UserInputRequired(pbIsRequired) {
-        result := ComCall(11, this, "ptr", pbIsRequired, "HRESULT")
-        return result
+    get_UserInputRequired() {
+        result := ComCall(11, this, "int*", &pbIsRequired := 0, "HRESULT")
+        return pbIsRequired
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrUnitType 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_UnitType(pbstrUnitType) {
+    get_UnitType() {
+        pbstrUnitType := BSTR()
         result := ComCall(12, this, "ptr", pbstrUnitType, "HRESULT")
-        return result
+        return pbstrUnitType
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pDataType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_DataType(pDataType) {
-        pDataTypeMarshal := pDataType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, pDataTypeMarshal, pDataType, "HRESULT")
-        return result
+    get_DataType() {
+        result := ComCall(13, this, "int*", &pDataType := 0, "HRESULT")
+        return pDataType
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pRangeMin 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_RangeMin(pRangeMin) {
-        pRangeMinMarshal := pRangeMin is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, pRangeMinMarshal, pRangeMin, "HRESULT")
-        return result
+    get_RangeMin() {
+        result := ComCall(14, this, "int*", &pRangeMin := 0, "HRESULT")
+        return pRangeMin
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pRangeMax 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_RangeMax(pRangeMax) {
-        pRangeMaxMarshal := pRangeMax is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, pRangeMaxMarshal, pRangeMax, "HRESULT")
-        return result
+    get_RangeMax() {
+        result := ComCall(15, this, "int*", &pRangeMax := 0, "HRESULT")
+        return pRangeMax
     }
 }

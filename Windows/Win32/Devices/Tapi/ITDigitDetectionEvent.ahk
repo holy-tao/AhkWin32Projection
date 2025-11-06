@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ITCallInfo.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,64 +33,51 @@ class ITDigitDetectionEvent extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ITCallInfo>} ppCallInfo 
-     * @returns {HRESULT} 
+     * @returns {ITCallInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdigitdetectionevent-get_call
      */
-    get_Call(ppCallInfo) {
-        result := ComCall(7, this, "ptr*", ppCallInfo, "HRESULT")
-        return result
+    get_Call() {
+        result := ComCall(7, this, "ptr*", &ppCallInfo := 0, "HRESULT")
+        return ITCallInfo(ppCallInfo)
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pucDigit 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdigitdetectionevent-get_digit
      */
-    get_Digit(pucDigit) {
-        pucDigitMarshal := pucDigit is VarRef ? "char*" : "ptr"
-
-        result := ComCall(8, this, pucDigitMarshal, pucDigit, "HRESULT")
-        return result
+    get_Digit() {
+        result := ComCall(8, this, "char*", &pucDigit := 0, "HRESULT")
+        return pucDigit
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pDigitMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdigitdetectionevent-get_digitmode
      */
-    get_DigitMode(pDigitMode) {
-        pDigitModeMarshal := pDigitMode is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pDigitModeMarshal, pDigitMode, "HRESULT")
-        return result
+    get_DigitMode() {
+        result := ComCall(9, this, "int*", &pDigitMode := 0, "HRESULT")
+        return pDigitMode
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plTickCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdigitdetectionevent-get_tickcount
      */
-    get_TickCount(plTickCount) {
-        plTickCountMarshal := plTickCount is VarRef ? "int*" : "ptr"
-
-        result := ComCall(10, this, plTickCountMarshal, plTickCount, "HRESULT")
-        return result
+    get_TickCount() {
+        result := ComCall(10, this, "int*", &plTickCount := 0, "HRESULT")
+        return plTickCount
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} plCallbackInstance 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdigitdetectionevent-get_callbackinstance
      */
-    get_CallbackInstance(plCallbackInstance) {
-        plCallbackInstanceMarshal := plCallbackInstance is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, plCallbackInstanceMarshal, plCallbackInstance, "HRESULT")
-        return result
+    get_CallbackInstance() {
+        result := ComCall(11, this, "int*", &plCallbackInstance := 0, "HRESULT")
+        return plCallbackInstance
     }
 }

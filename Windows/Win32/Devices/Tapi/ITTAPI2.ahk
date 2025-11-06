@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IEnumPhone.ahk
+#Include .\ITCollection2.ahk
 #Include .\ITTAPI.ahk
 
 /**
@@ -32,34 +35,32 @@ class ITTAPI2 extends ITTAPI{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pPhones 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittapi2-get_phones
      */
-    get_Phones(pPhones) {
+    get_Phones() {
+        pPhones := VARIANT()
         result := ComCall(23, this, "ptr", pPhones, "HRESULT")
-        return result
+        return pPhones
     }
 
     /**
      * 
-     * @param {Pointer<IEnumPhone>} ppEnumPhone 
-     * @returns {HRESULT} 
+     * @returns {IEnumPhone} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittapi2-enumeratephones
      */
-    EnumeratePhones(ppEnumPhone) {
-        result := ComCall(24, this, "ptr*", ppEnumPhone, "HRESULT")
-        return result
+    EnumeratePhones() {
+        result := ComCall(24, this, "ptr*", &ppEnumPhone := 0, "HRESULT")
+        return IEnumPhone(ppEnumPhone)
     }
 
     /**
      * 
-     * @param {Pointer<ITCollection2>} ppCollection 
-     * @returns {HRESULT} 
+     * @returns {ITCollection2} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittapi2-createemptycollectionobject
      */
-    CreateEmptyCollectionObject(ppCollection) {
-        result := ComCall(25, this, "ptr*", ppCollection, "HRESULT")
-        return result
+    CreateEmptyCollectionObject() {
+        result := ComCall(25, this, "ptr*", &ppCollection := 0, "HRESULT")
+        return ITCollection2(ppCollection)
     }
 }

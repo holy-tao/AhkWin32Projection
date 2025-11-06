@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IModelObject.ahk
 #Include .\IDebugHostEvaluator2.ahk
 
 /**
@@ -32,11 +33,10 @@ class IDebugHostEvaluator3 extends IDebugHostEvaluator2{
      * 
      * @param {IModelObject} pLeft 
      * @param {IModelObject} pRight 
-     * @param {Pointer<IModelObject>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {IModelObject} 
      */
-    Compare(pLeft, pRight, ppResult) {
-        result := ComCall(6, this, "ptr", pLeft, "ptr", pRight, "ptr*", ppResult, "HRESULT")
-        return result
+    Compare(pLeft, pRight) {
+        result := ComCall(6, this, "ptr", pLeft, "ptr", pRight, "ptr*", &ppResult := 0, "HRESULT")
+        return IModelObject(ppResult)
     }
 }

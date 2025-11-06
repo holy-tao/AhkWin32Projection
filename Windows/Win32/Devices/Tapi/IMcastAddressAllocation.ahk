@@ -2,6 +2,9 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IEnumMcastScope.ahk
+#Include .\IMcastLeaseInfo.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -50,24 +53,23 @@ class IMcastAddressAllocation extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pVariant 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastaddressallocation-get_scopes
      */
-    get_Scopes(pVariant) {
+    get_Scopes() {
+        pVariant := VARIANT()
         result := ComCall(7, this, "ptr", pVariant, "HRESULT")
-        return result
+        return pVariant
     }
 
     /**
      * 
-     * @param {Pointer<IEnumMcastScope>} ppEnumMcastScope 
-     * @returns {HRESULT} 
+     * @returns {IEnumMcastScope} 
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastaddressallocation-enumeratescopes
      */
-    EnumerateScopes(ppEnumMcastScope) {
-        result := ComCall(8, this, "ptr*", ppEnumMcastScope, "HRESULT")
-        return result
+    EnumerateScopes() {
+        result := ComCall(8, this, "ptr*", &ppEnumMcastScope := 0, "HRESULT")
+        return IEnumMcastScope(ppEnumMcastScope)
     }
 
     /**
@@ -76,26 +78,24 @@ class IMcastAddressAllocation extends IDispatch{
      * @param {Float} LeaseStartTime 
      * @param {Float} LeaseStopTime 
      * @param {Integer} NumAddresses 
-     * @param {Pointer<IMcastLeaseInfo>} ppLeaseResponse 
-     * @returns {HRESULT} 
+     * @returns {IMcastLeaseInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastaddressallocation-requestaddress
      */
-    RequestAddress(pScope, LeaseStartTime, LeaseStopTime, NumAddresses, ppLeaseResponse) {
-        result := ComCall(9, this, "ptr", pScope, "double", LeaseStartTime, "double", LeaseStopTime, "int", NumAddresses, "ptr*", ppLeaseResponse, "HRESULT")
-        return result
+    RequestAddress(pScope, LeaseStartTime, LeaseStopTime, NumAddresses) {
+        result := ComCall(9, this, "ptr", pScope, "double", LeaseStartTime, "double", LeaseStopTime, "int", NumAddresses, "ptr*", &ppLeaseResponse := 0, "HRESULT")
+        return IMcastLeaseInfo(ppLeaseResponse)
     }
 
     /**
      * 
      * @param {Integer} lReserved 
      * @param {IMcastLeaseInfo} pRenewRequest 
-     * @param {Pointer<IMcastLeaseInfo>} ppRenewResponse 
-     * @returns {HRESULT} 
+     * @returns {IMcastLeaseInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastaddressallocation-renewaddress
      */
-    RenewAddress(lReserved, pRenewRequest, ppRenewResponse) {
-        result := ComCall(10, this, "int", lReserved, "ptr", pRenewRequest, "ptr*", ppRenewResponse, "HRESULT")
-        return result
+    RenewAddress(lReserved, pRenewRequest) {
+        result := ComCall(10, this, "int", lReserved, "ptr", pRenewRequest, "ptr*", &ppRenewResponse := 0, "HRESULT")
+        return IMcastLeaseInfo(ppRenewResponse)
     }
 
     /**
@@ -117,16 +117,17 @@ class IMcastAddressAllocation extends IDispatch{
      * @param {Pointer<PWSTR>} ppAddresses 
      * @param {PWSTR} pRequestID 
      * @param {PWSTR} pServerAddress 
-     * @param {Pointer<IMcastLeaseInfo>} ppReleaseRequest 
-     * @returns {HRESULT} 
+     * @returns {IMcastLeaseInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastaddressallocation-createleaseinfo
      */
-    CreateLeaseInfo(LeaseStartTime, LeaseStopTime, dwNumAddresses, ppAddresses, pRequestID, pServerAddress, ppReleaseRequest) {
+    CreateLeaseInfo(LeaseStartTime, LeaseStopTime, dwNumAddresses, ppAddresses, pRequestID, pServerAddress) {
         pRequestID := pRequestID is String ? StrPtr(pRequestID) : pRequestID
         pServerAddress := pServerAddress is String ? StrPtr(pServerAddress) : pServerAddress
 
-        result := ComCall(12, this, "double", LeaseStartTime, "double", LeaseStopTime, "uint", dwNumAddresses, "ptr", ppAddresses, "ptr", pRequestID, "ptr", pServerAddress, "ptr*", ppReleaseRequest, "HRESULT")
-        return result
+        ppAddressesMarshal := ppAddresses is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(12, this, "double", LeaseStartTime, "double", LeaseStopTime, "uint", dwNumAddresses, ppAddressesMarshal, ppAddresses, "ptr", pRequestID, "ptr", pServerAddress, "ptr*", &ppReleaseRequest := 0, "HRESULT")
+        return IMcastLeaseInfo(ppReleaseRequest)
     }
 
     /**
@@ -136,15 +137,14 @@ class IMcastAddressAllocation extends IDispatch{
      * @param {VARIANT} vAddresses 
      * @param {BSTR} pRequestID 
      * @param {BSTR} pServerAddress 
-     * @param {Pointer<IMcastLeaseInfo>} ppReleaseRequest 
-     * @returns {HRESULT} 
+     * @returns {IMcastLeaseInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/mdhcp/nf-mdhcp-imcastaddressallocation-createleaseinfofromvariant
      */
-    CreateLeaseInfoFromVariant(LeaseStartTime, LeaseStopTime, vAddresses, pRequestID, pServerAddress, ppReleaseRequest) {
+    CreateLeaseInfoFromVariant(LeaseStartTime, LeaseStopTime, vAddresses, pRequestID, pServerAddress) {
         pRequestID := pRequestID is String ? BSTR.Alloc(pRequestID).Value : pRequestID
         pServerAddress := pServerAddress is String ? BSTR.Alloc(pServerAddress).Value : pServerAddress
 
-        result := ComCall(13, this, "double", LeaseStartTime, "double", LeaseStopTime, "ptr", vAddresses, "ptr", pRequestID, "ptr", pServerAddress, "ptr*", ppReleaseRequest, "HRESULT")
-        return result
+        result := ComCall(13, this, "double", LeaseStartTime, "double", LeaseStopTime, "ptr", vAddresses, "ptr", pRequestID, "ptr", pServerAddress, "ptr*", &ppReleaseRequest := 0, "HRESULT")
+        return IMcastLeaseInfo(ppReleaseRequest)
     }
 }

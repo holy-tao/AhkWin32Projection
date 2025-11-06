@@ -12771,7 +12771,9 @@ class Gdi {
     static TTIsEmbeddingEnabled(hDC, pbEnabled) {
         hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
 
-        result := DllCall("t2embed.dll\TTIsEmbeddingEnabled", "ptr", hDC, "ptr", pbEnabled, "int")
+        pbEnabledMarshal := pbEnabled is VarRef ? "int*" : "ptr"
+
+        result := DllCall("t2embed.dll\TTIsEmbeddingEnabled", "ptr", hDC, pbEnabledMarshal, pbEnabled, "int")
         return result
     }
 
@@ -12790,7 +12792,9 @@ class Gdi {
     static TTIsEmbeddingEnabledForFacename(lpszFacename, pbEnabled) {
         lpszFacename := lpszFacename is String ? StrPtr(lpszFacename) : lpszFacename
 
-        result := DllCall("t2embed.dll\TTIsEmbeddingEnabledForFacename", "ptr", lpszFacename, "ptr", pbEnabled, "int")
+        pbEnabledMarshal := pbEnabled is VarRef ? "int*" : "ptr"
+
+        result := DllCall("t2embed.dll\TTIsEmbeddingEnabledForFacename", "ptr", lpszFacename, pbEnabledMarshal, pbEnabled, "int")
         return result
     }
 
@@ -14399,10 +14403,11 @@ class Gdi {
      */
     static SetSysColors(cElements, lpaElements, lpaRgbValues) {
         lpaElementsMarshal := lpaElements is VarRef ? "int*" : "ptr"
+        lpaRgbValuesMarshal := lpaRgbValues is VarRef ? "uint*" : "ptr"
 
         A_LastError := 0
 
-        result := DllCall("USER32.dll\SetSysColors", "int", cElements, lpaElementsMarshal, lpaElements, "ptr", lpaRgbValues, "int")
+        result := DllCall("USER32.dll\SetSysColors", "int", cElements, lpaElementsMarshal, lpaElements, lpaRgbValuesMarshal, lpaRgbValues, "int")
         if(A_LastError)
             throw OSError()
 
@@ -15114,7 +15119,6 @@ class Gdi {
         static hwnd := 0 ;Reserved parameters must always be NULL
 
         lpszDeviceName := lpszDeviceName is String ? StrPtr(lpszDeviceName) : lpszDeviceName
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         lParamMarshal := lParam is VarRef ? "ptr" : "ptr"
 
@@ -15266,7 +15270,6 @@ class Gdi {
         static hwnd := 0 ;Reserved parameters must always be NULL
 
         lpszDeviceName := lpszDeviceName is String ? StrPtr(lpszDeviceName) : lpszDeviceName
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
         lParamMarshal := lParam is VarRef ? "ptr" : "ptr"
 

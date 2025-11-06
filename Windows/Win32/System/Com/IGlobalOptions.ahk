@@ -190,14 +190,11 @@ class IGlobalOptions extends IUnknown{
     /**
      * 
      * @param {Integer} dwProperty 
-     * @param {Pointer<Pointer>} pdwValue 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-iglobaloptions-query
      */
-    Query(dwProperty, pdwValue) {
-        pdwValueMarshal := pdwValue is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, "int", dwProperty, pdwValueMarshal, pdwValue, "HRESULT")
-        return result
+    Query(dwProperty) {
+        result := ComCall(4, this, "int", dwProperty, "ptr*", &pdwValue := 0, "HRESULT")
+        return pdwValue
     }
 }

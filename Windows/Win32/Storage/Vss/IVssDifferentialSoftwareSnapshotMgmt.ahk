@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IVssEnumMgmtObject.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -65,54 +66,50 @@ class IVssDifferentialSoftwareSnapshotMgmt extends IUnknown{
     /**
      * 
      * @param {Pointer<Integer>} pwszOriginalVolumeName 
-     * @param {Pointer<IVssEnumMgmtObject>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IVssEnumMgmtObject} 
      * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt-queryvolumessupportedfordiffareas
      */
-    QueryVolumesSupportedForDiffAreas(pwszOriginalVolumeName, ppEnum) {
+    QueryVolumesSupportedForDiffAreas(pwszOriginalVolumeName) {
         pwszOriginalVolumeNameMarshal := pwszOriginalVolumeName is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(5, this, pwszOriginalVolumeNameMarshal, pwszOriginalVolumeName, "ptr*", ppEnum, "HRESULT")
-        return result
+        result := ComCall(5, this, pwszOriginalVolumeNameMarshal, pwszOriginalVolumeName, "ptr*", &ppEnum := 0, "HRESULT")
+        return IVssEnumMgmtObject(ppEnum)
     }
 
     /**
      * 
      * @param {Pointer<Integer>} pwszVolumeName 
-     * @param {Pointer<IVssEnumMgmtObject>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IVssEnumMgmtObject} 
      * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt-querydiffareasforvolume
      */
-    QueryDiffAreasForVolume(pwszVolumeName, ppEnum) {
+    QueryDiffAreasForVolume(pwszVolumeName) {
         pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(6, this, pwszVolumeNameMarshal, pwszVolumeName, "ptr*", ppEnum, "HRESULT")
-        return result
+        result := ComCall(6, this, pwszVolumeNameMarshal, pwszVolumeName, "ptr*", &ppEnum := 0, "HRESULT")
+        return IVssEnumMgmtObject(ppEnum)
     }
 
     /**
      * 
      * @param {Pointer<Integer>} pwszVolumeName 
-     * @param {Pointer<IVssEnumMgmtObject>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IVssEnumMgmtObject} 
      * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt-querydiffareasonvolume
      */
-    QueryDiffAreasOnVolume(pwszVolumeName, ppEnum) {
+    QueryDiffAreasOnVolume(pwszVolumeName) {
         pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(7, this, pwszVolumeNameMarshal, pwszVolumeName, "ptr*", ppEnum, "HRESULT")
-        return result
+        result := ComCall(7, this, pwszVolumeNameMarshal, pwszVolumeName, "ptr*", &ppEnum := 0, "HRESULT")
+        return IVssEnumMgmtObject(ppEnum)
     }
 
     /**
      * 
      * @param {Guid} SnapshotId 
-     * @param {Pointer<IVssEnumMgmtObject>} ppEnum 
-     * @returns {HRESULT} 
+     * @returns {IVssEnumMgmtObject} 
      * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt-querydiffareasforsnapshot
      */
-    QueryDiffAreasForSnapshot(SnapshotId, ppEnum) {
-        result := ComCall(8, this, "ptr", SnapshotId, "ptr*", ppEnum, "HRESULT")
-        return result
+    QueryDiffAreasForSnapshot(SnapshotId) {
+        result := ComCall(8, this, "ptr", SnapshotId, "ptr*", &ppEnum := 0, "HRESULT")
+        return IVssEnumMgmtObject(ppEnum)
     }
 }

@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\DXVA2_VideoProcessorCaps.ahk
+#Include .\DXVA2_ValueRange.ahk
+#Include .\IDirectXVideoProcessor.ahk
 #Include .\IDirectXVideoAccelerationService.ahk
 
 /**
@@ -99,13 +102,13 @@ class IDirectXVideoProcessorService extends IDirectXVideoAccelerationService{
      * @param {Pointer<Guid>} VideoProcDeviceGuid 
      * @param {Pointer<DXVA2_VideoDesc>} pVideoDesc 
      * @param {Integer} RenderTargetFormat 
-     * @param {Pointer<DXVA2_VideoProcessorCaps>} pCaps 
-     * @returns {HRESULT} 
+     * @returns {DXVA2_VideoProcessorCaps} 
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideoprocessorservice-getvideoprocessorcaps
      */
-    GetVideoProcessorCaps(VideoProcDeviceGuid, pVideoDesc, RenderTargetFormat, pCaps) {
+    GetVideoProcessorCaps(VideoProcDeviceGuid, pVideoDesc, RenderTargetFormat) {
+        pCaps := DXVA2_VideoProcessorCaps()
         result := ComCall(8, this, "ptr", VideoProcDeviceGuid, "ptr", pVideoDesc, "uint", RenderTargetFormat, "ptr", pCaps, "HRESULT")
-        return result
+        return pCaps
     }
 
     /**
@@ -114,13 +117,13 @@ class IDirectXVideoProcessorService extends IDirectXVideoAccelerationService{
      * @param {Pointer<DXVA2_VideoDesc>} pVideoDesc 
      * @param {Integer} RenderTargetFormat 
      * @param {Integer} ProcAmpCap 
-     * @param {Pointer<DXVA2_ValueRange>} pRange 
-     * @returns {HRESULT} 
+     * @returns {DXVA2_ValueRange} 
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideoprocessorservice-getprocamprange
      */
-    GetProcAmpRange(VideoProcDeviceGuid, pVideoDesc, RenderTargetFormat, ProcAmpCap, pRange) {
+    GetProcAmpRange(VideoProcDeviceGuid, pVideoDesc, RenderTargetFormat, ProcAmpCap) {
+        pRange := DXVA2_ValueRange()
         result := ComCall(9, this, "ptr", VideoProcDeviceGuid, "ptr", pVideoDesc, "uint", RenderTargetFormat, "uint", ProcAmpCap, "ptr", pRange, "HRESULT")
-        return result
+        return pRange
     }
 
     /**
@@ -129,13 +132,13 @@ class IDirectXVideoProcessorService extends IDirectXVideoAccelerationService{
      * @param {Pointer<DXVA2_VideoDesc>} pVideoDesc 
      * @param {Integer} RenderTargetFormat 
      * @param {Integer} FilterSetting 
-     * @param {Pointer<DXVA2_ValueRange>} pRange 
-     * @returns {HRESULT} 
+     * @returns {DXVA2_ValueRange} 
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideoprocessorservice-getfilterpropertyrange
      */
-    GetFilterPropertyRange(VideoProcDeviceGuid, pVideoDesc, RenderTargetFormat, FilterSetting, pRange) {
+    GetFilterPropertyRange(VideoProcDeviceGuid, pVideoDesc, RenderTargetFormat, FilterSetting) {
+        pRange := DXVA2_ValueRange()
         result := ComCall(10, this, "ptr", VideoProcDeviceGuid, "ptr", pVideoDesc, "uint", RenderTargetFormat, "uint", FilterSetting, "ptr", pRange, "HRESULT")
-        return result
+        return pRange
     }
 
     /**
@@ -144,12 +147,11 @@ class IDirectXVideoProcessorService extends IDirectXVideoAccelerationService{
      * @param {Pointer<DXVA2_VideoDesc>} pVideoDesc 
      * @param {Integer} RenderTargetFormat 
      * @param {Integer} MaxNumSubStreams 
-     * @param {Pointer<IDirectXVideoProcessor>} ppVidProcess 
-     * @returns {HRESULT} 
+     * @returns {IDirectXVideoProcessor} 
      * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideoprocessorservice-createvideoprocessor
      */
-    CreateVideoProcessor(VideoProcDeviceGuid, pVideoDesc, RenderTargetFormat, MaxNumSubStreams, ppVidProcess) {
-        result := ComCall(11, this, "ptr", VideoProcDeviceGuid, "ptr", pVideoDesc, "uint", RenderTargetFormat, "uint", MaxNumSubStreams, "ptr*", ppVidProcess, "HRESULT")
-        return result
+    CreateVideoProcessor(VideoProcDeviceGuid, pVideoDesc, RenderTargetFormat, MaxNumSubStreams) {
+        result := ComCall(11, this, "ptr", VideoProcDeviceGuid, "ptr", pVideoDesc, "uint", RenderTargetFormat, "uint", MaxNumSubStreams, "ptr*", &ppVidProcess := 0, "HRESULT")
+        return IDirectXVideoProcessor(ppVidProcess)
     }
 }

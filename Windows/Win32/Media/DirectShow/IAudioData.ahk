@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Audio\WAVEFORMATEX.ahk
 #Include .\IMemoryData.ahk
 
 /**
@@ -32,13 +33,13 @@ class IAudioData extends IMemoryData{
 
     /**
      * 
-     * @param {Pointer<WAVEFORMATEX>} pWaveFormatCurrent 
-     * @returns {HRESULT} 
+     * @returns {WAVEFORMATEX} 
      * @see https://learn.microsoft.com/windows/win32/api/austream/nf-austream-iaudiodata-getformat
      */
-    GetFormat(pWaveFormatCurrent) {
+    GetFormat() {
+        pWaveFormatCurrent := WAVEFORMATEX()
         result := ComCall(6, this, "ptr", pWaveFormatCurrent, "HRESULT")
-        return result
+        return pWaveFormatCurrent
     }
 
     /**

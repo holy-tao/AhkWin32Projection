@@ -43,15 +43,12 @@ class IDXGISwapChain3 extends IDXGISwapChain2{
     /**
      * 
      * @param {Integer} ColorSpace 
-     * @param {Pointer<Integer>} pColorSpaceSupport 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/dxgi1_4/nf-dxgi1_4-idxgiswapchain3-checkcolorspacesupport
      */
-    CheckColorSpaceSupport(ColorSpace, pColorSpaceSupport) {
-        pColorSpaceSupportMarshal := pColorSpaceSupport is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(37, this, "int", ColorSpace, pColorSpaceSupportMarshal, pColorSpaceSupport, "HRESULT")
-        return result
+    CheckColorSpaceSupport(ColorSpace) {
+        result := ComCall(37, this, "int", ColorSpace, "uint*", &pColorSpaceSupport := 0, "HRESULT")
+        return pColorSpaceSupport
     }
 
     /**

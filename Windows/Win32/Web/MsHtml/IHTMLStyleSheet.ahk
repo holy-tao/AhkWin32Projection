@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IHTMLStyleSheet.ahk
+#Include .\IHTMLElement.ahk
+#Include .\IHTMLStyleSheetsCollection.ahk
+#Include .\IHTMLStyleSheetRulesCollection.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -49,32 +53,30 @@ class IHTMLStyleSheet extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_title(p) {
+    get_title() {
+        p := BSTR()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLStyleSheet>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLStyleSheet} 
      */
-    get_parentStyleSheet(p) {
-        result := ComCall(9, this, "ptr*", p, "HRESULT")
-        return result
+    get_parentStyleSheet() {
+        result := ComCall(9, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLStyleSheet(p)
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLElement>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLElement} 
      */
-    get_owningElement(p) {
-        result := ComCall(10, this, "ptr*", p, "HRESULT")
-        return result
+    get_owningElement() {
+        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLElement(p)
     }
 
     /**
@@ -89,32 +91,29 @@ class IHTMLStyleSheet extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_disabled(p) {
-        result := ComCall(12, this, "ptr", p, "HRESULT")
-        return result
+    get_disabled() {
+        result := ComCall(12, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_readOnly(p) {
-        result := ComCall(13, this, "ptr", p, "HRESULT")
-        return result
+    get_readOnly() {
+        result := ComCall(13, this, "short*", &p := 0, "HRESULT")
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLStyleSheetsCollection>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLStyleSheetsCollection} 
      */
-    get_imports(p) {
-        result := ComCall(14, this, "ptr*", p, "HRESULT")
-        return result
+    get_imports() {
+        result := ComCall(14, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLStyleSheetsCollection(p)
     }
 
     /**
@@ -131,48 +130,45 @@ class IHTMLStyleSheet extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_href(p) {
+    get_href() {
+        p := BSTR()
         result := ComCall(16, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_type(p) {
+    get_type() {
+        p := BSTR()
         result := ComCall(17, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_id(p) {
+    get_id() {
+        p := BSTR()
         result := ComCall(18, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
      * @param {BSTR} bstrURL 
      * @param {Integer} lIndex 
-     * @param {Pointer<Integer>} plIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    addImport(bstrURL, lIndex, plIndex) {
+    addImport(bstrURL, lIndex) {
         bstrURL := bstrURL is String ? BSTR.Alloc(bstrURL).Value : bstrURL
 
-        plIndexMarshal := plIndex is VarRef ? "int*" : "ptr"
-
-        result := ComCall(19, this, "ptr", bstrURL, "int", lIndex, plIndexMarshal, plIndex, "HRESULT")
-        return result
+        result := ComCall(19, this, "ptr", bstrURL, "int", lIndex, "int*", &plIndex := 0, "HRESULT")
+        return plIndex
     }
 
     /**
@@ -180,17 +176,14 @@ class IHTMLStyleSheet extends IDispatch{
      * @param {BSTR} bstrSelector 
      * @param {BSTR} bstrStyle 
      * @param {Integer} lIndex 
-     * @param {Pointer<Integer>} plNewIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    addRule(bstrSelector, bstrStyle, lIndex, plNewIndex) {
+    addRule(bstrSelector, bstrStyle, lIndex) {
         bstrSelector := bstrSelector is String ? BSTR.Alloc(bstrSelector).Value : bstrSelector
         bstrStyle := bstrStyle is String ? BSTR.Alloc(bstrStyle).Value : bstrStyle
 
-        plNewIndexMarshal := plNewIndex is VarRef ? "int*" : "ptr"
-
-        result := ComCall(20, this, "ptr", bstrSelector, "ptr", bstrStyle, "int", lIndex, plNewIndexMarshal, plNewIndex, "HRESULT")
-        return result
+        result := ComCall(20, this, "ptr", bstrSelector, "ptr", bstrStyle, "int", lIndex, "int*", &plNewIndex := 0, "HRESULT")
+        return plNewIndex
     }
 
     /**
@@ -227,12 +220,12 @@ class IHTMLStyleSheet extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_media(p) {
+    get_media() {
+        p := BSTR()
         result := ComCall(24, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -249,21 +242,20 @@ class IHTMLStyleSheet extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} p 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_cssText(p) {
+    get_cssText() {
+        p := BSTR()
         result := ComCall(26, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<IHTMLStyleSheetRulesCollection>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLStyleSheetRulesCollection} 
      */
-    get_rules(p) {
-        result := ComCall(27, this, "ptr*", p, "HRESULT")
-        return result
+    get_rules() {
+        result := ComCall(27, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLStyleSheetRulesCollection(p)
     }
 }

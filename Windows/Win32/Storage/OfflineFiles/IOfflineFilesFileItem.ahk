@@ -32,23 +32,21 @@ class IOfflineFilesFileItem extends IOfflineFilesItem{
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbIsSparse 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesfileitem-issparse
      */
-    IsSparse(pbIsSparse) {
-        result := ComCall(8, this, "ptr", pbIsSparse, "HRESULT")
-        return result
+    IsSparse() {
+        result := ComCall(8, this, "int*", &pbIsSparse := 0, "HRESULT")
+        return pbIsSparse
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pbIsEncrypted 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesfileitem-isencrypted
      */
-    IsEncrypted(pbIsEncrypted) {
-        result := ComCall(9, this, "ptr", pbIsEncrypted, "HRESULT")
-        return result
+    IsEncrypted() {
+        result := ComCall(9, this, "int*", &pbIsEncrypted := 0, "HRESULT")
+        return pbIsEncrypted
     }
 }

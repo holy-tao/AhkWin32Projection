@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\SIZE.ahk
 #Include .\IViewObject.ahk
 
 /**
@@ -35,12 +36,12 @@ class IViewObject2 extends IViewObject{
      * @param {Integer} dwDrawAspect 
      * @param {Integer} lindex 
      * @param {Pointer<DVTARGETDEVICE>} ptd 
-     * @param {Pointer<SIZE>} lpsizel 
-     * @returns {HRESULT} 
+     * @returns {SIZE} 
      * @see https://learn.microsoft.com/windows/win32/api/oleidl/nf-oleidl-iviewobject2-getextent
      */
-    GetExtent(dwDrawAspect, lindex, ptd, lpsizel) {
+    GetExtent(dwDrawAspect, lindex, ptd) {
+        lpsizel := SIZE()
         result := ComCall(9, this, "uint", dwDrawAspect, "int", lindex, "ptr", ptd, "ptr", lpsizel, "HRESULT")
-        return result
+        return lpsizel
     }
 }

@@ -2933,7 +2933,7 @@ class WindowsProgramming {
     static uaw_wcschr(String, Character) {
         StringMarshal := String is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("KERNEL32.dll\uaw_wcschr", StringMarshal, String, "char", Character, "ushort*")
+        result := DllCall("KERNEL32.dll\uaw_wcschr", StringMarshal, String, "char", Character, "ptr")
         return result
     }
 
@@ -2947,7 +2947,7 @@ class WindowsProgramming {
         DestinationMarshal := Destination is VarRef ? "ushort*" : "ptr"
         SourceMarshal := Source is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("KERNEL32.dll\uaw_wcscpy", DestinationMarshal, Destination, SourceMarshal, Source, "ushort*")
+        result := DllCall("KERNEL32.dll\uaw_wcscpy", DestinationMarshal, Destination, SourceMarshal, Source, "ptr")
         return result
     }
 
@@ -2987,7 +2987,7 @@ class WindowsProgramming {
     static uaw_wcsrchr(String, Character) {
         StringMarshal := String is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("KERNEL32.dll\uaw_wcsrchr", StringMarshal, String, "char", Character, "ushort*")
+        result := DllCall("KERNEL32.dll\uaw_wcsrchr", StringMarshal, String, "char", Character, "ptr")
         return result
     }
 
@@ -3223,19 +3223,16 @@ class WindowsProgramming {
 
     /**
      * Queries the auxiliary counter frequency.
-     * @param {Pointer<Integer>} lpAuxiliaryCounterFrequency Long pointer to an output buffer that contains the specified auxiliary counter frequency. If the auxiliary counter is not supported, the value in the output buffer will be undefined.
-     * @returns {HRESULT} Returns <b>S_OK</b> if the auxiliary counter is supported and <b>E_NOTIMPL</b> if the auxiliary counter is not supported.
+     * @returns {Integer} Long pointer to an output buffer that contains the specified auxiliary counter frequency. If the auxiliary counter is not supported, the value in the output buffer will be undefined.
      * @see https://docs.microsoft.com/windows/win32/api//realtimeapiset/nf-realtimeapiset-queryauxiliarycounterfrequency
      * @since windows10.0.15063
      */
-    static QueryAuxiliaryCounterFrequency(lpAuxiliaryCounterFrequency) {
-        lpAuxiliaryCounterFrequencyMarshal := lpAuxiliaryCounterFrequency is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("api-ms-win-core-realtime-l1-1-2.dll\QueryAuxiliaryCounterFrequency", lpAuxiliaryCounterFrequencyMarshal, lpAuxiliaryCounterFrequency, "int")
+    static QueryAuxiliaryCounterFrequency() {
+        result := DllCall("api-ms-win-core-realtime-l1-1-2.dll\QueryAuxiliaryCounterFrequency", "uint*", &lpAuxiliaryCounterFrequency := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return lpAuxiliaryCounterFrequency
     }
 
     /**
@@ -4238,9 +4235,11 @@ class WindowsProgramming {
      * @since windows8.0
      */
     static IsNativeVhdBoot(NativeVhdBoot) {
+        NativeVhdBootMarshal := NativeVhdBoot is VarRef ? "int*" : "ptr"
+
         A_LastError := 0
 
-        result := DllCall("KERNEL32.dll\IsNativeVhdBoot", "ptr", NativeVhdBoot, "int")
+        result := DllCall("KERNEL32.dll\IsNativeVhdBoot", NativeVhdBootMarshal, NativeVhdBoot, "int")
         if(A_LastError)
             throw OSError()
 
@@ -5276,7 +5275,9 @@ class WindowsProgramming {
      * @see https://docs.microsoft.com/windows/win32/api//winternl/nf-winternl-rtlisnamelegaldos8dot3
      */
     static RtlIsNameLegalDOS8Dot3(Name, OemName, NameContainsSpaces) {
-        result := DllCall("ntdll.dll\RtlIsNameLegalDOS8Dot3", "ptr", Name, "ptr", OemName, "ptr", NameContainsSpaces, "char")
+        NameContainsSpacesMarshal := NameContainsSpaces is VarRef ? "char*" : "ptr"
+
+        result := DllCall("ntdll.dll\RtlIsNameLegalDOS8Dot3", "ptr", Name, "ptr", OemName, NameContainsSpacesMarshal, NameContainsSpaces, "char")
         return result
     }
 
@@ -5676,8 +5677,9 @@ class WindowsProgramming {
      */
     static GetFeatureVariant(featureId, changeTime, payloadId, hasNotification) {
         payloadIdMarshal := payloadId is VarRef ? "uint*" : "ptr"
+        hasNotificationMarshal := hasNotification is VarRef ? "int*" : "ptr"
 
-        result := DllCall("api-ms-win-core-featurestaging-l1-1-1.dll\GetFeatureVariant", "uint", featureId, "int", changeTime, payloadIdMarshal, payloadId, "ptr", hasNotification, "uint")
+        result := DllCall("api-ms-win-core-featurestaging-l1-1-1.dll\GetFeatureVariant", "uint", featureId, "int", changeTime, payloadIdMarshal, payloadId, hasNotificationMarshal, hasNotification, "uint")
         return result
     }
 
@@ -6090,10 +6092,9 @@ class WindowsProgramming {
      * @param {PSTR} pszTranslateKey 
      * @param {PSTR} pszBuffer 
      * @param {Integer} cchBuffer 
-     * @param {Pointer<Integer>} pdwRequiredSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    static TranslateInfStringA(pszInfFilename, pszInstallSection, pszTranslateSection, pszTranslateKey, pszBuffer, cchBuffer, pdwRequiredSize) {
+    static TranslateInfStringA(pszInfFilename, pszInstallSection, pszTranslateSection, pszTranslateKey, pszBuffer, cchBuffer) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
         pszInfFilename := pszInfFilename is String ? StrPtr(pszInfFilename) : pszInfFilename
@@ -6102,13 +6103,11 @@ class WindowsProgramming {
         pszTranslateKey := pszTranslateKey is String ? StrPtr(pszTranslateKey) : pszTranslateKey
         pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
 
-        pdwRequiredSizeMarshal := pdwRequiredSize is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ADVPACK.dll\TranslateInfStringA", "ptr", pszInfFilename, "ptr", pszInstallSection, "ptr", pszTranslateSection, "ptr", pszTranslateKey, "ptr", pszBuffer, "uint", cchBuffer, pdwRequiredSizeMarshal, pdwRequiredSize, "ptr", pvReserved, "int")
+        result := DllCall("ADVPACK.dll\TranslateInfStringA", "ptr", pszInfFilename, "ptr", pszInstallSection, "ptr", pszTranslateSection, "ptr", pszTranslateKey, "ptr", pszBuffer, "uint", cchBuffer, "uint*", &pdwRequiredSize := 0, "ptr", pvReserved, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdwRequiredSize
     }
 
     /**
@@ -6119,10 +6118,9 @@ class WindowsProgramming {
      * @param {PWSTR} pszTranslateKey 
      * @param {PWSTR} pszBuffer 
      * @param {Integer} cchBuffer 
-     * @param {Pointer<Integer>} pdwRequiredSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    static TranslateInfStringW(pszInfFilename, pszInstallSection, pszTranslateSection, pszTranslateKey, pszBuffer, cchBuffer, pdwRequiredSize) {
+    static TranslateInfStringW(pszInfFilename, pszInstallSection, pszTranslateSection, pszTranslateKey, pszBuffer, cchBuffer) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
         pszInfFilename := pszInfFilename is String ? StrPtr(pszInfFilename) : pszInfFilename
@@ -6131,13 +6129,11 @@ class WindowsProgramming {
         pszTranslateKey := pszTranslateKey is String ? StrPtr(pszTranslateKey) : pszTranslateKey
         pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
 
-        pdwRequiredSizeMarshal := pdwRequiredSize is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("ADVPACK.dll\TranslateInfStringW", "ptr", pszInfFilename, "ptr", pszInstallSection, "ptr", pszTranslateSection, "ptr", pszTranslateKey, "ptr", pszBuffer, "uint", cchBuffer, pdwRequiredSizeMarshal, pdwRequiredSize, "ptr", pvReserved, "int")
+        result := DllCall("ADVPACK.dll\TranslateInfStringW", "ptr", pszInfFilename, "ptr", pszInstallSection, "ptr", pszTranslateSection, "ptr", pszTranslateKey, "ptr", pszBuffer, "uint", cchBuffer, "uint*", &pdwRequiredSize := 0, "ptr", pvReserved, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdwRequiredSize
     }
 
     /**
@@ -6785,10 +6781,9 @@ class WindowsProgramming {
      * @param {PSTR} pszTranslateKey 
      * @param {PSTR} pszBuffer 
      * @param {Integer} dwBufferSize 
-     * @param {Pointer<Integer>} pdwRequiredSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    static TranslateInfStringExA(hInf, pszInfFilename, pszTranslateSection, pszTranslateKey, pszBuffer, dwBufferSize, pdwRequiredSize) {
+    static TranslateInfStringExA(hInf, pszInfFilename, pszTranslateSection, pszTranslateKey, pszBuffer, dwBufferSize) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
         pszInfFilename := pszInfFilename is String ? StrPtr(pszInfFilename) : pszInfFilename
@@ -6797,13 +6792,12 @@ class WindowsProgramming {
         pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
 
         hInfMarshal := hInf is VarRef ? "ptr" : "ptr"
-        pdwRequiredSizeMarshal := pdwRequiredSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ADVPACK.dll\TranslateInfStringExA", hInfMarshal, hInf, "ptr", pszInfFilename, "ptr", pszTranslateSection, "ptr", pszTranslateKey, "ptr", pszBuffer, "uint", dwBufferSize, pdwRequiredSizeMarshal, pdwRequiredSize, "ptr", pvReserved, "int")
+        result := DllCall("ADVPACK.dll\TranslateInfStringExA", hInfMarshal, hInf, "ptr", pszInfFilename, "ptr", pszTranslateSection, "ptr", pszTranslateKey, "ptr", pszBuffer, "uint", dwBufferSize, "uint*", &pdwRequiredSize := 0, "ptr", pvReserved, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdwRequiredSize
     }
 
     /**
@@ -6814,10 +6808,9 @@ class WindowsProgramming {
      * @param {PWSTR} pszTranslateKey 
      * @param {PWSTR} pszBuffer 
      * @param {Integer} dwBufferSize 
-     * @param {Pointer<Integer>} pdwRequiredSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    static TranslateInfStringExW(hInf, pszInfFilename, pszTranslateSection, pszTranslateKey, pszBuffer, dwBufferSize, pdwRequiredSize) {
+    static TranslateInfStringExW(hInf, pszInfFilename, pszTranslateSection, pszTranslateKey, pszBuffer, dwBufferSize) {
         static pvReserved := 0 ;Reserved parameters must always be NULL
 
         pszInfFilename := pszInfFilename is String ? StrPtr(pszInfFilename) : pszInfFilename
@@ -6826,13 +6819,12 @@ class WindowsProgramming {
         pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
 
         hInfMarshal := hInf is VarRef ? "ptr" : "ptr"
-        pdwRequiredSizeMarshal := pdwRequiredSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ADVPACK.dll\TranslateInfStringExW", hInfMarshal, hInf, "ptr", pszInfFilename, "ptr", pszTranslateSection, "ptr", pszTranslateKey, "ptr", pszBuffer, "uint", dwBufferSize, pdwRequiredSizeMarshal, pdwRequiredSize, "ptr", pvReserved, "int")
+        result := DllCall("ADVPACK.dll\TranslateInfStringExW", hInfMarshal, hInf, "ptr", pszInfFilename, "ptr", pszTranslateSection, "ptr", pszTranslateKey, "ptr", pszBuffer, "uint", dwBufferSize, "uint*", &pdwRequiredSize := 0, "ptr", pvReserved, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdwRequiredSize
     }
 
     /**
@@ -7414,36 +7406,32 @@ class WindowsProgramming {
     /**
      * 
      * @param {Pointer<WLDP_HOST_INFORMATION>} hostInformation 
-     * @param {Pointer<Integer>} lockdownState 
      * @param {Integer} lockdownFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpgetlockdownpolicy
      */
-    static WldpGetLockdownPolicy(hostInformation, lockdownState, lockdownFlags) {
-        lockdownStateMarshal := lockdownState is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("Wldp.dll\WldpGetLockdownPolicy", "ptr", hostInformation, lockdownStateMarshal, lockdownState, "uint", lockdownFlags, "int")
+    static WldpGetLockdownPolicy(hostInformation, lockdownFlags) {
+        result := DllCall("Wldp.dll\WldpGetLockdownPolicy", "ptr", hostInformation, "uint*", &lockdownState := 0, "uint", lockdownFlags, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return lockdownState
     }
 
     /**
      * 
      * @param {Pointer<Guid>} classID 
      * @param {Pointer<WLDP_HOST_INFORMATION>} hostInformation 
-     * @param {Pointer<BOOL>} isApproved 
      * @param {Integer} optionalFlags 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpisclassinapprovedlist
      */
-    static WldpIsClassInApprovedList(classID, hostInformation, isApproved, optionalFlags) {
-        result := DllCall("Wldp.dll\WldpIsClassInApprovedList", "ptr", classID, "ptr", hostInformation, "ptr", isApproved, "uint", optionalFlags, "int")
+    static WldpIsClassInApprovedList(classID, hostInformation, optionalFlags) {
+        result := DllCall("Wldp.dll\WldpIsClassInApprovedList", "ptr", classID, "ptr", hostInformation, "int*", &isApproved := 0, "uint", optionalFlags, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return isApproved
     }
 
     /**
@@ -7451,20 +7439,18 @@ class WindowsProgramming {
      * @param {Pointer<UNICODE_STRING>} providerName 
      * @param {Pointer<UNICODE_STRING>} keyName 
      * @param {Pointer<UNICODE_STRING>} valueName 
-     * @param {Pointer<Integer>} valueType 
      * @param {Pointer} valueAddress 
      * @param {Pointer<Integer>} valueSize 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    static WldpQuerySecurityPolicy(providerName, keyName, valueName, valueType, valueAddress, valueSize) {
-        valueTypeMarshal := valueType is VarRef ? "int*" : "ptr"
+    static WldpQuerySecurityPolicy(providerName, keyName, valueName, valueAddress, valueSize) {
         valueSizeMarshal := valueSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("Wldp.dll\WldpQuerySecurityPolicy", "ptr", providerName, "ptr", keyName, "ptr", valueName, valueTypeMarshal, valueType, "ptr", valueAddress, valueSizeMarshal, valueSize, "int")
+        result := DllCall("Wldp.dll\WldpQuerySecurityPolicy", "ptr", providerName, "ptr", keyName, "ptr", valueName, "int*", &valueType := 0, "ptr", valueAddress, valueSizeMarshal, valueSize, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return valueType
     }
 
     /**
@@ -7485,16 +7471,15 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<BOOL>} isEnabled 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpisdynamiccodepolicyenabled
      */
-    static WldpIsDynamicCodePolicyEnabled(isEnabled) {
-        result := DllCall("Wldp.dll\WldpIsDynamicCodePolicyEnabled", "ptr", isEnabled, "int")
+    static WldpIsDynamicCodePolicyEnabled() {
+        result := DllCall("Wldp.dll\WldpIsDynamicCodePolicyEnabled", "int*", &isEnabled := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return isEnabled
     }
 
     /**
@@ -7517,50 +7502,41 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<Integer>} lockdownMode 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpquerywindowslockdownmode
      */
-    static WldpQueryWindowsLockdownMode(lockdownMode) {
-        lockdownModeMarshal := lockdownMode is VarRef ? "int*" : "ptr"
-
-        result := DllCall("Wldp.dll\WldpQueryWindowsLockdownMode", lockdownModeMarshal, lockdownMode, "int")
+    static WldpQueryWindowsLockdownMode() {
+        result := DllCall("Wldp.dll\WldpQueryWindowsLockdownMode", "int*", &lockdownMode := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return lockdownMode
     }
 
     /**
      * 
      * @param {Pointer<WLDP_DEVICE_SECURITY_INFORMATION>} information 
      * @param {Integer} informationLength 
-     * @param {Pointer<Integer>} returnLength 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    static WldpQueryDeviceSecurityInformation(information, informationLength, returnLength) {
-        returnLengthMarshal := returnLength is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("Wldp.dll\WldpQueryDeviceSecurityInformation", "ptr", information, "uint", informationLength, returnLengthMarshal, returnLength, "int")
+    static WldpQueryDeviceSecurityInformation(information, informationLength) {
+        result := DllCall("Wldp.dll\WldpQueryDeviceSecurityInformation", "ptr", information, "uint", informationLength, "uint*", &returnLength := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return returnLength
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} LockdownRestriction 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    static WldpQueryWindowsLockdownRestriction(LockdownRestriction) {
-        LockdownRestrictionMarshal := LockdownRestriction is VarRef ? "int*" : "ptr"
-
-        result := DllCall("Wldp.dll\WldpQueryWindowsLockdownRestriction", LockdownRestrictionMarshal, LockdownRestriction, "int")
+    static WldpQueryWindowsLockdownRestriction() {
+        result := DllCall("Wldp.dll\WldpQueryWindowsLockdownRestriction", "int*", &LockdownRestriction := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return LockdownRestriction
     }
 
     /**
@@ -7595,44 +7571,41 @@ class WindowsProgramming {
     /**
      * 
      * @param {Integer} Setting 
-     * @param {Pointer<BOOL>} Enabled 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    static WldpQueryPolicySettingEnabled(Setting, Enabled) {
-        result := DllCall("Wldp.dll\WldpQueryPolicySettingEnabled", "int", Setting, "ptr", Enabled, "int")
+    static WldpQueryPolicySettingEnabled(Setting) {
+        result := DllCall("Wldp.dll\WldpQueryPolicySettingEnabled", "int", Setting, "int*", &Enabled := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return Enabled
     }
 
     /**
      * 
      * @param {PWSTR} SettingString 
-     * @param {Pointer<BOOL>} Enabled 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    static WldpQueryPolicySettingEnabled2(SettingString, Enabled) {
+    static WldpQueryPolicySettingEnabled2(SettingString) {
         SettingString := SettingString is String ? StrPtr(SettingString) : SettingString
 
-        result := DllCall("Wldp.dll\WldpQueryPolicySettingEnabled2", "ptr", SettingString, "ptr", Enabled, "int")
+        result := DllCall("Wldp.dll\WldpQueryPolicySettingEnabled2", "ptr", SettingString, "int*", &Enabled := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return Enabled
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} IsProductionConfiguration 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    static WldpIsWcosProductionConfiguration(IsProductionConfiguration) {
-        result := DllCall("Wldp.dll\WldpIsWcosProductionConfiguration", "ptr", IsProductionConfiguration, "int")
+    static WldpIsWcosProductionConfiguration() {
+        result := DllCall("Wldp.dll\WldpIsWcosProductionConfiguration", "int*", &IsProductionConfiguration := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IsProductionConfiguration
     }
 
     /**
@@ -7649,15 +7622,14 @@ class WindowsProgramming {
 
     /**
      * 
-     * @param {Pointer<BOOL>} IsProductionConfiguration 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    static WldpIsProductionConfiguration(IsProductionConfiguration) {
-        result := DllCall("Wldp.dll\WldpIsProductionConfiguration", "ptr", IsProductionConfiguration, "int")
+    static WldpIsProductionConfiguration() {
+        result := DllCall("Wldp.dll\WldpIsProductionConfiguration", "int*", &IsProductionConfiguration := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return IsProductionConfiguration
     }
 
     /**
@@ -7678,17 +7650,14 @@ class WindowsProgramming {
      * @param {Integer} options 
      * @param {HANDLE} fileHandle 
      * @param {PWSTR} auditInfo 
-     * @param {Pointer<Integer>} result 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpcanexecutefile
      */
-    static WldpCanExecuteFile(host, options, fileHandle, auditInfo, result) {
+    static WldpCanExecuteFile(host, options, fileHandle, auditInfo) {
         fileHandle := fileHandle is Win32Handle ? NumGet(fileHandle, "ptr") : fileHandle
         auditInfo := auditInfo is String ? StrPtr(auditInfo) : auditInfo
 
-        resultMarshal := result is VarRef ? "int*" : "ptr"
-
-        result := DllCall("Wldp.dll\WldpCanExecuteFile", "ptr", host, "int", options, "ptr", fileHandle, "ptr", auditInfo, resultMarshal, result, "int")
+        result := DllCall("Wldp.dll\WldpCanExecuteFile", "ptr", host, "int", options, "ptr", fileHandle, "ptr", auditInfo, "int*", &result := 0, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -7702,17 +7671,15 @@ class WindowsProgramming {
      * @param {Pointer<Integer>} buffer 
      * @param {Integer} bufferSize 
      * @param {PWSTR} auditInfo 
-     * @param {Pointer<Integer>} result 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpcanexecutebuffer
      */
-    static WldpCanExecuteBuffer(host, options, buffer, bufferSize, auditInfo, result) {
+    static WldpCanExecuteBuffer(host, options, buffer, bufferSize, auditInfo) {
         auditInfo := auditInfo is String ? StrPtr(auditInfo) : auditInfo
 
         bufferMarshal := buffer is VarRef ? "char*" : "ptr"
-        resultMarshal := result is VarRef ? "int*" : "ptr"
 
-        result := DllCall("Wldp.dll\WldpCanExecuteBuffer", "ptr", host, "int", options, bufferMarshal, buffer, "uint", bufferSize, "ptr", auditInfo, resultMarshal, result, "int")
+        result := DllCall("Wldp.dll\WldpCanExecuteBuffer", "ptr", host, "int", options, bufferMarshal, buffer, "uint", bufferSize, "ptr", auditInfo, "int*", &result := 0, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -7725,16 +7692,13 @@ class WindowsProgramming {
      * @param {Integer} options 
      * @param {IStream} stream 
      * @param {PWSTR} auditInfo 
-     * @param {Pointer<Integer>} result 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wldp/nf-wldp-wldpcanexecutestream
      */
-    static WldpCanExecuteStream(host, options, stream, auditInfo, result) {
+    static WldpCanExecuteStream(host, options, stream, auditInfo) {
         auditInfo := auditInfo is String ? StrPtr(auditInfo) : auditInfo
 
-        resultMarshal := result is VarRef ? "int*" : "ptr"
-
-        result := DllCall("Wldp.dll\WldpCanExecuteStream", "ptr", host, "int", options, "ptr", stream, "ptr", auditInfo, resultMarshal, result, "int")
+        result := DllCall("Wldp.dll\WldpCanExecuteStream", "ptr", host, "int", options, "ptr", stream, "ptr", auditInfo, "int*", &result := 0, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -7748,17 +7712,14 @@ class WindowsProgramming {
      * @param {HANDLE} contentFileHandle 
      * @param {HANDLE} signatureFileHandle 
      * @param {PWSTR} auditInfo 
-     * @param {Pointer<Integer>} result 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    static WldpCanExecuteFileFromDetachedSignature(host, options, contentFileHandle, signatureFileHandle, auditInfo, result) {
+    static WldpCanExecuteFileFromDetachedSignature(host, options, contentFileHandle, signatureFileHandle, auditInfo) {
         contentFileHandle := contentFileHandle is Win32Handle ? NumGet(contentFileHandle, "ptr") : contentFileHandle
         signatureFileHandle := signatureFileHandle is Win32Handle ? NumGet(signatureFileHandle, "ptr") : signatureFileHandle
         auditInfo := auditInfo is String ? StrPtr(auditInfo) : auditInfo
 
-        resultMarshal := result is VarRef ? "int*" : "ptr"
-
-        result := DllCall("Wldp.dll\WldpCanExecuteFileFromDetachedSignature", "ptr", host, "int", options, "ptr", contentFileHandle, "ptr", signatureFileHandle, "ptr", auditInfo, resultMarshal, result, "int")
+        result := DllCall("Wldp.dll\WldpCanExecuteFileFromDetachedSignature", "ptr", host, "int", options, "ptr", contentFileHandle, "ptr", signatureFileHandle, "ptr", auditInfo, "int*", &result := 0, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -7769,37 +7730,13 @@ class WindowsProgramming {
      * 
      * @param {PWSTR} id 
      * @param {PWSTR} setting 
-     * @param {Pointer<BOOL>} result 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    static WldpGetApplicationSettingBoolean(id, setting, result) {
+    static WldpGetApplicationSettingBoolean(id, setting) {
         id := id is String ? StrPtr(id) : id
         setting := setting is String ? StrPtr(setting) : setting
 
-        result := DllCall("Wldp.dll\WldpGetApplicationSettingBoolean", "ptr", id, "ptr", setting, "ptr", result, "int")
-        if(result != 0)
-            throw OSError(result)
-
-        return result
-    }
-
-    /**
-     * 
-     * @param {PWSTR} id 
-     * @param {PWSTR} setting 
-     * @param {Pointer} dataCount 
-     * @param {Pointer<Pointer>} requiredCount 
-     * @param {PWSTR} result 
-     * @returns {HRESULT} 
-     */
-    static WldpGetApplicationSettingStringList(id, setting, dataCount, requiredCount, result) {
-        id := id is String ? StrPtr(id) : id
-        setting := setting is String ? StrPtr(setting) : setting
-        result := result is String ? StrPtr(result) : result
-
-        requiredCountMarshal := requiredCount is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("Wldp.dll\WldpGetApplicationSettingStringList", "ptr", id, "ptr", setting, "ptr", dataCount, requiredCountMarshal, requiredCount, "ptr", result, "int")
+        result := DllCall("Wldp.dll\WldpGetApplicationSettingBoolean", "ptr", id, "ptr", setting, "int*", &result := 0, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -7811,22 +7748,39 @@ class WindowsProgramming {
      * @param {PWSTR} id 
      * @param {PWSTR} setting 
      * @param {Pointer} dataCount 
-     * @param {Pointer<Pointer>} requiredCount 
      * @param {PWSTR} result 
-     * @returns {HRESULT} 
+     * @returns {Pointer} 
      */
-    static WldpGetApplicationSettingStringSet(id, setting, dataCount, requiredCount, result) {
+    static WldpGetApplicationSettingStringList(id, setting, dataCount, result) {
         id := id is String ? StrPtr(id) : id
         setting := setting is String ? StrPtr(setting) : setting
         result := result is String ? StrPtr(result) : result
 
-        requiredCountMarshal := requiredCount is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("Wldp.dll\WldpGetApplicationSettingStringSet", "ptr", id, "ptr", setting, "ptr", dataCount, requiredCountMarshal, requiredCount, "ptr", result, "int")
+        result := DllCall("Wldp.dll\WldpGetApplicationSettingStringList", "ptr", id, "ptr", setting, "ptr", dataCount, "ptr*", &requiredCount := 0, "ptr", result, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return requiredCount
+    }
+
+    /**
+     * 
+     * @param {PWSTR} id 
+     * @param {PWSTR} setting 
+     * @param {Pointer} dataCount 
+     * @param {PWSTR} result 
+     * @returns {Pointer} 
+     */
+    static WldpGetApplicationSettingStringSet(id, setting, dataCount, result) {
+        id := id is String ? StrPtr(id) : id
+        setting := setting is String ? StrPtr(setting) : setting
+        result := result is String ? StrPtr(result) : result
+
+        result := DllCall("Wldp.dll\WldpGetApplicationSettingStringSet", "ptr", id, "ptr", setting, "ptr", dataCount, "ptr*", &requiredCount := 0, "ptr", result, "int")
+        if(result != 0)
+            throw OSError(result)
+
+        return requiredCount
     }
 
 ;@endregion Methods

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IWdsTransportServicePolicy.ahk
+#Include .\IWdsTransportDiagnosticsPolicy.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -38,36 +40,33 @@ class IWdsTransportConfigurationManager extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IWdsTransportServicePolicy>} ppWdsTransportServicePolicy 
-     * @returns {HRESULT} 
+     * @returns {IWdsTransportServicePolicy} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportconfigurationmanager-get_servicepolicy
      */
-    get_ServicePolicy(ppWdsTransportServicePolicy) {
-        result := ComCall(7, this, "ptr*", ppWdsTransportServicePolicy, "HRESULT")
-        return result
+    get_ServicePolicy() {
+        result := ComCall(7, this, "ptr*", &ppWdsTransportServicePolicy := 0, "HRESULT")
+        return IWdsTransportServicePolicy(ppWdsTransportServicePolicy)
     }
 
     /**
      * 
-     * @param {Pointer<IWdsTransportDiagnosticsPolicy>} ppWdsTransportDiagnosticsPolicy 
-     * @returns {HRESULT} 
+     * @returns {IWdsTransportDiagnosticsPolicy} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportconfigurationmanager-get_diagnosticspolicy
      */
-    get_DiagnosticsPolicy(ppWdsTransportDiagnosticsPolicy) {
-        result := ComCall(8, this, "ptr*", ppWdsTransportDiagnosticsPolicy, "HRESULT")
-        return result
+    get_DiagnosticsPolicy() {
+        result := ComCall(8, this, "ptr*", &ppWdsTransportDiagnosticsPolicy := 0, "HRESULT")
+        return IWdsTransportDiagnosticsPolicy(ppWdsTransportDiagnosticsPolicy)
     }
 
     /**
      * 
      * @param {VARIANT_BOOL} bRealtimeStatus 
-     * @param {Pointer<VARIANT_BOOL>} pbServicesRunning 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportconfigurationmanager-get_wdstransportservicesrunning
      */
-    get_WdsTransportServicesRunning(bRealtimeStatus, pbServicesRunning) {
-        result := ComCall(9, this, "short", bRealtimeStatus, "ptr", pbServicesRunning, "HRESULT")
-        return result
+    get_WdsTransportServicesRunning(bRealtimeStatus) {
+        result := ComCall(9, this, "short", bRealtimeStatus, "short*", &pbServicesRunning := 0, "HRESULT")
+        return pbServicesRunning
     }
 
     /**

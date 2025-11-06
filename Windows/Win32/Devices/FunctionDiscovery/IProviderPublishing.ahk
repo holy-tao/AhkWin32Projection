@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IFunctionInstance.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -41,16 +42,15 @@ class IProviderPublishing extends IUnknown{
      * @param {Integer} enumVisibilityFlags 
      * @param {PWSTR} pszSubCategory 
      * @param {PWSTR} pszProviderInstanceIdentity 
-     * @param {Pointer<IFunctionInstance>} ppIFunctionInstance 
-     * @returns {HRESULT} 
+     * @returns {IFunctionInstance} 
      * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderpublishing-createinstance
      */
-    CreateInstance(enumVisibilityFlags, pszSubCategory, pszProviderInstanceIdentity, ppIFunctionInstance) {
+    CreateInstance(enumVisibilityFlags, pszSubCategory, pszProviderInstanceIdentity) {
         pszSubCategory := pszSubCategory is String ? StrPtr(pszSubCategory) : pszSubCategory
         pszProviderInstanceIdentity := pszProviderInstanceIdentity is String ? StrPtr(pszProviderInstanceIdentity) : pszProviderInstanceIdentity
 
-        result := ComCall(3, this, "int", enumVisibilityFlags, "ptr", pszSubCategory, "ptr", pszProviderInstanceIdentity, "ptr*", ppIFunctionInstance, "HRESULT")
-        return result
+        result := ComCall(3, this, "int", enumVisibilityFlags, "ptr", pszSubCategory, "ptr", pszProviderInstanceIdentity, "ptr*", &ppIFunctionInstance := 0, "HRESULT")
+        return IFunctionInstance(ppIFunctionInstance)
     }
 
     /**

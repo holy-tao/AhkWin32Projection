@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Graphics\Gdi\HBITMAP.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -59,12 +60,12 @@ class IShellItemImageFactory extends IUnknown{
      * 
      * @param {SIZE} size 
      * @param {Integer} flags 
-     * @param {Pointer<HBITMAP>} phbm 
-     * @returns {HRESULT} 
+     * @returns {HBITMAP} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellitemimagefactory-getimage
      */
-    GetImage(size, flags, phbm) {
+    GetImage(size, flags) {
+        phbm := HBITMAP()
         result := ComCall(3, this, "ptr", size, "int", flags, "ptr", phbm, "HRESULT")
-        return result
+        return phbm
     }
 }

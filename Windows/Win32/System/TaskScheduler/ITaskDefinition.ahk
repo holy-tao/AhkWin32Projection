@@ -2,6 +2,11 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IRegistrationInfo.ahk
+#Include .\ITriggerCollection.ahk
+#Include .\ITaskSettings.ahk
+#Include .\IPrincipal.ahk
+#Include .\IActionCollection.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -39,13 +44,12 @@ class ITaskDefinition extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IRegistrationInfo>} ppRegistrationInfo 
-     * @returns {HRESULT} 
+     * @returns {IRegistrationInfo} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskdefinition-get_registrationinfo
      */
-    get_RegistrationInfo(ppRegistrationInfo) {
-        result := ComCall(7, this, "ptr*", ppRegistrationInfo, "HRESULT")
-        return result
+    get_RegistrationInfo() {
+        result := ComCall(7, this, "ptr*", &ppRegistrationInfo := 0, "HRESULT")
+        return IRegistrationInfo(ppRegistrationInfo)
     }
 
     /**
@@ -61,13 +65,12 @@ class ITaskDefinition extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ITriggerCollection>} ppTriggers 
-     * @returns {HRESULT} 
+     * @returns {ITriggerCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskdefinition-get_triggers
      */
-    get_Triggers(ppTriggers) {
-        result := ComCall(9, this, "ptr*", ppTriggers, "HRESULT")
-        return result
+    get_Triggers() {
+        result := ComCall(9, this, "ptr*", &ppTriggers := 0, "HRESULT")
+        return ITriggerCollection(ppTriggers)
     }
 
     /**
@@ -83,13 +86,12 @@ class ITaskDefinition extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<ITaskSettings>} ppSettings 
-     * @returns {HRESULT} 
+     * @returns {ITaskSettings} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskdefinition-get_settings
      */
-    get_Settings(ppSettings) {
-        result := ComCall(11, this, "ptr*", ppSettings, "HRESULT")
-        return result
+    get_Settings() {
+        result := ComCall(11, this, "ptr*", &ppSettings := 0, "HRESULT")
+        return ITaskSettings(ppSettings)
     }
 
     /**
@@ -129,13 +131,12 @@ class ITaskDefinition extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IPrincipal>} ppPrincipal 
-     * @returns {HRESULT} 
+     * @returns {IPrincipal} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskdefinition-get_principal
      */
-    get_Principal(ppPrincipal) {
-        result := ComCall(15, this, "ptr*", ppPrincipal, "HRESULT")
-        return result
+    get_Principal() {
+        result := ComCall(15, this, "ptr*", &ppPrincipal := 0, "HRESULT")
+        return IPrincipal(ppPrincipal)
     }
 
     /**
@@ -151,13 +152,12 @@ class ITaskDefinition extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IActionCollection>} ppActions 
-     * @returns {HRESULT} 
+     * @returns {IActionCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskdefinition-get_actions
      */
-    get_Actions(ppActions) {
-        result := ComCall(17, this, "ptr*", ppActions, "HRESULT")
-        return result
+    get_Actions() {
+        result := ComCall(17, this, "ptr*", &ppActions := 0, "HRESULT")
+        return IActionCollection(ppActions)
     }
 
     /**

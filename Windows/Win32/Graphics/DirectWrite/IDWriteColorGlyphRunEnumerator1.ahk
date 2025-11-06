@@ -32,14 +32,11 @@ class IDWriteColorGlyphRunEnumerator1 extends IDWriteColorGlyphRunEnumerator{
 
     /**
      * 
-     * @param {Pointer<Pointer<DWRITE_COLOR_GLYPH_RUN1>>} colorGlyphRun 
-     * @returns {HRESULT} 
+     * @returns {Pointer<DWRITE_COLOR_GLYPH_RUN1>} 
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritecolorglyphrunenumerator1-getcurrentrun
      */
-    GetCurrentRun(colorGlyphRun) {
-        colorGlyphRunMarshal := colorGlyphRun is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, colorGlyphRunMarshal, colorGlyphRun, "HRESULT")
-        return result
+    GetCurrentRun() {
+        result := ComCall(5, this, "ptr*", &colorGlyphRun := 0, "HRESULT")
+        return colorGlyphRun
     }
 }

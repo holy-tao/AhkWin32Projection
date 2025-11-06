@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IHTMLDOMNode.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -41,32 +43,32 @@ class IHTMLDOMNode3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_prefix(p) {
+    get_prefix() {
+        p := VARIANT()
         result := ComCall(8, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_localName(p) {
+    get_localName() {
+        p := VARIANT()
         result := ComCall(9, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_namespaceURI(p) {
+    get_namespaceURI() {
+        p := VARIANT()
         result := ComCall(10, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
@@ -81,139 +83,128 @@ class IHTMLDOMNode3 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} p 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_textContent(p) {
+    get_textContent() {
+        p := VARIANT()
         result := ComCall(12, this, "ptr", p, "HRESULT")
-        return result
+        return p
     }
 
     /**
      * 
      * @param {IHTMLDOMNode3} otherNode 
-     * @param {Pointer<VARIANT_BOOL>} isEqual 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    isEqualNode(otherNode, isEqual) {
-        result := ComCall(13, this, "ptr", otherNode, "ptr", isEqual, "HRESULT")
-        return result
+    isEqualNode(otherNode) {
+        result := ComCall(13, this, "ptr", otherNode, "short*", &isEqual := 0, "HRESULT")
+        return isEqual
     }
 
     /**
      * 
      * @param {Pointer<VARIANT>} pvarPrefix 
-     * @param {Pointer<VARIANT>} pvarNamespaceURI 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    lookupNamespaceURI(pvarPrefix, pvarNamespaceURI) {
+    lookupNamespaceURI(pvarPrefix) {
+        pvarNamespaceURI := VARIANT()
         result := ComCall(14, this, "ptr", pvarPrefix, "ptr", pvarNamespaceURI, "HRESULT")
-        return result
+        return pvarNamespaceURI
     }
 
     /**
      * 
      * @param {Pointer<VARIANT>} pvarNamespaceURI 
-     * @param {Pointer<VARIANT>} pvarPrefix 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    lookupPrefix(pvarNamespaceURI, pvarPrefix) {
+    lookupPrefix(pvarNamespaceURI) {
+        pvarPrefix := VARIANT()
         result := ComCall(15, this, "ptr", pvarNamespaceURI, "ptr", pvarPrefix, "HRESULT")
-        return result
+        return pvarPrefix
     }
 
     /**
      * 
      * @param {Pointer<VARIANT>} pvarNamespace 
-     * @param {Pointer<VARIANT_BOOL>} pfDefaultNamespace 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    isDefaultNamespace(pvarNamespace, pfDefaultNamespace) {
-        result := ComCall(16, this, "ptr", pvarNamespace, "ptr", pfDefaultNamespace, "HRESULT")
-        return result
+    isDefaultNamespace(pvarNamespace) {
+        result := ComCall(16, this, "ptr", pvarNamespace, "short*", &pfDefaultNamespace := 0, "HRESULT")
+        return pfDefaultNamespace
     }
 
     /**
      * 
      * @param {IHTMLDOMNode} newChild 
-     * @param {Pointer<IHTMLDOMNode>} node 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMNode} 
      */
-    appendChild(newChild, node) {
-        result := ComCall(17, this, "ptr", newChild, "ptr*", node, "HRESULT")
-        return result
+    appendChild(newChild) {
+        result := ComCall(17, this, "ptr", newChild, "ptr*", &node := 0, "HRESULT")
+        return IHTMLDOMNode(node)
     }
 
     /**
      * 
      * @param {IHTMLDOMNode} newChild 
      * @param {VARIANT} refChild 
-     * @param {Pointer<IHTMLDOMNode>} node 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMNode} 
      */
-    insertBefore(newChild, refChild, node) {
-        result := ComCall(18, this, "ptr", newChild, "ptr", refChild, "ptr*", node, "HRESULT")
-        return result
+    insertBefore(newChild, refChild) {
+        result := ComCall(18, this, "ptr", newChild, "ptr", refChild, "ptr*", &node := 0, "HRESULT")
+        return IHTMLDOMNode(node)
     }
 
     /**
      * 
      * @param {IHTMLDOMNode} oldChild 
-     * @param {Pointer<IHTMLDOMNode>} node 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMNode} 
      */
-    removeChild(oldChild, node) {
-        result := ComCall(19, this, "ptr", oldChild, "ptr*", node, "HRESULT")
-        return result
+    removeChild(oldChild) {
+        result := ComCall(19, this, "ptr", oldChild, "ptr*", &node := 0, "HRESULT")
+        return IHTMLDOMNode(node)
     }
 
     /**
      * 
      * @param {IHTMLDOMNode} newChild 
      * @param {IHTMLDOMNode} oldChild 
-     * @param {Pointer<IHTMLDOMNode>} node 
-     * @returns {HRESULT} 
+     * @returns {IHTMLDOMNode} 
      */
-    replaceChild(newChild, oldChild, node) {
-        result := ComCall(20, this, "ptr", newChild, "ptr", oldChild, "ptr*", node, "HRESULT")
-        return result
+    replaceChild(newChild, oldChild) {
+        result := ComCall(20, this, "ptr", newChild, "ptr", oldChild, "ptr*", &node := 0, "HRESULT")
+        return IHTMLDOMNode(node)
     }
 
     /**
      * 
      * @param {IHTMLDOMNode3} otherNode 
-     * @param {Pointer<VARIANT_BOOL>} isSame 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    isSameNode(otherNode, isSame) {
-        result := ComCall(21, this, "ptr", otherNode, "ptr", isSame, "HRESULT")
-        return result
+    isSameNode(otherNode) {
+        result := ComCall(21, this, "ptr", otherNode, "short*", &isSame := 0, "HRESULT")
+        return isSame
     }
 
     /**
      * 
      * @param {IHTMLDOMNode} otherNode 
-     * @param {Pointer<Integer>} flags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    compareDocumentPosition(otherNode, flags) {
-        flagsMarshal := flags is VarRef ? "ushort*" : "ptr"
-
-        result := ComCall(22, this, "ptr", otherNode, flagsMarshal, flags, "HRESULT")
-        return result
+    compareDocumentPosition(otherNode) {
+        result := ComCall(22, this, "ptr", otherNode, "ushort*", &flags := 0, "HRESULT")
+        return flags
     }
 
     /**
      * 
      * @param {BSTR} feature 
      * @param {VARIANT} version 
-     * @param {Pointer<VARIANT_BOOL>} pfisSupported 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    isSupported(feature, version, pfisSupported) {
+    isSupported(feature, version) {
         feature := feature is String ? BSTR.Alloc(feature).Value : feature
 
-        result := ComCall(23, this, "ptr", feature, "ptr", version, "ptr", pfisSupported, "HRESULT")
-        return result
+        result := ComCall(23, this, "ptr", feature, "ptr", version, "short*", &pfisSupported := 0, "HRESULT")
+        return pfisSupported
     }
 }

@@ -2,6 +2,15 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\Foundation\HWND.ahk
+#Include .\IMSVidInputDevices.ahk
+#Include .\IMSVidOutputDevices.ahk
+#Include .\IMSVidVideoRendererDevices.ahk
+#Include .\IMSVidAudioRendererDevices.ahk
+#Include .\IMSVidFeatures.ahk
+#Include .\IMSVidInputDevice.ahk
+#Include .\IMSVidVideoRenderer.ahk
+#Include .\IMSVidAudioRenderer.ahk
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
@@ -44,13 +53,12 @@ class IMSVidCtl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbool 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-get_autosize
      */
-    get_AutoSize(pbool) {
-        result := ComCall(7, this, "ptr", pbool, "HRESULT")
-        return result
+    get_AutoSize() {
+        result := ComCall(7, this, "short*", &pbool := 0, "HRESULT")
+        return pbool
     }
 
     /**
@@ -66,15 +74,12 @@ class IMSVidCtl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} backcolor 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-get_backcolor
      */
-    get_BackColor(backcolor) {
-        backcolorMarshal := backcolor is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, backcolorMarshal, backcolor, "HRESULT")
-        return result
+    get_BackColor() {
+        result := ComCall(9, this, "uint*", &backcolor := 0, "HRESULT")
+        return backcolor
     }
 
     /**
@@ -90,13 +95,12 @@ class IMSVidCtl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbool 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-get_enabled
      */
-    get_Enabled(pbool) {
-        result := ComCall(11, this, "ptr", pbool, "HRESULT")
-        return result
+    get_Enabled() {
+        result := ComCall(11, this, "short*", &pbool := 0, "HRESULT")
+        return pbool
     }
 
     /**
@@ -112,13 +116,12 @@ class IMSVidCtl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbool 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-get_tabstop
      */
-    get_TabStop(pbool) {
-        result := ComCall(13, this, "ptr", pbool, "HRESULT")
-        return result
+    get_TabStop() {
+        result := ComCall(13, this, "short*", &pbool := 0, "HRESULT")
+        return pbool
     }
 
     /**
@@ -134,13 +137,13 @@ class IMSVidCtl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<HWND>} phwnd 
-     * @returns {HRESULT} 
+     * @returns {HWND} 
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-get_window
      */
-    get_Window(phwnd) {
+    get_Window() {
+        phwnd := HWND()
         result := ComCall(15, this, "ptr", phwnd, "HRESULT")
-        return result
+        return phwnd
     }
 
     /**
@@ -155,15 +158,12 @@ class IMSVidCtl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} CurrentValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-get_displaysize
      */
-    get_DisplaySize(CurrentValue) {
-        CurrentValueMarshal := CurrentValue is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, CurrentValueMarshal, CurrentValue, "HRESULT")
-        return result
+    get_DisplaySize() {
+        result := ComCall(17, this, "int*", &CurrentValue := 0, "HRESULT")
+        return CurrentValue
     }
 
     /**
@@ -179,13 +179,12 @@ class IMSVidCtl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} CurrentValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-get_maintainaspectratio
      */
-    get_MaintainAspectRatio(CurrentValue) {
-        result := ComCall(19, this, "ptr", CurrentValue, "HRESULT")
-        return result
+    get_MaintainAspectRatio() {
+        result := ComCall(19, this, "short*", &CurrentValue := 0, "HRESULT")
+        return CurrentValue
     }
 
     /**
@@ -201,15 +200,12 @@ class IMSVidCtl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} CurrentValue 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-get_colorkey
      */
-    get_ColorKey(CurrentValue) {
-        CurrentValueMarshal := CurrentValue is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(21, this, CurrentValueMarshal, CurrentValue, "HRESULT")
-        return result
+    get_ColorKey() {
+        result := ComCall(21, this, "uint*", &CurrentValue := 0, "HRESULT")
+        return CurrentValue
     }
 
     /**
@@ -226,97 +222,89 @@ class IMSVidCtl extends IDispatch{
     /**
      * 
      * @param {BSTR} CategoryGuid 
-     * @param {Pointer<IMSVidInputDevices>} pVal 
-     * @returns {HRESULT} 
+     * @returns {IMSVidInputDevices} 
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-get_inputsavailable
      */
-    get_InputsAvailable(CategoryGuid, pVal) {
+    get_InputsAvailable(CategoryGuid) {
         CategoryGuid := CategoryGuid is String ? BSTR.Alloc(CategoryGuid).Value : CategoryGuid
 
-        result := ComCall(23, this, "ptr", CategoryGuid, "ptr*", pVal, "HRESULT")
-        return result
+        result := ComCall(23, this, "ptr", CategoryGuid, "ptr*", &pVal := 0, "HRESULT")
+        return IMSVidInputDevices(pVal)
     }
 
     /**
      * 
      * @param {BSTR} CategoryGuid 
-     * @param {Pointer<IMSVidOutputDevices>} pVal 
-     * @returns {HRESULT} 
+     * @returns {IMSVidOutputDevices} 
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-get_outputsavailable
      */
-    get_OutputsAvailable(CategoryGuid, pVal) {
+    get_OutputsAvailable(CategoryGuid) {
         CategoryGuid := CategoryGuid is String ? BSTR.Alloc(CategoryGuid).Value : CategoryGuid
 
-        result := ComCall(24, this, "ptr", CategoryGuid, "ptr*", pVal, "HRESULT")
-        return result
+        result := ComCall(24, this, "ptr", CategoryGuid, "ptr*", &pVal := 0, "HRESULT")
+        return IMSVidOutputDevices(pVal)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} CategoryGuid 
-     * @param {Pointer<IMSVidInputDevices>} pVal 
-     * @returns {HRESULT} 
+     * @returns {IMSVidInputDevices} 
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-get__inputsavailable
      */
-    get__InputsAvailable(CategoryGuid, pVal) {
-        result := ComCall(25, this, "ptr", CategoryGuid, "ptr*", pVal, "HRESULT")
-        return result
+    get__InputsAvailable(CategoryGuid) {
+        result := ComCall(25, this, "ptr", CategoryGuid, "ptr*", &pVal := 0, "HRESULT")
+        return IMSVidInputDevices(pVal)
     }
 
     /**
      * 
      * @param {Pointer<Guid>} CategoryGuid 
-     * @param {Pointer<IMSVidOutputDevices>} pVal 
-     * @returns {HRESULT} 
+     * @returns {IMSVidOutputDevices} 
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-get__outputsavailable
      */
-    get__OutputsAvailable(CategoryGuid, pVal) {
-        result := ComCall(26, this, "ptr", CategoryGuid, "ptr*", pVal, "HRESULT")
-        return result
+    get__OutputsAvailable(CategoryGuid) {
+        result := ComCall(26, this, "ptr", CategoryGuid, "ptr*", &pVal := 0, "HRESULT")
+        return IMSVidOutputDevices(pVal)
     }
 
     /**
      * 
-     * @param {Pointer<IMSVidVideoRendererDevices>} pVal 
-     * @returns {HRESULT} 
+     * @returns {IMSVidVideoRendererDevices} 
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-get_videorenderersavailable
      */
-    get_VideoRenderersAvailable(pVal) {
-        result := ComCall(27, this, "ptr*", pVal, "HRESULT")
-        return result
+    get_VideoRenderersAvailable() {
+        result := ComCall(27, this, "ptr*", &pVal := 0, "HRESULT")
+        return IMSVidVideoRendererDevices(pVal)
     }
 
     /**
      * 
-     * @param {Pointer<IMSVidAudioRendererDevices>} pVal 
-     * @returns {HRESULT} 
+     * @returns {IMSVidAudioRendererDevices} 
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-get_audiorenderersavailable
      */
-    get_AudioRenderersAvailable(pVal) {
-        result := ComCall(28, this, "ptr*", pVal, "HRESULT")
-        return result
+    get_AudioRenderersAvailable() {
+        result := ComCall(28, this, "ptr*", &pVal := 0, "HRESULT")
+        return IMSVidAudioRendererDevices(pVal)
     }
 
     /**
      * 
-     * @param {Pointer<IMSVidFeatures>} pVal 
-     * @returns {HRESULT} 
+     * @returns {IMSVidFeatures} 
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-get_featuresavailable
      */
-    get_FeaturesAvailable(pVal) {
-        result := ComCall(29, this, "ptr*", pVal, "HRESULT")
-        return result
+    get_FeaturesAvailable() {
+        result := ComCall(29, this, "ptr*", &pVal := 0, "HRESULT")
+        return IMSVidFeatures(pVal)
     }
 
     /**
      * 
-     * @param {Pointer<IMSVidInputDevice>} pVal 
-     * @returns {HRESULT} 
+     * @returns {IMSVidInputDevice} 
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-get_inputactive
      */
-    get_InputActive(pVal) {
-        result := ComCall(30, this, "ptr*", pVal, "HRESULT")
-        return result
+    get_InputActive() {
+        result := ComCall(30, this, "ptr*", &pVal := 0, "HRESULT")
+        return IMSVidInputDevice(pVal)
     }
 
     /**
@@ -332,13 +320,12 @@ class IMSVidCtl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IMSVidOutputDevices>} pVal 
-     * @returns {HRESULT} 
+     * @returns {IMSVidOutputDevices} 
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-get_outputsactive
      */
-    get_OutputsActive(pVal) {
-        result := ComCall(32, this, "ptr*", pVal, "HRESULT")
-        return result
+    get_OutputsActive() {
+        result := ComCall(32, this, "ptr*", &pVal := 0, "HRESULT")
+        return IMSVidOutputDevices(pVal)
     }
 
     /**
@@ -354,13 +341,12 @@ class IMSVidCtl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IMSVidVideoRenderer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {IMSVidVideoRenderer} 
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-get_videorendereractive
      */
-    get_VideoRendererActive(pVal) {
-        result := ComCall(34, this, "ptr*", pVal, "HRESULT")
-        return result
+    get_VideoRendererActive() {
+        result := ComCall(34, this, "ptr*", &pVal := 0, "HRESULT")
+        return IMSVidVideoRenderer(pVal)
     }
 
     /**
@@ -376,13 +362,12 @@ class IMSVidCtl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IMSVidAudioRenderer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {IMSVidAudioRenderer} 
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-get_audiorendereractive
      */
-    get_AudioRendererActive(pVal) {
-        result := ComCall(36, this, "ptr*", pVal, "HRESULT")
-        return result
+    get_AudioRendererActive() {
+        result := ComCall(36, this, "ptr*", &pVal := 0, "HRESULT")
+        return IMSVidAudioRenderer(pVal)
     }
 
     /**
@@ -398,13 +383,12 @@ class IMSVidCtl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IMSVidFeatures>} pVal 
-     * @returns {HRESULT} 
+     * @returns {IMSVidFeatures} 
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-get_featuresactive
      */
-    get_FeaturesActive(pVal) {
-        result := ComCall(38, this, "ptr*", pVal, "HRESULT")
-        return result
+    get_FeaturesActive() {
+        result := ComCall(38, this, "ptr*", &pVal := 0, "HRESULT")
+        return IMSVidFeatures(pVal)
     }
 
     /**
@@ -420,15 +404,12 @@ class IMSVidCtl extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} lState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/msvidctl/nf-msvidctl-imsvidctl-get_state
      */
-    get_State(lState) {
-        lStateMarshal := lState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(40, this, lStateMarshal, lState, "HRESULT")
-        return result
+    get_State() {
+        result := ComCall(40, this, "int*", &lState := 0, "HRESULT")
+        return lState
     }
 
     /**

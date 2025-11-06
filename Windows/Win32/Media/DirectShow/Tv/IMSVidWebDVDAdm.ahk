@@ -85,51 +85,41 @@ class IMSVidWebDVDAdm extends IDispatch{
      * 
      * @param {BSTR} strUserName 
      * @param {BSTR} strPassword 
-     * @param {Pointer<VARIANT_BOOL>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    ConfirmPassword(strUserName, strPassword, pVal) {
+    ConfirmPassword(strUserName, strPassword) {
         strUserName := strUserName is String ? BSTR.Alloc(strUserName).Value : strUserName
         strPassword := strPassword is String ? BSTR.Alloc(strPassword).Value : strPassword
 
-        result := ComCall(10, this, "ptr", strUserName, "ptr", strPassword, "ptr", pVal, "HRESULT")
-        return result
+        result := ComCall(10, this, "ptr", strUserName, "ptr", strPassword, "short*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} lLevel 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetParentalLevel(lLevel) {
-        lLevelMarshal := lLevel is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, lLevelMarshal, lLevel, "HRESULT")
-        return result
+    GetParentalLevel() {
+        result := ComCall(11, this, "int*", &lLevel := 0, "HRESULT")
+        return lLevel
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} lCountry 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetParentalCountry(lCountry) {
-        lCountryMarshal := lCountry is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, lCountryMarshal, lCountry, "HRESULT")
-        return result
+    GetParentalCountry() {
+        result := ComCall(12, this, "int*", &lCountry := 0, "HRESULT")
+        return lCountry
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_DefaultAudioLCID(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_DefaultAudioLCID() {
+        result := ComCall(13, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -144,14 +134,11 @@ class IMSVidWebDVDAdm extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_DefaultSubpictureLCID(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_DefaultSubpictureLCID() {
+        result := ComCall(15, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -166,14 +153,11 @@ class IMSVidWebDVDAdm extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_DefaultMenuLCID(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_DefaultMenuLCID() {
+        result := ComCall(17, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -188,12 +172,11 @@ class IMSVidWebDVDAdm extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pVal 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_BookmarkOnStop(pVal) {
-        result := ComCall(19, this, "ptr", pVal, "HRESULT")
-        return result
+    get_BookmarkOnStop() {
+        result := ComCall(19, this, "short*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**

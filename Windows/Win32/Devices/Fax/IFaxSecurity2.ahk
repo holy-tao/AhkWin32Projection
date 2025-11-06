@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -46,13 +47,13 @@ class IFaxSecurity2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvDescriptor 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsecurity2-get_descriptor
      */
-    get_Descriptor(pvDescriptor) {
+    get_Descriptor() {
+        pvDescriptor := VARIANT()
         result := ComCall(7, this, "ptr", pvDescriptor, "HRESULT")
-        return result
+        return pvDescriptor
     }
 
     /**
@@ -68,15 +69,12 @@ class IFaxSecurity2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pGrantedRights 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsecurity2-get_grantedrights
      */
-    get_GrantedRights(pGrantedRights) {
-        pGrantedRightsMarshal := pGrantedRights is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pGrantedRightsMarshal, pGrantedRights, "HRESULT")
-        return result
+    get_GrantedRights() {
+        result := ComCall(9, this, "int*", &pGrantedRights := 0, "HRESULT")
+        return pGrantedRights
     }
 
     /**
@@ -101,15 +99,12 @@ class IFaxSecurity2 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} plInformationType 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxsecurity2-get_informationtype
      */
-    get_InformationType(plInformationType) {
-        plInformationTypeMarshal := plInformationType is VarRef ? "int*" : "ptr"
-
-        result := ComCall(12, this, plInformationTypeMarshal, plInformationType, "HRESULT")
-        return result
+    get_InformationType() {
+        result := ComCall(12, this, "int*", &plInformationType := 0, "HRESULT")
+        return plInformationType
     }
 
     /**

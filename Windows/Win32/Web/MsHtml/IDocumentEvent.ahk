@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IDOMEvent.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -32,13 +33,12 @@ class IDocumentEvent extends IDispatch{
     /**
      * 
      * @param {BSTR} eventType 
-     * @param {Pointer<IDOMEvent>} ppEvent 
-     * @returns {HRESULT} 
+     * @returns {IDOMEvent} 
      */
-    createEvent(eventType, ppEvent) {
+    createEvent(eventType) {
         eventType := eventType is String ? BSTR.Alloc(eventType).Value : eventType
 
-        result := ComCall(7, this, "ptr", eventType, "ptr*", ppEvent, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", eventType, "ptr*", &ppEvent := 0, "HRESULT")
+        return IDOMEvent(ppEvent)
     }
 }

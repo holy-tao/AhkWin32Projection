@@ -30,11 +30,11 @@ class IMFSecureBuffer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Guid>} pGuidIdentifier 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    GetIdentifier(pGuidIdentifier) {
+    GetIdentifier() {
+        pGuidIdentifier := Guid()
         result := ComCall(3, this, "ptr", pGuidIdentifier, "HRESULT")
-        return result
+        return pGuidIdentifier
     }
 }

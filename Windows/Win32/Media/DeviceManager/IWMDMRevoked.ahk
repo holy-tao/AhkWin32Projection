@@ -34,15 +34,14 @@ class IWMDMRevoked extends IUnknown{
      * 
      * @param {Pointer<PWSTR>} ppwszRevocationURL 
      * @param {Pointer<Integer>} pdwBufferLen 
-     * @param {Pointer<Integer>} pdwRevokedBitFlag 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmrevoked-getrevocationurl
      */
-    GetRevocationURL(ppwszRevocationURL, pdwBufferLen, pdwRevokedBitFlag) {
+    GetRevocationURL(ppwszRevocationURL, pdwBufferLen) {
+        ppwszRevocationURLMarshal := ppwszRevocationURL is VarRef ? "ptr*" : "ptr"
         pdwBufferLenMarshal := pdwBufferLen is VarRef ? "uint*" : "ptr"
-        pdwRevokedBitFlagMarshal := pdwRevokedBitFlag is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", ppwszRevocationURL, pdwBufferLenMarshal, pdwBufferLen, pdwRevokedBitFlagMarshal, pdwRevokedBitFlag, "HRESULT")
-        return result
+        result := ComCall(3, this, ppwszRevocationURLMarshal, ppwszRevocationURL, pdwBufferLenMarshal, pdwBufferLen, "uint*", &pdwRevokedBitFlag := 0, "HRESULT")
+        return pdwRevokedBitFlag
     }
 }

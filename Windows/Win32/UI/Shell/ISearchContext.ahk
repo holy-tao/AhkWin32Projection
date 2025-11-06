@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,36 +33,33 @@ class ISearchContext extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrSearchUrl 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-isearchcontext-getsearchurl
      */
-    GetSearchUrl(pbstrSearchUrl) {
+    GetSearchUrl() {
+        pbstrSearchUrl := BSTR()
         result := ComCall(3, this, "ptr", pbstrSearchUrl, "HRESULT")
-        return result
+        return pbstrSearchUrl
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrSearchText 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-isearchcontext-getsearchtext
      */
-    GetSearchText(pbstrSearchText) {
+    GetSearchText() {
+        pbstrSearchText := BSTR()
         result := ComCall(4, this, "ptr", pbstrSearchText, "HRESULT")
-        return result
+        return pbstrSearchText
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwSearchStyle 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-isearchcontext-getsearchstyle
      */
-    GetSearchStyle(pdwSearchStyle) {
-        pdwSearchStyleMarshal := pdwSearchStyle is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pdwSearchStyleMarshal, pdwSearchStyle, "HRESULT")
-        return result
+    GetSearchStyle() {
+        result := ComCall(5, this, "uint*", &pdwSearchStyle := 0, "HRESULT")
+        return pdwSearchStyle
     }
 }

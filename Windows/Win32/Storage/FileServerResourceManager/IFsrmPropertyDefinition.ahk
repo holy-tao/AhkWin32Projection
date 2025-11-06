@@ -51,13 +51,13 @@ class IFsrmPropertyDefinition extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<BSTR>} name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition-get_name
      */
-    get_Name(name) {
+    get_Name() {
+        name := BSTR()
         result := ComCall(12, this, "ptr", name, "HRESULT")
-        return result
+        return name
     }
 
     /**
@@ -75,15 +75,12 @@ class IFsrmPropertyDefinition extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<Integer>} type 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition-get_type
      */
-    get_Type(type) {
-        typeMarshal := type is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, typeMarshal, type, "HRESULT")
-        return result
+    get_Type() {
+        result := ComCall(14, this, "int*", &type := 0, "HRESULT")
+        return type
     }
 
     /**
@@ -99,15 +96,12 @@ class IFsrmPropertyDefinition extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} possibleValues 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition-get_possiblevalues
      */
-    get_PossibleValues(possibleValues) {
-        possibleValuesMarshal := possibleValues is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(16, this, possibleValuesMarshal, possibleValues, "HRESULT")
-        return result
+    get_PossibleValues() {
+        result := ComCall(16, this, "ptr*", &possibleValues := 0, "HRESULT")
+        return possibleValues
     }
 
     /**
@@ -123,15 +117,12 @@ class IFsrmPropertyDefinition extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} valueDescriptions 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition-get_valuedescriptions
      */
-    get_ValueDescriptions(valueDescriptions) {
-        valueDescriptionsMarshal := valueDescriptions is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(18, this, valueDescriptionsMarshal, valueDescriptions, "HRESULT")
-        return result
+    get_ValueDescriptions() {
+        result := ComCall(18, this, "ptr*", &valueDescriptions := 0, "HRESULT")
+        return valueDescriptions
     }
 
     /**
@@ -147,15 +138,12 @@ class IFsrmPropertyDefinition extends IFsrmObject{
 
     /**
      * 
-     * @param {Pointer<Pointer<SAFEARRAY>>} parameters 
-     * @returns {HRESULT} 
+     * @returns {Pointer<SAFEARRAY>} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition-get_parameters
      */
-    get_Parameters(parameters) {
-        parametersMarshal := parameters is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(20, this, parametersMarshal, parameters, "HRESULT")
-        return result
+    get_Parameters() {
+        result := ComCall(20, this, "ptr*", &parameters := 0, "HRESULT")
+        return parameters
     }
 
     /**

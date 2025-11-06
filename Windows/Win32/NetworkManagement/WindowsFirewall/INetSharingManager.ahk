@@ -1,6 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\INetSharingPublicConnectionCollection.ahk
+#Include .\INetSharingPrivateConnectionCollection.ahk
+#Include .\INetSharingConfiguration.ahk
+#Include .\INetSharingEveryConnectionCollection.ahk
+#Include .\INetConnectionProps.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -47,71 +52,65 @@ class INetSharingManager extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbInstalled 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingmanager-get_sharinginstalled
      */
-    get_SharingInstalled(pbInstalled) {
-        result := ComCall(7, this, "ptr", pbInstalled, "HRESULT")
-        return result
+    get_SharingInstalled() {
+        result := ComCall(7, this, "short*", &pbInstalled := 0, "HRESULT")
+        return pbInstalled
     }
 
     /**
      * 
      * @param {Integer} Flags 
-     * @param {Pointer<INetSharingPublicConnectionCollection>} ppColl 
-     * @returns {HRESULT} 
+     * @returns {INetSharingPublicConnectionCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingmanager-get_enumpublicconnections
      */
-    get_EnumPublicConnections(Flags, ppColl) {
-        result := ComCall(8, this, "int", Flags, "ptr*", ppColl, "HRESULT")
-        return result
+    get_EnumPublicConnections(Flags) {
+        result := ComCall(8, this, "int", Flags, "ptr*", &ppColl := 0, "HRESULT")
+        return INetSharingPublicConnectionCollection(ppColl)
     }
 
     /**
      * 
      * @param {Integer} Flags 
-     * @param {Pointer<INetSharingPrivateConnectionCollection>} ppColl 
-     * @returns {HRESULT} 
+     * @returns {INetSharingPrivateConnectionCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingmanager-get_enumprivateconnections
      */
-    get_EnumPrivateConnections(Flags, ppColl) {
-        result := ComCall(9, this, "int", Flags, "ptr*", ppColl, "HRESULT")
-        return result
+    get_EnumPrivateConnections(Flags) {
+        result := ComCall(9, this, "int", Flags, "ptr*", &ppColl := 0, "HRESULT")
+        return INetSharingPrivateConnectionCollection(ppColl)
     }
 
     /**
      * 
      * @param {INetConnection} pNetConnection 
-     * @param {Pointer<INetSharingConfiguration>} ppNetSharingConfiguration 
-     * @returns {HRESULT} 
+     * @returns {INetSharingConfiguration} 
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingmanager-get_inetsharingconfigurationforinetconnection
      */
-    get_INetSharingConfigurationForINetConnection(pNetConnection, ppNetSharingConfiguration) {
-        result := ComCall(10, this, "ptr", pNetConnection, "ptr*", ppNetSharingConfiguration, "HRESULT")
-        return result
+    get_INetSharingConfigurationForINetConnection(pNetConnection) {
+        result := ComCall(10, this, "ptr", pNetConnection, "ptr*", &ppNetSharingConfiguration := 0, "HRESULT")
+        return INetSharingConfiguration(ppNetSharingConfiguration)
     }
 
     /**
      * 
-     * @param {Pointer<INetSharingEveryConnectionCollection>} ppColl 
-     * @returns {HRESULT} 
+     * @returns {INetSharingEveryConnectionCollection} 
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingmanager-get_enumeveryconnection
      */
-    get_EnumEveryConnection(ppColl) {
-        result := ComCall(11, this, "ptr*", ppColl, "HRESULT")
-        return result
+    get_EnumEveryConnection() {
+        result := ComCall(11, this, "ptr*", &ppColl := 0, "HRESULT")
+        return INetSharingEveryConnectionCollection(ppColl)
     }
 
     /**
      * 
      * @param {INetConnection} pNetConnection 
-     * @param {Pointer<INetConnectionProps>} ppProps 
-     * @returns {HRESULT} 
+     * @returns {INetConnectionProps} 
      * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingmanager-get_netconnectionprops
      */
-    get_NetConnectionProps(pNetConnection, ppProps) {
-        result := ComCall(12, this, "ptr", pNetConnection, "ptr*", ppProps, "HRESULT")
-        return result
+    get_NetConnectionProps(pNetConnection) {
+        result := ComCall(12, this, "ptr", pNetConnection, "ptr*", &ppProps := 0, "HRESULT")
+        return INetConnectionProps(ppProps)
     }
 }

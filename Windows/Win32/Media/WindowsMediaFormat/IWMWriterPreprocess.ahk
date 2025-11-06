@@ -34,15 +34,12 @@ class IWMWriterPreprocess extends IUnknown{
      * 
      * @param {Integer} dwInputNum 
      * @param {Integer} dwFlags 
-     * @param {Pointer<Integer>} pdwMaxNumPasses 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterpreprocess-getmaxpreprocessingpasses
      */
-    GetMaxPreprocessingPasses(dwInputNum, dwFlags, pdwMaxNumPasses) {
-        pdwMaxNumPassesMarshal := pdwMaxNumPasses is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "uint", dwInputNum, "uint", dwFlags, pdwMaxNumPassesMarshal, pdwMaxNumPasses, "HRESULT")
-        return result
+    GetMaxPreprocessingPasses(dwInputNum, dwFlags) {
+        result := ComCall(3, this, "uint", dwInputNum, "uint", dwFlags, "uint*", &pdwMaxNumPasses := 0, "HRESULT")
+        return pdwMaxNumPasses
     }
 
     /**

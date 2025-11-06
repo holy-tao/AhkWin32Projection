@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IOpcSignaturePartReference.ahk
+#Include .\IOpcSignaturePartReferenceEnumerator.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -47,15 +49,14 @@ class IOpcSignaturePartReferenceSet extends IUnknown{
      * @param {IOpcPartUri} partUri 
      * @param {PWSTR} digestMethod 
      * @param {Integer} transformMethod 
-     * @param {Pointer<IOpcSignaturePartReference>} partReference 
-     * @returns {HRESULT} 
+     * @returns {IOpcSignaturePartReference} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturepartreferenceset-create
      */
-    Create(partUri, digestMethod, transformMethod, partReference) {
+    Create(partUri, digestMethod, transformMethod) {
         digestMethod := digestMethod is String ? StrPtr(digestMethod) : digestMethod
 
-        result := ComCall(3, this, "ptr", partUri, "ptr", digestMethod, "int", transformMethod, "ptr*", partReference, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", partUri, "ptr", digestMethod, "int", transformMethod, "ptr*", &partReference := 0, "HRESULT")
+        return IOpcSignaturePartReference(partReference)
     }
 
     /**
@@ -71,12 +72,11 @@ class IOpcSignaturePartReferenceSet extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IOpcSignaturePartReferenceEnumerator>} partReferenceEnumerator 
-     * @returns {HRESULT} 
+     * @returns {IOpcSignaturePartReferenceEnumerator} 
      * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturepartreferenceset-getenumerator
      */
-    GetEnumerator(partReferenceEnumerator) {
-        result := ComCall(5, this, "ptr*", partReferenceEnumerator, "HRESULT")
-        return result
+    GetEnumerator() {
+        result := ComCall(5, this, "ptr*", &partReferenceEnumerator := 0, "HRESULT")
+        return IOpcSignaturePartReferenceEnumerator(partReferenceEnumerator)
     }
 }

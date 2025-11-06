@@ -8,6 +8,7 @@
 #Include .\HDSA.ahk
 #Include .\HDPA.ahk
 #Include .\HTHEME.ahk
+#Include ..\..\Graphics\Gdi\HRGN.ahk
 #Include ..\..\Graphics\Gdi\HBRUSH.ahk
 #Include ..\..\Graphics\Gdi\HDC.ahk
 #Include ..\Input\Pointer\HSYNTHETICPOINTERDEVICE.ahk
@@ -11869,23 +11870,18 @@ class Controls {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * An IID for the image list.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * The address of a pointer to the interface for the image list if successful, <b>NULL</b> otherwise.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-imagelist_readex
      * @since windows6.0.6000
      */
-    static ImageList_ReadEx(dwFlags, pstm, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("COMCTL32.dll\ImageList_ReadEx", "uint", dwFlags, "ptr", pstm, "ptr", riid, ppvMarshal, ppv, "int")
+    static ImageList_ReadEx(dwFlags, pstm, riid) {
+        result := DllCall("COMCTL32.dll\ImageList_ReadEx", "uint", dwFlags, "ptr", pstm, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -12081,25 +12077,20 @@ class Controls {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * The identifier of the interface being requested. Normally IID_IImageList or IID_IImageList2.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this method returns, contains the address of the interface pointer requested in <i>riid</i>. If the object does not support the interface specified in <i>riid</i>, <i>ppv</i> is <b>NULL</b>.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-himagelist_queryinterface
      * @since windows6.0.6000
      */
-    static HIMAGELIST_QueryInterface(himl, riid, ppv) {
+    static HIMAGELIST_QueryInterface(himl, riid) {
         himl := himl is Win32Handle ? NumGet(himl, "ptr") : himl
 
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("COMCTL32.dll\HIMAGELIST_QueryInterface", "ptr", himl, "ptr", riid, ppvMarshal, ppv, "int")
+        result := DllCall("COMCTL32.dll\HIMAGELIST_QueryInterface", "ptr", himl, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -12718,8 +12709,9 @@ class Controls {
     static TaskDialogIndirect(pTaskConfig, pnButton, pnRadioButton, pfVerificationFlagChecked) {
         pnButtonMarshal := pnButton is VarRef ? "int*" : "ptr"
         pnRadioButtonMarshal := pnRadioButton is VarRef ? "int*" : "ptr"
+        pfVerificationFlagCheckedMarshal := pfVerificationFlagChecked is VarRef ? "int*" : "ptr"
 
-        result := DllCall("COMCTL32.dll\TaskDialogIndirect", "ptr", pTaskConfig, pnButtonMarshal, pnButton, pnRadioButtonMarshal, pnRadioButton, "ptr", pfVerificationFlagChecked, "int")
+        result := DllCall("COMCTL32.dll\TaskDialogIndirect", "ptr", pTaskConfig, pnButtonMarshal, pnButton, pnRadioButtonMarshal, pnRadioButton, pfVerificationFlagCheckedMarshal, pfVerificationFlagChecked, "int")
         if(result != 0)
             throw OSError(result)
 
@@ -12866,65 +12858,11 @@ class Controls {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Integer>} pnButton Type: <b>int*</b>
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
-     * 
-     * This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation completed successfully.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * There is insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One or more arguments are not valid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_FAIL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation failed.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * @returns {Integer} Type: <b>int*</b>
      * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-taskdialog
      * @since windows6.0.6000
      */
-    static TaskDialog(hwndOwner, hInstance, pszWindowTitle, pszMainInstruction, pszContent, dwCommonButtons, pszIcon, pnButton) {
+    static TaskDialog(hwndOwner, hInstance, pszWindowTitle, pszMainInstruction, pszContent, dwCommonButtons, pszIcon) {
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
         hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
         pszWindowTitle := pszWindowTitle is String ? StrPtr(pszWindowTitle) : pszWindowTitle
@@ -12932,13 +12870,11 @@ class Controls {
         pszContent := pszContent is String ? StrPtr(pszContent) : pszContent
         pszIcon := pszIcon is String ? StrPtr(pszIcon) : pszIcon
 
-        pnButtonMarshal := pnButton is VarRef ? "int*" : "ptr"
-
-        result := DllCall("COMCTL32.dll\TaskDialog", "ptr", hwndOwner, "ptr", hInstance, "ptr", pszWindowTitle, "ptr", pszMainInstruction, "ptr", pszContent, "int", dwCommonButtons, "ptr", pszIcon, pnButtonMarshal, pnButton, "int")
+        result := DllCall("COMCTL32.dll\TaskDialog", "ptr", hwndOwner, "ptr", hInstance, "ptr", pszWindowTitle, "ptr", pszMainInstruction, "ptr", pszContent, "int", dwCommonButtons, "ptr", pszIcon, "int*", &pnButton := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pnButton
     }
 
     /**
@@ -13578,9 +13514,6 @@ class Controls {
 
     /**
      * Loads the dynamic pointer array (DPA) from a stream by calling the specified callback function to read each element.
-     * @param {Pointer<HDPA>} phdpa Type: <b>HDPA*</b>
-     * 
-     * A handle to a DPA.
      * @param {Pointer<PFNDPASTREAM>} pfn Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dpa_dsa/nc-dpa_dsa-pfndpastream">PFNDPASTREAM</a></b>
      * 
      * The callback function. See <a href="https://docs.microsoft.com/windows/desktop/api/dpa_dsa/nc-dpa_dsa-pfndpastream">PFNDPASTREAM</a> for the callback function prototype.
@@ -13590,82 +13523,21 @@ class Controls {
      * @param {Pointer<Void>} pvInstData Type: <b>void*</b>
      * 
      * A pointer to callback data. <i>pvInstData</i> is passed as a parameter to <i>pfn</i>.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HDPA} Type: <b>HDPA*</b>
      * 
-     * Returns one of the following values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Indicates that the callback function was successful and the element was loaded. 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_FALSE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Indicates that the callback function was unsuccessful in loading the element; however, the process should continue. 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Indicates that one or more of the parameters is invalid. 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_FAIL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Indicates that the stream object could not be read. 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The buffer length is invalid or there was insufficient memory to complete the operation.
-     * 
-     * </td>
-     * </tr>
-     * </table>
+     * A handle to a DPA.
      * @see https://docs.microsoft.com/windows/win32/api//dpa_dsa/nf-dpa_dsa-dpa_loadstream
      * @since windows6.0.6000
      */
-    static DPA_LoadStream(phdpa, pfn, pstream, pvInstData) {
+    static DPA_LoadStream(pfn, pstream, pvInstData) {
         pvInstDataMarshal := pvInstData is VarRef ? "ptr" : "ptr"
 
+        phdpa := HDPA()
         result := DllCall("COMCTL32.dll\DPA_LoadStream", "ptr", phdpa, "ptr", pfn, "ptr", pstream, pvInstDataMarshal, pvInstData, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return phdpa
     }
 
     /**
@@ -13926,7 +13798,9 @@ class Controls {
     static Str_SetPtrW(ppsz, psz) {
         psz := psz is String ? StrPtr(psz) : psz
 
-        result := DllCall("COMCTL32.dll\Str_SetPtrW", "ptr", ppsz, "ptr", psz, "int")
+        ppszMarshal := ppsz is VarRef ? "ptr*" : "ptr"
+
+        result := DllCall("COMCTL32.dll\Str_SetPtrW", ppszMarshal, ppsz, "ptr", psz, "int")
         return result
     }
 
@@ -14257,42 +14131,22 @@ class Controls {
      * <li>The icon ordinal, if the icon resource is to be loaded by ordinal from the module. This ordinal must be packaged by using the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro.</li>
      * </ol>
      * @param {Integer} lims Type: <b>int</b>
-     * @param {Pointer<HICON>} phico Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HICON</a>*</b>
+     * @returns {HICON} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HICON</a>*</b>
      * 
      * When this function returns, contains a pointer to the handle of the loaded icon.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
-     * 
-     * Returns S_OK if successful, otherwise an error, including the following value.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The contents of the buffer pointed to by <i>pszName</i> do not fit any of the expected interpretations.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-loadiconmetric
      * @since windows6.0.6000
      */
-    static LoadIconMetric(hinst, pszName, lims, phico) {
+    static LoadIconMetric(hinst, pszName, lims) {
         hinst := hinst is Win32Handle ? NumGet(hinst, "ptr") : hinst
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
+        phico := HICON()
         result := DllCall("COMCTL32.dll\LoadIconMetric", "ptr", hinst, "ptr", pszName, "int", lims, "ptr", phico, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return phico
     }
 
     /**
@@ -14428,42 +14282,22 @@ class Controls {
      * @param {Integer} cy Type: <b>int</b>
      * 
      * The desired height, in pixels, of the icon.
-     * @param {Pointer<HICON>} phico Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HICON</a>*</b>
+     * @returns {HICON} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HICON</a>*</b>
      * 
      * When this function returns, contains a pointer to the handle of the loaded icon.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
-     * 
-     * Returns S_OK if successful, or an error value otherwise, including the following:
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The contents of the buffer pointed to by <i>pszName</i> do not fit any of the expected interpretations.
-     * 
-     * </td>
-     * </tr>
-     * </table>
      * @see https://docs.microsoft.com/windows/win32/api//commctrl/nf-commctrl-loadiconwithscaledown
      * @since windows6.0.6000
      */
-    static LoadIconWithScaleDown(hinst, pszName, cx, cy, phico) {
+    static LoadIconWithScaleDown(hinst, pszName, cx, cy) {
         hinst := hinst is Win32Handle ? NumGet(hinst, "ptr") : hinst
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
+        phico := HICON()
         result := DllCall("COMCTL32.dll\LoadIconWithScaleDown", "ptr", hinst, "ptr", pszName, "int", cx, "int", cy, "ptr", phico, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return phico
     }
 
     /**
@@ -14520,23 +14354,18 @@ class Controls {
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * Reference to the desired interface ID.
-     * @param {Pointer<Pointer<Void>>} ppv Type: <b>void**</b>
+     * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is normally <a href="https://docs.microsoft.com/windows/desktop/api/commoncontrols/nn-commoncontrols-iimagelist2">IImageList2</a>, which provides the <a href="https://docs.microsoft.com/windows/desktop/api/commoncontrols/nf-commoncontrols-iimagelist2-initialize">Initialize</a> method.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//commoncontrols/nf-commoncontrols-imagelist_cocreateinstance
      * @since windows6.0.6000
      */
-    static ImageList_CoCreateInstance(rclsid, punkOuter, riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := DllCall("COMCTL32.dll\ImageList_CoCreateInstance", "ptr", rclsid, "ptr", punkOuter, "ptr", riid, ppvMarshal, ppv, "int")
+    static ImageList_CoCreateInstance(rclsid, punkOuter, riid) {
+        result := DllCall("COMCTL32.dll\ImageList_CoCreateInstance", "ptr", rclsid, "ptr", punkOuter, "ptr", riid, "ptr*", &ppv := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return ppv
     }
 
     /**
@@ -14613,22 +14442,19 @@ class Controls {
      * @param {Integer} eProperty The property that is associated with the animation storyboard and target.
      * @param {Pointer} pvProperty The buffer to receive the returned property value.
      * @param {Integer} cbSize The byte size of a buffer that is pointed by <i>pvProperty</i>.
-     * @param {Pointer<Integer>} pcbSizeOut The                                    byte  size of the returned 
+     * @returns {Integer} The                                    byte  size of the returned 
      * property.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemeanimationproperty
      * @since windows8.0
      */
-    static GetThemeAnimationProperty(hTheme, iStoryboardId, iTargetId, eProperty, pvProperty, cbSize, pcbSizeOut) {
+    static GetThemeAnimationProperty(hTheme, iStoryboardId, iTargetId, eProperty, pvProperty, cbSize) {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
 
-        pcbSizeOutMarshal := pcbSizeOut is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("UXTHEME.dll\GetThemeAnimationProperty", "ptr", hTheme, "int", iStoryboardId, "int", iTargetId, "int", eProperty, "ptr", pvProperty, "uint", cbSize, pcbSizeOutMarshal, pcbSizeOut, "int")
+        result := DllCall("UXTHEME.dll\GetThemeAnimationProperty", "ptr", hTheme, "int", iStoryboardId, "int", iTargetId, "int", eProperty, "ptr", pvProperty, "uint", cbSize, "uint*", &pcbSizeOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pcbSizeOut
     }
 
     /**
@@ -14639,21 +14465,18 @@ class Controls {
      * @param {Integer} dwTransformIndex The zero-based index of a transform operation.
      * @param {Pointer} pTransform A pointer to a buffer to receive a transform structure.
      * @param {Integer} cbSize The byte size of the buffer pointed by <i>pTransform</i>.
-     * @param {Pointer<Integer>} pcbSizeOut The                                    byte  size of a transform operation structure.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @returns {Integer} The                                    byte  size of a transform operation structure.
      * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemeanimationtransform
      * @since windows8.0
      */
-    static GetThemeAnimationTransform(hTheme, iStoryboardId, iTargetId, dwTransformIndex, pTransform, cbSize, pcbSizeOut) {
+    static GetThemeAnimationTransform(hTheme, iStoryboardId, iTargetId, dwTransformIndex, pTransform, cbSize) {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
 
-        pcbSizeOutMarshal := pcbSizeOut is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("UXTHEME.dll\GetThemeAnimationTransform", "ptr", hTheme, "int", iStoryboardId, "int", iTargetId, "uint", dwTransformIndex, "ptr", pTransform, "uint", cbSize, pcbSizeOutMarshal, pcbSizeOut, "int")
+        result := DllCall("UXTHEME.dll\GetThemeAnimationTransform", "ptr", hTheme, "int", iStoryboardId, "int", iTargetId, "uint", dwTransformIndex, "ptr", pTransform, "uint", cbSize, "uint*", &pcbSizeOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pcbSizeOut
     }
 
     /**
@@ -14662,22 +14485,19 @@ class Controls {
      * @param {Integer} iTimingFunctionId A timing function identifier.
      * @param {Pointer} pTimingFunction A buffer to receive a predefined timing function pointer.
      * @param {Integer} cbSize The byte size of the buffer pointed by <i>pTimingFunction</i>.
-     * @param {Pointer<Integer>} pcbSizeOut The byte size of
+     * @returns {Integer} The byte size of
      * the timing function structure.
-     * @returns {HRESULT} If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemetimingfunction
      * @since windows8.0
      */
-    static GetThemeTimingFunction(hTheme, iTimingFunctionId, pTimingFunction, cbSize, pcbSizeOut) {
+    static GetThemeTimingFunction(hTheme, iTimingFunctionId, pTimingFunction, cbSize) {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
 
-        pcbSizeOutMarshal := pcbSizeOut is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("UXTHEME.dll\GetThemeTimingFunction", "ptr", hTheme, "int", iTimingFunctionId, "ptr", pTimingFunction, "uint", cbSize, pcbSizeOutMarshal, pcbSizeOut, "int")
+        result := DllCall("UXTHEME.dll\GetThemeTimingFunction", "ptr", hTheme, "int", iTimingFunctionId, "ptr", pTimingFunction, "uint", cbSize, "uint*", &pcbSizeOut := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pcbSizeOut
     }
 
     /**
@@ -14961,24 +14781,22 @@ class Controls {
      * @param {Pointer<RECT>} pRect Type: <b>LPCRECT</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains, in logical coordinates, the specified rectangle used to compute the region.
-     * @param {Pointer<HRGN>} pRegion Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRGN</a>*</b>
+     * @returns {HRGN} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRGN</a>*</b>
      * 
      * Pointer to the handle to the computed <a href="https://docs.microsoft.com/windows/desktop/gdi/regions">region</a>.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemebackgroundregion
      * @since windows6.0.6000
      */
-    static GetThemeBackgroundRegion(hTheme, hdc, iPartId, iStateId, pRect, pRegion) {
+    static GetThemeBackgroundRegion(hTheme, hdc, iPartId, iStateId, pRect) {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
+        pRegion := HRGN()
         result := DllCall("UxTheme.dll\GetThemeBackgroundRegion", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "ptr", pRect, "ptr", pRegion, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pRegion
     }
 
     /**
@@ -15127,27 +14945,22 @@ class Controls {
      * 
      * 
      * <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure that contains the coordinates of the point.
-     * @param {Pointer<Integer>} pwHitTestCode Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">WORD</a>*</b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">WORD</a>*</b>
      * 
      * <b>WORD</b> that receives the hit test code that indicates whether the point in <i>ptTest</i> is in the background area bounded by <i>pRect</i> or <i>hrgn</i>. See <a href="https://docs.microsoft.com/windows/desktop/Controls/theme-hit-test-retval">Hit Test Return Values</a> for a list of values returned.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-hittestthemebackground
      * @since windows6.0.6000
      */
-    static HitTestThemeBackground(hTheme, hdc, iPartId, iStateId, dwOptions, pRect, hrgn, ptTest, pwHitTestCode) {
+    static HitTestThemeBackground(hTheme, hdc, iPartId, iStateId, dwOptions, pRect, hrgn, ptTest) {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
         hrgn := hrgn is Win32Handle ? NumGet(hrgn, "ptr") : hrgn
 
-        pwHitTestCodeMarshal := pwHitTestCode is VarRef ? "ushort*" : "ptr"
-
-        result := DllCall("UxTheme.dll\HitTestThemeBackground", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "uint", dwOptions, "ptr", pRect, "ptr", hrgn, "ptr", ptTest, pwHitTestCodeMarshal, pwHitTestCode, "int")
+        result := DllCall("UxTheme.dll\HitTestThemeBackground", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "uint", dwOptions, "ptr", pRect, "ptr", hrgn, "ptr", ptTest, "ushort*", &pwHitTestCode := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pwHitTestCode
     }
 
     /**
@@ -15447,23 +15260,20 @@ class Controls {
      * @param {Integer} iPropId Type: <b>int</b>
      * 
      * Value of type <b>int</b> that specifies the property to retrieve. For a list of possible values, see <a href="https://docs.microsoft.com/windows/desktop/Controls/property-typedefs">Property Identifiers</a>.
-     * @param {Pointer<COLORREF>} pColor Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a>*</b>
+     * @returns {COLORREF} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">COLORREF</a>*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> structure that receives the color value.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemecolor
      * @since windows6.0.6000
      */
-    static GetThemeColor(hTheme, iPartId, iStateId, iPropId, pColor) {
+    static GetThemeColor(hTheme, iPartId, iStateId, iPropId) {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
 
-        result := DllCall("UXTHEME.dll\GetThemeColor", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "ptr", pColor, "int")
+        result := DllCall("UXTHEME.dll\GetThemeColor", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "uint*", &pColor := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pColor
     }
 
     /**
@@ -15481,26 +15291,21 @@ class Controls {
      * 
      * Value of type <b>int</b> that specifies the state of the part. See <a href="https://docs.microsoft.com/windows/desktop/Controls/parts-and-states">Parts and States</a>.
      * @param {Integer} iPropId Type: <b>int</b>
-     * @param {Pointer<Integer>} piVal Type: <b>int*</b>
+     * @returns {Integer} Type: <b>int*</b>
      * 
      * Pointer to an <b>int</b> that receives the metric property value.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthememetric
      * @since windows6.0.6000
      */
-    static GetThemeMetric(hTheme, hdc, iPartId, iStateId, iPropId, piVal) {
+    static GetThemeMetric(hTheme, hdc, iPartId, iStateId, iPropId) {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
 
-        piValMarshal := piVal is VarRef ? "int*" : "ptr"
-
-        result := DllCall("UXTHEME.dll\GetThemeMetric", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "int", iPropId, piValMarshal, piVal, "int")
+        result := DllCall("UXTHEME.dll\GetThemeMetric", "ptr", hTheme, "ptr", hdc, "int", iPartId, "int", iStateId, "int", iPropId, "int*", &piVal := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return piVal
     }
 
     /**
@@ -15552,23 +15357,20 @@ class Controls {
      * 
      * Value of type <b>int</b> that specifies the state of the part. See <a href="https://docs.microsoft.com/windows/desktop/Controls/parts-and-states">Parts and States</a>.
      * @param {Integer} iPropId Type: <b>int</b>
-     * @param {Pointer<BOOL>} pfVal Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a>*</b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a>*</b>
      * 
      * Pointer to a <b>BOOL</b> that receives the retrieved property value.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemebool
      * @since windows6.0.6000
      */
-    static GetThemeBool(hTheme, iPartId, iStateId, iPropId, pfVal) {
+    static GetThemeBool(hTheme, iPartId, iStateId, iPropId) {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
 
-        result := DllCall("UxTheme.dll\GetThemeBool", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "ptr", pfVal, "int")
+        result := DllCall("UxTheme.dll\GetThemeBool", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "int*", &pfVal := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pfVal
     }
 
     /**
@@ -15585,25 +15387,20 @@ class Controls {
      * @param {Integer} iPropId Type: <b>int</b>
      * 
      * Value of type <b>int</b> that specifies the property to retrieve. For a list of possible values, see <a href="https://docs.microsoft.com/windows/desktop/Controls/property-typedefs">Property Identifiers</a>.
-     * @param {Pointer<Integer>} piVal Type: <b>int*</b>
+     * @returns {Integer} Type: <b>int*</b>
      * 
      * Pointer to an <b>int</b> that receives the retrieved value.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemeint
      * @since windows6.0.6000
      */
-    static GetThemeInt(hTheme, iPartId, iStateId, iPropId, piVal) {
+    static GetThemeInt(hTheme, iPartId, iStateId, iPropId) {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
 
-        piValMarshal := piVal is VarRef ? "int*" : "ptr"
-
-        result := DllCall("UXTHEME.dll\GetThemeInt", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, piValMarshal, piVal, "int")
+        result := DllCall("UXTHEME.dll\GetThemeInt", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "int*", &piVal := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return piVal
     }
 
     /**
@@ -15620,25 +15417,20 @@ class Controls {
      * @param {Integer} iPropId Type: <b>int</b>
      * 
      * Value of type <b>int</b> that specifies the property to retrieve. For a list of possible values, see <a href="https://docs.microsoft.com/windows/desktop/Controls/property-typedefs">Property Identifiers</a>.
-     * @param {Pointer<Integer>} piVal Type: <b>int*</b>
+     * @returns {Integer} Type: <b>int*</b>
      * 
      * Pointer to an <b>int</b> that receives the enumerated type value.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemeenumvalue
      * @since windows6.0.6000
      */
-    static GetThemeEnumValue(hTheme, iPartId, iStateId, iPropId, piVal) {
+    static GetThemeEnumValue(hTheme, iPartId, iStateId, iPropId) {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
 
-        piValMarshal := piVal is VarRef ? "int*" : "ptr"
-
-        result := DllCall("UXTHEME.dll\GetThemeEnumValue", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, piValMarshal, piVal, "int")
+        result := DllCall("UXTHEME.dll\GetThemeEnumValue", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "int*", &piVal := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return piVal
     }
 
     /**
@@ -15831,23 +15623,18 @@ class Controls {
      * @param {Integer} iPropId Type: <b>int</b>
      * 
      * Value of type <b>int</b> that specifies the property to retrieve. You may use any of the property values from Vssym32.h. These values are described in the reference pages for the functions that use them. For instance, the <a href="https://docs.microsoft.com/windows/desktop/api/uxtheme/nf-uxtheme-getthemeint">GetThemeInt</a> function uses the TMT_BORDERSIZE value. See the <a href="https://docs.microsoft.com/windows/desktop/Controls/uxctl-ref">Visual Styles Reference</a> for a list of functions.
-     * @param {Pointer<Integer>} pOrigin 
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @returns {Integer} 
      * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemepropertyorigin
      * @since windows6.0.6000
      */
-    static GetThemePropertyOrigin(hTheme, iPartId, iStateId, iPropId, pOrigin) {
+    static GetThemePropertyOrigin(hTheme, iPartId, iStateId, iPropId) {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
 
-        pOriginMarshal := pOrigin is VarRef ? "int*" : "ptr"
-
-        result := DllCall("UxTheme.dll\GetThemePropertyOrigin", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, pOriginMarshal, pOrigin, "int")
+        result := DllCall("UxTheme.dll\GetThemePropertyOrigin", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "int*", &pOrigin := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pOrigin
     }
 
     /**
@@ -16201,25 +15988,20 @@ class Controls {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Integer>} piValue Type: <b>int*</b>
+     * @returns {Integer} Type: <b>int*</b>
      * 
      * Pointer to an <b>int</b> that receives the system integer value.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemesysint
      * @since windows6.0.6000
      */
-    static GetThemeSysInt(hTheme, iIntId, piValue) {
+    static GetThemeSysInt(hTheme, iIntId) {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
 
-        piValueMarshal := piValue is VarRef ? "int*" : "ptr"
-
-        result := DllCall("UxTheme.dll\GetThemeSysInt", "ptr", hTheme, "int", iIntId, piValueMarshal, piValue, "int")
+        result := DllCall("UxTheme.dll\GetThemeSysInt", "ptr", hTheme, "int", iIntId, "int*", &piValue := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return piValue
     }
 
     /**
@@ -16824,23 +16606,21 @@ class Controls {
      * 
      * The property to retrieve. Pass zero to automatically select the first available bitmap for this part and state,
      * @param {Integer} dwFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">ULONG</a></b>
-     * @param {Pointer<HBITMAP>} phBitmap Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HBITMAP</a>*</b>
+     * @returns {HBITMAP} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HBITMAP</a>*</b>
      * 
      * A pointer that receives a handle to the requested bitmap.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemebitmap
      * @since windows6.0.6000
      */
-    static GetThemeBitmap(hTheme, iPartId, iStateId, iPropId, dwFlags, phBitmap) {
+    static GetThemeBitmap(hTheme, iPartId, iStateId, iPropId, dwFlags) {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
 
+        phBitmap := HBITMAP()
         result := DllCall("UXTHEME.dll\GetThemeBitmap", "ptr", hTheme, "int", iPartId, "int", iStateId, "int", iPropId, "uint", dwFlags, "ptr", phBitmap, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return phBitmap
     }
 
     /**
@@ -17243,25 +17023,20 @@ class Controls {
      * @param {Integer} iPropId Type: <b>int</b>
      * 
      * Property ID.
-     * @param {Pointer<Integer>} pdwDuration Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a>*</b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a>*</b>
      * 
      * Address of a variable that receives the transition duration, in milliseconds.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
-     * 
-     * If this function succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
      * @see https://docs.microsoft.com/windows/win32/api//uxtheme/nf-uxtheme-getthemetransitionduration
      * @since windows6.0.6000
      */
-    static GetThemeTransitionDuration(hTheme, iPartId, iStateIdFrom, iStateIdTo, iPropId, pdwDuration) {
+    static GetThemeTransitionDuration(hTheme, iPartId, iStateIdFrom, iStateIdTo, iPropId) {
         hTheme := hTheme is Win32Handle ? NumGet(hTheme, "ptr") : hTheme
 
-        pdwDurationMarshal := pdwDuration is VarRef ? "uint*" : "ptr"
-
-        result := DllCall("UxTheme.dll\GetThemeTransitionDuration", "ptr", hTheme, "int", iPartId, "int", iStateIdFrom, "int", iStateIdTo, "int", iPropId, pdwDurationMarshal, pdwDuration, "int")
+        result := DllCall("UxTheme.dll\GetThemeTransitionDuration", "ptr", hTheme, "int", iPartId, "int", iStateIdFrom, "int", iStateIdTo, "int", iPropId, "uint*", &pdwDuration := 0, "int")
         if(result != 0)
             throw OSError(result)
 
-        return result
+        return pdwDuration
     }
 
     /**

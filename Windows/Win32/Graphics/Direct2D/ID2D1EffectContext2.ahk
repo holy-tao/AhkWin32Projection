@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ID2D1ColorContext1.ahk
 #Include .\ID2D1EffectContext1.ahk
 
 /**
@@ -31,22 +32,20 @@ class ID2D1EffectContext2 extends ID2D1EffectContext1{
     /**
      * 
      * @param {Integer} colorSpace 
-     * @param {Pointer<ID2D1ColorContext1>} colorContext 
-     * @returns {HRESULT} 
+     * @returns {ID2D1ColorContext1} 
      */
-    CreateColorContextFromDxgiColorSpace(colorSpace, colorContext) {
-        result := ComCall(25, this, "int", colorSpace, "ptr*", colorContext, "HRESULT")
-        return result
+    CreateColorContextFromDxgiColorSpace(colorSpace) {
+        result := ComCall(25, this, "int", colorSpace, "ptr*", &colorContext := 0, "HRESULT")
+        return ID2D1ColorContext1(colorContext)
     }
 
     /**
      * 
      * @param {Pointer<D2D1_SIMPLE_COLOR_PROFILE>} simpleProfile 
-     * @param {Pointer<ID2D1ColorContext1>} colorContext 
-     * @returns {HRESULT} 
+     * @returns {ID2D1ColorContext1} 
      */
-    CreateColorContextFromSimpleColorProfile(simpleProfile, colorContext) {
-        result := ComCall(26, this, "ptr", simpleProfile, "ptr*", colorContext, "HRESULT")
-        return result
+    CreateColorContextFromSimpleColorProfile(simpleProfile) {
+        result := ComCall(26, this, "ptr", simpleProfile, "ptr*", &colorContext := 0, "HRESULT")
+        return ID2D1ColorContext1(colorContext)
     }
 }

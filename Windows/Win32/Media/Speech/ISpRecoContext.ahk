@@ -1,6 +1,10 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISpRecognizer.ahk
+#Include .\ISpRecoGrammar.ahk
+#Include .\ISpRecoResult.ahk
+#Include .\ISpVoice.ahk
 #Include .\ISpEventSource.ahk
 
 /**
@@ -30,23 +34,21 @@ class ISpRecoContext extends ISpEventSource{
 
     /**
      * 
-     * @param {Pointer<ISpRecognizer>} ppRecognizer 
-     * @returns {HRESULT} 
+     * @returns {ISpRecognizer} 
      */
-    GetRecognizer(ppRecognizer) {
-        result := ComCall(13, this, "ptr*", ppRecognizer, "HRESULT")
-        return result
+    GetRecognizer() {
+        result := ComCall(13, this, "ptr*", &ppRecognizer := 0, "HRESULT")
+        return ISpRecognizer(ppRecognizer)
     }
 
     /**
      * 
      * @param {Integer} ullGrammarId 
-     * @param {Pointer<ISpRecoGrammar>} ppGrammar 
-     * @returns {HRESULT} 
+     * @returns {ISpRecoGrammar} 
      */
-    CreateGrammar(ullGrammarId, ppGrammar) {
-        result := ComCall(14, this, "uint", ullGrammarId, "ptr*", ppGrammar, "HRESULT")
-        return result
+    CreateGrammar(ullGrammarId) {
+        result := ComCall(14, this, "uint", ullGrammarId, "ptr*", &ppGrammar := 0, "HRESULT")
+        return ISpRecoGrammar(ppGrammar)
     }
 
     /**
@@ -111,12 +113,11 @@ class ISpRecoContext extends ISpEventSource{
     /**
      * 
      * @param {Pointer<SPSERIALIZEDRESULT>} pSerializedResult 
-     * @param {Pointer<ISpRecoResult>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {ISpRecoResult} 
      */
-    DeserializeResult(pSerializedResult, ppResult) {
-        result := ComCall(20, this, "ptr", pSerializedResult, "ptr*", ppResult, "HRESULT")
-        return result
+    DeserializeResult(pSerializedResult) {
+        result := ComCall(20, this, "ptr", pSerializedResult, "ptr*", &ppResult := 0, "HRESULT")
+        return ISpRecoResult(ppResult)
     }
 
     /**
@@ -177,12 +178,11 @@ class ISpRecoContext extends ISpEventSource{
 
     /**
      * 
-     * @param {Pointer<ISpVoice>} ppVoice 
-     * @returns {HRESULT} 
+     * @returns {ISpVoice} 
      */
-    GetVoice(ppVoice) {
-        result := ComCall(26, this, "ptr*", ppVoice, "HRESULT")
-        return result
+    GetVoice() {
+        result := ComCall(26, this, "ptr*", &ppVoice := 0, "HRESULT")
+        return ISpVoice(ppVoice)
     }
 
     /**

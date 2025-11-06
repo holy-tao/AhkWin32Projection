@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
+#Include .\IEnumBstr.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -33,92 +36,86 @@ class ITAddressCapabilities extends IDispatch{
     /**
      * 
      * @param {Integer} AddressCap 
-     * @param {Pointer<Integer>} plCapability 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddresscapabilities-get_addresscapability
      */
-    get_AddressCapability(AddressCap, plCapability) {
-        plCapabilityMarshal := plCapability is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, "int", AddressCap, plCapabilityMarshal, plCapability, "HRESULT")
-        return result
+    get_AddressCapability(AddressCap) {
+        result := ComCall(7, this, "int", AddressCap, "int*", &plCapability := 0, "HRESULT")
+        return plCapability
     }
 
     /**
      * 
      * @param {Integer} AddressCapString 
-     * @param {Pointer<BSTR>} ppCapabilityString 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddresscapabilities-get_addresscapabilitystring
      */
-    get_AddressCapabilityString(AddressCapString, ppCapabilityString) {
+    get_AddressCapabilityString(AddressCapString) {
+        ppCapabilityString := BSTR()
         result := ComCall(8, this, "int", AddressCapString, "ptr", ppCapabilityString, "HRESULT")
-        return result
+        return ppCapabilityString
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pVariant 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddresscapabilities-get_calltreatments
      */
-    get_CallTreatments(pVariant) {
+    get_CallTreatments() {
+        pVariant := VARIANT()
         result := ComCall(9, this, "ptr", pVariant, "HRESULT")
-        return result
+        return pVariant
     }
 
     /**
      * 
-     * @param {Pointer<IEnumBstr>} ppEnumCallTreatment 
-     * @returns {HRESULT} 
+     * @returns {IEnumBstr} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddresscapabilities-enumeratecalltreatments
      */
-    EnumerateCallTreatments(ppEnumCallTreatment) {
-        result := ComCall(10, this, "ptr*", ppEnumCallTreatment, "HRESULT")
-        return result
+    EnumerateCallTreatments() {
+        result := ComCall(10, this, "ptr*", &ppEnumCallTreatment := 0, "HRESULT")
+        return IEnumBstr(ppEnumCallTreatment)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pVariant 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddresscapabilities-get_completionmessages
      */
-    get_CompletionMessages(pVariant) {
+    get_CompletionMessages() {
+        pVariant := VARIANT()
         result := ComCall(11, this, "ptr", pVariant, "HRESULT")
-        return result
+        return pVariant
     }
 
     /**
      * 
-     * @param {Pointer<IEnumBstr>} ppEnumCompletionMessage 
-     * @returns {HRESULT} 
+     * @returns {IEnumBstr} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddresscapabilities-enumeratecompletionmessages
      */
-    EnumerateCompletionMessages(ppEnumCompletionMessage) {
-        result := ComCall(12, this, "ptr*", ppEnumCompletionMessage, "HRESULT")
-        return result
+    EnumerateCompletionMessages() {
+        result := ComCall(12, this, "ptr*", &ppEnumCompletionMessage := 0, "HRESULT")
+        return IEnumBstr(ppEnumCompletionMessage)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pVariant 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddresscapabilities-get_deviceclasses
      */
-    get_DeviceClasses(pVariant) {
+    get_DeviceClasses() {
+        pVariant := VARIANT()
         result := ComCall(13, this, "ptr", pVariant, "HRESULT")
-        return result
+        return pVariant
     }
 
     /**
      * 
-     * @param {Pointer<IEnumBstr>} ppEnumDeviceClass 
-     * @returns {HRESULT} 
+     * @returns {IEnumBstr} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddresscapabilities-enumeratedeviceclasses
      */
-    EnumerateDeviceClasses(ppEnumDeviceClass) {
-        result := ComCall(14, this, "ptr*", ppEnumDeviceClass, "HRESULT")
-        return result
+    EnumerateDeviceClasses() {
+        result := ComCall(14, this, "ptr*", &ppEnumDeviceClass := 0, "HRESULT")
+        return IEnumBstr(ppEnumDeviceClass)
     }
 }

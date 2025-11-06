@@ -2,6 +2,7 @@
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
 #Include ..\..\..\Foundation\BSTR.ahk
+#Include ..\..\..\System\Variant\VARIANT.ahk
 #Include .\ICertRequest.ahk
 
 /**
@@ -36,31 +37,28 @@ class ICertRequest2 extends ICertRequest{
      * @param {BSTR} strConfig 
      * @param {Integer} RequestId 
      * @param {BSTR} strSerialNumber 
-     * @param {Pointer<Integer>} pDisposition 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertrequest2-getissuedcertificate
      */
-    GetIssuedCertificate(strConfig, RequestId, strSerialNumber, pDisposition) {
+    GetIssuedCertificate(strConfig, RequestId, strSerialNumber) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
         strSerialNumber := strSerialNumber is String ? BSTR.Alloc(strSerialNumber).Value : strSerialNumber
 
-        pDispositionMarshal := pDisposition is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(14, this, "ptr", strConfig, "int", RequestId, "ptr", strSerialNumber, pDispositionMarshal, pDisposition, "HRESULT")
-        return result
+        result := ComCall(14, this, "ptr", strConfig, "int", RequestId, "ptr", strSerialNumber, "uint*", &pDisposition := 0, "HRESULT")
+        return pDisposition
     }
 
     /**
      * 
      * @param {Integer} hrMessage 
      * @param {Integer} Flags 
-     * @param {Pointer<BSTR>} pstrErrorMessageText 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertrequest2-geterrormessagetext
      */
-    GetErrorMessageText(hrMessage, Flags, pstrErrorMessageText) {
+    GetErrorMessageText(hrMessage, Flags) {
+        pstrErrorMessageText := BSTR()
         result := ComCall(15, this, "int", hrMessage, "int", Flags, "ptr", pstrErrorMessageText, "HRESULT")
-        return result
+        return pstrErrorMessageText
     }
 
     /**
@@ -70,47 +68,44 @@ class ICertRequest2 extends ICertRequest{
      * @param {Integer} PropIndex 
      * @param {Integer} PropType 
      * @param {Integer} Flags 
-     * @param {Pointer<VARIANT>} pvarPropertyValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertrequest2-getcaproperty
      */
-    GetCAProperty(strConfig, PropId, PropIndex, PropType, Flags, pvarPropertyValue) {
+    GetCAProperty(strConfig, PropId, PropIndex, PropType, Flags) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
+        pvarPropertyValue := VARIANT()
         result := ComCall(16, this, "ptr", strConfig, "int", PropId, "int", PropIndex, "int", PropType, "int", Flags, "ptr", pvarPropertyValue, "HRESULT")
-        return result
+        return pvarPropertyValue
     }
 
     /**
      * 
      * @param {BSTR} strConfig 
      * @param {Integer} PropId 
-     * @param {Pointer<Integer>} pPropFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertrequest2-getcapropertyflags
      */
-    GetCAPropertyFlags(strConfig, PropId, pPropFlags) {
+    GetCAPropertyFlags(strConfig, PropId) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
-        pPropFlagsMarshal := pPropFlags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, "ptr", strConfig, "int", PropId, pPropFlagsMarshal, pPropFlags, "HRESULT")
-        return result
+        result := ComCall(17, this, "ptr", strConfig, "int", PropId, "int*", &pPropFlags := 0, "HRESULT")
+        return pPropFlags
     }
 
     /**
      * 
      * @param {BSTR} strConfig 
      * @param {Integer} PropId 
-     * @param {Pointer<BSTR>} pstrDisplayName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertrequest2-getcapropertydisplayname
      */
-    GetCAPropertyDisplayName(strConfig, PropId, pstrDisplayName) {
+    GetCAPropertyDisplayName(strConfig, PropId) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
 
+        pstrDisplayName := BSTR()
         result := ComCall(18, this, "ptr", strConfig, "int", PropId, "ptr", pstrDisplayName, "HRESULT")
-        return result
+        return pstrDisplayName
     }
 
     /**
@@ -119,12 +114,12 @@ class ICertRequest2 extends ICertRequest{
      * @param {Integer} PropIndex 
      * @param {Integer} PropType 
      * @param {Integer} Flags 
-     * @param {Pointer<VARIANT>} pvarPropertyValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertrequest2-getfullresponseproperty
      */
-    GetFullResponseProperty(PropId, PropIndex, PropType, Flags, pvarPropertyValue) {
+    GetFullResponseProperty(PropId, PropIndex, PropType, Flags) {
+        pvarPropertyValue := VARIANT()
         result := ComCall(19, this, "int", PropId, "int", PropIndex, "int", PropType, "int", Flags, "ptr", pvarPropertyValue, "HRESULT")
-        return result
+        return pvarPropertyValue
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IHTMLTableSection.ahk
+#Include .\IHTMLTableCaption.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -40,12 +42,11 @@ class IHTMLTable4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IHTMLTableSection>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLTableSection} 
      */
-    get_tHead(p) {
-        result := ComCall(8, this, "ptr*", p, "HRESULT")
-        return result
+    get_tHead() {
+        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLTableSection(p)
     }
 
     /**
@@ -60,12 +61,11 @@ class IHTMLTable4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IHTMLTableSection>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLTableSection} 
      */
-    get_tFoot(p) {
-        result := ComCall(10, this, "ptr*", p, "HRESULT")
-        return result
+    get_tFoot() {
+        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLTableSection(p)
     }
 
     /**
@@ -80,23 +80,21 @@ class IHTMLTable4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IHTMLTableCaption>} p 
-     * @returns {HRESULT} 
+     * @returns {IHTMLTableCaption} 
      */
-    get_caption(p) {
-        result := ComCall(12, this, "ptr*", p, "HRESULT")
-        return result
+    get_caption() {
+        result := ComCall(12, this, "ptr*", &p := 0, "HRESULT")
+        return IHTMLTableCaption(p)
     }
 
     /**
      * 
      * @param {Integer} index 
-     * @param {Pointer<IDispatch>} row 
-     * @returns {HRESULT} 
+     * @returns {IDispatch} 
      */
-    insertRow(index, row) {
-        result := ComCall(13, this, "int", index, "ptr*", row, "HRESULT")
-        return result
+    insertRow(index) {
+        result := ComCall(13, this, "int", index, "ptr*", &row := 0, "HRESULT")
+        return IDispatch(row)
     }
 
     /**
@@ -111,11 +109,10 @@ class IHTMLTable4 extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<IHTMLTableSection>} tbody 
-     * @returns {HRESULT} 
+     * @returns {IHTMLTableSection} 
      */
-    createTBody(tbody) {
-        result := ComCall(15, this, "ptr*", tbody, "HRESULT")
-        return result
+    createTBody() {
+        result := ComCall(15, this, "ptr*", &tbody := 0, "HRESULT")
+        return IHTMLTableSection(tbody)
     }
 }

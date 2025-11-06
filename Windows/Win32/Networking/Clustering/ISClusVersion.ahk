@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -30,113 +32,95 @@ class ISClusVersion extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrClusterName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_Name(pbstrClusterName) {
+    get_Name() {
+        pbstrClusterName := BSTR()
         result := ComCall(7, this, "ptr", pbstrClusterName, "HRESULT")
-        return result
+        return pbstrClusterName
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pnMajorVersion 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_MajorVersion(pnMajorVersion) {
-        pnMajorVersionMarshal := pnMajorVersion is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, pnMajorVersionMarshal, pnMajorVersion, "HRESULT")
-        return result
+    get_MajorVersion() {
+        result := ComCall(8, this, "int*", &pnMajorVersion := 0, "HRESULT")
+        return pnMajorVersion
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pnMinorVersion 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_MinorVersion(pnMinorVersion) {
-        pnMinorVersionMarshal := pnMinorVersion is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pnMinorVersionMarshal, pnMinorVersion, "HRESULT")
-        return result
+    get_MinorVersion() {
+        result := ComCall(9, this, "int*", &pnMinorVersion := 0, "HRESULT")
+        return pnMinorVersion
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pnBuildNumber 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_BuildNumber(pnBuildNumber) {
-        pnBuildNumberMarshal := pnBuildNumber is VarRef ? "short*" : "ptr"
-
-        result := ComCall(10, this, pnBuildNumberMarshal, pnBuildNumber, "HRESULT")
-        return result
+    get_BuildNumber() {
+        result := ComCall(10, this, "short*", &pnBuildNumber := 0, "HRESULT")
+        return pnBuildNumber
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrVendorId 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_VendorId(pbstrVendorId) {
+    get_VendorId() {
+        pbstrVendorId := BSTR()
         result := ComCall(11, this, "ptr", pbstrVendorId, "HRESULT")
-        return result
+        return pbstrVendorId
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} pbstrCSDVersion 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    get_CSDVersion(pbstrCSDVersion) {
+    get_CSDVersion() {
+        pbstrCSDVersion := BSTR()
         result := ComCall(12, this, "ptr", pbstrCSDVersion, "HRESULT")
-        return result
+        return pbstrCSDVersion
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pnClusterHighestVersion 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ClusterHighestVersion(pnClusterHighestVersion) {
-        pnClusterHighestVersionMarshal := pnClusterHighestVersion is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, pnClusterHighestVersionMarshal, pnClusterHighestVersion, "HRESULT")
-        return result
+    get_ClusterHighestVersion() {
+        result := ComCall(13, this, "int*", &pnClusterHighestVersion := 0, "HRESULT")
+        return pnClusterHighestVersion
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pnClusterLowestVersion 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_ClusterLowestVersion(pnClusterLowestVersion) {
-        pnClusterLowestVersionMarshal := pnClusterLowestVersion is VarRef ? "int*" : "ptr"
-
-        result := ComCall(14, this, pnClusterLowestVersionMarshal, pnClusterLowestVersion, "HRESULT")
-        return result
+    get_ClusterLowestVersion() {
+        result := ComCall(14, this, "int*", &pnClusterLowestVersion := 0, "HRESULT")
+        return pnClusterLowestVersion
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pnFlags 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Flags(pnFlags) {
-        pnFlagsMarshal := pnFlags is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, pnFlagsMarshal, pnFlags, "HRESULT")
-        return result
+    get_Flags() {
+        result := ComCall(15, this, "int*", &pnFlags := 0, "HRESULT")
+        return pnFlags
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT>} pvarMixedVersion 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      */
-    get_MixedVersion(pvarMixedVersion) {
+    get_MixedVersion() {
+        pvarMixedVersion := VARIANT()
         result := ComCall(16, this, "ptr", pvarMixedVersion, "HRESULT")
-        return result
+        return pvarMixedVersion
     }
 }

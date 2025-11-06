@@ -32,14 +32,11 @@ class IDCompositionDelegatedInkTrail extends IUnknown{
      * 
      * @param {Pointer<DCompositionInkTrailPoint>} inkPoints 
      * @param {Integer} inkPointsCount 
-     * @param {Pointer<Integer>} generationId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    AddTrailPoints(inkPoints, inkPointsCount, generationId) {
-        generationIdMarshal := generationId is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, "ptr", inkPoints, "uint", inkPointsCount, generationIdMarshal, generationId, "HRESULT")
-        return result
+    AddTrailPoints(inkPoints, inkPointsCount) {
+        result := ComCall(3, this, "ptr", inkPoints, "uint", inkPointsCount, "uint*", &generationId := 0, "HRESULT")
+        return generationId
     }
 
     /**
@@ -48,14 +45,11 @@ class IDCompositionDelegatedInkTrail extends IUnknown{
      * @param {Integer} inkPointsCount 
      * @param {Pointer<DCompositionInkTrailPoint>} predictedInkPoints 
      * @param {Integer} predictedInkPointsCount 
-     * @param {Pointer<Integer>} generationId 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    AddTrailPointsWithPrediction(inkPoints, inkPointsCount, predictedInkPoints, predictedInkPointsCount, generationId) {
-        generationIdMarshal := generationId is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, "ptr", inkPoints, "uint", inkPointsCount, "ptr", predictedInkPoints, "uint", predictedInkPointsCount, generationIdMarshal, generationId, "HRESULT")
-        return result
+    AddTrailPointsWithPrediction(inkPoints, inkPointsCount, predictedInkPoints, predictedInkPointsCount) {
+        result := ComCall(4, this, "ptr", inkPoints, "uint", inkPointsCount, "ptr", predictedInkPoints, "uint", predictedInkPointsCount, "uint*", &generationId := 0, "HRESULT")
+        return generationId
     }
 
     /**

@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\BSTR.ahk
+#Include .\IWiaDrvItem.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -31,46 +32,40 @@ class IWiaDrvItem extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} __MIDL__IWiaDrvItem0000 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetItemFlags(__MIDL__IWiaDrvItem0000) {
-        __MIDL__IWiaDrvItem0000Marshal := __MIDL__IWiaDrvItem0000 is VarRef ? "int*" : "ptr"
-
-        result := ComCall(3, this, __MIDL__IWiaDrvItem0000Marshal, __MIDL__IWiaDrvItem0000, "HRESULT")
-        return result
+    GetItemFlags() {
+        result := ComCall(3, this, "int*", &__MIDL__IWiaDrvItem0000 := 0, "HRESULT")
+        return __MIDL__IWiaDrvItem0000
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<Integer>>} __MIDL__IWiaDrvItem0001 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Integer>} 
      */
-    GetDeviceSpecContext(__MIDL__IWiaDrvItem0001) {
-        __MIDL__IWiaDrvItem0001Marshal := __MIDL__IWiaDrvItem0001 is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(4, this, __MIDL__IWiaDrvItem0001Marshal, __MIDL__IWiaDrvItem0001, "HRESULT")
-        return result
+    GetDeviceSpecContext() {
+        result := ComCall(4, this, "ptr*", &__MIDL__IWiaDrvItem0001 := 0, "HRESULT")
+        return __MIDL__IWiaDrvItem0001
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} __MIDL__IWiaDrvItem0002 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetFullItemName(__MIDL__IWiaDrvItem0002) {
+    GetFullItemName() {
+        __MIDL__IWiaDrvItem0002 := BSTR()
         result := ComCall(5, this, "ptr", __MIDL__IWiaDrvItem0002, "HRESULT")
-        return result
+        return __MIDL__IWiaDrvItem0002
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} __MIDL__IWiaDrvItem0003 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetItemName(__MIDL__IWiaDrvItem0003) {
+    GetItemName() {
+        __MIDL__IWiaDrvItem0003 := BSTR()
         result := ComCall(6, this, "ptr", __MIDL__IWiaDrvItem0003, "HRESULT")
-        return result
+        return __MIDL__IWiaDrvItem0003
     }
 
     /**
@@ -107,66 +102,61 @@ class IWiaDrvItem extends IUnknown{
      * 
      * @param {Integer} __MIDL__IWiaDrvItem0007 
      * @param {BSTR} __MIDL__IWiaDrvItem0008 
-     * @param {Pointer<IWiaDrvItem>} __MIDL__IWiaDrvItem0009 
-     * @returns {HRESULT} 
+     * @returns {IWiaDrvItem} 
      */
-    FindItemByName(__MIDL__IWiaDrvItem0007, __MIDL__IWiaDrvItem0008, __MIDL__IWiaDrvItem0009) {
+    FindItemByName(__MIDL__IWiaDrvItem0007, __MIDL__IWiaDrvItem0008) {
         __MIDL__IWiaDrvItem0008 := __MIDL__IWiaDrvItem0008 is String ? BSTR.Alloc(__MIDL__IWiaDrvItem0008).Value : __MIDL__IWiaDrvItem0008
 
-        result := ComCall(10, this, "int", __MIDL__IWiaDrvItem0007, "ptr", __MIDL__IWiaDrvItem0008, "ptr*", __MIDL__IWiaDrvItem0009, "HRESULT")
-        return result
+        result := ComCall(10, this, "int", __MIDL__IWiaDrvItem0007, "ptr", __MIDL__IWiaDrvItem0008, "ptr*", &__MIDL__IWiaDrvItem0009 := 0, "HRESULT")
+        return IWiaDrvItem(__MIDL__IWiaDrvItem0009)
     }
 
     /**
      * 
      * @param {BSTR} __MIDL__IWiaDrvItem0010 
-     * @param {Pointer<IWiaDrvItem>} __MIDL__IWiaDrvItem0011 
-     * @returns {HRESULT} 
+     * @returns {IWiaDrvItem} 
      */
-    FindChildItemByName(__MIDL__IWiaDrvItem0010, __MIDL__IWiaDrvItem0011) {
+    FindChildItemByName(__MIDL__IWiaDrvItem0010) {
         __MIDL__IWiaDrvItem0010 := __MIDL__IWiaDrvItem0010 is String ? BSTR.Alloc(__MIDL__IWiaDrvItem0010).Value : __MIDL__IWiaDrvItem0010
 
-        result := ComCall(11, this, "ptr", __MIDL__IWiaDrvItem0010, "ptr*", __MIDL__IWiaDrvItem0011, "HRESULT")
-        return result
+        result := ComCall(11, this, "ptr", __MIDL__IWiaDrvItem0010, "ptr*", &__MIDL__IWiaDrvItem0011 := 0, "HRESULT")
+        return IWiaDrvItem(__MIDL__IWiaDrvItem0011)
     }
 
     /**
      * 
-     * @param {Pointer<IWiaDrvItem>} __MIDL__IWiaDrvItem0012 
-     * @returns {HRESULT} 
+     * @returns {IWiaDrvItem} 
      */
-    GetParentItem(__MIDL__IWiaDrvItem0012) {
-        result := ComCall(12, this, "ptr*", __MIDL__IWiaDrvItem0012, "HRESULT")
-        return result
+    GetParentItem() {
+        result := ComCall(12, this, "ptr*", &__MIDL__IWiaDrvItem0012 := 0, "HRESULT")
+        return IWiaDrvItem(__MIDL__IWiaDrvItem0012)
     }
 
     /**
      * 
-     * @param {Pointer<IWiaDrvItem>} __MIDL__IWiaDrvItem0013 
-     * @returns {HRESULT} 
+     * @returns {IWiaDrvItem} 
      */
-    GetFirstChildItem(__MIDL__IWiaDrvItem0013) {
-        result := ComCall(13, this, "ptr*", __MIDL__IWiaDrvItem0013, "HRESULT")
-        return result
+    GetFirstChildItem() {
+        result := ComCall(13, this, "ptr*", &__MIDL__IWiaDrvItem0013 := 0, "HRESULT")
+        return IWiaDrvItem(__MIDL__IWiaDrvItem0013)
     }
 
     /**
      * 
-     * @param {Pointer<IWiaDrvItem>} __MIDL__IWiaDrvItem0014 
-     * @returns {HRESULT} 
+     * @returns {IWiaDrvItem} 
      */
-    GetNextSiblingItem(__MIDL__IWiaDrvItem0014) {
-        result := ComCall(14, this, "ptr*", __MIDL__IWiaDrvItem0014, "HRESULT")
-        return result
+    GetNextSiblingItem() {
+        result := ComCall(14, this, "ptr*", &__MIDL__IWiaDrvItem0014 := 0, "HRESULT")
+        return IWiaDrvItem(__MIDL__IWiaDrvItem0014)
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} __MIDL__IWiaDrvItem0015 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    DumpItemData(__MIDL__IWiaDrvItem0015) {
+    DumpItemData() {
+        __MIDL__IWiaDrvItem0015 := BSTR()
         result := ComCall(15, this, "ptr", __MIDL__IWiaDrvItem0015, "HRESULT")
-        return result
+        return __MIDL__IWiaDrvItem0015
     }
 }

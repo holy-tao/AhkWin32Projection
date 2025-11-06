@@ -64,69 +64,54 @@ class IAudioClient extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pNumBufferFrames 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioclient-getbuffersize
      */
-    GetBufferSize(pNumBufferFrames) {
-        pNumBufferFramesMarshal := pNumBufferFrames is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, pNumBufferFramesMarshal, pNumBufferFrames, "HRESULT")
-        return result
+    GetBufferSize() {
+        result := ComCall(4, this, "uint*", &pNumBufferFrames := 0, "HRESULT")
+        return pNumBufferFrames
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} phnsLatency 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioclient-getstreamlatency
      */
-    GetStreamLatency(phnsLatency) {
-        phnsLatencyMarshal := phnsLatency is VarRef ? "int64*" : "ptr"
-
-        result := ComCall(5, this, phnsLatencyMarshal, phnsLatency, "HRESULT")
-        return result
+    GetStreamLatency() {
+        result := ComCall(5, this, "int64*", &phnsLatency := 0, "HRESULT")
+        return phnsLatency
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pNumPaddingFrames 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioclient-getcurrentpadding
      */
-    GetCurrentPadding(pNumPaddingFrames) {
-        pNumPaddingFramesMarshal := pNumPaddingFrames is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, pNumPaddingFramesMarshal, pNumPaddingFrames, "HRESULT")
-        return result
+    GetCurrentPadding() {
+        result := ComCall(6, this, "uint*", &pNumPaddingFrames := 0, "HRESULT")
+        return pNumPaddingFrames
     }
 
     /**
      * 
      * @param {Integer} ShareMode 
      * @param {Pointer<WAVEFORMATEX>} pFormat 
-     * @param {Pointer<Pointer<WAVEFORMATEX>>} ppClosestMatch 
-     * @returns {HRESULT} 
+     * @returns {Pointer<WAVEFORMATEX>} 
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioclient-isformatsupported
      */
-    IsFormatSupported(ShareMode, pFormat, ppClosestMatch) {
-        ppClosestMatchMarshal := ppClosestMatch is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(7, this, "int", ShareMode, "ptr", pFormat, ppClosestMatchMarshal, ppClosestMatch, "int")
-        return result
+    IsFormatSupported(ShareMode, pFormat) {
+        result := ComCall(7, this, "int", ShareMode, "ptr", pFormat, "ptr*", &ppClosestMatch := 0, "int")
+        return ppClosestMatch
     }
 
     /**
      * 
-     * @param {Pointer<Pointer<WAVEFORMATEX>>} ppDeviceFormat 
-     * @returns {HRESULT} 
+     * @returns {Pointer<WAVEFORMATEX>} 
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioclient-getmixformat
      */
-    GetMixFormat(ppDeviceFormat) {
-        ppDeviceFormatMarshal := ppDeviceFormat is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(8, this, ppDeviceFormatMarshal, ppDeviceFormat, "HRESULT")
-        return result
+    GetMixFormat() {
+        result := ComCall(8, this, "ptr*", &ppDeviceFormat := 0, "HRESULT")
+        return ppDeviceFormat
     }
 
     /**
@@ -190,14 +175,11 @@ class IAudioClient extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioclient-getservice
      */
-    GetService(riid, ppv) {
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(14, this, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+    GetService(riid) {
+        result := ComCall(14, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\Foundation\BSTR.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -30,12 +31,12 @@ class IDataModelScript extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<BSTR>} scriptName 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetName(scriptName) {
+    GetName() {
+        scriptName := BSTR()
         result := ComCall(3, this, "ptr", scriptName, "HRESULT")
-        return result
+        return scriptName
     }
 
     /**
@@ -81,14 +82,11 @@ class IDataModelScript extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Boolean>} isInvocable 
-     * @returns {HRESULT} 
+     * @returns {Boolean} 
      */
-    IsInvocable(isInvocable) {
-        isInvocableMarshal := isInvocable is VarRef ? "int*" : "ptr"
-
-        result := ComCall(8, this, isInvocableMarshal, isInvocable, "HRESULT")
-        return result
+    IsInvocable() {
+        result := ComCall(8, this, "int*", &isInvocable := 0, "HRESULT")
+        return isInvocable
     }
 
     /**

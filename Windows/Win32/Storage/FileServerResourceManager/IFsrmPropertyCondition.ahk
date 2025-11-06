@@ -37,13 +37,13 @@ class IFsrmPropertyCondition extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} name 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmpropertycondition-get_name
      */
-    get_Name(name) {
+    get_Name() {
+        name := BSTR()
         result := ComCall(7, this, "ptr", name, "HRESULT")
-        return result
+        return name
     }
 
     /**
@@ -61,15 +61,12 @@ class IFsrmPropertyCondition extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} type 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmpropertycondition-get_type
      */
-    get_Type(type) {
-        typeMarshal := type is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, typeMarshal, type, "HRESULT")
-        return result
+    get_Type() {
+        result := ComCall(9, this, "int*", &type := 0, "HRESULT")
+        return type
     }
 
     /**
@@ -85,13 +82,13 @@ class IFsrmPropertyCondition extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<BSTR>} value 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmpropertycondition-get_value
      */
-    get_Value(value) {
+    get_Value() {
+        value := BSTR()
         result := ComCall(11, this, "ptr", value, "HRESULT")
-        return result
+        return value
     }
 
     /**

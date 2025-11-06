@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\..\Guid.ahk
+#Include .\IDebugFAEntryTags.ahk
+#Include ..\..\..\..\Data\Xml\MsXml\IXMLDOMElement.ahk
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
@@ -263,22 +265,20 @@ class IDebugFailureAnalysis2 extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IDebugFAEntryTags>} FATagControl 
-     * @returns {HRESULT} 
+     * @returns {IDebugFAEntryTags} 
      */
-    GetDebugFATagControl(FATagControl) {
-        result := ComCall(23, this, "ptr*", FATagControl, "HRESULT")
-        return result
+    GetDebugFATagControl() {
+        result := ComCall(23, this, "ptr*", &FATagControl := 0, "HRESULT")
+        return IDebugFAEntryTags(FATagControl)
     }
 
     /**
      * 
-     * @param {Pointer<IXMLDOMElement>} ppXMLDOMElement 
-     * @returns {HRESULT} 
+     * @returns {IXMLDOMElement} 
      */
-    GetAnalysisXml(ppXMLDOMElement) {
-        result := ComCall(24, this, "ptr*", ppXMLDOMElement, "HRESULT")
-        return result
+    GetAnalysisXml() {
+        result := ComCall(24, this, "ptr*", &ppXMLDOMElement := 0, "HRESULT")
+        return IXMLDOMElement(ppXMLDOMElement)
     }
 
     /**

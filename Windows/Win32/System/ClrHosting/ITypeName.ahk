@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\BSTR.ahk
 #Include ..\Com\IUnknown.ahk
 
 /**
@@ -30,90 +31,73 @@ class ITypeName extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetNameCount(pCount) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    GetNameCount() {
+        result := ComCall(3, this, "uint*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
      * 
      * @param {Integer} count 
      * @param {Pointer<BSTR>} rgbszNames 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetNames(count, rgbszNames, pCount) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(4, this, "uint", count, "ptr", rgbszNames, pCountMarshal, pCount, "HRESULT")
-        return result
+    GetNames(count, rgbszNames) {
+        result := ComCall(4, this, "uint", count, "ptr", rgbszNames, "uint*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetTypeArgumentCount(pCount) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    GetTypeArgumentCount() {
+        result := ComCall(5, this, "uint*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
      * 
      * @param {Integer} count 
      * @param {Pointer<ITypeName>} rgpArguments 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetTypeArguments(count, rgpArguments, pCount) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(6, this, "uint", count, "ptr*", rgpArguments, pCountMarshal, pCount, "HRESULT")
-        return result
+    GetTypeArguments(count, rgpArguments) {
+        result := ComCall(6, this, "uint", count, "ptr*", rgpArguments, "uint*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetModifierLength(pCount) {
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(7, this, pCountMarshal, pCount, "HRESULT")
-        return result
+    GetModifierLength() {
+        result := ComCall(7, this, "uint*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
      * 
      * @param {Integer} count 
      * @param {Pointer<Integer>} rgModifiers 
-     * @param {Pointer<Integer>} pCount 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetModifiers(count, rgModifiers, pCount) {
+    GetModifiers(count, rgModifiers) {
         rgModifiersMarshal := rgModifiers is VarRef ? "uint*" : "ptr"
-        pCountMarshal := pCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "uint", count, rgModifiersMarshal, rgModifiers, pCountMarshal, pCount, "HRESULT")
-        return result
+        result := ComCall(8, this, "uint", count, rgModifiersMarshal, rgModifiers, "uint*", &pCount := 0, "HRESULT")
+        return pCount
     }
 
     /**
      * 
-     * @param {Pointer<BSTR>} rgbszAssemblyNames 
-     * @returns {HRESULT} 
+     * @returns {BSTR} 
      */
-    GetAssemblyName(rgbszAssemblyNames) {
+    GetAssemblyName() {
+        rgbszAssemblyNames := BSTR()
         result := ComCall(9, this, "ptr", rgbszAssemblyNames, "HRESULT")
-        return result
+        return rgbszAssemblyNames
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\D3D11_MAPPED_SUBRESOURCE.ahk
+#Include .\ID3D11CommandList.ahk
 #Include .\ID3D11DeviceChild.ahk
 
 /**
@@ -119,13 +121,13 @@ class ID3D11DeviceContext extends ID3D11DeviceChild{
      * @param {Integer} Subresource 
      * @param {Integer} MapType 
      * @param {Integer} MapFlags 
-     * @param {Pointer<D3D11_MAPPED_SUBRESOURCE>} pMappedResource 
-     * @returns {HRESULT} 
+     * @returns {D3D11_MAPPED_SUBRESOURCE} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-map
      */
-    Map(pResource, Subresource, MapType, MapFlags, pMappedResource) {
+    Map(pResource, Subresource, MapType, MapFlags) {
+        pMappedResource := D3D11_MAPPED_SUBRESOURCE()
         result := ComCall(14, this, "ptr", pResource, "uint", Subresource, "int", MapType, "uint", MapFlags, "ptr", pMappedResource, "HRESULT")
-        return result
+        return pMappedResource
     }
 
     /**
@@ -1012,7 +1014,9 @@ class ID3D11DeviceContext extends ID3D11DeviceChild{
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-getpredication
      */
     GetPredication(ppPredicate, pPredicateValue) {
-        ComCall(86, this, "ptr*", ppPredicate, "ptr", pPredicateValue)
+        pPredicateValueMarshal := pPredicateValue is VarRef ? "int*" : "ptr"
+
+        ComCall(86, this, "ptr*", ppPredicate, pPredicateValueMarshal, pPredicateValue)
     }
 
     /**
@@ -1344,12 +1348,11 @@ class ID3D11DeviceContext extends ID3D11DeviceChild{
     /**
      * 
      * @param {BOOL} RestoreDeferredContextState 
-     * @param {Pointer<ID3D11CommandList>} ppCommandList 
-     * @returns {HRESULT} 
+     * @returns {ID3D11CommandList} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-finishcommandlist
      */
-    FinishCommandList(RestoreDeferredContextState, ppCommandList) {
-        result := ComCall(114, this, "int", RestoreDeferredContextState, "ptr*", ppCommandList, "HRESULT")
-        return result
+    FinishCommandList(RestoreDeferredContextState) {
+        result := ComCall(114, this, "int", RestoreDeferredContextState, "ptr*", &ppCommandList := 0, "HRESULT")
+        return ID3D11CommandList(ppCommandList)
     }
 }

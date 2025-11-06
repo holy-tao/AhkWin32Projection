@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IDownloadJob.ahk
+#Include .\IDownloadResult.ahk
 #Include .\IUpdateDownloader.ahk
 
 /**
@@ -34,22 +36,20 @@ class IUpdateDownloaderEx extends IUpdateDownloader{
      * @param {IUnknown} onProgressChanged 
      * @param {IUnknown} onCompleted 
      * @param {VARIANT} state 
-     * @param {Pointer<IDownloadJob>} retval 
-     * @returns {HRESULT} 
+     * @returns {IDownloadJob} 
      */
-    BeginDownload2(downloadType, onProgressChanged, onCompleted, state, retval) {
-        result := ComCall(18, this, "int", downloadType, "ptr", onProgressChanged, "ptr", onCompleted, "ptr", state, "ptr*", retval, "HRESULT")
-        return result
+    BeginDownload2(downloadType, onProgressChanged, onCompleted, state) {
+        result := ComCall(18, this, "int", downloadType, "ptr", onProgressChanged, "ptr", onCompleted, "ptr", state, "ptr*", &retval := 0, "HRESULT")
+        return IDownloadJob(retval)
     }
 
     /**
      * 
      * @param {Integer} downloadType 
-     * @param {Pointer<IDownloadResult>} retval 
-     * @returns {HRESULT} 
+     * @returns {IDownloadResult} 
      */
-    Download2(downloadType, retval) {
-        result := ComCall(19, this, "int", downloadType, "ptr*", retval, "HRESULT")
-        return result
+    Download2(downloadType) {
+        result := ComCall(19, this, "int", downloadType, "ptr*", &retval := 0, "HRESULT")
+        return IDownloadResult(retval)
     }
 }

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IAppxEncryptedPackageWriter.ahk
+#Include .\IAppxEncryptedBundleWriter.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -53,13 +55,12 @@ class IAppxEncryptionFactory3 extends IUnknown{
      * @param {Pointer<APPX_ENCRYPTED_PACKAGE_SETTINGS2>} settings 
      * @param {Pointer<APPX_KEY_INFO>} keyInfo 
      * @param {Pointer<APPX_ENCRYPTED_EXEMPTIONS>} exemptedFiles 
-     * @param {Pointer<IAppxEncryptedPackageWriter>} packageWriter 
-     * @returns {HRESULT} 
+     * @returns {IAppxEncryptedPackageWriter} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxencryptionfactory3-createencryptedpackagewriter
      */
-    CreateEncryptedPackageWriter(outputStream, manifestStream, contentGroupMapStream, settings, keyInfo, exemptedFiles, packageWriter) {
-        result := ComCall(4, this, "ptr", outputStream, "ptr", manifestStream, "ptr", contentGroupMapStream, "ptr", settings, "ptr", keyInfo, "ptr", exemptedFiles, "ptr*", packageWriter, "HRESULT")
-        return result
+    CreateEncryptedPackageWriter(outputStream, manifestStream, contentGroupMapStream, settings, keyInfo, exemptedFiles) {
+        result := ComCall(4, this, "ptr", outputStream, "ptr", manifestStream, "ptr", contentGroupMapStream, "ptr", settings, "ptr", keyInfo, "ptr", exemptedFiles, "ptr*", &packageWriter := 0, "HRESULT")
+        return IAppxEncryptedPackageWriter(packageWriter)
     }
 
     /**
@@ -84,12 +85,11 @@ class IAppxEncryptionFactory3 extends IUnknown{
      * @param {Pointer<APPX_ENCRYPTED_PACKAGE_SETTINGS2>} settings 
      * @param {Pointer<APPX_KEY_INFO>} keyInfo 
      * @param {Pointer<APPX_ENCRYPTED_EXEMPTIONS>} exemptedFiles 
-     * @param {Pointer<IAppxEncryptedBundleWriter>} bundleWriter 
-     * @returns {HRESULT} 
+     * @returns {IAppxEncryptedBundleWriter} 
      * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxencryptionfactory3-createencryptedbundlewriter
      */
-    CreateEncryptedBundleWriter(outputStream, bundleVersion, settings, keyInfo, exemptedFiles, bundleWriter) {
-        result := ComCall(6, this, "ptr", outputStream, "uint", bundleVersion, "ptr", settings, "ptr", keyInfo, "ptr", exemptedFiles, "ptr*", bundleWriter, "HRESULT")
-        return result
+    CreateEncryptedBundleWriter(outputStream, bundleVersion, settings, keyInfo, exemptedFiles) {
+        result := ComCall(6, this, "ptr", outputStream, "uint", bundleVersion, "ptr", settings, "ptr", keyInfo, "ptr", exemptedFiles, "ptr*", &bundleWriter := 0, "HRESULT")
+        return IAppxEncryptedBundleWriter(bundleWriter)
     }
 }

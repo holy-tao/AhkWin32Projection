@@ -35,21 +35,19 @@ class IBDA_WMDRMTuner extends IUnknown{
      * @param {BSTR} bstrLanguage 
      * @param {Integer} ulPurchaseTokenLen 
      * @param {Pointer<Integer>} pbPurchaseToken 
-     * @param {Pointer<Integer>} pulDescrambleStatus 
      * @param {Pointer<Integer>} pulCaptureTokenLen 
      * @param {Pointer<Integer>} pbCaptureToken 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    PurchaseEntitlement(ulDialogRequest, bstrLanguage, ulPurchaseTokenLen, pbPurchaseToken, pulDescrambleStatus, pulCaptureTokenLen, pbCaptureToken) {
+    PurchaseEntitlement(ulDialogRequest, bstrLanguage, ulPurchaseTokenLen, pbPurchaseToken, pulCaptureTokenLen, pbCaptureToken) {
         bstrLanguage := bstrLanguage is String ? BSTR.Alloc(bstrLanguage).Value : bstrLanguage
 
         pbPurchaseTokenMarshal := pbPurchaseToken is VarRef ? "char*" : "ptr"
-        pulDescrambleStatusMarshal := pulDescrambleStatus is VarRef ? "uint*" : "ptr"
         pulCaptureTokenLenMarshal := pulCaptureTokenLen is VarRef ? "uint*" : "ptr"
         pbCaptureTokenMarshal := pbCaptureToken is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, "uint", ulDialogRequest, "ptr", bstrLanguage, "uint", ulPurchaseTokenLen, pbPurchaseTokenMarshal, pbPurchaseToken, pulDescrambleStatusMarshal, pulDescrambleStatus, pulCaptureTokenLenMarshal, pulCaptureTokenLen, pbCaptureTokenMarshal, pbCaptureToken, "HRESULT")
-        return result
+        result := ComCall(3, this, "uint", ulDialogRequest, "ptr", bstrLanguage, "uint", ulPurchaseTokenLen, pbPurchaseTokenMarshal, pbPurchaseToken, "uint*", &pulDescrambleStatus := 0, pulCaptureTokenLenMarshal, pulCaptureTokenLen, pbCaptureTokenMarshal, pbCaptureToken, "HRESULT")
+        return pulDescrambleStatus
     }
 
     /**
@@ -79,12 +77,12 @@ class IBDA_WMDRMTuner extends IUnknown{
     /**
      * 
      * @param {Integer} pulPid 
-     * @param {Pointer<Guid>} uuidKey 
-     * @returns {HRESULT} 
+     * @returns {Guid} 
      */
-    GetPidProtection(pulPid, uuidKey) {
+    GetPidProtection(pulPid) {
+        uuidKey := Guid()
         result := ComCall(6, this, "uint", pulPid, "ptr", uuidKey, "HRESULT")
-        return result
+        return uuidKey
     }
 
     /**

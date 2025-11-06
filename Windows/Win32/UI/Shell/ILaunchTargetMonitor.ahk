@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Graphics\Gdi\HMONITOR.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -32,12 +33,12 @@ class ILaunchTargetMonitor extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<HMONITOR>} monitor 
-     * @returns {HRESULT} 
+     * @returns {HMONITOR} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ilaunchtargetmonitor-getmonitor
      */
-    GetMonitor(monitor) {
+    GetMonitor() {
+        monitor := HMONITOR()
         result := ComCall(3, this, "ptr", monitor, "HRESULT")
-        return result
+        return monitor
     }
 }

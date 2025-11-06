@@ -48,12 +48,11 @@ class IContactAggregationServerPerson extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppAggregateId 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    get_AggregateId(ppAggregateId) {
-        result := ComCall(5, this, "ptr", ppAggregateId, "HRESULT")
-        return result
+    get_AggregateId() {
+        result := ComCall(5, this, "ptr*", &ppAggregateId := 0, "HRESULT")
+        return ppAggregateId
     }
 
     /**
@@ -70,12 +69,11 @@ class IContactAggregationServerPerson extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppAntiLink 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    get_AntiLink(ppAntiLink) {
-        result := ComCall(7, this, "ptr", ppAntiLink, "HRESULT")
-        return result
+    get_AntiLink() {
+        result := ComCall(7, this, "ptr*", &ppAntiLink := 0, "HRESULT")
+        return ppAntiLink
     }
 
     /**
@@ -92,12 +90,11 @@ class IContactAggregationServerPerson extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppAntiLink 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    get_AntiLinkBaseline(ppAntiLink) {
-        result := ComCall(9, this, "ptr", ppAntiLink, "HRESULT")
-        return result
+    get_AntiLinkBaseline() {
+        result := ComCall(9, this, "ptr*", &ppAntiLink := 0, "HRESULT")
+        return ppAntiLink
     }
 
     /**
@@ -114,14 +111,11 @@ class IContactAggregationServerPerson extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pFavoriteOrder 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_FavoriteOrder(pFavoriteOrder) {
-        pFavoriteOrderMarshal := pFavoriteOrder is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(11, this, pFavoriteOrderMarshal, pFavoriteOrder, "HRESULT")
-        return result
+    get_FavoriteOrder() {
+        result := ComCall(11, this, "uint*", &pFavoriteOrder := 0, "HRESULT")
+        return pFavoriteOrder
     }
 
     /**
@@ -136,14 +130,11 @@ class IContactAggregationServerPerson extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pFavoriteOrder 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_FavoriteOrderBaseline(pFavoriteOrder) {
-        pFavoriteOrderMarshal := pFavoriteOrder is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(13, this, pFavoriteOrderMarshal, pFavoriteOrder, "HRESULT")
-        return result
+    get_FavoriteOrderBaseline() {
+        result := ComCall(13, this, "uint*", &pFavoriteOrder := 0, "HRESULT")
+        return pFavoriteOrder
     }
 
     /**
@@ -158,14 +149,11 @@ class IContactAggregationServerPerson extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<CONTACT_AGGREGATION_BLOB>>} pGroups 
-     * @returns {HRESULT} 
+     * @returns {Pointer<CONTACT_AGGREGATION_BLOB>} 
      */
-    get_Groups(pGroups) {
-        pGroupsMarshal := pGroups is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(15, this, pGroupsMarshal, pGroups, "HRESULT")
-        return result
+    get_Groups() {
+        result := ComCall(15, this, "ptr*", &pGroups := 0, "HRESULT")
+        return pGroups
     }
 
     /**
@@ -180,14 +168,11 @@ class IContactAggregationServerPerson extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Pointer<CONTACT_AGGREGATION_BLOB>>} ppGroups 
-     * @returns {HRESULT} 
+     * @returns {Pointer<CONTACT_AGGREGATION_BLOB>} 
      */
-    get_GroupsBaseline(ppGroups) {
-        ppGroupsMarshal := ppGroups is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(17, this, ppGroupsMarshal, ppGroups, "HRESULT")
-        return result
+    get_GroupsBaseline() {
+        result := ComCall(17, this, "ptr*", &ppGroups := 0, "HRESULT")
+        return ppGroups
     }
 
     /**
@@ -202,22 +187,20 @@ class IContactAggregationServerPerson extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppId 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    get_Id(ppId) {
-        result := ComCall(19, this, "ptr", ppId, "HRESULT")
-        return result
+    get_Id() {
+        result := ComCall(19, this, "ptr*", &ppId := 0, "HRESULT")
+        return ppId
     }
 
     /**
      * 
-     * @param {Pointer<BOOL>} pIsTombstone 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    get_IsTombstone(pIsTombstone) {
-        result := ComCall(20, this, "ptr", pIsTombstone, "HRESULT")
-        return result
+    get_IsTombstone() {
+        result := ComCall(20, this, "int*", &pIsTombstone := 0, "HRESULT")
+        return pIsTombstone
     }
 
     /**
@@ -232,12 +215,11 @@ class IContactAggregationServerPerson extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppLinkedAggregateId 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    get_LinkedAggregateId(ppLinkedAggregateId) {
-        result := ComCall(22, this, "ptr", ppLinkedAggregateId, "HRESULT")
-        return result
+    get_LinkedAggregateId() {
+        result := ComCall(22, this, "ptr*", &ppLinkedAggregateId := 0, "HRESULT")
+        return ppLinkedAggregateId
     }
 
     /**
@@ -254,12 +236,11 @@ class IContactAggregationServerPerson extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppObjectId 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    get_ObjectId(ppObjectId) {
-        result := ComCall(24, this, "ptr", ppObjectId, "HRESULT")
-        return result
+    get_ObjectId() {
+        result := ComCall(24, this, "ptr*", &ppObjectId := 0, "HRESULT")
+        return ppObjectId
     }
 
     /**

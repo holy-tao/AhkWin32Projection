@@ -37,16 +37,13 @@ class IDragDropManagerInterop extends IInspectable{
      * 
      * @param {HWND} hwnd 
      * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppv 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/api/dragdropinterop/nf-dragdropinterop-idragdropmanagerinterop-getforwindow
      */
-    GetForWindow(hwnd, riid, ppv) {
+    GetForWindow(hwnd, riid) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(6, this, "ptr", hwnd, "ptr", riid, ppvMarshal, ppv, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", hwnd, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        return ppv
     }
 }

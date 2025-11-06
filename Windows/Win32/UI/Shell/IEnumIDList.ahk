@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IEnumIDList.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -75,12 +76,11 @@ class IEnumIDList extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<IEnumIDList>} ppenum 
-     * @returns {HRESULT} 
+     * @returns {IEnumIDList} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ienumidlist-clone
      */
-    Clone(ppenum) {
-        result := ComCall(6, this, "ptr*", ppenum, "int")
-        return result
+    Clone() {
+        result := ComCall(6, this, "ptr*", &ppenum := 0, "int")
+        return IEnumIDList(ppenum)
     }
 }

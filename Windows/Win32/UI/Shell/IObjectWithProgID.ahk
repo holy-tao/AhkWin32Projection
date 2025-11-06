@@ -45,12 +45,11 @@ class IObjectWithProgID extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszProgID 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iobjectwithprogid-getprogid
      */
-    GetProgID(ppszProgID) {
-        result := ComCall(4, this, "ptr", ppszProgID, "HRESULT")
-        return result
+    GetProgID() {
+        result := ComCall(4, this, "ptr*", &ppszProgID := 0, "HRESULT")
+        return ppszProgID
     }
 }

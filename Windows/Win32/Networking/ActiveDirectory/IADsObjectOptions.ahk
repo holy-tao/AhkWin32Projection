@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Variant\VARIANT.ahk
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
@@ -33,13 +34,13 @@ class IADsObjectOptions extends IDispatch{
     /**
      * 
      * @param {Integer} lnOption 
-     * @param {Pointer<VARIANT>} pvValue 
-     * @returns {HRESULT} 
+     * @returns {VARIANT} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsobjectoptions-getoption
      */
-    GetOption(lnOption, pvValue) {
+    GetOption(lnOption) {
+        pvValue := VARIANT()
         result := ComCall(7, this, "int", lnOption, "ptr", pvValue, "HRESULT")
-        return result
+        return pvValue
     }
 
     /**

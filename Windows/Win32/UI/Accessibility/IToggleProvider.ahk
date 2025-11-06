@@ -47,14 +47,11 @@ class IToggleProvider extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pRetVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itoggleprovider-get_togglestate
      */
-    get_ToggleState(pRetVal) {
-        pRetValMarshal := pRetVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(4, this, pRetValMarshal, pRetVal, "HRESULT")
-        return result
+    get_ToggleState() {
+        result := ComCall(4, this, "int*", &pRetVal := 0, "HRESULT")
+        return pRetVal
     }
 }

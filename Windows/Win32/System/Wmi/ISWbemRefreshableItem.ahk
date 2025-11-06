@@ -1,6 +1,9 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\ISWbemRefresher.ahk
+#Include .\ISWbemObjectEx.ahk
+#Include .\ISWbemObjectSet.ahk
 #Include ..\Com\IDispatch.ahk
 
 /**
@@ -36,54 +39,47 @@ class ISWbemRefreshableItem extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} iIndex 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    get_Index(iIndex) {
-        iIndexMarshal := iIndex is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, iIndexMarshal, iIndex, "HRESULT")
-        return result
+    get_Index() {
+        result := ComCall(7, this, "int*", &iIndex := 0, "HRESULT")
+        return iIndex
     }
 
     /**
      * 
-     * @param {Pointer<ISWbemRefresher>} objWbemRefresher 
-     * @returns {HRESULT} 
+     * @returns {ISWbemRefresher} 
      */
-    get_Refresher(objWbemRefresher) {
-        result := ComCall(8, this, "ptr*", objWbemRefresher, "HRESULT")
-        return result
+    get_Refresher() {
+        result := ComCall(8, this, "ptr*", &objWbemRefresher := 0, "HRESULT")
+        return ISWbemRefresher(objWbemRefresher)
     }
 
     /**
      * 
-     * @param {Pointer<VARIANT_BOOL>} bIsSet 
-     * @returns {HRESULT} 
+     * @returns {VARIANT_BOOL} 
      */
-    get_IsSet(bIsSet) {
-        result := ComCall(9, this, "ptr", bIsSet, "HRESULT")
-        return result
+    get_IsSet() {
+        result := ComCall(9, this, "short*", &bIsSet := 0, "HRESULT")
+        return bIsSet
     }
 
     /**
      * 
-     * @param {Pointer<ISWbemObjectEx>} objWbemObject 
-     * @returns {HRESULT} 
+     * @returns {ISWbemObjectEx} 
      */
-    get_Object(objWbemObject) {
-        result := ComCall(10, this, "ptr*", objWbemObject, "HRESULT")
-        return result
+    get_Object() {
+        result := ComCall(10, this, "ptr*", &objWbemObject := 0, "HRESULT")
+        return ISWbemObjectEx(objWbemObject)
     }
 
     /**
      * 
-     * @param {Pointer<ISWbemObjectSet>} objWbemObjectSet 
-     * @returns {HRESULT} 
+     * @returns {ISWbemObjectSet} 
      */
-    get_ObjectSet(objWbemObjectSet) {
-        result := ComCall(11, this, "ptr*", objWbemObjectSet, "HRESULT")
-        return result
+    get_ObjectSet() {
+        result := ComCall(11, this, "ptr*", &objWbemObjectSet := 0, "HRESULT")
+        return ISWbemObjectSet(objWbemObjectSet)
     }
 
     /**

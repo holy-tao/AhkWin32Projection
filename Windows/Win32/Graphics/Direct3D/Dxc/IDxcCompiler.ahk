@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include .\IDxcOperationResult.ahk
+#Include .\IDxcBlobEncoding.ahk
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
@@ -39,16 +41,17 @@ class IDxcCompiler extends IUnknown{
      * @param {Pointer<DxcDefine>} pDefines 
      * @param {Integer} defineCount 
      * @param {IDxcIncludeHandler} pIncludeHandler 
-     * @param {Pointer<IDxcOperationResult>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {IDxcOperationResult} 
      */
-    Compile(pSource, pSourceName, pEntryPoint, pTargetProfile, pArguments, argCount, pDefines, defineCount, pIncludeHandler, ppResult) {
+    Compile(pSource, pSourceName, pEntryPoint, pTargetProfile, pArguments, argCount, pDefines, defineCount, pIncludeHandler) {
         pSourceName := pSourceName is String ? StrPtr(pSourceName) : pSourceName
         pEntryPoint := pEntryPoint is String ? StrPtr(pEntryPoint) : pEntryPoint
         pTargetProfile := pTargetProfile is String ? StrPtr(pTargetProfile) : pTargetProfile
 
-        result := ComCall(3, this, "ptr", pSource, "ptr", pSourceName, "ptr", pEntryPoint, "ptr", pTargetProfile, "ptr", pArguments, "uint", argCount, "ptr", pDefines, "uint", defineCount, "ptr", pIncludeHandler, "ptr*", ppResult, "HRESULT")
-        return result
+        pArgumentsMarshal := pArguments is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", pSource, "ptr", pSourceName, "ptr", pEntryPoint, "ptr", pTargetProfile, pArgumentsMarshal, pArguments, "uint", argCount, "ptr", pDefines, "uint", defineCount, "ptr", pIncludeHandler, "ptr*", &ppResult := 0, "HRESULT")
+        return IDxcOperationResult(ppResult)
     }
 
     /**
@@ -60,24 +63,24 @@ class IDxcCompiler extends IUnknown{
      * @param {Pointer<DxcDefine>} pDefines 
      * @param {Integer} defineCount 
      * @param {IDxcIncludeHandler} pIncludeHandler 
-     * @param {Pointer<IDxcOperationResult>} ppResult 
-     * @returns {HRESULT} 
+     * @returns {IDxcOperationResult} 
      */
-    Preprocess(pSource, pSourceName, pArguments, argCount, pDefines, defineCount, pIncludeHandler, ppResult) {
+    Preprocess(pSource, pSourceName, pArguments, argCount, pDefines, defineCount, pIncludeHandler) {
         pSourceName := pSourceName is String ? StrPtr(pSourceName) : pSourceName
 
-        result := ComCall(4, this, "ptr", pSource, "ptr", pSourceName, "ptr", pArguments, "uint", argCount, "ptr", pDefines, "uint", defineCount, "ptr", pIncludeHandler, "ptr*", ppResult, "HRESULT")
-        return result
+        pArgumentsMarshal := pArguments is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(4, this, "ptr", pSource, "ptr", pSourceName, pArgumentsMarshal, pArguments, "uint", argCount, "ptr", pDefines, "uint", defineCount, "ptr", pIncludeHandler, "ptr*", &ppResult := 0, "HRESULT")
+        return IDxcOperationResult(ppResult)
     }
 
     /**
      * 
      * @param {IDxcBlob} pSource 
-     * @param {Pointer<IDxcBlobEncoding>} ppDisassembly 
-     * @returns {HRESULT} 
+     * @returns {IDxcBlobEncoding} 
      */
-    Disassemble(pSource, ppDisassembly) {
-        result := ComCall(5, this, "ptr", pSource, "ptr*", ppDisassembly, "HRESULT")
-        return result
+    Disassemble(pSource) {
+        result := ComCall(5, this, "ptr", pSource, "ptr*", &ppDisassembly := 0, "HRESULT")
+        return IDxcBlobEncoding(ppDisassembly)
     }
 }

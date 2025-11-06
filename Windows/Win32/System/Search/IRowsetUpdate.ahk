@@ -32,16 +32,13 @@ class IRowsetUpdate extends IRowsetChange{
      * 
      * @param {Pointer} hRow 
      * @param {HACCESSOR} hAccessor 
-     * @param {Pointer<Void>} pData 
-     * @returns {HRESULT} 
+     * @returns {Void} 
      */
-    GetOriginalData(hRow, hAccessor, pData) {
+    GetOriginalData(hRow, hAccessor) {
         hAccessor := hAccessor is Win32Handle ? NumGet(hAccessor, "ptr") : hAccessor
 
-        pDataMarshal := pData is VarRef ? "ptr" : "ptr"
-
-        result := ComCall(6, this, "ptr", hRow, "ptr", hAccessor, pDataMarshal, pData, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", hRow, "ptr", hAccessor, "ptr", &pData := 0, "HRESULT")
+        return pData
     }
 
     /**
@@ -67,15 +64,13 @@ class IRowsetUpdate extends IRowsetChange{
      * @param {Pointer} hReserved 
      * @param {Pointer} cRows 
      * @param {Pointer<Pointer>} rghRows 
-     * @param {Pointer<Integer>} rgPendingStatus 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetRowStatus(hReserved, cRows, rghRows, rgPendingStatus) {
+    GetRowStatus(hReserved, cRows, rghRows) {
         rghRowsMarshal := rghRows is VarRef ? "ptr*" : "ptr"
-        rgPendingStatusMarshal := rgPendingStatus is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "ptr", hReserved, "ptr", cRows, rghRowsMarshal, rghRows, rgPendingStatusMarshal, rgPendingStatus, "HRESULT")
-        return result
+        result := ComCall(8, this, "ptr", hReserved, "ptr", cRows, rghRowsMarshal, rghRows, "uint*", &rgPendingStatus := 0, "HRESULT")
+        return rgPendingStatus
     }
 
     /**

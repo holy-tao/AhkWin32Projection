@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\IStiDevice.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -71,51 +72,45 @@ class IStillImageW extends IUnknown{
     /**
      * 
      * @param {PWSTR} pwszDeviceName 
-     * @param {Pointer<Pointer<Void>>} ppBuffer 
-     * @returns {HRESULT} 
+     * @returns {Pointer<Void>} 
      */
-    GetDeviceInfo(pwszDeviceName, ppBuffer) {
+    GetDeviceInfo(pwszDeviceName) {
         pwszDeviceName := pwszDeviceName is String ? StrPtr(pwszDeviceName) : pwszDeviceName
 
-        ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
-
-        result := ComCall(5, this, "ptr", pwszDeviceName, ppBufferMarshal, ppBuffer, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", pwszDeviceName, "ptr*", &ppBuffer := 0, "HRESULT")
+        return ppBuffer
     }
 
     /**
      * 
      * @param {PWSTR} pwszDeviceName 
      * @param {Integer} dwMode 
-     * @param {Pointer<IStiDevice>} pDevice 
      * @param {IUnknown} punkOuter 
-     * @returns {HRESULT} 
+     * @returns {IStiDevice} 
      */
-    CreateDevice(pwszDeviceName, dwMode, pDevice, punkOuter) {
+    CreateDevice(pwszDeviceName, dwMode, punkOuter) {
         pwszDeviceName := pwszDeviceName is String ? StrPtr(pwszDeviceName) : pwszDeviceName
 
-        result := ComCall(6, this, "ptr", pwszDeviceName, "uint", dwMode, "ptr*", pDevice, "ptr", punkOuter, "HRESULT")
-        return result
+        result := ComCall(6, this, "ptr", pwszDeviceName, "uint", dwMode, "ptr*", &pDevice := 0, "ptr", punkOuter, "HRESULT")
+        return IStiDevice(pDevice)
     }
 
     /**
      * 
      * @param {PWSTR} pwszDeviceName 
      * @param {PWSTR} pValueName 
-     * @param {Pointer<Integer>} pType 
      * @param {Pointer} pData 
      * @param {Pointer<Integer>} cbData 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetDeviceValue(pwszDeviceName, pValueName, pType, pData, cbData) {
+    GetDeviceValue(pwszDeviceName, pValueName, pData, cbData) {
         pwszDeviceName := pwszDeviceName is String ? StrPtr(pwszDeviceName) : pwszDeviceName
         pValueName := pValueName is String ? StrPtr(pValueName) : pValueName
 
-        pTypeMarshal := pType is VarRef ? "uint*" : "ptr"
         cbDataMarshal := cbData is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, "ptr", pwszDeviceName, "ptr", pValueName, pTypeMarshal, pType, "ptr", pData, cbDataMarshal, cbData, "HRESULT")
-        return result
+        result := ComCall(7, this, "ptr", pwszDeviceName, "ptr", pValueName, "uint*", &pType := 0, "ptr", pData, cbDataMarshal, cbData, "HRESULT")
+        return pType
     }
 
     /**
@@ -138,18 +133,15 @@ class IStillImageW extends IUnknown{
     /**
      * 
      * @param {PWSTR} pwszDeviceName 
-     * @param {Pointer<Integer>} pdwEventCode 
      * @param {PWSTR} pwszEventName 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      */
-    GetSTILaunchInformation(pwszDeviceName, pdwEventCode, pwszEventName) {
+    GetSTILaunchInformation(pwszDeviceName, pwszEventName) {
         pwszDeviceName := pwszDeviceName is String ? StrPtr(pwszDeviceName) : pwszDeviceName
         pwszEventName := pwszEventName is String ? StrPtr(pwszEventName) : pwszEventName
 
-        pdwEventCodeMarshal := pdwEventCode is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(9, this, "ptr", pwszDeviceName, pdwEventCodeMarshal, pdwEventCode, "ptr", pwszEventName, "HRESULT")
-        return result
+        result := ComCall(9, this, "ptr", pwszDeviceName, "uint*", &pdwEventCode := 0, "ptr", pwszEventName, "HRESULT")
+        return pdwEventCode
     }
 
     /**
@@ -194,14 +186,13 @@ class IStillImageW extends IUnknown{
     /**
      * 
      * @param {PWSTR} pwszDeviceName 
-     * @param {Pointer<BOOL>} pbCurrentState 
-     * @returns {HRESULT} 
+     * @returns {BOOL} 
      */
-    GetHwNotificationState(pwszDeviceName, pbCurrentState) {
+    GetHwNotificationState(pwszDeviceName) {
         pwszDeviceName := pwszDeviceName is String ? StrPtr(pwszDeviceName) : pwszDeviceName
 
-        result := ComCall(13, this, "ptr", pwszDeviceName, "ptr", pbCurrentState, "HRESULT")
-        return result
+        result := ComCall(13, this, "ptr", pwszDeviceName, "int*", &pbCurrentState := 0, "HRESULT")
+        return pbCurrentState
     }
 
     /**

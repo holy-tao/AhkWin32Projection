@@ -36,7 +36,10 @@ class IAuthenticate extends IUnknown{
      * @returns {HRESULT} 
      */
     Authenticate(phwnd, pszUsername, pszPassword) {
-        result := ComCall(3, this, "ptr", phwnd, "ptr", pszUsername, "ptr", pszPassword, "HRESULT")
+        pszUsernameMarshal := pszUsername is VarRef ? "ptr*" : "ptr"
+        pszPasswordMarshal := pszPassword is VarRef ? "ptr*" : "ptr"
+
+        result := ComCall(3, this, "ptr", phwnd, pszUsernameMarshal, pszUsername, pszPasswordMarshal, pszPassword, "HRESULT")
         return result
     }
 }

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\MFCLOCK_PROPERTIES.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -37,15 +38,12 @@ class IMFClock extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwCharacteristics 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfclock-getclockcharacteristics
      */
-    GetClockCharacteristics(pdwCharacteristics) {
-        pdwCharacteristicsMarshal := pdwCharacteristics is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(3, this, pdwCharacteristicsMarshal, pdwCharacteristics, "HRESULT")
-        return result
+    GetClockCharacteristics() {
+        result := ComCall(3, this, "uint*", &pdwCharacteristics := 0, "HRESULT")
+        return pdwCharacteristics
     }
 
     /**
@@ -66,39 +64,33 @@ class IMFClock extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<Integer>} pdwContinuityKey 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfclock-getcontinuitykey
      */
-    GetContinuityKey(pdwContinuityKey) {
-        pdwContinuityKeyMarshal := pdwContinuityKey is VarRef ? "uint*" : "ptr"
-
-        result := ComCall(5, this, pdwContinuityKeyMarshal, pdwContinuityKey, "HRESULT")
-        return result
+    GetContinuityKey() {
+        result := ComCall(5, this, "uint*", &pdwContinuityKey := 0, "HRESULT")
+        return pdwContinuityKey
     }
 
     /**
      * 
      * @param {Integer} dwReserved 
-     * @param {Pointer<Integer>} peClockState 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfclock-getstate
      */
-    GetState(dwReserved, peClockState) {
-        peClockStateMarshal := peClockState is VarRef ? "int*" : "ptr"
-
-        result := ComCall(6, this, "uint", dwReserved, peClockStateMarshal, peClockState, "HRESULT")
-        return result
+    GetState(dwReserved) {
+        result := ComCall(6, this, "uint", dwReserved, "int*", &peClockState := 0, "HRESULT")
+        return peClockState
     }
 
     /**
      * 
-     * @param {Pointer<MFCLOCK_PROPERTIES>} pClockProperties 
-     * @returns {HRESULT} 
+     * @returns {MFCLOCK_PROPERTIES} 
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfclock-getproperties
      */
-    GetProperties(pClockProperties) {
+    GetProperties() {
+        pClockProperties := MFCLOCK_PROPERTIES()
         result := ComCall(7, this, "ptr", pClockProperties, "HRESULT")
-        return result
+        return pClockProperties
     }
 }

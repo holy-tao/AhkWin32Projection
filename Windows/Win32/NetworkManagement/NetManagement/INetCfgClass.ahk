@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include .\INetCfgComponent.ahk
+#Include .\IEnumNetCfgComponent.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -31,23 +33,21 @@ class INetCfgClass extends IUnknown{
     /**
      * 
      * @param {PWSTR} pszwInfId 
-     * @param {Pointer<INetCfgComponent>} ppnccItem 
-     * @returns {HRESULT} 
+     * @returns {INetCfgComponent} 
      */
-    FindComponent(pszwInfId, ppnccItem) {
+    FindComponent(pszwInfId) {
         pszwInfId := pszwInfId is String ? StrPtr(pszwInfId) : pszwInfId
 
-        result := ComCall(3, this, "ptr", pszwInfId, "ptr*", ppnccItem, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", pszwInfId, "ptr*", &ppnccItem := 0, "HRESULT")
+        return INetCfgComponent(ppnccItem)
     }
 
     /**
      * 
-     * @param {Pointer<IEnumNetCfgComponent>} ppenumComponent 
-     * @returns {HRESULT} 
+     * @returns {IEnumNetCfgComponent} 
      */
-    EnumComponents(ppenumComponent) {
-        result := ComCall(4, this, "ptr*", ppenumComponent, "HRESULT")
-        return result
+    EnumComponents() {
+        result := ComCall(4, this, "ptr*", &ppenumComponent := 0, "HRESULT")
+        return IEnumNetCfgComponent(ppenumComponent)
     }
 }

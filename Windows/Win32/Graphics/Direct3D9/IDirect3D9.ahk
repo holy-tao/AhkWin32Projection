@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\Gdi\HMONITOR.ahk
+#Include .\IDirect3DDevice9.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -220,7 +221,7 @@ class IDirect3D9 extends IUnknown{
      */
     GetAdapterMonitor(Adapter) {
         result := ComCall(15, this, "uint", Adapter, "ptr")
-        return result
+        return HMONITOR({Value: result}, True)
     }
 
     /**
@@ -230,14 +231,13 @@ class IDirect3D9 extends IUnknown{
      * @param {HWND} hFocusWindow 
      * @param {Integer} BehaviorFlags 
      * @param {Pointer<D3DPRESENT_PARAMETERS>} pPresentationParameters 
-     * @param {Pointer<IDirect3DDevice9>} ppReturnedDeviceInterface 
-     * @returns {HRESULT} 
+     * @returns {IDirect3DDevice9} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9-createdevice
      */
-    CreateDevice(Adapter, DeviceType, hFocusWindow, BehaviorFlags, pPresentationParameters, ppReturnedDeviceInterface) {
+    CreateDevice(Adapter, DeviceType, hFocusWindow, BehaviorFlags, pPresentationParameters) {
         hFocusWindow := hFocusWindow is Win32Handle ? NumGet(hFocusWindow, "ptr") : hFocusWindow
 
-        result := ComCall(16, this, "uint", Adapter, "int", DeviceType, "ptr", hFocusWindow, "uint", BehaviorFlags, "ptr", pPresentationParameters, "ptr*", ppReturnedDeviceInterface, "HRESULT")
-        return result
+        result := ComCall(16, this, "uint", Adapter, "int", DeviceType, "ptr", hFocusWindow, "uint", BehaviorFlags, "ptr", pPresentationParameters, "ptr*", &ppReturnedDeviceInterface := 0, "HRESULT")
+        return IDirect3DDevice9(ppReturnedDeviceInterface)
     }
 }

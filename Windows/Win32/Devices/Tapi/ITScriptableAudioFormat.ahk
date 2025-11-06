@@ -32,15 +32,12 @@ class ITScriptableAudioFormat extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itscriptableaudioformat-get_channels
      */
-    get_Channels(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(7, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_Channels() {
+        result := ComCall(7, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -56,15 +53,12 @@ class ITScriptableAudioFormat extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itscriptableaudioformat-get_samplespersec
      */
-    get_SamplesPerSec(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(9, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_SamplesPerSec() {
+        result := ComCall(9, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -80,15 +74,12 @@ class ITScriptableAudioFormat extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itscriptableaudioformat-get_avgbytespersec
      */
-    get_AvgBytesPerSec(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(11, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_AvgBytesPerSec() {
+        result := ComCall(11, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -104,15 +95,12 @@ class ITScriptableAudioFormat extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itscriptableaudioformat-get_blockalign
      */
-    get_BlockAlign(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(13, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_BlockAlign() {
+        result := ComCall(13, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -128,15 +116,12 @@ class ITScriptableAudioFormat extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itscriptableaudioformat-get_bitspersample
      */
-    get_BitsPerSample(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(15, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_BitsPerSample() {
+        result := ComCall(15, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**
@@ -152,15 +137,12 @@ class ITScriptableAudioFormat extends IDispatch{
 
     /**
      * 
-     * @param {Pointer<Integer>} pVal 
-     * @returns {HRESULT} 
+     * @returns {Integer} 
      * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itscriptableaudioformat-get_formattag
      */
-    get_FormatTag(pVal) {
-        pValMarshal := pVal is VarRef ? "int*" : "ptr"
-
-        result := ComCall(17, this, pValMarshal, pVal, "HRESULT")
-        return result
+    get_FormatTag() {
+        result := ComCall(17, this, "int*", &pVal := 0, "HRESULT")
+        return pVal
     }
 
     /**

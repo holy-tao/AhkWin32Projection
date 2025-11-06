@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\Ole\IOleContainer.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -30,21 +31,19 @@ class ITargetContainer extends IUnknown{
 
     /**
      * 
-     * @param {Pointer<PWSTR>} ppszFrameSrc 
-     * @returns {HRESULT} 
+     * @returns {PWSTR} 
      */
-    GetFrameUrl(ppszFrameSrc) {
-        result := ComCall(3, this, "ptr", ppszFrameSrc, "HRESULT")
-        return result
+    GetFrameUrl() {
+        result := ComCall(3, this, "ptr*", &ppszFrameSrc := 0, "HRESULT")
+        return ppszFrameSrc
     }
 
     /**
      * 
-     * @param {Pointer<IOleContainer>} ppContainer 
-     * @returns {HRESULT} 
+     * @returns {IOleContainer} 
      */
-    GetFramesContainer(ppContainer) {
-        result := ComCall(4, this, "ptr*", ppContainer, "HRESULT")
-        return result
+    GetFramesContainer() {
+        result := ComCall(4, this, "ptr*", &ppContainer := 0, "HRESULT")
+        return IOleContainer(ppContainer)
     }
 }

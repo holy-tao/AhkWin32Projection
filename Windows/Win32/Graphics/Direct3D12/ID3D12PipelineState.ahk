@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\Direct3D\ID3DBlob.ahk
 #Include .\ID3D12Pageable.ahk
 
 /**
@@ -40,12 +41,11 @@ class ID3D12PipelineState extends ID3D12Pageable{
 
     /**
      * 
-     * @param {Pointer<ID3DBlob>} ppBlob 
-     * @returns {HRESULT} 
+     * @returns {ID3DBlob} 
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12pipelinestate-getcachedblob
      */
-    GetCachedBlob(ppBlob) {
-        result := ComCall(8, this, "ptr*", ppBlob, "HRESULT")
-        return result
+    GetCachedBlob() {
+        result := ComCall(8, this, "ptr*", &ppBlob := 0, "HRESULT")
+        return ID3DBlob(ppBlob)
     }
 }
