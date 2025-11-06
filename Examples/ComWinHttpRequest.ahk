@@ -30,12 +30,8 @@ eventSinkInterface := IWinHttpRequestEvents(eventSink)
 containerPtr := ComObjQuery(whr, String(IConnectionPointContainer.IID))
 container := IConnectionPointContainer(containerPtr.ptr)
 
-if((result := container.FindConnectionPoint(IWinHttpRequestEvents.IID, &cptPtr := 0)) != 0){
-    throw Error("FindConnectionPoint failed", , result)
-}
-
-connectionPoint := IConnectionPoint(cptPtr)
-connectionPoint.Advise(eventSinkInterface.ptr, &pdwCookie := 0)
+connectionPoint := container.FindConnectionPoint(IWinHttpRequestEvents.IID)
+pdwCookie := connectionPoint.Advise(eventSinkInterface.ptr)
 
 ; Send the request
 whr.Open("GET", "https://www.autohotkey.com", true)
